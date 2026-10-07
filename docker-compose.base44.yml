@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: igaming
+      POSTGRES_PASSWORD: superwin_master_pass_2026
+      POSTGRES_DB: igaming
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U igaming"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
+
+  redis:
+    image: redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.base44
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://igaming:superwin_master_pass_2026@postgres:5432/igaming
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET=superwin_jwt_secret_key_prod_2026
+      - CASINO_HMAC_SECRET=superwin_hmac_secret_key_2026
+      - PORT=3000
+      - BASE44_PREVIEW_MODE
+      - BASE44_PUBLIC_HOST_SUFFIX
+      - BASE44_SANDBOX_HOST_DOMAIN
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: ["sh", "-ec", "npm install --no-audit --no-fund && npm run build && exec python -m uvicorn main:app --host 0.0.0.0 --port 3000 --reload --reload-dir backend"]
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:3000/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 90s
+
+volumes:
+  pgdata:
