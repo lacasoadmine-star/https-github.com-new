@@ -7,7 +7,7 @@ from decimal import Decimal
 from sqlalchemy import text
 
 from app.core.security import hash_password
-from app.db.session import SessionLocal
+from app.db.session import SessionLocal, engine
 from app.core.models import (
     CasinoGame,
     Permission,
@@ -88,7 +88,11 @@ def _ensure_user(db, username: str, email: str, password: str, role: str, balanc
 
 def seed() -> None:
     db = SessionLocal()
+    locked = False
     try:
+        if engine.dialect.name == "postgresql":
+            db.execute(text("SELECT pg_advisory_lock(847261)"))
+            locked = True
         _ensure_user(db, "clearing", "clearing@superwin.local", "system-clearing", "system", "0", tier="system")
         _ensure_user(db, "house", "house@superwin.local", "system-house", "system", "1000000.0000", tier="system")
         _ensure_user(db, "escrow", "escrow@superwin.local", "system-escrow", "system", "0", tier="system")
@@ -128,7 +132,13 @@ def seed() -> None:
             db.add(Provider(name="Local Casino", kind="casino", status="active"))
 
         db.commit()
+    except Exception:
+        db.rollback()
+        raise
     finally:
+        if locked:
+            db.execute(text("SELECT pg_advisory_unlock(847261)"))
+            db.commit()
         db.close()
 
 
@@ -140,6 +150,7 @@ def reset_activity() -> None:
             "notifications",
             "audit_logs",
             "casino_rounds",
+            "game_launches",
             "sport_bets",
             "withdrawals",
             "deposits",

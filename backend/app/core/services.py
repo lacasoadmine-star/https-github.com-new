@@ -15,6 +15,7 @@ from app.core.ledger import LedgerError, admin_ids, audit, balance_of, money, no
 from app.core.models import (
     CasinoGame,
     CasinoRound,
+    GameLaunch,
     Deposit,
     Provider,
     Setting,
@@ -330,6 +331,71 @@ def play_casino(user_id_value: int, game_code: str, stake: Decimal) -> dict:
             },
             targets,
             _event("casino", title, body, username=player.username, amount=dec_str(payout)),
+        )
+
+    return run(work)
+
+
+def launch_game(user_id_value: int, game_code: str) -> dict:
+    """Open a local game session. The launch URL stays on this host."""
+
+    def work(db: Session):
+        game = db.query(CasinoGame).filter(CasinoGame.code == game_code).one_or_none()
+        if game is None:
+            raise HTTPException(status_code=404, detail="Ciyaarta casino lama helin.")
+        session_id = secrets.token_urlsafe(18)
+        db.add(GameLaunch(id=session_id, user_id=user_id_value, game_code=game.code))
+        audit(db, user_id_value, "casino.launch", f"{game.code} {session_id}")
+        return _finish(
+            {
+                "session_id": session_id,
+                "game_code": game.code,
+                "launch_url": f"/player/casino?session={session_id}",
+            },
+            [],
+            None,
+        )
+
+    return run(work)
+
+
+def apply_casino_webhook(session_id: str, transaction_id: str, action: str, amount: Decimal) -> dict:
+    """Apply one signed BET or WIN. A repeated transaction id does not move funds again."""
+
+    def work(db: Session):
+        launch = db.get(GameLaunch, session_id)
+        if launch is None:
+            raise HTTPException(status_code=404, detail="Session-ka lama helin.")
+        player = db.get(User, launch.user_id)
+        if player is None or player.role != "player":
+            raise HTTPException(status_code=404, detail="Session-ka lama helin.")
+        house = user_id(db, "house")
+        kind = action.upper()
+        reference = f"webhook:{transaction_id}:{kind}"
+        if kind == "BET":
+            applied = transfer(db, player.id, house, amount, "casino_bet", reference)
+        elif kind == "WIN":
+            applied = transfer(db, house, player.id, amount, "casino_win", reference)
+        else:
+            raise HTTPException(status_code=400, detail="Nooca transaction-ka lama aqoonsan.")
+        body = f"{player.username} {kind} {dec_str(amount)} {transaction_id}"
+        targets = _targets_for_player(db, player)
+        if applied:
+            for _portal, account in targets:
+                notify(db, account, "casino", "Casino webhook", body)
+            audit(db, player.id, "casino.webhook", body)
+        return _finish(
+            {
+                "status": "OK",
+                "applied": applied,
+                "action": kind,
+                "transaction_id": transaction_id,
+                "balance": dec_str(balance_of(db, player.id)),
+            },
+            targets if applied else [],
+            _event("casino", "Casino webhook", body, username=player.username, amount=dec_str(amount))
+            if applied
+            else None,
         )
 
     return run(work)

@@ -101,6 +101,15 @@ class CasinoGame(Base):
     kind = Column(String(20), nullable=False)
 
 
+class GameLaunch(Base):
+    __tablename__ = "game_launches"
+
+    id = Column(String(48), primary_key=True)
+    user_id = Column(Integer, nullable=False)
+    game_code = Column(String(40), nullable=False)
+    created_at = Column(DateTime, default=utcnow)
+
+
 class CasinoRound(Base):
     __tablename__ = "casino_rounds"
 

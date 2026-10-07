@@ -32,6 +32,10 @@ class ProfileIn(BaseModel):
     email: str
 
 
+class LaunchIn(BaseModel):
+    game_code: str = Field(min_length=1, max_length=40)
+
+
 class BetIn(BaseModel):
     event_id: int
     selection: str

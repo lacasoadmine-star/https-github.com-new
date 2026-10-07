@@ -3,16 +3,19 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 import jwt
-from fastapi import Depends, FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import FileResponse
+
+from fastapi import Depends, FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.api.v1.admin_routes import router as admin_router
+from app.api.v1.casino_routes import router as casino_router
 from app.api.v1.agent_routes import router as agent_router
 from app.api.v1.emit import emit
 from app.api.v1.player_routes import router as player_router
@@ -38,6 +41,14 @@ app = FastAPI(title="Superwin Shared Backend", lifespan=lifespan)
 app.include_router(player_router)
 app.include_router(agent_router)
 app.include_router(admin_router)
+app.include_router(casino_router)
+
+HOST_HOME = {
+    "superwin.bet": "/player",
+    "www.superwin.bet": "/player",
+    "superwinagentsystem.admindigi.com": "/agent",
+    "superwinadmin.admindigi.com": "/admin",
+}
 
 
 @app.get("/health")
@@ -49,6 +60,8 @@ def health():
         "database": "CONNECTED",
         "dialect": engine.dialect.name,
         "redis": redis_status(),
+        "checket": "CONFIGURED" if os.getenv("CHECKET_API_KEY") else "UNSET",
+        "telegram": "CONFIGURED" if os.getenv("TELEGRAM_BOT_TOKEN") else "UNSET",
     }
 
 
@@ -100,7 +113,11 @@ def _spa(portal: str, rest: str = ""):
 
 
 @app.get("/")
-def gate():
+def gate(request: Request):
+    host = request.headers.get("host", "").split(":")[0].lower()
+    destination = HOST_HOME.get(host)
+    if destination:
+        return RedirectResponse(destination, status_code=307)
     return FileResponse(Path(__file__).with_name("gate.html"))
 
 

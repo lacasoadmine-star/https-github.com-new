@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
+import hmac
 import json
+import os
 import urllib.error
 import urllib.request
 
@@ -10,9 +13,18 @@ import urllib.request
 BASE = "http://127.0.0.1:8000"
 
 
-def request(path: str, method: str = "GET", body: dict | None = None, token: str | None = None):
-    data = None if body is None else json.dumps(body).encode()
+def request(
+    path: str,
+    method: str = "GET",
+    body: dict | None = None,
+    token: str | None = None,
+    raw: bytes | None = None,
+    extra_headers: dict | None = None,
+):
+    data = raw if raw is not None else (None if body is None else json.dumps(body).encode())
     headers = {"Content-Type": "application/json"}
+    if extra_headers:
+        headers.update(extra_headers)
     if token:
         headers["Authorization"] = "Bearer " + token
     req = urllib.request.Request(BASE + path, data=data, headers=headers, method=method)
@@ -81,7 +93,37 @@ def main() -> None:
     assert status == 200 and played["balance"] == "95.0000", played
     _, total = request("/api/admin/conservation", token=admin["token"])
     assert total["total"] == "1000000.0000", total
-    print("LIVE_OK", health["dialect"], wallet["balance"], played["balance"], total["total"])
+
+    status, launched = request(
+        "/api/v1/casino/launch-game",
+        "POST",
+        {"game_code": "steady"},
+        player["token"],
+    )
+    assert status == 200 and launched["launch_url"].startswith("/player/casino?session="), launched
+    assert "http" not in launched["launch_url"]
+    denied, _ = request("/api/v1/casino/launch-game", "POST", {"game_code": "steady"}, agent["token"])
+    assert denied == 403
+    secret = os.environ["CASINO_HMAC_SECRET"].encode()
+    bet_raw = json.dumps(
+        {
+            "session_id": launched["session_id"],
+            "transaction_id": "live-bet-1",
+            "action": "BET",
+            "amount": "5",
+        }
+    ).encode()
+    signature = hmac.new(secret, bet_raw, hashlib.sha256).hexdigest()
+    status, webhook = request(
+        "/api/v1/casino/seamless/webhook",
+        "POST",
+        raw=bet_raw,
+        extra_headers={"X-Signature": signature},
+    )
+    assert status == 200 and webhook["balance"] == "90.0000", webhook
+    _, total = request("/api/admin/conservation", token=admin["token"])
+    assert total["total"] == "1000000.0000", total
+    print("LIVE_OK", health["dialect"], wallet["balance"], played["balance"], webhook["balance"], total["total"])
 
 
 if __name__ == "__main__":

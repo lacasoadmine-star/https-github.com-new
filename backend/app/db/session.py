@@ -3,8 +3,25 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, text
+
+
+def _load_env_file() -> None:
+    """Fill missing variables from the repo .env. Existing variables stay."""
+    env_path = Path(__file__).resolve().parents[3] / ".env"
+    if not env_path.is_file():
+        return
+    for raw in env_path.read_text().splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+_load_env_file()
 from sqlalchemy.orm import sessionmaker
 
 from app.core.models import Base
@@ -41,5 +58,16 @@ def get_db():
 def init_db() -> None:
     from app.core.seed import seed
 
+    if engine.dialect.name == "postgresql":
+        with engine.connect() as conn:
+            conn.execute(text("SELECT pg_advisory_lock(847260)"))
+            conn.commit()
+            try:
+                Base.metadata.create_all(engine)
+                seed()
+            finally:
+                conn.execute(text("SELECT pg_advisory_unlock(847260)"))
+                conn.commit()
+        return
     Base.metadata.create_all(engine)
     seed()

@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import tempfile
@@ -208,6 +209,94 @@ class PlatformTests(unittest.TestCase):
         denied = self.client.post("/api/player/deposit", headers=player, json={"amount": "5"})
         self.assertEqual(denied.status_code, 403)
         self.assertEqual(self._total(), "1000000.0000")
+
+    def test_launch_game_and_signed_webhook_stay_on_the_ledger(self):
+        from app.api.v1.casino_routes import sign_body
+
+        player = self.auth("player", "play123", "player")
+        agent = self.auth("agent", "agent123", "agent")
+        self.client.post("/api/player/deposit", headers=player, json={"amount": "100"})
+        blocked = self.client.post(
+            "/api/v1/casino/launch-game",
+            headers=agent,
+            json={"game_code": "steady"},
+        )
+        self.assertEqual(blocked.status_code, 403)
+        launched = self.client.post(
+            "/api/v1/casino/launch-game",
+            headers=player,
+            json={"game_code": "steady"},
+        )
+        self.assertEqual(launched.status_code, 200, launched.text)
+        body = launched.json()
+        self.assertTrue(body["launch_url"].startswith("/player/casino?session="))
+        self.assertNotIn("http", body["launch_url"])
+        missing = self.client.post(
+            "/api/v1/casino/launch-game",
+            headers=player,
+            json={"game_code": "remote-slot"},
+        )
+        self.assertEqual(missing.status_code, 404)
+
+        def post_webhook(payload, signature):
+            raw = json.dumps(payload).encode()
+            return self.client.post(
+                "/api/v1/casino/seamless/webhook",
+                content=raw,
+                headers={"X-Signature": signature, "Content-Type": "application/json"},
+            )
+
+        bet_payload = {
+            "session_id": body["session_id"],
+            "transaction_id": "tx-1",
+            "action": "BET",
+            "amount": "10",
+        }
+        bet_raw = json.dumps(bet_payload).encode()
+        bet = post_webhook(bet_payload, sign_body(bet_raw))
+        self.assertEqual(bet.status_code, 200, bet.text)
+        self.assertEqual(bet.json()["balance"], "90.0000")
+        self.assertTrue(bet.json()["applied"])
+        replay = post_webhook(bet_payload, sign_body(bet_raw))
+        self.assertEqual(replay.status_code, 200, replay.text)
+        self.assertFalse(replay.json()["applied"])
+        self.assertEqual(replay.json()["balance"], "90.0000")
+        forged = post_webhook(bet_payload, "deadbeef")
+        self.assertEqual(forged.status_code, 401)
+        win_payload = {
+            "session_id": body["session_id"],
+            "transaction_id": "tx-2",
+            "action": "WIN",
+            "amount": "4",
+        }
+        win_raw = json.dumps(win_payload).encode()
+        win = post_webhook(win_payload, sign_body(win_raw))
+        self.assertEqual(win.status_code, 200, win.text)
+        self.assertEqual(win.json()["balance"], "94.0000")
+        broke = post_webhook(
+            {
+                "session_id": body["session_id"],
+                "transaction_id": "tx-3",
+                "action": "BET",
+                "amount": "10000",
+            },
+            sign_body(
+                json.dumps(
+                    {
+                        "session_id": body["session_id"],
+                        "transaction_id": "tx-3",
+                        "action": "BET",
+                        "amount": "10000",
+                    }
+                ).encode()
+            ),
+        )
+        self.assertEqual(broke.status_code, 409)
+        self.assertEqual(self._total(), "1000000.0000")
+
+        home = self.client.get("/", headers={"host": "superwin.bet"}, follow_redirects=False)
+        self.assertEqual(home.status_code, 307)
+        self.assertEqual(home.headers["location"], "/player")
 
     def _total(self) -> str:
         db = SessionLocal()
