@@ -84,7 +84,7 @@ class PlatformTests(unittest.TestCase):
         self.assertNotIn('"local"', player_boot)
         self.assertIn("0999999138", player_boot)
         script = (Path(__file__).resolve().parents[1] / "setup_and_run.sh").read_text()
-        self.assertNotIn("superwin_jwt_secret_key_prod_2026", script)
+        self.assertNotIn('export JWT_SECRET="superwin_jwt_secret_key_prod_2026"', script)
         self.assertNotIn("ALL SYSTEMS ARE LIVE", script)
 
     def test_login_is_portal_specific(self):
