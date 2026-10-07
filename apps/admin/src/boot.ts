@@ -66,10 +66,14 @@ function connectLive() {
 
 async function draw() {
   const current = page();
+  const tier = sessionStorage.getItem("superwin.admin.tier");
   document.querySelectorAll("nav a").forEach((link) => {
     const href = link.getAttribute("href");
     const active = href === location.pathname || (current === "/admin/dashboard" && (href === "/admin" || href === "/admin/dashboard"));
     link.setAttribute("aria-current", active ? "page" : "false");
+    const desk = link.dataset.desk;
+    if (desk === "financial") link.hidden = tier !== "financial" && tier !== "superadmin";
+    if (desk === "support") link.hidden = tier !== "support" && tier !== "superadmin";
   });
   let html = "";
   if (location.pathname === "/admin/login") {
@@ -118,6 +122,19 @@ async function draw() {
   } else if (current === "/admin/reports") {
     const data = await api("/api/admin/reports");
     html = shell("Platform report", `<div class="cards"><article class="card">Players ${esc(data.players)}</article><article class="card">Agents ${esc(data.agents)}</article><article class="card">Deposits ${esc(data.deposits)}</article><article class="card">House ${esc(data.house_balance)}</article></div>`);
+  } else if (current === "/admin/gateway") {
+    const data = await api("/api/admin/gateway");
+    const rows = data.providers.map((row) => `<tr><td>${esc(row.name)}</td><td>${esc(row.kind)}</td><td>${esc(row.status)}</td></tr>`).join("");
+    html = shell("Gateway status", `<p>Check.et ${esc(data.checket)}. Telegram ${esc(data.telegram)}. Casino webhook ${esc(data.casino_webhook)}.</p><table>${rows}</table>`);
+  } else if (current === "/admin/bans") {
+    const data = await api("/api/admin/players");
+    const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.status)}</td><td><button data-status="${esc(row.username)}" data-next="${row.status === "banned" ? "active" : "banned"}">${row.status === "banned" ? "Restore" : "Ban"}</button></td></tr>`).join("");
+    html = shell("User status", `<table><tr><th>Player</th><th>Status</th><th></th></tr>${rows}</table>`);
+  } else if (current === "/admin/bets") {
+    const data = await api("/api/admin/bets");
+    const sports = data.sports.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.selection)}</td><td>${esc(row.stake)}</td><td>${esc(row.status)}</td></tr>`).join("");
+    const casino = data.casino.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.game)}</td><td>${esc(row.stake)}</td><td>${esc(row.payout)}</td></tr>`).join("");
+    html = shell("Bet history", `<h2>Sports</h2><table>${sports}</table><h2>Casino</h2><table>${casino}</table>`);
   } else if (current === "/admin/audit-logs") {
     const data = await api("/api/admin/audit-logs");
     const rows = data.items.map((row) => `<tr><td>${esc(row.action)}</td><td>${esc(row.detail)}</td></tr>`).join("");
@@ -147,6 +164,7 @@ document.getElementById("view").addEventListener("submit", async (event) => {
     if (form.dataset.action === "login") {
       const data = await api("/api/auth/login", { method: "POST", body: JSON.stringify({ ...body, portal: "admin" }) });
       sessionStorage.setItem(TOKEN_KEY, data.token);
+      sessionStorage.setItem("superwin.admin.tier", data.tier);
       location.href = "/admin/dashboard";
       return;
     }
@@ -192,8 +210,14 @@ document.getElementById("view").addEventListener("click", async (event) => {
       await api("/api/admin/permissions", { method: "POST", body: JSON.stringify({ role: perm.dataset.permRole, action: perm.dataset.permAction, allowed: perm.dataset.permAllowed === "true" }) });
       await draw();
     }
+    const status = event.target.closest("[data-status]");
+    if (status) {
+      await api("/api/admin/users/status", { method: "POST", body: JSON.stringify({ username: status.dataset.status, status: status.dataset.next }) });
+      await draw();
+    }
     if (event.target.id === "logout") {
       sessionStorage.removeItem(TOKEN_KEY);
+      sessionStorage.removeItem("superwin.admin.tier");
       location.href = "/admin/login";
     }
   } catch (err) {

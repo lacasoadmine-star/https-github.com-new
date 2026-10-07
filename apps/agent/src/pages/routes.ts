@@ -10,6 +10,8 @@ export const AGENT_ROUTES = [
   "/agent/transactions",
   "/agent/commissions",
   "/agent/sub-agents",
+  "/agent/credit",
+  "/agent/hierarchy",
   "/agent/reports",
   "/agent/notifications",
   "/agent/profile",

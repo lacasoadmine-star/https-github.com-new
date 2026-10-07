@@ -13,6 +13,9 @@ export const ADMIN_ROUTES = [
   "/admin/commissions",
   "/admin/reports",
   "/admin/audit-logs",
+  "/admin/gateway",
+  "/admin/bans",
+  "/admin/bets",
   "/admin/settings",
   "/admin/permissions",
 ];

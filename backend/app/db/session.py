@@ -55,6 +55,19 @@ def get_db():
         db.close()
 
 
+def _ensure_user_columns() -> None:
+    from sqlalchemy import inspect
+
+    if "users" not in inspect(engine).get_table_names():
+        return
+    cols = {col["name"] for col in inspect(engine).get_columns("users")}
+    with engine.begin() as conn:
+        if "status" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN status VARCHAR(20) DEFAULT 'active' NOT NULL"))
+        if "credit_limit" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN credit_limit NUMERIC(18, 4)"))
+
+
 def init_db() -> None:
     from app.core.seed import seed
 
@@ -64,10 +77,12 @@ def init_db() -> None:
             conn.commit()
             try:
                 Base.metadata.create_all(engine)
+                _ensure_user_columns()
                 seed()
             finally:
                 conn.execute(text("SELECT pg_advisory_unlock(847260)"))
                 conn.commit()
         return
     Base.metadata.create_all(engine)
+    _ensure_user_columns()
     seed()

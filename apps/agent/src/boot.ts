@@ -66,10 +66,12 @@ function connectLive() {
 
 async function draw() {
   const current = page();
+  const tier = sessionStorage.getItem("superwin.agent.tier");
   document.querySelectorAll("nav a").forEach((link) => {
     const href = link.getAttribute("href");
     const active = href === location.pathname || (current === "/agent/dashboard" && (href === "/agent" || href === "/agent/dashboard"));
     link.setAttribute("aria-current", active ? "page" : "false");
+    if (link.dataset.desk === "master") link.hidden = tier !== "master" && tier !== "super";
   });
   let html = "";
   if (location.pathname === "/agent/login") {
@@ -105,6 +107,17 @@ async function draw() {
     const data = await api("/api/agent/commissions");
     const rows = data.items.map((row) => `<tr><td>${esc(row.amount)}</td><td>${esc(row.reference)}</td></tr>`).join("");
     html = shell("Commissions", `<table>${rows}</table>`);
+  } else if (current === "/agent/credit") {
+    const data = await api("/api/agent/sub-agents");
+    const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.tier)}</td><td>${esc(row.credit_limit || "open")}</td></tr>`).join("");
+    html = shell("Credit limits", `<table><tr><th>Agent</th><th>Tier</th><th>Limit</th></tr>${rows}</table><form data-action="credit"><label>Username<input name="username"></label><label>Credit limit<input name="credit_limit" value="100"></label><button>Set limit</button></form>`);
+  } else if (current === "/agent/hierarchy") {
+    const data = await api("/api/agent/hierarchy");
+    const flat = [];
+    const walk = (node) => { flat.push(node); (node.children || []).forEach(walk); };
+    walk(data);
+    const rows = flat.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.tier)}</td><td>${esc(row.credit_limit || "open")}</td></tr>`).join("");
+    html = shell("Commission hierarchy", `<table><tr><th>Agent</th><th>Tier</th><th>Credit</th></tr>${rows}</table>`);
   } else if (current === "/agent/sub-agents") {
     const data = await api("/api/agent/sub-agents");
     const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.email)}</td></tr>`).join("");
@@ -136,6 +149,7 @@ document.getElementById("view").addEventListener("submit", async (event) => {
     if (form.dataset.action === "login") {
       const data = await api("/api/auth/login", { method: "POST", body: JSON.stringify({ ...body, portal: "agent" }) });
       sessionStorage.setItem(TOKEN_KEY, data.token);
+      sessionStorage.setItem("superwin.agent.tier", data.tier);
       location.href = "/agent/dashboard";
       return;
     }
@@ -146,6 +160,11 @@ document.getElementById("view").addEventListener("submit", async (event) => {
     }
     if (form.dataset.action === "create-sub") {
       await api("/api/agent/sub-agents", { method: "POST", body: JSON.stringify(body) });
+      await draw();
+      return;
+    }
+    if (form.dataset.action === "credit") {
+      await api("/api/agent/credit", { method: "POST", body: JSON.stringify(body) });
       await draw();
       return;
     }
@@ -161,7 +180,8 @@ document.getElementById("view").addEventListener("submit", async (event) => {
 document.getElementById("view").addEventListener("click", (event) => {
   if (event.target.id === "logout") {
     sessionStorage.removeItem(TOKEN_KEY);
-    location.href = "/agent/login";
+    sessionStorage.removeItem("superwin.agent.tier");
+      location.href = "/agent/login";
   }
 });
 

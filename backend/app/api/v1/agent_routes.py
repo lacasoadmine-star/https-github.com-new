@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.v1.emit import emit
-from app.api.v1.schemas import AccountIn, ProfileIn
+from app.api.v1.schemas import AccountIn, CreditIn, ProfileIn
 from app.core.models import User
 from app.core.security import require_permission, require_portal
 from app.db.session import get_db
@@ -64,11 +64,25 @@ def agent_subs(user: User = Depends(require_portal("agent")), db: Session = Depe
 
 @router.post("/sub-agents")
 async def agent_create_sub(payload: AccountIn, user: User = Depends(require_permission("agent.subagents"))):
-    if user.role != "agent":
-        raise HTTPException(status_code=403, detail="Portal-kan laguma oggola.")
+    if user.role != "agent" or user.tier not in {"master", "super"}:
+        raise HTTPException(status_code=403, detail="Access Denied: Requires master or super desk.")
     return await emit(
         services.create_account(user.id, payload.username, payload.email, payload.password, "agent", None, user.id)
     )
+
+
+@router.get("/hierarchy")
+def agent_hierarchy(user: User = Depends(require_portal("agent")), db: Session = Depends(get_db)):
+    if user.tier not in {"master", "super"}:
+        raise HTTPException(status_code=403, detail="Access Denied: Requires master or super desk.")
+    return services.agent_hierarchy(db, user.id)
+
+
+@router.post("/credit")
+def agent_credit(payload: CreditIn, user: User = Depends(require_portal("agent"))):
+    if user.tier not in {"master", "super"}:
+        raise HTTPException(status_code=403, detail="Access Denied: Requires master or super desk.")
+    return services.set_credit_limit(user.id, payload.username, payload.credit_limit)["body"]
 
 
 @router.get("/reports")

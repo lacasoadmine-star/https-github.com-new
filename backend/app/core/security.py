@@ -78,6 +78,8 @@ def _user_from_payload(db: Session, payload: dict) -> User:
     user = db.get(User, user_id)
     if user is None or user.role not in PORTALS or user.tier not in TIERS[user.role]:
         raise HTTPException(status_code=401, detail="Invalid or expired authentication token.")
+    if user.status != "active":
+        raise HTTPException(status_code=403, detail="Account-kan waa la xiray.")
     expected = role_code_for(user)
     if payload.get("role") != expected:
         raise HTTPException(status_code=401, detail="Invalid or expired authentication token.")
@@ -145,6 +147,8 @@ def login_portal(db: Session, username: str, password: str, portal: str) -> dict
     user = db.query(User).filter(User.username == username).one_or_none()
     if user is None or user.role != portal or not verify_password(password, user.password_hash):
         raise HTTPException(status_code=401, detail="Galitaanka waa la diiday.")
+    if user.status != "active":
+        raise HTTPException(status_code=403, detail="Account-kan waa la xiray.")
     token = issue_token(user, portal)
     return {
         "token": token,

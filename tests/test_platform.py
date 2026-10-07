@@ -52,6 +52,8 @@ class PlatformTests(unittest.TestCase):
         self.assertIn("Superwin Agents", agent)
         self.assertIn("superwinagentsystem.admindigi.com", agent)
         self.assertIn('href="/agent/sub-agents"', agent)
+        self.assertIn('href="/agent/credit"', agent)
+        self.assertIn('href="/agent/hierarchy"', agent)
         self.assertNotIn("Superwin Control", agent)
         self.assertNotIn("Player board", agent)
         self.assertNotIn('href="/player/', agent)
@@ -59,6 +61,9 @@ class PlatformTests(unittest.TestCase):
         self.assertIn("Superwin Control", admin)
         self.assertIn("superwinadmin.admindigi.com", admin)
         self.assertIn('href="/admin/audit-logs"', admin)
+        self.assertIn('href="/admin/gateway"', admin)
+        self.assertIn('href="/admin/bans"', admin)
+        self.assertIn('href="/admin/bets"', admin)
         self.assertIn('href="/admin/providers"', admin)
         self.assertNotIn("Superwin Agents", admin)
         self.assertNotIn("Player board", admin)
@@ -297,6 +302,80 @@ class PlatformTests(unittest.TestCase):
         home = self.client.get("/", headers={"host": "superwin.bet"}, follow_redirects=False)
         self.assertEqual(home.status_code, 307)
         self.assertEqual(home.headers["location"], "/player")
+
+    def test_tier_desks_limit_credit_finance_and_bans(self):
+        master = self.auth("master", "master123", "agent")
+        desk = self.auth("agent", "agent123", "agent")
+        financial = self.auth("financial", "financial123", "admin")
+        support = self.auth("support", "support123", "admin")
+        player = self.auth("player", "play123", "player")
+
+        blocked = self.client.post(
+            "/api/agent/sub-agents",
+            headers=desk,
+            json={"username": "desk2", "email": "desk2@superwin.local", "password": "desk2123"},
+        )
+        self.assertEqual(blocked.status_code, 403)
+        created = self.client.post(
+            "/api/agent/sub-agents",
+            headers=master,
+            json={"username": "desk2", "email": "desk2@superwin.local", "password": "desk2123"},
+        )
+        self.assertEqual(created.status_code, 200, created.text)
+        tree = self.client.get("/api/agent/hierarchy", headers=master).json()
+        self.assertEqual(tree["tier"], "master")
+        self.assertIn("super", [child["username"] for child in tree["children"]])
+
+        limited = self.client.post(
+            "/api/agent/credit",
+            headers=master,
+            json={"username": "agent", "credit_limit": "30"},
+        )
+        self.assertEqual(limited.status_code, 200, limited.text)
+        denied_credit = self.client.post(
+            "/api/agent/credit",
+            headers=desk,
+            json={"username": "agent", "credit_limit": "10"},
+        )
+        self.assertEqual(denied_credit.status_code, 403)
+        over = self.client.post("/api/player/deposit", headers=player, json={"amount": "40"})
+        self.assertEqual(over.status_code, 409, over.text)
+        posted = self.client.post("/api/player/deposit", headers=player, json={"amount": "20"})
+        self.assertEqual(posted.status_code, 200, posted.text)
+        request = self.client.post("/api/player/withdraw", headers=player, json={"amount": "5"})
+        self.assertEqual(request.status_code, 200, request.text)
+        withdrawal_id = request.json()["id"]
+        support_no = self.client.post(f"/api/admin/withdrawals/{withdrawal_id}/approve", headers=support)
+        self.assertEqual(support_no.status_code, 403)
+        approved = self.client.post(f"/api/admin/withdrawals/{withdrawal_id}/approve", headers=financial)
+        self.assertEqual(approved.status_code, 200, approved.text)
+        gateway = self.client.get("/api/admin/gateway", headers=financial)
+        self.assertEqual(gateway.status_code, 200, gateway.text)
+        self.assertEqual(gateway.json()["casino_webhook"], "LOCAL")
+        self.assertEqual(self.client.get("/api/admin/gateway", headers=support).status_code, 403)
+        self.assertEqual(self.client.get("/api/admin/audit-logs", headers=support).status_code, 403)
+
+        banned = self.client.post(
+            "/api/admin/users/status",
+            headers=support,
+            json={"username": "player", "status": "banned"},
+        )
+        self.assertEqual(banned.status_code, 200, banned.text)
+        finance_ban = self.client.post(
+            "/api/admin/users/status",
+            headers=financial,
+            json={"username": "player", "status": "active"},
+        )
+        self.assertEqual(finance_ban.status_code, 403)
+        locked = self.client.post(
+            "/api/auth/login",
+            json={"username": "player", "password": "play123", "portal": "player"},
+        )
+        self.assertEqual(locked.status_code, 403)
+        history = self.client.get("/api/admin/bets", headers=support)
+        self.assertEqual(history.status_code, 200, history.text)
+        self.assertEqual(self.client.get("/api/admin/bets", headers=financial).status_code, 403)
+        self.assertEqual(self._total(), "1000000.0000")
 
     def _total(self) -> str:
         db = SessionLocal()

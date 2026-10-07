@@ -65,6 +65,34 @@ def _finish(body: dict, targets: list[tuple[str, int]], event: dict | None) -> d
     return {"body": body, "targets": targets, "event": event}
 
 
+def ensure_open(user: User) -> None:
+    if user.status != "active":
+        raise HTTPException(status_code=403, detail="Account-kan waa la xiray.")
+
+
+def _ancestor_ids(db: Session, user: User) -> list[int]:
+    found = []
+    seen: set[int] = set()
+    parent_id = user.parent_agent_id
+    while parent_id and parent_id not in seen:
+        seen.add(parent_id)
+        found.append(parent_id)
+        parent = db.get(User, parent_id)
+        parent_id = parent.parent_agent_id if parent is not None else None
+    return found
+
+
+def _enforce_credit(db: Session, player: User, amount: Decimal) -> None:
+    if not player.agent_id:
+        return
+    agent = db.get(User, player.agent_id)
+    if agent is None or agent.credit_limit is None:
+        return
+    total = sum((balance_of(db, player_id) for player_id in player_ids(db, agent.id)), Decimal("0"))
+    if money(total + Decimal(amount)) > money(agent.credit_limit):
+        raise HTTPException(status_code=409, detail="Credit limit exceeded.")
+
+
 def deposit(user_id_value: int, amount: Decimal, client_reference: str | None) -> dict:
     reference = "deposit:" + (client_reference or secrets.token_hex(8))
 
@@ -73,12 +101,14 @@ def deposit(user_id_value: int, amount: Decimal, client_reference: str | None) -
         player = db.get(User, user_id_value)
         if player is None:
             raise HTTPException(status_code=404, detail="Ciyaartoyga lama helin.")
+        ensure_open(player)
         if existing is not None:
             return _finish(
                 {"status": "OK", "balance": dec_str(balance_of(db, player.id)), "reference": reference},
                 [],
                 None,
             )
+        _enforce_credit(db, player, amount)
         agent_id = player.agent_id
         username = player.username
         transfer(
@@ -114,6 +144,7 @@ def request_withdrawal(user_id_value: int, amount: Decimal, client_reference: st
         player = db.get(User, user_id_value)
         if player is None:
             raise HTTPException(status_code=404, detail="Ciyaartoyga lama helin.")
+        ensure_open(player)
         if existing is not None:
             return _finish(
                 {"status": existing.status, "balance": dec_str(balance_of(db, player.id)), "id": existing.id},
@@ -198,6 +229,7 @@ def place_sports_bet(user_id_value: int, event_id: int, selection: str, stake: D
             raise HTTPException(status_code=400, detail="Xulashada khaldan.")
         odds = {"home": event.odds_home, "away": event.odds_away, "draw": event.odds_draw}[selection]
         player = db.get(User, user_id_value)
+        ensure_open(player)
         reference = "sports-bet:" + secrets.token_hex(8)
         transfer(db, player.id, user_id(db, "house"), stake, "sports_bet", reference)
         bet = SportBet(
@@ -297,6 +329,7 @@ def play_casino(user_id_value: int, game_code: str, stake: Decimal) -> dict:
         if game is None:
             raise HTTPException(status_code=404, detail="Ciyaarta casino lama helin.")
         player = db.get(User, user_id_value)
+        ensure_open(player)
         house = user_id(db, "house")
         reference = "casino:" + secrets.token_hex(8)
         transfer(db, player.id, house, stake, "casino_bet", reference + ":bet")
@@ -369,6 +402,7 @@ def apply_casino_webhook(session_id: str, transaction_id: str, action: str, amou
         player = db.get(User, launch.user_id)
         if player is None or player.role != "player":
             raise HTTPException(status_code=404, detail="Session-ka lama helin.")
+        ensure_open(player)
         house = user_id(db, "house")
         kind = action.upper()
         reference = f"webhook:{transaction_id}:{kind}"
@@ -759,6 +793,9 @@ def users_by_role(db: Session, role: str) -> list[dict]:
             "email": row.email,
             "agent_id": row.agent_id,
             "parent_agent_id": row.parent_agent_id,
+            "tier": row.tier,
+            "status": row.status,
+            "credit_limit": None if row.credit_limit is None else dec_str(row.credit_limit),
             "balance": dec_str(balance_of(db, row.id)),
         }
         for row in rows
@@ -767,7 +804,85 @@ def users_by_role(db: Session, role: str) -> list[dict]:
 
 def sub_agents(db: Session, agent_id: int) -> list[dict]:
     rows = db.query(User).filter(User.role == "agent", User.parent_agent_id == agent_id).all()
-    return [{"id": row.id, "username": row.username, "email": row.email} for row in rows]
+    return [
+        {
+            "id": row.id,
+            "username": row.username,
+            "email": row.email,
+            "tier": row.tier,
+            "credit_limit": None if row.credit_limit is None else dec_str(row.credit_limit),
+        }
+        for row in rows
+    ]
+
+
+def agent_hierarchy(db: Session, agent_id: int) -> dict:
+    user = db.get(User, agent_id)
+    return {
+        "username": user.username,
+        "tier": user.tier,
+        "credit_limit": None if user.credit_limit is None else dec_str(user.credit_limit),
+        "children": [agent_hierarchy(db, child.id) for child in db.query(User).filter(User.parent_agent_id == agent_id, User.role == "agent")],
+    }
+
+
+def set_credit_limit(actor_id: int, username: str, limit: Decimal) -> dict:
+    def work(db: Session):
+        actor = db.get(User, actor_id)
+        if actor is None or actor.tier not in {"master", "super"}:
+            raise HTTPException(status_code=403, detail="Access Denied: Requires master or super desk.")
+        target = db.query(User).filter(User.username == username, User.role == "agent").one_or_none()
+        if target is None or actor.id not in _ancestor_ids(db, target):
+            raise HTTPException(status_code=404, detail="Downline-ka lama helin.")
+        target.credit_limit = money(limit)
+        audit(db, actor.id, "agent.credit", f"{target.username} credit {dec_str(limit)}")
+        return _finish(
+            {"username": target.username, "credit_limit": dec_str(target.credit_limit)},
+            [],
+            None,
+        )
+
+    return run(work)
+
+
+def set_account_status(actor_id: int, username: str, status: str) -> dict:
+    def work(db: Session):
+        if status not in {"active", "banned"}:
+            raise HTTPException(status_code=400, detail="Xaaladda lama aqoonsan.")
+        target = db.query(User).filter(User.username == username).one_or_none()
+        if target is None or target.role == "system":
+            raise HTTPException(status_code=404, detail="User-ka lama helin.")
+        target.status = status
+        audit(db, actor_id, "user.status", f"{target.username} {status}")
+        return _finish({"username": target.username, "status": target.status}, [], None)
+
+    return run(work)
+
+
+def bet_history(db: Session) -> dict:
+    sports = db.query(SportBet).order_by(SportBet.id.desc()).limit(100).all()
+    rounds = db.query(CasinoRound).order_by(CasinoRound.id.desc()).limit(100).all()
+    names = {row.id: row.username for row in db.query(User).all()}
+    return {
+        "sports": [
+            {
+                "username": names.get(row.user_id, ""),
+                "selection": row.selection,
+                "stake": dec_str(row.stake),
+                "status": row.status,
+            }
+            for row in sports
+        ],
+        "casino": [
+            {
+                "username": names.get(row.user_id, ""),
+                "game": row.game_code,
+                "stake": dec_str(row.stake),
+                "payout": dec_str(row.payout),
+            }
+            for row in rounds
+        ],
+    }
 
 
 def agent_report(db: Session, agent: User) -> dict:

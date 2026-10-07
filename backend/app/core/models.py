@@ -28,6 +28,8 @@ class User(Base):
     password_hash = Column(String(200), nullable=False)
     role = Column(String(20), nullable=False)
     tier = Column(String(20), nullable=False, default="player")
+    status = Column(String(20), nullable=False, default="active")
+    credit_limit = Column(Numeric(18, 4))
     agent_id = Column(Integer)
     parent_agent_id = Column(Integer)
     created_at = Column(DateTime, default=utcnow)

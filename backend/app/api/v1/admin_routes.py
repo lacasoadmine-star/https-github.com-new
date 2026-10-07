@@ -4,7 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.v1.emit import emit
-from app.api.v1.schemas import AccountIn, PermissionIn, ProviderIn, SettingIn, SettleIn
+import os
+
+from app.api.v1.schemas import AccountIn, PermissionIn, ProviderIn, SettingIn, SettleIn, StatusIn
 from app.core.models import User
 from app.core.security import require_permission, require_portal
 from app.db.session import get_db
@@ -50,17 +52,27 @@ def admin_withdrawals(user: User = Depends(require_portal("admin")), db: Session
     return {"items": services._withdrawals(db)}
 
 
+def _finance(user: User) -> User:
+    if user.tier not in {"superadmin", "financial"}:
+        raise HTTPException(status_code=403, detail="Access Denied: Requires financial desk.")
+    return user
+
+
+def _support(user: User) -> User:
+    if user.tier not in {"superadmin", "support"}:
+        raise HTTPException(status_code=403, detail="Access Denied: Requires support desk.")
+    return user
+
+
 @router.post("/withdrawals/{withdrawal_id}/approve")
 async def admin_approve(withdrawal_id: int, user: User = Depends(require_permission("admin.withdrawals"))):
-    if user.role != "admin":
-        raise HTTPException(status_code=403, detail="Portal-kan laguma oggola.")
+    _finance(user)
     return await emit(services.decide_withdrawal(user.id, withdrawal_id, True))
 
 
 @router.post("/withdrawals/{withdrawal_id}/reject")
 async def admin_reject(withdrawal_id: int, user: User = Depends(require_permission("admin.withdrawals"))):
-    if user.role != "admin":
-        raise HTTPException(status_code=403, detail="Portal-kan laguma oggola.")
+    _finance(user)
     return await emit(services.decide_withdrawal(user.id, withdrawal_id, False))
 
 
@@ -105,7 +117,31 @@ def admin_reports(user: User = Depends(require_portal("admin")), db: Session = D
 
 @router.get("/audit-logs")
 def admin_audit(user: User = Depends(require_portal("admin")), db: Session = Depends(get_db)):
+    _finance(user)
     return {"items": services.audit_rows(db)}
+
+
+@router.get("/gateway")
+def admin_gateway(user: User = Depends(require_portal("admin")), db: Session = Depends(get_db)):
+    _finance(user)
+    return {
+        "providers": services.provider_rows(db),
+        "checket": "CONFIGURED" if os.getenv("CHECKET_API_KEY") else "UNSET",
+        "telegram": "CONFIGURED" if os.getenv("TELEGRAM_BOT_TOKEN") else "UNSET",
+        "casino_webhook": "LOCAL",
+    }
+
+
+@router.get("/bets")
+def admin_bets(user: User = Depends(require_portal("admin")), db: Session = Depends(get_db)):
+    _support(user)
+    return services.bet_history(db)
+
+
+@router.post("/users/status")
+def admin_user_status(payload: StatusIn, user: User = Depends(require_portal("admin"))):
+    _support(user)
+    return services.set_account_status(user.id, payload.username, payload.status)["body"]
 
 
 @router.get("/settings")
