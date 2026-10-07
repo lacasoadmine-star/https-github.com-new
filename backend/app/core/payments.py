@@ -1,4 +1,4 @@
-"""Telebirr deposit checks. The ledger moves only after Check.et confirms the receipt."""
+"""Telebirr receipt checks. The ledger still holds the money; Check.et only confirms a receipt."""
 
 from __future__ import annotations
 
@@ -9,6 +9,11 @@ import httpx
 from fastapi import HTTPException
 
 from app.core.ledger import money
+from app.envfile import load_env_file
+
+load_env_file()
+
+DEFAULT_TELEBIRR_ACCOUNT = "0999999138"
 
 PHONE_FIELDS = (
     "receiver_account",
@@ -36,11 +41,16 @@ def telegram_token() -> str:
     return value.strip()
 
 
+def telebirr_account() -> str:
+    value = os.getenv("TELEBIRR_ACCOUNT", "").strip()
+    return value or DEFAULT_TELEBIRR_ACCOUNT
+
+
 def integration_flags() -> dict:
     return {
         "checket": "CONFIGURED" if checket_key() else "UNSET",
         "telegram": "CONFIGURED" if telegram_token() else "UNSET",
-        "telebirr_account": os.getenv("TELEBIRR_ACCOUNT", ""),
+        "telebirr_account": telebirr_account(),
     }
 
 
@@ -65,7 +75,7 @@ def verify_telebirr(reference: str, amount: Decimal) -> dict:
     key = checket_key()
     if not key:
         raise HTTPException(status_code=503, detail="Check.et lama dejin.")
-    account = os.getenv("TELEBIRR_ACCOUNT", "").strip()
+    account = telebirr_account()
     base = os.getenv("CHECK_ET_BASE_URL", "https://api.check.et").rstrip("/")
     body = {"bank": "telebirr", "transaction_number": reference}
     if account:

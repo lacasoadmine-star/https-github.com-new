@@ -101,8 +101,8 @@ async function draw() {
     html = shell("Deposits", `<table>${rows}</table>`);
   } else if (current === "/admin/withdrawals") {
     const data = await api("/api/admin/withdrawals");
-    const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.amount)}</td><td>${esc(row.status)}</td><td>${row.status === "pending" ? `<button data-approve="${row.id}">Approve</button> <button data-reject="${row.id}">Reject</button>` : ""}</td></tr>`).join("");
-    html = shell("Withdrawals", `<table>${rows}</table>`);
+    const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.amount)}</td><td>${esc(row.status)}</td><td>${esc(row.destination || "")}</td><td>${row.status === "pending" ? `<button data-approve="${row.id}">Approve</button> <button data-reject="${row.id}">Reject</button>` : ""}</td></tr>`).join("");
+    html = shell("Withdrawals", `<table><tr><th>Player</th><th>Amount</th><th>Status</th><th>Telebirr</th><th></th></tr>${rows}</table>`);
   } else if (current === "/admin/sports") {
     const data = await api("/api/admin/sports");
     const rows = data.items.map((row) => `<tr><td>${esc(row.name)}</td><td>${esc(row.status)}</td><td>${esc(row.result || "")}</td><td>${row.status === "open" ? `<button data-settle="${row.id}" data-result="home">Home</button> <button data-settle="${row.id}" data-result="away">Away</button> <button data-settle="${row.id}" data-result="draw">Draw</button>` : ""}</td></tr>`).join("");
@@ -125,7 +125,7 @@ async function draw() {
   } else if (current === "/admin/gateway") {
     const data = await api("/api/admin/gateway");
     const rows = data.providers.map((row) => `<tr><td>${esc(row.name)}</td><td>${esc(row.kind)}</td><td>${esc(row.status)}</td></tr>`).join("");
-    html = shell("Gateway status", `<p>Check.et ${esc(data.checket)}. Telegram ${esc(data.telegram)}. Casino webhook ${esc(data.casino_webhook)}.</p><table>${rows}</table>`);
+    html = shell("Gateway status", `<p>Check.et ${esc(data.checket)}. Telegram ${esc(data.telegram)}. Telebirr ${esc(data.telebirr_account)}. Casino webhook ${esc(data.casino_webhook)}.</p><table>${rows}</table>`);
   } else if (current === "/admin/bans") {
     const data = await api("/api/admin/players");
     const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.status)}</td><td><button data-status="${esc(row.username)}" data-next="${row.status === "banned" ? "active" : "banned"}">${row.status === "banned" ? "Restore" : "Ban"}</button></td></tr>`).join("");

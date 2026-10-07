@@ -13,10 +13,12 @@ from fastapi import Depends, HTTPException, Security, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
+from app.envfile import load_env_file
 from app.db.session import get_db
 from app.core.models import Permission, User
 
-JWT_SECRET = os.getenv("JWT_SECRET", "dev-only-superwin-change-me")
+load_env_file()
+JWT_SECRET = os.getenv("JWT_SECRET") or "dev-only-superwin-change-me"
 TOKEN_TTL_SECONDS = 60 * 60 * 12
 ROLE_FOR_PORTAL = {
     "player": "ROLE_PLAYER",

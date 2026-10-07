@@ -3,11 +3,52 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-DB_PASSWORD="superwin_master_pass_2026"
-export JWT_SECRET="superwin_jwt_secret_key_prod_2026"
-export CASINO_HMAC_SECRET="superwin_hmac_secret_key_2026"
+rand_hex() {
+  python3 -c "import secrets; print(secrets.token_hex($1))"
+}
+
+if [[ -f .env ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source .env
+  set +a
+fi
+
+if [[ -z "${JWT_SECRET:-}" || "${JWT_SECRET}" == "change-me" || "${JWT_SECRET}" == "superwin_jwt_secret_key_prod_2026" ]]; then
+  JWT_SECRET="$(rand_hex 32)"
+fi
+if [[ -z "${CASINO_HMAC_SECRET:-}" || "${CASINO_HMAC_SECRET}" == "change-me" || "${CASINO_HMAC_SECRET}" == "superwin_hmac_secret_key_2026" ]]; then
+  CASINO_HMAC_SECRET="$(rand_hex 32)"
+fi
+if [[ -z "${DB_PASSWORD:-}" ]]; then
+  if [[ -n "${DATABASE_URL:-}" && "${DATABASE_URL}" == postgresql* ]]; then
+    DB_PASSWORD="$(python3 -c "from urllib.parse import urlparse; print(urlparse('${DATABASE_URL}').password or '')")"
+  fi
+fi
+if [[ -z "${DB_PASSWORD:-}" ]]; then
+  DB_PASSWORD="$(rand_hex 12)"
+fi
+
+export JWT_SECRET
+export CASINO_HMAC_SECRET
+export TELEBIRR_ACCOUNT="${TELEBIRR_ACCOUNT:-0999999138}"
+export CHECK_ET_BASE_URL="${CHECK_ET_BASE_URL:-https://api.check.et}"
 export DATABASE_URL="postgresql+psycopg2://igaming:${DB_PASSWORD}@127.0.0.1:5432/igaming"
-export PORT="8000"
+export PORT="${PORT:-8000}"
+
+cat > .env << EOF
+DATABASE_URL=${DATABASE_URL}
+JWT_SECRET=${JWT_SECRET}
+CASINO_HMAC_SECRET=${CASINO_HMAC_SECRET}
+CHECK_ET_API_KEY=${CHECK_ET_API_KEY:-}
+CHECK_ET_BASE_URL=${CHECK_ET_BASE_URL}
+TELEBIRR_ACCOUNT=${TELEBIRR_ACCOUNT}
+TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+TELEGRAM_BOT_USERNAME=${TELEGRAM_BOT_USERNAME:-}
+TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+PORT=${PORT}
+REDIS_URL=${REDIS_URL:-}
+EOF
 
 echo "[1/7] Installing dependencies..."
 if ! python3 -c "import ensurepip" >/dev/null 2>&1; then
@@ -27,20 +68,6 @@ fi
 if ! command -v nginx >/dev/null 2>&1; then
   sudo apt-get update
   sudo apt-get install -y nginx
-fi
-
-if [[ ! -f .env ]]; then
-  cat > .env << EOF
-DATABASE_URL=${DATABASE_URL}
-JWT_SECRET=${JWT_SECRET}
-CASINO_HMAC_SECRET=${CASINO_HMAC_SECRET}
-CHECK_ET_API_KEY=
-CHECK_ET_BASE_URL=https://api.check.et
-TELEBIRR_ACCOUNT=
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_BOT_USERNAME=
-PORT=${PORT}
-EOF
 fi
 
 echo "[2/7] Building the three frontends..."
@@ -74,7 +101,7 @@ if [[ -f /tmp/igaming-api.pid ]]; then
   fi
 fi
 if command -v pm2 >/dev/null 2>&1; then
-  pm2 delete superwin-backend >/dev/null 2>&1 || true
+  pm2 delete superwin-backend >/dev/null 2>/dev/null || true
 fi
 sudo -u postgres psql -v ON_ERROR_STOP=1 -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'igaming' AND pid <> pg_backend_pid();" || true
 sudo -u postgres psql -v ON_ERROR_STOP=1 -c "DROP DATABASE IF EXISTS igaming;"
@@ -130,6 +157,11 @@ fi
 echo "[7/7] Checking player, agent, admin, and the local casino webhook..."
 .venv/bin/python tests/e2e_live.py
 
+health_json="$(curl -sf http://127.0.0.1:8000/health)"
 echo "---------------------------------------------------"
-echo "MASHROUCA WAA DIYAAR! ALL SYSTEMS ARE LIVE & RUNNING."
+echo "API ONLINE at http://127.0.0.1:8000"
+echo "${health_json}"
+echo "Telebirr account: ${TELEBIRR_ACCOUNT}"
+echo "Check.et and Telegram stay UNSET until you put real keys in .env."
+echo "Nginx answers Host headers for superwin.bet locally. DNS is not changed from this script."
 echo "---------------------------------------------------"

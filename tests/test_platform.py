@@ -35,6 +35,10 @@ class PlatformTests(unittest.TestCase):
         health = self.client.get("/health")
         self.assertEqual(health.json()["status"], "ONLINE")
         self.assertEqual(health.json()["dialect"], "sqlite")
+        self.assertEqual(health.json()["checket"], "UNSET")
+        self.assertEqual(health.json()["telegram"], "UNSET")
+        self.assertEqual(health.json()["telebirr_account"], "0999999138")
+        self.assertNotIn("live", health.json())
 
         player = self.client.get("/player/sports").text
         agent = self.client.get("/agent/commissions").text
@@ -73,6 +77,15 @@ class PlatformTests(unittest.TestCase):
         self.assertIn('href="/agent/login"', gate)
         self.assertIn('href="/admin/login"', gate)
         self.assertNotIn("house_balance", gate)
+
+        boot = Path(__file__).resolve().parents[1] / "apps/player/src/boot.ts"
+        player_boot = boot.read_text()
+        self.assertIn('channel: "telebirr"', player_boot)
+        self.assertNotIn('"local"', player_boot)
+        self.assertIn("0999999138", player_boot)
+        script = (Path(__file__).resolve().parents[1] / "setup_and_run.sh").read_text()
+        self.assertNotIn("superwin_jwt_secret_key_prod_2026", script)
+        self.assertNotIn("ALL SYSTEMS ARE LIVE", script)
 
     def test_login_is_portal_specific(self):
         wrong = self.client.post(
@@ -353,6 +366,9 @@ class PlatformTests(unittest.TestCase):
         gateway = self.client.get("/api/admin/gateway", headers=financial)
         self.assertEqual(gateway.status_code, 200, gateway.text)
         self.assertEqual(gateway.json()["casino_webhook"], "LOCAL")
+        self.assertEqual(gateway.json()["telebirr_account"], "0999999138")
+        self.assertEqual(gateway.json()["checket"], "UNSET")
+        self.assertNotIn("live", gateway.json())
         self.assertEqual(self.client.get("/api/admin/gateway", headers=support).status_code, 403)
         self.assertEqual(self.client.get("/api/admin/audit-logs", headers=support).status_code, 403)
 
@@ -376,6 +392,18 @@ class PlatformTests(unittest.TestCase):
         history = self.client.get("/api/admin/bets", headers=support)
         self.assertEqual(history.status_code, 200, history.text)
         self.assertEqual(self.client.get("/api/admin/bets", headers=financial).status_code, 403)
+        self.assertEqual(self._total(), "1000000.0000")
+
+    def test_telebirr_deposit_fails_honestly_without_checket_key(self):
+        player = self.auth("player", "play123", "player")
+        os.environ.pop("CHECK_ET_API_KEY", None)
+        denied = self.client.post(
+            "/api/player/deposit",
+            headers=player,
+            json={"amount": "25", "client_reference": "NOKEY", "channel": "telebirr"},
+        )
+        self.assertEqual(denied.status_code, 503, denied.text)
+        self.assertIn("Check.et", denied.json()["detail"])
         self.assertEqual(self._total(), "1000000.0000")
 
     def test_telebirr_deposit_credits_only_a_matching_receipt(self):
@@ -445,6 +473,24 @@ class PlatformTests(unittest.TestCase):
         self.assertEqual(second.status_code, 200, second.text)
         self.assertEqual(second.json()["balance"], "25.0000")
         again.assert_not_called()
+        self.assertEqual(self._total(), "1000000.0000")
+        os.environ.pop("CHECK_ET_API_KEY", None)
+        os.environ.pop("TELEBIRR_ACCOUNT", None)
+
+    def test_withdrawal_lists_telebirr_destination(self):
+        player = self.auth("player", "play123", "player")
+        agent = self.auth("agent", "agent123", "agent")
+        self.client.post("/api/player/deposit", headers=player, json={"amount": "40"})
+        request = self.client.post(
+            "/api/player/withdraw",
+            headers=player,
+            json={"amount": "10", "client_reference": "0911223344"},
+        )
+        self.assertEqual(request.status_code, 200, request.text)
+        rows = self.client.get("/api/agent/withdrawals", headers=agent).json()["items"]
+        self.assertEqual(rows[0]["destination"], "0911223344")
+        history = self.client.get("/api/player/history", headers=player).json()["withdrawals"]
+        self.assertEqual(history[0]["destination"], "0911223344")
         self.assertEqual(self._total(), "1000000.0000")
 
     def _total(self) -> str:

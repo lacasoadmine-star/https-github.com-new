@@ -97,8 +97,8 @@ async function draw() {
     html = shell("Player deposits", `<table>${rows}</table>`);
   } else if (current === "/agent/withdrawals") {
     const data = await api("/api/agent/withdrawals");
-    const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.amount)}</td><td>${esc(row.status)}</td></tr>`).join("");
-    html = shell("Player withdrawals", `<table>${rows}</table>`);
+    const rows = data.items.map((row) => `<tr><td>${esc(row.username)}</td><td>${esc(row.amount)}</td><td>${esc(row.status)}</td><td>${esc(row.destination || "")}</td></tr>`).join("");
+    html = shell("Player withdrawals", `<table><tr><th>Player</th><th>Amount</th><th>Status</th><th>Telebirr</th></tr>${rows}</table>`);
   } else if (current === "/agent/transactions") {
     const data = await api("/api/agent/transactions");
     const rows = data.items.map((row) => `<tr><td>${esc(row.reason)}</td><td>${esc(row.amount)}</td><td>${esc(row.reference)}</td></tr>`).join("");

@@ -101,13 +101,18 @@ async function draw() {
     const rows = data.items.map((row) => `<tr><td>${esc(row.direction)}</td><td>${esc(row.reason)}</td><td>${esc(row.amount)}</td></tr>`).join("");
     html = shell("Wallet", `<p id="balance">${esc(data.balance)}</p><table>${rows}</table>`);
   } else if (current === "/player/deposit") {
-    html = shell("Deposit", `<p>Send ETB to Telebirr <strong>0999999138</strong>, then enter the receipt reference.</p><form data-action="deposit"><label>Amount<input name="amount" value="100"></label><label>Transaction reference<input name="client_reference" autocomplete="off"></label><button>Verify deposit</button></form><p id="balance"></p>`);
+    const flags = await fetch("/health").then((response) => response.json()).catch(() => ({}));
+    const account = flags.telebirr_account || "0999999138";
+    const checket = flags.checket === "CONFIGURED"
+      ? "Check.et waa diyaar. Ledger-ka wuxuu dhaqaaqaa ka dib receipt-ka la xaqiijiyo."
+      : "Check.et lama dejin. Furaha API-ga ma jiro, markaa Telebirr lama xaqiijin karo.";
+    html = shell("Deposit", `<p>U dir ETB Telebirr <strong>${esc(account)}</strong>, kadib geli lambarka transaction-ka.</p><p>${esc(checket)}</p><form data-action="deposit"><label>Amount<input name="amount" value="100" required></label><label>Transaction reference<input name="client_reference" autocomplete="off" required></label><button>Xaqiiji deposit</button></form><p id="balance"></p>`);
   } else if (current === "/player/withdraw") {
-    html = shell("Withdraw", `<form data-action="withdraw"><label>Amount<input name="amount" value="25"></label><button>Request withdrawal</button></form><p id="balance"></p>`);
+    html = shell("Withdraw", `<p>Codsiga wuxuu ku jiraa ledger-ka. Financial admin ayaa oggolaada; lacag processor dhab ah laguma diro.</p><form data-action="withdraw"><label>Amount<input name="amount" value="25" required></label><label>Telebirr number<input name="client_reference" autocomplete="off" required></label><button>Request withdrawal</button></form><p id="balance"></p>`);
   } else if (current === "/player/history") {
     const data = await api("/api/player/history");
     const deposits = data.deposits.map((row) => `<li>${esc(row.amount)} ${esc(row.reference)}</li>`).join("");
-    const withdrawals = data.withdrawals.map((row) => `<li>${esc(row.amount)} ${esc(row.status)}</li>`).join("");
+    const withdrawals = data.withdrawals.map((row) => `<li>${esc(row.amount)} ${esc(row.status)} ${esc(row.destination || "")}</li>`).join("");
     html = shell("History", `<h2>Deposits</h2><ul>${deposits}</ul><h2>Withdrawals</h2><ul>${withdrawals}</ul>`);
   } else if (current === "/player/notifications") {
     const data = await api("/api/player/notifications");
@@ -142,11 +147,11 @@ document.getElementById("view").addEventListener("submit", async (event) => {
       return;
     }
     if (form.dataset.action === "deposit") {
-      const data = await api("/api/player/deposit", { method: "POST", body: JSON.stringify({ amount: body.amount, client_reference: body.client_reference, channel: body.client_reference ? "telebirr" : "local" }) });
+      const data = await api("/api/player/deposit", { method: "POST", body: JSON.stringify({ amount: body.amount, client_reference: body.client_reference, channel: "telebirr" }) });
       document.getElementById("balance").textContent = data.balance;
     }
     if (form.dataset.action === "withdraw") {
-      const data = await api("/api/player/withdraw", { method: "POST", body: JSON.stringify({ amount: body.amount }) });
+      const data = await api("/api/player/withdraw", { method: "POST", body: JSON.stringify({ amount: body.amount, client_reference: body.client_reference }) });
       document.getElementById("balance").textContent = data.balance + " " + data.status;
     }
     if (form.dataset.action === "profile") {
