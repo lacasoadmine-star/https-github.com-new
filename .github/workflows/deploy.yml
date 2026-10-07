@@ -1,0 +1,91 @@
+# Production deploy runs only on a push to main, after review.
+# It does nothing until VERCEL_TOKEN, VERCEL_ORG_ID, and the three project ids exist.
+name: Superwin Multi-Domain CI/CD Auto-Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+          python -m pip install -r requirements.txt
+
+      - name: Run Monorepo Build Tests
+        run: |
+          npm run build --workspaces
+          PYTHONPATH=backend pytest -q
+
+  deploy-player-app:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Player App (superwin.bet)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_PLAYER }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: apps/player
+          alias-domains: |
+            superwin.bet
+            www.superwin.bet
+
+  deploy-agent-app:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Agent System (superwinagentsystem.admindigi.com)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_AGENT }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: apps/agent
+          alias-domains: |
+            superwinagentsystem.admindigi.com
+
+  deploy-admin-app:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Admin System (superwinadmin.admindigi.com)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_ADMIN }}
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+          working-directory: apps/admin
+          alias-domains: |
+            superwinadmin.admindigi.com

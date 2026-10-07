@@ -1,0 +1,22 @@
+# SUPERWIN PLATFORM
+
+Local monorepo. Three separate frontends share one backend, one ledger, and one database.
+
+- Player (`apps/player`): local routes under `/player`. Intended host `superwin.bet`. Role `ROLE_PLAYER`.
+- Agent (`apps/agent`): local routes under `/agent`. Intended host `superwinagentsystem.admindigi.com`. Role `ROLE_AGENT`. Tiers: master, super, agent.
+- Admin (`apps/admin`): local routes under `/admin`. Intended host `superwinadmin.admindigi.com`. Role `ROLE_ADMIN`. Tiers: superadmin, financial, support. Superadmin tokens use `ROLE_SUPER_ADMIN` and still cannot call another portal.
+- Shared backend (`backend/`): FastAPI, PostgreSQL, optional Redis pub/sub, double-entry wallet.
+
+## Workflow
+
+1. Read the files you are changing under `apps/player`, `apps/agent`, `apps/admin`, and `backend/`.
+2. Write modular code. Keep the three UIs separate.
+3. Run `pytest` and `npm run build`.
+4. If a build or test fails, read the log, fix the cause, and run again until it passes.
+5. Commit on the current feature branch. Do not push to `main`. The production workflow in `.github/workflows/deploy.yml` runs only after a reviewed merge to `main`, and only when the Vercel secrets exist.
+
+## Safety
+
+- Read `JWT_SECRET` from the environment. Do not hardcode a production secret.
+- Sports and casino stay on this machine. Do not proxy bets to an external casino.
+- Deposits and withdrawals are ledger records. Do not wire a real payment processor.
