@@ -1,0 +1,23 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/health",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "CHECK_ET_API_KEY",
+      "description": "Check.et API key for Telebirr deposit verification. Optional — the deposit feature returns 'not configured' without it. Obtain from the Check.et dashboard."
+    },
+    {
+      "name": "TELEBIRR_ACCOUNT",
+      "description": "Telebirr account number (phone) used to match deposit receipts. Optional."
+    },
+    {
+      "name": "TELEGRAM_BOT_TOKEN",
+      "description": "Telegram bot token for sending deposit notifications. Optional."
+    },
+    {
+      "name": "TELEGRAM_CHAT_ID",
+      "description": "Telegram chat ID for notifications. Optional — auto-detected from bot updates if omitted."
+    }
+  ]
+}

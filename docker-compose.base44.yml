@@ -1,0 +1,92 @@
+# Base44 development compose — runs the app from cloned source with live reload.
+# Frontend apps are built with `vite build --watch` so edits appear after a page refresh.
+# The FastAPI backend serves the built SPAs + API on port 3000 with `--reload`.
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: igaming
+      POSTGRES_PASSWORD: superwin_master_pass_2026
+      POSTGRES_DB: igaming
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U igaming -d igaming"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
+
+  redis:
+    image: redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
+
+  frontend:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    command:
+      - sh
+      - -ec
+      - |
+        npm install
+        npm run build --workspaces
+        (cd apps/player && /app/node_modules/.bin/vite build --watch) &
+        (cd apps/agent && /app/node_modules/.bin/vite build --watch) &
+        (cd apps/admin && /app/node_modules/.bin/vite build --watch) &
+        wait
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /app/apps/player/dist/index.html && test -f /app/apps/agent/dist/index.html && test -f /app/apps/admin/dist/index.html"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 180s
+    restart: on-failure
+
+  backend:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://igaming:superwin_master_pass_2026@postgres:5432/igaming
+      - JWT_SECRET=superwin_jwt_secret_key_dev
+      - CASINO_HMAC_SECRET=superwin_hmac_secret_key_dev
+      - REDIS_URL=redis://redis:6379/0
+      - PORT=3000
+      - BASE44_PREVIEW_MODE=1
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    command:
+      - sh
+      - -ec
+      - |
+        pip install --no-cache-dir -r requirements.txt
+        while [ ! -f apps/player/dist/index.html ] || [ ! -f apps/agent/dist/index.html ] || [ ! -f apps/admin/dist/index.html ]; do sleep 1; done
+        exec python -m uvicorn main:app --host 0.0.0.0 --port 3000 --reload --reload-dir backend
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:3000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: on-failure
+
+volumes:
+  pgdata:
