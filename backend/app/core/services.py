@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import secrets
 from decimal import Decimal
 
@@ -11,6 +12,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security import hash_password
 from app.db.session import SessionLocal
+from app.core import payments
 from app.core.ledger import LedgerError, admin_ids, audit, balance_of, money, notify, transfer, user_id
 from app.core.models import (
     CasinoGame,
@@ -93,8 +95,18 @@ def _enforce_credit(db: Session, player: User, amount: Decimal) -> None:
         raise HTTPException(status_code=409, detail="Credit limit exceeded.")
 
 
-def deposit(user_id_value: int, amount: Decimal, client_reference: str | None) -> dict:
+def deposit(user_id_value: int, amount: Decimal, client_reference: str | None, channel: str | None = None) -> dict:
     reference = "deposit:" + (client_reference or secrets.token_hex(8))
+    verified = None
+    if channel == "telebirr":
+        if not client_reference:
+            raise HTTPException(status_code=400, detail="Transaction reference waa loo baahan yahay.")
+        existing_balance = _deposit_balance(reference)
+        if existing_balance is None:
+            verified = payments.verify_telebirr(client_reference, amount)
+            amount = verified["amount"]
+        else:
+            amount = money(amount)
 
     def work(db: Session):
         existing = db.query(Deposit).filter(Deposit.reference == reference).one_or_none()
@@ -104,14 +116,19 @@ def deposit(user_id_value: int, amount: Decimal, client_reference: str | None) -
         ensure_open(player)
         if existing is not None:
             return _finish(
-                {"status": "OK", "balance": dec_str(balance_of(db, player.id)), "reference": reference},
+                {
+                    "status": "OK",
+                    "balance": dec_str(balance_of(db, player.id)),
+                    "reference": reference,
+                    "currency": "ETB" if channel == "telebirr" else "USD",
+                },
                 [],
                 None,
             )
         _enforce_credit(db, player, amount)
         agent_id = player.agent_id
         username = player.username
-        transfer(
+        moved = transfer(
             db,
             user_id(db, "clearing"),
             player.id,
@@ -120,20 +137,51 @@ def deposit(user_id_value: int, amount: Decimal, client_reference: str | None) -
             reference,
             allow_negative_debit=True,
         )
+        if not moved:
+            return _finish(
+                {"status": "OK", "balance": dec_str(balance_of(db, player.id)), "reference": reference},
+                [],
+                None,
+            )
         db.add(Deposit(user_id=player.id, agent_id=agent_id, amount=money(amount), reference=reference))
         title = "Deposit posted"
-        body = f"{username} deposited {dec_str(amount)}"
+        body_text = f"{username} deposited {dec_str(amount)}"
+        if verified is not None:
+            body_text = f"{username} Telebirr {verified['reference']} {dec_str(amount)} ETB"
         targets = _targets_for_player(db, player)
         for portal, account in targets:
-            notify(db, account, "deposit", title, body)
-        audit(db, player.id, "deposit", body)
+            notify(db, account, "deposit", title, body_text)
+        audit(db, player.id, "deposit", body_text)
+        payload = {
+            "status": "OK",
+            "balance": dec_str(balance_of(db, player.id)),
+            "reference": reference,
+            "currency": "ETB" if verified is not None else "USD",
+        }
+        if verified is not None:
+            account = os.getenv("TELEBIRR_ACCOUNT", "")
+            payload["telegram"] = (
+                f"SUPERWEN deposit\n{username}\n{dec_str(amount)} ETB\n"
+                f"ref {verified['reference']}\nTelebirr {account}"
+            )
         return _finish(
-            {"status": "OK", "balance": dec_str(balance_of(db, player.id)), "reference": reference},
+            payload,
             targets,
-            _event("deposit", title, body, username=username, amount=dec_str(amount)),
+            _event("deposit", title, body_text, username=username, amount=dec_str(amount)),
         )
 
     return run(work)
+
+
+def _deposit_balance(reference: str) -> str | None:
+    db = SessionLocal()
+    try:
+        row = db.query(Deposit).filter(Deposit.reference == reference).one_or_none()
+        if row is None:
+            return None
+        return dec_str(balance_of(db, row.user_id))
+    finally:
+        db.close()
 
 
 def request_withdrawal(user_id_value: int, amount: Decimal, client_reference: str | None) -> dict:

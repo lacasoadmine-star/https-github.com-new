@@ -4,9 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.v1.emit import emit
-import os
-
 from app.api.v1.schemas import AccountIn, PermissionIn, ProviderIn, SettingIn, SettleIn, StatusIn
+from app.core.payments import integration_flags
 from app.core.models import User
 from app.core.security import require_permission, require_portal
 from app.db.session import get_db
@@ -124,10 +123,12 @@ def admin_audit(user: User = Depends(require_portal("admin")), db: Session = Dep
 @router.get("/gateway")
 def admin_gateway(user: User = Depends(require_portal("admin")), db: Session = Depends(get_db)):
     _finance(user)
+    flags = integration_flags()
     return {
         "providers": services.provider_rows(db),
-        "checket": "CONFIGURED" if os.getenv("CHECKET_API_KEY") else "UNSET",
-        "telegram": "CONFIGURED" if os.getenv("TELEGRAM_BOT_TOKEN") else "UNSET",
+        "checket": flags["checket"],
+        "telegram": flags["telegram"],
+        "telebirr_account": flags["telebirr_account"],
         "casino_webhook": "LOCAL",
     }
 

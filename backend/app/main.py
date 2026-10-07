@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import asyncio
-import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -21,6 +20,7 @@ from app.api.v1.emit import emit
 from app.api.v1.player_routes import router as player_router
 from app.api.v1.schemas import LoginIn, RegisterIn
 from app.core.models import User
+from app.core.payments import integration_flags
 from app.core.realtime import hub, redis_status
 from app.core.security import JWT_SECRET, login_portal
 from app.core import services
@@ -60,8 +60,7 @@ def health():
         "database": "CONNECTED",
         "dialect": engine.dialect.name,
         "redis": redis_status(),
-        "checket": "CONFIGURED" if os.getenv("CHECKET_API_KEY") else "UNSET",
-        "telegram": "CONFIGURED" if os.getenv("TELEGRAM_BOT_TOKEN") else "UNSET",
+        **integration_flags(),
     }
 
 

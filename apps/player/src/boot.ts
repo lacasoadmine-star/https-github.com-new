@@ -101,7 +101,7 @@ async function draw() {
     const rows = data.items.map((row) => `<tr><td>${esc(row.direction)}</td><td>${esc(row.reason)}</td><td>${esc(row.amount)}</td></tr>`).join("");
     html = shell("Wallet", `<p id="balance">${esc(data.balance)}</p><table>${rows}</table>`);
   } else if (current === "/player/deposit") {
-    html = shell("Deposit", `<form data-action="deposit"><label>Amount<input name="amount" value="100"></label><button>Post deposit</button></form><p id="balance"></p>`);
+    html = shell("Deposit", `<p>Send ETB to Telebirr <strong>0999999138</strong>, then enter the receipt reference.</p><form data-action="deposit"><label>Amount<input name="amount" value="100"></label><label>Transaction reference<input name="client_reference" autocomplete="off"></label><button>Verify deposit</button></form><p id="balance"></p>`);
   } else if (current === "/player/withdraw") {
     html = shell("Withdraw", `<form data-action="withdraw"><label>Amount<input name="amount" value="25"></label><button>Request withdrawal</button></form><p id="balance"></p>`);
   } else if (current === "/player/history") {
@@ -142,7 +142,7 @@ document.getElementById("view").addEventListener("submit", async (event) => {
       return;
     }
     if (form.dataset.action === "deposit") {
-      const data = await api("/api/player/deposit", { method: "POST", body: JSON.stringify({ amount: body.amount }) });
+      const data = await api("/api/player/deposit", { method: "POST", body: JSON.stringify({ amount: body.amount, client_reference: body.client_reference, channel: body.client_reference ? "telebirr" : "local" }) });
       document.getElementById("balance").textContent = data.balance;
     }
     if (form.dataset.action === "withdraw") {

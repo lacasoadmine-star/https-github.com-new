@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from unittest.mock import patch
 import tempfile
 import unittest
 from decimal import Decimal
@@ -375,6 +376,75 @@ class PlatformTests(unittest.TestCase):
         history = self.client.get("/api/admin/bets", headers=support)
         self.assertEqual(history.status_code, 200, history.text)
         self.assertEqual(self.client.get("/api/admin/bets", headers=financial).status_code, 403)
+        self.assertEqual(self._total(), "1000000.0000")
+
+    def test_telebirr_deposit_credits_only_a_matching_receipt(self):
+        from decimal import Decimal
+        from fastapi import HTTPException
+        from app.core.payments import verify_telebirr
+
+        player = self.auth("player", "play123", "player")
+        os.environ["CHECK_ET_API_KEY"] = "chk_test"
+        os.environ["TELEBIRR_ACCOUNT"] = "0999999138"
+        receipt = {
+            "success": True,
+            "exists": True,
+            "duplicate": False,
+            "data": {
+                "receipt": {
+                    "status": "completed",
+                    "amount": 25,
+                    "currency": "ETB",
+                    "receiver_phone": "0999999138",
+                    "payer_name": "Abebe",
+                }
+            },
+        }
+
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return receipt
+
+        with patch("app.core.payments.httpx.post", return_value=Response()):
+            verified = verify_telebirr("DEL25OK", Decimal("25"))
+        self.assertEqual(verified["amount"], Decimal("25.0000"))
+        receipt["data"]["receipt"]["amount"] = 10
+        with patch("app.core.payments.httpx.post", return_value=Response()):
+            with self.assertRaises(HTTPException) as wrong_amount:
+                verify_telebirr("DEL25BAD", Decimal("25"))
+        self.assertEqual(wrong_amount.exception.status_code, 409)
+        receipt["data"]["receipt"]["amount"] = 25
+        receipt["data"]["receipt"]["receiver_phone"] = "0911000000"
+        with patch("app.core.payments.httpx.post", return_value=Response()):
+            with self.assertRaises(HTTPException) as wrong_account:
+                verify_telebirr("DEL25ACCT", Decimal("25"))
+        self.assertEqual(wrong_account.exception.status_code, 409)
+
+        def fake_verify(reference, amount):
+            return {"amount": Decimal("25.0000"), "currency": "ETB", "payer": "Abebe", "reference": reference}
+
+        with patch("app.core.payments.verify_telebirr", side_effect=fake_verify) as called:
+            first = self.client.post(
+                "/api/player/deposit",
+                headers=player,
+                json={"amount": "25", "client_reference": "DEL25OK", "channel": "telebirr"},
+            )
+        self.assertEqual(first.status_code, 200, first.text)
+        self.assertEqual(first.json()["balance"], "25.0000")
+        self.assertEqual(first.json()["currency"], "ETB")
+        self.assertNotIn("telegram", first.json())
+        called.assert_called_once()
+        with patch("app.core.payments.verify_telebirr", side_effect=fake_verify) as again:
+            second = self.client.post(
+                "/api/player/deposit",
+                headers=player,
+                json={"amount": "25", "client_reference": "DEL25OK", "channel": "telebirr"},
+            )
+        self.assertEqual(second.status_code, 200, second.text)
+        self.assertEqual(second.json()["balance"], "25.0000")
+        again.assert_not_called()
         self.assertEqual(self._total(), "1000000.0000")
 
     def _total(self) -> str:

@@ -20,6 +20,7 @@ class RegisterIn(BaseModel):
 class AmountIn(BaseModel):
     amount: Decimal = Field(gt=0, le=1000000)
     client_reference: str | None = None
+    channel: str | None = None
 
 
 class AccountIn(BaseModel):

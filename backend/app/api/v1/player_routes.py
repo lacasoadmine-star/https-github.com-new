@@ -8,7 +8,7 @@ from app.api.v1.schemas import AmountIn, BetIn, PlayIn, ProfileIn
 from app.core.models import Notification, User
 from app.core.security import require_permission, require_portal
 from app.db.session import get_db
-from app.core import services
+from app.core import payments, services
 
 router = APIRouter(prefix="/api/player", tags=["player"])
 
@@ -22,7 +22,11 @@ def player_dashboard(user: User = Depends(require_portal("player")), db: Session
 async def player_deposit(payload: AmountIn, user: User = Depends(require_permission("player.deposit"))):
     if user.role != "player":
         raise HTTPException(status_code=403, detail="Portal-kan laguma oggola.")
-    return await emit(services.deposit(user.id, payload.amount, payload.client_reference))
+    result = services.deposit(user.id, payload.amount, payload.client_reference, payload.channel)
+    note = result["body"].pop("telegram", None)
+    if note:
+        payments.notify_telegram(note)
+    return await emit(result)
 
 
 @router.post("/withdraw")

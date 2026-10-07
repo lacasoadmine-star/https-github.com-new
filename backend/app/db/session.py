@@ -8,8 +8,16 @@ from pathlib import Path
 from sqlalchemy import create_engine, event, text
 
 
+_PLACEHOLDER_ENV = {
+    "",
+    "change-me",
+    "checket_live_verification_key",
+    "8123456789:AAFx_example_token",
+}
+
+
 def _load_env_file() -> None:
-    """Fill missing variables from the repo .env. Existing variables stay."""
+    """Fill missing variables from the repo .env. A real value replaces a known placeholder."""
     env_path = Path(__file__).resolve().parents[3] / ".env"
     if not env_path.is_file():
         return
@@ -18,7 +26,11 @@ def _load_env_file() -> None:
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, value = line.split("=", 1)
-        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        current = os.environ.get(key, "")
+        if key not in os.environ or current.strip() in _PLACEHOLDER_ENV:
+            os.environ[key] = value
 
 
 _load_env_file()

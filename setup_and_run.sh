@@ -6,8 +6,6 @@ cd "$(dirname "$0")"
 DB_PASSWORD="superwin_master_pass_2026"
 export JWT_SECRET="superwin_jwt_secret_key_prod_2026"
 export CASINO_HMAC_SECRET="superwin_hmac_secret_key_2026"
-export CHECKET_API_KEY="checket_live_verification_key"
-export TELEGRAM_BOT_TOKEN="8123456789:AAFx_example_token"
 export DATABASE_URL="postgresql+psycopg2://igaming:${DB_PASSWORD}@127.0.0.1:5432/igaming"
 export PORT="8000"
 
@@ -31,14 +29,19 @@ if ! command -v nginx >/dev/null 2>&1; then
   sudo apt-get install -y nginx
 fi
 
-cat > .env << EOF
+if [[ ! -f .env ]]; then
+  cat > .env << EOF
 DATABASE_URL=${DATABASE_URL}
 JWT_SECRET=${JWT_SECRET}
 CASINO_HMAC_SECRET=${CASINO_HMAC_SECRET}
-CHECKET_API_KEY=${CHECKET_API_KEY}
-TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+CHECK_ET_API_KEY=
+CHECK_ET_BASE_URL=https://api.check.et
+TELEBIRR_ACCOUNT=
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_BOT_USERNAME=
 PORT=${PORT}
 EOF
+fi
 
 echo "[2/7] Building the three frontends..."
 npm run build
