@@ -4,6 +4,11 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 echo "[1/4] Installing dependencies..."
+if ! python3 -c "import ensurepip" >/dev/null 2>&1; then
+  sudo apt-get update
+  sudo apt-get install -y python3-venv
+fi
+rm -rf .venv
 python3 -m venv .venv
 .venv/bin/pip install --upgrade pip
 .venv/bin/pip install -r requirements.txt
