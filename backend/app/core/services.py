@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 import secrets
 from decimal import Decimal
 
@@ -159,10 +158,9 @@ def deposit(user_id_value: int, amount: Decimal, client_reference: str | None, c
             "currency": "ETB" if verified is not None else "USD",
         }
         if verified is not None:
-            account = os.getenv("TELEBIRR_ACCOUNT", "")
             payload["telegram"] = (
-                f"SUPERWEN deposit\n{username}\n{dec_str(amount)} ETB\n"
-                f"ref {verified['reference']}\nTelebirr {account}"
+                f"SUPERWIN deposit\n{username}\n{dec_str(amount)} ETB\n"
+                f"ref {verified['reference']}\nTelebirr {payments.telebirr_account()}"
             )
         return _finish(
             payload,
@@ -210,7 +208,10 @@ def request_withdrawal(user_id_value: int, amount: Decimal, client_reference: st
         db.add(row)
         db.flush()
         title = "Withdrawal requested"
+        destination = (client_reference or "").strip()
         body = f"{player.username} requested {dec_str(amount)}"
+        if destination:
+            body += f" to {destination}"
         targets = _targets_for_player(db, player)
         for _portal, account in targets:
             notify(db, account, "withdrawal", title, body)
@@ -777,6 +778,8 @@ def _withdrawals(db: Session, user_ids: list[int] | None = None, agent_id: int |
             "username": names.get(row.user_id, ""),
             "amount": dec_str(row.amount),
             "status": row.status,
+            "reference": row.reference,
+            "destination": str(row.reference).removeprefix("withdraw:"),
         }
         for row in rows
     ]

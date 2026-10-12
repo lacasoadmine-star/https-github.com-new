@@ -3,37 +3,12 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 
 from sqlalchemy import create_engine, event, text
 
+from app.envfile import load_env_file
 
-_PLACEHOLDER_ENV = {
-    "",
-    "change-me",
-    "checket_live_verification_key",
-    "8123456789:AAFx_example_token",
-}
-
-
-def _load_env_file() -> None:
-    """Fill missing variables from the repo .env. A real value replaces a known placeholder."""
-    env_path = Path(__file__).resolve().parents[3] / ".env"
-    if not env_path.is_file():
-        return
-    for raw in env_path.read_text().splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, value = line.split("=", 1)
-        key = key.strip()
-        value = value.strip().strip('"').strip("'")
-        current = os.environ.get(key, "")
-        if key not in os.environ or current.strip() in _PLACEHOLDER_ENV:
-            os.environ[key] = value
-
-
-_load_env_file()
+load_env_file()
 from sqlalchemy.orm import sessionmaker
 
 from app.core.models import Base
