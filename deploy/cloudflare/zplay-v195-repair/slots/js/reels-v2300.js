@@ -1,4 +1,4 @@
-import {MOTION,cruising,landing,sample} from './reel-motion.mjs';
+import {MOTION,cruising,landing,sample} from './reel-motion.mjs?v=197';
 export const referenceArt={hot_foxy_20:{orange:'/assets/foxy-orange.webp',cherry:'/assets/foxy-cherry.webp',watermelon:'/assets/foxy-melon.webp',lemon:'/assets/foxy-lemon.webp',winged_bell:'/assets/foxy-bell.webp','777':'/assets/foxy-seven.webp',fox:'/assets/foxy-fox.webp',big_star:'/assets/foxy-scatter.webp'}};
 const referenceCache=new Map();
 function loadReferenceImage(src){if(!referenceCache.has(src))referenceCache.set(src,new Promise((resolve,reject)=>{const img=new Image();let done=false;const end=error=>{if(done)return;done=true;clearTimeout(timer);img.onload=img.onerror=null;if(error){referenceCache.delete(src);reject(error)}else resolve(img)};const timer=setTimeout(()=>end(Error('Reference artwork timed out. Retry loading.')),12000);img.onload=async()=>{try{await img.decode();if(!img.naturalWidth)throw Error('Invalid artwork');end()}catch(e){end(e)}};img.onerror=()=>end(Error('Reference artwork unavailable. Retry loading.'));img.fetchPriority='high';img.src=src}));return referenceCache.get(src)}
@@ -72,7 +72,11 @@ export class ReelRenderer {
      const logical=row-whole,finalRow=this.target?logical+this.plans[col].to:-1;
      const symbol=this.target&&finalRow>=0&&finalRow<this.rows?this.target[finalRow][col]:logical>=0&&logical<this.rows?this.grid[logical][col]:strip[((logical%strip.length)+strip.length)%strip.length];
      const size=Math.min(w,h)*.99;
-     c.drawImage(this.sprite(symbol),col*w+(w-size)/2,row*h+offset+(h-size)/2,size,size);
+     const tile=this.sprite(symbol),x=col*w+(w-size)/2,y=row*h+offset+(h-size)/2;
+     // Short vertical trails follow actual strip speed, fading out at each stop.
+     const trail=this.reduced?0:Math.min(h*.09,m.velocity*h*.004);
+     if(trail>.5){c.globalAlpha=.14;c.drawImage(tile,x,y-trail,size,size);c.drawImage(tile,x,y+trail,size,size);c.globalAlpha=.82;}
+     c.drawImage(tile,x,y,size,size);c.globalAlpha=1;
     }
    }
    c.restore();

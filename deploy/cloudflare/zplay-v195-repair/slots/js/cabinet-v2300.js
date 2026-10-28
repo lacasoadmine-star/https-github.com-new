@@ -80,6 +80,7 @@ $('turbo').onclick = () => {
 
 const bar = $('wheel-values');
 function arrange() {
+  if ($('wheel').dataset.animating === 'true') return;
   const cells = [...bar.children];
   const active = cells.findIndex(cell => cell.classList.contains('active'));
   const center = active < 0 ? Math.floor(cells.length / 2) : active;

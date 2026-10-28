@@ -1,6 +1,6 @@
 // Presentation only. Positions are measured in symbol heights, never money.
 export const MOTION = Object.freeze({
-  multi_hot_5_video: { speed: 12, ramp: 180, stop: 760, stagger: 150 },
+  multi_hot_5_video: { speed: 12, ramp: 180, stop: 640, stagger: 90 },
   hot_foxy_20: { speed: 14, ramp: 220, stop: 840, stagger: 130 },
   wild_multi_stars: { speed: 13, ramp: 200, stop: 900, stagger: 140 },
 });

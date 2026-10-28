@@ -1,8 +1,12 @@
 # ZPLAY live-source repair candidate
 
-Status: **scoped frontend repairs deployed as v196; incomplete seven-game rebuild**.
+Status: **scoped frontend repairs deployed as v197; incomplete seven-game rebuild**.
 
-Deployment `46df3961-09e4-4cf6-b94b-51c2464ed197` serves version `d2cf72cc-1dab-46f3-aab4-e93823a1a03e` at 100% on the unchanged Player URL. All 19 previous modules and all three bindings were preserved. Version 195 remains the rollback target. Cloudflare Browser Rendering verified the lobby (HTTP 200, five featured cards) and loaded Multi Hot 5, Hot Foxy 20 and Wild Multi Stars at 390px without financial actions. Preview URLs require Cloudflare Access; the production checks were performed after deployment. See `audit/deployment-v196.json`.
+Deployment `a6558138-ef7b-4906-b608-b9a56c6d91be` serves version `ed6d67f5-8024-4e57-b0b7-067df06e0d5b` at 100% on the unchanged Player URL. All 20 previous modules and three bindings are preserved. Version 196 (`d2cf72cc-1dab-46f3-aab4-e93823a1a03e`) is the rollback target. Browser Rendering verified the lobby and three cabinets at 360, 430, 768 and 1440px with no horizontal overflow, working options dialogs and signed-out wagers locked. A 390px screenshot was also reviewed. See `audit/deployment-v197.json`.
+
+v197 adds continuous multiplier movement, coordinated reel/wheel STOP, velocity-dependent reel trails, the reference square STOP icon and win-key feedback. The Multi Hot 5 stopping profile follows the observed short transition in 29237; no exact parity claim is made. Seven Node tests pass. An isolated browser animation test reached the same multiplier after STOP and cleaned up correctly. No real funds were used.
+
+The newly supplied `29316.mp4` (41.559 seconds) was sampled across all 42 one-second frames: lobby, sports, menu and game-launch sheets, with no complete slot spin. It includes an AAC audio track that has not been timing-matched. Seven repeated MP4s were byte-identical to the previously audited files. `30824.mp4` was unavailable.
 
 The repository main branch does not contain the deployed Cloudflare frontend. This directory contains the affected frontend source retrieved from `superwin-player` version 195 (`00fe4a95-5744-4495-8563-c0b2213fd6a2`). It must never replace the whole Worker or the existing database.
 
@@ -15,7 +19,7 @@ Changes:
 - Write ZPLAY directly into the touched HTML and components; deepen the collection's green theme.
 
 Validation performed:
-- `node --test tests/*.test.mjs`: 5 passing tests. Includes 500 response-shape fixtures and 500 renderer rounds (100 per existing model), exact final grids, one stop event per reel, invalid result rejection and continuous stop trajectories.
+- `node --test tests/*.test.mjs`: 7 passing tests. Includes 500 response-shape fixtures and 500 renderer rounds (100 per existing model), exact final grids, one stop event per reel, invalid result rejection and continuous stop trajectories.
 - These are frontend tests with fake responses/canvas. They are **not financial settlement, RNG, RTP, real browser, or database idempotency tests**.
 - All 10 supplied MP4 files were located. FFprobe metadata and 754 one-second frames were extracted. Another 1,036 quarter-second frames were extracted in five gameplay intervals. Contact sheets across each full video and five detailed intervals were reviewed. This does not certify exhaustive spin-event labeling or visual parity.
 - All ten files are 1080×2340 portrait recordings and contain **no audio stream**. Original sound timing cannot be measured from them. Frame rates vary; preserve the rational values in the metadata rather than assuming 60 FPS.

@@ -1,16 +1,18 @@
+import {WheelAnimator} from './wheel-motion.mjs';
 import {validateRound,SpinLifecycle} from './round-contract.mjs';
 import {validatePresentation,linePoints} from './presentation-contract.mjs';
-import {applyDesign} from './cabinet-v2300.js?v=2900';
+import {applyDesign} from './cabinet-v2300.js?v=197';
 import {playerLoggedIn,game as loadGame,wallet,spin,rounds,gamble,pick,playerLogin,isDefiniteRejection} from './api.js';
 import {installRules,updateRulesBet,symbolArt} from './rules-v2900.js';
 import {roundSummary} from './payout-view-v2900.mjs';
-import {ReelRenderer,loadAtlas} from './reels-v2300.js?zplay=rebuild-v196';
+import {ReelRenderer,loadAtlas} from './reels-v2300.js?zplay=rebuild-v197';
 import {ParticleLayer} from './webgl/particles.js';
 import {AudioEngine} from './audio-v2802.js?v=3200';
 const $=id=>document.getElementById(id);
 const gameId=new URLSearchParams(location.search).get('game');
 const supported=new Set(['hot_foxy_20','multi_hot_5_video','multi_hot_40','burning_ice','wild_multi_stars']);
 const audio=new AudioEngine();
+const wheelAnimation=new WheelAnimator($('wheel'),()=>audio.playWheelClick());
 let model=null,reels=null,fx=null,last=performance.now(),enabled=false,betIndex=4,spinning=false,auto=0,lastOutcome=null,lastGamble=null;
 let stopRequested=false;
 let actionBusy=false,gambleFinished=false,freeRemaining=0,winAcknowledged=false;
@@ -30,17 +32,6 @@ function drawBackground(cols,rows){const target=$('reels-background');target.sty
     const item=document.createElement('div');item.className='reel-cell';row.append(item);}target.append(row);}}
 function updateWheel(values,position){const bar=$('wheel-values');bar.replaceChildren();for(const n of values){const item=document.createElement('div');item.className='wheel-cell';item.dataset.multiplier=String(n);item.textContent=`${n}×`;bar.append(item);}
   $('wheel').classList.toggle('side',position==='side');}
-function wheelSet(value){const cells=[...$('wheel-values').children],hits=cells.filter(c=>Number(c.dataset.multiplier)===Number(value)),chosen=hits.length?hits[Math.floor((hits.length-1)/2)]:null;cells.forEach(c=>c.classList.toggle('active',c===chosen));}
-async function wheelRoll(final){const cells=[...$('wheel-values').children];if(!cells.length)return;
-  const began=performance.now();let previous=-1;const duration=window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:document.body.dataset.turbo==='true'?420:1280;
-  if(duration===0){wheelSet(final);return;}
-  return new Promise(resolve=>{function frame(now){const t=Math.min(1,(now-began)/duration);
-    // Cubic deceleration only selects the VISUAL highlight, not the RNG value.
-    const p=1-Math.pow(1-t,3),selected=Math.floor(p*(cells.length*5))%cells.length;
-    if(t<1){if(selected!==previous){cells.forEach((c,i)=>c.classList.toggle('active',i===selected));audio.playWheelClick();previous=selected;}
-      requestAnimationFrame(frame);
-    }else{wheelSet(final);resolve();}}
-  requestAnimationFrame(frame);});}
 function drawLines(lines){const canvas=$('line-canvas'),rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
   canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);
   const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,rect.width,rect.height);
@@ -119,14 +110,14 @@ async function playSpin(){
   if(pending&&pending.bet!==bet){spinning=false;auto=0;syncControls();message('A round is awaiting confirmation at '+pending.bet+' ETB. Reload to restore that bet and retry the same round.',true);return false;}
   if(!pending){pending={bet,token:crypto.randomUUID()};try{sessionStorage.setItem(pendingKey,JSON.stringify(pending));}catch{spinning=false;auto=0;syncControls();message('The browser could not save this round. Enable storage for this site and retry.',true);return false;}}
   lifecycle.move('REQUESTING');
-  $('round-receipt').hidden=true;document.body.dataset.roundWon='false';$('result-banner').className='result-banner';reels.begin();drawLines([]);audio.playReelSpin();audio.playWheelWhoosh();
+  $('round-receipt').hidden=true;document.body.dataset.roundWon='false';$('result-banner').className='result-banner';reels.begin();wheelAnimation.begin();drawLines([]);audio.playReelSpin();audio.playWheelWhoosh();
   message('Confirming round…');
   try{
     const result=validateRound(await spin(model.id,bet,pending.token),model,bet);
     if(disposed)throw Error('PAGE_CLOSED_PENDING_RECONCILIATION');
     lifecycle.move('SPINNING');lifecycle.move('STOPPING');
     // Exactly the same request token is reused after network failure.
-    await Promise.all([reels.finish(result),wheelRoll(result.wheelMultiplier)]);
+    await Promise.all([reels.finish(result),wheelAnimation.finish(result.wheelMultiplier,document.body.dataset.turbo==='true'?300:reels.profile.stop+(model.reels-1)*reels.profile.stagger)]);
     if(disposed)throw Error('PAGE_CLOSED_PENDING_RECONCILIATION');
     lifecycle.move('REVEALING');audio.stopReelSpin();
     lifecycle.move('WIN_PRESENTATION');
@@ -135,11 +126,11 @@ async function playSpin(){
     if(result.pendingBonusPick){auto=0;$('bonus-panel').classList.remove('hidden');}
     lifecycle.move('SETTLED');sessionStorage.removeItem(pendingKey);lifecycle.move('IDLE');
     return true;
-  }catch(e){if(lifecycle.state==='SETTLED')lifecycle.move('IDLE');else if(isDefiniteRejection(e)&&lifecycle.state==='REQUESTING'){lifecycle.move('ERROR');lifecycle.move('IDLE');}else lifecycle.move('RETRYABLE_PENDING');reels.cancel();auto=0;if(isDefiniteRejection(e)){try{sessionStorage.removeItem(pendingKey);}catch{}message(`Spin rejected: ${e.message}. No new round was settled.`,true);if(e.code==='FREE_SPIN_BET_LOCKED')await restoreFreeSpins({allowWhileSpinning:true});}else message(`Spin not confirmed: ${e.message}. Retry confirms this same round with the same token.`,true);return false;
+  }catch(e){if(lifecycle.state==='SETTLED')lifecycle.move('IDLE');else if(isDefiniteRejection(e)&&lifecycle.state==='REQUESTING'){lifecycle.move('ERROR');lifecycle.move('IDLE');}else lifecycle.move('RETRYABLE_PENDING');reels.cancel();wheelAnimation.cancel();auto=0;if(isDefiniteRejection(e)){try{sessionStorage.removeItem(pendingKey);}catch{}message(`Spin rejected: ${e.message}. No new round was settled.`,true);if(e.code==='FREE_SPIN_BET_LOCKED')await restoreFreeSpins({allowWhileSpinning:true});}else message(`Spin not confirmed: ${e.message}. Retry confirms this same round with the same token.`,true);return false;
   }finally{audio.stopReelSpin();spinning=false;syncControls();}
 }
 async function spinClick(){if(spinning){
-  if(!stopRequested){stopRequested=true;auto=0;autoSequence++;reels.requestStop();syncControls();}
+  if(!stopRequested){stopRequested=true;auto=0;autoSequence++;reels.requestStop();wheelAnimation.requestStop();syncControls();}
   return;
 }if(spinStarting||actionBusy||auto>0||pendingAction()||!enabled||lastOutcome?.pendingBonusPick)return;
   // Reserve the user's click before audio resumes so delayed clicks cannot queue wagers.
@@ -310,7 +301,7 @@ boot().catch(e=>message(e.message,true));
 window.addEventListener('resize',resize);
 window.addEventListener('focus',()=>void updateBalance({quiet:true}));
 document.addEventListener('visibilitychange',()=>{if(document.hidden){auto=0;autoSequence++;spinSequence++;spinStarting=false;syncControls();}else void updateBalance({quiet:true});});
-window.addEventListener('pagehide',event=>{disposed=true;auto=0;autoSequence++;spinSequence++;spinStarting=false;cancelAnimationFrame(animationFrame);animationFrame=0;sizeObserver?.disconnect();if(!event.persisted)reels?.dispose();});
+window.addEventListener('pagehide',event=>{disposed=true;auto=0;autoSequence++;spinSequence++;spinStarting=false;cancelAnimationFrame(animationFrame);animationFrame=0;sizeObserver?.disconnect();wheelAnimation.cancel();if(!event.persisted)reels?.dispose();});
 window.addEventListener('pageshow',event=>{if(event.persisted){disposed=false;sizeObserver?.observe($('reels-wrapper'));animationFrame=requestAnimationFrame(fps);syncControls();if(!enabled)void boot();else void updateBalance({quiet:true});}});
 
 if(new URLSearchParams(location.search).get("qa")==="1"){import("./qa-check.js").then(async({runQA})=>{const report=await runQA();parent.postMessage({type:"superwin-qa",report},location.origin);});}
