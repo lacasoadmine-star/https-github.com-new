@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en" data-sw-ready="false">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#003c2b">
+  <title>ZPLAY · Originals</title>
+  <link rel="preload" href="/slots/art/symbol-atlas-v2302.png" as="image">
+  <link rel="stylesheet" href="/slots/css/cabinet-v2300.css">
+<link rel="stylesheet" href="/slots/css/slot-polish-v2400.css">
+<link rel="stylesheet" href="/slots/css/cabinet-v2700.css">
+<style id="sw-ready-2800">
+html[data-sw-ready="false"] .outer,html[data-sw-ready="false"] #particles{visibility:hidden;pointer-events:none}
+#sw-loading{position:fixed;inset:0;z-index:10000;display:grid;place-content:center;gap:18px;text-align:center;background:radial-gradient(ellipse at center,#075337,#031910 75%);color:#edcc75;font:600 17px system-ui;padding:24px}
+#sw-loading[hidden]{display:none}#sw-loading strong{font-size:32px;letter-spacing:4px}#sw-loading progress{width:min(280px,75vw);height:7px;accent-color:#edcc75;margin:auto}#sw-loading button{padding:12px 22px;border:1px solid #edcc75;border-radius:8px;background:#06452f;color:#fff4b9;font:inherit}#sw-loading-error{max-width:330px;color:#fff}
+body .outer{max-width:600px;width:100%;margin-inline:auto}body #reels-wrapper{min-width:0}body[data-game="multi_hot_5_video"] #game-frame.safari-side{display:grid;grid-template-columns:minmax(0,17fr) minmax(0,83fr);gap:4px}body[data-game="multi_hot_5_video"] #wheel{min-width:0}body[data-game="multi_hot_5_video"] #reels-wrapper{aspect-ratio:1.42}body[data-game="hot_foxy_20"] #reels-wrapper{aspect-ratio:1.68}body #reel-canvas{width:100%;height:100%}
+/* One final geometry rule, measured against reference 30555. */
+body[data-game="multi_hot_5_video"] #game-frame.safari-side{grid-template-columns:minmax(0,18fr) minmax(0,82fr);gap:3px;padding:0}
+body[data-game="multi_hot_5_video"] #reels-wrapper{aspect-ratio:1.38!important}
+body[data-game="multi_hot_5_video"] .cabinet{position:relative}
+body[data-game="multi_hot_5_video"] #options-open{position:absolute;right:1.5cqw;top:1.5cqw;width:11cqw;height:11cqw;border:1px solid #acc5a566;border-radius:50%;background:#002820dd;z-index:5}
+body[data-game="multi_hot_5_video"] .game-identity{padding-inline:11cqw;height:19cqw}
+body[data-game="multi_hot_5_video"] .game-identity h1{font-size:7.3cqw;white-space:nowrap}
+body[data-game="multi_hot_5_video"] .controls{justify-items:center;position:relative}
+body[data-game="multi_hot_5_video"] .spin{justify-self:center}
+body[data-game="multi_hot_5_video"] #wheel .wheel-cell{font-size:10cqw;border:0;opacity:.65;text-shadow:0 2px 1px #3d260c}
+body[data-game="multi_hot_5_video"] #wheel .wheel-cell.active{opacity:1;border:3px solid #e3c166;border-radius:7px;outline:3px solid #aa1f58;outline-offset:0;box-shadow:inset 0 0 0 2px #76b867,inset 0 0 14px #76e65088}
+.reel-caption{display:flex;justify-content:space-between;align-items:center;color:#ebcf72;font-size:2.4cqw;font-weight:800;padding:0 1cqw .8cqw;letter-spacing:.04em}
+.audio-settings{display:grid;grid-template-columns:1fr auto;gap:12px;padding:18px 0;border-top:1px solid #405d50}.audio-settings input{grid-column:1/-1;width:100%;accent-color:#e6c36a;min-height:32px}.audio-settings button{grid-column:1/-1;min-height:44px}
+.meter-icon svg{width:5cqw;height:5cqw;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+body[data-game="multi_hot_5_video"] #wheel.side{container-type:normal;max-height:none;align-self:stretch}
+body[data-game="multi_hot_5_video"] #wheel .wheel-cell{font-size:clamp(24px,9cqw,52px);line-height:1}
+body[data-game="multi_hot_5_video"] #options-open{display:grid;place-items:center;padding:0}
+body[data-game="multi_hot_5_video"] #options-open svg{width:60%;height:60%;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round}
+
+/* Foxy: reference proportions, top wheel, five main controls and bottom wallet. */
+body[data-game=hot_foxy_20] .game-identity{height:17cqw;justify-content:flex-start;padding:1cqw 8cqw}
+body[data-game=hot_foxy_20] .game-identity h1{font-size:8.8cqw;transform:rotate(-5deg);text-align:left}
+body[data-game=hot_foxy_20] #wheel{width:94%;height:25cqw;max-height:none;margin-bottom:-1cqw}
+body[data-game=hot_foxy_20] .wheel-arch{border-color:#c2e465;background:repeating-conic-gradient(from 266deg at 50% 114%,#146951 0deg 25deg,#99c951 26deg 27deg,#064333 28deg 53deg);box-shadow:inset 0 0 0 3px #55934c,0 0 9px #95d14e88}
+body[data-game=hot_foxy_20] .wheel-cell{font-size:12cqw;color:#d2e1b1}
+body[data-game=hot_foxy_20] .wheel-cell[data-center=true]{color:#ffca4d;background:linear-gradient(#338575,#075544 80%);border-color:#f3dc83;text-shadow:0 2px #8c3424,0 -1px #fff5c7}
+body[data-game=hot_foxy_20] .game-frame{border:3px solid #b2d658;border-radius:9px;background:#28764e;box-shadow:0 0 0 2px #256e50,inset 0 0 4px #ebf9a5}
+body[data-game=hot_foxy_20] #reels-wrapper{aspect-ratio:1.6!important;background:radial-gradient(ellipse,#247c53,#064c3d)}
+body[data-game=hot_foxy_20] .reel-cell{border-color:#84b04b;background:radial-gradient(ellipse,#4c9f5c22,transparent 70%)}
+body[data-game=hot_foxy_20] .reel-caption{display:none}
+body[data-game=hot_foxy_20] .controls{display:grid;grid-template-columns:12fr 16fr 32fr 16fr 12fr;gap:1.5cqw;min-height:36cqw;width:100%;padding:0 1cqw;margin-top:auto}
+body[data-game=hot_foxy_20] .controls>.ice-gamble{grid-column:1;grid-row:1;order:0}
+body[data-game=hot_foxy_20] .auto{grid-column:2;grid-row:1}
+body[data-game=hot_foxy_20] .spin{grid-column:3;grid-row:1;width:29cqw;height:29cqw}
+body[data-game=hot_foxy_20] .bet-open{grid-column:4;grid-row:1}
+body[data-game=hot_foxy_20] .controls>.ice-acknowledge{grid-column:5;grid-row:1;order:0}
+body[data-game=hot_foxy_20] .controls .turbo{left:65%;top:0;z-index:3}
+body[data-game=hot_foxy_20] .spin,body[data-game=hot_foxy_20] .auto,body[data-game=hot_foxy_20] .bet-open{border-color:#b4df63;box-shadow:0 0 0 2px #347449,inset 0 0 10px #4b9c5a}
+body[data-game=hot_foxy_20] .bottom-meters{margin-top:5cqw;padding-bottom:3cqw}
+body[data-game=hot_foxy_20] .result-banner.won{border-radius:5px 5px 20px 20px;border:2px solid #b4d875;background:linear-gradient(#216950,#073d33);padding:2cqw}
+body[data-game=hot_foxy_20] .result-banner.won strong{color:#73ffe0;font-size:5cqw}
+.round-receipt{color:#d2eab1;font-size:11px;line-height:1.5;padding:4px 8px;max-width:100%;overflow-wrap:anywhere}
+.round-receipt p{margin:3px 0;text-align:center}.receipt-id{font:10px/1.4 monospace;color:#adc6b7}.receipt-line{display:flex;align-items:center;gap:10px}.receipt-line .pay-symbol{width:40px;height:40px;flex-shrink:0}
+.pay-heading,.pay-stake{text-align:center}.pay-heading{color:#ead465}.pay-stake{border:1px solid #858cb2;border-radius:40px;background:linear-gradient(#343a65,#15182b,#4e5a83);max-width:220px;margin:16px auto;padding:10px;font-size:22px;color:white}
+.paytable-symbols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 10px;margin:24px 0}.pay-card{min-width:0;text-align:center}.pay-symbol{display:block;width:100%;aspect-ratio:1;background-image:url('/slots/art/symbol-atlas-v2302.png');background-size:400% 400%;background-repeat:no-repeat}.pay-card h4{font-size:11px;color:#bdcbc5;margin:3px 0 8px}.pay-card dl{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0;font-size:12px}.pay-card dt{color:#d7c898;text-align:right;padding-right:5px;font-size:10px}.pay-card dd{color:#45d9ad;border-left:1px solid #bcae7c;margin:0;padding-left:5px;text-align:left;font-variant-numeric:tabular-nums}.controls-guide dt{color:#e6d38c;font-weight:700}.controls-guide dd{margin:0 0 12px}.sw-game-rules>details{margin-top:24px}.sw-game-rules>details>summary{padding:12px 0}.sw-game-rules .server-payline-chart{margin-top:24px}.sw-game-rules .server-payline-chart h3{font-size:15px}
+@media(max-width:360px){.pay-card dl{font-size:10px}.pay-card dt{font-size:9px}}
+</style>
+
+<style id="reference-finish-3100">
+/* Keep the three reference cabinets scoped; other games retain their design. */
+body:is([data-game=hot_foxy_20],[data-game=multi_hot_5_video],[data-game=multi_hot_40]) .cabinet{background-color:#00372b;background-image:radial-gradient(ellipse at 15% 85%,#04785c66,transparent 48%),radial-gradient(ellipse at 80% 20%,#0a634433,transparent 42%),repeating-linear-gradient(125deg,transparent 0 68px,#13936b0a 70px 74px,transparent 77px 140px)}
+body:is([data-game=hot_foxy_20],[data-game=multi_hot_5_video],[data-game=multi_hot_40]) .controls button:disabled{opacity:.62;cursor:not-allowed}
+body[data-game=hot_foxy_20] .game-identity{height:18cqw;overflow:visible;align-items:center}
+body[data-game=hot_foxy_20] .title-fox{display:inline-block;position:relative;font-family:Georgia,serif;font-style:italic;font-size:12cqw;line-height:.92;letter-spacing:-.06em;color:#f1efa0;text-shadow:0 2px #427b38,2px 3px #064b37,-1px -1px #fff3a0}
+body[data-game=hot_foxy_20] .title-fox>small{display:block;font-size:5cqw;line-height:.85;margin-left:10cqw;letter-spacing:0;color:#bddd69}
+body[data-game=hot_foxy_20] .title-fox .title-number{font-size:7cqw;color:#ed4274;letter-spacing:-.08em}
+body[data-game=hot_foxy_20] #wheel{height:24cqw;margin-top:0;width:96%}
+body[data-game=hot_foxy_20] .wheel-cell[data-center=true]{border-width:3px;box-shadow:inset 0 0 9px #c4e58c,0 0 9px #b7e876}
+body[data-game=hot_foxy_20] #reels-wrapper{background:radial-gradient(circle,#77a55836 1px,transparent 1.5px) 0 0/5px 5px,linear-gradient(90deg,#125e46,#26805c,#125e46)}
+body[data-game=hot_foxy_20] .controls{min-height:35cqw;align-items:center}
+body[data-game=hot_foxy_20] .spin{width:31cqw;height:31cqw;border:3px solid #9bc85d;background:radial-gradient(circle,#00624d,#003c30 65%,#16744b 68%,#063b2b 74%);box-shadow:0 0 0 2px #1e7047,inset 0 0 0 2px #438d50}
+body[data-game=hot_foxy_20] .spin svg{width:95%;height:95%;stroke-width:9}
+body[data-game=hot_foxy_20] .spin b{font-size:3cqw;line-height:1.4;max-width:13cqw;white-space:normal}
+body[data-game=hot_foxy_20] .auto,body[data-game=hot_foxy_20] .bet-open{width:15cqw;height:15cqw}
+body[data-game=hot_foxy_20] .controls>.ice-action{width:11.5cqw;height:11.5cqw;min-width:0;min-height:0}
+body[data-game=hot_foxy_20] .controls>.ice-action small,body[data-game=hot_foxy_20] .auto small,body[data-game=hot_foxy_20] .bet-open small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+body[data-game=hot_foxy_20] .bottom-meters{border-top:0;gap:1cqw;padding-bottom:3cqw}
+body[data-game=hot_foxy_20] .bottom-meters .game-wallet,body[data-game=hot_foxy_20] .bottom-meters .bet-meter{border:2px solid #399a6d;background:linear-gradient(#075942,#00362d);box-shadow:inset 0 0 6px #61ca8b66;border-radius:9px;min-height:10cqw}
+body[data-game=multi_hot_5_video] .game-identity h1,body[data-game=multi_hot_40] .game-identity h1{font-family:Georgia,serif;font-weight:900;letter-spacing:.015em;text-shadow:0 2px #7c420e,0 3px 4px #000}
+body[data-game=multi_hot_5_video] .controls{grid-template-rows:31cqw 39cqw;min-height:70cqw;margin-top:3cqw}
+body[data-game=multi_hot_5_video] .spin{height:38cqw;clip-path:polygon(20% 0,80% 0,100% 15%,88% 80%,75% 100%,25% 100%,12% 80%,0 15%)}
+body[data-game=multi_hot_5_video] .spin:before{inset:5px;background:linear-gradient(#d0e5af,#148259 10%,#005239 36%,#003e2f)}
+body[data-game=multi_hot_5_video] #wheel.side{border:2px solid #d5bd64;border-radius:4px}
+body[data-game=multi_hot_5_video] .ice-meters{background:radial-gradient(circle,#5ba27a33 1px,transparent 1.5px) 0 0/5px 5px,linear-gradient(#075640,#002e26)}
+body[data-game=multi_hot_40] .game-identity{height:20cqw;justify-content:center}
+body[data-game=multi_hot_40] .game-identity h1{font-size:8cqw}
+@media(orientation:landscape) and (max-height:600px){body[data-game=hot_foxy_20] .title-fox{font-size:8cqw}body[data-game=hot_foxy_20] .title-fox>small{font-size:3cqw}body[data-game=multi_hot_5_video] .controls{min-height:320px;grid-template-rows:140px 180px}}
+
+body[data-game=hot_foxy_20] .game-identity h1{width:100%;text-align:left;text-transform:none}
+body[data-game=hot_foxy_20] .title-fox{font-family:Georgia,serif!important;font-style:italic!important;text-transform:none!important;background:none!important;-webkit-text-fill-color:#e8eca4}
+body[data-game=hot_foxy_20] .title-fox .title-number{-webkit-text-fill-color:#ed4274}
+body:is([data-game=hot_foxy_20],[data-game=multi_hot_5_video],[data-game=multi_hot_40]) .cabinet{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22240%22%20height%3D%22280%22%20viewBox%3D%220%200%20240%20280%22%3E%3Cg%20fill%3D%22%2316835c%22%20opacity%3D%22.18%22%3E%3Cpath%20d%3D%22M30%20100C-12%2058%208%209%2058%206C92%2047%2069%2085%2030%20100ZM32%20102C68%2049%20116%2065%20125%20104C90%20139%2054%20131%2032%20102ZM160%20245C116%20213%20124%20167%20170%20151C205%20189%20195%20223%20160%20245ZM160%20245C197%20201%20239%20215%20247%20253C214%20284%20181%20275%20160%20245Z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M16%20145Q30%2080%2058%206M146%20280Q155%20219%20170%20151%22%20stroke%3D%22%2324936a%22%20opacity%3D%22.14%22%20fill%3D%22none%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E"),radial-gradient(ellipse at 20% 70%,#046c4e,#002b24 85%);background-size:70cqw auto,cover}
+body[data-game=multi_hot_40] .controls{display:grid;grid-template-columns:12fr 16fr 32fr 16fr 12fr;align-items:center;justify-items:center;gap:1cqw;width:100%;min-height:35cqw;padding:0 1cqw}
+body[data-game=multi_hot_40] .controls>.ice-gamble{grid-column:1;grid-row:1;order:0}
+body[data-game=multi_hot_40] .controls>.auto{grid-column:2;grid-row:1}
+body[data-game=multi_hot_40] .controls>.spin{grid-column:3;grid-row:1;width:29cqw;height:29cqw}
+body[data-game=multi_hot_40] .controls>.bet-open{grid-column:4;grid-row:1}
+body[data-game=multi_hot_40] .controls>.ice-acknowledge{grid-column:5;grid-row:1;order:0}
+body[data-game=multi_hot_40] .controls>.ice-action{min-width:0;min-height:0;width:11cqw;height:11cqw}
+body[data-game=multi_hot_40] .controls>.turbo{left:65%;top:0}
+
+/* Reference idle Foxy has three controls; X2/Collect appear for a settled win. */
+body[data-game=hot_foxy_20]:not([data-round-won=true]) .controls>.ice-action{visibility:hidden;pointer-events:none}
+body[data-game=hot_foxy_20] .wheel-cell[data-center=true]{clip-path:polygon(8% 0,92% 0,100% 15%,79% 100%,21% 100%,0 15%);border-radius:10px 10px 4px 4px}
+body[data-game=hot_foxy_20] .wheel-cell[data-center=true]{background:linear-gradient(110deg,#fff2b0 0%,#36886e 7%,#086450 50%,#31896a 92%,#fff2b0 100%);text-shadow:0 2px #b24527,1px 3px #772b1b,0 -1px #fff7cd}
+body[data-game=hot_foxy_20] .result-banner.won{width:88%;margin:0 auto;clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);padding:2.5cqw 3cqw;background:radial-gradient(circle,#6ac78a33 1px,transparent 1.5px) 0 0/5px 5px,linear-gradient(#0d6551,#053b30);border-color:#8fe3a1}
+body[data-game=hot_foxy_20] .result-banner.won small{color:#e4c576;font-size:3cqw;letter-spacing:.06em}
+body[data-game=hot_foxy_20] .spin:not(:disabled){filter:drop-shadow(0 0 5px #69b95b66)}
+body:is([data-game=multi_hot_5_video],[data-game=multi_hot_40]) .title-number{color:#f04d8b;-webkit-text-fill-color:#f04d8b;text-shadow:0 2px #7d163e,0 -1px #ffbed7,2px 3px 3px #001c16}
+#sound{font-size:0!important}#sound:before{content:'';display:block;width:26px;height:26px;background:currentColor;clip-path:polygon(0 35%,25% 35%,58% 8%,58% 92%,25% 65%,0 65%,0 35%,70% 20%,78% 14%,100% 42%,100% 58%,78% 86%,70% 80%,88% 56%,88% 44%,70% 20%)}
+#sound[aria-pressed=true]{color:#e7bb3f}#sound[aria-pressed=true]:after{content:'×';position:absolute;font-size:22px;right:0;top:0}#sound{position:relative}
+@media(prefers-reduced-motion:no-preference){body[data-round-won=true] .result-banner.won{animation:win-award-3200 .45s ease-out 1}@keyframes win-award-3200{from{opacity:.3;transform:translateY(5px) scale(.96)}to{opacity:1;transform:none}}}
+
+body[data-game=burning_ice] .cabinet{background:radial-gradient(ellipse at 0 65%,#72251999,transparent 60%),radial-gradient(ellipse at 100% 45%,#0a658999,transparent 60%),#081c2a}
+body[data-game=burning_ice] .game-frame{border:3px solid #a9e7f2;border-left-color:#f6aa66;box-shadow:-4px 0 18px #e16e3333,4px 0 18px #57d5ff44;border-radius:8px}
+body[data-game=burning_ice] #reels-wrapper{aspect-ratio:1.67!important}
+body[data-game=burning_ice] .game-identity h1{background:linear-gradient(90deg,#ffb36e 35%,#ddf8ff 55%,#80d4ff);background-clip:text;-webkit-text-fill-color:transparent}
+body[data-game=wild_multi_stars] .cabinet{background:radial-gradient(circle at 15% 25%,#e9d3ff55 1px,transparent 2px) 0 0/43px 59px,radial-gradient(ellipse at 50% 20%,#663375,#1b0c35 80%)}
+body[data-game=wild_multi_stars] .game-identity h1{font-family:Georgia,serif;letter-spacing:.04em}
+body[data-game=wild_multi_stars] .controls{display:grid;grid-template-columns:12fr 16fr 32fr 16fr 12fr;gap:1cqw;width:100%;align-items:center;justify-items:center;min-height:35cqw}
+body[data-game=wild_multi_stars] .controls>.ice-gamble{grid-column:1;grid-row:1;order:0}body[data-game=wild_multi_stars] .controls>.auto{grid-column:2;grid-row:1}body[data-game=wild_multi_stars] .controls>.spin{grid-column:3;grid-row:1;width:29cqw;height:29cqw}body[data-game=wild_multi_stars] .controls>.bet-open{grid-column:4;grid-row:1}body[data-game=wild_multi_stars] .controls>.ice-acknowledge{grid-column:5;grid-row:1;order:0}body[data-game=wild_multi_stars] .controls>.ice-action{min-width:0;min-height:0;width:11cqw;height:11cqw}body[data-game=wild_multi_stars] .controls>.turbo{left:65%;top:0}
+
+/* 29954 and 29950: measured reference cabinet geometry. */
+body[data-game=burning_ice] .cabinet{position:relative;background-color:#003c2b;background-image:radial-gradient(ellipse at 50% 75%,#08764e77,transparent 65%),radial-gradient(ellipse at 10% 10%,#036b4833,transparent 70%)}
+body[data-game=burning_ice] .game-identity{height:25cqw;padding-top:8cqw;justify-content:center}
+body[data-game=burning_ice] .game-identity h1{font-family:Georgia,serif;font-size:6.7cqw;letter-spacing:.07em;background:none;-webkit-text-fill-color:#f8d379;color:#f8d379;text-shadow:0 2px #8c571e,0 -1px #fff2ae,2px 4px 3px #001e14}
+body[data-game=burning_ice] #options-open{position:absolute;right:2cqw;top:2cqw;width:11cqw;height:11cqw;padding:2cqw;border:1px solid #9bbc9a77;border-radius:50%;background:#002d25;z-index:5}
+body[data-game=burning_ice] #options-open svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.5}
+body[data-game=burning_ice] #wheel{height:6cqw!important;width:48%!important;min-height:24px;margin:1cqw auto 3cqw!important;border:2px solid #d1b875;border-radius:30px;background:#073d2d;box-shadow:inset 0 0 5px #e2d88b55}
+body[data-game=burning_ice] #wheel .wheel-arch,body[data-game=burning_ice] #wheel .wheel-pointer{display:none!important}
+body[data-game=burning_ice] #wheel-values{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-around;transform:none}
+body[data-game=burning_ice] #wheel .wheel-cell{position:static!important;display:flex!important;visibility:visible!important;align-items:center;justify-content:center;width:18%!important;height:100%!important;clip-path:none!important;transform:none!important;border:0!important;background:none!important;font-size:3cqw!important;color:#b5bb7a;opacity:.5}
+body[data-game=burning_ice] #wheel .wheel-cell.active{color:#fff4ab;opacity:1;text-shadow:0 0 8px #c9ea55}
+body[data-game=burning_ice] .game-frame{border:2px solid #d8c273;border-radius:3px;box-shadow:inset 0 0 3px #ede5aa;background:#063e2c}
+body[data-game=burning_ice] #reels-wrapper{aspect-ratio:1.67!important;background:linear-gradient(90deg,#00372c,#07563e,#00372c)}
+body[data-game=burning_ice] .reel-cell{border-color:#25876a;background:transparent}
+body[data-game=burning_ice] .reel-caption{font-size:2cqw;padding:0 1cqw 1cqw}
+body[data-game=burning_ice] .reel-caption>span:first-child{visibility:hidden}
+body[data-game=burning_ice] .ice-meters{border:2px solid #c6b464;border-radius:4px 4px 15px 15px;margin-top:1.8cqw;background:linear-gradient(#074b35,#002f25)}
+body[data-game=burning_ice] .controls{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:33cqw 39cqw;min-height:72cqw;width:100%;gap:0;padding:0 7%;margin-top:4cqw;position:relative;justify-items:center}
+body[data-game=burning_ice] .auto,body[data-game=burning_ice] .controls>.ice-action{grid-row:1;width:22cqw;height:25cqw;border:0;border-radius:0;position:relative;isolation:isolate;background:linear-gradient(130deg,#e6d086,#786a32,#d2b575);clip-path:polygon(50% 0,98% 24%,98% 76%,50% 100%,2% 76%,2% 24%);color:#ecd394}
+body[data-game=burning_ice] .auto:before,body[data-game=burning_ice] .ice-action:before{content:'';position:absolute;inset:3px;clip-path:inherit;background:linear-gradient(#07543a,#003e2c);z-index:-1}
+body[data-game=burning_ice] .auto{grid-column:1}body[data-game=burning_ice] .ice-gamble{grid-column:2;order:0}body[data-game=burning_ice] .ice-acknowledge{grid-column:3;order:0}
+body[data-game=burning_ice] .spin{grid-column:2;grid-row:2;align-self:start;width:39cqw;height:38cqw;z-index:2;border:0;border-radius:0;isolation:isolate;clip-path:polygon(20% 0,80% 0,100% 15%,88% 80%,75% 100%,25% 100%,12% 80%,0 15%);background:linear-gradient(120deg,#ffe8a1,#aa1756 12%,#e33178 25%,#7a123c 65%,#ffe79b);color:#fff675}
+body[data-game=burning_ice] .spin:before{content:'';position:absolute;inset:5px;clip-path:inherit;background:linear-gradient(#d3e8b0,#147d50 10%,#00462e 50%);z-index:-1}
+body[data-game=burning_ice] .spin svg{display:none}body[data-game=burning_ice] .spin strong{display:block;font-size:7cqw}body[data-game=burning_ice] .spin .stake-unit{display:block;font-size:3.7cqw}body[data-game=burning_ice] .spin b{font-size:2.2cqw;margin-top:1cqw}
+body[data-game=burning_ice] .shield-chevron{display:block;width:16cqw;height:6cqw;clip-path:polygon(0 0,50% 50%,100% 0,100% 48%,50% 100%,0 48%);background:linear-gradient(#ffe574,#ffb000);margin-top:2cqw}
+body[data-game=burning_ice] .bet-open,body[data-game=burning_ice] .turbo{display:none}
+body[data-game=burning_ice] .ice-bet-rail{display:flex;position:absolute;left:11%;right:11%;bottom:5cqw;height:21cqw;padding:0 3%;align-items:center;justify-content:space-between;border:3px solid #bac05b;border-radius:50px;background:#034b36;box-shadow:inset 0 0 0 3px #518f56;z-index:0}
+body[data-game=burning_ice] .controls>.bet-step{position:absolute;bottom:7cqw;width:12cqw;min-width:36px;height:14cqw;border:2px solid #4dc08b;border-radius:10px;background:linear-gradient(#12a776,#006846);font-size:7cqw;color:#fff5a7;z-index:1}body[data-game=burning_ice] #bet-dec{left:1%}body[data-game=burning_ice] #bet-inc{right:1%}
+body[data-game=burning_ice] .status-zone{min-height:0;flex:0}
+body[data-game=wild_multi_stars] .cabinet{background:radial-gradient(circle at 12% 25%,#fff7ff99 1px,transparent 3px) 0 0/63px 89px,radial-gradient(ellipse at 0 70%,#a448c877,transparent 60%),linear-gradient(145deg,#351062,#770fba 60%,#41097c)}
+body[data-game=wild_multi_stars] .game-identity{height:17cqw;justify-content:center}
+body[data-game=wild_multi_stars] .title-stars-small{font-size:3.4cqw;display:block;line-height:1.1;color:#ffda5c}
+body[data-game=wild_multi_stars] .title-stars{font-family:Arial,sans-serif;font-size:9cqw;display:block;line-height:1;font-style:italic;background:none;-webkit-text-fill-color:#5c067b;-webkit-text-stroke:1px #e6a4f4;text-shadow:1px 2px #d85cff,0 0 10px #ce68dd}
+body[data-game=wild_multi_stars] #wheel{width:96%;height:25cqw;max-height:none;margin-bottom:-1cqw}
+body[data-game=wild_multi_stars] .wheel-arch{border-color:#f9cf58;background:repeating-conic-gradient(from 266deg at 50% 114%,#3f0765 0deg 25deg,#995da1 26deg 27deg,#290548 28deg 53deg);box-shadow:inset 0 0 0 3px #8f469e,0 0 8px #f4c45866}
+body[data-game=wild_multi_stars] .wheel-cell{font-size:11cqw;color:#cfb3dc}
+body[data-game=wild_multi_stars] .wheel-cell[data-center=true]{color:#fff9cb;background:linear-gradient(#68078d,#290144);border:3px solid #f4cc48;text-shadow:0 0 7px #ffdf44;clip-path:polygon(0 0,100% 0,83% 100%,17% 100%)}
+body[data-game=wild_multi_stars] .game-frame{border:3px solid #f1ce4f;border-radius:12px;box-shadow:inset 0 0 0 2px #e5a4ee,0 0 0 2px #a56c28}
+body[data-game=wild_multi_stars] #reels-wrapper{aspect-ratio:1.6!important;background:radial-gradient(circle,#bc87cc33 1px,transparent 1.5px) 0 0/5px 5px,#36075d}
+body[data-game=wild_multi_stars] .reel-cell{border-color:#c187a8;background:none}
+body[data-game=wild_multi_stars] .reel-caption{display:none}
+body[data-game=wild_multi_stars]:not([data-round-won=true]) .ice-action{visibility:hidden}
+body[data-game=wild_multi_stars] .spin{border:3px solid #b66ce3;background:radial-gradient(circle,#650895,#420363);box-shadow:0 0 0 2px #62277a,inset 0 0 8px #ca72f5}
+body[data-game=wild_multi_stars] .auto,body[data-game=wild_multi_stars] .bet-open{border:2px solid #d983f1;background:radial-gradient(circle,#6f159d,#380456)}
+body[data-game=burning_ice] .ice-indicators{display:none!important}
+body[data-game=burning_ice] .controls button:disabled{opacity:1;filter:saturate(.55) brightness(.72);cursor:not-allowed}
+body[data-game=burning_ice] .ice-gamble strong{font-size:8cqw;font-family:Georgia,serif}
+body[data-game=burning_ice] .controls .ice-action small,body[data-game=burning_ice] .controls .auto small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+body[data-game=hot_foxy_20] #reel-canvas{mix-blend-mode:screen}
+
+/* Shared legibility and touch behavior across all five reference cabinets. */
+body .status-zone .message.alert{margin:8px 4px;padding:9px 10px;background:#041b22eb;border:1px solid #8caa9b77;border-radius:7px;font-size:12px;line-height:1.5}
+body .controls button:disabled{opacity:1;filter:saturate(.5) brightness(.65);cursor:not-allowed}
+body .bottom-meters strong,body .ice-meters strong{font-variant-numeric:tabular-nums}
+body .bottom-meters .game-wallet,body .bottom-meters .bet-meter{min-width:0;overflow-wrap:anywhere}
+body .controls .auto,body .controls .bet-open,body .controls .ice-action{min-width:40px;min-height:40px}
+body[data-game=hot_foxy_20] #reels-wrapper{background:radial-gradient(circle,#528b5633 1px,transparent 1.5px) 0 0/5px 5px,#032c24}
+body[data-game=multi_hot_40] .cabinet{background:radial-gradient(ellipse at 50% 15%,#166e42,#002c24 78%)}
+body[data-game=multi_hot_40] .wheel-arch{border-color:#e9c56b;background:repeating-conic-gradient(from 266deg at 50% 114%,#12583d 0deg 25deg,#9e9d4e 26deg 27deg,#063b2b 28deg 53deg)}
+body[data-game=multi_hot_40] .wheel-cell[data-center=true]{background:linear-gradient(#32854a,#063e29);color:#fff8a4;border-color:#edcf75}
+body[data-game=multi_hot_40] #reels-wrapper{background:linear-gradient(90deg,#032c23,#0e5740,#032c23)}
+body[data-game=multi_hot_40] .spin{border-color:#e7cb70;background:radial-gradient(circle,#0b6b47,#003526);box-shadow:inset 0 0 9px #c6bb58,0 0 0 2px #537540}
+body[data-game=multi_hot_5_video] #reels-wrapper{background:linear-gradient(90deg,#002c25,#084a38,#002c25)}
+body[data-game=multi_hot_5_video] .game-frame{box-shadow:0 0 0 1px #c8b36a,inset 0 0 7px #b9bd6755}
+body[data-game=burning_ice] .reel-caption{color:#ffe593}
+body[data-game=wild_multi_stars] .result-banner.won{border-color:#f5d96f;background:linear-gradient(#752da3,#2f054c);color:#fff3ad}
+@media(max-width:360px){body[data-game=hot_foxy_20] .controls,body[data-game=multi_hot_40] .controls,body[data-game=wild_multi_stars] .controls{grid-template-columns:40px 46px minmax(76px,1fr) 46px 40px;gap:1cqw;padding-inline:1cqw}}
+</style>
+</head>
+<body data-presentation-release="3600">
+<section id="sw-loading" role="status" aria-live="polite"><strong>ZPLAY</strong><span>Loading game artwork…</span><progress aria-label="Loading game"></progress><p id="sw-loading-error" hidden></p><button id="sw-loading-retry" type="button">Retry loading</button><a href="/" style="color:inherit">Back to games</a></section>
+<div class="outer">
+  <header class="studio">
+    <a href="/" aria-label="Back to games" class="brand"><span class="brand-mark" aria-hidden="true">Z</span><strong>ZPLAY <span>GAMING</span></strong></a>
+    <time id="studio-clock"></time>
+  </header>
+  <main class="cabinet">
+    <header class="game-identity"><h1 id="game-title">ZPLAY</h1><p id="game-subtitle" class="sr-only">Connecting…</p></header>
+    <div class="cabinet-head sr-only"><span id="play-state">CONNECTING</span></div>
+    <section id="wheel" class="wheel" aria-label="Multiplier reel; no settled result">
+      <div class="wheel-arch" aria-hidden="true"></div>
+      <div class="wheel-values" id="wheel-values"></div>
+      <div id="wheel-indicator" class="wheel-pointer" aria-hidden="true"></div>
+      <span class="wheel-title sr-only">MULTIPLIER</span>
+    </section>
+    <div class="ice-indicators" aria-label="Round status"><i></i><i></i><i></i></div>
+    <div class="reel-caption"><span>MULTIPLIER</span><span id="visible-line-count">FIXED LINES</span></div>
+    <div class="game-frame" id="game-frame">
+      <div class="reels-wrapper" id="reels-wrapper">
+        <div id="reels-background" class="reels-background" aria-hidden="true"></div>
+        <canvas id="reel-canvas" role="img" aria-label="Slot reels"></canvas>
+        <canvas id="line-canvas" aria-hidden="true"></canvas>
+      </div>
+    </div>
+    <div class="payline-strip sr-only"><span><b id="line-count">—</b> FIXED LINES</span><span>WIN <b id="last-win">—</b></span></div>
+    <div id="ice-meters" class="ice-meters" aria-label="Round meters">
+      <div><span class="meter-icon" aria-hidden="true">▣</span><p><strong id="ice-balance">—</strong><small>BALANCE · ETB</small></p></div>
+      <div><span class="meter-icon" aria-hidden="true">♜</span><p><strong id="ice-win">—</strong><small>WIN · ETB</small></p></div>
+      <div><span class="meter-icon" aria-hidden="true">×</span><p><strong id="ice-multiplier">—</strong><small>MULTIPLIER</small></p></div>
+    </div>
+    <div class="status-zone">
+      <div id="message" class="message" role="status" aria-live="polite">Connecting to your wallet…</div>
+      <button id="retry-game" class="retry-game" hidden type="button">Retry connection</button>
+      <div id="result-banner" class="result-banner" aria-live="polite"><small id="result-label">READY</small><strong id="result-amount">—</strong></div>
+    </div>
+    <section id="round-receipt" class="round-receipt" aria-label="Server round receipt" hidden></section>
+    <section class="controls" aria-label="Spin and bet controls">
+      <button id="autoplay" class="auto" type="button" disabled>
+        <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M44 17a19 19 0 1 0 3 21M44 17H32M44 17V5"/></svg>
+        <small id="auto-label">AUTO ×10</small>
+      </button>
+      <button id="spin" class="spin" type="button" disabled>
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M22 36A32 32 0 0 1 80 32M80 32V13M80 32H61M78 64A32 32 0 0 1 20 68M20 68V87M20 68H39"/></svg>
+        <strong id="spin-stake">—</strong><small class="stake-unit">ETB</small><b id="spin-label">SPIN</b>
+        <span class="shield-chevron" aria-hidden="true"></span>
+      </button>
+      <button id="bet-open" class="bet-open" type="button" aria-label="Change bet"><span aria-hidden="true">$</span><small>BET</small></button>
+      <button id="turbo" class="turbo" type="button" aria-pressed="false" aria-label="Turn turbo animation on"><svg viewBox="0 0 40 56" aria-hidden="true"><path d="M24 2 4 31h14l-2 23 21-33H23z"/></svg></button>
+      <button id="ice-gamble" class="ice-action ice-gamble" type="button" aria-label="Gamble the last win, double or nothing" disabled><strong>2×</strong><small>GAMBLE</small></button>
+      <button id="ice-acknowledge" class="ice-action ice-acknowledge" type="button" aria-label="Acknowledge the win already credited to your balance" disabled><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M30 8v25m-10-10 10 10 10-10M11 36v14h40V36"/></svg><small>COLLECT</small></button>
+      <div id="ice-bet-rail" class="ice-bet-rail"><span id="previous-bet">—</span><span id="next-bet">—</span></div>
+    </section>
+    <footer class="bottom-meters">
+      <button id="options-open" type="button" aria-label="Game menu"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 7h20M5 15h20M5 23h20"/></svg></button>
+      <div class="game-wallet"><small>BALANCE · ETB</small><strong id="balance">—</strong></div>
+      <button class="bet-meter" id="bet-meter" type="button" aria-label="Change bet"><small>BET · ETB</small><strong id="bet-display">—</strong></button>
+      <button id="sound" type="button" aria-label="Turn sound off" aria-pressed="false">♫</button>
+    </footer>
+  </main>
+</div>
+<div id="gamble-panel" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="gamble-title"><div class="modal"><h2 id="gamble-title">DOUBLE OR NOTHING</h2><p id="gamble-description">The game rules determine the win chance and maximum attempts.</p><div id="gamble-card" class="card-flip"><div class="face back-face">SW</div><div class="face front-face" id="card-color">?</div></div><div class="modal-actions"><button id="pick-red" class="red">RED</button><button id="pick-black" class="black">BLACK</button></div><button id="close-gamble" class="close">Close</button><p id="gamble-result" aria-live="polite"></p></div></div>
+<div id="bonus-panel" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="bonus-title"><div class="modal"><h2 id="bonus-title">SISTERHOOD BONUS</h2><p>Choose one sister. The award is secured server-side.</p><div class="modal-actions"><button data-bonus-index="0">SISTER I</button><button data-bonus-index="1">SISTER II</button><button data-bonus-index="2">SISTER III</button></div><p id="bonus-result" aria-live="polite"></p></div></div>
+<div id="history-panel" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Round history"><div class="modal"><h2>ROUND HISTORY</h2><div id="history-items"></div><button id="close-history" class="close">Close</button></div></div>
+<dialog id="options-dialog" aria-labelledby="options-title">
+  <header><h2 id="options-title">Game options</h2><button id="options-close" type="button" aria-label="Close game options">×</button></header>
+  <div id="options-content">
+    <section class="audio-settings" aria-label="Sound settings"><label for="sound-volume">Sound volume</label><output id="sound-level" for="sound-volume">55%</output><input id="sound-volume" type="range" min="0" max="100" step="1" value="55"><button id="sound-test" type="button">TEST SOUND</button></section>
+    <div class="bet-panel"><small>TOTAL BET · ETB</small><div id="bet-controls-home" class="bet-controls"><button id="bet-dec" class="bet-step" type="button" aria-label="Decrease bet" disabled>−</button><strong id="bet">—</strong><button id="bet-inc" class="bet-step" type="button" aria-label="Increase bet" disabled>+</button></div><p>Choose your stake before the next spin.</p></div>
+    <div class="extra-controls"><button id="gamble-open" hidden>GAMBLE WIN</button><button id="rules-shortcut" type="button">RULES & PAYTABLE</button><button id="history" type="button">ROUND HISTORY</button><span id="free-spins">FREE SPINS: 0</span><output id="settled-multiplier">—<small>MULTIPLIER</small></output><span id="math-status">SERVER RULES</span><a href="/">BACK TO GAMES</a></div>
+  </div>
+</dialog>
+<canvas id="particles" aria-hidden="true"></canvas>
+<script type="module" src="/slots/js/game-v2300.js?v=196"></script>
+<script type="module" src="/slots/js/slot-effects-v2400.js"></script>
+</body>
+</html>
