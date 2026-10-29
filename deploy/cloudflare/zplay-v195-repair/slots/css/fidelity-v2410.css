@@ -1,0 +1,39 @@
+
+/* SUPERWIN slot fidelity v2410: isolated slot screen additions only */
+body .sw-game-rules{background:linear-gradient(#0a1020,#071920);border:1px solid #7da38255;border-radius:13px;padding:16px}
+body .sw-game-rules h3{color:#4addb9;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+body .sw-game-rules th{text-align:left;color:#e6d67f}
+body .sw-game-rules tr:nth-child(even){background:#ffffff06}
+body .sw-game-rules td,body .sw-game-rules th{border-bottom:1px solid #45665a52;padding:10px 8px}
+body .sw-v2410-reference{margin-top:14px;padding:14px 10px;border:1px solid #65b18e55;background:#080e15e3;border-radius:12px;color:#dcebe4}
+body .sw-v2410-reference h3{color:#4cddac;font-size:14px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;margin:0 0 9px}
+body .sw-v2410-reference .sw-v2410-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+body .sw-v2410-reference .sw-v2410-path{display:flex;gap:8px;align-items:center;background:#182b32;border:1px solid #4e756955;border-radius:7px;padding:7px;min-width:0;font-size:11px;line-height:1.4}
+body .sw-v2410-reference .sw-v2410-path b{color:#e1d27b;min-width:22px;font-size:12px}
+body .sw-v2410-reference .sw-v2410-path span{overflow-wrap:anywhere}
+body .sw-v2410-reference p{font-size:12px;line-height:1.55;color:#adcec5;margin:10px 0}
+body .sw-v2410-reference .sw-v2410-meaning{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
+body .sw-v2410-reference .sw-v2410-meaning span{display:grid;place-items:center;border-radius:7px;background:#102a28;border:1px solid #6dc6a16b;padding:8px 5px;text-align:center;color:#ddf6e8;font-size:11px}
+body .sw-v2410-reference .sw-v2410-meaning strong{display:block;color:#e7d68d;font-size:17px}
+body .sw-v2410-controls{display:flex;align-items:center;justify-content:center;gap:6px;padding:3px 6px 4px;margin:8px 1cqw;border:1px solid #82ce9c58;border-radius:10px;background:linear-gradient(90deg,#031e1a,#174b3a,#031e1a);box-shadow:0 2px 9px #0007}
+body .sw-v2410-controls small{font-size:10px;color:#94d4b9;letter-spacing:.06em}
+body .sw-v2410-controls strong{font-size:12px;color:#ffe1a0;font-variant-numeric:tabular-nums}
+body .sw-v2410-controls button{font-size:19px;min-height:42px;min-width:42px;border:1px solid #70cda1a6;background:radial-gradient(#12845d,#003b30);color:#fff7c3;border-radius:8px}
+body .sw-v2410-controls button:disabled{opacity:.3;cursor:not-allowed}
+body .sw-v2410-controls>span{display:grid;gap:0;text-align:center;min-width:90px}
+body .sw-v2410-game-features{display:flex;gap:8px;justify-content:space-between;margin:0 2cqw 8px}
+body .sw-v2410-game-features span{font:800 9px system-ui,sans-serif;letter-spacing:.06em;color:#f3e1ad;text-shadow:0 1px 2px #000;padding:6px 8px;border:1px solid #c2a9687a;background:#012c269e;border-radius:6px}
+body[data-game=wild_multi_stars] .sw-v2410-controls{background:linear-gradient(90deg,#191337,#4f2880,#191337);border-color:#cc9de6}
+body[data-game=burning_ice] .sw-v2410-controls{background:linear-gradient(90deg,#14314a,#a44d3388,#14314a);border-color:#afd7e6}
+body[data-game=hot_foxy_20] .sw-v2410-controls{background:linear-gradient(90deg,#003b34,#166454,#003b34);border-color:#68dfa9}
+body[data-game=multi_hot_5_video] .wheel{height:0!important;min-height:0!important;margin:0!important;overflow:hidden!important;opacity:0}
+body[data-game=multi_hot_5_video] .game-frame{margin-left:18%;width:81%;align-self:flex-end}
+body[data-game=multi_hot_5_video] .sw-v2410-sidewheel{position:absolute;left:0;top:0;width:18%;height:100%;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:0;z-index:4;background:linear-gradient(90deg,#00170c,#053b23);border:2px solid #d2b563;border-radius:5px;box-shadow:0 0 10px #d4ac5375}
+body[data-game=multi_hot_5_video] .sw-v2410-sidewheel div{flex:1;display:grid;place-items:center;background:linear-gradient(110deg,#001f16,#07573c);border-bottom:1px solid #5dba7b70;font:900 clamp(17px,5cqw,30px) Georgia,serif;color:#b9c498;text-shadow:0 2px 3px #000}
+body[data-game=multi_hot_5_video] .sw-v2410-sidewheel div:last-child{border-bottom:0}
+body[data-game=multi_hot_5_video] .sw-v2410-sidewheel div[aria-current=true]{color:#fff2b9;background:linear-gradient(#0a8849,#003a23);outline:3px solid #e8b34d;outline-offset:-4px;text-shadow:0 0 7px #ffe581;z-index:1}
+body[data-game=multi_hot_5_video] .reels-wrapper{aspect-ratio:3/3!important}
+body[data-game=multi_hot_5_video] .game-identity{height:clamp(78px,20cqw,118px)}
+body[data-game=multi_hot_5_video] .sw-v2410-game-features{margin-bottom:5px}
+@media(max-width:390px){body .sw-v2410-reference .sw-v2410-paths{grid-template-columns:1fr}body .sw-v2410-controls{gap:4px}body .sw-v2410-controls>span{min-width:72px}}
+@media(prefers-reduced-motion:reduce){body .sw-v2410-controls button{transition:none!important}}

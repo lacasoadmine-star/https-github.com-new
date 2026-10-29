@@ -1,0 +1,77 @@
+{
+  "worker": "superwin-player",
+  "url": "https://superwin-player.apdiy61.workers.dev/",
+  "version": 196,
+  "versionId": "d2cf72cc-1dab-46f3-aab4-e93823a1a03e",
+  "deployment": {
+    "id": "46df3961-09e4-4cf6-b94b-51c2464ed197",
+    "source": "api",
+    "strategy": "percentage",
+    "author_email": "apdiy61@gmail.com",
+    "annotations": {
+      "workers/message": "Deploy ZPLAY v196 reel and result presentation repairs; preserve wallet and original services",
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "d2cf72cc-1dab-46f3-aab4-e93823a1a03e",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-10-28T03:51:00.509163Z"
+  },
+  "bindings": [
+    {
+      "name": "API_ORIGIN",
+      "text": "https://zplay-rebuild-api-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    {
+      "environment": "production",
+      "name": "ENGINE_EXTENSION",
+      "service": "superwin-engine-extension",
+      "type": "service"
+    },
+    {
+      "name": "PORTAL",
+      "text": "player",
+      "type": "plain_text"
+    }
+  ],
+  "rollbackVersion": "00fe4a95-5744-4495-8563-c0b2213fd6a2",
+  "unchangedOriginalModules": 19,
+  "lobby": {
+    "status": 200,
+    "success": true,
+    "title": "ZPLAY.net",
+    "cards": 5,
+    "hasZplay": true
+  },
+  "gameChecks": [
+    {
+      "game": "multi_hot_5_video",
+      "status": 200,
+      "success": true,
+      "ready": true,
+      "proof": "{\"title\":\"Multi Hot 5 · ZPLAY\",\"ready\":\"true\",\"game\":\"multi_hot_5_video\",\"overflow\":false,\"spinDisabled\":true,\"artPack\":\"atlas-2302\",\"message\":\"Sign in from Home to use your existing ETB wallet.\",\"loadingError\":\"\"}",
+      "title": "Multi Hot 5 · ZPLAY"
+    },
+    {
+      "game": "hot_foxy_20",
+      "status": 200,
+      "success": true,
+      "ready": true,
+      "proof": "{\"title\":\"Foxy Hot 20 · ZPLAY\",\"ready\":\"true\",\"game\":\"hot_foxy_20\",\"overflow\":false,\"spinDisabled\":true,\"artPack\":\"reference-3500\",\"message\":\"Sign in from Home to use your existing ETB wallet.\",\"loadingError\":\"\"}",
+      "title": "Foxy Hot 20 · ZPLAY"
+    },
+    {
+      "game": "wild_multi_stars",
+      "status": 200,
+      "success": true,
+      "ready": true,
+      "proof": "{\"title\":\"ZPLAY · Originals\",\"ready\":\"false\",\"game\":\"wild_multi_stars\",\"overflow\":false,\"spinDisabled\":true,\"message\":\"Connecting to the game service…\",\"loadingError\":\"\"}",
+      "title": "Wild Multi Stars · ZPLAY"
+    }
+  ],
+  "scope": "Scoped frontend repairs; full seven-game rebuild and real-money regression remain incomplete"
+}
