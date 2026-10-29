@@ -1,0 +1,46 @@
+# Dependency remediation verification only. No production deployment or wallet/database writes.
+name: Frontend dependency security validation
+
+on:
+  push:
+    branches:
+      - security/vite-esbuild-20261029
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Verify lockfile, Player, Agent, Admin and backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Clean install from committed workspace lockfile
+        run: npm ci --no-audit --no-fund
+      - name: Require package-lock.json to stay synchronized
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          git diff --exit-code -- package-lock.json
+      - name: Frontend login, navigation and API regression checks (mocked network)
+        run: node --test tests/frontend-regression.test.mjs
+      - name: Build Player, Agent and Admin
+        run: npm run build --workspaces
+      - name: Security audit
+        run: npm audit --audit-level=high
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install backend test dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Backend authentication, API and ledger tests (disposable SQLite)
+        run: PYTHONPATH=backend python -m pytest -q tests/test_platform.py
+      - name: Verify patch formatting
+        run: git diff --check
