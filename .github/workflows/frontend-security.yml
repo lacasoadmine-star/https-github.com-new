@@ -1,4 +1,4 @@
-# Isolated dependency remediation; intentionally never deploys to Cloudflare or Vercel.
+# Dependency remediation verification only. No production deployment or wallet/database writes.
 name: Frontend dependency security validation
 
 on:
@@ -10,45 +10,37 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
-    name: Rebuild lockfile, verify all portals and backend
+    name: Verify lockfile, Player, Agent, Admin and backend
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
-      - name: Regenerate npm workspace lockfile from all three manifests
-        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
-      - name: Save synchronized lockfile only to dedicated security branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/security/vite-esbuild-20261029'
-        run: |
-          if ! git diff --quiet -- package-lock.json; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add package-lock.json
-            git commit -m "chore(lockfile): resolve secure Vite and esbuild workspace dependencies"
-            git push origin HEAD:security/vite-esbuild-20261029
-          fi
-      - name: Clean dependency install using regenerated lockfile
+      - name: Clean install from committed workspace lockfile
         run: npm ci --no-audit --no-fund
-      - name: Frontend authentication, navigation and API regression
+      - name: Require package-lock.json to stay synchronized
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          git diff --exit-code -- package-lock.json
+      - name: Frontend login, navigation and API regression checks (mocked network)
         run: node --test tests/frontend-regression.test.mjs
       - name: Build Player, Agent and Admin
         run: npm run build --workspaces
-      - name: Audit high and critical dependency vulnerabilities
+      - name: Security audit
         run: npm audit --audit-level=high
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Install backend test dependencies
         run: python -m pip install -r requirements.txt
-      - name: Backend login, authorization, wallet and API regressions (disposable SQLite)
+      - name: Backend authentication, API and ledger tests (disposable SQLite)
         run: PYTHONPATH=backend python -m pytest -q tests/test_platform.py
       - name: Verify patch formatting
         run: git diff --check
