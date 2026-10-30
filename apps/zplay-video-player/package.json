@@ -1,0 +1,14 @@
+{
+  "name": "zplay-video-player",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 build.py",
+    "start": "node local.mjs",
+    "test": "node test.cjs",
+    "test:live": "node final-art-test.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
