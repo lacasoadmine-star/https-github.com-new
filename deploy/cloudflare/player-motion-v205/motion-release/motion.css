@@ -1,0 +1,28 @@
+/* Actual win-line positions and amounts remain owned by the existing controller. */
+body[data-game] #game-frame{position:relative;overflow:visible}
+body[data-game] #game-frame>.result-banner{position:absolute;z-index:7;bottom:-3cqw;left:50%;transform:translateX(-50%);margin:0;min-height:0;width:max-content;max-width:80%;pointer-events:none}
+body[data-game] #game-frame>.result-banner:not(.won){display:none}
+body[data-game] #game-frame>.result-banner.won{display:flex;flex-direction:column;align-items:center;border:2px solid #f0d478;border-radius:6px;padding:1cqw 4cqw;background:linear-gradient(#62299d,#371451 70%);box-shadow:inset 0 0 0 2px #a27a36,0 0 0 2px #6e4d13,0 3px 12px #000a;animation:zplay-settled-plaque .3s ease-out both;color:#fff4b5}
+body[data-game] #game-frame>.result-banner.won small{font-size:2cqw;letter-spacing:.08em;color:#efdd96}
+body[data-game] #game-frame>.result-banner.won strong{font-size:5cqw;font-variant-numeric:tabular-nums;color:#fff8c7;text-shadow:0 1px 2px #21082e}
+body[data-game=hot_foxy_20] #game-frame>.result-banner.won{background:linear-gradient(#07664d,#003f30);border-color:#cfe38e}
+body[data-game=wild_multi_stars] #game-frame>.result-banner.won{background:linear-gradient(#7c2caa,#3c075f);box-shadow:inset 0 0 0 2px #a167bf,0 0 12px #dc84ff99}
+body[data-game] .status-zone{flex:none!important;min-height:0!important}
+body[data-game] .status-zone .message.quiet{font-size:10px;min-height:14px;margin:2px auto;padding:2px 5px;line-height:1.2}
+body[data-game] .meter-icon svg{width:4.2cqw;height:4.2cqw;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 30824 part05: forest cabinet, compact title, broad arched wheel, round controls. */
+body[data-game=hot_foxy_20] .game-identity{align-items:flex-start;padding-left:4cqw;height:16cqw}
+body[data-game=hot_foxy_20] .game-identity h1{font-size:7cqw;max-width:62%}
+body[data-game=hot_foxy_20] #wheel{width:86%;height:22cqw}
+body[data-game=hot_foxy_20] #reels-wrapper{aspect-ratio:1.68!important}
+body[data-game=hot_foxy_20] .controls{margin-top:auto;min-height:31cqw}
+body[data-game=hot_foxy_20] .bottom-meters{margin-top:0;min-height:14cqw}
+@keyframes zplay-settled-plaque{from{opacity:0;transform:translate(-50%,5px) scale(.88)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@media(prefers-reduced-motion:reduce){body[data-game] #game-frame>.result-banner.won{animation:none}}
+/* Independently drawn SVG scenery. No reference screenshots or video textures. */
+body[data-game=multi_hot_5_video] .cabinet,body[data-game=multi_hot_40] .cabinet{background:#00432f url('/zplay-clover-v205.svg') center top/100% auto!important}
+body[data-game=hot_foxy_20] .cabinet{background:#002d23 url('/zplay-forest-v205.svg') center/100% 100%!important}
+body[data-game=hot_foxy_20] .cabinet:before{display:none}
+body[data-game=hot_foxy_20] .title-fox{font-size:8cqw}
+body[data-game=hot_foxy_20] .controls>.spin{width:25cqw;height:25cqw}
+body[data-game=hot_foxy_20] .controls>.auto,body[data-game=hot_foxy_20] .controls>.bet-open{width:12cqw;height:12cqw}
