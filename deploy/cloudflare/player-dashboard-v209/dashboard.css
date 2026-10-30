@@ -1,0 +1,65 @@
+/* Dashboard surface rebuilt from the October30 mobile recordings.
+   All selectors exclude game cabinets and retain application-owned handlers. */
+body:has(.player-header){--page:#102130;--panel:#00111d;--line:#223747;--green:#2bd85a;background:var(--page)!important;font-family:Arial,sans-serif;color:#edf3f8}
+body .player-header{background:#00101b!important;min-height:45px!important;height:45px;padding:0 12px!important;border:0!important;box-shadow:none!important;gap:10px}
+body .player-header .icon-button{width:23px;min-width:23px;min-height:32px;padding:2px;background:none;border:0}
+body .player-header .icon-button svg{width:20px;height:20px}
+body .player-header .site-brand.brand::after{font:italic 900 27px/1 Arial,sans-serif!important;letter-spacing:-1.5px;background:linear-gradient(135deg,#67e5ff,#9d3bea 43%,#fa69d9 68%,#bdffff);background-clip:text;-webkit-background-clip:text;color:transparent;filter:none}
+body .player-header .header-actions{margin-left:auto;gap:7px;min-width:0}
+body .player-header .register-button{background:#2ad654!important;border:1px solid #2ad654!important;color:white!important;border-radius:3px!important;padding:7px 10px!important;font-size:11px!important;min-height:30px!important}
+body .player-header .login-button{border:1px solid #1d9c50!important;background:#00111c!important;color:#3fe079!important;border-radius:3px!important;font-size:11px!important;padding:7px 9px!important;min-height:30px!important}
+body .cashback{background:#0b1c2a!important;color:#bacbd5!important;min-height:25px;font-size:10px;border:0;box-shadow:none}
+body .sw-local-time{height:22px;background:#102130;color:#ccd5dc;font-size:10px}
+body .player-main{background:#102130!important;max-width:1100px;margin:auto!important;min-height:calc(100svh - 150px)}
+body .player-main:has(#sw-v116-games){padding:0 12px 82px!important;gap:10px!important}
+body .collection-toolbar{margin-inline:-12px!important}
+body .collection-tabs{background:#00121f!important}
+body .collection-tabs button{height:40px!important;font-size:11px!important;border-radius:0!important;letter-spacing:.02em}
+body .collection-tabs button[aria-pressed=true]{background:#193046!important;color:#36dc65!important;border-bottom:2px solid #33de6d!important}
+body .zp-categories{background:#0b1b29;padding:14px 12px 0;gap:24px}
+body .zp-categories button{font-size:13px!important;min-height:36px!important}
+body .collection-search{border:1px solid #294151!important;border-radius:3px!important;background:#00121e!important;margin:8px 12px 0!important;padding:0 11px!important;min-height:41px!important}
+body .collection-search input{font-size:13px!important}
+body .collection-count{font-size:11px!important;color:#2ad660!important;padding:9px 0 2px;min-height:30px!important}
+body .collection-card,body #sw-internal-games .sw-original-card,body #sw-internal-games .sw-media-tile{border-radius:6px!important;border:0!important;box-shadow:none!important}
+body .collection-card-open{aspect-ratio:1.48!important;border-radius:6px!important}
+body #sw-internal-games .sw-original-card{aspect-ratio:1.48!important}
+body .collection-card-open canvas,body .sw-vector-cover{display:block;width:100%;height:100%;object-fit:cover}
+body .zp-save{width:28px;height:28px;right:5px;top:5px;background:#001722c9;border:1px solid #7e9d9e}
+body .collection-sheet{border:0!important;border-radius:12px 12px 0 0!important;background:#172e40!important;box-shadow:0 -15px 45px #0008!important}
+body .collection-sheet-header{height:42px!important;background:#172e40!important;border:0!important}
+body .collection-sheet-body{padding:0 16px 18px!important}
+body .collection-sheet-art{border-radius:9px!important;aspect-ratio:1.45!important}
+body .collection-sheet-actions{gap:10px!important;margin:15px 0!important}
+body .collection-sheet-actions button{border:0!important;border-radius:3px!important;background:#203c51!important;min-height:38px!important;color:#e9f0f5!important}
+body .collection-sheet-play{background:#2ed858!important;color:#fff!important;border:0!important;border-radius:3px!important;min-height:42px!important;font-size:13px!important}
+body .bottom-nav{background:#00111d!important;border-top:1px solid #244051!important;height:60px!important;min-height:60px;box-shadow:none!important;padding:0 0 env(safe-area-inset-bottom)!important}
+body .bottom-nav button{padding:6px 0 4px!important;gap:5px!important;color:#fff!important;font-size:10px!important;background:transparent!important;border-top:2px solid transparent!important;border-radius:0!important}
+body .bottom-nav button.active{color:#2fdd67!important;border-top-color:#35de69!important}
+body .bottom-nav svg{height:20px!important;width:20px!important}
+body .drawer{background:#00121e!important;color:#e2ebf1!important;border:0!important;border-radius:0!important;width:min(330px,90vw)!important;max-height:100svh;overflow:auto;padding:0 15px 25px!important;box-shadow:15px 0 50px #0007}
+body .drawer-top{height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #19303e;margin-bottom:8px}
+body .drawer-top .site-brand{font-size:0!important}
+body .drawer-top .site-brand:after{content:'ZPLAY'!important;font:italic 900 28px Arial!important;background:linear-gradient(135deg,#60e9f7,#9b48f2 45%,#ef6adb);background-clip:text;-webkit-background-clip:text;color:transparent;letter-spacing:-1px}
+body .drawer>button{display:flex;align-items:center;gap:13px;width:100%;min-height:48px!important;padding:13px 5px!important;border:0!important;border-bottom:1px solid #122a39!important;border-radius:0!important;background:none!important;text-align:left;color:#e9f1f6!important;font-size:11px!important}
+body .drawer>button>svg:first-child{width:17px;height:17px;flex-shrink:0}
+body .drawer>button>svg:last-child{margin-left:auto;width:12px;height:12px;color:#9aafb8}
+body .player-dialog{background:#172a3a;color:#eef3f6;border:0!important;border-radius:0!important;box-shadow:none;max-width:430px;width:100%;max-height:100svh;overflow:auto}
+body .player-dialog .dialog-title{background:#292737;border-bottom:1px solid #454355;padding:12px 14px}
+body .player-dialog .dialog-title h2{font-size:12px;font-weight:400}
+body .player-dialog .field input,body .player-dialog .field select,body .player-dialog textarea{box-shadow:none!important;border-radius:2px!important;min-height:42px;font-size:13px}
+body:has(.bottom-nav button:first-child.active) .categories{gap:17px!important;padding:12px 0!important}
+body:has(.bottom-nav button:first-child.active) .categories button{min-width:68px;flex:1;border:0;background:none;padding:0}
+body:has(.bottom-nav button:first-child.active) .categories button>span{background:none!important;box-shadow:none!important;border:0!important;width:39px;height:39px}
+body:has(.bottom-nav button:first-child.active) .categories b{font-size:10px;font-weight:400}
+body:has(.bottom-nav button:first-child.active) .sw-player-hero{margin:0!important;border:0!important;border-radius:0!important;aspect-ratio:1.85!important;box-shadow:none!important}
+body:has(.bottom-nav button:first-child.active) .deposit-actions{gap:9px!important;padding:12px 0!important}
+body:has(.bottom-nav button:first-child.active) .deposit-actions button{min-height:42px!important;border-radius:8px!important;font-size:13px!important}
+body:has(.bottom-nav button:first-child.active) .home-slot-heading{margin:12px 0 4px!important}
+body:has(.bottom-nav button:first-child.active) .home-slot-heading h2{font-size:18px!important}
+body:has(.bottom-nav button:first-child.active) .home-slot-heading button{font-size:12px!important;color:#35df70}
+@media(min-width:700px){body .player-main:has(#sw-v116-games){padding-top:14px!important}body .drawer{width:330px!important}}
+@media(prefers-reduced-motion:reduce){body .drawer,body .collection-sheet{transition:none!important;animation:none!important}}
+/* Keep drawer content above its dimming layer, fully opaque. */
+#root .drawer-scrim{opacity:1!important;filter:none!important;background:#0009!important;z-index:1000!important}
+#root .drawer-scrim>.drawer{position:fixed!important;inset:0 auto 0 0!important;z-index:1001!important;background:#00121e!important;opacity:1!important;filter:none!important;transform:none!important;padding:0 15px 25px!important}
