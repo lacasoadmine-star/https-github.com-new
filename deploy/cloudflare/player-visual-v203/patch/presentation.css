@@ -1,0 +1,85 @@
+/* ZPLAY v203: measured lobby structure, independently authored presentation. */
+body:has(.player-header){background:#0c1a29!important;color:#f5f7fa}
+body .player-header{height:52px;min-height:52px!important;padding:0 16px!important;background:#000f1a!important;border:0!important}
+body .player-header .site-brand.brand::after{font-size:26px;letter-spacing:-1px;background:linear-gradient(135deg,#51eaff 5%,#8b49fa 38%,#ef4ddd 62%,#b8fcff);background-clip:text;-webkit-background-clip:text;filter:none}
+body .cashback{min-height:38px;background:#0c1a29;color:#d9e1ea;font-size:12px}
+body .sw-local-time{height:25px;display:grid;place-items:center;background:#0c1a29;color:#dae1ec;font-size:12px}
+body .player-header button{min-height:36px}
+body .player-main{padding:0 0 80px!important;background:#0c1a29!important}
+body #sw-v116-games{padding:0 16px 12px;background:#0c1a29;max-width:1100px}
+body .collection-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:0 -16px 12px}
+body .collection-tabs{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#00101c}
+body .collection-tabs button{padding:0 8px;height:42px;border-bottom:2px solid transparent;font-weight:700;font-size:12px!important;text-transform:uppercase;color:#fff}
+body .collection-tabs button[aria-pressed=true]{background:#1c3045;color:#28cf61;border-bottom-color:#28cf61}
+.zp-categories{display:flex;gap:24px;overflow:auto;scrollbar-width:none;padding:14px 16px 0;background:#091724}
+.zp-categories button{flex:none;min-height:44px;border:0;background:none;padding:0;color:#fff;font-size:14px!important}
+.zp-categories button[aria-pressed=true]{color:#28cf61}
+body .collection-search{margin:8px 16px 0;width:auto;max-width:none;min-height:44px;border:1px solid #23313f;border-radius:3px;background:#00101b;padding:0 12px;gap:12px}
+body .collection-search input{font-size:14px!important}
+body .collection-search>span{display:grid;place-items:center}
+body .collection-search svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
+body .collection-count{font-size:12px;color:#25ca60;min-height:24px;margin:12px 0 8px}
+body .collection-grid{gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+body .collection-card{border-radius:8px;overflow:hidden;box-shadow:none}
+body .collection-card-open{aspect-ratio:1.45;border-radius:8px}
+body #sw-internal-games{display:block!important;visibility:visible!important;opacity:1!important;position:static!important;height:auto!important;max-height:none!important;overflow:visible!important;background:#0c1a29!important;margin:0 auto!important;padding:0 16px 20px!important;max-width:1100px;box-sizing:border-box}
+body #sw-internal-games>.sw-originals-head,body #sw-internal-games>.sw-search-box,body #sw-internal-games>.sw-original-toolbar{display:none!important}
+body #sw-internal-games .sw-original-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+body #sw-internal-games .sw-media-tile{min-width:0;border-radius:8px;overflow:hidden}
+body #sw-internal-games .sw-original-card{display:block!important;aspect-ratio:1.45!important;height:auto!important;min-height:0!important;border-radius:8px!important;position:relative;overflow:hidden}
+body #sw-internal-games .sw-vector-cover{width:100%;height:100%;object-fit:cover}
+body #sw-internal-games .sw-original-card>strong{position:absolute;bottom:0;left:0;right:0;padding:8px 6px;background:linear-gradient(transparent,#00101a);font-size:13px;text-align:center}
+body #sw-internal-games .sw-media-kind,body #sw-internal-games .sw-own-mark,body #sw-internal-games .sw-card-play,body #sw-internal-games .sw-preview-sound{display:none!important}
+.zp-save{position:absolute;right:5px;top:5px;z-index:3;width:32px;height:32px;border:1px solid #91a4b8;border-radius:50%;background:#00101bdd;color:#fff;display:grid;place-items:center}
+.zp-save svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+.zp-save[aria-pressed=true]{color:#2de473}.zp-save[aria-pressed=true] svg{fill:currentColor}
+body:has(#sw-v116-games) .player-main>.sw-player-hero,body:has(#sw-v116-games) .player-main>.sw-quick-nav,body:has(#sw-v116-games) .player-main>.section-heading{display:none!important}
+body .bottom-nav{height:64px;background:#00101b!important;border-top:1px solid #183044!important;box-shadow:none!important;padding-bottom:env(safe-area-inset-bottom)!important}
+body .bottom-nav button{font-size:11px;color:#fff;min-width:0;border-top:2px solid transparent;padding-top:6px}
+body .bottom-nav button.active{color:#28cf61!important;border-top-color:#28cf61}
+body .bottom-nav svg{width:22px;height:22px}
+body #sw-game-sheet.collection-sheet,body .collection-sheet-header{background:#0c1a29}
+body .collection-sheet-play{background:#24c75c;color:#001b0a!important}
+body .collection-card-open:focus-visible,body .zp-categories button:focus-visible,body .zp-save:focus-visible{outline:2px solid #42e779;outline-offset:2px}
+/* Multi Hot 5, 29237.mp4. Keep actual actions and server-owned amounts. */
+body[data-game=multi_hot_5_video] .studio{height:25px;min-height:25px}
+body[data-game=multi_hot_5_video] .cabinet{min-height:calc(100svh - 25px);background-color:#004b34;background-image:radial-gradient(circle at 20% 20%,#146b4855 0 12%,transparent 13%),radial-gradient(circle at 80% 20%,#146b4855 0 12%,transparent 13%),radial-gradient(circle at 20% 80%,#146b4855 0 12%,transparent 13%),radial-gradient(circle at 80% 80%,#146b4855 0 12%,transparent 13%);background-size:66px 66px}
+body[data-game=multi_hot_5_video] .game-identity{height:18cqw;flex-shrink:0}
+body[data-game=multi_hot_5_video] #game-frame.safari-side{grid-template-columns:minmax(0,18fr) minmax(0,82fr);gap:3px;padding:0;border-width:1px}
+body[data-game=multi_hot_5_video] #reels-wrapper{aspect-ratio:1.38!important;border-radius:0}
+body[data-game=multi_hot_5_video] #wheel.side{border:1px solid #d5bb63}
+body[data-game=multi_hot_5_video] #wheel .wheel-cell[data-center=true],body[data-game=multi_hot_5_video] #wheel .wheel-cell.active{opacity:1;border:2px solid #e9c969;outline:2px solid #a51b52;outline-offset:-4px;background:linear-gradient(#2d9760,#085731);box-shadow:inset 0 0 9px #90ec6e;color:#ffe78a}
+body[data-game=multi_hot_5_video] .controls{min-height:67cqw;grid-template-rows:28cqw 39cqw;padding:0 7%;margin-top:1cqw}
+body[data-game=multi_hot_5_video] .controls>.auto,body[data-game=multi_hot_5_video] .controls>.ice-action{display:flex;width:21cqw;height:24cqw;grid-row:1;align-self:center;opacity:.65}
+body[data-game=multi_hot_5_video] .controls>.auto{grid-column:1}
+body[data-game=multi_hot_5_video] .controls>.ice-gamble{grid-column:2}
+body[data-game=multi_hot_5_video] .controls>.ice-acknowledge{grid-column:3}
+body[data-game=multi_hot_5_video] .controls>.ice-action:not(:disabled),body[data-game=multi_hot_5_video] .controls>.auto:not(:disabled){opacity:1}
+body[data-game=multi_hot_5_video] .controls>.spin{grid-column:2;grid-row:2;width:39cqw;height:37cqw;clip-path:polygon(19% 0,81% 0,100% 15%,87% 84%,76% 100%,24% 100%,13% 84%,0 15%);isolation:isolate;background:linear-gradient(130deg,#ffe290 0%,#a71a56 8%,#ed3780 15%,#8d113e 35%,#c82565 85%,#f9d975);opacity:1!important}
+body[data-game=multi_hot_5_video] .spin:before{inset:5px;clip-path:inherit;background:linear-gradient(#d7e59e,#167f50 9%,#014b32 40%);z-index:-1}
+body[data-game=multi_hot_5_video] .spin strong{font-size:6cqw;color:#e5ed72}
+body[data-game=multi_hot_5_video] .spin .shield-chevron{display:block;width:16cqw;height:6cqw;margin-top:2cqw}
+body[data-game=multi_hot_5_video] .controls>.bet-step{bottom:8cqw}
+body[data-game=multi_hot_5_video] .ice-bet-rail{bottom:5cqw;height:23cqw}
+body[data-game=multi_hot_5_video] .controls>.bet-open,body[data-game=multi_hot_5_video] .controls>.turbo{display:none}
+body[data-game=multi_hot_5_video] .bottom-meters{min-height:36px;height:36px;margin-top:auto}
+body[data-game=multi_hot_5_video] #options-open{top:2cqw}
+body[data-game] .meter-icon svg{width:4cqw;height:4cqw;fill:none;stroke:currentColor;stroke-width:1.8}
+@media(min-width:700px){body .collection-grid,body #sw-internal-games .sw-original-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+@media(prefers-reduced-motion:reduce){body .collection-card{transition:none}}
+/* Remove obsolete catalogue chrome between the two preserved game lists. */
+body:has(#sw-v116-games) .player-main>.categories,
+body:has(#sw-v116-games) .player-main>.rebrand-race,
+body:has(#sw-v116-games) .player-main>.home-slot-heading,
+body:has(#sw-v116-games) .player-main>.deposit-actions{display:none!important}
+body #sw-internal-games .sw-media-tile{position:relative}
+body[data-game=multi_hot_5_video] .spin:disabled{filter:none!important}
+/* A single continuous grid, retaining both existing launcher implementations. */
+body .player-main:has(#sw-v116-games){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 16px 84px!important;align-content:start}
+body .player-main:has(#sw-v116-games)>:not(#sw-v116-games):not(#sw-internal-games){display:none!important}
+body #sw-v116-games,body .player-main #sw-internal-games{display:contents!important}
+body #sw-v116-games .collection-grid,body .player-main #sw-internal-games .sw-original-grid{display:contents!important}
+body #sw-v116-games .collection-toolbar,body #sw-v116-games .collection-count{grid-column:1/-1}
+body #sw-v116-games .collection-toolbar{margin-bottom:0}
+body #sw-v116-games .collection-count{margin:0;min-height:24px}
+@media(min-width:700px){body .player-main:has(#sw-v116-games){grid-template-columns:repeat(4,minmax(0,1fr))}}
