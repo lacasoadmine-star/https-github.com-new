@@ -24,3 +24,6 @@ Bindings observed: API_ORIGIN, ENGINE_EXTENSION, PORTAL. Preserve all unchanged.
 - Remaining priority machines not rebuilt. Multi Hot Ways has legacy configured IDs; this patch does not change its implementation. Safari Simba, Habesha Fortune 5 and Multi Hot 10 not found by name in the inspected internal config.
 - Only 29237.mp4 and 30742.mp4 visually reviewed in this patch. No claim of full reference parity or all-game completion.
 - All 21 v202 Worker modules verified by SHA-256 and preserved unchanged; wrapper adds only frontend asset overrides and CSS injection.
+
+## v204 follow-up
+Fixed combined game count after saving a primary game: the secondary renderer now republishes its count even when its list is unchanged, and the primary renderer avoids redundant DOM updates. Focused Favourite regression and the existing 390px navigation checks passed with zero page errors and zero non-read requests.

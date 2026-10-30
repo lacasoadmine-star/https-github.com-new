@@ -109,7 +109,7 @@ function startCollection(){
     catch{const retry=document.createElement('button');retry.type='button';retry.textContent='Try again';retry.addEventListener('click',loadGames);status.replaceChildren(document.createTextNode('Games could not load. '),retry);}
     finally{clearTimeout(timeout);loading=false;gallery.setAttribute('aria-busy','false');}
   }
-  window.addEventListener('zplay:extra-count',event=>{const n=Number(event.detail)||0;const primary=grid.children.length;status.textContent=(primary+n)?`${primary+n} ${filter==='favourites'?'saved games':'games'}`:filter==='favourites'?'No saved games. Open a game and select Favourite.':'No games match your search.';});
+  window.addEventListener('zplay:extra-count',event=>{const n=Number(event.detail)||0;const primary=grid.children.length;const label=(primary+n)?`${primary+n} ${filter==='favourites'?'saved games':'games'}`:filter==='favourites'?'No saved games. Open a game and select Favourite.':'No games match your search.';if(status.textContent!==label)status.textContent=label;});
   loadGames();
   window.addEventListener('pagehide',()=>{suspended=true;observer.disconnect();if(scheduled)cancelAnimationFrame(mountFrame);scheduled=false;});
   window.addEventListener('pageshow',event=>{if(event.persisted){suspended=false;observer.observe(document.body,{childList:true,subtree:true});mount();}});
