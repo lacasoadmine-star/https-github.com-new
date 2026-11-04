@@ -1,3 +1,5 @@
+> Superseded: the test dialog and form have been removed. The old endpoint returns 410. See wallet-demo-entry.md for the current direct-entry preview.
+
 # Manual ETB wallet test for the existing demo catalog
 
 Each of the 30 official-demo entries has PLAY (ETB) · TEST and PLAY DEMO. The existing three native ETB games keep their normal launch and settlement routes.
