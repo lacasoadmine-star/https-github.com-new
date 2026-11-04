@@ -10,7 +10,7 @@ const html=await readFile(new URL('./fixtures/live-lobby-v244.html',import.meta.
 const css=await readFile(new URL('./fixtures/live-lobby-v244.css',import.meta.url),'utf8');
 const lobbyScript=integrateLobbyScript(await readFile(new URL('./fixtures/live-lobby-v244.mjs',import.meta.url),'utf8'));
 const account={authenticated:false,identity:'isolated-browser-player',balance:'123.45',currency:'ETB',enabled:true};
-let mutations=0;
+let mutations=0,walletChecks=0;
 const GAMES={multi_hot_5_video:{id:'multi_hot_5_video',title:'Multi Hot 5',slug:'multi-hot-5',enabled:true},hot_foxy_20:{id:'hot_foxy_20',title:'Foxy Hot 20',slug:'hot-foxy-20',enabled:true},safari_simba:{id:'safari_simba',title:'Safari Simba',slug:'safari-simba',enabled:true}};
 const original={async fetch(request){
  const path=new URL(request.url).pathname;
@@ -25,8 +25,9 @@ const original={async fetch(request){
 const worker=wrapPlayer(original,{lobbyScript,GAMES,sessionHeaders:headers=>headers,legacy:async()=>Response.json({...account})});
 const server=createServer(async(req,res)=>{
  try{
-  if(req.method==='POST')mutations++;
-  const response=await worker.fetch(new Request('http://127.0.0.1:'+server.address().port+req.url,{method:req.method,headers:req.headers}),{});
+  if(req.method==='POST'){if(req.url==='/api/wallet/test')walletChecks++;else mutations++;}
+  const chunks=[];for await(const chunk of req)chunks.push(chunk);const body=chunks.length?Buffer.concat(chunks):undefined;
+  const response=await worker.fetch(new Request('http://127.0.0.1:'+server.address().port+req.url,{method:req.method,headers:req.headers,body}),{});
   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));
  }catch(error){res.writeHead(500);res.end(String(error));}
 });
@@ -42,8 +43,8 @@ try{
  assert.deepEqual(await page.locator('#game-grid .game-tile').evaluateAll(nodes=>nodes.slice(0,3).map(n=>n.dataset.game)),Object.keys(GAMES));
  assert.equal(await page.locator('#provider-count').innerText(),'3');assert.equal(await page.locator('#smartsoft-count').innerText(),'30');
  await page.locator('[data-game="ssg-jetx"] .game-preview').click();
- await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY DEMO');assert.equal(await page.locator('#play').getAttribute('href'),'#demo');assert.equal(await page.locator('#play-demo').getAttribute('aria-disabled'),null);
- await page.locator('#play').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);
+ await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB) · TEST');assert.equal(await page.locator('#play').getAttribute('href'),'#etb-test');assert.equal(await page.locator('#play-demo').getAttribute('aria-disabled'),null);
+ assert.equal(walletChecks,0);await page.locator('#play').click();await page.waitForFunction(()=>!document.getElementById('etb-test-login').hidden);assert.equal(walletChecks,0);assert.equal(mutations,0);await page.locator('#close-etb-test').click();await page.locator('#play-demo').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);
  assert.equal(new URL(page.url()).pathname,'/');assert.match(await page.locator('#embedded-demo').getAttribute('src'),/GameName=JetX/);
  assert.match(await page.locator('.embedded-note').innerText(),/SmartSoft DEMO/);assert.equal(mutations,0);
  await page.locator('#close-demo').click();assert.equal(await page.locator('#embedded-demo').getAttribute('src'),null);
@@ -56,10 +57,11 @@ try{
  account.authenticated=true;account.balance='9007199254740991.99';await page.evaluate(()=>window.dispatchEvent(new Event('zplay:session-ready')));
  await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB)');
  assert.equal(await page.locator('#play').getAttribute('href'),'/play/multi-hot-5');
- await page.locator('#close-detail').click();await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);await page.locator('[data-game=ssg-jetx] .game-preview').click();await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY DEMO');assert.equal(await page.locator('#play').getAttribute('href'),'#demo');
+ await page.locator('#close-detail').click();await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);await page.locator('[data-game=ssg-jetx] .game-preview').click();await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB) · TEST');assert.equal(await page.locator('#play').getAttribute('href'),'#etb-test');
  assert.equal((await page.locator('#account-balance').innerText()).replaceAll(',',''),'9007199254740991.99 ETB');
- await page.evaluate(()=>window.dispatchEvent(new Event('zplay:logout')));assert.equal(await page.locator('#account-balance').innerText(),'');
- assert.equal(await page.locator('#play-label').innerText(),'PLAY DEMO');await page.locator('#close-detail').click();
+ await page.locator('#play').click();await page.waitForFunction(()=>!document.getElementById('run-etb-test').disabled);await page.locator('#run-etb-test').click();await page.waitForFunction(()=>document.getElementById('etb-test-status').textContent.startsWith('TEST PASSED'));assert.equal((await page.locator('#etb-test-balance').innerText()).replaceAll(',',''),'9007199254740991.99 ETB');account.balance='0.00';const beforeCredit=walletChecks;await page.locator('#refresh-etb-credit').click();await page.waitForFunction(()=>document.getElementById('etb-credit-state').textContent==='CREDIT REQUIRED');assert.equal(await page.locator('#etb-test-balance').innerText(),'0.00 ETB');assert.equal(await page.locator('#run-etb-test').isDisabled(),true);await page.evaluate(()=>document.getElementById('run-etb-test').dispatchEvent(new MouseEvent('click')));assert.equal(walletChecks,beforeCredit);assert.equal(account.balance,'0.00');account.balance='5.00';await page.locator('#refresh-etb-credit').click();await page.waitForFunction(()=>document.getElementById('etb-test-balance').textContent==='5.00 ETB');assert.equal(await page.locator('#run-etb-test').isDisabled(),true);await page.locator('#etb-test-stake').fill('1.00');await page.locator('#run-etb-test').click();await page.waitForFunction(()=>document.getElementById('etb-test-status').textContent.startsWith('TEST PASSED'));assert.equal(account.balance,'5.00');assert.equal(walletChecks,beforeCredit+1);account.balance='9007199254740991.99';
+ await page.evaluate(()=>window.dispatchEvent(new Event('zplay:logout')));assert.equal(await page.locator('#account-balance').innerText(),'');assert.equal(await page.locator('#etb-test').evaluate(e=>e.open),false);assert.equal(await page.locator('#etb-test-balance').textContent(),'—');
+ assert.equal(await page.locator('#play-label').innerText(),'PLAY (ETB) · TEST');await page.locator('#close-detail').click();
  await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);
  await page.locator('#search').fill('Plinko X Classic');assert.equal(await page.locator('.game-tile').count(),1);
  await page.locator('#search').fill('');await page.locator('[data-game="ssg-jetx"] .tile-favourite').click();
@@ -68,8 +70,8 @@ try{
  await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);
  for(const width of [320,390,760,1280]){await page.setViewportSize({width,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Overflow at '+width);}
  await page.goto(base+'/gateway');assert.equal(new URL(page.url()).pathname,'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);
- for(const game of OFFICIAL_DEMO_CATALOG.games){await page.locator('[data-game="'+game.id+'"] .game-preview').click();assert.equal(await page.locator('#play-label').innerText(),'PLAY DEMO');await page.locator('#play').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);assert.equal(await page.locator('#embedded-demo').getAttribute('src'),game.launch_url);await page.locator('#close-demo').click();assert.equal(await page.locator('#embedded-demo').getAttribute('src'),null);}
+ for(const game of OFFICIAL_DEMO_CATALOG.games){await page.locator('[data-game="'+game.id+'"] .game-preview').click();assert.equal(await page.locator('#play-label').innerText(),'PLAY (ETB) · TEST');await page.locator('#play').click();await page.waitForFunction(()=>!document.getElementById('run-etb-test').disabled);await page.locator('#run-etb-test').click();await page.waitForFunction(()=>document.getElementById('etb-test-status').textContent.startsWith('TEST PASSED'));assert.equal(mutations,0);await page.locator('#close-etb-test').click();await page.locator('#play-demo').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);assert.equal(await page.locator('#embedded-demo').getAttribute('src'),game.launch_url);await page.locator('#close-demo').click();assert.equal(await page.locator('#embedded-demo').getAttribute('src'),null);}
  assert.equal(await page.locator('[data-game=jetx]').count(),0);
- assert.deepEqual(errors,[]);assert.equal(mutations,0);
- console.log('PASS: original lobby, 33 tiles, native order and auth, same-page demo, provider/category filters, exact wallet, logout, search, saved games/reload, gateway redirect, four viewport widths, no JS errors or writes');
+ assert.deepEqual(errors,[]);assert.equal(mutations,0);assert.equal(walletChecks,32);
+ console.log('PASS: manual ETB test across 30 games, zero-credit entry with locked test button, funding refresh, no automatic test calls or ledger writes, original lobby, 33 tiles, native order and auth, same-page demo, provider/category filters, exact wallet, logout, search, saved games/reload, gateway redirect, four viewport widths, no JS errors or writes');
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

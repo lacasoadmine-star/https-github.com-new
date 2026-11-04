@@ -65,7 +65,7 @@ test('native lobby transformation retains the original grid, wallet, account and
  const patched=integrateLobbyScript(source),page=integrateLobbyHTML(html);
  assert.match(patched,/Object.assign\(CATALOG/);assert.match(patched,/game.external/);
  assert.match(page,/id="game-grid"/);assert.match(page,/id="account-balance"/);assert.match(page,/id="demo-player"/);
- assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v250\/lobby.mjs/);
+ assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v251\/lobby.mjs/);
  assert.throws(()=>integrateLobbyScript('unknown script'));
  assert.throws(()=>integrateLobbyHTML('unknown markup'));
  assert.throws(()=>integrateLobbyScript(patched));
@@ -151,4 +151,28 @@ test('official demo URLs use provider DEMO tokens and original source artwork',a
  const {worker}=fixture();const data=await(await worker.fetch(request('/api/gateway/games'),{})).json();
  for(const game of data.games){const url=new URL(game.launch_url);assert.equal(url.origin,'https://eu-server.ssgportal.com');assert.equal(url.pathname.toLowerCase(),'/gamelauncher/loader.aspx');assert.equal(url.searchParams.get('PortalName').toUpperCase(),'DEMO');assert.ok(['DEMO','DEMO_EXH'].includes(url.searchParams.get('Token')));assert.equal(new URL(game.cover).hostname,'cdn.prod.website-files.com');assert.ok(game.source_url.startsWith('https://www.smartsoftgaming.com/games/'));assert.equal(game.etb_enabled,false);}
  assert.ok(data.games.some(g=>new URL(g.launch_url).searchParams.get('GameName')==='MultiHot5'));
+});
+
+const testBody={game_id:'ssg-multi-hot-5',stake:'10.00'};
+test('manual ETB test uses the existing authenticated wallet without settlement or balance changes',async()=>{
+ const {worker,calls}=fixture();const r=await worker.fetch(request('/api/wallet/test',testBody,{cookie:'session=real-player','content-length':'45'}),{}),d=await r.json();
+ assert.equal(r.status,200);assert.equal(d.status,'TEST_PASSED');assert.equal(d.user_id,'signed-in-player');assert.equal(d.balance,'42.00');assert.equal(d.projected_balance,'32.00');assert.equal(d.game_id,testBody.game_id);
+ assert.equal(d.test_only,true);assert.equal(d.ledger_mutated,false);assert.equal(d.debit_executed,false);assert.equal(d.win_settled,false);assert.equal(d.currency,'ETB');assert.equal(calls.length,1);assert.equal(calls[0].kind,'legacy');assert.equal(calls[0].path,'/api/slots/originals/session');assert.equal(calls[0].cookie,'session=real-player');assert.equal(r.headers.get('cache-control'),'no-store');assert.match(r.headers.get('set-cookie'),/renewed/);
+ const again=await(await worker.fetch(request('/api/wallet/test',testBody),{})).json();assert.equal(again.balance,'42.00');assert.equal(again.ledger_mutated,false);assert.equal(calls.filter(c=>c.kind==='original').length,0);
+});
+test('ETB test validates affordability with exact santim and rejects spoofed identities',async()=>{
+ const {worker,calls}=fixture({authenticated:true,identity:'p',balance:'9007199254740991.99',currency:'ETB',enabled:true});const d=await(await worker.fetch(request('/api/wallet/test',{...testBody,stake:'1.01'}),{})).json();assert.equal(d.projected_balance,'9007199254740990.98');
+ const before=calls.length;for(const body of [{...testBody,user_id:'other'},{...testBody,stake:-10},{...testBody,stake:'NaN'},{...testBody,stake:'0.00'},{...testBody,stake:'1000.01'},{...testBody,game_id:'unlisted'}])assert.equal((await worker.fetch(request('/api/wallet/test',body),{})).status,422);assert.equal(calls.length,before);
+ const low=fixture({authenticated:true,identity:'p',balance:'9.99',currency:'ETB',enabled:true});assert.equal((await low.worker.fetch(request('/api/wallet/test',testBody),{})).status,409);assert.equal(low.calls.filter(c=>c.kind==='original').length,0);
+});
+test('ETB test requires login, active play permission, same origin and a bounded JSON body',async()=>{
+ const anonymous=fixture({authenticated:false});assert.equal((await anonymous.worker.fetch(request('/api/wallet/test',testBody),{})).status,401);
+ const disabled=fixture({authenticated:true,identity:'p',balance:'42.00',currency:'ETB',enabled:false});assert.equal((await disabled.worker.fetch(request('/api/wallet/test',testBody),{})).status,403);
+ const {worker,calls}=fixture();assert.equal((await worker.fetch(request('/api/wallet/test'),{})).status,405);assert.equal((await worker.fetch(request('/api/wallet/test',testBody,{origin:'https://foreign.test'}),{})).status,403);assert.equal((await worker.fetch(request('/api/wallet/test',testBody,{'content-type':'text/plain'}),{})).status,415);assert.equal((await worker.fetch(new Request(origin+'/api/wallet/test',{method:'POST',headers:{origin,'content-type':'application/json'},body:'x'.repeat(16001)}),{})).status,413);assert.equal(calls.length,0);
+});
+
+test('zero-credit accounts can enter the existing wallet view but cannot validate a stake',async()=>{
+ const {worker,calls}=fixture({authenticated:true,identity:'empty-player',balance:'0.00',currency:'ETB',enabled:true});
+ const read=await worker.fetch(request('/api/wallet'),{});assert.equal(read.status,200);assert.equal((await read.json()).balance,'0.00');
+ const check=await worker.fetch(request('/api/wallet/test',testBody),{});assert.equal(check.status,409);assert.equal((await check.json()).detail,'INSUFFICIENT_ETB_BALANCE');assert.equal(calls.filter(c=>c.kind==='original').length,0);
 });
