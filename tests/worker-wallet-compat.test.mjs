@@ -47,11 +47,11 @@ test('upgrade preserves existing wrapper and refuses unknown or already upgraded
  const patched=upgradeWalletCompatibility(old);assert.match(patched,/gatewayScript: GATEWAY_SCRIPT/);
  assert.throws(()=>upgradeWalletCompatibility(patched));assert.throws(()=>upgradeWalletCompatibility('export default {};'));
 });
-test('gateway exposes all 30 supplied links without claiming an active ETB gateway',async()=>{
+test('gateway exposes 30 independent internal engines without claiming official provider settlement',async()=>{
  const {worker,calls}=fixture();const r=await worker.fetch(request('/api/gateway/games'),{});const data=await r.json();
  assert.equal(data.games.length,30);assert.equal(new Set(data.games.map(g=>g.id)).size,30);
- assert.equal(data.configured_games_count,0);assert.equal(data.status,'CATALOG_ONLY');
- assert.ok(data.games.every(g=>g.etb_enabled===false&&g.demo_url_verified===false));assert.equal(calls.length,0);
+ assert.equal(data.configured_games_count,30);assert.equal(data.status,'INTERNAL_ETB');
+ assert.ok(data.games.every(g=>g.etb_enabled===true&&g.official_provider_game===false&&g.launch_url==='/native/'+g.id));assert.equal(calls.length,0);
 });
 test('gateway page and JavaScript have strict types, caching and frame policy',async()=>{
  const {worker}=fixture();const page=await worker.fetch(request('/gateway'),{});
@@ -65,7 +65,7 @@ test('native lobby transformation retains the original grid, wallet, account and
  const patched=integrateLobbyScript(source),page=integrateLobbyHTML(html);
  assert.match(patched,/Object.assign\(CATALOG/);assert.match(patched,/game.external/);
  assert.match(page,/id="game-grid"/);assert.match(page,/id="account-balance"/);assert.match(page,/id="demo-player"/);
- assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v247\/lobby.mjs/);
+ assert.match(page,/data-provider="internal"/);assert.match(page,/player-live-v248\/lobby.mjs/);
  assert.throws(()=>integrateLobbyScript('unknown script'));
  assert.throws(()=>integrateLobbyHTML('unknown markup'));
  assert.throws(()=>integrateLobbyScript(patched));
@@ -74,7 +74,7 @@ test('gateway rejects mutations and HEAD has no body',async()=>{
  const {worker}=fixture();assert.equal((await worker.fetch(request('/api/gateway/games',{}),{})).status,405);
  const response=await worker.fetch(new Request(origin+'/api/gateway/games',{method:'HEAD'}),{});assert.equal(await response.text(),'');
 });
-test('all 30 external games are rejected before any wallet read or settlement',async()=>{
+test('legacy slot spin route rejects internal family IDs, which use the dedicated action API',async()=>{
  const {worker,calls}=fixture();const data=await(await worker.fetch(request('/api/gateway/games'),{})).json();
  for(const game of data.games){const r=await worker.fetch(request('/api/spin',{...valid,game_id:game.id}),{});assert.equal(r.status,422);}
  assert.equal(calls.length,0);

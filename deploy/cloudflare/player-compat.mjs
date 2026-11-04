@@ -1,8 +1,9 @@
 import {SMARTSOFT_CATALOG} from './smartsoft-catalog.mjs';
 import {GATEWAY_HTML} from './gateway-page.mjs';
 import {integrateLobbyHTML, INTEGRATED_LOBBY_PATH} from './integrated-lobby.mjs';
+import {internalFamilyCatalog,nativeRoute,proxyNativeFamily,reconcileNativeFamilies} from './native-family-proxy.mjs';
 
-export const COMPAT_RELEASE = 'superwin-integrated-lobby-20261104';
+export const COMPAT_RELEASE = 'superwin-native-family-engines-20261104';
 
 const money = value => typeof value === 'string' && /^\d{1,16}\.\d{2}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
@@ -69,10 +70,11 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
       const walletPath = path === '/api/wallet' || path === '/api/wallet/DDSAgent';
       const gatewayPath = path === '/gateway' || path === '/gateway/' || path === '/gateway-player.mjs' || path === '/api/gateway/games';
       const lobbyPath = ['/', '/games', '/games/', '/casino', '/catalog', '/player', '/player/'].includes(path) && ['GET', 'HEAD'].includes(request.method);
-      const handled = walletPath || gatewayPath || lobbyPath || path === INTEGRATED_LOBBY_PATH || path === '/api/games' || path === '/api/spin' || path === '/_player/wallet-compat-release';
+      const handled = nativeRoute(path) || walletPath || gatewayPath || lobbyPath || path === INTEGRATED_LOBBY_PATH || path === '/api/games' || path === '/api/spin' || path === '/_player/wallet-compat-release';
       if (!handled && path !== '/ws' && !path.startsWith('/ws/')) return original.fetch(request, env, ctx);
       try {
         if (request.headers.has('x-zplay-two-hop')) return fail('LEGACY_DISPATCH_LOOP', 503);
+        if(nativeRoute(path))return proxyNativeFamily(request,env,{legacy,sessionHeaders});
         if (path === INTEGRATED_LOBBY_PATH) {
           if (!['GET','HEAD'].includes(request.method)) return fail('METHOD_NOT_ALLOWED',405);
           if (typeof lobbyScript !== 'string') return fail('PLAYER_ASSET_UNAVAILABLE',503);
@@ -95,7 +97,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
             return new Response(null,{status:302,headers:{Location:target.href,'Cache-Control':'no-store'}});
           }
           if (path === '/api/gateway/games') {
-            const result = json(SMARTSOFT_CATALOG);
+            const result = json(internalFamilyCatalog());
             return request.method === 'HEAD' ? new Response(null, result) : result;
           }
           const script = path === '/gateway-player.mjs';
@@ -117,7 +119,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
         }
         if (path === '/_player/wallet-compat-release') {
           if (request.method !== 'GET') return fail('METHOD_NOT_ALLOWED', 405);
-          return json({release: COMPAT_RELEASE, wallet: '/api/wallet', catalog: '/api/games', demo_catalog: '/api/gateway/games', player: '/',
+          return json({release: COMPAT_RELEASE, wallet: '/api/wallet', catalog: '/api/games', internal_catalog: '/api/gateway/games',native_engine_status:'/api/native-families/status', player: '/',
                        settlement: '/api/slots/spin', currency: 'ETB',
                        account_scope: 'authenticated_player', demo_settlement_enabled: false});
         }
@@ -177,6 +179,10 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
       } catch {
         return fail('TEMPORARILY_UNAVAILABLE_RETRY_SAME_TOKEN', 503);
       }
+    },
+    async scheduled(event,env,ctx){
+      if(typeof original.scheduled==='function')await original.scheduled(event,env,ctx);
+      ctx.waitUntil(reconcileNativeFamilies(env).catch(()=>console.error(JSON.stringify({event:'native_reconcile_unavailable'}))));
     },
   };
 }

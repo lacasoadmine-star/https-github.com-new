@@ -40,13 +40,13 @@ try{
  assert.deepEqual(await page.locator('#game-grid .game-tile').evaluateAll(nodes=>nodes.slice(0,3).map(n=>n.dataset.game)),Object.keys(GAMES));
  assert.equal(await page.locator('#provider-count').innerText(),'3');assert.equal(await page.locator('#smartsoft-count').innerText(),'30');
  await page.locator('[data-game="jetx"] .game-preview').click();
- assert.equal(await page.locator('#play').getAttribute('aria-disabled'),'true');assert.equal(await page.locator('#play-demo').getAttribute('aria-disabled'),null);
+ await page.waitForFunction(()=>document.getElementById('play-label').textContent==='Sign in to play');assert.equal(await page.locator('#play').getAttribute('href'),'/account?view=login');assert.equal(await page.locator('#play-demo').getAttribute('aria-disabled'),null);
  await page.locator('#play-demo').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);
  assert.equal(new URL(page.url()).pathname,'/');assert.match(await page.locator('#embedded-demo').getAttribute('src'),/games\/jetx$/);
  assert.match(await page.locator('.embedded-note').innerText(),/aan la xaqiijin/);assert.equal(mutations,0);
  await page.locator('#close-demo').click();assert.equal(await page.locator('#embedded-demo').getAttribute('src'),null);
- await page.locator('[data-provider="smartsoft"]').click();assert.equal(await page.locator('.game-tile').count(),30);
- await page.locator('[data-filter="crash"]').click();assert.equal(await page.locator('.game-tile').count(),5);
+ await page.locator('[data-provider="internal"]').click();assert.equal(await page.locator('.game-tile').count(),30);
+ await page.locator('[data-filter="crash"]').click();assert.equal(await page.locator('.game-tile').count(),7);
  await page.goto(base+'/?provider=zplaybet');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===3);
  await page.locator('[data-game="multi_hot_5_video"] .game-preview').click();
  await page.waitForFunction(()=>document.getElementById('play-label').textContent==='Sign in to play');
@@ -54,6 +54,7 @@ try{
  account.authenticated=true;account.balance='9007199254740991.99';await page.evaluate(()=>window.dispatchEvent(new Event('zplay:session-ready')));
  await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB)');
  assert.equal(await page.locator('#play').getAttribute('href'),'/play/multi-hot-5');
+ await page.locator('#close-detail').click();await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);await page.locator('[data-game=jetx] .game-preview').click();await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB)');assert.equal(await page.locator('#play').getAttribute('href'),'/native/jetx');
  assert.equal((await page.locator('#account-balance').innerText()).replaceAll(',',''),'9007199254740991.99 ETB');
  await page.evaluate(()=>window.dispatchEvent(new Event('zplay:logout')));assert.equal(await page.locator('#account-balance').innerText(),'');
  assert.equal(await page.locator('#play-label').innerText(),'Sign in to play');await page.locator('#close-detail').click();
