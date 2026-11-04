@@ -1,6 +1,6 @@
 import {OFFICIAL_DEMO_CATALOG} from './official-demo-catalog.mjs';
 
-export const INTEGRATED_LOBBY_PATH='/player-live-v254/lobby.mjs';
+export const INTEGRATED_LOBBY_PATH='/player-live-v255/lobby.mjs';
 function once(source,anchor,replacement){if(source.split(anchor).length!==2)throw Error('Unexpected lobby source: '+anchor.slice(0,70));return source.replace(anchor,replacement);}
 
 export function integrateLobbyScript(source){
@@ -12,20 +12,20 @@ export function integrateLobbyScript(source){
  if(game.external){picture.classList.add('provider-cover');const image=document.createElement('img');image.src=game.cover;image.alt=game.title;image.width=493;image.height=617;image.loading='lazy';image.decoding='async';image.referrerPolicy='no-referrer';picture.append(image);const badge=document.createElement('span');badge.className='demo-badge';badge.textContent='DEMO';picture.append(badge);return picture;}`);
  script=once(script,"(state.provider==='all'||g.provider===state.provider));","(state.provider==='all'||g.provider===state.provider)&&(state.filter==='demo'?g.external:state.filter==='etb'?!g.external:['slots','crash','arcade'].includes(state.filter)?(g.category||'Slots').toLowerCase()===state.filter:true));");
  script=once(script,"$('provider-count').textContent=String(state.games.length);","$('provider-count').textContent=String(state.games.filter(g=>!g.external).length);$('smartsoft-count').textContent=String(state.games.filter(g=>g.external).length);");
- script=once(script,"const facts=[game.cols+' × '+game.rows+' reels',game.lines+' lines',game.wheel+' multiplier'];","const facts=game.external?['SmartSoft Gaming',game.category,'DEMO']:[game.cols+' × '+game.rows+' reels',game.lines+' lines',game.wheel+' multiplier'];");
+ script=once(script,"const facts=[game.cols+' × '+game.rows+' reels',game.lines+' lines',game.wheel+' multiplier'];","const facts=game.external?['SmartSoft demo',game.category,'Superwin ETB']:[game.cols+' × '+game.rows+' reels',game.lines+' lines',game.wheel+' multiplier'];");
  script=once(script,"status.hidden=true;status.textContent='';",`status.hidden=true;status.textContent='';const demo=$('play-demo');demo.hidden=!game.external;demo.removeAttribute('href');demo.setAttribute('aria-disabled','true');if(game.external){demo.href='#demo';demo.removeAttribute('aria-disabled');}`);
  script=once(script,"$('play-label').textContent='Play now';","$('play-label').textContent='PLAY (ETB)';");
  script=once(script,"play.href='/play/'+game.slug;","play.href=game.external?'#wallet-game':'/play/'+game.slug;");
  script=once(script,"Object.values(CATALOG).filter(g=>received.has(g.id)).map(g=>{const model=received.get(g.id);return {...g,provider:'zplaybet',enabled:model.enabled===true};});","Object.values(CATALOG).filter(g=>g.external||received.has(g.id)).map(g=>{if(g.external)return {...g,enabled:true};const model=received.get(g.id);return {...g,provider:'zplaybet',category:'Slots',enabled:model.enabled===true};});");
  script+=`
-let walletLaunchAbort=null,walletLaunchEpoch=0,walletLaunchBusy=false;
+let walletLaunchAbort=null,walletLaunchEpoch=0,walletLaunchBusy=false,activeWalletUser=null,activeWalletIdentity=null,activeWalletGame=null;
 function cancelWalletLaunch(){walletLaunchEpoch++;walletLaunchAbort?.abort();walletLaunchBusy=false;}
-function clearEmbeddedGame(){$('embedded-demo').removeAttribute('src');$('embedded-wallet').hidden=true;$('embedded-wallet-balance').textContent='';}
+function clearEmbeddedGame(){activeWalletUser=null;activeWalletIdentity=null;activeWalletGame=null;$('embedded-demo').removeAttribute('src');$('embedded-wallet').hidden=true;$('embedded-wallet-balance').textContent='';}
 function closeEmbeddedDemo(){cancelWalletLaunch();if($('demo-player').open)$('demo-player').close();clearEmbeddedGame();}
 function providerDemoURL(value){try{const url=new URL(value);return url.origin==='https://eu-server.ssgportal.com'&&!url.username&&!url.password&&url.pathname.toLowerCase()==='/gamelauncher/loader.aspx'&&url.searchParams.get('PortalName')?.toUpperCase()==='DEMO'&&['DEMO','DEMO_EXH'].includes(url.searchParams.get('Token'))?url:null;}catch{return null;}}
-function openEmbeddedGame(game,wallet=null){
- const url=providerDemoURL(game.demo_launcher_url);if(!url)return;
- clearEmbeddedGame();walletLaunchBusy=false;closeDialog('detail');$('embedded-title').textContent=game.title;$('embedded-demo').title=game.title+' demo';$('demo-fallback').href=url.href;
+function openEmbeddedGame(game,wallet=null,approved=null){
+ const url=wallet?new URL('/native/'+game.id+'?embed=1',location.origin):providerDemoURL(game.demo_launcher_url);if(!url)return;
+ clearEmbeddedGame();walletLaunchBusy=false;closeDialog('detail');$('embedded-title').textContent=game.title;$('embedded-demo').title=game.title+(wallet?' · Superwin ETB':' · Demo');$('demo-fallback').href=url.href;$('session-kind').textContent=wallet?'SUPERWIN':'DEMO';if(approved){activeWalletUser=approved.user_id;activeWalletIdentity=approved.wallet_identity;activeWalletGame=game.id;}
  $('embedded-wallet').hidden=!wallet;if(wallet)$('embedded-wallet-balance').textContent=money(wallet.balance);
  $('embedded-demo').src=url.href;if(!$('demo-player').open)$('demo-player').showModal();
 }
@@ -38,13 +38,14 @@ async function launchWalletGame(game){
   if(epoch!==walletLaunchEpoch||state.identity!==identity)return;
   if(response.status===401){expireSession();return;}
   if(!response.ok){if(response.status===403)state.enabled=false;if(response.status===409&&data.user_id===identity&&money(data.balance))state.balance=data.balance;updateAccount();throw Error(response.status===409?'Insufficient balance.':'Unable to open. Please retry.');}
-  if(data.game_id!==game.id||data.user_id!==identity||data.session_mode!=='WALLET_DEMO'||data.settlement_enabled!==false||data.launch_url!==game.demo_launcher_url||data.wallet?.currency!=='ETB'||!money(data.wallet.balance)||BigInt(data.wallet.balance.replace('.',''))<=0n)throw Error('Unable to verify this session.');
-  state.balance=data.wallet.balance;updateAccount();openEmbeddedGame(game,data.wallet);
+  if(data.game_id!==game.id||data.wallet_identity!==identity||typeof data.user_id!=='string'||data.session_mode!=='INTERNAL_ETB'||data.settlement_enabled!==true||data.launch_url!=='/native/'+game.id+'?embed=1'||data.wallet?.currency!=='ETB'||!money(data.wallet.balance)||BigInt(data.wallet.balance.replace('.',''))<=0n)throw Error('Unable to verify this session.');
+  state.balance=data.wallet.balance;updateAccount();openEmbeddedGame(game,data.wallet,data);
  }catch(error){if(epoch!==walletLaunchEpoch||state.identity!==identity)return;status.hidden=false;status.textContent=error.name==='AbortError'?'Connection timed out. Please retry.':error.message;}
  finally{clearTimeout(timeout);if(epoch===walletLaunchEpoch){walletLaunchBusy=false;$('play').removeAttribute('aria-disabled');}}
 }
 $('play-demo').addEventListener('click',event=>{event.preventDefault();const game=state.selected;if(game?.external&&$('play-demo').getAttribute('aria-disabled')!=='true'){cancelWalletLaunch();openEmbeddedGame(game);}});
 $('play').addEventListener('click',event=>{const game=state.selected;if(!game?.external||state.session!=='signedin'||!state.enabled||!money(state.balance)||BigInt(state.balance.replace('.',''))<=0n)return;event.preventDefault();void launchWalletGame(game);});
+window.addEventListener('message',event=>{const data=event.data;if(event.origin!==location.origin||event.source!==$('embedded-demo').contentWindow||!activeWalletUser||activeWalletIdentity!==state.identity||data?.type!=='superwin:wallet-updated'||data.game_id!==activeWalletGame||data.user_id!==activeWalletUser||data.currency!=='ETB'||!money(data.balance))return;state.balance=data.balance;$('embedded-wallet-balance').textContent=money(data.balance);updateAccount();});
 $('close-demo').addEventListener('click',closeEmbeddedDemo);$('close-detail').addEventListener('click',cancelWalletLaunch);
 $('detail').addEventListener('close',()=>{if(walletLaunchBusy)cancelWalletLaunch();});
 $('demo-player').addEventListener('close',()=>{if(!$('demo-player').open){cancelWalletLaunch();clearEmbeddedGame();}});
@@ -64,6 +65,6 @@ export function integrateLobbyHTML(source){
  html=once(html,'</nav>\n    <div class="search-row">','<button type="button" data-provider="smartsoft" aria-pressed="false">SmartSoft <span id="smartsoft-count"></span></button></nav>\n    <div class="search-row">');
  html=once(html,'<button type="button" data-filter="slots" aria-pressed="false">Slots</button>','<button type="button" data-filter="slots" aria-pressed="false">Slots</button><button type="button" data-filter="crash" aria-pressed="false">Crash</button><button type="button" data-filter="arcade" aria-pressed="false">Arcade</button><button type="button" data-filter="demo" aria-pressed="false">DEMO</button><button type="button" data-filter="etb" aria-pressed="false">ETB</button>');
  html=once(html,'<span id="play-label">Sign in to play</span></a>','<span id="play-label">Sign in to play</span></a><a id="play-demo" class="secondary-action" aria-disabled="true">PLAY DEMO</a>');
- html=once(html,'</body>',`<dialog id="demo-player" aria-labelledby="embedded-title"><header class="embedded-header"><div class="embedded-heading"><strong id="embedded-title"></strong><span class="session-demo">DEMO</span></div><div class="embedded-tools"><span id="embedded-wallet" hidden>Wallet <strong id="embedded-wallet-balance"></strong></span><a id="demo-fallback" target="_blank" rel="noopener noreferrer">↗ Open</a><button type="button" id="close-demo" aria-label="Close game">×</button></div></header><iframe id="embedded-demo" title="Game" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock" allow="fullscreen" referrerpolicy="no-referrer"></iframe></dialog></body>`);
+ html=once(html,'</body>',`<dialog id="demo-player" aria-labelledby="embedded-title"><header class="embedded-header"><div class="embedded-heading"><strong id="embedded-title"></strong><span class="session-demo" id="session-kind">DEMO</span></div><div class="embedded-tools"><span id="embedded-wallet" hidden>Wallet <strong id="embedded-wallet-balance"></strong></span><a id="demo-fallback" target="_blank" rel="noopener noreferrer">↗ Open</a><button type="button" id="close-demo" aria-label="Close game">×</button></div></header><iframe id="embedded-demo" title="Game" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock" allow="fullscreen" referrerpolicy="no-referrer"></iframe></dialog></body>`);
  return html;
 }

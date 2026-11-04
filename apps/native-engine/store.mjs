@@ -106,7 +106,7 @@ export class NativeStore{
    return {balance:formatMinor(await this.balance(tx,userId)),currency:'ETB',round:round?this.view(round,asJSON(round.state),now):null,other_active_game:pending?.status==='active'&&pending.game_id!==gameId?pending.game_id:null,server_now:now};
   });
  }
- async perform(userId,payload,{allowNewRounds=true}={}){
+ async perform(userId,payload,{allowNewRounds=true,allowedGameIds=null}={}){
   strictObject(payload,['request_id','type','game_id','stake','options','round_id','expected_version','action','input']);
   if(!uuid(payload.request_id))fail('INVALID_REQUEST_ID');
   const game=gameById(payload.game_id),digest=hash(json(canonical(payload)));
@@ -119,7 +119,7 @@ export class NativeStore{
    }
    const now=this.now();let round,result;
    if(payload.type==='start'){
-    if(!allowNewRounds)fail('GAME_RETIRED_USE_DEMO_CATALOG',409);
+    if(!allowNewRounds||(allowedGameIds&&!allowedGameIds.has(game.id)))fail('GAME_RETIRED_USE_DEMO_CATALOG',409);
     const stake=stakeMinor(payload.stake,game),options=payload.options??{};
     strictObject(options,game.family==='mines'?['mines']:game.family==='dice'?['target']:game.family==='plinko'?['risk']:game.family==='crash'?['auto_cashout']:[]);
     const liability=maximumLiability(game,stake,options);

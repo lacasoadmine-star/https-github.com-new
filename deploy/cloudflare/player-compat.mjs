@@ -1,9 +1,10 @@
+import {ACTIVE_GAMES} from '../../apps/native-engine/catalog.mjs';
 import {OFFICIAL_DEMO_CATALOG} from './official-demo-catalog.mjs';
 import {GATEWAY_HTML} from './gateway-page.mjs';
 import {integrateLobbyHTML, INTEGRATED_LOBBY_PATH} from './integrated-lobby.mjs';
 import {nativeRoute,proxyNativeFamily,reconcileNativeFamilies} from './native-family-proxy.mjs';
 
-export const COMPAT_RELEASE = 'superwin-wallet-demo-entry-20261104';
+export const COMPAT_RELEASE = 'superwin-dual-mode-ledger-20261104';
 
 const money = value => typeof value === 'string' && /^\d{1,16}\.\d{2}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
@@ -89,7 +90,10 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
           const account=await session(request,env);if(account.error)return account.error;
           if(account.data.enabled!==true)return fail('ACCOUNT_PLAY_DISABLED',403,account.headers);
           if(BigInt(account.data.balance.replace('.',''))<=0n)return json({detail:'INSUFFICIENT_ETB_BALANCE',balance:account.data.balance,user_id:account.data.identity,currency:'ETB'},409,account.headers);
-          return json({game_id:game.id,session_mode:'WALLET_DEMO',user_id:account.data.identity,account_scope:'authenticated_player',launch_url:game.launch_url,wallet:{balance:account.data.balance,currency:'ETB'},settlement_enabled:false,credit_required:true},200,account.headers);
+          if(!Object.hasOwn(ACTIVE_GAMES,game.id))return fail('ETB_ENGINE_UNAVAILABLE',503,account.headers);
+          const me=await legacy(readRequest(request,'/api/me'),env);if(!me.ok)return fail(me.status===401?'PLAYER_LOGIN_REQUIRED':'ACCOUNT_UNAVAILABLE',me.status===401?401:503,[account.headers,me.headers]);
+          const player=await me.json();if(typeof player.id!=='string'||!player.id||player.role!=='player')return fail('PLAYER_REQUIRED',403,[account.headers,me.headers]);
+          return json({game_id:game.id,session_mode:'INTERNAL_ETB',implementation:'Superwin internal',official_provider_game:false,user_id:player.id,wallet_identity:account.data.identity,account_scope:'authenticated_player',launch_url:'/native/'+game.id+'?embed=1',wallet:{balance:account.data.balance,currency:'ETB'},settlement_enabled:true,credit_required:true},200,[account.headers,me.headers]);
         }
         if(nativeRoute(path))return proxyNativeFamily(request,env,{legacy,sessionHeaders});
         if (path === INTEGRATED_LOBBY_PATH) {
@@ -114,7 +118,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
             return new Response(null,{status:302,headers:{Location:target.href,'Cache-Control':'no-store'}});
           }
           if (path === '/api/gateway/games') {
-            const result = json({...OFFICIAL_DEMO_CATALOG,status:'OFFICIAL_DEMO',configured_games_count:0,demo_games_count:30,official_provider_game:true,games:OFFICIAL_DEMO_CATALOG.games.map(game=>({...game,wallet_entry_enabled:true,credit_required:true,settlement_enabled:false})),wallet_entry_enabled:true,wallet_launch_endpoint:'/api/gateway/launch'});
+            const result = json({...OFFICIAL_DEMO_CATALOG,status:'OFFICIAL_DEMO',configured_games_count:0,demo_games_count:30,official_provider_game:true,internal_etb_games_count:30,games:OFFICIAL_DEMO_CATALOG.games.map(game=>({...game,etb_enabled:true,etb_implementation:'Superwin internal',etb_launch_url:'/native/'+game.id,wallet_entry_enabled:true,credit_required:true,settlement_enabled:true})),wallet_entry_enabled:true,wallet_launch_endpoint:'/api/gateway/launch'});
             return request.method === 'HEAD' ? new Response(null, result) : result;
           }
           const script = path === '/gateway-player.mjs';
@@ -136,7 +140,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
         }
         if (path === '/_player/wallet-compat-release') {
           if (request.method !== 'GET') return fail('METHOD_NOT_ALLOWED', 405);
-          return json({release: COMPAT_RELEASE, wallet: '/api/wallet',wallet_launch:'/api/gateway/launch',wallet_launch_settlement_enabled:false, catalog: '/api/games', internal_catalog: '/api/gateway/games',native_engine_status:'/api/native-families/status', player: '/',
+          return json({release: COMPAT_RELEASE, wallet: '/api/wallet',wallet_launch:'/api/gateway/launch',wallet_launch_settlement_enabled:true, catalog: '/api/games', internal_catalog: '/api/gateway/games',native_engine_status:'/api/native-families/status', player: '/',
                        settlement: '/api/slots/spin', currency: 'ETB',
                        account_scope: 'authenticated_player', demo_settlement_enabled: false});
         }

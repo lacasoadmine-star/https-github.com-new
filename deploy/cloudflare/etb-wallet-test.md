@@ -1,3 +1,5 @@
+> Superseded: the old test modal and read-only stake check have been removed. See wallet-demo-entry.md for the active owned ETB and official-demo modes.
+
 > Superseded: the test dialog and form have been removed. The old endpoint returns 410. See wallet-demo-entry.md for the current direct-entry preview.
 
 # Manual ETB wallet test for the existing demo catalog

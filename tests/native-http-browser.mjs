@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict';
 import {SQL} from 'bun';
-import {randomBytes,randomUUID} from 'node:crypto';
+import {randomBytes,randomUUID,createHash} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {wrapPlayer} from '../deploy/cloudflare/player-compat.mjs';
+import {integrateLobbyScript} from '../deploy/cloudflare/integrated-lobby.mjs';
+import {formatMinor} from '../apps/native-engine/rules.mjs';
 import {createRequire} from 'node:module';
 import {GAMES} from '../apps/native-engine/catalog.mjs';
 import {proxyNativeFamily} from '../deploy/cloudflare/native-family-proxy.mjs';
@@ -21,12 +25,14 @@ globalThis.fetch=async(input,init)=>{
 };
 let loggedIn=true;
 const env={NATIVE_ENGINE_ORIGIN:'https://engine.test',NATIVE_ENGINE_SECRET:secret};
-const options={legacy:async()=>loggedIn?Response.json({id:'ui-player',role:'player'}):Response.json({error:'Please log in'},{status:401}),sessionHeaders:h=>h};
-const server=Bun.serve({hostname:'127.0.0.1',port:0,fetch(req){
- const path=new URL(req.url).pathname;
- if(path==='/player-live-v244/presence.mjs')return new Response('',{headers:{'content-type':'text/javascript'}});
- return proxyNativeFamily(req,env,options);
-}});
+const account=async()=>({authenticated:loggedIn,identity:'ui-wallet-identity',currency:'ETB',enabled:true,balance:formatMinor(BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance))});
+const options={legacy:async req=>{if(!loggedIn)return Response.json({error:'Please log in'},{status:401});return new URL(req.url).pathname==='/api/me'?Response.json({id:'ui-player',role:'player'}):Response.json(await account());},sessionHeaders:h=>h};
+const rootHTML=await readFile(new URL('./fixtures/live-lobby-v244.html',import.meta.url),'utf8'),rootCSS=await readFile(new URL('./fixtures/live-lobby-v244.css',import.meta.url),'utf8');
+const rootScript=integrateLobbyScript(await readFile(new URL('./fixtures/live-lobby-v244.mjs',import.meta.url),'utf8'));
+const originals={multi_hot_5_video:{id:'multi_hot_5_video',title:'Multi Hot 5',slug:'multi-hot-5',enabled:true},hot_foxy_20:{id:'hot_foxy_20',title:'Foxy Hot 20',slug:'hot-foxy-20',enabled:true},safari_simba:{id:'safari_simba',title:'Safari Simba',slug:'safari-simba',enabled:true}};
+const original={async fetch(req){const path=new URL(req.url).pathname;if(path==='/player-live-v244/presence.mjs')return new Response('',{headers:{'content-type':'text/javascript'}});if(path==='/player-live-v244/lobby.css')return new Response(rootCSS,{headers:{'content-type':'text/css'}});if(path==='/api/slots/games')return Response.json({games:Object.values(originals)});if(path==='/api/slots/originals/session')return Response.json(await account());if(path.endsWith('.webp'))return new Response(null,{status:204});return new Response(rootHTML,{headers:{'content-type':'text/html'}});}};
+const worker=wrapPlayer(original,{...options,lobbyScript:rootScript,GAMES:originals});
+const server=Bun.serve({hostname:'127.0.0.1',port:0,fetch:req=>worker.fetch(req,env,{waitUntil:()=>{}})});
 const base=server.url.origin;
 const {chromium}=createRequire(new URL('../apps/native-engine/package.json',import.meta.url))('playwright');let browser;
 const count=async()=>Number((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.rounds'))[0].n);
@@ -37,7 +43,7 @@ try{
  assert.equal((await(await backend.fetch(new Request('https://engine.test/v1/catalog',{headers:signed}))).json()).games.length,30);
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||chromium.executablePath(),headless:true,args:['--no-sandbox']});
  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
- for(const [game,family] of [['burning_ice','slots'],['plinkox','plinko'],['roll_dice','dice'],['spin_x','wheel'],['turbo_mines','mines'],['mega_hilo','hilo'],['jetx','crash']]){
+ for(const [game,family] of [['ssg-multi-hot-5','slots'],['ssg-plinkox','plinko'],['ssg-popx','wheel'],['ssg-mine-island','mines'],['ssg-fortune-catch','hilo'],['ssg-jetx','crash']]){
   await page.goto(base+'/native/'+game);await page.waitForFunction(()=>!document.getElementById('play').disabled);
   assert.equal(await page.locator('#family').textContent(),family);
   if(family==='crash')await page.locator('#auto-target').fill('1.01');
@@ -57,10 +63,10 @@ try{
   }
   await page.waitForFunction(()=>!['READY','ACTIVE','CONFIRMING'].includes(document.getElementById('round-status').textContent));
   assert.equal(await count(),before+1);console.log('Verified browser family: '+family);
-  await page.getByText('Latest round verification',{exact:true}).click();await page.locator('#verify').click();await page.waitForFunction(()=>document.getElementById('message').textContent==='Seed commitment verified.');
+  const proof=await(await realFetch(base+'/api/native-families/state?game_id='+game)).json();assert.equal(createHash('sha256').update(proof.round.revealed_seed).digest('hex'),proof.round.commitment);
   for(const width of [320,1280]){await page.setViewportSize({width,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,game+' overflow');}
  }
- await page.goto(base+'/native/plinkox');await page.waitForFunction(()=>!document.getElementById('play').disabled);
+ await page.goto(base+'/native/ssg-plinkox');await page.waitForFunction(()=>!document.getElementById('play').disabled);
  const before=await count();let dropped=false;const tokens=[];
  await page.route('**/api/native-families/action',async route=>{tokens.push(JSON.parse(route.request().postData()).request_id);if(!dropped){dropped=true;await route.fetch();await route.abort('failed');}else await route.continue();});
  await page.locator('#play').click();await page.waitForFunction(()=>document.getElementById('message').textContent.includes('same saved request'));
@@ -68,11 +74,21 @@ try{
  await page.waitForFunction(()=>Object.keys(localStorage).every(k=>!k.startsWith('superwin.native.v1.pending.')));
  assert.equal(await count(),before+1);assert.ok(tokens.length>=2);assert.equal(new Set(tokens).size,1);
  await page.unroute('**/api/native-families/action');
+ await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);
+ await page.locator('[data-game="ssg-multi-hot-5"] .game-preview').click();await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB)');await page.locator('#play').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);
+ const frame=page.frameLocator('#embedded-demo');await frame.locator('body[data-native-embed="1"]').waitFor();await frame.locator('#play:not([disabled])').waitFor();
+ const beforeSpin=BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance);
+ const receiptPromise=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/native-families/action'&&r.request().method()==='POST');await frame.locator('#play').click();const receipt=await(await receiptPromise).json();assert.equal(receipt.status,'SUCCESS');
+ const afterSpin=BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance);assert.equal(afterSpin,beforeSpin-BigInt(receipt.round.stake_minor)+BigInt(receipt.round.payout_minor));
+ await page.waitForFunction(expected=>document.getElementById('embedded-wallet-balance').textContent.replaceAll(',','')===expected,formatMinor(afterSpin)+' ETB');
+ assert.equal(await page.locator('#session-kind').textContent(),'SUPERWIN');assert.equal(await page.locator('#etb-test').count(),0);await page.locator('#close-demo').click();
+ console.log('Verified full lobby → authenticated own ETB iframe → stake/payout → same PostgreSQL wallet → parent balance synchronization');
+ await page.goto(base+'/native/ssg-plinkox');await page.waitForFunction(()=>!document.getElementById('play').disabled);
  loggedIn=false;await page.evaluate(()=>window.dispatchEvent(new Event('zplay:logout')));assert.equal(await page.locator('#balance').innerText(),'Sign in');assert.equal(await page.locator('#play').isDisabled(),true);
- assert.equal((await realFetch(base+'/native/jetx')).status,401);
+ assert.equal((await realFetch(base+'/native/ssg-jetx')).status,401);
  const totals=await sql.unsafe('SELECT sum(balance)::text AS total FROM sw_rebuild.wallets');assert.equal(totals[0].total,'1001000000');
  const bad=await sql.unsafe('SELECT transfer_id FROM sw_rebuild.ledger GROUP BY transfer_id HAVING sum(delta)<>0 OR count(*)<>2');assert.equal(bad.length,0);
  assert.deepEqual(errors,[]);
- console.log('PASS: real HTTP + isolated PostgreSQL + Chromium: seven distinct families, server settlement, seed verification, reserved funds, exact ledger conservation, interrupted response/reload/idempotent retry, login and logout, mobile and desktop');
+ console.log('PASS: real HTTP + isolated PostgreSQL + Chromium: six active families, server settlement, seed verification, reserved funds, exact ledger conservation, interrupted response/reload/idempotent retry, login and logout, mobile and desktop');
 }finally{await browser?.close();server.stop(true);await sql.close();globalThis.fetch=realFetch;}
 process.exit(0);

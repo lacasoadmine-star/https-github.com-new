@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {GAMES} from '../apps/native-engine/catalog.mjs';
+import {GAMES,ACTIVE_GAMES,LEGACY_GAMES} from '../apps/native-engine/catalog.mjs';
 import {advanceGame,choose,formatMinor,fractionalPayout,maximumLiability,publicRound,seededRandom,stakeMinor,startGame} from '../apps/native-engine/rules.mjs';
 const zero={int:()=>0,bytes:n=>new Uint8Array(n)};
-test('30 configured independent games cover the requested distinct families',()=>{
- assert.equal(Object.keys(GAMES).length,30);
+test('30 active games and 30 recovery definitions cover distinct families',()=>{
+ assert.equal(Object.keys(ACTIVE_GAMES).length,30);assert.equal(Object.keys(LEGACY_GAMES).length,30);assert.equal(Object.keys(GAMES).length,60);assert.ok(Object.values(ACTIVE_GAMES).every(g=>g.accepting_new_rounds));
  for(const family of ['crash','plinko','mines','slots','dice','hilo','wheel'])assert.ok(Object.values(GAMES).some(g=>g.family===family));
  assert.ok(Object.values(GAMES).every(g=>g.official_provider_game===false));
 });
@@ -16,7 +16,7 @@ test('seeded RNG is reproducible and domain separated',()=>{
  const a=seededRandom('ab'.repeat(32),'start'),b=seededRandom('ab'.repeat(32),'start'),c=seededRandom('ab'.repeat(32),'action:1');
  const x=Array.from({length:30},()=>a.int(1000));assert.deepEqual(x,Array.from({length:30},()=>b.int(1000)));assert.notDeepEqual(x,Array.from({length:30},()=>c.int(1000)));
 });
-test('all 30 engines stay within their funded maximum payout over diverse seeds',()=>{
+test('active and recovery engines stay within their funded maximum payout over diverse seeds',()=>{
  for(const game of Object.values(GAMES))for(let i=0;i<100;i++){
   const rng=seededRandom(i.toString(16).padStart(64,'0'),game.id);const state=startGame(game,100n,{},100000,rng);
   assert.ok(BigInt(state.payout_minor)<=maximumLiability(game,100n));

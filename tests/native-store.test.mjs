@@ -3,7 +3,7 @@ import {test,beforeAll,beforeEach,afterAll,expect} from 'bun:test';
 import {randomUUID,createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {NativeStore} from '../apps/native-engine/store.mjs';
-import {GAMES} from '../apps/native-engine/catalog.mjs';
+import {GAMES,ACTIVE_GAMES} from '../apps/native-engine/catalog.mjs';
 import {seededRandom,startGame} from '../apps/native-engine/rules.mjs';
 const url=new URL(process.env.NATIVE_TEST_DATABASE_URL||'http://invalid');
 if(url.hostname!=='127.0.0.1'||url.username!=='native_test'||url.pathname!=='/native_tests')throw Error('Disposable local PostgreSQL is required');
@@ -130,4 +130,19 @@ test('retired catalog rejects new wagers while replay and funded cashout still w
  const replay=await store.perform('player-a',pick,{allowNewRounds:false});expect(replay.replayed).toBe(true);
  const result=await store.perform('player-a',{request_id:randomUUID(),type:'action',game_id:'turbo_mines',round_id:start.round.round_id,expected_version:picked.round.version,action:'cashout',input:{}},{allowNewRounds:false});
  expect(result.round.status).toBe('settled');await conserved();
+});
+
+test('all 30 active games debit, settle and conserve the same canonical wallet',async()=>{
+ const allowedGameIds=new Set(Object.keys(ACTIVE_GAMES));let paid=0n;
+ for(const game of Object.values(ACTIVE_GAMES)){
+  const q=request(game.id,{options:game.family==='crash'?{auto_cashout:'1.01'}:game.family==='plinko'?{risk:'medium'}:{}});
+  let result=await store.perform('player-a',q,{allowedGameIds});
+  if(result.round.status==='active'&&game.family==='crash'){const raw=(await sql.unsafe('SELECT state FROM sw_native_family.rounds WHERE id=$1',[result.round.round_id]))[0].state;const state=typeof raw==='string'?JSON.parse(raw):raw;now=state.crash_at+1;result=await store.snapshot('player-a',game.id);}
+  if(result.round.status==='active'&&game.family==='mines'){const raw=(await sql.unsafe('SELECT state FROM sw_native_family.rounds WHERE id=$1',[result.round.round_id]))[0].state;const state=typeof raw==='string'?JSON.parse(raw):raw;const cell=Array.from({length:25},(_,i)=>i).find(i=>!state.mines.includes(i));result=await store.perform('player-a',{request_id:randomUUID(),type:'action',game_id:game.id,round_id:result.round.round_id,expected_version:0,action:'pick',input:{cell}},{allowedGameIds});}
+  if(result.round.status==='active'&&game.family==='hilo')result=await store.perform('player-a',{request_id:randomUUID(),type:'action',game_id:game.id,round_id:result.round.round_id,expected_version:0,action:'guess',input:{choice:result.round.rank<7?'higher':'lower'}},{allowedGameIds});
+  if(result.round.status==='active')result=await store.perform('player-a',{request_id:randomUUID(),type:'action',game_id:game.id,round_id:result.round.round_id,expected_version:result.round.version,action:'cashout',input:{}},{allowedGameIds});
+  expect(result.round.status).toBe('settled');paid+=BigInt(result.round.payout_minor);const replay=await store.perform('player-a',q,{allowedGameIds});expect(replay.replayed).toBe(true);
+ }
+ expect(await balance('player-a')).toBe(1000000n-3000n+paid);expect((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.rounds'))[0].n).toBe(30);await conserved();
+ await expect(store.perform('player-a',request('burning_ice'),{allowedGameIds})).rejects.toThrow('GAME_RETIRED_USE_DEMO_CATALOG');
 });

@@ -1,5 +1,5 @@
 import {GAMES as NATIVE_GAMES} from '../../apps/native-engine/catalog.mjs';
-import {SMARTSOFT_CATALOG} from './smartsoft-catalog.mjs';
+import {OFFICIAL_DEMO_CATALOG as SMARTSOFT_CATALOG} from './official-demo-catalog.mjs';
 
 export function internalFamilyCatalog(){return {
  provider:'Superwin internal',environment:'Internal ETB family engines',status:'INTERNAL_ETB',gateway:'Superwin native family engine',
@@ -46,7 +46,7 @@ export async function proxyNativeFamily(request,env,{legacy,sessionHeaders}){
   else if(path==='/api/native-families/status'){target='/health';publicRequest=true;}
   else if(path==='/api/native-families/catalog'){target='/v1/catalog';publicRequest=true;}
   else if(path.startsWith('/native/')){
-   const id=path.slice('/native/'.length);if(!Object.hasOwn(NATIVE_GAMES,id))return error('GAME_NOT_FOUND',404);target='/game/'+id;
+   const id=path.slice('/native/'.length);if(!Object.hasOwn(NATIVE_GAMES,id))return error('GAME_NOT_FOUND',404);target='/game/'+id+(url.searchParams.get('embed')==='1'?'?embed=1':'');
   }else if(path==='/api/native-families/state'){
    const id=url.searchParams.get('game_id');if(!Object.hasOwn(NATIVE_GAMES,id))return error('GAME_NOT_FOUND',404);target='/v1/state?game_id='+encodeURIComponent(id);
   }else if(path==='/api/native-families/action')target='/v1/action';

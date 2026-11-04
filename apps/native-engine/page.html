@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Superwin Internal</title><link rel="stylesheet" href="/native-assets/style.css">
+<title>Superwin Internal</title><meta name="theme-color" content="#070e18"><link rel="stylesheet" href="/native-assets/style.css">
 <script type="module" src="/native-assets/client.mjs"></script></head><body data-native-game="">
-<main class="cabinet"><header><a href="/" class="back">← Games</a><div><small>SUPERWIN INTERNAL · ETB</small><h1 id="title">Connecting…</h1></div><a href="/account?view=profile" class="wallet"><small>YOUR WALLET</small><strong id="balance">—</strong></a></header>
-<div class="edition"><span id="family">Internal game</span><span>Independent rules · same Superwin wallet</span></div>
-<section class="stage" aria-label="Game board"><canvas id="canvas" width="960" height="500" role="img" aria-label="Game result"></canvas><div id="mines" class="mines" aria-label="Mines board" hidden></div><div id="stage-label" class="stage-label">Sign in to your existing account to play.</div></section>
-<section class="meters"><div><small>STAKE</small><strong id="stake-meter">—</strong></div><div><small>PAYOUT / CASHOUT</small><strong id="payout">—</strong></div><div><small>ROUND</small><strong id="round-status">READY</strong></div></section>
+<nav class="site-bar" aria-label="Player navigation"><a class="brand" href="/">Z<span>PLAY</span></a><a href="/account?view=deposit">＋ Deposit</a><a href="/account?view=profile">My account</a></nav><main class="cabinet"><header><a href="/" class="back">← Games</a><span id="game-mark" aria-hidden="true">777</span><div><small>SUPERWIN</small><h1 id="title">Connecting…</h1></div><a href="/account?view=profile" class="wallet"><small>YOUR WALLET</small><strong id="balance">—</strong></a></header>
+<div class="edition"><span id="family">Internal game</span><span>LIVE WALLET · ETB</span></div>
+<section class="stage" aria-label="Game board"><canvas id="canvas" width="960" height="620" role="img" aria-label="Game result"></canvas><div id="mines" class="mines" aria-label="Mines board" hidden></div><div id="stage-label" class="stage-label">Sign in to your existing account to play.</div></section>
+<section class="meters"><div><small>STAKE</small><strong id="stake-meter">—</strong></div><div><small>WIN / CASH OUT</small><strong id="payout">—</strong></div><div><small>ROUND</small><strong id="round-status">READY</strong></div></section>
 <div id="options" class="options">
 <label>Stake · ETB<input id="stake" value="10.00" inputmode="decimal" maxlength="9" autocomplete="off"></label>
 <label id="auto-option" hidden>Auto cashout · ×<input id="auto-target" value="2.00" inputmode="decimal" maxlength="6" autocomplete="off"></label>
@@ -13,10 +13,10 @@
 <label id="mines-option" hidden>Mines<select id="mine-count"><option value="1">1</option><option value="3" selected>3</option><option value="5">5</option><option value="8">8</option><option value="10">10</option></select></label>
 <label id="dice-option" hidden>Target sum<select id="dice-target"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option selected>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></label>
 </div>
-<div class="actions"><button id="play" class="primary" disabled>PLAY (ETB)</button><button id="cashout" class="gold" hidden disabled>CASH OUT</button><button id="higher" hidden disabled>HIGHER ↑</button><button id="lower" hidden disabled>LOWER ↓</button><button id="retry" hidden>CONFIRM SAVED REQUEST</button><button id="refresh">REFRESH</button></div>
+<div class="actions"><button id="play" class="primary" disabled>PLAY (ETB)</button><button id="cashout" class="gold" hidden disabled>CASH OUT</button><button id="higher" hidden disabled>HIGHER ↑</button><button id="lower" hidden disabled>LOWER ↓</button><button id="retry" hidden>CONFIRM SAVED REQUEST</button><button id="refresh" aria-label="Refresh wallet and round">↻ Refresh</button></div>
 <p id="message" role="status" aria-live="polite">Connecting to your existing account…</p>
 <p id="other-game" hidden>A round is active in another game. <a id="resume">Resume that round</a>.</p>
 <p id="signin" hidden><a href="/account?view=login">Sign in to your existing Player account</a></p>
-<details><summary>Game rules and limits</summary><p id="rules"></p><p>Stake limits: ETB 1.00–1,000.00. Winnings include the stake. Each wager uses server-generated outcomes and the existing ETB ledger. A full payout reserve is secured before a wager is accepted. Fractional santim payouts use unbiased integer rounding.</p><p>These are independent Superwin internal games. They do not launch or settle an official SmartSoft game.</p><p id="family-note"></p></details>
-<details><summary>Latest round verification</summary><p id="verification">A settled round reveals its server seed.</p><button id="verify" disabled>VERIFY SEED COMMITMENT</button></details>
-<footer><a href="/">Superwin Player</a><span id="version">Internal engine</span></footer></main></body></html>
+<details><summary>Game rules</summary><p id="rules"></p><p>Stake: ETB 1.00–1,000.00. Payout includes the stake.</p><p id="family-note"></p></details>
+<div hidden><p id="verification"></p><button id="verify" disabled>Verify</button></div>
+<footer><a href="/">Superwin Player</a><span id="version">Internal engine</span></footer></main><nav class="bottom-nav" aria-label="Dashboard"><a href="/">⌂<span>Home</span></a><a href="/sports">⚽<span>Sports</span></a><a href="/account?view=deposit">▣<span>Deposit</span></a><a href="/games" aria-current="page">▥<span>Games</span></a><a href="/account?view=profile">♙<span>Account</span></a></nav></body></html>
