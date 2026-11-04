@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {wrapPlayer} from '../deploy/cloudflare/player-compat.mjs';
 import {integrateLobbyScript} from '../deploy/cloudflare/integrated-lobby.mjs';
-const {chromium}=createRequire(import.meta.url)('playwright');
+const {chromium}=createRequire(new URL('../apps/native-engine/package.json',import.meta.url))('playwright');
 const html=await readFile(new URL('./fixtures/live-lobby-v244.html',import.meta.url),'utf8');
 const css=await readFile(new URL('./fixtures/live-lobby-v244.css',import.meta.url),'utf8');
 const lobbyScript=integrateLobbyScript(await readFile(new URL('./fixtures/live-lobby-v244.mjs',import.meta.url),'utf8'));
@@ -31,7 +31,7 @@ const server=createServer(async(req,res)=>{
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
 try{
- browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ browser=await chromium.launch({executablePath:process.env.CHROME_PATH||chromium.executablePath(),headless:true,args:['--no-sandbox']});
  const page=await browser.newPage();const errors=[];page.on('pageerror',error=>errors.push(error.message));
  await page.route('https://demo.smartsoftgaming.com/**',route=>route.fulfill({status:404,contentType:'text/html',body:'Demo availability unverified'}));
  const base='http://127.0.0.1:'+server.address().port;

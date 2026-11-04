@@ -28,14 +28,14 @@ const server=Bun.serve({hostname:'127.0.0.1',port:0,fetch(req){
  return proxyNativeFamily(req,env,options);
 }});
 const base=server.url.origin;
-const {chromium}=createRequire(import.meta.url)('playwright');let browser;
+const {chromium}=createRequire(new URL('../apps/native-engine/package.json',import.meta.url))('playwright');let browser;
 const count=async()=>Number((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.rounds'))[0].n);
 try{
  assert.equal((await backend.fetch(new Request('https://engine.test/health'))).status,200);
  assert.equal((await backend.fetch(new Request('https://engine.test/v1/catalog'))).status,401);
  const signed=signedHeaders(secret,'@public','GET','/v1/catalog');
  assert.equal((await(await backend.fetch(new Request('https://engine.test/v1/catalog',{headers:signed}))).json()).games.length,30);
- browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ browser=await chromium.launch({executablePath:process.env.CHROME_PATH||chromium.executablePath(),headless:true,args:['--no-sandbox']});
  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  for(const [game,family] of [['burning_ice','slots'],['plinkox','plinko'],['roll_dice','dice'],['spin_x','wheel'],['turbo_mines','mines'],['mega_hilo','hilo'],['jetx','crash']]){
   await page.goto(base+'/native/'+game);await page.waitForFunction(()=>!document.getElementById('play').disabled);
