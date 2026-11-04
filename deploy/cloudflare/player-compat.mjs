@@ -1,7 +1,8 @@
 import {SMARTSOFT_CATALOG} from './smartsoft-catalog.mjs';
 import {GATEWAY_HTML} from './gateway-page.mjs';
+import {integrateLobbyHTML, INTEGRATED_LOBBY_PATH} from './integrated-lobby.mjs';
 
-export const COMPAT_RELEASE = 'superwin-demo-catalog-20261104';
+export const COMPAT_RELEASE = 'superwin-integrated-lobby-20261104';
 
 const money = value => typeof value === 'string' && /^\d{1,16}\.\d{2}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
@@ -31,7 +32,7 @@ async function boundedJSON(request) {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
-export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScript}) {
+export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScript, lobbyScript}) {
   const json = (data, status = 200, sources = []) => Response.json(data, {
     status,
     headers: sessionHeaders(new Headers({
@@ -68,15 +69,20 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
       const walletPath = path === '/api/wallet' || path === '/api/wallet/DDSAgent';
       const gatewayPath = path === '/gateway' || path === '/gateway/' || path === '/gateway-player.mjs' || path === '/api/gateway/games';
       const lobbyPath = ['/', '/games', '/games/', '/casino', '/catalog', '/player', '/player/'].includes(path) && ['GET', 'HEAD'].includes(request.method);
-      const handled = walletPath || gatewayPath || lobbyPath || path === '/api/games' || path === '/api/spin' || path === '/_player/wallet-compat-release';
+      const handled = walletPath || gatewayPath || lobbyPath || path === INTEGRATED_LOBBY_PATH || path === '/api/games' || path === '/api/spin' || path === '/_player/wallet-compat-release';
       if (!handled && path !== '/ws' && !path.startsWith('/ws/')) return original.fetch(request, env, ctx);
       try {
         if (request.headers.has('x-zplay-two-hop')) return fail('LEGACY_DISPATCH_LOOP', 503);
+        if (path === INTEGRATED_LOBBY_PATH) {
+          if (!['GET','HEAD'].includes(request.method)) return fail('METHOD_NOT_ALLOWED',405);
+          if (typeof lobbyScript !== 'string') return fail('PLAYER_ASSET_UNAVAILABLE',503);
+          return new Response(request.method === 'HEAD' ? null : lobbyScript, {headers: {'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+        }
         if (lobbyPath) {
           const upstream = await original.fetch(request, env, ctx);
           if (request.method === 'HEAD' || !upstream.headers.get('Content-Type')?.includes('text/html')) return upstream;
           const html = await upstream.text();
-          const decorated = html.replace(/(<nav\b[^>]*class="drawer-navigation"[^>]*>)/i, '$1<a href="/gateway">Demo catalog · 30 links</a>');
+          const decorated = typeof lobbyScript === 'string' ? integrateLobbyHTML(html) : html;
           const headers = new Headers(upstream.headers);
           for (const name of ['Content-Length', 'Content-Encoding', 'ETag']) headers.delete(name);
           headers.set('Cache-Control', 'no-store');
@@ -84,6 +90,10 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
         }
         if (gatewayPath) {
           if (!['GET', 'HEAD'].includes(request.method)) return fail('METHOD_NOT_ALLOWED', 405);
+          if (path === '/gateway' || path === '/gateway/') {
+            const target = new URL(request.url);target.pathname = '/';
+            return new Response(null,{status:302,headers:{Location:target.href,'Cache-Control':'no-store'}});
+          }
           if (path === '/api/gateway/games') {
             const result = json(SMARTSOFT_CATALOG);
             return request.method === 'HEAD' ? new Response(null, result) : result;
@@ -107,7 +117,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
         }
         if (path === '/_player/wallet-compat-release') {
           if (request.method !== 'GET') return fail('METHOD_NOT_ALLOWED', 405);
-          return json({release: COMPAT_RELEASE, wallet: '/api/wallet', catalog: '/api/games', demo_catalog: '/api/gateway/games', player: '/gateway',
+          return json({release: COMPAT_RELEASE, wallet: '/api/wallet', catalog: '/api/games', demo_catalog: '/api/gateway/games', player: '/',
                        settlement: '/api/slots/spin', currency: 'ETB',
                        account_scope: 'authenticated_player', demo_settlement_enabled: false});
         }

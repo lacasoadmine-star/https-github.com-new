@@ -20,3 +20,12 @@ export function upgradeWalletCompatibility(source) {
     'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders, gatewayScript: GATEWAY_SCRIPT});',
   );
 }
+
+export function upgradeIntegratedLobby(source) {
+  const anchor = 'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders, gatewayScript: GATEWAY_SCRIPT});';
+  if (source.includes('integrated-lobby.txt') || source.split(anchor).length !== 2) {
+    throw new Error('Unexpected catalog player source; deployment stopped');
+  }
+  return "import LOBBY_SCRIPT from './integrated-lobby.txt';\n" + source.replace(anchor,
+    'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders, gatewayScript: GATEWAY_SCRIPT, lobbyScript: LOBBY_SCRIPT});');
+}

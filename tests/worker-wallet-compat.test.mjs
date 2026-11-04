@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {wrapPlayer} from '../deploy/cloudflare/player-compat.mjs';
 import {installWalletCompatibility,upgradeWalletCompatibility} from '../deploy/cloudflare/install-wallet-compat.mjs';
+import {integrateLobbyScript,integrateLobbyHTML} from '../deploy/cloudflare/integrated-lobby.mjs';
+import {readFileSync} from 'node:fs';
 
 const origin = 'https://superwin-player.apdiy61.workers.dev';
 const game = {id:'multi_hot_5_video',title:'Multi Hot 5',slug:'multi-hot-5'};
@@ -53,10 +55,20 @@ test('gateway exposes all 30 supplied links without claiming an active ETB gatew
 });
 test('gateway page and JavaScript have strict types, caching and frame policy',async()=>{
  const {worker}=fixture();const page=await worker.fetch(request('/gateway'),{});
- assert.equal(page.status,200);assert.match(page.headers.get('content-security-policy'),/frame-src 'self' https:\/\/demo.smartsoftgaming.com/);
- assert.match(await page.text(),/PLAY DEMO/);
+ assert.equal(page.status,302);assert.equal(page.headers.get('location'),origin+'/');
  const script=await worker.fetch(request('/gateway-player.mjs'),{});assert.match(script.headers.get('content-type'),/text\/javascript/);
  assert.equal(await script.text(),'console.log("gateway")');
+});
+test('native lobby transformation retains the original grid, wallet, account and navigation',()=>{
+ const source=readFileSync(new URL('./fixtures/live-lobby-v244.mjs',import.meta.url),'utf8');
+ const html=readFileSync(new URL('./fixtures/live-lobby-v244.html',import.meta.url),'utf8');
+ const patched=integrateLobbyScript(source),page=integrateLobbyHTML(html);
+ assert.match(patched,/Object.assign\(CATALOG/);assert.match(patched,/game.external/);
+ assert.match(page,/id="game-grid"/);assert.match(page,/id="account-balance"/);assert.match(page,/id="demo-player"/);
+ assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v247\/lobby.mjs/);
+ assert.throws(()=>integrateLobbyScript('unknown script'));
+ assert.throws(()=>integrateLobbyHTML('unknown markup'));
+ assert.throws(()=>integrateLobbyScript(patched));
 });
 test('gateway rejects mutations and HEAD has no body',async()=>{
  const {worker}=fixture();assert.equal((await worker.fetch(request('/api/gateway/games',{}),{})).status,405);
