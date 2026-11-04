@@ -1,0 +1,66 @@
+{
+  "release": "superwin-native-family-engines-20261104",
+  "verified_at": "2026-11-04T05:02:05.291484+00:00",
+  "player_url": "https://superwin-player.apdiy61.workers.dev/",
+  "worker_version": "2ae48f86-58db-4e92-ad02-2c0080316165",
+  "worker_deployment": "8413b09e-dbcc-47f2-b316-7b8b4739de7a",
+  "legacy_version_at_zero_percent": "33c53af1-1f23-41e8-bc4a-43edab1c2b6a",
+  "rollback_player_version": "6b0854ad-7e65-4754-9e2c-4f04bf9b9e0f",
+  "railway_service": "f617aec9-d705-4dd3-b68b-dc058f9a0781",
+  "railway_deployment": "c92c5d53-5729-4d76-866d-60bed840e394",
+  "railway_status": "SUCCESS",
+  "engine_origin": "https://superwin-native-family-engine-staging.up.railway.app",
+  "code_commit": "b91049ff2534e53b09530d892e2e805c9800edcb",
+  "canonical_wallet_schema": "sw_rebuild",
+  "additive_schema": "sw_native_family",
+  "total_lobby_games": 33,
+  "original_native_slots": 3,
+  "internal_family_games": 30,
+  "families": {
+    "crash": 7,
+    "plinko": 2,
+    "mines": 3,
+    "slots": 14,
+    "dice": 2,
+    "hilo": 1,
+    "wheel": 1
+  },
+  "official_provider_games": false,
+  "health": {
+    "database_ready": true,
+    "financial_ready": true,
+    "configured_games": 30
+  },
+  "cron": "* * * * *",
+  "signed_reconciliation_verified": {
+    "status": 200,
+    "examined": 0,
+    "settled": 0
+  },
+  "live_checks": {
+    "lobby_tiles": 33,
+    "lobby_script": "/player-live-v248/lobby.mjs",
+    "original_slot_catalog": 3,
+    "gateway_catalog": 30,
+    "native_catalog": 30,
+    "guest_wallet_status": 401,
+    "guest_native_game_status": 401,
+    "guest_etb_button": "/account?view=login"
+  },
+  "validation": [
+    "13 rules tests",
+    "14 real isolated PostgreSQL tests with 71 assertions",
+    "3 signature/body-limit/proxy tests",
+    "32 Worker/frontend regressions",
+    "7-family real HTTP/Chromium/PostgreSQL browser flow with interrupted response/reload/replay",
+    "existing lobby browser checks at four widths",
+    "9 existing backend tests",
+    "Player, Agent and Admin production builds"
+  ],
+  "production_test_wagers": 0,
+  "seeded_production_accounts": 0,
+  "seeded_production_credit": 0,
+  "external_demo_links": "Supplied links remain unverified and separate from internal ETB settlement.",
+  "limits": "ETB 1.00 to 1,000.00; accepted wagers require the complete maximum payout to be reserved from existing house funds.",
+  "verification_limit": "Authenticated production betting was not exercised; all wager tests used disposable local PostgreSQL."
+}
