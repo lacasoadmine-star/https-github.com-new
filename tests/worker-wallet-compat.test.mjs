@@ -1,3 +1,4 @@
+import {PUBLIC_DEMO_CATALOG,validDemoURL} from '../deploy/cloudflare/public-demo-catalog.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {wrapPlayer} from '../deploy/cloudflare/player-compat.mjs';
@@ -47,11 +48,11 @@ test('upgrade preserves existing wrapper and refuses unknown or already upgraded
  const patched=upgradeWalletCompatibility(old);assert.match(patched,/gatewayScript: GATEWAY_SCRIPT/);
  assert.throws(()=>upgradeWalletCompatibility(patched));assert.throws(()=>upgradeWalletCompatibility('export default {};'));
 });
-test('gateway exposes 30 official public demo launchers without ETB settlement',async()=>{
+test('gateway exposes sourced official public demo launchers without ETB settlement',async()=>{
  const {worker,calls}=fixture();const r=await worker.fetch(request('/api/gateway/games'),{});const data=await r.json();
- assert.equal(data.games.length,30);assert.equal(new Set(data.games.map(g=>g.id)).size,30);
+ assert.equal(data.games.length,PUBLIC_DEMO_CATALOG.total_games);assert.equal(new Set(data.games.map(g=>g.id)).size,PUBLIC_DEMO_CATALOG.total_games);
  assert.equal(data.configured_games_count,0);assert.equal(data.status,'OFFICIAL_DEMO');
- assert.ok(data.games.every(g=>g.etb_enabled===false&&g.source_verified===true&&g.launch_url.startsWith('https://eu-server.ssgportal.com/GameLauncher/')));assert.equal(calls.length,0);
+ assert.ok(data.games.every(g=>g.etb_enabled===false&&g.source_verified===true&&(g.launch_url===null||validDemoURL(g.launch_url))));assert.equal(calls.length,0);
 });
 test('gateway page and JavaScript have strict types, caching and frame policy',async()=>{
  const {worker}=fixture();const page=await worker.fetch(request('/gateway'),{});
@@ -65,7 +66,7 @@ test('native lobby transformation retains the original grid, wallet, account and
  const patched=integrateLobbyScript(source),page=integrateLobbyHTML(html);
  assert.match(patched,/Object.assign\(CATALOG/);assert.match(patched,/game.external/);
  assert.match(page,/id="game-grid"/);assert.match(page,/id="account-balance"/);assert.match(page,/id="demo-player"/);
- assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v259\/lobby.mjs/);
+ assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v260\/lobby.mjs/);
  assert.throws(()=>integrateLobbyScript('unknown script'));
  assert.throws(()=>integrateLobbyHTML('unknown markup'));
  assert.throws(()=>integrateLobbyScript(patched));
@@ -149,7 +150,7 @@ test('cross-origin upgrades and dispatch loops are denied',async()=>{
 
 test('official demo URLs use provider DEMO tokens and original source artwork',async()=>{
  const {worker}=fixture();const data=await(await worker.fetch(request('/api/gateway/games'),{})).json();
- for(const game of data.games){const url=new URL(game.launch_url);assert.equal(url.origin,'https://eu-server.ssgportal.com');assert.equal(url.pathname.toLowerCase(),'/gamelauncher/loader.aspx');assert.equal(url.searchParams.get('PortalName').toUpperCase(),'DEMO');assert.ok(['DEMO','DEMO_EXH'].includes(url.searchParams.get('Token')));assert.equal(new URL(game.cover).hostname,'cdn.prod.website-files.com');assert.ok(game.source_url.startsWith('https://www.smartsoftgaming.com/games/'));assert.equal(game.etb_enabled,false);}
+ for(const game of data.games){assert.ok(game.launch_url===null||validDemoURL(game.launch_url));assert.equal(game.etb_enabled,false);assert.ok(game.source_url.startsWith('https://www.'+ (game.provider_key==='smartsoft'?'smartsoftgaming.com/games/':'pragmaticplay.com/en/games/')));}
  assert.ok(data.games.some(g=>new URL(g.launch_url).searchParams.get('GameName')==='MultiHot5'));
 });
 
@@ -158,8 +159,8 @@ const launchBody={game_id:'ssg-multi-hot-5',mode:'ETB'};
 test('funded entry preserves the exact official SmartSoft demo without enabling wallet settlement',async()=>{
  const {worker,calls}=fixture();const r=await worker.fetch(request('/api/gateway/launch',launchBody,{cookie:'session=real-player'}),{}),d=await r.json();assert.equal(r.status,200);assert.equal(d.session_mode,'WALLET_DEMO');assert.equal(d.user_id,'signed-in-player');assert.equal(d.wallet.balance,'42.00');assert.equal(d.wallet.currency,'ETB');assert.equal(d.settlement_enabled,false);assert.equal(new URL(d.launch_url).searchParams.get('GameName'),'MultiHot5');assert.equal(calls.length,1);assert.equal(calls[0].kind,'legacy');assert.match(r.headers.get('set-cookie'),/renewed/);
 });
-test('all 30 official demos keep their provider launchers without a local settlement call',async()=>{
- const {worker,calls}=fixture();const catalog=await(await worker.fetch(request('/api/gateway/games'),{})).json();for(const game of catalog.games){const b=await(await worker.fetch(request('/api/gateway/launch',{game_id:game.id,mode:'DEMO'}),{})).json();assert.equal(b.launch_url,game.launch_url);assert.equal(b.settlement_enabled,false);assert.equal(b.wallet,undefined);}assert.equal(calls.length,0);
+test('all sourced official demos keep their provider launchers without a local settlement call',async()=>{
+ const {worker,calls}=fixture();const catalog=await(await worker.fetch(request('/api/gateway/games'),{})).json();for(const game of catalog.games.filter(g=>g.launcher_verified)){const b=await(await worker.fetch(request('/api/gateway/launch',{game_id:game.id,mode:'DEMO'}),{})).json();assert.equal(b.launch_url,game.launch_url);assert.equal(b.settlement_enabled,false);assert.equal(b.wallet,undefined);}assert.equal(calls.length,0);
 });
 test('wallet entry requires current funded session and never fabricates or changes credit',async()=>{
  for(const [account,status]of [[{authenticated:false},401],[{authenticated:true,identity:'p',balance:'0.00',currency:'ETB',enabled:true},409],[{authenticated:true,identity:'p',balance:'42.00',currency:'ETB',enabled:false},403]]){const {worker,calls}=fixture(account);const r=await worker.fetch(request('/api/gateway/launch',launchBody),{});assert.equal(r.status,status);assert.equal(calls.filter(c=>c.kind==='original').length,0);}

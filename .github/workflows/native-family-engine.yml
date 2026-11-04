@@ -34,7 +34,7 @@ jobs:
           npm run build --prefix apps/native-engine
           git diff --exit-code -- apps/native-engine/web-assets.mjs
       - name: Test rules, request authentication and original Worker compatibility
-        run: node --test tests/native-rules.test.mjs tests/native-auth-proxy.test.mjs tests/worker-wallet-compat.test.mjs
+        run: node --test tests/native-rules.test.mjs tests/native-auth-proxy.test.mjs tests/worker-wallet-compat.test.mjs tests/demo-launcher.test.mjs tests/public-demo-dashboard.test.mjs
       - name: Verify atomic settlement and browser recovery with disposable PostgreSQL
         run: npm run test:postgres --prefix apps/native-engine
       - name: Verify existing lobby integration

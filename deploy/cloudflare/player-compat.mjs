@@ -1,9 +1,11 @@
-import {OFFICIAL_DEMO_CATALOG} from './official-demo-catalog.mjs';
+import {restoreZplayAccount,ZPLAY_ACCOUNT_CSS} from './zplay-dashboard.mjs';
+import {resolveDemoLauncher} from './demo-launcher.mjs';
+import {PUBLIC_DEMO_CATALOG as OFFICIAL_DEMO_CATALOG,providerReadiness} from './public-demo-catalog.mjs';
 import {GATEWAY_HTML} from './gateway-page.mjs';
 import {integrateLobbyHTML, INTEGRATED_LOBBY_PATH} from './integrated-lobby.mjs';
 import {nativeRoute,proxyNativeFamily,reconcileNativeFamilies} from './native-family-proxy.mjs';
 
-export const COMPAT_RELEASE = 'superwin-smartsoft-wallet-preview-20261104';
+export const COMPAT_RELEASE = 'zplay-official-demo-dashboard-20261104';
 
 const money = value => typeof value === 'string' && /^\d{1,16}\.\d{2}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
@@ -33,7 +35,7 @@ async function boundedJSON(request) {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
-export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScript, lobbyScript}) {
+export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScript, lobbyScript, resolveDemo=resolveDemoLauncher}) {
   const json = (data, status = 200, sources = []) => Response.json(data, {
     status,
     headers: sessionHeaders(new Headers({
@@ -73,10 +75,31 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
       const walletPath = path === '/api/wallet' || path === '/api/wallet/DDSAgent';
       const gatewayPath = path === '/gateway' || path === '/gateway/' || path === '/gateway-player.mjs' || path === '/api/gateway/games';
       const lobbyPath = ['/', '/games', '/games/', '/casino', '/catalog', '/player', '/player/'].includes(path) && ['GET', 'HEAD'].includes(request.method);
-      const handled = nativeRoute(path) || removedTestPath || walletLaunchPath || walletPath || gatewayPath || lobbyPath || path === INTEGRATED_LOBBY_PATH || path === '/api/games' || path === '/api/spin' || path === '/_player/wallet-compat-release';
+      const accountPath=['/account','/account/'].includes(path)&&['GET','HEAD'].includes(request.method);
+      const handled = path.startsWith('/api/providers/demo/')||accountPath||path==='/player-live-v260/account.css'||path==='/api/providers/status'||path==='/api/providers/launch'||nativeRoute(path) || removedTestPath || walletLaunchPath || walletPath || gatewayPath || lobbyPath || path === INTEGRATED_LOBBY_PATH || path === '/api/games' || path === '/api/spin' || path === '/_player/wallet-compat-release';
       if (!handled && path !== '/ws' && !path.startsWith('/ws/')) return original.fetch(request, env, ctx);
       try {
         if (request.headers.has('x-zplay-two-hop')) return fail('LEGACY_DISPATCH_LOOP', 503);
+        if(path==='/player-live-v260/account.css')return new Response(request.method==='HEAD'?null:ZPLAY_ACCOUNT_CSS,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public,max-age=31536000,immutable','X-Content-Type-Options':'nosniff'}});
+        if(accountPath){const upstream=await original.fetch(request,env,ctx);if(request.method==='HEAD'||!upstream.headers.get('Content-Type')?.includes('text/html'))return upstream;const html=restoreZplayAccount(await upstream.text());const headers=new Headers(upstream.headers);for(const key of ['Content-Length','Content-Encoding','ETag'])headers.delete(key);headers.set('Cache-Control','no-store');return new Response(html,{status:upstream.status,headers});}
+        if(path.startsWith('/api/providers/demo/')){
+          if(!['GET','HEAD'].includes(request.method))return fail('METHOD_NOT_ALLOWED',405);
+          const game=OFFICIAL_DEMO_CATALOG.games.find(g=>g.id===path.slice('/api/providers/demo/'.length));if(!game)return fail('GAME_NOT_FOUND',404);
+          let launch;try{launch=await resolveDemo(game);}catch{return fail('DEMO_PROVIDER_UNAVAILABLE_RETRY',503);}
+          const result=json({game_id:game.id,provider:game.provider_key,mode:'DEMO',launch_url:launch,settlement_enabled:false});return request.method==='HEAD'?new Response(null,result):result;
+        }
+        if(path==='/api/providers/status'){if(request.method!=='GET')return fail('METHOD_NOT_ALLOWED',405);return json(providerReadiness());}
+        if(path==='/api/providers/launch'){
+          if(request.method!=='POST')return fail('METHOD_NOT_ALLOWED',405);
+          if(request.headers.get('origin')!==url.origin)return fail('INVALID_ORIGIN',403);
+          if(request.headers.get('content-type')?.split(';')[0].trim()!=='application/json')return fail('JSON_REQUIRED',415);
+          let body;try{body=await boundedJSON(request);}catch{return fail('INVALID_JSON',400);}
+          if(!body||Array.isArray(body)||Object.keys(body).some(k=>!['game_id','mode'].includes(k))||!['DEMO','ETB'].includes(body.mode))return fail('INVALID_REQUEST',422);
+          const game=OFFICIAL_DEMO_CATALOG.games.find(g=>g.id===body.game_id);if(!game)return fail('GAME_NOT_FOUND',404);
+          if(body.mode==='ETB')return json({error:'PROVIDER_API_NOT_CONFIGURED',provider:game.provider_key,settlement_enabled:false},409);
+          let launch;try{launch=await resolveDemo(game);}catch{return fail('DEMO_PROVIDER_UNAVAILABLE_RETRY',503);}
+          return json({game_id:game.id,provider:game.provider_key,provider_game_id:game.provider_game_id,mode:'DEMO',launch_url:launch,settlement_enabled:false});
+        }
         if(removedTestPath)return fail('REMOVED',410);
         if(walletLaunchPath){
           if(request.method!=='POST')return fail('METHOD_NOT_ALLOWED',405);
@@ -85,7 +108,8 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
           let body;try{body=await boundedJSON(request);}catch(error){return fail(error.message==='BODY_TOO_LARGE'?'BODY_TOO_LARGE':'INVALID_JSON',error.message==='BODY_TOO_LARGE'?413:400);}
           if(!body||Array.isArray(body)||typeof body!=='object'||Object.keys(body).some(key=>!['game_id','mode'].includes(key))||!['ETB','DEMO'].includes(body.mode))return fail('INVALID_LAUNCH_REQUEST',422);
           const game=OFFICIAL_DEMO_CATALOG.games.find(game=>game.id===body.game_id);if(!game)return fail('GAME_NOT_FOUND',404);
-          if(body.mode==='DEMO')return json({game_id:game.id,session_mode:'DEMO',launch_url:game.launch_url,settlement_enabled:false});
+          if(body.mode==='DEMO'){let launch;try{launch=await resolveDemo(game);}catch{return fail('DEMO_PROVIDER_UNAVAILABLE_RETRY',503);}return json({game_id:game.id,session_mode:'DEMO',launch_url:launch,settlement_enabled:false});}
+          if(!game.launcher_verified)return fail('PROVIDER_API_NOT_CONFIGURED',409);
           const account=await session(request,env);if(account.error)return account.error;
           if(account.data.enabled!==true)return fail('ACCOUNT_PLAY_DISABLED',403,account.headers);
           if(BigInt(account.data.balance.replace('.',''))<=0n)return json({detail:'INSUFFICIENT_ETB_BALANCE',balance:account.data.balance,user_id:account.data.identity,currency:'ETB'},409,account.headers);
@@ -114,7 +138,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
             return new Response(null,{status:302,headers:{Location:target.href,'Cache-Control':'no-store'}});
           }
           if (path === '/api/gateway/games') {
-            const result = json({...OFFICIAL_DEMO_CATALOG,status:'OFFICIAL_DEMO',configured_games_count:0,demo_games_count:30,official_provider_game:true,games:OFFICIAL_DEMO_CATALOG.games.map(game=>({...game,wallet_entry_enabled:true,credit_required:true,settlement_enabled:false})),wallet_entry_enabled:true,wallet_launch_endpoint:'/api/gateway/launch'});
+            const result = json({...OFFICIAL_DEMO_CATALOG,status:'OFFICIAL_DEMO',configured_games_count:0,demo_games_count:OFFICIAL_DEMO_CATALOG.games.length,official_provider_game:true,games:OFFICIAL_DEMO_CATALOG.games.map(game=>({...game,wallet_entry_enabled:true,credit_required:true,settlement_enabled:false})),wallet_entry_enabled:true,wallet_launch_endpoint:'/api/gateway/launch'});
             return request.method === 'HEAD' ? new Response(null, result) : result;
           }
           const script = path === '/gateway-player.mjs';
