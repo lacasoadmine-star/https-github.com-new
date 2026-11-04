@@ -4,8 +4,19 @@ export function installWalletCompatibility(source) {
   if (source.split(anchor).length !== 2 || !source.includes('export async function legacy(') || !source.includes('function sessionHeaders(')) {
     throw new Error('Unexpected player source; deployment stopped');
   }
-  return "import {wrapPlayer} from './player-compat.mjs';\n" + source.replace(
+  return "import {wrapPlayer} from './player-compat.mjs';\nimport GATEWAY_SCRIPT from './gateway-player.txt';\n" + source.replace(
     anchor,
-    'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders});',
+    'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders, gatewayScript: GATEWAY_SCRIPT});',
+  );
+}
+
+export function upgradeWalletCompatibility(source) {
+  const anchor = 'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders});';
+  if (!source.includes("from './player-compat.mjs'") || source.includes('gateway-player.txt') || source.split(anchor).length !== 2) {
+    throw new Error('Unexpected existing compatibility source; deployment stopped');
+  }
+  return "import GATEWAY_SCRIPT from './gateway-player.txt';\n" + source.replace(
+    anchor,
+    'export default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders, gatewayScript: GATEWAY_SCRIPT});',
   );
 }

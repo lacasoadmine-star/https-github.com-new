@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {wrapPlayer} from '../deploy/cloudflare/player-compat.mjs';
-import {installWalletCompatibility} from '../deploy/cloudflare/install-wallet-compat.mjs';
+import {installWalletCompatibility,upgradeWalletCompatibility} from '../deploy/cloudflare/install-wallet-compat.mjs';
 
 const origin = 'https://superwin-player.apdiy61.workers.dev';
 const game = {id:'multi_hot_5_video',title:'Multi Hot 5',slug:'multi-hot-5'};
@@ -24,7 +24,7 @@ function fixture(account = {authenticated:true,identity:'signed-in-player',balan
     if(path==='/api/slots/games')return Response.json({games:[game,{id:'not-enabled'}]});
     return new Response('untouched',{headers:{'X-Original':'yes'}});
   }};
-  return {worker:wrapPlayer(original,{legacy,GAMES:{[game.id]:game},sessionHeaders}),calls};
+  return {worker:wrapPlayer(original,{legacy,GAMES:{[game.id]:game},sessionHeaders,gatewayScript:'console.log("gateway")'}),calls};
 }
 function request(path,body,headers={}) {
   return new Request(origin+path,body===undefined?{headers}:{method:'POST',headers:{origin,'content-type':'application/json',...headers},body:JSON.stringify(body)});
@@ -36,9 +36,36 @@ test('installer preserves existing source and refuses unexpected or duplicate in
  const patched=installWalletCompatibility(source);
  assert.ok(patched.startsWith("import {wrapPlayer} from './player-compat.mjs';"));
  assert.ok(patched.includes('export const ASSETS={};'));
- assert.ok(patched.includes('wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders})'));
+ assert.ok(patched.includes('wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders, gatewayScript: GATEWAY_SCRIPT})'));
  assert.throws(()=>installWalletCompatibility(patched));
  assert.throws(()=>installWalletCompatibility('export default {};'));
+});
+test('upgrade preserves existing wrapper and refuses unknown or already upgraded source',()=>{
+ const old="import {wrapPlayer} from './player-compat.mjs';\nexport default wrapPlayer(createWorker(), {legacy, GAMES, sessionHeaders});";
+ const patched=upgradeWalletCompatibility(old);assert.match(patched,/gatewayScript: GATEWAY_SCRIPT/);
+ assert.throws(()=>upgradeWalletCompatibility(patched));assert.throws(()=>upgradeWalletCompatibility('export default {};'));
+});
+test('gateway exposes all 30 supplied links without claiming an active ETB gateway',async()=>{
+ const {worker,calls}=fixture();const r=await worker.fetch(request('/api/gateway/games'),{});const data=await r.json();
+ assert.equal(data.games.length,30);assert.equal(new Set(data.games.map(g=>g.id)).size,30);
+ assert.equal(data.configured_games_count,0);assert.equal(data.status,'CATALOG_ONLY');
+ assert.ok(data.games.every(g=>g.etb_enabled===false&&g.demo_url_verified===false));assert.equal(calls.length,0);
+});
+test('gateway page and JavaScript have strict types, caching and frame policy',async()=>{
+ const {worker}=fixture();const page=await worker.fetch(request('/gateway'),{});
+ assert.equal(page.status,200);assert.match(page.headers.get('content-security-policy'),/frame-src 'self' https:\/\/demo.smartsoftgaming.com/);
+ assert.match(await page.text(),/PLAY DEMO/);
+ const script=await worker.fetch(request('/gateway-player.mjs'),{});assert.match(script.headers.get('content-type'),/text\/javascript/);
+ assert.equal(await script.text(),'console.log("gateway")');
+});
+test('gateway rejects mutations and HEAD has no body',async()=>{
+ const {worker}=fixture();assert.equal((await worker.fetch(request('/api/gateway/games',{}),{})).status,405);
+ const response=await worker.fetch(new Request(origin+'/api/gateway/games',{method:'HEAD'}),{});assert.equal(await response.text(),'');
+});
+test('all 30 external games are rejected before any wallet read or settlement',async()=>{
+ const {worker,calls}=fixture();const data=await(await worker.fetch(request('/api/gateway/games'),{})).json();
+ for(const game of data.games){const r=await worker.fetch(request('/api/spin',{...valid,game_id:game.id}),{});assert.equal(r.status,422);}
+ assert.equal(calls.length,0);
 });
 
 test('wallet is scoped to the session, never DDSAgent or browser identity',async()=>{

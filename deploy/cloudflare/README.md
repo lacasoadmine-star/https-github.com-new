@@ -9,6 +9,14 @@ handlers, native engines, financial database, or settlement code.
   exact decimal string. The legacy `/api/wallet/DDSAgent` path is an alias for the
   signed-in player; it cannot select or create an account named DDSAgent.
 - `GET /api/games` lists only enabled native titles, with same-origin launch URLs.
+- `/gateway` provides a separate responsive player/catalog, linked from the
+  existing lobby's menu. It displays the signed-in account's real balance,
+  launches enabled native games in their existing interface, and offers explicit
+  attempts to open the 30 user-supplied external demo URLs.
+- `GET /api/gateway/games` publishes those 30 entries as `CATALOG_ONLY`, with
+  `configured_games_count: 0` and per-entry verification status. Checks of JetX
+  and Cappadocia failed with a closed network connection; the remaining URLs
+  have not been checked. The catalog is not evidence of provider settlement.
 - `POST /api/spin` accepts `mode: "ETB"`, `game_id`, `stake` as a decimal string
   with two fractional digits, and a UUID `request_id`. It obtains identity from
   the session and forwards to existing `/api/slots/spin` settlement with the same
@@ -26,6 +34,11 @@ including secret bindings through Cloudflare's `inherit` binding type, and the
 existing compatibility settings. Preserve legacy version
 `33c53af1-1f23-41e8-bc4a-43edab1c2b6a` at zero percent in the deployment: the live
 player's self-service binding explicitly dispatches account and API calls there.
+The catalog release also includes `smartsoft-catalog.mjs`, `gateway-page.mjs`,
+and the source of `gateway-player.mjs` uploaded as the text module
+`gateway-player.txt`. Existing wrapped deployments use
+`upgradeWalletCompatibility` to add that text import without changing the
+original assets or native game logic.
 Do not deploy the independent sample SQLite application to either live portal.
 
 Validation: `node --test tests/worker-wallet-compat.test.mjs
@@ -33,3 +46,7 @@ tests/frontend-regression.test.mjs`, `python -m pytest tests/test_platform.py -q
 with the test module's disposable database, and `npm run build` for all portals.
 Production verification uses read-only requests; no test wagers or test balances
 are created in the shared financial system.
+`node tests/gateway-browser.test.mjs` additionally checks the catalog UI with
+Playwright and Chromium against an isolated in-memory fixture. It makes no
+production calls or wagers. The native iframe's round event triggers a fresh
+authenticated wallet read; no result from an external demo can change ETB.
