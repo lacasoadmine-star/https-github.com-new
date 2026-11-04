@@ -74,21 +74,9 @@ try{
  await page.waitForFunction(()=>Object.keys(localStorage).every(k=>!k.startsWith('superwin.native.v1.pending.')));
  assert.equal(await count(),before+1);assert.ok(tokens.length>=2);assert.equal(new Set(tokens).size,1);
  await page.unroute('**/api/native-families/action');
- await page.goto(base+'/');await page.waitForFunction(()=>document.querySelectorAll('.game-tile').length===33);
- await page.locator('[data-game="ssg-multi-hot-5"] .game-preview').click();await page.waitForFunction(()=>document.getElementById('play-label').textContent==='PLAY (ETB)');await page.locator('#play').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);
- const frame=page.frameLocator('#embedded-demo');await frame.locator('body[data-native-embed="1"]').waitFor();await frame.locator('#play:not([disabled])').waitFor();
- const beforeSpin=BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance);
- const receiptPromise=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/native-families/action'&&r.request().method()==='POST');await frame.locator('#play').click();const receipt=await(await receiptPromise).json();assert.equal(receipt.status,'SUCCESS');
- const afterSpin=BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance);assert.equal(afterSpin,beforeSpin-BigInt(receipt.round.stake_minor)+BigInt(receipt.round.payout_minor));
- await page.waitForFunction(expected=>document.getElementById('embedded-wallet-balance').textContent.replaceAll(',','')===expected,formatMinor(afterSpin)+' ETB');
- assert.equal(await page.locator('#session-kind').textContent(),'SUPERWIN');assert.equal(await page.locator('#etb-test').count(),0);await page.locator('#close-demo').click();
- console.log('Verified full lobby → authenticated own ETB iframe → stake/payout → same PostgreSQL wallet → parent balance synchronization');
- await page.locator('[data-game="ssg-plinkox"] .game-preview').click();await page.locator('#play-demo').click();await page.waitForFunction(()=>document.getElementById('demo-player').open);const demoFrame=page.frameLocator('#embedded-demo');await demoFrame.locator('#play:not([disabled])').waitFor();const beforeDemo=BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance);const demoReceiptPromise=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/native-families/action'&&r.request().method()==='POST');await demoFrame.locator('#play').click();const demoReceipt=await(await demoReceiptPromise).json();const afterDemo=BigInt((await sql.unsafe("SELECT balance FROM sw_rebuild.wallets WHERE id='ui-player'"))[0].balance);assert.equal(afterDemo,beforeDemo-BigInt(demoReceipt.round.stake_minor)+BigInt(demoReceipt.round.payout_minor));await page.waitForFunction(expected=>document.getElementById('embedded-wallet-balance').textContent.replaceAll(',','')===expected,formatMinor(afterDemo)+' ETB');await page.locator('#close-demo').click();
- console.log('Verified funded PLAY DEMO also uses the owned game and the same exact stake/payout ledger');
-
  await page.goto(base+'/native/ssg-plinkox');await page.waitForFunction(()=>!document.getElementById('play').disabled);
  loggedIn=false;await page.evaluate(()=>window.dispatchEvent(new Event('zplay:logout')));assert.equal(await page.locator('#balance').innerText(),'Sign in');assert.equal(await page.locator('#play').isDisabled(),true);
- assert.equal((await realFetch(base+'/native/ssg-jetx')).status,401);
+ assert.equal((await realFetch(base+'/native/ssg-jetx')).status,401);assert.equal((await realFetch(base+'/api/native-families/state?game_id=ssg-jetx')).status,401);
  const totals=await sql.unsafe('SELECT sum(balance)::text AS total FROM sw_rebuild.wallets');assert.equal(totals[0].total,'1001000000');
  const bad=await sql.unsafe('SELECT transfer_id FROM sw_rebuild.ledger GROUP BY transfer_id HAVING sum(delta)<>0 OR count(*)<>2');assert.equal(bad.length,0);
  assert.deepEqual(errors,[]);

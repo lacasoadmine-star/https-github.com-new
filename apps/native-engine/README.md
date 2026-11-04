@@ -1,12 +1,10 @@
-# Superwin internal family engines
+# Superwin internal engine recovery service
 
-The active catalog now contains 30 Superwin-owned ETB engine configurations keyed to the 30 selected lobby entries. PLAY (ETB) opens the owned engine; PLAY DEMO opens the official SmartSoft public demo. The ETB engines are independent Superwin implementations and do not use or settle the external demo's displayed outcomes. They share the existing canonical PostgreSQL wallet. The original three native slots remain unchanged.
+New wagers in this service are disabled in the current deployment with `NATIVE_ENGINE_ACCEPT_NEW_ROUNDS=false`. The owner requested that the original SmartSoft graphics, rules and spins remain unchanged. The main player therefore opens the original public provider demos and only displays the authenticated wallet balance on funded entry; it does not settle provider demo outcomes on the local wallet.
 
-The earlier 30 internal IDs remain recovery-only. The HTTP server passes an explicit active-ID whitelist to the store. Old accepted receipts replay before that whitelist check, old accepted actions and expiry remain supported, and new wagers on retired IDs are rejected. `NATIVE_ENGINE_ACCEPT_NEW_ROUNDS=true` enables only the active 30 configurations, not the retired catalog. No production accounts, balances or house funds are seeded.
+The 30 current internal definitions and 30 retired definitions are retained for already accepted receipt replay, cashout, expiry settlement and audit. No customer-facing button starts these replacement engines in the current release. Do not discard existing round rows or reserved funds. Original three native ETB slot routes, accounts, canonical wallet, payment flow and agent/admin routing remain unchanged. No production accounts or credit were seeded.
 
-A stake moves through the canonical transfers and double-entry ledger under row locks. Its maximum payout is reserved before acceptance. Final payouts go back into the same Player wallet, unused reserve returns to the house, and canonical round/audit/live-revision records are updated atomically. Fresh authenticated funded entry is required, zero-credit wagering is rejected, browser-supplied wins are never accepted, and repeated request IDs cannot charge or pay twice. One active interactive round is allowed per account.
-
-The illustrated cabinet uses the existing Player's fruit atlas and local animated rendering. The embedded player posts validated balance snapshots to the exact same-origin parent; parent handling checks the frame, origin, canonical user ID, wallet session identity, game ID and currency. Both the header wallet and the account balance update after settlement. No wallet-test modal or affordability-check form is displayed.
+The retained store uses canonical `sw_rebuild` transfers and double-entry ledger, funded payout reserves, idempotent request receipts and checked round versions. It can recover accepted rounds independently of the disabled new-wager flag. The actual game configuration and committed seed are saved in each accepted round. The test suite exercises this recovery and money conservation with isolated PostgreSQL; it does not create production wagers.
 
 ## Configuration
 
