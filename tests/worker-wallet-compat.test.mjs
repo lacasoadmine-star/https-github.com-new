@@ -65,7 +65,7 @@ test('native lobby transformation retains the original grid, wallet, account and
  const patched=integrateLobbyScript(source),page=integrateLobbyHTML(html);
  assert.match(patched,/Object.assign\(CATALOG/);assert.match(patched,/game.external/);
  assert.match(page,/id="game-grid"/);assert.match(page,/id="account-balance"/);assert.match(page,/id="demo-player"/);
- assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v258\/lobby.mjs/);
+ assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v259\/lobby.mjs/);
  assert.throws(()=>integrateLobbyScript('unknown script'));
  assert.throws(()=>integrateLobbyHTML('unknown markup'));
  assert.throws(()=>integrateLobbyScript(patched));

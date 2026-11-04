@@ -1,6 +1,6 @@
 import {OFFICIAL_DEMO_CATALOG} from './official-demo-catalog.mjs';
 
-export const INTEGRATED_LOBBY_PATH='/player-live-v258/lobby.mjs';
+export const INTEGRATED_LOBBY_PATH='/player-live-v259/lobby.mjs';
 function once(source,anchor,replacement){if(source.split(anchor).length!==2)throw Error('Unexpected lobby source: '+anchor.slice(0,70));return source.replace(anchor,replacement);}
 
 export function integrateLobbyScript(source){
@@ -21,11 +21,11 @@ export function integrateLobbyScript(source){
 let walletLaunchAbort=null,walletLaunchEpoch=0,walletLaunchBusy=false;
 function cancelWalletLaunch(){walletLaunchEpoch++;walletLaunchAbort?.abort();walletLaunchBusy=false;}
 function clearEmbeddedGame(){$('embedded-demo').removeAttribute('src');$('embedded-wallet').hidden=true;$('embedded-wallet-balance').textContent='';}
-function closeEmbeddedDemo(){cancelWalletLaunch();if($('demo-player').open)$('demo-player').close();clearEmbeddedGame();}
+function closeEmbeddedDemo(){if(document.fullscreenElement===$('demo-player')&&document.exitFullscreen)void document.exitFullscreen().catch(()=>{});cancelWalletLaunch();if($('demo-player').open)$('demo-player').close();clearEmbeddedGame();}
 function providerDemoURL(value){try{const url=new URL(value);return url.origin==='https://eu-server.ssgportal.com'&&!url.username&&!url.password&&url.pathname.toLowerCase()==='/gamelauncher/loader.aspx'&&url.searchParams.get('PortalName')?.toUpperCase()==='DEMO'&&['DEMO','DEMO_EXH'].includes(url.searchParams.get('Token'))?url:null;}catch{return null;}}
 function openEmbeddedGame(game,wallet=null){
  const url=providerDemoURL(game.demo_launcher_url);if(!url)return;
- clearEmbeddedGame();walletLaunchBusy=false;closeDialog('detail');$('embedded-title').textContent=game.title;$('embedded-demo').title=game.title+' demo';$('demo-fallback').href=url.href;
+ clearEmbeddedGame();walletLaunchBusy=false;closeDialog('detail');$('embedded-title').textContent=game.title;$('embedded-demo').title=game.title+' demo';
  $('embedded-wallet').hidden=!wallet;if(wallet)$('embedded-wallet-balance').textContent=money(wallet.balance);
  $('embedded-demo').src=url.href;if(!$('demo-player').open)$('demo-player').showModal();
 }
@@ -45,6 +45,7 @@ async function launchWalletGame(game){
 }
 $('play-demo').addEventListener('click',event=>{event.preventDefault();const game=state.selected;if(game?.external&&$('play-demo').getAttribute('aria-disabled')!=='true'){cancelWalletLaunch();openEmbeddedGame(game);}});
 $('play').addEventListener('click',event=>{const game=state.selected;if(!game?.external||state.session!=='signedin'||!state.enabled||!money(state.balance)||BigInt(state.balance.replace('.',''))<=0n)return;event.preventDefault();void launchWalletGame(game);});
+$('demo-fullscreen').addEventListener('click',()=>{const player=$('demo-player');if(player.requestFullscreen)void player.requestFullscreen().catch(()=>{});});
 $('close-demo').addEventListener('click',closeEmbeddedDemo);$('close-detail').addEventListener('click',cancelWalletLaunch);
 $('detail').addEventListener('close',()=>{if(walletLaunchBusy)cancelWalletLaunch();});
 $('demo-player').addEventListener('close',()=>{if(!$('demo-player').open){cancelWalletLaunch();clearEmbeddedGame();}});
@@ -64,6 +65,6 @@ export function integrateLobbyHTML(source){
  html=once(html,'</nav>\n    <div class="search-row">','<button type="button" data-provider="smartsoft" aria-pressed="false">SmartSoft <span id="smartsoft-count"></span></button></nav>\n    <div class="search-row">');
  html=once(html,'<button type="button" data-filter="slots" aria-pressed="false">Slots</button>','<button type="button" data-filter="slots" aria-pressed="false">Slots</button><button type="button" data-filter="crash" aria-pressed="false">Crash</button><button type="button" data-filter="arcade" aria-pressed="false">Arcade</button><button type="button" data-filter="demo" aria-pressed="false">DEMO</button><button type="button" data-filter="etb" aria-pressed="false">ETB</button>');
  html=once(html,'<span id="play-label">Sign in to play</span></a>','<span id="play-label">Sign in to play</span></a><a id="play-demo" class="secondary-action" aria-disabled="true">PLAY DEMO</a>');
- html=once(html,'</body>',`<dialog id="demo-player" aria-labelledby="embedded-title"><header class="embedded-header"><div class="embedded-heading"><strong id="embedded-title"></strong><span class="session-demo">DEMO</span></div><div class="embedded-tools"><span id="embedded-wallet" hidden>Wallet <strong id="embedded-wallet-balance"></strong></span><a id="demo-fallback" target="_blank" rel="noopener noreferrer">↗ Open</a><button type="button" id="close-demo" aria-label="Close game">×</button></div></header><iframe id="embedded-demo" title="Game" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock" allow="fullscreen" referrerpolicy="no-referrer"></iframe></dialog></body>`);
+ html=once(html,'</body>',`<dialog id="demo-player" aria-labelledby="embedded-title"><header class="embedded-header"><div class="embedded-heading"><strong id="embedded-title"></strong><span class="session-demo">DEMO</span></div><div class="embedded-tools"><span id="embedded-wallet" hidden>Wallet <strong id="embedded-wallet-balance"></strong></span><button type="button" id="demo-fullscreen" aria-label="Full screen">⛶</button><button type="button" id="close-demo" aria-label="Close game">×</button></div></header><iframe id="embedded-demo" title="Game" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock" allow="fullscreen" referrerpolicy="no-referrer"></iframe></dialog></body>`);
  return html;
 }

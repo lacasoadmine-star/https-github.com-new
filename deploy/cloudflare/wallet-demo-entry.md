@@ -4,7 +4,7 @@ The owner requested that SmartSoft game graphics, rules and spins remain unchang
 
 POST /api/gateway/launch accepts only game_id and mode. The funded response is explicitly WALLET_DEMO with settlement_enabled=false. It has no stake, debit, credit, refund, provider-outcome or ledger operation. The actual account balance is read from the existing canonical session, never invented or reset. A stale funded lobby cannot bypass a fresh zero-balance or disabled-account response. Identity and launcher inputs cannot be supplied by the browser.
 
-The ETB Wallet Test dialog, stake-check form and long test paragraphs are removed. The only player header controls are the game title, DEMO badge, actual wallet balance on funded entry, external-open link and close. No test credit is created. Original three native ETB game routes and existing account/payment workflows remain intact. /api/wallet/test returns 410.
+The ETB Wallet Test dialog, stake-check form and long test paragraphs are removed. The only player header controls are the game title, DEMO badge, actual wallet balance on funded entry, in-place fullscreen and close. There is no external-open link; the top-level page stays inside Superwin. No test credit is created. Original three native ETB game routes and existing account/payment workflows remain intact. /api/wallet/test returns 410.
 
 New rounds in the replacement Superwin engines have been disabled. Existing accepted receipts, cashouts, payout reservations and expiry handling remain recoverable. No historical ledger entry or balance was deleted or rewritten.
 
