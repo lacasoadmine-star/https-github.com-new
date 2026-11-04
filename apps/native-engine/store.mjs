@@ -10,9 +10,12 @@ const uuid=value=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-
 function strictObject(value,keys){if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).some(key=>!keys.includes(key)))fail('INVALID_REQUEST');}
 
 export class NativeStore{
- constructor(sql,{now=Date.now,seed=()=>randomBytes(32).toString('hex'),id=randomUUID}={}){this.sql=sql;this.now=now;this.seed=seed;this.id=id;}
+ constructor(sql,{now=Date.now,seed=()=>randomBytes(32).toString('hex'),id=randomUUID}={}){this.sql=sql;this.now=now;this.seed=seed;this.id=id;this.liveDashboardReady=false;}
  async migrate(){
   await this.sql.begin(async tx=>{
+   await tx.unsafe("SET LOCAL search_path=sw_rebuild,public");
+   const compatible=await tx.unsafe("SELECT to_regprocedure('sw_live_touch(text[])') IS NOT NULL AS available");
+   if(!compatible[0].available)fail('CANONICAL_DASHBOARD_TRIGGER_UNAVAILABLE',503);
    await tx.unsafe("SELECT pg_advisory_xact_lock(hashtextextended('superwin-native-family-migration',0))");
    const columns=await tx.unsafe("SELECT column_name,data_type FROM information_schema.columns WHERE table_schema='sw_rebuild' AND table_name='wallets'");
    if(!columns.some(c=>c.column_name==='balance'&&c.data_type==='bigint'))fail('CANONICAL_SCHEMA_MISMATCH',503);
@@ -30,10 +33,12 @@ export class NativeStore{
      user_id text NOT NULL REFERENCES sw_rebuild.users(id),request_id uuid NOT NULL,request_hash text NOT NULL,
      result jsonb NOT NULL,created_at timestamptz NOT NULL DEFAULT now(),PRIMARY KEY(user_id,request_id));`);
   });
+  this.liveDashboardReady=true;
  }
  async transaction(userId,work,{requireActive=true}={}){
   if(typeof userId!=='string'||!userId||userId.length>100)fail('INVALID_IDENTITY',401);
   return this.sql.begin(async tx=>{
+   await tx.unsafe("SET LOCAL search_path=sw_rebuild,public");
    await tx.unsafe("SET LOCAL lock_timeout='5s'");await tx.unsafe("SET LOCAL statement_timeout='15s'");
    await tx.unsafe("SELECT pg_advisory_xact_lock(hashtextextended($1,0))",['native-family:'+userId]);
    const users=await tx.unsafe('SELECT id,role,status,parent_id FROM sw_rebuild.users WHERE id=$1 FOR SHARE',[userId]);
@@ -101,7 +106,7 @@ export class NativeStore{
    return {balance:formatMinor(await this.balance(tx,userId)),currency:'ETB',round:round?this.view(round,asJSON(round.state),now):null,other_active_game:pending?.status==='active'&&pending.game_id!==gameId?pending.game_id:null,server_now:now};
   });
  }
- async perform(userId,payload){
+ async perform(userId,payload,{allowNewRounds=true}={}){
   strictObject(payload,['request_id','type','game_id','stake','options','round_id','expected_version','action','input']);
   if(!uuid(payload.request_id))fail('INVALID_REQUEST_ID');
   const game=gameById(payload.game_id),digest=hash(json(canonical(payload)));
@@ -114,6 +119,7 @@ export class NativeStore{
    }
    const now=this.now();let round,result;
    if(payload.type==='start'){
+    if(!allowNewRounds)fail('GAME_RETIRED_USE_DEMO_CATALOG',409);
     const stake=stakeMinor(payload.stake,game),options=payload.options??{};
     strictObject(options,game.family==='mines'?['mines']:game.family==='dice'?['target']:game.family==='plinko'?['risk']:game.family==='crash'?['auto_cashout']:[]);
     const liability=maximumLiability(game,stake,options);

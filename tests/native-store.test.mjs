@@ -10,14 +10,17 @@ if(url.hostname!=='127.0.0.1'||url.username!=='native_test'||url.pathname!=='/na
 const sql=new SQL(url.href,{max:12});let now=100000;
 const store=new NativeStore(sql,{now:()=>now});
 const request=(game_id='roll_dice',extra={})=>({request_id:randomUUID(),type:'start',game_id,stake:'1.00',options:game_id==='roll_dice'?{target:7}:{},...extra});
+const fixtureWrite=(query)=>sql.begin(async tx=>{await tx.unsafe('SET LOCAL search_path=sw_rebuild,public');return tx.unsafe(query);});
 const balance=async id=>BigInt((await sql.unsafe('SELECT balance FROM sw_rebuild.wallets WHERE id=$1',[id]))[0].balance);
 async function conserved(){const total=await sql.unsafe('SELECT sum(balance)::text AS total FROM sw_rebuild.wallets');expect(total[0].total).toBe('1002000000');const bad=await sql.unsafe('SELECT transfer_id FROM sw_rebuild.ledger GROUP BY transfer_id HAVING sum(delta)<>0 OR count(*)<>2');expect(bad.length).toBe(0);}
 beforeAll(async()=>{await sql.unsafe(await readFile(new URL('./fixtures/native-canonical-schema.sql',import.meta.url),'utf8'));await store.migrate();});
 beforeEach(async()=>{
  now=100000;
- await sql.unsafe('TRUNCATE sw_native_family.requests,sw_native_family.rounds,sw_rebuild.rounds,sw_rebuild.ledger,sw_rebuild.transfers,sw_rebuild.audit,sw_rebuild.live_revisions,sw_rebuild.account_limits,sw_rebuild.wallets,sw_rebuild.users CASCADE');
- await sql.unsafe("INSERT INTO sw_rebuild.users(id,role,status,parent_id) VALUES('owner','owner','active',NULL),('agent','agent','active','owner'),('player-a','player','active','agent'),('player-b','player','active','agent')");
- await sql.unsafe("INSERT INTO sw_rebuild.wallets(id,balance) VALUES('house',1000000000),('player-a',1000000),('player-b',1000000)");
+ await sql.begin(async tx=>{await tx.unsafe("SET LOCAL search_path=sw_rebuild,public");
+ await tx.unsafe('TRUNCATE sw_native_family.requests,sw_native_family.rounds,sw_rebuild.rounds,sw_rebuild.ledger,sw_rebuild.transfers,sw_rebuild.audit,sw_rebuild.live_revisions,sw_rebuild.account_limits,sw_rebuild.wallets,sw_rebuild.users CASCADE');
+ await tx.unsafe("INSERT INTO sw_rebuild.users(id,role,status,parent_id) VALUES('owner','owner','active',NULL),('agent','agent','active','owner'),('player-a','player','active','agent'),('player-b','player','active','agent')");
+ await tx.unsafe("INSERT INTO sw_rebuild.wallets(id,balance) VALUES('house',1000000000),('player-a',1000000),('player-b',1000000)");
+ });
 });
 afterAll(()=>sql.close());
 test('migration preserves existing accounts and never creates credits',async()=>{await store.migrate();expect((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.users'))[0].n).toBe(4);await conserved();});
@@ -39,7 +42,7 @@ test('forty concurrent distinct rounds retain every update',async()=>{
  expect((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.rounds'))[0].n).toBe(40);await conserved();
 });
 test('one active round prevents concurrent overspending and overlapping games',async()=>{
- await sql.unsafe("UPDATE sw_rebuild.wallets SET balance=100 WHERE id='player-a'");
+ await fixtureWrite("UPDATE sw_rebuild.wallets SET balance=100 WHERE id='player-a'");
  const outcomes=await Promise.allSettled(Array.from({length:15},()=>store.perform('player-a',request('turbo_mines'))));
  expect(outcomes.filter(r=>r.status==='fulfilled').length).toBe(1);expect(await balance('player-a')).toBe(0n);
  expect((await sql.unsafe("SELECT count(*)::int AS n FROM sw_native_family.rounds WHERE status='active'"))[0].n).toBe(1);
@@ -85,7 +88,7 @@ test('blocked users cannot bet and cannot substitute a privileged account',async
  expect((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.transfers'))[0].n).toBe(0);
 });
 test('bankroll rejection leaves no wager, reserve wallet or receipt',async()=>{
- await sql.unsafe("UPDATE sw_rebuild.wallets SET balance=0 WHERE id='house'");
+ await fixtureWrite("UPDATE sw_rebuild.wallets SET balance=0 WHERE id='house'");
  await expect(store.perform('player-a',request())).rejects.toThrow('BANKROLL_CAPACITY_UNAVAILABLE');
  expect(await balance('player-a')).toBe(1000000n);
  expect((await sql.unsafe('SELECT count(*)::int AS n FROM sw_rebuild.wallets'))[0].n).toBe(3);
@@ -109,4 +112,22 @@ test('crash cashout uses authoritative time and reveals its committed seed after
  const done=await crashStore.perform('player-a',{request_id:randomUUID(),type:'action',game_id:'jetx',round_id:id,expected_version:0,action:'cashout',input:{}});
  expect(done.round.reason).toBe('CASHOUT');expect(BigInt(done.round.payout_minor)>100n).toBe(true);
  expect(createHash('sha256').update(done.round.revealed_seed).digest('hex')).toBe(r.round.commitment);await conserved();
+});
+
+test('wallet settlement resolves existing unqualified live-dashboard trigger functions',async()=>{
+ const isolated=new SQL(url.href,{max:1});
+ const triggerStore=new NativeStore(isolated);
+ const result=await triggerStore.perform('player-a',request('burning_ice'));
+ await isolated.close();
+ expect(result.round.status).toBe('settled');
+ expect((await sql.unsafe("SELECT revision FROM sw_rebuild.live_revisions WHERE user_id='player-a'"))[0].revision>0).toBe(true);
+ await conserved();
+});
+
+test('retired catalog rejects new wagers while replay and funded cashout still work',async()=>{
+ const {start,picked,pick}=await mineRound();
+ await expect(store.perform('player-a',request('burning_ice'),{allowNewRounds:false})).rejects.toThrow('GAME_RETIRED_USE_DEMO_CATALOG');
+ const replay=await store.perform('player-a',pick,{allowNewRounds:false});expect(replay.replayed).toBe(true);
+ const result=await store.perform('player-a',{request_id:randomUUID(),type:'action',game_id:'turbo_mines',round_id:start.round.round_id,expected_version:picked.round.version,action:'cashout',input:{}},{allowNewRounds:false});
+ expect(result.round.status).toBe('settled');await conserved();
 });

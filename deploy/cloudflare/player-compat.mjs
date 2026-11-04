@@ -1,9 +1,9 @@
-import {SMARTSOFT_CATALOG} from './smartsoft-catalog.mjs';
+import {OFFICIAL_DEMO_CATALOG} from './official-demo-catalog.mjs';
 import {GATEWAY_HTML} from './gateway-page.mjs';
 import {integrateLobbyHTML, INTEGRATED_LOBBY_PATH} from './integrated-lobby.mjs';
-import {internalFamilyCatalog,nativeRoute,proxyNativeFamily,reconcileNativeFamilies} from './native-family-proxy.mjs';
+import {nativeRoute,proxyNativeFamily,reconcileNativeFamilies} from './native-family-proxy.mjs';
 
-export const COMPAT_RELEASE = 'superwin-native-family-engines-20261104';
+export const COMPAT_RELEASE = 'superwin-official-demo-catalog-20261104';
 
 const money = value => typeof value === 'string' && /^\d{1,16}\.\d{2}$/.test(value);
 const uuid = value => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
@@ -97,7 +97,7 @@ export function wrapPlayer(original, {legacy, GAMES, sessionHeaders, gatewayScri
             return new Response(null,{status:302,headers:{Location:target.href,'Cache-Control':'no-store'}});
           }
           if (path === '/api/gateway/games') {
-            const result = json(internalFamilyCatalog());
+            const result = json({...OFFICIAL_DEMO_CATALOG,status:'OFFICIAL_DEMO',configured_games_count:0,demo_games_count:30,official_provider_game:true});
             return request.method === 'HEAD' ? new Response(null, result) : result;
           }
           const script = path === '/gateway-player.mjs';

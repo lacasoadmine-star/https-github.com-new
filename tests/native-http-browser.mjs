@@ -11,7 +11,7 @@ const sql=new SQL(url.href),secret=randomBytes(48).toString('hex');
 process.env.DATABASE_URL=url.href;process.env.NATIVE_ENGINE_SECRET=secret;process.env.NATIVE_ENGINE_ENABLED='true';
 await sql.unsafe('TRUNCATE sw_native_family.requests,sw_native_family.rounds,sw_rebuild.rounds,sw_rebuild.ledger,sw_rebuild.transfers,sw_rebuild.audit,sw_rebuild.live_revisions,sw_rebuild.account_limits,sw_rebuild.wallets,sw_rebuild.users CASCADE');
 await sql.unsafe("INSERT INTO sw_rebuild.users(id,role,status,parent_id) VALUES('ui-player','player','active',NULL)");
-await sql.unsafe("INSERT INTO sw_rebuild.wallets(id,balance) VALUES('house',1000000000),('ui-player',1000000)");
+await sql.begin(async tx=>{await tx.unsafe('SET LOCAL search_path=sw_rebuild,public');await tx.unsafe("INSERT INTO sw_rebuild.wallets(id,balance) VALUES('house',1000000000),('ui-player',1000000)");});
 const backend=(await import('../apps/native-engine/server.mjs')).default;
 const realFetch=globalThis.fetch;
 globalThis.fetch=async(input,init)=>{

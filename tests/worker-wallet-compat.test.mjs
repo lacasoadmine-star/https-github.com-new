@@ -47,11 +47,11 @@ test('upgrade preserves existing wrapper and refuses unknown or already upgraded
  const patched=upgradeWalletCompatibility(old);assert.match(patched,/gatewayScript: GATEWAY_SCRIPT/);
  assert.throws(()=>upgradeWalletCompatibility(patched));assert.throws(()=>upgradeWalletCompatibility('export default {};'));
 });
-test('gateway exposes 30 independent internal engines without claiming official provider settlement',async()=>{
+test('gateway exposes 30 official public demo launchers without ETB settlement',async()=>{
  const {worker,calls}=fixture();const r=await worker.fetch(request('/api/gateway/games'),{});const data=await r.json();
  assert.equal(data.games.length,30);assert.equal(new Set(data.games.map(g=>g.id)).size,30);
- assert.equal(data.configured_games_count,30);assert.equal(data.status,'INTERNAL_ETB');
- assert.ok(data.games.every(g=>g.etb_enabled===true&&g.official_provider_game===false&&g.launch_url==='/native/'+g.id));assert.equal(calls.length,0);
+ assert.equal(data.configured_games_count,0);assert.equal(data.status,'OFFICIAL_DEMO');
+ assert.ok(data.games.every(g=>g.etb_enabled===false&&g.source_verified===true&&g.launch_url.startsWith('https://eu-server.ssgportal.com/GameLauncher/')));assert.equal(calls.length,0);
 });
 test('gateway page and JavaScript have strict types, caching and frame policy',async()=>{
  const {worker}=fixture();const page=await worker.fetch(request('/gateway'),{});
@@ -65,7 +65,7 @@ test('native lobby transformation retains the original grid, wallet, account and
  const patched=integrateLobbyScript(source),page=integrateLobbyHTML(html);
  assert.match(patched,/Object.assign\(CATALOG/);assert.match(patched,/game.external/);
  assert.match(page,/id="game-grid"/);assert.match(page,/id="account-balance"/);assert.match(page,/id="demo-player"/);
- assert.match(page,/data-provider="internal"/);assert.match(page,/player-live-v248\/lobby.mjs/);
+ assert.match(page,/data-provider="smartsoft"/);assert.match(page,/player-live-v250\/lobby.mjs/);
  assert.throws(()=>integrateLobbyScript('unknown script'));
  assert.throws(()=>integrateLobbyHTML('unknown markup'));
  assert.throws(()=>integrateLobbyScript(patched));
@@ -145,4 +145,10 @@ test('WebSocket routes forward cookies and original upgrade response',async()=>{
 test('cross-origin upgrades and dispatch loops are denied',async()=>{
  const {worker,calls}=fixture();assert.equal((await worker.fetch(request('/ws/player',undefined,{origin:'https://other.example',upgrade:'websocket'}),{})).status,403);
  assert.equal((await worker.fetch(request('/api/wallet',undefined,{'x-zplay-two-hop':'1'}),{})).status,503);assert.equal(calls.length,0);
+});
+
+test('official demo URLs use provider DEMO tokens and original source artwork',async()=>{
+ const {worker}=fixture();const data=await(await worker.fetch(request('/api/gateway/games'),{})).json();
+ for(const game of data.games){const url=new URL(game.launch_url);assert.equal(url.origin,'https://eu-server.ssgportal.com');assert.equal(url.pathname.toLowerCase(),'/gamelauncher/loader.aspx');assert.equal(url.searchParams.get('PortalName').toUpperCase(),'DEMO');assert.ok(['DEMO','DEMO_EXH'].includes(url.searchParams.get('Token')));assert.equal(new URL(game.cover).hostname,'cdn.prod.website-files.com');assert.ok(game.source_url.startsWith('https://www.smartsoftgaming.com/games/'));assert.equal(game.etb_enabled,false);}
+ assert.ok(data.games.some(g=>new URL(g.launch_url).searchParams.get('GameName')==='MultiHot5'));
 });
