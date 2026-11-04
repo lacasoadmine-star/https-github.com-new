@@ -1,6 +1,6 @@
 import {OFFICIAL_DEMO_CATALOG} from './official-demo-catalog.mjs';
 
-export const INTEGRATED_LOBBY_PATH='/player-live-v255/lobby.mjs';
+export const INTEGRATED_LOBBY_PATH='/player-live-v256/lobby.mjs';
 function once(source,anchor,replacement){if(source.split(anchor).length!==2)throw Error('Unexpected lobby source: '+anchor.slice(0,70));return source.replace(anchor,replacement);}
 
 export function integrateLobbyScript(source){
@@ -43,7 +43,7 @@ async function launchWalletGame(game){
  }catch(error){if(epoch!==walletLaunchEpoch||state.identity!==identity)return;status.hidden=false;status.textContent=error.name==='AbortError'?'Connection timed out. Please retry.':error.message;}
  finally{clearTimeout(timeout);if(epoch===walletLaunchEpoch){walletLaunchBusy=false;$('play').removeAttribute('aria-disabled');}}
 }
-$('play-demo').addEventListener('click',event=>{event.preventDefault();const game=state.selected;if(game?.external&&$('play-demo').getAttribute('aria-disabled')!=='true'){cancelWalletLaunch();openEmbeddedGame(game);}});
+$('play-demo').addEventListener('click',event=>{event.preventDefault();const game=state.selected;if(game?.external&&$('play-demo').getAttribute('aria-disabled')!=='true'){if(state.session==='signedin'&&state.enabled&&money(state.balance)&&BigInt(state.balance.replace('.',''))>0n){void launchWalletGame(game);}else{cancelWalletLaunch();openEmbeddedGame(game);}}});
 $('play').addEventListener('click',event=>{const game=state.selected;if(!game?.external||state.session!=='signedin'||!state.enabled||!money(state.balance)||BigInt(state.balance.replace('.',''))<=0n)return;event.preventDefault();void launchWalletGame(game);});
 window.addEventListener('message',event=>{const data=event.data;if(event.origin!==location.origin||event.source!==$('embedded-demo').contentWindow||!activeWalletUser||activeWalletIdentity!==state.identity||data?.type!=='superwin:wallet-updated'||data.game_id!==activeWalletGame||data.user_id!==activeWalletUser||data.currency!=='ETB'||!money(data.balance))return;state.balance=data.balance;$('embedded-wallet-balance').textContent=money(data.balance);updateAccount();});
 $('close-demo').addEventListener('click',closeEmbeddedDemo);$('close-detail').addEventListener('click',cancelWalletLaunch);
