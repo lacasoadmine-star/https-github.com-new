@@ -23,7 +23,7 @@ export class MachineRenderer {
  text(text,x,y,size,color='#fff1ad',font='Georgia',align='center'){const c=this.ctx;c.font=`900 ${size}px ${font}`;c.textAlign=align;c.textBaseline='middle';c.fillStyle=color;c.fillText(text,x,y);}
  draw(now,dt){const c=this.ctx,g=this.game,v=g.visual;c.drawImage(this.background,0,0,420,900);this.title();this.drawWheel(now);this.drawReels(now);if(!this.motion.active&&this.result&&this.presentedAt){this.paylines(now);this.win(now);}this.particles.draw(c,dt);}
  title(){const c=this.ctx,g=this.game,v=g.visual;c.save();c.shadowColor='#dcd46b66';c.shadowBlur=10;c.strokeStyle='#554013';c.lineWidth=3;c.textAlign='center';c.textBaseline='middle';
-  if(g.id==='hot_foxy_20'){c.font='italic 900 37px Georgia';c.strokeText('Hot Foxy',195,43);c.fillStyle=gold(c,20);c.fillText('Hot Foxy',195,43);this.text('20',291,46,25,'#ffdb5c');leaf(c,110,36,.55,-.6);}
+  if(g.id==='hot_foxy_20'){c.font='italic 900 37px Georgia';c.strokeText('Hot Foxy',195,43);c.fillStyle=gold(c,20);c.fillText('Hot Foxy',195,43);this.text('20',327,46,25,'#ffdb5c');leaf(c,110,36,.55,-.6);}
   else {c.font='900 32px Georgia';c.strokeText('MULTI HOT',200,100);c.fillStyle=gold(c,80);c.fillText('MULTI HOT',200,100);this.text('5',326,100,36,'#ef3d90');this.text('MULTIPLIER',43,133,7,'#e6d49a');this.text('5 LINES FIXED',398,133,8,'#e6d49a','Georgia','right');}c.restore();}
  drawReels(now){const c=this.ctx,g=this.game,v=g.visual,cw=v.w/g.reels,ch=v.h/g.rows;c.save();c.shadowColor='#75f7b355';c.shadowBlur=10;c.fillStyle='#003727';c.fillRect(v.x,v.y,v.w,v.h);c.lineWidth=g.id==='hot_foxy_20'?4:3;c.strokeStyle=gold(c,v.y);c.strokeRect(v.x,v.y,v.w,v.h);c.shadowBlur=0;
   for(let col=0;col<g.reels;col++){
