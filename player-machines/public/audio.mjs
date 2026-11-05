@@ -1,7 +1,7 @@
 // Original Web Audio event score. No remotely downloaded music or provider samples.
 export class SoundEngine {
  constructor(root=261.63){this.root=root;this.volume=.5;this.muted=false;this.nodes=new Set();this.events=[];this.disposed=false;}
- async unlock(){if(this.disposed)return;const Audio=globalThis.AudioContext||globalThis.webkitAudioContext;if(!Audio)return;if(!this.context){this.context=new Audio();this.master=this.context.createGain();this.limiter=this.context.createDynamicsCompressor();this.limiter.threshold.value=-13;this.limiter.ratio.value=8;this.master.connect(this.limiter).connect(this.context.destination);this.gain();}if(this.context.state==='suspended')await this.context.resume().catch(()=>{});}
+ async unlock(){if(this.disposed)return;const Audio=globalThis.AudioContext||globalThis.webkitAudioContext;if(!Audio)return;if(!this.context){this.context=new Audio();this.master=this.context.createGain();this.limiter=this.context.createDynamicsCompressor();this.limiter.threshold.value=-13;this.limiter.ratio.value=8;this.master.connect(this.limiter).connect(this.context.destination);this.gain();}if(this.context.state==='suspended')void this.context.resume().catch(()=>{});}
  gain(){if(this.master)this.master.gain.setTargetAtTime(this.muted?0:this.volume,this.context.currentTime,.012);}
  setVolume(value){this.volume=Math.max(0,Math.min(1,value));this.gain();}
  toggle(){this.muted=!this.muted;this.gain();if(this.muted)this.stop();return this.muted;}

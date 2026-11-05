@@ -51,6 +51,15 @@ export function validateRound(result,g,bet){
  assert(result.bonusSpinsAwarded===e.bonus&&Number.isInteger(result.freeSpinsRemaining)&&result.freeSpinsRemaining>=0&&result.freeSpinsRemaining<=500,'FREE_SPIN_MISMATCH');
  assert(result.maxWinCapped===(e.total>e.final),'CAP_MISMATCH');return result;
 }
+export function validateGamble(result,g,expected){
+ assert(result&&typeof result.won==='boolean'&&result.roundId===expected.roundId&&result.choice===expected.choice,'GAMBLE_IDENTITY_MISMATCH');
+ assert(['RED','BLACK'].includes(result.cardColor)&&result.won===(result.cardColor===result.choice),'GAMBLE_COLOUR_MISMATCH');
+ assert(Number.isInteger(result.attempt)&&result.attempt>=1&&result.attempt<=g.features.gambleRounds&&result.maxAttempts===g.features.gambleRounds,'GAMBLE_ATTEMPT_MISMATCH');
+ const stake=units(result.stake),payout=units(result.payout);assert(stake>0n&&payout===(result.won?stake*2n:0n),'GAMBLE_PAYOUT_INVALID');
+ if(expected.expectedStake!==undefined)assert(stake===units(expected.expectedStake),'GAMBLE_STAKE_MISMATCH');
+ if(expected.expectedAttempt!==undefined)assert(result.attempt===expected.expectedAttempt,'GAMBLE_ATTEMPT_MISMATCH');
+ units(result.balanceAfter,2);return result;
+}
 export class SpinState {
  constructor(){this.value='loading';}
  move(next){const allowed={loading:['ready','signedout','unavailable','error','pending'],ready:['requesting','loading','signedout','error'],requesting:['animating','pending','ready','signedout'],animating:['presenting','ready','pending','signedout'],presenting:['ready','requesting','signedout'],pending:['requesting','loading','signedout'],signedout:['loading'],unavailable:['loading'],error:['loading']};assert(allowed[this.value]?.includes(next),'INVALID_STATE_'+this.value+'_'+next);this.value=next;return next;}

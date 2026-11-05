@@ -1,0 +1,43 @@
+// Browser-only acceptance scenarios. The isolated fixture never contacts a live wallet.
+const $=id=>document.getElementById(id),delay=ms=>new Promise(r=>setTimeout(r,ms)),checks=[];
+const until=async(f,label='state')=>{for(let i=0;i<180;i++){if(f())return;await delay(30);}throw Error('Timed out '+label+': '+document.body.dataset.state+' '+$('notice-text').textContent);};
+const check=(name,ok)=>{checks.push({name,ok:!!ok});if(!ok)throw Error(name);};
+const close=id=>document.querySelector(`[data-close="${id}"]`).click();
+const posts=kind=>qa.calls.filter(c=>c.path.endsWith('/'+kind));
+const ready=()=>document.body.dataset.state==='ready';
+async function completeSpin(){await until(()=>document.body.dataset.state==='animating','animation');$('spin').click();await until(ready,'settled');}
+async function openGamble(){if(document.body.dataset.game==='hot_foxy_20'){$('menu').click();$('gamble-menu').click();}else $('gamble').click();await until(()=>$('gamble-dialog').open);}
+try{
+ const {diagnostics}=await import('machine/controller.mjs');await until(ready);
+ check('single canvas',$('machine').querySelectorAll('canvas').length===1);check('no video or iframe',!document.querySelector('video,iframe'));
+ check('balance comes from fixture server',$('balance').textContent==='100000.00');
+ $('bet-open').click();check('bet menu open',$('settings').open);document.querySelector('[data-bet="4.00"]').click();check('bet changes to 4',$('bet-value').textContent==='4.00');document.querySelector('[data-bet="2.00"]').click();close('settings');
+ $('spin').click();$('spin').click();await until(()=>document.body.dataset.state==='animating');check('STOP shown',$('spin-label').textContent==='STOP');check('bets locked during animation',$('bet-open').disabled&&$('bet-more').disabled);$('spin').click();$('spin').click();await until(ready);
+ check('SPIN and STOP submit one wager',posts('spin').length===1);check('receipt balance displayed',$('balance').textContent===qa.balance);check('win displayed',$('win').textContent===qa.lastRound.finalWin);
+ let d=diagnostics();check('individual reel sounds',d.soundEvents.filter(e=>e.name==='reel-stop').length===d.geometry.columns);check('one multiplier stop',d.soundEvents.filter(e=>e.name==='wheel-stop').length===1);check('AudioContext running',d.audioState==='running');
+ $('sound').click();await delay(30);check('mute enabled',$('sound').getAttribute('aria-pressed')==='true');check('mute clears audio nodes',diagnostics().audioNodes===0);$('sound').click();await delay(30);
+ $('menu').click();check('paytable populated',$('paytable').children.length>0);document.querySelector('[data-panel="audio"]').click();$('volume').value='25';$('volume').dispatchEvent(new Event('input',{bubbles:true}));check('volume control',$('volume-value').textContent==='25%');document.querySelector('[data-panel="history"]').click();await until(()=>$('history-items').textContent.includes(qa.lastRound.roundId));check('settled history visible',true);close('settings');
+ await openGamble();check('gamble choices enabled',!$('red').disabled&&!$('black').disabled);qa.gambleWin=true;let stake=qa.lastRound.finalWin;$('red').click();$('red').click();await until(()=>!$('red').disabled&&$('gamble-message').textContent.startsWith('WIN'));
+ check('gamble double click submits once',posts('gamble').length===1);check('gamble stake updates after win',$('gamble-terms').textContent.includes((Number(stake)*2).toFixed(2)));check('gamble balance displayed',$('balance').textContent===qa.balance);
+ qa.gambleWin=false;$('black').click();await until(()=>$('gamble-message').textContent.startsWith('LOSE'));check('losing gamble disables both choices',$('red').disabled&&$('black').disabled);close('gamble-dialog');
+ $('spin').click();await completeSpin();await openGamble();check('new round restores gamble buttons',!$('red').disabled&&!$('black').disabled);
+ qa.gambleWin=true;qa.dropGambleNext=true;$('red').click();await until(()=>$('gamble-message').textContent.includes('Synthetic lost gamble'));
+ check('pending gamble keeps only original choice',!$('red').disabled&&$('black').disabled);const pendingAction=posts('gamble').at(-1);close('gamble-dialog');await openGamble();check('pending gamble can be reopened',!$('red').disabled);$('red').click();await until(()=>$('gamble-message').textContent.startsWith('WIN'));check('gamble recovery uses same payload',posts('gamble').at(-1).body===pendingAction.body);check('gamble recovery balance matches server',$('balance').textContent===qa.balance);close('gamble-dialog');
+ $('auto').click();document.querySelector('[data-auto="10"]').click();await until(()=>document.body.dataset.state==='animating');$('auto').click();$('spin').click();await until(ready);const stoppedAt=posts('spin').length;await delay(1200);check('AUTO cancels without another wager',posts('spin').length===stoppedAt);check('AUTO count cannot go negative',diagnostics().autoRemaining===0&&$('auto-label').textContent==='AUTO');
+ // The server settles, but its response is lost. CONFIRM must reuse the saved token.
+ qa.dropNext=true;$('spin').click();await until(()=>document.body.dataset.state==='pending');const failed=posts('spin').at(-1),debits=qa.debits;check('network error retains token',$('spin-label').textContent==='CONFIRM');check('pending bet locked',$('bet-open').disabled);$('spin').click();await completeSpin();check('retry uses identical payload',posts('spin').at(-1).body===failed.body);check('retry adds no second debit',qa.debits===debits);
+ // Reject a corrupted payout and retain the same token until the authentic receipt returns.
+ qa.corruptNext=true;$('spin').click();await until(()=>document.body.dataset.state==='pending');const corrupt=posts('spin').at(-1);check('invalid payout is not animated',$('spin-label').textContent==='CONFIRM');$('spin').click();await completeSpin();check('invalid receipt recovery reuses token',posts('spin').at(-1).body===corrupt.body);
+ // BFCache lifecycle notifications must not start another round or invalidate animation state.
+ $('spin').click();await until(()=>document.body.dataset.state==='animating');const beforeRestore=posts('spin').length;window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true}));window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}));$('spin').click();await until(ready);check('BFCache resumes same round',posts('spin').length===beforeRestore);
+ // Exercise the context recovery event path without claiming a physical GPU loss.
+ const canvas=$('machine-canvas');canvas.dispatchEvent(new Event('contextlost',{cancelable:true}));check('context loss pauses renderer',diagnostics().contextLost);canvas.dispatchEvent(new Event('contextrestored'));await delay(40);check('context restore resumes renderer',!diagnostics().contextLost);
+ // Layout and touch bounds after all controls have been exercised.
+ const ids=document.body.dataset.game==='multi_hot_5_video'?['spin','auto','gamble','collect','bet-open','bet-less','bet-more','menu','sound']:['spin','auto','bet-open','bet-quick','menu','sound'];
+ const buttons=ids.map(id=>({id,r:$(id).getBoundingClientRect()}));for(const b of buttons)check(b.id+' in viewport',b.r.left>=-1&&b.r.right<=innerWidth+1&&b.r.top>=-1&&b.r.bottom<=innerHeight+1);
+ for(let a=0;a<buttons.length;a++)for(let b=a+1;b<buttons.length;b++){const x=buttons[a].r,y=buttons[b].r;check(buttons[a].id+'/'+buttons[b].id+' no overlap',Math.min(x.right,y.right)<=Math.max(x.left,y.left)||Math.min(x.bottom,y.bottom)<=Math.max(x.top,y.top));}
+ check('canvas DPR capped',canvas.width<=Math.round(canvas.getBoundingClientRect().width*2));check('no browser errors',qa.errors.length===0);
+ // Leave a visible win on the final screenshot; all data remains in this isolated document.
+ const result={checks,diagnostics:diagnostics(),errors:qa.errors,syntheticDebits:qa.debits,spinPosts:posts('spin').length,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio}};
+ const pre=document.createElement('pre');pre.id='qa-result';pre.hidden=true;pre.textContent=JSON.stringify(result);document.body.append(pre);
+}catch(e){const pre=document.createElement('pre');pre.id='qa-result';pre.hidden=true;pre.textContent=JSON.stringify({checks,error:String(e),errors:qa.errors});document.body.append(pre);}

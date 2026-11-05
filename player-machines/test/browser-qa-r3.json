@@ -1,0 +1,2018 @@
+[
+  {
+    "checks": [
+      {
+        "name": "single canvas",
+        "ok": true
+      },
+      {
+        "name": "no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "balance comes from fixture server",
+        "ok": true
+      },
+      {
+        "name": "bet menu open",
+        "ok": true
+      },
+      {
+        "name": "bet changes to 4",
+        "ok": true
+      },
+      {
+        "name": "STOP shown",
+        "ok": true
+      },
+      {
+        "name": "bets locked during animation",
+        "ok": true
+      },
+      {
+        "name": "SPIN and STOP submit one wager",
+        "ok": true
+      },
+      {
+        "name": "receipt balance displayed",
+        "ok": true
+      },
+      {
+        "name": "win displayed",
+        "ok": true
+      },
+      {
+        "name": "individual reel sounds",
+        "ok": true
+      },
+      {
+        "name": "one multiplier stop",
+        "ok": true
+      },
+      {
+        "name": "AudioContext running",
+        "ok": true
+      },
+      {
+        "name": "mute enabled",
+        "ok": true
+      },
+      {
+        "name": "mute clears audio nodes",
+        "ok": true
+      },
+      {
+        "name": "paytable populated",
+        "ok": true
+      },
+      {
+        "name": "volume control",
+        "ok": true
+      },
+      {
+        "name": "settled history visible",
+        "ok": true
+      },
+      {
+        "name": "gamble choices enabled",
+        "ok": true
+      },
+      {
+        "name": "gamble double click submits once",
+        "ok": true
+      },
+      {
+        "name": "gamble stake updates after win",
+        "ok": true
+      },
+      {
+        "name": "gamble balance displayed",
+        "ok": true
+      },
+      {
+        "name": "losing gamble disables both choices",
+        "ok": true
+      },
+      {
+        "name": "new round restores gamble buttons",
+        "ok": true
+      },
+      {
+        "name": "pending gamble keeps only original choice",
+        "ok": true
+      },
+      {
+        "name": "pending gamble can be reopened",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery uses same payload",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery balance matches server",
+        "ok": true
+      },
+      {
+        "name": "AUTO cancels without another wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO count cannot go negative",
+        "ok": true
+      },
+      {
+        "name": "network error retains token",
+        "ok": true
+      },
+      {
+        "name": "pending bet locked",
+        "ok": true
+      },
+      {
+        "name": "retry uses identical payload",
+        "ok": true
+      },
+      {
+        "name": "retry adds no second debit",
+        "ok": true
+      },
+      {
+        "name": "invalid payout is not animated",
+        "ok": true
+      },
+      {
+        "name": "invalid receipt recovery reuses token",
+        "ok": true
+      },
+      {
+        "name": "BFCache resumes same round",
+        "ok": true
+      },
+      {
+        "name": "context loss pauses renderer",
+        "ok": true
+      },
+      {
+        "name": "context restore resumes renderer",
+        "ok": true
+      },
+      {
+        "name": "spin in viewport",
+        "ok": true
+      },
+      {
+        "name": "auto in viewport",
+        "ok": true
+      },
+      {
+        "name": "gamble in viewport",
+        "ok": true
+      },
+      {
+        "name": "collect in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-open in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-less in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-more in viewport",
+        "ok": true
+      },
+      {
+        "name": "menu in viewport",
+        "ok": true
+      },
+      {
+        "name": "sound in viewport",
+        "ok": true
+      },
+      {
+        "name": "spin/auto no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/gamble no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/gamble no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-more/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-more/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "menu/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "canvas DPR capped",
+        "ok": true
+      },
+      {
+        "name": "no browser errors",
+        "ok": true
+      }
+    ],
+    "diagnostics": {
+      "gameId": "multi_hot_5_video",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 260,
+        "slowFrames": 31,
+        "maxDelta": 80
+      },
+      "audioNodes": 0,
+      "audioState": "running",
+      "autoRemaining": 0,
+      "contextLost": false,
+      "soundEventCounts": {
+        "wheel-tick": 57,
+        "move": 26,
+        "reel-stop": 9,
+        "wheel-stop": 3,
+        "multiplier": 3,
+        "error": 1,
+        "start": 2
+      }
+    },
+    "errors": [],
+    "syntheticDebits": 6,
+    "spinPosts": 8,
+    "viewport": {
+      "width": 360,
+      "height": 800,
+      "dpr": 2
+    },
+    "source": "isolated frontend + synthetic fetch ledger; no production credentials or requests"
+  },
+  {
+    "checks": [
+      {
+        "name": "single canvas",
+        "ok": true
+      },
+      {
+        "name": "no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "balance comes from fixture server",
+        "ok": true
+      },
+      {
+        "name": "bet menu open",
+        "ok": true
+      },
+      {
+        "name": "bet changes to 4",
+        "ok": true
+      },
+      {
+        "name": "STOP shown",
+        "ok": true
+      },
+      {
+        "name": "bets locked during animation",
+        "ok": true
+      },
+      {
+        "name": "SPIN and STOP submit one wager",
+        "ok": true
+      },
+      {
+        "name": "receipt balance displayed",
+        "ok": true
+      },
+      {
+        "name": "win displayed",
+        "ok": true
+      },
+      {
+        "name": "individual reel sounds",
+        "ok": true
+      },
+      {
+        "name": "one multiplier stop",
+        "ok": true
+      },
+      {
+        "name": "AudioContext running",
+        "ok": true
+      },
+      {
+        "name": "mute enabled",
+        "ok": true
+      },
+      {
+        "name": "mute clears audio nodes",
+        "ok": true
+      },
+      {
+        "name": "paytable populated",
+        "ok": true
+      },
+      {
+        "name": "volume control",
+        "ok": true
+      },
+      {
+        "name": "settled history visible",
+        "ok": true
+      },
+      {
+        "name": "gamble choices enabled",
+        "ok": true
+      },
+      {
+        "name": "gamble double click submits once",
+        "ok": true
+      },
+      {
+        "name": "gamble stake updates after win",
+        "ok": true
+      },
+      {
+        "name": "gamble balance displayed",
+        "ok": true
+      },
+      {
+        "name": "losing gamble disables both choices",
+        "ok": true
+      },
+      {
+        "name": "new round restores gamble buttons",
+        "ok": true
+      },
+      {
+        "name": "pending gamble keeps only original choice",
+        "ok": true
+      },
+      {
+        "name": "pending gamble can be reopened",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery uses same payload",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery balance matches server",
+        "ok": true
+      },
+      {
+        "name": "AUTO cancels without another wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO count cannot go negative",
+        "ok": true
+      },
+      {
+        "name": "network error retains token",
+        "ok": true
+      },
+      {
+        "name": "pending bet locked",
+        "ok": true
+      },
+      {
+        "name": "retry uses identical payload",
+        "ok": true
+      },
+      {
+        "name": "retry adds no second debit",
+        "ok": true
+      },
+      {
+        "name": "invalid payout is not animated",
+        "ok": true
+      },
+      {
+        "name": "invalid receipt recovery reuses token",
+        "ok": true
+      },
+      {
+        "name": "BFCache resumes same round",
+        "ok": true
+      },
+      {
+        "name": "context loss pauses renderer",
+        "ok": true
+      },
+      {
+        "name": "context restore resumes renderer",
+        "ok": true
+      },
+      {
+        "name": "spin in viewport",
+        "ok": true
+      },
+      {
+        "name": "auto in viewport",
+        "ok": true
+      },
+      {
+        "name": "gamble in viewport",
+        "ok": true
+      },
+      {
+        "name": "collect in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-open in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-less in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-more in viewport",
+        "ok": true
+      },
+      {
+        "name": "menu in viewport",
+        "ok": true
+      },
+      {
+        "name": "sound in viewport",
+        "ok": true
+      },
+      {
+        "name": "spin/auto no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/gamble no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/gamble no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-more/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-more/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "menu/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "canvas DPR capped",
+        "ok": true
+      },
+      {
+        "name": "no browser errors",
+        "ok": true
+      }
+    ],
+    "diagnostics": {
+      "gameId": "multi_hot_5_video",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 265,
+        "slowFrames": 2,
+        "maxDelta": 33.402
+      },
+      "audioNodes": 0,
+      "audioState": "running",
+      "autoRemaining": 0,
+      "contextLost": false,
+      "soundEventCounts": {
+        "wheel-tick": 56,
+        "move": 27,
+        "reel-stop": 9,
+        "wheel-stop": 3,
+        "multiplier": 3,
+        "error": 1,
+        "start": 2
+      }
+    },
+    "errors": [],
+    "syntheticDebits": 6,
+    "spinPosts": 8,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 3
+    },
+    "source": "isolated frontend + synthetic fetch ledger; no production credentials or requests"
+  },
+  {
+    "checks": [
+      {
+        "name": "single canvas",
+        "ok": true
+      },
+      {
+        "name": "no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "balance comes from fixture server",
+        "ok": true
+      },
+      {
+        "name": "bet menu open",
+        "ok": true
+      },
+      {
+        "name": "bet changes to 4",
+        "ok": true
+      },
+      {
+        "name": "STOP shown",
+        "ok": true
+      },
+      {
+        "name": "bets locked during animation",
+        "ok": true
+      },
+      {
+        "name": "SPIN and STOP submit one wager",
+        "ok": true
+      },
+      {
+        "name": "receipt balance displayed",
+        "ok": true
+      },
+      {
+        "name": "win displayed",
+        "ok": true
+      },
+      {
+        "name": "individual reel sounds",
+        "ok": true
+      },
+      {
+        "name": "one multiplier stop",
+        "ok": true
+      },
+      {
+        "name": "AudioContext running",
+        "ok": true
+      },
+      {
+        "name": "mute enabled",
+        "ok": true
+      },
+      {
+        "name": "mute clears audio nodes",
+        "ok": true
+      },
+      {
+        "name": "paytable populated",
+        "ok": true
+      },
+      {
+        "name": "volume control",
+        "ok": true
+      },
+      {
+        "name": "settled history visible",
+        "ok": true
+      },
+      {
+        "name": "gamble choices enabled",
+        "ok": true
+      },
+      {
+        "name": "gamble double click submits once",
+        "ok": true
+      },
+      {
+        "name": "gamble stake updates after win",
+        "ok": true
+      },
+      {
+        "name": "gamble balance displayed",
+        "ok": true
+      },
+      {
+        "name": "losing gamble disables both choices",
+        "ok": true
+      },
+      {
+        "name": "new round restores gamble buttons",
+        "ok": true
+      },
+      {
+        "name": "pending gamble keeps only original choice",
+        "ok": true
+      },
+      {
+        "name": "pending gamble can be reopened",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery uses same payload",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery balance matches server",
+        "ok": true
+      },
+      {
+        "name": "AUTO cancels without another wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO count cannot go negative",
+        "ok": true
+      },
+      {
+        "name": "network error retains token",
+        "ok": true
+      },
+      {
+        "name": "pending bet locked",
+        "ok": true
+      },
+      {
+        "name": "retry uses identical payload",
+        "ok": true
+      },
+      {
+        "name": "retry adds no second debit",
+        "ok": true
+      },
+      {
+        "name": "invalid payout is not animated",
+        "ok": true
+      },
+      {
+        "name": "invalid receipt recovery reuses token",
+        "ok": true
+      },
+      {
+        "name": "BFCache resumes same round",
+        "ok": true
+      },
+      {
+        "name": "context loss pauses renderer",
+        "ok": true
+      },
+      {
+        "name": "context restore resumes renderer",
+        "ok": true
+      },
+      {
+        "name": "spin in viewport",
+        "ok": true
+      },
+      {
+        "name": "auto in viewport",
+        "ok": true
+      },
+      {
+        "name": "gamble in viewport",
+        "ok": true
+      },
+      {
+        "name": "collect in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-open in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-less in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-more in viewport",
+        "ok": true
+      },
+      {
+        "name": "menu in viewport",
+        "ok": true
+      },
+      {
+        "name": "sound in viewport",
+        "ok": true
+      },
+      {
+        "name": "spin/auto no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/gamble no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/gamble no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/collect no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "gamble/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "collect/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-less no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/bet-more no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-less/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-more/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-more/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "menu/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "canvas DPR capped",
+        "ok": true
+      },
+      {
+        "name": "no browser errors",
+        "ok": true
+      }
+    ],
+    "diagnostics": {
+      "gameId": "multi_hot_5_video",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 264,
+        "slowFrames": 3,
+        "maxDelta": 80
+      },
+      "audioNodes": 0,
+      "audioState": "running",
+      "autoRemaining": 0,
+      "contextLost": false,
+      "soundEventCounts": {
+        "move": 27,
+        "wheel-tick": 56,
+        "reel-stop": 9,
+        "wheel-stop": 3,
+        "multiplier": 3,
+        "error": 1,
+        "start": 2
+      }
+    },
+    "errors": [],
+    "syntheticDebits": 6,
+    "spinPosts": 8,
+    "viewport": {
+      "width": 430,
+      "height": 932,
+      "dpr": 2
+    },
+    "source": "isolated frontend + synthetic fetch ledger; no production credentials or requests"
+  },
+  {
+    "checks": [
+      {
+        "name": "single canvas",
+        "ok": true
+      },
+      {
+        "name": "no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "balance comes from fixture server",
+        "ok": true
+      },
+      {
+        "name": "bet menu open",
+        "ok": true
+      },
+      {
+        "name": "bet changes to 4",
+        "ok": true
+      },
+      {
+        "name": "STOP shown",
+        "ok": true
+      },
+      {
+        "name": "bets locked during animation",
+        "ok": true
+      },
+      {
+        "name": "SPIN and STOP submit one wager",
+        "ok": true
+      },
+      {
+        "name": "receipt balance displayed",
+        "ok": true
+      },
+      {
+        "name": "win displayed",
+        "ok": true
+      },
+      {
+        "name": "individual reel sounds",
+        "ok": true
+      },
+      {
+        "name": "one multiplier stop",
+        "ok": true
+      },
+      {
+        "name": "AudioContext running",
+        "ok": true
+      },
+      {
+        "name": "mute enabled",
+        "ok": true
+      },
+      {
+        "name": "mute clears audio nodes",
+        "ok": true
+      },
+      {
+        "name": "paytable populated",
+        "ok": true
+      },
+      {
+        "name": "volume control",
+        "ok": true
+      },
+      {
+        "name": "settled history visible",
+        "ok": true
+      },
+      {
+        "name": "gamble choices enabled",
+        "ok": true
+      },
+      {
+        "name": "gamble double click submits once",
+        "ok": true
+      },
+      {
+        "name": "gamble stake updates after win",
+        "ok": true
+      },
+      {
+        "name": "gamble balance displayed",
+        "ok": true
+      },
+      {
+        "name": "losing gamble disables both choices",
+        "ok": true
+      },
+      {
+        "name": "new round restores gamble buttons",
+        "ok": true
+      },
+      {
+        "name": "pending gamble keeps only original choice",
+        "ok": true
+      },
+      {
+        "name": "pending gamble can be reopened",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery uses same payload",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery balance matches server",
+        "ok": true
+      },
+      {
+        "name": "AUTO cancels without another wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO count cannot go negative",
+        "ok": true
+      },
+      {
+        "name": "network error retains token",
+        "ok": true
+      },
+      {
+        "name": "pending bet locked",
+        "ok": true
+      },
+      {
+        "name": "retry uses identical payload",
+        "ok": true
+      },
+      {
+        "name": "retry adds no second debit",
+        "ok": true
+      },
+      {
+        "name": "invalid payout is not animated",
+        "ok": true
+      },
+      {
+        "name": "invalid receipt recovery reuses token",
+        "ok": true
+      },
+      {
+        "name": "BFCache resumes same round",
+        "ok": true
+      },
+      {
+        "name": "context loss pauses renderer",
+        "ok": true
+      },
+      {
+        "name": "context restore resumes renderer",
+        "ok": true
+      },
+      {
+        "name": "spin in viewport",
+        "ok": true
+      },
+      {
+        "name": "auto in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-open in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-quick in viewport",
+        "ok": true
+      },
+      {
+        "name": "menu in viewport",
+        "ok": true
+      },
+      {
+        "name": "sound in viewport",
+        "ok": true
+      },
+      {
+        "name": "spin/auto no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-quick/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-quick/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "menu/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "canvas DPR capped",
+        "ok": true
+      },
+      {
+        "name": "no browser errors",
+        "ok": true
+      }
+    ],
+    "diagnostics": {
+      "gameId": "hot_foxy_20",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 277,
+        "slowFrames": 23,
+        "maxDelta": 80
+      },
+      "audioNodes": 0,
+      "audioState": "running",
+      "autoRemaining": 0,
+      "contextLost": false,
+      "soundEventCounts": {
+        "wheel-tick": 55,
+        "reel-stop": 13,
+        "move": 24,
+        "wheel-stop": 3,
+        "multiplier": 3,
+        "error": 1,
+        "start": 2
+      }
+    },
+    "errors": [],
+    "syntheticDebits": 6,
+    "spinPosts": 8,
+    "viewport": {
+      "width": 360,
+      "height": 800,
+      "dpr": 3
+    },
+    "source": "isolated frontend + synthetic fetch ledger; no production credentials or requests"
+  },
+  {
+    "checks": [
+      {
+        "name": "single canvas",
+        "ok": true
+      },
+      {
+        "name": "no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "balance comes from fixture server",
+        "ok": true
+      },
+      {
+        "name": "bet menu open",
+        "ok": true
+      },
+      {
+        "name": "bet changes to 4",
+        "ok": true
+      },
+      {
+        "name": "STOP shown",
+        "ok": true
+      },
+      {
+        "name": "bets locked during animation",
+        "ok": true
+      },
+      {
+        "name": "SPIN and STOP submit one wager",
+        "ok": true
+      },
+      {
+        "name": "receipt balance displayed",
+        "ok": true
+      },
+      {
+        "name": "win displayed",
+        "ok": true
+      },
+      {
+        "name": "individual reel sounds",
+        "ok": true
+      },
+      {
+        "name": "one multiplier stop",
+        "ok": true
+      },
+      {
+        "name": "AudioContext running",
+        "ok": true
+      },
+      {
+        "name": "mute enabled",
+        "ok": true
+      },
+      {
+        "name": "mute clears audio nodes",
+        "ok": true
+      },
+      {
+        "name": "paytable populated",
+        "ok": true
+      },
+      {
+        "name": "volume control",
+        "ok": true
+      },
+      {
+        "name": "settled history visible",
+        "ok": true
+      },
+      {
+        "name": "gamble choices enabled",
+        "ok": true
+      },
+      {
+        "name": "gamble double click submits once",
+        "ok": true
+      },
+      {
+        "name": "gamble stake updates after win",
+        "ok": true
+      },
+      {
+        "name": "gamble balance displayed",
+        "ok": true
+      },
+      {
+        "name": "losing gamble disables both choices",
+        "ok": true
+      },
+      {
+        "name": "new round restores gamble buttons",
+        "ok": true
+      },
+      {
+        "name": "pending gamble keeps only original choice",
+        "ok": true
+      },
+      {
+        "name": "pending gamble can be reopened",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery uses same payload",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery balance matches server",
+        "ok": true
+      },
+      {
+        "name": "AUTO cancels without another wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO count cannot go negative",
+        "ok": true
+      },
+      {
+        "name": "network error retains token",
+        "ok": true
+      },
+      {
+        "name": "pending bet locked",
+        "ok": true
+      },
+      {
+        "name": "retry uses identical payload",
+        "ok": true
+      },
+      {
+        "name": "retry adds no second debit",
+        "ok": true
+      },
+      {
+        "name": "invalid payout is not animated",
+        "ok": true
+      },
+      {
+        "name": "invalid receipt recovery reuses token",
+        "ok": true
+      },
+      {
+        "name": "BFCache resumes same round",
+        "ok": true
+      },
+      {
+        "name": "context loss pauses renderer",
+        "ok": true
+      },
+      {
+        "name": "context restore resumes renderer",
+        "ok": true
+      },
+      {
+        "name": "spin in viewport",
+        "ok": true
+      },
+      {
+        "name": "auto in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-open in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-quick in viewport",
+        "ok": true
+      },
+      {
+        "name": "menu in viewport",
+        "ok": true
+      },
+      {
+        "name": "sound in viewport",
+        "ok": true
+      },
+      {
+        "name": "spin/auto no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-quick/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-quick/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "menu/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "canvas DPR capped",
+        "ok": true
+      },
+      {
+        "name": "no browser errors",
+        "ok": true
+      }
+    ],
+    "diagnostics": {
+      "gameId": "hot_foxy_20",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 277,
+        "slowFrames": 8,
+        "maxDelta": 80
+      },
+      "audioNodes": 0,
+      "audioState": "running",
+      "autoRemaining": 0,
+      "contextLost": false,
+      "soundEventCounts": {
+        "wheel-tick": 55,
+        "reel-stop": 12,
+        "move": 25,
+        "wheel-stop": 3,
+        "multiplier": 3,
+        "error": 1,
+        "start": 2
+      }
+    },
+    "errors": [],
+    "syntheticDebits": 6,
+    "spinPosts": 8,
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "source": "isolated frontend + synthetic fetch ledger; no production credentials or requests"
+  },
+  {
+    "checks": [
+      {
+        "name": "single canvas",
+        "ok": true
+      },
+      {
+        "name": "no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "balance comes from fixture server",
+        "ok": true
+      },
+      {
+        "name": "bet menu open",
+        "ok": true
+      },
+      {
+        "name": "bet changes to 4",
+        "ok": true
+      },
+      {
+        "name": "STOP shown",
+        "ok": true
+      },
+      {
+        "name": "bets locked during animation",
+        "ok": true
+      },
+      {
+        "name": "SPIN and STOP submit one wager",
+        "ok": true
+      },
+      {
+        "name": "receipt balance displayed",
+        "ok": true
+      },
+      {
+        "name": "win displayed",
+        "ok": true
+      },
+      {
+        "name": "individual reel sounds",
+        "ok": true
+      },
+      {
+        "name": "one multiplier stop",
+        "ok": true
+      },
+      {
+        "name": "AudioContext running",
+        "ok": true
+      },
+      {
+        "name": "mute enabled",
+        "ok": true
+      },
+      {
+        "name": "mute clears audio nodes",
+        "ok": true
+      },
+      {
+        "name": "paytable populated",
+        "ok": true
+      },
+      {
+        "name": "volume control",
+        "ok": true
+      },
+      {
+        "name": "settled history visible",
+        "ok": true
+      },
+      {
+        "name": "gamble choices enabled",
+        "ok": true
+      },
+      {
+        "name": "gamble double click submits once",
+        "ok": true
+      },
+      {
+        "name": "gamble stake updates after win",
+        "ok": true
+      },
+      {
+        "name": "gamble balance displayed",
+        "ok": true
+      },
+      {
+        "name": "losing gamble disables both choices",
+        "ok": true
+      },
+      {
+        "name": "new round restores gamble buttons",
+        "ok": true
+      },
+      {
+        "name": "pending gamble keeps only original choice",
+        "ok": true
+      },
+      {
+        "name": "pending gamble can be reopened",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery uses same payload",
+        "ok": true
+      },
+      {
+        "name": "gamble recovery balance matches server",
+        "ok": true
+      },
+      {
+        "name": "AUTO cancels without another wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO count cannot go negative",
+        "ok": true
+      },
+      {
+        "name": "network error retains token",
+        "ok": true
+      },
+      {
+        "name": "pending bet locked",
+        "ok": true
+      },
+      {
+        "name": "retry uses identical payload",
+        "ok": true
+      },
+      {
+        "name": "retry adds no second debit",
+        "ok": true
+      },
+      {
+        "name": "invalid payout is not animated",
+        "ok": true
+      },
+      {
+        "name": "invalid receipt recovery reuses token",
+        "ok": true
+      },
+      {
+        "name": "BFCache resumes same round",
+        "ok": true
+      },
+      {
+        "name": "context loss pauses renderer",
+        "ok": true
+      },
+      {
+        "name": "context restore resumes renderer",
+        "ok": true
+      },
+      {
+        "name": "spin in viewport",
+        "ok": true
+      },
+      {
+        "name": "auto in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-open in viewport",
+        "ok": true
+      },
+      {
+        "name": "bet-quick in viewport",
+        "ok": true
+      },
+      {
+        "name": "menu in viewport",
+        "ok": true
+      },
+      {
+        "name": "sound in viewport",
+        "ok": true
+      },
+      {
+        "name": "spin/auto no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "spin/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-open no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "auto/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/bet-quick no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-open/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-quick/menu no overlap",
+        "ok": true
+      },
+      {
+        "name": "bet-quick/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "menu/sound no overlap",
+        "ok": true
+      },
+      {
+        "name": "canvas DPR capped",
+        "ok": true
+      },
+      {
+        "name": "no browser errors",
+        "ok": true
+      }
+    ],
+    "diagnostics": {
+      "gameId": "hot_foxy_20",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 276,
+        "slowFrames": 4,
+        "maxDelta": 49.93599999999999
+      },
+      "audioNodes": 0,
+      "audioState": "running",
+      "autoRemaining": 0,
+      "contextLost": false,
+      "soundEventCounts": {
+        "move": 26,
+        "wheel-tick": 54,
+        "reel-stop": 12,
+        "wheel-stop": 3,
+        "multiplier": 3,
+        "error": 1,
+        "start": 2
+      }
+    },
+    "errors": [],
+    "syntheticDebits": 6,
+    "spinPosts": 8,
+    "viewport": {
+      "width": 430,
+      "height": 932,
+      "dpr": 2
+    },
+    "source": "isolated frontend + synthetic fetch ledger; no production credentials or requests"
+  }
+]

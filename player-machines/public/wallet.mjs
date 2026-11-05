@@ -17,8 +17,8 @@ export class WalletAdapter {
   this.busy=true;try{return await this.request('/api/slots/spin',{gameId:pending.gameId,bet:pending.bet,roundToken:pending.roundToken});}finally{this.busy=false;}
  }
  complete(){this.storage.removeItem(this.key);}
- async gamble(round,choice){if(this.busy)throw new ApiError('A round is already being confirmed.');let p=this.pending(this.actionKey);if(p&&(p.roundId!==round.roundId||p.choice!==choice))throw Error('PENDING_GAMBLE_CONFLICT');if(!p){p={gameId:this.game,bet:round.bet,roundId:round.roundId,choice,roundToken:crypto.randomUUID(),sessionId:this.sessionId};this.storage.setItem(this.actionKey,JSON.stringify(p));}this.busy=true;try{return await this.request('/api/slots/gamble',{roundId:p.roundId,choice:p.choice,roundToken:p.roundToken});}finally{this.busy=false;}}
+ async gamble(round,choice,expected={}){if(this.busy)throw new ApiError('A round is already being confirmed.');let p=this.pending(this.actionKey);if(p&&(p.roundId!==round.roundId||p.choice!==choice))throw Error('PENDING_GAMBLE_CONFLICT');if(!p){p={gameId:this.game,bet:round.bet,roundId:round.roundId,choice,roundToken:crypto.randomUUID(),sessionId:this.sessionId,...expected};this.storage.setItem(this.actionKey,JSON.stringify(p));}this.busy=true;try{return await this.request('/api/slots/gamble',{roundId:p.roundId,choice:p.choice,roundToken:p.roundToken});}finally{this.busy=false;}}
  completeAction(){this.storage.removeItem(this.actionKey);}
  close(){this.closed=true;for(const c of this.controllers)c.abort();this.controllers.clear();}
 }
-export function definitelyRejected(e){return [400,402,422].includes(e.status)&&['GAME_BET_OR_TOKEN_INVALID','INVALID_AMOUNT','INSUFFICIENT_FUNDS','INVALID_CHOICE'].includes(e.code);}
+export function definitelyRejected(e){return ([400,402,422].includes(e.status)&&['GAME_BET_OR_TOKEN_INVALID','INVALID_AMOUNT','INSUFFICIENT_FUNDS','INVALID_CHOICE','INVALID_ACTION'].includes(e.code))||(e.status===409&&['GAMBLE_NOT_AVAILABLE','GAMBLE_EXPIRED','GAMBLE_LIMIT','NO_GAMBLE_WINNINGS','COLLECT_BONUS_FIRST'].includes(e.code))||(e.status===404&&e.code==='ROUND_NOT_FOUND');}

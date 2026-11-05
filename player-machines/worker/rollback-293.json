@@ -1,0 +1,91 @@
+{
+  "rollbackVersion": "c3bba6be-370e-400c-b709-ae8af76cc7ca",
+  "rollbackNumber": 293,
+  "rollbackDeployment": "bee76880-6d41-454d-a6c9-8874e623500f",
+  "preTaskVersion": "1470e81a-55b0-4669-98ae-7b5b2c1dec5b",
+  "mainModule": "restore-20261102.mjs",
+  "resources": {
+    "script": {
+      "etag": "7322ec0e3a3d677703eb2268d0f59cd7fb64a5ba370f525d9ea791c28a726f06",
+      "handlers": [
+        "fetch"
+      ],
+      "named_handlers": [
+        {
+          "name": "LocalDemoWallet",
+          "handlers": [
+            "class"
+          ]
+        }
+      ],
+      "last_deployed_from": "api"
+    },
+    "script_runtime": {
+      "migration_tag": "local-demo-v1",
+      "compatibility_date": "2026-10-01",
+      "usage_model": "standard"
+    },
+    "bindings": [
+      {
+        "name": "API_ORIGIN",
+        "text": "https://zplay-rebuild-api-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_ORIGIN",
+        "text": "https://superwin-catalog-bridge-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_SHARED_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "CATALOG_ENABLED",
+        "text": "true",
+        "type": "plain_text"
+      },
+      {
+        "environment": "production",
+        "name": "ENGINE_EXTENSION",
+        "service": "superwin-engine-extension",
+        "type": "service"
+      },
+      {
+        "environment": "production",
+        "name": "LEGACY_PLAYER",
+        "service": "superwin-player",
+        "type": "service"
+      },
+      {
+        "class_name": "LocalDemoWallet",
+        "name": "LOCAL_DEMO_WALLETS",
+        "namespace_id": "35b5522424774086b506e28e8ea3990b",
+        "type": "durable_object_namespace"
+      },
+      {
+        "name": "NATIVE_ENGINE_ORIGIN",
+        "text": "https://superwin-native-family-engine-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "NATIVE_ENGINE_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+        "text": "1793663451276",
+        "type": "plain_text"
+      },
+      {
+        "name": "PORTAL",
+        "text": "player",
+        "type": "plain_text"
+      }
+    ]
+  }
+}
