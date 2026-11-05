@@ -1,0 +1,96 @@
+import {gameConfig} from './registry.mjs';
+import {validateModel,validateRound,units,money,SpinState} from './contract.mjs';
+import {WalletAdapter,definitelyRejected} from './wallet.mjs';
+import {SoundEngine} from './audio.mjs';
+import {MachineRenderer} from './renderer.mjs';
+
+const $=id=>document.getElementById(id),g=gameConfig(document.body.dataset.game),state=new SpinState(),events=new AbortController();
+const audio=new SoundEngine(g.visual.note),api=new WalletAdapter(),renderer=new MachineRenderer($('machine-canvas'),g,audio);
+let epoch=0,betIndex=g.betLevels.indexOf('2.00'),signedIn=false,balance=null,lastRound=null,free=0,auto=0,autoEpoch=0,actionBusy=false,canGamble=false,gambleValue='0.00',gambleAttempt=0,legacy=false,disposed=false,refreshTimer;
+document.title=g.name+' · ZPLAY';$('settings-title').textContent=g.name;
+const bet=()=>g.betLevels[betIndex],listen=(node,event,fn)=>node.addEventListener(event,fn,{signal:events.signal});
+const setState=next=>{state.move(next);document.body.dataset.state=state.value;update();};
+function notice(text='',retry=false,login=false){$('notice-text').textContent=text;$('retry').hidden=!retry;$('sign-in').hidden=!login;}
+function pending(){return api.pending();}
+function setBalance(value){units(value,2);balance=value;$('balance').textContent=value;}
+function update(){
+ let saved=null,action=null;try{saved=api.key?pending():null;action=api.key?api.pending(api.actionKey):null;}catch(e){legacy=true;notice('Saved round information needs review. Open History before continuing.');}const animating=state.value==='animating',waiting=state.value==='requesting',locked=state.locked||actionBusy||!!saved||!!action||legacy;
+ $('spin').disabled=disposed||legacy||!signedIn||actionBusy||!!action||(!animating&&state.value!=='pending'&&!['ready','presenting'].includes(state.value))||(!saved&&!animating&&balance!==null&&units(balance)===0n)||(!animating&&auto>0);
+ $('spin-label').textContent=animating?'STOP':waiting?'WAIT':saved?'CONFIRM':free?'FREE SPIN':'SPIN';$('spin-bet').textContent=bet()+' ETB';
+ $('spin').setAttribute('aria-label',animating?'Speed up the current spin animation':saved?'Confirm the saved round':'Spin '+bet()+' ETB');
+ $('bet-value').textContent=bet();$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
+ $('auto').disabled=!signedIn||legacy||actionBusy||!!action||!!saved||(!auto&&state.locked);$('auto-label').textContent=auto?'STOP '+auto:'AUTO';
+ $('gamble').disabled=$('gamble-menu').disabled=!signedIn||!canGamble||locked||auto>0||free>0;$('collect').disabled=!lastRound||locked||auto>0||Number(gambleValue)<=0;
+ $('free-spins').textContent=free?'FREE SPINS: '+free:'';
+ for(const el of $('bet-options').children){el.disabled=locked||auto>0||free>0;el.setAttribute('aria-pressed',String(el.dataset.bet===bet()));}
+ $('bet-note').textContent=free?'The bet is locked while your free spins remain.':saved?'Confirm the saved round before changing the bet.':'Select a stake before the next spin.';
+}
+function stopAuto(){auto=0;autoEpoch++;update();}
+function signOut(message='Sign in to your existing Player account.'){signedIn=false;balance=null;stopAuto();audio.stop();$('balance').textContent='—';if(state.value!=='signedout')setState('signedout');notice(message,false,true);}
+async function boot(){
+ const run=++epoch;clearTimeout(refreshTimer);signedIn=false;if(state.value!=='loading')setState('loading');notice('Checking your account…');
+ try{
+  const [remote,session]=await Promise.all([api.model(g.id),api.session()]);if(disposed||run!==epoch)return;validateModel(remote,g);
+  if(!remote.enabled){setState('unavailable');notice('This game is temporarily unavailable.',true);return;}
+  if(!session.authenticated){signOut();return;}if(session.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');
+  api.bind(session.sessionId,g.id);signedIn=true;setBalance(session.balance);legacy=api.legacyPending();
+  const saved=pending(),action=api.pending(api.actionKey);if(saved){if(!g.betLevels.includes(saved.bet))throw Error('SAVED_BET_INVALID');betIndex=g.betLevels.indexOf(saved.bet);}
+  const history=await api.history();if(disposed||run!==epoch)return;
+  if(!Array.isArray(history.items))throw Error('HISTORY_UNAVAILABLE');
+  const latest=history.items.find(item=>item.result_json?.gameId===g.id)?.result_json;
+  if(latest){validateRound(latest,g,latest.bet);free=latest.freeSpinsRemaining;if(free){betIndex=g.betLevels.indexOf(latest.bet);}}
+  if(action){lastRound={roundId:action.roundId,bet:action.bet};$('gamble-message').textContent='Confirm your saved '+action.choice+' choice.';showGamble(true);}
+  setState(saved?'pending':'ready');notice(legacy?'A round saved by the earlier game version needs review. Open History before placing another bet.':saved?'A saved round needs confirmation. Press CONFIRM; the same request is reused.':balance==='0.00'?'Your ETB balance is empty. Deposit funds from your account.':'');update();scheduleRefresh();
+ }catch(e){if(disposed||run!==epoch)return;if(e.status===401){signOut();return;}if(state.value==='loading')setState('error');notice(e.message,true);audio.event('error');}
+}
+async function sameSession(){const current=await api.session();if(!current.authenticated||current.sessionId!==api.sessionId){signOut('Your session changed. Sign in again before continuing.');return false;}return true;}
+function scheduleRefresh(){clearTimeout(refreshTimer);if(!disposed)refreshTimer=setTimeout(refreshBalance,15000);}
+async function refreshBalance(){const run=epoch;try{if(!document.hidden&&signedIn&&!state.locked&&!actionBusy){if(!await sameSession())return;const value=await api.balance();if(run===epoch&&!state.locked&&signedIn){if(value.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');setBalance(value.balance);update();}}}catch(e){if(e.status===401)signOut();}finally{scheduleRefresh();}}
+async function oneRound(){
+ if(disposed||!signedIn||legacy||actionBusy||api.pending(api.actionKey)||!['ready','presenting','pending'].includes(state.value))return false;
+ const run=epoch;setState('requesting');notice('Confirming round…');
+ try{
+  await audio.unlock();if(!await sameSession())return false;
+  const raw=await api.spin(bet());if(disposed||run!==epoch)return false;const result=validateRound(raw,g,bet());
+  setState('animating');notice('');if(matchMedia('(prefers-reduced-motion: reduce)').matches){const done=renderer.start(result);renderer.speedUp();await done;}else await renderer.start(result);
+  if(disposed||run!==epoch)return false;setBalance(result.balanceAfter);lastRound=result;free=result.freeSpinsRemaining;gambleValue=result.finalWin;gambleAttempt=0;canGamble=Number(gambleValue)>0&&g.features.gambleRounds>0&&!free;
+  $('win').textContent=result.finalWin;api.complete();setState('presenting');setState('ready');if(balance==='0.00'&&!free)notice('Your ETB balance is empty. Deposit funds from your account.');return true;
+ }catch(e){if(disposed||run!==epoch)return false;auto=0;autoEpoch++;audio.event('error');
+  if(e.status===401||e.status===403){signOut('Your session expired. Sign in to recover any saved round.');return false;}
+  if(definitelyRejected(e)){api.complete();setState('ready');notice(e.code==='INSUFFICIENT_FUNDS'?'Your ETB balance is too low for this bet.':e.message,true);}
+  else {if(state.value!=='signedout')setState('pending');notice(e.message+' No new round will be created. Press CONFIRM to check this request.',true);}update();return false;
+ }
+}
+async function spin(){if(state.value==='animating'){renderer.speedUp();stopAuto();return;}if(auto){stopAuto();return;}await oneRound();}
+async function startAuto(count){if(state.locked||pending()||actionBusy||!signedIn||legacy)return;const run=++autoEpoch;auto=count;$('auto-dialog').close();update();while(auto>0&&run===autoEpoch&&!disposed&&!document.hidden){if(!await oneRound())break;auto--;update();if(auto)await new Promise(resolve=>setTimeout(resolve,Number(lastRound?.finalWin)>0?1000:450));}if(run===autoEpoch){auto=0;update();}}
+function chooseBet(value){if(state.locked||auto||free||actionBusy||pending()||api.pending(api.actionKey)||legacy)return;const i=g.betLevels.indexOf(value);if(i<0)return;betIndex=i;audio.event('bet');update();renderRules();}
+function openPanel(id){stopAuto();$('settings').showModal();for(const p of document.querySelectorAll('.panel'))p.hidden=p.id!==id;if(id==='history')void renderHistory();if(id==='rules')renderRules();update();}
+function renderRules(){
+ const per=Number(bet())/g.paylines;$('rules-text').textContent=g.reels+' reels × '+g.rows+' rows. '+g.paylines+' fixed paylines, evaluated left to right. The total bet is divided equally between the lines. '+(g.id==='hot_foxy_20'?'Fox WILD substitutes for paying symbols, excluding SCATTER. Three or more SCATTERs award 10 free spins, with retriggers. ':'')+'The multiplier applies to the winning lines. STOP speeds up the animation only.';
+ const root=$('paytable');root.replaceChildren();for(const [symbol,pays]of Object.entries(g.paytable)){const row=document.createElement('div');row.className='pay-row';const canvas=document.createElement('canvas');canvas.width=128;canvas.height=128;canvas.getContext('2d').drawImage(renderer.atlas.get(symbol),0,0,128,128);canvas.setAttribute('aria-label',symbol.replaceAll('_',' '));const text=document.createElement('p');text.textContent=symbol.replaceAll('_',' ').toUpperCase();const amounts=document.createElement('small');amounts.textContent=Object.entries(pays).map(([n,m])=>n+' = '+(per*m).toFixed(2)+' ETB').join(' · ')+' (1×)';text.append(document.createElement('br'),amounts);row.append(canvas,text);root.append(row);}
+ $('math-note').textContent='Amounts use the existing ZPLAY server paytable at your selected bet. Wallet payouts round down to 0.01 ETB. Maximum win: '+g.maxWinMultiplier+'× total bet. These are the existing ZPLAY rules; this page does not claim provider certification.';
+}
+async function renderHistory(){const target=$('history-items');target.textContent='Loading…';try{const data=await api.history();if(!Array.isArray(data.items))throw Error('History unavailable');target.replaceChildren();for(const row of data.items.filter(x=>x.result_json?.gameId===g.id).slice(0,30)){const r=row.result_json,item=document.createElement('article');item.textContent='BET '+money(String(r.chargedStake))+' ETB · WIN '+money(String(r.finalWin))+' ETB';const details=document.createElement('small');details.textContent=(row.created_at?new Date(row.created_at).toLocaleString()+' · ':'')+r.roundId;item.append(details);target.append(item);}if(!target.children.length)target.textContent='No settled rounds yet.';}catch(e){target.textContent=e.status===401?'Sign in to see your history.':'History is unavailable. Retry when your connection is ready.';}}
+function showGamble(recover=false){if(!recover&&(!canGamble||state.locked||free||auto||pending()))return;stopAuto();$('gamble-terms').textContent='Risk '+gambleValue+' ETB of the credited win. A correct colour pays 2×. Win chance: 47.5%. Maximum '+g.features.gambleRounds+' attempts.';$('gamble-dialog').showModal();}
+async function gamble(choice){if(actionBusy||!signedIn||pending())return;const saved=api.pending(api.actionKey);if(!saved&&(!canGamble||!lastRound||free))return;if(saved&&saved.choice!==choice){$('gamble-message').textContent='Confirm your saved '+saved.choice+' choice.';return;}
+ actionBusy=true;update();$('red').disabled=$('black').disabled=true;
+ try{if(!await sameSession())return;await audio.unlock();audio.event('tap');const result=await api.gamble(lastRound,choice);if(typeof result.won!=='boolean'||result.roundId!==lastRound.roundId||result.choice!==choice||!Number.isInteger(result.attempt)||result.attempt<1||result.attempt>g.features.gambleRounds)throw Error('GAMBLE_RESULT_INVALID');const stake=units(result.stake),payout=units(result.payout);if(payout!==(result.won?stake*2n:0n))throw Error('GAMBLE_PAYOUT_INVALID');units(result.balanceAfter,2);setBalance(result.balanceAfter);api.completeAction();gambleValue=result.payout;gambleAttempt=result.attempt;canGamble=result.won&&result.attempt<result.maxAttempts;$('win').textContent=money(gambleValue);$('gamble-message').textContent=(result.won?'WIN':'LOSE')+' · '+money(result.payout)+' ETB · '+result.attempt+'/'+result.maxAttempts;if(result.won)audio.win(Number(result.payout),Number(result.stake));else audio.event('error');}
+ catch(e){if(definitelyRejected(e)){api.completeAction();canGamble=false;}$('gamble-message').textContent=e.message+' Confirm the same colour to recover an unconfirmed request.';}finally{actionBusy=false;$('red').disabled=$('black').disabled=!canGamble&&!api.pending(api.actionKey);update();}
+}
+for(const value of g.betLevels){const b=document.createElement('button');b.textContent=value;b.dataset.bet=value;listen(b,'click',()=>chooseBet(value));$('bet-options').append(b);}
+listen($('spin'),'click',()=>void spin());listen($('spin'),'keydown',e=>{if(e.repeat&&(e.key===' '||e.key==='Enter'))e.preventDefault();});
+listen($('bet-less'),'click',()=>chooseBet(g.betLevels[betIndex-1]));listen($('bet-more'),'click',()=>chooseBet(g.betLevels[betIndex+1]));listen($('bet-open'),'click',()=>openPanel('bets'));
+for(const id of ['menu','menu-top'])listen($(id),'click',()=>openPanel('rules'));
+listen($('auto'),'click',()=>{if(auto)stopAuto();else $('auto-dialog').showModal();});for(const b of document.querySelectorAll('[data-auto]'))listen(b,'click',()=>void startAuto(Number(b.dataset.auto)));
+listen($('gamble-menu'),'click',()=>{$('settings').close();showGamble();});listen($('bet-quick'),'click',()=>openPanel('bets'));listen($('gamble'),'click',()=>showGamble());for(const b of document.querySelectorAll('[data-choice]'))listen(b,'click',()=>void gamble(b.dataset.choice));
+listen($('collect'),'click',()=>{canGamble=false;renderer.presentedAt=0;audio.stop('win');gambleValue='0.00';notice('Your win is already included in your ETB balance.');update();});
+for(const b of document.querySelectorAll('[data-panel]'))listen(b,'click',()=>openPanel(b.dataset.panel));for(const b of document.querySelectorAll('[data-close]'))listen(b,'click',()=>$(b.dataset.close).close());
+listen($('retry'),'click',()=>{if(state.value==='pending')void oneRound();else void boot();});listen($('history-refresh'),'click',()=>void renderHistory());
+listen($('sound'),'click',async()=>{await audio.unlock();const muted=audio.toggle();$('sound').textContent=muted?'♪':'♫';$('sound').setAttribute('aria-pressed',String(muted));$('sound').setAttribute('aria-label',muted?'Enable sound':'Mute sound');});
+listen($('volume'),'input',e=>{audio.setVolume(Number(e.target.value)/100);$('volume-value').textContent=e.target.value+'%';});listen($('sound-test'),'click',async()=>{await audio.unlock();audio.event('wheel-stop');});
+listen(document,'pointerdown',()=>void audio.unlock());listen(document,'click',e=>{if(e.target.closest('button')&&!e.target.closest('#spin,#sound'))audio.event('tap');});listen(document,'visibilitychange',()=>{if(document.hidden){stopAuto();renderer.pause();}else{renderer.resume();if(signedIn)void refreshBalance();}});
+listen(window,'blur',()=>{if(auto)stopAuto();});const resize=new ResizeObserver(()=>renderer.resize());resize.observe($('machine'));let clockTimer=setInterval(()=>{$('clock').textContent=new Date().toLocaleTimeString('en-GB');},1000);
+function dispose(){if(disposed)return;disposed=true;epoch++;autoEpoch++;clearTimeout(refreshTimer);clearInterval(clockTimer);resize.disconnect();events.abort();api.close();renderer.dispose();void audio.dispose();}
+listen(window,'pagehide',e=>{if(!e.persisted)dispose();else{renderer.pause();stopAuto();}});listen(window,'pageshow',e=>{if(e.persisted){renderer.resume();void boot();}});
+update();void boot();
+export const diagnostics=()=>({gameId:g.id,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size});

@@ -1,0 +1,79 @@
+{
+  "rollbackVersion": "1470e81a-55b0-4669-98ae-7b5b2c1dec5b",
+  "rollbackDeployment": "e82418f6-24d2-48a4-8ebe-ef1bf24939d5",
+  "mainModule": "restore-20261102.mjs",
+  "settings": {
+    "placement": {},
+    "compatibility_date": "2026-10-01",
+    "compatibility_flags": [],
+    "usage_model": "standard",
+    "tags": [],
+    "tail_consumers": [],
+    "logpush": false,
+    "annotations": {
+      "workers/triggered_by": "upload"
+    },
+    "bindings": [
+      {
+        "name": "API_ORIGIN",
+        "text": "https://zplay-rebuild-api-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_ORIGIN",
+        "text": "https://superwin-catalog-bridge-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_SHARED_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "CATALOG_ENABLED",
+        "text": "true",
+        "type": "plain_text"
+      },
+      {
+        "environment": "production",
+        "name": "ENGINE_EXTENSION",
+        "service": "superwin-engine-extension",
+        "type": "service"
+      },
+      {
+        "environment": "production",
+        "name": "LEGACY_PLAYER",
+        "service": "superwin-player",
+        "type": "service"
+      },
+      {
+        "class_name": "LocalDemoWallet",
+        "name": "LOCAL_DEMO_WALLETS",
+        "namespace_id": "35b5522424774086b506e28e8ea3990b",
+        "type": "durable_object_namespace"
+      },
+      {
+        "name": "NATIVE_ENGINE_ORIGIN",
+        "text": "https://superwin-native-family-engine-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "NATIVE_ENGINE_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+        "text": "1793663451276",
+        "type": "plain_text"
+      },
+      {
+        "name": "PORTAL",
+        "text": "player",
+        "type": "plain_text"
+      }
+    ]
+  }
+}
