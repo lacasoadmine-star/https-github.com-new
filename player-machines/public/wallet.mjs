@@ -1,7 +1,7 @@
 // The existing ETB backend owns every balance and transaction.
 export class ApiError extends Error {constructor(message,status=0,code=''){super(message);this.status=status;this.code=code;}}
 export class WalletAdapter {
- constructor({fetcher=fetch,storage=globalThis.sessionStorage,timeout=22000}={}){this.fetcher=fetcher;this.storage=storage;this.timeout=timeout;this.controllers=new Set();this.closed=false;this.busy=false;}
+ constructor({fetcher=(...args)=>globalThis.fetch(...args),storage=globalThis.sessionStorage,timeout=22000}={}){this.fetcher=fetcher;this.storage=storage;this.timeout=timeout;this.controllers=new Set();this.closed=false;this.busy=false;}
  async request(path,body){if(this.closed)throw new ApiError('Game closed');const controller=new AbortController();this.controllers.add(controller);const timer=setTimeout(()=>controller.abort(),this.timeout);
   try{const response=await this.fetcher(path,{method:body?'POST':'GET',credentials:'same-origin',cache:'no-store',headers:{accept:'application/json',...(body?{'content-type':'application/json','X-Zplay-Machine-Session':this.sessionId}:{})},body:body?JSON.stringify(body):undefined,signal:controller.signal});let data;try{data=await response.json();}catch{throw new ApiError('The server response was interrupted. Confirm the saved round.');}if(!response.ok)throw new ApiError(typeof data.detail==='string'?data.detail:'Service unavailable',response.status,data.detail||data.error||'');return data;}
   catch(e){if(e.name==='AbortError')throw new ApiError('Connection timed out. Confirm the saved round.');throw e;}finally{clearTimeout(timer);this.controllers.delete(controller);}
