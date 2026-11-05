@@ -1,0 +1,90 @@
+{
+  "version": "448c1302-a604-46c4-b8b8-e2e0cad7a227",
+  "number": 294,
+  "deployment": "4b77d0e1-ceea-4dd5-b1a7-80e609991aa9",
+  "mainModule": "restore-20261102.mjs",
+  "resources": {
+    "script": {
+      "etag": "8969263e41ecc4f8ed280a82c3005dc4b0f96d5bb77b92f4695ed3bc3752d495",
+      "handlers": [
+        "fetch"
+      ],
+      "named_handlers": [
+        {
+          "name": "LocalDemoWallet",
+          "handlers": [
+            "class"
+          ]
+        }
+      ],
+      "last_deployed_from": "api"
+    },
+    "script_runtime": {
+      "migration_tag": "local-demo-v1",
+      "compatibility_date": "2026-10-01",
+      "usage_model": "standard"
+    },
+    "bindings": [
+      {
+        "name": "API_ORIGIN",
+        "text": "https://zplay-rebuild-api-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_ORIGIN",
+        "text": "https://superwin-catalog-bridge-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_SHARED_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "CATALOG_ENABLED",
+        "text": "true",
+        "type": "plain_text"
+      },
+      {
+        "environment": "production",
+        "name": "ENGINE_EXTENSION",
+        "service": "superwin-engine-extension",
+        "type": "service"
+      },
+      {
+        "environment": "production",
+        "name": "LEGACY_PLAYER",
+        "service": "superwin-player",
+        "type": "service"
+      },
+      {
+        "class_name": "LocalDemoWallet",
+        "name": "LOCAL_DEMO_WALLETS",
+        "namespace_id": "35b5522424774086b506e28e8ea3990b",
+        "type": "durable_object_namespace"
+      },
+      {
+        "name": "NATIVE_ENGINE_ORIGIN",
+        "text": "https://superwin-native-family-engine-staging.up.railway.app",
+        "type": "plain_text"
+      },
+      {
+        "name": "NATIVE_ENGINE_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+        "text": "1793663451276",
+        "type": "plain_text"
+      },
+      {
+        "name": "PORTAL",
+        "text": "player",
+        "type": "plain_text"
+      }
+    ]
+  }
+}

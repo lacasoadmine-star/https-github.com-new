@@ -18,7 +18,7 @@ function update(){
  $('spin').disabled=disposed||legacy||!signedIn||actionBusy||!!action||(!animating&&state.value!=='pending'&&!['ready','presenting'].includes(state.value))||(!saved&&!animating&&balance!==null&&units(balance)===0n)||(!animating&&auto>0);
  $('spin-label').textContent=animating?'STOP':waiting?'WAIT':saved?'CONFIRM':free?'FREE SPIN':'SPIN';$('spin-bet').textContent=bet()+' ETB';
  $('spin').setAttribute('aria-label',animating?'Speed up the current spin animation':saved?'Confirm the saved round':'Spin '+bet()+' ETB');
- $('bet-value').textContent=bet();$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
+ $('bet-value').textContent=bet();$('stake-amount').textContent=bet();$('stake-open').disabled=locked||auto>0||free>0;$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
  $('auto').disabled=!signedIn||legacy||actionBusy||!!action||!!saved||(!auto&&state.locked);$('auto-label').textContent=auto?'STOP '+auto:'AUTO';
  $('gamble').disabled=$('gamble-menu').disabled=!(signedIn&&!actionBusy&&!legacy&&((!!action&&!state.locked)||(canGamble&&!locked&&!auto&&!free))); $('collect').disabled=!lastRound||locked||auto>0||Number(gambleValue)<=0;
  $('free-spins').textContent=free?'FREE SPINS: '+free:'';
@@ -87,7 +87,7 @@ listen($('spin'),'click',()=>void spin());listen($('spin'),'keydown',e=>{if(e.re
 listen($('bet-less'),'click',()=>chooseBet(g.betLevels[betIndex-1]));listen($('bet-more'),'click',()=>chooseBet(g.betLevels[betIndex+1]));listen($('bet-open'),'click',()=>openPanel('bets'));
 for(const id of ['menu','menu-top'])listen($(id),'click',()=>openPanel('rules'));
 listen($('auto'),'click',()=>{if(auto)stopAuto();else $('auto-dialog').showModal();});for(const b of document.querySelectorAll('[data-auto]'))listen(b,'click',()=>void startAuto(Number(b.dataset.auto)));
-listen($('gamble-menu'),'click',()=>{$('settings').close();showGamble();});listen($('bet-quick'),'click',()=>openPanel('bets'));listen($('gamble'),'click',()=>showGamble());for(const b of document.querySelectorAll('[data-choice]'))listen(b,'click',()=>void gamble(b.dataset.choice));
+listen($('gamble-menu'),'click',()=>{$('settings').close();showGamble();});listen($('bet-quick'),'click',()=>openPanel('bets'));listen($('stake-open'),'click',()=>openPanel('bets'));listen($('gamble'),'click',()=>showGamble());for(const b of document.querySelectorAll('[data-choice]'))listen(b,'click',()=>void gamble(b.dataset.choice));
 listen($('collect'),'click',()=>{canGamble=false;renderer.presentedAt=0;audio.stop('win');gambleValue='0.00';notice('Your win is already included in your ETB balance.');update();});
 for(const b of document.querySelectorAll('[data-panel]'))listen(b,'click',()=>openPanel(b.dataset.panel));for(const b of document.querySelectorAll('[data-close]'))listen(b,'click',()=>$(b.dataset.close).close());
 listen($('retry'),'click',()=>{if(renderer.contextLost)location.reload();else if(state.value==='pending')void oneRound();else void boot();});listen($('history-refresh'),'click',()=>void renderHistory());
