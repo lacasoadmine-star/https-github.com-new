@@ -1,0 +1,97 @@
+{
+  "scope": "Read-only comparison of live official public DEMO controls against frozen local r10 source; no production/math edits.",
+  "local": {
+    "source": "/workspace/work/superwin-two-games/player-machines/public/index.html",
+    "dialogTitle": "AUTO SPINS",
+    "choices": [
+      10,
+      25
+    ],
+    "selectionStartsImmediately": true,
+    "separateStartButton": false,
+    "thresholdControls": false,
+    "bigWinToggle": false,
+    "activeAutoClick": "stops immediately",
+    "sourceController": "/workspace/work/superwin-two-games/player-machines/public/controller.mjs"
+  },
+  "officialMH5": {
+    "screenshot": "/workspace/work/r10-official-play/batch30/MultiHot5-109-auto-open-controls.png",
+    "title": "AUTOPLAY",
+    "choices": [
+      10,
+      25,
+      50,
+      75,
+      "infinite"
+    ],
+    "initialChoice": "infinite",
+    "selectionStartsImmediately": false,
+    "separateStartButton": "START",
+    "headings": [
+      "SPIN TILL",
+      "STOP SPIN"
+    ],
+    "thresholdLabels": [
+      "If win reachs or exceeds",
+      "If lose not exceeds"
+    ],
+    "thresholdUnits": "DMO on provider; ETB locally",
+    "initialThresholdValues": "blank",
+    "bigWinToggleLabel": "If i win BIG WIN",
+    "activeAutoClick": "opens same dialog with STOP; this opening does not cancel",
+    "verifiedStop": "25 selected, START, reopen, modal STOP -> only1 additional provider-counter round,40 to41;7s stable. STOP returns START.",
+    "unverified": [
+      "threshold baseline arithmetic across wins/losses",
+      "Big Win numeric definition",
+      "active threshold editing",
+      "hardware Escape"
+    ],
+    "activeClose": "X closes and AUTO continues;24 to23 remaining over8s",
+    "activeCountEditing": "Tap50 leaves25 selected: confirmed locked",
+    "activeThresholdEditing": "Unverified: field stayedblank but focus/disabled not independently recorded"
+  },
+  "officialFoxy": {
+    "screenshot": "/workspace/work/r10-official-play/batch30/FoxyHot20-146-controls-auto-touch.png",
+    "title": null,
+    "choices": [
+      25,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "initialChoice": 100,
+    "selectionStartsImmediately": false,
+    "separateStartButton": "START PLAY",
+    "heading": "STOP AUTOPLAY",
+    "optionalThresholdSwitches": [
+      "If a win reaches or exceeds",
+      "If balance decreases",
+      "If balance increases"
+    ],
+    "thresholdUnits": "DMO on provider; ETB locally",
+    "initialThresholdValues": "blank, switches off",
+    "reopenAfterRun": "resets100/blank/off in observed case",
+    "verifiedLossStopCase": "Stake0.20;25 selected; enabled balance-decrease0.20; first loss yields balance20000 to19999.80 and ready/no further autoplay after9s.",
+    "unverified": [
+      "net-balance versus cumulative-loss behavior across intervening wins",
+      "win/increase threshold triggers"
+    ],
+    "activeAutoClick": "cancels immediately, no STOP dialog",
+    "verifiedManualStopCase": "Active leftAUTO cancels directly; one extra0.20 round,7s stable. Later incidental HOLD added3 separate rounds, final returncounter5.",
+    "quickPlay": "Lightning opens confirmation: ENABLE QUICK PLAY / NO / X; enabling not tested"
+  },
+  "newGames": "MH100 dedicated AUTO dialog pass not completed. Stars AUTO attempt was obstructed by QUICK PLAY overlay; not a valid trial.",
+  "knownLocalDeltas": [
+    "Local10/25 choices omit model-specific larger counts and MH5 infinite.",
+    "Local choice buttons start immediately; official choice and START are separate.",
+    "Local lacks the evidenced threshold fields/switches and MH5 Big Win toggle.",
+    "Local active AUTO click stops directly; MH5 opens a STOP dialog instead.",
+    "Dialog titles, frames, colors and typography differ from official screenshots."
+  ],
+  "finalizedUtc": "2026-11-06T04:47:58.644383+00:00",
+  "sourceHashes": {
+    "index.html": "e52b8b771492cdd19d93f28ef5d1143a064c06229b70778a9bdc075c9bc2efdd",
+    "controller.mjs": "b9204f2c57f69e1788efcffb061f307928bd922fb1e83c94cd569782aee11117"
+  }
+}

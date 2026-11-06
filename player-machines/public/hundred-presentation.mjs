@@ -5,12 +5,12 @@ import {metalText} from './cabinet.mjs';
 // 420 × 900. All outcomes, multipliers and amounts come from the round receipt.
 export const hundredLayout = Object.freeze({
  width:420, height:900,
- visual:Object.freeze({x:18,y:255,w:384,h:310}),
+ visual:Object.freeze({x:3,y:249,w:414,h:336}),
  title:Object.freeze({x:85,y:106,w:252,h:31}),
  wheel:Object.freeze({cx:210,cy:400,outer:231,inner:141,step:.43,clip:[18,163,384,94]}),
  shield:Object.freeze({x:162,y:168,w:96,h:89}),
  spin:Object.freeze({x:210,y:754,r:59}),
- win:Object.freeze({x:134,y:569,w:152,h:30})
+ win:Object.freeze({x:126,y:590,w:168,h:34})
 });
 
 const finite = (value, fallback=0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
@@ -80,7 +80,18 @@ export function drawHundredTitle(c, art, box=hundredLayout.title) {
 }
 
 export function drawHundredMultiplier(c,value,x,y,size=43,active=true) {
- const text=String(Math.max(1,Math.trunc(finite(value,1))));
+ const number=Math.max(1,Math.trunc(finite(value,1))),text=String(number);
+ // The recorded wheel uses a different numeral hue for each multiplier;
+ // its small x remains gold. These colors never select or change a value.
+ const colors={
+  1:['#d5f4ff','#70c5f2','#397db8','#a2dcff','#255b91'],
+  2:['#e0ffe3','#66ef86','#20a449','#9af5a3','#147a3e'],
+  3:['#fffbc5','#ffe466','#c59129','#ffe88c','#b98424'],
+  4:['#ffe6b6','#ffad47','#d46c1d','#ffc16e','#aa4e18'],
+  5:['#ffd1d6','#ed6592','#d23972','#f792b3','#b23468']
+ };
+ const dim=color=>{const n=Number.parseInt(color.slice(1),16),rgb=[n>>16,(n>>8)&255,n&255],base=[13,37,26];return '#'+rgb.map((v,i)=>Math.round(v*.36+base[i]*.64).toString(16).padStart(2,'0')).join('');};
+ const gradient=palette=>{const fill=c.createLinearGradient(0,-size*.52,0,size*.52);[0,.35,.5,.7,1].forEach((stop,i)=>fill.addColorStop(stop,active?palette[i]:dim(palette[i])));return fill;};
  c.save();c.translate(x,y);c.transform(1,0,-.1,1,0,0);
  c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
  c.font=`900 ${size}px Arial, sans-serif`;
@@ -93,12 +104,11 @@ export function drawHundredMultiplier(c,value,x,y,size=43,active=true) {
   c.font=`900 ${xSize}px Arial, sans-serif`;
   c.strokeText('x',-total/2+numberWidth-2,4);c.fillText('x',-total/2+numberWidth-2,4);
  };
- c.strokeStyle=active?'#3a4b29':'#263f29';c.lineWidth=5; c.fillStyle=active?'#e3e292':'#214d3c';draw();
+ c.strokeStyle=active?'#3a4b29':'#263f29';c.lineWidth=5;c.fillStyle=active?'#e3e292':'#214d3c';draw();
  c.lineWidth=active?2.2:1.4;c.strokeStyle=active?'#fff5b1':'#88723e';
- const fill=c.createLinearGradient(0,-size*.52,0,size*.52);
- const pink=Number(value)===5;
- [[0,active?(pink?'#ffd1d6':'#fffbc5'):'#4b875c'],[.35,active?(pink?'#ed6592':'#ffe466'):'#487951'],[.5,active?(pink?'#d23972':'#c59129'):'#376440'],[.7,active?(pink?'#f792b3':'#ffe88c'):'#31593b'],[1,active?(pink?'#b23468':'#b98424'):'#1c4131']].forEach(([at,color])=>fill.addColorStop(at,color));
- c.fillStyle=fill;draw();c.restore();
+ c.fillStyle=gradient(colors[number]||colors[3]);draw();
+ c.fillStyle=gradient(colors[3]);c.font=`900 ${xSize}px Arial, sans-serif`;c.textAlign='left';c.fillText('x',-total/2+numberWidth-2,4);
+ c.restore();
 }
 
 function shieldPath(c,{x,y,w,h}) {
@@ -159,7 +169,7 @@ export function drawHundredSpinGlyph(c,{x=210,y=754,r=59,pressed=false,stopped=f
  c.font=`900 ${r*.145}px Arial`;c.fillText('SPIN',0,r*.21);c.restore();
 }
 
-export function drawHundredWinPanel(c,{amount=0,currency='ETB',x=134,y=569,w=152,h=30}={}) {
+export function drawHundredWinPanel(c,{amount=0,currency='ETB',x=126,y=590,w=168,h=34}={}) {
  c.save();c.beginPath();c.moveTo(x,y);c.lineTo(x+w,y);c.lineTo(x+w-9,y+h-4);
  c.quadraticCurveTo(x+w-11,y+h,x+w-18,y+h);c.lineTo(x+18,y+h);
  c.quadraticCurveTo(x+11,y+h,x+9,y+h-4);c.closePath();

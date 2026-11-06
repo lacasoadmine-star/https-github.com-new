@@ -9,7 +9,7 @@ export function metalText(c,text,x,y,size,width,{pink=false,italic=false}={}){
 }
 export function foilFrame(c,x,y,w,h,r,forest=false){
  c.save();c.lineJoin='round';
- const layers=forest?[[-3,2,'#001e16'],[-1,4,'#3e9770'],[0,2,'#addba5'],[2,2,'#d8e3a3'],[3,1,'#297a5f']]:[[-1.2,1.2,'#002b20'],[-.2,2.1,'#957238'],[0,1.2,'#f2df91'],[1.1,.85,'#765b2d'],[1.9,.6,'#517546']];
+ const layers=forest?[[-3,2,'#003a25'],[-1.4,3.6,'#167b5b'],[-.5,1.1,'#8de8a4'],[.6,1.4,'#1f9767'],[2.2,1.1,'#bdca58'],[3.1,.65,'#63942e']]:[[-1.2,1.2,'#002b20'],[-.2,2.1,'#957238'],[0,1.2,'#f2df91'],[1.1,.85,'#765b2d'],[1.9,.6,'#517546']];
  for(const [inset,line,color]of layers){
   c.beginPath();c.roundRect(x+inset,y+inset,w-inset*2,h-inset*2,r);c.strokeStyle=color;c.lineWidth=line;c.stroke();
  }
@@ -22,7 +22,7 @@ export function texture(c,x,y,w,h,alpha=.08){
 }
 export function reelSurface(g){
  const v=g.visual,w=v.w/g.reels,forest=g.id==='hot_foxy_20',canvas=document.createElement('canvas');canvas.width=Math.ceil(w*2);canvas.height=Math.ceil(v.h*2);const c=canvas.getContext('2d');c.scale(2,2);
- const grd=c.createLinearGradient(0,0,w,0);grd.addColorStop(0,forest?'#155347':'#021e1c');grd.addColorStop(.35,forest?'#236c5b':'#032c24');grd.addColorStop(.75,forest?'#286e5b':'#022920');grd.addColorStop(1,forest?'#185447':'#031b19');c.fillStyle=grd;c.fillRect(0,0,w,v.h);if(forest)texture(c,0,0,w,v.h,.13);return canvas;
+ const grd=c.createLinearGradient(0,0,w,0);grd.addColorStop(0,forest?'#1b5c40':'#021e1c');grd.addColorStop(.35,forest?'#347f55':'#032c24');grd.addColorStop(.75,forest?'#367c53':'#022920');grd.addColorStop(1,forest?'#1b5940':'#031b19');c.fillStyle=grd;c.fillRect(0,0,w,v.h);if(forest){c.fillStyle='#bdd16c';c.globalAlpha=.2;for(let y=2;y<v.h;y+=3.2)for(let x=1+(Math.floor(y/3.2)%2)*1.6;x<w;x+=3.2){c.beginPath();c.arc(x,y,.62,0,Math.PI*2);c.fill();}c.globalAlpha=1;}return canvas;
 }
 export function foxyLogo(c){
  c.save();c.translate(70,29);c.rotate(-.11);c.lineCap='round';c.lineJoin='round';

@@ -1,0 +1,282 @@
+{
+  "scope": "Read-only full official Stars Rules vs existing frontend metadata; no backend/math edits.",
+  "officialScreenshots": [
+    "/workspace/work/r10-official-play/batch30/WildMultiStars-022-reopen-loaded-rules.png",
+    "/workspace/work/r10-official-play/batch30/WildMultiStars-023-rules-page2-lines.png",
+    "/workspace/work/r10-official-play/batch30/WildMultiStars-024-rules-page3-lines.png"
+  ],
+  "official": {
+    "lines": 10,
+    "direction": "both left-to-right and right-to-left, starting from outermost reels; highest payline win in each direction",
+    "lineStakeAtTotal2": 0.2,
+    "wild": "Any Wild Star fills its reel, holds it and triggers free re-spin of other reels",
+    "reSpinMultiplier": "kept at original round value"
+  },
+  "currentFrontend": {
+    "lines": 20,
+    "direction": "left_to_right",
+    "features": {
+      "freeSpins": {
+        "trigger": 3,
+        "spins": 12,
+        "retrigger": true,
+        "winMultiplier": 2
+      },
+      "gambleRounds": 3,
+      "cascadeLimit": 0,
+      "maxStackMultiplier": 0,
+      "wildStack": false,
+      "jackpots": {},
+      "bonusPick": false
+    }
+  },
+  "cells": [
+    {
+      "symbol": "777",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 5,
+      "currentFrontendBaseAwardAtStake2": 1,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 25,
+      "currentFrontendFactor": 10
+    },
+    {
+      "symbol": "777",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 20,
+      "currentFrontendBaseAwardAtStake2": 5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 100,
+      "currentFrontendFactor": 50
+    },
+    {
+      "symbol": "777",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 40,
+      "currentFrontendBaseAwardAtStake2": 20,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 200,
+      "currentFrontendFactor": 200
+    },
+    {
+      "symbol": "big_star",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 5,
+      "currentFrontendBaseAwardAtStake2": 1.5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 25,
+      "currentFrontendFactor": 15
+    },
+    {
+      "symbol": "big_star",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 20,
+      "currentFrontendBaseAwardAtStake2": 7.5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 100,
+      "currentFrontendFactor": 75
+    },
+    {
+      "symbol": "big_star",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 40,
+      "currentFrontendBaseAwardAtStake2": 30,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 200,
+      "currentFrontendFactor": 300
+    },
+    {
+      "symbol": "golden_bell",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 3,
+      "currentFrontendBaseAwardAtStake2": 0.8,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 15,
+      "currentFrontendFactor": 8
+    },
+    {
+      "symbol": "golden_bell",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 10,
+      "currentFrontendBaseAwardAtStake2": 4,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 50,
+      "currentFrontendFactor": 40
+    },
+    {
+      "symbol": "golden_bell",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 20,
+      "currentFrontendBaseAwardAtStake2": 15,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 100,
+      "currentFrontendFactor": 150
+    },
+    {
+      "symbol": "grapes",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 1,
+      "currentFrontendBaseAwardAtStake2": 0.5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 5,
+      "currentFrontendFactor": 5
+    },
+    {
+      "symbol": "grapes",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 3,
+      "currentFrontendBaseAwardAtStake2": 2.5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 15,
+      "currentFrontendFactor": 25
+    },
+    {
+      "symbol": "grapes",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 10,
+      "currentFrontendBaseAwardAtStake2": 10,
+      "pass": true,
+      "officialFactorAtLineBetPoint2": 50,
+      "currentFrontendFactor": 100
+    },
+    {
+      "symbol": "watermelon",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 1,
+      "currentFrontendBaseAwardAtStake2": 0.6,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 5,
+      "currentFrontendFactor": 6
+    },
+    {
+      "symbol": "watermelon",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 3,
+      "currentFrontendBaseAwardAtStake2": 3,
+      "pass": true,
+      "officialFactorAtLineBetPoint2": 15,
+      "currentFrontendFactor": 30
+    },
+    {
+      "symbol": "watermelon",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 10,
+      "currentFrontendBaseAwardAtStake2": 12,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 50,
+      "currentFrontendFactor": 120
+    },
+    {
+      "symbol": "orange",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 0.8,
+      "currentFrontendBaseAwardAtStake2": 0.3,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 4,
+      "currentFrontendFactor": 3
+    },
+    {
+      "symbol": "orange",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 2,
+      "currentFrontendBaseAwardAtStake2": 1.2,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 10,
+      "currentFrontendFactor": 12
+    },
+    {
+      "symbol": "orange",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 8,
+      "currentFrontendBaseAwardAtStake2": 5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 40,
+      "currentFrontendFactor": 50
+    },
+    {
+      "symbol": "plum",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 0.8,
+      "currentFrontendBaseAwardAtStake2": 0.4,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 4,
+      "currentFrontendFactor": 4
+    },
+    {
+      "symbol": "plum",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 2,
+      "currentFrontendBaseAwardAtStake2": 2,
+      "pass": true,
+      "officialFactorAtLineBetPoint2": 10,
+      "currentFrontendFactor": 20
+    },
+    {
+      "symbol": "plum",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 8,
+      "currentFrontendBaseAwardAtStake2": 8,
+      "pass": true,
+      "officialFactorAtLineBetPoint2": 40,
+      "currentFrontendFactor": 80
+    },
+    {
+      "symbol": "lemon",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 0.6,
+      "currentFrontendBaseAwardAtStake2": 0.3,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 3.0,
+      "currentFrontendFactor": 3
+    },
+    {
+      "symbol": "lemon",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 1.2,
+      "currentFrontendBaseAwardAtStake2": 1.5,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 6.0,
+      "currentFrontendFactor": 15
+    },
+    {
+      "symbol": "lemon",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 6,
+      "currentFrontendBaseAwardAtStake2": 6,
+      "pass": true,
+      "officialFactorAtLineBetPoint2": 30,
+      "currentFrontendFactor": 60
+    },
+    {
+      "symbol": "cherry",
+      "matchCount": 3,
+      "officialBaseAwardDmoAtStake2": 0.6,
+      "currentFrontendBaseAwardAtStake2": 0.4,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 3.0,
+      "currentFrontendFactor": 4
+    },
+    {
+      "symbol": "cherry",
+      "matchCount": 4,
+      "officialBaseAwardDmoAtStake2": 1.2,
+      "currentFrontendBaseAwardAtStake2": 1.8,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 6.0,
+      "currentFrontendFactor": 18
+    },
+    {
+      "symbol": "cherry",
+      "matchCount": 5,
+      "officialBaseAwardDmoAtStake2": 6,
+      "currentFrontendBaseAwardAtStake2": 7,
+      "pass": false,
+      "officialFactorAtLineBetPoint2": 30,
+      "currentFrontendFactor": 70
+    }
+  ],
+  "passed": 5,
+  "total": 27,
+  "exactMathIdentityClaimed": false,
+  "rtpOrProbabilitiesCompared": false
+}

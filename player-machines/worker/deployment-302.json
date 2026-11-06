@@ -1,0 +1,65 @@
+{
+  "worker": "superwin-player",
+  "release": "r9",
+  "version": 302,
+  "versionId": "a199bef5-8c1b-49af-a8e4-29c2c0a5cd7b",
+  "sourceCommit": "3fe2bf1a8726abeaa9e545353b01f9accf4e4edd",
+  "deploymentId": "0029f921-a297-405b-86e3-1b9238a824f4",
+  "changedFrom301": [
+    "portal-router-r9.mjs"
+  ],
+  "moduleCount": 115,
+  "settingsDifferences": [],
+  "rollback": {
+    "version": 299,
+    "versionId": "bf28fdef-f880-4a82-8238-94aa44c98c0d"
+  },
+  "deployedAt": "2026-11-06T02:52:31.657283Z",
+  "traffic": [
+    {
+      "version_id": "a199bef5-8c1b-49af-a8e4-29c2c0a5cd7b",
+      "percentage": 100
+    }
+  ],
+  "preservation": {
+    "moduleCount": 115,
+    "changedModules": [
+      "machine-assets-20261106.mjs",
+      "restore-20261102.mjs"
+    ],
+    "addedModules": [
+      "portal-assets-r9.mjs",
+      "portal-entry-r9.mjs",
+      "portal-router-r9.mjs"
+    ],
+    "unchangedOtherModules": 110,
+    "settingsDifferences": [],
+    "mainModule": "restore-20261102.mjs",
+    "migrationTag": "local-demo-v1",
+    "productionWagers": 0
+  },
+  "validation": {
+    "nodeTests": 460,
+    "nativeCanvasCases": 12,
+    "trustedBrowserChecks": 677,
+    "focusedStarsChecks": 124,
+    "cloudflareChecks": 236,
+    "portalChecks": 129,
+    "wrapperTests": 8,
+    "backendTests": 9,
+    "portalRegressions": 10,
+    "portalBuilds": [
+      "Player",
+      "Agent",
+      "Admin"
+    ],
+    "productionWagers": 0,
+    "guestLiveHttpChecks": 25,
+    "guestLiveMachines": 4
+  },
+  "intermediate": {
+    "version300": "uploaded only; never promoted",
+    "version301": "published then superseded by router-only weak ETag correction"
+  },
+  "limitations": "100% visual or waveform identity not established. 050916 video exceeded32MiB. Online search covers57 names; all57 were not played or rebuilt. See references and FIX-REGISTER-r9.md."
+}

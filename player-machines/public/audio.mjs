@@ -3,21 +3,47 @@ import {audioSamples} from './audio-samples.mjs';
 import {seamlessBuffer} from './audio-loop.mjs';
 // Existing cabinet clips with a procedural fallback while decoding or without audio support.
 export class SoundEngine {
- constructor(root=261.63,gameId=''){this.root=root;this.gameId=gameId;this.audioSamples=getAudioSamples(gameId,audioSamples);this.volume=.5;this.muted=false;this.nodes=new Set();this.retiring=new Set();this.events=[];this.samples=new Map();this.reelWanted=false;this.reelPhase=0;this.reelClock=0;this.disposed=false;}
+ constructor(root=261.63,gameId=''){this.root=root;this.gameId=gameId;this.audioSamples=getAudioSamples(gameId,audioSamples);this.volume=.5;this.muted=false;this.nodes=new Set();this.retiring=new Set();this.events=[];this.samples=new Map();this.reelWanted=false;this.reelPhase=0;this.reelClock=0;this.disposed=false;this.backgroundEnabled=false;this.backgroundPhase=0;this.backgroundBuffer=null;this.backgroundLoad=null;this.backgroundFailureContext=null;this.backgroundGain=0;} 
  async unlock(){
   if(this.disposed)return;const Audio=globalThis.AudioContext||globalThis.webkitAudioContext;if(!Audio)return;
   try{
    if(!this.context||this.context.state==='closed'){
-    this.saveReelPhase();this.stopNodes();this.noise=null;this.audioReady=false;this.context=new Audio();this.reelClock=this.context.currentTime;this.master=this.context.createGain();this.limiter=this.context.createDynamicsCompressor();this.limiter.threshold.value=-13;this.limiter.ratio.value=8;this.master.connect(this.limiter).connect(this.context.destination);this.gain();this.audioReady=true;
+    this.saveReelPhase();this.saveBackgroundPhase();this.stopNodes();this.backgroundLoad=null;this.backgroundFailureContext=null;this.noise=null;this.audioReady=false;this.context=new Audio();this.reelClock=this.context.currentTime;this.master=this.context.createGain();this.limiter=this.context.createDynamicsCompressor();this.limiter.threshold.value=-13;this.limiter.ratio.value=8;this.master.connect(this.limiter).connect(this.context.destination);this.gain();this.audioReady=true;
    }
    // A denied or stalled browser audio request must never hold up SPIN.
    // Safari may report interruption after a call or a backgrounded tab.
-   if(['suspended','interrupted'].includes(this.context.state))void Promise.resolve(this.context.resume()).catch(()=>{});
+   if(['suspended','interrupted'].includes(this.context.state))void Promise.resolve(this.context.resume()).then(()=>this.backgroundLoop()).catch(()=>{});
    void this.preload();
+   void this.preloadBackground();this.backgroundLoop();
    if(this.reelWanted)this.reelLoop();
   }catch{
    if(!this.audioReady){const context=this.context;this.context=null;this.master=null;this.limiter=null;try{void context?.close()?.catch(()=>{});}catch{}}
   }
+ }
+ setBackgroundEnabled(value){
+  value=!!value;if(value===this.backgroundEnabled)return;
+  if(!value){this.saveBackgroundPhase();this.backgroundEnabled=false;this.stopNodes('background');return;}
+  this.backgroundEnabled=true;if(this.context){void this.preloadBackground();this.backgroundLoop();}
+ }
+ preloadBackground(){
+  const context=this.context;if(!['multi_hot_100','multi_hot_5_video'].includes(this.gameId)||!this.backgroundEnabled||this.disposed||!context?.decodeAudioData||context.state==='closed')return Promise.resolve(false);
+  if(this.backgroundFailureContext===context)return Promise.resolve(false);if(this.backgroundBuffer){this.backgroundLoop();return Promise.resolve(true);}if(this.backgroundLoad)return this.backgroundLoad;
+  const pending=import('./background-audio.mjs').then(async({backgroundTrack})=>{
+   if(this.disposed||context!==this.context||!backgroundTrack?.encoded)return false;
+   const bytes=Uint8Array.from(atob(backgroundTrack.encoded),c=>c.charCodeAt(0));const decoded=await context.decodeAudioData(bytes.buffer);
+   if(this.disposed||context!==this.context)return false;
+   this.backgroundBuffer=seamlessBuffer(context,decoded);this.backgroundGain=backgroundTrack.gain;this.backgroundLoop();return true;
+  }).catch(()=>{if(!this.disposed&&context===this.context)this.backgroundFailureContext=context;return false;}).finally(()=>{if(this.backgroundLoad===pending)this.backgroundLoad=null;});
+  this.backgroundLoad=pending;return pending;
+ }
+ backgroundDiagnostics(){return {enabled:this.backgroundEnabled,loaded:!!this.backgroundBuffer,loading:!!this.backgroundLoad,playing:[...this.nodes].some(n=>n.group==='background'),positionSeconds:this.currentBackgroundPhase(),durationSeconds:this.backgroundBuffer?.duration||0,gain:this.backgroundGain};}
+ currentBackgroundPhase(){
+  const node=[...this.nodes].find(n=>n.group==='background');return node?.buffer?.duration?((node.offset||0)+Math.max(0,(this.context?.currentTime||0)-node.startedAt))%node.buffer.duration:this.backgroundPhase;
+ }
+ saveBackgroundPhase(){this.backgroundPhase=this.currentBackgroundPhase();}
+ backgroundLoop(){
+  const context=this.context,buffer=this.backgroundBuffer;if(!this.backgroundEnabled||!buffer?.duration||context?.state!=='running'||this.muted||this.disposed||this.playbackSuspended||[...this.nodes].some(n=>n.group==='background'))return false;
+  let node;try{const osc=context.createBufferSource(),gain=context.createGain(),now=context.currentTime,offset=this.backgroundPhase%buffer.duration;node={osc,gain,group:'background',buffer,startedAt:now,offset,baseVolume:this.backgroundGain};osc.buffer=buffer;osc.loop=true;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(this.backgroundGain,now+.08);osc.connect(gain).connect(this.master);this.nodes.add(node);osc.onended=()=>this.release(node);osc.start(now,offset);return true;}catch{if(node)this.release(node);return false;}
  }
  preload(){
   const context=this.context;if(this.disposed||!context?.decodeAudioData||context.state==='closed')return Promise.resolve(false);
@@ -35,8 +61,8 @@ export class SoundEngine {
  }
  gain(){if(this.master)this.master.gain.setTargetAtTime(this.muted?0:this.volume,this.context.currentTime,.012);}
  setVolume(value){if(!Number.isFinite(value))return;this.volume=Math.max(0,Math.min(1,value));this.gain();}
- setSuspended(value){value=!!value;if(value===!!this.playbackSuspended)return;if(value)this.saveReelPhase();this.playbackSuspended=value;this.reelClock=this.context?.currentTime||0;if(value)this.stopNodes();else if(this.context){void this.unlock();if(this.reelWanted)this.reelLoop();}}
- toggle(){if(!this.muted)this.saveReelPhase();this.muted=!this.muted;this.gain();if(this.muted)this.stopNodes();else if(this.reelWanted)this.reelLoop();return this.muted;}
+ setSuspended(value){value=!!value;if(value===!!this.playbackSuspended)return;if(value){this.saveReelPhase();this.saveBackgroundPhase();}this.playbackSuspended=value;this.reelClock=this.context?.currentTime||0;if(value)this.stopNodes();else if(this.context){void this.unlock();if(this.reelWanted)this.reelLoop();this.backgroundLoop();}}
+ toggle(){if(!this.muted){this.saveReelPhase();this.saveBackgroundPhase();}this.muted=!this.muted;this.gain();if(this.muted)this.stopNodes();else{if(this.reelWanted)this.reelLoop();this.backgroundLoop();}return this.muted;}
  currentReelPhase(){const now=this.context?.currentTime||0,node=[...this.nodes].find(n=>n.group==='reels');if(node?.buffer?.duration)return ((node.offset||0)+Math.max(0,now-node.startedAt))%node.buffer.duration/node.buffer.duration;if(!this.reelPeriod)return this.reelPhase;return (this.reelPhase+(this.playbackSuspended?0:Math.max(0,now-this.reelClock)/this.reelPeriod))%1;}
  saveReelPhase(){this.reelPhase=this.currentReelPhase();this.reelClock=this.context?.currentTime||0;}
  wantReels(){if(!this.reelWanted){this.reelPhase=0;this.reelClock=this.context?.currentTime||0;this.reelPeriod=0;}this.reelWanted=true;}
@@ -65,6 +91,6 @@ export class SoundEngine {
  win(amount,bet){if(!(amount>0))return;this.stop('win');const ratio=amount/Math.max(.01,bet);if(this.playSample(ratio>=20?'big-win':'win',{group:'win'}))return;const notes=ratio>=50?[0,4,7,12,16,19,24,19,24]:ratio>=20?[0,4,7,12,16,19]:ratio>=5?[0,4,7,12,16]:[0,4,7,12];if(!this.context)return;const t=this.context.currentTime;notes.forEach((step,i)=>{const f=this.root*2**(step/12);this.tone(f,t+i*.105,.32,.12,'triangle',f,'win');this.tone(f*2,t+i*.105,.2,.018,'sine',f*2,'win');});}
  release(node){this.nodes.delete(node);this.retiring.delete(node);try{node.osc.disconnect();node.filter?.disconnect();node.gain.disconnect();}catch{}}
  stopNodes(group){for(const node of [...this.nodes])if(!group||node.group===group){this.nodes.delete(node);if(!this.disposed&&this.context?.state==='running'&&node.gain.gain.cancelScheduledValues){const now=this.context.currentTime;this.retiring.add(node);try{node.gain.gain.cancelAndHoldAtTime?.(now);if(!node.gain.gain.cancelAndHoldAtTime){node.gain.gain.cancelScheduledValues(now);node.gain.gain.setValueAtTime(node.gain.gain.value,now);}node.gain.gain.linearRampToValueAtTime(0,now+.015);node.osc.stop(now+.018);continue;}catch{}}try{node.osc.stop();}catch{}this.release(node);}}
- stop(group){if(!group||group==='reels'){this.reelWanted=false;this.reelPhase=0;this.reelPeriod=0;}this.stopNodes(group);}
- async dispose(){this.disposed=true;this.stop();for(const node of [...this.retiring]){try{node.osc.stop();}catch{}this.release(node);}this.noise=null;this.samples.clear();await this.context?.close().catch(()=>{});}
+ stop(group){if(!group||group==='background'){this.saveBackgroundPhase();if(!group)this.backgroundEnabled=false;}if(!group||group==='reels'){this.reelWanted=false;this.reelPhase=0;this.reelPeriod=0;}this.stopNodes(group);}
+ async dispose(){this.disposed=true;this.stop();for(const node of [...this.retiring]){try{node.osc.stop();}catch{}this.release(node);}this.noise=null;this.samples.clear();this.backgroundBuffer=null;this.backgroundLoad=null;this.backgroundFailureContext=null;this.backgroundPhase=0;await this.context?.close().catch(()=>{});}
 }

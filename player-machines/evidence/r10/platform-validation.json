@@ -1,0 +1,25 @@
+{
+  "scope": "r10 preservation rerun during official demo comparison",
+  "sourceBranch": "codex/zplay-two-machines-20261106",
+  "sourceCommit": "6c6c5706ffef118cd5b1462cb61fc39afd6b8810",
+  "sameSourceAsPreviousValidation": true,
+  "pytestPassed": 9,
+  "pytestWarnings": 10,
+  "database": "new disposable SQLite selected by tests before app import",
+  "frontendBuilds": {
+    "player": "passed",
+    "agent": "passed",
+    "admin": "passed"
+  },
+  "viteVersion": "6.4.5",
+  "frontendRegressionPassed": 10,
+  "productionDataAccess": false,
+  "sourceEdits": false,
+  "serverStarted": false,
+  "note": "Preserved shared backend/portal baseline; r9 Worker presentation assets and handlers are independently exercised in isolated loopback HTTP browser QA.",
+  "logs": {
+    "backend": "backend-r10.log",
+    "builds": "builds-r10.log",
+    "frontend": "frontend-r10.log"
+  }
+}

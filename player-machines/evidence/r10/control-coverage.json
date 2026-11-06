@@ -1,0 +1,404 @@
+{
+  "finalizedUtc": "2026-11-06T04:47:58.644383+00:00",
+  "status": "frozen factual inventory; auxiliary coverage is partial, not an all-buttons-pass claim",
+  "officialBrowserClosed": true,
+  "productionWagers": 0,
+  "accountsUsed": false,
+  "productSourceEditsByAuditor": false,
+  "primaryCompletedRounds": 120,
+  "primaryCounts": {
+    "MultiHot5": 30,
+    "FoxyHot20": 30,
+    "MultiHot100": 30,
+    "WildMultiStars": 30
+  },
+  "primaryDurationScope": "First trusted control through latest recorded interaction in initial batch. Includes normal ready, control and deliberate quiet observation intervals; not continuous reel motion.",
+  "primarySessionDurations": [
+    {
+      "game": "MultiHot5",
+      "firstTrustedControlUtc": "2026-11-06T03:18:01.458Z",
+      "latestObservedControlOrCompletedRoundUtc": "2026-11-06T03:26:52.227Z",
+      "elapsedSessionSeconds": 530.769,
+      "atLeastFiveMinutesFromFirstControl": true,
+      "durationScope": "Includes normal loading/ready observation, bet/control interaction and deliberate quiet recording intervals; not a claim of five minutes continuous reel motion.",
+      "verifiedButtonsOrGestures": [
+        "explicit sound Yes",
+        "native next-bet preview",
+        "native previous-bet preview",
+        "individual SPIN",
+        "native Rules",
+        "normal Exit"
+      ],
+      "pendingOrNotIndependentlyVerified": [
+        "AUTO start/cancel",
+        "turbo toggle",
+        "mute/unmute",
+        "Settings/volume",
+        "History",
+        "gamble/collect when available"
+      ],
+      "productionInputs": false
+    },
+    {
+      "game": "FoxyHot20",
+      "firstTrustedControlUtc": "2026-11-06T03:27:43.514Z",
+      "latestObservedControlOrCompletedRoundUtc": "2026-11-06T03:34:30.109Z",
+      "elapsedSessionSeconds": 406.595,
+      "atLeastFiveMinutesFromFirstControl": true,
+      "durationScope": "Includes normal loading/ready observation, bet/control interaction and deliberate quiet recording intervals; not a claim of five minutes continuous reel motion.",
+      "verifiedButtonsOrGestures": [
+        "explicit sound Yes",
+        "bet picker open",
+        "bet next page",
+        "bet selection2",
+        "individual SPIN",
+        "STOP request300ms (earlier exploratory)",
+        "HOLD650ms/release (earlier exploratory)",
+        "native Rules",
+        "normal Exit"
+      ],
+      "pendingOrNotIndependentlyVerified": [
+        "AUTO start/cancel",
+        "turbo toggle",
+        "mute/unmute",
+        "Settings/volume",
+        "History",
+        "gamble/collect when available"
+      ],
+      "productionInputs": false
+    },
+    {
+      "game": "MultiHot100",
+      "firstTrustedControlUtc": "2026-11-06T03:35:28.504Z",
+      "latestObservedControlOrCompletedRoundUtc": "2026-11-06T03:41:45.328Z",
+      "elapsedSessionSeconds": 376.824,
+      "atLeastFiveMinutesFromFirstControl": true,
+      "durationScope": "Includes normal loading/ready observation, bet/control interaction and deliberate quiet recording intervals; not a claim of five minutes continuous reel motion.",
+      "verifiedButtonsOrGestures": [
+        "explicit sound Yes",
+        "bet picker open",
+        "bet selection2",
+        "individual SPIN",
+        "native Rules",
+        "normal Exit"
+      ],
+      "pendingOrNotIndependentlyVerified": [
+        "AUTO start/cancel",
+        "turbo toggle",
+        "mute/unmute",
+        "Settings/volume",
+        "History",
+        "gamble/collect when available"
+      ],
+      "productionInputs": false
+    },
+    {
+      "game": "WildMultiStars",
+      "firstTrustedControlUtc": "2026-11-06T03:42:42.308Z",
+      "latestObservedControlOrCompletedRoundUtc": "2026-11-06T03:49:26.909Z",
+      "elapsedSessionSeconds": 404.601,
+      "atLeastFiveMinutesFromFirstControl": true,
+      "durationScope": "Includes normal loading/ready observation, bet/control interaction and deliberate quiet recording intervals; not a claim of five minutes continuous reel motion.",
+      "verifiedButtonsOrGestures": [
+        "explicit sound Yes",
+        "bet picker open",
+        "bet previous page",
+        "bet next page",
+        "bet selection2",
+        "individual SPIN"
+      ],
+      "pendingOrNotIndependentlyVerified": [
+        "AUTO start/cancel",
+        "turbo toggle",
+        "mute/unmute",
+        "Settings/volume",
+        "History",
+        "gamble/collect when available"
+      ],
+      "productionInputs": false
+    }
+  ],
+  "additionalDemoRounds": {
+    "MultiHot5ControlledReturn": {
+      "completed": 41,
+      "counter": "1954746179.41",
+      "note": "29 natural seek rounds +one critical first-tap new round +10 AUTO +one of25 before cancel"
+    },
+    "MultiHot5ActiveXReturn": {
+      "completed": 3,
+      "counter": "1954783489.3"
+    },
+    "FoxyEarlierExploratory": {
+      "completed": 5
+    },
+    "FoxyControlsReturn": {
+      "completed": 5,
+      "counter": "1954766799.5",
+      "note": "Loss-stop1, manual-cancel1, incidental normal HOLD3 while intended help scroll landed on main game; not primary30."
+    }
+  },
+  "games": {
+    "MultiHot5": {
+      "soundConsent": {
+        "status": "verified",
+        "note": "Explicit Yes; AudioContext changes suspended to running with normal playback."
+      },
+      "primarySpin": {
+        "status": "verified",
+        "note": "30 completed rounds confirmed independently by provider Rules counter.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot5-015-normal-menu-after30.png"
+      },
+      "postWinFirstTap": {
+        "status": "verified",
+        "note": "Natural20 DMO win;10.002s quiet wait; one main tap starts new paid round. No blanket collect interception.",
+        "evidence": "/workspace/work/r10-official-play/mh5-postwin-decision.json"
+      },
+      "betNextPrevious": {
+        "status": "verified",
+        "note": "Native next/previous preview buttons selected2.00 and restored previous level."
+      },
+      "autoStartStop": {
+        "status": "verified",
+        "note": "Select25 and START; reopen AUTO; modal STOP cancels after1/25, provider40 to41.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot5-141-auto-stop25-counter-proof.png"
+      },
+      "autoActiveClose": {
+        "status": "verified",
+        "note": "X closes while AUTO continues; remaining24 to23 across8s.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot5-controls-1793940112330-active-close-x-continues.png"
+      },
+      "autoActiveCountEditing": {
+        "status": "verified",
+        "note": "Centered tap on50 while active leaves25 selected; count editing blocked.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot5-controls-1793940116936-active-edit-select50.png"
+      },
+      "autoActiveThresholdEditing": {
+        "status": "unverified",
+        "note": "Attempted typing left field blank, but focus was near currency label and disabled/activeElement was not recorded. No definitive locking claim."
+      },
+      "autoThresholdArithmetic": {
+        "status": "unverified",
+        "note": "Labels and units captured; no controlled win/loss baseline arithmetic or BigWin trigger observed."
+      },
+      "autoBigWinSwitch": {
+        "status": "verified_ui_only",
+        "note": "On/off UI exercised; numeric BigWin criterion unverified."
+      },
+      "gambleOpenTakeWin": {
+        "status": "verified",
+        "note": "Native RED/BLACK modal opened on actual20 DMO win; TAKE WIN transferred20 without another paid spin.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot5-107-gamble-x2-open.png"
+      },
+      "gambleRedBlackChoices": {
+        "status": "unverified",
+        "note": "Chose TAKE WIN; no RED/BLACK choice was executed. Do not claim full gamble choice coverage."
+      },
+      "settingsEffectsBackground": {
+        "status": "verified_ui_only",
+        "note": "Separate sound-effects/background switches toggled off/on."
+      },
+      "historyBiggestWins": {
+        "status": "verified",
+        "note": "Native ledger and Biggest Wins tabs opened with actual demo records."
+      },
+      "historyReplay": {
+        "status": "unverified",
+        "note": "Not executed in MH5; only Foxy read-only viewer was launched."
+      },
+      "standaloneSpinStop": {
+        "status": "unverified",
+        "note": "Busy/STOP presentations observed, but a standalone MH5 STOP press was not independently completed. Modal AUTO STOP is separately verified."
+      },
+      "turbo": {
+        "status": "absent",
+        "note": "No visible lightning/turbo control in this MH5 cabinet layout."
+      },
+      "masterMuteVolumeSlider": {
+        "status": "absent",
+        "note": "No separate cabinet master-mute/volume slider; native Settings has Effects and Background switches."
+      },
+      "fullscreen": {
+        "status": "unverified",
+        "note": "Present in shared Settings but not individually verified in MH5; actual fullscreen true/false was verified in Foxy."
+      },
+      "escape": {
+        "status": "not_applicable_to_touch_ui",
+        "note": "No on-screen Escape button; hardware-keyboard Escape was not tested."
+      }
+    },
+    "FoxyHot20": {
+      "soundConsent": {
+        "status": "verified",
+        "note": "Explicit Yes; running44100Hz AudioContext and actual mixed capture."
+      },
+      "primarySpin": {
+        "status": "verified",
+        "note": "Provider counter confirms30;33 primary main taps,21 strict busy/ready PNG pairs, historical short-window issue preserved.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-059-count-menu-after17-slow.png"
+      },
+      "spinStopHold": {
+        "status": "verified_gesture_observation",
+        "note": "Earlier five exploratory DMO rounds include natural SPIN, STOP request300ms and HOLD650ms/release; these are separate from primary30.",
+        "evidence": "/workspace/work/r10-official-play/FoxyHot20-events.json"
+      },
+      "betPicker": {
+        "status": "verified",
+        "note": "Picker open, next page, selected2.00 in primary pass."
+      },
+      "autoDialog": {
+        "status": "verified",
+        "note": "Green canvas dialog25/50/100/500/1000, default100, three optional thresholds, START PLAY.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-146-controls-auto-touch.png"
+      },
+      "autoLossStop": {
+        "status": "verified_one_case",
+        "note": "At stake0.20,25 selected, balance-decrease0.20 enabled; first loss stops at19999.80 from20000. Does not resolve net/cumulative semantics across intervening wins.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-control-details-1793939132523.json"
+      },
+      "autoManualCancel": {
+        "status": "verified",
+        "note": "Active left AUTO press cancels directly with no STOP dialog, one extra0.20 round,7s stable.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-controls-1793939346464-auto-manual-active-control.png"
+      },
+      "autoOtherThresholds": {
+        "status": "unverified",
+        "note": "Win/increase trigger arithmetic was not independently exercised."
+      },
+      "masterMute": {
+        "status": "verified_ui_and_recorded_audio",
+        "note": "Mouse click showed yellow mutedX then white speaker; four-second audio windows recorded for offline RMS review.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-control-details-1793939906429.json"
+      },
+      "turbo": {
+        "status": "partial",
+        "note": "Lightning opens QUICK PLAY confirmation with ENABLE QUICK PLAY / NO / X. Actual enable/disable confirmation buttons were not executed.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-controls-1793939902231-turbo-mouse-on.png"
+      },
+      "settingsEffectsBackground": {
+        "status": "verified_ui_only",
+        "note": "Native Effects/Background switches toggled off/on."
+      },
+      "fullscreen": {
+        "status": "verified",
+        "note": "Native Settings toggle produced document.fullscreenElement true then false.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-control-details-1793939645140.json"
+      },
+      "historyBiggestWins": {
+        "status": "verified",
+        "note": "Native History and Biggest Wins tabs opened with actual demo ledger."
+      },
+      "historyReplay": {
+        "status": "partial",
+        "note": "Launches read-only /SpinHistoryClient/ viewer with actual round ID/game. Animation remained on Smartsoft loader after bounded10s wait; viewer closed normally.",
+        "evidence": "/workspace/work/r10-official-play/batch30/FoxyHot20-viewer-1.png"
+      },
+      "gambleCollect": {
+        "status": "unverified",
+        "note": "Controls observed on natural primary wins, but native gamble choices/collect were not executed in Foxy."
+      },
+      "volumeSlider": {
+        "status": "absent",
+        "note": "Shared native Settings exposes Effects/Background switches and Full Screen, no volume slider."
+      },
+      "footerPointer": {
+        "status": "limitation",
+        "note": "Some touch footer attempts missed; mouse fallback opened native menu. One attempted scroll while help was closed triggered3 additional normal HOLD rounds; final demo counter5 includes those extras."
+      }
+    },
+    "MultiHot100": {
+      "soundConsent": {
+        "status": "verified",
+        "note": "Explicit Yes; anchored quiet10s and mixed capture."
+      },
+      "primarySpin": {
+        "status": "verified",
+        "note": "30 one-tap busy/ready cycles plus independent provider.30 counter.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot100-006-normal-rules-after30.png"
+      },
+      "betPicker": {
+        "status": "verified",
+        "note": "Picker opened;2.00 selected."
+      },
+      "rules": {
+        "status": "partial",
+        "note": "Rules opens; provider counter valid, but displayed help payout placeholders were not resolved via a second open in this game. No official paytable-match claim."
+      },
+      "winControls": {
+        "status": "observed_not_executed",
+        "note": "Natural42 DMO win shows x2 and collect controls; neither was clicked.",
+        "evidence": "/workspace/work/r10-official-play/batch30/MultiHot100-batch-13-after.png"
+      },
+      "autoTurboMuteSettingsHistory": {
+        "status": "unverified",
+        "note": "Dedicated auxiliary-controls pass was not completed before bounded audit close. Do not claim these buttons tested in MH100."
+      },
+      "spinStopHold": {
+        "status": "unverified",
+        "note": "Only natural individual SPINs; standalone STOP/HOLD behavior not independently tested."
+      }
+    },
+    "WildMultiStars": {
+      "soundConsent": {
+        "status": "verified",
+        "note": "Explicit Yes; anchored quiet10s and mixed capture. Quiet PCM is nonzero; no silence claim."
+      },
+      "primarySpin": {
+        "status": "verified",
+        "note": "30 one-tap busy/ready cycles plus independent provider.30 counter.",
+        "evidence": "/workspace/work/r10-official-play/batch30/WildMultiStars-018-rules-after30-actual-position.png"
+      },
+      "betPicker": {
+        "status": "verified",
+        "note": "Opened, paged forward/back and selected2.00."
+      },
+      "rulesPaytable": {
+        "status": "verified_read_only_comparison",
+        "note": "Full visible paytable and10-line bidirectional held-wild respin rules captured. Current math differs:5/27 numerical base payouts match,22 differ.",
+        "evidence": "/workspace/work/r10-official-play/stars-paytable-comparison.json"
+      },
+      "settingsEffectsBackground": {
+        "status": "verified_ui_only",
+        "note": "Separate Effects/Background switches toggled off/on."
+      },
+      "fullscreen": {
+        "status": "verified_ui_only",
+        "note": "Fullscreen toggle UI changed on/off; actual DOM fullscreen state was independently verified only in Foxy."
+      },
+      "historyBiggestWins": {
+        "status": "verified",
+        "note": "Native History/Biggest Wins opened with actual demo records."
+      },
+      "masterMute": {
+        "status": "verified_ui_only",
+        "note": "Speaker changed yellowX to white after normal touches.",
+        "evidence": "/workspace/work/r10-official-play/batch30/WildMultiStars-035-mute-off.png"
+      },
+      "turbo": {
+        "status": "partial",
+        "note": "Lightning opened purple QUICK PLAY confirmation. Enable/NO/X controls were not exercised.",
+        "evidence": "/workspace/work/r10-official-play/batch30/WildMultiStars-037-turbo-on.png"
+      },
+      "auto": {
+        "status": "unverified",
+        "note": "The recorded AUTO attempt was behind the still-open QUICK PLAY overlay; not a valid AUTO trial and not evidence of a product defect."
+      },
+      "gambleCollect": {
+        "status": "observed_not_executed",
+        "note": "x2/collect visible on natural2.40 win; neither clicked.",
+        "evidence": "/workspace/work/r10-official-play/batch30/WildMultiStars-batch-15-after.png"
+      },
+      "spinStopHoldReplay": {
+        "status": "unverified",
+        "note": "Natural individual spins only; dedicated STOP/HOLD/replay pass not completed."
+      }
+    }
+  },
+  "autoDeltaFile": "/workspace/work/r10-official-play/auto-delta-summary.json",
+  "mathComparisons": [
+    "/workspace/work/r10-official-play/mh5-paytable-comparison.json",
+    "/workspace/work/r10-official-play/foxy-paytable-comparison.json",
+    "/workspace/work/r10-official-play/stars-paytable-comparison.json"
+  ],
+  "noRtpInferenceFromSpins": true,
+  "nativeExit": "Final active AUTO was explicitly stopped; visible normal Exit invoked; browser/context closed and helper process exited0."
+}

@@ -1,0 +1,72 @@
+{
+  "release": "zplay-machines-20261106-r10",
+  "worker": "superwin-player",
+  "versionNumber": 304,
+  "versionId": "2255670b-9c87-4e0b-b393-1e7b931b640c",
+  "deploymentId": "354eacf9-4cca-428a-a7ef-a4415d4cbc1d",
+  "createdOn": "2026-11-06T04:45:08.576526Z",
+  "trafficPercent": 100,
+  "sourceCommit": "0b8944730fec2ff412b7f9072213da75b726853b",
+  "assetBlobSha": "0b7b5a9cc62a5b87a0bcb22c1bddb3c50ce33c50",
+  "sourceManifestSha256": "85f31a6e5924d028ba12843eaa5d7e25993f194f2595e89458a71f05c970051c",
+  "preservation": {
+    "candidateId": "2255670b-9c87-4e0b-b393-1e7b931b640c",
+    "candidateNumber": 304,
+    "totalModules": 115,
+    "unchangedModules": 114,
+    "changedModules": [
+      "machine-assets-20261106.mjs"
+    ],
+    "preservedSettings": [
+      "bindings",
+      "main_module",
+      "compatibility_date",
+      "compatibility_flags",
+      "limits",
+      "placement",
+      "usage_model",
+      "assets",
+      "cache_options",
+      "containers",
+      "exports",
+      "package_dependencies",
+      "migration_tag",
+      "env"
+    ],
+    "settingDifferences": [],
+    "bindings": 12,
+    "assetBlobSha": "0b7b5a9cc62a5b87a0bcb22c1bddb3c50ce33c50",
+    "activeDeploymentId": "0029f921-a297-405b-86e3-1b9238a824f4",
+    "verified": true
+  },
+  "rollback": {
+    "version": 302,
+    "id": "a199bef5-8c1b-49af-a8e4-29c2c0a5cd7b"
+  },
+  "supersededWithoutTraffic": {
+    "version": 303,
+    "id": "e8d45b30-c779-4727-b766-1b768fc48477"
+  },
+  "verification": {
+    "node": 469,
+    "nativeCanvasCases": 12,
+    "localFinalSource": 980,
+    "cloudflareFinalSource": 33,
+    "localPrimaryRounds": 120,
+    "officialDmoPrimaryRounds": 120,
+    "productionWagers": 0
+  },
+  "backendHotfix": {
+    "sourceCommit": "7d8c96ff7dcb4fc279612e783425a7695a5baf32",
+    "deploymentId": "54095a6c-90e8-411c-9df8-6f99e68c16f3",
+    "tests": 20,
+    "separateFromWorker": true
+  },
+  "liveChecks": {
+    "http": 27,
+    "games": 4,
+    "catalogue": 57,
+    "portal": 200,
+    "zeroBrowserErrors": true
+  }
+}

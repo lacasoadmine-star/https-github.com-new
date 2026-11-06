@@ -1,0 +1,1473 @@
+{
+  "observed_at_utc": "2026-11-06T02:45:38.846184+00:00",
+  "local_catalogue": "/workspace/work/r9-portal-qa/config.json",
+  "local_catalogue_sha256": "d7d89a6b57ce07a169c8f777b695670f1d47df2b23239efcb120795939261ce1",
+  "scope": "All 56 names in config.json plus additional curated Multi Hot 100 route = 57 current unique titles. Configuration has no enabled flag; presence is not proof every title appears in each curated view.",
+  "method": [
+    "Fetched current official SmartSoft catalogue and compared every local name against74listed titles.",
+    "Quoted general web search for all49 names absent from exact SmartSoft index except Foxy near mapping; search batches cover48 local originals plus FruityWilds.",
+    "Opened official matching pages; loaded4 publicly offered SmartSoft demo launch URLs in Chromium, screenshot-only observations, no spins/accounts/payments.",
+    "Read local config and shipped static renderer for comparison; did not validate alternate dedicated routes for every game."
+  ],
+  "boundaries": [
+    "No source changes or deployment.",
+    "No account creation, login, cash wagering or payments; zero demo spins.",
+    "No vendor artwork or proprietary implementation copied into builds. Screenshots are audit evidence.",
+    "Exact title match alone does not establish licensing, shared math, or game equivalence.",
+    "All search findings are bounded to checked sources/date, not exhaustive uniqueness clearance.",
+    "Plinko risk selection and Double X green outcome are backend/math differences. Presentation must not simulate unavailable outcomes or advertise unimplemented payouts; scope, implement and test separately."
+  ],
+  "counts": {
+    "near_title_mapping_unconfirmed": 1,
+    "exact_official_title": 7,
+    "exact_official_title_variant_unresolved": 1,
+    "no_official_casino_match_found": 44,
+    "local_original_exact_vendor_name_collision": 2,
+    "local_original_third_party_vendor_collision_unverified": 1,
+    "local_original_near_vendor_title_unverified": 1
+  },
+  "official_smartsoft_index_url": "https://www.smartsoftgaming.com/games",
+  "official_smartsoft_entries": [
+    {
+      "name": "PopX",
+      "url": "https://www.smartsoftgaming.com/games/popx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Mine Island2",
+      "url": "https://www.smartsoftgaming.com/games/mine-island2",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland2&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "New Era of JetX",
+      "url": "https://www.smartsoftgaming.com/games/jetx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO"
+    },
+    {
+      "name": "BalloonX ",
+      "url": "https://www.smartsoftgaming.com/games/balloonx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=BalloonX&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Plinko X Classic",
+      "url": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Propel X",
+      "url": "https://www.smartsoftgaming.com/games/propel-x",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PropelX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "World Champion X",
+      "url": "https://www.smartsoftgaming.com/games/world-champion-x",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WorldChampionX&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Power of Tiger",
+      "url": "https://www.smartsoftgaming.com/games/power-of-tiger",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Multi Fruits Charging Wilds",
+      "url": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Gems Crown Charging Wilds",
+      "url": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Gates of Merlyn ",
+      "url": "https://www.smartsoftgaming.com/games/gates-of-merlyn",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Chicken Ways",
+      "url": "https://www.smartsoftgaming.com/games/chicken-ways",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=Chickenways&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Dice Jungle",
+      "url": "https://www.smartsoftgaming.com/games/dice-jungle",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Multi Hot 5 Wild",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Cheesy Road",
+      "url": "https://www.smartsoftgaming.com/games/cheesy-road",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoad&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Fortune Catch",
+      "url": "https://www.smartsoftgaming.com/games/fortune-catch",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO"
+    },
+    {
+      "name": "Multi Hot 20",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-20",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Cheesy Road Classic",
+      "url": "https://www.smartsoftgaming.com/games/cheesy-road-classic",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoadClassic&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Multi Hot 10 ",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+      "demo_url": null
+    },
+    {
+      "name": "Multi Hot 40",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-40",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Coins Of Atlantis",
+      "url": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Multi Hot 100",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-100",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Multi Hot Wild Ways ",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Bottle Mania",
+      "url": "https://www.smartsoftgaming.com/games/bottle-mania",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Multi Hot 5 Burn Wilds",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Chicken Highway",
+      "url": "https://www.smartsoftgaming.com/games/chicken-highway",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Multi Hot 5 Deluxe ",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "CarX",
+      "url": "https://www.smartsoftgaming.com/games/carx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Cai Balao Cappadocia",
+      "url": "https://www.smartsoftgaming.com/games/cai-balao-cappadocia",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CaiBalaoCappadocia&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Multi Hot Wheel",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-wheel",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Jingle Bell Bonanza",
+      "url": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Multi Hot 5 Super Wilds",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Balloon",
+      "url": "https://www.smartsoftgaming.com/games/balloon",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=Balloon&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Plinko X",
+      "url": "https://www.smartsoftgaming.com/games/plinkox",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Helicopter X",
+      "url": "https://www.smartsoftgaming.com/games/helicopter-x",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=HelicopterX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Multi Hot 5",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Safari Simba",
+      "url": "https://www.smartsoftgaming.com/games/safari-simba-2",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Mine Island",
+      "url": "https://www.smartsoftgaming.com/games/mine-island",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Multi Hot Ways",
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Football X",
+      "url": "https://www.smartsoftgaming.com/games/fotballx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FootballX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Foxy Hot 20",
+      "url": "https://www.smartsoftgaming.com/games/foxy-hot-20",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Burning Ice 40",
+      "url": "https://www.smartsoftgaming.com/games/burning-ice-40",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Mariachi Coins",
+      "url": "https://www.smartsoftgaming.com/games/mariachi-coins",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Habesha Fortune 5",
+      "url": "https://www.smartsoftgaming.com/games/hab",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "4 Bonuses Bonanza",
+      "url": "https://www.smartsoftgaming.com/games/4-bonuses-bonanza",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoJoker&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Cricket X",
+      "url": "https://www.smartsoftgaming.com/games/cricket-x",
+      "demo_url": "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Burning Ice",
+      "url": "https://www.smartsoftgaming.com/games/burning-ice-41",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "CricketerX",
+      "url": "https://www.smartsoftgaming.com/games/cricketerx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CricketerX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Wheel Of Destiny",
+      "url": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5"
+    },
+    {
+      "name": "Wild Multi Stars",
+      "url": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Crash Duel",
+      "url": "https://www.smartsoftgaming.com/games/crash-duel",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TugOfWar&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Genie's Bonanza",
+      "url": "https://www.smartsoftgaming.com/games/genies-bonanza",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Bonus Time",
+      "url": "https://www.smartsoftgaming.com/games/bonus-time",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=BonusTime&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+    },
+    {
+      "name": "Farm's Fortune",
+      "url": "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FarmsFortune&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Mad Slot",
+      "url": "https://www.smartsoftgaming.com/games/mad-slot",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MadSlot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "AviaStar",
+      "url": "https://www.smartsoftgaming.com/games/aviastar",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=JetX3&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Smash X",
+      "url": "https://www.smartsoftgaming.com/games/smash-x",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=SmashX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Tower X",
+      "url": "https://www.smartsoftgaming.com/games/tower-x",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TowerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Hot Samba",
+      "url": "https://www.smartsoftgaming.com/games/hot-samba",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Wilds and Gods",
+      "url": "https://www.smartsoftgaming.com/games/wilds-and-gods",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildsAndGods&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Bao Slot 5X",
+      "url": "https://www.smartsoftgaming.com/games/bao-slot-5",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BaoSlot5X&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Jungle Sisters",
+      "url": "https://www.smartsoftgaming.com/games/jungle-sisters",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Boka Jamba 10 ",
+      "url": "https://www.smartsoftgaming.com/games/boca-jamba-10",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BokaJamba10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Jungle Sisters Deluxe",
+      "url": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Dragon's Code",
+      "url": "https://www.smartsoftgaming.com/games/dragons-code",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Dracula's Fortune",
+      "url": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Book of Futuria",
+      "url": "https://www.smartsoftgaming.com/games/book-of-futuria",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo"
+    },
+    {
+      "name": "Book of Bonanza",
+      "url": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+      "demo_url": "eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Sugar Fiesta",
+      "url": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Vampires",
+      "url": "https://www.smartsoftgaming.com/games/vampires",
+      "demo_url": "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Burning Ice 10",
+      "url": "https://www.smartsoftgaming.com/games/blazing-hot-10",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Roll X",
+      "url": "https://www.smartsoftgaming.com/games/rollx",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Double X",
+      "url": "https://www.smartsoftgaming.com/games/doublex",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    },
+    {
+      "name": "Samurai",
+      "url": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+    }
+  ],
+  "demo_observations": [
+    {
+      "name": "Plinko X",
+      "url": "https://www.smartsoftgaming.com/games/plinkox",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "launch_status": 200,
+      "body_text": "02\n:\n43\n:\n17",
+      "title": "",
+      "final_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "canvas_count": 0,
+      "frame_urls": [
+        "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO_SESSION_REDACTED&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "https://eu-server-w6.ssgportal.com/PlinkoX2/OtherGames/PlinkoX/Board.aspx?Token=DEMO_SESSION_REDACTED&ReturnUrl=https%3a%2f%2fwww.smartsoftgaming.com%2f&StopUrl=&Skin=&chat=&JurisdictionName=RO&ClientRegion=",
+        "about:blank",
+        "about:blank",
+        "about:blank"
+      ],
+      "screenshot": "/workspace/work/r9-online-demo-evidence/plinko-x.png",
+      "visual_state": "Loaded risk selection modal; LOW 200x, MEDIUM 1000x, HIGH 10000x labels; balance 20000 DMO."
+    },
+    {
+      "name": "Safari Simba",
+      "url": "https://www.smartsoftgaming.com/games/safari-simba-2",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "launch_status": 200,
+      "body_text": "",
+      "title": "",
+      "final_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "canvas_count": 0,
+      "frame_urls": [
+        "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO_SESSION_REDACTED&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/SafariSimba/Game.aspx?Token=DEMO_SESSION_REDACTED&ReturnUrl=https%3a%2f%2fwww.smartsoftgaming.com&StopUrl=&Skin=&chat=&JurisdictionName=RO&ClientRegion=",
+        "about:blank",
+        "about:blank",
+        "chrome-error://chromewebdata/",
+        "about:blank"
+      ],
+      "screenshot": "/workspace/work/r9-online-demo-evidence/safari-simba.png",
+      "visual_state": "Loaded 3x3 board; side 1x/3x/5x multiplier positions; balance 20000 DMO."
+    },
+    {
+      "name": "Hot Samba",
+      "url": "https://www.smartsoftgaming.com/games/hot-samba",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "launch_status": 200,
+      "body_text": "",
+      "title": "",
+      "final_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "canvas_count": 0,
+      "frame_urls": [
+        "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO_SESSION_REDACTED&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/HotSamba/Game.aspx?Token=DEMO_SESSION_REDACTED&ReturnUrl=https%3a%2f%2fwww.smartsoftgaming.com&StopUrl=&Skin=&chat=&JurisdictionName=RO&ClientRegion=",
+        "about:blank",
+        "about:blank",
+        "chrome-error://chromewebdata/",
+        "about:blank"
+      ],
+      "screenshot": "/workspace/work/r9-online-demo-evidence/hot-samba.png",
+      "visual_state": "SmartSoft loading screen remained at screenshot time; operational gameplay not confirmed."
+    },
+    {
+      "name": "Double X",
+      "url": "https://www.smartsoftgaming.com/games/doublex",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "launch_status": 200,
+      "body_text": "02\n:\n43\n:\n47",
+      "title": "",
+      "final_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "canvas_count": 0,
+      "frame_urls": [
+        "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO_SESSION_REDACTED&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "https://eu-server-w7.ssgportal.com/XGames/XGames/SlicerX/Board.aspx?Token=DEMO_SESSION_REDACTED&ReturnUrl=https%3a%2f%2fwww.smartsoftgaming.com&StopUrl=&Skin=&chat=&JurisdictionName=RO&ClientRegion=",
+        "about:blank",
+        "about:blank",
+        "about:blank"
+      ],
+      "screenshot": "/workspace/work/r9-online-demo-evidence/double-x.png",
+      "visual_state": "Loaded HOW TO PLAY overlay; red/black2x, green15x selections; timed multiplayer reel; balance 20000 DMO."
+    }
+  ],
+  "games": [
+    {
+      "id": "foxy-20",
+      "local_name": "Foxy 20",
+      "local_type": "foxy20",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 95.75943289684935,
+      "local_max_multiplier": 1250,
+      "smartsoft_index_checked": true,
+      "status": "near_title_mapping_unconfirmed",
+      "vendor": "SmartSoft",
+      "official_title": "Foxy Hot 20",
+      "official_url": "https://www.smartsoftgaming.com/games/foxy-hot-20",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "demo_availability": "Explicit Play Demo; priority4 agent observes it",
+      "note": "Foxy20 is not exact official title. Do not silently equate Hot Foxy20/Foxy20/FoxyHot20.",
+      "priority4_comparison_report": "/workspace/work/r9-online-reference-audit.json"
+    },
+    {
+      "id": "hot-samba",
+      "local_name": "Hot Samba",
+      "local_type": "samba",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 88,
+      "local_max_multiplier": 75,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Hot Samba",
+      "official_url": "https://www.smartsoftgaming.com/games/hot-samba",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "demo_availability": "Explicit Play Demo link on official catalogue",
+      "comparison_opportunities": [
+        "Official page prose says5reels20paylines with scatter free spins; specifications on same page say3reels3rows5paylines,RTP97.05%.",
+        "Local config RTP88%,max75x. Demo remained loading in current observation.",
+        "Resolve vendor-page contradiction in a fully loaded official demo/help panel before treating reel/line/RTP claims as requirements."
+      ]
+    },
+    {
+      "id": "stars",
+      "local_name": "Wild Multi Stars",
+      "local_type": "stars10",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 95.99259192977246,
+      "local_max_multiplier": 6000,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Wild Multi Stars",
+      "official_url": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "demo_availability": "Explicit Play Demo link on official catalogue",
+      "priority4_comparison_report": "/workspace/work/r9-online-reference-audit.json"
+    },
+    {
+      "id": "hot-777",
+      "local_name": "Multi Hot 5",
+      "local_type": "hot5",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 150,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Multi Hot 5",
+      "official_url": "https://www.smartsoftgaming.com/games/multi-hot-5",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "demo_availability": "Explicit Play Demo link on official catalogue",
+      "priority4_comparison_report": "/workspace/work/r9-online-reference-audit.json"
+    },
+    {
+      "id": "plinko",
+      "local_name": "Plinko X",
+      "local_type": "plinko",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 49.56337602097408,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Plinko X",
+      "official_url": "https://www.smartsoftgaming.com/games/plinkox",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "demo_availability": "Explicit Play Demo link on official catalogue",
+      "comparison_opportunities": [
+        "Official demo visibly offers Low/Medium/High modes with displayed maximum wins 200x/1000x/10000x.",
+        "Inspected existing static renderer uses twelve fixed left/right bounces, thirteen buckets, no risk selector; configuration max multiplier 49.563376.",
+        "Compare risk selection, board/bucket layout, amount selection, hold/drop interaction and rules. Treat this as a materially different local game until verified."
+      ]
+    },
+    {
+      "id": "double",
+      "local_name": "Double X",
+      "local_type": "double",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 1.92,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Double X",
+      "official_url": "https://www.smartsoftgaming.com/games/doublex",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "demo_availability": "Explicit Play Demo link on official catalogue",
+      "comparison_opportunities": [
+        "Official demo displays timed multiplayer roulette/reel with red2x, green15x, black2x.",
+        "Inspected local static renderer offers red/black choice with 50% chance and 1.92x return, no green choice or shared round.",
+        "Compare round countdown/history, all3 choices, classic/wheel toggle and rules; current semantics differ materially."
+      ]
+    },
+    {
+      "id": "safari-simba",
+      "local_name": "Safari Simba",
+      "local_type": "safari",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 98.8875572859463,
+      "local_max_multiplier": 800,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Safari Simba",
+      "official_url": "https://www.smartsoftgaming.com/games/safari-simba-2",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "demo_availability": "Explicit Play Demo link on official catalogue",
+      "comparison_opportunities": [
+        "Official product page specifies3 reels3rows5paylines,RTP97.05%; demo loaded3x3 board and1x/3x/5x side multiplier display.",
+        "Local config has3-column paylines5 and RTP98.8875572859463%,max800x.",
+        "Compare expanding wild/free spins behavior, multiplier presentation and actual approved math; screenshot does not validate RTP."
+      ]
+    },
+    {
+      "id": "fruity-wilds",
+      "local_name": "Fruity Wilds",
+      "local_type": "fruity",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 92.4001101999996,
+      "local_max_multiplier": 2500,
+      "smartsoft_index_checked": true,
+      "status": "exact_official_title_variant_unresolved",
+      "vendor": "Galaxsys",
+      "official_url": "https://galaxsys.co/games/Fruity-Wilds/",
+      "demo_url": "https://galaxsys.co/games/demo/",
+      "demo_availability": "Official indexed demo catalogue advertises title and5/10line variants; direct product request403; playable demo not verified",
+      "search_query": "\"Fruity Wilds\" slot official game",
+      "search_evidence": "/workspace/work/r9-online-search-0.json",
+      "comparison_opportunities": [
+        "Official Galaxsys indexed product text:5-reel game,96%RTP,cascading wins,increasing multipliers,bonus buy,up to20free spins,jackpot tiers up to500x.",
+        "Local config has5paylines,RTP92.4001102%,max2500x,20bonus spins. Official demo catalogue separately lists Fruity Wilds,5Lines,and10Lines variants; exact variant remains unresolved.",
+        "Direct official fetch returned403; public search index supplied official metadata. Demo advertised, direct playable launch not verified. Do not confuse jackpot maximum with overall maximum return."
+      ]
+    },
+    {
+      "id": "emerald-orchard",
+      "local_name": "Emerald Orchard",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Emerald Orchard\" slot game",
+      "search_evidence": "/workspace/work/r9-online-search-0.json"
+    },
+    {
+      "id": "ruby-lanterns",
+      "local_name": "Ruby Lanterns",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Ruby Lanterns\" slot game",
+      "search_evidence": "/workspace/work/r9-online-search-0.json"
+    },
+    {
+      "id": "sapphire-tide",
+      "local_name": "Sapphire Tide",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Sapphire Tide\" slot game",
+      "search_evidence": "/workspace/work/r9-online-search-0.json"
+    },
+    {
+      "id": "amber-savannah",
+      "local_name": "Amber Savannah",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Amber Savannah\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-1.json"
+    },
+    {
+      "id": "moon-garden",
+      "local_name": "Moon Garden",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Moon Garden\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-1.json"
+    },
+    {
+      "id": "golden-hive",
+      "local_name": "Golden Hive",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Golden Hive\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-1.json"
+    },
+    {
+      "id": "jade-bamboo",
+      "local_name": "Jade Bamboo",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Jade Bamboo\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-1.json"
+    },
+    {
+      "id": "crimson-canyon",
+      "local_name": "Crimson Canyon",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Crimson Canyon\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-2.json"
+    },
+    {
+      "id": "violet-cosmos",
+      "local_name": "Violet Cosmos",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Violet Cosmos\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-2.json"
+    },
+    {
+      "id": "pearl-lagoon",
+      "local_name": "Pearl Lagoon",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "local_original_exact_vendor_name_collision",
+      "vendor": "Play’n GO",
+      "official_url": "https://www.playngo.com/games/pearl-lagoon",
+      "demo_url": "https://released.playngonetwork.com/casino/ContainerLauncher?pid=2&gid=pearllagoon&lang=en_GB&practice=1&channel=desktop&demo=2",
+      "demo_availability": "Official page explicit Play game for FREE link; gameplay not tested",
+      "note": "Local multiplier-slot0..5x is not vendor game. Official title includes wild/scatter/free-spin mechanics; identity or renaming review first.",
+      "search_query": "\"Pearl Lagoon\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-2.json"
+    },
+    {
+      "id": "copper-caravan",
+      "local_name": "Copper Caravan",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Copper Caravan\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-2.json"
+    },
+    {
+      "id": "crystal-peaks",
+      "local_name": "Crystal Peaks",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Crystal Peaks\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-3.json"
+    },
+    {
+      "id": "coral-parade",
+      "local_name": "Coral Parade",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Coral Parade\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-3.json"
+    },
+    {
+      "id": "silver-falcons",
+      "local_name": "Silver Falcons",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Silver Falcons\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-3.json"
+    },
+    {
+      "id": "sunrise-harvest",
+      "local_name": "Sunrise Harvest",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Sunrise Harvest\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-3.json"
+    },
+    {
+      "id": "neon-circuit",
+      "local_name": "Neon Circuit",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Neon Circuit\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-4.json"
+    },
+    {
+      "id": "aurora-trail",
+      "local_name": "Aurora Trail",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Aurora Trail\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-4.json"
+    },
+    {
+      "id": "lotus-palace",
+      "local_name": "Lotus Palace",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Lotus Palace\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-4.json"
+    },
+    {
+      "id": "desert-oasis",
+      "local_name": "Desert Oasis",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "local_original_third_party_vendor_collision_unverified",
+      "vendor": "Gameplay Interactive (third-party attribution)",
+      "official_url": null,
+      "reference_url": "https://www.askgamblers.com/casino-games/online-slots/reviews/desert-oasis-gameplay-interactive",
+      "demo_url": null,
+      "demo_availability": "Third-party demo listings found; no official vendor demo verified",
+      "note": "Exact title attributed by multiple third parties; official source unresolved. Do not treat as equivalent local game.",
+      "search_query": "\"Desert Oasis\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-4.json"
+    },
+    {
+      "id": "citrus-grove",
+      "local_name": "Citrus Grove",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Citrus Grove\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-5.json"
+    },
+    {
+      "id": "indigo-temple",
+      "local_name": "Indigo Temple",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Indigo Temple\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-5.json"
+    },
+    {
+      "id": "tropical-rhythm",
+      "local_name": "Tropical Rhythm",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Tropical Rhythm\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-5.json"
+    },
+    {
+      "id": "maple-treasures",
+      "local_name": "Maple Treasures",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Maple Treasures\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-5.json"
+    },
+    {
+      "id": "arctic-lights",
+      "local_name": "Arctic Lights",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Arctic Lights\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-6.json"
+    },
+    {
+      "id": "velvet-crown",
+      "local_name": "Velvet Crown",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Velvet Crown\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-6.json"
+    },
+    {
+      "id": "rainbow-reef",
+      "local_name": "Rainbow Reef",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Rainbow Reef\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-6.json"
+    },
+    {
+      "id": "scarlet-roses",
+      "local_name": "Scarlet Roses",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Scarlet Roses\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-6.json"
+    },
+    {
+      "id": "mountain-springs",
+      "local_name": "Mountain Springs",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Mountain Springs\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-7.json"
+    },
+    {
+      "id": "cocoa-market",
+      "local_name": "Cocoa Market",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Cocoa Market\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-7.json"
+    },
+    {
+      "id": "jungle-canopy",
+      "local_name": "Jungle Canopy",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Jungle Canopy\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-7.json"
+    },
+    {
+      "id": "star-compass",
+      "local_name": "Star Compass",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Star Compass\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-7.json"
+    },
+    {
+      "id": "peach-blossom",
+      "local_name": "Peach Blossom",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Peach Blossom\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-8.json"
+    },
+    {
+      "id": "azure-feathers",
+      "local_name": "Azure Feathers",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Azure Feathers\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-8.json"
+    },
+    {
+      "id": "golden-acacia",
+      "local_name": "Golden Acacia",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Golden Acacia\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-8.json"
+    },
+    {
+      "id": "mint-meadows",
+      "local_name": "Mint Meadows",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Mint Meadows\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-8.json"
+    },
+    {
+      "id": "fire-opal",
+      "local_name": "Fire Opal",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "local_original_near_vendor_title_unverified",
+      "vendor": "IGT (third-party attribution)",
+      "official_title": "Fire Opals",
+      "official_url": null,
+      "reference_url": "https://www.intergameonline.com/igaming/products/igt-fire-opals",
+      "demo_url": null,
+      "demo_availability": "No official demo verified",
+      "note": "Plural Fire Opals is a near-name match, not exact. Local original may be unrelated.",
+      "search_query": "\"Fire Opal\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-9.json"
+    },
+    {
+      "id": "midnight-harbor",
+      "local_name": "Midnight Harbor",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Midnight Harbor\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-9.json"
+    },
+    {
+      "id": "royal-amethyst",
+      "local_name": "Royal Amethyst",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Royal Amethyst\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-9.json"
+    },
+    {
+      "id": "autumn-lantern",
+      "local_name": "Autumn Lantern",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Autumn Lantern\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-9.json"
+    },
+    {
+      "id": "ocean-compass",
+      "local_name": "Ocean Compass",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Ocean Compass\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-10.json"
+    },
+    {
+      "id": "honey-orchard",
+      "local_name": "Honey Orchard",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Honey Orchard\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-10.json"
+    },
+    {
+      "id": "silver-bamboo",
+      "local_name": "Silver Bamboo",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Silver Bamboo\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-10.json"
+    },
+    {
+      "id": "scarlet-phoenix",
+      "local_name": "Scarlet Phoenix",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Scarlet Phoenix\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-10.json"
+    },
+    {
+      "id": "jade-horizon",
+      "local_name": "Jade Horizon",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Jade Horizon\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-11.json"
+    },
+    {
+      "id": "amber-fireflies",
+      "local_name": "Amber Fireflies",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Amber Fireflies\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-11.json"
+    },
+    {
+      "id": "diamond-skies",
+      "local_name": "Diamond Skies",
+      "local_type": "multiplier-slot",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 5,
+      "smartsoft_index_checked": true,
+      "status": "local_original_exact_vendor_name_collision",
+      "vendor": "High5Games; publisher IGT",
+      "official_url": "https://www.high5games.com/games/game/diamond-skies",
+      "demo_url": null,
+      "demo_availability": "No title-specific playable demo link verified; official page lists land-based platform",
+      "note": "Official page lists4by5reels,178paylines,split-symbol/connected-line features. Local multiplier-slot0..5x is distinct; identity or renaming review first.",
+      "search_query": "\"Diamond Skies\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-11.json"
+    },
+    {
+      "id": "candy-grove",
+      "local_name": "Candy Grove",
+      "local_type": "candy-grove",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 50,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Candy Grove\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-11.json"
+    },
+    {
+      "id": "skytrail",
+      "local_name": "Skytrail",
+      "local_type": "skytrail",
+      "local_engine": "Lacaso local engine v2",
+      "local_rtp": 96,
+      "local_max_multiplier": 10,
+      "smartsoft_index_checked": true,
+      "status": "no_official_casino_match_found",
+      "vendor": null,
+      "official_url": null,
+      "demo_url": null,
+      "demo_availability": "No verified matching official casino demo found",
+      "note": "Local original. Name checked against74-entry SmartSoft index and quoted general web search. Some names return unrelated games/businesses. Search absence is not proof of uniqueness.",
+      "search_query": "\"Skytrail\" slot game official",
+      "search_evidence": "/workspace/work/r9-online-search-12.json"
+    },
+    {
+      "id": "multi_hot_100",
+      "local_name": "Multi Hot 100",
+      "local_type": "dedicated curated route",
+      "source": "/workspace/work/superwin-two-games/player-machines/portal/portal.mjs:12",
+      "in_legacy_config": false,
+      "status": "exact_official_title",
+      "vendor": "SmartSoft",
+      "official_title": "Multi Hot 100",
+      "official_url": "https://www.smartsoftgaming.com/games/multi-hot-100",
+      "demo_url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
+      "demo_availability": "Explicit Play Demo link on official catalogue; observed by priority4 agent",
+      "priority4_comparison_report": "/workspace/work/r9-online-reference-audit.json",
+      "comparison_opportunities": [
+        "See priority4 interactive audit for actual 5x4/100-line demo and current dedicated build comparison."
+      ]
+    }
+  ],
+  "configured_games_count": 56,
+  "curated_additional_games_count": 1,
+  "audited_games_count": 57
+}
