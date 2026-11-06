@@ -44,6 +44,27 @@ body[data-game="multi_hot_5_video"] .secondary [data-multi-art]:disabled{filter:
 body[data-game="multi_hot_5_video"] .secondary [data-multi-art]{clip-path:polygon(50% 2%,95% 25%,95% 75%,50% 98%,5% 75%,5% 25%)}
 
 body[data-game="multi_hot_5_video"] #spin:disabled:not([data-multi-face="stop"]) .multi-spin-face{opacity:.4}
+/* Multi Hot uses original cabinet components behind the live amount and actions. */
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #spin{background-image:none}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #spin::before{content:"";position:absolute;inset:-6%;z-index:-1;background:transparent var(--mh5-spin) center/100% 100% no-repeat;pointer-events:none}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #spin[data-multi-face="stop"]::before{background-image:var(--mh5-spin-stop)}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .spin-controls::before{inset:25% 7% 3%;background-image:var(--mh5-bar)}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .secondary #auto{background-image:var(--mh5-auto);clip-path:none}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .secondary #gamble{background-image:var(--mh5-double);clip-path:none}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .secondary #auto:disabled{background-image:var(--mh5-auto-disabled);filter:none;opacity:1}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .secondary #gamble:disabled{background-image:var(--mh5-double-disabled);filter:none;opacity:1}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] :is(#bet-less,#bet-more){border:0;border-radius:0;box-shadow:none;background:transparent var(--mh5-minus) center/100% 100% no-repeat;color:transparent;text-shadow:none}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #bet-more{background-image:var(--mh5-plus)}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #bet-less:disabled{background-image:var(--mh5-minus-disabled)}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #bet-more:disabled{background-image:var(--mh5-plus-disabled)}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #spin .multi-spin-win,body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #spin .multi-spin-currency{font-family:'MH5 Intro caps',Arial,sans-serif}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .brandbar #menu-top{background-image:var(--mh5-menu),radial-gradient(circle at 40% 30%,#102a24cc,#031a14cc);background-size:60% auto,100% 100%;background-position:center;background-repeat:no-repeat;border:1px solid #687c7655;border-radius:50%;box-shadow:inset 0 0 2px #abc7b655}
+body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .brandbar #menu-top svg{visibility:hidden}
+@media(hover:hover){
+ body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] #spin:not(:disabled):hover::before{background-image:var(--mh5-spin-hover)}
+ body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .secondary #auto:not(:disabled):hover{background-image:var(--mh5-auto-hover)}
+ body[data-game="multi_hot_5_video"][data-native-mh5-controls="true"] .secondary #gamble:not(:disabled):hover{background-image:var(--mh5-double-hover)}
+}
 
 body[data-game="hot_foxy_20"] .secondary #gamble,body[data-game="hot_foxy_20"] .secondary #collect{height:auto;aspect-ratio:1;top:21%}body[data-game="hot_foxy_20"] .secondary #auto svg{stroke-width:3}body[data-game="hot_foxy_20"] .meter-name{font-size:2.2cqw}
 
@@ -78,6 +99,27 @@ body[data-game="hot_foxy_20"] #sound[aria-pressed="true"]{color:#f4bd2f}
 .foxy-auto-loop,.foxy-bet-badge,.spin-stake-preview{display:none}
 body[data-game="hot_foxy_20"] .spin-controls{top:74.8%}
 body[data-game="hot_foxy_20"] #spin{width:35%}
+/* Original control sprites share the existing buttons, state and pointer handlers. */
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="ready"] #spin{background-image:var(--foxy-spin)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="ready"]:has(#turbo[aria-pressed="true"]) #spin{background-image:var(--foxy-spin-quick)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="animating"] #spin{background-image:var(--foxy-spin-stop)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="animating"]:has(#turbo[aria-pressed="true"]) #spin{background-image:var(--foxy-spin-quick-stop)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"]:is([data-state="ready"],[data-state="animating"]) #spin>:is(svg,.stop-icon){visibility:hidden}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"]:is([data-state="ready"],[data-state="animating"]) #spin>strong{visibility:visible;color:#37c3a5;font-family:'Foxy Intro caps',Arial,sans-serif}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="ready"] #spin>strong{font-size:2.6cqw;line-height:1.45;bottom:29%}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"]:is([data-state="ready"],[data-state="animating"]) #spin::before{display:none}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #turbo{opacity:1;filter:none}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #turbo::before{content:"";position:absolute;inset:-40% -50% -20%;background-image:var(--foxy-lightning);background-size:var(--foxy-lightning-size);background-position:var(--foxy-lightning-position);background-repeat:no-repeat;pointer-events:none}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #turbo svg{visibility:hidden}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #turbo[aria-pressed="true"]::before{background-image:var(--foxy-lightning-active);background-size:var(--foxy-lightning-active-size);background-position:var(--foxy-lightning-active-position)}
+@media(hover:hover){
+ body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="ready"] #spin:not(:disabled):hover{background-image:var(--foxy-spin-hover)}
+ body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="ready"]:has(#turbo[aria-pressed="true"]) #spin:not(:disabled):hover{background-image:var(--foxy-spin-quick-hover)}
+ body[data-game="hot_foxy_20"][data-native-foxy-controls="true"][data-state="animating"]:has(#turbo[aria-pressed="true"]) #spin:not(:disabled):hover{background-image:var(--foxy-spin-quick-stop-hover)}
+ body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #turbo[aria-pressed="false"]:hover::before{background-image:var(--foxy-lightning-hover);background-size:var(--foxy-lightning-hover-size);background-position:var(--foxy-lightning-hover-position)}
+ body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #auto:not(:disabled):hover{background-image:var(--foxy-auto-hover)}
+ body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #bet-quick:not(:disabled):hover{background-image:var(--foxy-bet-hover)}
+}
 body[data-game="hot_foxy_20"] #spin::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;z-index:1;box-shadow:0 0 0 2px #003e29,0 0 0 3px #195f36,inset 0 0 0 1px #7f9f3a,inset 0 0 0 3px #004638,inset 0 0 0 4px #567c31,inset 0 0 0 6px #004235}
 body[data-game="hot_foxy_20"] .secondary #auto{position:absolute;left:-3.6%;top:-12.4%;width:23.6%;height:auto;border-color:#81c13d;box-shadow:inset 0 0 0 1px #287529,inset 0 0 7px #63ba63,0 0 2px #70be42}
 body[data-game="hot_foxy_20"] .secondary #auto>.auto-loop{display:none}
@@ -85,6 +127,21 @@ body[data-game="hot_foxy_20"] .secondary #auto>.foxy-auto-loop{display:block;wid
 body[data-game="hot_foxy_20"] #bet-quick{right:17.2%;top:78.1%;width:14.65%;border-color:#81c13d;box-shadow:inset 0 0 0 1px #287529,inset 0 0 7px #63ba63,0 0 2px #70be42}
 body[data-game="hot_foxy_20"] #bet-quick>.bet-generic{display:none}
 body[data-game="hot_foxy_20"] #bet-quick>.foxy-bet-badge{display:block;width:65%;height:65%;margin:17.5%;filter:drop-shadow(0 0 2px #d6fff1);stroke:none}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .secondary #auto,body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #bet-quick{border:0;background:transparent var(--foxy-auto) center/100% 100% no-repeat;box-shadow:none}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] #bet-quick{background-image:var(--foxy-bet)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .secondary #auto[aria-pressed="true"]{background-image:var(--foxy-auto-stop)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] :is(#auto,#bet-quick)>svg{visibility:hidden}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .footer{left:3%;right:1%}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .footer #menu{background:transparent var(--foxy-menu) center/75% auto no-repeat}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .footer #sound{background:transparent var(--foxy-sound-on) center/58% auto no-repeat}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .footer #sound[aria-pressed="true"]{background-image:var(--foxy-sound-off);background-size:70% auto}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .footer :is(#menu,#sound)>svg{visibility:hidden}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .meters{left:12.4%;right:12.4%;gap:4.4%;height:5.1%;top:92.8%}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .meters>div,body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .meters>button{border:0;border-radius:0;box-shadow:none;background:transparent var(--foxy-footer-balance) center/100% 100% no-repeat;padding-top:5px}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .meters>#bet-open{background-image:var(--foxy-footer-bet)}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .meter-name{font:3cqw/1.2 'Foxy Intro regular',Arial,sans-serif;color:#00d6a1}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .reading{font:3.2cqw/1.2 'Foxy Intro caps',Arial,sans-serif;color:#fff}
+body[data-game="hot_foxy_20"][data-native-foxy-controls="true"] .meters .unit{font:2.3cqw 'Foxy Intro regular',Arial,sans-serif}
 body[data-game="multi_hot_5_video"] .spin-stake-preview{position:absolute;left:13%;top:37%;width:13%;height:39%;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none;color:#fff25d;font-size:4.2cqw;font-weight:900;line-height:1.2;text-shadow:0 1px 2px #11281a}
 body[data-game="multi_hot_5_video"] .spin-stake-preview strong{font:inherit}
 body[data-game="multi_hot_5_video"] .spin-stake-preview small{font:700 2.8cqw Arial;margin-top:4px;color:#ffec82}

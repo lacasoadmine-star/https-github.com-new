@@ -17,7 +17,9 @@ const allGames=['multi_hot_5_video','hot_foxy_20','wild_multi_stars','multi_hot_
 const userAgent=process.env.SUPERWIN_QA_USER_AGENT||'Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36';
 const minimumPlayMs=Number(process.argv.find(x=>x.startsWith('--min-play-ms='))?.split('=')[1]||0);
 const extendedControls=minimumPlayMs>0||process.argv.includes('--extended-controls');
-const backgroundDurations={multi_hot_5_video:1.465,multi_hot_100:1.465,hot_foxy_20:1.199977324};
+const nativeBundleCounts=Object.freeze({multi_hot_5_video:4,hot_foxy_20:12});
+const nativeSymbolCounts=Object.freeze({multi_hot_5_video:9,hot_foxy_20:8});
+const backgroundDurations={multi_hot_5_video:87.1706122449,multi_hot_100:1.465,hot_foxy_20:96};
 if(!Number.isInteger(minimumPlayMs)||minimumPlayMs<0||minimumPlayMs>3600000)throw Error('Invalid minimum play duration');
 if(!Number.isInteger(width)||width<320||width>1024||!Number.isInteger(regularRounds)||regularRounds<1||regularRounds>1000||!selectedGames.length||selectedGames.some(id=>!allGames.includes(id)))throw Error('Invalid QA width, rounds or game selection');
 await mkdir(out,{recursive:true});
@@ -30,13 +32,13 @@ async function run(id){
  let local,engine;const expectedShape={multi_hot_5_video:[3,3,5],hot_foxy_20:[5,3,20],wild_multi_stars:[5,3,20],multi_hot_100:[5,4,100]}[id];
  const contextOptions={viewport:{width,height:width===360?800:width===430?932:844},deviceScaleFactor:width===360?3:2,isMobile:true,hasTouch:true,userAgent},context=await browser.newContext(contextOptions);
  const page=await context.newPage(),errors=[],requests=[],checks=[];
- page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>requests.push({method:r.method(),url:r.url()}));
+ page.on('pageerror',e=>errors.push(String(e.stack||e)));page.on('request',r=>requests.push({method:r.method(),url:r.url()}));
  const check=(label,ok)=>{checks.push({label,ok:!!ok});if(!ok)throw Error(label);};
  const call=async(path,body)=>{const r=body===undefined?await context.request.get(origin+path,{maxRetries:2}):await context.request.post(origin+path,{data:body,maxRetries:2});if(!r.ok())throw Error(path+': '+r.status()+' '+await r.text());return r.json();};
  const report=()=>call('/qa/report'),plan=values=>call('/qa/plan',{gameId:id,...values});
  const diag=()=>page.evaluate(async()=>{const src=document.querySelector('script[type="module"][src]').src;return (await import(src)).diagnostics();});
  const untilDiagnostics=async(predicate,label,timeout=15000)=>{const end=Date.now()+timeout;while(Date.now()<end){const d=await diag();if(predicate(d))return d;await page.waitForTimeout(40);}throw Error('Timed out '+label);};
- const ready=()=>page.waitForFunction(()=>document.body.dataset.state==='ready',{},{timeout:15000});
+ const ready=async()=>{await page.waitForFunction(()=>document.body.dataset.state==='ready',{},{timeout:15000});if(nativeBundleCounts[id])await untilDiagnostics(d=>d.nativeAnimation?.ready&&d.nativeAnimation.instances===nativeBundleCounts[id]&&d.nativeAnimation.draws>0&&(id!=='multi_hot_5_video'||d.nativeAnimation.decodedPages>=4),'native decorative timelines loaded and rendered',45000);};
  const tap=async selector=>{const startedAt=Date.now();await page.locator(selector).tap({timeout:6000});outcome.controlInteractions.push({selector,startedAt,endedAt:Date.now()});};
  const close=dialog=>tap(`[data-close="${dialog}"]`);
  const stopIfAnimating=async point=>{if(await page.locator('body').getAttribute('data-state')!=='animating')return false;const startedAt=Date.now();await page.touchscreen.tap(point.x,point.y);outcome.controlInteractions.push({selector:'#spin',input:'native touchscreen STOP while animating',startedAt,endedAt:Date.now()});return true;};
@@ -113,17 +115,18 @@ async function run(id){
   check('displayed balance equals HTTP ledger',await page.locator('#balance').textContent()===after.balance);
   check('displayed win equals authoritative receipt',await page.locator('#win').textContent()===r.finalWin);
   check('authoritative final grid rendered',JSON.stringify(d.grid)===JSON.stringify(visibleGrid(getGame(id),r.stops)));check('authoritative final multiplier rendered',d.multiplier===r.wheelMultiplier);
-  check('trusted interaction unlocks actual audio',d.audioState==='running'&&d.decodedSoundSamples===7);
+  check('trusted interaction unlocks actual audio',d.audioState==='running'&&d.decodedSoundSamples===(d.gameId==='hot_foxy_20'?15:7));
   if(minimumPlayMs){const expectedDuration=backgroundDurations[id];check('background audio matches verified game mapping',expectedDuration?d.backgroundAudio?.playing&&Math.abs(d.backgroundAudio.durationSeconds-expectedDuration)<.02:!d.backgroundAudio?.loaded&&!d.backgroundAudio?.playing);}
-  check('ledger balances after round',after.ledgerBalanced);return {...receipt,...r,qa:{renderedGridMatchesAuthority:JSON.stringify(d.grid)===JSON.stringify(visibleGrid(getGame(id),r.stops)),renderedMultiplier:d.multiplier,audioState:d.audioState,decodedSoundSamples:d.decodedSoundSamples,backgroundAudio:d.backgroundAudio,turbo:d.turbo,ledgerBalanced:after.ledgerBalanced,motionMode:natural?'natural':'trusted STOP',observedAt:Date.now(),elapsedPlayMs:playClock?performance.now()-playClock:null}};
+  check('ledger balances after round',after.ledgerBalanced);return {...receipt,...r,qa:{renderedGridMatchesAuthority:JSON.stringify(d.grid)===JSON.stringify(visibleGrid(getGame(id),r.stops)),renderedMultiplier:d.multiplier,audioState:d.audioState,decodedSoundSamples:d.decodedSoundSamples,backgroundAudio:d.backgroundAudio,nativeAnimation:d.nativeAnimation,turbo:d.turbo,ledgerBalanced:after.ledgerBalanced,motionMode:natural?'natural':'trusted STOP',observedAt:Date.now(),elapsedPlayMs:playClock?performance.now()-playClock:null}};
  }
  try{
   local=gameConfig(id);engine=getGame(id);if(id==='multi_hot_5_video'&&width===390)await checkSoundNo();
   await call('/qa/session',{balance:'100000.00'});const remote=await call('/api/slots/games/'+id),pinned=publicGames().find(game=>game.id===id);validateModel(remote,local);check('HTTP model matches frontend registry',true);check('HTTP model matches authoritative public engine',JSON.stringify(remote)===JSON.stringify({...pinned,enabled:true}));check('game has exact reference geometry and line count',remote.reels===expectedShape[0]&&remote.rows===expectedShape[1]&&remote.paylines===expectedShape[2]&&remote.linePaths.length===expectedShape[2]);check('all payline rows fit exact game geometry',remote.linePaths.every(line=>line.length===expectedShape[0]&&line.every(row=>Number.isInteger(row)&&row>=0&&row<expectedShape[1])));check('frontend reel strips match authoritative engine',JSON.stringify(local.strips)===JSON.stringify(engine.reelStrips));outcome.model={reels:remote.reels,rows:remote.rows,paylines:remote.paylines,mathVersion:remote.mathVersion,engineVersion:remote.engineVersion,freeSpins:remote.features.freeSpins};await page.goto(origin+'/games/'+id,{waitUntil:'domcontentloaded'});await ready();
-  await chooseSoundYes();await untilDiagnostics(d=>d.artworkLoaded&&d.cabinetArtworkLoaded&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded)&&d.decodedSoundSamples===7,'decoded cabinet artwork and seven foreground samples');
+  await chooseSoundYes();await untilDiagnostics(d=>d.artworkLoaded&&d.cabinetArtworkLoaded&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded)&&d.decodedSoundSamples===(d.gameId==='hot_foxy_20'?15:7)&&(!nativeSymbolCounts[id]||(d.nativeArtworkLoaded&&d.nativeSymbolCount===nativeSymbolCounts[id]&&(id!=='hot_foxy_20'||d.nativeForegroundLoaded))),'decoded cabinet artwork and selected-game foreground samples',45000);
   if(minimumPlayMs&&backgroundDurations[id])await untilDiagnostics(d=>d.backgroundAudio?.playing,'consented user-sourced background loop');
   check('real authenticated HTTP session',await page.locator('#balance').textContent()==='100000.00');check('fresh authenticated WIN starts at zero',await page.locator('#win').textContent()==='0.00');
   const bootDiagnostics=await diag();check('canvas geometry matches actual game rows and reels',bootDiagnostics.geometry.columns===expectedShape[0]&&bootDiagnostics.geometry.rows===expectedShape[1]);check('one live machine canvas without video or iframe',await page.locator('canvas#machine-canvas').count()===1&&await page.locator('video,iframe').count()===0);
+  if(nativeBundleCounts[id]){check('native presentation bundle count matches selected game',bootDiagnostics.nativeAnimation?.ready&&bootDiagnostics.nativeAnimation.instances===nativeBundleCounts[id]);check('native decorative timelines rendered',bootDiagnostics.nativeAnimation.draws>0);if(id==='multi_hot_5_video')check('all native MH5 logo pages decoded',bootDiagnostics.nativeAnimation.decodedPages>=4);}else check('other games retain existing presentation',bootDiagnostics.nativeAnimation===null&&!bootDiagnostics.nativeArtworkLoaded&&bootDiagnostics.nativeSymbolCount===0);
   const alternateBet=remote.betLevels.includes('4.00')?'4.00':'5.00';await tap('#bet-open');await tap(`[data-bet="${alternateBet}"]`);check('trusted stake change to legal alternate bet',await page.locator('#bet-value').textContent()===alternateBet);await tap('[data-bet="2.00"]');await close('settings');
   if(id==='multi_hot_5_video'){
    check('MH5 initial betting face shows authorized2ETB stake',await page.locator('#spin').getAttribute('data-multi-face')==='bet'&&await page.locator('.multi-spin-win').textContent()==='2.00');

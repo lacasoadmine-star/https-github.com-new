@@ -13,6 +13,37 @@ const audio=new SoundEngine(g.visual.note,g.id),api=new WalletAdapter(),renderer
 let lastWin='0.00',soundChoice=false;
 let epoch=0,betIndex=g.betLevels.indexOf('2.00'),signedIn=false,balance=null,lastRound=null,free=0,auto=0,autoEpoch=0,actionBusy=false,canGamble=false,gambleValue='0.00',gambleAttempt=0,legacy=false,disposed=false,refreshTimer,turbo=false,holdTimer,holdStarted=false,suppressSpinClick=false;
 applyMultiControlArt(document);if(g.id==='wild_multi_stars')$('spin').style.setProperty('--reference-spin','url("'+starsIdleSpin+'")');if(g.id==='multi_hot_100')$('spin').style.setProperty('--reference-spin','url("'+hundredIdleSpin+'")');
+function loadControlFonts(prefix,fonts){
+ if(!fonts?.regular||typeof FontFace==='undefined')return;
+ for(const [name,source]of Object.entries(fonts)){
+  const bytes=Uint8Array.from(atob(source.slice(source.indexOf(',')+1)),value=>value.charCodeAt(0)),font=new FontFace(prefix+' Intro '+name,bytes);
+  void font.load().then(loaded=>{if(!disposed)document.fonts.add(loaded);}).catch(()=>{});
+ }
+}
+if(g.id==='hot_foxy_20')void import('./official-foxy-art.mjs').then(({sprites,spriteMeta,fonts})=>{
+ if(disposed)return;
+ const frames={spin:'Buttons/Spin','spin-hover':'Buttons/SpinHover','spin-stop':'Buttons/SpinStop','spin-quick':'Buttons/SpinTurbo','spin-quick-hover':'Buttons/SpinTurboHover','spin-quick-stop':'Buttons/SpinTurboStop','spin-quick-stop-hover':'Buttons/SpinTurboStopHover',lightning:'Buttons/QuickPlay','lightning-active':'Buttons/QuickPlayTurbo','lightning-hover':'Buttons/QuickPlayHover',auto:'Buttons/AutoPlay','auto-hover':'Buttons/AutoPlayHover','auto-stop':'Buttons/AutoPlayStop',bet:'Buttons/Bet','bet-hover':'Buttons/BetHover',menu:'Buttons/Menu','sound-on':'Buttons/SoundOn','sound-off':'Buttons/SoundOff','footer-balance':'Vertical/Start/FooterBalance','footer-bet':'Vertical/Start/FooterBet'};
+ if(Object.values(frames).some(key=>!sprites[key]||!spriteMeta[key]))return;
+ for(const [name,key]of Object.entries(frames)){
+  document.body.style.setProperty('--foxy-'+name,'url("'+sprites[key]+'")');
+  if(name.startsWith('lightning')){
+   const {sourceSize:source,spriteSourceSize:trim}=spriteMeta[key];
+   document.body.style.setProperty('--foxy-'+name+'-size',100*trim.w/source.w+'% '+100*trim.h/source.h+'%');
+   document.body.style.setProperty('--foxy-'+name+'-position',(source.w===trim.w?50:100*trim.x/(source.w-trim.w))+'% '+(source.h===trim.h?50:100*trim.y/(source.h-trim.h))+'%');
+  }
+ }
+ loadControlFonts('Foxy',fonts);
+ document.body.dataset.nativeFoxyControls='true';
+}).catch(()=>{});
+if(g.id==='multi_hot_5_video')void import('./official-mh5-art.mjs').then(({sprites,fonts})=>{
+ if(disposed)return;
+ const frames={spin:'Buttons/SpinVertical','spin-hover':'Buttons/SpinVerticalHover','spin-stop':'Buttons/SpinVerticalStop',auto:'Buttons/AutoPlayVertical','auto-hover':'Buttons/AutoPlayVerticalHover','auto-disabled':'Buttons/AutoPlayVerticalDisabled',double:'Buttons/DoubleVertical','double-hover':'Buttons/DoubleVerticalHover','double-disabled':'Buttons/DoubleVerticalDisabled',minus:'Buttons/MinusVertical','minus-disabled':'Buttons/MinusVerticalDisabled',plus:'Buttons/PlusVertical','plus-disabled':'Buttons/PlusVerticalDisabled',bar:'Buttons/BackgroundVertical',menu:'Buttons/Menu'};
+ if(Object.values(frames).some(key=>!sprites[key]))return;
+ for(const [name,key]of Object.entries(frames))document.body.style.setProperty('--mh5-'+name,'url("'+sprites[key]+'")');
+ for(const id of ['auto','gamble'])$(id).style.removeProperty('background-image');
+ loadControlFonts('MH5',fonts);
+ document.body.dataset.nativeMh5Controls='true';
+}).catch(()=>{});
 document.title=g.name+' · ZPLAY';$('settings-title').textContent=g.name;
 if(g.id==='multi_hot_5_video'){$('bet-open').querySelector('.meter-name').textContent='LAST WIN';$('bet-open').setAttribute('aria-label','Last win; open bet settings');}
 try{const choice=localStorage.getItem('zplay:sound-choice');if(choice==='no')audio.toggle();soundChoice=choice==='yes';audio.setBackgroundEnabled(soundChoice);}catch{}
@@ -30,7 +61,7 @@ function update(){
  $('spin-label').textContent=animating?'STOP':waiting?'WAIT':saved?'CONFIRM':free?'FREE SPIN':'SPIN';$('spin-bet').textContent=bet()+' ETB';
  $('spin').setAttribute('aria-label',animating?'Speed up the current spin animation':saved?'Confirm the saved round':'Spin '+bet()+' ETB. Hold to repeat spins.');
  $('bet-value').textContent=bet();$('last-win').textContent=signedIn?lastWin:'—';const previousBet=betIndex>0?g.betLevels[betIndex-1]:null;$('previous-stake').hidden=g.id!=='multi_hot_5_video'||!previousBet;$('previous-stake-amount').textContent=previousBet||'';const nextBet=g.betLevels[Math.min(betIndex+1,g.betLevels.length-1)];$('stake-amount').textContent=g.id==='multi_hot_5_video'?nextBet:bet();$('stake-open').setAttribute('aria-label',g.id==='multi_hot_5_video'?'Choose bet; next level '+nextBet+' ETB':'Choose bet');$('stake-open').disabled=locked||auto>0||free>0;$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
- $('auto').disabled=!signedIn||legacy||actionBusy||!!action||(!auto&&(!!saved||state.locked));$('auto-label').textContent=auto?'STOP '+auto:'AUTO';
+ $('auto').disabled=!signedIn||legacy||actionBusy||!!action||(!auto&&(!!saved||state.locked));$('auto-label').textContent=auto?'STOP '+auto:'AUTO';if(g.id==='hot_foxy_20')$('auto').setAttribute('aria-pressed',String(auto>0));
  $('gamble').disabled=$('gamble-menu').disabled=!(signedIn&&!actionBusy&&!legacy&&((!!action&&!state.locked)||(canGamble&&!locked&&!auto&&!free))); $('collect').disabled=!lastRound||locked||auto>0||Number(gambleValue)<=0;
  document.body.dataset.win=String(Number(gambleValue)>0&&!locked&&!auto);if(g.id!=='multi_hot_5_video'){$('gamble').hidden=!(canGamble&&!locked&&!auto&&!free);$('collect').hidden=!(Number(gambleValue)>0&&!locked&&!auto);}$('free-spins').textContent=free?'FREE SPINS: '+free:'';
  for(const el of $('bet-options').children){el.disabled=locked||auto>0||free>0;el.setAttribute('aria-pressed',String(el.dataset.bet===bet()));}
@@ -44,7 +75,7 @@ async function boot(){
  try{
   const [remote,session]=await Promise.all([api.model(g.id),api.session()]);if(disposed||run!==epoch)return;validateModel(remote,g);
   if(!remote.enabled){setState('unavailable');notice('This game is temporarily unavailable.',true);return;}
-  if(!session.authenticated){signOut();return;}if(session.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');
+  if(!session.authenticated){signOut();renderer.enableNativePresentation?.();return;}if(session.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');
   api.bind(session.sessionId,g.id);signedIn=true;audio.setBackgroundEnabled(soundChoice);setBalance(session.balance);$('win').textContent='0.00';legacy=api.legacyPending();
   const saved=pending(),action=api.pending(api.actionKey);if(saved){if(!g.betLevels.includes(saved.bet))throw Error('SAVED_BET_INVALID');betIndex=g.betLevels.indexOf(saved.bet);}
   const history=await api.history();if(disposed||run!==epoch)return;
@@ -53,7 +84,7 @@ async function boot(){
   const previousWin=history.items.find(item=>item.result_json?.gameId===g.id&&Number(item.result_json.finalWin)>0)?.result_json;if(previousWin){validateRound(previousWin,g,previousWin.bet);lastWin=previousWin.finalWin;}
   if(latest){validateRound(latest,g,latest.bet);renderer.restore(latest);$('win').textContent=latest.finalWin;free=latest.freeSpinsRemaining;if(free){betIndex=g.betLevels.indexOf(latest.bet);}}
   if(action){lastRound={roundId:action.roundId,bet:action.bet};gambleValue=action.expectedStake||'0.00';gambleAttempt=(action.expectedAttempt||1)-1;$('gamble-message').textContent='Confirm your saved '+action.choice+' choice.';showGamble(true);}
-  setState(saved?'pending':'ready');notice(legacy?'A round saved by the earlier game version needs review. Open History before placing another bet.':saved?'A saved round needs confirmation. Press CONFIRM; the same request is reused.':balance==='0.00'&&!free?'Your ETB balance is empty. Deposit funds from your account.':'');update();scheduleRefresh();askSound();
+  setState(saved?'pending':'ready');renderer.enableNativePresentation?.();notice(legacy?'A round saved by the earlier game version needs review. Open History before placing another bet.':saved?'A saved round needs confirmation. Press CONFIRM; the same request is reused.':balance==='0.00'&&!free?'Your ETB balance is empty. Deposit funds from your account.':'');update();scheduleRefresh();askSound();
  }catch(e){if(disposed||run!==epoch)return;if(e.status===401){signOut();return;}if(state.value==='loading')setState('error');notice(e.message,true);audio.event('error');}
 }
 async function sameSession(){const current=await api.session();if(!current.authenticated||current.sessionId!==api.sessionId){signOut('Your session changed. Sign in again before continuing.');return false;}return true;}
@@ -71,7 +102,7 @@ async function oneRound(){
  }catch(e){if(disposed||run!==epoch)return false;auto=0;autoEpoch++;audio.event('error');
   if(e.status===401||e.status===403){signOut('Your session expired. Sign in to recover any saved round.');return false;}
   if(definitelyRejected(e)){api.complete();setState('ready');notice(e.code==='INSUFFICIENT_FUNDS'?'Your ETB balance is too low for this bet.':e.message,true);}
-  else {const saved=pending();if(state.value!=='signedout')setState(saved?'pending':'ready');notice(saved?e.message+' No new round will be created. Press CONFIRM to check this request.':e.message,true);}update();return false;
+  else {const saved=pending();if(state.value!=='signedout')setState(saved?'pending':'ready');renderer.enableNativePresentation?.();notice(saved?e.message+' No new round will be created. Press CONFIRM to check this request.':e.message,true);}update();return false;
  }
 }
 async function spin(){if(state.value==='animating'){renderer.speedUp();stopAuto();return;}if(auto){stopAuto();return;}await oneRound();}
@@ -121,4 +152,4 @@ listen(window,'pagehide',e=>{if(!e.persisted)dispose();else{renderer.pause();sto
 renderer.onCelebration=active=>{document.body.dataset.celebration=String(active);};
 renderer.onContextState=lost=>notice(lost?'Graphics paused. Retry to reload and confirm your saved round.':'',lost);
 update();void boot();
-export const diagnostics=()=>({gameId:g.id,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size,decodedSoundSamples:audio.samples?.size||0,soundSampleNodes:[...audio.nodes].filter(n=>n.sample).length,audioState:audio.context?.state||'not-started',backgroundAudio:audio.backgroundDiagnostics(),cabinetArtworkLoaded:!!renderer.cabinetArt,artworkLoaded:!!renderer.atlas.artworkLoaded,audioSuspended:!!audio.playbackSuspended,reducedMotion:renderer.reducedMotion,particles:renderer.particles.items.length,turbo,autoRemaining:auto,ambientEffects:hasAmbientAnimation(g,renderer.reducedMotion),ambientParticles:ambientParticleCount(g),restoredRoundId:renderer.result?.roundId||null,multiplier:renderer.wheel,grid:renderer.grid,multiArtworkLoaded:!!renderer.multiArt,loopActive:!!audio.reelWanted,loopPhase:audio.currentReelPhase?.()||0,retiringAudioNodes:audio.retiring?.size||0,contextLost:!!renderer.contextLost});
+export const diagnostics=()=>({gameId:g.id,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size,decodedSoundSamples:audio.samples?.size||0,soundSampleNodes:[...audio.nodes].filter(n=>n.sample).length,audioState:audio.context?.state||'not-started',backgroundAudio:audio.backgroundDiagnostics(),nativeAnimation:renderer.nativePresentation?.diagnostics()||null,nativeArtworkLoaded:!!renderer.officialArt,nativeSymbolCount:renderer.atlas.officialSymbolCount||0,nativeForegroundLoaded:!!renderer.officialForeground,cabinetArtworkLoaded:!!renderer.cabinetArt,artworkLoaded:!!renderer.atlas.artworkLoaded,audioSuspended:!!audio.playbackSuspended,reducedMotion:renderer.reducedMotion,particles:renderer.particles.items.length,turbo,autoRemaining:auto,ambientEffects:hasAmbientAnimation(g,renderer.reducedMotion),ambientParticles:ambientParticleCount(g),restoredRoundId:renderer.result?.roundId||null,multiplier:renderer.wheel,grid:renderer.grid,multiArtworkLoaded:!!renderer.multiArt,loopActive:!!audio.reelWanted,loopPhase:audio.currentReelPhase?.()||0,retiringAudioNodes:audio.retiring?.size||0,contextLost:!!renderer.contextLost});

@@ -104,18 +104,32 @@ class DelayedReelContext extends SampleContext{
  decodeAudioData(){return new Promise(resolve=>this.pending.push(resolve));}
  finishDecode(){this.pending.splice(0).forEach(resolve=>resolve({duration:.515}));}
 }
-test('late primary reel decoding crossfades the active fallback once at its current phase',async()=>{
+const waitForDecode=async a=>{for(let i=0;i<1000&&!a.context.pending.length;i++)await new Promise(r=>setTimeout(r,1));assert.ok(a.context.pending.length,'native bank entered decoding');};
+test('late Foxy reel decoding crossfades the active fallback once at elapsed native time',async()=>{
  const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
- try{for(const id of ['multi_hot_5_video','hot_foxy_20']){const a=new SoundEngine(261.63,id);await a.unlock();a.event('start');const fallback=[...a.nodes].find(n=>n.group==='reels');assert.ok(fallback.filter);a.context.currentTime+=.18;const phase=a.currentReelPhase();a.context.finishDecode();await a.preload();const loop=[...a.nodes].find(n=>n.group==='reels');assert.equal(loop.sample,'reel-loop');assert.ok(Math.abs(loop.offset-phase*.515)<1e-8);assert.equal(fallback.osc.disconnected,true);a.event('move');a.adoptDecodedReelLoop();assert.equal([...a.nodes].filter(n=>n.group==='reels').length,1);assert.equal([...a.nodes].find(n=>n.group==='reels'),loop);await a.dispose();}}
+ try{for(const id of ['hot_foxy_20']){const a=new SoundEngine(261.63,id);await a.unlock();await waitForDecode(a);a.event('start');const fallback=[...a.nodes].find(n=>n.group==='reels');assert.ok(fallback.filter);a.context.currentTime+=.18;a.context.finishDecode();await a.preload();const loop=[...a.nodes].find(n=>n.group==='reels');assert.equal(loop.sample,'reel-loop');assert.ok(Math.abs(loop.offset-.18)<1e-8);assert.equal(fallback.osc.disconnected,true);a.event('move');a.adoptDecodedReelLoop();assert.equal([...a.nodes].filter(n=>n.group==='reels').length,1);assert.equal([...a.nodes].find(n=>n.group==='reels'),loop);await a.dispose();}}
  finally{globalThis.AudioContext=old;}
 });
 test('late decoding never restarts a stopped, muted, hidden or disposed primary spin',async()=>{
  const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
- try{for(const action of ['stop','mute','hide','dispose']){const a=new SoundEngine(261.63,'hot_foxy_20');await a.unlock();a.event('start');const pending=a.preload();if(action==='stop')a.stop('reels');if(action==='mute')a.toggle();if(action==='hide')a.setSuspended(true);if(action==='dispose')await a.dispose();a.context.finishDecode();await pending;assert.equal([...a.nodes].filter(n=>n.group==='reels').length,0,action);await a.dispose();}}
+ try{for(const action of ['stop','mute','hide','dispose']){const a=new SoundEngine(261.63,'hot_foxy_20');await a.unlock();await waitForDecode(a);a.event('start');const pending=a.preload();if(action==='stop')a.stop('reels');if(action==='mute')a.toggle();if(action==='hide')a.setSuspended(true);if(action==='dispose')await a.dispose();a.context.finishDecode();await pending;assert.equal([...a.nodes].filter(n=>n.group==='reels').length,0,action);await a.dispose();}}
  finally{globalThis.AudioContext=old;}
 });
 test('late decoding preserves other games existing reel fallback behavior',async()=>{
  const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
  try{for(const id of ['multi_hot_100','wild_multi_stars']){const a=new SoundEngine(261.63,id);await a.unlock();a.event('start');const loop=[...a.nodes].find(n=>n.group==='reels');a.context.finishDecode();await a.preload();assert.equal([...a.nodes].find(n=>n.group==='reels'),loop);assert.equal(loop.sample,undefined);await a.dispose();}}
  finally{globalThis.AudioContext=old;}
+});
+
+test('Foxy decoding after a full fallback cycle still starts its unfinished native one-shot',async()=>{
+ const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
+ try{const a=new SoundEngine(261.63,'hot_foxy_20');await a.unlock();await waitForDecode(a);a.event('start');const fallback=[...a.nodes].find(n=>n.group==='reels');assert.equal(fallback.buffer.duration,.4);a.context.currentTime+=.45;assert.ok(a.currentReelPhase()<1);a.context.finishDecode();await a.preload();const clip=[...a.nodes].find(n=>n.group==='reels');assert.equal(clip.sample,'reel-loop');assert.equal(clip.osc.loop,false);assert.ok(Math.abs(clip.offset-.45)<1e-8);assert.equal(a.reelSampleEnded,false);assert.equal(fallback.osc.disconnected,true);await a.dispose();}finally{globalThis.AudioContext=old;}
+});
+test('hidden time during native Foxy decoding is excluded from its one-shot offset',async()=>{
+ const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
+ try{const a=new SoundEngine(261.63,'hot_foxy_20');await a.unlock();await waitForDecode(a);a.event('start');a.context.currentTime+=.2;a.setSuspended(true);a.context.currentTime+=10;a.context.finishDecode();await a.preload();assert.equal([...a.nodes].filter(n=>n.group==='reels').length,0);a.setSuspended(false);const clip=[...a.nodes].find(n=>n.group==='reels');assert.equal(clip.sample,'reel-loop');assert.ok(Math.abs(clip.offset-.2)<1e-8);await a.dispose();}finally{globalThis.AudioContext=old;}
+});
+test('Foxy decoding after the original one-shot duration cannot restart a stale cue',async()=>{
+ const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
+ try{const a=new SoundEngine(261.63,'hot_foxy_20');await a.unlock();await waitForDecode(a);a.event('start');a.context.currentTime+=.7;a.context.finishDecode();await a.preload();assert.equal([...a.nodes].filter(n=>n.group==='reels').length,0);a.event('move');assert.equal([...a.nodes].filter(n=>n.group==='reels').length,0);await a.dispose();}finally{globalThis.AudioContext=old;}
 });

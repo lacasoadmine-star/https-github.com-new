@@ -64,7 +64,7 @@ export function drawMultiPayline(c,{game,result,grid,atlas,now,presentedAt,reduc
  const pulse=reducedMotion?1:.8+.2*Math.sin(elapsed/210)**2;c.save();
  // The reference keeps the fruit visible; a soft outline replaces the former opaque boxes.
  c.strokeStyle='#fff18b';c.lineWidth=1.1;c.globalAlpha=.72*pulse;c.shadowColor='#edc748';c.shadowBlur=5;c.beginPath();line.rows.forEach((row,col)=>{const x=v.x+(col+.5)*cw,y=v.y+(row+.5)*ch;col?c.lineTo(x,y):c.moveTo(x,y);});c.stroke();
- c.shadowBlur=0;c.globalAlpha=1;for(const [row,col]of line.positions){const sprite=atlas.get(grid[row][col]);if(!sprite)continue;const zoom=reducedMotion?1:1+Math.sin(elapsed/260)**2*.022,size=Math.min(cw*.99,ch*1.12)*zoom;c.save();c.beginPath();c.rect(v.x+col*cw+1,v.y+row*ch+1,cw-2,ch-2);c.clip();c.shadowColor='#c9e36f';c.shadowBlur=4*pulse;c.drawImage(sprite,v.x+(col+.5)*cw-size/2,v.y+(row+.5)*ch-size/2,size,size);c.restore();}
+ c.shadowBlur=0;c.globalAlpha=1;for(const [row,col]of line.positions){const sprite=atlas.get(grid[row][col]);if(!sprite)continue;const zoom=reducedMotion?1:1+Math.sin(elapsed/260)**2*.022,size=(atlas.officialSymbolCount?cw*230/152:Math.min(cw*.99,ch*1.12))*zoom;c.save();c.beginPath();c.rect(v.x+col*cw+1,v.y+row*ch+1,cw-2,ch-2);c.clip();c.shadowColor='#c9e36f';c.shadowBlur=4*pulse;c.drawImage(sprite,v.x+(col+.5)*cw-size/2,v.y+(row+.5)*ch-size/2,size,size);c.restore();}
  for(const [row,col]of line.positions)drawMultiMatchedRim(c,v.x+col*cw+2,v.y+row*ch+2,cw-4,ch-4,elapsed,reducedMotion);
  c.restore();drawMultiLinePayout(c,{line,multiplier:result.wheelMultiplier,atlas});return true;
 }
