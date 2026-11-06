@@ -9,7 +9,8 @@ export function metalText(c,text,x,y,size,width,{pink=false,italic=false}={}){
 }
 export function foilFrame(c,x,y,w,h,r,forest=false){
  c.save();c.lineJoin='round';
- for(const [inset,line,color]of [[-3,2,'#001e16'],[-1,4,forest?'#3e9770':'#745d28'],[0,2,forest?'#addba5':'#f7e9a2'],[2,2,forest?'#d8e3a3':'#776122'],[3,1,forest?'#297a5f':'#a48c38']]){
+ const layers=forest?[[-3,2,'#001e16'],[-1,4,'#3e9770'],[0,2,'#addba5'],[2,2,'#d8e3a3'],[3,1,'#297a5f']]:[[-1.2,1.2,'#002b20'],[-.2,2.1,'#957238'],[0,1.2,'#f2df91'],[1.1,.85,'#765b2d'],[1.9,.6,'#517546']];
+ for(const [inset,line,color]of layers){
   c.beginPath();c.roundRect(x+inset,y+inset,w-inset*2,h-inset*2,r);c.strokeStyle=color;c.lineWidth=line;c.stroke();
  }
  c.restore();
@@ -21,7 +22,7 @@ export function texture(c,x,y,w,h,alpha=.08){
 }
 export function reelSurface(g){
  const v=g.visual,w=v.w/g.reels,forest=g.id==='hot_foxy_20',canvas=document.createElement('canvas');canvas.width=Math.ceil(w*2);canvas.height=Math.ceil(v.h*2);const c=canvas.getContext('2d');c.scale(2,2);
- const grd=c.createLinearGradient(0,0,w,0);grd.addColorStop(0,forest?'#155347':'#021c1a');grd.addColorStop(.35,forest?'#236c5b':'#032a25');grd.addColorStop(.75,forest?'#286e5b':'#032c26');grd.addColorStop(1,forest?'#185447':'#021d1b');c.fillStyle=grd;c.fillRect(0,0,w,v.h);texture(c,0,0,w,v.h,forest?.13:.07);return canvas;
+ const grd=c.createLinearGradient(0,0,w,0);grd.addColorStop(0,forest?'#155347':'#021e1c');grd.addColorStop(.35,forest?'#236c5b':'#032c24');grd.addColorStop(.75,forest?'#286e5b':'#022920');grd.addColorStop(1,forest?'#185447':'#031b19');c.fillStyle=grd;c.fillRect(0,0,w,v.h);if(forest)texture(c,0,0,w,v.h,.13);return canvas;
 }
 export function foxyLogo(c){
  c.save();c.translate(70,29);c.rotate(-.11);c.lineCap='round';c.lineJoin='round';

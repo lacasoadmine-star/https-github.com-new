@@ -94,4 +94,4 @@ export function drawBackground(c,g){
  }
  const vignette=c.createRadialGradient(210,430,150,210,430,680);vignette.addColorStop(0,'#0000');vignette.addColorStop(1,'#0008');c.fillStyle=vignette;c.fillRect(0,0,420,900);c.restore();
 }
-export {gold,leaf,star};
+export {gold,leaf,star,tropical};
