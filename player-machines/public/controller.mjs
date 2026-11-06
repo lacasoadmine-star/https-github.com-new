@@ -45,7 +45,7 @@ async function boot(){
   const [remote,session]=await Promise.all([api.model(g.id),api.session()]);if(disposed||run!==epoch)return;validateModel(remote,g);
   if(!remote.enabled){setState('unavailable');notice('This game is temporarily unavailable.',true);return;}
   if(!session.authenticated){signOut();return;}if(session.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');
-  api.bind(session.sessionId,g.id);signedIn=true;audio.setBackgroundEnabled(soundChoice);setBalance(session.balance);legacy=api.legacyPending();
+  api.bind(session.sessionId,g.id);signedIn=true;audio.setBackgroundEnabled(soundChoice);setBalance(session.balance);$('win').textContent='0.00';legacy=api.legacyPending();
   const saved=pending(),action=api.pending(api.actionKey);if(saved){if(!g.betLevels.includes(saved.bet))throw Error('SAVED_BET_INVALID');betIndex=g.betLevels.indexOf(saved.bet);}
   const history=await api.history();if(disposed||run!==epoch)return;
   if(!Array.isArray(history.items))throw Error('HISTORY_UNAVAILABLE');
@@ -100,7 +100,9 @@ listen($('spin'),'click',()=>{if(suppressSpinClick){suppressSpinClick=false;retu
 const endHold=()=>{clearTimeout(holdTimer);if(holdStarted){holdStarted=false;stopAuto();}};
 listen($('spin'),'pointerdown',e=>{if(e.button!==0||state.value!=='ready'||$('spin').disabled)return;clearTimeout(holdTimer);suppressSpinClick=false;holdTimer=setTimeout(()=>{if(document.hidden||disposed||state.value!=='ready'||document.querySelector('dialog[open]'))return;holdStarted=true;suppressSpinClick=true;void startAuto(1000);},600);});
 listen(window,'pointerup',endHold);listen(window,'pointercancel',endHold);listen($('spin'),'pointerleave',endHold);listen(window,'blur',endHold);
-listen($('turbo'),'click',()=>{turbo=!turbo;renderer.setTurbo(turbo);$('turbo').setAttribute('aria-pressed',String(turbo));$('turbo').setAttribute('aria-label',turbo?'Use normal spin animation':'Enable faster spin animation');});
+function setTurbo(enabled){turbo=enabled;renderer.setTurbo(turbo);$('turbo').setAttribute('aria-pressed',String(turbo));$('turbo').setAttribute('aria-label',turbo?'Use normal spin animation':'Enable faster spin animation');}
+listen($('turbo'),'click',()=>{if(g.id==='hot_foxy_20'&&!turbo){endHold();stopAuto();if(!document.querySelector('dialog[open]'))$('quick-play-dialog').showModal();}else setTurbo(!turbo);});
+listen($('quick-play-enable'),'click',()=>{setTurbo(true);$('quick-play-dialog').close();});
 listen($('bet-less'),'click',()=>chooseBet(g.betLevels[betIndex-1]));listen($('bet-more'),'click',()=>chooseBet(g.betLevels[betIndex+1]));listen($('bet-open'),'click',()=>openPanel('bets'));
 for(const id of ['menu','menu-top'])listen($(id),'click',()=>openPanel('rules'));
 listen($('auto'),'click',()=>{endHold();if(auto)stopAuto();else $('auto-dialog').showModal();});for(const b of document.querySelectorAll('[data-auto]'))listen(b,'click',()=>void startAuto(Number(b.dataset.auto)));

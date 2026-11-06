@@ -20,32 +20,46 @@ export function foxyShieldPath(c, {x = 160, y = 60, w = 100, h = 94} = {}) {
 // An optional drawValue callback paints the moving multiplier inside the shield.
 // Call this after the wheel sectors and before the reel frame.
 export function drawFoxyWheelShield(c, box = {}, drawValue) {
- const {x = 160, y = 60, w = 100, h = 94} = box;
+ const {x = 160, y = 60, w = 100, h = 94, winning = false, age = 0, reducedMotion = false} = box;
  const bounds = {x, y, w, h}, sx = w / 220, sy = h / 198;
  c.save();
+ // The little gold-green curls sit outside the selected wedge, on the wheel.
+ // They remain stationary while the value inside the shield rotates.
+ c.save();c.translate(x,y);c.scale(sx,sy);
+ for(const direction of [-1,1]){
+  c.save();c.translate(110,0);c.scale(direction,1);
+  const curl=c.createLinearGradient(85,24,111,124);
+  curl.addColorStop(0,'#bfda6b');curl.addColorStop(.35,'#5e9c39');curl.addColorStop(.62,'#d5e992');curl.addColorStop(1,'#4d883b');
+  c.beginPath();c.moveTo(94,23);c.bezierCurveTo(119,25,127,45,111,60);c.bezierCurveTo(96,75,104,78,112,82);c.bezierCurveTo(86,79,90,58,101,49);c.bezierCurveTo(109,43,109,32,94,23);c.closePath();c.fillStyle=curl;c.fill();
+  c.beginPath();c.moveTo(84,133);c.bezierCurveTo(92,112,116,111,115,126);c.bezierCurveTo(114,137,102,138,101,132);c.bezierCurveTo(100,126,108,123,108,128);c.bezierCurveTo(107,120,92,125,84,133);c.fill();
+  c.restore();
+ }
+ c.restore();
  foxyShieldPath(c, bounds);
  c.shadowColor = '#001e19';
  c.shadowBlur = 4;
  c.shadowOffsetY = 1;
  const jade = c.createLinearGradient(x, y, x + w, y + h);
- jade.addColorStop(0, '#20a88a');
- jade.addColorStop(.2, '#137c67');
- jade.addColorStop(.53, '#0a4c43');
- jade.addColorStop(.8, '#08624f');
- jade.addColorStop(1, '#209475');
+ jade.addColorStop(0, '#2ac8ae');
+ jade.addColorStop(.2, '#159b83');
+ jade.addColorStop(.53, '#066f5b');
+ jade.addColorStop(.8, '#065642');
+ jade.addColorStop(1, '#249873');
  c.fillStyle = jade;
  c.fill();
  c.shadowBlur = 0;
  c.shadowOffsetY = 0;
- c.strokeStyle = '#1b5338';
- c.lineWidth = w * .04;
+ c.strokeStyle = '#215f3f';
+ c.lineWidth = w * .075;
  c.stroke();
+ c.strokeStyle = '#a4bd57';c.lineWidth = w * .046;c.stroke();
+ c.strokeStyle = '#224c35';c.lineWidth = w * .025;c.stroke();
  c.save();
  c.clip();
  c.translate(x, y);
  c.scale(sx, sy);
- // The reference shield has curved, embossed foliage, with the brightest
- // bevel at its shoulders. Keep these details behind the live multiplier.
+ // Angular jade leaves catch the light at the shoulders; the lower half is
+ // recessed so the live orange multiplier stays the dominant foreground.
  const shoulder = c.createLinearGradient(0, 0, 220, 150);
  shoulder.addColorStop(0, '#d7f3ac');
  shoulder.addColorStop(.22, '#63cda0');
@@ -54,22 +68,15 @@ export function drawFoxyWheelShield(c, box = {}, drawValue) {
  shoulder.addColorStop(1, '#3b9f70');
  for (const direction of [-1, 1]) {
   c.save();c.translate(110, 0);c.scale(direction, 1);
-  c.beginPath();c.moveTo(80, 24);
-  c.bezierCurveTo(57, 15, 40, 28, 43, 49);
-  c.bezierCurveTo(44, 62, 57, 74, 51, 88);
-  c.bezierCurveTo(47, 98, 32, 100, 31, 111);
-  c.bezierCurveTo(29, 127, 41, 136, 33, 151);
-  c.strokeStyle='#003f32';c.lineWidth=11;c.stroke();
-  c.strokeStyle=shoulder;c.lineWidth=6;c.stroke();
-  c.strokeStyle='#b6edac88';c.lineWidth=1.4;c.stroke();
-  vineLeaf(c, 63, 42, 11, 27, -.48);
-  vineLeaf(c, 51, 88, 9, 24, .3);
-  vineLeaf(c, 34, 132, 8, 23, -.4);
+  c.beginPath();c.moveTo(78,21);c.lineTo(54,33);c.lineTo(58,57);c.lineTo(34,43);c.lineTo(15,16);c.lineTo(40,22);c.lineTo(50,13);c.lineTo(70,19);c.closePath();
+  c.fillStyle=shoulder;c.globalAlpha=.6;c.fill();c.globalAlpha=1;
+  c.beginPath();c.moveTo(77,24);c.lineTo(63,45);c.lineTo(51,28);c.moveTo(63,45);c.lineTo(67,67);
+  c.strokeStyle='#7ed9b0aa';c.lineWidth=1.6;c.stroke();
   c.restore();
  }
  const facets = [
-  ['#5ce4bd25', [[24, 22], [94, 11], [76, 63], [39, 84]]],
-  ['#37b58f3b', [[112, 8], [192, 23], [151, 69], [133, 46]]],
+  ['#72edca49', [[24, 22], [94, 11], [76, 63], [39, 84]]],
+  ['#37b58f60', [[112, 8], [192, 23], [151, 69], [133, 46]]],
   ['#003d343d', [[53, 33], [75, 61], [63, 97], [90, 122], [76, 172], [55, 170]]],
   ['#69c9a324', [[161, 30], [137, 58], [155, 78], [130, 117], [144, 168], [167, 168]]],
   ['#2bc49718', [[91, 89], [115, 69], [134, 106], [115, 162], [91, 146]]]
@@ -105,6 +112,14 @@ export function drawFoxyWheelShield(c, box = {}, drawValue) {
  c.strokeStyle = foil;
  c.lineWidth = w * .018;
  c.stroke();
+ // The recorded win response lights the rim, without lighting it on losses.
+ // Reduced motion receives a steady outline and no moving sparkle.
+ if(winning){
+  const pulse=reducedMotion?1:.78+.22*Math.sin(Math.max(0,age)/175)**2;
+  c.save();foxyShieldPath(c,bounds);c.strokeStyle=`rgba(255,252,205,${pulse})`;c.lineWidth=w*.024;c.shadowColor='#ffe383';c.shadowBlur=reducedMotion?4:7;c.stroke();c.shadowBlur=0;
+  if(!reducedMotion){const t=(Math.max(0,age)%1800)/1800,gx=x+w*(.08+.84*t),gy=y+h*(.085-.07*Math.sin(t*Math.PI));const glow=c.createRadialGradient(gx,gy,0,gx,gy,w*.05);glow.addColorStop(0,'#fffef2');glow.addColorStop(.25,'#fffccbaa');glow.addColorStop(1,'#fff2aa00');c.fillStyle=glow;c.fillRect(gx-w*.05,gy-w*.05,w*.1,w*.1);}
+  c.restore();
+ }
  c.translate(x, y);
  c.scale(sx, sy);
  c.beginPath();
@@ -281,16 +296,16 @@ export function drawFoxyWinPanel(c, {
  const shown = money(Math.max(0, Number(amount) || 0) * clamp(progress));
  c.shadowColor = '#4af8b655';
  c.shadowBlur = 3;
- c.font = 'italic 900 19px Arial';
+ c.font = '900 19px Arial';
  const amountWidth = c.measureText(shown).width;
- c.font = 'italic 900 12px Arial';
+ c.font = '900 12px Arial';
  const unitWidth = c.measureText(currency).width;
  const left = x + (w - amountWidth - unitWidth - 4) / 2;
  c.textAlign = 'left';
  c.fillStyle = '#8ff1c3';
- c.font = 'italic 900 19px Arial';
+ c.font = '900 19px Arial';
  c.fillText(shown, left, y + 38);
- c.font = 'italic 900 12px Arial';
+ c.font = '900 12px Arial';
  c.fillText(currency, left + amountWidth + 4, y + 39);
  c.restore();
 }

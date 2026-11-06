@@ -1,0 +1,38 @@
+{
+  "scope": "Foxy Hot 20 presentation only; renderer edits confined to Foxy top wheel and reel divider branches",
+  "sourceFiles": {
+    "public/foxy-effects.mjs": "e1cc275d84a7de5dd8a98a64e967b10730f75a66262ccfb5a4a4da782b896c21",
+    "public/foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+    "public/cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+    "public/cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+    "public/renderer.mjs": "e6e8d85ac5f0cdd635d15bbbc56371cdbc203263364f49ce7c2a564ac5e96891"
+  },
+  "references": [
+    "/workspace/work/r10-official-play/batch30/FoxyHot20-145-controls-quiet10s-idle.png",
+    "/workspace/work/r10-official-play/batch30/FoxyHot20-028-cycle2-after.png",
+    "user supplied Foxy winning screenshots"
+  ],
+  "baseline": "/workspace/work/r11-local-baseline/hot_foxy_20",
+  "capture": "/workspace/work/r11-foxy-presentation",
+  "changes": [
+    "Red depth and cream/gold edge on live selected multiplier",
+    "Faceted jade shield with outside scrolls, layered bevel and receipt-driven win rim/glint",
+    "Teal wheel with green/gold outer arc and teal stippled reels with layered dividers",
+    "Upright win amount typography and quieter forest stems"
+  ],
+  "checks": {
+    "naturalWinAndLoss": 2,
+    "singleSettlement": true,
+    "balancedSyntheticLedger": true,
+    "winMatchesReceipt": true,
+    "balanceMatchesLedger": true,
+    "pageErrors": [],
+    "reducedMotionScreenshot": true
+  },
+  "limits": [
+    "Procedural shield/forest details remain an approximation; no pixel identity claim",
+    "No math/backend/audio changes by this subtask",
+    "Original random outcomes differ; frames are matched by presentation state, not exact reel result",
+    "Additional symbol edge/art details remain visibly different"
+  ]
+}

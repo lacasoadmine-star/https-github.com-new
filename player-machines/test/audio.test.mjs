@@ -97,3 +97,25 @@ test('AUTO can wait for the current win phrase to finish without delaying muted 
  const old=globalThis.AudioContext;globalThis.AudioContext=SampleContext;
  try{const audio=new SoundEngine();await audio.unlock();await audio.preload();audio.samples.set('win',{duration:1.45});audio.samples.set('big-win',{duration:2.1});audio.win(6,2);assert.ok(Math.abs(audio.remainingWinMs()-1450)<=1);audio.context.currentTime+=.4;assert.ok(Math.abs(audio.remainingWinMs()-1050)<=1);audio.event('start');assert.equal(audio.remainingWinMs(),0,'manual spin can interrupt the phrase');audio.win(40,2);assert.ok(Math.abs(audio.remainingWinMs()-2100)<=1);audio.setSuspended(true);assert.equal(audio.remainingWinMs(),0);audio.setSuspended(false);audio.win(40,2);audio.toggle();assert.equal(audio.remainingWinMs(),0);await audio.dispose();}finally{globalThis.AudioContext=old;}
 });
+
+class DelayedReelContext extends SampleContext{
+ constructor(){super();this.pending=[];}
+ createBuffer(_channels,length,rate=this.sampleRate){return {duration:length/rate,getChannelData:()=>new Float32Array(length)};}
+ decodeAudioData(){return new Promise(resolve=>this.pending.push(resolve));}
+ finishDecode(){this.pending.splice(0).forEach(resolve=>resolve({duration:.515}));}
+}
+test('late primary reel decoding crossfades the active fallback once at its current phase',async()=>{
+ const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
+ try{for(const id of ['multi_hot_5_video','hot_foxy_20']){const a=new SoundEngine(261.63,id);await a.unlock();a.event('start');const fallback=[...a.nodes].find(n=>n.group==='reels');assert.ok(fallback.filter);a.context.currentTime+=.18;const phase=a.currentReelPhase();a.context.finishDecode();await a.preload();const loop=[...a.nodes].find(n=>n.group==='reels');assert.equal(loop.sample,'reel-loop');assert.ok(Math.abs(loop.offset-phase*.515)<1e-8);assert.equal(fallback.osc.disconnected,true);a.event('move');a.adoptDecodedReelLoop();assert.equal([...a.nodes].filter(n=>n.group==='reels').length,1);assert.equal([...a.nodes].find(n=>n.group==='reels'),loop);await a.dispose();}}
+ finally{globalThis.AudioContext=old;}
+});
+test('late decoding never restarts a stopped, muted, hidden or disposed primary spin',async()=>{
+ const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
+ try{for(const action of ['stop','mute','hide','dispose']){const a=new SoundEngine(261.63,'hot_foxy_20');await a.unlock();a.event('start');const pending=a.preload();if(action==='stop')a.stop('reels');if(action==='mute')a.toggle();if(action==='hide')a.setSuspended(true);if(action==='dispose')await a.dispose();a.context.finishDecode();await pending;assert.equal([...a.nodes].filter(n=>n.group==='reels').length,0,action);await a.dispose();}}
+ finally{globalThis.AudioContext=old;}
+});
+test('late decoding preserves other games existing reel fallback behavior',async()=>{
+ const old=globalThis.AudioContext;globalThis.AudioContext=DelayedReelContext;
+ try{for(const id of ['multi_hot_100','wild_multi_stars']){const a=new SoundEngine(261.63,id);await a.unlock();a.event('start');const loop=[...a.nodes].find(n=>n.group==='reels');a.context.finishDecode();await a.preload();assert.equal([...a.nodes].find(n=>n.group==='reels'),loop);assert.equal(loop.sample,undefined);await a.dispose();}}
+ finally{globalThis.AudioContext=old;}
+});
