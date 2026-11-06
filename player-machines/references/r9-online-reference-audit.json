@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-06T02:50:40.264399+00:00",
+  "scope": "Read-only official online comparison for four existing games; explicit public DEMO launchers only. Release work was not paused.",
+  "officialCatalogueUrl": "https://www.smartsoftgaming.com/games",
+  "games": [
+    {
+      "localGameId": "multi_hot_5_video",
+      "officialTitle": "Multi Hot 5",
+      "productUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+      "officialMarketingImageUrl": "https://cdn.prod.website-files.com/68263adafcf8918559aaa083/683ff153bee9162a62b538d5_MulitHot5.webp",
+      "demoModeEvidence": [
+        "Official product page Play Demo link resolves to this URL.",
+        "PortalName=DEMO and Token=DEMO are explicit launcher parameters.",
+        "Rendered game balances and bets use DMO virtual currency."
+      ],
+      "access": {
+        "desktop": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2,
+          "touch": true,
+          "userAgent": "Default Chromium desktop UA",
+          "httpStatus": 200,
+          "observation": "Launcher chooses desktop landscape variant scaled to top of narrow viewport, with black area below. Do not compare its geometry directly against portrait recordings.",
+          "screenshots": [
+            "/workspace/work/r9-online-mh5-foxy/MultiHot5-10s.png",
+            "/workspace/work/r9-online-mh5-foxy/MultiHot5-20s.png"
+          ]
+        },
+        "android": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2,
+          "touch": true,
+          "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+          "httpStatus": 200,
+          "gamePath": "/SlotsDemo/Mobile/Slots/MultiHot5/Game.aspx",
+          "screenshot": "/workspace/work/r9-online-mh5-foxy/MultiHot5-android-idle.png"
+        }
+      },
+      "observed": [
+        "Portrait 3x3 grid; left multiplier3x/5x/1x strip with active pink/gold frame; gold title with pink5; dark green clover background.",
+        "Three hex controls below balance/win/bet strip; bottom pink/gold stake control displays selected DMO amount plus gold downward-chevron; lower and higher stake amounts flank it.",
+        "Sound consent text exists: Would you like sound? Yes No. Provider table-limit modal covers it: You can create up to 1 tables simultaneously / Exit game."
+      ],
+      "limitations": [
+        "Provider table-limit modal; no dismissal, retry, spin, wager, table-state clearing or bypass attempted.",
+        "No verified virtual spin, completed settlement, animation timing or audible playback.",
+        "One normal sequential followup reached sound DOM before loader completion; click timed out and no spin was counted. No further attempt was made."
+      ],
+      "earlierR8ComparisonOnly": [
+        "Existing portrait game already shares the official fruit artwork family, clover theme, grid, multiplier strip and hex-control composition.",
+        "Existing idle capture uses a red S icon in the central large button and a single bet value at the right; official marketing and mobile render show selected amount and gold down-chevron in the central panel with adjacent previous/next stake amounts. This is an implementable frontend presentation difference; existing legal bets and wallet math must remain authoritative.",
+        "Official Android canvas height exceeds844px at390px width; avoid treating its exact overflow as desired behavior. Original recorded reference layout should determine final fitting."
+      ],
+      "r9ComparisonCaveat": "The earlier R8 screenshots are not proof these details remain in R9. R9 already adds Multi Hot idle/collect faces and other presentation corrections.",
+      "verifiedVirtualRounds": 0,
+      "authenticated": false,
+      "ordinaryFollowupAttempt": {
+        "game": "MultiHot5",
+        "explicitDemo": true,
+        "virtualSpinGestures": 0,
+        "authenticated": false,
+        "realMoneyWagers": 0,
+        "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+        "status": 200,
+        "loadedAfterMs": 1066,
+        "initialText": "test\ntest\ntest\ntest\nWould you like sound?\nYes No",
+        "error": "locator.click: Timeout 2000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Yes', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <a class=\"yes\" onclick=\"mobileSound(true);\">Yes</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b["
+      },
+      "gestureCaveat": "Screenshots still showed the provider loader when the attempted followup tap occurred. It is not a verified spin, animated round or settlement."
+    },
+    {
+      "localGameId": "hot_foxy_20",
+      "officialTitle": "Foxy Hot 20",
+      "productUrl": "https://www.smartsoftgaming.com/games/foxy-hot-20",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+      "officialMarketingImageUrl": "https://cdn.prod.website-files.com/68263adafcf8918559aaa083/682ef4ee944cd4eb0832930e_FoxyHot20.webp",
+      "demoModeEvidence": [
+        "Official product page Play Demo link resolves to this URL.",
+        "PortalName=DEMO and Token=DEMO are explicit launcher parameters.",
+        "Rendered game balances and bets use DMO virtual currency."
+      ],
+      "access": {
+        "desktop": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2,
+          "touch": true,
+          "userAgent": "Default Chromium desktop UA",
+          "httpStatus": 200,
+          "observation": "Launcher chooses desktop landscape variant scaled to top of narrow viewport, with black area below. Do not compare its geometry directly against portrait recordings.",
+          "screenshots": [
+            "/workspace/work/r9-online-mh5-foxy/FoxyHot20-10s.png",
+            "/workspace/work/r9-online-mh5-foxy/FoxyHot20-20s.png"
+          ]
+        },
+        "android": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2,
+          "touch": true,
+          "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+          "httpStatus": 200,
+          "gamePath": "/SlotsDemo/Mobile/Slots/FoxyHot20/Game.aspx",
+          "screenshot": "/workspace/work/r9-online-mh5-foxy/FoxyHot20-android-idle.png"
+        }
+      },
+      "observed": [
+        "Portrait5x3 green dotted reels with lime/gold borders; large upper multiplier semicircle and cyan/gold selected central wedge; forest leaves and glowing particles.",
+        "Left upper logo reads Foxy Hot20. Lower controls: circular autoplay left, large white double-arrow HOLD & SPIN center, dollar-symbol stake control right, lightning accent above-right; bottom balance and bet boxes, lower-left hamburger and lower-right speaker.",
+        "Explicit sound consent overlay: Would you like sound? with Yes and No. No table-limit text in final Foxy mobile frame."
+      ],
+      "limitations": [
+        "Earlier Android capture stopped at sound consent; final ordinary sequential attempt after normal context cleanup successfully observed one DMO spin.",
+        "Audio consent and unmuted icon were observed, but audible output or waveform equivalence was not verified.",
+        "No independent provider settlement receipt or exact animation timing was validated."
+      ],
+      "earlierR8ComparisonOnly": [
+        "Existing portrait game shares the main official symbol/forest/logo/wheel composition, same white HOLD & SPIN button and flanking controls.",
+        "Existing right bet-control glyph is an outlined hexagon enclosing a currency mark; official demo/marketing shows a plain stylized dollar glyph inside the circular ring. A glyph-only frontend change can match it.",
+        "Existing lower balance/bet panels are translucent pale green with wide soft glows; official promotional still shows darker fill with tighter neon-green border. Exact color judgment from the Android screenshot is limited because sound consent darkens the whole background.",
+        "The official product naming is Foxy Hot20; existing route hot_foxy_20 can remain stable while visible spelling follows source. Do not alter backend model identity to follow naming."
+      ],
+      "r9ComparisonCaveat": "The earlier R8 screenshots are not proof these details remain in R9. R9 already adds Multi Hot idle/collect faces and other presentation corrections.",
+      "verifiedVirtualRounds": 1,
+      "authenticated": false,
+      "ordinaryFollowupAttempt": {
+        "game": "FoxyHot20",
+        "explicitDemo": true,
+        "virtualSpinGestures": 1,
+        "authenticated": false,
+        "realMoneyWagers": 0,
+        "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+        "status": 200,
+        "loadedAfterMs": 1551,
+        "initialText": "test\ntest\ntest\ntest\ntest\ntest\nWould you like sound?\nYes No",
+        "soundConsentYes": true,
+        "promptDismissed": true,
+        "finalText": "test\ntest\ntest\ntest\ntest\ntest",
+        "note": "A trusted tap was made on the observed SPIN control in explicit DMO mode; screenshots determine observed motion. No independent settlement or waveform validation."
+      },
+      "gestureCaveat": "Screenshots still showed the provider loader when the attempted followup tap occurred. It is not a verified spin, animated round or settlement.",
+      "finalDemoInteraction": {
+        "game": "FoxyHot20",
+        "explicitDemo": true,
+        "virtualSpinGestures": 1,
+        "authenticated": false,
+        "realMoneyWagers": 0,
+        "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+        "status": 200,
+        "loadedAfterMs": 36574,
+        "initialText": "test\ntest\ntest\ntest\ntest\ntest\nWould you like sound?\nYes No",
+        "soundConsentYes": true,
+        "promptDismissed": true,
+        "finalText": "test\ntest\ntest\ntest\ntest\ntest",
+        "note": "A trusted tap was made on the observed SPIN control in explicit DMO mode; screenshots determine observed motion. No independent settlement or waveform validation.",
+        "visualReview": {
+          "idleImage": "/workspace/work/r9-online-demos/FoxyHot20-final-idle.png",
+          "spinningImage": "/workspace/work/r9-online-demos/FoxyHot20-final-spinning.png",
+          "afterImage": "/workspace/work/r9-online-demos/FoxyHot20-final-after.png",
+          "imagesIndividuallyInspected": true,
+          "observed": [
+            "Sound-consent prompt disappears after Yes; speaker changes to unmuted visual state.",
+            "Idle HOLD & SPIN control changes to STOP with a square; multiplier wheel and first reel visibly move.",
+            "After capture returns to HOLD & SPIN, reel grid differs and selected wheel changes from 2x to 4x.",
+            "Displayed balance changes by the selected virtual 0.20 DMO stake; no real currency or production wallet is involved."
+          ],
+          "interpretation": "One actual virtual demo spin cycle was visually observed. No independent provider receipt, exact timing, RTP or audible waveform was validated."
+        }
+      },
+      "virtualRoundVerificationScope": "Visual SPIN to STOP to SPIN cycle and changed final grid/wheel in explicit DMO; no independent receipt validation.",
+      "observedAnimation": true,
+      "verifiedAnimationTiming": false,
+      "verifiedAudioPlayback": false
+    },
+    {
+      "localGameId": "multi_hot_100",
+      "officialTitle": "Multi Hot 100",
+      "productUrl": "https://www.smartsoftgaming.com/games/multi-hot-100",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&PortalName=demo&Token=DEMO",
+      "demoModeEvidence": [
+        "Direct Play Demo link on official Smartsoft catalogue/product page.",
+        "Launcher explicitly uses PortalName=DEMO/demo and public Token=DEMO.",
+        "Rendered desktop UI displays DMO virtual currency."
+      ],
+      "officialMarketingImageLocal": "/workspace/work/r9-online-demos/mh100-official-product.webp",
+      "officialMarketingImageUrl": "https://cdn.prod.website-files.com/68263adafcf8918559aaa083/6a3026701f28154e22fbd1ee_Mobile%20Screen%20MULTI%20HOT%20100.webp",
+      "access": {
+        "desktopHttpStatus": 200,
+        "desktopObserved": "Rendered game after bounded 35 second observation; default desktop UA selects landscape game scaled at top of narrow viewport.",
+        "desktopScreenshot": "/workspace/work/r9-online-demos/multi_hot_100-longer.png",
+        "android": {
+          "httpStatus": 200,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 2
+          },
+          "userAgent": "Android14 Samsung mobile UA",
+          "gamePath": "/SlotsDemo/Mobile/Slots/MultiHot100/Game.aspx",
+          "screenshot": "/workspace/work/r9-online-demos/multi_hot_100-android-ready.png",
+          "observedState": "Provider one-table limit over sound consent",
+          "text": "test\ntest\ntest\ntest\ntest\ntest\nWould you like sound?\nYes No\nYou can create up to 1 tables simultaneously"
+        }
+      },
+      "observed": [
+        "5 reels by 4 rows, green clover background, gold reel borders, upper multiplier semicircle with green selected shield and pink/gold outline.",
+        "Circular HOLD & SPIN control with autoplay and stake controls; balance/bet bottom panels."
+      ],
+      "verifiedVirtualRounds": 0,
+      "authenticated": false,
+      "limitations": [
+        "Desktop responsive layout is not a geometry baseline for Android portrait.",
+        "No exact audio waveform or animation timing identity is established.",
+        "Help CSS requests encountered browser ORB blocking and a legacy font host returned tunnel errors; core desktop games still rendered.",
+        "Android interactive play stopped at provider one-table limit; no bypass attempted."
+      ]
+    },
+    {
+      "localGameId": "wild_multi_stars",
+      "officialTitle": "Wild Multi Stars",
+      "productUrl": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+      "demoModeEvidence": [
+        "Direct Play Demo link on official Smartsoft catalogue/product page.",
+        "Launcher explicitly uses PortalName=DEMO/demo and public Token=DEMO.",
+        "Rendered desktop UI displays DMO virtual currency."
+      ],
+      "officialMarketingImageLocal": "/workspace/work/r9-online-demos/stars-official-product.webp",
+      "officialMarketingImageUrl": "https://cdn.prod.website-files.com/68263adafcf8918559aaa083/683fefb294c932d8e369c1e8_WildMultiStars.webp",
+      "access": {
+        "desktopHttpStatus": 200,
+        "desktopObserved": "Rendered game after bounded 35 second observation; default desktop UA selects landscape game scaled at top of narrow viewport.",
+        "desktopScreenshot": "/workspace/work/r9-online-demos/wild_multi_stars-longer.png",
+        "android": {
+          "httpStatus": 200,
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 2
+          },
+          "userAgent": "Android14 Samsung mobile UA",
+          "gamePath": "/SlotsDemo/Mobile/Slots/WildMultiStars/Game.aspx",
+          "screenshot": "/workspace/work/r9-online-demos/wild_multi_stars-android-ready.png",
+          "observedState": "Sound consent over portrait game",
+          "text": "test\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\nWould you like sound?\nYes No"
+        }
+      },
+      "observed": [
+        "5 reels by 3 rows, violet galaxy background, gold reel frame, purple multiplier semicircle and crown-like central selected shield.",
+        "Fruit symbols, circular HOLD & SPIN control and flanking controls; balance/bet bottom panels."
+      ],
+      "verifiedVirtualRounds": 0,
+      "authenticated": false,
+      "limitations": [
+        "Desktop responsive layout is not a geometry baseline for Android portrait.",
+        "No exact audio waveform or animation timing identity is established.",
+        "Help CSS requests encountered browser ORB blocking and a legacy font host returned tunnel errors; core desktop games still rendered.",
+        "Android sound-consent state captured; no spin/audio playback verified for this game."
+      ]
+    }
+  ],
+  "definiteFinding": {
+    "id": "STARS_WHEEL_PALETTE",
+    "status": "Parent reports purple/gold fix applied before final v302 publication; this audit does not independently establish deployment.",
+    "observedBeforeFix": "Current Stars renderer reused generic teal gradients despite purple starsPalette constants. The official product phone image and actual rendered public demo both show a purple/gold wheel.",
+    "implementationLocation": "player-machines/public/renderer.mjs drawWheel; starsPalette already exported by public/stars-presentation.mjs.",
+    "palette": [
+      "#6b1aaa",
+      "#45106f",
+      "#210738"
+    ],
+    "wheelStroke": "#bc7a27",
+    "inactiveText": "#a78ac3",
+    "comparisonImage": "/workspace/work/r9-online-demos/stars-official-product.webp",
+    "liveDemoScreenshot": "/workspace/work/r9-online-demos/wild_multi_stars-longer.png"
+  },
+  "furtherWork": [
+    "Compare matched Android viewport states rather than desktop-variant geometry.",
+    "Use the existing recordings for timed spin/stop/win states until corresponding demo states are observed.",
+    "Keep visible naming Foxy Hot 20 separate from stable local route/model identity hot_foxy_20.",
+    "Do not infer provider payline counts, RNG, RTP or extra features from inconsistent third-party review sites; this comparison does not change server mathematics."
+  ],
+  "boundaries": {
+    "accountsOrLoginUsed": false,
+    "recordedCredentialsUsed": false,
+    "depositsOrRealMoneyUsed": false,
+    "productionWagers": 0,
+    "frozenProductFilesEditedByAuditor": false,
+    "providerLimitBypassed": false,
+    "demoTokens": "Only official public literal DEMO launch token is recorded; ephemeral demo-session query values are redacted.",
+    "observedVirtualDemoSpinCycles": 1,
+    "allAuditBrowsersClosed": true
+  },
+  "limitations": [
+    "No claim of 100% pixel, audio, mathematical or behavioral equivalence.",
+    "Only Foxy has one visually observed virtual spin cycle; MH5 and MH100 encountered provider table limits during Android observation, and Stars was observed at idle/sound consent only.",
+    "No real-money session, login, deposit, production wager, provider-limit bypass or server-state clearing was used.",
+    "Official MH5 product title and launcher identify base MH5 while body text also mentions Deluxe; no variant substitution was made."
+  ],
+  "evidenceFiles": [
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-final-after.png",
+      "bytes": 1146636,
+      "sha256": "8d4c2b7551e019cc38f4da55b4fa961d7201f6cd51b6189ce51325d78a9be81f"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-final-idle.png",
+      "bytes": 1131986,
+      "sha256": "0d5012128b0185b90712847ed70976bc4090f771ba8f70e7da11344d593e98cf"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-final-ready.png",
+      "bytes": 725825,
+      "sha256": "b6ad3c5cafabd501f0e99f809e175894c083392cde583c281720eb7c0efa7479"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-final-spinning.png",
+      "bytes": 1125821,
+      "sha256": "57167c9fe33448bfff6926f180f8f634a950c8d3fb39c1378e41837a6cb6f49f"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-sequential-after.png",
+      "bytes": 1132316,
+      "sha256": "29cd6eb1a557b30c2ccf8d8f7c1a47a42a54bc0533b4c053a441be298c2c0b95"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-sequential-idle.png",
+      "bytes": 50466,
+      "sha256": "1b2ee98d33f69b50b377cf025f2aecd5647689c7dc99d0ec6c6285991cf19605"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-sequential-ready.png",
+      "bytes": 48371,
+      "sha256": "876a022cfa267f90eeafd981e5a623355df144246fb5ab3067accf34d0d20a3d"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/FoxyHot20-sequential-spinning.png",
+      "bytes": 50466,
+      "sha256": "4bd17d641a382a73e0048b463be249ff3987059241596a5b78d3781fda81e815"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/MultiHot5-sequential-ready.png",
+      "bytes": 49941,
+      "sha256": "d56be0f25b2faf8a471ec67f0d6d0bf795af84a6b7f29d6fd839b4e84a2972cd"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/android-initial.json",
+      "bytes": 9354,
+      "sha256": "b825ff88dee1684c7e19ec492f2020c5a74109b63a29dcdfd99ce33e8a646916"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/final-interactions.json",
+      "bytes": 763,
+      "sha256": "afb567177a8a2f746e077cb2a5d762b03fc1427c4e2a1afb6f66fc69b44f2136"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/initial-results.json",
+      "bytes": 4403,
+      "sha256": "b6dadeca8f7ff94b3ebfa086f701a543308c41643dce02593616c8e93534945a"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/longer-results.json",
+      "bytes": 3610,
+      "sha256": "aa9882e76418fe5029ccace750bf08a3f963b6ad222b7dc40de4518d55880172"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/mh100-official-product.webp",
+      "bytes": 36334,
+      "sha256": "f702b99492ef42baec2e56329d1c895479ef3aeb9a75de143df004e55d29dcb9"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/multi_hot_100-android-ready.png",
+      "bytes": 52939,
+      "sha256": "d9a47679cc917bf3794d6e77a210b775e7504eabda9e7f82f84aa4cdea3f3e93"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/multi_hot_100-initial.png",
+      "bytes": 49921,
+      "sha256": "2927b44ab7056f3ae86af41ebe2c5db3e214871348e4f0585aedad6ffe6618c2"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/multi_hot_100-longer.png",
+      "bytes": 426898,
+      "sha256": "1cbb96bcbe7fd09ff41c0b266211a4434a7f9d79630bbb87541aa359c607d179"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/sequential-interactions.json",
+      "bytes": 1586,
+      "sha256": "cf57b9ee182647ce0cc227099f3d817c880c51ad285bec34db6a00eb4f6c75e7"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/stars-official-product.webp",
+      "bytes": 35386,
+      "sha256": "66a97275532a65c507f4e78c28709e27d361c58d28fca4ca4104d4296066fbfb"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/wild_multi_stars-android-ready.png",
+      "bytes": 760559,
+      "sha256": "a38a70571ffc1051e58688a8dc4c9c54054d29e904f565fa10ed0bf48cc78b2e"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/wild_multi_stars-initial.png",
+      "bytes": 51863,
+      "sha256": "51d4a702464537df0dd691010e2c563869effd76d41552cfa9c83be74cb0a392"
+    },
+    {
+      "path": "/workspace/work/r9-online-demos/wild_multi_stars-longer.png",
+      "bytes": 548224,
+      "sha256": "fa5844437583a921b200f99e8c37a457dc6c644556a2d9d716c25e7d595b7a14"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/FoxyHot20-10s.png",
+      "bytes": 443872,
+      "sha256": "8c358b36a541151ad0bce2f21f39efa86664a6a6e4c612ca0d7032b19861a6be"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/FoxyHot20-20s.png",
+      "bytes": 443257,
+      "sha256": "cb36566e564b420d2325442cc68424f671a13ce2ec35e47c79342552b7b11e6e"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/FoxyHot20-android-idle.png",
+      "bytes": 724602,
+      "sha256": "f901fad1137140eb1c484a3ac03b4005ade37d09133bcdf04d40b6166c91a4c0"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/FoxyHot20-official.webp",
+      "bytes": 41018,
+      "sha256": "aee9f910c08ca1fabbd65333a775c6450eaaf4ba315de992a365e2506d72574d"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/MultiHot5-10s.png",
+      "bytes": 389486,
+      "sha256": "2a950c361fb7853e153da0abb495321efb69201b61fde631382f56517774e945"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/MultiHot5-20s.png",
+      "bytes": 389121,
+      "sha256": "b0b14f9eb11f2d131e042bf80953e07fa276c903d058b1ecb422d4b294c82d32"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/MultiHot5-android-idle.png",
+      "bytes": 542761,
+      "sha256": "c3c92db40baec1125db4b5b240490298f4536cc798d347e059491ef08a78668f"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/MultiHot5-official.webp",
+      "bytes": 37570,
+      "sha256": "d64ab08e5e990080a04fea94c39246e92db491fc5316cde3ed9a06e87644d832"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/android-results.json",
+      "bytes": 12003,
+      "sha256": "75192448773d8b281212efefe1a5e5613fba4400e7c54bda7679cb2334008ad6"
+    },
+    {
+      "path": "/workspace/work/r9-online-mh5-foxy/browser-results.json",
+      "bytes": 6506,
+      "sha256": "cd30ff2580d487250d84ca4262ed355c7fec36c3da16c6541b0088812bc188a7"
+    }
+  ],
+  "sequentialFollowupStatus": "Completed; all public demo browser contexts closed. No further attempts.",
+  "ordinarySequentialFollowup": [
+    {
+      "game": "MultiHot5",
+      "explicitDemo": true,
+      "virtualSpinGestures": 0,
+      "authenticated": false,
+      "realMoneyWagers": 0,
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+      "status": 200,
+      "loadedAfterMs": 1066,
+      "initialText": "test\ntest\ntest\ntest\nWould you like sound?\nYes No",
+      "error": "locator.click: Timeout 2000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Yes', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <a class=\"yes\" onclick=\"mobileSound(true);\">Yes</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b["
+    },
+    {
+      "game": "FoxyHot20",
+      "explicitDemo": true,
+      "virtualSpinGestures": 1,
+      "authenticated": false,
+      "realMoneyWagers": 0,
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+      "status": 200,
+      "loadedAfterMs": 1551,
+      "initialText": "test\ntest\ntest\ntest\ntest\ntest\nWould you like sound?\nYes No",
+      "soundConsentYes": true,
+      "promptDismissed": true,
+      "finalText": "test\ntest\ntest\ntest\ntest\ntest",
+      "note": "A trusted tap was made on the observed SPIN control in explicit DMO mode; screenshots determine observed motion. No independent settlement or waveform validation."
+    }
+  ],
+  "finalOrdinarySequentialFollowup": {
+    "game": "FoxyHot20",
+    "explicitDemo": true,
+    "virtualSpinGestures": 1,
+    "authenticated": false,
+    "realMoneyWagers": 0,
+    "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+    "status": 200,
+    "loadedAfterMs": 36574,
+    "initialText": "test\ntest\ntest\ntest\ntest\ntest\nWould you like sound?\nYes No",
+    "soundConsentYes": true,
+    "promptDismissed": true,
+    "finalText": "test\ntest\ntest\ntest\ntest\ntest",
+    "note": "A trusted tap was made on the observed SPIN control in explicit DMO mode; screenshots determine observed motion. No independent settlement or waveform validation.",
+    "visualReview": {
+      "idleImage": "/workspace/work/r9-online-demos/FoxyHot20-final-idle.png",
+      "spinningImage": "/workspace/work/r9-online-demos/FoxyHot20-final-spinning.png",
+      "afterImage": "/workspace/work/r9-online-demos/FoxyHot20-final-after.png",
+      "imagesIndividuallyInspected": true,
+      "observed": [
+        "Sound-consent prompt disappears after Yes; speaker changes to unmuted visual state.",
+        "Idle HOLD & SPIN control changes to STOP with a square; multiplier wheel and first reel visibly move.",
+        "After capture returns to HOLD & SPIN, reel grid differs and selected wheel changes from 2x to 4x.",
+        "Displayed balance changes by the selected virtual 0.20 DMO stake; no real currency or production wallet is involved."
+      ],
+      "interpretation": "One actual virtual demo spin cycle was visually observed. No independent provider receipt, exact timing, RTP or audible waveform was validated."
+    }
+  }
+}
