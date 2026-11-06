@@ -7,7 +7,7 @@ import {fileURLToPath} from 'node:url';
 import {randomBytes,randomUUID,randomInt} from 'node:crypto';
 import {spin,publicGames,getGame,gambleDraw} from '../test/server-core-snapshot.mjs';
 import {decimal,units,validateRound,validateGamble} from '../public/contract.mjs';
-import {gameConfig} from '../public/registry.mjs';
+import {gameConfig,RELEASE} from '../public/registry.mjs';
 
 if(!process.argv.includes('--qa'))throw Error('QA is opt-in: pass --qa. This server is local and uses invented balances only.');
 const port=Number(process.argv.find(x=>x.startsWith('--port='))?.split('=')[1]||8767);
@@ -84,7 +84,7 @@ const server=http.createServer(async(req,res)=>{
    throw fail(404,'QA_ROUTE_NOT_FOUND');
   }
   let file;if(url.pathname.startsWith('/games/')){const id=url.pathname.split('/').at(-1);check(games.has(id),404,'GAME_NOT_FOUND');const body=(await readFile(resolve(root,'index.html'),'utf8')).replace('{{GAME}}',id);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store','x-superwin-qa':'synthetic-local-only','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"});res.end(req.method==='HEAD'?undefined:body);return;}
-  if(/^\/zplay-machines-[\w-]+\/[^/]+$/.test(url.pathname))file=resolve(root,basename(url.pathname));
+  if(url.pathname.startsWith('/'+RELEASE+'/')&&url.pathname.split('/').length===3)file=resolve(root,basename(url.pathname));
   else if(url.pathname==='/') {res.writeHead(302,{location:'/games/multi_hot_5_video'});res.end();return;}
   else throw fail(404,'QA_ROUTE_NOT_FOUND');
   check(file.startsWith(root+'/'),403,'QA_PATH_DENIED');await stat(file);const type=file.endsWith('.css')?'text/css':file.endsWith('.svg')?'image/svg+xml':file.endsWith('.mjs')?'application/javascript':file.endsWith('.webp')?'image/webp':'application/octet-stream';res.writeHead(200,{'content-type':type,'cache-control':'no-store','x-superwin-qa':'synthetic-local-only'});res.end(req.method==='HEAD'?undefined:await readFile(file));
