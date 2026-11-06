@@ -9,7 +9,7 @@ export function metalText(c,text,x,y,size,width,{pink=false,italic=false}={}){
 }
 export function foilFrame(c,x,y,w,h,r,forest=false){
  c.save();c.lineJoin='round';
- const layers=forest?[[-3,2,'#001e16'],[-1,4,'#3e9770'],[0,2,'#addba5'],[2,2,'#d8e3a3'],[3,1,'#297a5f']]:[[-1.2,1.2,'#002b20'],[-.2,2.1,'#957238'],[0,1.2,'#f2df91'],[1.1,.85,'#765b2d'],[1.9,.6,'#517546']];
+ const layers=forest?[[-3,2,'#003a25'],[-1.4,3.6,'#167b5b'],[-.5,1.1,'#8de8a4'],[.6,1.4,'#1f9767'],[2.2,1.1,'#bdca58'],[3.1,.65,'#63942e']]:[[-1.2,1.2,'#002b20'],[-.2,2.1,'#957238'],[0,1.2,'#f2df91'],[1.1,.85,'#765b2d'],[1.9,.6,'#517546']];
  for(const [inset,line,color]of layers){
   c.beginPath();c.roundRect(x+inset,y+inset,w-inset*2,h-inset*2,r);c.strokeStyle=color;c.lineWidth=line;c.stroke();
  }

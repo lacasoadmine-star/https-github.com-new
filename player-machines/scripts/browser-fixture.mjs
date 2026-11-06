@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {gameConfig} from '../public/registry.mjs';
 import {settle} from '../test/fixtures.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)),game=process.argv[2]||'multi_hot_5_video',out=process.argv[3]||'/tmp/zplay-qa.html',imports={};
-for(const name of await readdir(root+'public'))if(name.endsWith('.mjs')){let source=await readFile(root+'public/'+name,'utf8');source=source.replace(/from '\.\/([^']+)'/g,"from 'machine/$1'");imports['machine/'+name]='data:text/javascript;base64,'+Buffer.from(source).toString('base64');}
+for(const name of await readdir(root+'public'))if(name.endsWith('.mjs')){let source=await readFile(root+'public/'+name,'utf8');source=source.replace(/from '\.\/([^']+)'/g,"from 'machine/$1'").replace(/import\(\s*(['"])\.\/([^'"]+)\1\s*\)/g,(_match,quote,name)=>`import(${quote}machine/${name}${quote})`);imports['machine/'+name]='data:text/javascript;base64,'+Buffer.from(source).toString('base64');}
 let fixture;for(let i=0;i<10000;i++){const r=settle(game);if(Number(r.finalWin)>0&&r.freeSpinsRemaining===0){fixture=r;break;}}if(!fixture)throw Error('No winning fixture');
 let lossFixture;for(let i=0;i<10000;i++){const r=settle(game);if(r.finalWin==='0.00'&&r.bonusSpinsAwarded===0){lossFixture=r;break;}}if(!lossFixture)throw Error('No losing fixture');
 let freeFixture=null;if(game==='hot_foxy_20')for(let i=0;i<10000;i++){const r=settle(game,'2.00',0n,{isFree:true});if(r.finalWin==='0.00'&&r.bonusSpinsAwarded===0){freeFixture=r;break;}}

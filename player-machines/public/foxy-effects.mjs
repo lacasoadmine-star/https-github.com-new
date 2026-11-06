@@ -1,7 +1,7 @@
 // Receipt-driven Foxy highlights. These surfaces never select symbols or wins.
 export function drawFoxyMultiplier(c,value,x,y,size){
  c.save();c.translate(x,y);c.font=`900 ${size}px Arial, sans-serif`;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
- const label=value+'X';c.strokeStyle='#973526';c.lineWidth=3.5;c.strokeText(label,0,1.5);c.strokeStyle='#fffbc4';c.lineWidth=1.8;c.strokeText(label,0,0);
+ const label=value+'x';c.strokeStyle='#973526';c.lineWidth=3.5;c.strokeText(label,0,1.5);c.strokeStyle='#fffbc4';c.lineWidth=1.8;c.strokeText(label,0,0);
  const ink=c.createLinearGradient(0,-size/2,0,size/2);ink.addColorStop(0,'#ffe874');ink.addColorStop(.38,'#ffbd26');ink.addColorStop(.8,'#f0781e');ink.addColorStop(1,'#d64a25');c.fillStyle=ink;c.fillText(label,0,0);c.restore();
 }
 
