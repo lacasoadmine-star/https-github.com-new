@@ -1,0 +1,70 @@
+{
+  "synthetic": true,
+  "productionRequests": 0,
+  "checks": 123,
+  "results": [
+    {
+      "game": "hot_foxy_20",
+      "width": 360,
+      "checks": 21,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "game": "hot_foxy_20",
+      "width": 390,
+      "checks": 21,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "game": "hot_foxy_20",
+      "width": 430,
+      "checks": 21,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "game": "multi_hot_5_video",
+      "width": 360,
+      "checks": 20,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "game": "multi_hot_5_video",
+      "width": 390,
+      "checks": 20,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "game": "multi_hot_5_video",
+      "width": 430,
+      "checks": 20,
+      "errors": [],
+      "failed": []
+    }
+  ],
+  "unitTests": {
+    "command": "node --import ./scripts/register-binary-loader.mjs --test test/official-help.test.mjs",
+    "passed": 4,
+    "failed": 0
+  },
+  "sources": {
+    "public/official-help-presentation.mjs": "21147e25077f96e2822b8f32968d109058df8fceb188e959a893d732916ef1b8",
+    "public/official-help.css": "df149484e2f478978b13e3cb3680ce0d71029cff16f490b481ad5b2d5c6b374d",
+    "test/official-help.test.mjs": "191378bd284c938e6ca4372ac9a9a0075399821563f78c670e53b04b9026e82d"
+  },
+  "referenceScreenshots": [
+    "/workspace/work/r13-reference/FoxyHot20/menu-open-final.png",
+    "/workspace/work/r13-reference/MultiHot5/menu.png",
+    "/workspace/work/r13-reference/MultiHot5/settings.png"
+  ],
+  "limits": [
+    "Native symbol art reuses existing original atlas crops; menu icons use CSS approximations because original Menu icon files were unavailable at freeze.",
+    "Existing shared sound/mute controls are preserved; separate provider music/effect toggles were not added.",
+    "Payouts, currency, current model, and any legacy scatter rules are local validated values; no provider RTP or mathematical-equivalence claim.",
+    "Isolated browser fixture; no production wallet requests."
+  ]
+}

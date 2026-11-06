@@ -18,6 +18,7 @@ test('original audio bytes match recorded public response hashes and full-length
  for(const track of [multiBackground,foxyBackground]){const bytes=Buffer.from(track.encoded,'base64');assert.equal(bytes.length,track.sourceBytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),track.sourceSha256);assert.ok(track.sourceDurationSeconds>80);assert.equal(track.preserveOriginal,true);}
 });
 test('both complete music buffers preserve original duration and PCM without excerpt processing',async()=>{
+ assert.equal(multiBackground.gain,.3);assert.equal(foxyBackground.gain,.6);
  for(const [id,track] of [['multi_hot_5_video',multiBackground],['hot_foxy_20',foxyBackground]])await engine(id,async a=>{assert.equal(a.backgroundBuffer,null);a.setBackgroundEnabled(true);await a.preloadBackground();assert.equal(a.backgroundBuffer,a.context.decoded.at(-1));assert.equal(a.backgroundBuffer.duration,track.sourceDurationSeconds);assert.equal(a.context.createdBuffers,0);assert.equal(a.backgroundGain,track.gain);});
 });
 test('MH5 uses its native spin and stop clips without adding a moving-reel or wheel sound',()=>engine('multi_hot_5_video',async a=>{
@@ -38,7 +39,7 @@ test('Foxy only plays the multiplier phrase on a positive win and respects sourc
  for(const [amount,name] of [[15,'win'],[15.01,'win-2'],[30,'win-2'],[30.01,'win-3'],[50.01,'win-4'],[100.01,'win-5']]){a.win(amount,1);assert.deepEqual(effects(a).sort(),['win-multiplier',name].sort());assert.equal([...a.nodes].find(node=>node.sample==='win-multiplier').baseVolume,.5);}
 }));
 test('MH5 uses native win tiers including the strict 5x and25x boundaries',()=>engine('multi_hot_5_video',async a=>{
- for(const [amount,name] of [[5,'win'],[5.01,'win-medium'],[25,'win-medium'],[25.01,'big-win']]){a.win(amount,1);assert.deepEqual(effects(a),[name]);}
+ for(const [amount,name] of [[5,'win'],[5.01,'win-medium'],[25,'win-medium'],[25.01,'big-win']]){a.win(amount,1);assert.deepEqual(effects(a),[name]);assert.equal([...a.nodes].find(node=>node.sample===name).baseVolume,.6);}
 }));
 test('a missing native reel-stop decode falls back to a short tone without throwing',()=>engine('hot_foxy_20',async a=>{
  a.samples.delete('reel-stop-3');assert.doesNotThrow(()=>a.event('reel-stop',3));assert.equal(a.context.oscillatorCount,2);assert.ok([...a.nodes].every(node=>!node.sample));

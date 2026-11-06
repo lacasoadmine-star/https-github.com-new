@@ -1,0 +1,71 @@
+{
+  "source": "Declared official public demo MP3 URLs; fetched normally in Chromium, HTTP 200. No provider logic is redistributed.",
+  "mapping": "MH5 red/black choice, win/lose outcome, take/close; Foxy win/lose outcome and take/close. Foxy DoubleButton is referenced by source but no configured or observed URL was found, so no substitute cue is invented.",
+  "gains": "MH5 cues and Foxy win/lose gain 1; Foxy take/close gain 0.5, from authored playSound defaults and foxyhot20.js soundsDefaultVolume. Existing user volume and limiter retained; no full-mix waveform identity claimed.",
+  "games": {
+    "mh5": {
+      "red": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot5/Double/Red.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 12128,
+        "sha256": "91579afea609ceb153a4fd951ffdff7c3a14ebc52fb4839c76c7d6d014386c58"
+      },
+      "black": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot5/Double/Black.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 12128,
+        "sha256": "dc2c2ea1477ca8730d6e44f6a61528cc2701831d6a3d218f993bd00b38bfe395"
+      },
+      "win": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot5/Double/Win.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 42094,
+        "sha256": "981bc5b8316e2ffc5c8ee0887ef48da9be65c834dd69033c1782351a859a5c50"
+      },
+      "lose": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot5/Double/Lose.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 42094,
+        "sha256": "aac647d8e3331218d1a918e29950b13df8e89e7904ce8953e8adc27b28faa2c1"
+      },
+      "take": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot5/Double/Take.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 42094,
+        "sha256": "b9a2e745b9c724fddd94ea3adaf27ad5cebc205459037c5cc96e6c443677be95"
+      }
+    },
+    "foxy": {
+      "win": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/FoxyHot20/Double/Win.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 56640,
+        "sha256": "9c0677c1b677c909c36fb2fc952e9006549a9e9d522a5674e25d9625789b0b63"
+      },
+      "lose": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/FoxyHot20/Double/Lose.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 56640,
+        "sha256": "339c86eb8a354bcef5850928bb19d644cede4d1ee4903df3d4c644c3043b306d"
+      },
+      "take": {
+        "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/FoxyHot20/Buttons/DoubleTake.mp3",
+        "status": 200,
+        "type": "audio/mpeg",
+        "bytes": 22195,
+        "sha256": "fe6e63ebba93f0819b417b0c56a0c5401b1e1000ca5760a7938ff29542065497"
+      }
+    }
+  },
+  "verifiedConfiguration": {
+    "MH5": "Scripts/Slots/canvas.js playSound default gain1 and slot.js native DoubleRed/Black/Win/Lose/Take mappings",
+    "Foxy": "Scripts/New/foxyhot20.js lines814-815 DoubleTake gain0.5; native double.js result/close event mappings"
+  }
+}

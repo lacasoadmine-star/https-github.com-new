@@ -1,0 +1,31 @@
+{
+  "baselineSha": "6dc7982c25e4c1fc0874c351cac1a563e776f7b48c024c708b0fe61684993677",
+  "candidateSha": "5ac7e3b31b2646f038a0155891282c83b51de0409b411dc6a526c8479cc9f59f",
+  "all41HttpBodiesByteIdentical": true,
+  "differences": [],
+  "baselineInitialized": {
+    "atMs": 3822.7178129999998,
+    "label": "initialized",
+    "usedSize": 107477552,
+    "totalSize": 108072960,
+    "embedderHeapUsedSize": 257936,
+    "backingStorageSize": 0
+  },
+  "candidateInitialized": {
+    "atMs": 2000.8538919999996,
+    "label": "initialized",
+    "usedSize": 498740,
+    "totalSize": 786432,
+    "embedderHeapUsedSize": 257936,
+    "backingStorageSize": 30321216
+  },
+  "candidateMaxUsed": 1308192,
+  "candidateMaxBacking": 30321216,
+  "residentAssetReductionBytes": 76657596,
+  "limitations": [
+    "Isolated unchanged machinePage/session with full machine-assets module. Local h2c multiplex proxy forwards to one workerd isolate; Cloudflare edge admission requires separate live verification.",
+    "Both measured with local compatibilityDate2026-08-06 because installedruntimecannotstartproduction2026-10-01;productionsettingunchanged.",
+    "Runtime ready walltimeincludesMiniflare/inspectorstartup,notCPUstartupmetric.",
+    "No explicitgarbagecollection;unsupportedHeapProfiler.collectGarbage omitted."
+  ]
+}

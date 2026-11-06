@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "release": "zplay-machines-20261106-r12",
+  "release": "zplay-machines-20261107-r13",
   "packaging": "typed-binary-modules",
   "entryModule": "machine-assets-20261106.mjs",
   "htmlTemplateBytes": 7999,
-  "frontendBytes": 30329215,
-  "workerJavaScriptBytes": 14904,
-  "binaryBytes": 30321216,
+  "frontendBytes": 31593696,
+  "workerJavaScriptBytes": 17404,
+  "binaryBytes": 31585697,
   "assets": [
     {
       "name": "ambient.mjs",
@@ -83,16 +83,16 @@
     {
       "name": "contract.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 7070,
-      "sha256": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+      "bytes": 12379,
+      "sha256": "95834aa776990fd29f91e325513d92a0bf29524c38012af5e59402e222a0d4d2",
       "module": "machine-data/contract.mjs.bin",
       "storage": "array-buffer"
     },
     {
       "name": "controller.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 26782,
-      "sha256": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+      "bytes": 34147,
+      "sha256": "c3e2d0e8175b805be520b50bf073983645812034be6e6690e219185ca0a4a37a",
       "module": "machine-data/controller.mjs.bin",
       "storage": "array-buffer"
     },
@@ -148,7 +148,7 @@
       "name": "index.html",
       "type": "text/html; charset=utf-8",
       "bytes": 7999,
-      "sha256": "3efc6e74a4752ea6699156752cc3de0f82a6d274ba8b73fe7816c769d69bf531",
+      "sha256": "dcd3e3d92244b810dc2b52f69ca1e8da99cb7bb0e6b7e80d1021a92a9909c428",
       "storage": "html-template"
     },
     {
@@ -208,6 +208,22 @@
       "storage": "array-buffer"
     },
     {
+      "name": "official-auto-bet-presentation.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 9189,
+      "sha256": "5217e2ca13c755807f058d2686107238191572553b1d4f61b18f2d2366ec5b10",
+      "module": "machine-data/official-auto-bet-presentation.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-auto-bet.css",
+      "type": "text/css; charset=utf-8",
+      "bytes": 10923,
+      "sha256": "ff06aa004a2be581e21ee8a3fe09d05babf0ab8720c8969b087b02b4edc1d6e2",
+      "module": "machine-data/official-auto-bet.css.bin",
+      "storage": "array-buffer"
+    },
+    {
       "name": "official-foxy-art.mjs",
       "type": "application/javascript; charset=utf-8",
       "bytes": 2461817,
@@ -221,6 +237,14 @@
       "bytes": 2050032,
       "sha256": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
       "module": "machine-data/official-foxy-background.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-foxy-dialog-assets.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 132930,
+      "sha256": "8974f2a83ab441606bd0ba823ccd68df4edae72a61270982ad06fcf383e8be35",
+      "module": "machine-data/official-foxy-dialog-assets.mjs.bin",
       "storage": "array-buffer"
     },
     {
@@ -240,6 +264,62 @@
       "storage": "array-buffer"
     },
     {
+      "name": "official-foxy-gamble-assets.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 163968,
+      "sha256": "b624f9d5213a25439a665dc57815eaa3243a2f9f5003786832a2cdab95c6a7fc",
+      "module": "machine-data/official-foxy-gamble-assets.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-foxy-gamble-audio.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 180788,
+      "sha256": "a5e3ee6cb24d22cfde12e1bca40fe6344a751c9393fcb8da5507ec0f47f7b637",
+      "module": "machine-data/official-foxy-gamble-audio.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-gamble-audio.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 2989,
+      "sha256": "5c1d00bb21600d283af95f0c4e09efd1fea08e0aab4d1a2b98d5adcc3af37e97",
+      "module": "machine-data/official-gamble-audio.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-gamble-presentation.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 12945,
+      "sha256": "40c9b87ea3bead55e55f3c5295aab2a9be9d6625c4d0576579c1ee0f4d709f18",
+      "module": "machine-data/official-gamble-presentation.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-gamble.css",
+      "type": "text/css; charset=utf-8",
+      "bytes": 9910,
+      "sha256": "6787adcb603a711428f1c4f424bf28af33cce5a94cd87baec5bc85b1a2b32892",
+      "module": "machine-data/official-gamble.css.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-help-presentation.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 10853,
+      "sha256": "21147e25077f96e2822b8f32968d109058df8fceb188e959a893d732916ef1b8",
+      "module": "machine-data/official-help-presentation.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-help.css",
+      "type": "text/css; charset=utf-8",
+      "bytes": 10721,
+      "sha256": "df149484e2f478978b13e3cb3680ce0d71029cff16f490b481ad5b2d5c6b374d",
+      "module": "machine-data/official-help.css.bin",
+      "storage": "array-buffer"
+    },
+    {
       "name": "official-mh5-art.mjs",
       "type": "application/javascript; charset=utf-8",
       "bytes": 1705761,
@@ -250,17 +330,49 @@
     {
       "name": "official-mh5-background.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 2796282,
-      "sha256": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+      "bytes": 2796284,
+      "sha256": "061fd158a0fb648de3b979ec67c466290ae1b5c6449deed61ded8c4126532055",
       "module": "machine-data/official-mh5-background.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-mh5-collect-art.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 104915,
+      "sha256": "5d6c22444e6838a6ee81eb272924f1aa22f3d8513858188ed8355198eb6229b5",
+      "module": "machine-data/official-mh5-collect-art.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-mh5-dialog-assets.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 14377,
+      "sha256": "ab4718d24c0601f515cb05c2d8878d75950d4c71a4a45f4ae43dcd9e12324761",
+      "module": "machine-data/official-mh5-dialog-assets.mjs.bin",
       "storage": "array-buffer"
     },
     {
       "name": "official-mh5-effects-audio.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 962239,
-      "sha256": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+      "bytes": 962251,
+      "sha256": "6c3131ceae68518b56b36c8e86d5ad12d7b8554bcc268162f2e74ec2fe1a812c",
       "module": "machine-data/official-mh5-effects-audio.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-mh5-gamble-assets.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 249183,
+      "sha256": "acbb8f86ee3aaa97b3b05980ca007a456d0de299afd523bdfefe6d60285b0327",
+      "module": "machine-data/official-mh5-gamble-assets.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
+      "name": "official-mh5-gamble-audio.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 200900,
+      "sha256": "05a3db8d1e7315f843452809e20017c694c7924dd9f5399303779a6aebba2706",
+      "module": "machine-data/official-mh5-gamble-audio.mjs.bin",
       "storage": "array-buffer"
     },
     {
@@ -274,16 +386,16 @@
     {
       "name": "registry.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 6507,
-      "sha256": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+      "bytes": 8961,
+      "sha256": "215ba4ed49ecc3cfe549d18354906117f2dac86c76ae7f2fbaa47bfd6cde01db",
       "module": "machine-data/registry.mjs.bin",
       "storage": "array-buffer"
     },
     {
       "name": "renderer.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 26260,
-      "sha256": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+      "bytes": 26529,
+      "sha256": "11f1ffc4fafbfd5b2117c177b01b532d14f38cbb9e7400acc6c54186d2ee1b7f",
       "module": "machine-data/renderer.mjs.bin",
       "storage": "array-buffer"
     },
@@ -336,10 +448,18 @@
       "storage": "array-buffer"
     },
     {
+      "name": "verified-models.mjs",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 133649,
+      "sha256": "5f83d6cc34335ebb775dc620032b03a62872402408acf4895aa0f3ce0328c16b",
+      "module": "machine-data/verified-models.mjs.bin",
+      "storage": "array-buffer"
+    },
+    {
       "name": "wallet.mjs",
       "type": "application/javascript; charset=utf-8",
-      "bytes": 4156,
-      "sha256": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb",
+      "bytes": 4986,
+      "sha256": "518e60df6bff3b0e9f87aa1964ca56e489c5d71dd6757c77bc66b7aba22511c0",
       "module": "machine-data/wallet.mjs.bin",
       "storage": "array-buffer"
     }
@@ -349,8 +469,8 @@
       "name": "machine-assets-20261106.mjs",
       "file": "worker/machine-assets-20261106.mjs",
       "type": "application/javascript+module",
-      "bytes": 14904,
-      "sha256": "5ac7e3b31b2646f038a0155891282c83b51de0409b411dc6a526c8479cc9f59f"
+      "bytes": 17404,
+      "sha256": "63bbedf911a154da7d94d7c5fddc8dfdddaac3f28be7e9a718d3c4cca2446792"
     },
     {
       "name": "machine-data/ambient.mjs.bin",
@@ -428,16 +548,16 @@
       "name": "machine-data/contract.mjs.bin",
       "file": "worker/machine-data/contract.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 7070,
-      "sha256": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+      "bytes": 12379,
+      "sha256": "95834aa776990fd29f91e325513d92a0bf29524c38012af5e59402e222a0d4d2",
       "source": "public/contract.mjs"
     },
     {
       "name": "machine-data/controller.mjs.bin",
       "file": "worker/machine-data/controller.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 26782,
-      "sha256": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+      "bytes": 34147,
+      "sha256": "c3e2d0e8175b805be520b50bf073983645812034be6e6690e219185ca0a4a37a",
       "source": "public/controller.mjs"
     },
     {
@@ -545,6 +665,22 @@
       "source": "public/native-presentation.mjs"
     },
     {
+      "name": "machine-data/official-auto-bet-presentation.mjs.bin",
+      "file": "worker/machine-data/official-auto-bet-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 9189,
+      "sha256": "5217e2ca13c755807f058d2686107238191572553b1d4f61b18f2d2366ec5b10",
+      "source": "public/official-auto-bet-presentation.mjs"
+    },
+    {
+      "name": "machine-data/official-auto-bet.css.bin",
+      "file": "worker/machine-data/official-auto-bet.css.bin",
+      "type": "application/octet-stream",
+      "bytes": 10923,
+      "sha256": "ff06aa004a2be581e21ee8a3fe09d05babf0ab8720c8969b087b02b4edc1d6e2",
+      "source": "public/official-auto-bet.css"
+    },
+    {
       "name": "machine-data/official-foxy-art.mjs.bin",
       "file": "worker/machine-data/official-foxy-art.mjs.bin",
       "type": "application/octet-stream",
@@ -559,6 +695,14 @@
       "bytes": 2050032,
       "sha256": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
       "source": "public/official-foxy-background.mjs"
+    },
+    {
+      "name": "machine-data/official-foxy-dialog-assets.mjs.bin",
+      "file": "worker/machine-data/official-foxy-dialog-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 132930,
+      "sha256": "8974f2a83ab441606bd0ba823ccd68df4edae72a61270982ad06fcf383e8be35",
+      "source": "public/official-foxy-dialog-assets.mjs"
     },
     {
       "name": "machine-data/official-foxy-effects-audio.mjs.bin",
@@ -577,6 +721,62 @@
       "source": "public/official-foxy-foreground.mjs"
     },
     {
+      "name": "machine-data/official-foxy-gamble-assets.mjs.bin",
+      "file": "worker/machine-data/official-foxy-gamble-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 163968,
+      "sha256": "b624f9d5213a25439a665dc57815eaa3243a2f9f5003786832a2cdab95c6a7fc",
+      "source": "public/official-foxy-gamble-assets.mjs"
+    },
+    {
+      "name": "machine-data/official-foxy-gamble-audio.mjs.bin",
+      "file": "worker/machine-data/official-foxy-gamble-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 180788,
+      "sha256": "a5e3ee6cb24d22cfde12e1bca40fe6344a751c9393fcb8da5507ec0f47f7b637",
+      "source": "public/official-foxy-gamble-audio.mjs"
+    },
+    {
+      "name": "machine-data/official-gamble-audio.mjs.bin",
+      "file": "worker/machine-data/official-gamble-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 2989,
+      "sha256": "5c1d00bb21600d283af95f0c4e09efd1fea08e0aab4d1a2b98d5adcc3af37e97",
+      "source": "public/official-gamble-audio.mjs"
+    },
+    {
+      "name": "machine-data/official-gamble-presentation.mjs.bin",
+      "file": "worker/machine-data/official-gamble-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 12945,
+      "sha256": "40c9b87ea3bead55e55f3c5295aab2a9be9d6625c4d0576579c1ee0f4d709f18",
+      "source": "public/official-gamble-presentation.mjs"
+    },
+    {
+      "name": "machine-data/official-gamble.css.bin",
+      "file": "worker/machine-data/official-gamble.css.bin",
+      "type": "application/octet-stream",
+      "bytes": 9910,
+      "sha256": "6787adcb603a711428f1c4f424bf28af33cce5a94cd87baec5bc85b1a2b32892",
+      "source": "public/official-gamble.css"
+    },
+    {
+      "name": "machine-data/official-help-presentation.mjs.bin",
+      "file": "worker/machine-data/official-help-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 10853,
+      "sha256": "21147e25077f96e2822b8f32968d109058df8fceb188e959a893d732916ef1b8",
+      "source": "public/official-help-presentation.mjs"
+    },
+    {
+      "name": "machine-data/official-help.css.bin",
+      "file": "worker/machine-data/official-help.css.bin",
+      "type": "application/octet-stream",
+      "bytes": 10721,
+      "sha256": "df149484e2f478978b13e3cb3680ce0d71029cff16f490b481ad5b2d5c6b374d",
+      "source": "public/official-help.css"
+    },
+    {
       "name": "machine-data/official-mh5-art.mjs.bin",
       "file": "worker/machine-data/official-mh5-art.mjs.bin",
       "type": "application/octet-stream",
@@ -588,17 +788,49 @@
       "name": "machine-data/official-mh5-background.mjs.bin",
       "file": "worker/machine-data/official-mh5-background.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 2796282,
-      "sha256": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+      "bytes": 2796284,
+      "sha256": "061fd158a0fb648de3b979ec67c466290ae1b5c6449deed61ded8c4126532055",
       "source": "public/official-mh5-background.mjs"
+    },
+    {
+      "name": "machine-data/official-mh5-collect-art.mjs.bin",
+      "file": "worker/machine-data/official-mh5-collect-art.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 104915,
+      "sha256": "5d6c22444e6838a6ee81eb272924f1aa22f3d8513858188ed8355198eb6229b5",
+      "source": "public/official-mh5-collect-art.mjs"
+    },
+    {
+      "name": "machine-data/official-mh5-dialog-assets.mjs.bin",
+      "file": "worker/machine-data/official-mh5-dialog-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 14377,
+      "sha256": "ab4718d24c0601f515cb05c2d8878d75950d4c71a4a45f4ae43dcd9e12324761",
+      "source": "public/official-mh5-dialog-assets.mjs"
     },
     {
       "name": "machine-data/official-mh5-effects-audio.mjs.bin",
       "file": "worker/machine-data/official-mh5-effects-audio.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 962239,
-      "sha256": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+      "bytes": 962251,
+      "sha256": "6c3131ceae68518b56b36c8e86d5ad12d7b8554bcc268162f2e74ec2fe1a812c",
       "source": "public/official-mh5-effects-audio.mjs"
+    },
+    {
+      "name": "machine-data/official-mh5-gamble-assets.mjs.bin",
+      "file": "worker/machine-data/official-mh5-gamble-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 249183,
+      "sha256": "acbb8f86ee3aaa97b3b05980ca007a456d0de299afd523bdfefe6d60285b0327",
+      "source": "public/official-mh5-gamble-assets.mjs"
+    },
+    {
+      "name": "machine-data/official-mh5-gamble-audio.mjs.bin",
+      "file": "worker/machine-data/official-mh5-gamble-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 200900,
+      "sha256": "05a3db8d1e7315f843452809e20017c694c7924dd9f5399303779a6aebba2706",
+      "source": "public/official-mh5-gamble-audio.mjs"
     },
     {
       "name": "machine-data/official-presentation.mjs.bin",
@@ -612,16 +844,16 @@
       "name": "machine-data/registry.mjs.bin",
       "file": "worker/machine-data/registry.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 6507,
-      "sha256": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+      "bytes": 8961,
+      "sha256": "215ba4ed49ecc3cfe549d18354906117f2dac86c76ae7f2fbaa47bfd6cde01db",
       "source": "public/registry.mjs"
     },
     {
       "name": "machine-data/renderer.mjs.bin",
       "file": "worker/machine-data/renderer.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 26260,
-      "sha256": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+      "bytes": 26529,
+      "sha256": "11f1ffc4fafbfd5b2117c177b01b532d14f38cbb9e7400acc6c54186d2ee1b7f",
       "source": "public/renderer.mjs"
     },
     {
@@ -673,11 +905,19 @@
       "source": "public/symbol-atlases.mjs"
     },
     {
+      "name": "machine-data/verified-models.mjs.bin",
+      "file": "worker/machine-data/verified-models.mjs.bin",
+      "type": "application/octet-stream",
+      "bytes": 133649,
+      "sha256": "5f83d6cc34335ebb775dc620032b03a62872402408acf4895aa0f3ce0328c16b",
+      "source": "public/verified-models.mjs"
+    },
+    {
       "name": "machine-data/wallet.mjs.bin",
       "file": "worker/machine-data/wallet.mjs.bin",
       "type": "application/octet-stream",
-      "bytes": 4156,
-      "sha256": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb",
+      "bytes": 4986,
+      "sha256": "518e60df6bff3b0e9f87aa1964ca56e489c5d71dd6757c77bc66b7aba22511c0",
       "source": "public/wallet.mjs"
     },
     {
@@ -717,13 +957,27 @@
     "machine-data/native-animation-mh5-assets.mjs.bin",
     "machine-data/native-animation-runtime.mjs.bin",
     "machine-data/native-presentation.mjs.bin",
+    "machine-data/official-auto-bet-presentation.mjs.bin",
+    "machine-data/official-auto-bet.css.bin",
     "machine-data/official-foxy-art.mjs.bin",
     "machine-data/official-foxy-background.mjs.bin",
+    "machine-data/official-foxy-dialog-assets.mjs.bin",
     "machine-data/official-foxy-effects-audio.mjs.bin",
     "machine-data/official-foxy-foreground.mjs.bin",
+    "machine-data/official-foxy-gamble-assets.mjs.bin",
+    "machine-data/official-foxy-gamble-audio.mjs.bin",
+    "machine-data/official-gamble-audio.mjs.bin",
+    "machine-data/official-gamble-presentation.mjs.bin",
+    "machine-data/official-gamble.css.bin",
+    "machine-data/official-help-presentation.mjs.bin",
+    "machine-data/official-help.css.bin",
     "machine-data/official-mh5-art.mjs.bin",
     "machine-data/official-mh5-background.mjs.bin",
+    "machine-data/official-mh5-collect-art.mjs.bin",
+    "machine-data/official-mh5-dialog-assets.mjs.bin",
     "machine-data/official-mh5-effects-audio.mjs.bin",
+    "machine-data/official-mh5-gamble-assets.mjs.bin",
+    "machine-data/official-mh5-gamble-audio.mjs.bin",
     "machine-data/official-presentation.mjs.bin",
     "machine-data/registry.mjs.bin",
     "machine-data/renderer.mjs.bin",
@@ -733,6 +987,7 @@
     "machine-data/stars-presentation.mjs.bin",
     "machine-data/style.css.bin",
     "machine-data/symbol-atlases.mjs.bin",
+    "machine-data/verified-models.mjs.bin",
     "machine-data/wallet.mjs.bin"
   ]
 }

@@ -5,9 +5,9 @@ import {readFile,stat} from 'node:fs/promises';
 import {resolve,basename} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomBytes,randomUUID,randomInt} from 'node:crypto';
-import {spin,publicGames,getGame,gambleDraw} from '../test/server-core-snapshot.mjs';
-import {decimal,units,validateRound,validateGamble} from '../public/contract.mjs';
-import {gameConfig,RELEASE} from '../public/registry.mjs';
+import {spin,publicGames,getGame,gambleDraw,modelIdentity,receiptGame} from '../test/current-core.mjs';
+import {decimal,units,validateRound,validateGamble,gambleStakeAllowed} from '../public/contract.mjs';
+import {gameConfig,gameConfigForReceipt,RELEASE} from '../public/registry.mjs';
 
 if(!process.argv.includes('--qa'))throw Error('QA is opt-in: pass --qa. This server is local and uses invented balances only.');
 const port=Number(process.argv.find(x=>x.startsWith('--port='))?.split('=')[1]||8767);
@@ -25,34 +25,34 @@ function gameState(s,id){if(!s.free.has(id))s.free.set(id,{remaining:0,bet:'2.00
 function queuedPlan(s,id){if(!s.plans.has(id))s.plans.set(id,{});return s.plans.get(id);}
 function idempotent(map,token,parameters,make){const prior=map.get(token);if(prior){check(prior.parameters===parameters,409,'IDEMPOTENCY_PARAMETER_CONFLICT');return {result:prior.result,replayed:true};}const result=make();map.set(token,{parameters,result});return {result,replayed:false};}
 function tokenValid(v){return typeof v==='string'&&/^[a-f0-9-]{36}$/.test(v);}
-function resultFor(id,bet,isFree,desired){
+function resultFor(id,bet,isFree,desired,legacy=false){
  if(desired==='scatter'){
-  const g=getGame(id),stops=g.reelStrips.map((strip,c)=>c<3?strip.indexOf('scatter'):randomInt(strip.length));
+  const g=getGame(id,{legacy:isFree}),stops=g.reelStrips.map((strip,c)=>c<3?strip.indexOf('scatter'):randomInt(strip.length));
   check(stops.every(x=>x>=0),400,'QA_SCATTER_UNAVAILABLE');let n=0;
   return spin(id,bet,{isFree,draw:max=>n<stops.length?stops[n++]:randomInt(max)});
  }
- for(let i=0;i<30000;i++){const r=spin(id,bet,{isFree});if(!desired||desired==='random'||desired==='win'&&cents(r.finalWin)>0n&&!r.bonusSpinsAwarded||desired==='loss'&&cents(r.finalWin)===0n&&!r.bonusSpinsAwarded)return r;}
+ for(let i=0;i<30000;i++){const r=spin(id,bet,{isFree,legacy});if(!desired||desired==='random'||desired==='win'&&cents(r.finalWin)>0n&&!r.bonusSpinsAwarded||desired==='loss'&&cents(r.finalWin)===0n&&!r.bonusSpinsAwarded)return r;}
  throw fail(500,'QA_OUTCOME_SEARCH_EXHAUSTED');
 }
 function settleSpin(s,req){
- const {gameId:id,bet,roundToken}=req;check(games.has(id)&&tokenValid(roundToken)&&publicModel(id).betLevels.includes(bet),422,'GAME_BET_OR_TOKEN_INVALID');
+ const {gameId:id,bet,roundToken}=req;check(games.has(id)&&tokenValid(roundToken),422,'GAME_BET_OR_TOKEN_INVALID');
  s.spinPosts++;
  return idempotent(s.rounds,roundToken,JSON.stringify({gameId:id,bet}),()=>{
-  const free=gameState(s,id),plan=queuedPlan(s,id);check(!free.remaining||free.bet===bet,409,'FREE_SPIN_BET_LOCKED');const isFree=free.remaining>0,stake=isFree?0n:cents(bet);check(s.balance>=stake,402,'INSUFFICIENT_FUNDS');
+  const free=gameState(s,id),plan=queuedPlan(s,id);check(!free.remaining||free.bet===bet,409,'FREE_SPIN_BET_LOCKED');const isFree=free.remaining>0,model=gameConfig(id,modelIdentity(id,{legacy:isFree}));check(model.betLevels.includes(bet),422,'GAME_BET_OR_TOKEN_INVALID');if(['multi_hot_5_video','hot_foxy_20'].includes(id))check((isFree&&!req.mathVersion)||req.mathVersion===model.mathVersion,409,'GAME_RULES_UPDATED_RELOAD');const stake=isFree?0n:cents(bet);check(s.balance>=stake,402,'INSUFFICIENT_FUNDS');
   const r=resultFor(id,bet,isFree,plan.nextOutcome);delete plan.nextOutcome;const before=s.balance,pay=cents(r.finalWin);
   ledger(s,-stake,'spin_stake',r.roundId);ledger(s,pay,'spin_win',r.roundId);if(isFree)free.remaining--;free.remaining+=r.bonusSpinsAwarded;free.bet=bet;
   const receipt={currency:'ETB',balanceBefore:cash(before),chargedStake:cash(stake),finalWin:cash(pay),balanceAfter:cash(s.balance)};
-  Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:free.remaining});validateRound(r,gameConfig(id),bet);
+  Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:free.remaining});validateRound(r,gameConfigForReceipt(r),bet);
   s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:r.finalWin,consumed:false});s.roundSettlements++;return r;
  });
 }
 function settleGamble(s,req){
  const {roundId,choice,roundToken}=req;check(tokenValid(roundToken)&&['RED','BLACK'].includes(choice),422,'INVALID_CHOICE');s.gamblePosts++;
  return idempotent(s.actions,roundToken,JSON.stringify({roundId,choice}),()=>{
-  const item=s.roundIds.get(roundId);check(item,404,'ROUND_NOT_FOUND');const g=getGame(item.result.gameId),plan=queuedPlan(s,g.id),free=gameState(s,g.id);
-  check(!free.remaining,409,'COLLECT_BONUS_FIRST');check(item.gambleAttempt<g.features.gambleRounds,409,'GAMBLE_LIMIT');check(!item.consumed&&cents(item.gambleValue)>0n,409,'NO_GAMBLE_WINNINGS');const before=s.balance,stake=cents(item.gambleValue);check(before>=stake,402,'INSUFFICIENT_FUNDS');
+  check(req.replayOnly!==true,409,'GAMBLE_STATE_CHANGED');const item=s.roundIds.get(roundId);check(item,404,'ROUND_NOT_FOUND');const g=receiptGame(item.result.gameId,item.result);check(g,409,'UNKNOWN_GAME_MODEL');const plan=queuedPlan(s,g.id),free=gameState(s,g.id);
+  check(!free.remaining,409,'COLLECT_BONUS_FIRST');check(item.gambleAttempt<g.features.gambleRounds,409,'GAMBLE_LIMIT');check(!item.consumed&&cents(item.gambleValue)>0n,409,'NO_GAMBLE_WINNINGS');if(req.expectedStake!==undefined)check(units(req.expectedStake)===units(item.gambleValue),409,'GAMBLE_STATE_CHANGED');if(req.expectedAttempt!==undefined)check(req.expectedAttempt===item.gambleAttempt+1,409,'GAMBLE_STATE_CHANGED');check(gambleStakeAllowed(gameConfigForReceipt(item.result),item.gambleValue),409,'GAMBLE_STAKE_LIMIT');const before=s.balance,stake=cents(item.gambleValue);check(before>=stake,402,'INSUFFICIENT_FUNDS');
   const draw=plan.nextGamble==='win'?()=>0:plan.nextGamble==='lose'?()=>9999:undefined;delete plan.nextGamble;const core=gambleDraw(choice,item.gambleValue,draw),pay=cents(core.payout);ledger(s,-stake,'gamble_stake',roundId);ledger(s,pay,'gamble_win',roundId);item.gambleAttempt++;item.gambleValue=cash(pay);item.consumed=!core.won;
-  const r={...core,roundId,attempt:item.gambleAttempt,maxAttempts:g.features.gambleRounds,balanceAfter:cash(s.balance)};validateGamble(r,gameConfig(g.id),{roundId,choice,expectedStake:cash(stake),expectedAttempt:item.gambleAttempt});s.gambleSettlements++;return r;
+  const r={...core,roundId,attempt:item.gambleAttempt,maxAttempts:g.features.gambleRounds,balanceAfter:cash(s.balance)};validateGamble(r,gameConfigForReceipt(item.result),{roundId,choice,expectedStake:cash(stake),expectedAttempt:item.gambleAttempt});s.gambleSettlements++;return r;
  });
 }
 function sessionReport(s){const ledgerSum=s.ledger.reduce((n,e)=>n+BigInt(e.playerDelta),0n),balanced=s.ledger.every(e=>BigInt(e.playerDelta)+BigInt(e.houseDelta)===0n);return {synthetic:true,opening:s.opening,balance:cash(s.balance),houseBalance:String(s.house),spinPosts:s.spinPosts,roundSettlements:s.roundSettlements,gamblePosts:s.gamblePosts,gambleSettlements:s.gambleSettlements,ledgerEntries:s.ledger.length,ledgerBalanced:balanced&&ledgerSum===s.balance&&s.balance+s.house===0n,free:Object.fromEntries(s.free),rounds:[...s.roundIds.values()].map(x=>({roundId:x.result.roundId,gameId:x.result.gameId,bet:x.result.bet,chargedStake:x.result.chargedStake,finalWin:x.result.finalWin,freeSpinsRemaining:x.result.freeSpinsRemaining,stops:x.result.stops,wheelMultiplier:x.result.wheelMultiplier})),ledger:s.ledger};}
@@ -73,11 +73,20 @@ const server=http.createServer(async(req,res)=>{
    if(url.pathname==='/qa/plan'&&req.method==='POST'){
     const body=await jsonBody(req);check(games.has(body.gameId),400,'QA_GAME_REQUIRED');const plan=queuedPlan(s,body.gameId);if(body.nextOutcome)check(['win','loss','scatter','random'].includes(body.nextOutcome),400,'QA_OUTCOME_INVALID');if(body.nextGamble)check(['win','lose'].includes(body.nextGamble),400,'QA_GAMBLE_INVALID');
     for(const k of ['nextOutcome','nextGamble','dropNextSpinResponse','delayNextSpinMs'])if(body[k]!==undefined)plan[k]=body[k];
-    if(body.seedFreeAtZero){check(getGame(body.gameId).features.freeSpins.spins>0,400,'QA_FREE_GAME_INVALID');ledger(s,-s.balance,'synthetic_zero_balance_seed',null);const r=resultFor(body.gameId,body.bet||'2.00',true,'loss'),receipt={currency:'ETB',balanceBefore:'0.00',chargedStake:'0.00',finalWin:'0.00',balanceAfter:'0.00'};Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:2});validateRound(r,gameConfig(body.gameId),r.bet);s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:'0.00',consumed:true});Object.assign(gameState(s,body.gameId),{remaining:2,bet:r.bet});}
+    if(body.seedFreeAtZero){check(getGame(body.gameId,{legacy:true}).features.freeSpins.spins>0,400,'QA_FREE_GAME_INVALID');ledger(s,-s.balance,'synthetic_zero_balance_seed',null);const r=resultFor(body.gameId,body.bet||'2.00',true,'loss'),receipt={currency:'ETB',balanceBefore:'0.00',chargedStake:'0.00',finalWin:'0.00',balanceAfter:'0.00'};Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:2});validateRound(r,gameConfigForReceipt(r),r.bet);s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:'0.00',consumed:true});Object.assign(gameState(s,body.gameId),{remaining:2,bet:r.bet});}
+    if(body.seedLegacyPending){
+     const {bet,roundToken}=body.seedLegacyPending;check(tokenValid(roundToken)&&getGame(body.gameId,{legacy:true}).betLevels.includes(bet),400,'QA_LEGACY_SEED_INVALID');
+     check(!s.rounds.has(roundToken)&&s.balance>=cents(bet),400,'QA_LEGACY_SEED_CONFLICT');const r=resultFor(body.gameId,bet,false,body.seedLegacyPending.outcome||'loss',true),before=s.balance;
+     ledger(s,-cents(bet),'synthetic_legacy_stake',r.roundId);ledger(s,cents(r.finalWin),'synthetic_legacy_win',r.roundId);const receipt={currency:'ETB',balanceBefore:cash(before),chargedStake:bet,finalWin:cash(cents(r.finalWin)),balanceAfter:cash(s.balance)};Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:0});validateRound(r,gameConfigForReceipt(r),bet);
+     s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:r.finalWin,consumed:false});s.rounds.set(roundToken,{parameters:JSON.stringify({gameId:body.gameId,bet}),result:r});s.roundSettlements++;
+    }
     json(res,200,{synthetic:true,planned:true});return;
    }
    if(url.pathname==='/api/slots/balance'){json(res,200,{currency:'ETB',balance:cash(s.balance),synthetic:true});return;}
    if(url.pathname==='/api/slots/rounds'){json(res,200,{items:[...s.roundIds.values()].reverse().map(x=>({result_json:x.result,round_id:x.result.roundId,created_at:x.created_at}))});return;}
+   if(url.pathname.startsWith('/api/slots/state/')){const id=url.pathname.split('/').at(-1);check(games.has(id),404,'GAME_NOT_FOUND');const free=gameState(s,id),identity=modelIdentity(id,{legacy:free.remaining>0}),current=modelIdentity(id);json(res,200,{gameId:id,freeSpinsRemaining:free.remaining,bet:free.bet,...identity,currentMathVersion:current.mathVersion,legacyFreeSpins:id==='hot_foxy_20'&&free.remaining>0});return;}
+   if(url.pathname.startsWith('/api/slots/rounds/')){const item=s.roundIds.get(url.pathname.split('/').at(-1));check(item,404,'ROUND_NOT_FOUND');json(res,200,item.result);return;}
+
    check(req.method==='POST',405,'METHOD_NOT_ALLOWED');check(req.headers['x-zplay-machine-session']===s.sessionId,403,'MACHINE_SESSION_CHANGED');const body=await jsonBody(req);
    if(url.pathname==='/api/slots/spin'){const plan=queuedPlan(s,body.gameId),drop=!!plan.dropNextSpinResponse,delay=Math.min(10000,Math.max(0,Number(plan.delayNextSpinMs)||0));delete plan.dropNextSpinResponse;delete plan.delayNextSpinMs;const result=settleSpin(s,body);if(delay)await new Promise(r=>setTimeout(r,delay));if(drop){res.writeHead(200,{'content-type':'application/json','cache-control':'no-store','x-superwin-qa':'synthetic-local-only'});res.write('{"interrupted":');await new Promise(r=>setTimeout(r,40));res.destroy();return;}json(res,200,result.result);return;}
    if(url.pathname==='/api/slots/gamble'){json(res,200,settleGamble(s,body).result);return;}

@@ -1,0 +1,87 @@
+/* Layout/colors follow the observed provider mobile menu.css and help captures.
+   Only active selected-game help menus are affected; native bet dialogs retain their own layout. */
+#settings.official-help-menu{box-sizing:border-box;inset:0;margin:auto;width:min(100vw,600px);height:100dvh;max-width:none;max-height:100dvh;padding:0;border:0;border-radius:0;overflow:hidden;color:#d8d8da;background:#0e1015;box-shadow:none;font:12px/1.3 Arial,sans-serif}
+#settings.official-help-menu::backdrop{background:#060405b3}
+#settings.official-help-menu button,#settings.official-help-menu a{font:inherit;box-sizing:border-box;border:0;box-shadow:none;border-radius:0;color:inherit;background:transparent}
+#settings.official-help-menu>header{position:absolute;inset:0 0 auto;height:41px;display:grid;grid-template-columns:25% 50% 25%;gap:0;border-bottom:1px solid #3c434d;border-radius:0 0 15px 15px;overflow:hidden;background:#131b21}
+#settings.official-help-menu #settings-title{grid-column:2;grid-row:1;text-align:center;font:12px/40px Arial,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 5px;color:#ddd}
+#settings.official-help-menu .native-help-exit,#settings.official-help-menu .native-help-close{height:40px;min-height:40px;width:auto;background:#1c242c;position:relative;padding:0;color:#8b9094;display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none}
+#settings.official-help-menu .native-help-exit{grid-column:1;grid-row:1;padding-left:16px}
+#settings.official-help-menu .native-help-close{grid-column:3;grid-row:1;padding-right:20px}
+#settings.official-help-menu .native-help-exit:before{content:'⇥';position:absolute;left:12px;color:white;font-size:23px;transform:rotate(180deg)}
+#settings.official-help-menu .native-help-close:after{content:'×';position:absolute;right:10px;color:#fff;font:30px/1 Arial,sans-serif}
+#settings.official-help-menu>nav{position:absolute;inset:auto 0 0;z-index:2;display:flex;flex-wrap:nowrap;gap:0;margin:0;height:45px;background:#1f2731;box-shadow:0 0 10px #0007}
+#settings.official-help-menu>nav button{flex:1;position:relative;min-height:45px;padding:0;display:flex;gap:7px;justify-content:center;align-items:center;color:#fff}
+#settings.official-help-menu>nav [data-panel=bets]{display:none}
+#settings.official-help-menu>nav button:before{display:inline-block;width:24px;height:24px;color:#858e96;font:25px/24px Arial,sans-serif;text-align:center}
+#settings.official-help-menu>nav [data-panel=rules]:before{content:'?';box-sizing:border-box;border:2px solid currentColor;border-radius:50%;width:20px;height:20px;font:16px/17px Arial,sans-serif}
+#settings.official-help-menu>nav [data-panel=audio]:before{content:'⚙'}
+#settings.official-help-menu>nav [data-panel=history]:before{content:'↶';font-size:30px}
+#settings.official-help-menu>nav .native-help-tab-label{display:none}
+#settings.official-help-menu>nav [aria-current=page]{background:#2c3642}
+#settings.official-help-menu>nav [aria-current=page]:before{color:white}
+#settings.official-help-menu>nav [aria-current=page]:after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:#ff003c}
+#settings.official-help-menu>nav [aria-current=page] .native-help-tab-label{display:block}
+#settings.official-help-menu>.panel{box-sizing:border-box;position:absolute;inset:41px 0 45px;overflow-y:auto;scrollbar-width:none;padding:18px 5%;line-height:1.3}
+#settings.official-help-menu>.panel[hidden]{display:none}
+#settings.official-help-menu>.panel::-webkit-scrollbar{display:none}
+#settings.official-help-menu>footer{display:none}
+#settings:not(.official-help-menu) .native-help-exit{display:none}
+#settings:not(.official-help-menu) .native-help-close{font-size:0}
+#settings:not(.official-help-menu) .native-help-close:after{content:'×';font-size:27px}
+#settings.official-help-menu .native-help-rules-title{display:none}
+#settings.official-help-menu .native-help-currency{margin:9px 0 8px;color:#ffdc00;text-align:center;font-size:13px}
+#settings.official-help-menu .native-help-stake{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:19px}
+#settings.official-help-menu .native-help-stake button{min-height:34px;padding:0}
+#settings.official-help-menu .native-help-less,#settings.official-help-menu .native-help-more{width:37px;height:37px;background:#070b0f;border:1px solid #2a3038;border-radius:40%;color:#06ee9b;font:bold 28px/32px Arial,sans-serif}
+#settings.official-help-menu .native-help-selected{display:flex;flex-direction:column;align-items:center;justify-content:center;width:108px;height:30px;min-height:30px;border-radius:18px;border:2px solid #565b83;background:linear-gradient(#6b74bd 0%,#292e5c 32%,#3c4064 70%,#7177a4);box-shadow:inset 0 0 4px 2px #93a8ce,0 0 2px 2px #343c54;color:#fff;font-size:13px;line-height:13px}
+#settings.official-help-menu .native-help-selected small{font-size:9px;line-height:10px}
+#settings.official-help-menu .native-help-stake button:disabled{opacity:.45}
+#settings.official-help-menu .native-help-paytable{display:grid;gap:28px 8px;align-items:start;margin:0 0 72px}
+#settings.official-help-menu [data-native-help-layout=foxy]{grid-template-columns:repeat(6,1fr);margin-bottom:45px}
+#settings.official-help-menu [data-native-help-layout=mh5]{grid-template-columns:repeat(2,1fr);gap:18px 16px;margin-bottom:70px}
+#settings.official-help-menu .native-help-symbol-group{grid-column:span 2;min-width:0;text-align:center;font-size:11px}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-symbol-group{grid-column:span 1;font-size:13px}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-top-symbol{grid-column:span 2}
+#settings.official-help-menu .native-help-first-row{grid-column:span 3}
+#settings.official-help-menu .native-help-symbols{position:relative;display:flex;align-items:center;justify-content:center;height:82px;margin-bottom:8px}
+#settings.official-help-menu .native-help-symbol{display:block;width:100%;height:100%;max-width:104px;object-fit:contain}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-symbols{height:74px}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-symbol{max-width:95px}
+#settings.official-help-menu .native-help-symbols[data-count="2"] .native-help-symbol{width:62%;margin:0 -12%}
+#settings.official-help-menu .native-help-symbols[data-count="4"]{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:0;width:112px;margin:auto auto 8px}
+#settings.official-help-menu .native-help-symbols[data-count="4"] .native-help-symbol{width:65px;height:48px;max-width:100%;object-fit:contain}
+#settings.official-help-menu .native-help-symbol-name{text-transform:uppercase;font-size:13px;color:#ddd}
+#settings.official-help-menu .native-help-payouts{display:grid;grid-template-columns:24px max-content;justify-content:center;margin:0;line-height:17px;font-size:10px;font-variant-numeric:tabular-nums}
+#settings.official-help-menu .native-help-payouts dt{color:#e2d6b5;border-right:1px solid #817655;padding-right:10px;text-align:right}
+#settings.official-help-menu .native-help-payouts dd{margin:0;padding-left:10px;color:#00e9a1;text-align:left}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-payouts{display:flex;gap:6px;font-size:13px;line-height:18px}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-payouts dt{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+#settings.official-help-menu [data-native-help-layout=mh5] .native-help-payouts dd{padding:0;color:#eee}
+#settings.official-help-menu .native-help-wild-note{font-size:10px;margin:9px -6px 0;color:#ccc}
+#settings.official-help-menu .native-help-feature h3{font:11px Arial,sans-serif;color:#ff0054;margin:0 0 4px}
+#settings.official-help-menu .native-help-feature p{font-size:10px;color:#bbb;margin:0 0 18px}
+#settings.official-help-menu .native-help-feature-art{display:flex;justify-content:center;gap:2px;margin:12px 0 20px;overflow:hidden}
+#settings.official-help-menu .native-help-feature-art img{width:19%;height:70px;object-fit:contain}
+#settings.official-help-menu .native-help-wheel{width:100%;height:auto}
+#settings.official-help-menu #rules-text,#settings.official-help-menu #math-note{font-size:11px;line-height:1.5;color:#a7acb1;margin:20px 0}
+#settings.official-help-menu #gamble-menu{width:100%;min-height:44px;background:#1f2731;color:#d8d8da}
+#settings.official-help-menu #audio{display:flex;flex-direction:column;justify-content:center;padding:30px 14%;color:#85878c;font-size:14px}
+#settings.official-help-menu #audio[hidden]{display:none}
+#settings.official-help-menu .native-help-sound-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0;margin:0 0 36px;text-align:left}
+#settings.official-help-menu .native-help-toggle-face{display:block;position:relative;width:39px;height:17px;flex:none;border-radius:12px;background:#06080b;margin-left:10px}
+#settings.official-help-menu .native-help-toggle-face:after{content:'';position:absolute;top:-2px;left:0;width:21px;height:21px;border-radius:50%;background:white}
+#settings.official-help-menu [aria-checked=true] .native-help-toggle-face{background:#00eb75}
+#settings.official-help-menu [aria-checked=true] .native-help-toggle-face:after{left:19px}
+#settings.official-help-menu #volume{margin:18px 0;accent-color:#00eb75}
+#settings.official-help-menu #sound-test{min-height:44px;background:#1f2731;color:#c7cbd0}
+#settings.official-help-menu #audio>p{font-size:11px;color:#73767b}
+#settings.official-help-menu .native-help-fullscreen{min-height:60px;padding:15px 0;text-align:left;margin-top:25px;border-top:2px solid #252e38;text-transform:capitalize}
+#settings.official-help-menu #history{padding:20px 5%;background:#0e1015}
+#settings.official-help-menu #history h3{font:13px Arial,sans-serif;letter-spacing:1px;color:#a0a5ab;margin:0;padding:16px;background:#1f2731}
+#settings.official-help-menu #history-items{background:#131b21}
+#settings.official-help-menu #history-items article{padding:16px;border-color:#2a343f;color:#eceff2;font-size:12px}
+#settings.official-help-menu #history-items small{margin-top:7px;color:#94999f;font-size:10px}
+#settings.official-help-menu #history-refresh{width:100%;min-height:44px;margin-top:15px;background:#1f2731;color:#c7cbd0}
+#settings.official-help-menu :focus-visible{outline:2px solid #fff;outline-offset:-2px}
+@media(min-width:700px){#settings.official-help-menu{height:min(800px,100dvh);max-height:100dvh;border:1px solid #3c434d}#settings.official-help-menu .native-help-paytable{max-width:450px;margin-left:auto;margin-right:auto}}

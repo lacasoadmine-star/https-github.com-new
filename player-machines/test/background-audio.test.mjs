@@ -47,7 +47,7 @@ test('unsupported background decode is attempted once per context, never on ever
 
 test('Multi Hot 5 loads the full original music only after explicit consent',()=>withAudio(async a=>{
  await a.unlock();await a.preload();assert.equal(a.context.backgroundDecodes,0);assert.equal(background(a).length,0);assert.equal(a.samples.size,7);
- a.setBackgroundEnabled(true);await a.preloadBackground();const bed=background(a)[0];assert.ok(bed);assert.equal(bed.baseVolume,1);assert.equal(a.context.backgroundDecodes,1);
+ a.setBackgroundEnabled(true);await a.preloadBackground();const bed=background(a)[0];assert.ok(bed);assert.equal(bed.baseVolume,.3);assert.equal(a.context.backgroundDecodes,1);
  a.event('start');a.stop('reels');a.win(2,1);a.stop('win');assert.equal(background(a)[0],bed);assert.equal(a.samples.size,7);
  a.setBackgroundEnabled(false);assert.equal(background(a).length,0);await a.unlock();assert.equal(background(a).length,0);
 },Context,'multi_hot_5_video'));

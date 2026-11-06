@@ -1,3 +1,5 @@
+> Historical r12 record. See [r13](RELEASE-r13.md) for the current correction. Raw CDP response capture subsequently proved Cloudflare resource-limit failures (1102); binary-module packaging resolved the reproduced HTTP/2 failure in Worker308. The earlier statements below about an unknown cause and active Worker307 describe that earlier release only.
+
 # MH5 / Foxy original artwork, animation and audio update
 
 Status: Worker307 is active with 100% traffic, published from corrected source `eb745e00996b24f385780957fddc7614b5276722`. Asset/module/settings readback, corrected-source startup checks and final live verification passed. Live browser results were obtained on separate HTTP/2 and HTTP/1.1 runs of the unchanged deployment; the intermittent HTTP/2 failures and unresolved cause are recorded below. Earlier visual and browser results remain attributed to their original source.

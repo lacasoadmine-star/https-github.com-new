@@ -1,3 +1,5 @@
+> Historical r12 record. See [r13](RELEASE-r13.md) for the current correction. Raw CDP response capture subsequently proved Cloudflare resource-limit failures (1102); binary-module packaging resolved the reproduced HTTP/2 failure in Worker308. The earlier statements below about an unknown cause and active Worker307 describe that earlier release only.
+
 # Two-game fidelity register r12
 
 Scope: Multi Hot 5 and Foxy Hot 20. Worker307 is active at 100% traffic from corrected source `eb745e00996b24f385780957fddc7614b5276722`, with 490/490 Node tests and 246/246 strict startup checks passing. Native visual review and 1,761 browser checks passed on previous source `64420f9`; the two public HTML entrypoint URLs are the only product changes since those runs. Corrected publication, asset/module/settings readback and final live verification passed, using the separate protocol-specific runs documented below.

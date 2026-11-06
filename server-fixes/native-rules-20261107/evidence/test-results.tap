@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: original decompressed core and legacy identity are unchanged
+ok 1 - original decompressed core and legacy identity are unchanged
+  ---
+  duration_ms: 12.756762
+  type: 'test'
+  ...
+# Subtest: deployable preserves original embedded core, migration, ledger and authentication bodies
+ok 2 - deployable preserves original embedded core, migration, ledger and authentication bodies
+  ---
+  duration_ms: 11.374683
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: multi_hot_40
+ok 3 - unrelated model and 40 seeded settlements unchanged: multi_hot_40
+  ---
+  duration_ms: 66.898964
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: multi_hot_5_super_wilds
+ok 4 - unrelated model and 40 seeded settlements unchanged: multi_hot_5_super_wilds
+  ---
+  duration_ms: 44.368436
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: burning_ice
+ok 5 - unrelated model and 40 seeded settlements unchanged: burning_ice
+  ---
+  duration_ms: 37.593213
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: wild_multi_stars
+ok 6 - unrelated model and 40 seeded settlements unchanged: wild_multi_stars
+  ---
+  duration_ms: 38.127635
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: safari_simba
+ok 7 - unrelated model and 40 seeded settlements unchanged: safari_simba
+  ---
+  duration_ms: 49.771783
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: fruity_wilds_jackpot
+ok 8 - unrelated model and 40 seeded settlements unchanged: fruity_wilds_jackpot
+  ---
+  duration_ms: 31.801224
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: jungle_sisters
+ok 9 - unrelated model and 40 seeded settlements unchanged: jungle_sisters
+  ---
+  duration_ms: 33.670832
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: bao_slot_5x
+ok 10 - unrelated model and 40 seeded settlements unchanged: bao_slot_5x
+  ---
+  duration_ms: 33.382778
+  type: 'test'
+  ...
+# Subtest: unrelated model and 40 seeded settlements unchanged: multi_hot_100
+ok 11 - unrelated model and 40 seeded settlements unchanged: multi_hot_100
+  ---
+  duration_ms: 43.182792
+  type: 'test'
+  ...
+# Subtest: verified line geometry, paytable, bets, cap and attempt count
+ok 12 - verified line geometry, paytable, bets, cap and attempt count
+  ---
+  duration_ms: 70.674525
+  type: 'test'
+  ...
+# Subtest: Foxy retains exact non-scatter order and counts, with no new bonus awards
+ok 13 - Foxy retains exact non-scatter order and counts, with no new bonus awards
+  ---
+  duration_ms: 32.975265
+  type: 'test'
+  ...
+# Subtest: each official numbered line evaluates from its own authored path
+ok 14 - each official numbered line evaluates from its own authored path
+  ---
+  duration_ms: 1.182839
+  type: 'test'
+  ...
+# Subtest: MH5 strips and unconstrained award sums unchanged, cap lowered to145
+ok 15 - MH5 strips and unconstrained award sums unchanged, cap lowered to145
+  ---
+  duration_ms: 17.718349
+  type: 'test'
+  ...
+# Subtest: earned free spins keep full legacy identity, grids and retrigger award
+ok 16 - earned free spins keep full legacy identity, grids and retrigger award
+  ---
+  duration_ms: 0.5429
+  type: 'test'
+  ...
+# Subtest: receipt model requires complete known identity and game, with old limit3 retained
+ok 17 - receipt model requires complete known identity and game, with old limit3 retained
+  ---
+  duration_ms: 1.040921
+  type: 'test'
+  ...
+# Subtest: fresh state identifies next current model without relying on recent history
+ok 18 - fresh state identifies next current model without relying on recent history
+  ---
+  duration_ms: 3.514307
+  type: 'test'
+  ...
+# Subtest: legacy entitlement state exposes old locked bet and both identities
+ok 19 - legacy entitlement state exposes old locked bet and both identities
+  ---
+  duration_ms: 6.070638
+  type: 'test'
+  ...
+# Subtest: state rejects unknown game without a database query
+ok 20 - state rejects unknown game without a database query
+  ---
+  duration_ms: 0.968433
+  type: 'test'
+  ...
+# Subtest: known current request settles once, records active hash and balances double-entry
+ok 21 - known current request settles once, records active hash and balances double-entry
+  ---
+  duration_ms: 7.882838
+  type: 'test'
+  ...
+# Subtest: unversioned/stale paid request is rejected before any movement or record
+ok 22 - unversioned/stale paid request is rejected before any movement or record
+  ---
+  duration_ms: 1.503337
+  type: 'test'
+  ...
+# Subtest: old receipt with removed200ETB bet replays before new model or allowed-bet guards
+ok 23 - old receipt with removed200ETB bet replays before new model or allowed-bet guards
+  ---
+  duration_ms: 2.583849
+  type: 'test'
+  ...
+# Subtest: old maximum4000ETB paid receipts replay for both targets; new attempts cannot spend it
+ok 24 - old maximum4000ETB paid receipts replay for both targets; new attempts cannot spend it
+  ---
+  duration_ms: 2.654512
+  type: 'test'
+  ...
+# Subtest: zero-balance owed free spin keeps removed bet and full legacy retrigger rules
+ok 25 - zero-balance owed free spin keeps removed bet and full legacy retrigger rules
+  ---
+  duration_ms: 1.065193
+  type: 'test'
+  ...
+# Subtest: owed free spin enforces its original locked bet
+ok 26 - owed free spin enforces its original locked bet
+  ---
+  duration_ms: 0.482349
+  type: 'test'
+  ...
+# Subtest: last earned free is legacy, following paid request is current
+ok 27 - last earned free is legacy, following paid request is current
+  ---
+  duration_ms: 1.138563
+  type: 'test'
+  ...
+# Subtest: insufficient player or house funds prevent new settlement
+ok 28 - insufficient player or house funds prevent new settlement
+  ---
+  duration_ms: 0.530898
+  type: 'test'
+  ...
+# Subtest: transaction rollback preserves wallets/history at after_debit
+ok 29 - transaction rollback preserves wallets/history at after_debit
+  ---
+  duration_ms: 1.031443
+  type: 'test'
+  ...
+# Subtest: transaction rollback preserves wallets/history at after_credit
+ok 30 - transaction rollback preserves wallets/history at after_credit
+  ---
+  duration_ms: 0.783538
+  type: 'test'
+  ...
+# Subtest: transaction rollback preserves wallets/history at before_commit
+ok 31 - transaction rollback preserves wallets/history at before_commit
+  ---
+  duration_ms: 0.62972
+  type: 'test'
+  ...
+# Subtest: simultaneous duplicate calls produce one spin and same receipt
+ok 32 - simultaneous duplicate calls produce one spin and same receipt
+  ---
+  duration_ms: 0.66396
+  type: 'test'
+  ...
+# Subtest: current parent allows five gambles, legacy parent allows three
+ok 33 - current parent allows five gambles, legacy parent allows three
+  ---
+  duration_ms: 5.025832
+  type: 'test'
+  ...
+# Subtest: unknown parent identity cannot authorize a new gamble; saved action still replays
+ok 34 - unknown parent identity cannot authorize a new gamble; saved action still replays
+  ---
+  duration_ms: 0.735557
+  type: 'test'
+  ...
+# Subtest: explicit new local operator profile allows500ETB stake but blocks over500 before debit
+ok 35 - explicit new local operator profile allows500ETB stake but blocks over500 before debit
+  ---
+  duration_ms: 2.706767
+  type: 'test'
+  ...
+# Subtest: legacy parent over500ETB retains its original gamble entitlement
+ok 36 - legacy parent over500ETB retains its original gamble entitlement
+  ---
+  duration_ms: 1.063633
+  type: 'test'
+  ...
+# Subtest: stale concurrent-tab gamble state is rejected atomically before debit
+ok 37 - stale concurrent-tab gamble state is rejected atomically before debit
+  ---
+  duration_ms: 1.208776
+  type: 'test'
+  ...
+# Subtest: each optional expected gamble guard validates independently; absent guards retain old behavior
+ok 38 - each optional expected gamble guard validates independently; absent guards retain old behavior
+  ---
+  duration_ms: 4.687571
+  type: 'test'
+  ...
+# Subtest: replayOnly recovers an already settled action but cannot create a new gamble
+ok 39 - replayOnly recovers an already settled action but cannot create a new gamble
+  ---
+  duration_ms: 1.318196
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1283.209967

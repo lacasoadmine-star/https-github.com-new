@@ -1,0 +1,53 @@
+{
+  "purpose": "Fix confirmed Cloudflare1102 resource failures caused by eager frontend JavaScript literals",
+  "sourceCommit": "ba77c7923269d8411e602e2666c9d38bdd0d4bd6",
+  "candidate": {
+    "id": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+    "number": 308,
+    "totalBytes": 59371213
+  },
+  "readback": {
+    "passed": true,
+    "modules": 156,
+    "unchangedModulesByteIdentical": 113,
+    "binaryModulesExactFrontendBytes": 41,
+    "bindingsUnchanged": 12,
+    "settingsUnchanged": [
+      "main_module",
+      "compatibility_date",
+      "compatibility_flags",
+      "limits",
+      "placement",
+      "usage_model",
+      "assets",
+      "cache_options",
+      "containers",
+      "exports",
+      "package_dependencies"
+    ]
+  },
+  "active": {
+    "id": "33f3569e-b095-440c-b51c-6c53ee12c66d",
+    "createdOn": "2026-11-06T21:23:50.534541Z",
+    "versions": [
+      {
+        "version_id": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+        "percentage": 100
+      }
+    ],
+    "commit": "ba77c7923269d8411e602e2666c9d38bdd0d4bd6"
+  },
+  "temporaryRollback": {
+    "versionId": "ca3fd065-f614-4275-9bad-07936e3be7cd",
+    "deploymentId": "1b2c3921-8850-47d6-857c-438ae0c85ae0",
+    "createdOn": "2026-11-06T21:09:50.939043Z"
+  },
+  "validation": {
+    "nodeTests": 494,
+    "backendTests": 9,
+    "frontendBuilds": 3,
+    "localConcurrentAssets": 41,
+    "byteExactFrontendAssets": 42
+  },
+  "note": "Public browser code/media remain byte-identical to Worker307; backend rule migration is a separate release. HTTP/2 verification is recorded separately."
+}
