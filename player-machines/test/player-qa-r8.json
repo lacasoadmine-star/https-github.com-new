@@ -1,6 +1,6 @@
 {
   "release": "zplay-machines-20261106-r8",
-  "publicationStatus": "prepared; upload, promotion and live checks are not established by this QA record",
+  "publicationStatus": "version299 published at100% traffic; fresh live-route checks recorded separately in worker/live-qa-r8.json",
   "games": [
     "multi_hot_5_video",
     "hot_foxy_20",
@@ -39,7 +39,7 @@
       "machine-routes.mjs"
     ],
     "expectedUnchangedOtherModules": 110,
-    "remoteComparisonStatus": "pending deployment verification",
+    "remoteComparisonStatus": "confirmed:112 modules; exactly two changed;110 byte-identical; inherited settings identical",
     "serverMathChanged": false,
     "walletCodeChanged": false
   },
@@ -7810,7 +7810,7 @@
         "tool": true,
         "meta": {
           "status": 200,
-          "title": "Multi Hot 100 \u00b7 ZPLAY"
+          "title": "Multi Hot 100 · ZPLAY"
         },
         "checks": [
           {
@@ -8711,7 +8711,7 @@
         "tool": true,
         "meta": {
           "status": 200,
-          "title": "Wild Multi Stars \u00b7 ZPLAY"
+          "title": "Wild Multi Stars · ZPLAY"
         },
         "checks": [
           {
@@ -9773,5 +9773,59 @@
     "Two supplied ScreenRecording files exceeded the 32 MiB download limit and were unavailable for inspection.",
     "The supplied Wild Multi Stars recording is silent; its presentation sound uses existing cabinet clips, not a verified reference waveform.",
     "Authenticated production wallet end-to-end settlement and physical-device audio/performance are not established."
-  ]
+  ],
+  "publication": {
+    "worker": "superwin-player",
+    "release": "zplay-machines-20261106-r8",
+    "version": 299,
+    "versionId": "bf28fdef-f880-4a82-8238-94aa44c98c0d",
+    "sourceCommit": "3ff49c1662970c56a735aa2a3e8c5563bcadb37c",
+    "deploymentId": "9ffbdf1f-0ec3-44fe-a8b4-6f7ba50657ae",
+    "deployedAt": "2026-11-06T01:56:32.361216Z",
+    "traffic": [
+      {
+        "version_id": "bf28fdef-f880-4a82-8238-94aa44c98c0d",
+        "percentage": 100
+      }
+    ],
+    "preservation": {
+      "moduleCount": 112,
+      "changedModules": [
+        "machine-assets-20261106.mjs",
+        "machine-routes.mjs"
+      ],
+      "settingsDifferences": [],
+      "migrationTag": "local-demo-v1",
+      "mainModule": "restore-20261102.mjs",
+      "unchangedOtherModules": 110,
+      "productionWagers": 0,
+      "walletCodeChanged": false,
+      "serverMathChanged": false
+    },
+    "validation": {
+      "nodeTests": 460,
+      "nativeCanvasCases": 12,
+      "trustedHttpCases": 6,
+      "trustedHttpChecks": 585,
+      "localRounds": 50,
+      "localGambles": 12,
+      "allQaLedgersBalanced": true,
+      "apiChecks": 188,
+      "apiSettlements": 56,
+      "cloudflareFixtureChecks": 158,
+      "backendTests": 9,
+      "portalRegressionTests": 10,
+      "portalBuilds": [
+        "Player",
+        "Agent",
+        "Admin"
+      ],
+      "syntheticAccounts": true
+    },
+    "rollback": {
+      "version": 298,
+      "versionId": "1ba3e1c8-c3b8-4ed2-b343-6298d1206f37"
+    },
+    "limitations": "100% pixel/waveform identity not established. Two supplied ScreenRecording files exceed the 32 MiB download limit and remain uninspected; supplied Wild Multi Stars reference is silent. No authenticated production wallet settlement was tested."
+  }
 }

@@ -1,6 +1,6 @@
 # Four-game player presentation update — r8
 
-Status: prepared for deployment to the existing `superwin-player` Worker. This document does not claim upload, promotion or live-route verification. Rollback is version 298, `1ba3e1c8-c3b8-4ed2-b343-6298d1206f37`.
+Status: published as version 299 on the existing `superwin-player` Worker at 100% traffic. Version ID: `bf28fdef-f880-4a82-8238-94aa44c98c0d`. Deployment: `9ffbdf1f-0ec3-44fe-a8b4-6f7ba50657ae`, 6 November 2026 at 04:56:32 Africa/Addis_Ababa. Runtime source: `3ff49c1662970c56a735aa2a3e8c5563bcadb37c`. Fresh guest checks are recorded separately in worker/live-qa-r8.json. Rollback is version 298, `1ba3e1c8-c3b8-4ed2-b343-6298d1206f37`.
 
 r8 adds complete player documents for Multi Hot 100 (`/games/multi_hot_100`) and Wild Multi Stars (`/games/wild_multi_stars`) beside Multi Hot 5 and Hot Foxy 20. Multi Hot 100 has a 5 × 4 reel grid, 100 fixed lines, a green/gold cabinet, multiplier wheel/shield and game-specific control and win positions. Wild Multi Stars has a 5 × 3 grid, 20 lines, a purple/gold cabinet, star symbols, multiplier wheel and matching win/control surfaces. Actual Canvas/DOM code owns reel motion, final grids, multiplier changes, paylines, win feedback, SPIN/STOP, HOLD, AUTO, bet controls, sound, history and recovery. No whole-page recording or screenshot runs as the game.
 
@@ -18,9 +18,9 @@ Existing cabinet clips provide event-driven audio. The Wild Multi Stars referenc
 
 Full per-check evidence and frozen public-source hashes are in [test/player-qa-r8.json](test/player-qa-r8.json). Local QA requires explicit `--qa`, binds to `127.0.0.1` and uses an isolated in-memory double-entry ledger. No production account was authenticated or wagered for these checks. The earlier development `390/` results are preliminary; the final evidence uses `final390/` and `final360/` only.
 
-## Deployment preservation target
+## Confirmed deployment preservation
 
-Replace only `machine-assets-20261106.mjs` and `machine-routes.mjs`. Compare the other 110 modules byte for byte and preserve bindings, secrets, runtime settings, main module and Durable Object migration. Guard against a changed live version before upload and promotion. Record the new version, source commit, traffic assignment and fresh guest route checks only after those operations succeed. Current rollback remains version 298.
+Only `machine-assets-20261106.mjs` and `machine-routes.mjs` changed. The other 110 modules were identical byte for byte. Bindings, runtime settings, main module and Durable Object migration remained identical. Guarded upload and promotion both verified the expected predecessor; the new deployment serves 100% traffic. Version 298 remains the rollback point.
 
 ## Reference limits
 
