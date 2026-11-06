@@ -1,0 +1,92 @@
+{
+  "deployment": {
+    "id": "a057740f-dccf-4188-9ba1-d83744b7233f",
+    "created_on": "2026-11-06T23:24:02.960148Z",
+    "versions": [
+      {
+        "version_id": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+        "percentage": 100
+      }
+    ]
+  },
+  "version": {
+    "id": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+    "number": 309,
+    "main_module": "native-entry-20261107.mjs",
+    "migration_tag": "local-demo-v1",
+    "bindings": 12
+  },
+  "sourceCommit": "228f426025322c1c01e65c5cba6612ccfe4db3d0",
+  "release": "zplay-native-machines-20261107-r1",
+  "candidateReadback": {
+    "verifiedAt": "2026-11-06T23:22:34.191Z",
+    "passed": true,
+    "id": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+    "number": 309,
+    "sourceCommit": "228f426025322c1c01e65c5cba6612ccfe4db3d0",
+    "release": "zplay-native-machines-20261107-r1",
+    "modules": 205,
+    "unchangedBaselineModules": 156,
+    "mainModuleChange": {
+      "from": "restore-20261102.mjs",
+      "to": "native-entry-20261107.mjs"
+    },
+    "bindingsUnchanged": 12,
+    "settingsUnchanged": [
+      "compatibility_date",
+      "compatibility_flags",
+      "limits",
+      "placement",
+      "usage_model",
+      "assets",
+      "cache_options",
+      "containers",
+      "exports",
+      "package_dependencies"
+    ],
+    "migrationTag": null,
+    "totalBytes": 64104721,
+    "reusedModules": 156,
+    "stagedModules": 49,
+    "activeDeployment": {
+      "id": "33f3569e-b095-440c-b51c-6c53ee12c66d",
+      "versions": [
+        {
+          "version_id": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+          "percentage": 100
+        }
+      ],
+      "created_on": "2026-11-06T21:23:50.534541Z"
+    }
+  },
+  "liveBrowserVerification": {
+    "passed": true,
+    "pages": 7,
+    "http2Responses": 455,
+    "fiveHundredResponses": 0,
+    "failedRequests": 0,
+    "pageErrors": 0
+  },
+  "temporaryUploadCleanup": {
+    "deleted": true,
+    "namespaceId": "d9a66686148a4511ab66b76d75e7f472",
+    "independentAbsenceCheck": true,
+    "getStatus": 404
+  },
+  "productionWindow": {
+    "start": "2026-11-06T23:24:02.960148Z",
+    "end": "2026-11-06T23:34:26.142Z",
+    "fetchRequests": 1636,
+    "fetchErrors": 0,
+    "fetchFiveHundred": 1,
+    "fetchP99MemoryMaxBytes": 127390456
+  },
+  "strictProductionClear": false,
+  "diagnostic": "native-503-diagnostic.json",
+  "postCleanupNativeBrowserDocuments": {
+    "passed": true,
+    "http2Documents": 2,
+    "status": 200,
+    "release": "zplay-native-machines-20261107-r1"
+  }
+}

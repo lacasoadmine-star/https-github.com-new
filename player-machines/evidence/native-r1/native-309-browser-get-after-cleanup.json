@@ -1,0 +1,58 @@
+{
+  "startedAt": "2026-11-06T23:39:09.699Z",
+  "scope": "Two fresh Chromium document GETs only after owned KV cleanup. All subresources and other requests blocked intentionally. This is availability/header verification, not a repeated UI suite.",
+  "separateObservation": {
+    "source": "Root Python urllib HEAD request after cleanup",
+    "status": 403,
+    "contentLength": 17,
+    "workerReleaseHeaderPresent": false,
+    "bodyUnavailableOnHEAD": true,
+    "attribution": "Unproven; no policy bypass or configuration changes attempted."
+  },
+  "pages": [
+    {
+      "id": "multi_hot_5_native",
+      "url": "https://superwin-player.apdiy61.workers.dev/games/multi_hot_5_native",
+      "status": 200,
+      "network": {
+        "protocol": "h2",
+        "status": 200,
+        "fromDiskCache": false
+      },
+      "headers": {
+        "cache-control": "no-store",
+        "cf-ray": "a567ef9f7c33462f-DFW",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'",
+        "content-type": "text/html; charset=utf-8",
+        "server": "envoy",
+        "x-zplay-release": "zplay-native-machines-20261107-r1"
+      },
+      "documentGETs": 1,
+      "intentionallyBlockedOtherRequests": 5,
+      "passed": true
+    },
+    {
+      "id": "foxy_hot_20_native",
+      "url": "https://superwin-player.apdiy61.workers.dev/games/foxy_hot_20_native",
+      "status": 200,
+      "network": {
+        "protocol": "h2",
+        "status": 200,
+        "fromDiskCache": false
+      },
+      "headers": {
+        "cache-control": "no-store",
+        "cf-ray": "a567efaa4ef9da1e-DFW",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'",
+        "content-type": "text/html; charset=utf-8",
+        "server": "envoy",
+        "x-zplay-release": "zplay-native-machines-20261107-r1"
+      },
+      "documentGETs": 1,
+      "intentionallyBlockedOtherRequests": 5,
+      "passed": true
+    }
+  ],
+  "finishedAt": "2026-11-06T23:39:12.622Z",
+  "passed": true
+}

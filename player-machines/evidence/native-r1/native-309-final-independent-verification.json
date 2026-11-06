@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-11-06T23:34:26.142Z",
+  "sourceCommit": "228f426025322c1c01e65c5cba6612ccfe4db3d0",
+  "versionId": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+  "deploymentId": "a057740f-dccf-4188-9ba1-d83744b7233f",
+  "strictProductionClear": false,
+  "browserVerified": true,
+  "browserPages": 7,
+  "browserHttp2Responses": 455,
+  "browserFiveHundredResponses": 0,
+  "browserFailedRequests": 0,
+  "browserPageErrors": 0,
+  "oldStaticAssetsExact": true,
+  "versionSettingsAndBindingsVerified": true,
+  "migrationTagMatchesBaseline": true,
+  "cleanupVerified": true,
+  "productionWindow": {
+    "start": "2026-11-06T23:24:02.960148Z",
+    "end": "2026-11-06T23:34:26.142Z",
+    "fetchRequests": 1636,
+    "fetchErrors": 0,
+    "fetchFiveHundred": 1,
+    "fetchP99MemoryMaxBytes": 127390456
+  },
+  "testedWindow": {
+    "start": "2026-11-06T23:28:41.926Z",
+    "end": "2026-11-06T23:31:44.170Z",
+    "fetchRequests": 742,
+    "fetchErrors": 0,
+    "fetchFiveHundred": 0,
+    "fetchP99MemoryMaxBytes": 124695630
+  },
+  "unresolved": [
+    "One production HTTP503 remains without a retained response body or business error code. Its Cloudflare23:24:08Z timestamp strongly correlates with Railway /api/spin503 at23:24:09.164Z; this is a correlation, not a proven cause or resolution. No503 was observed in the455 raw browser responses."
+  ],
+  "diagnosticHarnessNotes": "First two portal checks stopped on case-sensitive Games selector; both had zero5xx/failed requests/JS errors. Actual label GAMES was recorded, diagnostic selector corrected, all7 pages then passed. Production source was not changed.",
+  "evidence": {
+    "browser": "/workspace/work/r13-deploy/live-309-native-catalog-surface-http2-verification.json",
+    "analytics": "/workspace/work/r13-deploy/native-309-independent-browser-window.json",
+    "initialAnalytics": "/workspace/work/r13-deploy/native-309-independent-initial.json",
+    "finalAPI": "/workspace/work/r13-deploy/native-309-final-independent-api.json",
+    "503Diagnostic": "/workspace/work/r13-deploy/native-503-diagnostic.json"
+  },
+  "passed": false,
+  "namespaceAbsentByIdAndTitle": true,
+  "namespaceGetStatus": 404,
+  "migrationTag": "local-demo-v1",
+  "bindingsUnchanged": 12,
+  "activeDeployment": {
+    "id": "a057740f-dccf-4188-9ba1-d83744b7233f",
+    "created_on": "2026-11-06T23:24:02.960148Z",
+    "versions": [
+      {
+        "version_id": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+        "percentage": 100
+      }
+    ]
+  },
+  "highestPreviouslyObservedP99MemoryBytes": 131845500,
+  "preexistingCronExceptions": 9,
+  "upstream503Correlation": {
+    "cloudflareTime": "2026-11-06T23:24:08Z",
+    "cloudflareColo": "ADD",
+    "cloudflareOutcome": "success",
+    "cloudflareErrors": 0,
+    "cloudflareCpuUs": 1265,
+    "cloudflareMemoryBytes": 116751820,
+    "railwayPath": "/api/spin",
+    "railwayMethod": "POST",
+    "railwayTime": "2026-11-06T23:24:09.164Z",
+    "railwayStatus": 503,
+    "provenRootCause": false,
+    "responseBodyAvailable": false
+  }
+}
