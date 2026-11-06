@@ -25,6 +25,20 @@ test('static files support immutable caching, conditional and HEAD requests',asy
  assert.equal((await fetch(new Request('https://player.example'+PREFIX+'missing.mjs'),env)).status,404);
  assert.equal((await fetch(new Request('https://player.example'+PREFIX+'portal.css',{method:'POST'}),env)).status,405);
 });
+test('GET and HEAD If-None-Match weak validators, lists and wildcard return 304',async()=>{
+ const fetch=installPortal({fetch:async()=>{throw Error('Unexpected delegation');}},assets),env={PORTAL:'player'};
+ for(const method of ['GET','HEAD'])for(const value of ['W/"css-r9"','"other", W/"css-r9"','W/"other", "css-r9"','W/"other,opaque", W/"css-r9"','*']){
+  const response=await fetch(new Request('https://player.example'+PREFIX+'portal.css',{method,headers:{'If-None-Match':value}}),env);
+  assert.equal(response.status,304,method+' '+value);assert.equal(await response.text(),'');assert.equal(response.headers.get('ETag'),'"css-r9"');
+ }
+});
+test('nonmatching opaque validators never match prefixes, case changes or malformed values',async()=>{
+ const fetch=installPortal({fetch:async()=>{throw Error('Unexpected delegation');}},assets),env={PORTAL:'player'};
+ for(const method of ['GET','HEAD'])for(const value of ['W/"other"','"other", W/"css-r9-more"','W/"CSS-r9"','"css-r"','css-r9','W/"css-r9']){
+  const response=await fetch(new Request('https://player.example'+PREFIX+'portal.css',{method,headers:{'If-None-Match':value}}),env);
+  assert.equal(response.status,200,method+' '+value);assert.equal(await response.text(),method==='HEAD'?'':'body{}');
+ }
+});
 test('non-matching or already decorated documents are not rewritten',async()=>{
  for(const body of ['<html><head></head><body>Other app</body></html>','<head><script src="player-reference-v2138.js"></script><link id="zplay-portal-r9-css"></head>']){
   const original=new Response(body,{headers:{'Content-Type':'text/html'}}),fetch=installPortal({fetch:async()=>original},assets);

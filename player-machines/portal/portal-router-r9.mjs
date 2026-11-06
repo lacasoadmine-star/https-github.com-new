@@ -1,6 +1,29 @@
 export const RELEASE='player-portal-20261106-r9';
 export const PREFIX='/'+RELEASE+'/';
 
+// GET/HEAD If-None-Match uses weak comparison: compression may add W/ without
+// changing the opaque validator. Parse quoted tags so commas inside remain data.
+function ifNoneMatch(value,current){
+ if(!value||!current)return false;
+ if(value.trim()==='*')return true;
+ const expected=current.replace(/^W\//,'');let i=0,matched=false;
+ while(i<value.length){
+  while(i<value.length&&/[\t ,]/.test(value[i]))i++;
+  if(i===value.length)break;
+  if(value.slice(i,i+2)==='W/')i+=2;
+  if(value[i]!== '"')return false;
+  const start=i++;
+  while(i<value.length&&value[i]!=='"'){
+   const code=value.charCodeAt(i);if(code!==33&&(code<35||code>255||code===127))return false;i++;
+  }
+  if(i===value.length)return false;i++;
+  if(value.slice(start,i)===expected)matched=true;
+  while(i<value.length&&/[\t ]/.test(value[i]))i++;
+  if(i<value.length&&value[i]!==',')return false;
+ }
+ return matched;
+}
+
 // The existing Worker owns every API, session, identity and financial action.
 // This wrapper serves four public presentation files and decorates only '/'.
 export function installPortal(previous,assets){
@@ -11,7 +34,7 @@ export function installPortal(previous,assets){
    if(!read)return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD'}});
    const name=path.slice(PREFIX.length);if(!Object.hasOwn(assets,name))return new Response('Not found',{status:404});const asset=assets[name];
    const headers={'Content-Type':asset.type,'Cache-Control':'public, max-age=31536000, immutable','ETag':asset.etag,'X-Content-Type-Options':'nosniff','X-Zplay-Portal-Release':RELEASE};
-   if(request.headers.get('If-None-Match')===asset.etag)return new Response(null,{status:304,headers});
+   if(ifNoneMatch(request.headers.get('If-None-Match'),asset.etag))return new Response(null,{status:304,headers});
    return new Response(request.method==='HEAD'?null:asset.body,{headers});
   }
   const response=await previous.fetch(request,env,ctx);
