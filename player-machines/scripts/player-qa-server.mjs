@@ -1,5 +1,5 @@
 // Disposable localhost-only Superwin QA server. Never connects to a production wallet.
-// Run: node scripts/local-http-qa-server.mjs --qa [--port=8767]
+// Run: node scripts/player-qa-server.mjs --qa [--port=8767]
 import http from 'node:http';
 import {readFile,stat} from 'node:fs/promises';
 import {resolve,basename} from 'node:path';
@@ -13,7 +13,7 @@ if(!process.argv.includes('--qa'))throw Error('QA is opt-in: pass --qa. This ser
 const port=Number(process.argv.find(x=>x.startsWith('--port='))?.split('=')[1]||8767);
 if(!Number.isInteger(port)||port<1024||port>65535)throw Error('Invalid local QA port');
 const host='127.0.0.1',origin=`http://${host}:${port}`,root=fileURLToPath(new URL('../public/',import.meta.url)).replace(/\/$/,'');
-const games=new Set(['multi_hot_5_video','hot_foxy_20']),sessions=new Map(),requests=[];
+const games=new Set(['multi_hot_5_video','hot_foxy_20','wild_multi_stars','multi_hot_100']),sessions=new Map(),requests=[];
 const cents=s=>units(s)/100n,cash=n=>decimal(n),cookieName='superwin_local_qa';
 const fail=(status,detail)=>Object.assign(Error(detail),{status,detail});
 const check=(condition,status,detail)=>{if(!condition)throw fail(status,detail);};
@@ -35,7 +35,7 @@ function resultFor(id,bet,isFree,desired){
  throw fail(500,'QA_OUTCOME_SEARCH_EXHAUSTED');
 }
 function settleSpin(s,req){
- const {gameId:id,bet,roundToken}=req;check(games.has(id)&&tokenValid(roundToken)&&getGame(id).betLevels.includes(bet),422,'GAME_BET_OR_TOKEN_INVALID');
+ const {gameId:id,bet,roundToken}=req;check(games.has(id)&&tokenValid(roundToken)&&publicModel(id).betLevels.includes(bet),422,'GAME_BET_OR_TOKEN_INVALID');
  s.spinPosts++;
  return idempotent(s.rounds,roundToken,JSON.stringify({gameId:id,bet}),()=>{
   const free=gameState(s,id),plan=queuedPlan(s,id);check(!free.remaining||free.bet===bet,409,'FREE_SPIN_BET_LOCKED');const isFree=free.remaining>0,stake=isFree?0n:cents(bet);check(s.balance>=stake,402,'INSUFFICIENT_FUNDS');
@@ -73,7 +73,7 @@ const server=http.createServer(async(req,res)=>{
    if(url.pathname==='/qa/plan'&&req.method==='POST'){
     const body=await jsonBody(req);check(games.has(body.gameId),400,'QA_GAME_REQUIRED');const plan=queuedPlan(s,body.gameId);if(body.nextOutcome)check(['win','loss','scatter','random'].includes(body.nextOutcome),400,'QA_OUTCOME_INVALID');if(body.nextGamble)check(['win','lose'].includes(body.nextGamble),400,'QA_GAMBLE_INVALID');
     for(const k of ['nextOutcome','nextGamble','dropNextSpinResponse','delayNextSpinMs'])if(body[k]!==undefined)plan[k]=body[k];
-    if(body.seedFreeAtZero){check(body.gameId==='hot_foxy_20',400,'QA_FREE_GAME_INVALID');ledger(s,-s.balance,'synthetic_zero_balance_seed',null);const r=resultFor(body.gameId,body.bet||'2.00',true,'loss'),receipt={currency:'ETB',balanceBefore:'0.00',chargedStake:'0.00',finalWin:'0.00',balanceAfter:'0.00'};Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:2});validateRound(r,gameConfig(body.gameId),r.bet);s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:'0.00',consumed:true});Object.assign(gameState(s,body.gameId),{remaining:2,bet:r.bet});}
+    if(body.seedFreeAtZero){check(getGame(body.gameId).features.freeSpins.spins>0,400,'QA_FREE_GAME_INVALID');ledger(s,-s.balance,'synthetic_zero_balance_seed',null);const r=resultFor(body.gameId,body.bet||'2.00',true,'loss'),receipt={currency:'ETB',balanceBefore:'0.00',chargedStake:'0.00',finalWin:'0.00',balanceAfter:'0.00'};Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:2});validateRound(r,gameConfig(body.gameId),r.bet);s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:'0.00',consumed:true});Object.assign(gameState(s,body.gameId),{remaining:2,bet:r.bet});}
     json(res,200,{synthetic:true,planned:true});return;
    }
    if(url.pathname==='/api/slots/balance'){json(res,200,{currency:'ETB',balance:cash(s.balance),synthetic:true});return;}

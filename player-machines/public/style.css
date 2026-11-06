@@ -46,3 +46,20 @@ body[data-game="multi_hot_5_video"] .secondary [data-multi-art]{clip-path:polygo
 body[data-game="multi_hot_5_video"] #spin:disabled:not([data-multi-face="stop"]) .multi-spin-face{opacity:.4}
 
 body[data-game="hot_foxy_20"] .secondary #gamble,body[data-game="hot_foxy_20"] .secondary #collect{height:auto;aspect-ratio:1;top:21%}body[data-game="hot_foxy_20"] .secondary #auto svg{stroke-width:3}body[data-game="hot_foxy_20"] .meter-name{font-size:2.2cqw}
+
+body[data-game="multi_hot_100"] #spin{background:radial-gradient(circle at 42% 25%,#a8ad39,#6e7725 60%,#3e532a);box-shadow:inset 0 0 0 2px #d9d687,inset 0 0 0 5px #74814b}
+body[data-game="multi_hot_100"] .secondary button,body[data-game="multi_hot_100"] #bet-quick{background:radial-gradient(circle at 40% 25%,#476337,#203f2a 70%);border-color:#c0c16f;color:#d9e2b4}
+body[data-game="multi_hot_100"] .meters{top:91.9%}body[data-game="multi_hot_100"] #notice{top:67%;font-size:2.6cqw}
+body[data-game="wild_multi_stars"] #spin{background:radial-gradient(circle at 42% 23%,#d200ff,#8800c4 57%,#41046d);box-shadow:inset 0 0 0 2px #e17bff,inset 0 0 0 5px #6f269b}
+body[data-game="wild_multi_stars"] .secondary button,body[data-game="wild_multi_stars"] #bet-quick{background:radial-gradient(circle at 42% 25%,#8b20bc,#4c0a7a 75%);border-color:#b96ce0;color:#d1a6ef}
+body[data-game="wild_multi_stars"] .meters>div,body[data-game="wild_multi_stars"] .meters>button{background:linear-gradient(#70208c,#4b065f);border-color:#b26ac4;box-shadow:inset 0 0 3px #ef7bdb,0 0 3px #b666ce77}
+body[data-game="wild_multi_stars"] .meter-name{color:#e5c58a}body[data-game="wild_multi_stars"] .reading{color:#fff5c6}body[data-game="wild_multi_stars"] .footer button{color:#fff0cf}body[data-game="wild_multi_stars"] #turbo{color:#b69a72}
+body[data-game="wild_multi_stars"] .secondary #gamble,body[data-game="wild_multi_stars"] .secondary #collect,body[data-game="multi_hot_100"] .secondary #gamble,body[data-game="multi_hot_100"] .secondary #collect{display:block;position:absolute;left:-24%;width:18%;height:auto;aspect-ratio:1;top:21%}
+body[data-game="wild_multi_stars"] .secondary #collect,body[data-game="multi_hot_100"] .secondary #collect{left:auto;right:-24%}
+body[data-game="wild_multi_stars"] .secondary #gamble span,body[data-game="multi_hot_100"] .secondary #gamble span{font-size:3.7cqw}
+body[data-game="wild_multi_stars"] .secondary #gamble small,body[data-game="wild_multi_stars"] .secondary #collect small,body[data-game="multi_hot_100"] .secondary #gamble small,body[data-game="multi_hot_100"] .secondary #collect small{display:none}
+body[data-game="wild_multi_stars"] .meter-name,body[data-game="multi_hot_100"] .meter-name{font-size:2.2cqw}
+
+body[data-game="wild_multi_stars"][data-state="ready"] #spin,body[data-game="multi_hot_100"][data-state="ready"] #spin{background-image:var(--reference-spin);background-size:100% 100%;background-repeat:no-repeat;box-shadow:none}
+body[data-game="wild_multi_stars"][data-state="ready"] #spin>svg,body[data-game="wild_multi_stars"][data-state="ready"] #spin>strong,body[data-game="multi_hot_100"][data-state="ready"] #spin>svg,body[data-game="multi_hot_100"][data-state="ready"] #spin>strong{visibility:hidden}
+body[data-celebration="true"] .secondary,body[data-celebration="true"] .spin-controls,body[data-celebration="true"] #bet-quick,body[data-celebration="true"] #turbo,body[data-celebration="true"] .footer,body[data-celebration="true"] .meters{opacity:.4}

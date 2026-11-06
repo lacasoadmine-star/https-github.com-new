@@ -1,7 +1,7 @@
 import {cookies} from './player-session-v236.mjs';
 import {assets,release} from './machine-assets-20261106.mjs';
-const prefix='/'+release+'/',ids=new Set(['multi_hot_5_video','hot_foxy_20']);
-const aliases={'multi-hot-5':'multi_hot_5_video','multi_hot_5':'multi_hot_5_video','multi-hot-5-new':'multi_hot_5_video','hot-foxy-20':'hot_foxy_20','foxy-hot-20':'hot_foxy_20'};
+const prefix='/'+release+'/',ids=new Set(['multi_hot_5_video','hot_foxy_20','multi_hot_100','wild_multi_stars']);
+const aliases={'multi-hot-100':'multi_hot_100','wild-multi-stars':'wild_multi_stars','multi-hot-5':'multi_hot_5_video','multi_hot_5':'multi_hot_5_video','multi-hot-5-new':'multi_hot_5_video','hot-foxy-20':'hot_foxy_20','foxy-hot-20':'hot_foxy_20'};
 export function resolveGame(url){let id;if(['/slots/game.html','/zplaybet-v232/game.html'].includes(url.pathname))id=url.searchParams.get('game');else if(url.pathname.startsWith('/games/'))id=url.pathname.slice(7).replace(/\/$/,'');else if(['/play/multi-hot-5-new','/mh5-video-v1/index.html'].includes(url.pathname))id='multi_hot_5_video';id=aliases[id]||id;return ids.has(id)?id:null;}
 export async function sessionIdentity(request){const token=cookies(request).session;if(!token)return '';const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('zplay-machine-session:'+token));return [...new Uint8Array(bytes)].map(b=>b.toString(16).padStart(2,'0')).join('');}
 const json=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-Zplay-Release':release}});
