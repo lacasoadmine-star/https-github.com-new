@@ -1,3 +1,4 @@
+import {symbolSheets} from './symbol-atlases.mjs';
 // Original procedural vector artwork. Reference pixels and provider assets are never embedded.
 const TAU=Math.PI*2;
 function ellipse(c,x,y,rx,ry,fill,rotation=0){c.beginPath();c.ellipse(x,y,rx,ry,rotation,0,TAU);c.fillStyle=fill;c.fill();}
@@ -47,11 +48,29 @@ export function drawSymbol(c,s,style='emerald'){
  else if(s==='scatter'){star(c,50,43,35,gold(c,5));c.font='900 14px Georgia';c.textAlign='center';c.fillStyle='#fff7b9';c.fillText('SCATTER',50,93);}
  else {c.restore();throw Error('UNKNOWN_SYMBOL_'+s);}c.restore();
 }
-export function makeAtlas(g){const atlas=new Map();for(const name of g.symbols){const canvas=document.createElement('canvas');canvas.width=320;canvas.height=320;const c=canvas.getContext('2d');c.scale(3.2,3.2);drawSymbol(c,name,g.visual.skin);atlas.set(name,canvas);}return atlas;}
+export function makeAtlas(g){
+ const atlas=new Map();for(const name of g.symbols){const canvas=document.createElement('canvas');canvas.width=320;canvas.height=320;const c=canvas.getContext('2d');c.scale(3.2,3.2);drawSymbol(c,name,g.visual.skin);atlas.set(name,canvas);}
+ atlas.artworkLoaded=false;const sheet=symbolSheets[g.id];
+ atlas.ready=!sheet||typeof Image==='undefined'?Promise.resolve(false):new Promise(resolve=>{
+  const image=new Image();image.onload=()=>{
+   if(image.width!==sheet.tile*sheet.columns||image.height!==sheet.tile*3){resolve(false);return;}
+   for(const [i,name]of sheet.symbols.entries()){const canvas=atlas.get(name);if(!canvas)continue;const c=canvas.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,canvas.width,canvas.height);c.drawImage(image,(i%sheet.columns)*sheet.tile,Math.floor(i/sheet.columns)*sheet.tile,sheet.tile,sheet.tile,0,0,canvas.width,canvas.height);}
+   atlas.artworkLoaded=true;resolve(true);
+  };image.onerror=()=>resolve(false);image.src=sheet.url;
+ });return atlas;
+}
 function clover(c,x,y,size,angle,colour){
- c.save();c.translate(x,y);c.rotate(angle);c.scale(size,size);c.shadowColor='#001c17aa';c.shadowBlur=2;c.shadowOffsetY=1;
- c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(5,24,-4,39);c.strokeStyle='#07563e';c.lineWidth=1.8;c.stroke();
- for(let i=0;i<3;i++){c.save();c.rotate(i*TAU/3);c.beginPath();c.moveTo(0,0);c.bezierCurveTo(-20,-6,-33,-26,-22,-37);c.bezierCurveTo(-14,-44,-4,-42,0,-31);c.bezierCurveTo(8,-46,24,-41,27,-31);c.bezierCurveTo(34,-16,13,-5,0,0);const f=c.createLinearGradient(-25,-35,15,0);f.addColorStop(0,colour);f.addColorStop(.48,colour);f.addColorStop(.52,'#075e3f');f.addColorStop(1,'#003a2c');c.fillStyle=f;c.fill();c.shadowBlur=0;c.strokeStyle='#73caa423';c.lineWidth=.7;c.stroke();c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(-1,-15,0,-31);c.strokeStyle='#65bb8b26';c.stroke();c.restore();}c.restore();
+ c.save();c.translate(x,y);c.rotate(angle);c.scale(size,size);c.shadowColor='#001e19b8';c.shadowBlur=3;c.shadowOffsetY=1.4;
+ const stem=c.createLinearGradient(0,0,-4,43);stem.addColorStop(0,'#0a5e45');stem.addColorStop(.65,'#16785a');stem.addColorStop(1,'#064a38');c.beginPath();c.moveTo(0,-1);c.bezierCurveTo(1,15,11,30,-5,43);c.strokeStyle=stem;c.lineWidth=2.1;c.lineCap='round';c.stroke();
+ for(let i=0;i<3;i++){
+  c.save();c.rotate(i*TAU/3+(i-1)*.08);c.scale(1-i*.025,1+(i-1)*.04);
+  c.beginPath();c.moveTo(0,1);c.bezierCurveTo(-17,-5,-32,-21,-25,-34);c.bezierCurveTo(-19,-46,-5,-42,0,-31);c.bezierCurveTo(7,-46,23,-42,27,-31);c.bezierCurveTo(33,-17,15,-5,0,1);c.closePath();
+  const f=c.createLinearGradient(-25,-36,19,8);f.addColorStop(0,colour);f.addColorStop(.35,colour);f.addColorStop(.7,'#075740');f.addColorStop(1,'#013a2d');c.fillStyle=f;c.fill();c.shadowBlur=0;
+  c.save();c.clip();const fold=c.createLinearGradient(-8,-25,11,-14);fold.addColorStop(0,'#063c2a00');fold.addColorStop(.4,'#002e2510');fold.addColorStop(.52,'#001e2024');fold.addColorStop(.63,'#2b9a7320');fold.addColorStop(1,'#2b9a7300');c.fillStyle=fold;c.fillRect(-35,-48,70,54);
+  const light=c.createRadialGradient(-12,-32,1,-12,-29,29);light.addColorStop(0,'#3eb68a24');light.addColorStop(1,'#3eb68a00');c.fillStyle=light;c.fillRect(-35,-48,70,54);c.restore();
+  c.beginPath();c.moveTo(-1,0);c.quadraticCurveTo(-4,-14,0,-31);c.strokeStyle='#49b38a26';c.lineWidth=.6;c.stroke();
+  c.beginPath();c.moveTo(-23,-34);c.bezierCurveTo(-19,-42,-8,-40,-3,-34);c.strokeStyle='#53b18a22';c.lineWidth=.65;c.stroke();c.restore();
+ }c.restore();
 }
 function tropical(c,x,y,size,angle,colour){
  c.save();c.translate(x,y);c.rotate(angle);c.scale(size,size);
@@ -63,8 +82,9 @@ export function drawBackground(c,g){
  const forest=g.visual.skin==='forest',grad=c.createLinearGradient(0,0,0,900);grad.addColorStop(0,forest?'#001e18':'#00271e');grad.addColorStop(.52,forest?'#00382c':'#00442f');grad.addColorStop(1,forest?'#00241e':'#003225');c.fillStyle='#000';c.fillRect(0,0,420,900);c.save();if(forest){c.beginPath();c.rect(13,0,394,900);c.clip();}c.fillStyle=grad;c.fillRect(0,0,420,900);
  let seed=forest?117:59;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
  if(!forest){
-  for(let i=0;i<80;i++){const x=random()*470-25,y=random()*950-25,size=.45+random()*.9;c.globalAlpha=.35+random()*.25;clover(c,x,y,size,random()*TAU,['#00533b','#096c48','#045b3b','#086248'][i%4]);}
-  for(let row=0;row<7;row++)for(let col=0;col<6;col++){const x=col*79+(row%2)*32-12+(random()-.5)*18,y=440+row*72+(random()-.5)*25;c.globalAlpha=.58+random()*.25;clover(c,x,y,.72+random()*.35,random()*TAU,['#00714b','#096446','#066244','#005d3d'][col%4]);}
+  for(let i=0;i<220;i++){const x=random()*470-25,y=random()*950-25,size=.45+random()*.45;c.globalAlpha=.36+random()*.3;clover(c,x,y,size,random()*TAU,['#005e46','#096b4c','#065c42','#086b50'][i%4]);}
+  // Overlapping irregular groups preserve the dense shamrock field without a tile grid.
+  for(let i=0;i<104;i++){const cluster=i%7,x=cluster*69-13+(random()-.5)*74,y=445+random()*480;c.globalAlpha=.62+random()*.28;clover(c,x,y,.4+random()*.4,random()*TAU,['#087a56','#0b7352','#086447','#007257','#0a694b'][i%5]);}
   c.globalAlpha=1;const shade=c.createLinearGradient(0,0,0,440);shade.addColorStop(0,'#00170cce');shade.addColorStop(.7,'#00180f20');shade.addColorStop(1,'#00120f00');c.fillStyle=shade;c.fillRect(0,0,420,900);
  }else{
   for(let i=0;i<27;i++){c.globalAlpha=.05+random()*.11;tropical(c,random()*480-30,random()*900,1+random()*.5,random()*TAU,'#145346');}c.globalAlpha=1;
