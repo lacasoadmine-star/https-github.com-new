@@ -105,9 +105,10 @@ function assertGuestRequests(evidence,label){
     const response=await page.goto(ORIGIN+'/games/'+game,{waitUntil:'domcontentloaded',timeout:45000});item.status=response.status();
     await page.waitForSelector('body[data-state="signedout"]',{timeout:30000});
     await page.locator('#menu').tap();await page.locator('[data-panel="audio"]').tap();await page.locator('#sound-test').tap();
-    await page.waitForFunction(async prefix=>{const d=(await import(prefix+'/controller.mjs')).diagnostics();return d.artworkLoaded&&d.cabinetArtworkLoaded&&d.decodedSoundSamples===7&&d.audioState==='running'&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded);},PREFIX,{timeout:20000});
+    await page.evaluate(async prefix=>{window.__liveQAMachine=await import(prefix+'/controller.mjs');},PREFIX);
+    await page.waitForFunction(()=>{const d=window.__liveQAMachine.diagnostics();return d.artworkLoaded&&d.cabinetArtworkLoaded&&d.decodedSoundSamples===7&&d.audioState==='running'&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded);},null,{timeout:20000});
     await page.locator('[data-close="settings"]').tap();
-    if(['multi_hot_5_video','multi_hot_100'].includes(game)){await page.locator('#sound').tap();await page.locator('#sound').tap();await page.waitForFunction(async prefix=>(await import(prefix+'/controller.mjs')).diagnostics().backgroundAudio.playing,PREFIX,{timeout:20000});}
+    if(['multi_hot_5_video','multi_hot_100'].includes(game)){await page.locator('#sound').tap();await page.locator('#sound').tap();await page.waitForFunction(()=>window.__liveQAMachine.diagnostics().backgroundAudio.playing,null,{timeout:20000});}
     const info=await page.evaluate(async prefix=>{
      const d=(await import(prefix+'/controller.mjs')).diagnostics();
      return{gameId:d.gameId,state:document.body.dataset.state,geometry:d.geometry,artwork:d.artworkLoaded,cabinet:d.cabinetArtworkLoaded,multiArtwork:d.multiArtworkLoaded,decodedSounds:d.decodedSoundSamples,audioState:d.audioState,audioSuspended:d.audioSuspended,backgroundAudio:d.backgroundAudio,canvas:document.querySelectorAll('#machine-canvas').length,balance:document.getElementById('balance').textContent,notice:document.getElementById('notice-text').textContent,videoCount:document.querySelectorAll('video,iframe').length,spinDisabled:document.getElementById('spin').disabled,multiFace:document.getElementById('spin').dataset.multiFace||null,overflow:document.documentElement.scrollWidth>innerWidth,ambientParticles:d.ambientParticles,contextLost:d.contextLost};

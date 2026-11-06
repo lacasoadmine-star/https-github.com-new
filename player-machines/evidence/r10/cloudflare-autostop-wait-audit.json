@@ -1,0 +1,68 @@
+{
+  "auditedAtUtc": "2026-11-06T04:49:24.106636+00:00",
+  "scope": "Read-only audit of previously passed final Cloudflare33 fixture. No product edits or rerun.",
+  "files": {
+    "scenario": "/workspace/work/r10-player-qa/auto-stop-final-scenario.mjs",
+    "scenarioSHA256": "99d59e890ded59afb89fd2803c3544abc950e54cd7c5aad63dabe86d91a42bb6",
+    "result": "/workspace/work/r10-player-qa/cloudflare-autostop-final.json",
+    "fixture": "/workspace/work/r10-player-qa/auto-stop-final-isolated.html"
+  },
+  "predicateMechanism": {
+    "playwrightUsedByScenario": false,
+    "waitForFunctionOccurrences": 0,
+    "asyncUntilPredicateOccurrences": 0,
+    "helper": "until(f): for up to300 polls, evaluate synchronous f(); return only when truthy; otherwise await25ms delay. All call sites return DOM comparisons, boolean diagnostics fields, or !!qa.releaseSpin.",
+    "diagnostics": "controller module import is awaited once; exported diagnostics() returns a plain synchronous object. No poll callback returns an import Promise.",
+    "connectorCompletion": "Browser Rendering waits for DOM selector #qa-result. Scenario creates that pre only after all awaited assertions/1800ms no-next-wager observations, or creates an explicit error result in catch. This uses waitForSelector, not Playwright waitForFunction."
+  },
+  "explicitStateChecks": {
+    "requesting": [
+      "AUTO10 remains active while request is held",
+      "active AUTO stop remains enabled with saved pending token",
+      "requesting AUTO stop immediately clears repeat mode",
+      "cancelling requesting AUTO adds no debit or POST"
+    ],
+    "animating": [
+      "AUTO25 is active during animation",
+      "active AUTO stop remains enabled during animation",
+      "animating AUTO stop clears repeat mode",
+      "cancelling animating AUTO adds no debit or POST"
+    ],
+    "pendingRecovery": [
+      "lost receipt ends AUTO without another wager",
+      "pending state offers original CONFIRM",
+      "inactive AUTO is locked until saved receipt resolves",
+      "AUTO receipt retry uses identical saved payload",
+      "AUTO receipt retry never adds another debit",
+      "AUTO receipt retry settles only original round",
+      "confirmed AUTO recovery does not restart repeat mode"
+    ]
+  },
+  "savedTokenEvidence": {
+    "directSessionStorageAssertionIn33": false,
+    "mechanism": "The isolated fixture holds fetch resolution only after WalletAdapter.spin creates/stores pending request. Frozen bundled WalletAdapter stores pending in sessionStorage before invoking spin HTTP request. During held phase the scenario explicitly requires body=requesting,autoRemaining10,enabledAUTO,STOP10; then cancels without anotherPOST/debit. Lost-response case explicitly compares complete serialized request payloads, which include roundToken.",
+    "bundledWalletStorageBeforeRequestVerified": true,
+    "limitation": "No separate direct sessionStorage value assertion was counted; do not describe one as executed."
+  },
+  "outcome": {
+    "passed": 33,
+    "total": 33,
+    "allChecksExplicitlyTrue": true,
+    "errorFieldAbsent": true,
+    "browserErrors": [],
+    "completedSteps": [
+      "requesting AUTO cancellation",
+      "animating AUTO cancellation",
+      "Lost AUTO receipt recovery"
+    ],
+    "exactSettlement": {
+      "spinPosts": 4,
+      "debits": 3,
+      "rounds": 3,
+      "balance": "99999.40",
+      "displayedBalance": "99999.40"
+    },
+    "noNextWagerObservationMsEachPath": 1800
+  },
+  "conclusion": "The async-predicate Playwright defect does not affect this final CF33 evidence. Every poll predicate is synchronous and explicit subsequent checks prove the observed requesting/animating/pending states and exact settlement counts. No validity concern requiring rerun."
+}

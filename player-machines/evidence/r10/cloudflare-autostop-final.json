@@ -1,0 +1,1630 @@
+{
+  "synthetic": true,
+  "scope": "Focused isolated Cloudflare Browser Rendering on frozen final public source; requesting/saved-token AUTO cancellation, animating AUTO cancellation, and lost-response same-token confirmation. DOM clicks only; no production account, API or wallet.",
+  "source": {
+    "fixture": "/workspace/work/r10-player-qa/auto-stop-final-isolated.html",
+    "bytes": 2254507,
+    "fixtureSHA256": "67e7c6f9026ea0a6a7a7b5282b1ab5fa7604e4bf9d7185aea2258d6c046c4acb",
+    "expectedAggregateSourceManifestSHA256": "85f31a6e5924d028ba12843eaa5d7e25993f194f2595e89458a71f05c970051c",
+    "scope": "Work-only fixture override; all public modules copied unchanged by builder. No source/test edits.",
+    "bundledRewrittenControllerSHA256": "86656bf1a024463a89004623a48dd2c0004d1b7b322fe42f8160063b6a7e4f37",
+    "publicSourceControllerSHA256": "b9204f2c57f69e1788efcffb061f307928bd922fb1e83c94cd569782aee11117",
+    "controllerRewriteVerified": true
+  },
+  "success": true,
+  "meta": {
+    "status": 200,
+    "title": "Multi Hot 100 · ZPLAY"
+  },
+  "passed": 33,
+  "total": 33,
+  "result": {
+    "synthetic": true,
+    "game": "multi_hot_100",
+    "interaction": "DOM control clicks in isolated Cloudflare Browser Rendering; no production or authentication traffic",
+    "checks": [
+      {
+        "name": "initial synthetic balance is intact",
+        "ok": true
+      },
+      {
+        "name": "one real Canvas with no video or iframe",
+        "ok": true
+      },
+      {
+        "name": "AUTO10 chooser opens",
+        "ok": true
+      },
+      {
+        "name": "AUTO10 remains active while request is held",
+        "ok": true
+      },
+      {
+        "name": "active AUTO stop remains enabled with saved pending token",
+        "ok": true
+      },
+      {
+        "name": "requesting AUTO stop immediately clears repeat mode",
+        "ok": true
+      },
+      {
+        "name": "cancelling requesting AUTO adds no debit or POST",
+        "ok": true
+      },
+      {
+        "name": "requesting AUTO cancellation has one spin POST",
+        "ok": true
+      },
+      {
+        "name": "requesting AUTO cancellation has one synthetic debit",
+        "ok": true
+      },
+      {
+        "name": "requesting AUTO cancellation has one settled round",
+        "ok": true
+      },
+      {
+        "name": "requesting AUTO cancellation shows exact receipt balance",
+        "ok": true
+      },
+      {
+        "name": "requesting AUTO cancellation schedules no later wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO25 chooser opens",
+        "ok": true
+      },
+      {
+        "name": "AUTO25 is active during animation",
+        "ok": true
+      },
+      {
+        "name": "active AUTO stop remains enabled during animation",
+        "ok": true
+      },
+      {
+        "name": "animating AUTO stop clears repeat mode",
+        "ok": true
+      },
+      {
+        "name": "cancelling animating AUTO adds no debit or POST",
+        "ok": true
+      },
+      {
+        "name": "animating AUTO cancellation has one spin POST",
+        "ok": true
+      },
+      {
+        "name": "animating AUTO cancellation has one synthetic debit",
+        "ok": true
+      },
+      {
+        "name": "animating AUTO cancellation has one settled round",
+        "ok": true
+      },
+      {
+        "name": "animating AUTO cancellation shows exact receipt balance",
+        "ok": true
+      },
+      {
+        "name": "animating AUTO cancellation schedules no later wager",
+        "ok": true
+      },
+      {
+        "name": "AUTO10 chooser opens",
+        "ok": true
+      },
+      {
+        "name": "lost receipt ends AUTO without another wager",
+        "ok": true
+      },
+      {
+        "name": "pending state offers original CONFIRM",
+        "ok": true
+      },
+      {
+        "name": "inactive AUTO is locked until saved receipt resolves",
+        "ok": true
+      },
+      {
+        "name": "AUTO receipt retry uses identical saved payload",
+        "ok": true
+      },
+      {
+        "name": "AUTO receipt retry never adds another debit",
+        "ok": true
+      },
+      {
+        "name": "AUTO receipt retry settles only original round",
+        "ok": true
+      },
+      {
+        "name": "confirmed AUTO receipt balance matches server",
+        "ok": true
+      },
+      {
+        "name": "confirmed AUTO recovery does not restart repeat mode",
+        "ok": true
+      },
+      {
+        "name": "background survives all AUTO cancellation paths",
+        "ok": true
+      },
+      {
+        "name": "fixture errors remain empty",
+        "ok": true
+      }
+    ],
+    "steps": [
+      {
+        "label": "requesting AUTO cancellation",
+        "before": {
+          "spinPosts": 0,
+          "debits": 0,
+          "rounds": 0,
+          "balance": "100000.00",
+          "displayedBalance": "100000.00"
+        },
+        "after": {
+          "spinPosts": 1,
+          "debits": 1,
+          "rounds": 1,
+          "balance": "99999.80",
+          "displayedBalance": "99999.80"
+        },
+        "diagnostics": {
+          "gameId": "multi_hot_100",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 4
+          },
+          "renderStats": {
+            "frames": 94,
+            "draws": 85,
+            "slowFrames": 51,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2798.899999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2801.7999999998137
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2892.100000000093
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2894.2000000001863
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2921
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 2924.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 2935.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 2996.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 2996.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 3025.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3025.2000000001863
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 3055.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3055.7999999998137
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 3114.100000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 5,
+              "time": 3114.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3114.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3140.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 3188.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3189.2000000001863
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 3217.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 3242.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3242.7000000001863
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 3292.2999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3292.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 3317.5
+            }
+          ],
+          "audioNodes": 1,
+          "decodedSoundSamples": 7,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": true,
+            "loading": false,
+            "playing": true,
+            "positionSeconds": 0.8337868480725623,
+            "durationSeconds": 1.4649886621315193,
+            "gain": 1
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 5,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": "aaaaaaaa-aaaa-4aaa-aaaa-000000000002",
+          "multiplier": 5,
+          "grid": [
+            [
+              "plum",
+              "777",
+              "777",
+              "777",
+              "grapes"
+            ],
+            [
+              "lemon",
+              "777",
+              "grapes",
+              "777",
+              "777"
+            ],
+            [
+              "plum",
+              "777",
+              "cherry",
+              "lemon",
+              "golden_bell"
+            ],
+            [
+              "watermelon",
+              "watermelon",
+              "watermelon",
+              "777",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      {
+        "label": "animating AUTO cancellation",
+        "before": {
+          "spinPosts": 1,
+          "debits": 1,
+          "rounds": 1,
+          "balance": "99999.80",
+          "displayedBalance": "99999.80"
+        },
+        "after": {
+          "spinPosts": 2,
+          "debits": 2,
+          "rounds": 2,
+          "balance": "99999.60",
+          "displayedBalance": "99999.60"
+        },
+        "diagnostics": {
+          "gameId": "multi_hot_100",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 4
+          },
+          "renderStats": {
+            "frames": 183,
+            "draws": 174,
+            "slowFrames": 98,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2798.899999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2801.7999999998137
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2892.100000000093
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2894.2000000001863
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2921
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 2924.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 2935.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 2996.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 2996.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 3025.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3025.2000000001863
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 3055.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3055.7999999998137
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 3114.100000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 5,
+              "time": 3114.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3114.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3140.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 3188.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3189.2000000001863
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 3217.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 3242.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3242.7000000001863
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 3292.2999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3292.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 3317.5
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5174.399999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5175.100000000093
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 5253.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5254.5
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5275.799999999814
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5276.299999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5276.399999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5300.799999999814
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5326.600000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5326.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5354.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5354.200000000186
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 5388.399999999907
+            },
+            {
+              "name": "multiplier",
+              "index": 5,
+              "time": 5388.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5388.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5442.100000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 5489.299999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5489.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 5508.799999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5529
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 5548.799999999814
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 5570.899999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5571.200000000186
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 5611.799999999814
+            }
+          ],
+          "audioNodes": 1,
+          "decodedSoundSamples": 7,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": true,
+            "loading": false,
+            "playing": true,
+            "positionSeconds": 0.1851700680272108,
+            "durationSeconds": 1.4649886621315193,
+            "gain": 1
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 5,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": "aaaaaaaa-aaaa-4aaa-aaaa-000000000004",
+          "multiplier": 5,
+          "grid": [
+            [
+              "plum",
+              "777",
+              "777",
+              "777",
+              "grapes"
+            ],
+            [
+              "lemon",
+              "777",
+              "grapes",
+              "777",
+              "777"
+            ],
+            [
+              "plum",
+              "777",
+              "cherry",
+              "lemon",
+              "golden_bell"
+            ],
+            [
+              "watermelon",
+              "watermelon",
+              "watermelon",
+              "777",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      {
+        "label": "Lost AUTO receipt recovery",
+        "before": {
+          "spinPosts": 2,
+          "debits": 2,
+          "rounds": 2,
+          "balance": "99999.60",
+          "displayedBalance": "99999.60"
+        },
+        "after": {
+          "spinPosts": 4,
+          "debits": 3,
+          "rounds": 3,
+          "balance": "99999.40",
+          "displayedBalance": "99999.40"
+        },
+        "diagnostics": {
+          "gameId": "multi_hot_100",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 4
+          },
+          "renderStats": {
+            "frames": 262,
+            "draws": 253,
+            "slowFrames": 151,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2798.899999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2801.7999999998137
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2892.100000000093
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2894.2000000001863
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 2921
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 2924.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 2935.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 2996.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 2996.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 3025.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3025.2000000001863
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 3055.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3055.7999999998137
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 3114.100000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 5,
+              "time": 3114.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3114.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3140.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 3188.7999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3189.2000000001863
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 3217.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 3242.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3242.7000000001863
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 3292.2999999998137
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 3292.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 3317.5
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5174.399999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5175.100000000093
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 5253.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5254.5
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5275.799999999814
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5276.299999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5276.399999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5300.799999999814
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5326.600000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5326.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5354.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5354.200000000186
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 5388.399999999907
+            },
+            {
+              "name": "multiplier",
+              "index": 5,
+              "time": 5388.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5388.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5442.100000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 5489.299999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5489.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 5508.799999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5529
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 5548.799999999814
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 5570.899999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5571.200000000186
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 5611.799999999814
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 7463.899999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 7464.700000000186
+            },
+            {
+              "name": "error",
+              "index": 0,
+              "time": 7493
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 7560.700000000186
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 7567.700000000186
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7621
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 7648.700000000186
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7648.700000000186
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 7678.299999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7678.299999999814
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 7706.700000000186
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7706.700000000186
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 7764
+            },
+            {
+              "name": "multiplier",
+              "index": 5,
+              "time": 7764.200000000186
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7764.299999999814
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7792.799999999814
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 7821.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7821.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 7845.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 7869.899999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7870.100000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 7917.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 7917.5
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 7939
+            }
+          ],
+          "audioNodes": 1,
+          "decodedSoundSamples": 7,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": true,
+            "loading": false,
+            "playing": true,
+            "positionSeconds": 1.0189569160997731,
+            "durationSeconds": 1.4649886621315193,
+            "gain": 1
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 10,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": "aaaaaaaa-aaaa-4aaa-aaaa-000000000006",
+          "multiplier": 5,
+          "grid": [
+            [
+              "plum",
+              "777",
+              "777",
+              "777",
+              "grapes"
+            ],
+            [
+              "lemon",
+              "777",
+              "grapes",
+              "777",
+              "777"
+            ],
+            [
+              "plum",
+              "777",
+              "cherry",
+              "lemon",
+              "golden_bell"
+            ],
+            [
+              "watermelon",
+              "watermelon",
+              "watermelon",
+              "777",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      }
+    ],
+    "diagnostics": {
+      "gameId": "multi_hot_100",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 5,
+        "rows": 4
+      },
+      "renderStats": {
+        "frames": 262,
+        "draws": 253,
+        "slowFrames": 151,
+        "maxDelta": 80
+      },
+      "soundEvents": [
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 2798.899999999907
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 2801.7999999998137
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 2892.100000000093
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 2894.2000000001863
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 2921
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 2924.600000000093
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 2935.899999999907
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 2996.7999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 2996.899999999907
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 3025.100000000093
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3025.2000000001863
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 3055.7999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3055.7999999998137
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 3114.100000000093
+        },
+        {
+          "name": "multiplier",
+          "index": 5,
+          "time": 3114.399999999907
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3114.399999999907
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3140.399999999907
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 3188.7999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3189.2000000001863
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 3217.600000000093
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 3242.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3242.7000000001863
+        },
+        {
+          "name": "reel-stop",
+          "index": 3,
+          "time": 3292.2999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 3292.600000000093
+        },
+        {
+          "name": "reel-stop",
+          "index": 4,
+          "time": 3317.5
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 5174.399999999907
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 5175.100000000093
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 5253.600000000093
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 5254.5
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 5275.799999999814
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 5276.299999999814
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5276.399999999907
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 5300.799999999814
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 5326.600000000093
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5326.600000000093
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 5354.100000000093
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5354.200000000186
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 5388.399999999907
+        },
+        {
+          "name": "multiplier",
+          "index": 5,
+          "time": 5388.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5388.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5442.100000000093
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 5489.299999999814
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5489.399999999907
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 5508.799999999814
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5529
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 5548.799999999814
+        },
+        {
+          "name": "reel-stop",
+          "index": 3,
+          "time": 5570.899999999907
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 5571.200000000186
+        },
+        {
+          "name": "reel-stop",
+          "index": 4,
+          "time": 5611.799999999814
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 7463.899999999907
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 7464.700000000186
+        },
+        {
+          "name": "error",
+          "index": 0,
+          "time": 7493
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 7560.700000000186
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 7567.700000000186
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7621
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 7648.700000000186
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7648.700000000186
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 7678.299999999814
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7678.299999999814
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 7706.700000000186
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7706.700000000186
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 7764
+        },
+        {
+          "name": "multiplier",
+          "index": 5,
+          "time": 7764.200000000186
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7764.299999999814
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7792.799999999814
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 7821.399999999907
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7821.600000000093
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 7845.600000000093
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 7869.899999999907
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7870.100000000093
+        },
+        {
+          "name": "reel-stop",
+          "index": 3,
+          "time": 7917.399999999907
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 7917.5
+        },
+        {
+          "name": "reel-stop",
+          "index": 4,
+          "time": 7939
+        }
+      ],
+      "audioNodes": 1,
+      "decodedSoundSamples": 7,
+      "soundSampleNodes": 0,
+      "audioState": "running",
+      "backgroundAudio": {
+        "enabled": true,
+        "loaded": true,
+        "loading": false,
+        "playing": true,
+        "positionSeconds": 1.0189569160997731,
+        "durationSeconds": 1.4649886621315193,
+        "gain": 1
+      },
+      "cabinetArtworkLoaded": true,
+      "artworkLoaded": true,
+      "audioSuspended": false,
+      "reducedMotion": false,
+      "particles": 10,
+      "turbo": false,
+      "autoRemaining": 0,
+      "ambientEffects": false,
+      "ambientParticles": 0,
+      "restoredRoundId": "aaaaaaaa-aaaa-4aaa-aaaa-000000000006",
+      "multiplier": 5,
+      "grid": [
+        [
+          "plum",
+          "777",
+          "777",
+          "777",
+          "grapes"
+        ],
+        [
+          "lemon",
+          "777",
+          "grapes",
+          "777",
+          "777"
+        ],
+        [
+          "plum",
+          "777",
+          "cherry",
+          "lemon",
+          "golden_bell"
+        ],
+        [
+          "watermelon",
+          "watermelon",
+          "watermelon",
+          "777",
+          "lemon"
+        ]
+      ],
+      "multiArtworkLoaded": false,
+      "loopActive": false,
+      "loopPhase": 0,
+      "retiringAudioNodes": 0,
+      "contextLost": false
+    },
+    "errors": [],
+    "final": {
+      "spinPosts": 4,
+      "debits": 3,
+      "rounds": 3,
+      "balance": "99999.40",
+      "displayedBalance": "99999.40"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    }
+  }
+}

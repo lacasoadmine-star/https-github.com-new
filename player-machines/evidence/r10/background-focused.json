@@ -1,0 +1,5986 @@
+{
+  "synthetic": true,
+  "origin": "http://127.0.0.1:8767",
+  "scope": "Fresh invented local HTTP sessions, trusted browser taps, real production frontend assets. Audio nodes observed independently; no fetch overrides. Hidden path explicitly emulates document.hidden+visibilitychange, not a physical browser tab switch.",
+  "source": {
+    "controller.mjs": "51181dc53205f765f60ee367f7198f9c8044edcf785f53d9b0a7891afe3c17b0",
+    "audio.mjs": "2f6703b40ac69366a106d2f2b2c5ba9816b79b1d4210e2c3e7e2786662ba6f05",
+    "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+    "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+    "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+    "background-audio.mjs": "a87f7f64194112cf111b4fbfcd384b82cb5def67e5ad871b140d4855f320131d",
+    "registry.mjs": "cb82a99b73a0bed830a289578dfac613e507f031d3b4be98e21a840125e9998d",
+    "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b"
+  },
+  "checks": [
+    {
+      "game": "multi_hot_100",
+      "label": "before consent background disabled and not decoded",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "before consent background module never requested",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "fresh No persists and stays muted",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "fresh No never requests background module even after unlock",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "fresh No never loads or plays background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "sound choice and tests never wager or change balance",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "fresh No has no browser errors",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "fresh Yes before choice has no lazy background request",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "Yes loads lazy background module once",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "Yes persists unmuted background enable",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "actual user clip loop duration is about1.465seconds",
+      "ok": true,
+      "details": {
+        "duration": 1.4649886621315193
+      }
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "foreground decode map stays exactly seven separate buffers",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "one real looping background node plays audible clip",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "Yes choice creates no wager or balance movement",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "five repeated trusted unlocks do not duplicate background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "mute stops every background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "unmute resumes exactly one background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "unmute reuses decoded clip without module reload",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "emulated hidden path stops background and suspends renderer sound",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "emulated visible path resumes exactly one background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "duplicate visible notifications do not duplicate background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "trusted SPIN receives valid authoritative HTTP receipt",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "trusted spin keeps one existing background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "SPIN STOP settles exactly one synthetic ledger round",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "displayed balance equals authoritative HTTP receipt",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "STOP and win retain bed with seven foreground buffers",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "synthetic session replacement starts a separate zero-round ledger",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "trusted SPIN detects changed session without new wager",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "session signout stops all background playback",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "persisted boot restores saved Yes without extra unlock",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "reauth boot resumes exactly one background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "reauth boot creates no new wager or balance change",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "reauth keeps seven foreground buffers and reuses module",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "disposal stops background and closes actual AudioContext",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "focused Yes case uses localhost requests only",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_100",
+      "label": "focused Yes case has no browser errors",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "before consent background disabled and not decoded",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "before consent background module never requested",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "fresh No persists and stays muted",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "fresh No never requests background module even after unlock",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "fresh No never loads or plays background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "sound choice and tests never wager or change balance",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "fresh No has no browser errors",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "fresh Yes before choice has no lazy background request",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "Yes loads lazy background module once",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "Yes persists unmuted background enable",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "actual user clip loop duration is about1.465seconds",
+      "ok": true,
+      "details": {
+        "duration": 1.4649886621315193
+      }
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "foreground decode map stays exactly seven separate buffers",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "one real looping background node plays audible clip",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "Yes choice creates no wager or balance movement",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "five repeated trusted unlocks do not duplicate background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "mute stops every background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "unmute resumes exactly one background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "unmute reuses decoded clip without module reload",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "emulated hidden path stops background and suspends renderer sound",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "emulated visible path resumes exactly one background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "duplicate visible notifications do not duplicate background",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "trusted SPIN receives valid authoritative HTTP receipt",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "trusted spin keeps one existing background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "SPIN STOP settles exactly one synthetic ledger round",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "displayed balance equals authoritative HTTP receipt",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "STOP and win retain bed with seven foreground buffers",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "synthetic session replacement starts a separate zero-round ledger",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "trusted SPIN detects changed session without new wager",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "session signout stops all background playback",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "persisted boot restores saved Yes without extra unlock",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "reauth boot resumes exactly one background node",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "reauth boot creates no new wager or balance change",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "reauth keeps seven foreground buffers and reuses module",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "disposal stops background and closes actual AudioContext",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "focused Yes case uses localhost requests only",
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "label": "focused Yes case has no browser errors",
+      "ok": true
+    }
+  ],
+  "cases": [
+    {
+      "label": "fresh No",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 49,
+          "draws": 2,
+          "slowFrames": 4,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1398.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1562.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1658.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1748.300000000745
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1748.300000000745
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "cherry",
+            "watermelon",
+            "orange",
+            "lemon",
+            "grapes"
+          ],
+          [
+            "777",
+            "lemon",
+            "golden_bell",
+            "plum",
+            "cherry"
+          ],
+          [
+            "777",
+            "777",
+            "777",
+            "lemon",
+            "plum"
+          ],
+          [
+            "777",
+            "777",
+            "orange",
+            "lemon",
+            "grapes"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [],
+          "active": [],
+          "starts": 0
+        },
+        "preference": "no",
+        "contextStates": []
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {},
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      },
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/games/multi_hot_100"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/style.css"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/controller.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/stars-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/hundred-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/ambient.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/multi-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/registry.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/contract.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/wallet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/renderer.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/extra-games.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-atlas-cleanup.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-effects.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet-art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/motion.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-banks.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-samples.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-loop.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/symbol-atlases.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/games/multi_hot_100"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/rounds"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "Yes decode diagnostic snapshot",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 23,
+          "draws": 2,
+          "slowFrames": 2,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 0.11029478458049886,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "cherry",
+            "watermelon",
+            "orange",
+            "lemon",
+            "grapes"
+          ],
+          [
+            "777",
+            "lemon",
+            "golden_bell",
+            "plum",
+            "cherry"
+          ],
+          [
+            "777",
+            "777",
+            "777",
+            "lemon",
+            "plum"
+          ],
+          [
+            "777",
+            "777",
+            "orange",
+            "lemon",
+            "grapes"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 1
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      }
+    },
+    {
+      "label": "Yes enabled",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 23,
+          "draws": 2,
+          "slowFrames": 2,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 0.11029478458049886,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "cherry",
+            "watermelon",
+            "orange",
+            "lemon",
+            "grapes"
+          ],
+          [
+            "777",
+            "lemon",
+            "golden_bell",
+            "plum",
+            "cherry"
+          ],
+          [
+            "777",
+            "777",
+            "777",
+            "lemon",
+            "plum"
+          ],
+          [
+            "777",
+            "777",
+            "orange",
+            "lemon",
+            "grapes"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 1
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      }
+    },
+    {
+      "label": "Spin STOP and visibility",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 179,
+          "draws": 48,
+          "slowFrames": 22,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1920.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2005.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2067.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2067.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2157.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2157.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2233.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2233.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2316.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2316.9000000003725
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2418.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2418.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2522.199999999255
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 3260.9000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3268.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3369.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3432.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3453.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3476.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3523.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3548.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3584
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3584.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3625.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3680.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3756.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 4172.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4172.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4289
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 4351.0999999996275
+          },
+          {
+            "name": "multiplier",
+            "index": 1,
+            "time": 4351.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4397.799999998882
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 4538.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4539.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 4567.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4567.5999999996275
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 4600.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4601
+          },
+          {
+            "name": "reel-stop",
+            "index": 3,
+            "time": 4636.5999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4636.9000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 4,
+            "time": 4671.5999999996275
+          }
+        ],
+        "audioNodes": 5,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 4,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 0.28888888888888875,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 35,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+        "multiplier": 1,
+        "grid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4425396825396826,
+              "endAudioTime": 1.4628571428571429,
+              "contextState": "running"
+            },
+            {
+              "id": 17,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.3699773242630386,
+              "startAudioTime": 1.6021768707482993,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.692154195011338,
+              "endAudioTime": 1.7124716553287982,
+              "contextState": "running"
+            },
+            {
+              "id": 18,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4599546485260773,
+              "startAudioTime": 1.7821315192743765,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 18,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4599546485260773,
+              "startAudioTime": 1.7821315192743765,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 3
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      },
+      "receipt": {
+        "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+        "gameId": "multi_hot_100",
+        "engineVersion": "superwin-slot-runtime-reference-v3000",
+        "mathVersion": "zplaybet-multi100-v1",
+        "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+        "grid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "initialGrid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "stops": [
+          652,
+          1479,
+          5761,
+          1436,
+          7931
+        ],
+        "wheelMultiplier": 1,
+        "wheelPosition": "top",
+        "winLines": [
+          {
+            "line": 96,
+            "rows": [
+              3,
+              3,
+              1,
+              1,
+              1
+            ],
+            "symbol": "grapes",
+            "count": 3,
+            "positions": [
+              [
+                3,
+                0
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "wilds": 0,
+            "baseWin": "0.1000",
+            "win": "0.1000"
+          }
+        ],
+        "stages": [
+          {
+            "grid": [
+              [
+                "plum",
+                "lemon",
+                "watermelon",
+                "cherry",
+                "orange"
+              ],
+              [
+                "cherry",
+                "lemon",
+                "grapes",
+                "777",
+                "golden_bell"
+              ],
+              [
+                "golden_bell",
+                "777",
+                "watermelon",
+                "777",
+                "plum"
+              ],
+              [
+                "grapes",
+                "grapes",
+                "watermelon",
+                "777",
+                "watermelon"
+              ]
+            ],
+            "winLines": [
+              {
+                "line": 96,
+                "rows": [
+                  3,
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                "symbol": "grapes",
+                "count": 3,
+                "positions": [
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "wilds": 0,
+                "baseWin": "0.1000",
+                "win": "0.1000"
+              }
+            ],
+            "lineWin": "0.1000",
+            "jackpotWin": "0.0000",
+            "scatterWin": "0.0000",
+            "win": "0.1000",
+            "stackMultiplier": 1,
+            "cascadeMultiplier": 1
+          }
+        ],
+        "bet": "2.00",
+        "chargedStake": "2.00",
+        "isFree": false,
+        "finalWin": "0.10",
+        "uncappedWin": "0.1000",
+        "bonusSpinsAwarded": 0,
+        "scatterCount": 0,
+        "jackpotTier": null,
+        "pendingBonusPick": false,
+        "dragonFire": false,
+        "maxWinCapped": false,
+        "currency": "ETB",
+        "balanceBefore": "100000.00",
+        "balanceAfter": "99998.10",
+        "walletReceipt": {
+          "currency": "ETB",
+          "balanceBefore": "100000.00",
+          "chargedStake": "2.00",
+          "finalWin": "0.10",
+          "balanceAfter": "99998.10"
+        },
+        "freeSpinsRemaining": 0
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "99998.10",
+        "houseBalance": "-9999810",
+        "spinPosts": 1,
+        "roundSettlements": 1,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 3,
+        "ledgerBalanced": true,
+        "free": {
+          "multi_hot_100": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.10",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              652,
+              1479,
+              5761,
+              1436,
+              7931
+            ],
+            "wheelMultiplier": 1
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+            "playerDelta": "10",
+            "houseDelta": "-10",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "99998.10"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Synthetic account guard signedout",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "signedout",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 231,
+          "draws": 95,
+          "slowFrames": 42,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1920.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2005.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2067.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2067.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2157.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2157.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2233.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2233.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2316.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2316.9000000003725
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2418.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2418.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2522.199999999255
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 3260.9000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3268.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3369.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3432.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3453.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3476.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3523.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3548.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3584
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3584.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3625.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3680.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3756.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 4172.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4172.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4289
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 4351.0999999996275
+          },
+          {
+            "name": "multiplier",
+            "index": 1,
+            "time": 4351.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4397.799999998882
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 4538.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4539.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 4567.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4567.5999999996275
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 4600.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4601
+          },
+          {
+            "name": "reel-stop",
+            "index": 3,
+            "time": 4636.5999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4636.9000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 4,
+            "time": 4671.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5786.299999998882
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": true,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0.16485260770975074,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+        "multiplier": 1,
+        "grid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4425396825396826,
+              "endAudioTime": 1.4628571428571429,
+              "contextState": "running"
+            },
+            {
+              "id": 17,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.3699773242630386,
+              "startAudioTime": 1.6021768707482993,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.692154195011338,
+              "endAudioTime": 1.7124716553287982,
+              "contextState": "running"
+            },
+            {
+              "id": 18,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4599546485260773,
+              "startAudioTime": 1.7821315192743765,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.881995464852608,
+              "endAudioTime": 4.902312925170068,
+              "contextState": "running"
+            }
+          ],
+          "active": [],
+          "starts": 3
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      },
+      "priorLedger": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "99998.10",
+        "houseBalance": "-9999810",
+        "spinPosts": 1,
+        "roundSettlements": 1,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 3,
+        "ledgerBalanced": true,
+        "free": {
+          "multi_hot_100": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.10",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              652,
+              1479,
+              5761,
+              1436,
+              7931
+            ],
+            "wheelMultiplier": 1
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+            "playerDelta": "10",
+            "houseDelta": "-10",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "99998.10"
+          }
+        ]
+      },
+      "replacementLedger": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {},
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Synthetic reauth through persisted boot",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 235,
+          "draws": 95,
+          "slowFrames": 42,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1920.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2005.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2067.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2067.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2157.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2157.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2233.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2233.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2316.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2316.9000000003725
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2418.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2418.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2522.199999999255
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 3260.9000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3268.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3369.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3432.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3453.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3476.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3523.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3548.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3584
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3584.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3625.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3680.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3756.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 4172.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4172.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4289
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 4351.0999999996275
+          },
+          {
+            "name": "multiplier",
+            "index": 1,
+            "time": 4351.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4397.799999998882
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 4538.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4539.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 4567.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4567.5999999996275
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 4600.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4601
+          },
+          {
+            "name": "reel-stop",
+            "index": 3,
+            "time": 4636.5999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4636.9000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 4,
+            "time": 4671.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5786.299999998882
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 0.1851700680272117,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+        "multiplier": 1,
+        "grid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4425396825396826,
+              "endAudioTime": 1.4628571428571429,
+              "contextState": "running"
+            },
+            {
+              "id": 17,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.3699773242630386,
+              "startAudioTime": 1.6021768707482993,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.692154195011338,
+              "endAudioTime": 1.7124716553287982,
+              "contextState": "running"
+            },
+            {
+              "id": 18,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4599546485260773,
+              "startAudioTime": 1.7821315192743765,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.881995464852608,
+              "endAudioTime": 4.902312925170068,
+              "contextState": "running"
+            },
+            {
+              "id": 29,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0.16485260770975074,
+              "startAudioTime": 5.0009977324263035,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 29,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0.16485260770975074,
+              "startAudioTime": 5.0009977324263035,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 4
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {},
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Disposal diagnostic snapshot",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 236,
+          "draws": 95,
+          "slowFrames": 42,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1920.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2005.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2067.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2067.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2157.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2157.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2233.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2233.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2316.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2316.9000000003725
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2418.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2418.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2522.199999999255
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 3260.9000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3268.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3369.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3432.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3453.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3476.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3523.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3548.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3584
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3584.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3625.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3680.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3756.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 4172.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4172.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4289
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 4351.0999999996275
+          },
+          {
+            "name": "multiplier",
+            "index": 1,
+            "time": 4351.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4397.799999998882
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 4538.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4539.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 4567.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4567.5999999996275
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 4600.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4601
+          },
+          {
+            "name": "reel-stop",
+            "index": 3,
+            "time": 4636.5999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4636.9000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 4,
+            "time": 4671.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5786.299999998882
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "closed",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": true,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+        "multiplier": 1,
+        "grid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4425396825396826,
+              "endAudioTime": 1.4628571428571429,
+              "contextState": "closed"
+            },
+            {
+              "id": 17,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.3699773242630386,
+              "startAudioTime": 1.6021768707482993,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.692154195011338,
+              "endAudioTime": 1.7124716553287982,
+              "contextState": "closed"
+            },
+            {
+              "id": 18,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4599546485260773,
+              "startAudioTime": 1.7821315192743765,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.881995464852608,
+              "endAudioTime": 4.902312925170068,
+              "contextState": "closed"
+            },
+            {
+              "id": 29,
+              "started": true,
+              "ended": false,
+              "stopCalls": 2,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0.16485260770975074,
+              "startAudioTime": 5.0009977324263035,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 5.0416326530612245,
+              "contextState": "closed"
+            }
+          ],
+          "active": [],
+          "starts": 4
+        },
+        "preference": "yes",
+        "contextStates": [
+          "closed"
+        ]
+      }
+    },
+    {
+      "label": "Disposed",
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 236,
+          "draws": 95,
+          "slowFrames": 42,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1137.9000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1139.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1920.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2005.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2067.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2067.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2157.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2157.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2233.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2233.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2316.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2316.9000000003725
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2418.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2418.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2522.199999999255
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 3260.9000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3268.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3369.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3432.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3453.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3476.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3523.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3548.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3584
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3584.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3625.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3680.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3700.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3756.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 4172.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4172.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4289
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 4351.0999999996275
+          },
+          {
+            "name": "multiplier",
+            "index": 1,
+            "time": 4351.4000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4397.799999998882
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 4538.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4539.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 4567.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4567.5999999996275
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 4600.799999998882
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4601
+          },
+          {
+            "name": "reel-stop",
+            "index": 3,
+            "time": 4636.5999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 4636.9000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 4,
+            "time": 4671.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5786.299999998882
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "closed",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": true,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "fbe5db12-09fb-45b8-a844-a9235d291aa5",
+        "multiplier": 1,
+        "grid": [
+          [
+            "plum",
+            "lemon",
+            "watermelon",
+            "cherry",
+            "orange"
+          ],
+          [
+            "cherry",
+            "lemon",
+            "grapes",
+            "777",
+            "golden_bell"
+          ],
+          [
+            "golden_bell",
+            "777",
+            "watermelon",
+            "777",
+            "plum"
+          ],
+          [
+            "grapes",
+            "grapes",
+            "watermelon",
+            "777",
+            "watermelon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 3,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.07256235827664399,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4425396825396826,
+              "endAudioTime": 1.4628571428571429,
+              "contextState": "closed"
+            },
+            {
+              "id": 17,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.3699773242630386,
+              "startAudioTime": 1.6021768707482993,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.692154195011338,
+              "endAudioTime": 1.7124716553287982,
+              "contextState": "closed"
+            },
+            {
+              "id": 18,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4599546485260773,
+              "startAudioTime": 1.7821315192743765,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.881995464852608,
+              "endAudioTime": 4.902312925170068,
+              "contextState": "closed"
+            },
+            {
+              "id": 29,
+              "started": true,
+              "ended": false,
+              "stopCalls": 2,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0.16485260770975074,
+              "startAudioTime": 5.0009977324263035,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 5.0416326530612245,
+              "contextState": "closed"
+            }
+          ],
+          "active": [],
+          "starts": 4
+        },
+        "preference": "yes",
+        "contextStates": [
+          "closed"
+        ]
+      },
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/games/multi_hot_100"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/style.css"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/controller.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/stars-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/hundred-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/ambient.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/multi-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/registry.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/contract.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/wallet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/renderer.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/extra-games.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-atlas-cleanup.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-effects.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet-art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/motion.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-banks.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-samples.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-loop.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/symbol-atlases.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/games/multi_hot_100"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/rounds"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/background-audio.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/balance"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/balance"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8767/api/slots/spin"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/games/multi_hot_100"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/rounds"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "fresh No",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 42,
+          "draws": 2,
+          "slowFrames": 2,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 914.8000000007451
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1007
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1116.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1212.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1212.0999999996275
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [],
+          "active": [],
+          "starts": 0
+        },
+        "preference": "no",
+        "contextStates": []
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {},
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      },
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/games/multi_hot_5_video"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/style.css"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/controller.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/stars-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/hundred-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/ambient.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/multi-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/registry.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/contract.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/wallet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/renderer.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/hex-control.svg"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/stake-bar.svg"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/spin-multi.svg"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/extra-games.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-banks.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-samples.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-loop.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-atlas-cleanup.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-effects.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet-art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/motion.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/symbol-atlases.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/games/multi_hot_5_video"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/rounds"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "Yes decode diagnostic snapshot",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 23,
+          "draws": 2,
+          "slowFrames": 2,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 0.11029478458049888,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 1
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      }
+    },
+    {
+      "label": "Yes enabled",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 23,
+          "draws": 2,
+          "slowFrames": 2,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 0.11029478458049888,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 1
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      }
+    },
+    {
+      "label": "Spin STOP and visibility",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 167,
+          "draws": 40,
+          "slowFrames": 11,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1640.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1738.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1804.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1807.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1888.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1888.7999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1973.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1974.2999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2075.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2076
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2174.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2174.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2266
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 2965.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 2975.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3105.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3161.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3236.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3253
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 3638.2999999988824
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 3638.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3652.7999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3748.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3783.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 3830.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3830.4000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 3844.199999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3855.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 3886.4000000003725
+          }
+        ],
+        "audioNodes": 5,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 4,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 1.274965986394558,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 80,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+        "multiplier": 2,
+        "grid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4106122448979592,
+              "endAudioTime": 1.4309297052154195,
+              "contextState": "running"
+            },
+            {
+              "id": 15,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.329342403628118,
+              "startAudioTime": 1.5615419501133787,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.6515192743764173,
+              "endAudioTime": 1.6718367346938776,
+              "contextState": "running"
+            },
+            {
+              "id": 16,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4193197278911567,
+              "startAudioTime": 1.7414965986394557,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 16,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4193197278911567,
+              "startAudioTime": 1.7414965986394557,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 3
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      },
+      "receipt": {
+        "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+        "gameId": "multi_hot_5_video",
+        "engineVersion": "superwin-slot-runtime-reference-v3000",
+        "mathVersion": "2026-10-27-reference-v3000",
+        "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+        "grid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "initialGrid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "stops": [
+          1102,
+          5646,
+          1172
+        ],
+        "wheelMultiplier": 2,
+        "wheelPosition": "side",
+        "winLines": [
+          {
+            "line": 1,
+            "rows": [
+              0,
+              0,
+              0
+            ],
+            "symbol": "dollar",
+            "count": 3,
+            "positions": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                0,
+                2
+              ]
+            ],
+            "wilds": 0,
+            "baseWin": "20.0000",
+            "win": "40.0000"
+          }
+        ],
+        "stages": [
+          {
+            "grid": [
+              [
+                "dollar",
+                "dollar",
+                "dollar"
+              ],
+              [
+                "dollar",
+                "watermelon",
+                "grapes"
+              ],
+              [
+                "dollar",
+                "orange",
+                "dollar"
+              ]
+            ],
+            "winLines": [
+              {
+                "line": 1,
+                "rows": [
+                  0,
+                  0,
+                  0
+                ],
+                "symbol": "dollar",
+                "count": 3,
+                "positions": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "wilds": 0,
+                "baseWin": "20.0000",
+                "win": "40.0000"
+              }
+            ],
+            "lineWin": "40.0000",
+            "jackpotWin": "0.0000",
+            "scatterWin": "0.0000",
+            "win": "40.0000",
+            "stackMultiplier": 2,
+            "cascadeMultiplier": 1
+          }
+        ],
+        "bet": "2.00",
+        "chargedStake": "2.00",
+        "isFree": false,
+        "finalWin": "40.00",
+        "uncappedWin": "40.0000",
+        "bonusSpinsAwarded": 0,
+        "scatterCount": 0,
+        "jackpotTier": null,
+        "pendingBonusPick": false,
+        "dragonFire": false,
+        "maxWinCapped": false,
+        "currency": "ETB",
+        "balanceBefore": "100000.00",
+        "balanceAfter": "100038.00",
+        "walletReceipt": {
+          "currency": "ETB",
+          "balanceBefore": "100000.00",
+          "chargedStake": "2.00",
+          "finalWin": "40.00",
+          "balanceAfter": "100038.00"
+        },
+        "freeSpinsRemaining": 0
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100038.00",
+        "houseBalance": "-10003800",
+        "spinPosts": 1,
+        "roundSettlements": 1,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 3,
+        "ledgerBalanced": true,
+        "free": {
+          "multi_hot_5_video": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+            "gameId": "multi_hot_5_video",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "40.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              1102,
+              5646,
+              1172
+            ],
+            "wheelMultiplier": 2
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+            "playerDelta": "4000",
+            "houseDelta": "-4000",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "100038.00"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Synthetic account guard signedout",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "signedout",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 216,
+          "draws": 83,
+          "slowFrames": 30,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1640.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1738.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1804.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1807.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1888.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1888.7999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1973.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1974.2999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2075.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2076
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2174.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2174.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2266
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 2965.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 2975.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3105.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3161.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3236.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3253
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 3638.2999999988824
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 3638.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3652.7999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3748.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3783.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 3830.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3830.4000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 3844.199999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3855.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 3886.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5053.5
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": true,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 1.110294784580499,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+        "multiplier": 2,
+        "grid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4106122448979592,
+              "endAudioTime": 1.4309297052154195,
+              "contextState": "running"
+            },
+            {
+              "id": 15,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.329342403628118,
+              "startAudioTime": 1.5615419501133787,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.6515192743764173,
+              "endAudioTime": 1.6718367346938776,
+              "contextState": "running"
+            },
+            {
+              "id": 16,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4193197278911567,
+              "startAudioTime": 1.7414965986394557,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.362448979591837,
+              "endAudioTime": 4.382766439909297,
+              "contextState": "running"
+            }
+          ],
+          "active": [],
+          "starts": 3
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      },
+      "priorLedger": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100038.00",
+        "houseBalance": "-10003800",
+        "spinPosts": 1,
+        "roundSettlements": 1,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 3,
+        "ledgerBalanced": true,
+        "free": {
+          "multi_hot_5_video": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+            "gameId": "multi_hot_5_video",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "40.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              1102,
+              5646,
+              1172
+            ],
+            "wheelMultiplier": 2
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+            "playerDelta": "4000",
+            "houseDelta": "-4000",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "100038.00"
+          }
+        ]
+      },
+      "replacementLedger": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {},
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Synthetic reauth through persisted boot",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 222,
+          "draws": 83,
+          "slowFrames": 30,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1640.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1738.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1804.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1807.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1888.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1888.7999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1973.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1974.2999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2075.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2076
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2174.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2174.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2266
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 2965.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 2975.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3105.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3161.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3236.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3253
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 3638.2999999988824
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 3638.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3652.7999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3748.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3783.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 3830.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3830.4000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 3844.199999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3855.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 3886.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5053.5
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 1.150929705215419,
+          "durationSeconds": 1.4649886621315193,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+        "multiplier": 2,
+        "grid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4106122448979592,
+              "endAudioTime": 1.4309297052154195,
+              "contextState": "running"
+            },
+            {
+              "id": 15,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.329342403628118,
+              "startAudioTime": 1.5615419501133787,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.6515192743764173,
+              "endAudioTime": 1.6718367346938776,
+              "contextState": "running"
+            },
+            {
+              "id": 16,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4193197278911567,
+              "startAudioTime": 1.7414965986394557,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.362448979591837,
+              "endAudioTime": 4.382766439909297,
+              "contextState": "running"
+            },
+            {
+              "id": 25,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.110294784580499,
+              "startAudioTime": 4.530793650793651,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "active": [
+            {
+              "id": 25,
+              "started": true,
+              "ended": false,
+              "stopCalls": 0,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.110294784580499,
+              "startAudioTime": 4.530793650793651,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "contextState": "running"
+            }
+          ],
+          "starts": 4
+        },
+        "preference": "yes",
+        "contextStates": [
+          "running"
+        ]
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {},
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Disposal diagnostic snapshot",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 223,
+          "draws": 83,
+          "slowFrames": 30,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1640.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1738.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1804.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1807.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1888.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1888.7999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1973.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1974.2999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2075.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2076
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2174.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2174.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2266
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 2965.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 2975.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3105.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3161.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3236.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3253
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 3638.2999999988824
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 3638.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3652.7999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3748.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3783.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 3830.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3830.4000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 3844.199999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3855.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 3886.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5053.5
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "closed",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": true,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+        "multiplier": 2,
+        "grid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4106122448979592,
+              "endAudioTime": 1.4309297052154195,
+              "contextState": "closed"
+            },
+            {
+              "id": 15,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.329342403628118,
+              "startAudioTime": 1.5615419501133787,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.6515192743764173,
+              "endAudioTime": 1.6718367346938776,
+              "contextState": "closed"
+            },
+            {
+              "id": 16,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4193197278911567,
+              "startAudioTime": 1.7414965986394557,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.362448979591837,
+              "endAudioTime": 4.382766439909297,
+              "contextState": "closed"
+            },
+            {
+              "id": 25,
+              "started": true,
+              "ended": false,
+              "stopCalls": 2,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.110294784580499,
+              "startAudioTime": 4.530793650793651,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.580136054421769,
+              "contextState": "closed"
+            }
+          ],
+          "active": [],
+          "starts": 4
+        },
+        "preference": "yes",
+        "contextStates": [
+          "closed"
+        ]
+      }
+    },
+    {
+      "label": "Disposed",
+      "diagnostics": {
+        "gameId": "multi_hot_5_video",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 223,
+          "draws": 83,
+          "slowFrames": 30,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 942.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 944.2999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1640.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1738.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1804.699999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1807.5999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1888.5
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1888.7999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1973.7999999988824
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 1974.2999999988824
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2075.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2076
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 2174.199999999255
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2174.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 2266
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 2965.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 2975.199999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3083.2999999988824
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3105.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3161.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3200.699999999255
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3236.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3253
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3538.699999999255
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 3638.2999999988824
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 3638.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3652.7999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3748.2999999988824
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3783.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 3830.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3830.4000000003725
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 3844.199999999255
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 3855.199999999255
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 3886.4000000003725
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5053.5
+          }
+        ],
+        "audioNodes": 0,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "closed",
+        "backgroundAudio": {
+          "enabled": false,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 1
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": true,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "6e3cde9c-b0a6-4b84-9c0a-4360e8a1d54c",
+        "multiplier": 2,
+        "grid": [
+          [
+            "dollar",
+            "dollar",
+            "dollar"
+          ],
+          [
+            "dollar",
+            "watermelon",
+            "grapes"
+          ],
+          [
+            "dollar",
+            "orange",
+            "dollar"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "observedBackground": {
+          "all": [
+            {
+              "id": 1,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 0,
+              "startAudioTime": 0.08126984126984127,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.4106122448979592,
+              "endAudioTime": 1.4309297052154195,
+              "contextState": "closed"
+            },
+            {
+              "id": 15,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.329342403628118,
+              "startAudioTime": 1.5615419501133787,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 1.6515192743764173,
+              "endAudioTime": 1.6718367346938776,
+              "contextState": "closed"
+            },
+            {
+              "id": 16,
+              "started": true,
+              "ended": true,
+              "stopCalls": 1,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.4193197278911567,
+              "startAudioTime": 1.7414965986394557,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.362448979591837,
+              "endAudioTime": 4.382766439909297,
+              "contextState": "closed"
+            },
+            {
+              "id": 25,
+              "started": true,
+              "ended": false,
+              "stopCalls": 2,
+              "contextIndex": 0,
+              "loop": true,
+              "duration": 1.4649886621315193,
+              "channels": 2,
+              "offset": 1.110294784580499,
+              "startAudioTime": 4.530793650793651,
+              "bufferRms": 0.10544444284641383,
+              "bufferPeak": 0.4250578284263611,
+              "stopAudioTime": 4.580136054421769,
+              "contextState": "closed"
+            }
+          ],
+          "active": [],
+          "starts": 4
+        },
+        "preference": "yes",
+        "contextStates": [
+          "closed"
+        ]
+      },
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/games/multi_hot_5_video"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/style.css"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/controller.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/stars-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/hundred-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/ambient.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/multi-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/registry.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/contract.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/wallet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/renderer.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/hex-control.svg"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/stake-bar.svg"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/spin-multi.svg"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/extra-games.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-banks.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-samples.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/audio-loop.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-atlas-cleanup.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-effects.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/foxy-presentation.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/cabinet-art.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/motion.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/symbol-atlases.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/games/multi_hot_5_video"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/rounds"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/zplay-machines-20261106-r10/background-audio.mjs"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/balance"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/balance"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:8767/api/slots/spin"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/games/multi_hot_5_video"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/machine-session"
+        },
+        {
+          "method": "GET",
+          "url": "http://127.0.0.1:8767/api/slots/rounds"
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "passed": 72,
+  "total": 72
+}

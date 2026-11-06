@@ -1,0 +1,109 @@
+{
+  "auditedAtUtc": "2026-11-06T04:48:53.795625+00:00",
+  "reportedMechanism": "Root reproduced installed Playwright waitForFunction(async()=>false,null,{timeout:700}) resolving false prematurely. This audit does not infer readiness from async waiter completion.",
+  "scripts": [
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/scripts/player-qa-browser.mjs",
+      "sha256": "ab71be9465692a52ed0f252d21b834119b54c680c1d653b95f86ca36f9c08326",
+      "waitForFunctionCalls": 16,
+      "asyncWaitForFunctionPredicates": 0,
+      "reviewedAllWaitCalls": true
+    },
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/scripts/player-qa-autostop.mjs",
+      "sha256": "037234edef33acf102c9de44ffd1f2e2316db976e0d81e6558dc7ff57ca1b23e",
+      "waitForFunctionCalls": 2,
+      "asyncWaitForFunctionPredicates": 0,
+      "reviewedAllWaitCalls": true
+    },
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/scripts/player-qa-duration.mjs",
+      "sha256": "6a9d388d5165a15ef5c6004a73b32bb590bd430aa9bc7a0c865f22c96c42f456",
+      "waitForFunctionCalls": 0,
+      "asyncWaitForFunctionPredicates": 0,
+      "reviewedAllWaitCalls": true
+    },
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/scripts/browser-fixture.mjs",
+      "sha256": "2648b3adf20cad3ab5dfe54ce459cf7ad33c5100a65f462dbce27eafccdc4cba",
+      "waitForFunctionCalls": 0,
+      "asyncWaitForFunctionPredicates": 0,
+      "reviewedAllWaitCalls": true
+    },
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/test/browser-scenarios.mjs",
+      "sha256": "4db74551df60d917b9f122e330513a04e9ce5e40036bf7b480692610975272fd",
+      "waitForFunctionCalls": 0,
+      "asyncWaitForFunctionPredicates": 0,
+      "reviewedAllWaitCalls": true
+    }
+  ],
+  "finalLocalEvidence": [
+    {
+      "path": "/workspace/work/r10-player-qa/control-supplement-final/results.json",
+      "sha256": "6b5fc0252126ce8b7c06028f0c67af2cfee0dfd8005d3a78ed713eab85a60e78",
+      "checks": 372,
+      "passed": 372,
+      "errors": []
+    },
+    {
+      "path": "/workspace/work/r10-player-qa/duration300-final/multi_hot_100/results.json",
+      "sha256": "2f165f7d99f66f444207759b243963646a0a0f50397823a875a57154699db5eb",
+      "checks": 548,
+      "passed": 548,
+      "errors": []
+    },
+    {
+      "path": "/workspace/work/r10-player-qa/auto-free-final-confirmed/results.json",
+      "sha256": "903ee49dab350ce8f79562c82dea58edd84e91edb62db9f5f8798c4ca8ccf93c",
+      "checks": 60,
+      "passed": 60,
+      "errors": []
+    }
+  ],
+  "finalLocalChecks": 980,
+  "finalLocalPassed": 980,
+  "affectedFinalLocalChecks": 0,
+  "reason": "Both final browser runners use only synchronous waitForFunction predicates. Browser-runner untilDiagnostics polls page.evaluate diagnostics from the host with an explicit predicate and deadline. Final round assertions independently test concrete received receipts, pinned math validation, DOM balance/grid/multiplier, AudioContext running and seven decoded foreground buffers; duration rounds independently test mapped background playing/duration or absence. AUTO/free checks independently test saved state, enabled button, queue count, exact POST/settlement counts, zero-charged authoritative receipts and balanced ledger after synchronous state waits.",
+  "historicalHelpers": [
+    {
+      "path": "/workspace/work/r10-local-play/quiet-idle-audio.mjs",
+      "asyncWaitForFunctionPredicates": 1,
+      "scope": "Historical work-only capture helper, excluded from final980 evidence and finalcomparison local image selection; do not treat waiter resolution alone as readiness proof."
+    },
+    {
+      "path": "/workspace/work/r10-local-play/idles.mjs",
+      "asyncWaitForFunctionPredicates": 1,
+      "scope": "Historical work-only capture helper, excluded from final980 evidence and finalcomparison local image selection; do not treat waiter resolution alone as readiness proof."
+    },
+    {
+      "path": "/workspace/work/r10-local-play/audio-capture.mjs",
+      "asyncWaitForFunctionPredicates": 1,
+      "scope": "Historical work-only capture helper, excluded from final980 evidence and finalcomparison local image selection; do not treat waiter resolution alone as readiness proof."
+    },
+    {
+      "path": "/workspace/work/r10-local-play/timing-light.mjs",
+      "asyncWaitForFunctionPredicates": 1,
+      "scope": "Historical work-only capture helper, excluded from final980 evidence and finalcomparison local image selection; do not treat waiter resolution alone as readiness proof."
+    },
+    {
+      "path": "/workspace/work/r10-local-play/capture.mjs",
+      "asyncWaitForFunctionPredicates": 1,
+      "scope": "Historical work-only capture helper, excluded from final980 evidence and finalcomparison local image selection; do not treat waiter resolution alone as readiness proof."
+    }
+  ],
+  "finalComparisonImageSources": "Local PNGs selected from main player-qa-browser.mjs duration300 and duration300-final outputs, not historical capture/idles helpers.",
+  "rerunRequired": false,
+  "productFilesChanged": false,
+  "qaPatchesRequiredForFinalRunners": false,
+  "cloudflare33Audit": {
+    "record": "/workspace/work/r10-player-qa/cloudflare-autostop-wait-audit.json",
+    "checks": 33,
+    "passed": 33,
+    "playwrightCalls": 0,
+    "waitForFunctionCalls": 0,
+    "asyncPollPredicates": 0,
+    "mechanism": "Self-contained browser module awaits its import once, then polls synchronous DOM/diagnostics Boolean predicates every25ms with its own until helper. Cloudflare connector waits only for #qa-result appended after checks or explicit catch;33checks are explicitly true, no errors,3paths completed.",
+    "rerunRequired": false
+  }
+}
