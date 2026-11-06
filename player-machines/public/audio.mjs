@@ -1,8 +1,9 @@
+import {getAudioSamples} from './audio-banks.mjs';
 import {audioSamples} from './audio-samples.mjs';
 import {seamlessBuffer} from './audio-loop.mjs';
 // Existing cabinet clips with a procedural fallback while decoding or without audio support.
 export class SoundEngine {
- constructor(root=261.63){this.root=root;this.volume=.5;this.muted=false;this.nodes=new Set();this.retiring=new Set();this.events=[];this.samples=new Map();this.reelWanted=false;this.reelPhase=0;this.reelClock=0;this.disposed=false;}
+ constructor(root=261.63,gameId=''){this.root=root;this.gameId=gameId;this.audioSamples=getAudioSamples(gameId,audioSamples);this.volume=.5;this.muted=false;this.nodes=new Set();this.retiring=new Set();this.events=[];this.samples=new Map();this.reelWanted=false;this.reelPhase=0;this.reelClock=0;this.disposed=false;}
  async unlock(){
   if(this.disposed)return;const Audio=globalThis.AudioContext||globalThis.webkitAudioContext;if(!Audio)return;
   try{
@@ -21,12 +22,12 @@ export class SoundEngine {
  preload(){
   const context=this.context;if(this.disposed||!context?.decodeAudioData||context.state==='closed')return Promise.resolve(false);
   if(this.sampleLoad)return this.sampleLoad;
-  this.sampleLoad=Promise.all(Object.entries(audioSamples).map(async([name,encoded])=>{
+  this.sampleLoad=Promise.all(Object.entries(this.audioSamples).map(async([name,encoded])=>{
    try{const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)),buffer=await context.decodeAudioData(bytes.buffer);if(!this.disposed)this.samples.set(name,name==='reel-loop'?seamlessBuffer(context,buffer):buffer);}catch{}
-  })).then(()=>this.samples.size===Object.keys(audioSamples).length);
+  })).then(()=>this.samples.size===Object.keys(this.audioSamples).length);
   return this.sampleLoad;
  }
- playSample(name,{loop=false,group='effect',volume=1.4,offset=0}={}){
+ playSample(name,{loop=false,group='effect',volume,offset=0}={}){volume=volume??(this.gameId==='wild_multi_stars'&&name==='reel-loop'?.25:1.4);
   const context=this.context,buffer=this.samples.get(name);if(!buffer||!context||context.state==='closed'||this.muted||this.disposed||this.playbackSuspended)return false;
   let node;try{
    const osc=context.createBufferSource(),gain=context.createGain(),now=context.currentTime,duration=buffer.duration;node={osc,gain,group,sample:name,baseVolume:volume,buffer,startedAt:now,offset};osc.buffer=buffer;osc.loop=loop;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(volume,now+(loop ? .012 : .004));if(!loop&&duration>.02){gain.gain.setValueAtTime(volume,now+duration-.008);gain.gain.linearRampToValueAtTime(0,now+duration);}osc.connect(gain).connect(this.master);this.nodes.add(node);osc.onended=()=>this.release(node);osc.start(now,offset);return true;

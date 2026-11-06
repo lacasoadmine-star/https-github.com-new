@@ -6,10 +6,10 @@ import {getGame,evaluateGrid,publicGames} from './server-core-snapshot.mjs';
 import {settle,memoryStorage} from './fixtures.mjs';
 import {WalletAdapter} from '../public/wallet.mjs';
 import {ReelMotion} from '../public/motion.mjs';
-const ids=['multi_hot_5_video','hot_foxy_20'];
+const ids=['multi_hot_5_video','hot_foxy_20','multi_hot_100','wild_multi_stars'];
 for(const id of ids){
  test(id+' exact deployed strips, lines and model',()=>{const g=gameConfig(id),server=getGame(id);assert.deepEqual(g.strips,server.reelStrips);validateModel({...publicGames().find(x=>x.id===id),enabled:true},g);assert.equal(new Set(g.linePaths.map(JSON.stringify)).size,g.paylines);});
- for(let i=0;i<100;i++)test(id+' isolated server round '+(i+1),()=>{const g=gameConfig(id),bet=g.betLevels[i%g.betLevels.length],r=settle(id,bet,100000000n,{isFree:id==='hot_foxy_20'&&i%5===0});validateRound(r,g,bet);});
+ for(let i=0;i<100;i++)test(id+' isolated server round '+(i+1),()=>{const g=gameConfig(id),bet=g.betLevels[i%g.betLevels.length],r=settle(id,bet,100000000n,{isFree:(id==='hot_foxy_20'||id==='wild_multi_stars')&&i%5===0});validateRound(r,g,bet);});
  test(id+' rejects corrupted result, payout, receipt and model',()=>{const g=gameConfig(id),r=settle(id);for(const alter of [x=>x.grid[0][0]='broken',x=>x.finalWin='9999.00',x=>x.walletReceipt.balanceAfter='0.00',x=>x.mathSha256='a'.repeat(64),x=>x.wheelMultiplier=6,x=>x.freeSpinsRemaining=-1]){const bad=structuredClone(r);alter(bad);assert.throws(()=>validateRound(bad,g,'2.00'));}const remote=publicGames().find(x=>x.id===id);remote.rows=4;assert.throws(()=>validateModel(remote,g));});
  test(id+' wild, scatter, cap and all winning lines match server',()=>{const g=gameConfig(id),core=getGame(id);for(const symbol of g.symbols){const grid=Array.from({length:g.rows},()=>Array(g.reels).fill(symbol));for(const isFree of [false,true]){const ours=evaluate(g,grid,'2.00',5,isFree),server=evaluateGrid(core,grid,20000n,5,{isFree});assert.equal(ours.total,server.totalUnits);assert.deepEqual(ours.wins,server.wins);}}});
  test(id+' STOP changes presentation time only',()=>{const g=gameConfig(id),m=new ReelMotion(g.visual,g.reels),stops=Array(g.reels).fill(42);m.begin(stops,3,0);m.advance(100);const previous=m.elapsed;m.speedUp();m.advance(116);assert.equal(m.elapsed-previous,80);assert.deepEqual(m.targets,stops);assert.equal(m.wheel,3);let time=116;while(m.active)m.advance(time+=16);assert.equal(m.position(g.reels-1).landed,true);});
