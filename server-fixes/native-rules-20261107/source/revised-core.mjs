@@ -11,8 +11,8 @@ rtp:{baseGame:0.9603774247485393,gambleExcluded:true,method:'Exact marginal symb
   const foxy = decoded.games.hot_foxy_20, multi = decoded.games.multi_hot_5_video;
   decoded.lines.foxy_r13 = rules.foxyHot20.paths;
   decoded.lines.mh5_r13 = rules.multiHot5.paths;
-  decoded.games.hot_foxy_20 = {
-    ...foxy, lineSet: 'foxy_r13', mathVersion: versions.hot_foxy_20, maxWinMultiplier: rules.foxyHot20.maxWinMultiplier,
+  decoded.games.foxy_hot_20_native = {
+    ...foxy, id: 'foxy_hot_20_native', name: 'Foxy Hot 20', lineSet: 'foxy_r13', mathVersion: versions.foxy_hot_20_native, maxWinMultiplier: rules.foxyHot20.maxWinMultiplier,
     // Retain the existing non-scatter symbols' order and multiplicities. Do not guess provider strips.
     reelStrips: foxy.reelStrips.map(strip => strip.filter(symbol => symbol !== 'scatter')),
     features: { ...foxy.features,
@@ -22,12 +22,12 @@ rtp:{baseGame:0.9603774247485393,gambleExcluded:true,method:'Exact marginal symb
     },
     ...(rules.foxyHot20.betLevels ? { betLevels: rules.foxyHot20.betLevels } : {}),
   };
-  decoded.games.multi_hot_5_video = {
-    ...multi, lineSet: 'mh5_r13', mathVersion: versions.multi_hot_5_video, maxWinMultiplier: rules.multiHot5.maxWinMultiplier,
+  decoded.games.multi_hot_5_native = {
+    ...multi, id: 'multi_hot_5_native', name: 'Multi Hot 5', lineSet: 'mh5_r13', mathVersion: versions.multi_hot_5_native, maxWinMultiplier: rules.multiHot5.maxWinMultiplier,
     features: { ...multi.features, gambleRounds: rules.multiHot5.gambleMaxAttempts ?? multi.features.gambleRounds, gambleMaxStake: rules.multiHot5.gambleMaxStake },
     ...(rules.multiHot5.betLevels ? { betLevels: rules.multiHot5.betLevels } : {}),
   };
-})(decoded,{"sourceType":"official public demo browser-delivered scripts and Help/Images/FoxyHot20/Charts.png; not user uploads","rowIndex":"top=0, middle=1, bottom=2","foxyHot20":{"paths":[[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,0,0,0,1],[1,2,2,2,1],[0,1,1,1,0],[2,1,1,1,2],[1,0,1,2,1],[1,2,1,0,1],[0,1,0,1,0],[2,1,2,1,2],[1,1,0,1,1],[1,1,2,1,1],[0,2,0,2,0],[2,0,2,0,2],[1,0,2,0,1]],"chartUrl":"https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/FoxyHot20/Charts.png","gambleMaxAttempts":5,"gambleSource":"Current official demo DOM input DoublingMaxCount=5.0; current Help text does not state numeric attempt count.","betLevels":["0.20","0.40","0.60","0.80","1.00","2.00","3.00","4.00","5.00","6.00","8.00","10.00","15.00","20.00","30.00","40.00","50.00","60.00","80.00","100.00"],"maxWinMultiplier":1000,"gambleMaxStake":"500.00"},"multiHot5":{"paths":[[1,1,1],[0,0,0],[2,2,2],[0,1,2],[2,1,0]],"script":"multihot5.mobile.js:1021","gambleMaxAttempts":5,"gambleStatus":"Confirmed current official DEMO DOM DoublingMaxCount=5.0","betLevels":["0.05","0.10","0.20","0.30","0.40","0.50","0.60","0.80","1.00","1.50","2.00","3.00","4.00","5.00","6.00","8.00","10.00","15.00","20.00","30.00","40.00","50.00","60.00","80.00","100.00","150.00","200.00","300.00","400.00"],"maxWinMultiplier":145,"gambleMaxStake":"500.00"},"unknowns":["Private RNG distribution and authoritative reel strips not published in examined client","Gamble probability not explicitly stated in examined help","Decorative reel filler randomization and wheel segment counts do not establish probabilities","DMO absolute caps do not establish ETB operator limits"],"betProfileNote":"Official demo numeric wager ladder adopted as local ETB operator profile; no currency conversion is claimed.","gambleCeilingProfile":{"currency":"ETB","maxStake":"500.00","sourcePublicSetting":"DoublingMaxWin=500 on both official demos","sourceObservation":"MH5 natural2000 and2100DMO wins offered onlyStart, noDouble.","officialBoundaryUnverified":"No250<win<=500 observation established current stake versus potential doubled payout boundary.","implementation":"Local numeric operator profile allows stake500ETB and rejects>500 before debit. Does not assert full provider equivalence.","evidence":"player-machines/evidence/r13/mh5-gamble-ceiling-natural40.json"}},{"hot_foxy_20":"2026-11-07-foxy-eight-symbols-v1","multi_hot_5_video":"2026-11-07-mh5-lines-v1"});
+})(decoded,{"sourceType":"official public demo browser-delivered scripts and Help/Images/FoxyHot20/Charts.png; not user uploads","rowIndex":"top=0, middle=1, bottom=2","foxyHot20":{"paths":[[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,0,0,0,1],[1,2,2,2,1],[0,1,1,1,0],[2,1,1,1,2],[1,0,1,2,1],[1,2,1,0,1],[0,1,0,1,0],[2,1,2,1,2],[1,1,0,1,1],[1,1,2,1,1],[0,2,0,2,0],[2,0,2,0,2],[1,0,2,0,1]],"chartUrl":"https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/FoxyHot20/Charts.png","gambleMaxAttempts":5,"gambleSource":"Current official demo DOM input DoublingMaxCount=5.0; current Help text does not state numeric attempt count.","betLevels":["0.20","0.40","0.60","0.80","1.00","2.00","3.00","4.00","5.00","6.00","8.00","10.00","15.00","20.00","30.00","40.00","50.00","60.00","80.00","100.00"],"maxWinMultiplier":1000,"gambleMaxStake":"500.00"},"multiHot5":{"paths":[[1,1,1],[0,0,0],[2,2,2],[0,1,2],[2,1,0]],"script":"multihot5.mobile.js:1021","gambleMaxAttempts":5,"gambleStatus":"Confirmed current official DEMO DOM DoublingMaxCount=5.0","betLevels":["0.05","0.10","0.20","0.30","0.40","0.50","0.60","0.80","1.00","1.50","2.00","3.00","4.00","5.00","6.00","8.00","10.00","15.00","20.00","30.00","40.00","50.00","60.00","80.00","100.00","150.00","200.00","300.00","400.00"],"maxWinMultiplier":145,"gambleMaxStake":"500.00"},"unknowns":["Private RNG distribution and authoritative reel strips not published in examined client","Gamble probability not explicitly stated in examined help","Decorative reel filler randomization and wheel segment counts do not establish probabilities","DMO absolute caps do not establish ETB operator limits"],"betProfileNote":"Official demo numeric wager ladder adopted as local ETB operator profile; no currency conversion is claimed.","gambleCeilingProfile":{"currency":"ETB","maxStake":"500.00","sourcePublicSetting":"DoublingMaxWin=500 on both official demos","sourceObservation":"MH5 natural2000 and2100DMO wins offered onlyStart, noDouble.","officialBoundaryUnverified":"No250<win<=500 observation established current stake versus potential doubled payout boundary.","implementation":"Local numeric operator profile allows stake500ETB and rejects>500 before debit. Does not assert full provider equivalence.","evidence":"player-machines/evidence/r13/mh5-gamble-ceiling-natural40.json"}},{"foxy_hot_20_native":"2026-11-07-foxy-native-v1","multi_hot_5_native":"2026-11-07-mh5-native-v1"});
 export const MATH=Object.freeze(decoded);export const mathSha256=createHash('sha256').update(JSON.stringify(MATH)).digest('hex');if(createHash('sha256').update(JSON.stringify(MATH)).digest('hex')!==mathSha256)throw Error('MATH_HASH_MISMATCH');
 export const ENGINE_VERSION="superwin-slot-runtime-r13";
 export const CASH_SCALE=10000n;
@@ -54,7 +54,7 @@ export function visibleGrid(g,stops){
 }
 function validGrid(g,grid){check(Array.isArray(grid)&&grid.length===g.rows&&grid.every(row=>Array.isArray(row)&&row.length===g.reels),'BAD_GRID');}
 export function evaluatePaylines(g,grid,stakePerLine){
- validGrid(g,grid);const result=[];const isWild=s=>wild(s)||(g.id==='hot_foxy_20'&&s==='fox');
+ validGrid(g,grid);const result=[];const isWild=s=>wild(s)||(['hot_foxy_20','foxy_hot_20_native'].includes(g.id)&&s==='fox');
  for(const [index,path] of paths(g).entries()){
   const symbols=path.map((r,c)=>grid[r][c]);if(symbols.slice(0,3).includes('scatter'))continue;
   const candidates=new Set(symbols.filter(s=>!isWild(s)&&s!=='scatter'));
@@ -86,7 +86,7 @@ export function evaluateGrid(g,grid,stake,wheel,{isFree=false,cascadeStep=0}={})
  const multiplier=BigInt(stack)*BigInt(cascadeMult)*BigInt(freeMult);
  const scatterCount=grid.flat().filter(s=>s==='scatter').length;
  const jackpotMult=Number(f.jackpots[String(Math.min(5,scatterCount))]||0),jackpotUnits=stake*BigInt(jackpotMult);
- const scatterUnits=g.id!=='hot_foxy_20'&&!jackpotMult&&scatterCount>=3?stake*BigInt(({3:2,4:10,5:50})[Math.min(5,scatterCount)])*BigInt(wheel):0n;
+ const scatterUnits=g.id!=='foxy_hot_20_native'&&!jackpotMult&&scatterCount>=3?stake*BigInt(({3:2,4:10,5:50})[Math.min(5,scatterCount)])*BigInt(wheel):0n;
  const lineWinUnits=wins.reduce((sum,w)=>sum+w.baseUnits*multiplier,0n);
  return {wins:wins.map(({baseUnits,...w})=>({...w,baseWin:fromUnits(baseUnits),win:fromUnits(baseUnits*multiplier)})),lineWinUnits,jackpotUnits,scatterUnits,
   totalUnits:lineWinUnits+jackpotUnits+scatterUnits,stack,cascadeMult,scatterCount,
@@ -126,8 +126,8 @@ export function publicGames(){return Object.values(MATH.games).map(g=>({
  id:g.id,name:g.name,reels:g.reels,rows:g.rows,theme:g.theme,paylines:paths(g).length,wheel:g.wheel,betLevels:g.betLevels||MATH.betLevels,
  previewReels:g.reelStrips.map(s=>[...new Set(s)]),features:{...g.features},mathVersion:g.mathVersion||MATH.mathVersion,engineVersion:ENGINE_VERSION,
  currency:MATH.currency,maxWinMultiplier:g.maxWinMultiplier,paytable:g.paytable,linePaths:paths(g),
- rules:{lineDirection:'left_to_right',minimumMatch:3,betAllocation:'total_bet_divided_by_lines',wildSymbols:g.id==='multi_hot_5_video'?[]:g.id==='hot_foxy_20'?['fox']:['wild','super_wild'],wildReplacesScatter:false,
- scatter:['multi_hot_5_video','hot_foxy_20'].includes(g.id)?null:{trigger:3,pays:{3:2,4:10,5:50},multipliedByWheel:true,jackpotsReplaceScatterPay:true},
+ rules:{lineDirection:'left_to_right',minimumMatch:3,betAllocation:'total_bet_divided_by_lines',wildSymbols:['multi_hot_5_video','multi_hot_5_native'].includes(g.id)?[]:['hot_foxy_20','foxy_hot_20_native'].includes(g.id)?['fox']:['wild','super_wild'],wildReplacesScatter:false,
+ scatter:['multi_hot_5_video','multi_hot_5_native','foxy_hot_20_native'].includes(g.id)?null:{trigger:3,pays:{3:2,4:10,5:50},multipliedByWheel:true,jackpotsReplaceScatterPay:true},
  settlement:{calculationDecimals:4,walletDecimals:2,rounding:'floor'},
  gamble:g.features.gambleRounds?{choices:['RED','BLACK'],winProbability:.475,winMultiplier:2,maxRounds:g.features.gambleRounds,...(g.features.gambleMaxStake?{maxStake:g.features.gambleMaxStake}:{})}:null}}));}
 // Validate every game's geometry and payout inputs before accepting a request.

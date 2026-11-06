@@ -5,7 +5,8 @@ import { createHash } from 'node:crypto';
 import { gunzipSync } from 'node:zlib';
 import { runtime, legacy, revised } from '../artifacts/versioned-core.mjs';
 
-const targets=['hot_foxy_20','multi_hot_5_video'];
+const targets=['foxy_hot_20_native','multi_hot_5_native'];
+const families={foxy_hot_20_native:'hot_foxy_20',multi_hot_5_native:'multi_hot_5_video'};
 const rules=JSON.parse(await readFile(new URL('../evidence/verified-linepaths-gamble.json',import.meta.url)));
 const draw=seed=>n=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed%n;};
 const withoutId=({roundId,...r})=>r;
@@ -24,16 +25,16 @@ test('deployable preserves original embedded core, migration, ledger and authent
  assert.doesNotMatch(after,/balanceBefore<=0n\|\|balanceBefore<charge/);
  assert.match(after,/const balanceBefore=integer\(await balance\(c,uid\)\);if\(balanceBefore<charge\)/);
 });
-for(const g of legacy.publicGames().filter(g=>!targets.includes(g.id))){
- test(`unrelated model and 40 seeded settlements unchanged: ${g.id}`,()=>{
+for(const g of legacy.publicGames()){
+ test(`original model and 40 seeded settlements unchanged: ${g.id}`,()=>{
   assert.deepEqual(runtime.publicGames().find(x=>x.id===g.id),g);
   for(let seed=0;seed<40;seed++)assert.deepEqual(withoutId(runtime.spin(g.id,g.betLevels[0],{draw:draw(seed)})),withoutId(legacy.spin(g.id,g.betLevels[0],{draw:draw(seed)})));
  });
 }
 test('verified line geometry, paytable, bets, cap and attempt count',()=>{
- for(const [id,key] of [['hot_foxy_20','foxyHot20'],['multi_hot_5_video','multiHot5']]){
+ for(const [id,key] of [['foxy_hot_20_native','foxyHot20'],['multi_hot_5_native','multiHot5']]){
   const g=runtime.publicGames().find(g=>g.id===id),r=rules[key];
-  assert.deepEqual(g.linePaths,r.paths);assert.deepEqual(g.paytable,legacy.getGame(id).paytable);
+  assert.deepEqual(g.linePaths,r.paths);assert.deepEqual(g.paytable,legacy.getGame(families[id]).paytable);
   assert.deepEqual(g.betLevels,r.betLevels);assert.equal(g.maxWinMultiplier,r.maxWinMultiplier);
   assert.equal(g.features.gambleRounds,5);assert.equal(g.rules.gamble.maxRounds,5);
   assert.equal(g.features.gambleMaxStake,'500.00');assert.equal(g.rules.gamble.maxStake,'500.00');
@@ -41,9 +42,9 @@ test('verified line geometry, paytable, bets, cap and attempt count',()=>{
  }
 });
 test('Foxy retains exact non-scatter order and counts, with no new bonus awards',()=>{
- const g=runtime.getGame('hot_foxy_20');
+ const g=runtime.getGame('foxy_hot_20_native');
  assert.equal(new Set(g.reelStrips.flat()).size,8);
- g.reelStrips.forEach((strip,i)=>{assert.equal(strip.length,19900);assert.deepEqual(strip,legacy.getGame(g.id).reelStrips[i].filter(s=>s!=='scatter'));});
+ g.reelStrips.forEach((strip,i)=>{assert.equal(strip.length,19900);assert.deepEqual(strip,legacy.getGame(families[g.id]).reelStrips[i].filter(s=>s!=='scatter'));});
  for(let seed=0;seed<300;seed++){
   const r=runtime.spin(g.id,'0.20',{draw:draw(seed)});assert.equal(r.scatterCount,0);assert.equal(r.bonusSpinsAwarded,0);assert.equal(r.pendingBonusPick,false);
  }
@@ -59,10 +60,10 @@ test('each official numbered line evaluates from its own authored path',()=>{
  }
 });
 test('MH5 strips and unconstrained award sums unchanged, cap lowered to145',()=>{
- const old=legacy.getGame('multi_hot_5_video'),g=revised.getGame(old.id);
+ const old=legacy.getGame('multi_hot_5_video'),g=revised.getGame('multi_hot_5_native');
  assert.deepEqual(g.reelStrips,old.reelStrips);
  for(let seed=0;seed<200;seed++){
-  const a=legacy.spin(g.id,'1.00',{draw:draw(seed)}),b=runtime.spin(g.id,'1.00',{draw:draw(seed)});
+  const a=legacy.spin(old.id,'1.00',{draw:draw(seed)}),b=runtime.spin(g.id,'1.00',{draw:draw(seed)});
   assert.deepEqual(a.grid,b.grid);assert.equal(a.uncappedWin,b.uncappedWin);assert.equal(b.finalWin,revised.fromUnits(revised.toUnits(a.uncappedWin)>1450000n?1450000n:revised.toUnits(a.uncappedWin)));
  }
 });
@@ -74,11 +75,26 @@ test('earned free spins keep full legacy identity, grids and retrigger award',()
  assert.deepEqual(withoutId(a),withoutId(b));assert.equal(b.bonusSpinsAwarded,10);assert.equal(b.chargedStake,'0.0000');
  assert.equal(b.mathSha256,legacy.mathSha256);
 });
-test('receipt model requires complete known identity and game, with old limit3 retained',()=>{
+test('new receipts require complete exact identity and never accept legacy pins',()=>{
  for(const id of targets){
-  for(const [core,limit] of [[legacy,3],[revised,5]]){
-   const r=core.spin(id,'1.00',{draw:draw(2)});assert.equal(runtime.receiptGame(id,r).features.gambleRounds,limit);
-   for(const field of ['gameId','mathVersion','engineVersion','mathSha256'])assert.equal(runtime.receiptGame(id,{...r,[field]:'unknown'}),null);
-  }
+  const r=revised.spin(id,'1.00',{draw:draw(2)});assert.equal(runtime.receiptGame(id,r).features.gambleRounds,5);
+  for(const field of ['gameId','mathVersion','engineVersion','mathSha256'])assert.equal(runtime.receiptGame(id,{...r,[field]:'unknown'}),null);
+  const old=legacy.spin(families[id],'1.00',{draw:draw(2)});
+  assert.equal(runtime.receiptGame(id,old),null);assert.equal(runtime.receiptGame(id,{...old,gameId:id}),null);
+  assert.equal(runtime.receiptGame(families[id],old).features.gambleRounds,3);
  }
+});
+test('combined allowlist and public catalog add exactly two identities without mutating legacy',()=>{
+ assert.equal(Object.keys(legacy.MATH.games).length,11);assert.equal(Object.keys(runtime.MATH.games).length,13);
+ assert.deepEqual(runtime.publicGames().slice(0,11),legacy.publicGames());assert.deepEqual(runtime.publicGames().slice(11).map(g=>g.id),targets);
+ for(const id of targets){assert.equal(runtime.getGame(id).id,id);assert.deepEqual(runtime.MATH.lines[runtime.getGame(id).lineSet],revised.MATH.lines[revised.getGame(id).lineSet]);}
+ for(const [id,paths] of Object.entries(legacy.MATH.lines))assert.deepEqual(runtime.MATH.lines[id],paths);
+});
+test('new Foxy wild substitution and public metadata retain the official symbol roles',()=>{
+ const f=revised.getGame('foxy_hot_20_native'),grid=Array.from({length:3},()=>Array(5).fill('unmatched'));
+ grid[1]=['fox','777','777','777','777'];
+ const win=revised.evaluatePaylines(f,grid,100n).find(w=>w.rows.every(r=>r===1));
+ assert.ok(win);assert.equal(win.count,5);assert.equal(win.wilds,1);assert.equal(win.symbol,'777');
+ assert.deepEqual(runtime.publicGames().find(g=>g.id===f.id).rules.wildSymbols,['fox']);
+ assert.deepEqual(runtime.publicGames().find(g=>g.id==='multi_hot_5_native').rules.wildSymbols,[]);
 });

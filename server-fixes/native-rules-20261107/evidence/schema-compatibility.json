@@ -1,0 +1,32 @@
+{
+  "source": "source/legacy-runtime.mjs",
+  "sourceSha256": "23012dd4f8829c3809a3e13573e24b7a404d0466d47a9697e030b8947a73b9ab",
+  "newGameIds": [
+    "foxy_hot_20_native",
+    "multi_hot_5_native"
+  ],
+  "capturedCreateStatements": [
+    "CREATE TABLE IF NOT EXISTS sw_nine.game_rounds(\n round_id UUID PRIMARY KEY,user_id TEXT NOT NULL REFERENCES sw_rebuild.users(id) ON DELETE RESTRICT,\n game_id VARCHAR(64) NOT NULL,bet BIGINT NOT NULL CHECK(bet>=0),base_bet BIGINT NOT NULL CHECK(base_bet>0),\n total_win BIGINT NOT NULL CHECK(total_win>=0),wheel_multiplier SMALLINT NOT NULL,\n request_key VARCHAR(128) NOT NULL,request_hash CHAR(64) NOT NULL,result_json JSONB NOT NULL,\n math_sha256 CHAR(64) NOT NULL,status TEXT NOT NULL DEFAULT 'SETTLED' CHECK(status='SETTLED'),\n is_free BOOLEAN NOT NULL DEFAULT FALSE,created_at TIMESTAMPTZ NOT NULL DEFAULT now(),\n UNIQUE(user_id,request_key),UNIQUE(round_id,user_id))",
+    "CREATE TABLE IF NOT EXISTS sw_nine.wallet_transactions(\n id UUID PRIMARY KEY DEFAULT gen_random_uuid(),user_id TEXT NOT NULL REFERENCES sw_rebuild.users(id) ON DELETE RESTRICT,\n round_id UUID NOT NULL,game_id VARCHAR(64) NOT NULL,type TEXT NOT NULL CHECK(type IN('BET','WIN','REFUND','GAMBLE_BET','GAMBLE_WIN','BONUS_WIN')),\n amount BIGINT NOT NULL CHECK(amount>0),balance_after BIGINT NOT NULL CHECK(balance_after>=0),\n transfer_id TEXT UNIQUE NOT NULL REFERENCES sw_rebuild.transfers(id) ON DELETE RESTRICT,\n created_at TIMESTAMPTZ NOT NULL DEFAULT now(),UNIQUE(round_id,type))",
+    "CREATE TABLE IF NOT EXISTS sw_nine.free_spins(user_id TEXT NOT NULL REFERENCES sw_rebuild.users(id),game_id TEXT NOT NULL,\n remaining INT NOT NULL CHECK(remaining BETWEEN 0 AND 500),bet BIGINT NOT NULL CHECK(bet>0),PRIMARY KEY(user_id,game_id))",
+    "CREATE TABLE IF NOT EXISTS sw_nine.actions(id UUID PRIMARY KEY,parent_id UUID NOT NULL REFERENCES sw_nine.game_rounds(round_id),\n user_id TEXT NOT NULL REFERENCES sw_rebuild.users(id),kind TEXT NOT NULL CHECK(kind IN('GAMBLE','PICK')),\n request_key VARCHAR(128) NOT NULL,request_hash CHAR(64) NOT NULL,attempt INT NOT NULL,result_json JSONB NOT NULL,\n created_at TIMESTAMPTZ NOT NULL DEFAULT now(),UNIQUE(user_id,request_key),UNIQUE(parent_id,kind,attempt))"
+  ],
+  "capturedSchemaCompatible": true,
+  "reason": "The game_id columns are VARCHAR(64) or TEXT without a game-ID CHECK, enum or game-model foreign key. Both new IDs fit. Free spins remain isolated by PRIMARY KEY(user_id,game_id).",
+  "mirrorColumn": "sw_rebuild.rounds.game",
+  "mirrorSchemaLiveVerified": false,
+  "limitation": "The mirror table creation SQL is not in captured runtime. Run schema-compatibility-readonly.sql with existing read-only DB access before release; do not infer live constraints solely from CREATE TABLE IF NOT EXISTS.",
+  "startupHealthProbe": {
+    "source": "src/schema-probe.mjs",
+    "query": "evidence/native-health-schema-query.sql",
+    "field": "nativeSchemaCompatibility",
+    "states": [
+      "pending",
+      "compatible",
+      "review_required",
+      "unavailable"
+    ],
+    "liveVerified": false,
+    "note": "Optional asynchronous metadata probe; existing health and legacy settlement remain available. Compatible confirms catalog metadata only."
+  }
+}
