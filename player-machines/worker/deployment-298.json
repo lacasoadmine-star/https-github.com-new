@@ -1,0 +1,51 @@
+{
+  "worker": "superwin-player",
+  "release": "zplay-machines-20261106-r7",
+  "version": 298,
+  "versionId": "1ba3e1c8-c3b8-4ed2-b343-6298d1206f37",
+  "sourceCommit": "5151bcaa9b3100c2d153eb2ee4f85520f30d78fc",
+  "deploymentId": "69821023-3ccc-4581-9560-2da99fc8ea00",
+  "deployedAt": "2026-11-06T01:13:39.873961Z",
+  "traffic": [
+    {
+      "version_id": "1ba3e1c8-c3b8-4ed2-b343-6298d1206f37",
+      "percentage": 100
+    }
+  ],
+  "preservation": {
+    "moduleCount": 112,
+    "changedModules": [
+      "machine-assets-20261106.mjs"
+    ],
+    "settingsDifferences": [],
+    "migrationTag": "local-demo-v1",
+    "mainModule": "restore-20261102.mjs",
+    "unchangedOtherModules": 111,
+    "productionWagers": 0,
+    "walletCodeChanged": false,
+    "serverMathChanged": false
+  },
+  "validation": {
+    "nodeTests": 252,
+    "nativeCanvasCases": 6,
+    "trustedHttpCases": 8,
+    "trustedHttpChecks": 897,
+    "localRounds": 108,
+    "localGambles": 16,
+    "allQaLedgersBalanced": true,
+    "cloudflareFixtureChecks": 202,
+    "backendTests": 9,
+    "portalRegressionTests": 10,
+    "portalBuilds": [
+      "Player",
+      "Agent",
+      "Admin"
+    ],
+    "syntheticAccounts": true
+  },
+  "rollback": {
+    "version": 297,
+    "versionId": "21386faa-173c-4ee3-8e34-e817692815c5"
+  },
+  "limitations": "In-game reference fidelity improved. 100% pixel/waveform equivalence and authenticated production wallet settlement are not established."
+}

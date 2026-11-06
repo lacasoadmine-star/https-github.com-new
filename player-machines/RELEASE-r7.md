@@ -23,3 +23,7 @@ The HTTP QA server requires an explicit --qa flag, binds only 127.0.0.1, issues 
 Only the generated machine asset module is replaced in the existing Player Worker. Server mathematics, ledger, authentication boundaries and payment code remain unchanged. Rollback is v297:21386faa-173c-4ee3-8e34-e817692815c5. Source and deployment records identify the final published version after promotion.
 
 The supplied three recordings were compared through idle, spin and win states. Artwork, control states and payout feedback are closer; reconstructed backgrounds, some typography and ornaments still mean 100% pixel equivalence is not claimed.
+
+## Confirmed publication
+
+Version 298 (`1ba3e1c8-c3b8-4ed2-b343-6298d1206f37`) serves 100% traffic. Deployment `69821023-3ccc-4581-9560-2da99fc8ea00`, 6 November 2026 at 04:13:39 Africa/Addis_Ababa. Runtime source `5151bcaa9b3100c2d153eb2ee4f85520f30d78fc`. Both live routes and new modules returned HTTP 200. Chromium confirmed cabinet/symbol/multiplier artwork, seven decoded samples, running audio after a trusted sound-test tap, one canvas and no JS errors. Cloudflare guest DOM checks passed. No production account was authenticated or wagered.
