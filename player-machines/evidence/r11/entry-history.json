@@ -1,0 +1,1348 @@
+{
+  "synthetic": true,
+  "origin": "http://127.0.0.1:8767",
+  "results": [
+    {
+      "game": "multi_hot_5_video",
+      "synthetic": true,
+      "checks": [
+        {
+          "label": "fresh authenticated WIN starts at0.00",
+          "ok": true
+        },
+        {
+          "label": "fresh entry creates no round",
+          "ok": true
+        },
+        {
+          "label": "win settles exactly one realHTTP round",
+          "ok": true
+        },
+        {
+          "label": "win reload makes no wager",
+          "ok": true
+        },
+        {
+          "label": "win reload restores authoritative WIN",
+          "ok": true
+        },
+        {
+          "label": "win reload restores authoritative grid",
+          "ok": true
+        },
+        {
+          "label": "win reload restores multiplier and ledger",
+          "ok": true
+        },
+        {
+          "label": "win reload retains latestpositive medal",
+          "ok": true
+        },
+        {
+          "label": "loss settles exactly one realHTTP round",
+          "ok": true
+        },
+        {
+          "label": "loss reload makes no wager",
+          "ok": true
+        },
+        {
+          "label": "loss reload restores authoritative WIN",
+          "ok": true
+        },
+        {
+          "label": "loss reload restores authoritative grid",
+          "ok": true
+        },
+        {
+          "label": "loss reload restores multiplier and ledger",
+          "ok": true
+        },
+        {
+          "label": "loss reload retains latestpositive medal",
+          "ok": true
+        },
+        {
+          "label": "no browser errors",
+          "ok": true
+        }
+      ],
+      "controllerBefore": "7f006f9e374365850878685be7440f639f0398917bb030039a010adbf1d13756",
+      "rounds": [
+        {
+          "desired": "win",
+          "receipt": {
+            "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+            "gameId": "multi_hot_5_video",
+            "engineVersion": "superwin-slot-runtime-reference-v3000",
+            "mathVersion": "2026-10-27-reference-v3000",
+            "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+            "grid": [
+              [
+                "777",
+                "watermelon",
+                "lemon"
+              ],
+              [
+                "golden_bell",
+                "cherry",
+                "dollar"
+              ],
+              [
+                "lemon",
+                "lemon",
+                "lemon"
+              ]
+            ],
+            "initialGrid": [
+              [
+                "777",
+                "watermelon",
+                "lemon"
+              ],
+              [
+                "golden_bell",
+                "cherry",
+                "dollar"
+              ],
+              [
+                "lemon",
+                "lemon",
+                "lemon"
+              ]
+            ],
+            "stops": [
+              9425,
+              597,
+              1060
+            ],
+            "wheelMultiplier": 4,
+            "wheelPosition": "side",
+            "winLines": [
+              {
+                "line": 3,
+                "rows": [
+                  2,
+                  2,
+                  2
+                ],
+                "symbol": "lemon",
+                "count": 3,
+                "positions": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "wilds": 0,
+                "baseWin": "4.0000",
+                "win": "16.0000"
+              }
+            ],
+            "stages": [
+              {
+                "grid": [
+                  [
+                    "777",
+                    "watermelon",
+                    "lemon"
+                  ],
+                  [
+                    "golden_bell",
+                    "cherry",
+                    "dollar"
+                  ],
+                  [
+                    "lemon",
+                    "lemon",
+                    "lemon"
+                  ]
+                ],
+                "winLines": [
+                  {
+                    "line": 3,
+                    "rows": [
+                      2,
+                      2,
+                      2
+                    ],
+                    "symbol": "lemon",
+                    "count": 3,
+                    "positions": [
+                      [
+                        2,
+                        0
+                      ],
+                      [
+                        2,
+                        1
+                      ],
+                      [
+                        2,
+                        2
+                      ]
+                    ],
+                    "wilds": 0,
+                    "baseWin": "4.0000",
+                    "win": "16.0000"
+                  }
+                ],
+                "lineWin": "16.0000",
+                "jackpotWin": "0.0000",
+                "scatterWin": "0.0000",
+                "win": "16.0000",
+                "stackMultiplier": 4,
+                "cascadeMultiplier": 1
+              }
+            ],
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "isFree": false,
+            "finalWin": "16.00",
+            "uncappedWin": "16.0000",
+            "bonusSpinsAwarded": 0,
+            "scatterCount": 0,
+            "jackpotTier": null,
+            "pendingBonusPick": false,
+            "dragonFire": false,
+            "maxWinCapped": false,
+            "currency": "ETB",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "100014.00",
+            "walletReceipt": {
+              "currency": "ETB",
+              "balanceBefore": "100000.00",
+              "chargedStake": "2.00",
+              "finalWin": "16.00",
+              "balanceAfter": "100014.00"
+            },
+            "freeSpinsRemaining": 0
+          },
+          "diagnostics": {
+            "gameId": "multi_hot_5_video",
+            "state": "ready",
+            "canvasCount": 1,
+            "geometry": {
+              "columns": 3,
+              "rows": 3
+            },
+            "renderStats": {
+              "frames": 5,
+              "draws": 3,
+              "slowFrames": 2,
+              "maxDelta": 80
+            },
+            "soundEvents": [],
+            "audioNodes": 0,
+            "decodedSoundSamples": 0,
+            "soundSampleNodes": 0,
+            "audioState": "not-started",
+            "backgroundAudio": {
+              "enabled": false,
+              "loaded": false,
+              "loading": false,
+              "playing": false,
+              "positionSeconds": 0,
+              "durationSeconds": 0,
+              "gain": 0
+            },
+            "cabinetArtworkLoaded": true,
+            "artworkLoaded": true,
+            "audioSuspended": false,
+            "reducedMotion": false,
+            "particles": 0,
+            "turbo": false,
+            "autoRemaining": 0,
+            "ambientEffects": false,
+            "ambientParticles": 0,
+            "restoredRoundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+            "multiplier": 4,
+            "grid": [
+              [
+                "777",
+                "watermelon",
+                "lemon"
+              ],
+              [
+                "golden_bell",
+                "cherry",
+                "dollar"
+              ],
+              [
+                "lemon",
+                "lemon",
+                "lemon"
+              ]
+            ],
+            "multiArtworkLoaded": true,
+            "loopActive": false,
+            "loopPhase": 0,
+            "retiringAudioNodes": 0,
+            "contextLost": false
+          },
+          "report": {
+            "synthetic": true,
+            "opening": "100000.00",
+            "balance": "100014.00",
+            "houseBalance": "-10001400",
+            "spinPosts": 1,
+            "roundSettlements": 1,
+            "gamblePosts": 0,
+            "gambleSettlements": 0,
+            "ledgerEntries": 3,
+            "ledgerBalanced": true,
+            "free": {
+              "multi_hot_5_video": {
+                "remaining": 0,
+                "bet": "2.00"
+              }
+            },
+            "rounds": [
+              {
+                "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+                "gameId": "multi_hot_5_video",
+                "bet": "2.00",
+                "chargedStake": "2.00",
+                "finalWin": "16.00",
+                "freeSpinsRemaining": 0,
+                "stops": [
+                  9425,
+                  597,
+                  1060
+                ],
+                "wheelMultiplier": 4
+              }
+            ],
+            "ledger": [
+              {
+                "sequence": 1,
+                "kind": "synthetic_opening",
+                "roundId": null,
+                "playerDelta": "10000000",
+                "houseDelta": "-10000000",
+                "balanceBefore": "0.00",
+                "balanceAfter": "100000.00"
+              },
+              {
+                "sequence": 2,
+                "kind": "spin_stake",
+                "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+                "playerDelta": "-200",
+                "houseDelta": "200",
+                "balanceBefore": "100000.00",
+                "balanceAfter": "99998.00"
+              },
+              {
+                "sequence": 3,
+                "kind": "spin_win",
+                "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+                "playerDelta": "1600",
+                "houseDelta": "-1600",
+                "balanceBefore": "99998.00",
+                "balanceAfter": "100014.00"
+              }
+            ]
+          }
+        },
+        {
+          "desired": "loss",
+          "receipt": {
+            "roundId": "9412796b-69dc-4955-842e-1d448f085694",
+            "gameId": "multi_hot_5_video",
+            "engineVersion": "superwin-slot-runtime-reference-v3000",
+            "mathVersion": "2026-10-27-reference-v3000",
+            "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+            "grid": [
+              [
+                "plum",
+                "plum",
+                "grapes"
+              ],
+              [
+                "orange",
+                "777",
+                "watermelon"
+              ],
+              [
+                "orange",
+                "lemon",
+                "watermelon"
+              ]
+            ],
+            "initialGrid": [
+              [
+                "plum",
+                "plum",
+                "grapes"
+              ],
+              [
+                "orange",
+                "777",
+                "watermelon"
+              ],
+              [
+                "orange",
+                "lemon",
+                "watermelon"
+              ]
+            ],
+            "stops": [
+              8123,
+              2286,
+              8205
+            ],
+            "wheelMultiplier": 2,
+            "wheelPosition": "side",
+            "winLines": [],
+            "stages": [
+              {
+                "grid": [
+                  [
+                    "plum",
+                    "plum",
+                    "grapes"
+                  ],
+                  [
+                    "orange",
+                    "777",
+                    "watermelon"
+                  ],
+                  [
+                    "orange",
+                    "lemon",
+                    "watermelon"
+                  ]
+                ],
+                "winLines": [],
+                "lineWin": "0.0000",
+                "jackpotWin": "0.0000",
+                "scatterWin": "0.0000",
+                "win": "0.0000",
+                "stackMultiplier": 2,
+                "cascadeMultiplier": 1
+              }
+            ],
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "isFree": false,
+            "finalWin": "0.00",
+            "uncappedWin": "0.0000",
+            "bonusSpinsAwarded": 0,
+            "scatterCount": 0,
+            "jackpotTier": null,
+            "pendingBonusPick": false,
+            "dragonFire": false,
+            "maxWinCapped": false,
+            "currency": "ETB",
+            "balanceBefore": "100014.00",
+            "balanceAfter": "100012.00",
+            "walletReceipt": {
+              "currency": "ETB",
+              "balanceBefore": "100014.00",
+              "chargedStake": "2.00",
+              "finalWin": "0.00",
+              "balanceAfter": "100012.00"
+            },
+            "freeSpinsRemaining": 0
+          },
+          "diagnostics": {
+            "gameId": "multi_hot_5_video",
+            "state": "ready",
+            "canvasCount": 1,
+            "geometry": {
+              "columns": 3,
+              "rows": 3
+            },
+            "renderStats": {
+              "frames": 5,
+              "draws": 3,
+              "slowFrames": 2,
+              "maxDelta": 80
+            },
+            "soundEvents": [],
+            "audioNodes": 0,
+            "decodedSoundSamples": 0,
+            "soundSampleNodes": 0,
+            "audioState": "not-started",
+            "backgroundAudio": {
+              "enabled": false,
+              "loaded": false,
+              "loading": false,
+              "playing": false,
+              "positionSeconds": 0,
+              "durationSeconds": 0,
+              "gain": 0
+            },
+            "cabinetArtworkLoaded": true,
+            "artworkLoaded": true,
+            "audioSuspended": false,
+            "reducedMotion": false,
+            "particles": 0,
+            "turbo": false,
+            "autoRemaining": 0,
+            "ambientEffects": false,
+            "ambientParticles": 0,
+            "restoredRoundId": "9412796b-69dc-4955-842e-1d448f085694",
+            "multiplier": 2,
+            "grid": [
+              [
+                "plum",
+                "plum",
+                "grapes"
+              ],
+              [
+                "orange",
+                "777",
+                "watermelon"
+              ],
+              [
+                "orange",
+                "lemon",
+                "watermelon"
+              ]
+            ],
+            "multiArtworkLoaded": true,
+            "loopActive": false,
+            "loopPhase": 0,
+            "retiringAudioNodes": 0,
+            "contextLost": false
+          },
+          "report": {
+            "synthetic": true,
+            "opening": "100000.00",
+            "balance": "100012.00",
+            "houseBalance": "-10001200",
+            "spinPosts": 2,
+            "roundSettlements": 2,
+            "gamblePosts": 0,
+            "gambleSettlements": 0,
+            "ledgerEntries": 5,
+            "ledgerBalanced": true,
+            "free": {
+              "multi_hot_5_video": {
+                "remaining": 0,
+                "bet": "2.00"
+              }
+            },
+            "rounds": [
+              {
+                "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+                "gameId": "multi_hot_5_video",
+                "bet": "2.00",
+                "chargedStake": "2.00",
+                "finalWin": "16.00",
+                "freeSpinsRemaining": 0,
+                "stops": [
+                  9425,
+                  597,
+                  1060
+                ],
+                "wheelMultiplier": 4
+              },
+              {
+                "roundId": "9412796b-69dc-4955-842e-1d448f085694",
+                "gameId": "multi_hot_5_video",
+                "bet": "2.00",
+                "chargedStake": "2.00",
+                "finalWin": "0.00",
+                "freeSpinsRemaining": 0,
+                "stops": [
+                  8123,
+                  2286,
+                  8205
+                ],
+                "wheelMultiplier": 2
+              }
+            ],
+            "ledger": [
+              {
+                "sequence": 1,
+                "kind": "synthetic_opening",
+                "roundId": null,
+                "playerDelta": "10000000",
+                "houseDelta": "-10000000",
+                "balanceBefore": "0.00",
+                "balanceAfter": "100000.00"
+              },
+              {
+                "sequence": 2,
+                "kind": "spin_stake",
+                "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+                "playerDelta": "-200",
+                "houseDelta": "200",
+                "balanceBefore": "100000.00",
+                "balanceAfter": "99998.00"
+              },
+              {
+                "sequence": 3,
+                "kind": "spin_win",
+                "roundId": "5e94a71d-5ec0-4b9d-9400-06f3d2f20e17",
+                "playerDelta": "1600",
+                "houseDelta": "-1600",
+                "balanceBefore": "99998.00",
+                "balanceAfter": "100014.00"
+              },
+              {
+                "sequence": 4,
+                "kind": "spin_stake",
+                "roundId": "9412796b-69dc-4955-842e-1d448f085694",
+                "playerDelta": "-200",
+                "houseDelta": "200",
+                "balanceBefore": "100014.00",
+                "balanceAfter": "100012.00"
+              },
+              {
+                "sequence": 5,
+                "kind": "spin_win",
+                "roundId": "9412796b-69dc-4955-842e-1d448f085694",
+                "playerDelta": "0",
+                "houseDelta": "0",
+                "balanceBefore": "100012.00",
+                "balanceAfter": "100012.00"
+              }
+            ]
+          }
+        }
+      ],
+      "errors": [],
+      "positiveWin": "16.00",
+      "controllerAfter": "7f006f9e374365850878685be7440f639f0398917bb030039a010adbf1d13756",
+      "controllerStable": true
+    },
+    {
+      "game": "hot_foxy_20",
+      "synthetic": true,
+      "checks": [
+        {
+          "label": "fresh authenticated WIN starts at0.00",
+          "ok": true
+        },
+        {
+          "label": "fresh entry creates no round",
+          "ok": true
+        },
+        {
+          "label": "win settles exactly one realHTTP round",
+          "ok": true
+        },
+        {
+          "label": "win reload makes no wager",
+          "ok": true
+        },
+        {
+          "label": "win reload restores authoritative WIN",
+          "ok": true
+        },
+        {
+          "label": "win reload restores authoritative grid",
+          "ok": true
+        },
+        {
+          "label": "win reload restores multiplier and ledger",
+          "ok": true
+        },
+        {
+          "label": "loss settles exactly one realHTTP round",
+          "ok": true
+        },
+        {
+          "label": "loss reload makes no wager",
+          "ok": true
+        },
+        {
+          "label": "loss reload restores authoritative WIN",
+          "ok": true
+        },
+        {
+          "label": "loss reload restores authoritative grid",
+          "ok": true
+        },
+        {
+          "label": "loss reload restores multiplier and ledger",
+          "ok": true
+        },
+        {
+          "label": "no browser errors",
+          "ok": true
+        }
+      ],
+      "controllerBefore": "7f006f9e374365850878685be7440f639f0398917bb030039a010adbf1d13756",
+      "rounds": [
+        {
+          "desired": "win",
+          "receipt": {
+            "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+            "gameId": "hot_foxy_20",
+            "engineVersion": "superwin-slot-runtime-reference-v3000",
+            "mathVersion": "2026-10-27-reference-v3000",
+            "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+            "grid": [
+              [
+                "cherry",
+                "cherry",
+                "cherry",
+                "lemon",
+                "cherry"
+              ],
+              [
+                "lemon",
+                "777",
+                "watermelon",
+                "orange",
+                "lemon"
+              ],
+              [
+                "watermelon",
+                "orange",
+                "orange",
+                "orange",
+                "scatter"
+              ]
+            ],
+            "initialGrid": [
+              [
+                "cherry",
+                "cherry",
+                "cherry",
+                "lemon",
+                "cherry"
+              ],
+              [
+                "lemon",
+                "777",
+                "watermelon",
+                "orange",
+                "lemon"
+              ],
+              [
+                "watermelon",
+                "orange",
+                "orange",
+                "orange",
+                "scatter"
+              ]
+            ],
+            "stops": [
+              3763,
+              900,
+              1940,
+              13117,
+              17030
+            ],
+            "wheelMultiplier": 2,
+            "wheelPosition": "top",
+            "winLines": [
+              {
+                "line": 1,
+                "rows": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "symbol": "cherry",
+                "count": 3,
+                "positions": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "wilds": 0,
+                "baseWin": "0.5000",
+                "win": "1.0000"
+              },
+              {
+                "line": 18,
+                "rows": [
+                  0,
+                  0,
+                  0,
+                  1,
+                  2
+                ],
+                "symbol": "cherry",
+                "count": 3,
+                "positions": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "wilds": 0,
+                "baseWin": "0.5000",
+                "win": "1.0000"
+              }
+            ],
+            "stages": [
+              {
+                "grid": [
+                  [
+                    "cherry",
+                    "cherry",
+                    "cherry",
+                    "lemon",
+                    "cherry"
+                  ],
+                  [
+                    "lemon",
+                    "777",
+                    "watermelon",
+                    "orange",
+                    "lemon"
+                  ],
+                  [
+                    "watermelon",
+                    "orange",
+                    "orange",
+                    "orange",
+                    "scatter"
+                  ]
+                ],
+                "winLines": [
+                  {
+                    "line": 1,
+                    "rows": [
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "symbol": "cherry",
+                    "count": 3,
+                    "positions": [
+                      [
+                        0,
+                        0
+                      ],
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        0,
+                        2
+                      ]
+                    ],
+                    "wilds": 0,
+                    "baseWin": "0.5000",
+                    "win": "1.0000"
+                  },
+                  {
+                    "line": 18,
+                    "rows": [
+                      0,
+                      0,
+                      0,
+                      1,
+                      2
+                    ],
+                    "symbol": "cherry",
+                    "count": 3,
+                    "positions": [
+                      [
+                        0,
+                        0
+                      ],
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        0,
+                        2
+                      ]
+                    ],
+                    "wilds": 0,
+                    "baseWin": "0.5000",
+                    "win": "1.0000"
+                  }
+                ],
+                "lineWin": "2.0000",
+                "jackpotWin": "0.0000",
+                "scatterWin": "0.0000",
+                "win": "2.0000",
+                "stackMultiplier": 2,
+                "cascadeMultiplier": 1
+              }
+            ],
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "isFree": false,
+            "finalWin": "2.00",
+            "uncappedWin": "2.0000",
+            "bonusSpinsAwarded": 0,
+            "scatterCount": 1,
+            "jackpotTier": null,
+            "pendingBonusPick": false,
+            "dragonFire": false,
+            "maxWinCapped": false,
+            "currency": "ETB",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "100000.00",
+            "walletReceipt": {
+              "currency": "ETB",
+              "balanceBefore": "100000.00",
+              "chargedStake": "2.00",
+              "finalWin": "2.00",
+              "balanceAfter": "100000.00"
+            },
+            "freeSpinsRemaining": 0
+          },
+          "diagnostics": {
+            "gameId": "hot_foxy_20",
+            "state": "ready",
+            "canvasCount": 1,
+            "geometry": {
+              "columns": 5,
+              "rows": 3
+            },
+            "renderStats": {
+              "frames": 8,
+              "draws": 6,
+              "slowFrames": 6,
+              "maxDelta": 80
+            },
+            "soundEvents": [],
+            "audioNodes": 0,
+            "decodedSoundSamples": 0,
+            "soundSampleNodes": 0,
+            "audioState": "not-started",
+            "backgroundAudio": {
+              "enabled": false,
+              "loaded": false,
+              "loading": false,
+              "playing": false,
+              "positionSeconds": 0,
+              "durationSeconds": 0,
+              "gain": 0
+            },
+            "cabinetArtworkLoaded": true,
+            "artworkLoaded": true,
+            "audioSuspended": false,
+            "reducedMotion": false,
+            "particles": 0,
+            "turbo": false,
+            "autoRemaining": 0,
+            "ambientEffects": true,
+            "ambientParticles": 7,
+            "restoredRoundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+            "multiplier": 2,
+            "grid": [
+              [
+                "cherry",
+                "cherry",
+                "cherry",
+                "lemon",
+                "cherry"
+              ],
+              [
+                "lemon",
+                "777",
+                "watermelon",
+                "orange",
+                "lemon"
+              ],
+              [
+                "watermelon",
+                "orange",
+                "orange",
+                "orange",
+                "scatter"
+              ]
+            ],
+            "multiArtworkLoaded": false,
+            "loopActive": false,
+            "loopPhase": 0,
+            "retiringAudioNodes": 0,
+            "contextLost": false
+          },
+          "report": {
+            "synthetic": true,
+            "opening": "100000.00",
+            "balance": "100000.00",
+            "houseBalance": "-10000000",
+            "spinPosts": 1,
+            "roundSettlements": 1,
+            "gamblePosts": 0,
+            "gambleSettlements": 0,
+            "ledgerEntries": 3,
+            "ledgerBalanced": true,
+            "free": {
+              "hot_foxy_20": {
+                "remaining": 0,
+                "bet": "2.00"
+              }
+            },
+            "rounds": [
+              {
+                "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+                "gameId": "hot_foxy_20",
+                "bet": "2.00",
+                "chargedStake": "2.00",
+                "finalWin": "2.00",
+                "freeSpinsRemaining": 0,
+                "stops": [
+                  3763,
+                  900,
+                  1940,
+                  13117,
+                  17030
+                ],
+                "wheelMultiplier": 2
+              }
+            ],
+            "ledger": [
+              {
+                "sequence": 1,
+                "kind": "synthetic_opening",
+                "roundId": null,
+                "playerDelta": "10000000",
+                "houseDelta": "-10000000",
+                "balanceBefore": "0.00",
+                "balanceAfter": "100000.00"
+              },
+              {
+                "sequence": 2,
+                "kind": "spin_stake",
+                "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+                "playerDelta": "-200",
+                "houseDelta": "200",
+                "balanceBefore": "100000.00",
+                "balanceAfter": "99998.00"
+              },
+              {
+                "sequence": 3,
+                "kind": "spin_win",
+                "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+                "playerDelta": "200",
+                "houseDelta": "-200",
+                "balanceBefore": "99998.00",
+                "balanceAfter": "100000.00"
+              }
+            ]
+          }
+        },
+        {
+          "desired": "loss",
+          "receipt": {
+            "roundId": "aa9b84bd-3bca-4a99-b22e-3a9d1e26186a",
+            "gameId": "hot_foxy_20",
+            "engineVersion": "superwin-slot-runtime-reference-v3000",
+            "mathVersion": "2026-10-27-reference-v3000",
+            "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+            "grid": [
+              [
+                "cherry",
+                "cherry",
+                "777",
+                "orange",
+                "orange"
+              ],
+              [
+                "orange",
+                "winged_bell",
+                "orange",
+                "watermelon",
+                "orange"
+              ],
+              [
+                "orange",
+                "lemon",
+                "orange",
+                "cherry",
+                "watermelon"
+              ]
+            ],
+            "initialGrid": [
+              [
+                "cherry",
+                "cherry",
+                "777",
+                "orange",
+                "orange"
+              ],
+              [
+                "orange",
+                "winged_bell",
+                "orange",
+                "watermelon",
+                "orange"
+              ],
+              [
+                "orange",
+                "lemon",
+                "orange",
+                "cherry",
+                "watermelon"
+              ]
+            ],
+            "stops": [
+              17009,
+              9898,
+              487,
+              18245,
+              17204
+            ],
+            "wheelMultiplier": 1,
+            "wheelPosition": "top",
+            "winLines": [],
+            "stages": [
+              {
+                "grid": [
+                  [
+                    "cherry",
+                    "cherry",
+                    "777",
+                    "orange",
+                    "orange"
+                  ],
+                  [
+                    "orange",
+                    "winged_bell",
+                    "orange",
+                    "watermelon",
+                    "orange"
+                  ],
+                  [
+                    "orange",
+                    "lemon",
+                    "orange",
+                    "cherry",
+                    "watermelon"
+                  ]
+                ],
+                "winLines": [],
+                "lineWin": "0.0000",
+                "jackpotWin": "0.0000",
+                "scatterWin": "0.0000",
+                "win": "0.0000",
+                "stackMultiplier": 1,
+                "cascadeMultiplier": 1
+              }
+            ],
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "isFree": false,
+            "finalWin": "0.00",
+            "uncappedWin": "0.0000",
+            "bonusSpinsAwarded": 0,
+            "scatterCount": 0,
+            "jackpotTier": null,
+            "pendingBonusPick": false,
+            "dragonFire": false,
+            "maxWinCapped": false,
+            "currency": "ETB",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00",
+            "walletReceipt": {
+              "currency": "ETB",
+              "balanceBefore": "100000.00",
+              "chargedStake": "2.00",
+              "finalWin": "0.00",
+              "balanceAfter": "99998.00"
+            },
+            "freeSpinsRemaining": 0
+          },
+          "diagnostics": {
+            "gameId": "hot_foxy_20",
+            "state": "ready",
+            "canvasCount": 1,
+            "geometry": {
+              "columns": 5,
+              "rows": 3
+            },
+            "renderStats": {
+              "frames": 8,
+              "draws": 6,
+              "slowFrames": 6,
+              "maxDelta": 80
+            },
+            "soundEvents": [],
+            "audioNodes": 0,
+            "decodedSoundSamples": 0,
+            "soundSampleNodes": 0,
+            "audioState": "not-started",
+            "backgroundAudio": {
+              "enabled": false,
+              "loaded": false,
+              "loading": false,
+              "playing": false,
+              "positionSeconds": 0,
+              "durationSeconds": 0,
+              "gain": 0
+            },
+            "cabinetArtworkLoaded": true,
+            "artworkLoaded": true,
+            "audioSuspended": false,
+            "reducedMotion": false,
+            "particles": 0,
+            "turbo": false,
+            "autoRemaining": 0,
+            "ambientEffects": true,
+            "ambientParticles": 7,
+            "restoredRoundId": "aa9b84bd-3bca-4a99-b22e-3a9d1e26186a",
+            "multiplier": 1,
+            "grid": [
+              [
+                "cherry",
+                "cherry",
+                "777",
+                "orange",
+                "orange"
+              ],
+              [
+                "orange",
+                "winged_bell",
+                "orange",
+                "watermelon",
+                "orange"
+              ],
+              [
+                "orange",
+                "lemon",
+                "orange",
+                "cherry",
+                "watermelon"
+              ]
+            ],
+            "multiArtworkLoaded": false,
+            "loopActive": false,
+            "loopPhase": 0,
+            "retiringAudioNodes": 0,
+            "contextLost": false
+          },
+          "report": {
+            "synthetic": true,
+            "opening": "100000.00",
+            "balance": "99998.00",
+            "houseBalance": "-9999800",
+            "spinPosts": 2,
+            "roundSettlements": 2,
+            "gamblePosts": 0,
+            "gambleSettlements": 0,
+            "ledgerEntries": 5,
+            "ledgerBalanced": true,
+            "free": {
+              "hot_foxy_20": {
+                "remaining": 0,
+                "bet": "2.00"
+              }
+            },
+            "rounds": [
+              {
+                "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+                "gameId": "hot_foxy_20",
+                "bet": "2.00",
+                "chargedStake": "2.00",
+                "finalWin": "2.00",
+                "freeSpinsRemaining": 0,
+                "stops": [
+                  3763,
+                  900,
+                  1940,
+                  13117,
+                  17030
+                ],
+                "wheelMultiplier": 2
+              },
+              {
+                "roundId": "aa9b84bd-3bca-4a99-b22e-3a9d1e26186a",
+                "gameId": "hot_foxy_20",
+                "bet": "2.00",
+                "chargedStake": "2.00",
+                "finalWin": "0.00",
+                "freeSpinsRemaining": 0,
+                "stops": [
+                  17009,
+                  9898,
+                  487,
+                  18245,
+                  17204
+                ],
+                "wheelMultiplier": 1
+              }
+            ],
+            "ledger": [
+              {
+                "sequence": 1,
+                "kind": "synthetic_opening",
+                "roundId": null,
+                "playerDelta": "10000000",
+                "houseDelta": "-10000000",
+                "balanceBefore": "0.00",
+                "balanceAfter": "100000.00"
+              },
+              {
+                "sequence": 2,
+                "kind": "spin_stake",
+                "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+                "playerDelta": "-200",
+                "houseDelta": "200",
+                "balanceBefore": "100000.00",
+                "balanceAfter": "99998.00"
+              },
+              {
+                "sequence": 3,
+                "kind": "spin_win",
+                "roundId": "443f0c7e-8924-4fdc-881d-90cc9e655797",
+                "playerDelta": "200",
+                "houseDelta": "-200",
+                "balanceBefore": "99998.00",
+                "balanceAfter": "100000.00"
+              },
+              {
+                "sequence": 4,
+                "kind": "spin_stake",
+                "roundId": "aa9b84bd-3bca-4a99-b22e-3a9d1e26186a",
+                "playerDelta": "-200",
+                "houseDelta": "200",
+                "balanceBefore": "100000.00",
+                "balanceAfter": "99998.00"
+              },
+              {
+                "sequence": 5,
+                "kind": "spin_win",
+                "roundId": "aa9b84bd-3bca-4a99-b22e-3a9d1e26186a",
+                "playerDelta": "0",
+                "houseDelta": "0",
+                "balanceBefore": "99998.00",
+                "balanceAfter": "99998.00"
+              }
+            ]
+          }
+        }
+      ],
+      "errors": [],
+      "positiveWin": "2.00",
+      "controllerAfter": "7f006f9e374365850878685be7440f639f0398917bb030039a010adbf1d13756",
+      "controllerStable": true
+    }
+  ]
+}

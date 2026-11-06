@@ -1,0 +1,22 @@
+{
+  "auditedAtUtc": "2026-11-06T17:59:07.335356+00:00",
+  "criticalScripts": [
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/scripts/player-qa-browser.mjs",
+      "sha256": "d8bb28a3da3951806ef14b52f1b42ae8c8b4c4a453c8dc8437e387ad18876b86",
+      "asyncWaitForFunctionPredicates": 0
+    },
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/scripts/player-qa-duration.mjs",
+      "sha256": "6a9d388d5165a15ef5c6004a73b32bb590bd430aa9bc7a0c865f22c96c42f456",
+      "asyncWaitForFunctionPredicates": 0
+    },
+    {
+      "path": "/workspace/work/superwin-two-games/player-machines/test/browser-scenarios.mjs",
+      "sha256": "34b0b29a16f716160af292fd6e3da162063112edb819cb18ed259e5e8285d48e",
+      "asyncWaitForFunctionPredicates": 0
+    }
+  ],
+  "scope": "Final r11 runners use synchronous waitForFunction predicates only. Diagnostics readiness uses explicit host polling and concrete per-round DOM/receipt/audio/ledger assertions. Isolated Cloudflare fixtures execute their own synchronous-predicate polling; API waits only for the final result selector.",
+  "rerunRequired": false
+}

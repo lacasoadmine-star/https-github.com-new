@@ -1,0 +1,64 @@
+{
+  "scope": "r11 preservation rerun of the existing isolated shared platform baseline",
+  "validationRoot": "/workspace/work/platform-validation",
+  "baselineSource": {
+    "sourceBranchFromPreviousValidation": "codex/zplay-two-machines-20261106",
+    "sourceCommitFromPreviousValidation": "6c6c5706ffef118cd5b1462cb61fc39afd6b8810",
+    "sharedReferencePath": "/workspace/superwin",
+    "sharedReferenceGitHead": "cb551d97500dac61ce84ca1be3fd29e9d12e15bb",
+    "filesCompared": 43,
+    "matchingSharedReferenceFiles": 41,
+    "documentedDifferences": [
+      "package-lock.json"
+    ],
+    "validationOnlyFiles": [
+      "tests/frontend-regression.test.mjs"
+    ],
+    "sourceManifest": "r11-baseline-source.json",
+    "sourceUnchangedDuringChecks": true
+  },
+  "pytest": {
+    "passed": 9,
+    "warnings": 10,
+    "exitCode": 0,
+    "venv": "/workspace/superwin/.venv",
+    "database": "fresh tempfile SQLite selected by tests/test_platform.py before app import",
+    "manualDatabaseReset": false,
+    "testInternalReset": "reset_activity runs only within the newly created test SQLite database"
+  },
+  "frontendBuilds": {
+    "player": "passed",
+    "agent": "passed",
+    "admin": "passed"
+  },
+  "viteVersion": "6.4.5",
+  "frontendRegression": {
+    "passed": 10,
+    "exitCode": 0
+  },
+  "productionDataAccess": false,
+  "sourceEdits": false,
+  "setupScriptsRun": false,
+  "externalServerStarted": false,
+  "logs": {
+    "backend": "backend-r11.log",
+    "builds": "builds-r11.log",
+    "frontend": "frontend-r11.log"
+  },
+  "liveChecker": {
+    "path": "/workspace/work/superwin-two-games/player-machines/scripts/check-live-r11.cjs",
+    "prepared": true,
+    "syntaxCheck": "passed",
+    "executed": false,
+    "machineRelease": "zplay-machines-20261106-r11",
+    "portalRelease": "player-portal-20261106-r9",
+    "backgroundDurationsSeconds": {
+      "multi_hot_5_video": 1.465,
+      "hot_foxy_20": 1.199977,
+      "multi_hot_100": 1.465
+    },
+    "starsBackground": "none",
+    "mutations": "Blocked except existing /_player/presence heartbeat"
+  },
+  "note": "These tests preserve the shared platform baseline; r11 Worker presentation behavior is verified separately by local browser QA and the post-publication guest checker."
+}

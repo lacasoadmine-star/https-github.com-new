@@ -1,0 +1,2277 @@
+{
+  "synthetic": true,
+  "release": "zplay-machines-20261106-r11",
+  "scope": "Two final isolated Cloudflare Browser Rendering synthetic scenarios at390x844 DPR2. Full per-check results and screenshots from one snapshot API call per game; no production wallet, authentication or bets. Scenario polls synchronous predicates and uses no Playwright waitForFunction.",
+  "aggregateSha256": "4a2e8400e7eabfe0daa1debace2ab041d02e9520bef47a8c6ee644dcd1860b71",
+  "sourceBefore": {
+    "sourceManifest": {
+      "release": "zplay-machines-20261106-r11",
+      "files": {
+        "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+        "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+        "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+        "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+        "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+        "audio.mjs": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+        "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+        "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+        "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+        "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+        "controller.mjs": "452a352aeae75ca0e6022351141732342e0b2a0f7478ce244166b8bc5736f855",
+        "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+        "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+        "foxy-effects.mjs": "e1cc275d84a7de5dd8a98a64e967b10730f75a66262ccfb5a4a4da782b896c21",
+        "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+        "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+        "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+        "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+        "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+        "multi-presentation.mjs": "8c7ba8e3a1c6cbff301e77817da0d928cf3ec2dd84d735fe1c90ecc68bdd4bfa",
+        "registry.mjs": "a9b62084b982febf8a01af1b7489562a2ae519aa21e133863993a4b950c04fcb",
+        "renderer.mjs": "e6e8d85ac5f0cdd635d15bbbc56371cdbc203263364f49ce7c2a564ac5e96891",
+        "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+        "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+        "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+        "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+        "style.css": "a458f9063cab7368c1797edb127be9000d15d53c9369ff787fb9a5b10697fff6",
+        "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+        "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+      },
+      "aggregateSha256": "4a2e8400e7eabfe0daa1debace2ab041d02e9520bef47a8c6ee644dcd1860b71"
+    },
+    "sourceMatchesBefore": true,
+    "scenarioSHA256": "34b0b29a16f716160af292fd6e3da162063112edb819cb18ed259e5e8285d48e",
+    "cases": [
+      {
+        "game": "multi_hot_5_video",
+        "fixture": "/workspace/work/r11-player-qa/cloudflare-fixtures/multi-hot-5.html",
+        "characters": 2304630,
+        "bytes": 2304650,
+        "fixtureSHA256": "5b1e1d2a8dfee7c306809408a43041dff38f13708d327d4833baf85678bf9bcf",
+        "bundledControllerVerified": true,
+        "bundledAudioVerified": true,
+        "lazyBackgroundImportRewritten": true
+      },
+      {
+        "game": "hot_foxy_20",
+        "fixture": "/workspace/work/r11-player-qa/cloudflare-fixtures/foxy-hot-20.html",
+        "characters": 2307274,
+        "bytes": 2307294,
+        "fixtureSHA256": "514c89baa52c0c70e3c4c1d1b6f1e6f15cce23176473f3da6a455e6af9462eb0",
+        "bundledControllerVerified": true,
+        "bundledAudioVerified": true,
+        "lazyBackgroundImportRewritten": true
+      }
+    ]
+  },
+  "sourceAfter": {
+    "sourceMatchesAfter": true,
+    "mismatches": [],
+    "filesAfter": {
+      "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+      "renderer.mjs": "e6e8d85ac5f0cdd635d15bbbc56371cdbc203263364f49ce7c2a564ac5e96891",
+      "foxy-effects.mjs": "e1cc275d84a7de5dd8a98a64e967b10730f75a66262ccfb5a4a4da782b896c21",
+      "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+      "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+      "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+      "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+      "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+      "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+      "style.css": "a458f9063cab7368c1797edb127be9000d15d53c9369ff787fb9a5b10697fff6",
+      "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+      "registry.mjs": "a9b62084b982febf8a01af1b7489562a2ae519aa21e133863993a4b950c04fcb",
+      "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+      "multi-presentation.mjs": "8c7ba8e3a1c6cbff301e77817da0d928cf3ec2dd84d735fe1c90ecc68bdd4bfa",
+      "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+      "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+      "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+      "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+      "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb",
+      "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+      "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+      "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+      "audio.mjs": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+      "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+      "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+      "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+      "controller.mjs": "452a352aeae75ca0e6022351141732342e0b2a0f7478ce244166b8bc5736f855",
+      "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+      "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b"
+    }
+  },
+  "sourceUnchanged": true,
+  "passed": 248,
+  "total": 248,
+  "results": [
+    {
+      "game": "multi_hot_5_video",
+      "success": true,
+      "meta": {
+        "status": 200,
+        "title": "Multi Hot 5 · ZPLAY"
+      },
+      "passed": 145,
+      "total": 145,
+      "screenshot": "/workspace/work/r11-player-qa/cloudflare-multi_hot_5_video-390.png",
+      "result": {
+        "checks": [
+          {
+            "name": "first authenticated boot offers sound choice",
+            "ok": true
+          },
+          {
+            "name": "sound Yes creates no spin or gamble",
+            "ok": true
+          },
+          {
+            "name": "sound Yes leaves balance unchanged",
+            "ok": true
+          },
+          {
+            "name": "sound Yes enables audio",
+            "ok": true
+          },
+          {
+            "name": "sound Yes preference persists",
+            "ok": true
+          },
+          {
+            "name": "saved sound choice skips repeated boot prompt",
+            "ok": true
+          },
+          {
+            "name": "preference boot creates no wagers or balance change",
+            "ok": true
+          },
+          {
+            "name": "existing symbol artwork decoded",
+            "ok": true
+          },
+          {
+            "name": "original cabinet artwork decoded",
+            "ok": true
+          },
+          {
+            "name": "single canvas",
+            "ok": true
+          },
+          {
+            "name": "no video or iframe",
+            "ok": true
+          },
+          {
+            "name": "vector control 0 has a surface",
+            "ok": true
+          },
+          {
+            "name": "vector control 0 decodes",
+            "ok": true
+          },
+          {
+            "name": "vector control 1 has a surface",
+            "ok": true
+          },
+          {
+            "name": "vector control 1 decodes",
+            "ok": true
+          },
+          {
+            "name": "vector control 2 has a surface",
+            "ok": true
+          },
+          {
+            "name": "vector control 2 decodes",
+            "ok": true
+          },
+          {
+            "name": "balance comes from fixture server",
+            "ok": true
+          },
+          {
+            "name": "fresh authenticated WIN starts at zero",
+            "ok": true
+          },
+          {
+            "name": "verified user background clip duration",
+            "ok": true
+          },
+          {
+            "name": "background enable follows explicit Yes",
+            "ok": true
+          },
+          {
+            "name": "idle drawing follows visible atmosphere",
+            "ok": true
+          },
+          {
+            "name": "bet menu open",
+            "ok": true
+          },
+          {
+            "name": "legal alternate bet selected",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot ready face shows selected bet",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot medal hides its separate stake value",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot starts with no previous win",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot stake preview shows next legal bet",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot stake preview opens picker",
+            "ok": true
+          },
+          {
+            "name": "opening stake preview preserves selected bet",
+            "ok": true
+          },
+          {
+            "name": "opening stake preview creates no wallet action",
+            "ok": true
+          },
+          {
+            "name": "STOP shown",
+            "ok": true
+          },
+          {
+            "name": "bets locked during animation",
+            "ok": true
+          },
+          {
+            "name": "SPIN and STOP submit one wager",
+            "ok": true
+          },
+          {
+            "name": "receipt balance displayed",
+            "ok": true
+          },
+          {
+            "name": "win displayed",
+            "ok": true
+          },
+          {
+            "name": "individual reel sounds",
+            "ok": true
+          },
+          {
+            "name": "one multiplier stop",
+            "ok": true
+          },
+          {
+            "name": "multiplier settles before last reel",
+            "ok": true
+          },
+          {
+            "name": "AudioContext running",
+            "ok": true
+          },
+          {
+            "name": "all seven existing sound clips decoded",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot medal remembers validated positive win",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot bet face remains selected stake after win",
+            "ok": true
+          },
+          {
+            "name": "first Multi Hot ready tap after win submits one new wager",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot loss uses validated zero-win receipt",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot loss preserves previous positive medal",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot bet face remains selected stake after loss",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot boot restores previous positive medal after loss",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot history restore creates no wallet action",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot history restore skips saved sound prompt",
+            "ok": true
+          },
+          {
+            "name": "Multi Hot new positive round refreshes medal",
+            "ok": true
+          },
+          {
+            "name": "procedural sound renders audible signal",
+            "ok": true
+          },
+          {
+            "name": "sound mixer output bounded",
+            "ok": true
+          },
+          {
+            "name": "mute enabled",
+            "ok": true
+          },
+          {
+            "name": "mute clears audio nodes",
+            "ok": true
+          },
+          {
+            "name": "paytable populated",
+            "ok": true
+          },
+          {
+            "name": "volume control",
+            "ok": true
+          },
+          {
+            "name": "settled history visible",
+            "ok": true
+          },
+          {
+            "name": "gamble choices enabled",
+            "ok": true
+          },
+          {
+            "name": "gamble double click submits once",
+            "ok": true
+          },
+          {
+            "name": "gamble stake updates after win",
+            "ok": true
+          },
+          {
+            "name": "gamble balance displayed",
+            "ok": true
+          },
+          {
+            "name": "losing gamble disables both choices",
+            "ok": true
+          },
+          {
+            "name": "new round restores gamble buttons",
+            "ok": true
+          },
+          {
+            "name": "pending gamble keeps only original choice",
+            "ok": true
+          },
+          {
+            "name": "pending gamble can be reopened",
+            "ok": true
+          },
+          {
+            "name": "gamble recovery uses same payload",
+            "ok": true
+          },
+          {
+            "name": "gamble recovery balance matches server",
+            "ok": true
+          },
+          {
+            "name": "AUTO cancels without another wager",
+            "ok": true
+          },
+          {
+            "name": "AUTO count cannot go negative",
+            "ok": true
+          },
+          {
+            "name": "hold to spin submits once before release",
+            "ok": true
+          },
+          {
+            "name": "hold release cancels repeat mode",
+            "ok": true
+          },
+          {
+            "name": "opening options cancels a pending hold",
+            "ok": true
+          },
+          {
+            "name": "network error retains token",
+            "ok": true
+          },
+          {
+            "name": "pending bet locked",
+            "ok": true
+          },
+          {
+            "name": "retry uses identical payload",
+            "ok": true
+          },
+          {
+            "name": "retry adds no second debit",
+            "ok": true
+          },
+          {
+            "name": "invalid payout is not animated",
+            "ok": true
+          },
+          {
+            "name": "invalid receipt recovery reuses token",
+            "ok": true
+          },
+          {
+            "name": "BFCache resumes same round",
+            "ok": true
+          },
+          {
+            "name": "BFCache resume skips saved sound prompt",
+            "ok": true
+          },
+          {
+            "name": "context loss pauses renderer",
+            "ok": true
+          },
+          {
+            "name": "context restore resumes renderer",
+            "ok": true
+          },
+          {
+            "name": "hidden response keeps sound suspended",
+            "ok": true
+          },
+          {
+            "name": "hidden response keeps animation paused",
+            "ok": true
+          },
+          {
+            "name": "visibility restore settles same request",
+            "ok": true
+          },
+          {
+            "name": "reduced motion disables particles",
+            "ok": true
+          },
+          {
+            "name": "reduced motion win stays static",
+            "ok": true
+          },
+          {
+            "name": "spin in viewport",
+            "ok": true
+          },
+          {
+            "name": "auto in viewport",
+            "ok": true
+          },
+          {
+            "name": "gamble in viewport",
+            "ok": true
+          },
+          {
+            "name": "collect in viewport",
+            "ok": true
+          },
+          {
+            "name": "bet-open in viewport",
+            "ok": true
+          },
+          {
+            "name": "stake-open in viewport",
+            "ok": true
+          },
+          {
+            "name": "bet-less in viewport",
+            "ok": true
+          },
+          {
+            "name": "bet-more in viewport",
+            "ok": true
+          },
+          {
+            "name": "menu in viewport",
+            "ok": true
+          },
+          {
+            "name": "sound in viewport",
+            "ok": true
+          },
+          {
+            "name": "spin/auto no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/gamble no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/collect no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/bet-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/stake-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/bet-less no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/gamble no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/collect no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/bet-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/stake-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/bet-less no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/collect no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/bet-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/stake-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/bet-less no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "gamble/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "collect/bet-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "collect/stake-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "collect/bet-less no overlap",
+            "ok": true
+          },
+          {
+            "name": "collect/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "collect/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "collect/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/stake-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/bet-less no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "stake-open/bet-less no overlap",
+            "ok": true
+          },
+          {
+            "name": "stake-open/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "stake-open/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "stake-open/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-less/bet-more no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-less/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-less/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-more/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-more/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "menu/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "canvas DPR capped",
+            "ok": true
+          },
+          {
+            "name": "no browser errors",
+            "ok": true
+          }
+        ],
+        "diagnostics": {
+          "gameId": "multi_hot_5_video",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 3,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 245,
+            "draws": 213,
+            "slowFrames": 202,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5517.899999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5519
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5557.5
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5635.600000000093
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5643.399999999907
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5646.899999999907
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 5649.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5653.199999999953
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 5713.800000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5714.800000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5714.800000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 5757.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5757.399999999907
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 5809.100000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 5809.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5809.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5848.800000000047
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 5882
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 5882.300000000047
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 5939.100000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 5939.399999999907
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 8161
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 8161.800000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 8216.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 8216.399999999907
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 8271
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 8271.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 8271.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 8331.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 8380.800000000047
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 8381.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 8381.800000000047
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 8418.100000000093
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 9750.300000000047
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 10507.699999999953
+            },
+            {
+              "name": "error",
+              "index": 0,
+              "time": 10593.800000000047
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 10731.199999999953
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 10731.899999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 10795
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 10795
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 10832.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 10832.699999999953
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 10869
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 10869.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 10869.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 10930.300000000047
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 10965.899999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 10966.199999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 10999.899999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11000.199999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 11035.300000000047
+            },
+            {
+              "name": "error",
+              "index": 0,
+              "time": 11166.899999999907
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 11341.399999999907
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 11345.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11394.300000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 11453.600000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11453.699999999953
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 11494.600000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 11495.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11495.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11534.600000000093
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 11597.800000000047
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 11598.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11598.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 11655.899999999907
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 11891.800000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 11893.600000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 11972
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11972
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 11996.800000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 11996.800000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 12019.600000000093
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 12053.600000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 12056.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12056.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12096.899999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 12161.100000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12162.899999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 12191.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12192
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 12264.100000000093
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 12456.100000000093
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 12687.800000000047
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 12750.800000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12750.899999999907
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 12797.100000000093
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 12797.300000000047
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12797.399999999907
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12842.399999999907
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 12892.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12893.199999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 12923.600000000093
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 12924
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 12953.800000000047
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 13066
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 13068
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 13068.199999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 13068.300000000047
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 13068.399999999907
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 13068.399999999907
+            }
+          ],
+          "audioNodes": 3,
+          "decodedSoundSamples": 7,
+          "soundSampleNodes": 2,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": true,
+            "loading": false,
+            "playing": true,
+            "positionSeconds": 1.3397732426303843,
+            "durationSeconds": 1.4649886621315193,
+            "gain": 1
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": "aaaaaaaa-aaaa-4aaa-aaaa-000000000025",
+          "multiplier": 4,
+          "grid": [
+            [
+              "cherry",
+              "lemon",
+              "grapes"
+            ],
+            [
+              "grapes",
+              "grapes",
+              "watermelon"
+            ],
+            [
+              "grapes",
+              "orange",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": true,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        },
+        "errors": [],
+        "syntheticDebits": 11,
+        "spinPosts": 13,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 2
+        }
+      }
+    },
+    {
+      "game": "hot_foxy_20",
+      "success": true,
+      "meta": {
+        "status": 200,
+        "title": "Hot Foxy 20 · ZPLAY"
+      },
+      "passed": 103,
+      "total": 103,
+      "screenshot": "/workspace/work/r11-player-qa/cloudflare-hot_foxy_20-390.png",
+      "result": {
+        "checks": [
+          {
+            "name": "first authenticated boot offers sound choice",
+            "ok": true
+          },
+          {
+            "name": "sound Yes creates no spin or gamble",
+            "ok": true
+          },
+          {
+            "name": "sound Yes leaves balance unchanged",
+            "ok": true
+          },
+          {
+            "name": "sound Yes enables audio",
+            "ok": true
+          },
+          {
+            "name": "sound Yes preference persists",
+            "ok": true
+          },
+          {
+            "name": "saved sound choice skips repeated boot prompt",
+            "ok": true
+          },
+          {
+            "name": "preference boot creates no wagers or balance change",
+            "ok": true
+          },
+          {
+            "name": "existing symbol artwork decoded",
+            "ok": true
+          },
+          {
+            "name": "original cabinet artwork decoded",
+            "ok": true
+          },
+          {
+            "name": "single canvas",
+            "ok": true
+          },
+          {
+            "name": "no video or iframe",
+            "ok": true
+          },
+          {
+            "name": "vector control 0 has a surface",
+            "ok": true
+          },
+          {
+            "name": "vector control 0 decodes",
+            "ok": true
+          },
+          {
+            "name": "balance comes from fixture server",
+            "ok": true
+          },
+          {
+            "name": "fresh authenticated WIN starts at zero",
+            "ok": true
+          },
+          {
+            "name": "verified user background clip duration",
+            "ok": true
+          },
+          {
+            "name": "background enable follows explicit Yes",
+            "ok": true
+          },
+          {
+            "name": "idle drawing follows visible atmosphere",
+            "ok": true
+          },
+          {
+            "name": "bet menu open",
+            "ok": true
+          },
+          {
+            "name": "legal alternate bet selected",
+            "ok": true
+          },
+          {
+            "name": "other games retain visible stake meter",
+            "ok": true
+          },
+          {
+            "name": "STOP shown",
+            "ok": true
+          },
+          {
+            "name": "bets locked during animation",
+            "ok": true
+          },
+          {
+            "name": "SPIN and STOP submit one wager",
+            "ok": true
+          },
+          {
+            "name": "receipt balance displayed",
+            "ok": true
+          },
+          {
+            "name": "win displayed",
+            "ok": true
+          },
+          {
+            "name": "individual reel sounds",
+            "ok": true
+          },
+          {
+            "name": "one multiplier stop",
+            "ok": true
+          },
+          {
+            "name": "multiplier settles before last reel",
+            "ok": true
+          },
+          {
+            "name": "AudioContext running",
+            "ok": true
+          },
+          {
+            "name": "all seven existing sound clips decoded",
+            "ok": true
+          },
+          {
+            "name": "procedural sound renders audible signal",
+            "ok": true
+          },
+          {
+            "name": "sound mixer output bounded",
+            "ok": true
+          },
+          {
+            "name": "mute enabled",
+            "ok": true
+          },
+          {
+            "name": "mute clears audio nodes",
+            "ok": true
+          },
+          {
+            "name": "paytable populated",
+            "ok": true
+          },
+          {
+            "name": "volume control",
+            "ok": true
+          },
+          {
+            "name": "settled history visible",
+            "ok": true
+          },
+          {
+            "name": "gamble choices enabled",
+            "ok": true
+          },
+          {
+            "name": "gamble double click submits once",
+            "ok": true
+          },
+          {
+            "name": "gamble stake updates after win",
+            "ok": true
+          },
+          {
+            "name": "gamble balance displayed",
+            "ok": true
+          },
+          {
+            "name": "losing gamble disables both choices",
+            "ok": true
+          },
+          {
+            "name": "new round restores gamble buttons",
+            "ok": true
+          },
+          {
+            "name": "pending gamble keeps only original choice",
+            "ok": true
+          },
+          {
+            "name": "pending gamble can be reopened",
+            "ok": true
+          },
+          {
+            "name": "gamble recovery uses same payload",
+            "ok": true
+          },
+          {
+            "name": "gamble recovery balance matches server",
+            "ok": true
+          },
+          {
+            "name": "AUTO cancels without another wager",
+            "ok": true
+          },
+          {
+            "name": "AUTO count cannot go negative",
+            "ok": true
+          },
+          {
+            "name": "hold to spin submits once before release",
+            "ok": true
+          },
+          {
+            "name": "hold release cancels repeat mode",
+            "ok": true
+          },
+          {
+            "name": "opening options cancels a pending hold",
+            "ok": true
+          },
+          {
+            "name": "Quick Play opens confirmation without enabling",
+            "ok": true
+          },
+          {
+            "name": "Quick Play No preserves normal speed",
+            "ok": true
+          },
+          {
+            "name": "Quick Play No makes no wallet action",
+            "ok": true
+          },
+          {
+            "name": "Quick Play Close preserves normal speed",
+            "ok": true
+          },
+          {
+            "name": "Quick Play Close makes no wallet action",
+            "ok": true
+          },
+          {
+            "name": "Quick Play explicit enable activates turbo",
+            "ok": true
+          },
+          {
+            "name": "enabling Quick Play makes no wallet action",
+            "ok": true
+          },
+          {
+            "name": "turbo restores normal immediately",
+            "ok": true
+          },
+          {
+            "name": "network error retains token",
+            "ok": true
+          },
+          {
+            "name": "pending bet locked",
+            "ok": true
+          },
+          {
+            "name": "retry uses identical payload",
+            "ok": true
+          },
+          {
+            "name": "retry adds no second debit",
+            "ok": true
+          },
+          {
+            "name": "invalid payout is not animated",
+            "ok": true
+          },
+          {
+            "name": "invalid receipt recovery reuses token",
+            "ok": true
+          },
+          {
+            "name": "BFCache resumes same round",
+            "ok": true
+          },
+          {
+            "name": "BFCache resume skips saved sound prompt",
+            "ok": true
+          },
+          {
+            "name": "context loss pauses renderer",
+            "ok": true
+          },
+          {
+            "name": "context restore resumes renderer",
+            "ok": true
+          },
+          {
+            "name": "hidden response keeps sound suspended",
+            "ok": true
+          },
+          {
+            "name": "hidden response keeps animation paused",
+            "ok": true
+          },
+          {
+            "name": "visibility restore settles same request",
+            "ok": true
+          },
+          {
+            "name": "reduced motion disables particles",
+            "ok": true
+          },
+          {
+            "name": "reduced motion win stays static",
+            "ok": true
+          },
+          {
+            "name": "free spins remain available at zero balance",
+            "ok": true
+          },
+          {
+            "name": "free spin charges no stake",
+            "ok": true
+          },
+          {
+            "name": "remaining free spin stays enabled",
+            "ok": true
+          },
+          {
+            "name": "zero balance blocks paid spin after free spins finish",
+            "ok": true
+          },
+          {
+            "name": "spin in viewport",
+            "ok": true
+          },
+          {
+            "name": "auto in viewport",
+            "ok": true
+          },
+          {
+            "name": "bet-open in viewport",
+            "ok": true
+          },
+          {
+            "name": "bet-quick in viewport",
+            "ok": true
+          },
+          {
+            "name": "menu in viewport",
+            "ok": true
+          },
+          {
+            "name": "sound in viewport",
+            "ok": true
+          },
+          {
+            "name": "spin/auto no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/bet-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/bet-quick no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "spin/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/bet-open no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/bet-quick no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "auto/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/bet-quick no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-open/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-quick/menu no overlap",
+            "ok": true
+          },
+          {
+            "name": "bet-quick/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "menu/sound no overlap",
+            "ok": true
+          },
+          {
+            "name": "canvas DPR capped",
+            "ok": true
+          },
+          {
+            "name": "no browser errors",
+            "ok": true
+          }
+        ],
+        "diagnostics": {
+          "gameId": "hot_foxy_20",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 182,
+            "draws": 173,
+            "slowFrames": 169,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 13359.29999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 13359.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 13359.5
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 13414.400000000023
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 13414.79999999993
+            },
+            {
+              "name": "multiplier",
+              "index": 3,
+              "time": 13415
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 13415
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 13499.199999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 13499.400000000023
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 13499.400000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 13566.400000000023
+            },
+            {
+              "name": "error",
+              "index": 0,
+              "time": 14161.900000000023
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 14578.400000000023
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 14580.29999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 14665.79999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 14665.79999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 14738.79999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 14738.79999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 14789
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 14789
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 14867
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 14867.199999999953
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 14867.29999999993
+            },
+            {
+              "name": "multiplier",
+              "index": 3,
+              "time": 14867.29999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 14867.29999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 14934.29999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 14934.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 14934.79999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 14986.29999999993
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 15381.900000000023
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 15382.599999999977
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 15603.29999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 15603.29999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 15799.400000000023
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 15799.400000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 15868.199999999953
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 15868.400000000023
+            },
+            {
+              "name": "multiplier",
+              "index": 3,
+              "time": 15868.400000000023
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 15868.400000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 15927.29999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 15927.599999999977
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 15927.599999999977
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 16001
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 16001.199999999953
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 16513.599999999977
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 16724.5
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 16873.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 16873.79999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 17005.400000000023
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 17005.5
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 17132.400000000023
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 17132.599999999977
+            },
+            {
+              "name": "multiplier",
+              "index": 3,
+              "time": 17132.699999999953
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 17132.699999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 17210.400000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 17210.599999999977
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 17210.599999999977
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 17269.5
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 17269.79999999993
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 17434.5
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 17447.199999999953
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 17447.29999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 17447.29999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 17447.29999999993
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 17447.400000000023
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 17447.5
+            },
+            {
+              "name": "multiplier",
+              "index": 3,
+              "time": 17447.599999999977
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 17942.29999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 17949.29999999993
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 18089.900000000023
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18089.900000000023
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 18201.5
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18201.900000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 18299.599999999977
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 18299.900000000023
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 18299.900000000023
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18299.900000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 18356.599999999977
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 18356.79999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18356.900000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 18438.400000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 18438.5
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 18516.099999999977
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 18516.900000000023
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 18602.099999999977
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18602.199999999953
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 18721
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18721
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 18796
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18796
+            },
+            {
+              "name": "reel-stop",
+              "index": 0,
+              "time": 18871
+            },
+            {
+              "name": "reel-stop",
+              "index": 1,
+              "time": 18871.099999999977
+            },
+            {
+              "name": "wheel-stop",
+              "index": 0,
+              "time": 18871.099999999977
+            },
+            {
+              "name": "multiplier",
+              "index": 4,
+              "time": 18871.099999999977
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18871.099999999977
+            },
+            {
+              "name": "reel-stop",
+              "index": 2,
+              "time": 18912.29999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18912.400000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 3,
+              "time": 18957.79999999993
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 18957.900000000023
+            },
+            {
+              "name": "reel-stop",
+              "index": 4,
+              "time": 19010.699999999953
+            }
+          ],
+          "audioNodes": 3,
+          "decodedSoundSamples": 7,
+          "soundSampleNodes": 2,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": true,
+            "loading": false,
+            "playing": true,
+            "positionSeconds": 0.8226077097505682,
+            "durationSeconds": 1.1999773242630385,
+            "gain": 1
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": true,
+          "ambientParticles": 7,
+          "restoredRoundId": "aaaaaaaa-aaaa-4aaa-aaaa-000000000026",
+          "multiplier": 4,
+          "grid": [
+            [
+              "watermelon",
+              "winged_bell",
+              "orange",
+              "watermelon",
+              "cherry"
+            ],
+            [
+              "lemon",
+              "orange",
+              "777",
+              "winged_bell",
+              "orange"
+            ],
+            [
+              "watermelon",
+              "777",
+              "orange",
+              "winged_bell",
+              "777"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        },
+        "errors": [],
+        "syntheticDebits": 9,
+        "spinPosts": 13,
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 2
+        }
+      }
+    }
+  ]
+}
