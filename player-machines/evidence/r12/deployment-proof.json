@@ -1,0 +1,111 @@
+{
+  "release": "zplay-machines-20261106-r12",
+  "sourceCommit": "eb745e00996b24f385780957fddc7614b5276722",
+  "readback": {
+    "passed": true,
+    "candidateId": "edbc37aa-8f9e-4172-ba54-1d3c05ca61c7",
+    "candidateNumber": 307,
+    "sourceCommit": "eb745e00996b24f385780957fddc7614b5276722",
+    "asset": {
+      "name": "machine-assets-20261106.mjs",
+      "bytes": 30598213,
+      "sha256": "6dc7982c25e4c1fc0874c351cac1a563e776f7b48c024c708b0fe61684993677"
+    },
+    "moduleCount": 115,
+    "unchangedOtherModules": 114,
+    "bindings": 12,
+    "settings": {
+      "main_module": true,
+      "compatibility_date": true,
+      "compatibility_flags": true,
+      "limits": true,
+      "placement": true,
+      "usage_model": true,
+      "assets": true,
+      "cache_options": true,
+      "containers": true,
+      "exports": true,
+      "package_dependencies": true,
+      "env": true,
+      "bindings": true,
+      "migration_tag": true,
+      "no_new_migrations": true
+    },
+    "scriptSettingsUnchanged": true,
+    "migrationTag": "not-yet-deployed",
+    "totalBytes": 59632746,
+    "activeBaselineConfirmed": true,
+    "activeDeploymentId": "f85e01a0-ca32-4f16-9627-29ebafffdee2",
+    "rollback": "ca3fd065-f614-4275-9bad-07936e3be7cd"
+  },
+  "deployment": {
+    "deploymentId": "cca03390-c38a-43af-b2d7-418ddbf59fac",
+    "sourceCommit": "eb745e00996b24f385780957fddc7614b5276722",
+    "rollback": "ca3fd065-f614-4275-9bad-07936e3be7cd"
+  },
+  "active": {
+    "id": "cca03390-c38a-43af-b2d7-418ddbf59fac",
+    "createdOn": "2026-11-06T20:44:10.063591Z",
+    "versions": [
+      {
+        "version_id": "edbc37aa-8f9e-4172-ba54-1d3c05ca61c7",
+        "percentage": 100
+      }
+    ],
+    "active": true
+  },
+  "cleanup": {
+    "namespaceId": "c1f7bdb211804f3188953d48c7f772f3",
+    "title": "temporary-r12-upload-20261106-native",
+    "deleted": true,
+    "removedKeys": 41,
+    "temporaryRelayAlreadyDeleted": true,
+    "accessPoliciesUnchanged": true
+  },
+  "liveVerification": {
+    "status": "passed",
+    "completedAt": "2026-11-06T20:59:17.994808+00:00",
+    "httpChecksPassed": 40,
+    "guestGameIds": [
+      "multi_hot_5_video",
+      "wild_multi_stars",
+      "hot_foxy_20",
+      "multi_hot_100"
+    ],
+    "portal": {
+      "passed": true,
+      "homeCards": 6,
+      "catalogueGames": 57,
+      "detailsChecked": 4,
+      "gamesSurfaceVisible": true
+    },
+    "protocols": {
+      "multi_hot_5_video": "Chromium HTTP/1.1 via environment proxy",
+      "wild_multi_stars": "Chromium HTTP/1.1 via environment proxy",
+      "hot_foxy_20": "Chromium default HTTP/2 via environment proxy",
+      "multi_hot_100": "Chromium default HTTP/2 via environment proxy"
+    },
+    "portalProtocol": "Chromium HTTP/1.1 via environment proxy",
+    "browserErrors": 0,
+    "failedRequestsInSuccessfulCases": 0,
+    "staticHttpFailuresInSuccessfulCases": 0,
+    "productionWagers": 0,
+    "note": "Results combine independent targeted runs against unchanged Worker307. Initial HTTP/2 browser runs intermittently received503; failures retained. HTTP/1.1 targeted reruns passed without error exclusions or application changes. Independent adaptive Worker analytics reported no fetch exceptions,503 or exceededResources in the documented window; exact intermediary cause is not proved.",
+    "evidence": [
+      "live-http.json",
+      "live-guests.json",
+      "live-portal.json",
+      "live-initial-failures.json",
+      "live-http2-diagnostic.json",
+      "live-independent-cloudflare.json"
+    ]
+  },
+  "previousAttempt": {
+    "version": "72e50e05-eb81-4eff-8af5-cf2edac5bd86",
+    "deployment": "e3b5c5f7-dc8a-4507-aa9d-071986b3a526",
+    "issue": "HTML referenced r11 controller and stylesheet URLs",
+    "restorationDeployment": "f85e01a0-ca32-4f16-9627-29ebafffdee2",
+    "restoredVersion": "ca3fd065-f614-4275-9bad-07936e3be7cd",
+    "corrected": "Two HTML URLs updated; four route regression tests, build prefix guard, strict QA server and 246 browser checks passed before Worker307 publication."
+  }
+}

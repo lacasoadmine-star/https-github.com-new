@@ -1,0 +1,46 @@
+{
+  "scope": "Independent visual inspection of native-v2 selected game screenshots against current official mobile DEMO captures",
+  "screenshots": [
+    {
+      "file": "/workspace/work/r12-qa/multi_hot_5_video-native-v2.png",
+      "sha256": "8282a700ae443a7af01199be5c5487b4226d5b1657e073e3d90cb198581481aa"
+    },
+    {
+      "file": "/workspace/work/r12-qa/hot_foxy_20-native-v2.png",
+      "sha256": "c67cc7b541a51f1f6a2a543e7cce16fe1e448596b2dc18268a97cf9d6be5fb4b"
+    }
+  ],
+  "resolved": [
+    "Both native symbol sets now render at credible reference scale.",
+    "Foxy native wheel/shield and reel frame alignment is close; no further global geometry adjustment recommended.",
+    "Native Foxy title and foreground vines replace procedural substitutes.",
+    "Native primary controls and heavier fonts materially improve the match."
+  ],
+  "remainingHighImpact": [
+    {
+      "game": "MultiHot5",
+      "issue": "MULTIPLIER label clipped",
+      "status": "Root already correcting clip extent"
+    },
+    {
+      "game": "MultiHot5",
+      "issue": "Primary shield about12% narrower than official current capture",
+      "recommendation": "Increase visual face width approximately1.12 while preserving primary hitbox center."
+    },
+    {
+      "game": "MultiHot5",
+      "issue": "Top-right menu lacks observed dark circular backing",
+      "recommendation": "Restore roughly44CSSpx dark translucent circle with subtle rim."
+    },
+    {
+      "game": "MultiHot5",
+      "issue": "Additional bottom menu and sound icons differ from current official portrait screenshots",
+      "recommendation": "Hide duplicate controls only if top-menu settings preserve their functionality."
+    }
+  ],
+  "limits": [
+    "Visual inspection only; not a pixel-difference score.",
+    "Different balances/currencies/random reel outcomes excluded.",
+    "Static native setup frames do not establish full animation equivalence."
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "checks": [
+    {
+      "label": "390 home shows new2 plus all previous6 cards",
+      "pass": true
+    },
+    {
+      "label": "390 new labels appear on both new cards",
+      "pass": true
+    },
+    {
+      "label": "390 covers preserve original aspect ratio",
+      "pass": true
+    },
+    {
+      "label": "390 all59 entries visible in Games",
+      "pass": true
+    },
+    {
+      "label": "390 foxy_hot_20_native opens distinct new route",
+      "pass": true
+    },
+    {
+      "label": "390 foxy_hot_20_native accurate details",
+      "pass": true
+    },
+    {
+      "label": "390 multi_hot_5_native opens distinct new route",
+      "pass": true
+    },
+    {
+      "label": "390 multi_hot_5_native accurate details",
+      "pass": true
+    },
+    {
+      "label": "390 old multi_hot_5_video launch preserved",
+      "pass": true
+    },
+    {
+      "label": "390 old hot_foxy_20 launch preserved",
+      "pass": true
+    },
+    {
+      "label": "390 old wild_multi_stars launch preserved",
+      "pass": true
+    },
+    {
+      "label": "390 old multi_hot_100 launch preserved",
+      "pass": true
+    },
+    {
+      "label": "390 search returns old and new MH5",
+      "pass": true
+    },
+    {
+      "label": "390 Slots includes two new cabinets",
+      "pass": true
+    },
+    {
+      "label": "390 provider filter includes two new cabinets",
+      "pass": true
+    },
+    {
+      "label": "390 guest favourite opens original login without API write",
+      "pass": true
+    },
+    {
+      "label": "390 account surface retained",
+      "pass": true
+    },
+    {
+      "label": "390 no browser exceptions",
+      "pass": true
+    },
+    {
+      "label": "1280 home shows new2 plus all previous6 cards",
+      "pass": true
+    },
+    {
+      "label": "1280 new labels appear on both new cards",
+      "pass": true
+    },
+    {
+      "label": "1280 covers preserve original aspect ratio",
+      "pass": true
+    },
+    {
+      "label": "1280 all59 entries visible in Games",
+      "pass": true
+    },
+    {
+      "label": "1280 foxy_hot_20_native opens distinct new route",
+      "pass": true
+    },
+    {
+      "label": "1280 foxy_hot_20_native accurate details",
+      "pass": true
+    },
+    {
+      "label": "1280 multi_hot_5_native opens distinct new route",
+      "pass": true
+    },
+    {
+      "label": "1280 multi_hot_5_native accurate details",
+      "pass": true
+    },
+    {
+      "label": "1280 old multi_hot_5_video launch preserved",
+      "pass": true
+    },
+    {
+      "label": "1280 old hot_foxy_20 launch preserved",
+      "pass": true
+    },
+    {
+      "label": "1280 old wild_multi_stars launch preserved",
+      "pass": true
+    },
+    {
+      "label": "1280 old multi_hot_100 launch preserved",
+      "pass": true
+    },
+    {
+      "label": "1280 search returns old and new MH5",
+      "pass": true
+    },
+    {
+      "label": "1280 Slots includes two new cabinets",
+      "pass": true
+    },
+    {
+      "label": "1280 provider filter includes two new cabinets",
+      "pass": true
+    },
+    {
+      "label": "1280 guest favourite opens original login without API write",
+      "pass": true
+    },
+    {
+      "label": "1280 account surface retained",
+      "pass": true
+    },
+    {
+      "label": "1280 no browser exceptions",
+      "pass": true
+    },
+    {
+      "label": "signed-in saved keys distinguish old and native MH5",
+      "pass": true
+    },
+    {
+      "label": "new favourite posts exact new ID",
+      "pass": true
+    },
+    {
+      "label": "ignored native favourite write keeps real saved state and shows failure",
+      "pass": true
+    },
+    {
+      "label": "native Play Now navigates new path",
+      "pass": true
+    }
+  ],
+  "calls": [
+    {
+      "path": "/api/favourites",
+      "method": "GET"
+    },
+    {
+      "path": "/api/favourites",
+      "method": "POST",
+      "body": {
+        "game": "foxy_hot_20_native",
+        "enabled": true
+      }
+    },
+    {
+      "path": "/api/favourites",
+      "method": "POST",
+      "body": {
+        "game": "foxy_hot_20_native",
+        "enabled": false
+      }
+    }
+  ],
+  "scope": "Local disposable account; no production writes."
+}

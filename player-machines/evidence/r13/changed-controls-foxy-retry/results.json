@@ -1,0 +1,1174 @@
+{
+  "synthetic": true,
+  "noWagers": true,
+  "origin": "http://127.0.0.1:8774",
+  "source": {
+    "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+    "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+    "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+    "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+    "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+    "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+    "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+    "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+    "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+    "contract.mjs": "95834aa776990fd29f91e325513d92a0bf29524c38012af5e59402e222a0d4d2",
+    "controller.mjs": "7cadbe52fac6002fce449705df15e93491cbaed59204e718356c08e0cc6db4d2",
+    "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+    "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+    "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+    "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+    "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+    "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+    "index.html": "744eeae5550a8f8af6a0f194e52b31e80a31b73b471a16d5134723ff7b6dc845",
+    "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+    "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+    "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+    "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+    "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+    "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+    "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+    "official-audio-controls.mjs": "c553cfccee541a5a4f439f602285e5593000068264a335610c329d417195ffeb",
+    "official-auto-bet-presentation.mjs": "5217e2ca13c755807f058d2686107238191572553b1d4f61b18f2d2366ec5b10",
+    "official-auto-bet.css": "ff06aa004a2be581e21ee8a3fe09d05babf0ab8720c8969b087b02b4edc1d6e2",
+    "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+    "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+    "official-foxy-dialog-assets.mjs": "8974f2a83ab441606bd0ba823ccd68df4edae72a61270982ad06fcf383e8be35",
+    "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+    "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+    "official-foxy-gamble-assets.mjs": "b624f9d5213a25439a665dc57815eaa3243a2f9f5003786832a2cdab95c6a7fc",
+    "official-foxy-gamble-audio.mjs": "a5e3ee6cb24d22cfde12e1bca40fe6344a751c9393fcb8da5507ec0f47f7b637",
+    "official-gamble-audio.mjs": "5c1d00bb21600d283af95f0c4e09efd1fea08e0aab4d1a2b98d5adcc3af37e97",
+    "official-gamble-presentation.mjs": "40c9b87ea3bead55e55f3c5295aab2a9be9d6625c4d0576579c1ee0f4d709f18",
+    "official-gamble.css": "87eae7ace73aace9ec6c82461f3abdbd132704783ab6f92136d41fc530672aaa",
+    "official-help-presentation.mjs": "1009265a63e0f5fe393ef6ffc9f791c13be3c1cee0b0aad650bcf9bd992f57b8",
+    "official-help.css": "b36594a1bbd2c0d072b88c1db9f02b7ab05ea9d949ef93bc66d98c52eaee85e5",
+    "official-menu-assets.mjs": "f00d8986a71bb5305741ae6bfcbcf5a0e0c397721be3bab4b5a5114c2ea3d127",
+    "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+    "official-mh5-background.mjs": "061fd158a0fb648de3b979ec67c466290ae1b5c6449deed61ded8c4126532055",
+    "official-mh5-collect-art.mjs": "5d6c22444e6838a6ee81eb272924f1aa22f3d8513858188ed8355198eb6229b5",
+    "official-mh5-dialog-assets.mjs": "ab4718d24c0601f515cb05c2d8878d75950d4c71a4a45f4ae43dcd9e12324761",
+    "official-mh5-effects-audio.mjs": "6c3131ceae68518b56b36c8e86d5ad12d7b8554bcc268162f2e74ec2fe1a812c",
+    "official-mh5-gamble-assets.mjs": "acbb8f86ee3aaa97b3b05980ca007a456d0de299afd523bdfefe6d60285b0327",
+    "official-mh5-gamble-audio.mjs": "05a3db8d1e7315f843452809e20017c694c7924dd9f5399303779a6aebba2706",
+    "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+    "registry.mjs": "215ba4ed49ecc3cfe549d18354906117f2dac86c76ae7f2fbaa47bfd6cde01db",
+    "renderer.mjs": "11f1ffc4fafbfd5b2117c177b01b532d14f38cbb9e7400acc6c54186d2ee1b7f",
+    "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+    "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+    "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+    "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+    "style.css": "cf403fea54f580b80f94daee29725829f843026fed2d56b0cc185becefeb2e1f",
+    "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+    "verified-models.mjs": "5f83d6cc34335ebb775dc620032b03a62872402408acf4895aa0f3ce0328c16b",
+    "wallet.mjs": "518e60df6bff3b0e9f87aa1964ca56e489c5d71dd6757c77bc66b7aba22511c0"
+  },
+  "sourceAfter": {
+    "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+    "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+    "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+    "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+    "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+    "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+    "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+    "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+    "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+    "contract.mjs": "95834aa776990fd29f91e325513d92a0bf29524c38012af5e59402e222a0d4d2",
+    "controller.mjs": "7cadbe52fac6002fce449705df15e93491cbaed59204e718356c08e0cc6db4d2",
+    "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+    "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+    "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+    "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+    "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+    "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+    "index.html": "744eeae5550a8f8af6a0f194e52b31e80a31b73b471a16d5134723ff7b6dc845",
+    "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+    "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+    "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+    "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+    "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+    "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+    "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+    "official-audio-controls.mjs": "c553cfccee541a5a4f439f602285e5593000068264a335610c329d417195ffeb",
+    "official-auto-bet-presentation.mjs": "5217e2ca13c755807f058d2686107238191572553b1d4f61b18f2d2366ec5b10",
+    "official-auto-bet.css": "ff06aa004a2be581e21ee8a3fe09d05babf0ab8720c8969b087b02b4edc1d6e2",
+    "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+    "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+    "official-foxy-dialog-assets.mjs": "8974f2a83ab441606bd0ba823ccd68df4edae72a61270982ad06fcf383e8be35",
+    "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+    "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+    "official-foxy-gamble-assets.mjs": "b624f9d5213a25439a665dc57815eaa3243a2f9f5003786832a2cdab95c6a7fc",
+    "official-foxy-gamble-audio.mjs": "a5e3ee6cb24d22cfde12e1bca40fe6344a751c9393fcb8da5507ec0f47f7b637",
+    "official-gamble-audio.mjs": "5c1d00bb21600d283af95f0c4e09efd1fea08e0aab4d1a2b98d5adcc3af37e97",
+    "official-gamble-presentation.mjs": "40c9b87ea3bead55e55f3c5295aab2a9be9d6625c4d0576579c1ee0f4d709f18",
+    "official-gamble.css": "87eae7ace73aace9ec6c82461f3abdbd132704783ab6f92136d41fc530672aaa",
+    "official-help-presentation.mjs": "1009265a63e0f5fe393ef6ffc9f791c13be3c1cee0b0aad650bcf9bd992f57b8",
+    "official-help.css": "b36594a1bbd2c0d072b88c1db9f02b7ab05ea9d949ef93bc66d98c52eaee85e5",
+    "official-menu-assets.mjs": "f00d8986a71bb5305741ae6bfcbcf5a0e0c397721be3bab4b5a5114c2ea3d127",
+    "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+    "official-mh5-background.mjs": "061fd158a0fb648de3b979ec67c466290ae1b5c6449deed61ded8c4126532055",
+    "official-mh5-collect-art.mjs": "5d6c22444e6838a6ee81eb272924f1aa22f3d8513858188ed8355198eb6229b5",
+    "official-mh5-dialog-assets.mjs": "ab4718d24c0601f515cb05c2d8878d75950d4c71a4a45f4ae43dcd9e12324761",
+    "official-mh5-effects-audio.mjs": "6c3131ceae68518b56b36c8e86d5ad12d7b8554bcc268162f2e74ec2fe1a812c",
+    "official-mh5-gamble-assets.mjs": "acbb8f86ee3aaa97b3b05980ca007a456d0de299afd523bdfefe6d60285b0327",
+    "official-mh5-gamble-audio.mjs": "05a3db8d1e7315f843452809e20017c694c7924dd9f5399303779a6aebba2706",
+    "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+    "registry.mjs": "215ba4ed49ecc3cfe549d18354906117f2dac86c76ae7f2fbaa47bfd6cde01db",
+    "renderer.mjs": "11f1ffc4fafbfd5b2117c177b01b532d14f38cbb9e7400acc6c54186d2ee1b7f",
+    "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+    "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+    "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+    "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+    "style.css": "cf403fea54f580b80f94daee29725829f843026fed2d56b0cc185becefeb2e1f",
+    "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+    "verified-models.mjs": "5f83d6cc34335ebb775dc620032b03a62872402408acf4895aa0f3ce0328c16b",
+    "wallet.mjs": "518e60df6bff3b0e9f87aa1964ca56e489c5d71dd6757c77bc66b7aba22511c0"
+  },
+  "sourceUnchanged": true,
+  "results": [
+    {
+      "gameId": "hot_foxy_20",
+      "width": 360,
+      "synthetic": true,
+      "noWagers": true,
+      "checks": [
+        {
+          "label": "disposable invented QA session created",
+          "ok": true
+        },
+        {
+          "label": "official default wager remains selected",
+          "ok": true
+        },
+        {
+          "label": "Foxy original menu and sound remain visible",
+          "ok": true
+        },
+        {
+          "label": "Foxy real BET popup selects next wager",
+          "ok": true
+        },
+        {
+          "label": "actual wager restores before Help preview",
+          "ok": true
+        },
+        {
+          "label": "Help preview is an output",
+          "ok": true
+        },
+        {
+          "label": "Help plus changes only preview",
+          "ok": true
+        },
+        {
+          "label": "preview payouts independently match new preview stake",
+          "ok": true
+        },
+        {
+          "label": "closing Help never applies preview as wager",
+          "ok": true
+        },
+        {
+          "label": "consented effects and music are enabled",
+          "ok": true
+        },
+        {
+          "label": "Music disables without muting effects",
+          "ok": true
+        },
+        {
+          "label": "music preference reload does not reopen consent",
+          "ok": true
+        },
+        {
+          "label": "independent Music-off preference persists after reload",
+          "ok": true
+        },
+        {
+          "label": "Effects off clears Music and master",
+          "ok": true
+        },
+        {
+          "label": "Music preference cannot unmute disabled effects",
+          "ok": true
+        },
+        {
+          "label": "Effects-off and Music-off preferences persist after reload",
+          "ok": true
+        },
+        {
+          "label": "Effects on restores both switches",
+          "ok": true
+        },
+        {
+          "label": "expanded Volume uses functional existing slider",
+          "ok": true
+        },
+        {
+          "label": "fullscreen retains native switch semantics",
+          "ok": true
+        },
+        {
+          "label": "fullscreen switch reflects entered state",
+          "ok": true
+        },
+        {
+          "label": "all control interactions create no wager or ledger mutation",
+          "ok": true
+        },
+        {
+          "label": "all browser requests remain local",
+          "ok": true
+        },
+        {
+          "label": "no browser JavaScript errors",
+          "ok": true
+        }
+      ],
+      "errors": [],
+      "cabinetGeometry": {
+        "spin": {
+          "x": 128.34375,
+          "y": 603.34375,
+          "width": 103.3125,
+          "height": 103.3125,
+          "display": "flex",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "100% 100%",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "bet-less": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": true
+        },
+        "bet-more": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "previous-stake": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": true
+        },
+        "stake-open": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "menu-top": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "menu": {
+          "x": 10.796875,
+          "y": 741.46875,
+          "width": 34,
+          "height": 40,
+          "display": "block",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "75% auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "sound": {
+          "x": 322.40625,
+          "y": 741.46875,
+          "width": 34,
+          "height": 40,
+          "display": "block",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "58% auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        }
+      },
+      "fullscreenEntered": true,
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {
+          "hot_foxy_20": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      },
+      "diagnostics": {
+        "gameId": "hot_foxy_20",
+        "mathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "mathSha256": "5e9d2cd4ed5a8d6b5107eb315130d9fbcfcef24967e46d3922c5e697c5af070a",
+        "authoritativeBalance": "100000.00",
+        "pendingDisplayWin": "0.00",
+        "displayPendingWin": false,
+        "gambleValue": "0.00",
+        "canGamble": false,
+        "currentMathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "renderMathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "freeSpinsRemaining": 0,
+        "gambleMaxAttempts": 5,
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 181,
+          "draws": 173,
+          "slowFrames": 171,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 3964.300000000745
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5323
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 6842.4000000003725
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 11051.400000000373
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 11051.400000000373
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 12775.400000000373
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 15,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 6.220045351473923,
+          "durationSeconds": 96,
+          "gain": 0.6
+        },
+        "officialAudioSettings": {
+          "effectsEnabled": true,
+          "musicEnabled": true
+        },
+        "nativeAnimation": {
+          "ready": true,
+          "instances": 12,
+          "groups": [],
+          "decodedPages": 0,
+          "draws": 158
+        },
+        "nativeControlsReady": true,
+        "nativeControlsError": null,
+        "nativeArtworkLoaded": true,
+        "nativeSymbolCount": 8,
+        "nativeForegroundLoaded": true,
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 7,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "lemon",
+            "watermelon",
+            "lemon",
+            "winged_bell",
+            "lemon"
+          ],
+          [
+            "lemon",
+            "lemon",
+            "777",
+            "cherry",
+            "winged_bell"
+          ],
+          [
+            "777",
+            "orange",
+            "orange",
+            "winged_bell",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false
+      }
+    },
+    {
+      "gameId": "hot_foxy_20",
+      "width": 390,
+      "synthetic": true,
+      "noWagers": true,
+      "checks": [
+        {
+          "label": "disposable invented QA session created",
+          "ok": true
+        },
+        {
+          "label": "official default wager remains selected",
+          "ok": true
+        },
+        {
+          "label": "Foxy original menu and sound remain visible",
+          "ok": true
+        },
+        {
+          "label": "Foxy real BET popup selects next wager",
+          "ok": true
+        },
+        {
+          "label": "actual wager restores before Help preview",
+          "ok": true
+        },
+        {
+          "label": "Help preview is an output",
+          "ok": true
+        },
+        {
+          "label": "Help plus changes only preview",
+          "ok": true
+        },
+        {
+          "label": "preview payouts independently match new preview stake",
+          "ok": true
+        },
+        {
+          "label": "closing Help never applies preview as wager",
+          "ok": true
+        },
+        {
+          "label": "consented effects and music are enabled",
+          "ok": true
+        },
+        {
+          "label": "Music disables without muting effects",
+          "ok": true
+        },
+        {
+          "label": "music preference reload does not reopen consent",
+          "ok": true
+        },
+        {
+          "label": "independent Music-off preference persists after reload",
+          "ok": true
+        },
+        {
+          "label": "Effects off clears Music and master",
+          "ok": true
+        },
+        {
+          "label": "Music preference cannot unmute disabled effects",
+          "ok": true
+        },
+        {
+          "label": "Effects-off and Music-off preferences persist after reload",
+          "ok": true
+        },
+        {
+          "label": "Effects on restores both switches",
+          "ok": true
+        },
+        {
+          "label": "expanded Volume uses functional existing slider",
+          "ok": true
+        },
+        {
+          "label": "fullscreen retains native switch semantics",
+          "ok": true
+        },
+        {
+          "label": "fullscreen switch reflects entered state",
+          "ok": true
+        },
+        {
+          "label": "all control interactions create no wager or ledger mutation",
+          "ok": true
+        },
+        {
+          "label": "all browser requests remain local",
+          "ok": true
+        },
+        {
+          "label": "no browser JavaScript errors",
+          "ok": true
+        }
+      ],
+      "errors": [],
+      "cabinetGeometry": {
+        "spin": {
+          "x": 140.09375,
+          "y": 639.8125,
+          "width": 109.8125,
+          "height": 109.8125,
+          "display": "flex",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "100% 100%",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "bet-less": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": true
+        },
+        "bet-more": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "previous-stake": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": true
+        },
+        "stake-open": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "menu-top": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "menu": {
+          "x": 15.140625,
+          "y": 787.875,
+          "width": 34,
+          "height": 40,
+          "display": "block",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "75% auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "sound": {
+          "x": 348.515625,
+          "y": 787.875,
+          "width": 34,
+          "height": 40,
+          "display": "block",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "58% auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        }
+      },
+      "fullscreenEntered": true,
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {
+          "hot_foxy_20": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      },
+      "diagnostics": {
+        "gameId": "hot_foxy_20",
+        "mathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "mathSha256": "5e9d2cd4ed5a8d6b5107eb315130d9fbcfcef24967e46d3922c5e697c5af070a",
+        "authoritativeBalance": "100000.00",
+        "pendingDisplayWin": "0.00",
+        "displayPendingWin": false,
+        "gambleValue": "0.00",
+        "canGamble": false,
+        "currentMathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "renderMathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "freeSpinsRemaining": 0,
+        "gambleMaxAttempts": 5,
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 168,
+          "draws": 164,
+          "slowFrames": 161,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 3729.7000000011176
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 5436.5999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 7065.5
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 11617.900000000373
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 11617.900000000373
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 13289.200000001118
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 15,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 6.489977324263037,
+          "durationSeconds": 96,
+          "gain": 0.6
+        },
+        "officialAudioSettings": {
+          "effectsEnabled": true,
+          "musicEnabled": true
+        },
+        "nativeAnimation": {
+          "ready": true,
+          "instances": 12,
+          "groups": [],
+          "decodedPages": 0,
+          "draws": 149
+        },
+        "nativeControlsReady": true,
+        "nativeControlsError": null,
+        "nativeArtworkLoaded": true,
+        "nativeSymbolCount": 8,
+        "nativeForegroundLoaded": true,
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 7,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "lemon",
+            "watermelon",
+            "lemon",
+            "winged_bell",
+            "lemon"
+          ],
+          [
+            "lemon",
+            "lemon",
+            "777",
+            "cherry",
+            "winged_bell"
+          ],
+          [
+            "777",
+            "orange",
+            "orange",
+            "winged_bell",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false
+      }
+    },
+    {
+      "gameId": "hot_foxy_20",
+      "width": 430,
+      "synthetic": true,
+      "noWagers": true,
+      "checks": [
+        {
+          "label": "disposable invented QA session created",
+          "ok": true
+        },
+        {
+          "label": "official default wager remains selected",
+          "ok": true
+        },
+        {
+          "label": "Foxy original menu and sound remain visible",
+          "ok": true
+        },
+        {
+          "label": "Foxy real BET popup selects next wager",
+          "ok": true
+        },
+        {
+          "label": "actual wager restores before Help preview",
+          "ok": true
+        },
+        {
+          "label": "Help preview is an output",
+          "ok": true
+        },
+        {
+          "label": "Help plus changes only preview",
+          "ok": true
+        },
+        {
+          "label": "preview payouts independently match new preview stake",
+          "ok": true
+        },
+        {
+          "label": "closing Help never applies preview as wager",
+          "ok": true
+        },
+        {
+          "label": "consented effects and music are enabled",
+          "ok": true
+        },
+        {
+          "label": "Music disables without muting effects",
+          "ok": true
+        },
+        {
+          "label": "music preference reload does not reopen consent",
+          "ok": true
+        },
+        {
+          "label": "independent Music-off preference persists after reload",
+          "ok": true
+        },
+        {
+          "label": "Effects off clears Music and master",
+          "ok": true
+        },
+        {
+          "label": "Music preference cannot unmute disabled effects",
+          "ok": true
+        },
+        {
+          "label": "Effects-off and Music-off preferences persist after reload",
+          "ok": true
+        },
+        {
+          "label": "Effects on restores both switches",
+          "ok": true
+        },
+        {
+          "label": "expanded Volume uses functional existing slider",
+          "ok": true
+        },
+        {
+          "label": "fullscreen retains native switch semantics",
+          "ok": true
+        },
+        {
+          "label": "fullscreen switch reflects entered state",
+          "ok": true
+        },
+        {
+          "label": "all control interactions create no wager or ledger mutation",
+          "ok": true
+        },
+        {
+          "label": "all browser requests remain local",
+          "ok": true
+        },
+        {
+          "label": "no browser JavaScript errors",
+          "ok": true
+        }
+      ],
+      "errors": [],
+      "cabinetGeometry": {
+        "spin": {
+          "x": 154.1875,
+          "y": 705.90625,
+          "width": 121.609375,
+          "height": 121.609375,
+          "display": "flex",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "100% 100%",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "bet-less": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": true
+        },
+        "bet-more": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "previous-stake": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": true
+        },
+        "stake-open": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "menu-top": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "display": "none",
+          "backgroundPosition": "0% 0%",
+          "backgroundSize": "auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "menu": {
+          "x": 15.84375,
+          "y": 872,
+          "width": 34,
+          "height": 40,
+          "display": "block",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "75% auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        },
+        "sound": {
+          "x": 388.625,
+          "y": 872,
+          "width": 34,
+          "height": 40,
+          "display": "block",
+          "backgroundPosition": "50% 50%",
+          "backgroundSize": "58% auto",
+          "font": "16px Arial, sans-serif",
+          "disabled": false
+        }
+      },
+      "fullscreenEntered": true,
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100000.00",
+        "houseBalance": "-10000000",
+        "spinPosts": 0,
+        "roundSettlements": 0,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 1,
+        "ledgerBalanced": true,
+        "free": {
+          "hot_foxy_20": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          }
+        ]
+      },
+      "diagnostics": {
+        "gameId": "hot_foxy_20",
+        "mathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "mathSha256": "5e9d2cd4ed5a8d6b5107eb315130d9fbcfcef24967e46d3922c5e697c5af070a",
+        "authoritativeBalance": "100000.00",
+        "pendingDisplayWin": "0.00",
+        "displayPendingWin": false,
+        "gambleValue": "0.00",
+        "canGamble": false,
+        "currentMathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "renderMathVersion": "2026-11-07-foxy-eight-symbols-v1",
+        "freeSpinsRemaining": 0,
+        "gambleMaxAttempts": 5,
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 167,
+          "draws": 163,
+          "slowFrames": 162,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 4305.800000000745
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 6139.0999999996275
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 7728.0999999996275
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 12404.400000000373
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 12404.700000001118
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 14294
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 15,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 7.540680272108844,
+          "durationSeconds": 96,
+          "gain": 0.6
+        },
+        "officialAudioSettings": {
+          "effectsEnabled": true,
+          "musicEnabled": true
+        },
+        "nativeAnimation": {
+          "ready": true,
+          "instances": 12,
+          "groups": [],
+          "decodedPages": 0,
+          "draws": 149
+        },
+        "nativeControlsReady": true,
+        "nativeControlsError": null,
+        "nativeArtworkLoaded": true,
+        "nativeSymbolCount": 8,
+        "nativeForegroundLoaded": true,
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 7,
+        "restoredRoundId": null,
+        "multiplier": 1,
+        "grid": [
+          [
+            "lemon",
+            "watermelon",
+            "lemon",
+            "winged_bell",
+            "lemon"
+          ],
+          [
+            "lemon",
+            "lemon",
+            "777",
+            "cherry",
+            "winged_bell"
+          ],
+          [
+            "777",
+            "orange",
+            "orange",
+            "winged_bell",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false
+      }
+    }
+  ]
+}

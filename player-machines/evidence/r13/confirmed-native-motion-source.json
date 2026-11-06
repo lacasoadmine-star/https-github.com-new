@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-06",
+  "scope": "Read-only official browser-delivered public presentation source; no outcome/RNG edits or assumptions",
+  "sources": {
+    "foxyRequest": {
+      "localPath": "/workspace/work/r13-gamble/public-resources/Scripts/New/data.js",
+      "sha256": "99bca3f4c35c0e08e0a8b95973d187f295eb93fd085c9b296f76e888ad714bde",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/data.js"
+    },
+    "foxyBox": {
+      "localPath": "/workspace/work/r12-reference/FoxyHot20/Scripts/New/Components/box.js",
+      "sha256": "f94d5e5dcf5c135eb2615a3745072b1f1e262fc19f1a8bb1211b76122a4f592c",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box.js"
+    },
+    "foxyConfig": {
+      "localPath": "/workspace/work/r12-reference/FoxyHot20/Scripts/New/foxyhot20.js",
+      "sha256": "044035460b8448fae427befb69a976d9ea3f33701f857d06336a8f1e6aa09e2c",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/foxyhot20.js"
+    },
+    "foxyWin": {
+      "localPath": "/workspace/work/r12-reference/FoxyHot20/Scripts/New/Components/win.js",
+      "sha256": "7a5d466e532439bcd519e9da1dd5ee9fe29ede10edc1bd59c0cfc54b45cd2633",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/win.js"
+    },
+    "mh5Slot": {
+      "localPath": "/workspace/work/r12-reference/MultiHot5/Scripts/Slots/slot.js",
+      "sha256": "3262ebe49190261ac12d8756dcaed08672a4a59856a624b36b5ec16260c82b96",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/Slots/slot.js"
+    },
+    "mh5Mobile": {
+      "localPath": "/workspace/work/r12-reference/MultiHot5/Scripts/Slots/multihot5.mobile.js",
+      "sha256": "7fc0040dda90ec35397a71a50bf3af61c2ca99ed605d423bd2f6ef02ba1af88d",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/Slots/multihot5.mobile.js"
+    }
+  },
+  "confirmed": [
+    {
+      "feature": "Foxy request ordering",
+      "source": "foxyRequest",
+      "lines": [
+        109,
+        117,
+        167
+      ],
+      "finding": "PostEvent calls box.beforeLoadBoxes for a spinning option before the fetch call. box.beforeLoadBoxes invokes spin and slot.beforeLoadBoxes; game-specific hook starts ObjectMove and wheel."
+    },
+    {
+      "feature": "MH5 win-line ordering",
+      "source": "mh5Slot",
+      "lines": [
+        4508,
+        4509,
+        4533,
+        4581,
+        4809,
+        4814,
+        4826
+      ],
+      "finding": "WinLinesStrips sorted descending by Win. showIndex=i*20+10 decremented by one animation tick. Only when zero does showWinLine run. No generic simultaneous650ms all-line flash."
+    },
+    {
+      "feature": "MH5 line segments",
+      "source": "mh5Mobile",
+      "lines": [
+        953,
+        1200,
+        1228
+      ],
+      "finding": "Ticker max60FPS. Two native line segments begin50ms apart with animationSpeed.25; native completion removes the line. Tick schedule approximate167ms+333ms*i at60FPS, not a fixed wall-clock promise."
+    },
+    {
+      "feature": "Foxy native lines",
+      "source": "foxyBox",
+      "lines": [
+        70,
+        1948,
+        1983,
+        2088,
+        2098,
+        2101
+      ],
+      "finding": "winLinesTime0 -> simultaneous winning lines. Artwork selected by zero-basedreceipt.LineNumber+1. Native source alpha-in200ms, alpha-out delay1500ms+duration200ms."
+    },
+    {
+      "feature": "Foxy win overlay",
+      "source": "foxyWin",
+      "lines": [
+        69,
+        329,
+        334,
+        465,
+        466,
+        596
+      ],
+      "finding": "Full canvas background alpha.7, fades in200ms after native current-leveldelay, destroyed onremove. Gameconfig supplies color0x172019; thresholds15/30/50/100 and all tier durations11700ms with1500msdelay. No support for generic control-only20x2600msdim."
+    },
+    {
+      "feature": "MH5 win popup completion",
+      "source": "mh5Mobile",
+      "lines": [
+        995,
+        1006
+      ],
+      "finding": "After native counter reaches final win, amount fades after3410ms over300ms; popup completion hides after3700+300ms."
+    }
+  ]
+}

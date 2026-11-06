@@ -1,0 +1,186 @@
+{
+  "scope": "Independent visual review of only Multi Hot 5 and Foxy Hot 20. Local invented QA balances; no production wallet or provider settlement code.",
+  "integratedChecks": [
+    {
+      "game": "multi_hot_5_video",
+      "initialRetryRequired": false,
+      "errors": [],
+      "requestsFailed": [],
+      "apiResponses": [
+        {
+          "path": "/api/slots/games/multi_hot_5_video",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/machine-session",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/slots/rounds",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/machine-session",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/slots/spin",
+          "status": 200,
+          "jsonReadError": null
+        }
+      ],
+      "nativeAnimation": {
+        "ready": true,
+        "instances": 4,
+        "groups": [
+          "BoxWin",
+          "Line1",
+          "Line2",
+          "Line3",
+          "Logo",
+          "WinToBalance",
+          "X1",
+          "X2",
+          "X3",
+          "X4",
+          "X5"
+        ],
+        "decodedPages": 9,
+        "draws": 316
+      },
+      "screenshots": [
+        "local-native-review-isolated/multi_hot_5_video-idle.png",
+        "local-native-review-isolated/multi_hot_5_video-win-0.png",
+        "local-native-review-isolated/multi_hot_5_video-win-1.png",
+        "local-native-review-isolated/multi_hot_5_video-win-2.png"
+      ],
+      "findings": "Idle alignment, native logo and symbols appear correct. Winning symbol flame borders, multiplier glow and diagonal payline appear correct."
+    },
+    {
+      "game": "hot_foxy_20",
+      "initialRetryRequired": false,
+      "errors": [],
+      "requestsFailed": [],
+      "apiResponses": [
+        {
+          "path": "/api/slots/games/hot_foxy_20",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/machine-session",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/slots/rounds",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/machine-session",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/slots/spin",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/machine-session",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/slots/balance",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/machine-session",
+          "status": 200,
+          "jsonReadError": null
+        },
+        {
+          "path": "/api/slots/balance",
+          "status": 200,
+          "jsonReadError": null
+        }
+      ],
+      "nativeAnimation": {
+        "ready": true,
+        "instances": 12,
+        "groups": [],
+        "decodedPages": 0,
+        "draws": 59
+      },
+      "screenshots": [
+        "local-native-review-isolated/hot_foxy_20-idle.png",
+        "local-native-review-isolated/hot_foxy_20-win-0.png",
+        "local-native-review-isolated/hot_foxy_20-win-1.png",
+        "local-native-review-isolated/hot_foxy_20-win-2.png"
+      ],
+      "findings": "Idle alignment, native logo and symbols appear correct. Native winning symbols and wheel fire appear correctly aligned; forest animation remains outside the reel interior."
+    }
+  ],
+  "poseChecks": {
+    "foxySymbols": [
+      "fox",
+      "cherry",
+      "lemon",
+      "orange",
+      "watermelon",
+      "winged_bell",
+      "777",
+      "big_star"
+    ],
+    "timesSeconds": [
+      0,
+      0.25,
+      1
+    ],
+    "screenshots": [
+      "symbol-review/all-eight-t0.png",
+      "symbol-review/all-eight-t0.25.png",
+      "symbol-review/all-eight-t1.png"
+    ],
+    "method": "Independent isolated native-presentation instance, fixed provider positions/scales, visually compared against original runtime oracle.",
+    "findings": "All eight authored symbol meshes, glows and attachments render and vary over time. No fitting collapse or missing meshes observed."
+  },
+  "badges": {
+    "multiHot5": {
+      "screenshot": "symbol-review/multi_hot_5_video-badge.png",
+      "tier": "BIG WIN",
+      "findings": "Full badge visible; dynamic amount centered in the native lower panel."
+    },
+    "foxyHot20": {
+      "testedAgeMs": 3000,
+      "nativePoseSeconds": 1.5,
+      "screenshot": "symbol-review/hot_foxy_20-badge-visible.png",
+      "tier": "Big Win",
+      "findings": "Native title and leaves are visible; dynamic amount and ETB are centered inside the parchment plate. Opacity1, no browser errors.",
+      "metadata": "symbol-review/hot_foxy_20-badge-visible.json"
+    }
+  },
+  "resolvedVisualDefect": "Earlier manager box w/h versus runtime width/height mismatch produced absent decorations; final manager uses correct geometry and fixed native symbol transforms.",
+  "startupObservation": "An earlier concurrent build/browser run displayed an interrupted initial response message before any spin. It lacked network error instrumentation, so its cause is unclassified. Both isolated post-deferral runs completed first try with valid HTTP200 API JSON, no failed requests and no browser errors.",
+  "limits": [
+    "DPR1 isolated integrated screenshots reduce headless GPU contention; do not assert exact pixel identity.",
+    "Only natural synthetic wins and the explicitly listed decorative poses were reviewed.",
+    "Complete game math, edge cases and all timeline interruptions are outside this visual review.",
+    "No 100% equivalence claim is supported by these checks."
+  ],
+  "sourceSha256AtReviewCompletion": {
+    "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+    "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+    "renderer.mjs": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+    "controller.mjs": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6"
+  },
+  "evidenceBaseDirectory": "/workspace/work/r12-reference",
+  "allReviewBrowsersClosed": true
+}

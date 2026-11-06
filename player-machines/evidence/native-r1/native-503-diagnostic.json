@@ -1,0 +1,100 @@
+{
+  "checkedAt": "2026-11-06T23:36:09.329Z",
+  "scope": "Read-only diagnosis of the single initial Worker309 503; no financial requests, account writes, account bodies or credentials.",
+  "workerVersion": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+  "deploymentId": "a057740f-dccf-4188-9ba1-d83744b7233f",
+  "window": {
+    "from": "2026-11-06T23:24:02.960148Z",
+    "to": "2026-11-06T23:25:20.327Z"
+  },
+  "worker503Metric": {
+    "dimensions": {
+      "coloCode": "ADD",
+      "datetime": "2026-11-06T23:24:08Z",
+      "eventType": "fetch",
+      "httpResponseStatus": 503,
+      "scriptVersion": "0be4d4fe-7e81-41fb-b27a-42f6dc23ddcc",
+      "status": "success"
+    },
+    "quantiles": {
+      "cpuTimeP99": 1265,
+      "memoryUsageBytesP99": 116751820
+    },
+    "sum": {
+      "errors": 0,
+      "requests": 1
+    }
+  },
+  "correlatedUpstream": {
+    "service": "superwin-nine-slot-engine",
+    "deploymentId": "3cc34ab8-5d40-4830-81c9-0288f6222994",
+    "http": [
+      {
+        "timestamp": "2026-11-06T23:24:08.299300282Z",
+        "httpStatus": 200,
+        "method": "GET",
+        "path": "/api/session",
+        "upstreamErrors": ""
+      },
+      {
+        "timestamp": "2026-11-06T23:24:08.544958052Z",
+        "httpStatus": 200,
+        "method": "GET",
+        "path": "/api/balance",
+        "upstreamErrors": ""
+      },
+      {
+        "timestamp": "2026-11-06T23:24:09.164586817Z",
+        "httpStatus": 503,
+        "method": "POST",
+        "path": "/api/spin",
+        "upstreamErrors": ""
+      }
+    ]
+  },
+  "otherUpstreamsChecked": [
+    {
+      "name": "zplay-rebuild-api",
+      "httpEntriesInWindow": 0
+    },
+    {
+      "name": "superwin-native-family-engine",
+      "httpEntriesInWindow": 0
+    },
+    {
+      "name": "superwin-catalog-bridge",
+      "httpEntriesInWindow": 0
+    }
+  ],
+  "runtimeLogEvidence": {
+    "serviceScopeWindow": "2026-11-06T23:24:05Z/2026-11-06T23:24:12Z",
+    "deploymentScopeWindow": "2026-11-06T23:24:00Z/2026-11-06T23:24:15Z",
+    "entries": 0,
+    "internalErrorCodes": [],
+    "responseDetailAvailable": false
+  },
+  "observability": {
+    "logpush": false,
+    "observabilitySettingPresent": false,
+    "queryDryRun": true,
+    "eventsInExactWorkerWindow": 0,
+    "workerAdaptiveDimensionsIncludeRequestPath": false
+  },
+  "classification": {
+    "returnedUpstream503Correlation": "Strong time correlation: unique Worker503 at23:24:08Z and unique upstream POST /api/spin503 at23:24:09.164586817Z, with successful session/balance calls immediately before.",
+    "exactCrossServiceTrace": "Unavailable; no matching request ID or Worker request path was retained.",
+    "resourceFailureEvidence": false,
+    "resourceFailureReason": "The counted Worker invocation completed with status success, zero invocation errors,1.265ms CPU and116,751,820 bytes memory. This does not match the prior recorded1102 failures.",
+    "backendInternalFailureEvidence": false,
+    "backendInternalFailureReason": "Both narrow runtime log scopes returned no slot_request_failed/SQL error events. Source logs unexpected exceptions, while explicit status failures return silently.",
+    "exactBackendCode": "unknown",
+    "unchangedPossibleExplicit503Codes": [
+      "WALLET_NOT_CONFIGURED",
+      "PLAYER_OR_HOUSE_WALLET_MISSING",
+      "CREDIT_ACCOUNT_MISSING",
+      "SLOT_RELEASE_NOT_ENABLED",
+      "HOUSE_RESERVE_INSUFFICIENT"
+    ],
+    "cannotClaim": "No stored response detail establishes HOUSE_RESERVE_INSUFFICIENT or any other precise business error. Do not claim the503 is fully resolved or that all live traffic is503-free."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "reviewer": "independent deployment_preflight agent",
+  "mode": "read-only",
+  "scope": [
+    "scripts/build.mjs",
+    "src/version-dispatch.mjs",
+    "source/runtime-after.mjs"
+  ],
+  "blockingFindings": [],
+  "verified": [
+    "Spin replay and fingerprint check precede changed pin, bet and reserve guards",
+    "Action replay precedes parent model validation",
+    "Outstanding target free spins select complete legacy model, locked bet and retriggers",
+    "State exposes next-round and current paid identities",
+    "New gamble requires exact known parent game/version/engine/hash",
+    "Non-target games delegate to unchanged legacy public models and core",
+    "Stored math hash follows each actual result"
+  ],
+  "requestedFollowupsCoveredByTests": [
+    "Stale paid pin after final legacy free spin",
+    "Replay with wager no longer allowed by current profile",
+    "Old maximum4000ETB receipts replay while nonexistent requests are rejected before debit"
+  ],
+  "limitations": "Source review and synthetic tests; no production wallet/database writes, no PostgreSQL/Redis integration exercised by this review.",
+  "status": "historical_review_superseded_by_additive_release_scope",
+  "scopeNote": "This review predates the decision to preserve all eleven machines and add two distinct native IDs. Its replacement-model expectations are historical; it is not independent approval of the additive build."
+}

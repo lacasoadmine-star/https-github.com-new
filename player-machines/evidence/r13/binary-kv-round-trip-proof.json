@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-11-06T22:30:25.549Z",
+  "namespaceId": "d9a66686148a4511ab66b76d75e7f472",
+  "source": "Public synthetic GIF89a prefix plus all256octets and invalidUTF8 test bytes",
+  "originalBytes": 270,
+  "originalSha256": "7faf44f8640a3e3336193811b2f1759eb5adab9b2eb032e36b4105a5f128ae84",
+  "probes": [
+    {
+      "kind": "raw",
+      "returnType": "object",
+      "constructor": "Uint8Array",
+      "recoveredBytes": 270,
+      "recoveredSha256": "7faf44f8640a3e3336193811b2f1759eb5adab9b2eb032e36b4105a5f128ae84",
+      "exact": true
+    },
+    {
+      "kind": "base64",
+      "returnType": "string",
+      "constructor": "String",
+      "encodedTextExact": true,
+      "recoveredBytes": 270,
+      "recoveredSha256": "7faf44f8640a3e3336193811b2f1759eb5adab9b2eb032e36b4105a5f128ae84",
+      "exact": true
+    }
+  ],
+  "cleanup": [
+    {
+      "key": "b31881c561185c87ffa286f95a3a7307a47db001/probes/binary-transport-0bb19230-685c-4acf-abfa-fa289b5dc57f-raw",
+      "deleted": true
+    },
+    {
+      "key": "b31881c561185c87ffa286f95a3a7307a47db001/probes/binary-transport-0bb19230-685c-4acf-abfa-fa289b5dc57f-base64",
+      "deleted": true
+    }
+  ]
+}

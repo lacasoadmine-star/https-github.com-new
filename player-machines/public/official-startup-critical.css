@@ -1,0 +1,5 @@
+/* Render-blocking first paint: only the two selected native games load this GIF. */
+#official-startup{display:none}
+body:is([data-game="multi_hot_5_video"],[data-game="hot_foxy_20"]) #official-startup:not([hidden]){display:block;position:fixed;inset:0;width:100%;height:100%;z-index:1000;background:#000}
+body:is([data-game="multi_hot_5_video"],[data-game="hot_foxy_20"]) #official-startup .official-loader-logo{position:absolute;top:50%;left:50%;width:205px;height:205px;margin:-102px 0 0 -102px;background:url('./official-startup-logo.gif') center/contain no-repeat}
+#official-startup-reload{display:block;margin:8px;color:#fff;text-decoration:underline}

@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "checkedAt": "2026-11-06T22:16:58.879Z",
+  "baselineVersionId": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+  "sources": {
+    "reference-worker-v2164.mjs": {
+      "path": "/workspace/work/r13-engine-audit/reference-worker-v2164.mjs",
+      "bytes": 6026,
+      "sha256": "e1221852ea76ce4183a4604361ac941b2c623e33c26a9023320225b48492969f",
+      "captureAddedFinalNewline": true
+    },
+    "player-session-v236.mjs": {
+      "path": "/workspace/superwin/player-machines/worker/player-session-v236.mjs",
+      "bytes": 5693,
+      "sha256": "ba57645eafb2d5500dfefc81e2ae8170a1d3c35eb2c76e75ff73ddae6e615e3b",
+      "captureAddedFinalNewline": true
+    },
+    "player-router-v236.mjs": {
+      "path": "/workspace/superwin/player-machines/worker/player-router-v236.mjs",
+      "bytes": 4395,
+      "sha256": "f90320e530d4f38fe3e6a8ee7bb11cff288aeecc5fe8e3316ffbfa214a20527a",
+      "captureAddedFinalNewline": false
+    }
+  },
+  "exactBranchLines": [
+    30,
+    34
+  ],
+  "exactBranchSha256": "e7e6ca3f995a4c8e0d23e10b3d9311395698eff5488b197e42e2a19c8920ce96",
+  "cases": [
+    {
+      "gameId": "multi_hot_5_video",
+      "mode": "no-cookie",
+      "passed": true,
+      "target": "https://superwin-nine-slot-engine-staging.up.railway.app/api/state/multi_hot_5_video?mode=next&probe=a%2Bb&empty=",
+      "method": "GET",
+      "authorizationForwarded": true,
+      "queryPreserved": true,
+      "hostHeaderRemoved": true,
+      "cookiePreserved": false,
+      "backendFetchWasMocked": true
+    },
+    {
+      "gameId": "multi_hot_5_video",
+      "mode": "valid-synthetic-lease",
+      "passed": true,
+      "target": "https://superwin-nine-slot-engine-staging.up.railway.app/api/state/multi_hot_5_video?mode=next&probe=a%2Bb&empty=",
+      "method": "GET",
+      "authorizationForwarded": true,
+      "queryPreserved": true,
+      "hostHeaderRemoved": true,
+      "cookiePreserved": true,
+      "backendFetchWasMocked": true
+    },
+    {
+      "gameId": "multi_hot_5_video",
+      "mode": "expired-synthetic-lease",
+      "passed": true,
+      "status": 401,
+      "publicAllowlist": false,
+      "forwardingBlockedBeforeBackend": true
+    },
+    {
+      "gameId": "hot_foxy_20",
+      "mode": "no-cookie",
+      "passed": true,
+      "target": "https://superwin-nine-slot-engine-staging.up.railway.app/api/state/hot_foxy_20?mode=next&probe=a%2Bb&empty=",
+      "method": "GET",
+      "authorizationForwarded": true,
+      "queryPreserved": true,
+      "hostHeaderRemoved": true,
+      "cookiePreserved": false,
+      "backendFetchWasMocked": true
+    },
+    {
+      "gameId": "hot_foxy_20",
+      "mode": "valid-synthetic-lease",
+      "passed": true,
+      "target": "https://superwin-nine-slot-engine-staging.up.railway.app/api/state/hot_foxy_20?mode=next&probe=a%2Bb&empty=",
+      "method": "GET",
+      "authorizationForwarded": true,
+      "queryPreserved": true,
+      "hostHeaderRemoved": true,
+      "cookiePreserved": true,
+      "backendFetchWasMocked": true
+    },
+    {
+      "gameId": "hot_foxy_20",
+      "mode": "expired-synthetic-lease",
+      "passed": true,
+      "status": 401,
+      "publicAllowlist": false,
+      "forwardingBlockedBeforeBackend": true
+    }
+  ],
+  "networkCalls": 0,
+  "realCredentialsUsed": false,
+  "financialRequestsMade": false,
+  "conclusion": "The exact preserved branch forwards /api/slots/state/<id> to /api/state/<id>, preserving query and Authorization/other headers and removing Host. The preceding actual sessionGate has no path allowlist for valid sessions; state remains private when a stale session cookie is present.",
+  "limitations": [
+    "This executes the exact forwarding branch with a mocked fetch and actual sessionGate using invented credentials.",
+    "No live authenticated account or wallet was accessed.",
+    "A no-cookie request passes sessionGate for downstream authentication; this test does not claim that an invented Authorization value would authenticate at the backend."
+  ]
+}

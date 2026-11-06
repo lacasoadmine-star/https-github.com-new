@@ -1,0 +1,53 @@
+{
+  "scope": "Official public demos, native YES consent after initialization, background playback only, read-only sound graph inspection. No spins, no provider state assignment.",
+  "browserClosed": true,
+  "games": {
+    "MultiHot5": {
+      "contextVolume": 1,
+      "soundEnabled": true,
+      "normalMode": {
+        "oldGameVR": false,
+        "newVRAllowed": null,
+        "newVRVolume": null
+      },
+      "backgroundParentVolume": 0.3,
+      "instanceVolume": 0.3,
+      "actualGainNode": 0.09000000357627869,
+      "compressor": {
+        "type": "DynamicsCompressorNode",
+        "threshold": -24,
+        "knee": 30,
+        "ratio": 12,
+        "attack": 0.003000000026077032,
+        "release": 0.25,
+        "reduction": -0.00012332235928624868
+      },
+      "rawProof": "MultiHot5.json",
+      "sha256": "08aab17c72ab70a5634fb5303f7f5e364bec9f5807fbaac76c541a72a671737c"
+    },
+    "FoxyHot20": {
+      "contextVolume": 1,
+      "soundEnabled": true,
+      "normalMode": {
+        "oldGameVR": false,
+        "newVRAllowed": false,
+        "newVRVolume": 1
+      },
+      "backgroundParentVolume": 0.6,
+      "instanceVolume": 1,
+      "actualGainNode": 0.6000000238418579,
+      "compressor": {
+        "type": "DynamicsCompressorNode",
+        "threshold": -24,
+        "knee": 30,
+        "ratio": 12,
+        "attack": 0.003000000026077032,
+        "release": 0.25,
+        "reduction": -1.0752079486846924
+      },
+      "rawProof": "FoxyHot20.json",
+      "sha256": "66b74df19a25b22b2c1b311ab3e6423d3ad4fded0f5d71c668901d8d564ebb4d"
+    }
+  },
+  "captureNote": "Early attempts tapped consent before Foxy initialization and remained muted; not used as enabled mix evidence. Final captured native YES was accepted after loader hidden, both soundEnabledtrue."
+}

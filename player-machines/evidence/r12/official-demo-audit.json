@@ -1,0 +1,261 @@
+{
+  "recordedAtUtc": "2026-11-06T19:00:15.019047+00:00",
+  "scope": "Current official SmartSoft public DEMO comparison and native public presentation-asset retrieval, selected two games only",
+  "officialProductUrls": [
+    "https://www.smartsoftgaming.com/games/multi-hot-5",
+    "https://www.smartsoftgaming.com/games/foxy-hot-20"
+  ],
+  "publicDemoLauncherTemplate": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName={game}&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 2,
+    "isMobile": true,
+    "hasTouch": true,
+    "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36"
+  },
+  "browser": "Headless Chromium via Playwright, ordinary public demo navigation and trusted touch gestures",
+  "boundaries": {
+    "accountsUsed": false,
+    "realMoneyWagers": 0,
+    "forcedOutcomes": false,
+    "providerStateChanges": false,
+    "oneDemoTableAtATime": true,
+    "browsersClosed": true,
+    "normalExitTouchSentBothGames": true,
+    "publicScriptsReadForPresentationMappingOnly": true,
+    "providerGameLogicCopiedIntoProduct": false
+  },
+  "FoxyHot20": {
+    "verifiedVirtualPrimaryRounds": 2,
+    "finalVisibleSpinCounterSuffix": ".2",
+    "finalCounterScreenshot": "FoxyHot20/10-menu.png",
+    "actions": [
+      "YES sound consent",
+      "open QUICK PLAY through green lightning",
+      "ENABLE QUICK PLAY",
+      "one quick primary spin",
+      "disable quick with yellow lightning",
+      "one normal primary spin",
+      "open menu/rules",
+      "normal Exit touch",
+      "close browser"
+    ],
+    "observed": [
+      "Enabled quick mode changes only SPIN arrow ring to gold while HOLD & SPIN text remains teal and disc remains dark teal; lightning becomes yellow.",
+      "A normal lightning toggle restores white arrows and green lightning.",
+      "Quick round produced natural 2.80 DMO win at0.20 DMO; winning cherries grew/glowed, shield rim glowed and selected multiplier became4x.",
+      "Normal round visibly moved reels and returned to ready, with distinct changed grid."
+    ],
+    "nativeAssetLocation": "FoxyHot20/Images/FoxyHot20/Mobile",
+    "assetManifest": "FoxyHot20/asset-manifest.json",
+    "art": [
+      "background-vertical.jpg 681x1319",
+      "TexturePacker Images-0..4 PNG/JSON: symbols, native wheel/shield, buttons, dialogs, footer, wins",
+      "Native Spine logo and foreground JSON/PNG/atlas"
+    ],
+    "angleMappingRadians": {
+      "1": "3*pi/7",
+      "2": "5*pi/7",
+      "3": "2*pi/7",
+      "4": "4*pi/7",
+      "5": "pi/7"
+    },
+    "nativeWheelSize": [
+      1164,
+      1164
+    ],
+    "nativeReelFrameApproxCssBounds": {
+      "x": 7.5,
+      "y": 171,
+      "w": 375,
+      "h": 241,
+      "hoodHeight": 26,
+      "note": "Manual screenshot measurement; not a runtime transform assertion"
+    }
+  },
+  "MultiHot5": {
+    "verifiedVirtualPrimaryRounds": 2,
+    "finalVisibleSpinCounterSuffix": ".2",
+    "finalCounterScreenshot": "MultiHot5/09-menu.png",
+    "actions": [
+      "YES sound consent",
+      "one normal primary spin",
+      "wait for natural BIG WIN presentation",
+      "collect3.75DMO",
+      "second normal primary spin",
+      "wait until ready arrow restored",
+      "open menu/rules",
+      "normal Exit touch",
+      "close browser"
+    ],
+    "observed": [
+      "Initial balance20,000DMO; primary bet0.05DMO.",
+      "First normal round naturally displayed 5x multiplier and diagonal three-sevens line for3.75DMO, BIG WIN panel and flame border.",
+      "Collect credited the displayed win, second round returned to idle with2x selected and balance20,003.65DMO.",
+      "During second round primary face showed a red STOP square; no STOP tap was sent."
+    ],
+    "nativeAssetLocation": "MultiHot5/Images/MultiHot5/Mobile",
+    "assetManifest": "MultiHot5/asset-manifest.json",
+    "art": [
+      "background-vertical.jpg 566x1322",
+      "TexturePacker Images-0..1 PNG/JSON with Box0..8, exact multiplier frames/glyphs, controls, column/footer",
+      "Native sprite animation sheets Logo0..3, X1..5, lines and win frames"
+    ],
+    "nativeMultiplierGeometry": {
+      "background": [
+        113,
+        361
+      ],
+      "glyphSourceSize": [
+        104,
+        104
+      ],
+      "selectedFrameSourceSize": [
+        126,
+        132
+      ],
+      "selectedOffset": [
+        -7,
+        121
+      ],
+      "inactiveFrameSourceSize": [
+        103,
+        114
+      ],
+      "inactiveOffsets": [
+        [
+          5,
+          19
+        ],
+        [
+          5,
+          239
+        ]
+      ]
+    }
+  },
+  "limits": [
+    "No100%pixel/audio/behavior/math equivalence claim.",
+    "A bounded current demo smoke test: two rounds per game, not a probability or RTP sample.",
+    "No exact animation-duration measurements from these screenshots.",
+    "Full public media resources retrieved, but application integration and outcome mechanics are independent work.",
+    "Original asset mapping facts derived from public presentation configuration; implementation must retain authoritative local receipts and avoid importing provider game logic."
+  ],
+  "screenshots": [
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/01-entry.png",
+      "sha256": "e0219e533c4bf222b0c3af8bf95dce11d71e5b05e45c13379c3969da248ceadd",
+      "bytes": 681706
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/02-idle-sound-yes.png",
+      "sha256": "f5c087bfd2d03536c2b460daa6867020ddb781994de8ddae74bc11d296b22709",
+      "bytes": 1202939
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/03-normal-spin.png",
+      "sha256": "ac00777ca9bb08d8a1332ae65b378b2a48fac83c735c77e75cb9ccbe579e48a7",
+      "bytes": 1183189
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/04-normal-result.png",
+      "sha256": "7f38d803f97ec2bfb3ed256fcfcbde831738b744393ddf6dc67137c2c9140ef3",
+      "bytes": 1267792
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/05-win-settled.png",
+      "sha256": "f9b52dd350caa204e863c04e4a8be510e0b67ec8358b993a21561345af172b9f",
+      "bytes": 1214462
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/06-collect.png",
+      "sha256": "f4599471a472f5fc3572022e470d11408d0b9d798be48641da0dd8b8a10185a7",
+      "bytes": 1208357
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/07-second-result.png",
+      "sha256": "c6335e051bb6a87bc1cba82c6c8d4455997c43ca8f57c509e46844de70b0287a",
+      "bytes": 1199783
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/08-second-settled.png",
+      "sha256": "5a8840d53e026ce5d0f9bdc9274e13d53559a2abffbc28b8649c88a1f01ba8da",
+      "bytes": 1210258
+    },
+    {
+      "game": "MultiHot5",
+      "file": "/workspace/work/r12-reference/MultiHot5/09-menu.png",
+      "sha256": "36a4e1b1ccbc703f9f314cbd148e487e6959d986499595f9662f475272f580c8",
+      "bytes": 289419
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/01-entry.png",
+      "sha256": "9382ce308f0ceef5de12fd5113a3fdcfc9353b32ed27ba84fa3f3486e54675c3",
+      "bytes": 724965
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/02-idle-sound-yes.png",
+      "sha256": "907e5d7c7d344ef8b946b2e73d3d99888b38bdfb1c8e80745a2027391740530e",
+      "bytes": 1132691
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/03-quickplay-dialog.png",
+      "sha256": "5f8384eafcd64a5ba2c21ce919fd9bd1b7a550224fa690cc0757c4801d8a8397",
+      "bytes": 635327
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/04-quickplay-enabled.png",
+      "sha256": "40747f2fd61de4f809cc11a7c3d9cc0190639da722408f1a96c85bb36bf27a0e",
+      "bytes": 1139879
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/05-quickplay-spin.png",
+      "sha256": "c43fb9113c61a701c57797eea25f1dc6f1c02daddc65e57ae97df196fc7c0520",
+      "bytes": 1143668
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/06-quickplay-result.png",
+      "sha256": "b5caed866e8f57e3490a354df8a945ee4cd965eccb2db6b7cc77adf9955bd798",
+      "bytes": 1307264
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/07-quickplay-disabled.png",
+      "sha256": "186e8d11b35dd490300b0972cebe454ffb0c8e8714981ac2d38a164fc9950850",
+      "bytes": 1297988
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/08-normal-spin.png",
+      "sha256": "195214243b2633813776ff88dbc5419122d3db42633b13d7d51975b34aa8e31c",
+      "bytes": 1137219
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/09-normal-result.png",
+      "sha256": "512f7c0811fb37d4672226f750da8490f953e24da3bc083763ac8aa597d9f12b",
+      "bytes": 1113324
+    },
+    {
+      "game": "FoxyHot20",
+      "file": "/workspace/work/r12-reference/FoxyHot20/10-menu.png",
+      "sha256": "3d2ca1bd132bc85d24da67d1447e84f559659ca6124f7ad670afa2ec772ea6e4",
+      "bytes": 482999
+    }
+  ]
+}

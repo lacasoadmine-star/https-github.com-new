@@ -1,8 +1,10 @@
-import {readFile,writeFile,readdir} from 'node:fs/promises';
+import {RELEASE} from '../public/registry.mjs';
+import {readFile,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
-const root=fileURLToPath(new URL('../',import.meta.url)),assets={};
-for(const name of await readdir(root+'public')){assets[name]={type:name.endsWith('.html')?'text/html; charset=utf-8':name.endsWith('.css')?'text/css; charset=utf-8':name.endsWith('.svg')?'image/svg+xml; charset=utf-8':'application/javascript; charset=utf-8',body:await readFile(root+'public/'+name,'utf8')};}
-await writeFile(root+'worker/machine-assets-20261106.mjs','export const release="zplay-machines-20261106-r11";\nexport const assets='+JSON.stringify(assets)+';\n');
+import {createHash} from 'node:crypto';
+import {packWorkerAssets} from './pack-worker-assets.mjs';
+const root=fileURLToPath(new URL('../',import.meta.url));
+const manifest=await packWorkerAssets({publicDirectory:root+'public',workerDirectory:root+'worker',release:RELEASE});
 let router=await readFile(root+'worker/player-router-v236.before.mjs','utf8');
 router="import {machineAPI,machinePage} from './machine-routes.mjs';\n"+router;
 router=router.replace(" if(!['GET','HEAD'].includes(request.method)||path.startsWith('/api/'))", " const machineResponse=await machineAPI(request,env,ctx,previous);if(machineResponse)return decorateSession(request,machineResponse,env);\n const page=machinePage(request,config);if(page)return page;\n if(!['GET','HEAD'].includes(request.method)||path.startsWith('/api/'))");
@@ -11,4 +13,9 @@ const old=await readFile(root+'worker/mh5-42726-router-v233.before.mjs','utf8');
 const marker=' const response=await previous.fetch(request,env,ctx);';
 if(!old.includes(marker))throw Error('Legacy router changed');
 await writeFile(root+'worker/mh5-42726-router-v233.mjs',old.slice(0,old.indexOf(marker))+' return previous.fetch(request,env,ctx);\n};}\n');
-console.log(JSON.stringify({assets:Object.keys(assets).length,bytes:JSON.stringify(assets).length,replaced:['player-router-v236.mjs','mh5-42726-router-v233.mjs'],added:['machine-routes.mjs','machine-assets-20261106.mjs']}));
+const routingName='machine-routes.mjs',routingBytes=await readFile(root+'worker/'+routingName);
+manifest.modules.push({name:routingName,file:'worker/'+routingName,type:'application/javascript+module',bytes:routingBytes.length,sha256:createHash('sha256').update(routingBytes).digest('hex')});
+manifest.replacedModules=['machine-assets-20261106.mjs',routingName];
+manifest.addedModules=manifest.modules.filter(module=>module.type==='application/octet-stream').map(module=>module.name);
+await writeFile(root+'worker/machine-assets-manifest.json',JSON.stringify(manifest,null,2)+'\n');
+console.log(JSON.stringify({assets:manifest.assets.length,frontendBytes:manifest.frontendBytes,workerJavaScriptBytes:manifest.workerJavaScriptBytes,binaryModules:manifest.addedModules.length,binaryBytes:manifest.binaryBytes,replacedModules:manifest.replacedModules,manifest:'worker/machine-assets-manifest.json'}));

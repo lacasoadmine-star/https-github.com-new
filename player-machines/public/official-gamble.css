@@ -1,0 +1,77 @@
+/* Original portrait panel geometry, measured in native asset coordinates.
+   These selectors do not change the shared MH100 or Stars dialogs. */
+body[data-native-gamble-controls] .secondary #collect{background:transparent var(--gamble-cabinet-take) center/100% 100% no-repeat;border:0;border-radius:0;box-shadow:none;clip-path:none}
+body[data-native-gamble-controls] .secondary #collect>:is(svg,span,small){visibility:hidden}
+body[data-native-gamble-controls="mh5"] .secondary #collect{aspect-ratio:130/143;height:auto}
+body[data-native-gamble-controls="mh5"] .secondary #collect:disabled{background-image:var(--gamble-cabinet-take-disabled);opacity:1;filter:none}
+body[data-native-gamble-controls="foxy"] .secondary #gamble{background:transparent var(--gamble-cabinet-double) center/100% 100% no-repeat;border:0;box-shadow:none}
+body[data-native-gamble-controls="foxy"] .secondary #gamble>:is(span,small){visibility:hidden}
+@media(hover:hover){
+ body[data-native-gamble-controls] .secondary #collect:not(:disabled):hover{background-image:var(--gamble-cabinet-take-hover)}
+ body[data-native-gamble-controls="foxy"] .secondary #gamble:not(:disabled):hover{background-image:var(--gamble-cabinet-double-hover)}
+}
+#gamble-dialog[data-official-gamble]{padding:0;margin:0;border:0;border-radius:0;background:transparent;color:#fff;box-shadow:none;overflow:visible;width:min(90vw,calc((100svh - 96px) * .59144),500px);max-width:none;max-height:none;text-align:center}
+#gamble-dialog[data-official-gamble]::backdrop{background:#000000d9}
+#gamble-dialog[data-official-gamble]>header,#gamble-dialog[data-official-gamble]>.choices{display:none}
+#gamble-dialog[data-official-gamble] .native-gamble-stage{position:relative;width:100%;aspect-ratio:511/864;container-type:inline-size;background:var(--gamble-background) center/100% 100% no-repeat;font-family:'Foxy Intro regular',Arial,sans-serif}
+#gamble-dialog[data-official-gamble] .native-gamble-stage>*{position:absolute;margin:0;box-sizing:border-box}
+#gamble-dialog[data-official-gamble] .native-gamble-stage button{border:0;border-radius:0;box-shadow:none;padding:0;min-height:0;min-width:0;background-color:transparent;background-size:100% 100%;background-repeat:no-repeat;color:#fff;font-family:'Foxy Intro caps',Arial,sans-serif;font-size:4.697cqw;font-weight:400;line-height:1;cursor:pointer}
+#gamble-dialog[data-official-gamble] .native-gamble-stage button:disabled{opacity:.5;cursor:default;filter:none}
+#gamble-dialog[data-official-gamble="foxy"] [data-recover="false"] button:disabled,#gamble-dialog[data-official-gamble] .native-gamble-take:disabled{opacity:1}
+#gamble-dialog[data-official-gamble] .native-gamble-stage button:focus-visible{outline:2px solid #fff;outline-offset:1px}
+#gamble-dialog[data-official-gamble] .native-gamble-label{display:block;color:#2bbf8d;font-family:'Foxy Intro caps',Arial,sans-serif;font-size:4.892cqw;line-height:1.1;white-space:nowrap}
+#gamble-dialog[data-official-gamble] .native-gamble-value{display:block;margin-top:.98cqw;font-family:'Foxy Intro caps',Arial,sans-serif;font-size:5.871cqw;line-height:1.05;font-weight:400;white-space:nowrap}
+#gamble-dialog[data-official-gamble] .native-gamble-amount{left:26.223%;top:11.921%;transform:translateX(-50%)}
+#gamble-dialog[data-official-gamble] .native-gamble-to-win{left:74.951%;top:11.921%;transform:translateX(-50%)}
+#gamble-dialog[data-official-gamble] .native-gamble-previous{left:49.511%;top:6.25%;transform:translateX(-50%);font:400 2.935cqw/1 'Foxy Intro regular',Arial,sans-serif;white-space:nowrap}
+#gamble-dialog[data-official-gamble] .native-gamble-history{left:49.511%;top:20.833%;transform:translateX(-50%);display:flex;flex-direction:row;justify-content:center;width:60%;gap:0}
+#gamble-dialog[data-official-gamble] .native-gamble-history img{position:static;width:18.8%;height:auto;object-fit:contain}
+#gamble-dialog[data-official-gamble] .native-gamble-card{left:36.204%;top:35.88%;width:26.223%;height:23.38%;object-fit:contain;pointer-events:none}
+#gamble-dialog[data-official-gamble] #red{left:6.849%;top:63.657%;width:40.705%;height:10.88%;background-image:var(--gamble-red)}
+#gamble-dialog[data-official-gamble] #black{left:53.816%;top:63.657%;width:39.335%;height:10.417%;background-image:var(--gamble-black)}
+#gamble-dialog[data-official-gamble] .native-gamble-take{left:29.354%;top:78.472%;width:42.857%;height:9.954%;background-image:var(--gamble-take);font-size:3.327cqw}
+#gamble-dialog[data-official-gamble] .native-gamble-close{left:83.562%;top:1.736%;width:13.112%;height:7.755%;background-image:var(--gamble-close);font-size:0!important}
+#gamble-dialog[data-official-gamble] .native-gamble-instruction{left:49.511%;top:90.278%;width:94%;transform:translateX(-50%);font:400 3.914cqw/1.2 'Foxy Intro regular',Arial,sans-serif}
+#gamble-dialog[data-official-gamble] .native-gamble-glows{inset:0;pointer-events:none}
+#gamble-dialog[data-official-gamble] .native-gamble-glows i{display:none}
+#gamble-dialog[data-official-gamble] [data-phase="revealed"] :is(#red,#black){pointer-events:none}
+#gamble-dialog[data-official-gamble="mh5"] [data-phase="revealed"] :is(#red,#black){opacity:.5}
+#gamble-dialog[data-official-gamble] #gamble-terms{position:absolute;top:100%;left:0;width:100%;margin:5px 0 0;padding:4px 6px;border-radius:4px;background:#061c16ed;color:#cbd8d2;font:11px/1.3 Arial,sans-serif}
+#gamble-dialog[data-official-gamble] #gamble-message{position:absolute;left:3%;right:3%;top:83%;margin:0;padding:3px;background:#062b24e6;color:#fff;font:12px/1.25 Arial,sans-serif;pointer-events:none}
+#gamble-dialog[data-official-gamble] #gamble-message:empty{display:none}
+#gamble-dialog[data-official-gamble]:has([data-recover="false"][data-error="false"]) #gamble-message{position:fixed;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+#gamble-dialog[data-official-gamble="mh5"]{width:min(88.2vw,calc((100svh - 96px) * .58226),500px)}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-stage{aspect-ratio:499/857;font-family:'MH5 Intro regular',Arial,sans-serif}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-stage button{font-family:'MH5 Intro caps',Arial,sans-serif;font-size:4.81cqw;color:#fdf99a}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-label{font-family:'MH5 Intro caps',Arial,sans-serif;color:#ffcb1f;font-size:3.006cqw}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-value{font-family:'MH5 Intro caps',Arial,sans-serif;color:#ff4848;font-size:3.006cqw;margin-top:.8cqw}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-amount{left:28.858%;top:10.035%}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-to-win{left:71.142%;top:10.035%}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-previous{left:48.898%;top:20.187%;font-family:'MH5 Intro regular',Arial,sans-serif;font-size:3.006cqw}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-history{left:48.898%;top:22.987%;width:60%}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-history img{width:15.7%;margin:0 1.67%}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-card{left:35.872%;top:34.306%;width:28.657%;height:25.438%}
+#gamble-dialog[data-official-gamble="mh5"] #red{left:8.617%;top:65.811%;width:35.271%;height:7.468%;color:#e10000;-webkit-text-stroke:.6px #ffec4f}
+#gamble-dialog[data-official-gamble="mh5"] #black{left:55.311%;top:65.811%;width:35.271%;height:7.468%;color:#000;-webkit-text-stroke:.6px #ffec4f}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-take{left:31.062%;top:80.98%;width:37.275%;height:6.184%}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-close{left:84.569%;top:-.7%;width:16.032%;height:9.452%}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-instruction{left:48.898%;top:90.898%;font-family:'MH5 Intro regular',Arial,sans-serif;font-size:3.006cqw}
+#gamble-dialog[data-official-gamble="mh5"] [data-phase="ready"][data-recover="false"] .native-gamble-glows i{display:block;position:absolute;background-size:100% 100%;animation:native-gamble-pulse .4167s linear infinite alternate}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-red{left:1.804%;top:61.844%;width:48.898%;height:15.402%;background-image:var(--gamble-red-effect)}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-black{left:48.497%;top:61.844%;width:48.898%;height:15.402%;background-image:var(--gamble-black-effect)}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-card-red,#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-card-black{left:30.862%;top:31.389%;width:38.677%;height:31.272%;z-index:2;background-image:var(--gamble-hidden-red)}
+#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-card-black{background-image:var(--gamble-hidden-black);animation-direction:alternate-reverse!important}
+/* Native MH5 starts both button glows at alpha 1, in phase with the black card. */
+#gamble-dialog[data-official-gamble="mh5"] :is(.native-gamble-glow-red,.native-gamble-glow-black){animation-direction:alternate-reverse!important}
+@keyframes native-gamble-pulse{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glows i{animation:none!important;opacity:.5}}
+@media(hover:hover){
+ #gamble-dialog[data-official-gamble] #red:not(:disabled):hover{background-image:var(--gamble-red-hover)}
+ #gamble-dialog[data-official-gamble] #black:not(:disabled):hover{background-image:var(--gamble-black-hover)}
+ #gamble-dialog[data-official-gamble] .native-gamble-take:not(:disabled):hover{background-image:var(--gamble-take-hover)}
+ #gamble-dialog[data-official-gamble] .native-gamble-close:hover{background-image:var(--gamble-close-hover)}
+}
+#gamble-dialog[data-official-gamble="foxy"] #red:not(:disabled):active{background-image:var(--gamble-red-active)}
+#gamble-dialog[data-official-gamble="foxy"] #black:not(:disabled):active{background-image:var(--gamble-black-active)}
+#gamble-dialog[data-official-gamble="foxy"] .native-gamble-take:not(:disabled):active{background-image:var(--gamble-take-active)}

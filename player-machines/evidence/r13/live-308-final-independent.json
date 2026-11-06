@@ -1,0 +1,108 @@
+{
+  "checkedAt": "2026-11-06T21:27:42.162Z",
+  "activeDeployment": {
+    "id": "33f3569e-b095-440c-b51c-6c53ee12c66d",
+    "source": "api",
+    "strategy": "percentage",
+    "annotations": {
+      "workers/message": "Verified binary asset hotfix for Cloudflare1102.494tests;41concurrentexactassetresponses;156modulesreadback;113unrelatedmodules12bindingspreserved. NativeR12browserbytesunchanged. Rollback305.",
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-11-06T21:23:50.534541Z"
+  },
+  "analytics": {
+    "data": {
+      "viewer": {
+        "accounts": [
+          {
+            "workersInvocationsAdaptive": [
+              {
+                "dimensions": {
+                  "eventType": "fetch",
+                  "httpResponseStatus": 404,
+                  "scriptVersion": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+                  "status": "success"
+                },
+                "quantiles": {
+                  "cpuTimeP99": 16590,
+                  "memoryUsageBytesP99": 108368520,
+                  "startupCpuTimeUsP99": 0
+                },
+                "sum": {
+                  "errors": 0,
+                  "requests": 14
+                }
+              },
+              {
+                "dimensions": {
+                  "eventType": "cron",
+                  "httpResponseStatus": 0,
+                  "scriptVersion": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+                  "status": "scriptThrewException"
+                },
+                "quantiles": {
+                  "cpuTimeP99": 264,
+                  "memoryUsageBytesP99": 108367810,
+                  "startupCpuTimeUsP99": 320959
+                },
+                "sum": {
+                  "errors": 3,
+                  "requests": 3
+                }
+              },
+              {
+                "dimensions": {
+                  "eventType": "fetch",
+                  "httpResponseStatus": 200,
+                  "scriptVersion": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+                  "status": "success"
+                },
+                "quantiles": {
+                  "cpuTimeP99": 20709,
+                  "memoryUsageBytesP99": 124772490,
+                  "startupCpuTimeUsP99": 279373
+                },
+                "sum": {
+                  "errors": 0,
+                  "requests": 263
+                }
+              },
+              {
+                "dimensions": {
+                  "eventType": "fetch",
+                  "httpResponseStatus": 401,
+                  "scriptVersion": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+                  "status": "success"
+                },
+                "quantiles": {
+                  "cpuTimeP99": 2172,
+                  "memoryUsageBytesP99": 108376000,
+                  "startupCpuTimeUsP99": 0
+                },
+                "sum": {
+                  "errors": 0,
+                  "requests": 8
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "errors": null
+  },
+  "summary": {
+    "fetchRequests": 285,
+    "fetchErrors": 0,
+    "fetchFiveHundred": 0,
+    "fetchP99MemoryMaxBytes": 124772490,
+    "preexistingCronErrors": 3,
+    "note": "Analytics are adaptive and delayed; raw-CDP HTTP/2 browser evidence independently confirmed no 5xx responses. Cron exceptions also occurred on baseline305 and are unrelated to this asset hotfix."
+  }
+}

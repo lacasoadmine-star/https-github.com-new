@@ -1,0 +1,37 @@
+{
+  "scope": "Two new native machine pages only; existing Worker308 modules and behavior are unchanged.",
+  "files": [
+    {
+      "file": "official-mh5-background.mjs",
+      "beforeBytes": 2796284,
+      "sharedBytes": 2796282,
+      "beforeSha256": "061fd158a0fb648de3b979ec67c466290ae1b5c6449deed61ded8c4126532055",
+      "sharedSha256": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+      "exactOriginalModuleReuse": true
+    },
+    {
+      "file": "official-mh5-effects-audio.mjs",
+      "beforeBytes": 962251,
+      "sharedBytes": 962239,
+      "beforeSha256": "6c3131ceae68518b56b36c8e86d5ad12d7b8554bcc268162f2e74ec2fe1a812c",
+      "sharedSha256": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+      "exactOriginalModuleReuse": true
+    }
+  ],
+  "avoidedDuplicateBytes": 3758535,
+  "nativeGainAdapter": "public/native-audio-gains.mjs",
+  "verifiedCoefficients": {
+    "multi_hot_5_video": {
+      "background": 0.3,
+      "win": 0.6,
+      "win-medium": 0.6,
+      "big-win": 0.6
+    }
+  },
+  "effectiveGainUnchanged": {
+    "background": 0.09,
+    "wins": 0.36
+  },
+  "assetBytes": "Original MP3 bytes are identical before and after; the whole public modules now match immutable baseline Data bytes.",
+  "otherGames": "Foxy source coefficients pass through unchanged. Existing four games continue through their original Worker308 asset namespace."
+}

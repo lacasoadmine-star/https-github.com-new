@@ -1,0 +1,235 @@
+{
+  "scope": "Only native decorative presentation. No gameplay, settlement or wallet code in runtime.",
+  "browser": "System Chromium via Playwright, software WebGL in the shared validation environment.",
+  "batch": {
+    "result": {
+      "frames": 21,
+      "commands": 13,
+      "warmMeanMs": 87.03124999995634,
+      "firstMs": 6904.899999999907,
+      "maxWarmMs": 147.89999999990687,
+      "hashes": [
+        -1143999228,
+        -28009793,
+        126596478
+      ],
+      "animatedDistinct": true,
+      "reducedMotionStable": true
+    },
+    "errors": []
+  },
+  "manager": {
+    "results": [
+      {
+        "game": "hot_foxy_20",
+        "win": {
+          "tier": "fantastic",
+          "box": {
+            "x": 56,
+            "y": 170,
+            "width": 308,
+            "height": 260
+          },
+          "amount": 300,
+          "progress": 0.08547008547008547,
+          "x": 203.9310344827586,
+          "y": 307.2068965517241,
+          "size": 26.551724137931032,
+          "fill": "#066449",
+          "stroke": null,
+          "opacity": 1,
+          "currency": {
+            "x": 203.9310344827586,
+            "y": 327.6896551724138,
+            "size": 18.206896551724135,
+            "fill": "#066449"
+          }
+        },
+        "commands": 14,
+        "finite": true,
+        "diagnostics": {
+          "ready": true,
+          "instances": 12,
+          "groups": [],
+          "decodedPages": 0,
+          "draws": 1
+        },
+        "thresholds": [
+          [
+            5,
+            null
+          ],
+          [
+            5.1,
+            null
+          ],
+          [
+            25,
+            "nice"
+          ],
+          [
+            25.1,
+            "nice"
+          ],
+          [
+            15,
+            null
+          ],
+          [
+            15.1,
+            "nice"
+          ],
+          [
+            30,
+            "nice"
+          ],
+          [
+            30.1,
+            "big"
+          ],
+          [
+            50,
+            "big"
+          ],
+          [
+            50.1,
+            "super"
+          ],
+          [
+            100,
+            "super"
+          ],
+          [
+            100.1,
+            "fantastic"
+          ]
+        ]
+      },
+      {
+        "game": "multi_hot_5_video",
+        "win": {
+          "tier": "1",
+          "box": {
+            "x": 110,
+            "y": 194,
+            "width": 202,
+            "height": 208
+          },
+          "amount": 300,
+          "progress": 0.7333333333333334,
+          "x": 211.89380530973452,
+          "y": 352.88200589970506,
+          "size": 18,
+          "fill": "#fff669",
+          "stroke": "#61310f",
+          "opacity": 1,
+          "currency": null
+        },
+        "commands": 1,
+        "finite": true,
+        "diagnostics": {
+          "ready": true,
+          "instances": 4,
+          "groups": [
+            "BoxWin",
+            "Line1",
+            "Line2",
+            "Line3",
+            "Logo",
+            "WinToBalance",
+            "X1",
+            "X2",
+            "X3",
+            "X4",
+            "X5"
+          ],
+          "decodedPages": 4,
+          "draws": 2
+        },
+        "thresholds": [
+          [
+            5,
+            "3"
+          ],
+          [
+            5.1,
+            "2"
+          ],
+          [
+            25,
+            "2"
+          ],
+          [
+            25.1,
+            "1"
+          ],
+          [
+            15,
+            "2"
+          ],
+          [
+            15.1,
+            "2"
+          ],
+          [
+            30,
+            "1"
+          ],
+          [
+            30.1,
+            "1"
+          ],
+          [
+            50,
+            "1"
+          ],
+          [
+            50.1,
+            "1"
+          ],
+          [
+            100,
+            "1"
+          ],
+          [
+            100.1,
+            "1"
+          ]
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "nativeTransforms": "Fixed authored symbol offsets, independent x/y scale, Spine3.8 bone/deform/attachment/clipping/drawOrder runtime.",
+  "spritePacking": "TexturePacker rotated frames decode clockwise-stored pixels with a counterclockwise draw transform; full original sourceSize and trim offsets retained.",
+  "nativeTiming": "Foxy logo chitebiT loop11.3s; three foreground loops9s; authored symbol animation loops; fire start1s thenloop; Foxy win11700ms countup after1500ms delay; MH5 popup0.88timeScale.",
+  "performanceLimit": "Software-host timings vary. These measurements do not establish phone GPU frame rates or100% behavioral equivalence.",
+  "runtimeSha256": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+  "presentationSha256": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+  "interactionRegression": {
+    "viewport": [
+      360,
+      800
+    ],
+    "trustedInputs": [
+      "mouse move/down/up",
+      "touchscreen tap",
+      "button tap",
+      "button click"
+    ],
+    "initial": {
+      "before": [],
+      "after": [],
+      "hash": 1949677657,
+      "hasProviderGlobals": false
+    },
+    "final": {
+      "hash": 701299277,
+      "hostClicks": 3,
+      "listeners": []
+    },
+    "errors": [],
+    "pass": true
+  },
+  "runtimeIsolation": "Renderer-only plugins: input/accessibility plugins removed before construction; upstream coordinate mapping replaces the provider-specific page rotation hook."
+}

@@ -1,0 +1,24 @@
+{
+  "scope": [
+    "multi_hot_5_video",
+    "hot_foxy_20"
+  ],
+  "sources": [
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Scripts/menu.js",
+      "localReference": "/workspace/work/r13-reference/MultiHot5/public/cache/b15/GameLauncher/Content/Scripts/menu.js",
+      "sha256": "70bcf2f05d2fcf175f3299e99bc2765ad8b039c1cd7a37f9cda65d2f41eef0b1",
+      "lines": "196\u2013220",
+      "observed": "Sound Effects is a master toggle that clears/restores Background Music; Background Music sends its own toggle without unmuting master."
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/Slots/slot.js",
+      "localReference": "/workspace/work/r12-reference/MultiHot5/Scripts/Slots/slot.js",
+      "sha256": "3262ebe49190261ac12d8756dcaed08672a4a59856a624b36b5ec16260c82b96",
+      "lines": "10561\u201310616",
+      "observed": "MH5 red/black button glows start at alpha1 and decrease with black-card alpha, step0.04 per ticker callback; red card is1\u2212black."
+    }
+  ],
+  "implementation": "Existing SoundEngine master and background controls retained; no new effects-only routing. MP3 bytes and gain metadata unchanged. Existing legacy consent key is retained; background music preference persists separately. MH5 half-cycle normalized to416.7ms at60Hz; Foxy back remains static.",
+  "rights": "Publicly delivered provider references preserve their existing provenance; no new licence or authorization claim is made."
+}

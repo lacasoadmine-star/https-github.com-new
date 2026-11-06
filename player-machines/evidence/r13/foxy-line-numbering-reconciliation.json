@@ -1,0 +1,256 @@
+{
+  "date": "2026-11-06",
+  "scope": "Official publicly delivered SmartSoft FoxyHot20 demo source and native artwork; no user uploads; no private RNG inference",
+  "verdict": "All 20 native asset topology paths exactly match the Help chart/current model topology set. Only first two line numbers differ.",
+  "source": {
+    "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box.js",
+    "localPath": "/workspace/work/r12-reference/FoxyHot20/Scripts/New/Components/box.js",
+    "sha256": "f94d5e5dcf5c135eb2615a3745072b1f1e262fc19f1a8bb1211b76122a4f592c",
+    "observations": [
+      {
+        "lineRange": [
+          1933,
+          1948
+        ],
+        "code": "let lineNumber = winLine.LineNumber; this.line(lineNumber + 1, boxes);",
+        "meaning": "Zero-based provider receipt LineNumber is incremented once."
+      },
+      {
+        "lineRange": [
+          2081,
+          2088
+        ],
+        "code": "line = (lineNumber, boxes) => { ... this.canvas.image(`BoxLine${lineNumber}`, ...);",
+        "meaning": "No source swap between first and second native artwork names."
+      }
+    ]
+  },
+  "nativeTopologyEvidence": "/workspace/work/r14-spin-fidelity/native-line-paths.json",
+  "mapping": [
+    {
+      "helpLineNumber": 1,
+      "rows": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "nativeAsset": "Box/Line/2"
+    },
+    {
+      "helpLineNumber": 2,
+      "rows": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "nativeAsset": "Box/Line/1"
+    },
+    {
+      "helpLineNumber": 3,
+      "rows": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "nativeAsset": "Box/Line/3"
+    },
+    {
+      "helpLineNumber": 4,
+      "rows": [
+        0,
+        1,
+        2,
+        1,
+        0
+      ],
+      "nativeAsset": "Box/Line/4"
+    },
+    {
+      "helpLineNumber": 5,
+      "rows": [
+        2,
+        1,
+        0,
+        1,
+        2
+      ],
+      "nativeAsset": "Box/Line/5"
+    },
+    {
+      "helpLineNumber": 6,
+      "rows": [
+        0,
+        0,
+        1,
+        2,
+        2
+      ],
+      "nativeAsset": "Box/Line/6"
+    },
+    {
+      "helpLineNumber": 7,
+      "rows": [
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      "nativeAsset": "Box/Line/7"
+    },
+    {
+      "helpLineNumber": 8,
+      "rows": [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "nativeAsset": "Box/Line/8"
+    },
+    {
+      "helpLineNumber": 9,
+      "rows": [
+        1,
+        2,
+        2,
+        2,
+        1
+      ],
+      "nativeAsset": "Box/Line/9"
+    },
+    {
+      "helpLineNumber": 10,
+      "rows": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "nativeAsset": "Box/Line/10"
+    },
+    {
+      "helpLineNumber": 11,
+      "rows": [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      "nativeAsset": "Box/Line/11"
+    },
+    {
+      "helpLineNumber": 12,
+      "rows": [
+        1,
+        0,
+        1,
+        2,
+        1
+      ],
+      "nativeAsset": "Box/Line/12"
+    },
+    {
+      "helpLineNumber": 13,
+      "rows": [
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      "nativeAsset": "Box/Line/13"
+    },
+    {
+      "helpLineNumber": 14,
+      "rows": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "nativeAsset": "Box/Line/14"
+    },
+    {
+      "helpLineNumber": 15,
+      "rows": [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "nativeAsset": "Box/Line/15"
+    },
+    {
+      "helpLineNumber": 16,
+      "rows": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "nativeAsset": "Box/Line/16"
+    },
+    {
+      "helpLineNumber": 17,
+      "rows": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "nativeAsset": "Box/Line/17"
+    },
+    {
+      "helpLineNumber": 18,
+      "rows": [
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      "nativeAsset": "Box/Line/18"
+    },
+    {
+      "helpLineNumber": 19,
+      "rows": [
+        2,
+        0,
+        2,
+        0,
+        2
+      ],
+      "nativeAsset": "Box/Line/19"
+    },
+    {
+      "helpLineNumber": 20,
+      "rows": [
+        1,
+        0,
+        2,
+        0,
+        1
+      ],
+      "nativeAsset": "Box/Line/20"
+    }
+  ],
+  "recommendation": "Resolve native visual artwork by receipt rows (path geometry), not by Help line number. No financial topology/model hash change is required.",
+  "limitations": [
+    "Native/Help line numbering differs for top and middle. This comparison validates geometry sets, not private outcome probabilities.",
+    "The existing naturally observed Foxy line4 win corroborates its unchanged V path; no contradictory natural top/middle receipt has been observed."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "at": "2026-11-06T23:20:37.574783+00:00",
+  "mode": "read-only existing source and live public metadata review",
+  "liveDeploymentId": "3cc34ab8-5d40-4830-81c9-0288f6222994",
+  "target": "sw_rebuild.rounds.game",
+  "observedProbeStatus": "review_required",
+  "automaticCompatibilityClaim": false,
+  "observedFacts": {
+    "columnType": "text",
+    "gameCheckOrForeignKeyConstraints": [],
+    "insertRules": [],
+    "rowSecurityFlagged": false,
+    "onlyReason": "INSERT_TRIGGERS_REQUIRE_REVIEW",
+    "trigger": {
+      "name": "sw_live_rounds",
+      "definition": "CREATE TRIGGER sw_live_rounds AFTER INSERT OR DELETE OR UPDATE ON sw_rebuild.rounds FOR EACH ROW EXECUTE FUNCTION sw_rebuild.sw_live_user_change('user_id')"
+    }
+  },
+  "manualAssessment": [
+    "The existing trigger runs AFTER INSERT, DELETE or UPDATE on each rounds row and receives user_id as its sole argument. Its definition has no game-specific predicate or argument.",
+    "This same unchanged trigger already serves all eleven original games; the additive release makes no DDL or trigger modification.",
+    "The observed TEXT column and absence of game CHECK/FK, RLS and insert rules provide no evidence of a new game-ID restriction. The trigger name and user_id-only argument are consistent with existing live notification behavior.",
+    "The full sw_rebuild.sw_live_user_change function body was unavailable through the readable service sources and redacted OAuth environment-variable access. Notification-only behavior therefore is not proven from its name or signature.",
+    "An AFTER trigger can raise and roll back a transaction. Existing atomic settlement and ledger rollback remain intact, so the trigger uncertainty does not justify weakening financial safeguards or changing production schema.",
+    "Proceeding with the additive frontend uses this limited manual metadata review, not an automatic compatible result; no additional diagnostic deployment or DDL is required by the evidence."
+  ],
+  "sourcesInspected": [
+    {
+      "service": "superwin-slot-reconcile",
+      "serviceId": "ba88f31d-512a-42bf-a001-2a6ff685d1dd",
+      "result": "Deployed function source has no notification function definition."
+    },
+    {
+      "service": "superwin-native-family-engine",
+      "serviceId": "f617aec9-d705-4dd3-b68b-dc058f9a0781",
+      "result": "Deployed function requires sw_live_touch(text[]) availability and canonical search_path; it does not define sw_live_user_change."
+    },
+    {
+      "service": "public-html",
+      "serviceId": "97ba722f-84cb-4903-93e5-b2a926a23cfe",
+      "result": "Deployed source has no notification function definition."
+    },
+    {
+      "service": "superwin-slot-locks",
+      "result": "Redis image, not application function source."
+    },
+    {
+      "service": "zplay-rebuild-api",
+      "serviceId": "8ff24aed-50d6-4aa8-8deb-186d086b3436",
+      "result": "Read-only service config shows compressed runtime assembled from environment variables; OAuth access redacts values, so function body is not available."
+    },
+    {
+      "service": "local captured runtime and workspace migrations",
+      "result": "No sw_live_user_change definition found."
+    }
+  ],
+  "functionBodyVerified": false,
+  "realNativeSettlementExercised": false,
+  "realWagers": 0,
+  "accountMutations": 0,
+  "schemaMutations": 0,
+  "productionDeploymentsDuringReview": 0
+}

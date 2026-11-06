@@ -1,0 +1,25 @@
+{
+  "scope": [
+    "multi_hot_5_video",
+    "hot_foxy_20"
+  ],
+  "sourceSha256": "6349b3c1bd0444f7d0006562d43916f62138cd34171a7ad3973d928a131d2d46",
+  "behavior": "Official native clips play when available. Until native media is ready, missing cues remain silent. Native module-import failure never decodes the generic legacy bank. No synthesized oscillator, generated noise loop or fanfare is used for either selected game. A missing selected native Bet or win-tier clip is not replaced by another clip.",
+  "timing": "Foxy movement starts only for an unfinished active spin at its elapsed one-shot offset. No duplicate adoption, expired clip restart, or playback during stop/mute/hidden/disposed states. MH5 retains no moving-reel cue.",
+  "validation": {
+    "focusedNodeTests": 57,
+    "passed": 57,
+    "cases": [
+      "events before delayed decode create zero oscillator/noise buffers and zero source nodes",
+      "late Foxy decode adopts elapsed offset once",
+      "late decode after stop/mute/hidden/disposal cannot start",
+      "hidden time excluded and expired one-shot cannot restart",
+      "native codec failure remains silent and does not reject events",
+      "native source-node construction failure cannot create fallback noise",
+      "missing MH5 Bet cannot become Tap and missing win tier cannot become another tier",
+      "other games retain fallback behavior",
+      "source media hashes, native gain graph and audio controls remain validated"
+    ]
+  },
+  "readiness": "Existing YES/unlock path already preloads native banks asynchronously. Gameplay does not wait for browser audio permission or decoding."
+}

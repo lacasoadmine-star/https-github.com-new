@@ -1,5 +1,7 @@
 # Production release 296 — two-game cabinet correction
 
+Historical release record. The current additive native-machine work and its publication status are documented in [RELEASE-native-r1.md](RELEASE-native-r1.md).
+
 Player: https://superwin-player.apdiy61.workers.dev/
 
 - Version: `58886e06-6bbd-4dcd-baba-3aaa3992dcfd` (296).

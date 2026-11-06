@@ -1,0 +1,104 @@
+{
+  "synthetic": true,
+  "productionRequests": 0,
+  "results": [
+    {
+      "game": "hot_foxy_20",
+      "first": {
+        "amount": "GAMBLE AMOUNT0.25 ETB",
+        "toWin": "GAMBLE TO WIN0.50 ETB",
+        "rect": {
+          "x": 22.796875,
+          "y": 29.1875,
+          "w": 344.390625,
+          "h": 582.28125
+        },
+        "decoded": {
+          "decoded": 0,
+          "names": [],
+          "disposed": false
+        }
+      },
+      "audio": {
+        "names": [
+          "win",
+          "lose",
+          "take"
+        ],
+        "playing": true,
+        "muted": true,
+        "disposed": true,
+        "otherSamples": 15
+      },
+      "errors": [],
+      "failed": [],
+      "ok": true
+    },
+    {
+      "game": "multi_hot_5_video",
+      "first": {
+        "amount": "GAMBLE AMOUNT0.25 ETB",
+        "toWin": "GAMBLE TO WIN0.50 ETB",
+        "rect": {
+          "x": 26.234375,
+          "y": 59.53125,
+          "w": 337.5,
+          "h": 579.625
+        },
+        "decoded": {
+          "decoded": 0,
+          "names": [],
+          "disposed": false
+        }
+      },
+      "audio": {
+        "names": [
+          "red",
+          "black",
+          "win",
+          "lose",
+          "take"
+        ],
+        "playing": true,
+        "muted": true,
+        "disposed": true,
+        "otherSamples": 7
+      },
+      "errors": [],
+      "failed": [],
+      "ok": true
+    }
+  ],
+  "checks": [
+    "Exact selected-game panel assets and Intro fonts load",
+    "Stake and 2x counters use supplied receipt state",
+    "Existing RED handler retained; reveal blocks duplicate colour clicks",
+    "Validated colour maps to deterministic decorative original ace",
+    "Completed history survives closing during reveal and reopening",
+    "TAKE WIN invokes only local collection callback and closes",
+    "Missing saved stake remains unknown and saved-choice disabled state remains intact",
+    "Errors remain visible",
+    "Loss auto-closes; winning above-ceiling receipt with controller canGamble:false auto-collects existing credited amount",
+    "Native gamble cues decode separately without changing main sample counts",
+    "Mute/disposal shared with SoundEngine",
+    "Native cabinet X2/collect source art applies without replacing controls"
+  ],
+  "focusedNodeTests": {
+    "passed": 48,
+    "failed": 0
+  },
+  "sourceSha256": {
+    "official-gamble-presentation.mjs": "40c9b87ea3bead55e55f3c5295aab2a9be9d6625c4d0576579c1ee0f4d709f18",
+    "official-gamble-audio.mjs": "5c1d00bb21600d283af95f0c4e09efd1fea08e0aab4d1a2b98d5adcc3af37e97",
+    "official-gamble.css": "6787adcb603a711428f1c4f424bf28af33cce5a94cd87baec5bc85b1a2b32892",
+    "official-mh5-background.mjs": "061fd158a0fb648de3b979ec67c466290ae1b5c6449deed61ded8c4126532055",
+    "official-mh5-effects-audio.mjs": "6c3131ceae68518b56b36c8e86d5ad12d7b8554bcc268162f2e74ec2fe1a812c"
+  },
+  "limits": [
+    "Only the documented portrait panel and selected interactions were compared; no whole-screen equivalence claimed.",
+    "Card suits are decorative colour indicators, never server-produced suit outcomes.",
+    "Foxy source references an inherited DoubleButton sound but no configured/observed URL was available; no replacement cue is invented.",
+    "Original MH5 source counts 51 frames to reveal and 101 frames to continue; local wall-clock timings normalize this at 60Hz.",
+    "R12 historical evidence retains pre-correction MH5 gains; r13 gain correction is recorded separately."
+  ]
+}

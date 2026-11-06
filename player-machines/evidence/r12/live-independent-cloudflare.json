@@ -1,0 +1,249 @@
+{
+  "readOnly": true,
+  "verifiedAt": "2026-11-06T20:55:25.196Z",
+  "active": {
+    "id": "cca03390-c38a-43af-b2d7-418ddbf59fac",
+    "created_on": "2026-11-06T20:44:10.063591Z",
+    "versions": [
+      {
+        "version_id": "edbc37aa-8f9e-4172-ba54-1d3c05ca61c7",
+        "percentage": 100
+      }
+    ]
+  },
+  "version": {
+    "id": "edbc37aa-8f9e-4172-ba54-1d3c05ca61c7",
+    "number": 307,
+    "sourceCommit": "eb745e00996b24f385780957fddc7614b5276722",
+    "main_module": "restore-20261102.mjs",
+    "bindingCount": 12,
+    "bindings": [
+      {
+        "name": "API_ORIGIN",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_ORIGIN",
+        "type": "plain_text"
+      },
+      {
+        "name": "BRIDGE_SHARED_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "CATALOG_ENABLED",
+        "type": "plain_text"
+      },
+      {
+        "name": "ENGINE_EXTENSION",
+        "type": "service"
+      },
+      {
+        "name": "LEGACY_PLAYER",
+        "type": "service"
+      },
+      {
+        "name": "LOCAL_DEMO_WALLETS",
+        "type": "durable_object_namespace"
+      },
+      {
+        "name": "NATIVE_ENGINE_ORIGIN",
+        "type": "plain_text"
+      },
+      {
+        "name": "NATIVE_ENGINE_SECRET",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_KEY",
+        "type": "secret_text"
+      },
+      {
+        "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+        "type": "plain_text"
+      },
+      {
+        "name": "PORTAL",
+        "type": "plain_text"
+      }
+    ],
+    "migration_tag": "local-demo-v1",
+    "compatibility_date": "2026-10-01",
+    "usage_model": "standard"
+  },
+  "cleanup": {
+    "temporaryKV": {
+      "absent": true,
+      "status": 404
+    },
+    "temporaryRelay": {
+      "absent": true,
+      "status": 404
+    }
+  },
+  "sourcePreservation": {
+    "candidateId": "edbc37aa-8f9e-4172-ba54-1d3c05ca61c7",
+    "sourceCommit": "eb745e00996b24f385780957fddc7614b5276722",
+    "asset": {
+      "name": "machine-assets-20261106.mjs",
+      "bytes": 30598213,
+      "sha256": "6dc7982c25e4c1fc0874c351cac1a563e776f7b48c024c708b0fe61684993677"
+    },
+    "moduleCount": 115,
+    "unchangedOtherModules": 114,
+    "bindings": 12,
+    "totalBytes": 59632746,
+    "basis": "Root agent's completed full candidate readback; this independent check did not refetch all source modules."
+  },
+  "analytics": {
+    "source": "Cloudflare GraphQL workersInvocationsAdaptive",
+    "window": {
+      "start": "2026-11-06T20:24:00Z",
+      "end": "2026-11-06T20:57:20.128Z"
+    },
+    "versions": {
+      "ca3fd065-f614-4275-9bad-07936e3be7cd": {
+        "fetchRequests": 198,
+        "successfulFetchInvocations": 196,
+        "fetchErrors": 0,
+        "cronRequests": 16,
+        "cronErrors": 16,
+        "clientDisconnected": 2,
+        "exceededResources": 0,
+        "httpStatuses": {
+          "0": 2,
+          "200": 191,
+          "401": 2,
+          "404": 3
+        },
+        "http200P99": {
+          "cpuMs": 26.955,
+          "memoryBytes": 95183740,
+          "startupCpuMs": 218.206
+        }
+      },
+      "edbc37aa-8f9e-4172-ba54-1d3c05ca61c7": {
+        "fetchRequests": 488,
+        "successfulFetchInvocations": 487,
+        "fetchErrors": 0,
+        "cronRequests": 12,
+        "cronErrors": 12,
+        "clientDisconnected": 1,
+        "exceededResources": 0,
+        "httpStatuses": {
+          "0": 1,
+          "200": 470,
+          "304": 4,
+          "401": 12,
+          "405": 1
+        },
+        "http200P99": {
+          "cpuMs": 23.807,
+          "memoryBytes": 190822350,
+          "startupCpuMs": 548.183
+        }
+      },
+      "72e50e05-eb81-4eff-8af5-cf2edac5bd86": {
+        "fetchRequests": 162,
+        "successfulFetchInvocations": 160,
+        "fetchErrors": 0,
+        "cronRequests": 3,
+        "cronErrors": 3,
+        "clientDisconnected": 2,
+        "exceededResources": 0,
+        "httpStatuses": {
+          "0": 2,
+          "200": 144,
+          "304": 4,
+          "401": 9,
+          "404": 3
+        },
+        "http200P99": {
+          "cpuMs": 27.104,
+          "memoryBytes": 192219460,
+          "startupCpuMs": 588.528
+        }
+      }
+    },
+    "last20MinuteSplit": {
+      "start": "2026-11-06T20:36:05.916Z",
+      "cutover": "2026-11-06T20:44:10.063591Z",
+      "end": "2026-11-06T20:56:05.916Z",
+      "groups": {
+        "after307": [
+          {
+            "dimensions": {
+              "status": "clientDisconnected"
+            },
+            "quantiles": {
+              "cpuTimeP50": 0,
+              "cpuTimeP99": 0
+            },
+            "sum": {
+              "errors": 0,
+              "requests": 1
+            }
+          },
+          {
+            "dimensions": {
+              "status": "success"
+            },
+            "quantiles": {
+              "cpuTimeP50": 1972,
+              "cpuTimeP99": 21480
+            },
+            "sum": {
+              "errors": 0,
+              "requests": 437
+            }
+          },
+          {
+            "dimensions": {
+              "status": "scriptThrewException"
+            },
+            "quantiles": {
+              "cpuTimeP50": 182,
+              "cpuTimeP99": 919
+            },
+            "sum": {
+              "errors": 11,
+              "requests": 11
+            }
+          }
+        ],
+        "before307": [
+          {
+            "dimensions": {
+              "status": "clientDisconnected"
+            },
+            "sum": {
+              "errors": 0,
+              "requests": 2
+            }
+          },
+          {
+            "dimensions": {
+              "status": "success"
+            },
+            "sum": {
+              "errors": 0,
+              "requests": 55
+            }
+          },
+          {
+            "dimensions": {
+              "status": "scriptThrewException"
+            },
+            "sum": {
+              "errors": 8,
+              "requests": 8
+            }
+          }
+        ]
+      }
+    },
+    "interpretation": "All reported exceptions are cron events, present in baseline305 and version307. Version307 has no reported fetch exceptions, HTTP503 responses or exceededResources outcomes in this window. Analytics does not independently prove the external proxy caused browser503, but does not support a Worker static-request failure.",
+    "limits": "Adaptive analytics may be sampled and delayed; measurements cover the stated window only. Cron exception cause was not inspected or changed."
+  },
+  "mutations": []
+}
