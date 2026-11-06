@@ -11,3 +11,9 @@ No result generation, paytable, server mathematics, session boundary, wallet rec
 Validation evidence is recorded in test/browser-qa-r6.json and worker/deployment-297.json after publication. Local validation: 244 Node game tests; six native Canvas configurations; 9 backend tests against disposable SQLite; Player, Agent and Admin builds; 10 portal regression tests; local health/login/static asset checks. Browser Rendering runs use isolated synthetic sessions and receipts, not live balances. Physical-device audio and authenticated production wallet settlement are outside these checks.
 
 Source branch: codex/two-game-art-audio-r6-20261106. Rollback version: 58886e06-6bbd-4dcd-baba-3aaa3992dcfd (296).
+
+## Confirmed publication
+
+Version 297 (`21386faa-173c-4ee3-8e34-e817692815c5`) serves 100% traffic. Deployment `52236f66-07aa-44cd-9521-334beec1d317`, 6 November 2026 at 03:47:04 Africa/Addis_Ababa. Runtime source: `1bb38b072fb2d6ab866d181b17b8dc8b34baaaec`. Eight isolated Browser Rendering runs passed 802 assertions, with zero browser errors. All 111 other module bodies, inherited settings and migration tag were verified unchanged.
+
+Fresh live checks passed for both published game URLs: HTTP 200, r6 assets, signed-out account prompt, one canvas, no video/iframe or recorder text. Local Chromium confirmed decoded symbol/cabinet artwork and no JavaScript errors; Cloudflare Browser Rendering passed 18 guest DOM assertions. Guest checks do not establish authenticated wallet settlement.

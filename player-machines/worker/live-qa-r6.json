@@ -1,0 +1,181 @@
+{
+  "http": [
+    {
+      "path": "/games/multi_hot_5_video",
+      "status": 200,
+      "bytes": 6458,
+      "guest": null
+    },
+    {
+      "path": "/games/hot_foxy_20",
+      "status": 200,
+      "bytes": 6452,
+      "guest": null
+    },
+    {
+      "path": "/zplay-machines-20261106-r6/controller.mjs",
+      "status": 200,
+      "bytes": 19335,
+      "guest": null
+    },
+    {
+      "path": "/zplay-machines-20261106-r6/audio-samples.mjs",
+      "status": 200,
+      "bytes": 88179,
+      "guest": null
+    },
+    {
+      "path": "/zplay-machines-20261106-r6/cabinet-art.mjs",
+      "status": 200,
+      "bytes": 292882,
+      "guest": null
+    },
+    {
+      "path": "/api/machine-session",
+      "status": 200,
+      "bytes": 23,
+      "guest": {
+        "authenticated": false
+      }
+    }
+  ],
+  "chromium": [
+    {
+      "game": "multi_hot_5_video",
+      "status": 200,
+      "state": "signedout",
+      "artwork": true,
+      "cabinet": true,
+      "canvas": 1,
+      "balance": "\u2014",
+      "notice": "Sign in to your existing Player account.",
+      "videoCount": 0,
+      "errors": []
+    },
+    {
+      "game": "hot_foxy_20",
+      "status": 200,
+      "state": "signedout",
+      "artwork": true,
+      "cabinet": true,
+      "canvas": 1,
+      "balance": "\u2014",
+      "notice": "Sign in to your existing Player account.",
+      "videoCount": 0,
+      "errors": []
+    }
+  ],
+  "productionWalletMutated": false,
+  "cloudflareBrowserRendering": {
+    "environment": "Cloudflare Browser Rendering",
+    "productionVersion": 297,
+    "authenticated": false,
+    "productionWalletMutations": false,
+    "notes": [
+      "Guest live checks use signed-out DOM and actual production asset URLs.",
+      "Inline addScriptTag diagnostics were blocked by production script-src self CSP; final tests respect CSP."
+    ],
+    "results": [
+      {
+        "case": {
+          "game": "multi",
+          "url": "https://superwin-player.apdiy61.workers.dev/games/multi_hot_5_video",
+          "width": 390,
+          "height": 844,
+          "dpr": 2
+        },
+        "success": true,
+        "meta": {
+          "status": 200,
+          "title": "Multi Hot 5 \u00b7 ZPLAY",
+          "headers": {
+            "cf-ray": "a5601b2fcc1dd6c2-CDG",
+            "cache-control": "no-store",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'",
+            "content-type": "text/html; charset=utf-8",
+            "date": "Fri, 06 Nov 2026 00:50:48 GMT",
+            "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+            "referrer-policy": "same-origin",
+            "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TFn0mmQGH70i%2FlJX6J64cj9IkSrBVHrQCDtG%2FLfCyqCZektCUs9WAO1AcOtKY37B0w7oor%2FxaWGQJlT0AqE3pfv906ohZPvKtUwAc2zDuZAayjsfljW8nRl7grvGW%2FTAIhvpWBOpi6DkMoYAZhbAp59pJl2TbQ%3D%3D\"}]}",
+            "server": "cloudflare",
+            "x-content-type-options": "nosniff",
+            "x-zplay-release": "zplay-machines-20261106-r6",
+            "alt-svc": "h3=\":443\"; ma=86400"
+          },
+          "finalUrl": "https://superwin-player.apdiy61.workers.dev/games/multi_hot_5_video"
+        },
+        "state": "signedout",
+        "balance": "\u2014",
+        "notice": "Sign in to your existing Player account.",
+        "assetURLs": [
+          "/zplay-machines-20261106-r6/style.css",
+          "/zplay-machines-20261106-r6/controller.mjs"
+        ],
+        "canvasCount": 1,
+        "videoCount": 0,
+        "iframeCount": 0,
+        "checks": {
+          "http200": true,
+          "signedOut": true,
+          "r6Assets": true,
+          "singleCanvas": true,
+          "noVideo": true,
+          "noIframe": true,
+          "noScreenRecordingText": true,
+          "guestBalance": true,
+          "signInNotice": true
+        }
+      },
+      {
+        "case": {
+          "game": "foxy",
+          "url": "https://superwin-player.apdiy61.workers.dev/games/hot_foxy_20",
+          "width": 360,
+          "height": 800,
+          "dpr": 3
+        },
+        "success": true,
+        "meta": {
+          "status": 200,
+          "title": "Hot Foxy 20 \u00b7 ZPLAY",
+          "headers": {
+            "cf-ray": "a5601aebbb5f031c-MAD",
+            "cache-control": "no-store",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'",
+            "content-type": "text/html; charset=utf-8",
+            "date": "Fri, 06 Nov 2026 00:50:38 GMT",
+            "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+            "referrer-policy": "same-origin",
+            "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cTw6ygMV8%2F44%2Fg0MbHNqCjxVTL7J1NZfrLyT%2FbSB4qrulLC24fVwjPfUaGA8wCBpd5Y%2F60FTK9a4GpXOKifKBAYmPKS6a31P4APvophLSKJpnsW0fHODrFz2D08cJjXSr0ToN3JOZ3lOBixAPwvHxRURsaKk9g%3D%3D\"}]}",
+            "server": "cloudflare",
+            "x-content-type-options": "nosniff",
+            "x-zplay-release": "zplay-machines-20261106-r6",
+            "alt-svc": "h3=\":443\"; ma=86400"
+          },
+          "finalUrl": "https://superwin-player.apdiy61.workers.dev/games/hot_foxy_20"
+        },
+        "state": "signedout",
+        "balance": "\u2014",
+        "notice": "Sign in to your existing Player account.",
+        "assetURLs": [
+          "/zplay-machines-20261106-r6/style.css",
+          "/zplay-machines-20261106-r6/controller.mjs"
+        ],
+        "canvasCount": 1,
+        "videoCount": 0,
+        "iframeCount": 0,
+        "checks": {
+          "http200": true,
+          "signedOut": true,
+          "r6Assets": true,
+          "singleCanvas": true,
+          "noVideo": true,
+          "noIframe": true,
+          "noScreenRecordingText": true,
+          "guestBalance": true,
+          "signInNotice": true
+        }
+      }
+    ]
+  }
+}
