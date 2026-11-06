@@ -1,6 +1,8 @@
-# Two-game public-demo corrections and HTTP/2 fix
+# Archived replacement-r13 plan and HTTP/2 fix
 
-Status: binary packaging hotfix Worker308 is active; the compatible r13 frontend and versioned Railway rules update are prepared for publication. The final publication record will replace this status after live verification.
+Status: **the replacement-scope r13 frontend and backend were stopped and never published.** The user requested two new machines alongside the original ones. The current additive release is documented in [RELEASE-native-r1.md](RELEASE-native-r1.md). Worker308's binary packaging hotfix was published separately and remains the baseline.
+
+The details below are the historical replacement plan and its scoped test evidence. Its migration behavior, nine-unaffected-game count and frontend-first rollout order do not describe the additive release. Do not deploy its frozen candidates or staged Railway source.
 
 Only Multi Hot5 and Foxy Hot20 receive new game rules and native controls. Reference material comes from the official SmartSoft public DEMO sessions and public assets; no user-supplied video or screenshot was used for these corrections.
 

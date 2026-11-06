@@ -7,13 +7,13 @@ import {fileURLToPath} from 'node:url';
 import {randomBytes,randomUUID,randomInt} from 'node:crypto';
 import {spin,publicGames,getGame,gambleDraw,modelIdentity,receiptGame} from '../test/current-core.mjs';
 import {decimal,units,validateRound,validateGamble,gambleStakeAllowed} from '../public/contract.mjs';
-import {gameConfig,gameConfigForReceipt,RELEASE} from '../public/registry.mjs';
+import {gameConfig,gameConfigForReceipt,presentationGameId,nativeFamilies,RELEASE} from '../public/registry.mjs';
 
 if(!process.argv.includes('--qa'))throw Error('QA is opt-in: pass --qa. This server is local and uses invented balances only.');
 const port=Number(process.argv.find(x=>x.startsWith('--port='))?.split('=')[1]||8767);
 if(!Number.isInteger(port)||port<1024||port>65535)throw Error('Invalid local QA port');
 const host='127.0.0.1',origin=`http://${host}:${port}`,root=fileURLToPath(new URL('../public/',import.meta.url)).replace(/\/$/,'');
-const games=new Set(['multi_hot_5_video','hot_foxy_20','wild_multi_stars','multi_hot_100']),sessions=new Map(),requests=[];
+const games=new Set(['multi_hot_5_video','hot_foxy_20','wild_multi_stars','multi_hot_100',...Object.keys(nativeFamilies)]),sessions=new Map(),requests=[];
 const cents=s=>units(s)/100n,cash=n=>decimal(n),cookieName='superwin_local_qa';
 const fail=(status,detail)=>Object.assign(Error(detail),{status,detail});
 const check=(condition,status,detail)=>{if(!condition)throw fail(status,detail);};
@@ -31,14 +31,14 @@ function resultFor(id,bet,isFree,desired,legacy=false){
   check(stops.every(x=>x>=0),400,'QA_SCATTER_UNAVAILABLE');let n=0;
   return spin(id,bet,{isFree,draw:max=>n<stops.length?stops[n++]:randomInt(max)});
  }
- for(let i=0;i<30000;i++){const r=spin(id,bet,{isFree,legacy});if(!desired||desired==='random'||desired==='win'&&cents(r.finalWin)>0n&&!r.bonusSpinsAwarded||desired==='loss'&&cents(r.finalWin)===0n&&!r.bonusSpinsAwarded)return r;}
+ for(let i=0;i<30000;i++){const r=spin(id,bet,{isFree,legacy});if(!desired||desired==='random'||desired==='win'&&cents(r.finalWin)>0n&&!r.bonusSpinsAwarded||desired==='bigwin'&&cents(r.finalWin)>cents(bet)*15n&&!r.bonusSpinsAwarded||desired==='multiline'&&r.winLines.length>=2&&!r.bonusSpinsAwarded||desired==='loss'&&cents(r.finalWin)===0n&&!r.bonusSpinsAwarded)return r;}
  throw fail(500,'QA_OUTCOME_SEARCH_EXHAUSTED');
 }
 function settleSpin(s,req){
  const {gameId:id,bet,roundToken}=req;check(games.has(id)&&tokenValid(roundToken),422,'GAME_BET_OR_TOKEN_INVALID');
  s.spinPosts++;
  return idempotent(s.rounds,roundToken,JSON.stringify({gameId:id,bet}),()=>{
-  const free=gameState(s,id),plan=queuedPlan(s,id);check(!free.remaining||free.bet===bet,409,'FREE_SPIN_BET_LOCKED');const isFree=free.remaining>0,model=gameConfig(id,modelIdentity(id,{legacy:isFree}));check(model.betLevels.includes(bet),422,'GAME_BET_OR_TOKEN_INVALID');if(['multi_hot_5_video','hot_foxy_20'].includes(id))check((isFree&&!req.mathVersion)||req.mathVersion===model.mathVersion,409,'GAME_RULES_UPDATED_RELOAD');const stake=isFree?0n:cents(bet);check(s.balance>=stake,402,'INSUFFICIENT_FUNDS');
+  const free=gameState(s,id),plan=queuedPlan(s,id);check(!free.remaining||free.bet===bet,409,'FREE_SPIN_BET_LOCKED');const isFree=free.remaining>0,model=gameConfig(id,modelIdentity(id,{legacy:isFree}));check(model.betLevels.includes(bet),422,'GAME_BET_OR_TOKEN_INVALID');if(nativeFamilies[id])check((isFree&&!req.mathVersion)||req.mathVersion===model.mathVersion,409,'GAME_RULES_UPDATED_RELOAD');const stake=isFree?0n:cents(bet);check(s.balance>=stake,402,'INSUFFICIENT_FUNDS');
   const r=resultFor(id,bet,isFree,plan.nextOutcome);delete plan.nextOutcome;const before=s.balance,pay=cents(r.finalWin);
   ledger(s,-stake,'spin_stake',r.roundId);ledger(s,pay,'spin_win',r.roundId);if(isFree)free.remaining--;free.remaining+=r.bonusSpinsAwarded;free.bet=bet;
   const receipt={currency:'ETB',balanceBefore:cash(before),chargedStake:cash(stake),finalWin:cash(pay),balanceAfter:cash(s.balance)};
@@ -71,7 +71,7 @@ const server=http.createServer(async(req,res)=>{
    check(s,401,'QA_SESSION_REQUIRED');
    if(url.pathname==='/qa/report'){json(res,200,sessionReport(s));return;}
    if(url.pathname==='/qa/plan'&&req.method==='POST'){
-    const body=await jsonBody(req);check(games.has(body.gameId),400,'QA_GAME_REQUIRED');const plan=queuedPlan(s,body.gameId);if(body.nextOutcome)check(['win','loss','scatter','random'].includes(body.nextOutcome),400,'QA_OUTCOME_INVALID');if(body.nextGamble)check(['win','lose'].includes(body.nextGamble),400,'QA_GAMBLE_INVALID');
+    const body=await jsonBody(req);check(games.has(body.gameId),400,'QA_GAME_REQUIRED');const plan=queuedPlan(s,body.gameId);if(body.nextOutcome)check(['win','loss','scatter','random','bigwin','multiline'].includes(body.nextOutcome),400,'QA_OUTCOME_INVALID');if(body.nextGamble)check(['win','lose'].includes(body.nextGamble),400,'QA_GAMBLE_INVALID');
     for(const k of ['nextOutcome','nextGamble','dropNextSpinResponse','delayNextSpinMs'])if(body[k]!==undefined)plan[k]=body[k];
     if(body.seedFreeAtZero){check(getGame(body.gameId,{legacy:true}).features.freeSpins.spins>0,400,'QA_FREE_GAME_INVALID');ledger(s,-s.balance,'synthetic_zero_balance_seed',null);const r=resultFor(body.gameId,body.bet||'2.00',true,'loss'),receipt={currency:'ETB',balanceBefore:'0.00',chargedStake:'0.00',finalWin:'0.00',balanceAfter:'0.00'};Object.assign(r,receipt,{walletReceipt:receipt,freeSpinsRemaining:2});validateRound(r,gameConfigForReceipt(r),r.bet);s.roundIds.set(r.roundId,{result:r,created_at:new Date().toISOString(),gambleAttempt:0,gambleValue:'0.00',consumed:true});Object.assign(gameState(s,body.gameId),{remaining:2,bet:r.bet});}
     if(body.seedLegacyPending){
@@ -92,9 +92,9 @@ const server=http.createServer(async(req,res)=>{
    if(url.pathname==='/api/slots/gamble'){json(res,200,settleGamble(s,body).result);return;}
    throw fail(404,'QA_ROUTE_NOT_FOUND');
   }
-  let file;if(url.pathname.startsWith('/games/')){const id=url.pathname.split('/').at(-1);check(games.has(id),404,'GAME_NOT_FOUND');const body=(await readFile(resolve(root,'index.html'),'utf8')).replace('{{GAME}}',id);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store','x-superwin-qa':'synthetic-local-only','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"});res.end(req.method==='HEAD'?undefined:body);return;}
+  let file;if(url.pathname.startsWith('/games/')){const id=url.pathname.split('/').at(-1);check(!!nativeFamilies[id],404,'NATIVE_GAME_REQUIRED');const body=(await readFile(resolve(root,'index.html'),'utf8')).replace('{{GAME}}',id).replace('{{PRESENTATION_GAME}}',presentationGameId(id));res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store','x-superwin-qa':'synthetic-local-only','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"});res.end(req.method==='HEAD'?undefined:body);return;}
   if(url.pathname.startsWith('/'+RELEASE+'/')&&url.pathname.split('/').length===3)file=resolve(root,basename(url.pathname));
-  else if(url.pathname==='/') {res.writeHead(302,{location:'/games/multi_hot_5_video'});res.end();return;}
+  else if(url.pathname==='/') {res.writeHead(302,{location:'/games/multi_hot_5_native'});res.end();return;}
   else throw fail(404,'QA_ROUTE_NOT_FOUND');
   check(file.startsWith(root+'/'),403,'QA_PATH_DENIED');await stat(file);const type=file.endsWith('.css')?'text/css':file.endsWith('.svg')?'image/svg+xml':(file.endsWith('.mjs')||file.endsWith('.js'))?'application/javascript':file.endsWith('.webp')?'image/webp':file.endsWith('.gif')?'image/gif':'application/octet-stream';res.writeHead(200,{'content-type':type,'cache-control':'no-store','x-superwin-qa':'synthetic-local-only'});res.end(req.method==='HEAD'?undefined:await readFile(file));
  }catch(e){code=e.status||500;json(res,code,{detail:e.detail||e.message,synthetic:true});}

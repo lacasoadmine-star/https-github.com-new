@@ -1,0 +1,17 @@
+{
+  "scope": "Read-only examination of immutable Worker308 (156 modules) and local/historical source; no authenticated production reads or account writes.",
+  "workerVersion": "2fad5f75-d154-41a0-8d64-12597a95d42e",
+  "workerModule": "worker.mjs",
+  "workerModuleSha256": "fb2d2bed5c7d0b885037c71caacf8c6951724a52871ca61652027e87da2f5176",
+  "verified": [
+    "No Worker favourite ID allowlist or favourite API handler exists; favourites occurrences are client assets only.",
+    "Default Worker routes /api/* through forwardAPI to env.API_ORIGIN or env.BACKEND, forwarding credentials and request body.",
+    "POST origin must match the Player origin; forwarding sets x-sw-portal and upstream Origin.",
+    "rejectRemovedGames neither parses favourites bodies nor rejects the new IDs.",
+    "Native portal sends the exact new ID and keeps old favourite alias keys unchanged.",
+    "Native-only confirmation now prevents unsupported/ignored writes from showing Saved. Non-list mutation success is verified through the existing authenticated GET. Failure leaves prior state and displays an error."
+  ],
+  "unknown": "The upstream backend accepted-ID mechanism cannot be proved: zplay-rebuild-api is image/runtime based; its SW_INTERNAL_RUNTIME_* values are redacted by OAuth, no favourite source exists in this repository history, and public /openapi.json is404. No real account write was attempted.",
+  "requiredIfBackendRejects": "Add exactly foxy_hot_20_native and multi_hot_5_native to the existing authenticated backend favourite allowlist/registry, keeping the same per-user storage. A Worker alias to old game IDs would incorrectly merge favourites and must not be used.",
+  "tests": "15 local catalogue/router checks; localhost browser additionally exercises ignored native favourite writes."
+}

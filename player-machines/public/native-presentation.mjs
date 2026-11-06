@@ -1,3 +1,4 @@
+import {multiLineSchedule,foxyWinProgress} from './native-motion-profile.mjs';
 // Plays native decorative timelines against already validated receipts.
 // No provider networking, wager selection, reel strips or settlement code.
 const foxySymbols = ['fox','cherry','lemon','orange','watermelon','winged_bell','777','big_star'];
@@ -51,7 +52,7 @@ class NativePresentation {
   c.restore();this.drawCount++;return true;
  }
  begin(){this.commands=[];}
- queue(name,options){const instance=this.instances[name];if(!instance)return false;this.commands.push({instance,...options});return true;}
+ queue(name,options){const instance=this.instances[name];if(!instance)return false;this.commands.push({name,instance,...options});return true;}
  decorations(c,seconds,reducedMotion=false) {
   if(this.game.id==='multi_hot_5_video')return this.frame(c,'Logo',reducedMotion?0:seconds,{x:61,y:73,w:304,h:82.26,loop:true});
   const time=reducedMotion?0:seconds;
@@ -76,23 +77,23 @@ class NativePresentation {
    x:(-254-224)*.75,y:-46*.75,scaleX:.5*.75,scaleY:.49*.75});
  }
  multiHighlights(c,result,age,reducedMotion=false) {
-  if(this.game.id!=='multi_hot_5_video'||!result.winLines?.length||reducedMotion)return false;
-  const v=this.game.visual,cw=v.w/this.game.reels,ch=v.h/this.game.rows,line=result.winLines[Math.floor(age/2100)%result.winLines.length],seconds=(age%2100)/1000;
+  if(this.game.id!=='multi_hot_5_video'||!result.winLines?.length)return null;
+  const v=this.game.visual,cw=v.w/this.game.reels,ch=v.h/this.game.rows,schedule=multiLineSchedule(result.winLines,age,{reducedMotion});for(const {line,seconds}of schedule.active){
   this.warmGroup('BoxWin');this.warmGroup('X'+result.wheelMultiplier);
   for(const[row,col]of line.positions)this.frame(c,'BoxWin',seconds,{x:v.x+col*cw-cw*.14,y:v.y+row*ch-ch*.28,w:cw*1.28,h:ch*1.56});
   this.frame(c,'X'+result.wheelMultiplier,seconds,{x:-3,y:v.y+ch-7,w:84,h:98});
-  for(let i=1;i<line.positions.length;i++){
+  for(let i=1;i<line.positions.length;i++){if(seconds<(i-1)*.05)continue;
    const [row,col]=line.positions[i-1],[nextRow,nextCol]=line.positions[i],group=nextRow===row?'Line1':nextRow>row?'Line2':'Line3';this.warmGroup(group);
    this.frame(c,group,Math.max(0,seconds-(i-1)*.05),{x:v.x+col*cw,y:v.y+Math.min(row,nextRow)*ch,w:(nextCol-col+1)*cw,h:ch*(Math.abs(nextRow-row)+1),fps:15});
   }
-  return true;
+  }return schedule.selected;
  }
  winTier(ratio){return this.game.id==='multi_hot_5_video'?(ratio>25?'1':ratio>5?'2':ratio>0?'3':null):(ratio>100?'fantastic':ratio>50?'super':ratio>30?'big':ratio>15?'nice':null);}
- win(c,{amount,bet,age,reducedMotion=false}) {
+ win(c,{amount,bet,age,reducedMotion=false,completed=false}) {
   const tier=this.winTier(amount/Math.max(.01,bet));if(!tier)return null;
   const instance=this.instances.wins,foxy=this.game.id==='hot_foxy_20';if(!instance)return null;
   const speed=foxy?1:.88,delay=foxy?1500:0,elapsed=Math.max(0,age-delay);
-  if(age<delay||elapsed>instance.duration(tier)/speed*1000)return null;
+  if(age<delay||elapsed>(foxy?13700:instance.duration(tier)/speed*1000))return null;
   const bounds=winReferenceBounds[this.game.id+':'+tier],box=foxy?{x:56,y:170,width:308,height:260}:{x:110,y:194,width:202,height:208};
   const seconds=reducedMotion?1.5:elapsed/1000*speed;
   this.queue('wins',{animation:tier,timeSeconds:seconds,loop:false,box,referenceBounds:bounds});
@@ -102,12 +103,12 @@ class NativePresentation {
   const point=foxy?[550,523]:[656,tier==='1'?-538:tier==='2'?-640:-700];
   // Provider text nodes use a top anchor; the caller paints with Canvas's middle baseline.
   const size=foxy?70*scale:Math.max(18,48*scale),x=originX+point[0]*scale;
-  return {tier,box,amount,progress:reducedMotion?1:Math.min(1,elapsed/(foxy?11700:3000/.88)),
+  return {tier,box,amount,progress:reducedMotion?1:foxy?foxyWinProgress(age,completed):Math.min(1,elapsed/(3000/.88)),linear:foxy,
    x,y:originY+point[1]*scale+size/2,size,fill:foxy?'#066449':tier==='3'?'#00ff9c':'#fff669',stroke:foxy?null:'#61310f',
    opacity:foxy&&!reducedMotion&&elapsed<1000?0:1,
    currency:foxy?{x,y:originY+(588+24)*scale,size:48*scale,fill:'#066449'}:null};
  }
- flush(c){if(!this.commands.length)return;this.runtime.renderNativeBatch(c,this.commands,{maxDimension:1200});this.drawCount++;}
+ flush(c,{winContext}={}){if(!this.commands.length)return;const base=winContext?this.commands.filter(command=>command.name!=='wins'):this.commands,wins=winContext?this.commands.filter(command=>command.name==='wins'):[];if(base.length)this.runtime.renderNativeBatch(c,base,{maxDimension:1200});if(wins.length)this.runtime.renderNativeBatch(winContext,wins,{maxDimension:1200});this.drawCount++;}
  diagnostics(){return {ready:true,instances:Object.keys(this.instances).length,groups:[...this.groups.keys()],decodedPages:[...this.pages.values()].filter(Boolean).length,draws:this.drawCount};}
  destroy(){this.disposed=true;for(const instance of Object.values(this.instances))instance.destroy();this.pages.clear();this.pageLoads.clear();this.commands=[];}
 }

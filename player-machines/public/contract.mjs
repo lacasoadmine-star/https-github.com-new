@@ -1,5 +1,5 @@
 // Read-only verification of the existing server result. This module never draws outcomes.
-import {gameConfig,gameConfigForReceipt,isLegacyModel} from './registry.mjs';
+import {gameConfig,gameConfigForReceipt,isLegacyModel,presentationGameId} from './registry.mjs';
 const assert=(condition,code)=>{if(!condition)throw Error(code);};
 export function units(value,decimals=4){assert(typeof value==='string'&&/^(0|[1-9]\d{0,12})(?:\.\d{1,4})?$/.test(value),'INVALID_MONEY');const [whole,fraction='']=value.split('.');assert(fraction.length<=decimals,'MONEY_PRECISION');return BigInt(whole)*10n**BigInt(decimals)+BigInt(fraction.padEnd(decimals,'0'));}
 export function decimal(value,places=2){value=BigInt(value);assert(value>=0n,'NEGATIVE_MONEY');const scale=10n**BigInt(places);return `${value/scale}.${String(value%scale).padStart(places,'0')}`;}
@@ -8,7 +8,7 @@ export function presentedBalance(balance,win,pending){const available=units(bala
 export function gambleStakeAllowed(model,stake){const value=units(stake),cap=model.rules.gamble.maxStake;return value>0n&&(cap===undefined||value<=units(cap));}
 export function spinSelectionChanged(before,after){return before.bet!==after.bet||before.freeSpinsRemaining>0&&after.freeSpinsRemaining===0||['mathVersion','engineVersion','mathSha256'].some(key=>before[key]!==after[key]);}
 export function normalizeAutoOptions(value,gameId){
- const input=typeof value==='number'?{count:value}:value;assert(input&&((Number.isInteger(input.count)&&input.count>0&&input.count<=1000)||(input.count===Infinity&&gameId==='multi_hot_5_video')),'INVALID_AUTO_COUNT');
+ const input=typeof value==='number'?{count:value}:value;assert(input&&((Number.isInteger(input.count)&&input.count>0&&input.count<=1000)||(input.count===Infinity&&presentationGameId(gameId)==='multi_hot_5_video')),'INVALID_AUTO_COUNT');
  const options={count:input.count,stopBigWin:!!input.stopBigWin};
  for(const name of ['stopWin','stopIncrease','stopDecrease']){
   const raw=input[name];if(raw===undefined||raw===null){options[name]=null;continue;}

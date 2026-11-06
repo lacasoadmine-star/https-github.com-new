@@ -28,7 +28,7 @@ test('native graph keeps provider master/default compression and applies source 
   assert.equal(audio.volume,1);assert.equal(audio.master.gain.value,1);
   assert.equal(audio.master.target,audio.limiter);assert.equal(audio.limiter.target,audio.context.destination);
   assert.deepEqual(compressor(audio),{threshold:-24,knee:30,ratio:12,attack:.003,release:.25});
-  audio.nativeBank={volumes:{win:mh5?.6:.5}};audio.samples.set('win',{duration:.5});
+  audio.nativeBank={volumes:{win:mh5?1:.5}};audio.samples.set('win',{duration:.5});
   assert.equal(audio.playSample('win',{loop:true,group:'win'}),true);
   const win=[...audio.nodes].find(node=>node.group==='win');assert.equal(win.baseVolume,mh5?.36:.5);assert.equal(win.gain.gain.value,mh5?.36:.5);assert.equal(win.gain.target,audio.master);
   audio.backgroundBuffer={duration:20};audio.backgroundGain=mh5?.3:.6;audio.setBackgroundEnabled(true);

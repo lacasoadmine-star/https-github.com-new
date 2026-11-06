@@ -22,8 +22,8 @@ for(const game of ['multi_hot_5_video','hot_foxy_20','multi_hot_100','wild_multi
    if(kind==='script'&&url.pathname==='/player-v236/'+config.presence)continue;
    references.push({kind,url});
   }
-  const expectedFiles=['controller.mjs','official-startup-critical.css','official-startup-guard.js','style.css'];
-  assert.deepEqual(references.map(({url})=>url.pathname.split('/').at(-1)).sort(),expectedFiles,'the page declares the controller, stylesheet, and independent first-paint bootstrap');
+  const expectedFiles=['controller.mjs','style.css'];
+  assert.deepEqual(references.map(({url})=>url.pathname.split('/').at(-1)).sort(),expectedFiles,'the four old pages retain the exact308 bootstrap');
   for(const {kind,url}of references){
    assert.equal(url.origin,pageURL.origin,'bootstrap assets remain same-origin');
    const asset=machinePage(new Request(url),config);

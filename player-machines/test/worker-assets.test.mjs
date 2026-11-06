@@ -10,13 +10,15 @@ import {packWorkerAssets} from '../scripts/pack-worker-assets.mjs';
 
 const origin='https://worker-assets.example',config={presence:'presence.63ed199a80b6c700.mjs'};
 const manifest=JSON.parse(await readFile(new URL('../worker/machine-assets-manifest.json',import.meta.url),'utf8'));
+const baseline=JSON.parse(await readFile(new URL('./fixtures/worker308-public-manifest.json',import.meta.url),'utf8'));
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
-test('every typed data module and HTTP response exactly matches the original frontend bytes',async()=>{
+test('every old typed data module and HTTP response remains byte-identical to verified308',async()=>{
+ assert.deepEqual(manifest,baseline,'old public manifest is the immutable308 snapshot');
  assert.equal(manifest.release,release);
  assert.equal(Object.keys(assets).length,manifest.assets.length-1);
  assert.equal(manifest.packaging,'typed-binary-modules');
  for(const entry of manifest.assets){
-  const source=await readFile(new URL('../public/'+entry.name,import.meta.url));
+  const source=entry.name==='index.html'?Buffer.from(htmlTemplate):await readFile(new URL('../worker/'+entry.module,import.meta.url));
   assert.equal(source.length,entry.bytes,entry.name+' length');assert.equal(digest(source),entry.sha256,entry.name+' hash');
   if(entry.name==='index.html'){assert.deepEqual(Buffer.from(htmlTemplate),source);continue;}
   assert.ok(assets[entry.name].body instanceof ArrayBuffer,entry.name+' must not be parsed as a string');

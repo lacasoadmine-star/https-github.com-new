@@ -7,16 +7,18 @@ import {starsIdleSpin} from './stars-presentation.mjs';
 import {hundredIdleSpin} from './hundred-presentation.mjs';
 import {hasAmbientAnimation,ambientParticleCount} from './ambient.mjs';
 import {applyMultiControlArt,updateMultiSpinFace} from './multi-presentation.mjs';
-import {gameConfig,gameConfigForModel,gameConfigForReceipt,legacyGameConfig,defaultStake,modelIdentity,LEGACY_MATH_VERSION} from './registry.mjs';
+import {gameConfig,gameConfigForModel,gameConfigForReceipt,legacyGameConfig,defaultStake,modelIdentity,presentationGameId,presentationConfig,nativeFamilies,LEGACY_MATH_VERSION} from './registry.mjs';
 import {validateModel,validateRound,validateGamble,validateGameState,validateHistory,savedGambleParent,presentedBalance,gambleStakeAllowed,spinSelectionChanged,normalizeAutoOptions,autoStopReason,units,money,SpinState} from './contract.mjs';
 import {WalletAdapter,definitelyRejected} from './wallet.mjs';
 import {SoundEngine} from './audio.mjs';
 import {MachineRenderer} from './renderer.mjs';
 
-const $=id=>document.getElementById(id),gameId=document.body.dataset.game,state=new SpinState(),events=new AbortController();
-let g=gameConfig(gameId),currentModel=g,lastRoundModel=null,latestKnown=null,hasSelectedModel=false;
-const versionedGame=['multi_hot_5_video','hot_foxy_20'].includes(gameId);
-const audio=new SoundEngine(g.visual.note,g.id),api=new WalletAdapter(),renderer=new MachineRenderer($('machine-canvas'),g,audio);
+const $=id=>document.getElementById(id),machineId=document.body.dataset.machine,gameId=presentationGameId(machineId),state=new SpinState(),events=new AbortController();
+if(!nativeFamilies[machineId])throw Error('UNKNOWN_NATIVE_MACHINE');
+if(document.body.dataset.game!==gameId)throw Error('PRESENTATION_IDENTITY_MISMATCH');
+let g=gameConfig(machineId),currentModel=g,lastRoundModel=null,latestKnown=null,hasSelectedModel=false;
+const versionedGame=!!nativeFamilies[machineId];
+const audio=new SoundEngine(g.visual.note,gameId),api=new WalletAdapter(),renderer=new MachineRenderer($('machine-canvas'),g,audio);
 $('volume').value=String(Math.round(audio.volume*100));$('volume-value').textContent=Math.round(audio.volume*100)+'%';
 const gambleView=createOfficialGamblePresentation({gameId,document,audio,onCollect:()=>collectWin()}),nativeControls=installOfficialAutoBetPresentation(document,gameId);
 const audioControls=createOfficialAudioControls({gameId,audio});
@@ -25,7 +27,7 @@ const startupView=createOfficialStartup({document,gameId,onSoundChoice:chooseSou
 let nativeControlsReady=!nativeControls,nativeControlsError=null;if(nativeControls?.ready)void nativeControls.ready.then(()=>{nativeControlsReady=true;}).catch(error=>{nativeControlsError=String(error?.message||error);});
 let lastWin='0.00',soundChoice=false,displayPendingWin=false;
 let epoch=0,betIndex=g.betLevels.indexOf(defaultStake(g)),signedIn=false,balance=null,lastRound=null,free=0,auto=0,autoEpoch=0,actionBusy=false,canGamble=false,gambleValue='0.00',gambleAttempt=0,legacy=false,disposed=false,refreshTimer,turbo=false,holdTimer,holdStarted=false,suppressSpinClick=false;
-applyMultiControlArt(document);if(g.id==='wild_multi_stars')$('spin').style.setProperty('--reference-spin','url("'+starsIdleSpin+'")');if(g.id==='multi_hot_100')$('spin').style.setProperty('--reference-spin','url("'+hundredIdleSpin+'")');
+applyMultiControlArt(document);if(gameId==='wild_multi_stars')$('spin').style.setProperty('--reference-spin','url("'+starsIdleSpin+'")');if(gameId==='multi_hot_100')$('spin').style.setProperty('--reference-spin','url("'+hundredIdleSpin+'")');
 function loadControlFonts(prefix,fonts){
  if(!fonts?.regular||typeof FontFace==='undefined')return;
  for(const [name,source]of Object.entries(fonts)){
@@ -33,7 +35,7 @@ function loadControlFonts(prefix,fonts){
   void font.load().then(loaded=>{if(!disposed)document.fonts.add(loaded);}).catch(()=>{});
  }
 }
-if(g.id==='hot_foxy_20')void import('./official-foxy-art.mjs').then(({sprites,spriteMeta,fonts})=>{
+if(gameId==='hot_foxy_20')void import('./official-foxy-art.mjs').then(({sprites,spriteMeta,fonts})=>{
  if(disposed)return;
  const frames={spin:'Buttons/Spin','spin-hover':'Buttons/SpinHover','spin-stop':'Buttons/SpinStop','spin-quick':'Buttons/SpinTurbo','spin-quick-hover':'Buttons/SpinTurboHover','spin-quick-stop':'Buttons/SpinTurboStop','spin-quick-stop-hover':'Buttons/SpinTurboStopHover',lightning:'Buttons/QuickPlay','lightning-active':'Buttons/QuickPlayTurbo','lightning-hover':'Buttons/QuickPlayHover',auto:'Buttons/AutoPlay','auto-hover':'Buttons/AutoPlayHover','auto-stop':'Buttons/AutoPlayStop',bet:'Buttons/Bet','bet-hover':'Buttons/BetHover',menu:'Buttons/Menu','sound-on':'Buttons/SoundOn','sound-off':'Buttons/SoundOff','footer-balance':'Vertical/Start/FooterBalance','footer-bet':'Vertical/Start/FooterBet'};
  if(Object.values(frames).some(key=>!sprites[key]||!spriteMeta[key]))return;
@@ -48,7 +50,7 @@ if(g.id==='hot_foxy_20')void import('./official-foxy-art.mjs').then(({sprites,sp
  loadControlFonts('Foxy',fonts);
  document.body.dataset.nativeFoxyControls='true';
 }).catch(()=>{});
-if(g.id==='multi_hot_5_video')void import('./official-mh5-art.mjs').then(({sprites,fonts})=>{
+if(gameId==='multi_hot_5_video')void import('./official-mh5-art.mjs').then(({sprites,fonts})=>{
  if(disposed)return;
  const frames={spin:'Buttons/SpinVertical','spin-hover':'Buttons/SpinVerticalHover','spin-stop':'Buttons/SpinVerticalStop',auto:'Buttons/AutoPlayVertical','auto-hover':'Buttons/AutoPlayVerticalHover','auto-disabled':'Buttons/AutoPlayVerticalDisabled',double:'Buttons/DoubleVertical','double-hover':'Buttons/DoubleVerticalHover','double-disabled':'Buttons/DoubleVerticalDisabled',minus:'Buttons/MinusVertical','minus-disabled':'Buttons/MinusVerticalDisabled',plus:'Buttons/PlusVertical','plus-disabled':'Buttons/PlusVerticalDisabled',bar:'Buttons/BackgroundVertical',menu:'Buttons/Menu'};
  if(Object.values(frames).some(key=>!sprites[key]))return;
@@ -58,7 +60,7 @@ if(g.id==='multi_hot_5_video')void import('./official-mh5-art.mjs').then(({sprit
  document.body.dataset.nativeMh5Controls='true';
 }).catch(()=>{});
 document.title=g.name+' · ZPLAY';$('settings-title').textContent=g.name;
-if(g.id==='multi_hot_5_video'){$('bet-open').querySelector('.meter-name').textContent='LAST WIN';$('bet-open').setAttribute('aria-label','Last win');$('bet-open').setAttribute('tabindex','-1');}
+if(gameId==='multi_hot_5_video'){$('bet-open').querySelector('.meter-name').textContent='LAST WIN';$('bet-open').setAttribute('aria-label','Last win');$('bet-open').setAttribute('tabindex','-1');}
 if(audioControls){soundChoice=audioControls.getState().effectsEnabled;audioControls.subscribe(value=>{soundChoice=value.effectsEnabled;soundIndicator();});}
 else try{const choice=localStorage.getItem('zplay:sound-choice');if(choice==='no')audio.toggle();soundChoice=choice==='yes';audio.setBackgroundEnabled(soundChoice);}catch{}
 function soundIndicator(){$('sound').setAttribute('aria-pressed',String(audio.muted));$('sound').setAttribute('aria-label',audio.muted?'Enable sound':'Mute sound');}
@@ -75,11 +77,11 @@ function selectNextModel(model,lockedBet=null){
  if(betIndex<0){if(lockedBet)throw Error('LOCKED_BET_MODEL_MISMATCH');betIndex=g.betLevels.indexOf(defaultStake(g));}
  if(changed)renderBetOptions();
 }
-async function advertisedModel(){const remote=await api.model(gameId),model=gameConfigForModel(remote);if(model.id!==gameId)throw Error('MODEL_IDENTITY_MISMATCH');validateModel(remote,model);return {remote,model};}
+async function advertisedModel(){const remote=await api.model(machineId),model=gameConfigForModel(remote);if(model.id!==machineId)throw Error('MODEL_IDENTITY_MISMATCH');validateModel(remote,model);return {remote,model};}
 async function nextSpinModel({refresh=false}={}){
  if(refresh){const advertised=await advertisedModel();if(!advertised.remote.enabled)throw Error('GAME_UNAVAILABLE');currentModel=advertised.model;}
  let remote=null;
- if(versionedGame){try{remote=await api.state(gameId);}catch(error){if(error.status!==404||currentModel.mathVersion!==LEGACY_MATH_VERSION)throw error;}}
+ if(versionedGame){try{remote=await api.state(machineId);}catch(error){if(error.status!==404||currentModel.mathVersion!==LEGACY_MATH_VERSION)throw error;}}
  const next=validateGameState(remote,currentModel,latestKnown?.result||null);free=next.freeSpinsRemaining;selectNextModel(next.model,next.bet);return next;
 }
 function renderBetOptions(){
@@ -92,10 +94,10 @@ function update(){
  $('spin').disabled=disposed||legacy||!signedIn||actionBusy||!!action||(!animating&&state.value!=='pending'&&!['ready','presenting'].includes(state.value))||(!saved&&!animating&&!free&&balance!==null&&units(balance)===0n)||(!animating&&auto>0);
  $('spin-label').textContent=animating?'STOP':waiting?'WAIT':saved?'CONFIRM':free?'FREE SPIN':'SPIN';$('spin-bet').textContent=bet()+' ETB';
  $('spin').setAttribute('aria-label',animating?'Speed up the current spin animation':saved?'Confirm the saved round':'Spin '+bet()+' ETB.'+(gameId==='multi_hot_5_video'?'':' Hold to repeat spins.'));
- $('bet-value').textContent=bet();$('last-win').textContent=signedIn?lastWin:'—';const previousBet=betIndex>0?g.betLevels[betIndex-1]:null;$('previous-stake').hidden=g.id!=='multi_hot_5_video'||!previousBet;$('previous-stake-amount').textContent=previousBet||'';$('previous-stake').disabled=locked||auto>0||free>0||!previousBet;$('previous-stake').setAttribute('aria-label','Choose previous bet'+(previousBet?' '+previousBet+' ETB':''));const nextBet=g.betLevels[Math.min(betIndex+1,g.betLevels.length-1)];$('stake-amount').textContent=g.id==='multi_hot_5_video'?nextBet:bet();$('stake-open').setAttribute('aria-label',g.id==='multi_hot_5_video'?'Choose bet; next level '+nextBet+' ETB':'Choose bet');$('stake-open').disabled=locked||auto>0||free>0;$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
- $('auto').disabled=!signedIn||legacy||actionBusy||!!action||(!auto&&(!!saved||state.locked));$('auto-label').textContent=auto?'STOP '+(auto===Infinity?'∞':auto):'AUTO';if(g.id==='hot_foxy_20')$('auto').setAttribute('aria-pressed',String(auto>0));
+ $('bet-value').textContent=bet();$('last-win').textContent=signedIn?lastWin:'—';const previousBet=betIndex>0?g.betLevels[betIndex-1]:null;$('previous-stake').hidden=gameId!=='multi_hot_5_video'||!previousBet;$('previous-stake-amount').textContent=previousBet||'';$('previous-stake').disabled=locked||auto>0||free>0||!previousBet;$('previous-stake').setAttribute('aria-label','Choose previous bet'+(previousBet?' '+previousBet+' ETB':''));const nextBet=g.betLevels[Math.min(betIndex+1,g.betLevels.length-1)];$('stake-amount').textContent=gameId==='multi_hot_5_video'?nextBet:bet();$('stake-open').setAttribute('aria-label',gameId==='multi_hot_5_video'?'Choose bet; next level '+nextBet+' ETB':'Choose bet');$('stake-open').disabled=locked||auto>0||free>0;$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
+ $('auto').disabled=!signedIn||legacy||actionBusy||!!action||(!auto&&(!!saved||state.locked));$('auto-label').textContent=auto?'STOP '+(auto===Infinity?'∞':auto):'AUTO';if(gameId==='hot_foxy_20')$('auto').setAttribute('aria-pressed',String(auto>0));
  $('gamble').disabled=$('gamble-menu').disabled=!(signedIn&&!actionBusy&&!legacy&&((!!action&&!state.locked)||(canGamble&&!locked&&!auto&&!free))); $('collect').disabled=!lastRound||locked||auto>0||Number(gambleValue)<=0;
- document.body.dataset.win=String(Number(gambleValue)>0&&!locked&&!auto);if(g.id!=='multi_hot_5_video'){$('gamble').hidden=!(canGamble&&!locked&&!auto&&!free);$('collect').hidden=!(Number(gambleValue)>0&&!locked&&!auto);}$('free-spins').textContent=free?'FREE SPINS: '+free:'';
+ document.body.dataset.win=String(Number(gambleValue)>0&&!locked&&!auto);if(gameId!=='multi_hot_5_video'){$('gamble').hidden=!(canGamble&&!locked&&!auto&&!free);$('collect').hidden=!(Number(gambleValue)>0&&!locked&&!auto);}$('free-spins').textContent=free?'FREE SPINS: '+free:'';
  for(const el of $('bet-options').children){el.disabled=locked||auto>0||free>0;el.setAttribute('aria-pressed',String(el.dataset.bet===bet()));}
  renderer.auto=auto>0;updateMultiSpinFace($('spin'),{state:state.value,bet:bet(),pending:!!saved,free});
  $('bet-note').textContent=free?'The bet is locked while your free spins remain.':saved?'Confirm the saved round before changing the bet.':'Select a stake before the next spin.';
@@ -108,14 +110,14 @@ async function boot(){
   const [advertised,session]=await Promise.all([advertisedModel(),api.session()]);if(disposed||run!==epoch)return;currentModel=advertised.model;selectNextModel(currentModel);
   if(!advertised.remote.enabled){startupView?.fail('unavailable');setState('unavailable');notice('This game is temporarily unavailable.',true);return;}
   if(!session.authenticated){renderer.setGameModel(currentModel);signOut();renderer.enableNativePresentation?.();return;}if(session.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');
-  api.bind(session.sessionId,gameId);signedIn=true;if(audioControls)audioControls.restore();else audio.setBackgroundEnabled(soundChoice);setBalance(session.balance);$('win').textContent='0.00';legacy=api.legacyPending();
+  api.bind(session.sessionId,machineId);signedIn=true;if(audioControls)audioControls.restore();else audio.setBackgroundEnabled(soundChoice);setBalance(session.balance);$('win').textContent='0.00';legacy=api.legacyPending();
   const saved=pending(),action=api.pending(api.actionKey),history=await api.history();if(disposed||run!==epoch)return;
-  const entries=validateHistory(history.items,gameId);latestKnown=entries[0]||null;
+  const entries=validateHistory(history.items,machineId);latestKnown=entries[0]||null;
   const previousWin=entries.find(entry=>Number(entry.result.finalWin)>0);if(previousWin)lastWin=previousWin.result.finalWin;
   if(latestKnown){renderer.setGameModel(latestKnown.model);renderer.restore(latestKnown.result);$('win').textContent=latestKnown.result.finalWin;}
   await nextSpinModel();if(disposed||run!==epoch)return;
-  if(saved){const savedModel=saved.mathVersion?gameConfig(gameId,saved):legacyGameConfig(gameId);if(!savedModel.betLevels.includes(saved.bet))throw Error('SAVED_BET_INVALID');selectNextModel(savedModel,saved.bet);}
-  if(action){if(!entries.some(entry=>entry.result.roundId===action.roundId)){const result=await api.round(action.roundId);if(disposed||run!==epoch)return;entries.push(...validateHistory([{result_json:result}],gameId));}const parent=savedGambleParent(action,entries);lastRound=parent.result;lastRoundModel=parent.model;gambleValue=action.expectedStake||'0.00';gambleAttempt=(action.expectedAttempt||1)-1;$('gamble-message').textContent='Confirm your saved '+action.choice+' choice.';if(!startupView)showGamble(true);}
+  if(saved){const savedModel=saved.mathVersion?gameConfig(machineId,saved):legacyGameConfig(machineId);if(!savedModel.betLevels.includes(saved.bet))throw Error('SAVED_BET_INVALID');selectNextModel(savedModel,saved.bet);}
+  if(action){if(!entries.some(entry=>entry.result.roundId===action.roundId)){const result=await api.round(action.roundId);if(disposed||run!==epoch)return;entries.push(...validateHistory([{result_json:result}],machineId));}const parent=savedGambleParent(action,entries);lastRound=parent.result;lastRoundModel=parent.model;gambleValue=action.expectedStake||'0.00';gambleAttempt=(action.expectedAttempt||1)-1;$('gamble-message').textContent='Confirm your saved '+action.choice+' choice.';if(!startupView)showGamble(true);}
   if(startupView){renderer.enableNativePresentation?.();const presented=await startupView.complete([renderer.artReady,renderer.presentationReady,renderer.nativeReady,nativeControls?.ready,helpView?.ready]);if(disposed||run!==epoch)return;if(!presented)startupView.fail('presentation');}
   setState(saved?'pending':'ready');renderer.enableNativePresentation?.();notice(legacy?'A round saved by the earlier game version needs review. Open History before continuing.':saved?'A saved round needs confirmation. Press CONFIRM; the same request is reused.':balance==='0.00'&&!free?'Your ETB balance is empty. Deposit funds from your account.':'');update();scheduleRefresh();if(startupView&&action)showGamble(true);askSound();
  }catch(e){if(disposed||run!==epoch)return;startupView?.fail(e.message);if(e.status===401){signOut();return;}if(state.value==='loading')setState('error');notice(e.message,true);audio.event('error');}
@@ -126,12 +128,13 @@ async function refreshBalance(){const run=epoch;try{if(!document.hidden&&signedI
 async function oneRound(){
  if(disposed||!signedIn||legacy||actionBusy||api.pending(api.actionKey)||!['ready','presenting','pending'].includes(state.value))return false;
  const run=epoch,saved=pending(),shown={...modelIdentity(g),bet:bet(),freeSpinsRemaining:free};setState('requesting');notice('Confirming round…');
+ let pendingVisual=null;
  try{
   await audio.unlock();if(!await sameSession())return false;
   if(!saved&&versionedGame){await nextSpinModel({refresh:true});if(disposed||run!==epoch)return false;if(spinSelectionChanged(shown,{...modelIdentity(g),bet:bet(),freeSpinsRemaining:free})){setState('ready');notice('Your game rules or free spins changed. Review the displayed bet, then press SPIN again.');return false;}}if(disposed||run!==epoch)return false;
   const stake=saved?.bet||bet(),pin=saved?.mathVersion?modelIdentity(saved):saved?null:modelIdentity(g);
-  displayPendingWin=false;canGamble=false;const raw=await api.spin(stake,saved?g:pin);if(disposed||run!==epoch)return false;
-  const receiptModel=gameConfigForReceipt(raw);if(receiptModel.id!==gameId)throw Error('ROUND_IDENTITY_MISMATCH');
+  displayPendingWin=false;canGamble=false;if(!saved)pendingVisual=renderer.beginPendingSpin?.();const raw=await api.spin(stake,saved?g:pin);if(disposed||run!==epoch)return false;
+  const receiptModel=gameConfigForReceipt(raw);if(receiptModel.id!==machineId)throw Error('ROUND_IDENTITY_MISMATCH');
   if(pin&&Object.keys(pin).some(key=>raw[key]!==pin[key]))throw Error('ROUND_REQUEST_MODEL_MISMATCH');
   const result=validateRound(raw,receiptModel,stake);renderer.setGameModel(receiptModel);
   setState('animating');$('win').textContent='0.00';notice('');if(matchMedia('(prefers-reduced-motion: reduce)').matches){const done=renderer.start(result);renderer.speedUp();await done;}else await renderer.start(result);
@@ -142,12 +145,12 @@ async function oneRound(){
   if(e.status===401||e.status===403){signOut('Your session expired. Sign in to recover any saved round.');return false;}
   if(definitelyRejected(e)){api.complete();setState('ready');if(e.code==='GAME_RULES_UPDATED_RELOAD'){notice('The game rules were updated. Refreshing before your next spin.');await boot();}else notice(e.code==='INSUFFICIENT_FUNDS'?'Your ETB balance is too low for this bet.':e.message,true);}
   else {const saved=pending();if(state.value!=='signedout')setState(saved?'pending':'ready');renderer.enableNativePresentation?.();notice(saved?e.message+' No new round will be created. Press CONFIRM to check this request.':e.message,true);}update();return false;
- }
+ }finally{if(pendingVisual)renderer.cancelPendingSpin?.(pendingVisual);}
 }
-async function spin(){if(state.value==='animating'){renderer.speedUp();stopAuto();return;}if(auto){stopAuto();return;}await oneRound();}
+async function spin(){if(renderer.winLayer?.active){renderer.skipNativeWin();return;}if(state.value==='animating'){renderer.speedUp();stopAuto();return;}if(auto){stopAuto();return;}await oneRound();}
 async function startAuto(value){
  if(state.locked||pending()||actionBusy||!signedIn||legacy)return;
- let options;try{options=normalizeAutoOptions(value,gameId);}catch(error){notice('Enter a positive AUTO limit with no more than two decimal places.');return;}
+ let options;try{options=normalizeAutoOptions(value,machineId);}catch(error){notice('Enter a positive AUTO limit with no more than two decimal places.');return;}
  const startBalance=balance,run=++autoEpoch;auto=options.count;displayPendingWin=false;$('auto-dialog').close();update();
  while(auto>0&&run===autoEpoch&&!disposed&&!document.hidden){
   if(!await oneRound())break;if(run!==autoEpoch)break;
@@ -162,9 +165,9 @@ function openPanel(id){endHold();stopAuto();$('settings').showModal();for(const 
 function renderRules(){
  const per=Number(bet())/g.paylines;$('rules-text').textContent=g.reels+' reels × '+g.rows+' rows. '+g.paylines+' fixed paylines, evaluated left to right. The total bet is divided equally between the lines. '+(g.rules.wildSymbols.some(s=>g.symbols.includes(s))?'WILD substitutes for paying symbols'+(g.rules.scatter?', excluding SCATTER':'')+'. ':'')+(g.features.freeSpins.spins>0?'Three or more SCATTERs award '+g.features.freeSpins.spins+' free spins, with retriggers. '+(g.features.freeSpins.winMultiplier>1?'Free-spin line wins use '+g.features.freeSpins.winMultiplier+'×. ':''):'')+'The multiplier applies to the winning lines. STOP speeds up the animation only. '+(gameId==='multi_hot_5_video'?'':'Hold SPIN to repeat wagers at the selected bet; release to stop. ')+'The lightning control speeds up presentation without changing the result.';
  const root=$('paytable');root.replaceChildren();for(const [symbol,pays]of Object.entries(g.paytable)){const row=document.createElement('div');row.className='pay-row';const canvas=document.createElement('canvas');canvas.width=128;canvas.height=128;canvas.getContext('2d').drawImage(renderer.atlas.get(symbol),0,0,128,128);canvas.setAttribute('aria-label',symbol.replaceAll('_',' '));const text=document.createElement('p');text.textContent=symbol.replaceAll('_',' ').toUpperCase();const amounts=document.createElement('small');amounts.textContent=Object.entries(pays).map(([n,m])=>n+' = '+(per*m).toFixed(2)+' ETB').join(' · ')+' (1×)';text.append(document.createElement('br'),amounts);row.append(canvas,text);root.append(row);}
- $('math-note').textContent='Paytable amounts use your selected bet at 1×. Payouts round down to 0.01 ETB. Maximum win: '+g.maxWinMultiplier+'× total bet.';helpView?.update({model:g,stake:bet()});
+ $('math-note').textContent='Paytable amounts use your selected bet at 1×. Payouts round down to 0.01 ETB. Maximum win: '+g.maxWinMultiplier+'× total bet.';helpView?.update({model:presentationConfig(g),stake:bet()});
 }
-async function renderHistory(){const target=$('history-items');target.textContent='Loading…';try{const data=await api.history(),entries=validateHistory(data.items,gameId);target.replaceChildren();for(const {row,result:r}of entries.slice(0,30)){const item=document.createElement('article');item.textContent='BET '+money(String(r.chargedStake))+' ETB · WIN '+money(String(r.finalWin))+' ETB';const details=document.createElement('small');details.textContent=(row.created_at?new Date(row.created_at).toLocaleString()+' · ':'')+r.roundId;item.append(details);target.append(item);}if(!target.children.length)target.textContent='No settled rounds yet.';}catch(e){target.textContent=e.status===401?'Sign in to see your history.':'History is unavailable. Retry when your connection is ready.';}}
+async function renderHistory(){const target=$('history-items');target.textContent='Loading…';try{const data=await api.history(),entries=validateHistory(data.items,machineId);target.replaceChildren();for(const {row,result:r}of entries.slice(0,30)){const item=document.createElement('article');item.textContent='BET '+money(String(r.chargedStake))+' ETB · WIN '+money(String(r.finalWin))+' ETB';const details=document.createElement('small');details.textContent=(row.created_at?new Date(row.created_at).toLocaleString()+' · ':'')+r.roundId;item.append(details);target.append(item);}if(!target.children.length)target.textContent='No settled rounds yet.';}catch(e){target.textContent=e.status===401?'Sign in to see your history.':'History is unavailable. Retry when your connection is ready.';}}
 function updateGamble(){
  const saved=api.pending(api.actionKey),allowed=signedIn&&!actionBusy&&(canGamble||!!saved);
  $('red').disabled=!allowed||(saved&&saved.choice!=='RED');$('black').disabled=!allowed||(saved&&saved.choice!=='BLACK');
@@ -183,7 +186,7 @@ const endHold=()=>{clearTimeout(holdTimer);if(holdStarted){holdStarted=false;sto
 listen($('spin'),'pointerdown',e=>{if(gameId==='multi_hot_5_video'||e.button!==0||state.value!=='ready'||$('spin').disabled)return;clearTimeout(holdTimer);suppressSpinClick=false;holdTimer=setTimeout(()=>{if(document.hidden||disposed||state.value!=='ready'||document.querySelector('dialog[open]'))return;holdStarted=true;suppressSpinClick=true;void startAuto(1000);},600);});
 listen(window,'pointerup',endHold);listen(window,'pointercancel',endHold);listen($('spin'),'pointerleave',endHold);listen(window,'blur',endHold);
 function setTurbo(enabled){turbo=enabled;renderer.setTurbo(turbo);$('turbo').setAttribute('aria-pressed',String(turbo));$('turbo').setAttribute('aria-label',turbo?'Use normal spin animation':'Enable faster spin animation');}
-listen($('turbo'),'click',()=>{if(g.id==='hot_foxy_20'&&!turbo){endHold();stopAuto();if(!document.querySelector('dialog[open]'))$('quick-play-dialog').showModal();}else setTurbo(!turbo);});
+listen($('turbo'),'click',()=>{if(gameId==='hot_foxy_20'&&!turbo){endHold();stopAuto();if(!document.querySelector('dialog[open]'))$('quick-play-dialog').showModal();}else setTurbo(!turbo);});
 listen($('quick-play-enable'),'click',()=>{setTurbo(true);$('quick-play-dialog').close();});
 listen($('bet-less'),'click',()=>chooseBet(g.betLevels[betIndex-1]));listen($('bet-more'),'click',()=>chooseBet(g.betLevels[betIndex+1]));listen($('bet-open'),'click',()=>{if(gameId!=='multi_hot_5_video')openPanel('bets');});
 for(const id of ['menu','menu-top'])listen($(id),'click',()=>openPanel('rules'));
@@ -204,4 +207,4 @@ listen(window,'pagehide',e=>{if(!e.persisted)dispose();else{renderer.pause();sto
 renderer.onCelebration=active=>{document.body.dataset.celebration=String(active);};
 renderer.onContextState=lost=>notice(lost?'Graphics paused. Retry to reload and confirm your saved round.':'',lost);
 update();void boot();
-export const diagnostics=()=>({gameId:g.id,mathVersion:g.mathVersion,mathSha256:g.mathSha256,authoritativeBalance:balance,pendingDisplayWin:displayPendingWin?gambleValue:'0.00',displayPendingWin,gambleValue,canGamble,currentMathVersion:currentModel.mathVersion,renderMathVersion:renderer.game.mathVersion,freeSpinsRemaining:free,gambleMaxAttempts:(lastRoundModel||g).features.gambleRounds,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size,decodedSoundSamples:audio.samples?.size||0,soundSampleNodes:[...audio.nodes].filter(n=>n.sample).length,audioState:audio.context?.state||'not-started',backgroundAudio:audio.backgroundDiagnostics(),officialAudioSettings:audioControls?.getState()||null,officialStartup:startupView?.diagnostics()||null,nativeAnimation:renderer.nativePresentation?.diagnostics()||null,nativeControlsReady,nativeControlsError,nativeArtworkLoaded:!!renderer.officialArt,nativeSymbolCount:renderer.atlas.officialSymbolCount||0,nativeForegroundLoaded:!!renderer.officialForeground,cabinetArtworkLoaded:!!renderer.cabinetArt,artworkLoaded:!!renderer.atlas.artworkLoaded,audioSuspended:!!audio.playbackSuspended,reducedMotion:renderer.reducedMotion,particles:renderer.particles.items.length,turbo,autoRemaining:auto,ambientEffects:hasAmbientAnimation(g,renderer.reducedMotion),ambientParticles:ambientParticleCount(g),restoredRoundId:renderer.result?.roundId||null,multiplier:renderer.wheel,grid:renderer.grid,multiArtworkLoaded:!!renderer.multiArt,loopActive:!!audio.reelWanted,loopPhase:audio.currentReelPhase?.()||0,retiringAudioNodes:audio.retiring?.size||0,contextLost:!!renderer.contextLost});
+export const diagnostics=()=>({gameId:g.id,machineId,presentationGameId:gameId,mathVersion:g.mathVersion,mathSha256:g.mathSha256,authoritativeBalance:balance,pendingDisplayWin:displayPendingWin?gambleValue:'0.00',displayPendingWin,gambleValue,canGamble,currentMathVersion:currentModel.mathVersion,renderMathVersion:renderer.game.mathVersion,renderMachineId:renderer.machineId,nativePresentationState:{pending:!!renderer.pendingSpin,pendingElapsed:renderer.pendingSpin?.elapsed||0,shadeActive:!!renderer.winLayer?.active,winSkipped:renderer.nativeWinSkipClock!==null},freeSpinsRemaining:free,gambleMaxAttempts:(lastRoundModel||g).features.gambleRounds,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size,decodedSoundSamples:audio.samples?.size||0,soundSampleNodes:[...audio.nodes].filter(n=>n.sample).length,audioState:audio.context?.state||'not-started',backgroundAudio:audio.backgroundDiagnostics(),officialAudioSettings:audioControls?.getState()||null,officialStartup:startupView?.diagnostics()||null,nativeAnimation:renderer.nativePresentation?.diagnostics()||null,nativeControlsReady,nativeControlsError,nativeArtworkLoaded:!!renderer.officialArt,nativeSymbolCount:renderer.atlas.officialSymbolCount||0,nativeForegroundLoaded:!!renderer.officialForeground,cabinetArtworkLoaded:!!renderer.cabinetArt,artworkLoaded:!!renderer.atlas.artworkLoaded,audioSuspended:!!audio.playbackSuspended,reducedMotion:renderer.reducedMotion,particles:renderer.particles.items.length,turbo,autoRemaining:auto,ambientEffects:hasAmbientAnimation(presentationConfig(g),renderer.reducedMotion),ambientParticles:ambientParticleCount(presentationConfig(g)),restoredRoundId:renderer.result?.roundId||null,multiplier:renderer.wheel,grid:renderer.grid,multiArtworkLoaded:!!renderer.multiArt,loopActive:!!audio.reelWanted,loopPhase:audio.currentReelPhase?.()||0,retiringAudioNodes:audio.retiring?.size||0,contextLost:!!renderer.contextLost});

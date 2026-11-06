@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "release": "zplay-native-machines-20261107-r1",
+  "observedAt": "2026-11-06T23:14:38.623Z",
+  "scope": "Two additional native machines; original eleven backend models and original Worker308 UI/assets preserved separately.",
+  "deployment": "Not performed by frontend QA; root owns staging and publication.",
+  "nativeMathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272",
+  "tests": {
+    "fullNode": {
+      "command": "npm test",
+      "passed": 775,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 6985.615775,
+      "includesEngineChecks": 636,
+      "includesSettledEngineRounds": 600,
+      "evidence": "evidence/native-r1/node-tests.txt",
+      "sha256": "55e2efdedc2318347d53f60cd0a0929b8e8fdc431141055a3ea11c9ab0ac154b"
+    },
+    "motionAndIdentityFocused": {
+      "passed": 27,
+      "failed": 0
+    },
+    "backend": {
+      "passed": 52,
+      "failed": 0,
+      "reportedBy": "new_machine_backend"
+    },
+    "audioFocused": {
+      "passed": 58,
+      "failed": 0,
+      "reportedBy": "official_audio"
+    },
+    "workerFocused": {
+      "passed": 23,
+      "failed": 0,
+      "reportedBy": "deployment_preflight"
+    }
+  },
+  "browser": {
+    "evidence": "evidence/native-r1/browser390/results.json",
+    "sha256": "2bcd1665ac24c5261ad265c827a19bf62a0625fdaf27dcc7c40726bdf0a306bc",
+    "synthetic": true,
+    "origin": "http://127.0.0.1:8776",
+    "width": 390,
+    "viewportHeight": 844,
+    "network": "Actual local HTTP with disposable synthetic accounts; no fetch overrides or production wagers.",
+    "passed": 491,
+    "failed": 0,
+    "cases": [
+      {
+        "machineId": "multi_hot_5_native",
+        "presentationGameId": "multi_hot_5_video",
+        "mathVersion": "2026-11-07-mh5-native-v1",
+        "checks": 268,
+        "passed": 268,
+        "primaryRounds": 3,
+        "settledRounds": 15,
+        "elapsedMs": 54706,
+        "ledgerBalanced": true,
+        "pageErrors": [],
+        "sourceUnchanged": true,
+        "nativeInstances": 4,
+        "firstRoundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 4.571428571428572,
+          "durationSeconds": 87.17061224489795,
+          "gain": 0.09,
+          "sourceGain": 0.3
+        },
+        "decodedEffectClips": 7,
+        "actualCspCheck": true,
+        "originalMachineIsolation": true,
+        "preResponseMotion": false,
+        "reducedMotionHighWin": false,
+        "nativeMultiLineWin": true
+      },
+      {
+        "machineId": "foxy_hot_20_native",
+        "presentationGameId": "hot_foxy_20",
+        "mathVersion": "2026-11-07-foxy-native-v1",
+        "checks": 223,
+        "passed": 223,
+        "primaryRounds": 3,
+        "settledRounds": 17,
+        "elapsedMs": 207493,
+        "ledgerBalanced": true,
+        "pageErrors": [],
+        "sourceUnchanged": true,
+        "nativeInstances": 12,
+        "firstRoundAudio": {
+          "enabled": true,
+          "loaded": true,
+          "loading": false,
+          "playing": true,
+          "positionSeconds": 29.048163265306123,
+          "durationSeconds": 96,
+          "gain": 0.6,
+          "sourceGain": 0.6
+        },
+        "decodedEffectClips": 15,
+        "actualCspCheck": true,
+        "originalMachineIsolation": true,
+        "preResponseMotion": true,
+        "reducedMotionHighWin": true,
+        "nativeMultiLineWin": false
+      }
+    ]
+  },
+  "validatedBehavior": [
+    "Actual native IDs retained in API, wallet, history, receipt validation and pending-storage keys; only visual/audio family is mapped.",
+    "Original pending receipt replays identically without another debit; native pages do not claim original tokens or grids.",
+    "Original Foxy owed free spins remain playable on the original ID and never become native entitlements.",
+    "Native initial GIF and sound choice, default stake, native art/timelines/audio, quick play, AUTO cancellation, gamble/collect and response-loss recovery.",
+    "Foxy decorative reel/wheel motion before a delayed response preserves the last validated grid and hands off to the exact receipt once.",
+    "Native win shade intercepts cabinet input; skip/dismiss submits no additional wager; reduced-motion high win and MH5 multiline sequence use actual validated outcomes."
+  ],
+  "build": {
+    "command": "npm run build:native",
+    "nativeManifest": "worker/native-machine-assets-manifest.json",
+    "nativeManifestSha256": "4c02e83c594152ce99014ed8bf4ae20bc49b3d26502f28f58e0b285f3fe0f8d2",
+    "nativeAssetCount": 70,
+    "reusedBaselineModules": 31,
+    "combinedManifest": "worker/native-worker-manifest.json",
+    "combinedManifestSha256": "5ba3fc19692cbad40eb0a215b8d0187dd104948c58c2432691d976d9766fffe2",
+    "preservedBaselineModules": 156,
+    "addedModules": 49,
+    "addedBytes": 4733508
+  },
+  "limitations": [
+    "Pixel-perfect and timing parity is not claimed: the finite post-response reel/wheel stop curves are retained; full original stop-curve/audio-milestone/autoplay pacing parity is not completely verified.",
+    "The final evidence is synthetic local QA. Live additive route/publication verification is a separate root-owned step.",
+    "Previously recorded replacement-r13 matrices remain historical scoped evidence and are not presented as live additive deployment proof."
+  ]
+}

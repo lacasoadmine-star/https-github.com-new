@@ -1,6 +1,7 @@
 import {getAudioSamples} from './audio-banks.mjs';
 import {audioSamples} from './audio-samples.mjs';
 import {seamlessBuffer} from './audio-loop.mjs';
+import {nativeBackgroundGain,nativeEffectGain} from './native-audio-gains.mjs';
 // Existing cabinet clips with a procedural fallback while decoding or without audio support.
 export class SoundEngine {
  constructor(root=261.63,gameId=''){this.root=root;this.gameId=gameId;this.audioSamples=getAudioSamples(gameId,audioSamples);this.nativeAudio=['multi_hot_5_video','hot_foxy_20'].includes(gameId);this.nativeBank=null;this.reelSampleEnded=false;this.turbo=false;this.fastStop=false;this.fastStopPlayed=false;this.volume=this.nativeAudio?1:.5;this.muted=false;this.nodes=new Set();this.retiring=new Set();this.events=[];this.samples=new Map();this.reelWanted=false;this.reelPhase=0;this.reelClock=0;this.reelElapsed=0;this.reelElapsedClock=0;this.disposed=false;this.backgroundEnabled=false;this.backgroundPhase=0;this.backgroundBuffer=null;this.backgroundLoad=null;this.backgroundFailureContext=null;this.backgroundGain=0;}
@@ -38,7 +39,7 @@ export class SoundEngine {
    if(this.disposed||context!==this.context)return false;
    // The original complete music must not go through the excerpt loop repair:
    // that trims35ms and crossfades PCM intended only for the old short clips.
-   this.backgroundBuffer=backgroundTrack.preserveOriginal?decoded:seamlessBuffer(context,decoded);this.backgroundGain=backgroundTrack.gain;this.backgroundLoop();return true;
+   this.backgroundBuffer=backgroundTrack.preserveOriginal?decoded:seamlessBuffer(context,decoded);this.backgroundGain=nativeBackgroundGain(this.gameId,backgroundTrack.gain);this.backgroundLoop();return true;
   }).catch(()=>{if(!this.disposed&&context===this.context)this.backgroundFailureContext=context;return false;}).finally(()=>{if(this.backgroundLoad===pending)this.backgroundLoad=null;});
   this.backgroundLoad=pending;return pending;
  }
@@ -80,7 +81,7 @@ export class SoundEngine {
  // MH5's provider passes the coefficient to both PIXI instance and parent Sound;
  // the vendor graph multiplies them. Foxy passes instance=1 and parent=coefficient.
  clipVolume(coefficient){return this.gameId==='multi_hot_5_video'?coefficient*coefficient:coefficient;}
- playSample(name,{loop=false,group='effect',volume,offset=0}={}){volume=volume??this.nativeBank?.volumes?.[name]??(this.nativeBank?1:this.gameId==='wild_multi_stars'&&name==='reel-loop'?.25:1.4);if(this.nativeBank)volume=this.clipVolume(volume);
+ playSample(name,{loop=false,group='effect',volume,offset=0}={}){volume=volume??(this.nativeBank?nativeEffectGain(this.gameId,name,this.nativeBank.volumes?.[name]):undefined)??(this.nativeBank?1:this.gameId==='wild_multi_stars'&&name==='reel-loop'?.25:1.4);if(this.nativeBank)volume=this.clipVolume(volume);
   const context=this.context,buffer=this.samples.get(name);if(!buffer||!context||context.state==='closed'||this.muted||this.disposed||this.playbackSuspended)return false;
   let node;try{
    const osc=context.createBufferSource(),gain=context.createGain(),now=context.currentTime,duration=buffer.duration;node={osc,gain,group,sample:name,baseVolume:volume,buffer,startedAt:now,offset};osc.buffer=buffer;osc.loop=loop;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(volume,now+(loop ? .012 : .004));if(!loop&&duration>.02){gain.gain.setValueAtTime(volume,now+duration-.008);gain.gain.linearRampToValueAtTime(0,now+duration);}osc.connect(gain).connect(this.master);this.nodes.add(node);osc.onended=()=>{if(group==='reels'&&!loop&&!node.cancelled){this.reelSampleEnded=true;this.reelPhase=1;}this.release(node);};osc.start(now,offset);return true;

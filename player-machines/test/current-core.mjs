@@ -4,4 +4,4 @@ import {runtime,legacy,revised} from '../../server-fixes/native-rules-20261107/a
 export const {getGame,publicGames,modelIdentity,receiptGame,gambleDraw}=runtime;
 export const {visibleGrid}=legacy;
 export function spin(id,bet,options={}){return options.legacy?legacy.spin(id,bet,options):runtime.spin(id,bet,options);}
-export function evaluateGrid(game,...args){return (['hot_foxy_20','multi_hot_5_video'].includes(game.id)&&game.mathVersion===runtime.modelIdentity(game.id).mathVersion?revised:legacy).evaluateGrid(game,...args);}
+export function evaluateGrid(game,...args){return (['foxy_hot_20_native','multi_hot_5_native'].includes(game.id)&&game.mathVersion===runtime.modelIdentity(game.id).mathVersion?revised:legacy).evaluateGrid(game,...args);}

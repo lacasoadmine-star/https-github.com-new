@@ -21,22 +21,21 @@ export async function createNativePresentation(game) {
   import('./native-animation-runtime.mjs')
  ]);
  const instances=Object.fromEntries(await Promise.all(Object.entries(assets.bundles).map(async([key,bundle])=>[key,await runtime.createNativeAnimation(bundle)])));
- const presentation=new NativePresentation(game,assets,instances,runtime);await presentation.ready;return presentation;
+ return new NativePresentation(game,assets,instances,runtime);
 }
 class NativePresentation {
  constructor(game,assets,instances,runtime) {
-  this.game=game;this.assets=assets;this.instances=instances;this.runtime=runtime;this.commands=[];this.pages=new Map();this.pageLoads=new Map();this.groups=new Map();this.poseBounds=new Map();this.disposed=false;this.drawCount=0;
+  this.game=game;this.assets=assets;this.instances=instances;this.runtime=runtime;this.commands=[];this.pages=new Map();this.groups=new Map();this.poseBounds=new Map();this.disposed=false;this.drawCount=0;
   for(const[name,sheet]of Object.entries(assets.spriteSheets||{}))for(const[key,meta]of Object.entries(sheet.data.frames)){
    const slash=key.lastIndexOf('/'),group=key.slice(0,slash),index=Number(key.slice(slash+1));
    if(!this.groups.has(group))this.groups.set(group,[]);this.groups.get(group).push({page:name,index,meta});
   }
   for(const frames of this.groups.values())frames.sort((a,b)=>a.index-b.index);
   if(game.id==='multi_hot_5_video')this.warmGroup('Logo');
-  this.ready=Promise.all([...this.pageLoads.values()]);
  }
  warmGroup(group) {for(const frame of this.groups.get(group)||[])this.page(frame.page);}
  page(name) {
-  if(!this.pages.has(name)){this.pages.set(name,null);this.pageLoads.set(name,loadImage(this.assets.spriteSheets[name].image).then(image=>{if(!this.disposed){this.pages.set(name,image);this.onReady?.();}}));}
+  if(!this.pages.has(name)){this.pages.set(name,null);void loadImage(this.assets.spriteSheets[name].image).then(image=>{if(!this.disposed){this.pages.set(name,image);this.onReady?.();}});}
   return this.pages.get(name);
  }
  frame(c,group,seconds,{x,y,w,h,fps=24,loop=false}={}) {
@@ -109,5 +108,5 @@ class NativePresentation {
  }
  flush(c){if(!this.commands.length)return;this.runtime.renderNativeBatch(c,this.commands,{maxDimension:1200});this.drawCount++;}
  diagnostics(){return {ready:true,instances:Object.keys(this.instances).length,groups:[...this.groups.keys()],decodedPages:[...this.pages.values()].filter(Boolean).length,draws:this.drawCount};}
- destroy(){this.disposed=true;for(const instance of Object.values(this.instances))instance.destroy();this.pages.clear();this.pageLoads.clear();this.commands=[];}
+ destroy(){this.disposed=true;for(const instance of Object.values(this.instances))instance.destroy();this.pages.clear();this.commands=[];}
 }

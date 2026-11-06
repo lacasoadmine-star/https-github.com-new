@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
 import {SoundEngine} from '../public/audio.mjs';
 import * as foxy from '../public/official-foxy-effects-audio.mjs';
 import * as multi from '../public/official-mh5-effects-audio.mjs';
@@ -17,9 +18,22 @@ test('original audio bytes match recorded public response hashes and full-length
  for(const bank of [foxy,multi])for(const asset of bank.provenance){const bytes=Buffer.from(bank.audioSamples[asset.event],'base64');assert.equal(bytes.length,asset.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),asset.sha256);}
  for(const track of [multiBackground,foxyBackground]){const bytes=Buffer.from(track.encoded,'base64');assert.equal(bytes.length,track.sourceBytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),track.sourceSha256);assert.ok(track.sourceDurationSeconds>80);assert.equal(track.preserveOriginal,true);}
 });
+test('native MH5 audio reuses byte-identical immutable Worker308 modules',()=>{
+ const hashes={
+  'official-mh5-background.mjs':'05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309',
+  'official-mh5-effects-audio.mjs':'0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48'
+ };
+ for(const [name,expected]of Object.entries(hashes)){
+  const shared=readFileSync(new URL('../worker/machine-data/'+name+'.bin',import.meta.url));
+  const native=readFileSync(new URL('../public/'+name,import.meta.url));
+  assert.equal(createHash('sha256').update(shared).digest('hex'),expected,'original Worker308 module remains immutable');
+  assert.deepEqual(native,shared,'native namespace must reuse the complete original module');
+ }
+ assert.equal(multiBackground.gain,1);assert.equal(multi.volumes.win,1);
+});
 test('both complete music buffers preserve original duration and PCM without excerpt processing',async()=>{
- assert.equal(multiBackground.gain,.3);assert.equal(foxyBackground.gain,.6);
- for(const [id,track] of [['multi_hot_5_video',multiBackground],['hot_foxy_20',foxyBackground]])await engine(id,async a=>{assert.equal(a.backgroundBuffer,null);a.setBackgroundEnabled(true);await a.preloadBackground();assert.equal(a.backgroundBuffer,a.context.decoded.at(-1));assert.equal(a.backgroundBuffer.duration,track.sourceDurationSeconds);assert.equal(a.context.createdBuffers,0);assert.equal(a.backgroundGain,track.gain);});
+ assert.equal(multiBackground.gain,1,'shared Worker308 metadata is immutable; native gain is adapted at playback');assert.equal(foxyBackground.gain,.6);
+ for(const [id,track] of [['multi_hot_5_video',multiBackground],['hot_foxy_20',foxyBackground]])await engine(id,async a=>{assert.equal(a.backgroundBuffer,null);a.setBackgroundEnabled(true);await a.preloadBackground();assert.equal(a.backgroundBuffer,a.context.decoded.at(-1));assert.equal(a.backgroundBuffer.duration,track.sourceDurationSeconds);assert.equal(a.context.createdBuffers,0);assert.equal(a.backgroundGain,id==='multi_hot_5_video'?.3:track.gain);});
 });
 test('MH5 uses its native spin and stop clips without adding a moving-reel or wheel sound',()=>engine('multi_hot_5_video',async a=>{
  assert.equal(a.samples.size,7);a.event('start');assert.ok(effects(a).includes('spin'));assert.equal(reels(a).length,0);a.event('move');assert.equal(reels(a).length,0);const before=a.nodes.size;a.event('wheel-stop');a.event('wheel-tick');a.event('multiplier',5);assert.equal(a.nodes.size,before);a.event('reel-stop',2);assert.ok(effects(a).includes('reel-stop'));

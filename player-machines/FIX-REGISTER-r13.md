@@ -1,6 +1,6 @@
 # Two-game fidelity register r13
 
-See [release and publication evidence](RELEASE-r13.md). Only official public DEMO captures and assets are reference material for this update.
+Historical replacement-scope register: **r13 was stopped and never published.** The current work adds two new machine IDs alongside the old games; see [the additive release](RELEASE-native-r1.md). The table below records the earlier scope and its tests, including the separately published Worker308 HTTP/2 hotfix. It is not final additive deployment evidence. Only official public DEMO captures and assets were used as reference material.
 
 | Difference | Correction | Verification |
 |---|---|---|

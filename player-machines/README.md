@@ -1,4 +1,12 @@
-# ZPLAY four-game player presentation
+# ZPLAY player machines
+
+Current work adds **two new native machines**, `foxy_hot_20_native` and `multi_hot_5_native`, beside the four existing local machines. See [RELEASE-native-r1.md](RELEASE-native-r1.md) for current scope, verification and publication status. The earlier replacement-r13 plan was stopped and never published.
+
+Build the additive release with `npm run build:native`, then run `npm test`. Its separate asset manifest and routes reuse unchanged Worker308 binary assets where hashes match. Do not regenerate the old deployment bundle as part of a native build: all 156 original modules and old machine URLs must stay unchanged. New financial game IDs remain separate from artwork families.
+
+## Historical r8 record
+
+The following notes describe the earlier four-game release, not the current build or deployment status.
 
 Current update: r8 extends the live Canvas/DOM player to Multi Hot 100 and Wild Multi Stars alongside Multi Hot 5 and Hot Foxy 20. Multi Hot 100 uses 5 reels × 4 rows and 100 fixed lines; Wild Multi Stars uses 5 × 3 and 20 lines. The new clients pin the already enabled authoritative models, reel strips, paytables and features. Reels, multiplier wheels, animations, win feedback and controls remain live code. See [RELEASE-r8.md](RELEASE-r8.md) for scope, verification and reference limits.
 

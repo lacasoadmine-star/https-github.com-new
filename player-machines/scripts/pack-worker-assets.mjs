@@ -3,6 +3,7 @@ import {mkdir,readFile,readdir,writeFile,rm} from 'node:fs/promises';
 import {join} from 'node:path';
 
 const mimeTypes={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml; charset=utf-8','.txt':'text/plain; charset=utf-8','.mjs':'application/javascript; charset=utf-8','.js':'application/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.gif':'image/gif','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2','.otf':'font/otf'};
+export {mimeTypes};
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const moduleType='application/javascript+module';
 

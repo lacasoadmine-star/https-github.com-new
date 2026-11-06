@@ -1,0 +1,30 @@
+{
+  "scope": "Independent read-only source review of additive model dispatch, old IDs, parent gamble and idempotency. No deployment or DB access; no test suite rerun.",
+  "runtimeSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+  "expectedRuntimeSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+  "findings": [],
+  "checks": [
+    "Only foxy_hot_20_native and multi_hot_5_native dispatch to revised core; all eleven old game IDs close over original legacy core.",
+    "Combined MATH allowlist adds two IDs without replacing old model references or legacy line sets; publicGames retains the first eleven original models.",
+    "New receipt parents require gameId, mathVersion, engineVersion and mathSha256 to match current new-model identity. Legacy parents retain legacy model selection and old gamble-version guard.",
+    "Spin fingerprint includes uid, gameId, bet and SPIN; identical token replay returns saved receipt before current-rule validation; old/new ID changes produce parameter conflict.",
+    "Gamble selection uses locked authenticated parent game_id and result identity, not caller-supplied game ID. Replayed action result is returned before new guards.",
+    "Action and spin token namespaces cross-check collisions. New native-parent-only expected stake/attempt and replayOnly guards reject stale new gambles before debit; all old IDs ignore added malformed fields exactly as before.",
+    "Free-spin state SELECT and UPSERT retain user_id + game_id keys, so new requests cannot consume old entitlements.",
+    "Unchanged embedded legacy core hashes and authentication/migration/original-games bodies are enforced by build/test checks. Existing fixture coverage includes all11 old model public records and440 seeded settlements."
+  ],
+  "remainingIntegrationBoundary": "Read-only metadata probe must report compatible on actual live sw_rebuild.rounds.game before publishing new game links; no account writes or mirror mutations were performed for this review.",
+  "fileHashes": {
+    "src/version-dispatch.mjs": "ae78f52daaca95f52b938007bf01021c105899c79b0c3d637ca83d002b42d08a",
+    "src/model-patch.mjs": "13bf096e2c9a8de38fe8f59bafcbd68f174130d6a23f2630b49ddd89385a4686",
+    "scripts/build.mjs": "1e2523936c407d93029e6570595b4387a2792728acd312643710cb9ed7cf315d",
+    "source/legacy-core.mjs": "f40f441ed26e2448076ff291c2c9a714542b2aaf32e802a31c2645ad46723c2d",
+    "source/legacy-runtime.mjs": "23012dd4f8829c3809a3e13573e24b7a404d0466d47a9697e030b8947a73b9ab",
+    "source/runtime-after.mjs": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+    "test/core.test.mjs": "68a36ab3f490c423b82e1ec104262227e24687dcc2fbc4bed13673b8690281a4",
+    "test/transactions.test.mjs": "76b997570dd06010435e889294e82744fa824b14bbaf218d58a06b8367452c7b",
+    "test/state.test.mjs": "457f90c013ad9835b1efcc5598ff52c4d34e1c721fd0a1cfa54711100366c987",
+    "src/schema-probe.mjs": "87ba304fa11fac72b89bf24764e4f9639a7e0805ca744f64991bd811e2121773"
+  },
+  "followUpReview": "NativeParent-only guards reviewed clean. Root-authorized one-shot metadata-only schema probe reviewed. Reported partition-table false-positive concern fixed: only ordinary r tables can be compatible; p requires review. Owner reports52 passing tests. No mirror alias mapping."
+}
