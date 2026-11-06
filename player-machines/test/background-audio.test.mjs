@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {SoundEngine} from '../public/audio.mjs';
+import {backgroundTracks} from '../public/background-audio.mjs';
 const param=()=>({value:0,setValueAtTime(v){this.value=v;},setTargetAtTime(v){this.value=v;},linearRampToValueAtTime(v){this.value=v;},exponentialRampToValueAtTime(v){this.value=v;}});
 class Node{constructor(){this.gain=param();this.frequency=param();this.threshold=param();this.ratio=param();}connect(next){return next;}disconnect(){this.disconnected=true;}start(time,offset){this.offset=offset;this.startTime=time;}stop(){this.stopped=true;this.onended?.();}}
 const buffer=(seconds=.5)=>{const channels=[new Float32Array(seconds*1000),new Float32Array(seconds*1000)];return {duration:seconds,length:channels[0].length,sampleRate:1000,numberOfChannels:2,getChannelData:i=>channels[i]};};
@@ -31,7 +32,7 @@ test('late music decoding after disposal cannot start or retain a buffer',async(
  await withAudio(async a=>{a.setBackgroundEnabled(true);await a.unlock();const pending=a.preloadBackground();await started;await a.dispose();release(buffer(87));assert.equal(await pending,false);assert.equal(a.backgroundBuffer,null);assert.equal(a.nodes.size,0);},class extends Context{decodeAudioData(bytes){if(new TextDecoder().decode(bytes.slice(0,4))==='OggS'){entered();return new Promise(r=>release=r);}return super.decodeAudioData(bytes);}});
 });
 test('unverified games never load or borrow the shared Multi Hot music',async()=>{
- for(const id of ['hot_foxy_20','wild_multi_stars'])await withAudio(async a=>{a.setBackgroundEnabled(true);await a.unlock();assert.equal(await a.preloadBackground(),false);assert.equal(a.context.backgroundDecodes,0);assert.equal(background(a).length,0);},Context,id);
+ for(const id of ['wild_multi_stars','unknown_game'])await withAudio(async a=>{a.setBackgroundEnabled(true);await a.unlock();assert.equal(await a.preloadBackground(),false);assert.equal(a.context.backgroundDecodes,0);assert.equal(background(a).length,0);},Context,id);
 });
 test('stalled resume does not start background until browser permits audio',()=>withAudio(async a=>{
  a.setBackgroundEnabled(true);await a.unlock();await a.preloadBackground();assert.equal(background(a).length,0);a.context.state='running';await a.unlock();assert.equal(background(a).length,1);
@@ -48,3 +49,9 @@ test('Multi Hot 5 shares the verified user clip only after explicit consent',()=
  a.event('start');a.stop('reels');a.win(2,1);a.stop('win');assert.equal(background(a)[0],bed);assert.equal(a.samples.size,7);
  a.setBackgroundEnabled(false);assert.equal(background(a).length,0);await a.unlock();assert.equal(background(a).length,0);
 },Context,'multi_hot_5_video'));
+
+test('Foxy decodes its own uploaded ambience only after consent and preserves it across foreground playback',()=>withAudio(async a=>{
+ await a.unlock();await a.preload();assert.equal(a.context.backgroundDecodes,0);assert.equal(background(a).length,0);
+ a.setBackgroundEnabled(true);await a.preloadBackground();const bed=background(a)[0];assert.ok(bed);assert.equal(a.context.backgroundDecodes,1);assert.equal(a.context.lastBackgroundBytes,backgroundTracks.hot_foxy_20.encoded);assert.notEqual(a.context.lastBackgroundBytes,backgroundTracks.multi_hot_5_video.encoded);
+ a.event('start');a.stop('reels');a.win(2,1);a.stop('win');assert.equal(background(a)[0],bed);assert.equal(a.samples.size,7);a.setBackgroundEnabled(false);assert.equal(background(a).length,0);
+},class extends Context{async decodeAudioData(bytes){if(new TextDecoder().decode(bytes.slice(0,4))==='OggS')this.lastBackgroundBytes=Buffer.from(bytes).toString('base64');return super.decodeAudioData(bytes);}},'hot_foxy_20'));

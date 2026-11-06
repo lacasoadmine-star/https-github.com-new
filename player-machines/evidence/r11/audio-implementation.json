@@ -1,0 +1,36 @@
+{
+  "changes": [
+    "Foxy optional independent ambient loop from user recording; dynamicimport behind explicit consent, existing mute/hide/phase/dispose lifecycle retained.",
+    "MH5/Foxy late-decoded reel sample replaces only active procedural fallback, phase retained, existing15ms fade-out/12ms fade-in.",
+    "MH5/MH100 ambient payload unchanged; Stars has no substituted bed;7foreground encoded samples unchanged."
+  ],
+  "file_hashes": {
+    "public/audio.mjs": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+    "public/background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+    "test/audio.test.mjs": "8b7ac070cc22128e8929ad7796fedc30af0431487ab4f2ad2bcc50714acaf9a5",
+    "test/background-audio.test.mjs": "2e114ce1b4aa4baa98fdd0f667c3fd1c6e9f50e6af96f45c51af6623f95fe8b7"
+  },
+  "embedded_payload_hashes": [
+    "a4dca68919171e63c864925e3581993e070f29c26296b62ed799bcdf9bb67e8a",
+    "9bfeb3eec254f6ce9656612d5fa88ff4b0eea538d170014ed9cd2af3d91805bc"
+  ],
+  "checks": {
+    "focused_tests": "34/34pass",
+    "actual_cold_baseline": "r11-local-baseline/cold-audio/results.json: native Chromium decoded in time; explicit500msdecode delay reproduced fallback persisting after7decoded samples in both games",
+    "after_browser": "cold-handoff/results.json:26/26 assertions pass across4cases, stable audio hashes; active fallback\u2192one sampledloop in both games under500msdelay, no persistent late fallback. late-after-stop/results.json:14/14pass,1500msdecode completes after both settled with0decoded, then7decoded and0reel nodes; no restart.",
+    "pcm": "baseline-pcm-analysis.json andfoxy-user-bed-provenance.json"
+  },
+  "limitations": [
+    "Foxy1.2s filtered ambient loop is a short repeating user-sourced excerpt, not full soundtrack/spectrum/melody equivalence.",
+    "No longer clean MH5 ambient segment found in supplied videos; current1.465s shared user clip retained.",
+    "Captured Foxy baseline PCM is shorter than AudioContext span; no exact reel-gap assertion from that waveform.",
+    "Controlled slow decode reproduces handoff issue; native Chromium baseline did not exhibit it."
+  ],
+  "prohibited_changes_absent": [
+    "No public full-track embedding",
+    "No backend,math,wallet,financial changes",
+    "No provider browser session",
+    "No deployment"
+  ],
+  "status": "audio source frozen after34focused unit tests and40integrated browser assertions"
+}

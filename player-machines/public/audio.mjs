@@ -26,9 +26,10 @@ export class SoundEngine {
   this.backgroundEnabled=true;if(this.context){void this.preloadBackground();this.backgroundLoop();}
  }
  preloadBackground(){
-  const context=this.context;if(!['multi_hot_100','multi_hot_5_video'].includes(this.gameId)||!this.backgroundEnabled||this.disposed||!context?.decodeAudioData||context.state==='closed')return Promise.resolve(false);
+  const context=this.context;if(!['multi_hot_100','multi_hot_5_video','hot_foxy_20'].includes(this.gameId)||!this.backgroundEnabled||this.disposed||!context?.decodeAudioData||context.state==='closed')return Promise.resolve(false);
   if(this.backgroundFailureContext===context)return Promise.resolve(false);if(this.backgroundBuffer){this.backgroundLoop();return Promise.resolve(true);}if(this.backgroundLoad)return this.backgroundLoad;
-  const pending=import('./background-audio.mjs').then(async({backgroundTrack})=>{
+  const pending=import('./background-audio.mjs').then(async({backgroundTracks})=>{
+   const backgroundTrack=backgroundTracks?.[this.gameId];
    if(this.disposed||context!==this.context||!backgroundTrack?.encoded)return false;
    const bytes=Uint8Array.from(atob(backgroundTrack.encoded),c=>c.charCodeAt(0));const decoded=await context.decodeAudioData(bytes.buffer);
    if(this.disposed||context!==this.context)return false;
@@ -49,9 +50,15 @@ export class SoundEngine {
   const context=this.context;if(this.disposed||!context?.decodeAudioData||context.state==='closed')return Promise.resolve(false);
   if(this.sampleLoad)return this.sampleLoad;
   this.sampleLoad=Promise.all(Object.entries(this.audioSamples).map(async([name,encoded])=>{
-   try{const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)),buffer=await context.decodeAudioData(bytes.buffer);if(!this.disposed)this.samples.set(name,name==='reel-loop'?seamlessBuffer(context,buffer):buffer);}catch{}
+   try{const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)),buffer=await context.decodeAudioData(bytes.buffer);if(!this.disposed){this.samples.set(name,name==='reel-loop'?seamlessBuffer(context,buffer):buffer);if(name==='reel-loop')this.adoptDecodedReelLoop();}}catch{}
   })).then(()=>this.samples.size===Object.keys(this.audioSamples).length);
   return this.sampleLoad;
+ }
+ // A first spin may begin while clips decode. Replace only its active fallback,
+ // preserving phase and using the existing short fade instead of restarting audio.
+ adoptDecodedReelLoop(){
+  if(!['multi_hot_5_video','hot_foxy_20'].includes(this.gameId)||!this.reelWanted||this.muted||this.playbackSuspended||this.disposed||this.context?.state!=='running'||![...this.nodes].some(n=>n.group==='reels'&&!n.sample))return;
+  this.saveReelPhase();this.stopNodes('reels');this.reelLoop();
  }
  playSample(name,{loop=false,group='effect',volume,offset=0}={}){volume=volume??(this.gameId==='wild_multi_stars'&&name==='reel-loop'?.25:1.4);
   const context=this.context,buffer=this.samples.get(name);if(!buffer||!context||context.state==='closed'||this.muted||this.disposed||this.playbackSuspended)return false;

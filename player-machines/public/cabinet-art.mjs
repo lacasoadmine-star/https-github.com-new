@@ -46,14 +46,14 @@ export async function cabinetArtwork(g){
 }
 export function drawCabinetArtwork(c,art,g){
  if(!art)return;c.save();if(g.id==='hot_foxy_20'){c.fillStyle='#000';c.fillRect(0,0,420,900);c.beginPath();c.rect(13,0,394,900);c.clip();const f=c.createRadialGradient(205,425,40,210,440,570);f.addColorStop(0,'#00372c');f.addColorStop(.52,'#00271f');f.addColorStop(1,'#00130f');c.fillStyle=f;c.fillRect(0,0,420,900);
-  c.save();c.globalAlpha=.36;
+  c.save();c.globalAlpha=.3;
   forestSilhouette(c,157,652,1.05,.8,'#003f32');
   forestSilhouette(c,282,633,.96,-.72,'#003b30');
-  forestSilhouette(c,206,750,1.36,-.22,'#003f32');
+  forestSilhouette(c,221,764,1.62,-.62,'#003f32');
   forestSilhouette(c,78,805,1.15,.64,'#004237');
   forestSilhouette(c,333,838,1.03,-.75,'#003c30');
   // Receding stems connect the understory without crossing the bright reel area.
-  c.globalAlpha=.32;c.lineCap='round';c.strokeStyle='#06483b';c.lineWidth=2.5;
+   c.globalAlpha=.12;c.lineCap='round';c.strokeStyle='#06483b';c.lineWidth=2.5;
   c.beginPath();c.moveTo(39,869);c.bezierCurveTo(70,746,133,671,207,620);c.bezierCurveTo(244,593,282,574,308,581);c.stroke();
   c.lineWidth=1.2;c.beginPath();c.moveTo(207,620);c.quadraticCurveTo(165,610,132,587);c.moveTo(153,669);c.quadraticCurveTo(219,668,269,635);c.moveTo(91,764);c.quadraticCurveTo(147,758,193,729);c.stroke();
   c.restore();}for(const layer of art.layers||[])if(layer)c.drawImage(layer.image,...layer.box);if(g.id==='hot_foxy_20'){forestShoot(c,142,522,1);forestShoot(c,309,632,-1);}c.restore();

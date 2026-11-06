@@ -1,8 +1,18 @@
 // Receipt-driven Foxy highlights. These surfaces never select symbols or wins.
 export function drawFoxyMultiplier(c,value,x,y,size){
- c.save();c.translate(x,y);c.font=`900 ${size}px Arial, sans-serif`;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
- const label=value+'x';c.strokeStyle='#973526';c.lineWidth=3.5;c.strokeText(label,0,1.5);c.strokeStyle='#fffbc4';c.lineWidth=1.8;c.strokeText(label,0,0);
- const ink=c.createLinearGradient(0,-size/2,0,size/2);ink.addColorStop(0,'#ffe874');ink.addColorStop(.38,'#ffbd26');ink.addColorStop(.8,'#f0781e');ink.addColorStop(1,'#d64a25');c.fillStyle=ink;c.fillText(label,0,0);c.restore();
+ c.save();c.translate(x,y);c.scale(1,1.075);c.font=`900 ${size}px Arial, sans-serif`;c.textAlign='center';c.textBaseline='middle';c.lineJoin='round';
+ const label=value+'x';
+ // The orange face sits above a deep red extrusion in the supplied cabinet.
+ // Paint the underside first so moving wheel numbers keep the same solid edge.
+ c.shadowColor='#00291c99';c.shadowBlur=2;c.shadowOffsetY=2;
+ c.strokeStyle='#7f281f';c.fillStyle='#a52c20';c.lineWidth=3.4;
+ c.strokeText(label,.45,3.4);c.fillText(label,.45,3.4);
+ c.shadowBlur=0;c.shadowOffsetY=0;
+ c.strokeStyle='#eebc50';c.lineWidth=3.3;c.strokeText(label,0,.2);
+ c.strokeStyle='#fffbd2';c.lineWidth=1.8;c.strokeText(label,0,-.35);
+ const ink=c.createLinearGradient(0,-size*.44,0,size*.4);
+ ink.addColorStop(0,'#ffec74');ink.addColorStop(.12,'#ffd533');ink.addColorStop(.44,'#ffb420');ink.addColorStop(.8,'#ff791a');ink.addColorStop(1,'#ed4b15');
+ c.fillStyle=ink;c.fillText(label,0,0);c.restore();
 }
 
 function trace(c,points){

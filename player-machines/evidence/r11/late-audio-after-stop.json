@@ -1,0 +1,4090 @@
+[
+  {
+    "game": "multi_hot_5_video",
+    "decodeDelayMs": 1500,
+    "stopBeforeDecode": true,
+    "synthetic": true,
+    "scope": "Controlled1500ms decode-completion delay; real decoded samples/HTTP/trusted input retained",
+    "checks": [
+      {
+        "label": "immediate cold SPIN settles exactly once",
+        "ok": true
+      },
+      {
+        "label": "actual trusted YES and SPIN",
+        "ok": true
+      },
+      {
+        "label": "foreground samples eventually decode",
+        "ok": true
+      },
+      {
+        "label": "settlement finished before late sample decoding",
+        "ok": true
+      },
+      {
+        "label": "no duplicate active sampled reel loops",
+        "ok": true
+      },
+      {
+        "label": "settled spin never restarts reels after delayed decoding",
+        "ok": true
+      },
+      {
+        "label": "no browser errors",
+        "ok": true
+      }
+    ],
+    "errors": [],
+    "audioSourceBefore": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+    "samples": [
+      {
+        "at": 831.6000000000931,
+        "gameId": "multi_hot_5_video",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 19,
+          "draws": 7,
+          "slowFrames": 3,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 676.7000000001863
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 677.8000000002794
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 737
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 750.6000000000931
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 815.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 816.4000000003725
+          }
+        ],
+        "audioNodes": 3,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+        "multiplier": 1,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": true,
+        "loopPhase": 0.22494331065759635,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 816.4000000003725,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      },
+      {
+        "at": 879.6000000000931,
+        "gameId": "multi_hot_5_video",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 22,
+          "draws": 10,
+          "slowFrames": 3,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 676.7000000001863
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 677.8000000002794
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 737
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 750.6000000000931
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 815.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 816.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 832.8000000002794
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 849.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 849.7000000001863
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 866.1000000000931
+          }
+        ],
+        "audioNodes": 5,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+        "multiplier": 1,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": true,
+        "loopPhase": 0.3482993197278912,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 849.8000000002794,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      },
+      {
+        "at": 929.6000000000931,
+        "gameId": "multi_hot_5_video",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 25,
+          "draws": 13,
+          "slowFrames": 3,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 676.7000000001863
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 677.8000000002794
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 737
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 750.6000000000931
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 815.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 816.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 832.8000000002794
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 849.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 849.7000000001863
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 866.1000000000931
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 882.7000000001863
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 899.4000000003725
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 899.6000000000931
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 916.2000000001863
+          }
+        ],
+        "audioNodes": 4,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+        "multiplier": 2,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": true,
+        "loopPhase": 0.4716553287981859,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 916.2000000001863,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      },
+      {
+        "at": 979.3000000002794,
+        "gameId": "multi_hot_5_video",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 28,
+          "draws": 16,
+          "slowFrames": 3,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 676.7000000001863
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 677.8000000002794
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 737
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 750.6000000000931
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 815.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 816.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 832.8000000002794
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 849.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 849.7000000001863
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 866.1000000000931
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 882.7000000001863
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 899.4000000003725
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 899.6000000000931
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 916.2000000001863
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 949.5
+          }
+        ],
+        "audioNodes": 4,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+        "multiplier": 2,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": true,
+        "loopPhase": 0.5950113378684807,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 949.5,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      },
+      {
+        "at": 1026.8000000002794,
+        "gameId": "multi_hot_5_video",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 3,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 31,
+          "draws": 19,
+          "slowFrames": 3,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 676.7000000001863
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 677.8000000002794
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 737
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 750.6000000000931
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 815.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 816.4000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 832.8000000002794
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 849.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 849.7000000001863
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 866.1000000000931
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 882.7000000001863
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 899.4000000003725
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 899.6000000000931
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 916.2000000001863
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 949.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 982.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 983
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 1015.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1016.1000000000931
+          }
+        ],
+        "audioNodes": 8,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+        "multiplier": 2,
+        "grid": [
+          [
+            "orange",
+            "golden_bell",
+            "lemon"
+          ],
+          [
+            "plum",
+            "dollar",
+            "777"
+          ],
+          [
+            "777",
+            "777",
+            "777"
+          ]
+        ],
+        "multiArtworkLoaded": true,
+        "loopActive": true,
+        "loopPhase": 0.7183673469387755,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 1016.1000000000931,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      }
+    ],
+    "atReady": {
+      "at": 1103.3000000002794,
+      "gameId": "multi_hot_5_video",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 35,
+        "draws": 23,
+        "slowFrames": 3,
+        "maxDelta": 80
+      },
+      "soundEvents": [
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 676.7000000001863
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 677.8000000002794
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 737
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 750.6000000000931
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 815.9000000003725
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 816.4000000003725
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 832.8000000002794
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 849.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 849.7000000001863
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 866.1000000000931
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 882.7000000001863
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 899.4000000003725
+        },
+        {
+          "name": "multiplier",
+          "index": 2,
+          "time": 899.6000000000931
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 916.2000000001863
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 949.5
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 982.9000000003725
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 983
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 1015.9000000003725
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1016.1000000000931
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1049.6000000000931
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 1066.1000000000931
+        }
+      ],
+      "audioNodes": 18,
+      "decodedSoundSamples": 0,
+      "soundSampleNodes": 0,
+      "audioState": "running",
+      "backgroundAudio": {
+        "enabled": true,
+        "loaded": false,
+        "loading": true,
+        "playing": false,
+        "positionSeconds": 0,
+        "durationSeconds": 0,
+        "gain": 0
+      },
+      "cabinetArtworkLoaded": true,
+      "artworkLoaded": true,
+      "audioSuspended": false,
+      "reducedMotion": false,
+      "particles": 35,
+      "turbo": false,
+      "autoRemaining": 0,
+      "ambientEffects": false,
+      "ambientParticles": 0,
+      "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+      "multiplier": 2,
+      "grid": [
+        [
+          "grapes",
+          "777",
+          "orange"
+        ],
+        [
+          "dollar",
+          "grapes",
+          "lemon"
+        ],
+        [
+          "golden_bell",
+          "grapes",
+          "grapes"
+        ]
+      ],
+      "multiArtworkLoaded": true,
+      "loopActive": false,
+      "loopPhase": 0,
+      "retiringAudioNodes": 0,
+      "contextLost": false
+    },
+    "after": {
+      "synthetic": true,
+      "opening": "100000.00",
+      "balance": "100014.00",
+      "houseBalance": "-10001400",
+      "spinPosts": 1,
+      "roundSettlements": 1,
+      "gamblePosts": 0,
+      "gambleSettlements": 0,
+      "ledgerEntries": 3,
+      "ledgerBalanced": true,
+      "free": {
+        "multi_hot_5_video": {
+          "remaining": 0,
+          "bet": "2.00"
+        }
+      },
+      "rounds": [
+        {
+          "roundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+          "gameId": "multi_hot_5_video",
+          "bet": "2.00",
+          "chargedStake": "2.00",
+          "finalWin": "16.00",
+          "freeSpinsRemaining": 0,
+          "stops": [
+            1442,
+            4441,
+            8252
+          ],
+          "wheelMultiplier": 2
+        }
+      ],
+      "ledger": [
+        {
+          "sequence": 1,
+          "kind": "synthetic_opening",
+          "roundId": null,
+          "playerDelta": "10000000",
+          "houseDelta": "-10000000",
+          "balanceBefore": "0.00",
+          "balanceAfter": "100000.00"
+        },
+        {
+          "sequence": 2,
+          "kind": "spin_stake",
+          "roundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+          "playerDelta": "-200",
+          "houseDelta": "200",
+          "balanceBefore": "100000.00",
+          "balanceAfter": "99998.00"
+        },
+        {
+          "sequence": 3,
+          "kind": "spin_win",
+          "roundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+          "playerDelta": "1600",
+          "houseDelta": "-1600",
+          "balanceBefore": "99998.00",
+          "balanceAfter": "100014.00"
+        }
+      ]
+    },
+    "receipt": {
+      "roundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+      "gameId": "multi_hot_5_video",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "mathVersion": "2026-10-27-reference-v3000",
+      "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+      "grid": [
+        [
+          "grapes",
+          "777",
+          "orange"
+        ],
+        [
+          "dollar",
+          "grapes",
+          "lemon"
+        ],
+        [
+          "golden_bell",
+          "grapes",
+          "grapes"
+        ]
+      ],
+      "initialGrid": [
+        [
+          "grapes",
+          "777",
+          "orange"
+        ],
+        [
+          "dollar",
+          "grapes",
+          "lemon"
+        ],
+        [
+          "golden_bell",
+          "grapes",
+          "grapes"
+        ]
+      ],
+      "stops": [
+        1442,
+        4441,
+        8252
+      ],
+      "wheelMultiplier": 2,
+      "wheelPosition": "side",
+      "winLines": [
+        {
+          "line": 4,
+          "rows": [
+            0,
+            1,
+            2
+          ],
+          "symbol": "grapes",
+          "count": 3,
+          "positions": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "wilds": 0,
+          "baseWin": "8.0000",
+          "win": "16.0000"
+        }
+      ],
+      "stages": [
+        {
+          "grid": [
+            [
+              "grapes",
+              "777",
+              "orange"
+            ],
+            [
+              "dollar",
+              "grapes",
+              "lemon"
+            ],
+            [
+              "golden_bell",
+              "grapes",
+              "grapes"
+            ]
+          ],
+          "winLines": [
+            {
+              "line": 4,
+              "rows": [
+                0,
+                1,
+                2
+              ],
+              "symbol": "grapes",
+              "count": 3,
+              "positions": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "wilds": 0,
+              "baseWin": "8.0000",
+              "win": "16.0000"
+            }
+          ],
+          "lineWin": "16.0000",
+          "jackpotWin": "0.0000",
+          "scatterWin": "0.0000",
+          "win": "16.0000",
+          "stackMultiplier": 2,
+          "cascadeMultiplier": 1
+        }
+      ],
+      "bet": "2.00",
+      "chargedStake": "2.00",
+      "isFree": false,
+      "finalWin": "16.00",
+      "uncappedWin": "16.0000",
+      "bonusSpinsAwarded": 0,
+      "scatterCount": 0,
+      "jackpotTier": null,
+      "pendingBonusPick": false,
+      "dragonFire": false,
+      "maxWinCapped": false,
+      "currency": "ETB",
+      "balanceBefore": "100000.00",
+      "balanceAfter": "100014.00",
+      "walletReceipt": {
+        "currency": "ETB",
+        "balanceBefore": "100000.00",
+        "chargedStake": "2.00",
+        "finalWin": "16.00",
+        "balanceAfter": "100014.00"
+      },
+      "freeSpinsRemaining": 0
+    },
+    "log": [
+      {
+        "at": 739.3000000002794,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          }
+        ]
+      },
+      {
+        "at": 812.1000000000931,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 816.4000000003725,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 849.8000000002794,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 882.8000000002794,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 916.2000000001863,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 949.5,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 983,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1016.1000000000931,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1049.7000000001863,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      }
+    ],
+    "gestures": [
+      {
+        "at": 617.7000000001863,
+        "id": "sound-yes",
+        "trusted": true,
+        "diagnostics": {
+          "gameId": "multi_hot_5_video",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 3,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 8,
+            "draws": 2,
+            "slowFrames": 2,
+            "maxDelta": 80
+          },
+          "soundEvents": [],
+          "audioNodes": 0,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "not-started",
+          "backgroundAudio": {
+            "enabled": false,
+            "loaded": false,
+            "loading": false,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": null,
+          "multiplier": 1,
+          "grid": [
+            [
+              "orange",
+              "golden_bell",
+              "lemon"
+            ],
+            [
+              "plum",
+              "dollar",
+              "777"
+            ],
+            [
+              "777",
+              "777",
+              "777"
+            ]
+          ],
+          "multiArtworkLoaded": true,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      {
+        "at": 688.1000000000931,
+        "id": "spin",
+        "trusted": true,
+        "diagnostics": {
+          "gameId": "multi_hot_5_video",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 3,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 11,
+            "draws": 2,
+            "slowFrames": 3,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 676.7000000001863
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 677.8000000002794
+            }
+          ],
+          "audioNodes": 2,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": false,
+            "loading": true,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": null,
+          "multiplier": 1,
+          "grid": [
+            [
+              "orange",
+              "golden_bell",
+              "lemon"
+            ],
+            [
+              "plum",
+              "dollar",
+              "777"
+            ],
+            [
+              "777",
+              "777",
+              "777"
+            ]
+          ],
+          "multiArtworkLoaded": true,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      {
+        "at": 811.9000000003725,
+        "id": "spin",
+        "trusted": true,
+        "diagnostics": {
+          "gameId": "multi_hot_5_video",
+          "state": "animating",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 3,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 18,
+            "draws": 6,
+            "slowFrames": 3,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 676.7000000001863
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 677.8000000002794
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 737
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 750.6000000000931
+            }
+          ],
+          "audioNodes": 3,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": false,
+            "loading": true,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+          "multiplier": 1,
+          "grid": [
+            [
+              "orange",
+              "golden_bell",
+              "lemon"
+            ],
+            [
+              "plum",
+              "dollar",
+              "777"
+            ],
+            [
+              "777",
+              "777",
+              "777"
+            ]
+          ],
+          "multiArtworkLoaded": true,
+          "loopActive": true,
+          "loopPhase": 0.17414965986394557,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      }
+    ],
+    "finalDiagnostics": {
+      "gameId": "multi_hot_5_video",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 116,
+        "draws": 104,
+        "slowFrames": 4,
+        "maxDelta": 80
+      },
+      "soundEvents": [
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 676.7000000001863
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 677.8000000002794
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 737
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 750.6000000000931
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 815.9000000003725
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 816.4000000003725
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 832.8000000002794
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 849.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 849.7000000001863
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 866.1000000000931
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 882.7000000001863
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 899.4000000003725
+        },
+        {
+          "name": "multiplier",
+          "index": 2,
+          "time": 899.6000000000931
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 916.2000000001863
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 949.5
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 982.9000000003725
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 983
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 1015.9000000003725
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1016.1000000000931
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1049.6000000000931
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 1066.1000000000931
+        }
+      ],
+      "audioNodes": 1,
+      "decodedSoundSamples": 7,
+      "soundSampleNodes": 0,
+      "audioState": "running",
+      "backgroundAudio": {
+        "enabled": true,
+        "loaded": true,
+        "loading": false,
+        "playing": true,
+        "positionSeconds": 0.2409070294784581,
+        "durationSeconds": 1.4649886621315193,
+        "gain": 1
+      },
+      "cabinetArtworkLoaded": true,
+      "artworkLoaded": true,
+      "audioSuspended": false,
+      "reducedMotion": false,
+      "particles": 20,
+      "turbo": false,
+      "autoRemaining": 0,
+      "ambientEffects": false,
+      "ambientParticles": 0,
+      "restoredRoundId": "a1373bb5-8783-4346-abe7-7311cd7ec81b",
+      "multiplier": 2,
+      "grid": [
+        [
+          "grapes",
+          "777",
+          "orange"
+        ],
+        [
+          "dollar",
+          "grapes",
+          "lemon"
+        ],
+        [
+          "golden_bell",
+          "grapes",
+          "grapes"
+        ]
+      ],
+      "multiArtworkLoaded": true,
+      "loopActive": false,
+      "loopPhase": 0,
+      "retiringAudioNodes": 0,
+      "contextLost": false
+    },
+    "lateFallbackObserved": false,
+    "initialLoop": {
+      "at": 739.3000000002794,
+      "samples": 0,
+      "reelWanted": true,
+      "nodes": [
+        {
+          "group": "effect",
+          "sample": null,
+          "bufferDuration": null,
+          "filter": false
+        },
+        {
+          "group": "effect",
+          "sample": null,
+          "bufferDuration": null,
+          "filter": false
+        },
+        {
+          "group": "reels",
+          "sample": null,
+          "bufferDuration": 0.4,
+          "filter": true
+        }
+      ]
+    },
+    "finalReelNodes": [],
+    "audioFile": "/workspace/work/r11-primary-audio/late-after-stop/multi_hot_5_video-delay1500-early-stop.webm",
+    "audioMeta": {
+      "startedAt": 661.9000000003725,
+      "endedAt": 2553.100000000093,
+      "sampleRate": 44100,
+      "bytes": 22705
+    },
+    "audioSourceAfter": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+    "sourceStable": true
+  },
+  {
+    "game": "hot_foxy_20",
+    "decodeDelayMs": 1500,
+    "stopBeforeDecode": true,
+    "synthetic": true,
+    "scope": "Controlled1500ms decode-completion delay; real decoded samples/HTTP/trusted input retained",
+    "checks": [
+      {
+        "label": "immediate cold SPIN settles exactly once",
+        "ok": true
+      },
+      {
+        "label": "actual trusted YES and SPIN",
+        "ok": true
+      },
+      {
+        "label": "foreground samples eventually decode",
+        "ok": true
+      },
+      {
+        "label": "settlement finished before late sample decoding",
+        "ok": true
+      },
+      {
+        "label": "no duplicate active sampled reel loops",
+        "ok": true
+      },
+      {
+        "label": "settled spin never restarts reels after delayed decoding",
+        "ok": true
+      },
+      {
+        "label": "no browser errors",
+        "ok": true
+      }
+    ],
+    "errors": [],
+    "audioSourceBefore": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+    "samples": [
+      {
+        "at": 1253.3999999999069,
+        "gameId": "hot_foxy_20",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 27,
+          "draws": 19,
+          "slowFrames": 18,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 811.6999999997206
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 813.0999999996275
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 948.6999999997206
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 964
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1083.2999999998137
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1120.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1163
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1163.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1201.8999999999069
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1202
+          }
+        ],
+        "audioNodes": 3,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 7,
+        "restoredRoundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+        "multiplier": 1,
+        "grid": [
+          [
+            "lemon",
+            "watermelon",
+            "lemon",
+            "winged_bell",
+            "lemon"
+          ],
+          [
+            "lemon",
+            "lemon",
+            "777",
+            "cherry",
+            "winged_bell"
+          ],
+          [
+            "777",
+            "orange",
+            "orange",
+            "winged_bell",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": true,
+        "loopPhase": 0.747392290249433,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 1202.0999999996275,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      },
+      {
+        "at": 1354.5999999996275,
+        "gameId": "hot_foxy_20",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 30,
+          "draws": 22,
+          "slowFrames": 21,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 811.6999999997206
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 813.0999999996275
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 948.6999999997206
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 964
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1083.2999999998137
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1120.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1163
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1163.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1201.8999999999069
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1202
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1255.2999999998137
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1255.3999999999069
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1289.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1289.2999999998137
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 1322.7999999998137
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1323
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 1323
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1323.0999999996275
+          }
+        ],
+        "audioNodes": 7,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 7,
+        "restoredRoundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+        "multiplier": 2,
+        "grid": [
+          [
+            "lemon",
+            "watermelon",
+            "lemon",
+            "winged_bell",
+            "lemon"
+          ],
+          [
+            "lemon",
+            "lemon",
+            "777",
+            "cherry",
+            "winged_bell"
+          ],
+          [
+            "777",
+            "orange",
+            "orange",
+            "winged_bell",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": true,
+        "loopPhase": 0.0013605442176868598,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 1323.0999999996275,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      },
+      {
+        "at": 1447.1999999997206,
+        "gameId": "hot_foxy_20",
+        "state": "animating",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 33,
+          "draws": 25,
+          "slowFrames": 24,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 811.6999999997206
+          },
+          {
+            "name": "tap",
+            "index": 0,
+            "time": 813.0999999996275
+          },
+          {
+            "name": "start",
+            "index": 0,
+            "time": 948.6999999997206
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 964
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1083.2999999998137
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1120.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1163
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1163.0999999996275
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1201.8999999999069
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1202
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1255.2999999998137
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1255.3999999999069
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 1289.0999999996275
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1289.2999999998137
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 1322.7999999998137
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1323
+          },
+          {
+            "name": "multiplier",
+            "index": 2,
+            "time": 1323
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1323.0999999996275
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 1357.2999999998137
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1357.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1388
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 1418.8999999999069
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1419.0999999996275
+          }
+        ],
+        "audioNodes": 10,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": true,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 7,
+        "restoredRoundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+        "multiplier": 2,
+        "grid": [
+          [
+            "lemon",
+            "watermelon",
+            "lemon",
+            "winged_bell",
+            "lemon"
+          ],
+          [
+            "lemon",
+            "lemon",
+            "777",
+            "cherry",
+            "winged_bell"
+          ],
+          [
+            "777",
+            "orange",
+            "orange",
+            "winged_bell",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": true,
+        "loopPhase": 0.2263038548752834,
+        "retiringAudioNodes": 0,
+        "contextLost": false,
+        "lastLoop": {
+          "at": 1419.0999999996275,
+          "samples": 0,
+          "reelWanted": true,
+          "nodes": [
+            {
+              "group": "reels",
+              "sample": null,
+              "bufferDuration": 0.4,
+              "filter": true
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            },
+            {
+              "group": "effect",
+              "sample": null,
+              "bufferDuration": null,
+              "filter": false
+            }
+          ]
+        }
+      }
+    ],
+    "atReady": {
+      "at": 1586.8999999999069,
+      "gameId": "hot_foxy_20",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 36,
+        "draws": 28,
+        "slowFrames": 27,
+        "maxDelta": 80
+      },
+      "soundEvents": [
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 811.6999999997206
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 813.0999999996275
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 948.6999999997206
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 964
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1083.2999999998137
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1120.5
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1163
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1163.0999999996275
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1201.8999999999069
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1202
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1255.2999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1255.3999999999069
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1289.0999999996275
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1289.2999999998137
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 1322.7999999998137
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 1323
+        },
+        {
+          "name": "multiplier",
+          "index": 2,
+          "time": 1323
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1323.0999999996275
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 1357.2999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1357.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1388
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 1418.8999999999069
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1419.0999999996275
+        },
+        {
+          "name": "reel-stop",
+          "index": 3,
+          "time": 1448.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1448.6999999997206
+        },
+        {
+          "name": "reel-stop",
+          "index": 4,
+          "time": 1479.0999999996275
+        }
+      ],
+      "audioNodes": 16,
+      "decodedSoundSamples": 0,
+      "soundSampleNodes": 0,
+      "audioState": "running",
+      "backgroundAudio": {
+        "enabled": true,
+        "loaded": false,
+        "loading": true,
+        "playing": false,
+        "positionSeconds": 0,
+        "durationSeconds": 0,
+        "gain": 0
+      },
+      "cabinetArtworkLoaded": true,
+      "artworkLoaded": true,
+      "audioSuspended": false,
+      "reducedMotion": false,
+      "particles": 35,
+      "turbo": false,
+      "autoRemaining": 0,
+      "ambientEffects": true,
+      "ambientParticles": 7,
+      "restoredRoundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+      "multiplier": 2,
+      "grid": [
+        [
+          "orange",
+          "lemon",
+          "orange",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "cherry",
+          "lemon",
+          "777",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "orange",
+          "cherry",
+          "cherry",
+          "winged_bell",
+          "lemon"
+        ]
+      ],
+      "multiArtworkLoaded": false,
+      "loopActive": false,
+      "loopPhase": 0,
+      "retiringAudioNodes": 0,
+      "contextLost": false
+    },
+    "after": {
+      "synthetic": true,
+      "opening": "100000.00",
+      "balance": "99999.00",
+      "houseBalance": "-9999900",
+      "spinPosts": 1,
+      "roundSettlements": 1,
+      "gamblePosts": 0,
+      "gambleSettlements": 0,
+      "ledgerEntries": 3,
+      "ledgerBalanced": true,
+      "free": {
+        "hot_foxy_20": {
+          "remaining": 0,
+          "bet": "2.00"
+        }
+      },
+      "rounds": [
+        {
+          "roundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+          "gameId": "hot_foxy_20",
+          "bet": "2.00",
+          "chargedStake": "2.00",
+          "finalWin": "1.00",
+          "freeSpinsRemaining": 0,
+          "stops": [
+            5960,
+            14231,
+            19444,
+            19634,
+            9928
+          ],
+          "wheelMultiplier": 2
+        }
+      ],
+      "ledger": [
+        {
+          "sequence": 1,
+          "kind": "synthetic_opening",
+          "roundId": null,
+          "playerDelta": "10000000",
+          "houseDelta": "-10000000",
+          "balanceBefore": "0.00",
+          "balanceAfter": "100000.00"
+        },
+        {
+          "sequence": 2,
+          "kind": "spin_stake",
+          "roundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+          "playerDelta": "-200",
+          "houseDelta": "200",
+          "balanceBefore": "100000.00",
+          "balanceAfter": "99998.00"
+        },
+        {
+          "sequence": 3,
+          "kind": "spin_win",
+          "roundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+          "playerDelta": "100",
+          "houseDelta": "-100",
+          "balanceBefore": "99998.00",
+          "balanceAfter": "99999.00"
+        }
+      ]
+    },
+    "receipt": {
+      "roundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+      "gameId": "hot_foxy_20",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "mathVersion": "2026-10-27-reference-v3000",
+      "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+      "grid": [
+        [
+          "orange",
+          "lemon",
+          "orange",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "cherry",
+          "lemon",
+          "777",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "orange",
+          "cherry",
+          "cherry",
+          "winged_bell",
+          "lemon"
+        ]
+      ],
+      "initialGrid": [
+        [
+          "orange",
+          "lemon",
+          "orange",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "cherry",
+          "lemon",
+          "777",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "orange",
+          "cherry",
+          "cherry",
+          "winged_bell",
+          "lemon"
+        ]
+      ],
+      "stops": [
+        5960,
+        14231,
+        19444,
+        19634,
+        9928
+      ],
+      "wheelMultiplier": 2,
+      "wheelPosition": "top",
+      "winLines": [
+        {
+          "line": 9,
+          "rows": [
+            1,
+            2,
+            2,
+            2,
+            1
+          ],
+          "symbol": "cherry",
+          "count": 3,
+          "positions": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "wilds": 0,
+          "baseWin": "0.5000",
+          "win": "1.0000"
+        }
+      ],
+      "stages": [
+        {
+          "grid": [
+            [
+              "orange",
+              "lemon",
+              "orange",
+              "cherry",
+              "lemon"
+            ],
+            [
+              "cherry",
+              "lemon",
+              "777",
+              "cherry",
+              "lemon"
+            ],
+            [
+              "orange",
+              "cherry",
+              "cherry",
+              "winged_bell",
+              "lemon"
+            ]
+          ],
+          "winLines": [
+            {
+              "line": 9,
+              "rows": [
+                1,
+                2,
+                2,
+                2,
+                1
+              ],
+              "symbol": "cherry",
+              "count": 3,
+              "positions": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "wilds": 0,
+              "baseWin": "0.5000",
+              "win": "1.0000"
+            }
+          ],
+          "lineWin": "1.0000",
+          "jackpotWin": "0.0000",
+          "scatterWin": "0.0000",
+          "win": "1.0000",
+          "stackMultiplier": 2,
+          "cascadeMultiplier": 1
+        }
+      ],
+      "bet": "2.00",
+      "chargedStake": "2.00",
+      "isFree": false,
+      "finalWin": "1.00",
+      "uncappedWin": "1.0000",
+      "bonusSpinsAwarded": 0,
+      "scatterCount": 0,
+      "jackpotTier": null,
+      "pendingBonusPick": false,
+      "dragonFire": false,
+      "maxWinCapped": false,
+      "currency": "ETB",
+      "balanceBefore": "100000.00",
+      "balanceAfter": "99999.00",
+      "walletReceipt": {
+        "currency": "ETB",
+        "balanceBefore": "100000.00",
+        "chargedStake": "2.00",
+        "finalWin": "1.00",
+        "balanceAfter": "99999.00"
+      },
+      "freeSpinsRemaining": 0
+    },
+    "log": [
+      {
+        "at": 951.5,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          }
+        ]
+      },
+      {
+        "at": 1083.5,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1120.0999999996275,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1163.0999999996275,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1202.0999999996275,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1255.3999999999069,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1289.2999999998137,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1323.0999999996275,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1357.5,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1388,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1419.0999999996275,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      },
+      {
+        "at": 1448.6999999997206,
+        "samples": 0,
+        "reelWanted": true,
+        "nodes": [
+          {
+            "group": "reels",
+            "sample": null,
+            "bufferDuration": 0.4,
+            "filter": true
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          },
+          {
+            "group": "effect",
+            "sample": null,
+            "bufferDuration": null,
+            "filter": false
+          }
+        ]
+      }
+    ],
+    "gestures": [
+      {
+        "at": 797.2999999998137,
+        "id": "sound-yes",
+        "trusted": true,
+        "diagnostics": {
+          "gameId": "hot_foxy_20",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 14,
+            "draws": 9,
+            "slowFrames": 9,
+            "maxDelta": 80
+          },
+          "soundEvents": [],
+          "audioNodes": 0,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "not-started",
+          "backgroundAudio": {
+            "enabled": false,
+            "loaded": false,
+            "loading": false,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": true,
+          "ambientParticles": 7,
+          "restoredRoundId": null,
+          "multiplier": 1,
+          "grid": [
+            [
+              "lemon",
+              "watermelon",
+              "lemon",
+              "winged_bell",
+              "lemon"
+            ],
+            [
+              "lemon",
+              "lemon",
+              "777",
+              "cherry",
+              "winged_bell"
+            ],
+            [
+              "777",
+              "orange",
+              "orange",
+              "winged_bell",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      {
+        "at": 859.3999999999069,
+        "id": "spin",
+        "trusted": true,
+        "diagnostics": {
+          "gameId": "hot_foxy_20",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 16,
+            "draws": 10,
+            "slowFrames": 10,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 811.6999999997206
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 813.0999999996275
+            }
+          ],
+          "audioNodes": 2,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": false,
+            "loading": true,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": true,
+          "ambientParticles": 7,
+          "restoredRoundId": null,
+          "multiplier": 1,
+          "grid": [
+            [
+              "lemon",
+              "watermelon",
+              "lemon",
+              "winged_bell",
+              "lemon"
+            ],
+            [
+              "lemon",
+              "lemon",
+              "777",
+              "cherry",
+              "winged_bell"
+            ],
+            [
+              "777",
+              "orange",
+              "orange",
+              "winged_bell",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      {
+        "at": 1120,
+        "id": "spin",
+        "trusted": true,
+        "diagnostics": {
+          "gameId": "hot_foxy_20",
+          "state": "animating",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 24,
+            "draws": 16,
+            "slowFrames": 15,
+            "maxDelta": 80
+          },
+          "soundEvents": [
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 811.6999999997206
+            },
+            {
+              "name": "tap",
+              "index": 0,
+              "time": 813.0999999996275
+            },
+            {
+              "name": "start",
+              "index": 0,
+              "time": 948.6999999997206
+            },
+            {
+              "name": "wheel-tick",
+              "index": 0,
+              "time": 964
+            },
+            {
+              "name": "move",
+              "index": 0,
+              "time": 1083.2999999998137
+            }
+          ],
+          "audioNodes": 2,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "running",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": false,
+            "loading": true,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": true,
+          "ambientParticles": 7,
+          "restoredRoundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+          "multiplier": 1,
+          "grid": [
+            [
+              "lemon",
+              "watermelon",
+              "lemon",
+              "winged_bell",
+              "lemon"
+            ],
+            [
+              "lemon",
+              "lemon",
+              "777",
+              "cherry",
+              "winged_bell"
+            ],
+            [
+              "777",
+              "orange",
+              "orange",
+              "winged_bell",
+              "lemon"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": true,
+          "loopPhase": 0.3990929705215419,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      }
+    ],
+    "finalDiagnostics": {
+      "gameId": "hot_foxy_20",
+      "state": "ready",
+      "canvasCount": 1,
+      "geometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "renderStats": {
+        "frames": 62,
+        "draws": 54,
+        "slowFrames": 53,
+        "maxDelta": 80
+      },
+      "soundEvents": [
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 811.6999999997206
+        },
+        {
+          "name": "tap",
+          "index": 0,
+          "time": 813.0999999996275
+        },
+        {
+          "name": "start",
+          "index": 0,
+          "time": 948.6999999997206
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 964
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1083.2999999998137
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1120.5
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1163
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1163.0999999996275
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1201.8999999999069
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1202
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1255.2999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1255.3999999999069
+        },
+        {
+          "name": "wheel-tick",
+          "index": 0,
+          "time": 1289.0999999996275
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1289.2999999998137
+        },
+        {
+          "name": "reel-stop",
+          "index": 0,
+          "time": 1322.7999999998137
+        },
+        {
+          "name": "wheel-stop",
+          "index": 0,
+          "time": 1323
+        },
+        {
+          "name": "multiplier",
+          "index": 2,
+          "time": 1323
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1323.0999999996275
+        },
+        {
+          "name": "reel-stop",
+          "index": 1,
+          "time": 1357.2999999998137
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1357.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1388
+        },
+        {
+          "name": "reel-stop",
+          "index": 2,
+          "time": 1418.8999999999069
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1419.0999999996275
+        },
+        {
+          "name": "reel-stop",
+          "index": 3,
+          "time": 1448.5
+        },
+        {
+          "name": "move",
+          "index": 0,
+          "time": 1448.6999999997206
+        },
+        {
+          "name": "reel-stop",
+          "index": 4,
+          "time": 1479.0999999996275
+        }
+      ],
+      "audioNodes": 1,
+      "decodedSoundSamples": 7,
+      "soundSampleNodes": 0,
+      "audioState": "running",
+      "backgroundAudio": {
+        "enabled": true,
+        "loaded": true,
+        "loading": false,
+        "playing": true,
+        "positionSeconds": 0.3105668934240364,
+        "durationSeconds": 1.1999773242630385,
+        "gain": 1
+      },
+      "cabinetArtworkLoaded": true,
+      "artworkLoaded": true,
+      "audioSuspended": false,
+      "reducedMotion": false,
+      "particles": 25,
+      "turbo": false,
+      "autoRemaining": 0,
+      "ambientEffects": true,
+      "ambientParticles": 7,
+      "restoredRoundId": "9c88f56a-ab8c-4238-85fc-6eb4408d6a1b",
+      "multiplier": 2,
+      "grid": [
+        [
+          "orange",
+          "lemon",
+          "orange",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "cherry",
+          "lemon",
+          "777",
+          "cherry",
+          "lemon"
+        ],
+        [
+          "orange",
+          "cherry",
+          "cherry",
+          "winged_bell",
+          "lemon"
+        ]
+      ],
+      "multiArtworkLoaded": false,
+      "loopActive": false,
+      "loopPhase": 0,
+      "retiringAudioNodes": 0,
+      "contextLost": false
+    },
+    "lateFallbackObserved": false,
+    "initialLoop": {
+      "at": 951.5,
+      "samples": 0,
+      "reelWanted": true,
+      "nodes": [
+        {
+          "group": "reels",
+          "sample": null,
+          "bufferDuration": 0.4,
+          "filter": true
+        }
+      ]
+    },
+    "finalReelNodes": [],
+    "audioFile": "/workspace/work/r11-primary-audio/late-after-stop/hot_foxy_20-delay1500-early-stop.webm",
+    "audioMeta": {
+      "startedAt": 800.1999999997206,
+      "endedAt": 3002.399999999907,
+      "sampleRate": 44100,
+      "bytes": 28824
+    },
+    "audioSourceAfter": "60902ffb6fa82288ed35dcab8bb0e1c09c94c682dad3be0e6dec34e1a304d9c2",
+    "sourceStable": true
+  }
+]

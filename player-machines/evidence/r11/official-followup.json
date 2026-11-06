@@ -1,0 +1,290 @@
+{
+  "scope": "Official public DEMO only, priority two games: Foxy Hot 20 and Multi Hot 5",
+  "status": "complete; browser closed normally",
+  "providerSessionPolicy": "One browser context/table at a time; initial ordinary table-limit refusal followed by context close and one normal re-entry. No authentication or real wagers.",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 2,
+    "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36"
+  },
+  "productionWagers": 0,
+  "accountsUsed": false,
+  "productSourceChanges": false,
+  "foxyQuickPlay": {
+    "directlyObserved": {
+      "opensFromGreenLightning": true,
+      "labels": [
+        "QUICK PLAY",
+        "ENABLE QUICK PLAY",
+        "NO",
+        "X"
+      ],
+      "noClosesAndKeepsWhiteSpin": true,
+      "xClosesAndKeepsWhiteSpin": true,
+      "enableClosesAndTurnsMainSpinGold": true,
+      "enabledLightningYellow": true,
+      "enabledFaceHasHoldAndSpinText": true,
+      "secondLightningDisablesWithoutConfirmation": true,
+      "disableRestoresWhiteSpinAndGreenLightning": true
+    },
+    "images": {
+      "dialog": "FoxyHot20-011-quickplay-open-for-enable.png",
+      "no": "FoxyHot20-008-quickplay-no.png",
+      "x": "FoxyHot20-010-quickplay-x.png",
+      "enabled": "FoxyHot20-012-quickplay-enable.png",
+      "disabled": "FoxyHot20-016-quickplay-disable-confirmed.png"
+    },
+    "timingLimitation": "Two enabled-mode trusted primary taps changed the visible grid and provider counter, but the gold ready-arrow color persists during motion; color sampler did not establish busy/ready boundaries. No enabled duration or speed ratio is claimed. Two earlier white-only classifier attempts sent no taps."
+  },
+  "timingCases": [
+    {
+      "file": "FoxyHot20-both-off-normal-timing.json",
+      "game": "FoxyHot20",
+      "label": "both-off-normal",
+      "ready": true,
+      "observedReturnMs": 4825.367292999988,
+      "maximumSampleGapMs": 567.1915229998995,
+      "stopSent": false,
+      "error": null
+    },
+    {
+      "file": "FoxyHot20-effects-only-normal-timing.json",
+      "game": "FoxyHot20",
+      "label": "effects-only-normal",
+      "ready": true,
+      "observedReturnMs": 3659.32533900009,
+      "maximumSampleGapMs": 360.136979999952,
+      "stopSent": false,
+      "error": null
+    },
+    {
+      "file": "FoxyHot20-normal-after-no-timing.json",
+      "game": "FoxyHot20",
+      "label": "normal-after-no",
+      "ready": true,
+      "observedReturnMs": 2418.6679460000014,
+      "maximumSampleGapMs": 356.2552540000179,
+      "stopSent": false,
+      "error": null
+    },
+    {
+      "file": "FoxyHot20-normal-after-x-timing.json",
+      "game": "FoxyHot20",
+      "label": "normal-after-x",
+      "ready": true,
+      "observedReturnMs": 2837.967718,
+      "maximumSampleGapMs": 370.9143580000382,
+      "stopSent": false,
+      "error": null
+    },
+    {
+      "file": "FoxyHot20-normal-restored-timing.json",
+      "game": "FoxyHot20",
+      "label": "normal-restored",
+      "ready": true,
+      "observedReturnMs": 2755.163540999987,
+      "maximumSampleGapMs": 372.4763459999813,
+      "stopSent": false,
+      "error": null
+    },
+    {
+      "file": "FoxyHot20-quick-enabled-gold-1-timing.json",
+      "game": "FoxyHot20",
+      "label": "quick-enabled-gold-1",
+      "ready": false,
+      "observedReturnMs": null,
+      "maximumSampleGapMs": 496.569376999978,
+      "stopSent": false,
+      "error": "No complete visible busy-to-ready cycle; no retry tap sent"
+    },
+    {
+      "file": "FoxyHot20-quick-enabled-gold-2-timing.json",
+      "game": "FoxyHot20",
+      "label": "quick-enabled-gold-2",
+      "ready": false,
+      "observedReturnMs": null,
+      "maximumSampleGapMs": 452.13863399997354,
+      "stopSent": false,
+      "error": "No complete visible busy-to-ready cycle; no retry tap sent"
+    },
+    {
+      "file": "MultiHot5-mh5-visible-stop-timing.json",
+      "game": "MultiHot5",
+      "label": "mh5-visible-stop",
+      "ready": true,
+      "observedReturnMs": 4460.194768999936,
+      "maximumSampleGapMs": 275.2763480000431,
+      "stopSent": false
+    }
+  ],
+  "timingScope": "CDP screenshot sampling of visible primary-control color after a trusted touch. Includes provider response latency, animation, capture and host scheduling. It is not exact physical-device reel duration. Samples are sparse and insufficient to infer distributions or a quick-mode ratio.",
+  "audioEntry": {
+    "FoxyYes": "Before consent, AudioContext suspended at currentTime0. YES led to running context and captured output. NO entry is not tested for Foxy in this follow-up.",
+    "MH5No": "NO closed sound choice; context became running (not suspended), so context state alone cannot prove output silence. Mix captured through one normal cycle; no auditory result asserted.",
+    "MH5NoImage": "MultiHot5-042-mh5-entry-no.png"
+  },
+  "settings": {
+    "FoxyVisibleSeparateControls": [
+      "Sound Effects",
+      "Background Music"
+    ],
+    "observedStates": [
+      "both on",
+      "Effects off / Background on",
+      "Effects on / Background off",
+      "both off",
+      "Effects off / Background re-enabled",
+      "both on restored"
+    ],
+    "auditoryIndependenceClaim": false,
+    "limitation": "Short parallel-destination mixes are comparison evidence only; no unsupported claim that each stream exclusively represents a particular source. First background-only window occurred several minutes into session and may follow natural track ending."
+  },
+  "audioWindows": [
+    {
+      "eventIndexStart": 3,
+      "eventIndexStop": 7,
+      "files": [
+        {
+          "label": "webaudio-0",
+          "mime": "audio/webm;codecs=opus",
+          "started": 98652.69999999972,
+          "startedContextTime": 0,
+          "contextSampleRate": 44100,
+          "ended": 107542.19999999972,
+          "bytes": 88485,
+          "file": "FoxyHot20-webaudio-0-1793987594971.webm"
+        }
+      ],
+      "betweenActions": [
+        "quiet-no-input",
+        "entry-yes",
+        "quiet-no-input"
+      ]
+    },
+    {
+      "eventIndexStart": 27,
+      "eventIndexStop": 29,
+      "files": [
+        {
+          "label": "webaudio-0",
+          "mime": "audio/webm;codecs=opus",
+          "started": 351305.7999999998,
+          "startedContextTime": 239.05233560090704,
+          "contextSampleRate": 44100,
+          "ended": 357603.3999999999,
+          "bytes": 2256,
+          "file": "FoxyHot20-webaudio-0-1793987845034.webm"
+        }
+      ],
+      "betweenActions": [
+        "quiet-no-input"
+      ]
+    },
+    {
+      "eventIndexStart": 35,
+      "eventIndexStop": 38,
+      "files": [
+        {
+          "label": "webaudio-0",
+          "mime": "audio/webm;codecs=opus",
+          "started": 366933.0999999996,
+          "startedContextTime": 254.05242630385487,
+          "contextSampleRate": 44100,
+          "ended": 375757.8999999999,
+          "bytes": 53148,
+          "file": "FoxyHot20-webaudio-0-1793987863189.webm"
+        }
+      ],
+      "betweenActions": [
+        "timing-case",
+        "quiet-no-input"
+      ]
+    },
+    {
+      "eventIndexStart": 43,
+      "eventIndexStop": 45,
+      "files": [
+        {
+          "label": "webaudio-0",
+          "mime": "audio/webm;codecs=opus",
+          "started": 396499.7999999998,
+          "startedContextTime": 282.06149659863945,
+          "contextSampleRate": 44100,
+          "ended": 403450.8999999999,
+          "bytes": 2520,
+          "file": "FoxyHot20-webaudio-0-1793987890882.webm"
+        }
+      ],
+      "betweenActions": [
+        "timing-case"
+      ]
+    },
+    {
+      "eventIndexStart": 50,
+      "eventIndexStop": 52,
+      "files": [
+        {
+          "label": "webaudio-0",
+          "mime": "audio/webm;codecs=opus",
+          "started": 417843.7999999998,
+          "startedContextTime": 301.82167800453516,
+          "contextSampleRate": 44100,
+          "ended": 425712.7999999998,
+          "bytes": 101440,
+          "file": "FoxyHot20-webaudio-0-1793987913147.webm"
+        }
+      ],
+      "betweenActions": [
+        "quiet-no-input"
+      ]
+    },
+    {
+      "eventIndexStart": 57,
+      "eventIndexStop": 61,
+      "files": [
+        {
+          "label": "webaudio-0",
+          "mime": "audio/webm;codecs=opus",
+          "started": 47062.39999999991,
+          "startedContextTime": 0,
+          "contextSampleRate": 44100,
+          "ended": 56123.69999999972,
+          "bytes": 3033,
+          "file": "MultiHot5-webaudio-0-1793988015301.webm"
+        }
+      ],
+      "betweenActions": [
+        "mh5-entry-no",
+        "quiet-no-input",
+        "timing-case"
+      ]
+    }
+  ],
+  "MH5Stop": {
+    "status": "one normal cycle completed; visible STOP not established",
+    "trustedPrimaryTaps": 1,
+    "observedReturnMs": 4460.194768999936,
+    "maximumSampleGapMs": 275.2763480000431,
+    "actualStopTapSent": false,
+    "limitation": "Sampler required an actual solid red STOP square before a second tap; it did not see one, so no second tap was sent. Saved moving frame shows Smartsoft loading S over the cabinet, not a solid STOP. No manual-stop semantic conclusion from this follow-up.",
+    "file": "MultiHot5-mh5-visible-stop-timing.json",
+    "movingImage": "MultiHot5-mh5-visible-stop-moving.jpg",
+    "providerFinalCounter": "1956059968.1",
+    "normalExitRequested": true,
+    "normalExitClickEvent": "mh5-normal-exit"
+  },
+  "limits": [
+    "No game source/object traversal, hidden outcome metadata, forced result, session-limit workaround or production account use.",
+    "No RTP, probability or paytable inference from these few extra public DEMO rounds.",
+    "No product source edits and no publication claim from this audit."
+  ],
+  "extraVirtualRounds": {
+    "FoxyHot20": 7,
+    "MultiHot5": 1,
+    "primary30BaselineUnchanged": true,
+    "proof": "Foxy final visible provider counter1956040550.7 in normal Exit attempt; MH5 counter1956059968.1 in visible help. Two quick taps count from changed grids/counter, not completed color-timing classification."
+  },
+  "exitNotes": "Foxy normal visible Exit click was dispatched from menu; post-exit screenshot timed out after30000ms during navigation and therefore was not appended as a successful screenshot event. Old browser context was then closed ordinarily before MH5. MH5 normal visible Exit click was recorded; browser/context then closed normally with64 events. No further wagering.",
+  "browserClosed": true
+}
