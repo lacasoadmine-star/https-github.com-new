@@ -1,0 +1,19 @@
+# Two-game reference artwork, sound and interaction update — r6
+
+Multi Hot 5 and Hot Foxy 20 now use the existing Superwin symbol sprites, cabinet logos and seven cabinet sound clips. Canvas owns the reels, multiplier, transitions, paylines and win presentation; DOM buttons own interaction. Foxy's idle spin control uses its isolated original control artwork. The uploaded recordings are QA inputs, never playable video, screenshot overlays or wallet data. Recorder text, phone chrome and recorded balances are excluded.
+
+The three supplied clips were sampled across idle, spin and win states. Their clocks reveal acceleration and edits, so encoded video duration is not used as an absolute animation clock. Existing reel staggering is retained. Clover shading/density is reconstructed in Canvas; forest components use isolated artwork with blended masks. This improves similarity, without claiming 100% pixel, motion or sound equivalence. Remaining reconstructed details include backgrounds, wheel typography and win ornaments.
+
+HOLD SPIN repeats wagers at the selected stake until release; releasing, cancelling, blurring or hiding the page stops repeats. Foxy's lightning control changes presentation speed only. Zero-balance Foxy free spins remain available. Sound initialization failures no longer block a spin. Hidden response delivery cannot restart background sound. Reduced-motion mode settles statically; idle Canvas drawing is reduced. Confetti trajectories are time-based. Mute, pause and disposal stop sample sources. Original procedural sound remains a fallback while samples decode or when decoding fails.
+
+No result generation, paytable, server mathematics, session boundary, wallet receipt, idempotency or payment implementation changes. Only the generated machine asset module is intended to change in the existing 112-module Worker. Other modules and inherited bindings/settings are checked before promotion. No production wager or synthetic production account is required.
+
+Validation evidence is recorded in test/browser-qa-r6.json and worker/deployment-297.json after publication. Local validation: 244 Node game tests; six native Canvas configurations; 9 backend tests against disposable SQLite; Player, Agent and Admin builds; 10 portal regression tests; local health/login/static asset checks. Browser Rendering runs use isolated synthetic sessions and receipts, not live balances. Physical-device audio and authenticated production wallet settlement are outside these checks.
+
+Source branch: codex/two-game-art-audio-r6-20261106. Rollback version: 58886e06-6bbd-4dcd-baba-3aaa3992dcfd (296).
+
+## Confirmed publication
+
+Version 297 (`21386faa-173c-4ee3-8e34-e817692815c5`) serves 100% traffic. Deployment `52236f66-07aa-44cd-9521-334beec1d317`, 6 November 2026 at 03:47:04 Africa/Addis_Ababa. Runtime source: `1bb38b072fb2d6ab866d181b17b8dc8b34baaaec`. Eight isolated Browser Rendering runs passed 802 assertions, with zero browser errors. All 111 other module bodies, inherited settings and migration tag were verified unchanged.
+
+Fresh live checks passed for both published game URLs: HTTP 200, r6 assets, signed-out account prompt, one canvas, no video/iframe or recorder text. Local Chromium confirmed decoded symbol/cabinet artwork and no JavaScript errors; Cloudflare Browser Rendering passed 18 guest DOM assertions. Guest checks do not establish authenticated wallet settlement.
