@@ -2,313 +2,313 @@ TAP version 13
 # Subtest: original decompressed core and legacy identity are unchanged
 ok 1 - original decompressed core and legacy identity are unchanged
   ---
-  duration_ms: 22.793109
+  duration_ms: 34.21194
   type: 'test'
   ...
 # Subtest: deployable preserves original embedded core, migration, ledger and authentication bodies
 ok 2 - deployable preserves original embedded core, migration, ledger and authentication bodies
   ---
-  duration_ms: 14.844808
+  duration_ms: 36.828798
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: multi_hot_40
 ok 3 - original model and 40 seeded settlements unchanged: multi_hot_40
   ---
-  duration_ms: 48.484012
+  duration_ms: 87.240252
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: multi_hot_5_super_wilds
 ok 4 - original model and 40 seeded settlements unchanged: multi_hot_5_super_wilds
   ---
-  duration_ms: 39.557472
+  duration_ms: 61.808477
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: burning_ice
 ok 5 - original model and 40 seeded settlements unchanged: burning_ice
   ---
-  duration_ms: 36.967824
+  duration_ms: 51.608177
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: wild_multi_stars
 ok 6 - original model and 40 seeded settlements unchanged: wild_multi_stars
   ---
-  duration_ms: 54.168839
+  duration_ms: 83.198203
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: safari_simba
 ok 7 - original model and 40 seeded settlements unchanged: safari_simba
   ---
-  duration_ms: 47.290364
+  duration_ms: 51.418458
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: fruity_wilds_jackpot
 ok 8 - original model and 40 seeded settlements unchanged: fruity_wilds_jackpot
   ---
-  duration_ms: 43.800689
+  duration_ms: 59.742239
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: hot_foxy_20
 ok 9 - original model and 40 seeded settlements unchanged: hot_foxy_20
   ---
-  duration_ms: 39.449741
+  duration_ms: 46.154505
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: jungle_sisters
 ok 10 - original model and 40 seeded settlements unchanged: jungle_sisters
   ---
-  duration_ms: 53.48151
+  duration_ms: 50.739054
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: bao_slot_5x
 ok 11 - original model and 40 seeded settlements unchanged: bao_slot_5x
   ---
-  duration_ms: 57.073987
+  duration_ms: 71.513134
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: multi_hot_5_video
 ok 12 - original model and 40 seeded settlements unchanged: multi_hot_5_video
   ---
-  duration_ms: 50.072587
+  duration_ms: 43.20869
   type: 'test'
   ...
 # Subtest: original model and 40 seeded settlements unchanged: multi_hot_100
 ok 13 - original model and 40 seeded settlements unchanged: multi_hot_100
   ---
-  duration_ms: 49.105055
+  duration_ms: 55.481814
   type: 'test'
   ...
 # Subtest: verified line geometry, paytable, bets, cap and attempt count
 ok 14 - verified line geometry, paytable, bets, cap and attempt count
   ---
-  duration_ms: 84.176961
+  duration_ms: 73.822083
   type: 'test'
   ...
 # Subtest: Foxy retains exact non-scatter order and counts, with no new bonus awards
 ok 15 - Foxy retains exact non-scatter order and counts, with no new bonus awards
   ---
-  duration_ms: 69.048559
+  duration_ms: 54.064625
   type: 'test'
   ...
 # Subtest: each official numbered line evaluates from its own authored path
 ok 16 - each official numbered line evaluates from its own authored path
   ---
-  duration_ms: 6.675158
+  duration_ms: 1.397751
   type: 'test'
   ...
 # Subtest: MH5 strips and unconstrained award sums unchanged, cap lowered to145
 ok 17 - MH5 strips and unconstrained award sums unchanged, cap lowered to145
   ---
-  duration_ms: 29.866743
+  duration_ms: 16.075651
   type: 'test'
   ...
 # Subtest: earned free spins keep full legacy identity, grids and retrigger award
 ok 18 - earned free spins keep full legacy identity, grids and retrigger award
   ---
-  duration_ms: 1.5058
+  duration_ms: 0.723853
   type: 'test'
   ...
 # Subtest: new receipts require complete exact identity and never accept legacy pins
 ok 19 - new receipts require complete exact identity and never accept legacy pins
   ---
-  duration_ms: 0.968683
+  duration_ms: 0.978531
   type: 'test'
   ...
 # Subtest: combined allowlist and public catalog add exactly two identities without mutating legacy
 ok 20 - combined allowlist and public catalog add exactly two identities without mutating legacy
   ---
-  duration_ms: 95.853274
+  duration_ms: 73.577328
   type: 'test'
   ...
 # Subtest: new Foxy wild substitution and public metadata retain the official symbol roles
 ok 21 - new Foxy wild substitution and public metadata retain the official symbol roles
   ---
-  duration_ms: 60.402163
+  duration_ms: 60.603583
   type: 'test'
   ...
 # Subtest: schema probe reads only bounded catalog metadata and reports compatible text/varchar
 ok 22 - schema probe reads only bounded catalog metadata and reports compatible text/varchar
   ---
-  duration_ms: 5.741556
+  duration_ms: 10.129167
   type: 'test'
   ...
 # Subtest: schema uncertainty and potentially restricting metadata require review without throwing
 ok 23 - schema uncertainty and potentially restricting metadata require review without throwing
   ---
-  duration_ms: 1.461173
+  duration_ms: 5.554616
   type: 'test'
   ...
 # Subtest: catalog timeout or permissions failure becomes unavailable without exposing database errors
 ok 24 - catalog timeout or permissions failure becomes unavailable without exposing database errors
   ---
-  duration_ms: 0.491905
+  duration_ms: 0.876267
   type: 'test'
   ...
 # Subtest: exact health route retains normal health behavior while optional metadata is pending or unavailable
 ok 25 - exact health route retains normal health behavior while optional metadata is pending or unavailable
   ---
-  duration_ms: 1.044516
+  duration_ms: 31.973226
   type: 'test'
   ...
 # Subtest: fresh state identifies next current model without relying on recent history
 ok 26 - fresh state identifies next current model without relying on recent history
   ---
-  duration_ms: 4.447879
+  duration_ms: 4.465972
   type: 'test'
   ...
 # Subtest: legacy entitlement state exposes old locked bet and both identities
 ok 27 - legacy entitlement state exposes old locked bet and both identities
   ---
-  duration_ms: 0.285765
+  duration_ms: 0.402547
   type: 'test'
   ...
 # Subtest: state rejects unknown game without a database query
 ok 28 - state rejects unknown game without a database query
   ---
-  duration_ms: 0.498654
+  duration_ms: 0.722244
   type: 'test'
   ...
 # Subtest: new machine state cannot consume an old machine entitlement
 ok 29 - new machine state cannot consume an old machine entitlement
   ---
-  duration_ms: 0.293502
+  duration_ms: 0.655666
   type: 'test'
   ...
 # Subtest: known current request settles once, records active hash and balances double-entry
 ok 30 - known current request settles once, records active hash and balances double-entry
   ---
-  duration_ms: 31.588074
+  duration_ms: 18.635303
   type: 'test'
   ...
 # Subtest: unversioned/stale paid request is rejected before any movement or record
 ok 31 - unversioned/stale paid request is rejected before any movement or record
   ---
-  duration_ms: 4.127003
+  duration_ms: 2.744898
   type: 'test'
   ...
 # Subtest: old 200ETB receipt replays unchanged and conflicting parameters are rejected
 ok 32 - old 200ETB receipt replays unchanged and conflicting parameters are rejected
   ---
-  duration_ms: 7.016426
+  duration_ms: 3.666198
   type: 'test'
   ...
 # Subtest: old maximum4000ETB receipts and paid requests remain valid; new machines reject this stake
 ok 33 - old maximum4000ETB receipts and paid requests remain valid; new machines reject this stake
   ---
-  duration_ms: 7.494111
+  duration_ms: 4.594011
   type: 'test'
   ...
 # Subtest: zero-balance owed old free spin keeps its bet and full legacy retrigger rules
 ok 34 - zero-balance owed old free spin keeps its bet and full legacy retrigger rules
   ---
-  duration_ms: 1.151727
+  duration_ms: 1.743449
   type: 'test'
   ...
 # Subtest: owed free spin enforces its original locked bet
 ok 35 - owed free spin enforces its original locked bet
   ---
-  duration_ms: 0.980012
+  duration_ms: 0.876611
   type: 'test'
   ...
 # Subtest: old free entitlement and following old paid play remain legacy; new machine is separate on the shared wallet
 ok 36 - old free entitlement and following old paid play remain legacy; new machine is separate on the shared wallet
   ---
-  duration_ms: 2.970349
+  duration_ms: 4.548049
   type: 'test'
   ...
 # Subtest: a request token cannot move a paid receipt to another machine identity
 ok 37 - a request token cannot move a paid receipt to another machine identity
   ---
-  duration_ms: 2.661098
+  duration_ms: 3.229072
   type: 'test'
   ...
 # Subtest: insufficient player or house funds prevent new settlement
 ok 38 - insufficient player or house funds prevent new settlement
   ---
-  duration_ms: 1.058044
+  duration_ms: 0.876482
   type: 'test'
   ...
 # Subtest: transaction rollback preserves wallets/history at after_debit
 ok 39 - transaction rollback preserves wallets/history at after_debit
   ---
-  duration_ms: 1.086074
+  duration_ms: 0.959435
   type: 'test'
   ...
 # Subtest: transaction rollback preserves wallets/history at after_credit
 ok 40 - transaction rollback preserves wallets/history at after_credit
   ---
-  duration_ms: 1.307534
+  duration_ms: 0.885309
   type: 'test'
   ...
 # Subtest: transaction rollback preserves wallets/history at before_commit
 ok 41 - transaction rollback preserves wallets/history at before_commit
   ---
-  duration_ms: 1.983854
+  duration_ms: 2.206921
   type: 'test'
   ...
 # Subtest: simultaneous duplicate calls produce one spin and same receipt
 ok 42 - simultaneous duplicate calls produce one spin and same receipt
   ---
-  duration_ms: 2.761953
+  duration_ms: 0.911371
   type: 'test'
   ...
 # Subtest: current parent allows five gambles, legacy parent allows three
 ok 43 - current parent allows five gambles, legacy parent allows three
   ---
-  duration_ms: 9.232611
+  duration_ms: 5.363364
   type: 'test'
   ...
 # Subtest: unknown parent identity cannot authorize a new gamble; saved action still replays
 ok 44 - unknown parent identity cannot authorize a new gamble; saved action still replays
   ---
-  duration_ms: 1.360719
+  duration_ms: 1.582459
   type: 'test'
   ...
 # Subtest: explicit new local operator profile allows500ETB stake but blocks over500 before debit
 ok 45 - explicit new local operator profile allows500ETB stake but blocks over500 before debit
   ---
-  duration_ms: 7.036253
+  duration_ms: 3.535119
   type: 'test'
   ...
 # Subtest: legacy parent over500ETB retains its original gamble entitlement
 ok 46 - legacy parent over500ETB retains its original gamble entitlement
   ---
-  duration_ms: 1.401198
+  duration_ms: 1.292019
   type: 'test'
   ...
 # Subtest: stale concurrent-tab gamble state is rejected atomically before debit
 ok 47 - stale concurrent-tab gamble state is rejected atomically before debit
   ---
-  duration_ms: 2.093552
+  duration_ms: 1.632374
   type: 'test'
   ...
 # Subtest: each optional expected gamble guard validates independently; absent guards retain old behavior
 ok 48 - each optional expected gamble guard validates independently; absent guards retain old behavior
   ---
-  duration_ms: 7.221398
+  duration_ms: 8.030584
   type: 'test'
   ...
 # Subtest: native replayOnly recovers an accepted action but cannot create a new gamble
 ok 49 - native replayOnly recovers an accepted action but cannot create a new gamble
   ---
-  duration_ms: 1.453595
+  duration_ms: 1.685452
   type: 'test'
   ...
 # Subtest: old target parent retains its original unsupported-version gamble rejection
 ok 50 - old target parent retains its original unsupported-version gamble rejection
   ---
-  duration_ms: 0.66187
+  duration_ms: 0.610083
   type: 'test'
   ...
 # Subtest: new parent cannot borrow a legacy receipt identity for gambling
 ok 51 - new parent cannot borrow a legacy receipt identity for gambling
   ---
-  duration_ms: 1.235131
+  duration_ms: 0.788066
   type: 'test'
   ...
 # Subtest: all original gamble parents ignore new optional fields, including replayOnly, exactly as before
 ok 52 - all original gamble parents ignore new optional fields, including replayOnly, exactly as before
   ---
-  duration_ms: 44.736278
+  duration_ms: 36.991626
   type: 'test'
   ...
 1..52
@@ -319,4 +319,4 @@ ok 52 - all original gamble parents ignore new optional fields, including replay
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 2209.581901
+# duration_ms 2121.324214

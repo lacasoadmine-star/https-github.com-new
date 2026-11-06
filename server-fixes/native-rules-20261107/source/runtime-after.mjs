@@ -59,7 +59,7 @@ export async function createSlotService({databaseUrl,redisUrl,migration,enabled=
     const triggers = Array.isArray(row.insert_triggers) ? row.insert_triggers : null;
     const rules = Array.isArray(row.insert_rules) ? row.insert_rules : null;
     const reasons = [];
-    if (!['r', 'p'].includes(row.table_kind)) reasons.push('TABLE_KIND_REQUIRES_REVIEW');
+    if (row.table_kind !== 'r') reasons.push('TABLE_KIND_REQUIRES_REVIEW');
     if (row.type_kind !== 'b' || !['text', 'varchar'].includes(row.type_name)) reasons.push('COLUMN_TYPE_REQUIRES_REVIEW');
     if (row.max_length !== null && (!Number.isInteger(Number(row.max_length)) || Number(row.max_length) < Math.max(...gameIds.map(id => id.length)))) reasons.push('COLUMN_LENGTH_TOO_SMALL');
     if (row.generated !== '') reasons.push('GENERATED_COLUMN_REQUIRES_REVIEW');

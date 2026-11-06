@@ -34,6 +34,7 @@ test('schema uncertainty and potentially restricting metadata require review wit
     [{ row_security: true }, 'ROW_SECURITY_REQUIRES_REVIEW'],
     [{ generated: 's' }, 'GENERATED_COLUMN_REQUIRES_REVIEW'],
     [{ table_kind: 'v' }, 'TABLE_KIND_REQUIRES_REVIEW'],
+    [{ table_kind: 'p' }, 'TABLE_KIND_REQUIRES_REVIEW'],
     [{ game_constraints: null }, 'CATALOG_RESULT_INCOMPLETE'],
   ]) {
     const result = await probeFor(compatibleRow(overrides)).ready;
