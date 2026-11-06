@@ -96,7 +96,7 @@ const server=http.createServer(async(req,res)=>{
   if(url.pathname.startsWith('/'+RELEASE+'/')&&url.pathname.split('/').length===3)file=resolve(root,basename(url.pathname));
   else if(url.pathname==='/') {res.writeHead(302,{location:'/games/multi_hot_5_video'});res.end();return;}
   else throw fail(404,'QA_ROUTE_NOT_FOUND');
-  check(file.startsWith(root+'/'),403,'QA_PATH_DENIED');await stat(file);const type=file.endsWith('.css')?'text/css':file.endsWith('.svg')?'image/svg+xml':file.endsWith('.mjs')?'application/javascript':file.endsWith('.webp')?'image/webp':'application/octet-stream';res.writeHead(200,{'content-type':type,'cache-control':'no-store','x-superwin-qa':'synthetic-local-only'});res.end(req.method==='HEAD'?undefined:await readFile(file));
+  check(file.startsWith(root+'/'),403,'QA_PATH_DENIED');await stat(file);const type=file.endsWith('.css')?'text/css':file.endsWith('.svg')?'image/svg+xml':(file.endsWith('.mjs')||file.endsWith('.js'))?'application/javascript':file.endsWith('.webp')?'image/webp':file.endsWith('.gif')?'image/gif':'application/octet-stream';res.writeHead(200,{'content-type':type,'cache-control':'no-store','x-superwin-qa':'synthetic-local-only'});res.end(req.method==='HEAD'?undefined:await readFile(file));
  }catch(e){code=e.status||500;json(res,code,{detail:e.detail||e.message,synthetic:true});}
  finally{requests.push({method:req.method,path:url.pathname,status:code,ms:Date.now()-start});if(requests.length>10000)requests.shift();}
 });

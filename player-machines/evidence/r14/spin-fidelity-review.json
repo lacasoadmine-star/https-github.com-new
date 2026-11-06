@@ -1,0 +1,77 @@
+{
+  "scope": "Only MultiHot5 and FoxyHot20 native presentation paths; model, receipt, monetary backend and shared ReelMotion unchanged.",
+  "files": {
+    "public/renderer.mjs": {
+      "sha256": "f241b172916fc39928f43338ef8323f9795d8e6c287df3cb5e87841cc5fd5854",
+      "bytes": 27306
+    },
+    "public/official-presentation.mjs": {
+      "sha256": "52b5bd592331484b619006658f6d565eb2a72f6ddbc15a51380fbd1f49ae2ebe",
+      "bytes": 8884
+    },
+    "public/native-presentation.mjs": {
+      "sha256": "7c2e3089eb8686e6cb8c07e521ec30544abb507ae3d83a58e6037663c4fe8f1a",
+      "bytes": 8719
+    },
+    "public/official-foxy-motion-art.mjs": {
+      "sha256": "77647d353fbc5c2c7f741640089e9c8f9c4f02f2112b658356834d38ca02d5b0",
+      "bytes": 948870
+    },
+    "public/official-mh5-motion-art.mjs": {
+      "sha256": "7187528c32067649180e910d54b2727d3b27d503cb6fe5496832e2d1b63d78ac",
+      "bytes": 759515
+    }
+  },
+  "confirmedFixes": [
+    {
+      "issue": "Native loading/failure selected generic ambient, confetti and procedural win badge branches.",
+      "fix": "Selected games retain original static surfaces while native timelines are unavailable; generic effects remain available for other games.",
+      "localSource": "renderer.mjs constructor/nativeReady and loop/draw/win branches"
+    },
+    {
+      "issue": "Blur substituted duplicated translucent sharp symbols.",
+      "fix": "Use captured original Box/Blur and BlurBox textures at their original source-canvas placement; use original Foxy multiplier blur textures.",
+      "officialSource": [
+        "FoxyHot20/Scripts/New/foxyhot20.js:60-67,419-423,1199,1236",
+        "MultiHot5/Scripts/Slots/multihot5.mobile.js:117-118,513-521"
+      ]
+    },
+    {
+      "issue": "Foxy wheel border duplicated with invented sinusoidal screen blend.",
+      "fix": "Single original static border plus existing native fire timeline.",
+      "officialSource": "FoxyHot20/Scripts/New/foxyhot20.js:1254-1261"
+    },
+    {
+      "issue": "Foxy bottom win panel was procedurally drawn despite native art being available.",
+      "fix": "Native Vertical/Start/FooterWin texture; original mobile x235/y551 at0.75stage scale; receipt-derived ETB amount.",
+      "officialSource": "FoxyHot20/Scripts/New/foxyhot20.js:571-574,592-594; screenshot06-quickplay-result.png"
+    },
+    {
+      "issue": "Foxy procedural payline traces persisted indefinitely.",
+      "fix": "Native topology-matched line sprites, alpha entry0-200ms and exit1500-1700ms; original 1000ms payout-row cycle.",
+      "officialSource": "FoxyHot20/Scripts/New/Components/box.js:2081-2110; foxyhot20.js:267-268,964",
+      "timingClarification": "1500ms is exit animation delay measured from line creation, not an additional hold after the200ms entry.",
+      "numberingCaution": "Atlas filenames1/2 are top/middle; official Help paths use middle/top. Artwork is selected by receipt row topology, preserving all model and displayed line-number data."
+    },
+    {
+      "issue": "MH5 generic all-line overlay appeared for first650ms in addition to native effects.",
+      "fix": "Remove this overlay for MH5 only; authored native effects remain.",
+      "officialSource": "MultiHot5/Scripts/Slots/slot.js:4510,4581,4810; multihot5.mobile.js:1113-1235"
+    },
+    {
+      "issue": "MH5 initial logo sprite pages could decode after nativeReady.",
+      "fix": "Await initial native logo-page decode; keep original static logo if decode fails."
+    }
+  ],
+  "remainingUnverified": [
+    "No request/response reel-order change made; precise ordering is still being reconciled from captured source.",
+    "Generic20x/2600ms control dimming remains unchanged pending complete official timing proof.",
+    "Shared reel motion profile and bounce/blur phase windows were not retimed; native textures replace synthetic blur without claiming exact provider motion curve."
+  ],
+  "checks": {
+    "focusedTests": 10,
+    "status": "passed",
+    "command": "node --import ./scripts/register-binary-loader.mjs --test test/native-spin-fidelity.test.mjs test/motion.test.mjs"
+  },
+  "nativeAssetVerification": "48 unique original sprites, every alpha byte and every RGB value under nonzero alpha verified identical; no resampling or quantization."
+}

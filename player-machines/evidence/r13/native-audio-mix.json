@@ -1,0 +1,47 @@
+{
+  "scope": [
+    "multi_hot_5_video",
+    "hot_foxy_20"
+  ],
+  "liveObservation": "Normal public DEMO startup, native visible YES sound consent, existing background playback and read-only gain/compressor inspection. No spins or provider-state assignments.",
+  "verifiedMix": {
+    "master": 1,
+    "compressor": {
+      "threshold": -24,
+      "knee": 30,
+      "ratio": 12,
+      "attack": 0.003,
+      "release": 0.25
+    },
+    "mh5": {
+      "sourceBackgroundCoefficient": 0.3,
+      "observedEffectiveBackgroundGain": 0.09000000357627869,
+      "sourceWinCoefficient": 0.6,
+      "effectiveWinGainFromSameCapturedPath": 0.36
+    },
+    "foxy": {
+      "sourceBackgroundCoefficient": 0.6,
+      "observedEffectiveBackgroundGain": 0.6000000238418579,
+      "instanceCoefficient": 1
+    }
+  },
+  "implementation": "The two native games use master1 and browser-default compression. MH5 multiplies source coefficient by itself in the small runtime path; Foxy applies it once. Existing asset-module coefficients and MP3 bytes remain untouched. User volume remains functional. The other two games retain master.5 and threshold\u221213/ratio8.",
+  "sources": [
+    {
+      "path": "/workspace/work/r13-reference/MultiHot5/public/cache/b1/SlotsDemo/Content/Scripts/Slots/canvas.js",
+      "sha256": "caf82f42562dd275d11eaec37dcb58939277598b0f0bfaf09218c8e219e59b77",
+      "detail": "MH5 instance and parent receive the same coefficient; lines3442\u20133521"
+    },
+    {
+      "path": "/workspace/work/r12-reference/FoxyHot20/Scripts/New/canvas.js",
+      "sha256": "2fef54d51d43a9b5129730067083b8824e05116e8e73168be9baf6840caaad35",
+      "detail": "Foxy instance volume1, parent receives configured coefficient; lines1294\u20131358"
+    },
+    {
+      "path": "/workspace/work/r13-reference/MultiHot5/public/cache/b1/SlotsDemo/Content/Scripts/lib/pixi-sound.js",
+      "sha256": "0a770312680180bc7a3f29dd7c8000ac49ff77222db09c6a3c62e95cd8cafff1",
+      "detail": "PIXI Sound3.0.4 WebAudio context has globalvolume1 and default DynamicsCompressor; instance refresh multiplies context\u00d7parent\u00d7instance; minifiedline9"
+    }
+  ],
+  "limitations": "Observed live graph establishes the normal background path. MH5 win effective gain follows the exact same captured public playSound path; no additional winning round was forced or played for this audit. No claim of sample-identical overall output across devices is made."
+}

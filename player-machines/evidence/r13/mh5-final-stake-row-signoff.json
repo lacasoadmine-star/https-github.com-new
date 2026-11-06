@@ -1,0 +1,63 @@
+{
+  "status": "PASS for scoped MH5 stake-row geometry correction",
+  "scope": "Read-only final supplied screenshot, existing official measurements, supplied DOM bounds and targeted-control evidence. No browser opened and no product edits.",
+  "viewportCSS": [
+    390,
+    844
+  ],
+  "screenshotDPR": 2,
+  "screenshot": "/workspace/superwin/player-machines/evidence/r13/changed-controls/multi_hot_5_video-390-cabinet.png",
+  "screenshotSha256": "fa96d0df53087bec0ec3f078beac8c57e32364b4e56f90fbdd2ef7d3493fe025",
+  "nextStakeTextCenter": {
+    "official": [
+      295.5,
+      710
+    ],
+    "final": [
+      295.75,
+      709.25
+    ],
+    "delta": [
+      0.25,
+      -0.75
+    ]
+  },
+  "plusGlyphCenter": {
+    "official": [
+      354,
+      719.5
+    ],
+    "final": [
+      353.75,
+      719.75
+    ],
+    "delta": [
+      -0.25,
+      0.25
+    ]
+  },
+  "minusGlyphCenter": {
+    "official": [
+      31,
+      721
+    ],
+    "finalFromNativeSpriteGeometry": [
+      31,
+      720.6
+    ],
+    "delta": [
+      0,
+      -0.4
+    ],
+    "limitation": "Disabled dim glyph at minimum stake was not independently pixel-thresholded."
+  },
+  "previousStake": {
+    "visibleInScreenshot": false,
+    "reason": "Minimumstake .05 correctly has no previous option.",
+    "sourceBehavior": "Button calls guarded chooseBet(previous); no spin. Matches provider shared Bet{index} handler.",
+    "functionalEvidence": "changed-controls/results.json MH5390: actualplus selects next, previouspreview restores priorstake; zero spinposts, zero gambleposts, balance unchanged."
+  },
+  "mainSpin": "Unchanged as requested; previous audit approximate4\u20135px vertical offset remains outside scoped row correction.",
+  "otherRemainingGeometry": "Prior audit small reel/multiplier frame differences remain documented in cabinet-geometry-comparison.json. No broad100%geometryclaim.",
+  "recommendation": "Accept corrected stake row without further position adjustment."
+}

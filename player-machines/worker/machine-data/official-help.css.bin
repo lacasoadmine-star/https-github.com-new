@@ -85,3 +85,37 @@
 #settings.official-help-menu #history-refresh{width:100%;min-height:44px;margin-top:15px;background:#1f2731;color:#c7cbd0}
 #settings.official-help-menu :focus-visible{outline:2px solid #fff;outline-offset:-2px}
 @media(min-width:700px){#settings.official-help-menu{height:min(800px,100dvh);max-height:100dvh;border:1px solid #3c434d}#settings.official-help-menu .native-help-paytable{max-width:450px;margin-left:auto;margin-right:auto}}
+/* Original menu PNGs and the observed Intro Book Alt menu font. */
+#settings.official-help-menu[data-native-menu-assets-ready=true],#settings.official-help-menu[data-native-menu-assets-ready=true] #settings-title,#settings.official-help-menu[data-native-menu-assets-ready=true] .native-help-close,#settings.official-help-menu[data-native-menu-assets-ready=true] .native-help-exit{font-family:'Official Menu Book',Arial,sans-serif}
+#settings.official-help-menu[data-native-menu-assets-ready=true] .native-help-exit:before{content:'';width:20px;height:20px;left:11px;top:11px;transform:none;background:var(--native-menu-exit) left top/auto no-repeat}
+#settings.official-help-menu[data-native-menu-assets-ready=true] .native-help-close:after{content:'';width:20px;height:20px;right:6px;top:13px;background:var(--native-menu-close) left top/auto no-repeat}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav button:before{content:'';box-sizing:border-box;width:23px;height:23px;border:0;border-radius:0;background-position:center;background-size:auto;background-repeat:no-repeat}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav [data-panel=rules]:before{background-image:var(--native-menu-rules)}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav [data-panel=rules][aria-current=page]:before{background-image:var(--native-menu-rulesActive)}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav [data-panel=audio]:before{background-image:var(--native-menu-settings)}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav [data-panel=audio][aria-current=page]:before{background-image:var(--native-menu-settingsActive)}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav [data-panel=history]:before{background-image:var(--native-menu-history)}
+#settings.official-help-menu[data-native-menu-assets-ready=true]>nav [data-panel=history][aria-current=page]:before{background-image:var(--native-menu-historyActive)}
+#settings.official-help-menu .native-help-audio-group{position:absolute;left:17.8%;top:50%;width:64.4%;transform:translateY(-50%);color:#ffffff66}
+#settings.official-help-menu .native-help-audio-group button{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:44px;width:100%;padding:0 0 0 27px;font:14px 'Official Menu Book',Arial,sans-serif;text-align:left}
+#settings.official-help-menu .native-help-audio-group .native-help-sound-toggle{margin:0 0 20px}
+#settings.official-help-menu .native-help-music-toggle{margin:0 0 40px}
+#settings.official-help-menu .native-help-audio-group .native-help-fullscreen{margin:0;border:0;text-transform:none}
+#settings.official-help-menu .native-help-audio-group .native-help-fullscreen:after{content:'';position:absolute;left:-14px;right:auto;width:105%;top:-20px;height:2px;background:#2a343f;opacity:.8}
+#settings.official-help-menu .native-help-audio-group button:before{content:'';position:absolute;left:-12px;top:10px;width:25px;height:25px;background-position:center;background-size:auto;background-repeat:no-repeat}
+#settings.official-help-menu .native-help-audio-group .native-help-sound-toggle:before{background-image:var(--native-menu-sound)}
+#settings.official-help-menu .native-help-music-toggle:before{background-image:var(--native-menu-music)}
+#settings.official-help-menu .native-help-audio-group .native-help-fullscreen:before{background-image:var(--native-menu-fullscreen)}
+#settings.official-help-menu .native-help-audio-group .native-help-toggle-face{width:40px;height:17px;border-radius:9px;background:#0006;transition:background .4s}
+#settings.official-help-menu .native-help-audio-group .native-help-toggle-face:after{width:20px;height:20px;top:-1px;left:0;transition:transform .4s}
+#settings.official-help-menu .native-help-audio-group [aria-checked=true] .native-help-toggle-face{background:linear-gradient(90deg,#00ff60 0%,#2aff8a 46%,#53ffb3 100%)}
+#settings.official-help-menu .native-help-audio-group [aria-checked=true] .native-help-toggle-face:after{left:0;transform:translateX(21px)}
+#settings.official-help-menu .native-help-volume-options{position:absolute;left:14%;bottom:18px;width:72%;font-size:11px;background:#0e1015;z-index:1}
+#settings.official-help-menu .native-help-volume-options summary{cursor:pointer;padding:8px 0;color:#7f8993}
+#settings.official-help-menu .native-help-volume-options[open]{border-top:1px solid #2a343f;padding-top:12px}
+#settings.official-help-menu .native-help-volume-options>label{display:block;margin-top:12px}
+#settings.official-help-menu .native-help-volume-options #sound-test{width:100%}
+#settings.official-help-menu .native-help-volume-options>p{font-size:11px;color:#73767b}
+body[data-game="multi_hot_5_video"] .brandbar #menu-top.native-menu-original-opener{width:45px;height:45px;padding:0;border:0;border-radius:0;box-shadow:none;background:var(--native-menu-opener) center/45px 45px no-repeat}
+body[data-game="multi_hot_5_video"] .brandbar #menu-top.native-menu-original-opener svg{visibility:hidden}
+@media(prefers-reduced-motion:reduce){#settings.official-help-menu .native-help-audio-group .native-help-toggle-face,#settings.official-help-menu .native-help-audio-group .native-help-toggle-face:after{transition:none}}

@@ -34,6 +34,7 @@ export function installOfficialAutoBetPresentation(document,gameId){
   const text=make('label','official-auto-label',label,row),inputBox=make('div','official-auto-input-box',undefined,row),input=make('input','official-auto-input',undefined,inputBox);
   input.id='official-auto-'+name;input.type='text';input.inputMode='decimal';input.autocomplete='off';input.pattern=decimalPattern;input.maxLength=16;input.setAttribute('aria-label',label+' in ETB');text.htmlFor=input.id;
   make('span','official-auto-currency','ETB',inputBox).setAttribute('aria-hidden','true');
+  listen(input,'input',()=>input.setCustomValidity(''));
   if(checkbox){input.disabled=true;listen(checkbox,'change',()=>{input.disabled=!checkbox.checked;input.required=checkbox.checked;row.classList.toggle('active',checkbox.checked);if(checkbox.checked)input.focus();});}
   fields.push({name,input,checkbox});
  }
@@ -89,7 +90,8 @@ export function installOfficialAutoBetPresentation(document,gameId){
   const value={count,stopWin:null,stopDecrease:null,stopIncrease:null,stopBigWin:!!bigWin?.checked};
   for(const {name,input,checkbox}of fields){
    if(checkbox&&!checkbox.checked)continue;
-   input.value=input.value.trim();if(!checkbox&&!input.value)continue;
+   input.value=input.value.trim();input.setCustomValidity('');if(!checkbox&&!input.value)continue;
+   if(input.value&&/^[0-9]+(?:\.[0-9]{1,2})?$/.test(input.value)&&!/[1-9]/.test(input.value))input.setCustomValidity('Enter an amount greater than zero.');
    if(!input.reportValidity())return null;
    value[name]=input.value;
   }

@@ -62,6 +62,8 @@ body[data-native-gamble-controls="foxy"] .secondary #gamble>:is(span,small){visi
 #gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-black{left:48.497%;top:61.844%;width:48.898%;height:15.402%;background-image:var(--gamble-black-effect)}
 #gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-card-red,#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-card-black{left:30.862%;top:31.389%;width:38.677%;height:31.272%;z-index:2;background-image:var(--gamble-hidden-red)}
 #gamble-dialog[data-official-gamble="mh5"] .native-gamble-glow-card-black{background-image:var(--gamble-hidden-black);animation-direction:alternate-reverse!important}
+/* Native MH5 starts both button glows at alpha 1, in phase with the black card. */
+#gamble-dialog[data-official-gamble="mh5"] :is(.native-gamble-glow-red,.native-gamble-glow-black){animation-direction:alternate-reverse!important}
 @keyframes native-gamble-pulse{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){#gamble-dialog[data-official-gamble="mh5"] .native-gamble-glows i{animation:none!important;opacity:.5}}
 @media(hover:hover){

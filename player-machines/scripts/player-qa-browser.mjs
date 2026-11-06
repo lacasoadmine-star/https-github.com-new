@@ -34,12 +34,12 @@ async function run(id){
  const page=await context.newPage(),errors=[],requests=[],checks=[];
  page.on('pageerror',e=>errors.push(String(e.stack||e)));page.on('request',r=>requests.push({method:r.method(),url:r.url()}));
  const check=(label,ok)=>{checks.push({label,ok:!!ok});if(!ok)throw Error(label);};
- const call=async(path,body)=>{const r=body===undefined?await context.request.get(origin+path,{maxRetries:2}):await context.request.post(origin+path,{data:body,maxRetries:2});if(!r.ok())throw Error(path+': '+r.status()+' '+await r.text());return r.json();};
+ const call=async(path,body,headers)=>{const r=body===undefined?await context.request.get(origin+path,{maxRetries:2,...(headers?{headers}:{})}):await context.request.post(origin+path,{data:body,maxRetries:2,...(headers?{headers}:{})});if(!r.ok())throw Error(path+': '+r.status()+' '+await r.text());return r.json();};
  const report=()=>call('/qa/report'),plan=values=>call('/qa/plan',{gameId:id,...values});
  const diag=()=>page.evaluate(async()=>{const src=document.querySelector('script[type="module"][src]').src;return (await import(src)).diagnostics();});
  const untilDiagnostics=async(predicate,label,timeout=15000)=>{const end=Date.now()+timeout;while(Date.now()<end){const d=await diag();if(predicate(d))return d;await page.waitForTimeout(40);}throw Error('Timed out '+label);};
  const ready=async()=>{await page.waitForFunction(()=>document.body.dataset.state==='ready',{},{timeout:15000});if(nativeBundleCounts[id]){await untilDiagnostics(d=>d.nativeAnimation?.ready&&d.nativeAnimation.instances===nativeBundleCounts[id]&&d.nativeAnimation.draws>0&&(id!=='multi_hot_5_video'||d.nativeAnimation.decodedPages>=4),'native decorative timelines loaded and rendered',45000);await page.waitForFunction(id=>document.querySelector('#auto-dialog')?.dataset.nativeDialogReady==='true'&&(id!=='hot_foxy_20'||document.querySelector('#settings')?.dataset.nativeBetReady==='true'),id,{timeout:15000});}};
- const tap=async selector=>{const startedAt=Date.now();await page.locator(selector).tap({timeout:6000});outcome.controlInteractions.push({selector,startedAt,endedAt:Date.now()});};
+ const tap=async selector=>{const startedAt=Date.now();await page.locator(selector).tap({timeout:15000});outcome.controlInteractions.push({selector,startedAt,endedAt:Date.now()});};
  const close=async dialog=>{
   if(!await page.locator('#'+dialog).evaluate(el=>el.open))return;
   if(dialog==='auto-dialog'&&nativeControls)await tap('#auto-dialog .official-auto-close');
@@ -49,13 +49,17 @@ async function run(id){
  };
  const openMenu=async()=>tap(await page.locator('#menu-top').isVisible()?'#menu-top':'#menu');
  const openBets=async()=>{
-  if(await page.locator('#settings').evaluate(el=>el.open)){if(await page.locator('#bets').isVisible())return;await tap('[data-panel="bets"]');return;}
+  if(await page.locator('#settings').evaluate(el=>el.open)){if(await page.locator('#bets').isVisible())return;if(await page.locator('[data-panel="bets"]').isVisible()){await tap('[data-panel="bets"]');return;}await close('settings');}
   if(id==='hot_foxy_20')await tap('#bet-quick');
-  else if(id==='multi_hot_5_video'){await openMenu();await tap('[data-panel="bets"]');}
   else await tap('#bet-open');
   await page.locator('#bets').waitFor({state:'visible'});
  };
  const chooseStake=async value=>{
+  if(id==='multi_hot_5_video'){
+   await close('settings');const target=local.betLevels.indexOf(value);let current=local.betLevels.indexOf(await page.locator('#bet-value').textContent());if(target<0||current<0)throw Error('MH5 carousel stake is outside current ladder');
+   while(current!==target){const step=target>current?1:-1;await tap(step>0?'#bet-more':'#bet-less');current+=step;check('MH5 carousel selects legal stake '+local.betLevels[current],await page.locator('#bet-value').textContent()===local.betLevels[current]);}
+   check('MH5 carousel selects requested stake without a popup',await page.locator('#bet-value').textContent()===value&&!await page.locator('#settings').evaluate(el=>el.open));return;
+  }
   await openBets();const selector=`[data-bet="${value}"]`;
   if(id==='hot_foxy_20'){
    for(let step=0;!await page.locator(selector).isVisible();step++){
@@ -78,6 +82,15 @@ async function run(id){
   else await tap(`[data-auto="${count}"]`);
  };
  const awaitGambleReady=async()=>{if(nativeControls)await page.waitForFunction(()=>document.querySelector('#gamble-dialog .native-gamble-stage')?.dataset.phase==='ready',{},{timeout:6000});};
+ const checkHelpPreview=async()=>{
+  const selected=page.locator('.native-help-selected'),stake=await page.locator('#bet-value').textContent(),before=await selected.locator('span').textContent(),index=local.betLevels.indexOf(before),direction=index<local.betLevels.length-1?1:-1;
+  check('Help preview amount is a noninteractive output',await selected.evaluate(el=>el.tagName)==='OUTPUT');check('Help preview uses a legal stake',index>=0);
+  await tap(direction>0?'.native-help-more':'.native-help-less');const preview=await selected.locator('span').textContent();
+  check('Help controls change only the payout preview stake',preview===local.betLevels[index+direction]&&await page.locator('#bet-value').textContent()===stake&&await page.locator('#rules').isVisible()&&!await page.locator('#bets').isVisible());
+  const rows=await page.locator('#paytable .native-help-symbol-group').evaluateAll(nodes=>nodes.map(node=>({symbol:node.dataset.symbols.split(' ')[0],counts:Array.from(node.querySelectorAll('dt'),el=>Number(el.textContent)),amounts:Array.from(node.querySelectorAll('dd'),el=>el.textContent)})));
+  check('Help preview payouts match displayed stake and current rules',rows.some(row=>row.amounts.length)&&rows.every(row=>row.amounts.every((amount,i)=>amount===decimal(units(preview)/BigInt(local.paylines)*BigInt(local.paytable[row.symbol][row.counts[i]])/100n))));
+  await tap(direction>0?'.native-help-less':'.native-help-more');check('Help preview restores without changing selected wager',await selected.locator('span').textContent()===before&&await page.locator('#bet-value').textContent()===stake);
+ };
 
  const stopIfAnimating=async point=>{if(await page.locator('body').getAttribute('data-state')!=='animating')return false;const startedAt=Date.now();await page.touchscreen.tap(point.x,point.y);outcome.controlInteractions.push({selector:'#spin',input:'native touchscreen STOP while animating',startedAt,endedAt:Date.now()});return true;};
  let outcome={game:id,width,userAgent,synthetic:true,regularRounds,minimumPlayMs,extendedControls,primaryRounds:[],controlInteractions:[],autoCancellationEvidence:[],timedSteps:[],source:await publicSource(),checks,errors},spinShotTaken=false,lossShotTaken=false,lastPositiveWin='0.00',playClock=0;
@@ -86,11 +99,17 @@ async function run(id){
   if(step===0){
    action='all legal stake options';if(!(await diag()).freeSpinsRemaining){for(const value of local.betLevels)await chooseStake(value);await chooseStake('2.00');await close('settings');}else action+=' (free-spin lock verified)';
   }else if(step===1){
-   action='sound settings, test clip and volume keys';await openMenu();await tap('[data-panel="audio"]');await tap('#sound-test');const input=page.locator('#volume'),prior=Number(await input.inputValue());await input.press('ArrowLeft');check('trusted volume key changes slider',Number(await input.inputValue())===Math.max(0,prior-1));await input.press('ArrowRight');check('trusted volume key restores slider',Number(await input.inputValue())===prior);await close('settings');
+   action='sound settings, test clip and volume keys';await openMenu();await tap('[data-panel="audio"]');
+   if(nativeControls){
+    const music=page.locator('.native-help-music-toggle'),master=await page.locator('#sound').getAttribute('aria-pressed'),musicBefore=await music.getAttribute('aria-checked');await tap('.native-help-music-toggle');check('Background Music toggles independently of Sound Effects',await music.getAttribute('aria-checked')===String(musicBefore!=='true')&&await page.locator('#sound').getAttribute('aria-pressed')===master);if(musicBefore==='true')await untilDiagnostics(d=>!d.backgroundAudio?.playing,'music stops independently');await tap('.native-help-music-toggle');check('Background Music restores its prior preference',await music.getAttribute('aria-checked')===musicBefore&&await page.locator('#sound').getAttribute('aria-pressed')===master);
+    if(!await page.locator('.native-help-volume-options').evaluate(el=>el.open))await tap('.native-help-volume-options summary');
+   }
+   await tap('#sound-test');const input=page.locator('#volume'),prior=Number(await input.inputValue());await input.press('ArrowLeft');check('trusted volume key changes slider',Number(await input.inputValue())===Math.max(0,prior-1));await input.press('ArrowRight');check('trusted volume key restores slider',Number(await input.inputValue())===prior);await close('settings');
   }else if(step===2){
    action='history and refresh';await openMenu();await tap('[data-panel="history"]');await tap('#history-refresh');await page.waitForFunction(()=>document.querySelector('#history-items').textContent!=='Loading…',{},{timeout:6000});check('history displays settled rounds',await page.locator('#history-items article').count()>0);await close('settings');
   }else if(step===3){
-   action='mute and restore sound';await tap('#sound');await page.waitForTimeout(60);check('trusted mute button is enabled',await page.locator('#sound').getAttribute('aria-pressed')==='true');await tap('#sound');check('trusted sound restore is enabled',await page.locator('#sound').getAttribute('aria-pressed')==='false');
+   action='mute and restore sound';if(id==='multi_hot_5_video'){await openMenu();await tap('[data-panel="audio"]');check('MH5 sound control is available in top-menu Settings',await page.locator('.native-help-sound-toggle').isVisible()&&!await page.locator('#sound').isVisible()&&!await page.locator('#menu').isVisible());}
+   const soundControl=id==='multi_hot_5_video'?'.native-help-sound-toggle':'#sound';await tap(soundControl);await page.waitForTimeout(60);check('trusted mute button is enabled',await page.locator('#sound').getAttribute('aria-pressed')==='true');await tap(soundControl);check('trusted sound restore is enabled',await page.locator('#sound').getAttribute('aria-pressed')==='false');if(id==='multi_hot_5_video')await close('settings');
   }else if(step===4){
    if(await page.locator('#turbo').isVisible()){
     action='turbo confirmation, cancellation and restore';
@@ -104,7 +123,7 @@ async function run(id){
     check('trusted turbo enabled',(await diag()).turbo);await tap('#turbo');check('trusted turbo restored',!(await diag()).turbo);if(id==='hot_foxy_20')check('Quick Play disables immediately without confirmation',!await page.locator('#quick-play-dialog').evaluate(el=>el.open));
    }else{action='legal previous and next stake buttons';if(await page.locator('#bet-more').isEnabled()){const beforeBet=await page.locator('#bet-value').textContent();await tap('#bet-more');await tap('#bet-less');check('stake increment/decrement restores selected stake',await page.locator('#bet-value').textContent()===beforeBet);if(id==='multi_hot_5_video'){await tap('#stake-open');check('MH5 next-stake carousel selects next ladder value',await page.locator('#bet-value').textContent()===local.betLevels[local.betLevels.indexOf(beforeBet)+1]&&!await page.locator('#settings').evaluate(el=>el.open));await tap('#bet-less');}else{await tap('#stake-open');await close('settings');}}}
   }else if(step===5){
-   action='paytable and fullscreen button';await tap(await page.locator('#menu-top').isVisible()?'#menu-top':'#menu');await tap('[data-panel="rules"]');check('paytable contains symbol rows',await page.locator('#paytable .pay-row').count()>0);const viewportBefore=await page.evaluate(()=>({width:innerWidth,height:innerHeight}));await tap('#fullscreen');await page.waitForFunction(()=>!document.querySelector('#settings').open||document.querySelector('#notice-text').textContent.includes('Fullscreen is unavailable'),{},{timeout:6000});const entered=await page.evaluate(()=>!!document.fullscreenElement);if(entered)await page.keyboard.press('Escape');if(await page.evaluate(()=>!!document.fullscreenElement))await page.evaluate(()=>document.exitFullscreen());await page.waitForFunction(v=>!document.fullscreenElement&&innerWidth===v.width&&innerHeight===v.height,viewportBefore,{timeout:6000});if(await page.locator('#settings').evaluate(el=>el.open))await close('settings');outcome.fullscreenObserved=entered;
+   action='paytable and fullscreen button';await openMenu();await tap('[data-panel="rules"]');check('paytable contains symbol rows',await page.locator(nativeControls?'#paytable .native-help-symbol-group':'#paytable .pay-row').count()>0);if(nativeControls){await checkHelpPreview();await tap('[data-panel="audio"]');}const viewportBefore=await page.evaluate(()=>({width:innerWidth,height:innerHeight}));await tap('#fullscreen');await page.waitForFunction(()=>!document.querySelector('#settings').open||document.querySelector('#notice-text').textContent.includes('Fullscreen is unavailable'),{},{timeout:6000});const entered=await page.evaluate(()=>!!document.fullscreenElement);if(entered)await page.keyboard.press('Escape');if(await page.evaluate(()=>!!document.fullscreenElement))await page.evaluate(()=>document.exitFullscreen());await page.waitForFunction(v=>!document.fullscreenElement&&innerWidth===v.width&&innerHeight===v.height,viewportBefore,{timeout:6000});if(await page.locator('#settings').evaluate(el=>el.open))await close('settings');outcome.fullscreenObserved=entered;
   }else if(step===6){
    action='autoplay chooser without a wager';await tap('#auto');for(const count of autoCounts)check('official autoplay count '+count+' is present',await page.locator(nativeControls?`[data-auto-count="${count}"]`:`[data-auto="${count}"]`).isVisible());if(nativeControls){await chooseAutoCount(autoCounts[0]);check('native AUTO has separate START control',await page.locator('#official-auto-start').isVisible());}await close('auto-dialog');
   }else{
@@ -206,7 +225,7 @@ async function run(id){
    await plan({seedLegacyPending:{bet:legacyBet,roundToken,outcome:'loss'}});const seeded=await report(),seededReceipt=(await call('/api/slots/rounds')).items.find(row=>row.result_json?.gameId===id)?.result_json;
    validateRound(seededReceipt,gameConfigForReceipt(seededReceipt),legacyBet);
    check('synthetic legacy seed settles exactly one old loss',seeded.roundSettlements===beforeSeed.roundSettlements+1&&seeded.spinPosts===beforeSeed.spinPosts&&units(seeded.balance,2)===units(beforeSeed.balance,2)-units(legacyBet,2)&&seededReceipt.mathVersion===old.mathVersion&&seededReceipt.finalWin==='0.00');
-   await plan({nextOutcome:'loss'});const laterReceipt=await call('/api/slots/spin',{gameId:id,bet:'2.00',roundToken:randomUUID(),mathVersion:local.mathVersion}),advanced=await report();validateRound(laterReceipt,gameConfigForReceipt(laterReceipt),'2.00');
+   await plan({nextOutcome:'loss'});const laterReceipt=await call('/api/slots/spin',{gameId:id,bet:'2.00',roundToken:randomUUID(),mathVersion:local.mathVersion},{'X-Zplay-Machine-Session':session.sessionId}),advanced=await report();validateRound(laterReceipt,gameConfigForReceipt(laterReceipt),'2.00');
    check('later paid action advances wallet beyond historical receipt',laterReceipt.mathVersion===local.mathVersion&&laterReceipt.finalWin==='0.00'&&advanced.roundSettlements===seeded.roundSettlements+1&&advanced.spinPosts===seeded.spinPosts+1&&units(advanced.balance,2)===units(seeded.balance,2)-units('2.00',2)&&advanced.balance!==seededReceipt.balanceAfter);
    const storageKey='zplay.machine.pending.'+session.sessionId+'.'+id,saved={gameId:id,bet:legacyBet,roundToken,sessionId:session.sessionId};
    await page.evaluate(({key,value})=>sessionStorage.setItem(key,JSON.stringify(value)),{key:storageKey,value:saved});await page.reload({waitUntil:'domcontentloaded'});

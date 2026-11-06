@@ -39,10 +39,17 @@ test('Foxy only plays the multiplier phrase on a positive win and respects sourc
  for(const [amount,name] of [[15,'win'],[15.01,'win-2'],[30,'win-2'],[30.01,'win-3'],[50.01,'win-4'],[100.01,'win-5']]){a.win(amount,1);assert.deepEqual(effects(a).sort(),['win-multiplier',name].sort());assert.equal([...a.nodes].find(node=>node.sample==='win-multiplier').baseVolume,.5);}
 }));
 test('MH5 uses native win tiers including the strict 5x and25x boundaries',()=>engine('multi_hot_5_video',async a=>{
- for(const [amount,name] of [[5,'win'],[5.01,'win-medium'],[25,'win-medium'],[25.01,'big-win']]){a.win(amount,1);assert.deepEqual(effects(a),[name]);assert.equal([...a.nodes].find(node=>node.sample===name).baseVolume,.6);}
+ for(const [amount,name] of [[5,'win'],[5.01,'win-medium'],[25,'win-medium'],[25.01,'big-win']]){a.win(amount,1);assert.deepEqual(effects(a),[name]);assert.equal([...a.nodes].find(node=>node.sample===name).baseVolume,.36);}
 }));
-test('a missing native reel-stop decode falls back to a short tone without throwing',()=>engine('hot_foxy_20',async a=>{
- a.samples.delete('reel-stop-3');assert.doesNotThrow(()=>a.event('reel-stop',3));assert.equal(a.context.oscillatorCount,2);assert.ok([...a.nodes].every(node=>!node.sample));
+test('a missing native reel-stop decode stays silent without adding another sound',()=>engine('hot_foxy_20',async a=>{
+ a.samples.delete('reel-stop-3');assert.doesNotThrow(()=>a.event('reel-stop',3));assert.equal(a.context.oscillatorCount,0);assert.equal(a.nodes.size,0);
+}));
+test('partially decoded native bet and win tiers do not substitute another cue',async()=>{
+ await engine('multi_hot_5_video',async a=>{a.samples.delete('bet');a.event('bet');assert.equal(a.nodes.size,0,'missing native Bet must not become Tap');a.samples.delete('win-medium');a.win(6,1);assert.equal(a.nodes.size,0,'missing Win2 must not become Win3');assert.equal(a.context.oscillatorCount,0);});
+ await engine('hot_foxy_20',async a=>{a.samples.delete('win-2');a.win(16,1);assert.deepEqual(effects(a),['win-multiplier'],'retain only the separate available original multiplier phrase');assert.equal(a.context.oscillatorCount,0);});
+});
+test('native playback-node failure cannot fall through into generated reel noise',()=>engine('hot_foxy_20',async a=>{
+ a.context.createBufferSource=()=>{throw Error('Audio output unavailable');};assert.doesNotThrow(()=>a.event('start'));assert.equal(a.nodes.size,0);assert.equal(a.context.oscillatorCount,0);assert.equal(a.context.createdBuffers,0);assert.equal(a.noise,null);
 }));
 test('context replacement during native decoding starts a fresh bank load and ignores old completion',async()=>{
  const previous=globalThis.AudioContext,contexts=[];

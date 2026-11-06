@@ -1,0 +1,160 @@
+{
+  "capturedAt": "2026-11-06T22:17:57.454Z",
+  "mode": "Official public DEMO; ordinary sound consent and background playback only; no spins/state assignments",
+  "page": "https://eu-server-w3.ssgportal.com/SlotsDemo/Mobile/Slots/MultiHot5/Game.aspx",
+  "PIXIversion": "6.5.5",
+  "libraryKeys": [
+    "_webAudioContext",
+    "_htmlAudioContext",
+    "_sounds",
+    "_useLegacy",
+    "_context"
+  ],
+  "contextKeys": [
+    "_output",
+    "_input",
+    "_ctx",
+    "_offlineCtx",
+    "_unlocked",
+    "compressor",
+    "analyser",
+    "events",
+    "volume",
+    "speed",
+    "muted",
+    "_paused"
+  ],
+  "contextVolume": 1,
+  "libraryVolumeAll": 1,
+  "contextAudioState": "running",
+  "contextNodes": [
+    {
+      "path": "._output",
+      "type": "DynamicsCompressorNode",
+      "threshold": -24,
+      "knee": 30,
+      "ratio": 12,
+      "attack": 0.003000000026077032,
+      "release": 0.25,
+      "reduction": -0.00012332235928624868
+    },
+    {
+      "path": ".compressor",
+      "type": "DynamicsCompressorNode",
+      "threshold": -24,
+      "knee": 30,
+      "ratio": 12,
+      "attack": 0.003000000026077032,
+      "release": 0.25,
+      "reduction": -0.00012332235928624868
+    }
+  ],
+  "compressor": {
+    "type": "DynamicsCompressorNode",
+    "threshold": -24,
+    "knee": 30,
+    "ratio": 12,
+    "attack": 0.003000000026077032,
+    "release": 0.25,
+    "reduction": -0.00012332235928624868
+  },
+  "contextGain": null,
+  "background": {
+    "keys": [
+      "media",
+      "options",
+      "_instances",
+      "_sprites",
+      "_autoPlayOptions",
+      "isLoaded",
+      "isPlaying",
+      "autoPlay",
+      "singleInstance",
+      "preload",
+      "url",
+      "_speed",
+      "_volume",
+      "_loop"
+    ],
+    "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot5/Start/Background.mp3",
+    "volume": 0.3,
+    "_volume": 0.3,
+    "isPlaying": true,
+    "instances": [
+      {
+        "keys": [
+          "_events",
+          "_eventsCount",
+          "id",
+          "_media",
+          "_paused",
+          "_muted",
+          "_elapsed",
+          "_source",
+          "_gain",
+          "_speed",
+          "_volume",
+          "_loop",
+          "_duration",
+          "_end",
+          "_lastUpdate",
+          "_progress"
+        ],
+        "volume": 0.3,
+        "_volume": 0.3,
+        "gain": {
+          "type": "GainNode",
+          "gain": 0.09000000357627869
+        },
+        "nodes": [
+          {
+            "path": "._media._nodes._output",
+            "type": "GainNode",
+            "gain": 1
+          },
+          {
+            "path": "._media._nodes.gain",
+            "type": "GainNode",
+            "gain": 1
+          },
+          {
+            "path": "._gain",
+            "type": "GainNode",
+            "gain": 0.09000000357627869
+          }
+        ]
+      }
+    ],
+    "mediaKeys": [
+      "parent",
+      "_nodes",
+      "_source",
+      "source"
+    ],
+    "nodes": [
+      {
+        "path": ".media._nodes._output",
+        "type": "GainNode",
+        "gain": 1
+      },
+      {
+        "path": ".media._nodes.gain",
+        "type": "GainNode",
+        "gain": 1
+      },
+      {
+        "path": "._instances.0._gain",
+        "type": "GainNode",
+        "gain": 0.09000000357627869
+      }
+    ]
+  },
+  "normalMode": {
+    "oldGameVR": false,
+    "newVRAllowed": null,
+    "newVRVolume": null
+  },
+  "soundEnabled": true,
+  "backgroundVolumeStored": 0.3,
+  "sourceURL": "../../Content/Sound/MultiHot5/"
+}

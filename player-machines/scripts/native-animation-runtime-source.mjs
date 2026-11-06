@@ -12,6 +12,7 @@ const batchGroups = [];
 let nextInstanceId = 1, batchKey = null, batchFrame = null;
 function renderer() {
   if (!sharedRenderer) sharedRenderer = PIXI.autoDetectRenderer({
+    forceCanvas: true,
     width: 2, height: 2, resolution: 1, antialias: true,
     backgroundAlpha: 0, preserveDrawingBuffer: true, powerPreference: 'low-power',
   });

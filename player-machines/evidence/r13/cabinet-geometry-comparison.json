@@ -1,0 +1,241 @@
+{
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 1
+  },
+  "localCaptureCommit": "b31881c (before follow-up patches)",
+  "officialCaptureSource": "Normal public DEMO Chromium screenshot; no user uploaded media",
+  "accuracy": "Opaque visible-art/text pixel bounds within1\u20132CSSpixels. Local DOM hitboxes separately in local-visible-audit.json; do not equate transparent sprite boxes with opaque pixels.",
+  "mh5": {
+    "officialScreenshot": "/workspace/work/r13-reference/MultiHot5/bet-plus.png",
+    "localScreenshot": "/workspace/work/r14-reference/multi_hot_5_video-local-after-help-plus.png",
+    "primaryCorrection": {
+      "scope": "Only +/- and previous/next stake row, preserve main spin/panel position",
+      "previousStakeText": {
+        "officialBounds": [
+          80,
+          705,
+          110,
+          715
+        ],
+        "localBounds": [
+          66,
+          696,
+          95,
+          707
+        ],
+        "deltaCenter": [
+          14.5,
+          8.5
+        ]
+      },
+      "nextStakeText": {
+        "officialBounds": [
+          281,
+          705,
+          310,
+          715
+        ],
+        "localBounds": [
+          295,
+          696,
+          323,
+          707
+        ],
+        "deltaCenter": [
+          -13.5,
+          8.5
+        ]
+      },
+      "minusGlyph": {
+        "officialBounds": [
+          25,
+          719,
+          37,
+          723
+        ],
+        "localBounds": [
+          21,
+          703,
+          27,
+          706
+        ],
+        "deltaCenter": [
+          7,
+          16.5
+        ]
+      },
+      "plusGlyph": {
+        "officialBounds": [
+          347,
+          713,
+          361,
+          726
+        ],
+        "localBounds": [
+          359,
+          699,
+          366,
+          709
+        ],
+        "deltaCenter": [
+          -8.5,
+          15.5
+        ]
+      },
+      "interpretation": "Previews about14px too far outward and9px high. +/- about8px too far outward and16px high; glyphs/sprites also smaller. Move these controls inward/down; do not move whole panel."
+    },
+    "otherCabinetBoundsApprox": {
+      "reelFrame": {
+        "official": [
+          74,
+          151,
+          314,
+          230
+        ],
+        "local": [
+          74,
+          146,
+          310,
+          234
+        ],
+        "note": "Localtop5pxhigh,width4pxnarrower; smallcomparedstake-row."
+      },
+      "multiplierFrame": {
+        "official": [
+          2,
+          151,
+          69,
+          230
+        ],
+        "local": [
+          8,
+          151,
+          62,
+          226
+        ],
+        "note": "Local6pxinward,7pxnarrower;selectedglyphdiffersvalueandcannotpixelcompare."
+      },
+      "meters": {
+        "official": [
+          2,
+          389,
+          385,
+          33
+        ],
+        "local": [
+          7,
+          389,
+          376,
+          33
+        ],
+        "note": "Mainheight/verticalalignmentclose;localcabinetwidthsmaller."
+      },
+      "spinFace": {
+        "officialApprox": [
+          114,
+          633,
+          163,
+          144
+        ],
+        "localDom": [
+          114.375,
+          628.15625,
+          161.25,
+          145.40625
+        ],
+        "note": "Approximately4pxhigh; no largeplacementdefect."
+      },
+      "autoDoubleCollect": "Native visiblebuttons broadly alignedwithin~4\u20138px; no major panelplacementdefect.",
+      "bottomNav": "OfficialMH5hasnofootermenu/speaker; alreadyassigned."
+    },
+    "previousPreviewInteraction": {
+      "confirmed": true,
+      "officialSource": "multihot5.mobile.js395\u2013416 creates Bet0..BetN, canvas.js1110\u20131129 makes each image interactive and pointerdown dispatches, slot.js11388 calls betClick for isBetButton; slot.js12014\u201312020 parsesclickedindex and ignoresonlycurrentindex. Previous andnext usesamehandler.",
+      "localGap": "#previous-stake is span with pointer-events:none; nativeprevious stakebutton isclickable.",
+      "behavior": "Select previous wager without spinning; same as nextstakepreview.",
+      "nativeSourceCoordinates": {
+        "plusVertical": [
+          656,
+          782
+        ],
+        "minusVertical": [
+          195,
+          782
+        ],
+        "spinVertical": [
+          348,
+          684
+        ],
+        "betWidth": 90,
+        "betSpinWidth": 202,
+        "source": "multihot5.mobile.js280\u2013330,374\u2013390"
+      }
+    },
+    "settledConfirmationScreenshot": "/workspace/work/r13-reference/MultiHot5/boundary-stake-50.png",
+    "settledConfirmation": "Captured after native betButton.animate=false at50DMO; preview centers and +/- positions confirm prior .10stake screenshot."
+  },
+  "foxy": {
+    "officialScreenshot": "/workspace/work/r13-reference/FoxyHot20/natural-spin-1.png",
+    "localScreenshot": "/workspace/work/r14-reference/hot_foxy_20-local-idle.png",
+    "reelFrameApprox": {
+      "official": [
+        8,
+        171,
+        374,
+        240
+      ],
+      "local": [
+        7,
+        169,
+        376,
+        244
+      ]
+    },
+    "mainSpinApprox": {
+      "official": [
+        139,
+        642,
+        113,
+        109
+      ],
+      "localDom": [
+        140.09375,
+        639.8125,
+        109.8125,
+        109.8125
+      ]
+    },
+    "auto": {
+      "officialVisibleApprox": [
+        68,
+        663,
+        55,
+        57
+      ],
+      "localDom": [
+        67.84375,
+        664.265625,
+        55.984375,
+        55.984375
+      ]
+    },
+    "bet": {
+      "officialVisibleApprox": [
+        265,
+        663,
+        55,
+        57
+      ],
+      "localDom": [
+        264.46875,
+        664.390625,
+        56.046875,
+        56.046875
+      ]
+    },
+    "footerMeters": "Withinabout2\u20134px; localmachinewidth382.67vs390officialcausessmallpaddingdifference.",
+    "conclusion": "No substantial cabinetgeometrydefect found; native art, maincontrols, multiplierframe andbottomnavigation broadlymatch at390\u00d7844. Do not adjust allFoxycontrols for1\u20134pxdifferences."
+  }
+}

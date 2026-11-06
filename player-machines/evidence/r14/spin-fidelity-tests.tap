@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: win particles follow the same trajectory at 30, 60 and 120 frames per second
+ok 1 - win particles follow the same trajectory at 30, 60 and 120 frames per second
+  ---
+  duration_ms: 5.082867
+  type: 'test'
+  ...
+# Subtest: win particle rendering ignores invalid frame deltas and expires cleanly
+ok 2 - win particle rendering ignores invalid frame deltas and expires cleanly
+  ---
+  duration_ms: 0.91152
+  type: 'test'
+  ...
+# Subtest: delayed or failed native timeline loading never enables generic target-game confetti
+ok 3 - delayed or failed native timeline loading never enables generic target-game confetti
+  ---
+  duration_ms: 2.565988
+  type: 'test'
+  ...
+# Subtest: selected cabinets keep static originals without procedural ambient while native timelines are pending
+ok 4 - selected cabinets keep static originals without procedural ambient while native timelines are pending
+  ---
+  duration_ms: 1.019125
+  type: 'test'
+  ...
+# Subtest: native timeline failure never invokes procedural BIG/MEGA WIN badges
+ok 5 - native timeline failure never invokes procedural BIG/MEGA WIN badges
+  ---
+  duration_ms: 1.701246
+  type: 'test'
+  ...
+# Subtest: blur uses original source-canvas placement, with no synthetic repeated symbol
+ok 6 - blur uses original source-canvas placement, with no synthetic repeated symbol
+  ---
+  duration_ms: 3.237584
+  type: 'test'
+  ...
+# Subtest: Foxy authored wheel border renders once without extra screen-blended pulse
+ok 7 - Foxy authored wheel border renders once without extra screen-blended pulse
+  ---
+  duration_ms: 1.374888
+  type: 'test'
+  ...
+# Subtest: Foxy win meter uses original portrait texture and receipt-derived text
+ok 8 - Foxy win meter uses original portrait texture and receipt-derived text
+  ---
+  duration_ms: 0.7544
+  type: 'test'
+  ...
+# Subtest: Foxy native line artwork follows receipt topology and expires after authored fade
+ok 9 - Foxy native line artwork follows receipt topology and expires after authored fade
+  ---
+  duration_ms: 0.810065
+  type: 'test'
+  ...
+# Subtest: MH5 native highlights do not receive an extra generic all-line flash
+ok 10 - MH5 native highlights do not receive an extra generic all-line flash
+  ---
+  duration_ms: 0.795674
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 363.083846

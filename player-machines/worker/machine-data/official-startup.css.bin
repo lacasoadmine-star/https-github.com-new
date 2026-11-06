@@ -1,0 +1,26 @@
+/* Original mobile loader and consent geometry from the public demo stylesheet. */
+#official-startup{position:fixed;inset:0;width:100%;height:100%;z-index:1000;background:#000;opacity:1}
+#official-startup.official-loader-fading{opacity:0;transition:opacity .1s linear}
+#official-startup .official-loader-logo{position:absolute;top:50%;left:50%;width:205px;height:205px;margin:-102px 0 0 -102px;background-position:center;background-size:contain;background-repeat:no-repeat}
+#official-startup .official-loader-bar{position:absolute;top:50%;left:50%;width:156px;height:5px;margin:90px 0 0 -89px;border-radius:1px}
+#official-startup .official-loader-progress{position:absolute;left:-5px;top:-1px;width:0;height:5px;overflow:visible;background-position:center;background-repeat:no-repeat;background-size:cover}
+#official-startup .official-loader-icon{position:absolute;right:-12px;top:-8px;width:24px;height:21px;background-repeat:no-repeat;transform:scale(0);transition:transform .2s;will-change:transform}
+body[data-game="multi_hot_5_video"] #official-startup .official-loader-progress{transition:width .1s linear}
+#sound-consent.official-sound-consent{position:fixed;left:5%;top:calc(50% + 13px);transform:translateY(-50%);margin:0;padding:0;width:90%;max-width:none;max-height:none;height:381px;overflow:visible;border:0;border-radius:5px;background:linear-gradient(to top,rgba(18,18,16,.7),rgba(42,42,42,.7));box-shadow:0 0 9px rgba(0,0,0,.7);color:#fff;text-align:center;opacity:1}
+#sound-consent.official-sound-consent::backdrop{background:rgba(0,0,0,.7);clip-path:inset(26px 0 0)}
+#sound-consent.official-sound-consent h2{box-sizing:content-box;height:140px;padding-top:70px;margin:0;color:#fff;text-align:center;font:400 50px/normal 'Official Startup',Arial,sans-serif}
+#sound-consent.official-sound-consent h2:focus{outline:none}
+#sound-consent.official-sound-consent .sound-choices{display:flex;justify-content:center;gap:30px;margin:0;text-align:center;font-size:0}
+#sound-consent.official-sound-consent .sound-choices button{box-sizing:content-box;display:inline-block;flex:none;min-width:0;min-height:0;width:302px;height:127px;padding:0;margin:0;border:0;border-radius:5px;background:#3e3e3e;box-shadow:0 0 9px rgba(0,0,0,.7);color:white;text-align:center;font:400 36px/127px 'Official Startup',Arial,sans-serif}
+#sound-consent.official-sound-consent .sound-choices button::before{content:'';display:inline-block;flex:none;vertical-align:top;margin:45px 20px 0 0;width:49px;height:37px;background:var(--official-sound-yes) no-repeat;mask:none}
+#sound-consent.official-sound-consent #sound-no::before{margin-top:40px;width:48px;height:48px;background-image:var(--official-sound-no);mask:none}
+#sound-consent.official-sound-consent.official-sound-fading{opacity:0;transition:opacity .1s linear}
+@media(max-width:1024px){
+ #sound-consent.official-sound-consent{height:190px}
+ #sound-consent.official-sound-consent h2{height:70px;padding-top:35px;font-size:25px}
+ #sound-consent.official-sound-consent .sound-choices{gap:18px}
+ #sound-consent.official-sound-consent .sound-choices button{width:135px;height:63px;line-height:63px;font-size:18px;margin:0}
+ #sound-consent.official-sound-consent .sound-choices button::before{width:25px;height:19px;margin-top:23px;margin-right:10px;background-size:cover}
+ #sound-consent.official-sound-consent #sound-no::before{width:24px;height:24px;margin-top:20px;margin-right:10px}
+}
+@media(max-width:340px){#sound-consent.official-sound-consent .sound-choices button{width:calc(50% - 14px)}#sound-consent.official-sound-consent h2{font-size:23px}}

@@ -30,7 +30,7 @@ export function helpPaytableRows(model,stake){
  return rows;
 }
 
-export function createOfficialHelpPresentation({document,gameId}){
+export function createOfficialHelpPresentation({document,gameId,audioControls=null}){
  if(!symbols[gameId])return null;
  const get=id=>document.getElementById(id),settings=get('settings'),rules=get('rules'),paytable=get('paytable'),audio=get('audio'),bets=get('bets');
  if(!settings||!rules||!paytable||!audio||!bets)return null;
@@ -45,8 +45,8 @@ export function createOfficialHelpPresentation({document,gameId}){
   const button=nav.querySelector('[data-panel="'+panel+'"]');if(!button)continue;originalNav.set(button,button.textContent);button.replaceChildren();make('span','native-help-tab-label',text,button);button.setAttribute('aria-label',text);
  }
  const summary=make('div','native-help-summary'),currency=make('p','native-help-currency','All symbol wins are in ETB',summary),stakeRow=make('div','native-help-stake',undefined,summary);
- const less=make('button','native-help-less','−',stakeRow),selected=make('button','native-help-selected',undefined,stakeRow),more=make('button','native-help-more','+',stakeRow);
- for(const b of [less,selected,more])b.type='button';less.setAttribute('aria-label','Decrease bet');more.setAttribute('aria-label','Increase bet');selected.setAttribute('aria-label','Choose total bet');
+ const less=make('button','native-help-less','−',stakeRow),selected=make('output','native-help-selected',undefined,stakeRow),more=make('button','native-help-more','+',stakeRow);
+ for(const b of [less,more])b.type='button';less.setAttribute('aria-label','Decrease paytable preview bet');more.setAttribute('aria-label','Increase paytable preview bet');selected.setAttribute('aria-label','Paytable preview bet');
  const selectedValue=make('span','','—',selected);make('small','','ETB',selected);
  rules.prepend(summary);
  const feature=make('section','native-help-feature'),featureTitle=make('h3','','MULTIPLIER REEL',feature),featureText=make('p','','',feature),featureArt=make('div','native-help-feature-art',undefined,feature);
@@ -54,15 +54,36 @@ export function createOfficialHelpPresentation({document,gameId}){
  paytable.after(feature);
  const rulesTitle=rules.querySelector('h3');rulesTitle?.classList.add('native-help-rules-title');
  if(get('rules-text'))feature.after(get('rules-text'));
- const soundSource=get('sound'),soundToggle=make('button','native-help-sound-toggle',undefined),soundLabel=make('span','','Sound effects & music',soundToggle),soundFace=make('span','native-help-toggle-face','',soundToggle);
+ const nativeAudio=audioControls&&typeof audioControls.getState==='function'&&typeof audioControls.setEffects==='function'&&typeof audioControls.setMusic==='function';
+ const soundSource=get('sound'),soundToggle=make('button','native-help-sound-toggle',undefined),soundLabel=make('span','',nativeAudio?'Sound Effects':'Sound effects & music',soundToggle),soundFace=make('span','native-help-toggle-face','',soundToggle);
  soundToggle.type='button';soundToggle.setAttribute('role','switch');audio.prepend(soundToggle);
+ let musicToggle=null,nativeAudioGroup=null,volumeDetails=null,volumeNodes=[];
+ if(nativeAudio){
+  nativeAudioGroup=make('div','native-help-audio-group',undefined,audio);nativeAudioGroup.append(soundToggle);
+  musicToggle=make('button','native-help-music-toggle',undefined,nativeAudioGroup);musicToggle.type='button';musicToggle.setAttribute('role','switch');make('span','','Background Music',musicToggle);make('span','native-help-toggle-face','',musicToggle);
+  volumeDetails=make('details','native-help-volume-options',undefined,audio);make('summary','','Volume',volumeDetails);
+  volumeNodes=Array.from(audio.children).filter(node=>node!==nativeAudioGroup&&node!==volumeDetails);
+  for(const node of volumeNodes)volumeDetails.append(node);
+  audio.classList.add('native-help-audio-native');
+ }
  const full=get('fullscreen'),fullMarker=full?document.createComment('fullscreen original position'):null;
- if(full){full.before(fullMarker);audio.append(full);full.classList.add('native-help-fullscreen');}
- let disposed=false,pack=null,current=null,generation=0;
- const ready=(gameId==='hot_foxy_20'?import('./official-foxy-art.mjs'):import('./official-mh5-art.mjs')).then(value=>{if(disposed)return;pack=value;if(current)render(current);}).catch(()=>{});
+ const fullText=full?.textContent;
+ if(full){full.before(fullMarker);(nativeAudioGroup||audio).append(full);full.classList.add('native-help-fullscreen');if(nativeAudio){full.replaceChildren();make('span','','Full Screen',full);make('span','native-help-toggle-face','',full);full.setAttribute('role','switch');}}
+ let disposed=false,pack=null,current=null,generation=0,previewIndex=0,audioBusy=false,menuFont=null;const opener=get('menu-top');
+ const artReady=(gameId==='hot_foxy_20'?import('./official-foxy-art.mjs'):import('./official-mh5-art.mjs')).then(value=>{if(disposed)return;pack=value;if(current)renderPreview();}).catch(()=>{});
+ const menuReady=import('./official-menu-assets.mjs').then(async({sprites,bookAlt})=>{
+  if(disposed)return;for(const [name,url]of Object.entries(sprites))settings.style.setProperty('--native-menu-'+name,'url("'+url+'")');
+  if(gameId==='multi_hot_5_video'&&opener){opener.style.setProperty('--native-menu-opener','url("'+sprites.opener+'")');opener.classList.add('native-menu-original-opener');}
+  try{const bytes=Uint8Array.from(win.atob(bookAlt.slice(bookAlt.indexOf(',')+1)),character=>character.charCodeAt(0));const font=await new win.FontFace('Official Menu Book',bytes).load();if(!disposed){document.fonts.add(font);menuFont=font;}}catch{}
+  if(!disposed)settings.dataset.nativeMenuAssetsReady='true';
+ }).catch(()=>{});
+ const ready=Promise.all([artReady,menuReady]);
+ function soundState(){try{return audioControls.getState();}catch{return {effectsEnabled:false,musicEnabled:false};}}
  function controls(){
-  less.disabled=!get('bet-less')||get('bet-less').disabled;more.disabled=!get('bet-more')||get('bet-more').disabled;selected.disabled=!get('bet-open')||get('bet-open').disabled;
-  soundToggle.disabled=!soundSource;soundToggle.setAttribute('aria-checked',String(soundSource?.getAttribute('aria-pressed')!=='true'));
+  less.disabled=!current||previewIndex<=0;more.disabled=!current||previewIndex>=current.model.betLevels.length-1;
+  if(nativeAudio){const state=soundState();soundToggle.disabled=audioBusy;musicToggle.disabled=audioBusy;soundToggle.setAttribute('aria-checked',String(!!state.effectsEnabled));musicToggle.setAttribute('aria-checked',String(!!state.musicEnabled));}
+  else{soundToggle.disabled=!soundSource;soundToggle.setAttribute('aria-checked',String(soundSource?.getAttribute('aria-pressed')!=='true'));}
+  if(nativeAudio&&full)full.setAttribute('aria-checked',String(!!document.fullscreenElement));
  }
  function panel(){
   if(disposed)return;
@@ -70,10 +91,16 @@ export function createOfficialHelpPresentation({document,gameId}){
   for(const button of originalNav.keys()){const active=!get(button.dataset.panel)?.hidden;button.setAttribute('aria-current',active?'page':'false');}
   controls();
  }
- listen(less,'click',()=>get('bet-less')?.click());listen(more,'click',()=>get('bet-more')?.click());
- listen(selected,'click',()=>nav.querySelector('[data-panel="bets"]')?.click());listen(soundToggle,'click',()=>soundSource?.click());
+ // Official Help controls change the paytable preview only (public main.js:169–205).
+ // The controller retains the wager; closing Help never commits this preview.
+ function renderPreview(){if(current)render({...current,stake:current.model.betLevels[previewIndex]||current.stake});}
+ function stepPreview(direction){if(!current)return;previewIndex=Math.max(0,Math.min(current.model.betLevels.length-1,previewIndex+direction));renderPreview();}
+ async function changeAudio(key){if(disposed||audioBusy)return;audioBusy=true;controls();try{await audioControls[key==='effects'?'setEffects':'setMusic'](!soundState()[key+'Enabled']);}catch{}finally{audioBusy=false;if(!disposed)controls();}}
+ listen(less,'click',()=>stepPreview(-1));listen(more,'click',()=>stepPreview(1));listen(soundToggle,'click',()=>nativeAudio?changeAudio('effects'):soundSource?.click());
+ if(musicToggle)listen(musicToggle,'click',()=>changeAudio('music'));
+ listen(document,'fullscreenchange',controls);const unsubscribe=nativeAudio&&typeof audioControls.subscribe==='function'?audioControls.subscribe(controls):null;
  const observer=new win.MutationObserver(panel);for(const node of [bets,rules,audio,get('history')])if(node)observer.observe(node,{attributes:true,attributeFilter:['hidden']});
- for(const node of [soundSource,get('bet-less'),get('bet-more'),get('bet-open')])if(node)observer.observe(node,{attributes:true,attributeFilter:['disabled','aria-pressed']});
+ if(soundSource)observer.observe(soundSource,{attributes:true,attributeFilter:['aria-pressed']});
  function symbolImage(symbol,parent){
   const index=symbols[gameId].indexOf(symbol),url=pack?.sprites['Box/'+index];
   if(url){const img=make('img','native-help-symbol',undefined,parent);img.src=url;img.alt=label(symbol);img.draggable=false;}
@@ -103,5 +130,5 @@ export function createOfficialHelpPresentation({document,gameId}){
   settings.dataset.nativeHelpReady=String(!!pack);panel();
  }
  panel();
- return {ready,update(value){current=value;render(value);},destroy(){disposed=true;generation++;events.abort();observer.disconnect();css.remove();settings.classList.remove('official-help-menu');delete settings.dataset.officialHelpGame;delete settings.dataset.nativeHelpReady;exit.remove();close.textContent=closeText;close.classList.remove('native-help-close');for(const [button,text]of originalNav){button.textContent=text;button.removeAttribute('aria-current');button.removeAttribute('aria-label');}summary.remove();feature.remove();soundToggle.remove();if(full&&fullMarker){fullMarker.replaceWith(full);full.classList.remove('native-help-fullscreen');}rulesTitle?.classList.remove('native-help-rules-title');paytable.classList.remove('native-help-paytable');delete paytable.dataset.nativeHelpLayout;}};
+ return {ready,update(value){current=value;previewIndex=Math.max(0,value.model.betLevels.indexOf(value.stake));renderPreview();},destroy(){disposed=true;generation++;events.abort();observer.disconnect();if(typeof unsubscribe==='function')unsubscribe();css.remove();if(menuFont)document.fonts.delete(menuFont);if(opener){opener.classList.remove('native-menu-original-opener');opener.style.removeProperty('--native-menu-opener');}delete settings.dataset.nativeMenuAssetsReady;settings.classList.remove('official-help-menu');delete settings.dataset.officialHelpGame;delete settings.dataset.nativeHelpReady;exit.remove();close.textContent=closeText;close.classList.remove('native-help-close');for(const [button,text]of originalNav){button.textContent=text;button.removeAttribute('aria-current');button.removeAttribute('aria-label');}summary.remove();feature.remove();soundToggle.remove();musicToggle?.remove();if(full&&fullMarker){fullMarker.replaceWith(full);full.classList.remove('native-help-fullscreen');if(nativeAudio){full.textContent=fullText;full.removeAttribute('role');full.removeAttribute('aria-checked');}}for(const node of volumeNodes)audio.append(node);volumeDetails?.remove();nativeAudioGroup?.remove();audio.classList.remove('native-help-audio-native');rulesTitle?.classList.remove('native-help-rules-title');paytable.classList.remove('native-help-paytable');delete paytable.dataset.nativeHelpLayout;}};
 }

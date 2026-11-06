@@ -22,17 +22,22 @@ for(const game of ['multi_hot_5_video','hot_foxy_20','multi_hot_100','wild_multi
    if(kind==='script'&&url.pathname==='/player-v236/'+config.presence)continue;
    references.push({kind,url});
   }
-  assert.deepEqual(references.map(({kind})=>kind).sort(),['link','script'],'the page must declare both bootstrap assets');
+  const expectedFiles=['controller.mjs','official-startup-critical.css','official-startup-guard.js','style.css'];
+  assert.deepEqual(references.map(({url})=>url.pathname.split('/').at(-1)).sort(),expectedFiles,'the page declares the controller, stylesheet, and independent first-paint bootstrap');
   for(const {kind,url}of references){
    assert.equal(url.origin,pageURL.origin,'bootstrap assets remain same-origin');
    const asset=machinePage(new Request(url),config);
    assert.ok(asset instanceof Response,game+': rendered asset URL is not served: '+url.pathname);
    assert.equal(asset.status,200,game+': '+url.pathname);
    assert.equal(asset.headers.get('X-Zplay-Release'),release);
-   assert.equal(url.pathname,'/'+release+'/'+(kind==='link'?'style.css':'controller.mjs'));
+   assert.equal(url.pathname,'/'+release+'/'+url.pathname.split('/').at(-1));
    assert.match(asset.headers.get('Content-Type')||'',kind==='link'?/^text\/css\b/:/^application\/javascript\b/);
    assert.match(asset.headers.get('Cache-Control')||'',/immutable/);
-   assert.ok((await asset.text()).length>0,'bootstrap asset must contain its actual source');
+   const source=await asset.text();assert.ok(source.length>0,'bootstrap asset must contain its actual source');
+   if(url.pathname.endsWith('/official-startup-critical.css')){
+    const logoPath=source.match(/url\(['"]?(\.\/official-startup-logo\.gif)['"]?\)/)?.[1];assert.ok(logoPath,'first-paint stylesheet must reference the original GIF');
+    const logo=machinePage(new Request(new URL(logoPath,url)),config);assert.equal(logo?.status,200);assert.equal(logo.headers.get('Content-Type'),'image/gif');assert.equal(new TextDecoder().decode((await logo.arrayBuffer()).slice(0,6)),'GIF89a');
+   }
   }
  });
 }
