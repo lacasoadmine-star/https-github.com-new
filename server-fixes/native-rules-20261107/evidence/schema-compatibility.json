@@ -14,8 +14,8 @@
   "capturedSchemaCompatible": true,
   "reason": "The game_id columns are VARCHAR(64) or TEXT without a game-ID CHECK, enum or game-model foreign key. Both new IDs fit. Free spins remain isolated by PRIMARY KEY(user_id,game_id).",
   "mirrorColumn": "sw_rebuild.rounds.game",
-  "mirrorSchemaLiveVerified": false,
-  "limitation": "The mirror table creation SQL is not in captured runtime. Run schema-compatibility-readonly.sql with existing read-only DB access before release; do not infer live constraints solely from CREATE TABLE IF NOT EXISTS.",
+  "mirrorSchemaLiveVerified": true,
+  "limitation": "Live metadata shows TEXT, no game CHECK/FK, RLS or insert rules; existing AFTER user_id notification-style trigger requires limited manual review. Full trigger function body unavailable; no real native settlement was exercised.",
   "startupHealthProbe": {
     "source": "src/schema-probe.mjs",
     "query": "evidence/native-health-schema-query.sql",
@@ -26,7 +26,12 @@
       "review_required",
       "unavailable"
     ],
-    "liveVerified": false,
-    "note": "Optional asynchronous metadata probe; existing health and legacy settlement remain available. Compatible confirms catalog metadata only."
-  }
+    "liveVerified": true,
+    "note": "Optional asynchronous metadata probe; existing health and legacy settlement remain available. Compatible confirms catalog metadata only.",
+    "observedStatus": "review_required"
+  },
+  "mirrorAutomaticCompatibility": false,
+  "liveProbeStatus": "review_required",
+  "liveMetadataEvidence": "live-public-verification.json",
+  "manualTriggerReview": "live-trigger-manual-review.json"
 }

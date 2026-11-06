@@ -2,7 +2,7 @@
 
 Release: `zplay-native-machines-20261107-r1`.
 
-Status: additive source and local verification are in progress. This document does not record a native production publication yet. Worker308 remains the live baseline. The earlier replacement-scope r13 candidate was stopped and never published.
+Status: the additive backend is live and exposes 13 games, including the two new IDs. The native frontend is frozen and uploading; it is not yet published in this record. Worker308 remains the live frontend baseline. The earlier replacement-scope r13 candidate was stopped and never published.
 
 The release adds two separate machines to the existing player portal. The original machines remain playable with their original pages, wager rules, stored receipts and earned free spins.
 
@@ -11,7 +11,7 @@ The release adds two separate machines to the existing player portal. The origin
 | Foxy Hot20 | `/games/foxy_hot_20_native` | `/games/hot_foxy_20` |
 | Multi Hot5 | `/games/multi_hot_5_native` | `/games/multi_hot_5_video` |
 
-The portal has 59 entries: all 57 existing entries plus these two additions. New cards use official SmartSoft covers and a “New” badge. The four existing local machine launch URLs, account controls and other portal routes remain available. Native page assets use a separate immutable namespace; the original Worker308 modules and their URLs are retained byte-for-byte.
+The additive portal provides 59 entries: all 57 existing entries plus these two additions. New cards use official SmartSoft covers and a “New” badge. The four existing local machine launch URLs, account controls and other portal routes remain available. Native page assets use a separate immutable namespace; the original Worker308 modules and their URLs are retained byte-for-byte.
 
 ## New machine behavior
 
@@ -35,27 +35,33 @@ The backend adds the two IDs beside all 11 original games. Each original ID stil
 
 The existing shared wallet and double-entry ledger remain authoritative. Settled requests replay before current-model validation. New native paid requests pin the current model; stale pins are rejected before debit. Native gamble recovery and optional expected stake/attempt guards are scoped only to native parent receipts. Original games ignore those added fields as before.
 
-The additive backend can be activated first because it preserves the old IDs and request contracts. Verify its health, schema metadata and 13 public models before exposing the new frontend and catalog. No real production wagers or account balance changes are part of release verification.
+The additive backend was activated first because it preserves the old IDs and request contracts. Its live public API exposes all 13 games. The global legacy math identity remains unchanged; the separate `activeNative` identity is the new hash. No real production wagers or account balance changes are part of release verification.
 
-The health response includes `nativeSchemaCompatibility`. A single asynchronous startup query reads PostgreSQL catalog metadata only, with a two-second timeout. It reports `pending`, `compatible`, `review_required` or `unavailable`; a failed probe does not block the existing health response or old games. The live result has not yet been observed, and this probe does not settle a financial transaction.
+The health response includes `nativeSchemaCompatibility`. A single asynchronous startup query reads PostgreSQL catalog metadata only, with a two-second timeout. It reports `pending`, `compatible`, `review_required` or `unavailable`; a failed probe does not block the existing health response or old games. The live metadata confirms that `sw_rebuild.rounds.game` is `TEXT`, with no restrictive CHECK, foreign key, row-level security or rules. One existing notification trigger makes the conservative probe report `review_required`; its function remains under review in this record. The probe does not settle a financial transaction.
 
 ## Verification record
 
-These are scoped results, not one combined test total. Final integrated and production evidence must be appended after it runs.
+These are scoped results, not one combined test total. Several focused checks overlap with the full suites.
 
 | Scope | Observed result |
 |---|---|
-| Final additive backend with metadata-only health probe | 52 tests passed; all 11 original models and 440 seeded outcomes preserved |
+| Final additive backend with metadata-only health probe and deployment wrapper | 54 tests passed; all 11 original models and 440 seeded outcomes preserved |
+| Final native frontend Node suite | 775/775 passed |
+| Final integrated native browser | 491/491 checks at 390px: 268 MH5 and 223 Foxy; 32 settled synthetic rounds, balanced ledger, zero JavaScript or CSP errors |
 | Local engine contract | 636 checks passed, including 600 settled synthetic rounds across four old and two new machine IDs |
 | Native identity, old-game preservation and Help | 29 checks passed |
 | Integrated motion and identity unit checks | 27 checks passed |
-| Catalog unit/router checks | 14 passed |
-| Catalog browser checks | 39 passed at 390px and 1280px, using disposable local account fixtures |
+| Catalog unit/router checks | 16 passed |
+| Catalog browser checks | 40 passed at 390px and 1280px, using disposable local account fixtures |
+| Old/native Worker routing and packing | 23 checks passed; all old asset and page bytes pinned unchanged |
+| Combined local runtime | 115 simultaneous h2c responses: all 200 with exact hashes; 41 old assets, 69 native assets and five catalog assets |
 | Official payout arithmetic | 681 payout cells matched across all public wager levels |
 | Naturally observed official outcomes | 40 MH5 and three Foxy outcomes matched the local payout calculation |
 | Platform checks | Nine pytest tests and all three frontend builds passed |
 
-The native full-suite, final integrated browser, exact additive Worker readback, live new-route HTTP/2 and production memory results are pending in this record. Historical replacement-r13 browser results are retained in [RELEASE-r13.md](RELEASE-r13.md); they are not represented as final additive release verification.
+The final integrated browser evidence is in [evidence/native-r1/browser390/results.json](evidence/native-r1/browser390/results.json). It covers Foxy motion before a delayed response and cancellation, popup interception, reduced motion, MH5 multiple-line scheduling, and isolation from old pending requests, history and free spins. The [combined local runtime proof](evidence/native-r1/local-runtime-proof.json) records 650,228 bytes of startup JavaScript heap, a 2,060,088-byte peak and 35,025,983 bytes of backing storage. Its h2c isolate omits the 113 unrelated old modules and uses an older local compatibility date, so it does not replace full live Worker/edge memory and HTTP/2 verification.
+
+Exact additive Worker readback, live new-route HTTP/2 and production memory results remain pending in this record. Historical replacement-r13 browser results are retained in [RELEASE-r13.md](RELEASE-r13.md); they are not represented as final additive release verification.
 
 ## Live baseline and publication
 
@@ -66,16 +72,21 @@ Worker308 fixed the observed HTTP/2 resource failure before this native release.
 | Live baseline Worker | 308 / `2fad5f75-d154-41a0-8d64-12597a95d42e` |
 | Baseline deployment | `33f3569e-b095-440c-b51c-6c53ee12c66d` |
 | Baseline activation | `2026-11-06T21:23:50.534541Z`, 100% traffic |
-| Baseline module preservation required | All 156 modules; no old module replacements |
+| Frozen additive module inventory | 205 modules: all 156 baseline modules byte-identical, plus 49 additions |
+| Frozen uncompressed source size | 64,104,721 bytes; 3,004,143 bytes below the 64 MiB limit |
 | Existing settings preserved | 12 bindings and existing settings, except the reviewed additive main module |
-| Native source commit | Pending final source freeze |
-| Native backend source | 113,520 bytes; SHA-256 `895874f3d9972115cf6bda5353f6f6f7b0cbc348166cf15014c12b0c75b42b5b` |
+| Immutable native Worker source commit | `228f426025322c1c01e65c5cba6612ccfe4db3d0` |
+| Native Worker manifest SHA-256 | `5ba3fc19692cbad40eb0a215b8d0187dd104948c58c2432691d976d9766fffe2` |
+| Native backend runtime | 113,506 bytes; SHA-256 `c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91` |
+| Railway deployment wrapper | 82,860 bytes; SHA-256 `83755318696124ce3566dd80d44c723288f14d79f4d45b761b821234662bd738` |
 | Native math hash | `d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272` |
-| Native backend deployment | Not recorded yet |
+| Live native backend deployment | `3cc34ab8-5d40-4830-81c9-0288f6222994`; SUCCESS; created `2026-11-06T23:16:14.742Z` |
 | Native Worker version/deployment | Not recorded yet |
 | Temporary upload cleanup | Pending successful publication |
 
 The native Worker adds a new entry that delegates existing routes and lifecycle handlers to the original entry. New immutable assets reuse original binary modules by exact hash when possible; additional native and catalog modules have separate names. Candidate creation is non-live, followed by exact module/settings readback and a guarded publication against the current baseline.
+
+The Railway wrapper decompresses the frozen runtime, verifies its exact length and SHA-256, and imports it beside the wrapper so the existing `pg` and `ioredis` dependencies resolve normally. Its encoded startup argument is 110,480 bytes, below Linux's single-argument limit. The wrapper's hash is distinct from the executed runtime's hash; the underlying runtime is byte-for-byte preserved. Local dependency-loading and tamper-rejection checks are included in the 54 backend tests and packaging evidence.
 
 ## Known limits
 

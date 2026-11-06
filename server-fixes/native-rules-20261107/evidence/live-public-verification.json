@@ -1,0 +1,187 @@
+{
+  "at": "2026-11-06T23:19:33.779283+00:00",
+  "baseUrl": "https://superwin-nine-slot-engine-staging.up.railway.app",
+  "health": {
+    "brand": "SUPERWIN.BET",
+    "db": "up",
+    "redis": "up",
+    "games": 13,
+    "originalGames": 20,
+    "originalVersion": "originals-2.0.0",
+    "enabled": true,
+    "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+    "engineVersion": "superwin-slot-runtime-r13",
+    "legacyEngineVersion": "superwin-slot-runtime-reference-v3000",
+    "nativeSchemaCompatibility": {
+      "status": "review_required",
+      "compatible": false,
+      "target": "sw_rebuild.rounds.game",
+      "gameIds": [
+        "foxy_hot_20_native",
+        "multi_hot_5_native"
+      ],
+      "columnType": "text",
+      "maxLength": null,
+      "constraints": [],
+      "insertTriggers": [
+        {
+          "name": "sw_live_rounds",
+          "definition": "CREATE TRIGGER sw_live_rounds AFTER INSERT OR DELETE OR UPDATE ON sw_rebuild.rounds FOR EACH ROW EXECUTE FUNCTION sw_rebuild.sw_live_user_change('user_id')"
+        }
+      ],
+      "insertRules": [],
+      "reasons": [
+        "INSERT_TRIGGERS_REQUIRE_REVIEW"
+      ]
+    },
+    "activeModels": {
+      "foxy_hot_20_native": {
+        "mathVersion": "2026-11-07-foxy-native-v1",
+        "engineVersion": "superwin-slot-runtime-r13",
+        "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272"
+      },
+      "multi_hot_5_native": {
+        "mathVersion": "2026-11-07-mh5-native-v1",
+        "engineVersion": "superwin-slot-runtime-r13",
+        "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272"
+      }
+    }
+  },
+  "preservedOldIds": [
+    "multi_hot_40",
+    "multi_hot_5_super_wilds",
+    "burning_ice",
+    "wild_multi_stars",
+    "safari_simba",
+    "fruity_wilds_jackpot",
+    "hot_foxy_20",
+    "jungle_sisters",
+    "bao_slot_5x",
+    "multi_hot_5_video",
+    "multi_hot_100"
+  ],
+  "nativeIds": [
+    "foxy_hot_20_native",
+    "multi_hot_5_native"
+  ],
+  "oldModelsDeepEqual": true,
+  "oldModelsCanonicalSha256": {
+    "multi_hot_40": "72fba1d9437c406bb25bebd20f2001528956b3df5764d12bdeaff3b1a19bb528",
+    "multi_hot_5_super_wilds": "8a335d886673ebaed87ad874f0033177d98e5dfa210dc091ff0c43a87c297a74",
+    "burning_ice": "4da3aef74f29ced5381ca9905a9d5b81b8145db721892a06f76de3d184650449",
+    "wild_multi_stars": "ea090c7af5c887bfff01515aba7841c9c822e316cf0be75dc2ebed5cd9b908a2",
+    "safari_simba": "2e269bd93bfff0f1146196ffb93cba9786a87f2d27db8b62195d7bb8fc1aa63c",
+    "fruity_wilds_jackpot": "41c989384c6c1b922c7bdf2cab0d562bdfff38343315b14812cbb8637119cc6b",
+    "hot_foxy_20": "54a8760825f2b9ce80b9c932d113489d72343a0a76766f96a53b5c09abf4fa1c",
+    "jungle_sisters": "1c97d15ed3cda21fa990faf7826c93b75a48e03f48ed836e182aa27e8a9cfb71",
+    "bao_slot_5x": "5b2bfd4174384161ad0574f01abf940fa6c9482371925299e233ec84f6a609fb",
+    "multi_hot_5_video": "11bd110e06bb7e2730ced2075137c2cb2084b7f135d77f6945bb7b610844b0e4",
+    "multi_hot_100": "78589b6ba0ccd969719cc07ae6ba55162aa1ab0f82ffae00f15c2e219ee4761c"
+  },
+  "schemaCompatibilityStatus": "review_required",
+  "schemaAutomaticallyCompatible": false,
+  "schemaReviewSeparate": true,
+  "realWagers": 0,
+  "accountMutations": 0,
+  "nativePublicModels": {
+    "foxy_hot_20_native": {
+      "id": "foxy_hot_20_native",
+      "mathVersion": "2026-11-07-foxy-native-v1",
+      "engineVersion": "superwin-slot-runtime-r13",
+      "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272",
+      "paylines": 20,
+      "betLevels": [
+        "0.20",
+        "0.40",
+        "0.60",
+        "0.80",
+        "1.00",
+        "2.00",
+        "3.00",
+        "4.00",
+        "5.00",
+        "6.00",
+        "8.00",
+        "10.00",
+        "15.00",
+        "20.00",
+        "30.00",
+        "40.00",
+        "50.00",
+        "60.00",
+        "80.00",
+        "100.00"
+      ],
+      "maxWinMultiplier": 1000,
+      "features": {
+        "freeSpins": {
+          "trigger": 100,
+          "spins": 0,
+          "retrigger": false,
+          "winMultiplier": 1
+        },
+        "gambleRounds": 5,
+        "cascadeLimit": 0,
+        "maxStackMultiplier": 0,
+        "wildStack": false,
+        "jackpots": {},
+        "bonusPick": false,
+        "gambleMaxStake": "500.00"
+      }
+    },
+    "multi_hot_5_native": {
+      "id": "multi_hot_5_native",
+      "mathVersion": "2026-11-07-mh5-native-v1",
+      "engineVersion": "superwin-slot-runtime-r13",
+      "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272",
+      "paylines": 5,
+      "betLevels": [
+        "0.05",
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50",
+        "0.60",
+        "0.80",
+        "1.00",
+        "1.50",
+        "2.00",
+        "3.00",
+        "4.00",
+        "5.00",
+        "6.00",
+        "8.00",
+        "10.00",
+        "15.00",
+        "20.00",
+        "30.00",
+        "40.00",
+        "50.00",
+        "60.00",
+        "80.00",
+        "100.00",
+        "150.00",
+        "200.00",
+        "300.00",
+        "400.00"
+      ],
+      "maxWinMultiplier": 145,
+      "features": {
+        "freeSpins": {
+          "trigger": 100,
+          "spins": 0,
+          "retrigger": false,
+          "winMultiplier": 1
+        },
+        "gambleRounds": 5,
+        "cascadeLimit": 0,
+        "maxStackMultiplier": 0,
+        "wildStack": false,
+        "jackpots": {},
+        "bonusPick": false,
+        "gambleMaxStake": "500.00"
+      }
+    }
+  }
+}

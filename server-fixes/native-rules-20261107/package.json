@@ -1,1 +1,1 @@
-{"name":"native-rules-r13","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","test":"node --test test/*.test.mjs"}}
+{"name":"native-rules-r13","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs && node scripts/build-deployment-wrapper.mjs","test":"node --test test/*.test.mjs"}}
