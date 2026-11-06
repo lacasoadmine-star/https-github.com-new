@@ -1,3 +1,4 @@
+import {applyMultiControlArt,updateMultiSpinFace} from './multi-presentation.mjs';
 import {gameConfig} from './registry.mjs';
 import {validateModel,validateRound,validateGamble,units,money,SpinState} from './contract.mjs';
 import {WalletAdapter,definitelyRejected} from './wallet.mjs';
@@ -7,6 +8,7 @@ import {MachineRenderer} from './renderer.mjs';
 const $=id=>document.getElementById(id),g=gameConfig(document.body.dataset.game),state=new SpinState(),events=new AbortController();
 const audio=new SoundEngine(g.visual.note),api=new WalletAdapter(),renderer=new MachineRenderer($('machine-canvas'),g,audio);
 let epoch=0,betIndex=g.betLevels.indexOf('2.00'),signedIn=false,balance=null,lastRound=null,free=0,auto=0,autoEpoch=0,actionBusy=false,canGamble=false,gambleValue='0.00',gambleAttempt=0,legacy=false,disposed=false,refreshTimer,turbo=false,holdTimer,holdStarted=false,suppressSpinClick=false;
+applyMultiControlArt(document);
 document.title=g.name+' · ZPLAY';$('settings-title').textContent=g.name;
 const bet=()=>g.betLevels[betIndex],listen=(node,event,fn)=>node.addEventListener(event,fn,{signal:events.signal});
 const setState=next=>{state.move(next);document.body.dataset.state=state.value;update();};
@@ -23,10 +25,11 @@ function update(){
  $('gamble').disabled=$('gamble-menu').disabled=!(signedIn&&!actionBusy&&!legacy&&((!!action&&!state.locked)||(canGamble&&!locked&&!auto&&!free))); $('collect').disabled=!lastRound||locked||auto>0||Number(gambleValue)<=0;
  document.body.dataset.win=String(Number(gambleValue)>0&&!locked&&!auto);if(g.id==='hot_foxy_20'){$('gamble').hidden=!(canGamble&&!locked&&!auto&&!free);$('collect').hidden=!(Number(gambleValue)>0&&!locked&&!auto);}$('free-spins').textContent=free?'FREE SPINS: '+free:'';
  for(const el of $('bet-options').children){el.disabled=locked||auto>0||free>0;el.setAttribute('aria-pressed',String(el.dataset.bet===bet()));}
+ renderer.auto=auto>0;updateMultiSpinFace($('spin'),{state:state.value,win:gambleValue,canCollect:!$('collect').disabled,pending:!!saved,free});
  $('bet-note').textContent=free?'The bet is locked while your free spins remain.':saved?'Confirm the saved round before changing the bet.':'Select a stake before the next spin.';
 }
 function stopAuto(){auto=0;autoEpoch++;update();}
-function signOut(message='Sign in to your existing Player account.'){epoch++;signedIn=false;balance=null;canGamble=false;renderer.cancelPresentation();stopAuto();audio.stop();$('balance').textContent='—';if(state.value!=='signedout')setState('signedout');notice(message,false,true);}
+function signOut(message='Sign in to your existing Player account.'){epoch++;signedIn=false;balance=null;canGamble=false;renderer.cancelPresentation();stopAuto();audio.stop();$('balance').textContent='—';$('win').textContent='—';if(state.value!=='signedout')setState('signedout');notice(message,false,true);}
 async function boot(){
  const run=++epoch;clearTimeout(refreshTimer);signedIn=false;canGamble=false;lastRound=null;free=0;gambleValue='0.00';gambleAttempt=0;if(state.value!=='loading')setState('loading');notice('Checking your account…');
  try{
@@ -38,7 +41,7 @@ async function boot(){
   const history=await api.history();if(disposed||run!==epoch)return;
   if(!Array.isArray(history.items))throw Error('HISTORY_UNAVAILABLE');
   const latest=history.items.find(item=>item.result_json?.gameId===g.id)?.result_json;
-  if(latest){validateRound(latest,g,latest.bet);free=latest.freeSpinsRemaining;if(free){betIndex=g.betLevels.indexOf(latest.bet);}}
+  if(latest){validateRound(latest,g,latest.bet);renderer.restore(latest);$('win').textContent=latest.finalWin;free=latest.freeSpinsRemaining;if(free){betIndex=g.betLevels.indexOf(latest.bet);}}
   if(action){lastRound={roundId:action.roundId,bet:action.bet};gambleValue=action.expectedStake||'0.00';gambleAttempt=(action.expectedAttempt||1)-1;$('gamble-message').textContent='Confirm your saved '+action.choice+' choice.';showGamble(true);}
   setState(saved?'pending':'ready');notice(legacy?'A round saved by the earlier game version needs review. Open History before placing another bet.':saved?'A saved round needs confirmation. Press CONFIRM; the same request is reused.':balance==='0.00'?'Your ETB balance is empty. Deposit funds from your account.':'');update();scheduleRefresh();
  }catch(e){if(disposed||run!==epoch)return;if(e.status===401){signOut();return;}if(state.value==='loading')setState('error');notice(e.message,true);audio.event('error');}
@@ -52,7 +55,7 @@ async function oneRound(){
  try{
   await audio.unlock();if(!await sameSession())return false;
   const raw=await api.spin(bet());if(disposed||run!==epoch)return false;const result=validateRound(raw,g,bet());
-  setState('animating');notice('');if(matchMedia('(prefers-reduced-motion: reduce)').matches){const done=renderer.start(result);renderer.speedUp();await done;}else await renderer.start(result);
+  setState('animating');$('win').textContent='0.00';notice('');if(matchMedia('(prefers-reduced-motion: reduce)').matches){const done=renderer.start(result);renderer.speedUp();await done;}else await renderer.start(result);
   if(disposed||run!==epoch)return false;setBalance(result.balanceAfter);lastRound=result;free=result.freeSpinsRemaining;gambleValue=result.finalWin;gambleAttempt=0;canGamble=Number(gambleValue)>0&&g.features.gambleRounds>0&&!free;
   $('win').textContent=result.finalWin;api.complete();setState('presenting');setState('ready');if(balance==='0.00'&&!free)notice('Your ETB balance is empty. Deposit funds from your account.');return true;
  }catch(e){if(disposed||run!==epoch)return false;auto=0;autoEpoch++;audio.event('error');
@@ -62,7 +65,7 @@ async function oneRound(){
  }
 }
 async function spin(){if(state.value==='animating'){renderer.speedUp();stopAuto();return;}if(auto){stopAuto();return;}await oneRound();}
-async function startAuto(count){if(state.locked||pending()||actionBusy||!signedIn||legacy)return;const run=++autoEpoch;auto=count;$('auto-dialog').close();update();while(auto>0&&run===autoEpoch&&!disposed&&!document.hidden){if(!await oneRound())break;if(run!==autoEpoch)break;auto=Math.max(0,auto-1);update();if(auto)await new Promise(resolve=>setTimeout(resolve,Number(lastRound?.finalWin)>0?1000:450));}if(run===autoEpoch){auto=0;update();}}
+async function startAuto(count){if(state.locked||pending()||actionBusy||!signedIn||legacy)return;const run=++autoEpoch;auto=count;$('auto-dialog').close();update();while(auto>0&&run===autoEpoch&&!disposed&&!document.hidden){if(!await oneRound())break;if(run!==autoEpoch)break;auto=Math.max(0,auto-1);update();if(auto)await new Promise(resolve=>setTimeout(resolve,Number(lastRound?.finalWin)>0?Math.max(1000,audio.remainingWinMs?.()||0):450));}if(run===autoEpoch){auto=0;update();}}
 function chooseBet(value){if(state.locked||auto||free||actionBusy||pending()||api.pending(api.actionKey)||legacy)return;const i=g.betLevels.indexOf(value);if(i<0)return;betIndex=i;audio.event('bet');update();renderRules();}
 function openPanel(id){endHold();stopAuto();$('settings').showModal();for(const p of document.querySelectorAll('.panel'))p.hidden=p.id!==id;if(id==='history')void renderHistory();if(id==='rules')renderRules();update();}
 function renderRules(){
@@ -83,7 +86,7 @@ async function gamble(choice){if(actionBusy||!signedIn||pending())return;const s
  catch(e){if(e.status===401||e.status===403)signOut('Your session expired. Sign in to recover your saved choice.');if(definitelyRejected(e)){api.completeAction();canGamble=false;}$('gamble-message').textContent=e.message+(api.pending(api.actionKey)?' Confirm the same colour to recover the unconfirmed request.':'');}finally{actionBusy=false;updateGamble();update();}
 }
 for(const value of g.betLevels){const b=document.createElement('button');b.textContent=value;b.dataset.bet=value;listen(b,'click',()=>chooseBet(value));$('bet-options').append(b);}
-listen($('spin'),'click',()=>{if(suppressSpinClick){suppressSpinClick=false;return;}void spin();});listen($('spin'),'keydown',e=>{if(e.repeat&&(e.key===' '||e.key==='Enter'))e.preventDefault();});
+listen($('spin'),'click',()=>{if(suppressSpinClick){suppressSpinClick=false;return;}if($('spin').dataset.multiFace==='win'){$('collect').click();return;}void spin();});listen($('spin'),'keydown',e=>{if(e.repeat&&(e.key===' '||e.key==='Enter'))e.preventDefault();});
 const endHold=()=>{clearTimeout(holdTimer);if(holdStarted){holdStarted=false;stopAuto();}};
 listen($('spin'),'pointerdown',e=>{if(e.button!==0||state.value!=='ready'||$('spin').disabled)return;clearTimeout(holdTimer);suppressSpinClick=false;holdTimer=setTimeout(()=>{if(document.hidden||disposed||state.value!=='ready'||document.querySelector('dialog[open]'))return;holdStarted=true;suppressSpinClick=true;void startAuto(1000);},600);});
 listen(window,'pointerup',endHold);listen(window,'pointercancel',endHold);listen($('spin'),'pointerleave',endHold);listen(window,'blur',endHold);
@@ -103,4 +106,4 @@ function dispose(){if(disposed)return;disposed=true;epoch++;autoEpoch++;clearTim
 listen(window,'pagehide',e=>{if(!e.persisted)dispose();else{renderer.pause();stopAuto();}});listen(window,'pageshow',e=>{if(e.persisted){renderer.resume();if(['animating','requesting'].includes(state.value)){void sameSession().catch(()=>notice('Checking your saved round. Reconnect before continuing.'));}else void boot();}});
 renderer.onContextState=lost=>notice(lost?'Graphics paused. Retry to reload and confirm your saved round.':'',lost);
 update();void boot();
-export const diagnostics=()=>({gameId:g.id,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size,decodedSoundSamples:audio.samples?.size||0,soundSampleNodes:[...audio.nodes].filter(n=>n.sample).length,audioState:audio.context?.state||'not-started',cabinetArtworkLoaded:!!renderer.cabinetArt,artworkLoaded:!!renderer.atlas.artworkLoaded,audioSuspended:!!audio.playbackSuspended,reducedMotion:renderer.reducedMotion,particles:renderer.particles.items.length,turbo,autoRemaining:auto,contextLost:!!renderer.contextLost});
+export const diagnostics=()=>({gameId:g.id,state:state.value,canvasCount:document.querySelectorAll('canvas#machine-canvas').length,geometry:{columns:g.reels,rows:g.rows},renderStats:{...renderer.stats},soundEvents:audio.events.slice(),audioNodes:audio.nodes.size,decodedSoundSamples:audio.samples?.size||0,soundSampleNodes:[...audio.nodes].filter(n=>n.sample).length,audioState:audio.context?.state||'not-started',cabinetArtworkLoaded:!!renderer.cabinetArt,artworkLoaded:!!renderer.atlas.artworkLoaded,audioSuspended:!!audio.playbackSuspended,reducedMotion:renderer.reducedMotion,particles:renderer.particles.items.length,turbo,autoRemaining:auto,restoredRoundId:renderer.result?.roundId||null,multiplier:renderer.wheel,grid:renderer.grid,multiArtworkLoaded:!!renderer.multiArt,loopActive:!!audio.reelWanted,loopPhase:audio.currentReelPhase?.()||0,retiringAudioNodes:audio.retiring?.size||0,contextLost:!!renderer.contextLost});
