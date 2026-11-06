@@ -1,0 +1,69 @@
+{
+  "number": 295,
+  "version": "0bee5b4a-50eb-4189-952e-2cf559b9961a",
+  "deployment": "beb6e0a1-68d5-4094-9883-7b811241e115",
+  "traffic": [
+    {
+      "version_id": "0bee5b4a-50eb-4189-952e-2cf559b9961a",
+      "percentage": 100
+    }
+  ],
+  "assetSha256": "e7bc6b318d7c13dc921c0c356c2147432d1c1187f0dd356e775a14aae8115f48",
+  "sourceCommit": "7321bb1d1ef219c54dd11659784dd303c85449d6",
+  "runtime": {
+    "migration_tag": "local-demo-v1",
+    "compatibility_date": "2026-10-01",
+    "usage_model": "standard"
+  },
+  "bindingNames": [
+    {
+      "name": "API_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_SHARED_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "CATALOG_ENABLED",
+      "type": "plain_text"
+    },
+    {
+      "name": "ENGINE_EXTENSION",
+      "type": "service"
+    },
+    {
+      "name": "LEGACY_PLAYER",
+      "type": "service"
+    },
+    {
+      "name": "LOCAL_DEMO_WALLETS",
+      "type": "durable_object_namespace"
+    },
+    {
+      "name": "NATIVE_ENGINE_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "NATIVE_ENGINE_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "PLAYER_PRESENCE_KEY",
+      "type": "secret_text"
+    },
+    {
+      "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+      "type": "plain_text"
+    },
+    {
+      "name": "PORTAL",
+      "type": "plain_text"
+    }
+  ],
+  "instruction": "Restore this existing version to 100% traffic on superwin-player if critical release checks fail. Do not change databases or bindings."
+}

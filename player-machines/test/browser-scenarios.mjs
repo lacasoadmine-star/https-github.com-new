@@ -10,6 +10,8 @@ async function openGamble(){if(document.body.dataset.game==='hot_foxy_20'){$('me
 try{
  const {diagnostics}=await import('machine/controller.mjs');await until(ready);
  check('single canvas',$('machine').querySelectorAll('canvas').length===1);check('no video or iframe',!document.querySelector('video,iframe'));
+ const surfaces=[[$('spin'),null]];if(document.body.dataset.game==='multi_hot_5_video')surfaces.push([$('auto'),null],[document.querySelector('.spin-controls'),'::before']);
+ for(let i=0;i<surfaces.length;i++){const [el,pseudo]=surfaces[i],url=getComputedStyle(el,pseudo).backgroundImage.match(/^url\(["']?(.*?)["']?\)$/)?.[1];check('vector control '+i+' has a surface',!!url);const image=new Image();image.src=url;await image.decode();check('vector control '+i+' decodes',image.naturalWidth>0);}
  check('balance comes from fixture server',$('balance').textContent==='100000.00');
  $('bet-open').click();check('bet menu open',$('settings').open);document.querySelector('[data-bet="4.00"]').click();check('bet changes to 4',$('bet-value').textContent==='4.00');document.querySelector('[data-bet="2.00"]').click();close('settings');
  $('spin').click();$('spin').click();await until(()=>document.body.dataset.state==='animating');check('STOP shown',$('spin-label').textContent==='STOP');check('bets locked during animation',$('bet-open').disabled&&$('bet-more').disabled);$('spin').click();$('spin').click();await until(ready);
