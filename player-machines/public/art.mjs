@@ -59,13 +59,14 @@ export function makeAtlas(g){
   };image.onerror=()=>resolve(false);image.src=sheet.url;
  });return atlas;
 }
-function clover(c,x,y,size,angle,colour){
- c.save();c.translate(x,y);c.rotate(angle);c.scale(size,size);c.shadowColor='#001e19b8';c.shadowBlur=3;c.shadowOffsetY=1.4;
- const stem=c.createLinearGradient(0,0,-4,43);stem.addColorStop(0,'#0a5e45');stem.addColorStop(.65,'#16785a');stem.addColorStop(1,'#064a38');c.beginPath();c.moveTo(0,-1);c.bezierCurveTo(1,15,11,30,-5,43);c.strokeStyle=stem;c.lineWidth=2.1;c.lineCap='round';c.stroke();
+function clover(c,x,y,size,angle,colour,soft=false){
+ c.save();c.translate(x,y);c.rotate(angle);c.scale(size,size);c.shadowColor=soft?'#00281b50':'#001e19b8';c.shadowBlur=soft?1:3;c.shadowOffsetY=soft?.6:1.4;
+ if(soft)c.globalAlpha*=.35;
+ const stem=c.createLinearGradient(0,0,-4,43);stem.addColorStop(0,'#0a5e45');stem.addColorStop(.65,'#16785a');stem.addColorStop(1,'#064a38');c.beginPath();c.moveTo(0,-1);c.bezierCurveTo(1,15,11,30,-5,43);c.strokeStyle=stem;c.lineWidth=2.1;c.lineCap='round';c.stroke();if(soft)c.globalAlpha/=.35;
  for(let i=0;i<3;i++){
   c.save();c.rotate(i*TAU/3+(i-1)*.08);c.scale(1-i*.025,1+(i-1)*.04);
   c.beginPath();c.moveTo(0,1);c.bezierCurveTo(-17,-5,-32,-21,-25,-34);c.bezierCurveTo(-19,-46,-5,-42,0,-31);c.bezierCurveTo(7,-46,23,-42,27,-31);c.bezierCurveTo(33,-17,15,-5,0,1);c.closePath();
-  const f=c.createLinearGradient(-25,-36,19,8);f.addColorStop(0,colour);f.addColorStop(.35,colour);f.addColorStop(.7,'#075740');f.addColorStop(1,'#013a2d');c.fillStyle=f;c.fill();c.shadowBlur=0;
+  const f=c.createLinearGradient(-25,-36,19,8);f.addColorStop(0,colour);f.addColorStop(.35,colour);f.addColorStop(.7,soft?colour:'#075740');f.addColorStop(1,soft?'#034a32':'#013a2d');c.fillStyle=f;c.fill();c.shadowBlur=0;
   c.save();c.clip();const fold=c.createLinearGradient(-8,-25,11,-14);fold.addColorStop(0,'#063c2a00');fold.addColorStop(.4,'#002e2510');fold.addColorStop(.52,'#001e2024');fold.addColorStop(.63,'#2b9a7320');fold.addColorStop(1,'#2b9a7300');c.fillStyle=fold;c.fillRect(-35,-48,70,54);
   const light=c.createRadialGradient(-12,-32,1,-12,-29,29);light.addColorStop(0,'#3eb68a24');light.addColorStop(1,'#3eb68a00');c.fillStyle=light;c.fillRect(-35,-48,70,54);c.restore();
   c.beginPath();c.moveTo(-1,0);c.quadraticCurveTo(-4,-14,0,-31);c.strokeStyle='#49b38a26';c.lineWidth=.6;c.stroke();
@@ -81,7 +82,22 @@ function tropical(c,x,y,size,angle,colour){
 export function drawBackground(c,g){
  const forest=g.visual.skin==='forest',grad=c.createLinearGradient(0,0,0,900);grad.addColorStop(0,forest?'#001e18':'#00271e');grad.addColorStop(.52,forest?'#00382c':'#00442f');grad.addColorStop(1,forest?'#00241e':'#003225');c.fillStyle='#000';c.fillRect(0,0,420,900);c.save();if(forest){c.beginPath();c.rect(13,0,394,900);c.clip();}c.fillStyle=grad;c.fillRect(0,0,420,900);
  let seed=forest?117:59;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
- if(!forest){
+ if(!forest&&g.id==='multi_hot_5_video'){
+  // The reference field has broad, softly lit shamrocks, with open dark
+  // pockets between clusters, rather than hundreds of small glossy leaves.
+  for(let i=0;i<82;i++){
+   const x=random()*480-30,y=random()*1000-40,size=.7+random()*.58;
+   c.globalAlpha=.3+random()*.3;
+   clover(c,x,y,size,random()*TAU,['#00603e','#075b3c','#004d33','#006945'][i%4],true);
+  }
+  for(let i=0;i<49;i++){
+   const x=random()*470-25,y=435+random()*510,size=.67+random()*.48;
+   c.globalAlpha=.57+random()*.3;
+   clover(c,x,y,size,random()*TAU,['#00754d','#00613e','#075b39','#007d53','#086542'][i%5],true);
+  }
+  c.globalAlpha=1;const shade=c.createLinearGradient(0,0,0,450);
+  shade.addColorStop(0,'#00170cce');shade.addColorStop(.7,'#00180f20');shade.addColorStop(1,'#00120f00');c.fillStyle=shade;c.fillRect(0,0,420,900);
+ }else if(!forest){
   for(let i=0;i<220;i++){const x=random()*470-25,y=random()*950-25,size=.45+random()*.45;c.globalAlpha=.36+random()*.3;clover(c,x,y,size,random()*TAU,['#005e46','#096b4c','#065c42','#086b50'][i%4]);}
   // Overlapping irregular groups preserve the dense shamrock field without a tile grid.
   for(let i=0;i<104;i++){const cluster=i%7,x=cluster*69-13+(random()-.5)*74,y=445+random()*480;c.globalAlpha=.62+random()*.28;clover(c,x,y,.4+random()*.4,random()*TAU,['#087a56','#0b7352','#086447','#007257','#0a694b'][i%5]);}

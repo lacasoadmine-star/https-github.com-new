@@ -21,8 +21,9 @@ const browser=await chromium.launch({...(executablePath?{executablePath}:{}),hea
 async function publicSource(){const hashes={};for(const name of (await readdir(new URL('../public/',import.meta.url))).sort())hashes[name]=createHash('sha256').update(await readFile(new URL('../public/'+name,import.meta.url))).digest('hex');return hashes;}
 const source=await publicSource();
 async function run(id){
+ const caseStartedAt=Date.now();
  let local,engine;const expectedShape={multi_hot_5_video:[3,3,5],hot_foxy_20:[5,3,20],wild_multi_stars:[5,3,20],multi_hot_100:[5,4,100]}[id];
- const context=await browser.newContext({viewport:{width,height:width===360?800:width===430?932:844},deviceScaleFactor:width===360?3:2,isMobile:true,hasTouch:true});
+ const contextOptions={viewport:{width,height:width===360?800:width===430?932:844},deviceScaleFactor:width===360?3:2,isMobile:true,hasTouch:true},context=await browser.newContext(contextOptions);
  const page=await context.newPage(),errors=[],requests=[],checks=[];
  page.on('pageerror',e=>errors.push(String(e)));page.on('request',r=>requests.push({method:r.method(),url:r.url()}));
  const check=(label,ok)=>{checks.push({label,ok:!!ok});if(!ok)throw Error(label);};
@@ -32,18 +33,45 @@ async function run(id){
  const ready=()=>page.waitForFunction(()=>document.body.dataset.state==='ready',{},{timeout:15000});
  const tap=selector=>page.locator(selector).tap({timeout:6000});
  const close=dialog=>tap(`[data-close="${dialog}"]`);
- let outcome={game:id,width,synthetic:true,source:await publicSource(),checks,errors},spinShotTaken=false;
- async function acknowledge(){
-  if(await page.locator('#spin').getAttribute('data-multi-face')==='win'){
-   const before=await report();await tap('#spin');await ready();const after=await report();check('center WIN acknowledges without a wager',after.spinPosts===before.spinPosts&&after.balance===before.balance);
-  }
+ let outcome={game:id,width,synthetic:true,source:await publicSource(),checks,errors},spinShotTaken=false,lossShotTaken=false,lastPositiveWin='0.00';
+ async function chooseSoundYes(){
+  await page.waitForFunction(()=>document.querySelector('#sound-consent')?.open,{},{timeout:15000});const before=await report();
+  check('first authenticated entry asks for sound',await page.locator('#sound-consent').isVisible());await page.screenshot({path:`${out}/${id}-sound-consent.png`});await tap('#sound-yes');
+  await page.waitForFunction(()=>!document.querySelector('#sound-consent').open,{},{timeout:6000});const after=await report();
+  check('sound Yes submits no wager or gamble',after.spinPosts===before.spinPosts&&after.gamblePosts===before.gamblePosts&&after.balance===before.balance);
+  check('sound Yes stores persistent choice',await page.evaluate(()=>localStorage.getItem('zplay:sound-choice'))==='yes');
+  check('sound Yes enables sound',await page.locator('#sound').getAttribute('aria-pressed')==='false');
+ }
+ async function checkSoundNo(){
+  const fresh=await browser.newContext(contextOptions),freshPage=await fresh.newPage(),freshErrors=[],freshRequests=[];
+  freshPage.on('pageerror',e=>freshErrors.push(String(e)));freshPage.on('request',r=>freshRequests.push(r.url()));
+  const freshReport=async()=>{const r=await fresh.request.get(origin+'/qa/report');if(!r.ok())throw Error('Fresh sound-choice QA report unavailable');return r.json();};
+  try{
+   const session=await fresh.request.post(origin+'/qa/session',{data:{balance:'100000.00'}});if(!session.ok())throw Error('Fresh sound-choice QA session unavailable');
+   await freshPage.goto(origin+'/games/'+id,{waitUntil:'domcontentloaded'});await freshPage.waitForFunction(()=>document.body.dataset.state==='ready'&&document.querySelector('#sound-consent')?.open,{},{timeout:15000});
+   check('fresh browser context has no saved sound choice',await freshPage.evaluate(()=>localStorage.getItem('zplay:sound-choice'))===null);const before=await freshReport();
+   await freshPage.locator('#sound-no').tap();await freshPage.waitForFunction(()=>!document.querySelector('#sound-consent').open,{},{timeout:6000});const after=await freshReport();
+   check('sound No mutes and persists choice',await freshPage.locator('#sound').getAttribute('aria-pressed')==='true'&&await freshPage.evaluate(()=>localStorage.getItem('zplay:sound-choice'))==='no');
+   check('sound No submits no wager or gamble',after.spinPosts===before.spinPosts&&after.gamblePosts===before.gamblePosts&&after.balance===before.balance);
+   await freshPage.reload({waitUntil:'domcontentloaded'});await freshPage.waitForFunction(()=>document.body.dataset.state==='ready',{},{timeout:15000});
+   check('sound No remains muted after reload',!await freshPage.locator('#sound-consent').evaluate(el=>el.open)&&await freshPage.locator('#sound').getAttribute('aria-pressed')==='true');
+   const final=await freshReport();check('sound-choice reload submits no wager',final.spinPosts===0&&final.gamblePosts===0&&final.balance==='100000.00');check('fresh sound-choice context stays local and error-free',freshErrors.length===0&&freshRequests.every(url=>url.startsWith(origin)||url.startsWith('data:')));
+   outcome.soundNo={choice:'no',muted:true,balance:final.balance,spinPosts:final.spinPosts,gamblePosts:final.gamblePosts,errors:freshErrors};
+  }finally{await fresh.close();}
  }
  async function round(desired){
-  await ready();await acknowledge();if(desired)await plan({nextOutcome:desired});const before=await report();
+  await ready();if(desired)await plan({nextOutcome:desired});const before=await report(),previous=before.rounds.at(-1);
   const response=page.waitForResponse(r=>r.url()===origin+'/api/slots/spin'&&r.request().method()==='POST');await tap('#spin');const http=await response;check('spin HTTP200',http.status()===200);const receipt=await http.json();validateRound(receipt,local,receipt.bet);check('HTTP receipt independently verifies pinned math',true);check('HTTP receipt has expected rows and reels',receipt.grid.length===expectedShape[1]&&receipt.grid.every(row=>row.length===expectedShape[0]));check('linear game settles exactly one stage',receipt.stages.length===1);
   await page.waitForFunction(()=>['animating','pending','ready'].includes(document.body.dataset.state),{},{timeout:5000});
   if(await page.locator('body').getAttribute('data-state')==='animating'){if(!spinShotTaken){await page.screenshot({path:`${out}/${id}-spinning.png`});spinShotTaken=true;}await tap('#spin');}await ready();const after=await report(),r=after.rounds.at(-1),d=await diag();
   check('trusted SPIN STOP creates one round',after.roundSettlements===before.roundSettlements+1&&after.spinPosts===before.spinPosts+1);
+  if(id==='multi_hot_5_video'){
+   if(previous&&Number(previous.finalWin)>0)check('first MH5 tap after a win submits exactly one wager',after.spinPosts===before.spinPosts+1&&after.roundSettlements===before.roundSettlements+1);
+   if(Number(r.finalWin)>0)lastPositiveWin=r.finalWin;
+   check('MH5 ready center displays selected bet',await page.locator('#spin').getAttribute('data-multi-face')==='bet'&&await page.locator('.multi-spin-win').textContent()===r.bet);
+   check('MH5 medal retains latest positive validated round',await page.locator('#last-win').textContent()===lastPositiveWin);
+   if(desired==='loss'&&!lossShotTaken){await page.screenshot({path:`${out}/${id}-loss-retains-medal.png`});lossShotTaken=true;}
+  }
   check('displayed balance equals HTTP ledger',await page.locator('#balance').textContent()===after.balance);
   check('displayed win equals authoritative receipt',await page.locator('#win').textContent()===r.finalWin);
   check('authoritative final grid rendered',JSON.stringify(d.grid)===JSON.stringify(visibleGrid(getGame(id),r.stops)));check('authoritative final multiplier rendered',d.multiplier===r.wheelMultiplier);
@@ -51,26 +79,31 @@ async function run(id){
   check('ledger balances after round',after.ledgerBalanced);return {...receipt,...r};
  }
  try{
-  local=gameConfig(id);engine=getGame(id);
+  local=gameConfig(id);engine=getGame(id);if(id==='multi_hot_5_video'&&width===390)await checkSoundNo();
   await call('/qa/session',{balance:'100000.00'});const remote=await call('/api/slots/games/'+id),pinned=publicGames().find(game=>game.id===id);validateModel(remote,local);check('HTTP model matches frontend registry',true);check('HTTP model matches authoritative public engine',JSON.stringify(remote)===JSON.stringify({...pinned,enabled:true}));check('game has exact reference geometry and line count',remote.reels===expectedShape[0]&&remote.rows===expectedShape[1]&&remote.paylines===expectedShape[2]&&remote.linePaths.length===expectedShape[2]);check('all payline rows fit exact game geometry',remote.linePaths.every(line=>line.length===expectedShape[0]&&line.every(row=>Number.isInteger(row)&&row>=0&&row<expectedShape[1])));check('frontend reel strips match authoritative engine',JSON.stringify(local.strips)===JSON.stringify(engine.reelStrips));outcome.model={reels:remote.reels,rows:remote.rows,paylines:remote.paylines,mathVersion:remote.mathVersion,engineVersion:remote.engineVersion,freeSpins:remote.features.freeSpins};await page.goto(origin+'/games/'+id,{waitUntil:'domcontentloaded'});await ready();
-  await page.waitForFunction(async()=>{const d=(await import(document.querySelector('script[type="module"][src]').src)).diagnostics();return d.artworkLoaded&&d.cabinetArtworkLoaded&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded);},{},{timeout:15000});
+  await chooseSoundYes();await page.waitForFunction(async()=>{const d=(await import(document.querySelector('script[type="module"][src]').src)).diagnostics();return d.artworkLoaded&&d.cabinetArtworkLoaded&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded);},{},{timeout:15000});
   check('real authenticated HTTP session',await page.locator('#balance').textContent()==='100000.00');
   const bootDiagnostics=await diag();check('canvas geometry matches actual game rows and reels',bootDiagnostics.geometry.columns===expectedShape[0]&&bootDiagnostics.geometry.rows===expectedShape[1]);check('one live machine canvas without video or iframe',await page.locator('canvas#machine-canvas').count()===1&&await page.locator('video,iframe').count()===0);
   const alternateBet=remote.betLevels.includes('4.00')?'4.00':'5.00';await tap('#bet-open');await tap(`[data-bet="${alternateBet}"]`);check('trusted stake change to legal alternate bet',await page.locator('#bet-value').textContent()===alternateBet);await tap('[data-bet="2.00"]');await close('settings');
+  if(id==='multi_hot_5_video'){
+   check('MH5 initial betting face shows authorized2ETB stake',await page.locator('#spin').getAttribute('data-multi-face')==='bet'&&await page.locator('.multi-spin-win').textContent()==='2.00');
+   check('MH5 medal is visible while selected-bet mirror is hidden',await page.locator('#last-win').isVisible()&&!await page.locator('#bet-value').isVisible());
+   const nextBet=remote.betLevels[Math.min(remote.betLevels.indexOf('2.00')+1,remote.betLevels.length-1)];check('MH5 right stake previews next authorized bet',await page.locator('#stake-amount').textContent()===nextBet);
+   const beforePicker=await report();await tap('#stake-open');check('MH5 right stake opens bet picker at current selected stake',await page.locator('#settings').evaluate(el=>el.open)&&await page.locator('[data-bet="2.00"]').getAttribute('aria-pressed')==='true');await close('settings');const afterPicker=await report();check('MH5 stake preview opens picker without a wager',afterPicker.spinPosts===beforePicker.spinPosts&&afterPicker.balance===beforePicker.balance);
+  }
   await page.screenshot({path:`${out}/${id}-idle.png`});
   for(let i=0;i<regularRounds;i++){const r=await round(i%4===0?'win':i%4===1?'loss':undefined);if(i===0){await page.waitForTimeout(Number(r.finalWin)/Number(r.bet)>=20?2750:800);await page.screenshot({path:`${out}/${id}-win.png`});}}
   await round('win');const beforeCollect=await report();
-  if(await page.locator('#spin').getAttribute('data-multi-face')==='win')await acknowledge();
-  else if(await page.locator('#collect').isVisible()){await tap('#collect');const after=await report();check('collect changes no wallet balance',after.balance===beforeCollect.balance&&after.spinPosts===beforeCollect.spinPosts);}
+  if(await page.locator('#collect').isVisible()){await tap('#collect');const after=await report();check('collect changes no wallet balance',after.balance===beforeCollect.balance&&after.spinPosts===beforeCollect.spinPosts);if(id==='multi_hot_5_video')check('MH5 collect keeps last positive round medal',await page.locator('#last-win').textContent()===lastPositiveWin);}
   await round('win');await plan({nextGamble:'win'});
   if(await page.locator('#gamble').isVisible())await tap('#gamble');else{await tap('#menu');await tap('#gamble-menu');}
   const gambleResponse=page.waitForResponse(r=>r.url()===origin+'/api/slots/gamble'&&r.request().method()==='POST');await tap('#red');const g1=await (await gambleResponse).json();await page.waitForFunction(()=>document.querySelector('#gamble-message').textContent.startsWith('WIN'));
   check('trusted gamble wins from server receipt',g1.won&&await page.locator('#balance').textContent()===(await report()).balance);
-  await plan({nextGamble:'lose'});const loseResponse=page.waitForResponse(r=>r.url()===origin+'/api/slots/gamble'&&r.request().method()==='POST');await tap('#black');const g2=await (await loseResponse).json();await page.waitForFunction(()=>document.querySelector('#gamble-message').textContent.startsWith('LOSE'));check('trusted gamble loses from server receipt',!g2.won&&await page.locator('#red').isDisabled()&&await page.locator('#black').isDisabled());await close('gamble-dialog');
-  await round('loss');await acknowledge();const holdBefore=await report(),box=await page.locator('#spin').boundingBox();await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.waitForTimeout(700);await page.mouse.up();
+  await plan({nextGamble:'lose'});const loseResponse=page.waitForResponse(r=>r.url()===origin+'/api/slots/gamble'&&r.request().method()==='POST');await tap('#black');const g2=await (await loseResponse).json();await page.waitForFunction(()=>document.querySelector('#gamble-message').textContent.startsWith('LOSE'));check('trusted gamble loses from server receipt',!g2.won&&await page.locator('#red').isDisabled()&&await page.locator('#black').isDisabled());await close('gamble-dialog');if(id==='multi_hot_5_video')check('MH5 gamble keeps last positive round medal',await page.locator('#last-win').textContent()===lastPositiveWin);
+  await round('loss');const holdBefore=await report(),box=await page.locator('#spin').boundingBox();await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.waitForTimeout(700);await page.mouse.up();
   await page.waitForFunction(()=>document.body.dataset.state==='animating',{},{timeout:5000});await tap('#spin');await ready();await page.waitForTimeout(1300);const holdAfter=await report();check('trusted HOLD release creates one round',holdAfter.roundSettlements===holdBefore.roundSettlements+1&&(await diag()).autoRemaining===0);
-  await acknowledge();await plan({nextOutcome:'loss',dropNextSpinResponse:true});const recoveryBefore=await report();await tap('#spin');await page.waitForFunction(()=>document.body.dataset.state==='pending',{},{timeout:6000});check('lost HTTP response offers CONFIRM',await page.locator('#spin-label').textContent()==='CONFIRM');await tap('#spin');await page.waitForFunction(()=>document.body.dataset.state==='animating',{},{timeout:5000});await tap('#spin');await ready();const recoveryAfter=await report();check('HTTP recovery does not settle twice',recoveryAfter.roundSettlements===recoveryBefore.roundSettlements+1&&recoveryAfter.spinPosts===recoveryBefore.spinPosts+2);
-  const last=await round('win'),beforeReload=await report();await page.reload({waitUntil:'domcontentloaded'});await ready();const afterReload=await report();check('reload never creates a wager',beforeReload.spinPosts===afterReload.spinPosts&&beforeReload.balance===afterReload.balance);check('reload preserves displayed balance',await page.locator('#balance').textContent()===afterReload.balance);
+  await plan({nextOutcome:'loss',dropNextSpinResponse:true});const recoveryBefore=await report();await tap('#spin');await page.waitForFunction(()=>document.body.dataset.state==='pending',{},{timeout:6000});check('lost HTTP response offers CONFIRM',await page.locator('#spin-label').textContent()==='CONFIRM');await tap('#spin');await page.waitForFunction(()=>document.body.dataset.state==='animating',{},{timeout:5000});await tap('#spin');await ready();const recoveryAfter=await report();check('HTTP recovery does not settle twice',recoveryAfter.roundSettlements===recoveryBefore.roundSettlements+1&&recoveryAfter.spinPosts===recoveryBefore.spinPosts+2);
+  let last=await round('win');if(id==='multi_hot_5_video')last=await round('loss');const beforeReload=await report();await page.reload({waitUntil:'domcontentloaded'});await ready();const afterReload=await report();check('reload never creates a wager',beforeReload.spinPosts===afterReload.spinPosts&&beforeReload.balance===afterReload.balance);check('reload preserves displayed balance',await page.locator('#balance').textContent()===afterReload.balance);check('sound Yes persists without prompting after reload',!await page.locator('#sound-consent').evaluate(el=>el.open)&&await page.evaluate(()=>localStorage.getItem('zplay:sound-choice'))==='yes'&&await page.locator('#sound').getAttribute('aria-pressed')==='false');if(id==='multi_hot_5_video')check('MH5 reload preserves positive medal after losing last round',await page.locator('#last-win').textContent()===lastPositiveWin);
   outcome.reload={winShown:await page.locator('#win').textContent(),expectedWin:last.finalWin,diagnostics:await diag()};
   check('reload restores last win',await page.locator('#win').textContent()===last.finalWin);const restored=await diag();check('reload restores authoritative round identity',restored.restoredRoundId===last.roundId);check('reload restores authoritative grid',JSON.stringify(restored.grid)===JSON.stringify(visibleGrid(getGame(id),last.stops)));check('reload restores authoritative multiplier',restored.multiplier===last.wheelMultiplier);
   if(local.features.freeSpins.spins>0){
@@ -84,6 +117,6 @@ async function run(id){
   check('local HTTP requests only',requests.every(r=>r.url.startsWith(origin)||r.url.startsWith('data:')));check('no browser JavaScript errors',errors.length===0);check('final ledger balances',final.ledgerBalanced);
   outcome.sourceAfter=await publicSource();check('public source unchanged throughout trusted case',JSON.stringify(outcome.source)===JSON.stringify(outcome.sourceAfter));
  }catch(e){outcome.error=String(e);outcome.state=await page.locator('body').getAttribute('data-state').catch(()=>null);outcome.notice=await page.locator('#notice-text').textContent().catch(()=>null);outcome.report=await report().catch(()=>null);await page.screenshot({path:`${out}/${id}-failure.png`}).catch(()=>{});}
- outcome.requestCount=requests.length;results.push(outcome);await writeFile(`${out}/results.json`,JSON.stringify({synthetic:true,origin,network:'real localhost HTTP requests; no fetch overrides',source,results},null,2));console.log(JSON.stringify({game:id,checks:checks.length,passed:checks.filter(c=>c.ok).length,error:outcome.error,rounds:outcome.report?.roundSettlements,ledgerBalanced:outcome.report?.ledgerBalanced}));await context.close();
+ outcome.requestCount=requests.length;outcome.elapsedMs=Date.now()-caseStartedAt;results.push(outcome);await writeFile(`${out}/results.json`,JSON.stringify({synthetic:true,origin,network:'real localhost HTTP requests; no fetch overrides',source,results},null,2));console.log(JSON.stringify({game:id,checks:checks.length,passed:checks.filter(c=>c.ok).length,error:outcome.error,rounds:outcome.report?.roundSettlements,ledgerBalanced:outcome.report?.ledgerBalanced,elapsedMs:outcome.elapsedMs}));await context.close();
 }
 try{for(const id of selectedGames)await run(id);}finally{await browser.close();}

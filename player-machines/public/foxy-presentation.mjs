@@ -44,6 +44,29 @@ export function drawFoxyWheelShield(c, box = {}, drawValue) {
  c.clip();
  c.translate(x, y);
  c.scale(sx, sy);
+ // The reference shield has curved, embossed foliage, with the brightest
+ // bevel at its shoulders. Keep these details behind the live multiplier.
+ const shoulder = c.createLinearGradient(0, 0, 220, 150);
+ shoulder.addColorStop(0, '#d7f3ac');
+ shoulder.addColorStop(.22, '#63cda0');
+ shoulder.addColorStop(.5, '#147052');
+ shoulder.addColorStop(.8, '#b5d882');
+ shoulder.addColorStop(1, '#3b9f70');
+ for (const direction of [-1, 1]) {
+  c.save();c.translate(110, 0);c.scale(direction, 1);
+  c.beginPath();c.moveTo(80, 24);
+  c.bezierCurveTo(57, 15, 40, 28, 43, 49);
+  c.bezierCurveTo(44, 62, 57, 74, 51, 88);
+  c.bezierCurveTo(47, 98, 32, 100, 31, 111);
+  c.bezierCurveTo(29, 127, 41, 136, 33, 151);
+  c.strokeStyle='#003f32';c.lineWidth=11;c.stroke();
+  c.strokeStyle=shoulder;c.lineWidth=6;c.stroke();
+  c.strokeStyle='#b6edac88';c.lineWidth=1.4;c.stroke();
+  vineLeaf(c, 63, 42, 11, 27, -.48);
+  vineLeaf(c, 51, 88, 9, 24, .3);
+  vineLeaf(c, 34, 132, 8, 23, -.4);
+  c.restore();
+ }
  const facets = [
   ['#5ce4bd25', [[24, 22], [94, 11], [76, 63], [39, 84]]],
   ['#37b58f3b', [[112, 8], [192, 23], [151, 69], [133, 46]]],
@@ -231,6 +254,14 @@ export function drawFoxyWinPanel(c, {
   .forEach(([stop, color]) => body.addColorStop(stop, color));
  c.fillStyle = body;
  c.fill();
+ c.save();
+ panelPath(c, x, y, w, h, 5);c.clip();
+ // Small diagonal weave is visible in the original green enamel panel.
+ c.fillStyle = '#9be4b210';
+ for(let py=y+6;py<y+h-5;py+=3)for(let px=x+6;px<x+w-6;px+=3){
+  c.fillRect(px+((Math.round((py-y)/3)%2)*1.5),py,.65,.65);
+ }
+ c.restore();
  c.shadowBlur = 0;
  const bevel = c.createLinearGradient(0, y, 0, y + h);
  [[0, '#b5e9b5'], [.18, '#3dbc8c'], [.48, '#145740'], [.75, '#27885d'], [1, '#99d48b']]
