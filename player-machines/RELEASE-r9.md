@@ -4,6 +4,8 @@ Status: source and QA ready for owner-authorized publication on the existing sup
 
 Multi Hot 5 now shows the selected stake on its main button and starts SPIN on the first tap, including after a win. The third meter retains the last positive win across losing rounds and read-only history restoration. Its right stake control previews the next legal bet and opens the existing selector. Revised clovers, cleaned symbol/digit edges, multiplier frame, orange payline rims and medium/big-win presentations follow the supplied references.
 
+Official Smartsoft product imagery and the public DMO demo confirmed that the Stars wheel should be purple/gold. Its existing starsPalette is now applied to the sector gradients, rim and inactive numbers; this presentation-only correction was checked before promotion.
+
 Hot Foxy 20 has brighter green dotted reels, an orange multiplier, refined wheel shield and botanical win panel, simultaneous receipt-backed winning lines with pink endpoints, and cleaner bell/seven/star edges. Existing authoritative outcomes drive all animation and displayed amounts. The sound consent YES/NO choice is persistent; sound starts only after a gesture. Existing seamless loop samples, mute/volume and hidden-tab suspension remain in use. Settings include fullscreen where the browser supports it.
 
 The homepage adapter retains the existing React authentication/account/payment handlers. It adds distinct Home/Games layouts, six featured Home cards, the actual 57-entry catalogue, search, provider/category filters, details sheets and server-backed favourites. Five isolated reference cover components are used only for cards; the playable cabinets use Canvas/DOM code. Original account ID, balance, copy/hide, authentication validation and payment error state remain API-backed. No recording overlays, recorded private values, fabricated winner counts or provider availability are introduced.
@@ -12,6 +14,7 @@ The homepage adapter retains the existing React authentication/account/payment h
 
 - 460 Node tests and 12 native Canvas renders across all four games at 360/390/430px.
 - 677 trusted browser checks across six frozen-source cases: all four games at390px and the original two at360px; 51 synthetic rounds,12 synthetic gambles; every ledger balanced and no JavaScript errors.
+- After the Stars-only palette correction, all460Node tests and12Canvas cases were rerun, plus a focused trusted Stars390px case. Full behavior evidence above predates only that palette adjustment.
 - 236 Cloudflare Browser Rendering checks for Multi Hot5 and Foxy20 at390px using self-contained synthetic fixtures. These verify state, motion, audio, recovery and controls; no production wallet was contacted.
 - 129 portal checks across360/390/430px exercise original React login/register/validation/account handlers, search, favourites, details, deposit-error truthfulness and Home6/Games57 against isolated localhost API responses.
 - Six portal wrapper tests cover routing/cache/headers and gzip safety. Nine backend tests on disposable SQLite, Player/Agent/Admin production builds and ten portal regression checks passed.
