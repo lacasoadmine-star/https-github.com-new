@@ -1,0 +1,2909 @@
+{
+  "synthetic": true,
+  "origin": "http://127.0.0.1:8767",
+  "network": "real localhost HTTP requests; no fetch overrides",
+  "source": {
+    "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+    "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+    "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+    "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+    "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+    "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+    "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+    "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+    "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+    "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+    "controller.mjs": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+    "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+    "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+    "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+    "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+    "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+    "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+    "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+    "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+    "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+    "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+    "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+    "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+    "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+    "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+    "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+    "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+    "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+    "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+    "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+    "official-mh5-background.mjs": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+    "official-mh5-effects-audio.mjs": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+    "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+    "registry.mjs": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+    "renderer.mjs": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+    "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+    "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+    "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+    "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+    "style.css": "61135790147d1b651fdd7dcf46c91ce468e68c7e453588dc7ef2906640434d82",
+    "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+    "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+  },
+  "results": [
+    {
+      "game": "multi_hot_100",
+      "width": 390,
+      "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+      "synthetic": true,
+      "regularRounds": 1,
+      "minimumPlayMs": 0,
+      "extendedControls": false,
+      "primaryRounds": [
+        {
+          "index": 1,
+          "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+          "bet": "2.00",
+          "chargedStake": "2.00",
+          "finalWin": "0.24",
+          "balanceAfter": "99998.24",
+          "stops": [
+            3451,
+            3154,
+            4527,
+            2086,
+            215
+          ],
+          "grid": [
+            [
+              "cherry",
+              "cherry",
+              "lemon",
+              "grapes",
+              "grapes"
+            ],
+            [
+              "watermelon",
+              "grapes",
+              "777",
+              "cherry",
+              "grapes"
+            ],
+            [
+              "cherry",
+              "lemon",
+              "777",
+              "watermelon",
+              "golden_bell"
+            ],
+            [
+              "777",
+              "cherry",
+              "cherry",
+              "golden_bell",
+              "orange"
+            ]
+          ],
+          "wheelMultiplier": 1,
+          "qa": {
+            "renderedGridMatchesAuthority": true,
+            "renderedMultiplier": 1,
+            "audioState": "running",
+            "decodedSoundSamples": 7,
+            "backgroundAudio": {
+              "enabled": true,
+              "loaded": true,
+              "loading": false,
+              "playing": true,
+              "positionSeconds": 0.16621315192743769,
+              "durationSeconds": 1.4649886621315193,
+              "gain": 1
+            },
+            "nativeAnimation": null,
+            "turbo": false,
+            "ledgerBalanced": true,
+            "motionMode": "trusted STOP",
+            "observedAt": 1793996341698,
+            "elapsedPlayMs": 785.7150679999995
+          }
+        }
+      ],
+      "controlInteractions": [
+        {
+          "selector": "#sound-yes",
+          "startedAt": 1793996339696,
+          "endedAt": 1793996339983
+        },
+        {
+          "selector": "#bet-open",
+          "startedAt": 1793996340034,
+          "endedAt": 1793996340112
+        },
+        {
+          "selector": "[data-bet=\"5.00\"]",
+          "startedAt": 1793996340112,
+          "endedAt": 1793996340196
+        },
+        {
+          "selector": "[data-bet=\"2.00\"]",
+          "startedAt": 1793996340199,
+          "endedAt": 1793996340260
+        },
+        {
+          "selector": "[data-close=\"settings\"]",
+          "startedAt": 1793996340260,
+          "endedAt": 1793996340321
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996340966,
+          "endedAt": 1793996341024
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996341110,
+          "endedAt": 1793996341195
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996344107,
+          "endedAt": 1793996344373
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996344670,
+          "endedAt": 1793996344769
+        },
+        {
+          "selector": "#collect",
+          "startedAt": 1793996345226,
+          "endedAt": 1793996345545
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996345685,
+          "endedAt": 1793996345937
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996346140,
+          "endedAt": 1793996346218
+        },
+        {
+          "selector": "#gamble",
+          "startedAt": 1793996346733,
+          "endedAt": 1793996347036
+        },
+        {
+          "selector": "#red",
+          "startedAt": 1793996347038,
+          "endedAt": 1793996347359
+        },
+        {
+          "selector": "#black",
+          "startedAt": 1793996347535,
+          "endedAt": 1793996347593
+        },
+        {
+          "selector": "[data-close=\"gamble-dialog\"]",
+          "startedAt": 1793996347625,
+          "endedAt": 1793996347705
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996347727,
+          "endedAt": 1793996347796
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996347992,
+          "endedAt": 1793996348084
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996349535,
+          "endedAt": 1793996349594
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996352750,
+          "endedAt": 1793996353079
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996353243,
+          "endedAt": 1793996353627
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996353803,
+          "endedAt": 1793996353889
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996354392,
+          "endedAt": 1793996354665
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996354868,
+          "endedAt": 1793996354955
+        }
+      ],
+      "autoCancellationEvidence": [],
+      "timedSteps": [],
+      "source": {
+        "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+        "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+        "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+        "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+        "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+        "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+        "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+        "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+        "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+        "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+        "controller.mjs": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+        "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+        "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+        "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+        "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+        "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+        "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+        "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+        "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+        "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+        "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+        "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+        "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+        "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+        "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+        "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+        "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+        "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+        "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+        "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+        "official-mh5-background.mjs": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+        "official-mh5-effects-audio.mjs": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+        "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+        "registry.mjs": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+        "renderer.mjs": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+        "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+        "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+        "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+        "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+        "style.css": "61135790147d1b651fdd7dcf46c91ce468e68c7e453588dc7ef2906640434d82",
+        "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+        "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+      },
+      "checks": [
+        {
+          "label": "HTTP model matches frontend registry",
+          "ok": true
+        },
+        {
+          "label": "HTTP model matches authoritative public engine",
+          "ok": true
+        },
+        {
+          "label": "game has exact reference geometry and line count",
+          "ok": true
+        },
+        {
+          "label": "all payline rows fit exact game geometry",
+          "ok": true
+        },
+        {
+          "label": "frontend reel strips match authoritative engine",
+          "ok": true
+        },
+        {
+          "label": "first authenticated entry asks for sound",
+          "ok": true
+        },
+        {
+          "label": "sound Yes submits no wager or gamble",
+          "ok": true
+        },
+        {
+          "label": "sound Yes stores persistent choice",
+          "ok": true
+        },
+        {
+          "label": "sound Yes enables sound",
+          "ok": true
+        },
+        {
+          "label": "real authenticated HTTP session",
+          "ok": true
+        },
+        {
+          "label": "fresh authenticated WIN starts at zero",
+          "ok": true
+        },
+        {
+          "label": "canvas geometry matches actual game rows and reels",
+          "ok": true
+        },
+        {
+          "label": "one live machine canvas without video or iframe",
+          "ok": true
+        },
+        {
+          "label": "other games retain existing presentation",
+          "ok": true
+        },
+        {
+          "label": "trusted stake change to legal alternate bet",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "exact requested primary rounds were played",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "collect changes no wallet balance",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "trusted gamble wins from server receipt",
+          "ok": true
+        },
+        {
+          "label": "trusted gamble loses from server receipt",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "trusted HOLD release creates one round",
+          "ok": true
+        },
+        {
+          "label": "lost HTTP response offers CONFIRM",
+          "ok": true
+        },
+        {
+          "label": "HTTP recovery does not settle twice",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "reload never creates a wager",
+          "ok": true
+        },
+        {
+          "label": "reload preserves displayed balance",
+          "ok": true
+        },
+        {
+          "label": "sound Yes persists without prompting after reload",
+          "ok": true
+        },
+        {
+          "label": "reload restores last win",
+          "ok": true
+        },
+        {
+          "label": "reload restores authoritative round identity",
+          "ok": true
+        },
+        {
+          "label": "reload restores authoritative grid",
+          "ok": true
+        },
+        {
+          "label": "reload restores authoritative multiplier",
+          "ok": true
+        },
+        {
+          "label": "local HTTP requests only",
+          "ok": true
+        },
+        {
+          "label": "no browser JavaScript errors",
+          "ok": true
+        },
+        {
+          "label": "final ledger balances",
+          "ok": true
+        },
+        {
+          "label": "public source unchanged throughout trusted case",
+          "ok": true
+        }
+      ],
+      "errors": [],
+      "model": {
+        "reels": 5,
+        "rows": 4,
+        "paylines": 100,
+        "mathVersion": "zplaybet-multi100-v1",
+        "engineVersion": "superwin-slot-runtime-reference-v3000",
+        "freeSpins": {
+          "trigger": 100,
+          "spins": 0,
+          "retrigger": false,
+          "winMultiplier": 1
+        }
+      },
+      "playStartedAt": "2026-11-06T20:19:00.912Z",
+      "primaryReport": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "99998.24",
+        "houseBalance": "-9999824",
+        "spinPosts": 1,
+        "roundSettlements": 1,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 3,
+        "ledgerBalanced": true,
+        "free": {
+          "multi_hot_100": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.24",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              3451,
+              3154,
+              4527,
+              2086,
+              215
+            ],
+            "wheelMultiplier": 1
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+            "playerDelta": "24",
+            "houseDelta": "-24",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "99998.24"
+          }
+        ]
+      },
+      "freeCompletionRounds": 0,
+      "reload": {
+        "winShown": "1.00",
+        "expectedWin": "1.00",
+        "diagnostics": {
+          "gameId": "multi_hot_100",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 4
+          },
+          "renderStats": {
+            "frames": 9,
+            "draws": 3,
+            "slowFrames": 2,
+            "maxDelta": 80
+          },
+          "soundEvents": [],
+          "audioNodes": 0,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "not-started",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": false,
+            "loading": false,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "nativeAnimation": null,
+          "nativeArtworkLoaded": false,
+          "nativeSymbolCount": 0,
+          "nativeForegroundLoaded": false,
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": false,
+          "ambientParticles": 0,
+          "restoredRoundId": "8f13b9a0-ec9f-482c-bea1-0a059ddda20c",
+          "multiplier": 5,
+          "grid": [
+            [
+              "orange",
+              "777",
+              "orange",
+              "777",
+              "watermelon"
+            ],
+            [
+              "777",
+              "lemon",
+              "777",
+              "plum",
+              "777"
+            ],
+            [
+              "grapes",
+              "golden_bell",
+              "777",
+              "plum",
+              "plum"
+            ],
+            [
+              "golden_bell",
+              "cherry",
+              "orange",
+              "plum",
+              "orange"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "99989.64",
+        "houseBalance": "-9998964",
+        "spinPosts": 8,
+        "roundSettlements": 7,
+        "gamblePosts": 2,
+        "gambleSettlements": 2,
+        "ledgerEntries": 19,
+        "ledgerBalanced": true,
+        "free": {
+          "multi_hot_100": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.24",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              3451,
+              3154,
+              4527,
+              2086,
+              215
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "bddb7cb3-ff0f-4eb2-b3bc-71bf89ee3af5",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.40",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              801,
+              4380,
+              6518,
+              2656,
+              2360
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.20",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              2306,
+              6264,
+              6548,
+              5014,
+              4787
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "f062e7bf-86b4-4eec-88ff-6bbb27a6de7a",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              3941,
+              7246,
+              4859,
+              9825,
+              7986
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "278d043c-db63-407f-94aa-939092b6f2d7",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "2.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              9654,
+              2206,
+              1131,
+              61,
+              7889
+            ],
+            "wheelMultiplier": 2
+          },
+          {
+            "roundId": "6151f17d-9e82-459c-889a-d310c41122ff",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              2245,
+              5012,
+              2293,
+              8501,
+              8045
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "8f13b9a0-ec9f-482c-bea1-0a059ddda20c",
+            "gameId": "multi_hot_100",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "1.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              9784,
+              3350,
+              1370,
+              1416,
+              5710
+            ],
+            "wheelMultiplier": 5
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "d1b9eb5e-0259-4b9d-86e2-ae30133f785c",
+            "playerDelta": "24",
+            "houseDelta": "-24",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "99998.24"
+          },
+          {
+            "sequence": 4,
+            "kind": "spin_stake",
+            "roundId": "bddb7cb3-ff0f-4eb2-b3bc-71bf89ee3af5",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "99998.24",
+            "balanceAfter": "99996.24"
+          },
+          {
+            "sequence": 5,
+            "kind": "spin_win",
+            "roundId": "bddb7cb3-ff0f-4eb2-b3bc-71bf89ee3af5",
+            "playerDelta": "40",
+            "houseDelta": "-40",
+            "balanceBefore": "99996.24",
+            "balanceAfter": "99996.64"
+          },
+          {
+            "sequence": 6,
+            "kind": "spin_stake",
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "99996.64",
+            "balanceAfter": "99994.64"
+          },
+          {
+            "sequence": 7,
+            "kind": "spin_win",
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "playerDelta": "20",
+            "houseDelta": "-20",
+            "balanceBefore": "99994.64",
+            "balanceAfter": "99994.84"
+          },
+          {
+            "sequence": 8,
+            "kind": "gamble_stake",
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "playerDelta": "-20",
+            "houseDelta": "20",
+            "balanceBefore": "99994.84",
+            "balanceAfter": "99994.64"
+          },
+          {
+            "sequence": 9,
+            "kind": "gamble_win",
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "playerDelta": "40",
+            "houseDelta": "-40",
+            "balanceBefore": "99994.64",
+            "balanceAfter": "99995.04"
+          },
+          {
+            "sequence": 10,
+            "kind": "gamble_stake",
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "playerDelta": "-40",
+            "houseDelta": "40",
+            "balanceBefore": "99995.04",
+            "balanceAfter": "99994.64"
+          },
+          {
+            "sequence": 11,
+            "kind": "gamble_win",
+            "roundId": "82c4e054-e9e8-4ff1-bbe1-8e992cb18a99",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "99994.64",
+            "balanceAfter": "99994.64"
+          },
+          {
+            "sequence": 12,
+            "kind": "spin_stake",
+            "roundId": "f062e7bf-86b4-4eec-88ff-6bbb27a6de7a",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "99994.64",
+            "balanceAfter": "99992.64"
+          },
+          {
+            "sequence": 13,
+            "kind": "spin_win",
+            "roundId": "f062e7bf-86b4-4eec-88ff-6bbb27a6de7a",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "99992.64",
+            "balanceAfter": "99992.64"
+          },
+          {
+            "sequence": 14,
+            "kind": "spin_stake",
+            "roundId": "278d043c-db63-407f-94aa-939092b6f2d7",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "99992.64",
+            "balanceAfter": "99990.64"
+          },
+          {
+            "sequence": 15,
+            "kind": "spin_win",
+            "roundId": "278d043c-db63-407f-94aa-939092b6f2d7",
+            "playerDelta": "200",
+            "houseDelta": "-200",
+            "balanceBefore": "99990.64",
+            "balanceAfter": "99992.64"
+          },
+          {
+            "sequence": 16,
+            "kind": "spin_stake",
+            "roundId": "6151f17d-9e82-459c-889a-d310c41122ff",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "99992.64",
+            "balanceAfter": "99990.64"
+          },
+          {
+            "sequence": 17,
+            "kind": "spin_win",
+            "roundId": "6151f17d-9e82-459c-889a-d310c41122ff",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "99990.64",
+            "balanceAfter": "99990.64"
+          },
+          {
+            "sequence": 18,
+            "kind": "spin_stake",
+            "roundId": "8f13b9a0-ec9f-482c-bea1-0a059ddda20c",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "99990.64",
+            "balanceAfter": "99988.64"
+          },
+          {
+            "sequence": 19,
+            "kind": "spin_win",
+            "roundId": "8f13b9a0-ec9f-482c-bea1-0a059ddda20c",
+            "playerDelta": "100",
+            "houseDelta": "-100",
+            "balanceBefore": "99988.64",
+            "balanceAfter": "99989.64"
+          }
+        ]
+      },
+      "diagnostics": {
+        "gameId": "multi_hot_100",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 4
+        },
+        "renderStats": {
+          "frames": 41,
+          "draws": 3,
+          "slowFrames": 2,
+          "maxDelta": 80
+        },
+        "soundEvents": [],
+        "audioNodes": 0,
+        "decodedSoundSamples": 0,
+        "soundSampleNodes": 0,
+        "audioState": "not-started",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "nativeAnimation": null,
+        "nativeArtworkLoaded": false,
+        "nativeSymbolCount": 0,
+        "nativeForegroundLoaded": false,
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 0,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": false,
+        "ambientParticles": 0,
+        "restoredRoundId": "8f13b9a0-ec9f-482c-bea1-0a059ddda20c",
+        "multiplier": 5,
+        "grid": [
+          [
+            "orange",
+            "777",
+            "orange",
+            "777",
+            "watermelon"
+          ],
+          [
+            "777",
+            "lemon",
+            "777",
+            "plum",
+            "777"
+          ],
+          [
+            "grapes",
+            "golden_bell",
+            "777",
+            "plum",
+            "plum"
+          ],
+          [
+            "golden_bell",
+            "cherry",
+            "orange",
+            "plum",
+            "orange"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false
+      },
+      "sourceAfter": {
+        "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+        "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+        "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+        "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+        "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+        "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+        "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+        "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+        "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+        "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+        "controller.mjs": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+        "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+        "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+        "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+        "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+        "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+        "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+        "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+        "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+        "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+        "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+        "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+        "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+        "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+        "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+        "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+        "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+        "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+        "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+        "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+        "official-mh5-background.mjs": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+        "official-mh5-effects-audio.mjs": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+        "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+        "registry.mjs": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+        "renderer.mjs": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+        "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+        "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+        "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+        "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+        "style.css": "61135790147d1b651fdd7dcf46c91ce468e68c7e453588dc7ef2906640434d82",
+        "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+        "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+      },
+      "requestCount": 79,
+      "elapsedMs": 19390
+    },
+    {
+      "game": "wild_multi_stars",
+      "width": 390,
+      "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+      "synthetic": true,
+      "regularRounds": 1,
+      "minimumPlayMs": 0,
+      "extendedControls": false,
+      "primaryRounds": [
+        {
+          "index": 1,
+          "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+          "bet": "2.00",
+          "chargedStake": "2.00",
+          "finalWin": "24.00",
+          "balanceAfter": "100022.00",
+          "stops": [
+            17771,
+            11925,
+            18796,
+            18479,
+            15189
+          ],
+          "grid": [
+            [
+              "big_star",
+              "big_star",
+              "lemon",
+              "cherry",
+              "golden_bell"
+            ],
+            [
+              "lemon",
+              "lemon",
+              "golden_bell",
+              "lemon",
+              "lemon"
+            ],
+            [
+              "777",
+              "777",
+              "big_star",
+              "golden_bell",
+              "big_star"
+            ]
+          ],
+          "wheelMultiplier": 4,
+          "qa": {
+            "renderedGridMatchesAuthority": true,
+            "renderedMultiplier": 4,
+            "audioState": "running",
+            "decodedSoundSamples": 7,
+            "backgroundAudio": {
+              "enabled": true,
+              "loaded": false,
+              "loading": false,
+              "playing": false,
+              "positionSeconds": 0,
+              "durationSeconds": 0,
+              "gain": 0
+            },
+            "nativeAnimation": null,
+            "turbo": false,
+            "ledgerBalanced": true,
+            "motionMode": "trusted STOP",
+            "observedAt": 1793996360965,
+            "elapsedPlayMs": 835.448468999999
+          }
+        }
+      ],
+      "controlInteractions": [
+        {
+          "selector": "#sound-yes",
+          "startedAt": 1793996358776,
+          "endedAt": 1793996358954
+        },
+        {
+          "selector": "#bet-open",
+          "startedAt": 1793996358996,
+          "endedAt": 1793996359138
+        },
+        {
+          "selector": "[data-bet=\"5.00\"]",
+          "startedAt": 1793996359138,
+          "endedAt": 1793996359208
+        },
+        {
+          "selector": "[data-bet=\"2.00\"]",
+          "startedAt": 1793996359211,
+          "endedAt": 1793996359462
+        },
+        {
+          "selector": "[data-close=\"settings\"]",
+          "startedAt": 1793996359462,
+          "endedAt": 1793996359593
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996360162,
+          "endedAt": 1793996360260
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996360346,
+          "endedAt": 1793996360449
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996363585,
+          "endedAt": 1793996363895
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996364193,
+          "endedAt": 1793996364283
+        },
+        {
+          "selector": "#collect",
+          "startedAt": 1793996364758,
+          "endedAt": 1793996365019
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996365165,
+          "endedAt": 1793996365416
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996365642,
+          "endedAt": 1793996365721
+        },
+        {
+          "selector": "#gamble",
+          "startedAt": 1793996366199,
+          "endedAt": 1793996366478
+        },
+        {
+          "selector": "#red",
+          "startedAt": 1793996366478,
+          "endedAt": 1793996366752
+        },
+        {
+          "selector": "#black",
+          "startedAt": 1793996366908,
+          "endedAt": 1793996366991
+        },
+        {
+          "selector": "[data-close=\"gamble-dialog\"]",
+          "startedAt": 1793996367048,
+          "endedAt": 1793996367139
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996367162,
+          "endedAt": 1793996367290
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996367413,
+          "endedAt": 1793996367515
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996368880,
+          "endedAt": 1793996368957
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996372110,
+          "endedAt": 1793996372341
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996372482,
+          "endedAt": 1793996372744
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996372868,
+          "endedAt": 1793996372950
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996373534,
+          "endedAt": 1793996373774
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996373984,
+          "endedAt": 1793996374064
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996375543,
+          "endedAt": 1793996375684
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996375858,
+          "endedAt": 1793996375955
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996376622,
+          "endedAt": 1793996376873
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996377069,
+          "endedAt": 1793996377155
+        },
+        {
+          "selector": "#spin",
+          "startedAt": 1793996378165,
+          "endedAt": 1793996378268
+        },
+        {
+          "selector": "#spin",
+          "input": "native touchscreen STOP while animating",
+          "startedAt": 1793996378442,
+          "endedAt": 1793996378557
+        }
+      ],
+      "autoCancellationEvidence": [],
+      "timedSteps": [],
+      "source": {
+        "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+        "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+        "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+        "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+        "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+        "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+        "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+        "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+        "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+        "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+        "controller.mjs": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+        "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+        "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+        "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+        "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+        "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+        "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+        "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+        "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+        "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+        "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+        "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+        "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+        "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+        "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+        "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+        "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+        "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+        "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+        "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+        "official-mh5-background.mjs": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+        "official-mh5-effects-audio.mjs": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+        "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+        "registry.mjs": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+        "renderer.mjs": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+        "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+        "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+        "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+        "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+        "style.css": "61135790147d1b651fdd7dcf46c91ce468e68c7e453588dc7ef2906640434d82",
+        "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+        "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+      },
+      "checks": [
+        {
+          "label": "HTTP model matches frontend registry",
+          "ok": true
+        },
+        {
+          "label": "HTTP model matches authoritative public engine",
+          "ok": true
+        },
+        {
+          "label": "game has exact reference geometry and line count",
+          "ok": true
+        },
+        {
+          "label": "all payline rows fit exact game geometry",
+          "ok": true
+        },
+        {
+          "label": "frontend reel strips match authoritative engine",
+          "ok": true
+        },
+        {
+          "label": "first authenticated entry asks for sound",
+          "ok": true
+        },
+        {
+          "label": "sound Yes submits no wager or gamble",
+          "ok": true
+        },
+        {
+          "label": "sound Yes stores persistent choice",
+          "ok": true
+        },
+        {
+          "label": "sound Yes enables sound",
+          "ok": true
+        },
+        {
+          "label": "real authenticated HTTP session",
+          "ok": true
+        },
+        {
+          "label": "fresh authenticated WIN starts at zero",
+          "ok": true
+        },
+        {
+          "label": "canvas geometry matches actual game rows and reels",
+          "ok": true
+        },
+        {
+          "label": "one live machine canvas without video or iframe",
+          "ok": true
+        },
+        {
+          "label": "other games retain existing presentation",
+          "ok": true
+        },
+        {
+          "label": "trusted stake change to legal alternate bet",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "exact requested primary rounds were played",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "collect changes no wallet balance",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "trusted gamble wins from server receipt",
+          "ok": true
+        },
+        {
+          "label": "trusted gamble loses from server receipt",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "trusted HOLD release creates one round",
+          "ok": true
+        },
+        {
+          "label": "lost HTTP response offers CONFIRM",
+          "ok": true
+        },
+        {
+          "label": "HTTP recovery does not settle twice",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "reload never creates a wager",
+          "ok": true
+        },
+        {
+          "label": "reload preserves displayed balance",
+          "ok": true
+        },
+        {
+          "label": "sound Yes persists without prompting after reload",
+          "ok": true
+        },
+        {
+          "label": "reload restores last win",
+          "ok": true
+        },
+        {
+          "label": "reload restores authoritative round identity",
+          "ok": true
+        },
+        {
+          "label": "reload restores authoritative grid",
+          "ok": true
+        },
+        {
+          "label": "reload restores authoritative multiplier",
+          "ok": true
+        },
+        {
+          "label": "zero balance permits free spin",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "first HTTP free spin charges zero",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "final HTTP free spin charges zero",
+          "ok": true
+        },
+        {
+          "label": "zero balance disables paid spins",
+          "ok": true
+        },
+        {
+          "label": "spin HTTP200",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt independently verifies pinned math",
+          "ok": true
+        },
+        {
+          "label": "HTTP receipt has expected rows and reels",
+          "ok": true
+        },
+        {
+          "label": "linear game settles exactly one stage",
+          "ok": true
+        },
+        {
+          "label": "trusted SPIN STOP creates one round",
+          "ok": true
+        },
+        {
+          "label": "displayed balance equals HTTP ledger",
+          "ok": true
+        },
+        {
+          "label": "displayed win equals authoritative receipt",
+          "ok": true
+        },
+        {
+          "label": "authoritative final grid rendered",
+          "ok": true
+        },
+        {
+          "label": "authoritative final multiplier rendered",
+          "ok": true
+        },
+        {
+          "label": "trusted interaction unlocks actual audio",
+          "ok": true
+        },
+        {
+          "label": "ledger balances after round",
+          "ok": true
+        },
+        {
+          "label": "Wild Stars free line wins use exact2x multiplier",
+          "ok": true
+        },
+        {
+          "label": "Wild Stars scatter award is unchanged in free spins",
+          "ok": true
+        },
+        {
+          "label": "local HTTP requests only",
+          "ok": true
+        },
+        {
+          "label": "no browser JavaScript errors",
+          "ok": true
+        },
+        {
+          "label": "final ledger balances",
+          "ok": true
+        },
+        {
+          "label": "public source unchanged throughout trusted case",
+          "ok": true
+        }
+      ],
+      "errors": [],
+      "model": {
+        "reels": 5,
+        "rows": 3,
+        "paylines": 20,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000",
+        "freeSpins": {
+          "trigger": 3,
+          "spins": 12,
+          "retrigger": true,
+          "winMultiplier": 2
+        }
+      },
+      "playStartedAt": "2026-11-06T20:19:20.130Z",
+      "primaryReport": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "100022.00",
+        "houseBalance": "-10002200",
+        "spinPosts": 1,
+        "roundSettlements": 1,
+        "gamblePosts": 0,
+        "gambleSettlements": 0,
+        "ledgerEntries": 3,
+        "ledgerBalanced": true,
+        "free": {
+          "wild_multi_stars": {
+            "remaining": 0,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "24.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              17771,
+              11925,
+              18796,
+              18479,
+              15189
+            ],
+            "wheelMultiplier": 4
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+            "playerDelta": "2400",
+            "houseDelta": "-2400",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "100022.00"
+          }
+        ]
+      },
+      "freeCompletionRounds": 0,
+      "reload": {
+        "winShown": "7.80",
+        "expectedWin": "7.80",
+        "diagnostics": {
+          "gameId": "wild_multi_stars",
+          "state": "ready",
+          "canvasCount": 1,
+          "geometry": {
+            "columns": 5,
+            "rows": 3
+          },
+          "renderStats": {
+            "frames": 10,
+            "draws": 5,
+            "slowFrames": 2,
+            "maxDelta": 80
+          },
+          "soundEvents": [],
+          "audioNodes": 0,
+          "decodedSoundSamples": 0,
+          "soundSampleNodes": 0,
+          "audioState": "not-started",
+          "backgroundAudio": {
+            "enabled": true,
+            "loaded": false,
+            "loading": false,
+            "playing": false,
+            "positionSeconds": 0,
+            "durationSeconds": 0,
+            "gain": 0
+          },
+          "nativeAnimation": null,
+          "nativeArtworkLoaded": false,
+          "nativeSymbolCount": 0,
+          "nativeForegroundLoaded": false,
+          "cabinetArtworkLoaded": true,
+          "artworkLoaded": true,
+          "audioSuspended": false,
+          "reducedMotion": false,
+          "particles": 0,
+          "turbo": false,
+          "autoRemaining": 0,
+          "ambientEffects": true,
+          "ambientParticles": 18,
+          "restoredRoundId": "16c16297-a3c2-4f63-82f6-6d619a12126a",
+          "multiplier": 1,
+          "grid": [
+            [
+              "lemon",
+              "lemon",
+              "lemon",
+              "lemon",
+              "cherry"
+            ],
+            [
+              "lemon",
+              "plum",
+              "big_star",
+              "cherry",
+              "lemon"
+            ],
+            [
+              "777",
+              "orange",
+              "lemon",
+              "golden_bell",
+              "golden_bell"
+            ]
+          ],
+          "multiArtworkLoaded": false,
+          "loopActive": false,
+          "loopPhase": 0,
+          "retiringAudioNodes": 0,
+          "contextLost": false
+        }
+      },
+      "report": {
+        "synthetic": true,
+        "opening": "100000.00",
+        "balance": "75.00",
+        "houseBalance": "-7500",
+        "spinPosts": 11,
+        "roundSettlements": 10,
+        "gamblePosts": 2,
+        "gambleSettlements": 2,
+        "ledgerEntries": 27,
+        "ledgerBalanced": true,
+        "free": {
+          "wild_multi_stars": {
+            "remaining": 1,
+            "bet": "2.00"
+          }
+        },
+        "rounds": [
+          {
+            "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "24.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              17771,
+              11925,
+              18796,
+              18479,
+              15189
+            ],
+            "wheelMultiplier": 4
+          },
+          {
+            "roundId": "e2fd8d5f-fedb-404b-8023-f35d74ffef76",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "5.40",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              12082,
+              13939,
+              8419,
+              11079,
+              4547
+            ],
+            "wheelMultiplier": 3
+          },
+          {
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "6.30",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              6704,
+              4365,
+              5168,
+              1637,
+              5305
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "ec447222-15e1-45b2-a157-b774d68ecefa",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              6909,
+              10914,
+              8936,
+              8102,
+              19259
+            ],
+            "wheelMultiplier": 2
+          },
+          {
+            "roundId": "df8c7a35-15d7-4199-a4e0-1e73f41b260a",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              17603,
+              1915,
+              7395,
+              1157,
+              15215
+            ],
+            "wheelMultiplier": 3
+          },
+          {
+            "roundId": "928fed89-82e1-49ee-a608-d73261ce84e7",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              6326,
+              11218,
+              1116,
+              10492,
+              16066
+            ],
+            "wheelMultiplier": 3
+          },
+          {
+            "roundId": "16c16297-a3c2-4f63-82f6-6d619a12126a",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "2.00",
+            "finalWin": "7.80",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              9406,
+              6621,
+              6089,
+              18164,
+              11852
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "775c053e-6e25-4cb3-987a-cd665b48a80a",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "0.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 2,
+            "stops": [
+              1672,
+              14696,
+              1089,
+              13235,
+              6255
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "babdcc45-63a9-4ca7-80ab-9ddd2a5013e2",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "0.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 1,
+            "stops": [
+              19622,
+              4185,
+              14189,
+              16706,
+              7976
+            ],
+            "wheelMultiplier": 3
+          },
+          {
+            "roundId": "7edee876-2cd4-4f04-8375-ec58b64aaf37",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "0.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 0,
+            "stops": [
+              16403,
+              10710,
+              10733,
+              17118,
+              6186
+            ],
+            "wheelMultiplier": 2
+          },
+          {
+            "roundId": "3e63f176-19a6-4c25-9b5a-9a4287f0e32b",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "0.00",
+            "finalWin": "0.00",
+            "freeSpinsRemaining": 2,
+            "stops": [
+              15514,
+              5231,
+              19555,
+              9851,
+              17718
+            ],
+            "wheelMultiplier": 1
+          },
+          {
+            "roundId": "172537ed-4f06-4937-b41e-241a3a9cdcfe",
+            "gameId": "wild_multi_stars",
+            "bet": "2.00",
+            "chargedStake": "0.00",
+            "finalWin": "75.00",
+            "freeSpinsRemaining": 1,
+            "stops": [
+              7049,
+              1841,
+              286,
+              8405,
+              15060
+            ],
+            "wheelMultiplier": 5
+          }
+        ],
+        "ledger": [
+          {
+            "sequence": 1,
+            "kind": "synthetic_opening",
+            "roundId": null,
+            "playerDelta": "10000000",
+            "houseDelta": "-10000000",
+            "balanceBefore": "0.00",
+            "balanceAfter": "100000.00"
+          },
+          {
+            "sequence": 2,
+            "kind": "spin_stake",
+            "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100000.00",
+            "balanceAfter": "99998.00"
+          },
+          {
+            "sequence": 3,
+            "kind": "spin_win",
+            "roundId": "50dac332-afc4-4196-89c2-9be535786457",
+            "playerDelta": "2400",
+            "houseDelta": "-2400",
+            "balanceBefore": "99998.00",
+            "balanceAfter": "100022.00"
+          },
+          {
+            "sequence": 4,
+            "kind": "spin_stake",
+            "roundId": "e2fd8d5f-fedb-404b-8023-f35d74ffef76",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100022.00",
+            "balanceAfter": "100020.00"
+          },
+          {
+            "sequence": 5,
+            "kind": "spin_win",
+            "roundId": "e2fd8d5f-fedb-404b-8023-f35d74ffef76",
+            "playerDelta": "540",
+            "houseDelta": "-540",
+            "balanceBefore": "100020.00",
+            "balanceAfter": "100025.40"
+          },
+          {
+            "sequence": 6,
+            "kind": "spin_stake",
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100025.40",
+            "balanceAfter": "100023.40"
+          },
+          {
+            "sequence": 7,
+            "kind": "spin_win",
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "playerDelta": "630",
+            "houseDelta": "-630",
+            "balanceBefore": "100023.40",
+            "balanceAfter": "100029.70"
+          },
+          {
+            "sequence": 8,
+            "kind": "gamble_stake",
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "playerDelta": "-630",
+            "houseDelta": "630",
+            "balanceBefore": "100029.70",
+            "balanceAfter": "100023.40"
+          },
+          {
+            "sequence": 9,
+            "kind": "gamble_win",
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "playerDelta": "1260",
+            "houseDelta": "-1260",
+            "balanceBefore": "100023.40",
+            "balanceAfter": "100036.00"
+          },
+          {
+            "sequence": 10,
+            "kind": "gamble_stake",
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "playerDelta": "-1260",
+            "houseDelta": "1260",
+            "balanceBefore": "100036.00",
+            "balanceAfter": "100023.40"
+          },
+          {
+            "sequence": 11,
+            "kind": "gamble_win",
+            "roundId": "531ee58b-5a3d-4111-ae7f-355b114755fa",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "100023.40",
+            "balanceAfter": "100023.40"
+          },
+          {
+            "sequence": 12,
+            "kind": "spin_stake",
+            "roundId": "ec447222-15e1-45b2-a157-b774d68ecefa",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100023.40",
+            "balanceAfter": "100021.40"
+          },
+          {
+            "sequence": 13,
+            "kind": "spin_win",
+            "roundId": "ec447222-15e1-45b2-a157-b774d68ecefa",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "100021.40",
+            "balanceAfter": "100021.40"
+          },
+          {
+            "sequence": 14,
+            "kind": "spin_stake",
+            "roundId": "df8c7a35-15d7-4199-a4e0-1e73f41b260a",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100021.40",
+            "balanceAfter": "100019.40"
+          },
+          {
+            "sequence": 15,
+            "kind": "spin_win",
+            "roundId": "df8c7a35-15d7-4199-a4e0-1e73f41b260a",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "100019.40",
+            "balanceAfter": "100019.40"
+          },
+          {
+            "sequence": 16,
+            "kind": "spin_stake",
+            "roundId": "928fed89-82e1-49ee-a608-d73261ce84e7",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100019.40",
+            "balanceAfter": "100017.40"
+          },
+          {
+            "sequence": 17,
+            "kind": "spin_win",
+            "roundId": "928fed89-82e1-49ee-a608-d73261ce84e7",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "100017.40",
+            "balanceAfter": "100017.40"
+          },
+          {
+            "sequence": 18,
+            "kind": "spin_stake",
+            "roundId": "16c16297-a3c2-4f63-82f6-6d619a12126a",
+            "playerDelta": "-200",
+            "houseDelta": "200",
+            "balanceBefore": "100017.40",
+            "balanceAfter": "100015.40"
+          },
+          {
+            "sequence": 19,
+            "kind": "spin_win",
+            "roundId": "16c16297-a3c2-4f63-82f6-6d619a12126a",
+            "playerDelta": "780",
+            "houseDelta": "-780",
+            "balanceBefore": "100015.40",
+            "balanceAfter": "100023.20"
+          },
+          {
+            "sequence": 20,
+            "kind": "synthetic_zero_balance_seed",
+            "roundId": null,
+            "playerDelta": "-10002320",
+            "houseDelta": "10002320",
+            "balanceBefore": "100023.20",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 21,
+            "kind": "spin_stake",
+            "roundId": "babdcc45-63a9-4ca7-80ab-9ddd2a5013e2",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "0.00",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 22,
+            "kind": "spin_win",
+            "roundId": "babdcc45-63a9-4ca7-80ab-9ddd2a5013e2",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "0.00",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 23,
+            "kind": "spin_stake",
+            "roundId": "7edee876-2cd4-4f04-8375-ec58b64aaf37",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "0.00",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 24,
+            "kind": "spin_win",
+            "roundId": "7edee876-2cd4-4f04-8375-ec58b64aaf37",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "0.00",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 25,
+            "kind": "synthetic_zero_balance_seed",
+            "roundId": null,
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "0.00",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 26,
+            "kind": "spin_stake",
+            "roundId": "172537ed-4f06-4937-b41e-241a3a9cdcfe",
+            "playerDelta": "0",
+            "houseDelta": "0",
+            "balanceBefore": "0.00",
+            "balanceAfter": "0.00"
+          },
+          {
+            "sequence": 27,
+            "kind": "spin_win",
+            "roundId": "172537ed-4f06-4937-b41e-241a3a9cdcfe",
+            "playerDelta": "7500",
+            "houseDelta": "-7500",
+            "balanceBefore": "0.00",
+            "balanceAfter": "75.00"
+          }
+        ]
+      },
+      "diagnostics": {
+        "gameId": "wild_multi_stars",
+        "state": "ready",
+        "canvasCount": 1,
+        "geometry": {
+          "columns": 5,
+          "rows": 3
+        },
+        "renderStats": {
+          "frames": 70,
+          "draws": 59,
+          "slowFrames": 31,
+          "maxDelta": 80
+        },
+        "soundEvents": [
+          {
+            "name": "start",
+            "index": 0,
+            "time": 632.8000000007451
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 636.5
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 745.5
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 785.1000000005588
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 821.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 854
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 879.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 879.9000000003725
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 903.2000000001863
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 938.6000000005588
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 938.6000000005588
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 967
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 967
+          },
+          {
+            "name": "wheel-tick",
+            "index": 0,
+            "time": 987.6000000005588
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 987.6000000005588
+          },
+          {
+            "name": "wheel-stop",
+            "index": 0,
+            "time": 1008
+          },
+          {
+            "name": "multiplier",
+            "index": 5,
+            "time": 1008.1000000005588
+          },
+          {
+            "name": "reel-stop",
+            "index": 0,
+            "time": 1026.1000000005588
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1026.300000000745
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1068.7000000001863
+          },
+          {
+            "name": "reel-stop",
+            "index": 1,
+            "time": 1084.6000000005588
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1101.5
+          },
+          {
+            "name": "reel-stop",
+            "index": 2,
+            "time": 1122.9000000003725
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1123.1000000005588
+          },
+          {
+            "name": "reel-stop",
+            "index": 3,
+            "time": 1141.1000000005588
+          },
+          {
+            "name": "move",
+            "index": 0,
+            "time": 1162.6000000005588
+          },
+          {
+            "name": "reel-stop",
+            "index": 4,
+            "time": 1189.1000000005588
+          }
+        ],
+        "audioNodes": 1,
+        "decodedSoundSamples": 7,
+        "soundSampleNodes": 1,
+        "audioState": "running",
+        "backgroundAudio": {
+          "enabled": true,
+          "loaded": false,
+          "loading": false,
+          "playing": false,
+          "positionSeconds": 0,
+          "durationSeconds": 0,
+          "gain": 0
+        },
+        "nativeAnimation": null,
+        "nativeArtworkLoaded": false,
+        "nativeSymbolCount": 0,
+        "nativeForegroundLoaded": false,
+        "cabinetArtworkLoaded": true,
+        "artworkLoaded": true,
+        "audioSuspended": false,
+        "reducedMotion": false,
+        "particles": 68,
+        "turbo": false,
+        "autoRemaining": 0,
+        "ambientEffects": true,
+        "ambientParticles": 18,
+        "restoredRoundId": "172537ed-4f06-4937-b41e-241a3a9cdcfe",
+        "multiplier": 5,
+        "grid": [
+          [
+            "lemon",
+            "cherry",
+            "lemon",
+            "plum",
+            "watermelon"
+          ],
+          [
+            "777",
+            "lemon",
+            "watermelon",
+            "lemon",
+            "cherry"
+          ],
+          [
+            "lemon",
+            "golden_bell",
+            "cherry",
+            "orange",
+            "lemon"
+          ]
+        ],
+        "multiArtworkLoaded": false,
+        "loopActive": false,
+        "loopPhase": 0,
+        "retiringAudioNodes": 0,
+        "contextLost": false
+      },
+      "sourceAfter": {
+        "ambient.mjs": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74",
+        "art.mjs": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715",
+        "audio-banks.mjs": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c",
+        "audio-loop.mjs": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f",
+        "audio-samples.mjs": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d",
+        "audio.mjs": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5",
+        "background-audio.mjs": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9",
+        "cabinet-art.mjs": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497",
+        "cabinet.mjs": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1",
+        "contract.mjs": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b",
+        "controller.mjs": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6",
+        "extra-games.mjs": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4",
+        "foxy-atlas-cleanup.mjs": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652",
+        "foxy-effects.mjs": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860",
+        "foxy-presentation.mjs": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33",
+        "hex-control.svg": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c",
+        "hundred-presentation.mjs": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd",
+        "index.html": "ab625c85b2b4eb31e0cc89a4123ed26baeccb67a81542f5d5fe3746e844ddc1b",
+        "motion.mjs": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6",
+        "multi-presentation.mjs": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1",
+        "native-animation-LICENSES.txt": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d",
+        "native-animation-foxy-assets.mjs": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529",
+        "native-animation-mh5-assets.mjs": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e",
+        "native-animation-runtime.mjs": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5",
+        "native-presentation.mjs": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1",
+        "official-foxy-art.mjs": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0",
+        "official-foxy-background.mjs": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca",
+        "official-foxy-effects-audio.mjs": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c",
+        "official-foxy-foreground.mjs": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add",
+        "official-mh5-art.mjs": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24",
+        "official-mh5-background.mjs": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309",
+        "official-mh5-effects-audio.mjs": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48",
+        "official-presentation.mjs": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01",
+        "registry.mjs": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32",
+        "renderer.mjs": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af",
+        "spin-foxy.svg": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb",
+        "spin-multi.svg": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3",
+        "stake-bar.svg": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d",
+        "stars-presentation.mjs": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4",
+        "style.css": "61135790147d1b651fdd7dcf46c91ce468e68c7e453588dc7ef2906640434d82",
+        "symbol-atlases.mjs": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b",
+        "wallet.mjs": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+      },
+      "requestCount": 142,
+      "elapsedMs": 23271
+    }
+  ]
+}

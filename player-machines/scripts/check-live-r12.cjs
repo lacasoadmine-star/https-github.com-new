@@ -1,4 +1,4 @@
-// Prepared for r12. Run only after the root agent confirms publication.
+// Live r12 verification. Use --only=games --games=id,id for a targeted rerun.
 // Every browser context is a new guest; financial/authentication mutations are blocked.
 const {createRequire}=require('node:module');
 let playwright;try{playwright=require('playwright');}catch(error){if(!process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES)throw error;playwright=createRequire(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/entry.js')('playwright');}
@@ -11,6 +11,11 @@ const PREFIX='/zplay-machines-20261106-r12';
 const PORTAL_RELEASE='player-portal-20261106-r9';
 const PORTAL_PREFIX='/'+PORTAL_RELEASE+'/';
 const GAMES=['multi_hot_5_video','hot_foxy_20','multi_hot_100','wild_multi_stars'];
+const ONLY=process.argv.find(arg=>arg.startsWith('--only='))?.slice(7)||'all';
+const SELECTED_GAMES=process.argv.find(arg=>arg.startsWith('--games='))?.slice(8).split(',')||GAMES;
+assert.ok(['all','http','portal','games'].includes(ONLY),'Unknown --only scope');
+assert.ok(SELECTED_GAMES.length&&SELECTED_GAMES.every(game=>GAMES.includes(game)),'Unknown --games value');
+const STARTUP_TIMEOUT=90000;
 const BACKGROUND_DURATIONS=Object.freeze({multi_hot_5_video:87.17061224489795,hot_foxy_20:96,multi_hot_100:1.465});
 const SAMPLE_COUNTS=Object.freeze({multi_hot_5_video:7,hot_foxy_20:15,multi_hot_100:7,wild_multi_stars:7});
 const NATIVE_SYMBOL_COUNTS=Object.freeze({multi_hot_5_video:9,hot_foxy_20:8});
@@ -18,6 +23,7 @@ const NATIVE_BUNDLE_COUNTS=Object.freeze({multi_hot_5_video:4,hot_foxy_20:12});
 const MACHINE_ASSETS=['controller.mjs','registry.mjs','extra-games.mjs','hundred-presentation.mjs','stars-presentation.mjs','multi-presentation.mjs','foxy-presentation.mjs','foxy-atlas-cleanup.mjs','renderer.mjs','art.mjs','ambient.mjs','audio.mjs','background-audio.mjs','foxy-effects.mjs','audio-loop.mjs','audio-samples.mjs','style.css','official-presentation.mjs','official-foxy-art.mjs','official-mh5-art.mjs','official-foxy-foreground.mjs','official-foxy-background.mjs','official-mh5-background.mjs','official-foxy-effects-audio.mjs','official-mh5-effects-audio.mjs','native-presentation.mjs','native-animation-runtime.mjs','native-animation-foxy-assets.mjs','native-animation-mh5-assets.mjs','native-animation-LICENSES.txt'];
 const PORTAL_ASSETS=['portal.css','surfaces.css','portal.mjs','cover-art.mjs'];
 const PROXY=process.env.HTTPS_PROXY?{server:process.env.HTTPS_PROXY}:undefined;
+const DISABLE_HTTP2=process.env.ZPLAY_LIVE_DISABLE_HTTP2==='1';
 const OUT=process.env.ZPLAY_LIVE_QA_OUT||'/workspace/work/r12-live';
 fs.mkdirSync(OUT,{recursive:true});
 const write=(name,value)=>fs.writeFileSync(OUT+'/'+name,JSON.stringify(value,null,2));
@@ -25,7 +31,8 @@ const failure=(error)=>error?.stack||error?.message||String(error);
 function isAllowedMutation(req){return req.method()==='POST'&&new URL(req.url()).origin===ORIGIN&&new URL(req.url()).pathname==='/_player/presence';}
 async function guestPage(browser){
  const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,serviceWorkers:'block'});
- const evidence={errors:[],failedRequests:[],mutatingRequests:[],blockedMutations:[]};
+ const evidence={errors:[],failedRequests:[],httpFailures:[],cancelledOnClose:[],mutatingRequests:[],blockedMutations:[]};
+ const started=Date.now();let closing=false;
  // Enforce the read-only boundary before navigation, including page-close beacons.
  await context.route('**/*',async route=>{
   const req=route.request();
@@ -36,18 +43,21 @@ async function guestPage(browser){
  });
  const page=await context.newPage();
  page.on('pageerror',e=>evidence.errors.push(e.message));
- page.on('requestfailed',r=>evidence.failedRequests.push({url:r.url(),failure:r.failure()?.errorText}));
+ page.on('requestfailed',r=>(closing?evidence.cancelledOnClose:evidence.failedRequests).push({url:r.url(),failure:r.failure()?.errorText,elapsedMs:Date.now()-started}));
+ page.on('response',r=>{if(r.status()>=400&&new URL(r.url()).origin===ORIGIN&&/\.(?:mjs|js|css|svg|png|jpe?g|webp|woff2?)(?:\?|$)/.test(r.url()))evidence.httpFailures.push({url:r.url(),status:r.status(),elapsedMs:Date.now()-started});});
  page.on('request',r=>{if(!['GET','HEAD','OPTIONS'].includes(r.method()))evidence.mutatingRequests.push({method:r.method(),url:r.url()});});
- return{context,page,evidence};
+ return{context,page,evidence,close:async()=>{closing=true;await context.close();}};
 }
 function assertGuestRequests(evidence,label){
  assert.deepEqual(evidence.errors,[],label+' browser errors');
  assert.deepEqual(evidence.failedRequests,[],label+' failed requests');
+ assert.deepEqual(evidence.httpFailures,[],label+' failed static responses');
  assert.deepEqual(evidence.blockedMutations,[],label+' attempted an unauthorized mutation');
  assert.deepEqual(evidence.mutatingRequests.filter(r=>!(r.method==='POST'&&new URL(r.url).origin===ORIGIN&&new URL(r.url).pathname==='/_player/presence')),[],label+' unexpected mutations');
 }
 (async()=>{
  const http=[],failures=[];
+ if(ONLY==='all'||ONLY==='http'){
  const api=await request.newContext({proxy:PROXY,ignoreHTTPSErrors:false,timeout:45000});
  try{
   for(const path of ['/',...GAMES.map(id=>'/games/'+id),...MACHINE_ASSETS.map(name=>PREFIX+'/'+name),...PORTAL_ASSETS.map(name=>PORTAL_PREFIX+name),'/api/machine-session']){
@@ -72,10 +82,12 @@ function assertGuestRequests(evidence,label){
    }catch(error){item.error=error.message;failures.push({scope:'http',path,error:failure(error)});}
   }
  }finally{write('http-live-r12.json',http);await api.dispose();}
- const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox'],proxy:PROXY});
+ }
+ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox',...(DISABLE_HTTP2?['--disable-http2']:[])],proxy:PROXY});
  const results=[],portal={};
  try{
-  const{context,page,evidence}=await guestPage(browser);
+  if(ONLY==='all'||ONLY==='portal'){
+  const{page,evidence,close}=await guestPage(browser);
   try{
    const response=await page.goto(ORIGIN+'/',{waitUntil:'domcontentloaded',timeout:45000});portal.status=response.status();assert.equal(portal.status,200);
    await page.waitForFunction(release=>{const state=window[Symbol.for('zplay.portal.reference.r9')]?.diagnostics();return document.body.dataset.portalR9===release&&state?.loaded;},PORTAL_RELEASE,{timeout:30000});
@@ -107,12 +119,13 @@ function assertGuestRequests(evidence,label){
    }else throw Error('Original Games navigation button is missing');
    assertGuestRequests(evidence,'portal');
   }catch(error){portal.errorMessage=error.message;failures.push({scope:'portal',error:failure(error)});try{await page.screenshot({path:OUT+'/live-r12-portal-error.png',fullPage:true});}catch{}}
-  finally{await context.close();Object.assign(portal,evidence);if(evidence.blockedMutations.length)failures.push({scope:'portal-close',error:'Blocked unexpected mutation: '+JSON.stringify(evidence.blockedMutations)});write('portal-live-r12.json',portal);}
-  for(const game of GAMES){
-   const{context,page,evidence}=await guestPage(browser);const item={game};results.push(item);
+  finally{await close();Object.assign(portal,evidence);if(evidence.blockedMutations.length)failures.push({scope:'portal-close',error:'Blocked unexpected mutation: '+JSON.stringify(evidence.blockedMutations)});write('portal-live-r12.json',portal);}
+  }
+  for(const game of (ONLY==='all'||ONLY==='games'?SELECTED_GAMES:[])){
+   const{page,evidence,close}=await guestPage(browser);const item={game};results.push(item);const started=Date.now();
    try{
     const response=await page.goto(ORIGIN+'/games/'+game,{waitUntil:'domcontentloaded',timeout:45000});item.status=response.status();
-    await page.waitForSelector('body[data-state="signedout"]',{timeout:30000});
+    await page.waitForSelector('body[data-state="signedout"]',{timeout:STARTUP_TIMEOUT});item.startupMs=Date.now()-started;
     await page.locator('#menu').tap();await page.locator('[data-panel="audio"]').tap();await page.locator('#sound-test').tap();
     await page.evaluate(async prefix=>{window.__liveQAMachine=await import(prefix+'/controller.mjs');},PREFIX);
     await page.waitForFunction(({samples,native,bundles})=>{const d=window.__liveQAMachine.diagnostics(),expected=native[d.gameId];return d.artworkLoaded&&d.cabinetArtworkLoaded&&d.decodedSoundSamples===samples[d.gameId]&&d.audioState==='running'&&(d.gameId!=='multi_hot_5_video'||d.multiArtworkLoaded)&&(!expected||(d.nativeArtworkLoaded&&d.nativeSymbolCount===expected&&d.nativeAnimation?.ready&&d.nativeAnimation.instances===bundles[d.gameId]&&d.nativeAnimation.draws>0&&(d.gameId!=='multi_hot_5_video'||d.nativeAnimation.decodedPages>=4)&&(document.body.dataset.nativeFoxyControls==='true'||document.body.dataset.nativeMh5Controls==='true')&&[...document.fonts].filter(f=>/^Foxy Intro|^MH5 Intro/.test(f.family)&&f.status==='loaded').length===2))&&(d.gameId!=='hot_foxy_20'||d.nativeForegroundLoaded);},{samples:SAMPLE_COUNTS,native:NATIVE_SYMBOL_COUNTS,bundles:NATIVE_BUNDLE_COUNTS},{timeout:45000});
@@ -130,9 +143,9 @@ function assertGuestRequests(evidence,label){
     if(Object.hasOwn(BACKGROUND_DURATIONS,game)){assert.equal(info.backgroundAudio.playing,true);assert.ok(Math.abs(info.backgroundAudio.durationSeconds-BACKGROUND_DURATIONS[game])<.002,game+' background loop duration');}else{assert.equal(info.backgroundAudio.loaded,false);assert.equal(info.backgroundAudio.playing,false);}
     assertGuestRequests(evidence,game);
    }catch(error){item.error=error.message;failures.push({scope:'machine',game,error:failure(error)});try{await page.screenshot({path:OUT+'/live-r12-'+game+'-error.png',fullPage:true});}catch{}}
-   finally{await context.close();Object.assign(item,evidence);if(evidence.blockedMutations.length)failures.push({scope:'machine-close',game,error:'Blocked unexpected mutation: '+JSON.stringify(evidence.blockedMutations)});write('live-r12.json',results);}
+   finally{await close();Object.assign(item,evidence);if(evidence.blockedMutations.length)failures.push({scope:'machine-close',game,error:'Blocked unexpected mutation: '+JSON.stringify(evidence.blockedMutations)});write('live-r12.json',results);}
   }
  }finally{await browser.close();}
- const summary={ok:failures.length===0,machinePrefix:PREFIX,expectedBackgroundDurations:BACKGROUND_DURATIONS,expectedSoundSamples:SAMPLE_COUNTS,expectedNativeSymbols:NATIVE_SYMBOL_COUNTS,expectedNativeBundles:NATIVE_BUNDLE_COUNTS,httpChecks:http.length,portal,games:results,failures};write('live-r12-summary.json',summary);
+ const summary={ok:failures.length===0,scope:ONLY,disableHttp2:DISABLE_HTTP2,startupTimeoutMs:STARTUP_TIMEOUT,machinePrefix:PREFIX,expectedBackgroundDurations:BACKGROUND_DURATIONS,expectedSoundSamples:SAMPLE_COUNTS,expectedNativeSymbols:NATIVE_SYMBOL_COUNTS,expectedNativeBundles:NATIVE_BUNDLE_COUNTS,httpChecks:http.length,portal,games:results,failures};write('live-r12-summary.json',summary);
  console.log(JSON.stringify(summary));assert.equal(failures.length,0,failures.map(f=>f.scope+': '+(f.path||f.game||'homepage')+' '+f.error).join('\n'));
 })().catch(error=>{console.error(error.stack||error.message);process.exitCode=1;});
