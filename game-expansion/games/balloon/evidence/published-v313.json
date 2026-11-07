@@ -1,0 +1,204 @@
+{
+  "status": "published",
+  "playerVersion": 313,
+  "versionId": "0ceec21f-fb49-4109-a878-7f4e81778150",
+  "deploymentId": "cfbfbb2f-c0f0-43fd-8de1-01d92672308c",
+  "publishedAt": "2026-11-07T21:18:06.489Z",
+  "sourceCommit": "80b2f2be3c750ffaea81ac4346d4996e66dbecf4",
+  "route": "https://superwin-player.apdiy61.workers.dev/games/balloon_native",
+  "oldModulesPreserved": 208,
+  "bindingsPreserved": 13,
+  "backendChanged": false,
+  "focusedTests": {
+    "passed": 35,
+    "failed": 0
+  },
+  "http": {
+    "checkedAt": "2026-11-07T21:18:55.476Z",
+    "assets": [
+      {
+        "file": "index.html",
+        "exact": true
+      },
+      {
+        "file": "balloon.js",
+        "exact": true
+      },
+      {
+        "file": "balloon.css",
+        "exact": true
+      },
+      {
+        "file": "cover.svg",
+        "exact": true
+      }
+    ],
+    "requests": [
+      {
+        "name": "home",
+        "path": "/",
+        "status": "200",
+        "bytes": 2419,
+        "sha256": "9ddc7bbd2d44f10f8b260348d2efd69e870d80055edfc891550a36892b60d452",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8",
+        "lobby_replaced": true
+      },
+      {
+        "name": "catalog",
+        "path": "/api/config",
+        "status": "200",
+        "bytes": 41556,
+        "sha256": "efa119ea4af350ff54f57fd7e79131b5128f1691f8986b1b3cbf3f0b3c8fec3a",
+        "curl_exit": 0,
+        "content-type": "application/json; charset=utf-8",
+        "games": 58,
+        "balloon_entries": [
+          {
+            "id": "balloon_native",
+            "name": "Balloon",
+            "type": "crash",
+            "category": "Flight",
+            "studio": "Superwin",
+            "available": true,
+            "enabled": true,
+            "demo": false,
+            "thumbnail": "/assets/zplay-balloon-native-v1.svg",
+            "launch": "/games/balloon_native",
+            "implementation": "Native canvas; independent server-side math",
+            "official_provider_game": false
+          }
+        ],
+        "retained_ids": [
+          "jetx_native"
+        ]
+      },
+      {
+        "name": "balloon",
+        "path": "/games/balloon_native",
+        "status": "200",
+        "bytes": 2798,
+        "sha256": "b01564726bdf8424802d9b4ab434a3976691c9509207ecd0b3f60e070e0a4d16",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8",
+        "x-zplay-balloon-release": "zplay-balloon-native-20261107-r1"
+      },
+      {
+        "name": "balloon_js",
+        "path": "/native-library/balloon/v1/balloon.js",
+        "status": "200",
+        "bytes": 22916,
+        "sha256": "76f7d28e0251346aa3a27b84def8fac191ee91992a1726ca5974a88175273ed9",
+        "curl_exit": 0,
+        "content-type": "application/javascript; charset=utf-8",
+        "x-zplay-balloon-release": "zplay-balloon-native-20261107-r1"
+      },
+      {
+        "name": "balloon_css",
+        "path": "/native-library/balloon/v1/balloon.css",
+        "status": "200",
+        "bytes": 5974,
+        "sha256": "371e43ec84b62bd53db90e91eb9462551d4f5ac2d45fe87ee9ed1c13fdeb9587",
+        "curl_exit": 0,
+        "content-type": "text/css; charset=utf-8",
+        "x-zplay-balloon-release": "zplay-balloon-native-20261107-r1"
+      },
+      {
+        "name": "balloon_cover",
+        "path": "/assets/zplay-balloon-native-v1.svg",
+        "status": "200",
+        "bytes": 1178,
+        "sha256": "e1cddc020068523fb6f28e7ba782ce3554d12e14107c5fb787ff6a5a930f6562",
+        "curl_exit": 0,
+        "content-type": "image/svg+xml",
+        "x-zplay-balloon-release": "zplay-balloon-native-20261107-r1"
+      },
+      {
+        "name": "signedout_state",
+        "path": "/api/library/state?game_id=balloon_native",
+        "status": "401",
+        "bytes": 24,
+        "sha256": "a1d55d2c2c14a6a8d1c08977059aa62ea671af14dbb076c3ecb00d1f31e74389",
+        "curl_exit": 0,
+        "content-type": "application/json",
+        "response": {
+          "error": "UNAUTHORIZED"
+        }
+      },
+      {
+        "name": "multihot_video",
+        "path": "/games/multi_hot_5_video",
+        "status": "200",
+        "bytes": 8088,
+        "sha256": "9cc134393c39887ab52e32e970be0ba4266b1b2932cd24bc8d92bf022ba95a72",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8"
+      },
+      {
+        "name": "multihot_native",
+        "path": "/games/multi_hot_5_native",
+        "status": "200",
+        "bytes": 8512,
+        "sha256": "9a47347b2d09120da20461c52b60c918a81dbfae4f9d3ab0b643caae893b60d4",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8"
+      },
+      {
+        "name": "foxy_video",
+        "path": "/games/hot_foxy_20",
+        "status": "200",
+        "bytes": 8082,
+        "sha256": "ccfb52617545aaa958f53717615ed2a3d2091dc45cbb3efdda16ded7cd14a6b1",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8"
+      },
+      {
+        "name": "foxy_native",
+        "path": "/games/foxy_hot_20_native",
+        "status": "200",
+        "bytes": 8506,
+        "sha256": "f01b8b7a8e0295346226c5ec81410ef12dfe08e6d8728b4021f1e8d1d359d6c8",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8"
+      },
+      {
+        "name": "jetx",
+        "path": "/games/jetx_native",
+        "status": "200",
+        "bytes": 226223,
+        "sha256": "e28e9ddc984ead19e028d1b195a61f4f10ea248177ce414c174c0c636f062339",
+        "curl_exit": 0,
+        "content-type": "text/html; charset=utf-8"
+      }
+    ]
+  },
+  "browser": {
+    "desktop": {
+      "viewport": 1363,
+      "documentWidth": 1363,
+      "canvas": [
+        1363,
+        762
+      ],
+      "holdDisabled": true,
+      "notice": "Log in to your ZPLAY player account.",
+      "appErrors": [],
+      "excludedExtensionError": "Error sending browser metadata to extension"
+    },
+    "mobile": {
+      "viewport": [
+        390,
+        844
+      ],
+      "method": "public URL screenshot after DOMContentLoaded",
+      "visualPass": true,
+      "screenshotSha256": "2b177f9bc6d5f45b5791d5f352158151aecf77e7c9102b7eaecf1f74fb0e7240"
+    },
+    "limits": [
+      "No production wallet wager performed",
+      "360 and430 viewport not tested",
+      "Official private math and100% animation fidelity not claimed"
+    ]
+  },
+  "rollbackVersionId": "8a64773a-46d2-423c-b5a7-f0b22084d2d7"
+}
