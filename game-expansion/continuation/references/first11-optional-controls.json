@@ -1,0 +1,114 @@
+{
+  "checkedAtUtc": "2026-11-07T21:57:38Z",
+  "status": "PARTIAL_AUTOPLAY_IMPLEMENTED_GAMBLE_PENDING",
+  "sourceCurrency": "DMO",
+  "noProviderProbabilityClaim": true,
+  "gamble": {
+    "publicMechanic": "After an eligible winning spin, choose red or black; the resulting amount doubles on success and becomes zero on failure. Take Win/close uses Finish. Starting the next spin uses FinishAndStart.",
+    "rawDemoParameters": {
+      "DoublingMaxCount": "5.0",
+      "DoublingMaxWin": "500.0"
+    },
+    "parameterMeaningCaution": "These are raw public provider fields. DoublingMaxWin is displayed as a500 DMO limit; the fetched client does not establish whether it caps the amount before doubling, the possible result, or another eligibility check. Do not silently call it maximum gamble stake.",
+    "authoritativeEligibility": "Client enables the next gamble only when Board.Options contains OptionKey Double. Receives DoubleGameStage, UserWin/TotalWin and card fields. Client code does not disclose win probability.",
+    "displayContract": "Red/black buttons store the chosen color locally and send the Double event; the displayed card is selected consistently with the returned win/loss result. No server probability is inferred from this animation.",
+    "modelStatus": "Pending; current draft settles immediately and exposes no gamble/collect action."
+  },
+  "autoplay": {
+    "modernDefault": {
+      "titles": [
+        "MultiHot40",
+        "MultiHot100",
+        "MultiHotWildWays",
+        "MultiHot5Wild",
+        "MultiHot5SuperWilds",
+        "MultiHot5Deluxe",
+        "SafariSimba",
+        "HabeshaFortune5"
+      ],
+      "counts": [
+        25,
+        50,
+        100,
+        500,
+        1000
+      ],
+      "defaultSelectedCount": 100,
+      "stops": [
+        "round win reaches/exceeds limit",
+        "net balance decreases by limit",
+        "net balance increases by limit"
+      ],
+      "stopOnBonus": "Hidden by title-specific gameInit for these8 titles.",
+      "inputBounds": {
+        "winThreshold": "MaxWinAmount",
+        "netDecreaseThreshold": "current balance",
+        "netIncreaseThreshold": "3000×total wager"
+      },
+      "exceptions": "Colombia jurisdiction only: MultiHot5Deluxe and SafariSimba use10/25/50/75/100. Wild5 and WildWays VR mode hides all stop-condition rows; ordinary demo mode retains the three cash thresholds."
+    },
+    "burningLegacy": {
+      "counts": [
+        10,
+        25,
+        50,
+        75,
+        "infinite"
+      ],
+      "defaultSelectedCount": "infinite",
+      "evidence": "Observed BlazingHot40 scene DOM plus shared legacy canvas and base blazinghot settings;5/10 inherit same legacy controller but their current rendered popup was not separately observed.",
+      "stops": [
+        "net session gain threshold",
+        "net session loss threshold",
+        "free-spin trigger toggle",
+        "bonus trigger toggle",
+        "big-win toggle"
+      ],
+      "continuation": "Already-started free/respin sequences continue to complete when paid autoplay is stopped."
+    },
+    "disconnection": "Official current help says autoplay is disabled after disconnection. This needs matching host behavior and validation.",
+    "implementation": {
+      "controller": "client/autoplay.mjs",
+      "host": "client/app.mjs",
+      "controllerTests": 20,
+      "realAppHostTests": 10,
+      "countMenus": true,
+      "monetaryStops": true,
+      "modelVersionPinned": true,
+      "sessionPinned": true,
+      "retryAndDisconnectStop": true,
+      "noAutoplayResumeOnReload": true,
+      "legacyFeatureStopFlagsAvailable": false,
+      "browserAppearanceVerified": false,
+      "completeOfficialControlParity": false
+    }
+  },
+  "sources": [
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/double.js",
+      "sha256": "2dc5dc86d3466945ef0e9320647557b8623a2327087aa6307a0af5eaac431d77",
+      "bytes": 23726
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/autoPlay.js",
+      "sha256": "fd3215d796f2324b275989a077e21e04438302901fbc9502944f1173d3d5acbe",
+      "bytes": 35698
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/buttons.js",
+      "sha256": "0fde07c331a593d4eb64a907f397f96c435cb77210e461d7a1350e33a090ff3a",
+      "bytes": 71865
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/data.js",
+      "sha256": "99bca3f4c35c0e08e0a8b95973d187f295eb93fd085c9b296f76e888ad714bde",
+      "bytes": 19018
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/Slots/canvas.js",
+      "sha256": "caf82f42562dd275d11eaec37dcb58939277598b0f0bfaf09218c8e219e59b77",
+      "bytes": 138851
+    }
+  ],
+  "implementationUpdatedAtUtc": "2026-11-07T22:09:18.744819+00:00"
+}

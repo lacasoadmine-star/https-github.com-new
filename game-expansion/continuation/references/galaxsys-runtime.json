@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 1,
+  "retrievedAt": "2026-11-07T21:50:31.698521+00:00",
+  "scope": "Primary public runtime/help evidence for Egyptian Legends and Olympian Legends only; no production ZPLAY wager or account action.",
+  "status": {
+    "coreRulesEvidence": "verified with explicitly listed ambiguities",
+    "exactNumericSymbolPaytables": "unresolved",
+    "officialPrivateMathVerified": false,
+    "demoVisualParityVerified": false,
+    "publicationReadiness": "unpublished prototype; reference and implementation gaps remain"
+  },
+  "method": "Read official demo wrapper and public runtime assets; follow observed module URLs, rules-loader API, and per-game default English help. No downloaded JavaScript was executed for evidence extraction.",
+  "sources": [
+    {
+      "id": "egypt_rules_api",
+      "url": "https://galaxsys-games.com/gx-lobby-service/Lobby/GetRule?PartnerId=2112&GameType=EgyptianLegends&Culture=en&CurrencyId=Fun",
+      "kind": "public provider runtime rules API",
+      "sha256": "e971866c0ecaefb87c6ddcd1786a26db97194090f6c4923a7825650f063ca8c5",
+      "bytes": 17401,
+      "providerRuleId": 202,
+      "providerRuleVersion": 2,
+      "providerCreatedAt": "2026-11-04T12:21:41.348818Z",
+      "activeSectionIds": [
+        2706,
+        2707,
+        2708,
+        2709,
+        2710,
+        2711,
+        2712,
+        2713,
+        2714,
+        2715,
+        2716,
+        2717,
+        2718,
+        2719
+      ]
+    },
+    {
+      "id": "olympus_rules_api",
+      "url": "https://galaxsys-games.com/gx-lobby-service/Lobby/GetRule?PartnerId=2112&GameType=OlympianLegends&Culture=en&CurrencyId=Fun",
+      "kind": "public provider runtime rules API",
+      "sha256": "5c1ffce7067b5b2f19a3574d462e77dd71c48ca9ed3468017097499e6ae0cee8",
+      "bytes": 12405,
+      "providerRuleId": 156,
+      "providerRuleVersion": 1,
+      "providerCreatedAt": "2026-10-23T11:11:10.891548Z",
+      "activeSectionIds": [
+        1826,
+        1827,
+        1828,
+        1829,
+        1830,
+        1831,
+        1832,
+        1833,
+        1835,
+        1836,
+        1837
+      ]
+    },
+    {
+      "id": "egypt_rules_default",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-rules-client/v66/717.2d606e9bda6e126d6271.js",
+      "kind": "provider fallback rules component and language resources",
+      "sha256": "31d3ab6d22dddb4870be9e6ad9c18bb4d8559d714c6213904fdcb4b2b89bb2f9",
+      "bytes": 109323
+    },
+    {
+      "id": "olympus_rules_default",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-rules-client/v66/6189.79ab77c31aaa9b81d13c.js",
+      "kind": "provider shared rules component and language resources",
+      "sha256": "43e2130f15e37dbf105c40b44851f464029251d67ab0959ee6d35565bb60628c",
+      "bytes": 141189
+    },
+    {
+      "id": "olympus_rule_component",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-rules-client/v66/6462.e705789b2a25183af4bc.js",
+      "kind": "provider rule component referencing Globe of Power help",
+      "sha256": "ec6fd610fc14d85a210833cefec62a7ed7895f321ec049b920c04d19467026a1",
+      "bytes": 6318
+    },
+    {
+      "id": "egypt_runtime",
+      "url": "https://cdn.galaxsys-games.com/gsl-client/prd/gsl-egyptianlegends-client/v44/252.js",
+      "kind": "public provider game runtime",
+      "sha256": "af3379a040558bb1f8651c4f79cde399aa8f0508c99da242658f88289094cd06",
+      "bytes": 298068
+    },
+    {
+      "id": "olympus_runtime",
+      "url": "https://cdn.galaxsys-games.com/gsl-client/prd/gsl-olympianlegends-client/v165/240.js",
+      "kind": "public provider game runtime",
+      "sha256": "4b2b922650f80404d0bf6d85d3da414c6a7637b04d9d5fc9343a7c11733a5281",
+      "bytes": 228838
+    },
+    {
+      "id": "egypt_paytable",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-rules-client/v66/7642.4d4129ed393509c3d56c.js",
+      "kind": "provider paytable rendering component; coefficients are external",
+      "sha256": "580416da6c1656f1b65174092c9d3ad56a9dda47a9c4767b6ada3a3096db755f",
+      "bytes": 20092
+    },
+    {
+      "id": "olympus_paytable",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-rules-client/v66/6181.4cbd6e6a129d5162fe41.js",
+      "kind": "provider paytable rendering component; coefficients are external",
+      "sha256": "990cd605a474ef6204e106dcadf5217e1bc899d814b77911b3d44750ad4a899f",
+      "bytes": 17889
+    },
+    {
+      "id": "slot_request_model",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-launcher-client/v94/687.59d466a66e8d1661c95e.js",
+      "kind": "provider GetPayTable socket request model",
+      "sha256": "d02f2e573b37ca6de4dbdb1327788b20eb560c1f8b91c6f08ac23f19c98d98be",
+      "bytes": 1429
+    },
+    {
+      "id": "launcher_slice",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-launcher-client/v94/405.f51f0f242f7e5223a4a3.js",
+      "kind": "provider setPayTable state reducer",
+      "sha256": "8c4daf51435235d639505857b6e518530a9d16ff551b91157ce7d920c82b39af",
+      "bytes": 97527
+    },
+    {
+      "id": "rules_loader",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-rules-client/v66/1266.ea9db6b382385b40a478.js",
+      "kind": "provider rules loader resolving rules API and per-game components",
+      "sha256": "917ab73ba035d76f717dc9278c8dac89ce7a4e6a82bd2f6e8cd3870eb3db505f",
+      "bytes": 97358
+    }
+  ],
+  "games": [
+    {
+      "id": "egyptianlegends_native",
+      "name": "Egyptian Legends",
+      "officialPage": "https://galaxsys.co/games/Egyptian-Legends/",
+      "sources": [
+        "egypt_rules_api",
+        "egypt_rules_default",
+        "egypt_runtime"
+      ],
+      "board": {
+        "columns": 6,
+        "rows": 5,
+        "minimumMatchingSymbols": 8,
+        "evaluation": "same-symbol count across the board; not adjacent clusters or paylines",
+        "sources": [
+          "egypt_rules_api:2706",
+          "egypt_rules_api:2708"
+        ]
+      },
+      "symbols": {
+        "source": "egypt_runtime",
+        "byProviderId": {
+          "1": "wild",
+          "2": "ankh",
+          "3": "eyeOfHorus",
+          "4": "book",
+          "5": "papyrus",
+          "6": "redGem",
+          "7": "purpleGem",
+          "8": "blueGem",
+          "9": "greenGem",
+          "10": "scatter",
+          "11": "multiplier"
+        },
+        "note": "Mythic gods are feature characters, not the eight ordinary paying symbol identities."
+      },
+      "progress": {
+        "cumulativeThresholds": [
+          20,
+          40,
+          60,
+          85,
+          110
+        ],
+        "segmentSizes": [
+          20,
+          20,
+          20,
+          25,
+          25
+        ],
+        "unit": "crashed/winning symbols, not cascade count",
+        "thresholdEvidence": {
+          "source": "egypt_runtime",
+          "arrayOffset": 14088,
+          "segmentAccumulatorOffset": 102462,
+          "serverField": "previousFeaturePoints / totalCrashedSymbolsCount"
+        },
+        "baseReset": "Uncompleted progress is reset before the next base spin.",
+        "bonusRetention": "Progress survives between free spins; base-game progress is not transferred into the bonus.",
+        "featureTiming": "Earned features resolve after the current winning cascade sequence; bonus rules explicitly resolve active features before the next free spin.",
+        "sources": [
+          "egypt_rules_api:2707",
+          "egypt_rules_api:2711"
+        ]
+      },
+      "features": [
+        {
+          "stage": 1,
+          "god": "Bastet",
+          "name": "Paw of Fortune",
+          "threshold": 20,
+          "mechanic": "The progress display becomes a growing multiplier bar. Cascade wins use its current multiplier; arriving multiplier-symbol values are added to the bar.",
+          "source": "egypt_rules_api:2707",
+          "runtimeKeys": [
+            "strGoldenPawAmuletSymbolDesc1",
+            "strGoldenPawAmuletSymbolDesc2",
+            "strGoldenPawAmuletSymbolDesc3"
+          ]
+        },
+        {
+          "stage": 2,
+          "god": "Sobek",
+          "name": "Scarab Storm",
+          "threshold": 40,
+          "mechanic": "Multiplier symbols remain on the grid through this feature sequence. At its end, their combined value multiplies the total wins accumulated during the feature.",
+          "source": "egypt_rules_api:2707",
+          "runtimeKeys": [
+            "strCrocodileEyeSymbolDesc"
+          ]
+        },
+        {
+          "stage": 3,
+          "god": "Isis",
+          "name": "Rising Wings",
+          "threshold": 60,
+          "mechanic": "Multiplier symbols appear at random grid positions. Their summed multiplier applies to each cascade win during the feature and resets when the feature finishes.",
+          "source": "egypt_rules_api:2707",
+          "runtimeKeys": [
+            "strFeatherOfIsisSymbolDesc"
+          ]
+        },
+        {
+          "stage": 4,
+          "god": "Anubis",
+          "name": "Fate Strike",
+          "threshold": 85,
+          "mechanic": "Grid-cell multipliers start at 2. Wins involving those cells use the stated sum of multipliers; multipliers on involved cells increase after wins and remain attached to fixed positions for later cascades.",
+          "source": "egypt_rules_api:2707",
+          "runtimeKeys": [
+            "strScalesOfAnubisSymbolDesc"
+          ],
+          "unresolved": "Help does not specify the numerical increment or fully disambiguate whether the summed multiplier includes only the winning cells or every marked cell."
+        },
+        {
+          "stage": 5,
+          "god": "Horus",
+          "name": "Eye of the Sky",
+          "threshold": 110,
+          "mechanic": "Choose an ordinary symbol type and replace all its visible instances with Wilds. Scatter and Wild cannot be the chosen type. Resulting wins use the current multiplier.",
+          "source": "egypt_rules_api:2707",
+          "runtimeKeys": [
+            "strSolarFalconSymbolDesc"
+          ]
+        }
+      ],
+      "bonus": {
+        "triggerScatterCounts": [
+          4,
+          5,
+          6
+        ],
+        "initialFreeSpins": 10,
+        "buyCostTimesBaseBet": 100,
+        "baseProgressTransfers": false,
+        "progressRetainedAcrossFreeSpins": true,
+        "retrigger": [
+          {
+            "scatters": 3,
+            "additionalSpins": 2,
+            "immediateBetMultiplier": 0
+          },
+          {
+            "scatters": 4,
+            "additionalSpins": 3,
+            "immediateBetMultiplier": 3
+          },
+          {
+            "scatters": 5,
+            "additionalSpins": 5,
+            "immediateBetMultiplier": 5
+          },
+          {
+            "scatters": 6,
+            "additionalSpins": 10,
+            "immediateBetMultiplier": 100
+          }
+        ],
+        "sources": [
+          "egypt_rules_api:2709",
+          "egypt_rules_api:2710",
+          "egypt_rules_api:2711"
+        ]
+      },
+      "superBonus": {
+        "buyCostTimesBaseBet": 500,
+        "initialFreeSpins": 5,
+        "oneFeaturePerSpin": true,
+        "featureOrder": [
+          "Bastet",
+          "Sobek",
+          "Isis",
+          "Anubis",
+          "Horus"
+        ],
+        "progressBarActive": false,
+        "eachFeatureGuaranteesWin": true,
+        "source": "egypt_rules_api:2712"
+      },
+      "featureSelection": {
+        "costTimesBaseBet": {
+          "Paw of Fortune": 10,
+          "Scarab Storm": 15,
+          "Rising Wings": 20,
+          "Fate Strike": 40,
+          "Eye of the Sky": 50
+        },
+        "behavior": "Chosen feature activates on every spin while selected, replacing the normal progress sequence. Mode changes are allowed only before a new spin, never mid-round or during its bonus.",
+        "source": "egypt_rules_api:2714"
+      },
+      "anteBet": {
+        "costTimesBaseBet": 1.25,
+        "advertisedBonusChanceTimes": 2,
+        "buyBonusDisabled": true,
+        "source": "egypt_rules_api:2713"
+      },
+      "multiplierSymbols": {
+        "visibleValuesInDefaultHelp": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          10,
+          15,
+          20,
+          25,
+          50,
+          100,
+          250,
+          500
+        ],
+        "source": "egypt_rules_default:strMultiplierDesc1/2/3",
+        "note": "Values and feature descriptions are public; their probabilities and selection distributions are not provided."
+      },
+      "officialRuntimeRtpByMode": {
+        "standard": 96.37,
+        "anteBet": 96.19,
+        "buyBonus": 96.1,
+        "superBonus": 96.42,
+        "Paw of Fortune": 96.53,
+        "Scarab Storm": 96.35,
+        "Rising Wings": 96.2,
+        "Fate Strike": 96.43,
+        "Eye of the Sky": 96.36,
+        "source": "egypt_rules_api:2717"
+      },
+      "numericSymbolPaytableVerified": false,
+      "unresolved": [
+        "Exact symbol payout bands and coefficients require the provider GetPayTable response.",
+        "Exact feature RNG distributions are private/unexposed.",
+        "Bastet per-win multiplier step and Anubis cell increment are not fully specified by the public help.",
+        "Marketing calls the five powers by different names and gives a different aggregate RTP; use the runtime mode-specific names and state the source version."
+      ]
+    },
+    {
+      "id": "olympianlegends_native",
+      "name": "Olympian Legends",
+      "officialPage": "https://galaxsys.co/games/Olympian-Legends/",
+      "sources": [
+        "olympus_rules_api",
+        "olympus_rules_default",
+        "olympus_rule_component",
+        "olympus_runtime"
+      ],
+      "board": {
+        "columns": 6,
+        "rows": 5,
+        "minimumMatchingSymbols": 8,
+        "evaluation": "same-symbol count anywhere on the board; not adjacent clusters or paylines",
+        "sources": [
+          "olympus_rules_api:1826",
+          "olympus_rules_api:1827"
+        ]
+      },
+      "symbols": {
+        "source": "olympus_runtime",
+        "ordinaryTypes": [
+          "majorYellow",
+          "majorRed",
+          "majorBlue",
+          "majorGreen",
+          "simpleYellow",
+          "simpleRed",
+          "simpleBlue",
+          "simpleGreen"
+        ],
+        "wildProviderId": 1,
+        "scatterProviderId": 10,
+        "note": "The runtime normal symbols are two tiers of four colored gems, not Crown/Chalice/Ring/Hourglass."
+      },
+      "progress": {
+        "cumulativeThresholds": [
+          20,
+          40,
+          60,
+          85,
+          110
+        ],
+        "unit": "crashed/winning symbols, not cascade count",
+        "thresholdEvidence": {
+          "source": "olympus_runtime",
+          "arrayOffset": 11864,
+          "unlockComparisonOffset": 135628,
+          "comparison": "winSymbolCount >= threshold[stage] + 110 * cycle"
+        },
+        "featureTiming": "After the board has no further winning cascades, earned powers play in their fixed order.",
+        "baseReset": "Base-spin progress resets before the next paid spin.",
+        "bonusRetention": "Progress persists across bonus spins; base-game progress does not transfer into the bonus.",
+        "sources": [
+          "olympus_rules_api:1828",
+          "olympus_rules_api:1830"
+        ]
+      },
+      "features": [
+        {
+          "stage": 1,
+          "god": "Poseidon",
+          "name": "Sea Surge",
+          "threshold": 20,
+          "mechanic": "Remove all low-value symbols. Remaining symbols fall and empty positions refill; the incoming replacements exclude Wild and Scatter.",
+          "source": "olympus_rules_api:1828"
+        },
+        {
+          "stage": 2,
+          "god": "Hecate",
+          "name": "Magic Wilds",
+          "threshold": 40,
+          "mechanic": "Replace random grid positions with 2 to 5 Wilds.",
+          "source": "olympus_rules_api:1828"
+        },
+        {
+          "stage": 3,
+          "god": "Atlas",
+          "runtimeAssetName": "titan",
+          "name": "Globe of Power",
+          "threshold": 60,
+          "mechanic": "A large symbol lands on random reels and changes into one ordinary symbol to form a winning combination; it cannot become Wild or Scatter.",
+          "source": "olympus_rules_default:strGlobeSymbolDesc/strGlobeSymbolDesc1",
+          "componentEvidence": "olympus_rule_component explicitly renders the two Globe description keys.",
+          "unresolved": "The public wording does not specify its exact rectangle dimensions or the selection distribution."
+        },
+        {
+          "stage": 4,
+          "god": "Hephaestus",
+          "name": "Forge of Destiny",
+          "threshold": 85,
+          "mechanic": "Clear and refill 3 to 6 random reels. Wild and Scatter symbols in affected reels survive and fall to the bottom before refill.",
+          "source": "olympus_rules_api:1828"
+        },
+        {
+          "stage": 5,
+          "god": "Zeus",
+          "name": "Thunderbolts",
+          "threshold": 110,
+          "mechanic": "Convert every visible instance of one ordinary symbol type into Wild. Wild and Scatter cannot be the chosen type, and a winning combination cannot consist exclusively of Wilds.",
+          "source": "olympus_rules_api:1828"
+        }
+      ],
+      "wild": {
+        "substitutesExcept": [
+          "scatter"
+        ],
+        "appearsOnlyInMythicFeatures": true,
+        "allWildOnlyWinAllowed": false,
+        "sources": [
+          "olympus_rules_default:strWildDesc",
+          "olympus_rules_api:1828"
+        ]
+      },
+      "scatterSurvivesTumbles": {
+        "value": true,
+        "source": "olympus_rules_default:strScatterDesc"
+      },
+      "featureMultiplierValues": {
+        "base": [
+          1,
+          2,
+          3,
+          5,
+          7,
+          10,
+          20
+        ],
+        "bonus": [
+          2,
+          3,
+          5,
+          7,
+          10,
+          20,
+          50
+        ],
+        "source": "olympus_rules_api:1828",
+        "note": "The source has a harmless x10x typographical duplication. Probabilities are not public."
+      },
+      "bonus": {
+        "triggerScatterCounts": [
+          4,
+          5,
+          6
+        ],
+        "initialFreeSpins": 12,
+        "buyCostTimesBaseBet": 100,
+        "baseProgressTransfers": false,
+        "progressRetainedAcrossFreeSpins": true,
+        "sources": [
+          "olympus_rules_api:1829",
+          "olympus_rules_api:1830"
+        ],
+        "retriggerCountsVerified": false
+      },
+      "anteBet": {
+        "costTimesBaseBet": 1.25,
+        "advertisedBonusChanceTimes": 2,
+        "buyBonusDisabled": true,
+        "source": "olympus_rules_api:1831"
+      },
+      "officialRuntimeRtpByMode": {
+        "standard": 96.19,
+        "anteBet": 96.31,
+        "buyBonus": 96.59,
+        "source": "olympus_rules_api:1832"
+      },
+      "numericSymbolPaytableVerified": false,
+      "unresolved": [
+        "Exact normal-symbol payout bands and coefficients require the provider GetPayTable response.",
+        "Exact Globe of Power dimensions and feature selection distributions are not supplied by the retrieved public help.",
+        "Do not infer scatter payouts from isolated default translation labels: one label says 3 Scatter x3 while the bonus trigger is 4+; the actual dynamic paytable must resolve this.",
+        "Free-spin retrigger counts were not found in the active rules or fallback English help.",
+        "Runtime RTP differs from the marketing aggregate RTP; preserve mode-specific provenance."
+      ]
+    }
+  ],
+  "paytableGap": {
+    "stateField": "partnerInfo.payTable",
+    "request": "GetPayTable",
+    "loaderEvidence": [
+      "egypt_paytable",
+      "olympus_paytable",
+      "slot_request_model",
+      "launcher_slice"
+    ],
+    "verifiedStructure": "Per-symbol configs contain minCount, maxCount and coefficient. Displayed money is coefficient times selected base bet at provider currency precision.",
+    "coefficientsRetrieved": false,
+    "reason": "The public static artifacts do not embed the runtime coefficients. An interactive provider demo session was not established past its18+confirmation.",
+    "noClaim": "Private RNG, reel weights, proprietary RTP math, exact normal-symbol table, and full visual parity are not verified."
+  },
+  "accessNotes": [
+    {
+      "url": "https://galaxsys.co/games/demo/desktop/Olympian-Legends/",
+      "observed": "Age confirmation and game loading state were visible.",
+      "action": "No age assertion, confirmation click, gameplay, session socket or financial action was performed."
+    },
+    {
+      "url": "https://galaxsys-games.com/gx-lobby-service/Lobby/GetGameTranslations/?partnerId=2112&gameType=EgyptianLegends&culture=en",
+      "observed": "One35-second request timed out with no body; official rules API and compiled default help later succeeded."
+    }
+  ],
+  "sourceQualityNotes": [
+    "The rules API section headings are sometimes mismatched to their content. Findings reference section IDs and actual text, not headings alone.",
+    "Inactive demo limit rows contain Max Win0FUN and are excluded from usable game limits.",
+    "Olympian API omits the Globe of Power paragraph; the current compiled rule component and its English resource explicitly provide it.",
+    "Egyptian marketing feature names differ from current runtime help names. Runtime names are recorded here.",
+    "Provider probabilities and private math cannot be inferred from a finite demo or the presentation code."
+  ],
+  "nativeComparison": {
+    "reviewedPath": "continuation/models/remaining-games.mjs",
+    "sha256": "e795f08d2c60117008fa6b039a87188be87e187519327aadb0023c468f5ac4b6",
+    "reviewType": "pre-correction snapshot; model owner is actively applying fixes",
+    "gaps": [
+      {
+        "severity": "core",
+        "games": [
+          "egyptianlegends_native",
+          "olympianlegends_native"
+        ],
+        "finding": "Ordinary symbol identities in the reviewed candidate differ from the provider runtime.",
+        "required": "Use each game-specific ordinary symbol set; mythic characters are feature art."
+      },
+      {
+        "severity": "core",
+        "games": [
+          "egyptianlegends_native"
+        ],
+        "finding": "Candidate advances one god per cascade and applies arbitrary 2x/3x/2x/+1/5x factors.",
+        "required": "Count crashed symbols and implement the five distinct queued powers, bonus progress retention, and actual wild substitution."
+      },
+      {
+        "severity": "core",
+        "games": [
+          "olympianlegends_native"
+        ],
+        "finding": "Candidate has common multiplier orbs but no five actual mythic power transformations and awards15FS.",
+        "required": "Implement the ordered powers and12FS; multiplier orbs are not an adequate substitute."
+      },
+      {
+        "severity": "core",
+        "games": [
+          "egyptianlegends_native"
+        ],
+        "finding": "Verified free-spin retriggers and their scatter awards are missing from the reviewed candidate.",
+        "required": "Implement verified retrigger table or keep the machine unavailable pending completion."
+      },
+      {
+        "severity": "paytable",
+        "games": [
+          "egyptianlegends_native",
+          "olympianlegends_native"
+        ],
+        "finding": "Candidate normal-symbol coefficients and count bands are independent invented values, with a later scale factor.",
+        "required": "Do not call these the exact provider paytable. Actual public numeric paytable is an outstanding reference gap."
+      },
+      {
+        "severity": "mode",
+        "games": [
+          "egyptianlegends_native",
+          "olympianlegends_native"
+        ],
+        "finding": "Current UI/start contract has no complete ante/buy-bonus modes; Egyptian super bonus and feature selection are also absent.",
+        "required": "Track these as unfinished A-to-Z behavior, not as completed provider-demo parity."
+      },
+      {
+        "severity": "presentation",
+        "games": [
+          "egyptianlegends_native",
+          "olympianlegends_native"
+        ],
+        "finding": "Current unpublished generic Canvas prototype does not reproduce the provider characters, distinct stage animations, feature displays, and controls.",
+        "required": "Complete reviewable per-machine presentation work; do not describe the prototype as the finished official demo experience."
+      }
+    ]
+  },
+  "followUp": "Review the model owner's corrected Legends implementation against these facts. Remaining genuine numeric or behavior ambiguities must stay explicit and cannot be called official-demo complete.",
+  "followUpReview": {
+    "reviewedAt": "2026-11-07T22:01:27.233704+00:00",
+    "enginePath": "continuation/models/remaining-engine.mjs",
+    "engineSha256": "c833fd91f244edde9eb4edbc89d9384754a769927409517b9db06452de31e78a",
+    "scope": "Bounded read-only comparison of the two corrected Legends sections with the retrieved primary rules; no new provider gameplay or production wagers.",
+    "verifiedChanges": [
+      "Correct per-game ordinary symbol identities and6x5 boards.",
+      "Winning-symbol counts now drive20/40/60/85/110 progress; earned powers are queued after cascades.",
+      "All five separate powers for each game are represented.",
+      "Egyptian10FS and Olympian12FS; Egyptian2/3/5/10-spin retriggers.",
+      "Bonus progress remains separate from base and persists across free spins.",
+      "Wild substitution requires at least one matching ordinary symbol.",
+      "Horus now applies and exposes its current multiplier.",
+      "Egyptian verified3/5/100x scatter awards are limited to bonus spins; unknown base awards are not invented.",
+      "Final grid/wins now have an explicit finalFrame even after the24-frame presentation limit."
+    ],
+    "findingsResolved": [
+      {
+        "finding": "Horus conversion omitted the required current multiplier.",
+        "status": "Corrected by model owner and verified in source."
+      },
+      {
+        "finding": "Bonus-only scatter award table was also used in base spins.",
+        "status": "Corrected by model owner; base amount remains an explicit unresolved public-paytable gap."
+      }
+    ],
+    "remainingParityGaps": [
+      "Numeric symbol paytable coefficients are still review values, not verified provider values.",
+      "Atlas3x3 dimensions, Anubis increment/sum scope and feature-cascade progress accounting are explicit assumptions.",
+      "Ante, buy-bonus, Egyptian super-bonus and selectable-feature interaction are unfinished.",
+      "Native presentation remains unfinished; asset-backed adapters are being built separately."
+    ],
+    "result": "Material corrections present; no claim of official-demo completeness. Production gates remain closed.",
+    "validation": "Static source comparison only; model-owner tests are reported separately."
+  }
+}

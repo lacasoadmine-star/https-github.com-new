@@ -1,0 +1,832 @@
+{
+  "checkedAtUtc": "2026-11-07T21:57:38Z",
+  "requirement": "Latest user instruction: A–Z parity with each individual official demo. Partial native adaptations must not be published as complete.",
+  "status": "ALL_FIRST11_PRODUCTION_GATES_CLOSED",
+  "productionMutationPerformed": false,
+  "currentGames": 11,
+  "productionReadyGames": 0,
+  "privateProviderMathClaimed": false,
+  "verification": {
+    "command": "node --test test/smartsoft-slots.test.mjs",
+    "passed": 24,
+    "failed": 0,
+    "scope": "Isolated pure draft engines and production rejection gates; no real-money wagers or deployment."
+  },
+  "resolvedInThisPass": [
+    "Raw public paytable coefficients restored, with no calibration scaling.",
+    "Exact discrete demo bet schedules enforced before RNG, including0.05 minima.",
+    "All11 line/way geometries verified; Wild5 title-specific help chart now recovered.",
+    "Dollar scatters confirmed across all3 Burning variants, Pot only5/10.",
+    "Base Burning Ice clover expansion corrected to reels2–5, distinct from10/40 reels2–4.",
+    "Unsupported Burning40 lucky-coin effect removed.",
+    "SuperWilds now supports multiple added Wild cells and before/final presentation frames.",
+    "Unbiased fractional total-money rounding remains a pure tested fallback; scheduled current raw payouts are integral.",
+    "Removed invented global10,000 and Burning100×limits; exact integer draft ceilings now use per-title reference MaxWinAmount and sourced maximum multiplier.",
+    "Explicit DMO-to-ETB numerical adaptation recorded without an exchange-rate or provider-profile claim.",
+    "Current uncalibrated independent mathematics quantified without scaling prizes or altering probabilities; all24 tests pass.",
+    "Recovered optional gamble and autoplay parameter facts without implementing unsupported controls."
+  ],
+  "entries": [
+    {
+      "id": "multihot40_native",
+      "name": "Multi Hot 40",
+      "version": "superwin-multihot40-1",
+      "launchable": false,
+      "grid": [
+        5,
+        4
+      ],
+      "lineCount": 40,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.40",
+      "demoStakeMaximum": "100.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "250000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "250000.00",
+        "maximumWinMultiplier": 2500,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 2500,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "multihot100_native",
+      "name": "Multi Hot 100",
+      "version": "superwin-multihot100-1",
+      "launchable": false,
+      "grid": [
+        5,
+        4
+      ],
+      "lineCount": 100,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "1.00",
+      "demoStakeMaximum": "100.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "250000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "250000.00",
+        "maximumWinMultiplier": 2500,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 2500,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "multihotwildways_native",
+      "name": "Multi Hot Wild Ways",
+      "version": "superwin-multihotwildways-1",
+      "launchable": false,
+      "grid": [
+        3,
+        3
+      ],
+      "lineCount": 0,
+      "ways": 27,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.20",
+      "demoStakeMaximum": "300.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "88500.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "88500.00",
+        "maximumWinMultiplier": 295,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 295,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "multihot5wild_native",
+      "name": "Multi Hot 5 Wild",
+      "version": "superwin-multihot5wild-1",
+      "launchable": false,
+      "grid": [
+        3,
+        3
+      ],
+      "lineCount": 5,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.05",
+      "demoStakeMaximum": "400.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "150000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "150000.00",
+        "maximumWinMultiplier": 375,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 375,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "multihot5superwilds_native",
+      "name": "Multi Hot 5 Super Wilds",
+      "version": "superwin-multihot5superwilds-1",
+      "launchable": false,
+      "grid": [
+        5,
+        3
+      ],
+      "lineCount": 5,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.10",
+      "demoStakeMaximum": "200.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "200000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "200000.00",
+        "maximumWinMultiplier": 1000,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        },
+        {
+          "id": "super_wild_trigger",
+          "status": "partly_verified",
+          "detail": "Official client consumes every Baraban-to-BarabanExpanded Wild conversion, including multiple cells. Draft supports this transformation and before/final frames. Its1/64 independent per-cell mask is a ZPLAY choice; trigger restrictions and interaction with official maximum-win behavior need reference verification."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 1000,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "multihotdeluxe_native",
+      "name": "Multi Hot Deluxe",
+      "version": "superwin-multihotdeluxe-1",
+      "launchable": false,
+      "grid": [
+        3,
+        3
+      ],
+      "lineCount": 5,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.05",
+      "demoStakeMaximum": "400.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "58000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "58000.00",
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.0",
+        "doublingLimitMeaningVerified": false,
+        "maximumWinMultiplier": 145
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        },
+        {
+          "id": "title_mapping",
+          "status": "explicit_mapping",
+          "detail": "Requested MultiHotDeluxe is mapped to the accessible official title MultiHot5Deluxe; this mapping must remain explicit."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 145,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "burningice_native",
+      "name": "Burning Ice",
+      "version": "superwin-burningice-1",
+      "launchable": false,
+      "grid": [
+        5,
+        3
+      ],
+      "lineCount": 5,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.05",
+      "demoStakeMaximum": "100.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "15000000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "15000000.00",
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.0",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        },
+        {
+          "id": "respin_payment",
+          "status": "unverified",
+          "detail": "Public help confirms automatic freezing of participating winning reels and respinning other reels. Public client receives authoritative ReelsToFreeze, ConsecutiveWinsCount, UserWin and TotalWin. It does not establish the draft rule paying only increases over prior line/scatter maxima or the five-frame stopping bound."
+        },
+        {
+          "id": "lucky_coin_trigger",
+          "status": "partly_verified",
+          "detail": "Help verifies three lucky coin positions on reels2–4. The draft1/16 initial-spin chance selecting one column, and no coin on later respins, are independent unverified restrictions; the public client can animate several WildColumns."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": null,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "burningice10_native",
+      "name": "Burning Ice 10",
+      "version": "superwin-burningice10-1",
+      "launchable": false,
+      "grid": [
+        5,
+        3
+      ],
+      "lineCount": 10,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.10",
+      "demoStakeMaximum": "100.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "15000000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "15000000.00",
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.0",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        },
+        {
+          "id": "respin_payment",
+          "status": "unverified",
+          "detail": "Public help confirms automatic freezing of participating winning reels and respinning other reels. Public client receives authoritative ReelsToFreeze, ConsecutiveWinsCount, UserWin and TotalWin. It does not establish the draft rule paying only increases over prior line/scatter maxima or the five-frame stopping bound."
+        },
+        {
+          "id": "lucky_coin_trigger",
+          "status": "partly_verified",
+          "detail": "Help verifies three lucky coin positions on reels2–4. The draft1/16 initial-spin chance selecting one column, and no coin on later respins, are independent unverified restrictions; the public client can animate several WildColumns."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": null,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "burningice40_native",
+      "name": "Burning Ice 40",
+      "version": "superwin-burningice40-1",
+      "launchable": false,
+      "grid": [
+        5,
+        4
+      ],
+      "lineCount": 40,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.40",
+      "demoStakeMaximum": "100.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "15000000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "15000000.00",
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.0",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        },
+        {
+          "id": "respin_payment",
+          "status": "unverified",
+          "detail": "Public help confirms automatic freezing of participating winning reels and respinning other reels. Public client receives authoritative ReelsToFreeze, ConsecutiveWinsCount, UserWin and TotalWin. It does not establish the draft rule paying only increases over prior line/scatter maxima or the five-frame stopping bound."
+        },
+        {
+          "id": "coin_feature_ambiguity",
+          "status": "not_assumed",
+          "detail": "Removed the unsupported lucky-coin effect. Current40-line help replaces the coin section with Dollar scatters. Its count10 source has an unreachable i===10 coin branch, while it inherits generic coin animation code. Reference outcome observation is needed before asserting such a feature exists."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": null,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "safarisimba_native",
+      "name": "Safari Simba",
+      "version": "superwin-safarisimba-1",
+      "launchable": false,
+      "grid": [
+        3,
+        3
+      ],
+      "lineCount": 5,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.05",
+      "demoStakeMaximum": "400.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "58000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "58000.00",
+        "maximumWinMultiplier": 145,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 145,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    },
+    {
+      "id": "habeshafortune5_native",
+      "name": "Habesha Fortune 5",
+      "version": "superwin-habeshafortune5-1",
+      "launchable": false,
+      "grid": [
+        3,
+        3
+      ],
+      "lineCount": 5,
+      "ways": 0,
+      "publicLineGeometryVerified": true,
+      "rawPaytablePreserved": true,
+      "stakeScheduleEnforced": true,
+      "demoStakeMinimum": "0.05",
+      "demoStakeMaximum": "400.00",
+      "demoCurrency": "DMO",
+      "draftMaximumPayout": "58000.00",
+      "referenceLimits": {
+        "currency": "DMO",
+        "maximumWin": "58000.00",
+        "maximumWinMultiplier": 145,
+        "DoublingMaxCount": "5.0",
+        "DoublingMaxWin": "500.00",
+        "doublingLimitMeaningVerified": false
+      },
+      "blockers": [
+        {
+          "id": "presentation_audio",
+          "status": "missing",
+          "detail": "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls."
+        },
+        {
+          "id": "gamble_collect",
+          "status": "missing",
+          "detail": "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json."
+        },
+        {
+          "id": "source_maximum_semantics",
+          "status": "partly_verified",
+          "detail": "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation."
+        },
+        {
+          "id": "independent_probability_calibration",
+          "status": "pending",
+          "detail": "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed."
+        },
+        {
+          "id": "currency_profile",
+          "status": "review_required",
+          "detail": "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
+        }
+      ],
+      "currencyAdaptation": {
+        "source": "DMO",
+        "draft": "ETB",
+        "method": "Numerical 1:1 mapping of demo values only; not an exchange rate or provider-approved ETB profile.",
+        "productionLaunchable": false
+      },
+      "maxWinMultiplier": 145,
+      "currentMathDiagnostic": "references/first11-raw-prize-diagnostic.json"
+    }
+  ],
+  "newPublicSources": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot5Wild.html",
+      "role": "current public game-specific help template",
+      "bytes": 17188,
+      "sha256": "33c3ecbc8fe7163f0918b52bace968bf616409b2b4fe2e4b12054d98dda5050c"
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot5SuperWilds.html",
+      "role": "current public game-specific help template",
+      "bytes": 16861,
+      "sha256": "b676c2b514e3a5bdf0d10c62d091efc15615fa5b86bb6670cfd75dde5d2aaf9c"
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BlazingHot.html",
+      "role": "current public game-specific help template",
+      "bytes": 8315,
+      "sha256": "574caa5c51a2a0053c994598899d3ac79296ef031663ec64cdb8900f1b30514c"
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BlazingHot10.html",
+      "role": "current public game-specific help template",
+      "bytes": 8339,
+      "sha256": "4f05fed74891acacd1eee22badf2a334441213f8252ce9b3f709bec28956256a"
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BlazingHot40.html",
+      "role": "current public game-specific help template",
+      "bytes": 8408,
+      "sha256": "b775ead1bea1bc564b4e7d6e02c25542f8c09d94396901d2b13443275e81e161"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Styles/MultiHot5Wild.css",
+      "role": "current public help artwork mapping",
+      "bytes": 33528,
+      "sha256": "cd5e73ea0dbeecdf9e20d0ca9844495f9f8779f0f83acbf7b651d7bebc978b21"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Styles/MultiHot5SuperWilds.css",
+      "role": "current public help artwork mapping",
+      "bytes": 18148,
+      "sha256": "c1facb03313098f00b71c3392d325a17b4d90d5762f3015dcc283e3ea6b892fd"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/MultiHot5Wild/MultiHot5Wild-Lines.png",
+      "role": "exact numbered Wild5 payline chart",
+      "bytes": 17000,
+      "sha256": "a123274a4a16b0679303366488137b13bcb4ec91a5dbf1fc017e5c2b9ace4032"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Scripts/menu.js",
+      "role": "help template endpoint builder",
+      "bytes": 49342,
+      "sha256": "70bcf2f05d2fcf175f3299e99bc2765ad8b039c1cd7a37f9cda65d2f41eef0b1"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box.js",
+      "role": "BarabanExpanded and multi-cell added-wild presentation contract",
+      "bytes": 115501,
+      "sha256": "f94d5e5dcf5c135eb2615a3745072b1f1e262fc19f1a8bb1211b76122a4f592c"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/Slots/slot.js",
+      "role": "legacy authoritative TotalWin/frozen-reel presentation contract",
+      "bytes": 552109,
+      "sha256": "3262ebe49190261ac12d8756dcaed08672a4a59856a624b36b5ec16260c82b96"
+    }
+  ],
+  "nextEvidenceRequired": [
+    "Observe reference-only DEMO outcome sequences for Burning Ice freeze continuation and total-payment recurrence; do not infer private reel weights from a small sample.",
+    "Verify full X2 eligibility/attempt/amount boundaries against official control flows.",
+    "Integrate and check individual reference-client layouts, animations, audio and help screens.",
+    "Calibrate independent probability models using unchanged public prizes after public feature/cap semantics are fixed; publish statistical estimates with limitations.",
+    "Resolve advertised max-win support versus hard-truncation semantics, especially raw independent all-wild/high-symbol grids; do not silently substitute guessed provider reel restrictions."
+  ],
+  "supersededMathFiles": [
+    "first11-math-calibration.json",
+    "first11-math-holdout.json",
+    "independent-adaptation-superseded.json"
+  ],
+  "optionalControlsEvidence": "references/first11-optional-controls.json",
+  "rawPrizeDiagnostic": "references/first11-raw-prize-diagnostic.json"
+}
