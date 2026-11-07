@@ -1,0 +1,31 @@
+{
+  "testMode": "Explicit disposable loopback database; synthetic accounts; no production wagers",
+  "checks": [
+    "native artwork and native renderer loaded",
+    "four independent native betting panels",
+    "bet during flight queues for next round without debit",
+    "queued cancellation preserves balance",
+    "two panels accepted as separate server bets",
+    "manual cashout button settles on server",
+    "native auto cashout pays 5.50×1.20=6.60",
+    "reload recovers the authoritative wallet and round",
+    "native portrait layout renders"
+  ],
+  "errors": [],
+  "failed": [],
+  "external": [],
+  "automatic": {
+    "id": "27d63d43-2433-4c96-b17d-65be19bcfa4a",
+    "boardId": "25",
+    "position": 0,
+    "stake": "5.50",
+    "auto": "1.2",
+    "status": "settled",
+    "payout": "6.60",
+    "coefficient": 120,
+    "reason": "AUTO_CASHOUT",
+    "modelVersion": "superwin-jetx-1",
+    "createdAt": 1794018277144,
+    "settledAt": 1794018284639
+  }
+}
