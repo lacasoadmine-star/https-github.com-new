@@ -1,0 +1,138 @@
+{
+  "observedAt": "2026-11-07T21:40:00Z",
+  "policy": "Independent ZPLAY RNG. Eight simple models use exact normalization before cent rounding/currency cap. Burning variants use fixed calibration after a100×wager cap; all include independent holdout.",
+  "games": [
+    {
+      "id": "multihot40_native",
+      "method": "analytical",
+      "enumeratedSequences": 32768,
+      "rawExpectedReturn": 0.7672119140625,
+      "scale": {
+        "numerator": "198656",
+        "denominator": "157125"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "multihot100_native",
+      "method": "analytical",
+      "enumeratedSequences": 32768,
+      "rawExpectedReturn": 0.7672119140625,
+      "scale": {
+        "numerator": "198656",
+        "denominator": "157125"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "multihotwildways_native",
+      "method": "analytical",
+      "enumeratedSequences": 1000,
+      "rawExpectedReturn": 3.6369,
+      "scale": {
+        "numerator": "9700",
+        "denominator": "36369"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "multihot5wild_native",
+      "method": "analytical",
+      "enumeratedSequences": 1000,
+      "rawExpectedReturn": 4.5,
+      "scale": {
+        "numerator": "97",
+        "denominator": "450"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "multihot5superwilds_native",
+      "method": "analytical",
+      "enumeratedSequences": 59049,
+      "rawExpectedReturn": 5.309780859963759,
+      "scale": {
+        "numerator": "5727753",
+        "denominator": "31353725"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "multihotdeluxe_native",
+      "method": "analytical",
+      "enumeratedSequences": 729,
+      "rawExpectedReturn": 0.9465020576131687,
+      "scale": {
+        "numerator": "23571",
+        "denominator": "23000"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "safarisimba_native",
+      "method": "analytical",
+      "enumeratedSequences": 729,
+      "rawExpectedReturn": 0.9465020576131687,
+      "scale": {
+        "numerator": "23571",
+        "denominator": "23000"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "habeshafortune5_native",
+      "method": "analytical",
+      "enumeratedSequences": 729,
+      "rawExpectedReturn": 0.9465020576131687,
+      "scale": {
+        "numerator": "23571",
+        "denominator": "23000"
+      },
+      "normalizedReturn": 0.97
+    },
+    {
+      "id": "burningice_native",
+      "method": "capped Monte Carlo calibration",
+      "count": 1000000,
+      "seed": 91337616,
+      "rawExpectedReturn": 1.578654,
+      "scale": {
+        "numerator": "310913432789",
+        "denominator": "500000000000"
+      },
+      "winMultiplierCap": 100,
+      "normalizedTrainingReturn": 0.9699999999995296,
+      "source": "Official help artwork identifies Dollar8 as scatter in every variant and Pot9 as secondscatter in5/10."
+    },
+    {
+      "id": "burningice10_native",
+      "method": "capped Monte Carlo calibration",
+      "count": 1000000,
+      "seed": 91337617,
+      "rawExpectedReturn": 2.053137,
+      "scale": {
+        "numerator": "29991552809",
+        "denominator": "62500000000"
+      },
+      "winMultiplierCap": 100,
+      "normalizedTrainingReturn": 0.9699999999990275,
+      "source": "Official help artwork identifies Dollar8 as scatter in every variant and Pot9 as secondscatter in5/10."
+    },
+    {
+      "id": "burningice40_native",
+      "method": "capped Monte Carlo calibration",
+      "count": 5000000,
+      "seed": 91337618,
+      "rawExpectedReturn": 3.335364675,
+      "scale": {
+        "numerator": "196759573083",
+        "denominator": "500000000000"
+      },
+      "winMultiplierCap": 100,
+      "normalizedTrainingReturn": 0.9699999999992636,
+      "source": "Official help artwork identifies Dollar8 as scatter in every variant and Pot9 as secondscatter in5/10."
+    }
+  ],
+  "status": "SUPERSEDED_DO_NOT_USE_FOR_CURRENT_RAW_PRIZE_MODEL",
+  "supersededReason": "These studies use the earlier payout-scaling adaptation. Public prizes, stake schedules and features have since changed. Current raw-prize draft has no measured or guaranteed RTP."
+}

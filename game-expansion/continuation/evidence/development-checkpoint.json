@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-11-07T22:10:11.029427+00:00",
+  "status": "UNPUBLISHED_DEVELOPMENT_CHECKPOINT",
+  "requestedMachines": 23,
+  "identifiedDraftMachines": 21,
+  "newRequestedMachinesPublished": 0,
+  "publicNumericPaytablesVerified": 13,
+  "existingGamesPreserved": true,
+  "retainedExisting": [
+    "multi_hot_5_video",
+    "multi_hot_5_native",
+    "hot_foxy_20",
+    "foxy_hot_20_native"
+  ],
+  "retainedStarted": [
+    "jetx_native",
+    "balloon_native"
+  ],
+  "balloonLiveEvidence": "../../games/balloon/evidence/published-v313.json",
+  "coreVerification": {
+    "passed": 139,
+    "failed": 0,
+    "log": "core-tests.log",
+    "environment": "Node24; isolated in-memory PostgreSQL through PGlite; no production accounts or wager requests",
+    "backendBaselineModulesByteIdentical": 9,
+    "walletDraftAdaptersTested": 21,
+    "autoplayControllerTests": 20,
+    "actualAppHostAutoplayTests": 10,
+    "browserValidationClaimedForNewGames": false
+  },
+  "remainingExactIdentities": [
+    "DarkHorus",
+    "Assassins"
+  ],
+  "remainingNumericPaytables": [
+    "Moonstone",
+    "MagicGarden",
+    "BookOfMagic",
+    "Samurai",
+    "EgyptianLegends",
+    "OlympianLegends"
+  ],
+  "nativeMath": "Current slot distributions remain unsuitable or unverified for release after restoring raw public prizes. No provider-private RNG or current97%slot return is claimed. Tower/Coin analytical checks are documented separately.",
+  "presentation": "Individual verified-asset renderers and static review scenes are in active construction. No complete animation/audio/browser parity is claimed.",
+  "releasePolicy": "Each version must satisfy all eight checks in release-readiness.json. All23 are currently excluded from production.",
+  "sourceHashes": {
+    "models/smartsoft-slots.mjs": "c26b3d4208f9eee6b3598d7963a960290dc560f6dd2ef9920bb33400a8bb74a3",
+    "models/smartsoft-slots.data.json": "baaa35faefa65418e6f614c2bb155b239a788baed83903417b28a6b0ec46f2b2",
+    "models/remaining-games.mjs": "a19b64d1c376d30f807b31e3ab9a5135fa88e881ac36c1b219d9eef467d8ff0e",
+    "models/remaining-engine.mjs": "c833fd91f244edde9eb4edbc89d9384754a769927409517b9db06452de31e78a",
+    "models/remaining-reference-data.mjs": "26b64cbf9ed915522844b05ae140a6e8e647065dafb6c3fc428ee528fbbcc232",
+    "client/session.mjs": "4be9a709f1c0673d305556ccfaa61e405c53795554b59dbe0797bb3243de574d",
+    "client/controls.mjs": "b024d327264f4fe3168b1b7abbf13a2cd06925afa154e6f379bf2473cc835b8d",
+    "client/autoplay.mjs": "9121429a41200c8b91dabe123100a448dc958e6c68c0f7ad2181c99424d73b92",
+    "client/app.mjs": "98decc723b641e4475835fd3f8731ee732baa5eaf895d78265d5dc421ff601ed",
+    "worker.mjs": "f7546666590f24981192a2664276467fcc5295f8b0ebd3e09ce58d35da38b5a9",
+    "release-policy.mjs": "c4118fd293b1849dc22af2a95dcf18dd4585f1725fe930d663fa70b91500565d",
+    "release-readiness.json": "601887f1909f24f2575e766636a601dc23ad36c897a043aff72047085521f1d1"
+  }
+}

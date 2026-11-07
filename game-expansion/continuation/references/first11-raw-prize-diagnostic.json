@@ -1,0 +1,444 @@
+{
+  "status": "UNCALIBRATED_DISABLED_DRAFT_DIAGNOSTIC",
+  "observedAtUtc": "2026-11-07T21:57:38Z",
+  "warning": "These figures describe only current independent ZPLAY draft sampling and its interpretation of public numerical ceilings. They are not provider RTP, release readiness, or evidence for exact public cap/respins semantics. Visible coefficients and probabilities were not changed to obtain these results.",
+  "results": [
+    {
+      "id": "multihot40_native",
+      "launchable": false,
+      "modelVersion": "superwin-multihot40-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 32768,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "6285",
+          "denominator": "8192"
+        },
+        "expectedReturn": 0.7672119140625
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705836544,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 0.760805,
+        "meanAfterDraftReferenceCeiling": 0.760805,
+        "confidence99NormalApproximation": [
+          0.7186218565725172,
+          0.8029881434274827
+        ],
+        "sampleMaximumReturn": 140,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "10000",
+        "reserveAtMaximumMinor": "25000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "multihot100_native",
+      "launchable": false,
+      "modelVersion": "superwin-multihot100-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 32768,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "6285",
+          "denominator": "8192"
+        },
+        "expectedReturn": 0.7672119140625
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705846517,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 0.7563140000000028,
+        "meanAfterDraftReferenceCeiling": 0.7563140000000028,
+        "confidence99NormalApproximation": [
+          0.719265090553128,
+          0.7933629094468776
+        ],
+        "sampleMaximumReturn": 146,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "10000",
+        "reserveAtMaximumMinor": "25000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "multihotwildways_native",
+      "launchable": false,
+      "modelVersion": "superwin-multihotwildways-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 1000,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "36369",
+          "denominator": "10000"
+        },
+        "expectedReturn": 3.6369
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705856490,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 3.6572440000000173,
+        "meanAfterDraftReferenceCeiling": 3.6572440000000173,
+        "confidence99NormalApproximation": [
+          3.5587716385277868,
+          3.7557163614722477
+        ],
+        "sampleMaximumReturn": 192,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "30000",
+        "reserveAtMaximumMinor": "8850000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "multihot5wild_native",
+      "launchable": false,
+      "modelVersion": "superwin-multihot5wild-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 1000,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "9",
+          "denominator": "2"
+        },
+        "expectedReturn": 4.5
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705866463,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 4.46974,
+        "meanAfterDraftReferenceCeiling": 4.46974,
+        "confidence99NormalApproximation": [
+          4.308560696854999,
+          4.630919303145
+        ],
+        "sampleMaximumReturn": 340,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "40000",
+        "reserveAtMaximumMinor": "15000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "multihot5superwilds_native",
+      "launchable": false,
+      "modelVersion": "superwin-multihot5superwilds-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 59049,
+        "effectiveSymbolWeights": [
+          8,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "returnFraction": {
+          "numerator": "1554484455",
+          "denominator": "268435456"
+        },
+        "expectedReturn": 5.790905859321356
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705876436,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 5.83674,
+        "meanAfterDraftReferenceCeiling": 5.83674,
+        "confidence99NormalApproximation": [
+          5.572433088265716,
+          6.101046911734284
+        ],
+        "sampleMaximumReturn": 805,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "20000",
+        "reserveAtMaximumMinor": "20000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "multihotdeluxe_native",
+      "launchable": false,
+      "modelVersion": "superwin-multihotdeluxe-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 729,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "230",
+          "denominator": "243"
+        },
+        "expectedReturn": 0.9465020576131687
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705886409,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 0.9621,
+        "meanAfterDraftReferenceCeiling": 0.962,
+        "confidence99NormalApproximation": [
+          0.897522199595166,
+          1.0264778004048338
+        ],
+        "sampleMaximumReturn": 145,
+        "sourceCeilingEvents": 1,
+        "stakeMaximumMinor": "40000",
+        "reserveAtMaximumMinor": "5800000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "burningice_native",
+      "launchable": false,
+      "modelVersion": "superwin-burningice-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705896382,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 1.698,
+        "meanAfterDraftReferenceCeiling": 1.698,
+        "confidence99NormalApproximation": [
+          1.5867719679892944,
+          1.8092280320107055
+        ],
+        "sampleMaximumReturn": 612,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "10000",
+        "reserveAtMaximumMinor": "34000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "burningice10_native",
+      "launchable": false,
+      "modelVersion": "superwin-burningice10-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705906355,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 2.05076,
+        "meanAfterDraftReferenceCeiling": 2.05076,
+        "confidence99NormalApproximation": [
+          1.9218542352771482,
+          2.1796657647228517
+        ],
+        "sampleMaximumReturn": 600,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "10000",
+        "reserveAtMaximumMinor": "58000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "burningice40_native",
+      "launchable": false,
+      "modelVersion": "superwin-burningice40-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705916328,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 3.0279375,
+        "meanAfterDraftReferenceCeiling": 3.0279375,
+        "confidence99NormalApproximation": [
+          2.3959553637327513,
+          3.659919636267249
+        ],
+        "sampleMaximumReturn": 4000.5,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "10000",
+        "reserveAtMaximumMinor": "50000000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "safarisimba_native",
+      "launchable": false,
+      "modelVersion": "superwin-safarisimba-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 729,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "230",
+          "denominator": "243"
+        },
+        "expectedReturn": 0.9465020576131687
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705926301,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 0.9384,
+        "meanAfterDraftReferenceCeiling": 0.9384,
+        "confidence99NormalApproximation": [
+          0.8755612510932274,
+          1.0012387489067727
+        ],
+        "sampleMaximumReturn": 120,
+        "sourceCeilingEvents": 0,
+        "stakeMaximumMinor": "40000",
+        "reserveAtMaximumMinor": "5800000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    },
+    {
+      "id": "habeshafortune5_native",
+      "launchable": false,
+      "modelVersion": "superwin-habeshafortune5-1",
+      "payoutScale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "analyticBeforeReferenceMaximum": {
+        "method": "Exact enumeration of every symbol sequence on one path; linearity across actual lines/ways and independent mean multiplier3. No cap or outcome-support claim.",
+        "sequences": 729,
+        "effectiveSymbolWeights": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "returnFraction": {
+          "numerator": "230",
+          "denominator": "243"
+        },
+        "expectedReturn": 0.9465020576131687
+      },
+      "pilot": {
+        "sampleCount": 50000,
+        "seed": 1705936274,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanBeforeCeiling": 0.95468,
+        "meanAfterDraftReferenceCeiling": 0.95458,
+        "confidence99NormalApproximation": [
+          0.8918286210282668,
+          1.017331378971733
+        ],
+        "sampleMaximumReturn": 145,
+        "sourceCeilingEvents": 1,
+        "stakeMaximumMinor": "40000",
+        "reserveAtMaximumMinor": "5800000",
+        "scope": "Uncalibrated disabled draft; confidence approximation is diagnostic, not certification. Same return applies to every listed stake because raw payouts are integral and maxima scale proportionally or remain above the raw model bound."
+      }
+    }
+  ],
+  "reproduce": "node references/diagnose-first11-raw-prizes.mjs",
+  "reproducerSha256": "5b059557e3665374e18ef161003a272a00927597ed45f07a1b4c5efa33bf959a"
+}

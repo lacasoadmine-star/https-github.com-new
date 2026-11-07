@@ -1,0 +1,14 @@
+{
+  "name": "zplay-requested-machine-continuation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:assets": "node prepare-assets.mjs",
+    "build:backend": "node prepare-backend.mjs",
+    "test": "node prepare-assets.mjs && node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.15"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-07T22:02:45.902208+00:00",
+  "scope": [
+    "Moonstone",
+    "Samurai"
+  ],
+  "conclusion": "Static help prize numbers are fallback markup, not verified current runtime paytable coefficients. Do not use them as exact public awards.",
+  "sources": [
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Scripts/main.js",
+      "retrieved": true,
+      "sha256": "ca9bb8467c98922e6a5691e2e3d45d19fefe364308eac6aa7eb845a375358b45",
+      "bytes": 18792
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/Moonstone.html",
+      "retrieved": true,
+      "sha256": "cc662af71f255b8481a3a3a87b87e0e67db7a830daf683658a2e8b366741b02b",
+      "bytes": 12803
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Styles/Moonstone.css",
+      "retrieved": true,
+      "sha256": "494d651152ef321ff2b311b9bcc85beab3aa82025caf8b4ba01350280d1364a4",
+      "bytes": 20217
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/Samurai.html",
+      "retrieved": true,
+      "sha256": "2cca422666524ca3ffbc6119b937e60130bf95bc07987e3d182de9727d9494b8",
+      "bytes": 13015
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Styles/Samurai.css",
+      "retrieved": true,
+      "sha256": "7adb105580bb39946c7e5173d2bbba516042c9c42facfc01a948c86ac8208ce4",
+      "bytes": 20481
+    }
+  ],
+  "replacementRule": {
+    "sourceFunction": "showHelp",
+    "input": "payTable.Coeffs[i].Wins[j] supplied by game initialization",
+    "ordinaryDisplayFormula": "coefficient * displayedTotalBet / userLinePlay",
+    "perCellDisplayFormula": "coefficient * userBetPerLine * chipCoef",
+    "templateTarget": "help-box-{providerSymbolId}",
+    "specialFoundationBetExceptions": [
+      "MultiHot5BurnWilds",
+      "MultiHot5SuperWilds",
+      "PowerOfTiger",
+      "MultiHot100"
+    ]
+  },
+  "titles": [
+    {
+      "name": "Moonstone",
+      "runtimeNumericTableVerified": false,
+      "staticMarkupNumbersAppliedToModel": false,
+      "publicPresentationCssAvailable": true,
+      "unresolved": "The live game bootstrap must provide PayTable.Coeffs, userLinePlay, chipCoef and current denomination."
+    },
+    {
+      "name": "Samurai",
+      "runtimeNumericTableVerified": false,
+      "staticMarkupNumbersAppliedToModel": false,
+      "publicPresentationCssAvailable": true,
+      "unresolved": "The live game bootstrap must provide PayTable.Coeffs, userLinePlay, chipCoef and current denomination."
+    }
+  ],
+  "observedPresentationAssets": {
+    "Moonstone": [
+      "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/MoonStone/thirdSlideObjects.png",
+      "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/MoonStone/firstSlideWild.png",
+      "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/MoonStone/firstSlideWilds.png",
+      "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/MoonStone/bonusSymbol.png"
+    ],
+    "Samurai": {
+      "9": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/one-one.png",
+      "8": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/one-two.png",
+      "7": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/one-three.png",
+      "6": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/one-four.png",
+      "5": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/one-five.png",
+      "4": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/two-one.png",
+      "3": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/two-two.png",
+      "2": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/two-three.png",
+      "1": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/two-four.png",
+      "10": "https://static.ssg-public.com/cache/b15/GameLauncher/Content/Help/Images/Samurai/two-five.png"
+    }
+  }
+}

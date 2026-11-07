@@ -1,0 +1,3479 @@
+{
+  "generatedAt": "2026-11-07T21:59:31.555Z",
+  "engineSha256": "c833fd91f244edde9eb4edbc89d9384754a769927409517b9db06452de31e78a",
+  "productionEnabled": false,
+  "officialPrivateMathVerified": false,
+  "towerX": {
+    "returnBeforeRounding": 0.97,
+    "expectedBuildingSum": 97
+  },
+  "towerRush": {
+    "firstRiskTarget": 0.97,
+    "frozenSuccessProbability": 0.5,
+    "frozenSuccessMultiplier": 1.5,
+    "example": {
+      "currentMinor": 125,
+      "bankMinor": 125,
+      "optimalContinuationValueMinor": 163.75
+    },
+    "proof": "Before freeze, success probability is current value divided by next optimal continuation value (first step additionally times0.97). Failure pays0. Once frozen, Bellman value=max(cashout,0.5*V(next)+0.5*bank); current>=2*bank implies optimal cashout. Cap/rounding are included in this value. This bounds every adaptive strategy after its first risk."
+  },
+  "coin": {
+    "referenceVariant": "coin_miner_94",
+    "rangeBeforeRoundingAndCaps": [
+      0.9361,
+      0.9440000000000002
+    ],
+    "proof": "Future probability depends only on chosen mine count and number of safe picks, never tile index or rescue tag. The finite fixed-stop table therefore bounds every adaptive stopping policy; cap/rounding cannot increase it.",
+    "rows": [
+      {
+        "mines": 1,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.96,
+            "conditionalSafeProbability": 0.96,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9408,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8640000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9408
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9408
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.9583333333333334,
+            "conditionalSafeProbability": 0.9583333333333334,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9384,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9200000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9384
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9384000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9384
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.9565217391304348,
+            "conditionalSafeProbability": 0.9565217391304348,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9416000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8800000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9416000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9416000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9416000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.9545454545454546,
+            "conditionalSafeProbability": 0.9545454545454546,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9408000000000003,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9240000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9408000000000003
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9408000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.9523809523809523,
+            "conditionalSafeProbability": 0.9523809523809523,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9440000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8800000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9440000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9440000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9440000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.95,
+            "conditionalSafeProbability": 0.95,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9424000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9120000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9424000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9424000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9424000000000001
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.9473684210526315,
+            "conditionalSafeProbability": 0.9473684210526315,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9432,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9360000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9432
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9432000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9432000000000001
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.9444444444444444,
+            "conditionalSafeProbability": 0.9444444444444444,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9384,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.884
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9384
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9384000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9384
+              }
+            ]
+          },
+          {
+            "safePicks": 9,
+            "baseline": 0.9411764705882353,
+            "conditionalSafeProbability": 0.9411764705882353,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9408,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8960000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9408
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9408
+              }
+            ]
+          },
+          {
+            "safePicks": 10,
+            "baseline": 0.9375,
+            "conditionalSafeProbability": 0.9375,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9420000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9420000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.942
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.942
+              }
+            ]
+          },
+          {
+            "safePicks": 11,
+            "baseline": 0.9333333333333333,
+            "conditionalSafeProbability": 0.9333333333333333,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9407999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8959999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9407999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9407999999999999
+              }
+            ]
+          },
+          {
+            "safePicks": 12,
+            "baseline": 0.9285714285714286,
+            "conditionalSafeProbability": 0.9285714285714286,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9412,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9412
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9412
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9412
+              }
+            ]
+          },
+          {
+            "safePicks": 13,
+            "baseline": 0.9230769230769231,
+            "conditionalSafeProbability": 0.9230769230769231,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9408000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9120000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9408000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9408
+              }
+            ]
+          },
+          {
+            "safePicks": 14,
+            "baseline": 0.9166666666666666,
+            "conditionalSafeProbability": 0.9166666666666666,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9416,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.924
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9416
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9416
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9416
+              }
+            ]
+          },
+          {
+            "safePicks": 15,
+            "baseline": 0.9090909090909091,
+            "conditionalSafeProbability": 0.9090909090909091,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9199999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 16,
+            "baseline": 0.9,
+            "conditionalSafeProbability": 0.9,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9396,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9396
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9395999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9396
+              }
+            ]
+          },
+          {
+            "safePicks": 17,
+            "baseline": 0.8888888888888888,
+            "conditionalSafeProbability": 0.8888888888888888,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9407999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9279999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9407999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9407999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9407999999999999
+              }
+            ]
+          },
+          {
+            "safePicks": 18,
+            "baseline": 0.875,
+            "conditionalSafeProbability": 0.875,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9407999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9239999999999998
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9407999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9407999999999999
+              }
+            ]
+          },
+          {
+            "safePicks": 19,
+            "baseline": 0.8571428571428571,
+            "conditionalSafeProbability": 0.8571428571428571,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9407999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9407999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9407999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9407999999999999
+              }
+            ]
+          },
+          {
+            "safePicks": 20,
+            "baseline": 0.8333333333333334,
+            "conditionalSafeProbability": 0.8333333333333334,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 21,
+            "baseline": 0.8,
+            "conditionalSafeProbability": 0.8,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9408,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9279999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9408
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9408000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9408
+              }
+            ]
+          },
+          {
+            "safePicks": 22,
+            "baseline": 0.75,
+            "conditionalSafeProbability": 0.75,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9396,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9396
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9395999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9396
+              }
+            ]
+          },
+          {
+            "safePicks": 23,
+            "baseline": 0.6666666666666666,
+            "conditionalSafeProbability": 0.6666666666666666,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9399999999999998
+              }
+            ]
+          },
+          {
+            "safePicks": 24,
+            "baseline": 0.5,
+            "conditionalSafeProbability": 0.5,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9399999999999998
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 2,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.92,
+            "conditionalSafeProbability": 0.92,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9384,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9200000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9384
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9384000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9384
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.9166666666666666,
+            "conditionalSafeProbability": 0.9166666666666666,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9361,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9276666666666668
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9361
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9361
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9361
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.9130434782608695,
+            "conditionalSafeProbability": 0.9130434782608695,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9394,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.924
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9394
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9394
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9394
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.9090909090909091,
+            "conditionalSafeProbability": 0.9090909090909091,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.938,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9099999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.938
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9379999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.938
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.9047619047619048,
+            "conditionalSafeProbability": 0.9047619047619048,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9373333333333334,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8866666666666667
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9373333333333334
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9373333333333332
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9373333333333332
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.9,
+            "conditionalSafeProbability": 0.9,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9405,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9119999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9405
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9404999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9405
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.8947368421052632,
+            "conditionalSafeProbability": 0.8947368421052632,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9384,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9179999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9384
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9384
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9384
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.8888888888888888,
+            "conditionalSafeProbability": 0.8888888888888888,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9383999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9066666666666666
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9383999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9384
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9384
+              }
+            ]
+          },
+          {
+            "safePicks": 9,
+            "baseline": 0.8823529411764706,
+            "conditionalSafeProbability": 0.8823529411764706,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9199999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 10,
+            "baseline": 0.875,
+            "conditionalSafeProbability": 0.875,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9414999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9099999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9414999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9414999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9415
+              }
+            ]
+          },
+          {
+            "safePicks": 11,
+            "baseline": 0.8666666666666667,
+            "conditionalSafeProbability": 0.8666666666666667,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9403333333333334,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9403333333333335
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9403333333333334
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9403333333333334
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9403333333333334
+              }
+            ]
+          },
+          {
+            "safePicks": 12,
+            "baseline": 0.8571428571428571,
+            "conditionalSafeProbability": 0.8571428571428571,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9412,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9412
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9412
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9412
+              }
+            ]
+          },
+          {
+            "safePicks": 13,
+            "baseline": 0.8461538461538461,
+            "conditionalSafeProbability": 0.8461538461538461,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9394,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.924
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9394
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9394
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9394
+              }
+            ]
+          },
+          {
+            "safePicks": 14,
+            "baseline": 0.8333333333333334,
+            "conditionalSafeProbability": 0.8333333333333334,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9405000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9350000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9405000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9405000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9405
+              }
+            ]
+          },
+          {
+            "safePicks": 15,
+            "baseline": 0.8181818181818182,
+            "conditionalSafeProbability": 0.8181818181818182,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9405000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.93
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9405000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9405000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9405000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 16,
+            "baseline": 0.8,
+            "conditionalSafeProbability": 0.8,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9396000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9360000000000002
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9396000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9396000000000001
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9396000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 17,
+            "baseline": 0.7777777777777778,
+            "conditionalSafeProbability": 0.7777777777777778,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9398666666666667,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9333333333333336
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9398666666666667
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9398666666666669
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9398666666666667
+              }
+            ]
+          },
+          {
+            "safePicks": 18,
+            "baseline": 0.75,
+            "conditionalSafeProbability": 0.75,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9401,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9380000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9401
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9401000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9401
+              }
+            ]
+          },
+          {
+            "safePicks": 19,
+            "baseline": 0.7142857142857143,
+            "conditionalSafeProbability": 0.7142857142857143,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 20,
+            "baseline": 0.6666666666666666,
+            "conditionalSafeProbability": 0.6666666666666666,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 21,
+            "baseline": 0.6,
+            "conditionalSafeProbability": 0.6,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 22,
+            "baseline": 0.5,
+            "conditionalSafeProbability": 0.5,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 23,
+            "baseline": 0.3333333333333333,
+            "conditionalSafeProbability": 0.3333333333333333,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.3333333333333333
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 3,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.88,
+            "conditionalSafeProbability": 0.88,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9416,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8800000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9416
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9416
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9416
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.875,
+            "conditionalSafeProbability": 0.875,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9394,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.924
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9394
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9394
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9394
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.8695652173913043,
+            "conditionalSafeProbability": 0.8695652173913043,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9373913043478261,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9373913043478261
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9373913043478261
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9373913043478261
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9373913043478261
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.8636363636363636,
+            "conditionalSafeProbability": 0.8636363636363636,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9425652173913044,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9252173913043478
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9425652173913044
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9425652173913044
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9425652173913044
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.8571428571428571,
+            "conditionalSafeProbability": 0.8571428571428571,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9417391304347825,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9417391304347825
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9417391304347825
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9417391304347825
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9417391304347826
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.85,
+            "conditionalSafeProbability": 0.85,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9395086956521739,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9268695652173913
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9395086956521739
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9395086956521739
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9395086956521738
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.8421052631578947,
+            "conditionalSafeProbability": 0.8421052631578947,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9401739130434783,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9224347826086955
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9401739130434783
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9401739130434781
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9401739130434782
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.8333333333333334,
+            "conditionalSafeProbability": 0.8333333333333334,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9401739130434783,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9165217391304349
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9401739130434783
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9401739130434783
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9401739130434784
+              }
+            ]
+          },
+          {
+            "safePicks": 9,
+            "baseline": 0.8235294117647058,
+            "conditionalSafeProbability": 0.8235294117647058,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9398260869565217,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9252173913043478
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9398260869565217
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9398260869565217
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9398260869565218
+              }
+            ]
+          },
+          {
+            "safePicks": 10,
+            "baseline": 0.8125,
+            "conditionalSafeProbability": 0.8125,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9396739130434782,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9297826086956521
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9396739130434782
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9396739130434782
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9396739130434782
+              }
+            ]
+          },
+          {
+            "safePicks": 11,
+            "baseline": 0.8,
+            "conditionalSafeProbability": 0.8,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9400695652173914,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9337391304347827
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400695652173914
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400695652173913
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400695652173914
+              }
+            ]
+          },
+          {
+            "safePicks": 12,
+            "baseline": 0.7857142857142857,
+            "conditionalSafeProbability": 0.7857142857142857,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9400695652173913,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9326086956521739
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400695652173913
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400695652173913
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400695652173912
+              }
+            ]
+          },
+          {
+            "safePicks": 13,
+            "baseline": 0.7692307692307693,
+            "conditionalSafeProbability": 0.7692307692307693,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9402608695652174,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9373913043478261
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9402608695652174
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9402608695652174
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9402608695652174
+              }
+            ]
+          },
+          {
+            "safePicks": 14,
+            "baseline": 0.75,
+            "conditionalSafeProbability": 0.75,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9397826086956522,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9397826086956522
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9397826086956522
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9397826086956522
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9397826086956522
+              }
+            ]
+          },
+          {
+            "safePicks": 15,
+            "baseline": 0.7272727272727273,
+            "conditionalSafeProbability": 0.7272727272727273,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9401739130434784,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9391304347826088
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9401739130434784
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9401739130434784
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9401739130434784
+              }
+            ]
+          },
+          {
+            "safePicks": 16,
+            "baseline": 0.7,
+            "conditionalSafeProbability": 0.7,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9400695652173914,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9386086956521741
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400695652173914
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400695652173914
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400695652173914
+              }
+            ]
+          },
+          {
+            "safePicks": 17,
+            "baseline": 0.6666666666666666,
+            "conditionalSafeProbability": 0.6666666666666666,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9400695652173913,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9398260869565217
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400695652173913
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400695652173913
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400695652173912
+              }
+            ]
+          },
+          {
+            "safePicks": 18,
+            "baseline": 0.625,
+            "conditionalSafeProbability": 0.625,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9399782608695653,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9389130434782608
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399782608695653
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399782608695652
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9399782608695652
+              }
+            ]
+          },
+          {
+            "safePicks": 19,
+            "baseline": 0.5714285714285714,
+            "conditionalSafeProbability": 0.6000138763616181,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9395434677027683
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9130645944633318
+              }
+            ]
+          },
+          {
+            "safePicks": 20,
+            "baseline": 0.5,
+            "conditionalSafeProbability": 0.5499759602542871,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9395480527805973
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.5021635771141622
+              }
+            ]
+          },
+          {
+            "safePicks": 21,
+            "baseline": 0.4,
+            "conditionalSafeProbability": 0.5000133557710287,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9398242380532629
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.2510884953388359
+              }
+            ]
+          },
+          {
+            "safePicks": 22,
+            "baseline": 0.25,
+            "conditionalSafeProbability": 0.37999776692820675,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399141282392229
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.0954130675301211
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 5,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.8,
+            "conditionalSafeProbability": 0.8,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.9440000000000001,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8800000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9440000000000001
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.944
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.944
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.7916666666666666,
+            "conditionalSafeProbability": 0.8103448275862069,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9075862068965517
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.782608695652174,
+            "conditionalSafeProbability": 0.8011049723756907,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9348066298342541
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.7727272727272727,
+            "conditionalSafeProbability": 0.7973568281938326,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.911013215859031
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.7619047619047619,
+            "conditionalSafeProbability": 0.7909407665505226,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9170731707317072
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.75,
+            "conditionalSafeProbability": 0.7863013698630138,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9271232876712329
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.7368421052631579,
+            "conditionalSafeProbability": 0.7782515991471215,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9219616204690831
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.7222222222222222,
+            "conditionalSafeProbability": 0.775206611570248,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9322314049586776
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 9,
+            "baseline": 0.7058823529411765,
+            "conditionalSafeProbability": 0.750620347394541,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9330024813895783
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 10,
+            "baseline": 0.6875,
+            "conditionalSafeProbability": 0.730072463768116,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9365942028985508
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 11,
+            "baseline": 0.6666666666666666,
+            "conditionalSafeProbability": 0.7196870925684484,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.93754889178618
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 12,
+            "baseline": 0.6428571428571429,
+            "conditionalSafeProbability": 0.7101851851851851,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 13,
+            "baseline": 0.6153846153846154,
+            "conditionalSafeProbability": 0.6999351911860013,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9381723914452366
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 14,
+            "baseline": 0.5833333333333334,
+            "conditionalSafeProbability": 0.6800352578228295,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9383428823270163
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 15,
+            "baseline": 0.5454545454545454,
+            "conditionalSafeProbability": 0.6699143785060525,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9394449365219959
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 16,
+            "baseline": 0.5,
+            "conditionalSafeProbability": 0.6500335860282123,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399097975242299
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9020247577007964
+              }
+            ]
+          },
+          {
+            "safePicks": 17,
+            "baseline": 0.4444444444444444,
+            "conditionalSafeProbability": 0.6399926303506724,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9398268132408033
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.5772891973223607
+              }
+            ]
+          },
+          {
+            "safePicks": 18,
+            "baseline": 0.375,
+            "conditionalSafeProbability": 0.6199977154171268,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9398926246049575
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.35791798347485054
+              }
+            ]
+          },
+          {
+            "safePicks": 19,
+            "baseline": 0.2857142857142857,
+            "conditionalSafeProbability": 0.5600025587445094,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9398396520107468
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.20043498656659134
+              }
+            ]
+          },
+          {
+            "safePicks": 20,
+            "baseline": 0.16666666666666666,
+            "conditionalSafeProbability": 0.47000461004990873,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399811589264596
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.09420536770158947
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 7,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.72,
+            "conditionalSafeProbability": 0.72,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9431999999999999,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9359999999999999
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9431999999999999
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9431999999999999
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9432
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.7083333333333334,
+            "conditionalSafeProbability": 0.8881330309901739,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8952380952380953
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.6956521739130435,
+            "conditionalSafeProbability": 0.8698224852071005,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.8899408284023668
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.6818181818181818,
+            "conditionalSafeProbability": 0.8711340206185568,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.920618556701031
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.6666666666666666,
+            "conditionalSafeProbability": 0.8699551569506725,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.927354260089686
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.65,
+            "conditionalSafeProbability": 0.87109375,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.91796875
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.631578947368421,
+            "conditionalSafeProbability": 0.870748299319728,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9272108843537415
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.6111111111111112,
+            "conditionalSafeProbability": 0.8189415041782729,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9164345403899722
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 9,
+            "baseline": 0.5882352941176471,
+            "conditionalSafeProbability": 0.819634703196347,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9228310502283105
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 10,
+            "baseline": 0.5625,
+            "conditionalSafeProbability": 0.8202247191011237,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9329588014981274
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 11,
+            "baseline": 0.5333333333333333,
+            "conditionalSafeProbability": 0.8202764976958524,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9385560675883257
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 12,
+            "baseline": 0.5,
+            "conditionalSafeProbability": 0.8198992443324937,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9352644836272039
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 13,
+            "baseline": 0.46153846153846156,
+            "conditionalSafeProbability": 0.600151171579743,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9378684807256235
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 14,
+            "baseline": 0.4166666666666667,
+            "conditionalSafeProbability": 0.6000000000000001,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9378684807256237
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 15,
+            "baseline": 0.36363636363636365,
+            "conditionalSafeProbability": 0.5999999999999999,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.938721088435374
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9399999999999998
+              }
+            ]
+          },
+          {
+            "safePicks": 16,
+            "baseline": 0.3,
+            "conditionalSafeProbability": 0.6000000000000001,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9392326530612245
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 17,
+            "baseline": 0.2222222222222222,
+            "conditionalSafeProbability": 0.3499800011427918,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399462887834981
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.5371121650191418
+              }
+            ]
+          },
+          {
+            "safePicks": 18,
+            "baseline": 0.125,
+            "conditionalSafeProbability": 0.17999773730059962,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.939912988923058
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.09667897438007178
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 10,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.6,
+            "conditionalSafeProbability": 0.6438356164383562,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9013698630136986
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.5833333333333334,
+            "conditionalSafeProbability": 0.6403508771929824,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9070175438596492
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.5652173913043478,
+            "conditionalSafeProbability": 0.6404494382022471,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9241573033707864
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.5454545454545454,
+            "conditionalSafeProbability": 0.6402877697841727,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9298561151079137
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.5238095238095238,
+            "conditionalSafeProbability": 0.6398158803222095,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.930264672036824
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.5,
+            "conditionalSafeProbability": 0.6403831982313928,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9351510685335299
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.47368421052631576,
+            "conditionalSafeProbability": 0.6397925506836398,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9395568128241397
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9400000000000002
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.4444444444444444,
+            "conditionalSafeProbability": 0.6301247771836006,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9383244206773618
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 9,
+            "baseline": 0.4117647058823529,
+            "conditionalSafeProbability": 0.6299831555306008,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9394722066254915
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 10,
+            "baseline": 0.375,
+            "conditionalSafeProbability": 0.6299964626812875,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9398891640136776
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 11,
+            "baseline": 0.3333333333333333,
+            "conditionalSafeProbability": 0.6299487484215999,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9397905370274084
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.6982099086384906
+              }
+            ]
+          },
+          {
+            "safePicks": 12,
+            "baseline": 0.2857142857142857,
+            "conditionalSafeProbability": 0.630024802283682,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9396040993963217
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.4398895596424727
+              }
+            ]
+          },
+          {
+            "safePicks": 13,
+            "baseline": 0.23076923076923078,
+            "conditionalSafeProbability": 0.6300008844600372,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9397505822695246
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.2771308116394941
+              }
+            ]
+          },
+          {
+            "safePicks": 14,
+            "baseline": 0.16666666666666666,
+            "conditionalSafeProbability": 0.6299962852897474,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.17459138187221396
+              }
+            ]
+          },
+          {
+            "safePicks": 15,
+            "baseline": 0.09090909090909091,
+            "conditionalSafeProbability": 0.5399983952499398,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399622883735856
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.09427906603546496
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 17,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.32,
+            "conditionalSafeProbability": 0.5497076023391813,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9345029239766081
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.2916666666666667,
+            "conditionalSafeProbability": 0.5,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9345029239766081
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.2608695652173913,
+            "conditionalSafeProbability": 0.45,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.22727272727272727,
+            "conditionalSafeProbability": 0.43010752688172044,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9362761743067345
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.19047619047619047,
+            "conditionalSafeProbability": 0.4100719424460431,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9380366674402414
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 6,
+            "baseline": 0.15,
+            "conditionalSafeProbability": 0.41002949852507375,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9391949757350841
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.894471405461985
+              }
+            ]
+          },
+          {
+            "safePicks": 7,
+            "baseline": 0.10526315789473684,
+            "conditionalSafeProbability": 0.3700091542849095,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399338074783465
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.3309626082670234
+              }
+            ]
+          },
+          {
+            "safePicks": 8,
+            "baseline": 0.05555555555555555,
+            "conditionalSafeProbability": 0.2900027568743172,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9400000000000002,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399328139518263
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9400000000000002
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.09598006881975149
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 20,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.2,
+            "conditionalSafeProbability": 0.34944237918215615,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9085501858736059
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 2,
+            "baseline": 0.16666666666666666,
+            "conditionalSafeProbability": 0.30055865921787706,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.9399999999999998,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9347486033519552
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.9399999999999998
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.9399999999999998
+              }
+            ]
+          },
+          {
+            "safePicks": 3,
+            "baseline": 0.13043478260869565,
+            "conditionalSafeProbability": 0.29993297587131373,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.938739946380697
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 4,
+            "baseline": 0.09090909090909091,
+            "conditionalSafeProbability": 0.2999899467176033,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.939338494018297
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          },
+          {
+            "safePicks": 5,
+            "baseline": 0.047619047619047616,
+            "conditionalSafeProbability": 0.09999899468186708,
+            "boostActive": true,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9399905500095505
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.09449990449477738
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "mines": 24,
+        "outcomes": [
+          {
+            "safePicks": 1,
+            "baseline": 0.04,
+            "conditionalSafeProbability": 0.04,
+            "boostActive": false,
+            "returnBeforeCentRoundingAndCap": 0.94,
+            "moneyReturns": [
+              {
+                "stakeMinor": "10",
+                "return": 0.9400000000000001
+              },
+              {
+                "stakeMinor": "100",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "1000",
+                "return": 0.94
+              },
+              {
+                "stakeMinor": "10000",
+                "return": 0.94
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "slots": {
+    "status": "Public-rule revisions invalidate old calibration. Exact numeric tables unresolved for6of7draftslots; no97%slotreturn claim is made."
+  }
+}
