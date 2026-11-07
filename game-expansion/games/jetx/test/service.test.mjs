@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {randomUUID} from 'node:crypto';
+import {randomUUID,createHash} from 'node:crypto';
 import {JetXService} from '../service.mjs';
+import {resolveSessionUser} from '../auth.mjs';
 import {VERSION,reachesAt} from '../rules.mjs';
 import {fixtureWalletClass} from './wallet-fixture.mjs';
 
@@ -20,6 +21,7 @@ test('canonical PostgreSQL wallet, idempotency, ownership and concurrency',{skip
   await sql.unsafe(`CREATE SCHEMA IF NOT EXISTS sw_rebuild;
    CREATE TABLE IF NOT EXISTS sw_rebuild.users(id text PRIMARY KEY,role text NOT NULL,status text NOT NULL,parent_id text);
    CREATE TABLE IF NOT EXISTS sw_rebuild.wallets(id text PRIMARY KEY,balance bigint NOT NULL CHECK(balance>=0),credit_limit bigint NOT NULL DEFAULT 0);
+   CREATE TABLE IF NOT EXISTS sw_rebuild.sessions(token text PRIMARY KEY,user_id text NOT NULL REFERENCES sw_rebuild.users(id),expires bigint NOT NULL);
    CREATE TABLE IF NOT EXISTS sw_rebuild.transfers(id text PRIMARY KEY,sender text NOT NULL,recipient text NOT NULL,amount bigint NOT NULL CHECK(amount>0),kind text,actor text,notes text);
    CREATE TABLE IF NOT EXISTS sw_rebuild.ledger(transfer_id text NOT NULL,wallet_id text NOT NULL,delta bigint NOT NULL,PRIMARY KEY(transfer_id,wallet_id));
    CREATE TABLE IF NOT EXISTS sw_rebuild.audit(id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,actor text,event text,target text,details jsonb);
@@ -43,6 +45,25 @@ test('canonical PostgreSQL wallet, idempotency, ownership and concurrency',{skip
    assert.equal((await sql.unsafe('SELECT sum(balance)::text AS total FROM sw_rebuild.wallets'))[0].total,'10003000000');
    assert.equal((await sql.unsafe('SELECT count(*)::integer AS n FROM sw_rebuild.wallets WHERE balance<0'))[0].n,0);
   };
+  await t.test('canonical session lookup accepts existing raw and hashed storage without trusting an account ID',async()=>{
+   await setup();const raw='c'.repeat(64),digest=createHash('sha256').update(raw).digest('hex');
+   await sql.unsafe('INSERT INTO sw_rebuild.sessions(token,user_id,expires) VALUES($1,$2,$3)',[raw,'player-a',now+60000]);
+   assert.equal(await resolveSessionUser(shared,'@session:'+digest,now),'player-a');
+   await sql.unsafe('DELETE FROM sw_rebuild.sessions');
+   await sql.unsafe('INSERT INTO sw_rebuild.sessions(token,user_id,expires) VALUES($1,$2,$3)',[digest,'player-b',now+60000]);
+   assert.equal(await resolveSessionUser(shared,'@session:'+digest,now),'player-b');
+   await assert.rejects(resolveSessionUser(shared,'player-a',now),/PLAYER_LOGIN_REQUIRED/);
+   await assert.rejects(resolveSessionUser(shared,'@session:'+raw,now),/ACTIVE_PLAYER_SESSION_REQUIRED/);await invariant();
+  });
+  await t.test('expired, blocked and non-player canonical sessions cannot enter JetX',async()=>{
+   await setup();const raw='d'.repeat(64),digest=createHash('sha256').update(raw).digest('hex');
+   await sql.unsafe('INSERT INTO sw_rebuild.sessions(token,user_id,expires) VALUES($1,$2,$3)',[digest,'player-a',now]);
+   await assert.rejects(resolveSessionUser(shared,'@session:'+digest,now),/ACTIVE_PLAYER_SESSION_REQUIRED/);
+   for(const user of ['blocked','admin']){
+    await sql.unsafe('UPDATE sw_rebuild.sessions SET user_id=$1,expires=$2',[user,now+60000]);
+    await assert.rejects(resolveSessionUser(shared,'@session:'+digest,now),/ACTIVE_PLAYER_SESSION_REQUIRED/);
+   }
+  });
   await t.test('automatic cashout during disconnection matches observed 5.50×1.01 = 5.55',async()=>{
    const {board}=await setup();await service.action('player-a',body(board));assert.equal(await balance('player-a'),999450n);
    now=reachesAt(board.startsAt,101);await service.reconcile();assert.equal(await balance('player-a'),1000005n);

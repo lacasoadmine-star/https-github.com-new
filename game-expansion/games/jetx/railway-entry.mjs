@@ -1,6 +1,7 @@
 import legacy,{sharedWallet,engineSecret,verifyNative,readNativeBody,engineEnabled,engineReady} from './native-family-preserved.mjs';
 import {AsyncLocalStorage} from 'node:async_hooks';
 import {JetXService} from './jetx-service.mjs';
+import {resolveSessionUser} from './jetx-auth.mjs';
 import {IMPLEMENTATION} from './jetx-rules.mjs';
 
 const jetx=sharedWallet?new JetXService(sharedWallet,{accepting:engineEnabled&&process.env.JETX_NATIVE_ACCEPT_NEW_ROUNDS==='true',autoTimers:true}):{ready:false,accepting:false};
@@ -40,11 +41,12 @@ export default {...legacy,async fetch(request){
  if(path==='/v2/jetx/health')return reply({ready:jetx.ready,accepting:jetx.accepting,gameId:'jetx_native',implementation:IMPLEMENTATION},jetx.ready?200:503);
  if(!jetx.ready)return reply({error:'JETX_UNAVAILABLE'},503);
  try{
-  const body=await readNativeBody(request),user=verifyNative(request,body,engineSecret);
-  if(!user)return reply({error:'UNAUTHORIZED'},401);
+  const body=await readNativeBody(request),subject=verifyNative(request,body,engineSecret);
+  if(!subject)return reply({error:'UNAUTHORIZED'},401);
   if(path==='/v2/jetx/reconcile'&&request.method==='POST'){
-   if(user!=='@system')return reply({error:'FORBIDDEN'},403);return reply(await jetx.reconcile(100));
+   if(subject!=='@system')return reply({error:'FORBIDDEN'},403);return reply(await jetx.reconcile(100));
   }
+  const user=await resolveSessionUser(sharedWallet,subject);
   if(path==='/v2/jetx/state'&&request.method==='GET')return reply(await jetx.state(user));
   if(path==='/v2/jetx/events'&&request.method==='GET')return jetx.eventStream(user,request.signal);
   if(path==='/v2/jetx/chat'&&['GET','POST'].includes(request.method)){

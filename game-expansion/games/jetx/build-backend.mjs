@@ -7,6 +7,7 @@ const original=await readFile(new URL('baseline/native-family-20261104.mjs',here
 const files={
  'native-family-preserved.mjs':original+'\nexport {S as sharedWallet,fe as engineSecret,ce as verifyNative,de as readNativeBody,B as engineEnabled,y as engineReady,K as acceptingRounds};\n',
  'jetx-rules.mjs':await readFile(new URL('rules.mjs',here),'utf8'),
+ 'jetx-auth.mjs':(await readFile(new URL('auth.mjs',here),'utf8')).replace("'./rules.mjs'","'./jetx-rules.mjs'"),
  'jetx-service.mjs':(await readFile(new URL('service.mjs',here),'utf8')).replace("'./rules.mjs'","'./jetx-rules.mjs'"),
  'jetx-railway-entry.mjs':await readFile(new URL('railway-entry.mjs',here),'utf8')
 };

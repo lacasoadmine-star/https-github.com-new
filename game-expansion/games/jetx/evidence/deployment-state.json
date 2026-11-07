@@ -4,15 +4,16 @@
   "remainingBatchSize": 25,
   "backend": {
     "serviceId": "f617aec9-d705-4dd3-b68b-dc058f9a0781",
-    "deployment": "dcd92fd9-ed1e-4c07-b3ba-f0448f0076c5",
+    "deployment": "17c446a5-6593-4a99-adee-1aa21da17df6",
     "healthReady": true,
     "acceptingJetX": true,
     "legacyNewRoundsEnabled": false,
-    "scope": "Service-specific source update following explicit user Allow"
+    "scope": "Service-specific source update following explicit user Allow",
+    "sessionAuthentication": "Canonical session lookup after actual machine-session validation"
   },
   "frontend": {
-    "version": "fec03561-d706-4450-af82-578780d5c479",
-    "deployment": "88049a89-b7d0-455b-896e-2830c9c6b2f8",
+    "version": "8a64773a-46d2-423c-b5a7-f0b22084d2d7",
+    "deployment": "d42b0244-b32e-4e78-b34a-ac998dab5f33",
     "url": "https://superwin-player.apdiy61.workers.dev/games/jetx_native",
     "uploadedAssetPaths": 113,
     "uploadedUniqueFiles": 112,
@@ -20,16 +21,27 @@
     "assetsBoundToLiveVersion": true,
     "oldModulesPreserved": 205,
     "oldBytesPreserved": 64104721,
-    "oldBindingsPreserved": 12
+    "oldBindingsPreserved": 12,
+    "moduleCount": 208,
+    "internalSignInFixed": true
   },
   "verification": {
-    "jetxNodeChecks": 28,
+    "jetxNodeChecks": 32,
     "browserScenarios": 9,
     "liveSignedOutBrowserPassed": true,
     "catalogueChecks": 14,
     "platformPytestChecks": 9,
     "frontendBuilds": 3,
     "productionTestWagers": 0,
-    "providerPrivateRngVerified": false
-  }
+    "providerPrivateRngVerified": false,
+    "authenticatedHttpFlowPassed": true,
+    "authenticatedNativeBrowserPassed": true,
+    "liveLoginFormPassed": true,
+    "simulatedLoginReturnNavigationPassed": true,
+    "productionAuthenticatedWagerTested": false
+  },
+  "resolvedDefects": [
+    "Undeployed native-family identity route replaced with the actual machine-session contract and canonical session lookup",
+    "Missing account login page replaced with the existing player login and return to JetX"
+  ]
 }

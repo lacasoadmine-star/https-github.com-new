@@ -1,3 +1,4 @@
+import {SIGN_IN_PATH,SIGN_IN_SOURCE} from './jetx-login-helper.mjs';
 export const RELEASE='superwin-jetx-native-20261107-r1';
 export const PREFIX='/native-library/jetx/r1/';
 const json=(value,status=200)=>Response.json(value,{status,headers:{'cache-control':'no-store','x-content-type-options':'nosniff'}});
@@ -30,6 +31,11 @@ export function installJetX(previous,{presence=''}={}){
  return {...previous,async fetch(request,env,ctx){
   if(env.PORTAL!=='player')return previous.fetch(request,env,ctx);
   const url=new URL(request.url),read=request.method==='GET'||request.method==='HEAD';
+  if(url.pathname==='/account'&&url.searchParams.get('view')==='login'&&read)return Response.redirect(new URL('/?play=jetx_native',url.origin),302);
+  if(url.pathname===SIGN_IN_PATH){
+   if(!read)return json({error:'METHOD_NOT_ALLOWED'},405);
+   return new Response(request.method==='HEAD'?null:SIGN_IN_SOURCE,{headers:{'content-type':'application/javascript; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'}});
+  }
   if(url.pathname==='/native/jetx_native'&&read)return Response.redirect(new URL('/games/jetx_native',url.origin),302);
   if(url.pathname.startsWith(PREFIX)){
    if(!read)return json({error:'METHOD_NOT_ALLOWED'},405);
@@ -53,12 +59,12 @@ export function installJetX(previous,{presence=''}={}){
     if(request.headers.get('X-Zplay-JetX-Session')!==await binding(request))return json({error:'JETX_SESSION_CHANGED'},403);
     if(request.headers.get('content-type')?.split(';')[0].trim()!=='application/json')return json({error:'JSON_REQUIRED'},415);
    }
-   // The unchanged authenticated route validates the existing session/presence
-   // lease and returns the canonical player identity. Client IDs are ignored.
-   const identity=await previous.fetch(new Request(new URL('/api/native-families/state?game_id=ssg-jetx',url.origin),{headers:{cookie:request.headers.get('cookie'),accept:'application/json'}}),env,ctx);
+   // Use the platform's deployed session route, including its presence gate.
+   // A guessed native-family route does not establish a player identity.
+   const identity=await previous.fetch(new Request(new URL('/api/machine-session',url.origin),{headers:{cookie:request.headers.get('cookie'),accept:'application/json'}}),env,ctx);
    if(!identity.ok)return identity;
-   let user,legacyActive;try{const data=await identity.json();user=data.user_id;legacyActive=data.round?.status==='active'?data.round.game_id:data.other_active_game;if(legacyActive==='jetx_native')legacyActive=null;}catch{return json({error:'IDENTITY_UNAVAILABLE'},502);}
-   if(typeof user!=='string'||!user||user.length>100||/[\r\n]/.test(user))return json({error:'IDENTITY_UNAVAILABLE'},502);
+   try{if((await identity.json()).authenticated!==true)return json({error:'PLAYER_LOGIN_REQUIRED'},401);}catch{return json({error:'IDENTITY_UNAVAILABLE'},502);}
+   const user='@session:'+await digest(cookie(request));
    let body='';if(request.method==='POST'){
     if(Number(request.headers.get('content-length')||0)>8192)return json({error:'BODY_TOO_LARGE'},413);
     try{body=await limitedBody(request);}catch{return json({error:'BODY_TOO_LARGE'},413);}
@@ -69,7 +75,7 @@ export function installJetX(previous,{presence=''}={}){
    const outputHeaders=new Headers({'cache-control':'no-store','x-content-type-options':'nosniff','X-Zplay-JetX-Release':RELEASE});
    if(operation==='events'){outputHeaders.set('content-type',response.headers.get('content-type')||'text/event-stream');return new Response(response.body,{status:response.status,headers:outputHeaders});}
    let data;try{data=await response.json();}catch{return json({error:'RETRY_SAME_REQUEST'},503);}
-   outputHeaders.set('content-type','application/json');return new Response(JSON.stringify(response.ok&&operation!=='chat'?{...data,sessionId:await binding(request),otherActiveGame:legacyActive||null}:data),{status:response.status,headers:outputHeaders});
+   outputHeaders.set('content-type','application/json');return new Response(JSON.stringify(response.ok&&operation!=='chat'?{...data,sessionId:await binding(request)}:data),{status:response.status,headers:outputHeaders});
   }
   const response=await previous.fetch(request,env,ctx);
   if(url.pathname==='/api/config'&&request.method==='GET'&&response.ok){
@@ -78,7 +84,7 @@ export function installJetX(previous,{presence=''}={}){
   if(url.pathname==='/'&&request.method==='GET'&&response.ok&&response.headers.get('content-type')?.includes('text/html')){
    const old='/player-native-catalog-20261107-r1/portal.mjs';
    const headers=new Headers(response.headers);for(const name of ['content-length','content-encoding','etag','last-modified'])headers.delete(name);headers.set('cache-control','no-store');
-   return new HTMLRewriter().on('script[src]',{element(element){if(element.getAttribute('src')===old)element.setAttribute('src',PREFIX+'portal.mjs');}}).transform(new Response(response.body,{headers}));
+   return new HTMLRewriter().on('script[src]',{element(element){if(element.getAttribute('src')===old)element.setAttribute('src',PREFIX+'portal.mjs');}}).on('body',{element(element){element.append('<script type="module" src="'+SIGN_IN_PATH+'"></script>',{html:true});}}).transform(new Response(response.body,{headers}));
   }
   return response;
  },async scheduled(event,env,ctx){
