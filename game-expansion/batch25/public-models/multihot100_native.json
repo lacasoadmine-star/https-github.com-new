@@ -1,0 +1,968 @@
+{
+  "machineId": "multihot100_native",
+  "requestedName": "MultiHot100",
+  "officialGameName": "MultiHot100",
+  "scope": "Extracted public rules and presentation source inventory",
+  "launchable": false,
+  "engineImplemented": false,
+  "providerPrivateRngVerified": false,
+  "linePathsVerified": false,
+  "reference": {
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-100",
+    "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
+    "observedAt": "2026-11-07T03:17:01.490Z",
+    "documentSha256": "bd828aa6f5caab860b4a8a017a2ff6a62d7200117f751a9c855ec072ace21b31"
+  },
+  "grid": {
+    "reels": 5,
+    "rows": 4,
+    "columnSort": "asc",
+    "symbolCount": 8
+  },
+  "paytable": {
+    "Coeffs": [
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          20.0,
+          200.0,
+          500.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          15.0,
+          100.0,
+          200.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          10.0,
+          50.0,
+          100.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          10.0,
+          50.0,
+          100.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          5.0,
+          10.0,
+          50.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          5.0,
+          10.0,
+          50.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          5.0,
+          10.0,
+          50.0
+        ],
+        "WinsOnLine": true
+      },
+      {
+        "Wins": [
+          0.0,
+          0.0,
+          0.0,
+          5.0,
+          10.0,
+          50.0
+        ],
+        "WinsOnLine": true
+      }
+    ],
+    "SpecialCoeffs": null
+  },
+  "bet": {
+    "lines": 100,
+    "chipCoefficient": "0.01",
+    "perLineValues": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      15,
+      20,
+      25,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      100
+    ],
+    "minimum": "1.00",
+    "maximum": "100.00"
+  },
+  "limits": {
+    "maximumWin": "250000.00",
+    "maximumWinMultiplier": 2500,
+    "gambleAttempts": "5.0",
+    "gambleMaximumStake": "500.00"
+  },
+  "observedRuntime": {
+    "nativeSceneLoaded": true,
+    "nativeBetControlOpened": true,
+    "nativeSpinClicked": true,
+    "superwinWalletVerified": false
+  },
+  "presentationAssets": [
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/CoinOfAtlantis/Poppins-Bold.ttf",
+      "path": "public-cache/d53bf139eda8c345031671216ffdcb734067475c613d6a7655cee432ae6950d7.ttf",
+      "bytes": 153944,
+      "sha256": "7219547ee25334cbac0fe4b3acf0bf631e48ebb622c71af038edaaa652c60875",
+      "type": "application/octet-stream"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/Intro/Intro-Black-Caps.otf",
+      "path": "public-cache/c222393e403076298a8df8da36877dbf67e1ecb2309f109c0aae6322bbb4e088.otf",
+      "bytes": 48796,
+      "sha256": "33e4ace2ca2b16d6e9d2dece292e599e0afdc10196a13987a47a11d9c0dc69d9",
+      "type": "font/otf"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/Intro/Intro-Regular.otf",
+      "path": "public-cache/9835ccf6e50049f41973ad41a76d94925501b5cf8203dd17ba57d961fba5474c.otf",
+      "bytes": 90504,
+      "sha256": "8b0279e2a3b54cbd3b30f3bdf369d2abe5c0369c7fc554add136e6d4edff5390",
+      "type": "font/otf"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Fonts/fonts.css",
+      "path": "public-cache/178c8da992121c292b8b408c9be57ba08fc605462aa71e29a169b7f2a696ef69.css",
+      "bytes": 836,
+      "sha256": "98704e978f9f3c70ee200c0fc2e71f2b216fb0e83b0c97002e7c069a1a3a9004",
+      "type": "text/css"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Scripts/Lib/slick.min.js",
+      "path": "public-cache/db7fce0dc99a2f09f98bee573494dfdcbb1026863f0253d6d3d2415beefa0c40.js",
+      "bytes": 42864,
+      "sha256": "e1a52c0a06fa9f65e015b02e7ec463fd621211a9d2ae44b6660597900e927fbb",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Scripts/main.js",
+      "path": "public-cache/18a8ffcf7f24f613f5cdeb5ef351d63fa217811ceace2f203d31f93c42a4fe87.js",
+      "bytes": 12814,
+      "sha256": "8557a2b4d957f2d5bff79c0bd13e3fabbc61e91c97915c6553adbd97a64f1969",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Styles/help.css",
+      "path": "public-cache/b2ced38c2bf0c6f5f8583081651f815e6d4174b4e37069e5f4f68f4942305aae.css",
+      "bytes": 5911,
+      "sha256": "0c043849f6a324937f752fdf19d62d68a6c077fe7052ac0a06fc1b5b57bdd6a5",
+      "type": "text/css"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Styles/slick-theme.css",
+      "path": "public-cache/78dc3988bb5252e505ef6694fc9cdd4cd34c570a49a239dda3be7e9105d1901f.css",
+      "bytes": 3406,
+      "sha256": "23ef1c093d9529bacc546ea3ae6eba184d6c536a0bef1e95f73db189bf9fb04a",
+      "type": "text/css"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Styles/slick.css",
+      "path": "public-cache/f82ccf70a8e056cb4618716d2b06139faa574b8849d9abb4d7e64904fd5a9e5b.css",
+      "bytes": 1865,
+      "sha256": "1f276e6df162cf4b185770ec25af982fbf5ec9914cd2cb5515e932631f50a47f",
+      "type": "text/css"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Images/Buttons/Delay.png",
+      "path": "public-cache/31dd55fd31d0791d73124cf70408a90f972b0fc87d5f8c2cb1738458f5085419.png",
+      "bytes": 46044,
+      "sha256": "9bb1e044dd374b040616812fd6ab582752c711db0211ea1daa5bec21df8179b6",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Images/Buttons/DelayFull.png",
+      "path": "public-cache/0938983ea732c88678985039074e46e649c3d9bc7644b2f8e99c217f7b8eb4f9.png",
+      "bytes": 25447,
+      "sha256": "3c4edc5f41069576e276f014d22c07f2144160435e8dc81f1ce81913fa2a6dac",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Images/Buttons/Lobby.png",
+      "path": "public-cache/f4422e17614f426b962041797d8dd55d24bc56552aa5650b0c174ac90442544d.png",
+      "bytes": 1424,
+      "sha256": "69eb838a47a690e125a5d16ac90449569a7bd569f0da36dbaf2026bfe199199d",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Images/Buttons/LobbyActive.png",
+      "path": "public-cache/1b9aebfe4e1391b4563c8e75405518320818d9fd071c0b7d53030272a919cee5.png",
+      "bytes": 1542,
+      "sha256": "0a517f8b2b17b940a286a0eaf120db2001298beca062c5955e8d9cfce2801d42",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Images/Buttons/LobbyDisabled.png",
+      "path": "public-cache/71e178c0619eecbe24b9cf6ee191fe17bf204315a0b6765c1e0e64021942b1b5.png",
+      "bytes": 1466,
+      "sha256": "479b0811101fb016b77535b01d5805550cade8dd7b812e4c0c492f19bdf01306",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Images/Buttons/LobbyHover.png",
+      "path": "public-cache/3b10144af744bfad99aa82c6563f7ba6e3cefa6bc8f5b91bf1960761258d4027.png",
+      "bytes": 1542,
+      "sha256": "da7d6579db887f621baa4594ffedca9ac757d2afd4c9914759cb1d8a1288a70a",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Spine/WinCoins/coins.atlas.txt",
+      "path": "public-cache/498dcf355901c48528b00a83f0ed824e29353fb05776d25090deef7514c7db7f.txt",
+      "bytes": 7535,
+      "sha256": "c7551389a50affaa5cb3f87844f233da1125142d03c851119a2d43579e619b9b",
+      "type": "text/plain"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Spine/WinCoins/coins.json",
+      "path": "public-cache/e63821b269625dd7f34ac061230758fd7e1e4cbeb859f3019f99849b52d401ee.json",
+      "bytes": 23884,
+      "sha256": "5fed776f12b2411f3f4aac0b7e0b6433c7faf328853d3a55eb6c346d866b291f",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Spine/WinCoins/coins.png",
+      "path": "public-cache/db9249e2b271ac6f9d7f00ceb220467435c9b9857febaf567c67b767fce7ec85.png",
+      "bytes": 835881,
+      "sha256": "aca6034708b8f72e254962c22daaae4661586d4aeaaf566645532e73c69beeb0",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Spine/WinCoins/coins2.png",
+      "path": "public-cache/580bc80a2d64e5ad213699c91113febda4b8e8a42276b4fe60409707fd73bc3f.png",
+      "bytes": 550485,
+      "sha256": "b9aa25718e85e05779ebcce1f3fd7db0b86c3e53c9a7e923c4060a528931e386",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-0.json",
+      "path": "public-cache/c14382ed19de75f67d4ba5cac32fa762786f7b274d51ebd9e970265dfbba2379.json",
+      "bytes": 23778,
+      "sha256": "d1d980984437435f6db2e5f8e7e0135adbd4d1cc5960c4b97fac0110a6a65924",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-0.png",
+      "path": "public-cache/8767e5d2309bb5c2039904bd4ba74d0170852201b9be5b0507402ed9bf2dbbdd.png",
+      "bytes": 1530812,
+      "sha256": "74fef5e8f7247e4c6d48f7737e2d405dc23dafdb7b62996526d2672d917f6e75",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-1.json",
+      "path": "public-cache/93b7ea43d2a039c0765bece20e18af4c7d9fc1ccccf5cf5020c6470cc72a339e.json",
+      "bytes": 7305,
+      "sha256": "5f9d9387d4dbda93cbbd19e8998814e7e623ea05ec704ee8c822f48bfefc495a",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-1.png",
+      "path": "public-cache/c16f900b751bac5edbe6e52f32fa510a99aebcf3453c4cea0704a1d450873234.png",
+      "bytes": 1595721,
+      "sha256": "7b8a98cc8051f6bd81cee8d7d47715d7350d9c0cd993f09d76c09262ac2e33b7",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-2.json",
+      "path": "public-cache/413bf1da8bab008c2eb45491893b086f68e5db6dabfdbe7d540741cc85b74b84.json",
+      "bytes": 5301,
+      "sha256": "723780627e4a7590840080ec5be8c5f21b5876cd1f9c72de21bccdcc0b9a968a",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-2.png",
+      "path": "public-cache/3076258f2c5ca9603194ca21189c92b59b355ae6e97f82492f874fa765760046.png",
+      "bytes": 969932,
+      "sha256": "cd39bb5053f6ce88ac7465edcc511ace43627745acba4745d7884a284210106b",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-3.json",
+      "path": "public-cache/18469034b43ab9a5271d7a64abed0e3e21a717c5b3124265d17c33f20c16114c.json",
+      "bytes": 7380,
+      "sha256": "bc193231bc2edfe2ff2bb3be105913cd3d79ad6416411e866d93d0af625b9872",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-3.png",
+      "path": "public-cache/ce3d323d6d18284fa312cbc91665de9af06869b99c0859d752271beea9b026c4.png",
+      "bytes": 1463715,
+      "sha256": "9975caf528f0a6250492c3cb9dea7ab4d0cd3127500ae279a3a6699752952d12",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-4.json",
+      "path": "public-cache/7cddac9d0479c8ef6cd252364a7e0f2b64c1fe87b4cb10007931d9db96582a9d.json",
+      "bytes": 4244,
+      "sha256": "a1c20716298e27018ab7de214e41e15fc5cfaf48ab963cf5cc443b8447cae255",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-4.png",
+      "path": "public-cache/dd6641612e70889b615c8b675c493781802deae3625d0fa3883a8f4b5e851ece.png",
+      "bytes": 36651,
+      "sha256": "617e4009b535c37b989349bbd2e2e5ca174d9e03feee18a5a358961eff042a1a",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-5.json",
+      "path": "public-cache/8a75ebf97e30b4716bef340a2bff7ee434f9a1057a137471779542956ed53945.json",
+      "bytes": 5660,
+      "sha256": "0a2352196ce85f509cdd882470b8ef5f536aaca0b3a090a02002cd888ea3d526",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-5.png",
+      "path": "public-cache/f89462e2cfe17e288a3cf37ca873ffe9d993a443feff7ed4601489d52917050e.png",
+      "bytes": 375111,
+      "sha256": "af66487d07580c16c411b56ae04f59d83bc39de84712135219679c77e766d3f8",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-6.json",
+      "path": "public-cache/011e6cba76741ac7f03d75497735905ed6a13e7b8d004447e356e8562a81b4d6.json",
+      "bytes": 5455,
+      "sha256": "95a540449c571da9aa3c65ea76f60650d7d8d715df2020303a126935c0a91bf8",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-6.png",
+      "path": "public-cache/18dae62e78905e68ba96ebe0368b1c68db0f2d90cbbcae4cf258767e76ec5209.png",
+      "bytes": 210096,
+      "sha256": "30512aaf33a5578ec21d0ddabb6c95e7152bc26e3b02d9311caebf48373e6575",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-7.json",
+      "path": "public-cache/e83fa7d633bbeb28218a42127c28d03b75d8dcda671d7a6218f14931e2612761.json",
+      "bytes": 4016,
+      "sha256": "12f2e89c455d34d70539c12695d786f43d75896f1179829756652a8ca34121d8",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/Sprites/Images-7.png",
+      "path": "public-cache/d9c128001b4148ef0b280a1baccc25736b77208405f0632c2ac6d6d65055e2fe.png",
+      "bytes": 335164,
+      "sha256": "4d4b02a2730c026748a053a68de4cd11de0155199ef67c87b49aef52bbd8266b",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Images/background.png",
+      "path": "public-cache/1f1f5dda6fc98894a937f9ba380b097326aeeb0059190f93635ed2dbe7f0665d.png",
+      "bytes": 1797452,
+      "sha256": "87b4e66861db2f1740601f8638a9c0a1d8ddb4f6b81c139272871d38639819c5",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Logo/multi%20hot%20100%20logo.atlas.txt",
+      "path": "public-cache/774dce1570ca952628a29ca74e979be1f8d5c3d0864ea745ca84d8041b2ad94e.txt",
+      "bytes": 12417,
+      "sha256": "0b918211882b55328712fc8c7f3edccb299227d10413bb8d2e1d9af4678cf2e9",
+      "type": "text/plain"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Logo/multi%20hot%20100%20logo.json",
+      "path": "public-cache/f199aeb59493a933ab6892313b6a62e0325b3d0eb2345ac6c809e51f3c2c20e5.json",
+      "bytes": 13368,
+      "sha256": "a01286cb91b69f9aa511dd199fe96371c0bc075089138d53880fbe25090e2eb2",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Logo/multi%20hot%20100%20logo.png",
+      "path": "public-cache/b82c12f9ad362f669c38b3e2cb046972282ba1b53c9fdafa5eb7088b8dcd49bd.png",
+      "bytes": 76197,
+      "sha256": "237e5d479a4247598dff01396e11829249c75035c5efe7e1d6faeab2a77c5107",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Start/multiplayer.atlas.txt",
+      "path": "public-cache/1e0d5cc8903c3b247bd2882110cb589e4b2bc92e6b8c1673197a84e64ff1a2f9.txt",
+      "bytes": 10395,
+      "sha256": "0bea384759691d72192ab8f9925e05d4f810d8b6d6bf286a0edbe215f8768e0b",
+      "type": "text/plain"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Start/multiplayer.json",
+      "path": "public-cache/44e457505e36212ab3629b612718ee45ca4db8b386e191bef28209cd376e8690.json",
+      "bytes": 76797,
+      "sha256": "c05ccf9284498e41765ccefe0993de086821cb65435193b69b02c3c5bc58b430",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Start/multiplayer.png",
+      "path": "public-cache/2dac533bc523485dfb2032a5cf3248fd16cdab1085117076419fb4f7884c4236.png",
+      "bytes": 363173,
+      "sha256": "7db2df6a4ff1dc7cf473103991f7675ddb42a06580ac74fb09057f7b931546e8",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Wild/Multi%20hot%20Wild.atlas.txt",
+      "path": "public-cache/3e378ad7090f15fb3346ecb5e3e11509d4bce5df7ca97535e6df0d2923bb7013.txt",
+      "bytes": 18481,
+      "sha256": "c003b89407091e4b053a982669e99b27cc9584610bba3ec619b091e6c654ef6e",
+      "type": "text/plain"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Wild/Multi%20hot%20Wild.json",
+      "path": "public-cache/b2f40aec827d8c1e60446177ab80e9d94f8bb22ea3792a677c636d3f81a5c470.json",
+      "bytes": 48446,
+      "sha256": "3328fe15e8c8d5f6706b6e117794e0a4d81c7ddf51881bd30d49a4544849a63b",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Wild/Multi%20hot%20Wild.png",
+      "path": "public-cache/e545a9439155b44f6b0a2eebc4471193d8ead0e08587a4c564a206a5bb0df3f5.png",
+      "bytes": 212270,
+      "sha256": "7bcbc8809a56e9ab5d53ca437a318c841bf8211f362924d9786cbd1820889b7b",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Win/Multi%20hot%205%20Wilde%20wins.atlas.txt",
+      "path": "public-cache/32323cec0f188c2e69f11552b48501207d355503bedd120e519a88ca94588ae2.txt",
+      "bytes": 15224,
+      "sha256": "6504c21f7bd4005560e31bcf9051b3ed624a417e25a5345df74a1c57a82efc8b",
+      "type": "text/plain"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Win/Multi%20hot%205%20Wilde%20wins.json",
+      "path": "public-cache/688bdb3401da5a0d52cb2af46b60e9763a6e5d4d9a33426e4ae521471aaecbbb.json",
+      "bytes": 191050,
+      "sha256": "271110378ac235b462e2470be2a410ad030e1ca5208121ec23183e9461ad85ea",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Win/Multi%20hot%205%20Wilde%20wins.png",
+      "path": "public-cache/74a527aa8cc22733c25d282088bd330172da87da22c8326f06db78625df1ea63.png",
+      "bytes": 584562,
+      "sha256": "a63ebe0fce418b7b670f554fb7b564f4a7b26745592d31c520c1dd44acf29fce",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/Win/Multi%20hot%205%20Wilde%20wins2.png",
+      "path": "public-cache/7631123223e6903705591b3c99973b4276e7b0aa772121b7750b17f228acad3c.png",
+      "bytes": 208793,
+      "sha256": "036b3430be4bfc4b03e267492b8856ad79bff444301177f73f36c1981dc7e851",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/WinBox/skeleton.atlas.txt",
+      "path": "public-cache/98dcda7114c74596edbba2c579e7992c12da07a3b88430efc99ec238f87edad0.txt",
+      "bytes": 8999,
+      "sha256": "829c38788412f75c154bb996ae8d6d957c5f7093ba59a55bb22b2d0b1f6f6890",
+      "type": "text/plain"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/WinBox/skeleton.json",
+      "path": "public-cache/3df31a7366b5246456252253f21fd2404d05e4634359ccd5fa0a33e35db56b4d.json",
+      "bytes": 9577,
+      "sha256": "692572231a791897b6483258d9155d4c8c840e6d2b0bd078bf3cfae47f4c89a0",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Spine/WinBox/skeleton.png",
+      "path": "public-cache/0c800accc575227ce98e875bf861ba77590861c21f77f9d9cacd0c7a3a00203d.png",
+      "bytes": 1422580,
+      "sha256": "0d1b708a4934297ed83ca4b6bf38dff0ad0dceb3abb091c486508f5a0293487b",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Sprite/BoxWin/BoxWin-0.json",
+      "path": "public-cache/2111a9981cf0f1caa1dc5cde5402ff15b3941ac9514e41fe7d6b3fa604beab84.json",
+      "bytes": 3783,
+      "sha256": "5421078ffdcf2c3d103a95952ad0c781b34c63c092b97b4a128e6af3e6b7933b",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Sprite/BoxWin/BoxWin-0.png",
+      "path": "public-cache/e66045a2c602137f5a1fd06d0784fb80cfaca136445946d7228876a6aea7bbc5.png",
+      "bytes": 1148470,
+      "sha256": "87dff142b5d63c36dca5100de2aca75d36b5e31bb4732e6b51e70e9d3d4be0d3",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Sprite/BoxWin/BoxWin-1.json",
+      "path": "public-cache/3509575a7b87f6616b724a794efb7e1ba4ae492483c6ec44d1f52df1b091673c.json",
+      "bytes": 3334,
+      "sha256": "89cf9ebe376991493d2a4796dd24a88b6fdfb46f72a36d86af812d2c02b8c244",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Sprite/BoxWin/BoxWin-1.png",
+      "path": "public-cache/45c29a4c08fa8d35b1bd3b1576fc43c781d21789461def32a19fc4c7d123ffdf.png",
+      "bytes": 1220387,
+      "sha256": "c20098b041cdc4e125be8abc81dc282ba4df5df2183e0fa3a513894cf88aedd0",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Sprite/BoxWin/BoxWin-2.json",
+      "path": "public-cache/f1abb2038edadcd38c7a6141b9d924bf1c827759f288da89dc97087d3b40ade4.json",
+      "bytes": 1559,
+      "sha256": "5273c44ce680dd0b329e4ceb6dbe01205a2310021bb11f14ebf4a146a1d745cf",
+      "type": "application/json"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot100/Sprite/BoxWin/BoxWin-2.png",
+      "path": "public-cache/57e9c207e05b918909a9ada7ac97b31c93250269c28d72fa459414a04e32d034.png",
+      "bytes": 258789,
+      "sha256": "06005d88d6c2365da593b1aa5d8b2843134e4e0f0c6e466a36d08a61c2b94c45",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-background.png",
+      "path": "public-cache/cde4ab7508392ea1b2ca638aa1d35564a4da903d78ad46d041360774c920c433.png",
+      "bytes": 340,
+      "sha256": "2c4fb994168a8a1ba3bc6984849813561b7d19969b56cf3a9daa2ea9f2e7eaca",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-icon.png",
+      "path": "public-cache/63ce4f8a3903a36745d151cd17a52cc7e1cbcded2867d176f221cd6ecf10bff2.png",
+      "bytes": 475,
+      "sha256": "5a147a489f158511a11f0b9e2339d2637aeb7b5f716f039eff1c77d05510bd8e",
+      "type": "image/png"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-logo.gif",
+      "path": "public-cache/37727bf0369aa1253a596ee85a9dba857a80daf8c057d1bf6dee4cee225bd54c.gif",
+      "bytes": 46937,
+      "sha256": "4d5662742ebb6a6c564a9c225040c034062c1fdc7d4e12e0b1f227350ad26c99",
+      "type": "image/gif"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Locale/Scripts/common.js",
+      "path": "public-cache/9de27a64a16e36dad17c21c8cf39315a8c58596088bb9e9d32ea1e13608b6069.js",
+      "bytes": 1803,
+      "sha256": "0668c113925145184400a06d066050d9784f307bea21e079bb6851cc8e439d65",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Locale/en/Scripts/captions.js",
+      "path": "public-cache/9778c49f2a47e9aa8de3e7c09e2626b0a1fe53a50d3a6037d7354fdc093554c2.js",
+      "bytes": 174,
+      "sha256": "90b3b171a244fe7c4612c6011c24303475fa46016bb1e8d391d81439c8b4f031",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/autoPlay.js",
+      "path": "public-cache/157c53c02551e3bbae4494e3e1740bb6c8dff27f9be367c86489b5879d50e906.js",
+      "bytes": 35698,
+      "sha256": "fd3215d796f2324b275989a077e21e04438302901fbc9502944f1173d3d5acbe",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/bets.js",
+      "path": "public-cache/96854990762bbd7f9bb945a9f6dc70f1b5abfd1816657c44aab53150ebb955ae.js",
+      "bytes": 11921,
+      "sha256": "a2038db0068b701802ff6a460f016ac4024de764b2efe239b5c5701b1281f4c3",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/bonus.js",
+      "path": "public-cache/45748d9b21dec6a0694c146b3d5e912b8212d9a595e3f93581389933c6c4cf58.js",
+      "bytes": 5326,
+      "sha256": "f51a177b4b9b0b7b308d961d1344b7b4197bb2c81b592b1677138ac689c59e7e",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box.js",
+      "path": "public-cache/de49ee08b457897dd7b45fa2c7be0e5d5b503c26b444d51601f0334c04f23300.js",
+      "bytes": 115501,
+      "sha256": "f94d5e5dcf5c135eb2615a3745072b1f1e262fc19f1a8bb1211b76122a4f592c",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/columnGroup.js",
+      "path": "public-cache/78fa40d21d2ac642dba038893ebf1c00ada29fad11d103c5732d1ac4799ed397.js",
+      "bytes": 13785,
+      "sha256": "47b760f5a811e83706d967f0a94e0404f6f158bea2ac19670eb4981c6b50601f",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/columnMultiplier.js",
+      "path": "public-cache/55c92aede878a735f011efae32e071bc7823fe5c08fce125efecafb328ba23d1.js",
+      "bytes": 18189,
+      "sha256": "80e53967706d4beed310f138d849ef5411ed17be6f1846efcde6b59214b0ad90",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/freeze.js",
+      "path": "public-cache/bd4d24dba5249c9c9c6aefaed7ac27963158134240cb9c071bbc1bb326184e9b.js",
+      "bytes": 5277,
+      "sha256": "e321abd4714d8ecbc47cec7ee4ede2fd81f665d887a62e19848722e2176da2d9",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/info.js",
+      "path": "public-cache/6c5d32c962493765d7347871da5f889e313ffcee3384d7137bd4cdeb9abd0910.js",
+      "bytes": 11296,
+      "sha256": "a8de42d5bddc9475b61d1b2db4336aa2f08cd39ef6377b35d195618211d40f38",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/line.js",
+      "path": "public-cache/b6865a2bb614655047bf5d055d539c4964f4355c8d803cc1cf98f53ab3757bf7.js",
+      "bytes": 1619,
+      "sha256": "5ae31cebe732cf5585ca4bfc3f2345f3e110fa36cc22ca451fcb5efc8b0ab921",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/train.js",
+      "path": "public-cache/3b433e3635fbc79581d7975eb15e50feae1eaacd3da313258162a9d5695998d9.js",
+      "bytes": 55523,
+      "sha256": "0230be66115f5142c93abf92d3871533c7f76c866d0d3de06b036eb8399e33a6",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/box/win.js",
+      "path": "public-cache/fd5cb3180a973f35de971ad4f33f535f8dcd423ff03e6272608b158bdfe61ae4.js",
+      "bytes": 896,
+      "sha256": "5315dbf980820074193223103e312711193468d27281379a2e3b8e07db896821",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/buttons.js",
+      "path": "public-cache/76b1657f6cacc127c1431ac79c848ee55a23485c2a86fd21021cb4d91f92067d.js",
+      "bytes": 71865,
+      "sha256": "0fde07c331a593d4eb64a907f397f96c435cb77210e461d7a1350e33a090ff3a",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/buyBonus.js",
+      "path": "public-cache/87b7f0e205caa863bfcedae5e762223d6ce0f6410c82af419d6d6961a3c0d9b7.js",
+      "bytes": 21742,
+      "sha256": "533f5272bc13df33618dff9dcf442ad85773ea5de75f5ec7d73e1fab1c41e9cc",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/buyFeature.js",
+      "path": "public-cache/c52abc87aea3b2738f595bab7bb12dfcb106633aace07db7cf9fb2162cb64a94.js",
+      "bytes": 29264,
+      "sha256": "1f12cae52351ddbbbf76d419cf11ac958041560a1fe23c2fc8025471342cedea",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/buyRespin.js",
+      "path": "public-cache/f3d5d731d972101325ca536b5db6bb484d181759bb8657db577e15c7eb8edef2.js",
+      "bytes": 28967,
+      "sha256": "1e63ec45a5aac466cddb1ad791eaeb33cfbfe2d003684adc7c32004f69093bfd",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/common.js",
+      "path": "public-cache/95dca167d70472acd2797c68ad10d344bc9804cabe2100d7491fefaaf4e1c2cf.js",
+      "bytes": 38938,
+      "sha256": "f2af7f508c502666ed84a74204c2facd1937764465e906f6fbcf915ea5a98b05",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/confirmPopup.js",
+      "path": "public-cache/f804e32ed2be95960e28e1c4291bf96039517b7ae95c2d5dbf2094bb244c801f.js",
+      "bytes": 7882,
+      "sha256": "65ecc1ea3b0e2144c74de8b918f6766ad12289099f1e95b6e0b8b05e16f3ae32",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/customButton.js",
+      "path": "public-cache/1a17ed29451e7a216f4e5e8edb0f5514a13672d8d1c8eca8e19a0b92421fe003.js",
+      "bytes": 10147,
+      "sha256": "afb4d4d09f82546983074c963d7958d731da757cbb0b771aa1ba8fc988576a32",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/double.js",
+      "path": "public-cache/5b18ef98c82863ca2b87d306e04ba8085b4c854ebcdc2e76c17bfc2e015fedc7.js",
+      "bytes": 23726,
+      "sha256": "2dc5dc86d3466945ef0e9320647557b8623a2327087aa6307a0af5eaac431d77",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/freeSpin.js",
+      "path": "public-cache/f194dcf695fba732bb91a94e1f199e8e684ce143a44713f31ed1766bf9509c43.js",
+      "bytes": 47193,
+      "sha256": "2309adca708f33db61fd60e3d72b7f2b31fbafc223b0c0d23f761851cc60f450",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/gift.js",
+      "path": "public-cache/0ccfe9196579cf95c39803b013af56b4544b454f99aa485d7add59ddcde71363.js",
+      "bytes": 18741,
+      "sha256": "c8110ac2a00e6f07cc5cdc31d8ef29805b71623562c1af62f69737a0a44fdfbb",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/intro.js",
+      "path": "public-cache/6d88918e1c74cc20ec259ddeb33b892d8625fb748f5a4f06ce0656b295f37416.js",
+      "bytes": 10788,
+      "sha256": "45859cb3f61e3fed66d24c08ea3bc8e275e72a928f2e74f6c978ba939250dfac",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/jackpot.js",
+      "path": "public-cache/fb6754e28274b3184192101ba0f3f17c77135575a0b2cf3ecfd5651009d6a835.js",
+      "bytes": 1570,
+      "sha256": "56c3afa357d0d195e9a2d41b85a0db872a8741db94b9504c55c025abdc7afa6c",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/mission.js",
+      "path": "public-cache/d55e2878cdf1dc614c86d65dc1da2feea0895a66ea2fb2bb572c3f5de83a4f7d.js",
+      "bytes": 5885,
+      "sha256": "c0badd69759e343b5fbd82cbdc66eb8a620695ba304fedceff36bfe876dbb5ec",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/quickPlay.js",
+      "path": "public-cache/f6fc4b2ebfef387959ea08fad1d8b70075d658785a58d377fe40ebda2b404d65.js",
+      "bytes": 11603,
+      "sha256": "c89f43358232618afc6238391c80e4939c8b271d243e936c3e003c68690fc9e9",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/riskGame.js",
+      "path": "public-cache/050441794f05994d25ab898fb655680669fa7aed4b66dbc7164035099857d02e.js",
+      "bytes": 51326,
+      "sha256": "eea9c4b8c593277dfb8be866974b9418ce6ca86213592b65c9769a026de7250e",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/vr.js",
+      "path": "public-cache/8ff5ec9a122eae47156bf50b579e688de28959a1ee6515f6bf0b293f53a13b4e.js",
+      "bytes": 16318,
+      "sha256": "86211d8ed0cac7193dfc40e4cf3e8508e61ffee94146af834c1318e2c9589fe8",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/win.js",
+      "path": "public-cache/e96cac69e007e8d25703c00b1b933e6537aa51f58b49172af04c3793fbda0049.js",
+      "bytes": 29939,
+      "sha256": "7a5d466e532439bcd519e9da1dd5ee9fe29ede10edc1bd59c0cfc54b45cd2633",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/winX2.js",
+      "path": "public-cache/05c335d64e669600b008cd53036f03af683ee6120860efd8918b462146e843f0.js",
+      "bytes": 5798,
+      "sha256": "46a76e5a3f4ee74ed572229c528b026194e5c740943bdfcb24768943f4ee8c7f",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/MultiHot100.js",
+      "path": "public-cache/ca83faa2df4b70e3015f0d09435f8e11dee2f532bd78213e8ea82d5072801cdb.js",
+      "bytes": 72763,
+      "sha256": "78f2b80e7d2ff7831c4e6820489e7322909cea4de8bf0034457150b3c2148026",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/canvas.js",
+      "path": "public-cache/9c742bfd5143be9a906fc4fff86ec237f8c6a2101d767aeea5fc385bcd2e8a41.js",
+      "bytes": 52384,
+      "sha256": "2fef54d51d43a9b5129730067083b8824e05116e8e73168be9baf6840caaad35",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/common.js",
+      "path": "public-cache/775c452bffae853974dfd69dc845d2740c3c3b200603f705c6c553425df63a94.js",
+      "bytes": 26083,
+      "sha256": "b4a993f0e23e8b116b756202887e01a4fbfd225e2cb3ba7e43826b7aed2473de",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/data.js",
+      "path": "public-cache/f7e8324a343c03a937d6145836f3616c995d9e30d4012374c3ab392fe4988837.js",
+      "bytes": 19018,
+      "sha256": "99bca3f4c35c0e08e0a8b95973d187f295eb93fd085c9b296f76e888ad714bde",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/slot.js",
+      "path": "public-cache/cec4124b962e75bd1cb8ec1e2bd89ab3a7c2b3ce3c101bef35d11bfa246f87dd.js",
+      "bytes": 27035,
+      "sha256": "1efa2c98f088f2bbc6668da750b94b4dad2d5f1475d8e6a24ca8a7b1e871738f",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/fullscreen.js",
+      "path": "public-cache/e83f93087425641356792335945e83efca4892c2e78296dcbcea3278989890f0.js",
+      "bytes": 3489,
+      "sha256": "fdb0b21cc481dae931a2beaaa93567d4721ea4e3bd18dc1ab58f098e78d2668c",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/integration.js",
+      "path": "public-cache/91212cdf3698f04e8c6d8a298ced77cde4d97acd16ea4ff4acd142db32d3afe9.js",
+      "bytes": 3127,
+      "sha256": "f83685361911d4158939e6b079a661b940d0ede2637ec2cc6a65a412a42549bd",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/bowser.js",
+      "path": "public-cache/cfb752e0e08088b49819183c614bd9659219c3efd25c86495f0a619ec8bf4a57.js",
+      "bytes": 8802,
+      "sha256": "3b94c2f8ee4ea179ed437e89f9ee131352b7ac0c4ce2124d1d403ad4a494f529",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/jquery-3.7/jquery-ui.min.js",
+      "path": "public-cache/774feca721b6130653299fb1f3bf2c992210370e2e82a45c90d8eff6310a8e8a.js",
+      "bytes": 252962,
+      "sha256": "df4b73e14c40c6e48a78d78ff52d0bbe83cd2febd9e5dd256d7fd3b5981d4567",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/jquery-3.7/jquery.min.js",
+      "path": "public-cache/0a0b7779e2185a4f82270c95043a135691d89f1e62aeb2c21c5316e6f854b53d.js",
+      "bytes": 87535,
+      "sha256": "7aa6b0e08f48a0f95d8df7ea89e4cbfe1ef3d1e8c0f7373f7f25edfb4e4a325e",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/pixi-animate.js",
+      "path": "public-cache/27fd91161be388252a03e04a1f7e002225a0cfcc5a5ab596a86f05a4ef1bb9aa.js",
+      "bytes": 24588,
+      "sha256": "105a56e9c58dbee5ecc07f3dc1cdfc001e245afe8f576b699dc76698b4103caa",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/pixi-multi-text.js",
+      "path": "public-cache/95a821ef11ae43abc3594cf2af807234f3e1eec9d13458c3be41e4c20857a6f4.js",
+      "bytes": 29884,
+      "sha256": "790f3dea6f53fd367aa46dc2a3afc5d57fca57f7bfc8bc99064bfa56684fdbc2",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/pixi-sound.js",
+      "path": "public-cache/eba436da91452b0bb7988d00f9ff74d003a1079aa481981dcc3c3a0568edbc81.js",
+      "bytes": 37330,
+      "sha256": "0a770312680180bc7a3f29dd7c8000ac49ff77222db09c6a3c62e95cd8cafff1",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/pixi-spine.js",
+      "path": "public-cache/efbefada31c0224bd274a43f885ce4fc91434c959a1206ac29cc6748e6c5043a.js",
+      "bytes": 1180717,
+      "sha256": "b08c58cbcef42f46a4268d06abb30c37853c18883e922edaa6f92b1c2e433e54",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/lib/pixi.js",
+      "path": "public-cache/ea31cad67416880057b682323555ac5f5f02dfba5a134d36a74315a526406e79.js",
+      "bytes": 1949442,
+      "sha256": "6e714e60663ee9a56c9e271e5baa1f7048091e98fa5f5a945b2cd2b189a8e06f",
+      "type": "application/javascript"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Buttons/Button.mp3",
+      "path": "public-cache/1f5f9071b015496ddeacfb6f57cd34f015eb73dd3b482a28fa2ec29572375c35.mp3",
+      "bytes": 10493,
+      "sha256": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Buttons/Spin.mp3",
+      "path": "public-cache/55717723fcf67d4d55a7598d225d764b2a604deb0627d4d52c3e4e6bbb7704fa.mp3",
+      "bytes": 28322,
+      "sha256": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Start/Background.mp3",
+      "path": "public-cache/acacfcce2b2390615f978b2611accfbdf92afcb356e853b119a6fa669bf4aabc.mp3",
+      "bytes": 2096626,
+      "sha256": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Start/ObjectMoveFast.mp3",
+      "path": "public-cache/d61d883f1cd01df893be8a93e2b020e2b59d7459a5661df19d4a40694df80a0e.mp3",
+      "bytes": 17180,
+      "sha256": "63a970209db2dfd356c2f8ed596a1a5e8d2b9256526e8194ace0dad0c7c56cbc",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Start/ReelStop1.mp3",
+      "path": "public-cache/59a00c3d9a8a38edfcbd368a18013f1ce1a805dd89433475300e092863848502.mp3",
+      "bytes": 22080,
+      "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Start/ReelStop2.mp3",
+      "path": "public-cache/3d5ba2b8c6cc3fd99c1366c9473881b47685c399ef3967b63b9bd23a205c75c8.mp3",
+      "bytes": 22080,
+      "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot100/Start/ReelStop3.mp3",
+      "path": "public-cache/88022a0dadd27cd5144f17a9800681beae33e6cbbbe563f72d4c5bf0c4093ba3.mp3",
+      "bytes": 22080,
+      "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+      "type": "audio/mpeg"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Styles/fonts.css",
+      "path": "public-cache/c23b3fbd502409dcde0be044d87ed105075342d76f973a09796c1fd778a9ba59.css",
+      "bytes": 11079,
+      "sha256": "86fbba065d59e6a8feea7d3b1dcff8ed46781c7a268fad23a0292f0c3b40662c",
+      "type": "text/css"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Styles/othergamesslots.css",
+      "path": "public-cache/3b502d058ad451cb8b86b5ced6c31b95d88a9494db719a9a281c4d29a96dd57f.css",
+      "bytes": 70812,
+      "sha256": "5a193984332ca360c4c0988005417c8e472d14faead405f49afb3532e9a75dfb",
+      "type": "text/css"
+    }
+  ]
+}
