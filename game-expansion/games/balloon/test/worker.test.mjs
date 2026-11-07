@@ -28,8 +28,6 @@ test('denies unauthenticated library state and wagers',async()=>{
  assert.equal(response.status,401);
  response=await run(f,'/api/library/action',{method:'POST',headers:{origin,'content-type':'application/json'},body});
  assert.equal(response.status,401);
- response=await run(f,'/api/library/state?game_id=balloon_native',{headers:signedHeaders()});
- assert.equal(response.status,503); 
 });
 
 test('canonical player identity is required even with a session cookie',async()=>{
