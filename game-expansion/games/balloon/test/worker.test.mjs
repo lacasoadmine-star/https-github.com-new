@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash,createHmac} from 'node:crypto';
-import {installBalloon,addCatalog,sign,BALLOON_PREFIX} from '../worker.mjs';
+import {installBalloon,addCatalog,sign,BALLOON_PREFIX,BALLOON_COVER,catalogEntry} from '../worker.mjs';
 
 const origin='https://superwin-player.apdiy61.workers.dev';
 const engine='https://engine.example.test';
@@ -42,6 +42,7 @@ test('serves Canvas code as same-origin resources; no iframe screenshot',async()
  const html=await r.text();
  assert.match(html,/<canvas id="scene"/);assert.ok(!html.includes('<iframe'));
  assert.ok(html.includes(BALLOON_PREFIX+'balloon.js'));
+ assert.ok(html.includes('/player-v236/presence.63ed199a80b6c700.mjs'));
  const css=await run(f,BALLOON_PREFIX+'balloon.css');assert.equal(css.status,200);
  assert.match(css.headers.get('content-type'),/text\/css/);
  const js=await run(f,BALLOON_PREFIX+'balloon.js');assert.equal(js.status,200);
@@ -94,6 +95,18 @@ test('original catalog remains and Balloon appears at most once',()=>{
  const updated=addCatalog(current);
  assert.deepEqual(updated.games.map(x=>x.id),['jetx_native','multihot5','balloon_native']);
  assert.equal(addCatalog(updated),updated);
+ assert.equal(catalogEntry.category,'Flight');
+ assert.match(catalogEntry.thumbnail,/^\/assets\/[\w./%-]+\.svg$/);
+});
+
+test('Balloon cover uses the existing portal image allowlist and legacy lobby HTML is untouched',async()=>{
+ const f=fixture();
+ const cover=await run(f,BALLOON_COVER);assert.equal(cover.status,200);
+ assert.equal(cover.headers.get('content-type'),'image/svg+xml');
+ assert.match(await cover.text(),/<svg/);
+ assert.equal(await (await run(f,BALLOON_COVER,{method:'HEAD'})).text(),'');
+ assert.equal((await run(f,BALLOON_COVER,{method:'POST'})).status,405);
+ assert.equal(await (await run(f,'/')).text(),'legacy');
 });
 
 test('agent and admin portals do not inherit Balloon',async()=>{

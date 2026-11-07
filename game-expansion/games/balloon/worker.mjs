@@ -2,6 +2,7 @@ import {ASSETS} from './client-assets.mjs';
 export const BALLOON_PREFIX='/native-library/balloon/v1/';
 export const BALLOON_GAME='balloon_native';
 export const BALLOON_RELEASE='zplay-balloon-native-20261107-r1';
+export const BALLOON_COVER='/assets/zplay-balloon-native-v1.svg';
 const json=(data,status=200)=>Response.json(data,{status,headers:{'cache-control':'no-store','x-content-type-options':'nosniff'}});
 const encoder=new TextEncoder();
 const toHex=bytes=>Array.from(new Uint8Array(bytes),v=>v.toString(16).padStart(2,'0')).join('');
@@ -15,13 +16,13 @@ export async function sign(secret,user,method,path,body='',time=Date.now()){
  const encoded=[method,path,String(time),user,await digest(body)].join('\n');
  return {'x-native-user':user,'x-native-time':String(time),'x-native-signature':toHex(await crypto.subtle.sign('HMAC',await keys.get(secret),encoder.encode(encoded)))};
 }
-export const catalogEntry=Object.freeze({id:BALLOON_GAME,name:'Balloon',type:'crash',category:'Crash',studio:'Superwin',available:true,enabled:true,demo:false,thumbnail:BALLOON_PREFIX+'cover.svg',launch:'/games/balloon_native',implementation:'Native canvas; independent server-side math',official_provider_game:false});
+export const catalogEntry=Object.freeze({id:BALLOON_GAME,name:'Balloon',type:'crash',category:'Flight',studio:'Superwin',available:true,enabled:true,demo:false,thumbnail:BALLOON_COVER,launch:'/games/balloon_native',implementation:'Native canvas; independent server-side math',official_provider_game:false});
 export function addCatalog(data){
  if(!Array.isArray(data?.games))return data;
  if(data.games.some(game=>game.id===BALLOON_GAME))return data;
  return {...data,games:[...data.games,catalogEntry]};
 }
-const TYPES=Object.freeze({'index.html':'text/html; charset=utf-8','balloon.js':'application/javascript; charset=utf-8','balloon.css':'text/css; charset=utf-8','portal.js':'application/javascript; charset=utf-8','cover.svg':'image/svg+xml'});
+const TYPES=Object.freeze({'index.html':'text/html; charset=utf-8','balloon.js':'application/javascript; charset=utf-8','balloon.css':'text/css; charset=utf-8','cover.svg':'image/svg+xml','lobby.mjs':'application/javascript; charset=utf-8','catalog.mjs':'application/javascript; charset=utf-8'});
 const CSP="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; font-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'";
 function asset(name,head=false){
  if(!Object.hasOwn(ASSETS,name))return json({error:'NOT_FOUND'},404);
@@ -37,6 +38,10 @@ export function installBalloon(previous){
  return {...previous,async fetch(request,env,ctx){
   if(env.PORTAL!=='player')return previous.fetch(request,env,ctx);
   const url=new URL(request.url),path=url.pathname,read=request.method==='GET'||request.method==='HEAD';
+  if(path===BALLOON_COVER){
+   if(!read)return json({error:'METHOD_NOT_ALLOWED'},405);
+   return asset('cover.svg',request.method==='HEAD');
+  }
   if(path==='/games/balloon_native'){
    if(!read)return json({error:'METHOD_NOT_ALLOWED'},405);return asset('index.html',request.method==='HEAD');
   }
@@ -76,8 +81,13 @@ export function installBalloon(previous){
    return new Response(JSON.stringify(next),{headers,status:res.status});
   }
   if(path==='/'&&request.method==='GET'&&res.ok&&res.headers.get('content-type')?.includes('text/html')){
-   const headers=new Headers(res.headers);for(const x of ['content-length','content-encoding','etag','last-modified'])headers.delete(x);headers.set('cache-control','no-store');
-   return new HTMLRewriter().on('body',{element(element){element.append('<script type="module" src="'+BALLOON_PREFIX+'portal.js"></script>',{html:true});}}).transform(new Response(res.body,{status:res.status,headers}));
+   const headers=new Headers(res.headers);for(const name of ['content-length','content-encoding','etag','last-modified'])headers.delete(name);
+   headers.set('cache-control','no-store');
+   // Replace the single active catalogue module in its existing script position.
+   // Its UI code is retained; the imported catalogue adds Balloon once.
+   return new HTMLRewriter().on('script[src]',{element(element){
+    if(element.getAttribute('src')==='/native-library/jetx/r1/portal.mjs')element.setAttribute('src',BALLOON_PREFIX+'lobby.mjs');
+   }}).transform(new Response(res.body,{status:res.status,headers}));
   }
   return res;
  },async scheduled(event,env,ctx){
