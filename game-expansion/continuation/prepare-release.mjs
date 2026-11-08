@@ -7,7 +7,7 @@ import {GAMES as ALL_GAMES,ASSETS as ALL_ASSETS,REFERENCE_ART_FILES as ALL_ART} 
 // Publish only the completed individual machine. Other machines retain their
 // source and release state without shipping unfinished clients or artwork.
 const root=dirname(fileURLToPath(import.meta.url)),ID='multihot40_native';
-const names=['multihot40.html','multihot40.css','multihot40-app.mjs','multihot40-presentation.mjs','session.mjs','autoplay.mjs','login-return.mjs',
+const names=['multihot40.html','multihot40.css','multihot40-app.mjs','multihot40-presentation.mjs','session.mjs','autoplay.mjs','spin-hold.mjs','login-return.mjs',
  'presentation/atlas.mjs','presentation/machine-renderer.mjs','presentation/multihot40-motion.mjs','presentation/multihot40-skeleton.mjs',
  'presentation/manifests/multihot40_native.json','games.json','catalog.mjs','lobby.mjs','covers/multihot40_native.svg'];
 const ASSETS=Object.fromEntries(names.map(name=>{if(typeof ALL_ASSETS[name]!=='string')throw Error('RELEASE_ASSET_MISSING:'+name);return[name,ALL_ASSETS[name]];}));

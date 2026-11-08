@@ -1,19 +1,20 @@
 import {ExpansionSession,bindPlayerEvents,moneyMinor,fromMinor,formatMoney,getRoundActions} from './session.mjs';
 import {AutoplayController} from './autoplay.mjs';
 import {MultiHot40Presentation} from './multihot40-presentation.mjs';
+import {SpinHold} from './spin-hold.mjs';
 
 const ID='multihot40_native',PREFIX='/native-library/expansion/r1/';
 const $=id=>document.getElementById(id);
 const nodes=Object.fromEntries([...document.querySelectorAll('[id]')].map(node=>[node.id,node]));
 const auto=new AutoplayController();
 let config=null,manifest=null,session=null,state=null,ready=false,entered=false,operation='',visualBusy=false,visualRound='',lastRound='',queuePending=false,disposed=false;
-let selectedStake='0.40',historyOrder='recent',historySequence=0,renderTick=0,initialSnapshot=true;
+let selectedStake='0.40',historyOrder='recent',historySequence=0,renderTick=0,initialSnapshot=true,hold=null;
 const preferences={sound:true,music:true,turbo:false};
 try{const saved=JSON.parse(localStorage.getItem('zplay:multihot40:preferences')||'{}');for(const name of Object.keys(preferences))if(typeof saved[name]==='boolean')preferences[name]=saved[name];}catch{}
 const presenter=new MultiHot40Presentation(nodes.scene,{onEvent:event=>{
  if(event.type==='animation-complete'){
   if(event.roundId&&visualRound&&event.roundId!==visualRound)return;
-  visualBusy=false;syncControls();queueAutomatic();
+  visualBusy=false;syncControls();queueAutomatic();hold?.queue();
  }
 }});
 const dialogNames=['menuDialog','settingsDialog','betDialog','autoDialog','rulesDialog','historyDialog','gambleDialog'];
@@ -26,7 +27,7 @@ function applyPreferences(){
  presenter.setState({soundEnabled:entered&&preferences.sound,musicEnabled:entered&&preferences.music,turbo:preferences.turbo});
 }
 function closeDialogs(){for(const name of dialogNames)nodes[name].close();}
-function openDialog(name){closeDialogs();nodes[name].showModal();}
+function openDialog(name){hold?.stop();closeDialogs();nodes[name].showModal();}
 function actionAllowed(action){return !disposed&&document.visibilityState==='visible'&&(action==='collect'||ready&&entered)&&!operation&&!visualBusy&&!auto.snapshot().active&&session?.canAct(action)===true;}
 function canStart(){return !disposed&&document.visibilityState==='visible'&&ready&&entered&&!operation&&!visualBusy&&session?.canStart()===true;}
 function hostState(){return {...state,canStart:canStart(),animationRunning:visualBusy};}
@@ -37,7 +38,7 @@ function presenterState(next){
 function onState(next){
  if(disposed)return;
  const previousSession=state?.sessionId;state=next;
- if(previousSession&&previousSession!==next.sessionId){auto.stop('session-change');visualBusy=false;visualRound='';lastRound='';historySequence++;nodes.historyContent.replaceChildren();nodes.historyDialog.close();presenter.setState({phase:'error',balanceMinor:null});}
+ if(previousSession&&previousSession!==next.sessionId){hold?.stop();auto.stop('session-change');visualBusy=false;visualRound='';lastRound='';historySequence++;nodes.historyContent.replaceChildren();nodes.historyDialog.close();presenter.setState({phase:'error',balanceMinor:null});}
  const round=next.round,newRound=!!round&&round.round_id!==lastRound;
  if(newRound){
   lastRound=round.round_id;
@@ -45,7 +46,7 @@ function onState(next){
   else{visualBusy=false;presenter.setState({...presenterState(next),phase:'idle'});}
  }else presenter.setState(presenterState(next));
  if(next.connected&&next.authenticated)initialSnapshot=false;
- if(!next.connected||!next.authenticated||next.error)auto.stop('connection-change');
+ if(!next.connected||!next.authenticated||next.error){hold?.stop();auto.stop('connection-change');}
  auto.observe(hostState());
  syncControls();syncGamble();queueAutomatic();
 }
@@ -73,7 +74,7 @@ function syncControls(){
  if(state.otherActiveGame)nodes.otherGame.href=/^[a-z0-9_]+$/.test(state.otherActiveGame)?'/games/'+state.otherActiveGame:'/';
  presenter.setState({canSpin:canStart()||actionAllowed('collect'),canGamble:actionAllowed('gamble'),autoPlaying:automatic.active});
 }
-async function doStart({automatic=false}={}){
+async function doStart({automatic=false,holding=false}={}){
  if(operation||disposed||document.visibilityState!=='visible'||!ready||!entered)return false;
  if(visualBusy){presenter.speedUp();return false;}
  if(!state?.authenticated){location.href=nodes.signIn.href;return false;}
@@ -85,7 +86,7 @@ async function doStart({automatic=false}={}){
   if(!collected){operation='';syncControls();return false;}
  }
  operation='';
- if(!canStart()||state.sessionId!==initiatingSession||state.game?.version!==initiatingModel||automatic&&!auto.snapshot().active)return false;
+ if(!canStart()||state.sessionId!==initiatingSession||state.game?.version!==initiatingModel||automatic&&!auto.snapshot().active||holding&&!hold?.active)return false;
  if(moneyMinor(state.balance)<moneyMinor(selectedStake)){nodes.status.textContent='Your balance is below this stake.';nodes.statusBar.classList.remove('quiet');auto.stop('insufficient-funds');return false;}
  operation='start';visualBusy=true;visualRound='';closeDialogs();presenter.setState({...presenterState(state),phase:'spinning'});syncControls();
  const confirmed=await session.start(selectedStake,automatic?{autoCollect:true}:{});
@@ -164,7 +165,8 @@ function showReplay(entry){
 }
 function enteredGame(sound){entered=true;preferences.sound=sound;preferences.music=sound;nodes.startup.hidden=true;savePreferences();if(sound)void presenter.unlockAudio();syncControls();resize();}
 
-nodes.spin.addEventListener('click',()=>{if(visualBusy)presenter.speedUp();else void doStart();});
+hold=new SpinHold(nodes.spin,{target:window,canLaunch:()=>!auto.snapshot().active&&(canStart()||actionAllowed('collect')),launch:()=>doStart({holding:true})});
+nodes.spin.addEventListener('click',()=>{if(hold.consumesClick())return;if(visualBusy)presenter.speedUp();else void doStart();});
 nodes.collect.addEventListener('click',()=>void collectWin());nodes.gamble.addEventListener('click',()=>{if(actionAllowed('gamble')){syncGamble();openDialog('gambleDialog');}});
 nodes.recoveryCollect.addEventListener('click',()=>void collectWin());
 nodes.red.addEventListener('click',()=>void gamble('red'));nodes.black.addEventListener('click',()=>void gamble('black'));nodes.gambleCollect.addEventListener('click',()=>void collectWin());
@@ -183,10 +185,10 @@ nodes.recoveryRetry.addEventListener('click',()=>nodes.retry.click());
 nodes.auto.addEventListener('click',()=>{if(auto.snapshot().active){stopAuto();return;}if(!canStart())return;nodes.autoStake.textContent='Each spin: '+selectedStake+' ETB';nodes.autoError.textContent='';openDialog('autoDialog');});nodes.autoStop.addEventListener('click',()=>stopAuto());
 nodes.autoForm.addEventListener('submit',event=>{event.preventDefault();if(!canStart()||auto.snapshot().active)return;try{auto.begin({gameId:ID,modelVersion:state.game.version,sessionId:state.sessionId,stakeMinor:amount(selectedStake),count:Number(nodes.autoCount.value),startingBalanceMinor:amount(state.balance),previousRoundId:state.round?.round_id??null,winLimitMinor:limitValue(nodes.autoWin),lossLimitMinor:limitValue(nodes.autoLoss),gainLimitMinor:limitValue(nodes.autoGain)});nodes.autoDialog.close();syncControls();queueAutomatic();}catch(error){nodes.autoError.textContent=error.message;}});
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){stopAuto('page-hidden');presenter.setState({soundEnabled:false,musicEnabled:false});}else{applyPreferences();if(!operation)void session?.refresh({quiet:true});}});
-window.addEventListener('pagehide',()=>{disposed=true;stopAuto('pagehide');cancelAnimationFrame(renderTick);presenter.dispose();});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){hold.stop();stopAuto('page-hidden');presenter.setState({soundEnabled:false,musicEnabled:false});}else{applyPreferences();if(!operation)void session?.refresh({quiet:true});}});
+window.addEventListener('pagehide',()=>{disposed=true;hold.stop();stopAuto('pagehide');cancelAnimationFrame(renderTick);presenter.dispose();});
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
-window.addEventListener('keydown',event=>{if(event.code==='Space'&&!dialogNames.some(name=>nodes[name].open)&&!['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement?.tagName)){event.preventDefault();if(!nodes.spin.disabled)nodes.spin.click();}});
+window.addEventListener('keydown',event=>{if(event.code==='Space'&&!event.repeat&&!dialogNames.some(name=>nodes[name].open)&&!['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement?.tagName)){event.preventDefault();if(!nodes.spin.disabled)nodes.spin.click();}});
 
 async function boot(){
  let storage;try{storage=sessionStorage;}catch{storage=null;}

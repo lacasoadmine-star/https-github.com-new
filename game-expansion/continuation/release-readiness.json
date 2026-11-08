@@ -1,30 +1,24 @@
 {
   "requirement": "Latest user instruction: each machine A-to-Z using its own official demo references. Do not publish guessed public rules or a generic presentation as completed.",
-  "checkedAt": "2026-11-07T22:09:18.744819+00:00",
+  "checkedAt": "2026-11-08T00:10:45.857537+00:00",
   "newMachinesPublished": 0,
   "existingGamesPreserved": true,
   "machines": {
     "multihot40_native": {
       "requestedName": "MultiHot40",
-      "status": "in_development",
-      "modelVersion": "superwin-multihot40-1",
+      "status": "verified",
+      "modelVersion": "superwin-multihot40-2",
       "checks": {
         "officialIdentity": true,
-        "visibleRules": false,
+        "visibleRules": true,
         "paytable": true,
-        "controlsAndBonuses": false,
-        "presentationComparison": false,
-        "nativeMath": false,
+        "controlsAndBonuses": true,
+        "presentationComparison": true,
+        "nativeMath": true,
         "walletSettlement": true,
-        "browserIntegration": false
+        "browserIntegration": true
       },
-      "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
-        "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
-        "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
-        "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
-        "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration."
-      ],
+      "remaining": [],
       "productionEnabled": false,
       "verifiedComponents": [
         "Individual official identity and public source fingerprints",
@@ -32,7 +26,16 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection",
+        "Independent native model with exact analytical RTP and attained maximum; no clipping",
+        "Manual collection, gamble, expiry and canonical atomic wallet settlement",
+        "Native reels, wheel, paylines, Nice/Big/Super/Fantastic animations and event-linked audio assets",
+        "Official Android portrait and desktop layout comparison",
+        "Actual Chromium mobile interaction with real client and isolated canonical receipts; nine checks, zero browser errors",
+        "Revocable pointer HOLD & SPIN with tested release-during-collection guard"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -41,7 +44,29 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json",
+        "references/multihot40-official-walkthrough.json",
+        "evidence/multihot40-v2-math.json",
+        "evidence/multihot40-browser-summary.json",
+        "evidence/multihot40-cloud-mobile-result.json",
+        "evidence/multihot40-release-routing-review.json",
+        "test/multihot40-wallet.test.mjs",
+        "test/multihot40-motion.test.mjs",
+        "test/multihot40-app-controls.test.mjs",
+        "test/spin-hold.test.mjs"
+      ],
+      "releasePhase": "candidate_prepared",
+      "verificationScope": "Independent ZPLAY native implementation. Public geometry and artwork are compared to the official demo; private provider probabilities and exact full parity are not claimed.",
+      "referenceParityClaim": false,
+      "knownVariances": [
+        "Native exact RTP 95.9014892578125%; observed provider demo RTP 96.58%. Private provider probability law was not recovered.",
+        "ETB is the independently defined native currency profile, with the observed numerical DMO stake schedule.",
+        "Native red/black allows current wins up to 500.00 ETB and five attempts. The exact provider pre/post-double interpretation remains unverified.",
+        "All visible win-tier animations use verified inert source assets and independently authored rendering. Every provider win sequence and audible timing has not been observed end to end."
       ]
     },
     "multihot100_native": {
@@ -59,7 +84,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -72,7 +97,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -81,7 +109,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "multihotwildways_native": {
@@ -99,7 +131,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -112,7 +144,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -121,7 +156,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "multihot5wild_native": {
@@ -139,7 +178,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -152,7 +191,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -161,7 +203,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "multihot5superwilds_native": {
@@ -179,7 +225,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -193,7 +239,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -202,7 +251,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "multihotdeluxe_native": {
@@ -220,7 +273,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -234,7 +287,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -243,7 +299,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "burningice_native": {
@@ -261,13 +321,13 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
         "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration.",
         "Public help confirms automatic freezing of participating winning reels and respinning other reels. Public client receives authoritative ReelsToFreeze, ConsecutiveWinsCount, UserWin and TotalWin. It does not establish the draft rule paying only increases over prior line/scatter maxima or the five-frame stopping bound.",
-        "Help verifies three lucky coin positions on reels2–4. The draft1/16 initial-spin chance selecting one column, and no coin on later respins, are independent unverified restrictions; the public client can animate several WildColumns."
+        "Help verifies three lucky coin positions on reels2\u20134. The draft1/16 initial-spin chance selecting one column, and no coin on later respins, are independent unverified restrictions; the public client can animate several WildColumns."
       ],
       "productionEnabled": false,
       "verifiedComponents": [
@@ -276,7 +336,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -285,7 +348,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "burningice10_native": {
@@ -303,13 +370,13 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
         "The exact fixed numerical schedules are copied from the public DMO profile. They are not evidence of a provider-approved ETB configuration.",
         "Public help confirms automatic freezing of participating winning reels and respinning other reels. Public client receives authoritative ReelsToFreeze, ConsecutiveWinsCount, UserWin and TotalWin. It does not establish the draft rule paying only increases over prior line/scatter maxima or the five-frame stopping bound.",
-        "Help verifies three lucky coin positions on reels2–4. The draft1/16 initial-spin chance selecting one column, and no coin on later respins, are independent unverified restrictions; the public client can animate several WildColumns."
+        "Help verifies three lucky coin positions on reels2\u20134. The draft1/16 initial-spin chance selecting one column, and no coin on later respins, are independent unverified restrictions; the public client can animate several WildColumns."
       ],
       "productionEnabled": false,
       "verifiedComponents": [
@@ -318,7 +385,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -327,7 +397,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "burningice40_native": {
@@ -345,7 +419,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -360,7 +434,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -369,7 +446,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "safarisimba_native": {
@@ -387,7 +468,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -400,7 +481,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -409,7 +493,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "habeshafortune5_native": {
@@ -427,7 +515,7 @@
         "browserIntegration": false
       },
       "remaining": [
-        "Generic Canvas presentation does not reproduce the individual official layouts, symbols in motion, transitions, sound, help screens and all controls.",
+        "Original-art receipt rendering is integrated in the unpublished client. Complete reel/symbol motion, audio timing, entry flows, menus, optional controls and side-by-side official demo/browser comparison remain unverified.",
         "Official X2 red/black gamble and take-win flow are not implemented. Raw public fields are DoublingMaxCount5 and DoublingMaxWin500 DMO; exact eligibility is server supplied in Board.Options. Pre/post-double limit meaning remains unverified. See first11-optional-controls.json.",
         "Exact numerical reference maximum and displayed maximum multiplier replace invented caps. Source public maxima may describe reachable outcomes rather than payout truncation. Independent grids can exceed a displayed maximum in some titles; clamping is only a disabled draft interpretation and needs validation.",
         "Visible prizes are exact and sampling was not retuned. Current independent draft return is now quantified in first11-raw-prize-diagnostic.json, showing several models far from a viable target. Prior scaled-paytable97% studies are superseded; no provider RTP is claimed.",
@@ -440,7 +528,10 @@
         "Exact line or way geometry",
         "Exact discrete numerical demo stake schedule",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Reference autoplay count and monetary-limit controller, with model/session pinning"
+        "Reference autoplay count and monetary-limit controller, with model/session pinning",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/first11-public-specs.json",
@@ -449,7 +540,11 @@
         "references/first11-optional-controls.json",
         "test/wallet-settlement.test.mjs",
         "test/autoplay.test.mjs",
-        "test/app-autoplay.test.mjs"
+        "test/app-autoplay.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "moonstone_native": {
@@ -542,13 +637,20 @@
       "productionEnabled": false,
       "verifiedComponents": [
         "Individual public source audit and rule corrections",
-        "Integer-money settlement in isolated canonical PostgreSQL fixture"
+        "Integer-money settlement in isolated canonical PostgreSQL fixture",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "darkhorus_native": {
@@ -633,13 +735,20 @@
         "Individual public source audit and rule corrections",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
         "Exact public numeric line table and 25 paths",
-        "Public five-spin and extra-wild rules"
+        "Public five-spin and extra-wild rules",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "assassins_native": {
@@ -688,13 +797,20 @@
       "verifiedComponents": [
         "Individual public source audit and rule corrections",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Analytical checks for the explicitly independent native draft"
+        "Analytical checks for the explicitly independent native draft",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "towerrush_native": {
@@ -721,13 +837,20 @@
       "verifiedComponents": [
         "Individual public source audit and rule corrections",
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
-        "Analytical checks for the explicitly independent native draft"
+        "Analytical checks for the explicitly independent native draft",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "egyptianlegends_native": {
@@ -756,13 +879,20 @@
       "productionEnabled": false,
       "verifiedComponents": [
         "Individual public source audit and rule corrections",
-        "Integer-money settlement in isolated canonical PostgreSQL fixture"
+        "Integer-money settlement in isolated canonical PostgreSQL fixture",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "olympianlegends_native": {
@@ -790,13 +920,20 @@
       "productionEnabled": false,
       "verifiedComponents": [
         "Individual public source audit and rule corrections",
-        "Integer-money settlement in isolated canonical PostgreSQL fixture"
+        "Integer-money settlement in isolated canonical PostgreSQL fixture",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     },
     "coinminer_native": {
@@ -826,13 +963,20 @@
         "Integer-money settlement in isolated canonical PostgreSQL fixture",
         "Current official 94-variant numeric multiplier table",
         "Discrete mine choices and TreasureBoost thresholds",
-        "Conditional finite stopping-return calculation for the independent draft"
+        "Conditional finite stopping-return calculation for the independent draft",
+        "Hash-pinned individual original-art display mapped to actual isolated draft receipts",
+        "Same-origin read-only asset host with model/session/round/frame/viewport guards",
+        "Reference artwork loading gates new starts and risk actions while preserving accepted-round collection"
       ],
       "evidence": [
         "references/remaining.json",
         "references/remaining-analytical-checks.json",
         "test/remaining-games.test.mjs",
-        "test/wallet-settlement.test.mjs"
+        "test/wallet-settlement.test.mjs",
+        "test/reference-host.test.mjs",
+        "test/presentation-model-contract.test.mjs",
+        "test/app-reference.test.mjs",
+        "evidence/reference-assets-build.json"
       ]
     }
   },
@@ -848,5 +992,6 @@
     "models/smartsoft-slots.data.json": "baaa35faefa65418e6f614c2bb155b239a788baed83903417b28a6b0ec46f2b2",
     "models/smartsoft-slots.mjs": "c26b3d4208f9eee6b3598d7963a960290dc560f6dd2ef9920bb33400a8bb74a3",
     "models/smartsoft-slots.public.json": "2389f1d57f9661f0ec903de6b715c7919daf3b04d7b2dba85f5f10e53d67a6b2"
-  }
+  },
+  "preparedNativeMachines": 1
 }

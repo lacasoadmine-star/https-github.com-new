@@ -232,8 +232,8 @@ export class MultiHot40Presentation {
     context.drawImage(image, (this.width - image.width * scale) / 2, (this.height - image.height * scale) / 2, image.width * scale, image.height * scale);
   }
   wheel(view, sample) {
-    const context = this.context, scale = view.board.width / 993;
-    const origin = { x: view.board.x + view.board.width / 2, y: view.board.y + 392 * scale };
+    const context = this.context, scale = view.board.width / 993 * (view.portrait ? .845 : 1);
+    const origin = { x: view.board.x + view.board.width / 2, y: view.board.y + (view.portrait ? 408 : 392) * scale };
     const normal = [202, 367, 305, 269, 417, 198, 516, 161, 581, 367, 738, 367, 801, 161, 918, 204, 1015, 268, 1124, 368, 1037, 368, 273, 367];
     const light = [543, 170, 657, 145, 773, 170, 720, 358, 592, 358];
     this.sprite('Multiplier/Background', RECT(origin.x - 660 * scale, origin.y - 660 * scale, 1320 * scale, 1320 * scale), { padding: true, fit: 'stretch' });
@@ -275,7 +275,9 @@ export class MultiHot40Presentation {
     // The source artwork is positioned on a 500px untrimmed canvas in each
     // 190px reference cell. Fitting its trimmed bounds to a cell shrinks the
     // visible fruit and changes sizes between symbols and blur frames.
-    const scale = Math.min(cell.width, cell.height) / 190;
+    const scale = this.geometry?.portrait
+      ? Math.min(cell.width / 102, cell.height / 100) * .46
+      : Math.min(cell.width, cell.height) / 190;
     this.sprite(name, RECT(cell.x + cell.width / 2 - frame.original.width * scale / 2,
       cell.y + cell.height / 2 - frame.original.height * scale / 2,
       frame.original.width * scale, frame.original.height * scale), { padding: true, fit: 'stretch' });
@@ -365,8 +367,8 @@ export class MultiHot40Presentation {
     if (validMinor(value) && BigInt(value) > 0n && this.state.phase !== 'error' && this.state.authenticated !== false && sample.phase !== 'spinning' && sample.phase !== 'settling') entries.push(['win', 'Start/FooterWin', 'WIN', value]);
     for (const [name, frame, title, amount] of entries) {
       const box = view.hud[name]; this.sprite(frame, box, { fit: 'stretch' });
-      this.label(title, box.x + box.width / 2, box.y + box.height * .31, box.height * .23, { color: '#fbf13e', weight: 500 });
-      this.label(money(amount) + (validMinor(amount) ? ' ETB' : ''), box.x + box.width / 2, box.y + box.height * .66, box.height * .235, { maxWidth: box.width * .91 });
+      this.label(title, box.x + box.width / 2, box.y + box.height * .31, box.height * .28, { color: '#fbf13e', weight: 500 });
+      this.label(money(amount) + (validMinor(amount) ? ' ETB' : ''), box.x + box.width / 2, box.y + box.height * .66, box.height * .29, { maxWidth: box.width * .91 });
     }
   }
   celebration(view, sample) {

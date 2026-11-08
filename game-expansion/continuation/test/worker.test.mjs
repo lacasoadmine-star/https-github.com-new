@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash,createHmac} from 'node:crypto';
-import {installExpansion,extendCatalogue,PREFIX} from '../worker.mjs';
-import {ASSETS,GAMES} from '../client-assets.mjs';
+import {installExpansion,extendCatalogue,PREFIX,REFERENCE_ART_PREFIX} from '../worker.mjs';
+import {ASSETS,GAMES,REFERENCE_ART_FILES} from '../client-assets.mjs';
 
 const origin='https://superwin-player.apdiy61.workers.dev';
 const engine='https://engine.example.test',secret='test-key-'.repeat(8),token='b'.repeat(64);
@@ -21,7 +21,7 @@ const run=(f,path,init={})=>f.worker.fetch(new Request(origin+path,init),f.env,{
 
 test('all available distinct machine routes serve the bundled client and same-origin resources',async()=>{
  const f=fixture();assert.ok(available.length>0);
- for(const game of available){const response=await run(f,'/games/'+game.id);assert.equal(response.status,200);assert.equal(await response.text(),ASSETS['index.html']);assert.match(response.headers.get('content-security-policy'),/connect-src 'self'/);const art=await run(f,'/assets/zplay-'+game.id+'.svg');assert.equal(art.status,200);assert.match(await art.text(),/<svg/);}
+ for(const game of available){const response=await run(f,'/games/'+game.id);assert.equal(response.status,200);assert.equal(await response.text(),ASSETS[game.id==='multihot40_native'?'multihot40.html':'index.html']);assert.match(response.headers.get('content-security-policy'),/connect-src 'self'/);const art=await run(f,'/assets/zplay-'+game.id+'.svg');assert.equal(art.status,200);assert.match(await art.text(),/<svg/);}
  assert.equal((await run(f,PREFIX+'missing.js')).status,404);
  assert.equal((await run(f,'/games/'+game.id,{method:'POST'})).status,405);
 });
@@ -85,9 +85,43 @@ test('the generated catalogue exports every symbol imported by the retained lobb
  assert.equal(rows.filter(row=>GAMES.some(game=>game.id===row.id)).length,GAMES.filter(game=>game.launchable).length);
  assert.equal(new Set(rows.map(row=>row.id)).size,rows.length);
 });
-test('the current production entry keeps every incomplete A-to-Z machine unpublished',async()=>{
- assert.equal(GAMES.filter(game=>game.launchable).length,0);
- assert.equal(extendCatalogue({games:[]}).games.length,0);
+test('the current production entry publishes the reviewed native machine and retains22 unfinished machines outside launch',async()=>{
+ assert.deepEqual(GAMES.filter(game=>game.launchable).map(game=>game.id),['multihot40_native']);
+ assert.equal(extendCatalogue({games:[]}).games.length,1);
  const f=fixture();f.worker=installExpansion(f.previous);
- for(const game of GAMES)assert.equal((await run(f,'/games/'+game.id)).status,503);
+ for(const game of GAMES)assert.equal((await run(f,'/games/'+game.id)).status,game.launchable?200:503);
+});
+
+test('reference artwork uses only the existing static binding and strips account headers and query parameters',async()=>{
+ const f=fixture(),path=Object.keys(REFERENCE_ART_FILES).find(path=>path.endsWith('.png')),record=REFERENCE_ART_FILES[path],seen=[];
+ f.env.NATIVE_LIBRARY_ASSETS={fetch:async request=>{seen.push(request);return new Response('isolated-art-bytes',{headers:{'content-type':'text/html'}});}};
+ const r=await run(f,path+'?untrusted=ignored',{headers:{cookie,'authorization':'fixture-only','x-zplay-library-session':session}});
+ assert.equal(r.status,200);assert.equal(await r.text(),'isolated-art-bytes');assert.equal(r.headers.get('content-type'),record.mime);assert.equal(r.headers.get('x-zplay-reference-sha256'),record.sha256);assert.equal(r.headers.get('x-content-type-options'),'nosniff');
+ assert.equal(seen.length,1);assert.equal(new URL(seen[0].url).pathname,path);assert.equal(new URL(seen[0].url).search,'');assert.equal(seen[0].headers.get('cookie'),null);assert.equal(seen[0].headers.get('authorization'),null);assert.equal(seen[0].headers.get('x-zplay-library-session'),null);assert.equal(f.calls.length,0);
+ const head=await run(f,path,{method:'HEAD'});assert.equal(head.status,200);assert.equal(await head.text(),'');assert.equal(seen[1].method,'HEAD');
+});
+
+test('missing, non-read and failed reference assets cannot reach a provider, wallet or fallback HTML route',async()=>{
+ const f=fixture(),path=Object.keys(REFERENCE_ART_FILES)[0];let calls=0;
+ assert.equal((await run(f,path)).status,503);
+ f.env.NATIVE_LIBRARY_ASSETS={fetch:async()=>{calls++;return new Response('missing',{status:404});}};
+ assert.equal((await run(f,REFERENCE_ART_PREFIX+'unlisted.js')).status,404);
+ assert.equal((await run(f,path,{method:'POST',body:'not a wager'})).status,405);assert.equal(calls,0);
+ assert.equal((await run(f,path)).status,404);assert.equal(calls,1);
+ f.env.NATIVE_LIBRARY_ASSETS.fetch=async()=>{throw Error('unavailable');};assert.equal((await run(f,path)).status,503);assert.equal(f.calls.length,0);
+});
+
+test('generated reference descriptors pin18 specific manifests and the bundled module graph resolves locally',()=>{
+ const mapped=GAMES.filter(game=>game.referencePresentation);assert.equal(mapped.length,18);
+ for(const game of mapped){const spec=game.referencePresentation;assert.equal(spec.modelVersion,game.version);assert(spec.manifestURL.startsWith(PREFIX));const source=ASSETS[spec.manifestURL.slice(PREFIX.length)];assert(source);assert.equal(createHash('sha256').update(source).digest('hex'),spec.manifestSha256);const manifest=JSON.parse(source);assert.equal(manifest.id,game.id);for(const file of Object.keys(manifest.files))assert(REFERENCE_ART_FILES[spec.assetBaseURL+file],game.id+':'+file);}
+ for(const [name,source]of Object.entries(ASSETS).filter(([name])=>name.endsWith('.mjs'))){
+  for(const match of source.matchAll(/(?:from\s+|import\s*)['"]([^'"]+)['"]/g)){
+   const target=new URL(match[1],origin+PREFIX+name);
+   assert.equal(target.origin,origin,name+' imports a different origin');
+   if(target.pathname.startsWith(PREFIX))assert(Object.hasOwn(ASSETS,target.pathname.slice(PREFIX.length)),name+' imports missing '+target.pathname);
+   else assert(['/native-library/balloon/v1/catalog.mjs','/player-portal-20261106-r9/cover-art.mjs'].includes(target.pathname),name+' imports unexpected '+target.href);
+  }
+ }
+ assert.equal(GAMES.some(game=>['moonstone_native','samurai_native','magicgarden_native','darkhorus_native','assassins_native'].includes(game.id)&&game.referencePresentation),false);
+ assert.match(ASSETS['app.mjs'],/ReferencePresentationHost/);assert.match(ASSETS['reference-presentation.mjs'],/\.\/presentation\//);
 });

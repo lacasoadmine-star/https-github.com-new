@@ -1,0 +1,88 @@
+{
+  "worker": "superwin-library-100",
+  "version": 3,
+  "version_id": "7fdbcca4-9cdf-474c-abe4-86eebb3efe2d",
+  "rollback_version_id": "b5a3ae2b-60fc-4614-b083-671a4f34acd8",
+  "source_module_preserved_sha256": "9b10a007d443bd76857f4afbdc57ada446fc04a8aeead104f04272d9bf8d8d34",
+  "static_files": 59,
+  "static_bytes": 17907937,
+  "binding_added": "ASSETS",
+  "player_changes": false,
+  "verification": [
+    {
+      "check": "preserved-health",
+      "url": "https://superwin-player.apdiy61.workers.dev/native-expansion100/health",
+      "status": 200,
+      "bytes": 181,
+      "sha256": "a1f65e5e4c7b1be506fad5cfb46ebc4fc4b60a4a47eff794705f4e2f21d48a56",
+      "json": {
+        "service": "superwin-library-100",
+        "release": "superwin-expansion100-20261108-r1",
+        "targetGames": 100,
+        "publishedGames": 0,
+        "ready": true,
+        "walletAuthority": "existing-player-railway-ledger"
+      },
+      "verified": true
+    },
+    {
+      "check": "preserved-catalog",
+      "url": "https://superwin-player.apdiy61.workers.dev/native-expansion100/catalog",
+      "status": 200,
+      "bytes": 58,
+      "sha256": "49fea8a33bf8fe57c4ee1d3b125fe132aad50466180a50e65b08e9ed9df9e31c",
+      "json": {
+        "release": "superwin-expansion100-20261108-r1",
+        "games": []
+      },
+      "verified": true
+    },
+    {
+      "url": "https://superwin-player.apdiy61.workers.dev/native-expansion100/reference-art/r1/smartsoft/assets/2c4fb994168a8a1ba3bc6984849813561b7d19969b56cf3a9daa2ea9f2e7eaca.png",
+      "status": 200,
+      "bytes": 340,
+      "sha256": "2c4fb994168a8a1ba3bc6984849813561b7d19969b56cf3a9daa2ea9f2e7eaca",
+      "verified": true
+    },
+    {
+      "url": "https://superwin-player.apdiy61.workers.dev/native-expansion100/reference-art/r1/smartsoft/assets/ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003.mp3",
+      "status": 200,
+      "bytes": 10493,
+      "sha256": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003",
+      "verified": true
+    }
+  ],
+  "previous_deployment_id": "5de96b9e-010d-41e4-bd13-66f6f8d774ec",
+  "alias_prefix": "/native-expansion100/reference-art/r1/smartsoft/assets/",
+  "direct_library_access_protection_preserved": true,
+  "deployment_id": "6b10c5a6-db95-4b97-b1da-a8a947a5e07b",
+  "deployed_percentage": 100,
+  "observed_at": "2026-11-08T00:03:27.012098+00:00",
+  "access_protection_checks": [
+    {
+      "check": "image",
+      "url": "https://superwin-library-100.apdiy61.workers.dev/native-library/reference-art/r1/smartsoft/assets/2c4fb994168a8a1ba3bc6984849813561b7d19969b56cf3a9daa2ea9f2e7eaca.png",
+      "status": 302,
+      "bytes": 143,
+      "sha256": "12755429beb15d5eb57eafa45b8dba326343dd099bf0552038694c3856e8860e",
+      "verified": true,
+      "expected_status": 302
+    },
+    {
+      "check": "audio",
+      "url": "https://superwin-library-100.apdiy61.workers.dev/native-library/reference-art/r1/smartsoft/assets/ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003.mp3",
+      "status": 302,
+      "bytes": 143,
+      "sha256": "12755429beb15d5eb57eafa45b8dba326343dd099bf0552038694c3856e8860e",
+      "verified": true,
+      "expected_status": 302
+    }
+  ],
+  "all_required_checks_passed": true,
+  "source_files": [
+    "deployment/library-static-entry-20261108.mjs",
+    "deployment/library-static-router-20261108.mjs",
+    "deployment/library-static-manifest-20261108.mjs",
+    "deployment/library-static-cloudflare-manifest.json"
+  ]
+}

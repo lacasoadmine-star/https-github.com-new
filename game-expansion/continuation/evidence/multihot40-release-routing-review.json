@@ -1,0 +1,74 @@
+{
+  "reviewedAt": "2026-11-08T00:10:12.038817+00:00",
+  "scope": "Focused source review of new-game enablement, canonical-session forwarding, additive history and existing Worker deployment preservation; no tests rerun.",
+  "productionMutations": 0,
+  "productionWagers": 0,
+  "accountRowsRead": 0,
+  "livePublicHealth": {
+    "url": "https://superwin-native-family-engine-staging.up.railway.app/v2/library/health",
+    "ready": true,
+    "accepting": true,
+    "gameIds": [
+      "balloon_native"
+    ]
+  },
+  "enablement": {
+    "additionalPerGameDatabaseRowRequired": false,
+    "additionalEnvironmentVariableRequired": false,
+    "existingGate": "NATIVE_ENGINE_ENABLED=true and NATIVE_LIBRARY_ACCEPT_NEW_ROUNDS=true",
+    "newGates": [
+      "model launchable",
+      "version-matched verified release-readiness checks"
+    ],
+    "existingFinancialConstraints": [
+      "sufficient player funds",
+      "house reserve capacity",
+      "existing account max_balance",
+      "one active round across library, native-family and JetX"
+    ]
+  },
+  "findings": [
+    {
+      "id": "generate-final-player-chain",
+      "action": "Run prepare-assets.mjs then prepare-release.mjs after changing release metadata. The build script correctly imports expansion100-entry-20261108.mjs and re-exports LocalDemoWallet. The inspected old generated entry still imported Balloon and must be regenerated."
+    },
+    {
+      "id": "retain-backend-recovery-model",
+      "action": "After any MultiHot40 round has been accepted, retain its Railway adapter for collection, idempotent receipt replay and expiry. A Player rollback to v314 alone does not justify reverting the backend to an adapter-less earlier version."
+    },
+    {
+      "id": "disclose-native-variance",
+      "action": "Keep referenceLimitSemanticsVerified=false. The explicit native <=500 ETB current-win eligibility and independent95.9014892578125% RTP must not be described as verified provider probabilities/boundary."
+    }
+  ],
+  "authReview": {
+    "existingMachineSessionUsed": true,
+    "canonicalSessionReResolved": true,
+    "sameOriginActionAndSessionChecks": true,
+    "hmacCoversMethodPathQueryBodyAndSubject": true,
+    "historyAccountAndGameBound": true,
+    "historyReadOnly": true,
+    "nonHistoryRoutesDelegated": true
+  },
+  "workerUploadReview": {
+    "retainsAll213OriginalModules": true,
+    "retainsAll14OriginalBindings": true,
+    "secretInheritanceStrictSupportedByCurrentSchema": true,
+    "newModuleCollisionGuard": true,
+    "latestAndActiveVersionGuards": true,
+    "keepAssetsRequested": true,
+    "currentDOExportPreservedByBuild": true,
+    "scheduledHandlerPreservedByObjectSpread": true
+  },
+  "sourceSha256": {
+    "expansion-entry.mjs": "256bb65d1dc98637456cd0fa647b4d110deeb000ebcc831b2b0ac6f291b8c2be",
+    "expansion-history.mjs": "5296b6e6e79c828a6640760ca086d985651ed5d11bed79d67f055931e0f435d3",
+    "worker.mjs": "919e5b13a98d92f17db89fa7ec1de70ab2e3c8cbe4ad1ef099818fac8e82f1a7",
+    "prepare-backend.mjs": "01db642b094e74043f9a5e78bb8737f46309d5f2094509144358a09030e93b20",
+    "prepare-release.mjs": "7db2224c88002fb5fc7a6fec274a63b48963e56da66d8ca138309e24946d4ebb",
+    "deployment/build-player-upload.mjs": "9cec7386851a81a5f2638784c9153b187bb041b925d0e15c6bfbe8cf958dea5b",
+    "backend-baseline/library-service.mjs": "8b30b859efcde0830c5097d75841bedbeee29f9c3c4833c904319a7a0a74e325",
+    "backend-baseline/library-backend.mjs": "d4995e5a8d1e23c42560a41e677cdf7e9c9d84fc9e9d75ab9b3a588fb18167ce",
+    "backend-baseline/jetx-auth.mjs": "878e77e1c6646053d85c4c5881c6454be2c69c3b9a198e76208580cfc5f91416"
+  }
+}

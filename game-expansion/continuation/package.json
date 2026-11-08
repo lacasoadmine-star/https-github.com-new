@@ -10,9 +10,12 @@
     "test:core": "node prepare-assets.mjs && node --test test/smartsoft-slots.test.mjs test/remaining-games.test.mjs test/client.test.mjs test/controls.test.mjs test/autoplay.test.mjs test/app-autoplay.test.mjs test/library-integration.test.mjs test/wallet-settlement.test.mjs test/worker.test.mjs test/release-policy.test.mjs test/reference-host.test.mjs test/app-reference.test.mjs test/presentation-model-contract.test.mjs test/static-assets.test.mjs",
     "test:reference": "node --test test/presentation.test.mjs test/remaining-presentation.test.mjs test/arcade-presentation.test.mjs test/legends-pose.test.mjs test/legends-presentation.test.mjs",
     "test:all": "node prepare-assets.mjs && node --test test/*.test.mjs",
-    "build:reference-assets": "node presentation/build-static-assets.mjs"
+    "build:reference-assets": "node presentation/build-static-assets.mjs",
+    "build:release": "node prepare-assets.mjs && node prepare-release.mjs && node prepare-backend.mjs",
+    "test:multihot40": "node --test test/multihot40-math.test.mjs test/multihot40-wallet.test.mjs test/multihot40-app-controls.test.mjs test/multihot40-motion.test.mjs test/spin-hold.test.mjs test/expansion-history.test.mjs"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "0.5.15"
+    "@electric-sql/pglite": "0.5.15",
+    "@napi-rs/canvas": "0.1.100"
   }
 }

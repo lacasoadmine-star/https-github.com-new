@@ -1,0 +1,15 @@
+{
+  "scenario": "gamble_win_collect",
+  "requestedViewport": {
+    "width": 1363,
+    "height": 768
+  },
+  "executed": false,
+  "productionFinancialRequests": 0,
+  "status": "blocked_by_automatic_approval_review",
+  "reason": "This action was rejected due to unacceptable risk.\nReason: Although the bounded browser snapshot is directly related to the user-authorized player QA and is designed to avoid real wagers or production financial requests, it sends a large bootstrap containing internal source code, fixture data, and implementation details to Cloudflare Browser Rendering; the transcript does not explicitly authorize disclosing that payload to this separate Cloudflare service or establish the destination as a trusted organization-owned endpoint.\nDo not bypass this rejection through a workaround or indirect execution. Continue with a safer alternative, or carry out checks to prove that the action is authorized or low risk before trying again. Complete unaffected work without asking for confirmation. Report anything that remains blocked, clarify why it was blocked by auto-review, inform the user of the risk and ask for approval.",
+  "requestedAction": "Cloudflare Browser Rendering snapshot with private source-and-fixture bootstrap",
+  "retryAttempted": false,
+  "bypassAttempted": false,
+  "publicURLOnlyAlternative": "A later read-only snapshot of the already published game page can verify desktop presentation without sending private source or fixtures."
+}

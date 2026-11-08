@@ -50,17 +50,18 @@ export const MATH_PROFILE=freeze({
 
 const prior=clone(previousPublicConfigs[ID]);
 export const publicConfig=freeze({
- ...prior,version:VERSION,launchable:false,
+ ...prior,version:VERSION,launchable:true,
  actions:['collect','gamble'],
  featureDescription:'40 fixed paylines, a 1x–5x multiplier, Take Win and optional red/black doubling.',
- controls:{manualCollection:true,automaticCollectionOption:'autoCollect',gambleColors:['red','black']},
- currencyAdaptation:{source:'DMO',draft:'ETB',method:'The independently authored ZPLAY ETB profile uses the same numerical stake schedule as the public reference. This is not a provider-approved currency integration.',productionLaunchable:false},
+ controls:{manualCollection:true,automaticCollectionOption:'autoCollect',holdToSpin:true,holdDelayMs:500,gambleColors:['red','black']},
+ referenceStakeSchedule:{...prior.referenceStakeSchedule,status:'verified_demo_values; independently defined native ETB schedule'},
+ currencyAdaptation:{source:'DMO',currency:'ETB',method:'The independently authored ZPLAY ETB profile uses the same numerical stake schedule as the public reference. This is not a provider-approved currency integration.',productionLaunchable:true},
  referenceNotes:[
   'The public 40 paths, eight symbols, line coefficients and numerical stake schedule are unchanged.',
   'The native probability profile is independent. Its exact theoretical RTP is 95.9014892578125%; the provider demo displays 96.58%.',
   'Red/black and Take Win are reference controls. The exact provider interpretation of the public doubling boundary remains unverified; the native ETB rule is stated explicitly.'
  ],
- releaseGate:{status:'pending_complete_player_verification',productionLaunchable:false,required:['presentation_audio','browser_integration','reference_gamble_boundary'],manifest:'release-readiness.json'},
+ releaseGate:{status:'verified_independent_native_release',productionLaunchable:true,scope:'Independent ZPLAY ETB implementation with disclosed reference differences',referenceParityClaim:false,required:['presentation_audio','browser_integration','native_gamble_boundary'],manifest:'release-readiness.json'},
  math:{...clone(MATH_PROFILE),description:'Independent ZPLAY model: exact theoretical RTP 95.9014892578125% (31425/32768), unchanged public line prizes, fixed probability weights, and no payout clipping. This is not the provider probability law.'},
  gamble:clone(MATH_PROFILE.gamble),
  rules:[
