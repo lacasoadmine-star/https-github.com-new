@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "productionLaunchEnabled": false,
+  "assetCacheCommitted": false,
+  "games": {
+    "vegasnights_native": {
+      "name": "Vegas Nights",
+      "file": "manifests/vegasnights_native.json",
+      "status": "reference-art-review",
+      "renderer": "./renderer.mjs",
+      "capabilities": {
+        "staticArt": true,
+        "mappedGameplaySymbols": true,
+        "officialCoreGeometry": false,
+        "fullMachineParity": false,
+        "financialActions": false,
+        "browserVerified": false
+      }
+    },
+    "bookofmagic_native": {
+      "name": "Book of Magic",
+      "file": "manifests/bookofmagic_native.json",
+      "status": "reference-art-review",
+      "renderer": "./renderer.mjs",
+      "capabilities": {
+        "staticArt": true,
+        "mappedGameplaySymbols": true,
+        "officialCoreGeometry": true,
+        "fullMachineParity": false,
+        "financialActions": false,
+        "browserVerified": false
+      }
+    },
+    "moonstone_native": {
+      "name": "Moonstone",
+      "file": "manifests/moonstone_native.json",
+      "status": "help-art-only",
+      "renderer": "./renderer.mjs",
+      "capabilities": {
+        "staticArt": true,
+        "mappedGameplaySymbols": false,
+        "officialCoreGeometry": false,
+        "fullMachineParity": false,
+        "financialActions": false,
+        "browserVerified": false
+      }
+    },
+    "samurai_native": {
+      "name": "Samurai",
+      "file": "manifests/samurai_native.json",
+      "status": "help-art-only",
+      "renderer": "./renderer.mjs",
+      "capabilities": {
+        "staticArt": true,
+        "mappedGameplaySymbols": false,
+        "officialCoreGeometry": false,
+        "fullMachineParity": false,
+        "financialActions": false,
+        "browserVerified": false
+      }
+    },
+    "magicgarden_native": {
+      "name": "Magic Garden",
+      "file": "manifests/magicgarden_native.json",
+      "status": "no-verified-public-art",
+      "renderer": "./renderer.mjs",
+      "capabilities": {
+        "staticArt": false,
+        "mappedGameplaySymbols": false,
+        "officialCoreGeometry": false,
+        "fullMachineParity": false,
+        "financialActions": false,
+        "browserVerified": false
+      }
+    }
+  }
+}

@@ -1,0 +1,515 @@
+{
+  "schemaVersion": 1,
+  "gameId": "bookofmagic_native",
+  "financialActions": false,
+  "productionLaunchEnabled": false,
+  "reviewOnly": true,
+  "browserVerified": false,
+  "width": 810,
+  "height": 1440,
+  "commands": [
+    {
+      "type": "sprite",
+      "frame": "background/background_Portrait.png",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 810,
+        "height": 1440
+      }
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 810,
+        "height": 70
+      },
+      "color": "#031011e6"
+    },
+    {
+      "type": "text",
+      "text": "OFFLINE ART REVIEW",
+      "x": 405,
+      "y": 28,
+      "size": 24,
+      "color": "#e2f5f2",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "Exact source images · authored review scene",
+      "x": 405,
+      "y": 54,
+      "size": 17,
+      "color": "#bdd2d0",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "mainResources/gameName_Portrait.png",
+      "box": {
+        "x": 139,
+        "y": 194,
+        "width": 532,
+        "height": 94
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "mainResources/reelsBackground_Portrait.png",
+      "box": {
+        "x": 9,
+        "y": 288,
+        "width": 792,
+        "height": 432
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/00.png",
+      "box": {
+        "x": 9,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 9,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/06.png",
+      "box": {
+        "x": 9,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 9,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/10.png",
+      "box": {
+        "x": 9,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 9,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/09.png",
+      "box": {
+        "x": 171,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 171,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/01.png",
+      "box": {
+        "x": 171,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 171,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/02.png",
+      "box": {
+        "x": 171,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 171,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/07.png",
+      "box": {
+        "x": 333,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 333,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/11.png",
+      "box": {
+        "x": 333,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 333,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/03.png",
+      "box": {
+        "x": 333,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 333,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/04.png",
+      "box": {
+        "x": 495,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 495,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/08.png",
+      "box": {
+        "x": 495,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 495,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/12.png",
+      "box": {
+        "x": 495,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 495,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/05.png",
+      "box": {
+        "x": 657,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 657,
+        "y": 288,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/10.png",
+      "box": {
+        "x": 657,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 657,
+        "y": 432,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "reelImages/06.png",
+      "box": {
+        "x": 657,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      },
+      "padding": true,
+      "clip": {
+        "x": 657,
+        "y": 576,
+        "width": 144,
+        "height": 144
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "mainResources/reelBorder_Portrait.png",
+      "box": {
+        "x": 6,
+        "y": 285,
+        "width": 798,
+        "height": 438
+      }
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 35,
+        "y": 766,
+        "width": 740,
+        "height": 185
+      },
+      "color": "#06120be0"
+    },
+    {
+      "type": "text",
+      "text": "13 SYMBOLS · 20 VERIFIED PAYLINES",
+      "x": 405,
+      "y": 807,
+      "size": 24,
+      "color": "#fff3c4",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "Portrait background, title and reel coordinates from Config.js",
+      "x": 405,
+      "y": 850,
+      "size": 19,
+      "color": "#d6e6c7",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "Symbols shown are a static review arrangement",
+      "x": 405,
+      "y": 891,
+      "size": 20,
+      "color": "#d6e6c7",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "Reference controls below: positions are still under review",
+      "x": 405,
+      "y": 931,
+      "size": 17,
+      "color": "#e4d1a3",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/home-button-CUF9tmSX",
+      "box": {
+        "x": 45,
+        "y": 987,
+        "width": 100,
+        "height": 100
+      },
+      "opacity": 0.8
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/menu-button-2n_AQCzw",
+      "box": {
+        "x": 166,
+        "y": 987,
+        "width": 100,
+        "height": 100
+      },
+      "opacity": 0.8
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/volume-button-vsRSMr2m",
+      "box": {
+        "x": 287,
+        "y": 987,
+        "width": 100,
+        "height": 100
+      },
+      "opacity": 0.8
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/icon-information-Cv2WCea4",
+      "box": {
+        "x": 408,
+        "y": 987,
+        "width": 100,
+        "height": 100
+      },
+      "opacity": 0.8
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/icon-auto-play-Dg2lfP4E",
+      "box": {
+        "x": 529,
+        "y": 987,
+        "width": 100,
+        "height": 100
+      },
+      "opacity": 0.8
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/button-betstepper-enabled-plus-Bg0HyVKC",
+      "box": {
+        "x": 650,
+        "y": 987,
+        "width": 100,
+        "height": 100
+      },
+      "opacity": 0.8
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/play-button-outer-layer-Cz9-PWG6",
+      "box": {
+        "x": 196,
+        "y": 1114,
+        "width": 417,
+        "height": 132
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/play-button-inner-bottom-layer-8u5au0bO",
+      "box": {
+        "x": 208,
+        "y": 1126,
+        "width": 393,
+        "height": 108
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/play-button-inner-top-layer-QGG6tITv",
+      "box": {
+        "x": 208,
+        "y": 1126,
+        "width": 393,
+        "height": 108
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "controls/icon-play-DGsvOx8c",
+      "box": {
+        "x": 364,
+        "y": 1139,
+        "width": 82,
+        "height": 82
+      }
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 1335,
+        "width": 810,
+        "height": 105
+      },
+      "color": "#031011ed"
+    },
+    {
+      "type": "text",
+      "text": "No spin · no wallet connection · production disabled",
+      "x": 405,
+      "y": 1373,
+      "size": 18,
+      "color": "#edf7f2",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "Offline display-list export, not a browser screenshot",
+      "x": 405,
+      "y": 1405,
+      "size": 17,
+      "color": "#b1c8c2",
+      "align": "center"
+    }
+  ]
+}
