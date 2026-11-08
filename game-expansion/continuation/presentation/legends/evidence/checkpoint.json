@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-07T22:34:23.268302+00:00",
+  "status": "unpublished-original-art-static-review",
+  "productionLaunchEnabled": false,
+  "productionMutation": false,
+  "financialActions": false,
+  "browserValidation": false,
+  "assetVerification": {
+    "verifiedAt": "2026-11-07T22:32:44.354Z",
+    "verifiedAssets": 61,
+    "verifiedBytes": 17966789,
+    "declaredBytes": 17966789,
+    "failures": [],
+    "complete": true
+  },
+  "assetLock": {
+    "file": "presentation/legends/assets.lock.json",
+    "sha256": "c5574a1547cd89862df8767e9e8e8acb220fde3c6d05704fd5a4b47abdd78141",
+    "urlRecords": 61,
+    "uniqueFiles": 57,
+    "declaredBytes": 17966789,
+    "uniqueBytes": 17943399,
+    "cache": "/tmp/zplay-legends-assets"
+  },
+  "games": {
+    "egyptianlegends_native": {
+      "name": "Egyptian Legends",
+      "file": "manifests/egyptianlegends_native.json",
+      "status": "incomplete-static-pose-review",
+      "capabilities": {
+        "originalBackground": true,
+        "originalTitle": true,
+        "sourceAtlasRegions": 338,
+        "derivedStaticSymbols": 8,
+        "expectedSymbols": 11,
+        "weightedStaticPose": true,
+        "animationPlayback": false,
+        "financialActions": false
+      },
+      "missingSymbols": [
+        {
+          "id": "wild",
+          "label": "Wild",
+          "issue": "No finite setup geometry",
+          "setupLayers": 0,
+          "unsupported": [],
+          "missingRegions": []
+        },
+        {
+          "id": "scatter",
+          "label": "Pyramid Scatter",
+          "issue": "Incomplete source setup pose",
+          "setupLayers": 0,
+          "unsupported": [
+            {
+              "code": "CLIPPING_UNSUPPORTED",
+              "path": "skins.default.mask.mask",
+              "detail": "scatter_0006"
+            }
+          ],
+          "missingRegions": []
+        },
+        {
+          "id": "multiplier",
+          "label": "Multiplier",
+          "issue": "Incomplete source setup pose",
+          "setupLayers": 10,
+          "unsupported": [
+            {
+              "code": "ATTACHMENT_UNAVAILABLE",
+              "path": "slots[13]",
+              "detail": "scarab_multi1"
+            },
+            {
+              "code": "BONE_TRANSFORM_UNSUPPORTED",
+              "path": "bones[34].transform",
+              "detail": "noScale"
+            }
+          ],
+          "missingRegions": []
+        }
+      ]
+    },
+    "olympianlegends_native": {
+      "name": "Olympian Legends",
+      "file": "manifests/olympianlegends_native.json",
+      "status": "asset-backed-static-pose-review",
+      "capabilities": {
+        "originalBackground": true,
+        "originalTitle": true,
+        "sourceAtlasRegions": 158,
+        "derivedStaticSymbols": 10,
+        "expectedSymbols": 10,
+        "weightedStaticPose": true,
+        "animationPlayback": false,
+        "financialActions": false
+      },
+      "missingSymbols": []
+    }
+  },
+  "tests": {
+    "observedCommand": "node --test test/legends-pose.test.mjs test/legends-presentation.test.mjs",
+    "passed": 51,
+    "failed": 0,
+    "skipped": 0,
+    "poseTests": 37,
+    "presentationTests": 14,
+    "mobileChecks": "Pure layout assertions at 360 / 390 / 430 and desktop; not browser tests",
+    "resultLog": {
+      "file": "presentation/legends/evidence/test-results.txt",
+      "sha256": "e0e5a3e79e08e1e92b9963ea12b4ea586f0c26fa07cea154e9bd42cc3b62bba0"
+    }
+  },
+  "images": {
+    "method": "Offline authored display-list render, not a browser screenshot",
+    "contactSheet": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/legends-static-contact-sheet.jpg",
+    "images": [
+      {
+        "game": "egyptianlegends_native",
+        "variant": "base",
+        "png": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/egyptianlegends_native-base-390.png",
+        "sha256": "197ab7a91a33b2d183778984237edba1a13322669db1dceef097b34392ddb93e",
+        "jpeg": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/egyptianlegends_native-base-390.jpg",
+        "width": 390,
+        "height": 836,
+        "browserScreenshot": false
+      },
+      {
+        "game": "egyptianlegends_native",
+        "variant": "bonus-art",
+        "png": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/egyptianlegends_native-bonus-art-390.png",
+        "sha256": "2a827fd55c1771f08909bce2eacc536d38f3ca40d3fea69654807522f363cee8",
+        "jpeg": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/egyptianlegends_native-bonus-art-390.jpg",
+        "width": 390,
+        "height": 836,
+        "browserScreenshot": false
+      },
+      {
+        "game": "olympianlegends_native",
+        "variant": "base",
+        "png": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/olympianlegends_native-base-390.png",
+        "sha256": "faff9cd154594cc3745a42864fa8272e93bb48efc2765c778d01d0012af6cffd",
+        "jpeg": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/olympianlegends_native-base-390.jpg",
+        "width": 390,
+        "height": 836,
+        "browserScreenshot": false
+      },
+      {
+        "game": "olympianlegends_native",
+        "variant": "bonus-art",
+        "png": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/olympianlegends_native-bonus-art-390.png",
+        "sha256": "3744aac97b379addda8eb5d9464ae3c11a328bc3f27a4c9fcf38779919d6673a",
+        "jpeg": "/workspace/scratch/5260753c13da/zplay-work/game-expansion/continuation/presentation/legends/evidence/olympianlegends_native-bonus-art-390.jpg",
+        "width": 390,
+        "height": 836,
+        "browserScreenshot": false
+      }
+    ]
+  },
+  "sourceFiles": {
+    "presentation/legends/README.md": {
+      "sha256": "e29263d686cf24fbd8fc6e43e2b84e3cff36cfa796de84f36032edee94cfd676",
+      "bytes": 8936
+    },
+    "presentation/legends/assets.mjs": {
+      "sha256": "0805708ee6860258b4e722cdb4c3815cba669cf681410010da16374dc0419fad",
+      "bytes": 11741
+    },
+    "presentation/legends/build-manifests.mjs": {
+      "sha256": "19f6fdc7f61716e59b07bc8aae92612c61be959705b640b2dcb635459db959a9",
+      "bytes": 4706
+    },
+    "presentation/legends/build-poses.mjs": {
+      "sha256": "607e17ed6445b8ce2a74ffa7954d671c9c4fb0be2d3a7b1381f4ac848706b56a",
+      "bytes": 2859
+    },
+    "presentation/legends/export-review.mjs": {
+      "sha256": "c6cbce7444319f7d80398cb7d359be771b3863033d9085ea412f48a488a539b8",
+      "bytes": 845
+    },
+    "presentation/legends/render-poses.py": {
+      "sha256": "4a0693291ce0ded9b87b0093adf640c9dcbc362d58599591aaf7603ef72663a7",
+      "bytes": 6866
+    },
+    "presentation/legends/render-reviews.py": {
+      "sha256": "0ad9b190ef38820fa82ee8077dc420a1fae6ae78bd3f97f652b619e6b99771d4",
+      "bytes": 3342
+    },
+    "presentation/legends/renderer.mjs": {
+      "sha256": "0d46647164c2fe318703ac810da888d0a53340cdb192a756d6cbca9631f17b72",
+      "bytes": 6093
+    },
+    "presentation/legends/static-pose.mjs": {
+      "sha256": "5f3d3675fb29f78159deae226b22aa726e3ea5b3b2890fed9b1da668fb0e1937",
+      "bytes": 21992
+    },
+    "test/legends-pose.test.mjs": {
+      "sha256": "3179e39de9bf58d9d187306135bef1db6088dad5d7b6ea7fe9c30c03db5aad7a",
+      "bytes": 21525
+    },
+    "test/legends-presentation.test.mjs": {
+      "sha256": "f7f8773201dff9f5f4b54b3bfb491fc8a3938ea9e478a104d4bf7dbe5f5d375a",
+      "bytes": 11260
+    }
+  },
+  "frozenFirst11": {
+    "presentation/machine-renderer.mjs": {
+      "sha256": "89e80df6e0bfb20e9d0aac7c04b3eb7a5383e62f5e74bb985edd358cf7f011ee",
+      "unchanged": true
+    },
+    "presentation/reference-assets.lock.json": {
+      "sha256": "779bfbe4191560bdbcb0d671eed21bafda2ef62020ac594b76ce236925525e84",
+      "unchanged": true
+    },
+    "presentation/build-manifests.mjs": {
+      "sha256": "3abe98d30aa2bd7daefe989dbb8fa3acc90e51625c70dac2eef34b5694ed8696",
+      "unchanged": true
+    },
+    "test/presentation.test.mjs": {
+      "sha256": "d4156ddbb665273dd02e6d8605a93b1c5e975643690b2d10d861355ece01007d",
+      "unchanged": true
+    },
+    "scripts/fetch-reference-assets.mjs": {
+      "sha256": "06eee7280308c47f0382581393ef162737e1436d1beb83acf32cbe72ca7c50a0",
+      "unchanged": true
+    },
+    "presentation/README.md": {
+      "sha256": "08cba28e0555ac68d93c50fdbe8fc4e49584802a0368d27edbdb2a614e98c110",
+      "unchanged": true
+    }
+  }
+}

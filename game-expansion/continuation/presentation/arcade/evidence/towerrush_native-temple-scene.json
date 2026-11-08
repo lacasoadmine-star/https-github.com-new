@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "gameId": "towerrush_native",
+  "modelVersion": "superwin-towerrush-2",
+  "width": 420,
+  "height": 900,
+  "productionLaunchEnabled": false,
+  "financialActions": false,
+  "confirmedReceiptId": "review-towerrush-temple",
+  "visibleFloorCount": 2,
+  "firstVisibleLevel": 1,
+  "totalFloorCount": 2,
+  "frozen": false,
+  "templeSection": 3,
+  "controls": [
+    {
+      "label": "BUILD",
+      "action": "step",
+      "enabled": false
+    },
+    {
+      "label": "CASH OUT",
+      "action": "cashout",
+      "enabled": false
+    }
+  ],
+  "commands": [
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 900
+      },
+      "color": "#101d2f"
+    },
+    {
+      "type": "sprite",
+      "frame": "background-back",
+      "box": {
+        "x": 0,
+        "y": 80,
+        "width": 420,
+        "height": 640
+      },
+      "fit": "cover"
+    },
+    {
+      "type": "sprite",
+      "frame": "background-front",
+      "box": {
+        "x": 0,
+        "y": 200,
+        "width": 420,
+        "height": 510
+      },
+      "fit": "cover"
+    },
+    {
+      "type": "sprite",
+      "frame": "headerBg",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 95
+      },
+      "fit": "stretch"
+    },
+    {
+      "type": "sprite",
+      "frame": "logo",
+      "box": {
+        "x": 93,
+        "y": 25,
+        "width": 234,
+        "height": 80
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "basis-tower",
+      "box": {
+        "x": 84,
+        "y": 573,
+        "width": 252,
+        "height": 147
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "atlas/tower-1",
+      "box": {
+        "x": 135,
+        "y": 570,
+        "width": 150,
+        "height": 126
+      }
+    },
+    {
+      "type": "text",
+      "text": "1",
+      "x": 105,
+      "y": 633,
+      "size": 12,
+      "color": "#334b59",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "1.25×",
+      "x": 314,
+      "y": 633,
+      "size": 12,
+      "color": "#334b59",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "atlas/bonus-temple",
+      "box": {
+        "x": 135,
+        "y": 511,
+        "width": 150,
+        "height": 126
+      }
+    },
+    {
+      "type": "text",
+      "text": "2",
+      "x": 105,
+      "y": 574,
+      "size": 12,
+      "color": "#334b59",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "1.25×",
+      "x": 314,
+      "y": 574,
+      "size": 12,
+      "color": "#334b59",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "atlas/hook-cable",
+      "box": {
+        "x": 208,
+        "y": 105,
+        "width": 9,
+        "height": 115
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "atlas/hook",
+      "box": {
+        "x": 192,
+        "y": 206,
+        "width": 39,
+        "height": 52
+      }
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 14,
+        "y": 155,
+        "width": 392,
+        "height": 316
+      },
+      "color": "#122b3ef0"
+    },
+    {
+      "type": "sprite",
+      "frame": "bonus-temple",
+      "box": {
+        "x": 95,
+        "y": 158,
+        "width": 230,
+        "height": 61
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "bonus-temple-wheel",
+      "box": {
+        "x": 105,
+        "y": 213,
+        "width": 210,
+        "height": 210
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "bonus-temple-wheel-centre",
+      "box": {
+        "x": 185,
+        "y": 293,
+        "width": 50,
+        "height": 50
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "bonus-temple-wheel-arrow",
+      "box": {
+        "x": 196,
+        "y": 198,
+        "width": 28,
+        "height": 57
+      }
+    },
+    {
+      "type": "text",
+      "text": "CONFIRMED: 3×",
+      "x": 210,
+      "y": 452,
+      "size": 16,
+      "color": "#ffe5b0",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "FLOORS 2",
+      "x": 210,
+      "y": 730,
+      "size": 16,
+      "color": "#f2e4b5",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "buildBtn",
+      "box": {
+        "x": 221,
+        "y": 757,
+        "width": 184,
+        "height": 94
+      }
+    },
+    {
+      "type": "text",
+      "text": "BUILD",
+      "x": 310,
+      "y": 803,
+      "size": 18,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "cashoutBtn",
+      "box": {
+        "x": 15,
+        "y": 757,
+        "width": 190,
+        "height": 94
+      }
+    },
+    {
+      "type": "text",
+      "text": "CASH OUT",
+      "x": 110,
+      "y": 787,
+      "size": 14,
+      "color": "#fff9d5",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "46.87",
+      "x": 110,
+      "y": 813,
+      "size": 18,
+      "color": "#fff9d5",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "Reference controls · disabled",
+      "x": 210,
+      "y": 867,
+      "size": 11,
+      "color": "#e5e6d6",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "ARTWORK REVIEW · NO WAGERS",
+      "x": 210,
+      "y": 16,
+      "size": 10,
+      "color": "#ffffff",
+      "align": "center"
+    }
+  ],
+  "reviewFixture": {
+    "id": "temple",
+    "label": "Synthetic receipt · confirmed Temple3× section",
+    "synthetic": true,
+    "notAProductionReceipt": true
+  }
+}

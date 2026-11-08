@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-07T23:51:23.515Z",
+  "gameId": "multihot40_native",
+  "modelVersion": "superwin-multihot40-2",
+  "status": "INDEPENDENT_NATIVE_MATH_AND_ISOLATED_WALLET_VERIFIED",
+  "productionPublished": false,
+  "scope": "Only the new MultiHot40 v2 adapter. Full presentation, browser integration and release decisions belong to the parent continuation.",
+  "reference": {
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-40",
+    "observedDemoReturnPercent": "96.58",
+    "providerPrivateProbabilityLawRecovered": false,
+    "providerDoublingBoundaryVerified": false
+  },
+  "diagnosis": {
+    "previousVersion": "superwin-multihot40-1",
+    "uniformWheelReturn": {
+      "numerator": "6285",
+      "denominator": "8192",
+      "value": 0.7672119140625
+    },
+    "cause": "The original disabled draft used uniform independent symbols and a uniform 1x–5x wheel after restoring unscaled public prizes. That distribution returns 76.72119140625%, so it does not satisfy the intended native 94–97% profile."
+  },
+  "method": {
+    "rawPublicPaytableUnchanged": true,
+    "exactPublicStakeScheduleUnchanged": true,
+    "verified40PathsUnchanged": true,
+    "publicPrizeScale": {
+      "numerator": "1",
+      "denominator": "1"
+    },
+    "uniformSymbols": 8,
+    "independentGridCells": 20,
+    "lineEnumeration": {
+      "sequences": 32768,
+      "sumOfUnscaledLineCoefficients": 8380,
+      "meanLineCoefficient": {
+        "numerator": "2095",
+        "denominator": "8192"
+      }
+    },
+    "wheelTickets": [
+      1,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+    ],
+    "wheelWeights": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ],
+    "meanWheelMultiplier": {
+      "numerator": "15",
+      "denominator": "4"
+    },
+    "lineAggregation": "Every path contains one independent symbol from each of the five reels. Each path therefore has the same marginal expectation. Linearity of expectation applies despite correlations between different winning lines; 40 paths and the stake/40 award basis cancel.",
+    "exactReturn": {
+      "numerator": "31425",
+      "denominator": "32768",
+      "value": 0.959014892578125,
+      "percent": "95.9014892578125"
+    },
+    "money": "All 18 supported stakes are multiples of 40 santim; every public coefficient is an integer. Line prizes and total wins are integral, so there is no rounding draw or rounding loss.",
+    "maximum": {
+      "timesTotalStake": 2500,
+      "absoluteMinor": "25000000",
+      "attained": true,
+      "clipped": false,
+      "proof": "Each line pays at most 500 times its line stake and the wheel multiplies by at most 5; 40 lines imply a total no greater than 2500 times total stake. All 20 sevens with 5x attain this bound."
+    },
+    "randomness": "The existing canonical service supplies a secret-seed HMAC stream of uniform 53-bit fractions. Symbol, wheel and suit selections use 8, 16 and 4 equiprobable buckets, all exact divisors of 2^53."
+  },
+  "collection": {
+    "manual": "Positive win remains active and reserved until collection or expiry; the next Spin must collect then start.",
+    "autoplay": "Explicit autoCollect:true settles in the original paid transaction.",
+    "expiryMs": 1800000,
+    "expiryBehavior": "Collect the full current win without a fresh random draw; service reconciliation works after account blocking and new-start disabling."
+  },
+  "gamble": {
+    "chance": {
+      "numerator": "1",
+      "denominator": "2"
+    },
+    "payoffMultiplier": 2,
+    "suits": [
+      "clubs",
+      "diamonds",
+      "hearts",
+      "spades"
+    ],
+    "maximumAttempts": 5,
+    "maximumCurrentWinMinor": "50000",
+    "maximumPossibleGambleWinMinor": "100000",
+    "referenceLimitSemanticsVerified": false,
+    "limitMeaning": "The independent ETB profile permits gambling a current win of at most 500.00 ETB. A successful attempt doubles it without clipping; a win above 500.00 ETB can only be collected. The reference source contains the number 500, but its exact pre/post-double boundary remains unverified.",
+    "expectedReturn": "Fair independent red/black choices preserve the expected slot payout for any strategy bounded by the five-attempt and eligibility limits; collection and disconnection expiry return the full remaining amount."
+  },
+  "verification": {
+    "command": "node --test test/multihot40-math.test.mjs test/multihot40-wallet.test.mjs test/multihot40-app-controls.test.mjs",
+    "passed": 37,
+    "failed": 0,
+    "skipped": 0,
+    "node": "v24.22.1",
+    "database": "PGlite in-memory PostgreSQL, exact unchanged canonical wallet, no service database connection",
+    "coverage": [
+      "exact 32768-sequence mean",
+      "2500x attained bound at every stake",
+      "40 path/cell mapping",
+      "21 fixed outcome draws",
+      "integral-money prizes",
+      "manual pending and automatic collection",
+      "fair red/black across all 4 suits",
+      "five-attempt and 500.00 ETB input boundary",
+      "bounded-strategy expected value",
+      "reload and 30 minute expiry",
+      "persisted jsonb key reordering",
+      "corrupt stored state rejection",
+      "client payout rejection",
+      "duplicate/concurrent collection idempotency",
+      "gamble replay and changed-body conflict",
+      "single debit and conserved double-entry ledger",
+      "ownership and stale-version rejection",
+      "accepted collection after disabled starts/lower account cap",
+      "blocked-account expiry",
+      "atomic rollback for insufficient funds/bankroll/account cap",
+      "collect before next Spin and navigation cancellation",
+      "STOP changes only presentation",
+      "autoplay automatic collection and stopping limits",
+      "identical pending request retry",
+      "account changes and stale history responses",
+      "read-only replay",
+      "native math metadata preservation",
+      "accepted win collection despite artwork failure"
+    ],
+    "limitation": "One embedded PostgreSQL connection, plus a VM control harness with real session/controller code and fixture DOM/network/rendering; these do not replace browser or multi-process production checks. No production account, credit or wager was created."
+  },
+  "release": {
+    "productionGateEnabled": false,
+    "providerExactParityClaimed": false,
+    "remaining": [
+      "Complete per-game player presentation and controls",
+      "Native browser/mobile integration checks",
+      "The reference 500 doubling pre/post boundary remains unverified; the independent ETB rule is disclosed"
+    ]
+  },
+  "sha256": {
+    "models/multihot40-rules.mjs": "ee1f0eb921bbf3eed0f928e911240d763af928d3d449f62255851442b2a75939",
+    "models/smartsoft-slots.data.json": "baaa35faefa65418e6f614c2bb155b239a788baed83903417b28a6b0ec46f2b2",
+    "models/smartsoft-slots.mjs": "c26b3d4208f9eee6b3598d7963a960290dc560f6dd2ef9920bb33400a8bb74a3",
+    "references/public-models/multihot40_native.json": "a808867071c8ac25c1f83f82f7e0825fa9ecec69f22742dcf4770c6d6b145150",
+    "references/multihot40-paylines.json": "84349e9dcaa7b70c5d87cde074b831b51952dd6bf2297508cee761bd9442fe87",
+    "references/multihot40-official-walkthrough.json": "4f311f6bbb05fa855151b1c2a4d40afec8b02734e53a353929e2a7103a8f3893",
+    "test/multihot40-math.test.mjs": "4a64201eda5e0387679564d0c5261b14469fdc39ec81a85bfd09e3097f0ce43e",
+    "test/multihot40-wallet.test.mjs": "cc0c613f6e33af3be259f66e5dda63a8d8002d856998e01df18c4f15f84fb918",
+    "test/multihot40-wallet-fixture.mjs": "8070b3c03f970fa41fa84ac76fc6bf3782f51e38bdd0b72a728e9a23aa0d635d",
+    "test/multihot40-app-controls.test.mjs": "e8da553fb0e0d2c5ae138fc9f7b758f4614a53cf503932e18c09b591d4dc9c7e",
+    "backend-baseline/library-service.mjs": "8b30b859efcde0830c5097d75841bedbeee29f9c3c4833c904319a7a0a74e325",
+    "backend-baseline/native-family-preserved.mjs": "cbf26301daa40cccc9a349456a3e21f65fba038111ecc7e791e8bb303133eda5"
+  }
+}

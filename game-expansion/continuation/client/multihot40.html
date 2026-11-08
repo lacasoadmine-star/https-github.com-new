@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="theme-color" content="#032b20">
+ <title>Multi Hot 40 · ZPLAY</title>
+ <link rel="stylesheet" href="./multihot40.css">
+ <script type="module" src="./multihot40-app.mjs"></script>
+ <script type="module" src="/player-v236/presence.63ed199a80b6c700.mjs"></script>
+</head>
+<body>
+ <main id="machine" aria-label="Multi Hot 40">
+  <h1 class="sr-only">Multi Hot 40</h1>
+  <canvas id="scene" role="img" aria-label="Multi Hot 40 reels"></canvas>
+  <div id="controls" aria-label="Game controls">
+   <button id="spin" class="hit" type="button" aria-label="Spin" disabled><span class="sr-only">Spin</span></button>
+   <button id="auto" class="hit" type="button" aria-label="Autoplay" disabled><span class="sr-only">Autoplay</span></button>
+   <button id="bet" class="hit" type="button" aria-label="Choose bet" disabled><span class="sr-only">Choose bet</span></button>
+   <button id="menu" class="hit" type="button" aria-label="Open menu"><span class="sr-only">Menu</span></button>
+   <button id="sound" class="hit" type="button" aria-label="Mute sound" aria-pressed="true"><span class="sr-only">Sound</span></button>
+   <button id="turbo" class="hit" type="button" aria-label="Turbo" aria-pressed="false"><span class="sr-only">Turbo</span></button>
+   <button id="collect" class="hit" type="button" aria-label="Take win" hidden><span class="sr-only">Take win</span></button>
+   <button id="gamble" class="hit" type="button" aria-label="Double win" hidden><span class="sr-only">Double win</span></button>
+  </div>
+  <div id="statusBar" role="status" aria-live="polite"><span id="status">Loading Multi Hot 40…</span><button id="retry" type="button" hidden>Retry</button><a id="signIn" href="/?login=1&return=%2Fgames%2Fmultihot40_native" hidden>Sign in</a><a id="otherGame" href="/" hidden>Return to active game</a></div>
+  <div id="autoRunning" hidden><span id="autoStatus"></span><button id="autoStop" type="button">Stop autoplay</button></div>
+  <output id="accessibleBalance" class="sr-only" aria-live="polite">Balance unavailable</output>
+  <output id="accessibleWin" class="sr-only" aria-live="polite"></output>
+  <section id="startup" aria-label="Loading game">
+   <div class="startup-mark">Z<span>PLAY</span></div><p>Multi Hot 40</p>
+   <progress id="loadingProgress" max="100" value="5" aria-label="Loading game assets"></progress>
+   <p id="loadingStatus">Loading symbols and sounds…</p>
+   <div id="soundConsent" hidden><h2>Enable sound?</h2><div class="choices"><button id="soundYes" type="button">YES</button><button id="soundNo" type="button">NO</button></div></div>
+   <div id="recoveryPanel" hidden><p id="recoveryStatus"></p><button id="recoveryCollect" type="button" hidden>TAKE WIN</button><button id="recoveryRetry" type="button">RETRY CONNECTION</button></div>
+   <a href="/" class="startup-back">Back to lobby</a>
+  </section>
+ </main>
+ <dialog id="menuDialog" aria-labelledby="menuTitle"><header><h2 id="menuTitle">MENU</h2><button data-close type="button" aria-label="Close menu">×</button></header><nav class="menu-list"><button id="openRules" type="button">GAME RULES</button><button id="openHistory" type="button">BET HISTORY</button><button id="openSettings" type="button">SETTINGS</button><a href="/">BACK TO LOBBY</a></nav></dialog>
+ <dialog id="settingsDialog" aria-labelledby="settingsTitle"><header><h2 id="settingsTitle">SETTINGS</h2><button data-close type="button" aria-label="Close settings">×</button></header><div class="settings"><label>Sound effects<input id="soundSetting" type="checkbox" checked></label><label>Background music<input id="musicSetting" type="checkbox" checked></label><label>Turbo<input id="turboSetting" type="checkbox"></label><label>Fullscreen<input id="fullscreenSetting" type="checkbox"></label></div></dialog>
+ <dialog id="betDialog" aria-labelledby="betTitle"><header><h2 id="betTitle">BET · ETB</h2><button data-close type="button" aria-label="Close bet menu">×</button></header><div id="stakeOptions" class="stake-options"></div></dialog>
+ <dialog id="autoDialog" aria-labelledby="autoTitle"><header><h2 id="autoTitle">AUTOPLAY</h2><button data-close type="button" aria-label="Close autoplay">×</button></header><form id="autoForm"><label>Number of spins<select id="autoCount"><option>25</option><option>50</option><option selected>100</option><option>500</option><option>1000</option></select></label><label>Stop when win reaches (ETB)<input id="autoWin" type="text" inputmode="decimal" autocomplete="off" placeholder="No limit"></label><label>Stop when balance decreases by (ETB)<input id="autoLoss" type="text" inputmode="decimal" autocomplete="off" placeholder="No limit"></label><label>Stop when balance increases by (ETB)<input id="autoGain" type="text" inputmode="decimal" autocomplete="off" placeholder="No limit"></label><p id="autoStake"></p><p class="dialog-note">Stopping autoplay finishes the accepted spin. The next spin will not start.</p><p id="autoError" role="alert"></p><button class="primary" type="submit">START</button></form></dialog>
+ <dialog id="rulesDialog" aria-labelledby="rulesTitle"><header><h2 id="rulesTitle">GAME RULES</h2><button data-close type="button" aria-label="Close rules">×</button></header><div id="rulesContent" class="rules-content"></div></dialog>
+ <dialog id="historyDialog" aria-labelledby="historyTitle"><header><h2 id="historyTitle">HISTORY</h2><button data-close type="button" aria-label="Close history">×</button></header><div class="tabs"><button id="historyRecent" type="button" aria-pressed="true">BET HISTORY</button><button id="historyBiggest" type="button" aria-pressed="false">BIGGEST WINS</button></div><div id="historyContent" class="history-content" aria-live="polite"></div></dialog>
+ <dialog id="gambleDialog" aria-labelledby="gambleTitle"><header><h2 id="gambleTitle">DOUBLE WIN</h2><button data-close type="button" aria-label="Close double win">×</button></header><p class="gamble-amount"><span id="gambleWin">—</span> ETB</p><div id="gambleCard" class="gamble-card" role="status" aria-live="polite">?</div><div id="gambleCards" class="card-history"></div><p id="gambleStatus">Choose a colour.</p><div class="choices gamble-choices"><button id="red" type="button">♥ RED</button><button id="black" type="button">♠ BLACK</button></div><button id="gambleCollect" class="primary" type="button">TAKE WIN</button></dialog>
+</body>
+</html>

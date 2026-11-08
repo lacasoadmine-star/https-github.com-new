@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "gameId": "towerx_native",
+  "modelVersion": "superwin-towerx-2",
+  "width": 420,
+  "height": 900,
+  "productionLaunchEnabled": false,
+  "financialActions": false,
+  "confirmedReceiptId": null,
+  "visibleFloorCount": 0,
+  "totalFloorCount": 0,
+  "settledResultShown": false,
+  "controls": [
+    {
+      "label": "BUY BONUS",
+      "action": "start",
+      "enabled": false
+    }
+  ],
+  "commands": [
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 900
+      },
+      "color": "#101d2f"
+    },
+    {
+      "type": "sprite",
+      "frame": "body_background",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 900
+      },
+      "fit": "cover"
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 420,
+        "height": 900
+      },
+      "color": "#201c3470"
+    },
+    {
+      "type": "sprite",
+      "frame": "logo",
+      "box": {
+        "x": 63,
+        "y": 39,
+        "width": 294,
+        "height": 74
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "background",
+      "box": {
+        "x": 18,
+        "y": 145,
+        "width": 384,
+        "height": 503
+      },
+      "fit": "cover",
+      "clip": {
+        "x": 18,
+        "y": 145,
+        "width": 384,
+        "height": 503
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "border",
+      "box": {
+        "x": 10,
+        "y": 135,
+        "width": 400,
+        "height": 523
+      },
+      "fit": "stretch"
+    },
+    {
+      "type": "sprite",
+      "frame": "StartDefault",
+      "box": {
+        "x": 60,
+        "y": 390,
+        "width": 300,
+        "height": 245
+      },
+      "clip": {
+        "x": 18,
+        "y": 145,
+        "width": 384,
+        "height": 503
+      }
+    },
+    {
+      "type": "text",
+      "text": "BUILDING RESULT",
+      "x": 210,
+      "y": 679,
+      "size": 22,
+      "color": "#f9dc80",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "100 base units per total stake",
+      "x": 210,
+      "y": 708,
+      "size": 12,
+      "color": "#d8d4ef",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "bet_idle",
+      "box": {
+        "x": 96,
+        "y": 741,
+        "width": 228,
+        "height": 75
+      }
+    },
+    {
+      "type": "text",
+      "text": "BUY BONUS",
+      "x": 210,
+      "y": 766,
+      "size": 17,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "REVIEW ONLY",
+      "x": 210,
+      "y": 791,
+      "size": 10,
+      "color": "#e6dcec",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "auto_idle",
+      "box": {
+        "x": 31,
+        "y": 763,
+        "width": 44,
+        "height": 40
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "menu",
+      "box": {
+        "x": 350,
+        "y": 760,
+        "width": 38,
+        "height": 38
+      }
+    },
+    {
+      "type": "text",
+      "text": "TOTAL BET",
+      "x": 85,
+      "y": 848,
+      "size": 10,
+      "color": "#c7bddd",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "—",
+      "x": 85,
+      "y": 870,
+      "size": 17,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "CONFIRMED WIN",
+      "x": 319,
+      "y": 848,
+      "size": 10,
+      "color": "#c7bddd",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "—",
+      "x": 319,
+      "y": 870,
+      "size": 17,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "ARTWORK REVIEW · NO WAGERS",
+      "x": 210,
+      "y": 16,
+      "size": 10,
+      "color": "#ffffff",
+      "align": "center"
+    }
+  ],
+  "reviewFixture": {
+    "id": "idle",
+    "label": "Awaiting confirmed result",
+    "synthetic": true,
+    "notAProductionReceipt": true
+  }
+}

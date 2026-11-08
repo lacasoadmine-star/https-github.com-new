@@ -6,7 +6,11 @@
   "scripts": {
     "build:assets": "node prepare-assets.mjs",
     "build:backend": "node prepare-backend.mjs",
-    "test": "node prepare-assets.mjs && node --test test/*.test.mjs"
+    "test": "npm run test:core",
+    "test:core": "node prepare-assets.mjs && node --test test/smartsoft-slots.test.mjs test/remaining-games.test.mjs test/client.test.mjs test/controls.test.mjs test/autoplay.test.mjs test/app-autoplay.test.mjs test/library-integration.test.mjs test/wallet-settlement.test.mjs test/worker.test.mjs test/release-policy.test.mjs test/reference-host.test.mjs test/app-reference.test.mjs test/presentation-model-contract.test.mjs test/static-assets.test.mjs",
+    "test:reference": "node --test test/presentation.test.mjs test/remaining-presentation.test.mjs test/arcade-presentation.test.mjs test/legends-pose.test.mjs test/legends-presentation.test.mjs",
+    "test:all": "node prepare-assets.mjs && node --test test/*.test.mjs",
+    "build:reference-assets": "node presentation/build-static-assets.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.15"

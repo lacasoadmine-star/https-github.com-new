@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "productionLaunchEnabled": false,
+  "method": "Static setup pose from the public Spine JSON and original atlas; no animation execution",
+  "games": {
+    "egyptianlegends_native": {
+      "file": "poses/egyptianlegends_native.json",
+      "symbols": 11,
+      "regions": 338,
+      "issues": [
+        {
+          "symbol": "wild",
+          "reason": "No active setup attachments; a verified animation pose is required"
+        },
+        {
+          "symbol": "scatter",
+          "unsupported": [
+            {
+              "code": "CLIPPING_UNSUPPORTED",
+              "path": "skins.default.mask.mask",
+              "detail": "scatter_0006"
+            }
+          ],
+          "missingRegions": []
+        },
+        {
+          "symbol": "multiplier",
+          "unsupported": [
+            {
+              "code": "ATTACHMENT_UNAVAILABLE",
+              "path": "slots[13]",
+              "detail": "scarab_multi1"
+            },
+            {
+              "code": "BONE_TRANSFORM_UNSUPPORTED",
+              "path": "bones[34].transform",
+              "detail": "noScale"
+            }
+          ],
+          "missingRegions": []
+        }
+      ]
+    },
+    "olympianlegends_native": {
+      "file": "poses/olympianlegends_native.json",
+      "symbols": 10,
+      "regions": 158,
+      "issues": []
+    }
+  }
+}

@@ -16,7 +16,11 @@ The requested visible paytables and rules must come from the individual official
 
 The draft engines use independently implemented server outcomes. Public demo artwork, help and visible strips do not establish the provider's private outcome probabilities. A diagnostic return for the draft sampler is not a provider RTP, and the earlier calibration files are explicitly superseded after rule and award changes. No current return is certified. Incomplete mathematics, unsupported payout ceilings and missing controls remain release blockers.
 
-The original generic Canvas remains an unpublished functional prototype. The `presentation/` work and its asset-fetch script reconstruct individual scenes from verified public asset inventories. Asset hashes, authored rendering code and reference mappings are retained; downloading an asset inventory is not the same as completing visual, animation and audio comparison.
+The current client integrates18 individual original-art presentations through `client/reference-presentation.mjs`. The host verifies each same-origin manifest and asset hash, binds it to the current model, and clears stale session/round/frame/viewport work before painting. Book's provider-symbol9 identity is mapped only in cloned display data. CoinMiner's accessible buttons follow the actual fitted tile rectangles and exclude gutters. Artwork failure blocks new starts, autoplay and risk actions; collecting an accepted round remains independently available.
+
+These are static, receipt-driven original-art scenes. Full animation, audio timing, entry prompts, menus and official-demo/browser parity are unfinished. Moonstone and Samurai currently have help artwork only; MagicGarden has no verified gameplay-art mapping. Three Egyptian special-symbol setup poses are still missing. No generic generated symbol is substituted into a mapped game or its help legend.
+
+`presentation/build-static-assets.mjs` enumerates604 immutable public paths,603 unique content hashes and126,022,237 unique bytes. Its actual assembly verifies all file hashes, sizes and allowed static MIME signatures before publishing a new local directory atomically. It includes no provider executable code. The future Worker uses the existing `NATIVE_LIBRARY_ASSETS` binding; deployment must merge the new paths into the preserved asset manifest. The package is additive and must never replace the existing site assets. `evidence/reference-assets-build.json` records the verified local build; it is not a deployment receipt.
 
 ## Existing platform and wallet
 
@@ -36,11 +40,28 @@ npm test
 npm run build:backend
 ```
 
+`npm test` runs the cache-independent core and integration checks. `npm run test:all` also runs the complete original-art suite and requires the verified external caches. Cache paths are configurable through `ZPLAY_ARCADE_ASSET_CACHE`, `ZPLAY_LEGENDS_ASSET_CACHE`, `ZPLAY_EGYPT_SYMBOL2_JSON` and `ZPLAY_OLYMP_SYMBOL2_JSON`; missing optional pose samples are reported as skips, never passes. Actual asset assembly remains a separate strict check of every declared file.
+
+To build an additive static package from restored caches, use explicit paths outside the repository:
+
+```sh
+node presentation/build-static-assets.mjs \
+  --smartsoft-cache /path/to/cache/smartsoft \
+  --remaining-slots-cache /path/to/cache/remaining-slots \
+  --arcade-cache /path/to/cache/arcade \
+  --legends-cache /path/to/cache/legends \
+  --output-dir /path/to/new/reference-static-r1
+```
+
+`--inventory-only` validates and writes the source metadata without reading cached binaries or claiming byte verification. The packer performs no network, upload or production operation.
+
 `test/wallet-settlement.test.mjs` runs real PostgreSQL semantics through an in-memory PGlite database. It imports a temporary copy of the exact canonical wallet module and explicitly rejects any attempt to construct a service database connection. A test-only fixture exercises the 21 identified drafts without opening their production gates. The suite verifies money conservation, atomic rollback, request replay, ownership, account limits, accepted expiry and mutual exclusion with the older native games and JetX. This is a single embedded PostgreSQL connection; it is not a claim of multi-process database load testing.
 
 Other tests cover the versioned model contract, bounded states, outcome-independent reserve limits, authenticated bridge signatures, catalogue preservation, session recovery and client rendering. Stake-menu tests use the complete reference schedules and the model's real input validation. CoinMiner's menu uses its discrete official mine counts. No production account, credit, wallet reset or test wager is created.
 
 ## Deployment
+
+The latest direct instruction explicitly authorizes publishing each completed native machine immediately to the same live Player; see `requirements/player-parity-and-publication-20261108.md`. Do not ask again for that same publication permission. A different ChatGPT workspace does not require a new hosting Worker or account system.
 
 Publish only versions that satisfy the individual release checks. Use the existing `superwin-native-family-engine` Railway function and `superwin-player` Cloudflare Worker. Read the function's actual `deployedCode`, preserve the baseline modules, and do not accept the unrelated staged Railway patch. Verify a terminal successful deployment before changing player traffic.
 

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "productionLaunchEnabled": false,
+  "financialActions": false,
+  "games": {
+    "towerx_native": {
+      "sourceRefs": ["towerx_canvas", "towerx_client", "towerx_css"],
+      "primary": {"officialLabel": "BUY BONUS", "nativeAction": "start", "previewEnabled": false},
+      "bet": {"officialBasis": "100 base units per total paid stake", "nativeBasis": "stakeMinor is the total debit", "referenceMonetaryLimitsVerified": false},
+      "autoplay": {"observedCounts": [50, 100, 500, 1000], "visibleInitiallySelectedCount": 50, "stops": ["singleWin", "balanceDecrease", "balanceIncrease"], "implementedHere": false, "note": "Outer data-spins attribute also contains1000; this review does not infer the running preference from that attribute."},
+      "other": [{"label": "Sound", "implementedHere": "manual local sample only"}, {"label": "Menu", "implementedHere": false}],
+      "buildingMap": {"suburb": "building1", "city": "building2", "green": "building3", "elite": "building4", "neon": "building5"},
+      "remaining": ["Full umbrella/house Spine animation playback and exact mobile camera movement are unfinished.", "Public autoplay is mapped but not wired to the financial host.", "Current operator monetary profile is unverified; review values are explicit synthetic fixtures."]
+    },
+    "towerrush_native": {
+      "sourceRefs": ["towerrush_runtime", "towerrush_global", "towerrush_spine_atlas", "towerrush_constants"],
+      "primary": {"officialLabel": "BUILD", "nativeAction": "step", "previewEnabled": false},
+      "secondary": {"officialLabel": "CASH OUT", "nativeAction": "cashout", "previewEnabled": false},
+      "bonusMap": {"frozen": "spine/Frozen_web/Frozen_webmain", "temple": "atlas/bonus-temple", "triple": "atlas/bonus-triple", "triple-additional": "atlas/tower-1"},
+      "frozenIdlePose": {"animation": "frozen_mob_idle", "layers": ["spine/Frozen_web/Frozen_webmain", "spine/Frozen_web/Frozen_web_38"], "mobileBoneScale": [0.774, 0.848], "sourceAsset": "frozen_skeleton"},
+      "templeWheelSections": [1.5, 1.5, 2, 2, 3, 3, 5, 5, 7, "freeze"],
+      "audioSpriteMilliseconds": {"hang": [1000, 1700], "floorDrop": [4000, 1300], "floorDropTriple": [6000, 3000], "frozenFloor": [10000, 2200], "templeFloor": [14000, 2300], "wheelRotate": [18000, 4800], "templeBonusMount": [24000, 1500], "templeBonusUnmount": [27000, 1500], "floorFail": [30000, 1700], "win": [32000, 2600], "bigWin": [36000, 4000]},
+      "remaining": ["Current native receipts contain normal/frozen/temple/triple floor kinds, but no provider normal-floor visual variant. Normal floors use one identified reference sprite until an explicit display variant is supplied.", "The Temple scene shows the confirmed section as text; exact wheel angle, crane physics and collapse animation are not asserted.", "Complete optional control/menu integration remains unfinished."]
+    },
+    "coinminer_native": {
+      "sourceRefs": ["coinminer_config", "coinminer94_info", "coinminer_runtime"],
+      "referenceVariant": "coin_miner_94",
+      "primary": {"officialLabel": "PLAY", "nativeAction": "start", "previewEnabled": false},
+      "secondary": {"officialLabel": "CASH OUT", "nativeAction": "cashout", "previewEnabled": false},
+      "board": {"columns": 5, "rows": 5, "nativeAction": "pick", "indexing": "row-major0..24", "previewEnabled": false},
+      "mineChoices": [1, 2, 3, 5, 7, 10, 17, 20, 24],
+      "randomTile": {"officialPresent": true, "nativeImplemented": false, "previewEnabled": false},
+      "instantWin": {"configurationControlled": true, "nativeImplemented": false, "previewEnabled": false},
+      "treasureBoost": {"sourceFlag": "picks[].treasureBoost", "activeFlag": "treasureBoost.active", "renderOnlyConfirmedRescue": true},
+      "layout": {"portrait": [360, 640], "landscape": [640, 360], "portraitTileOrigin": [26, 174], "tileSize": [60, 60], "gutter": [2, 2]},
+      "closedTileComposition": {"mode": "mix", "layers": ["tile1", "tile2"], "sameBounds": true, "bonusOverlayUsesFullTileBounds": true},
+      "remaining": ["Exact UI font file, transitions, and responsive comparison are unfinished.", "Random-tile and instant-win controls are shown only as unavailable reference controls; they do not choose tiles or submit requests.", "Current demo monetary bet limits remain unverified.", "Default reference supplies color panels, not the partner-specific background/board artwork; no alternate partner skin is substituted."]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "98eea83d-e837-47b4-8b3e-10f646b5f7c3",
+  "number": 1,
+  "startup_time_ms": 2,
+  "compatibility_date": "2026-11-07",
+  "main_module": "library.mjs",
+  "annotations": {
+    "workers/message": "Create isolated asset-library foundation; zero completed games; existing Player unchanged",
+    "workers/triggered_by": "upload"
+  },
+  "usage_model": "standard",
+  "urls": [],
+  "source": "api",
+  "created_on": "2026-11-07T23:30:02.146752Z",
+  "modules": [
+    {
+      "name": "library.mjs",
+      "content_type": "application/javascript+module",
+      "source": "// Asset library only. Money and account authority stay with the existing\n// Player session bridge and Railway double-entry ledger.\nexport const RELEASE='superwin-expansion100-20261108-r1';\nexport const PREFIX='/native-expansion100/';\nconst json=(data,status=200)=>Response.json(data,{status,headers:{'cache-control':'no-store','x-content-type-options':'nosniff','x-zplay-expansion':RELEASE}});\nconst csp=\"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'none'\";\nexport function createLibrary(releases=[]){\n const published=new Map();\n for(const r of releases){\n  if(!/^exp100_[a-z0-9]+$/.test(r.id)||!r.version||!r.entry.startsWith(PREFIX+r.id+'/')||r.status!=='published'||!r.referenceVerified||!r.browserVerified||!r.ledgerVerified||!r.backendVerified)throw Error('INCOMPLETE_GAME_RELEASE');\n  if(published.has(r.id))throw Error('DUPLICATE_GAME_RELEASE');published.set(r.id,Object.freeze({...r}));\n }\n return {async fetch(request,env){\n  const url=new URL(request.url),path=url.pathname,read=request.method==='GET'||request.method==='HEAD';\n  if(!read)return json({error:'METHOD_NOT_ALLOWED'},405);\n  if(path===PREFIX+'health')return json({service:'superwin-library-100',release:RELEASE,targetGames:100,publishedGames:published.size,ready:true,walletAuthority:'existing-player-railway-ledger'});\n  if(path===PREFIX+'catalog')return json({release:RELEASE,games:[...published.values()].map(r=>({id:r.id,name:r.name,version:r.version,launch:'/games/'+r.id,thumbnail:r.cover,available:true,enabled:true,demo:false,studio:'Superwin',referenceProvider:r.provider,official_provider_game:false}))});\n  let target=path;\n  if(path.startsWith('/games/')){const release=published.get(path.slice(7));if(!release)return json({error:'GAME_NOT_PUBLISHED'},404);target=release.entry;}\n  else if(path.startsWith(PREFIX)){\n   const id=path.slice(PREFIX.length).split('/')[0];if(!published.has(id))return json({error:'GAME_NOT_PUBLISHED'},404);\n  }else return json({error:'NOT_FOUND'},404);\n  if(!env.ASSETS)return json({error:'ASSETS_UNAVAILABLE'},503);\n  const asset=await env.ASSETS.fetch(new Request(new URL(target,url.origin),{method:request.method}));\n  const headers=new Headers(asset.headers);headers.set('x-zplay-expansion',RELEASE);headers.set('x-content-type-options','nosniff');\n  if(headers.get('content-type')?.includes('text/html')){headers.set('content-security-policy',csp);headers.set('cache-control','no-store');}\n  return new Response(request.method==='HEAD'?null:asset.body,{status:asset.status,headers});\n }};\n}\nexport default createLibrary();\n"
+    }
+  ],
+  "author_id": "7d2ed33f97bdb03bfce63cc8824ded4a",
+  "author_email": "apdiy61@gmail.com"
+}

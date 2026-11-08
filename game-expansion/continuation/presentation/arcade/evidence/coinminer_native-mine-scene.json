@@ -1,0 +1,977 @@
+{
+  "schemaVersion": 1,
+  "gameId": "coinminer_native",
+  "modelVersion": "superwin-coinminer-3",
+  "width": 360,
+  "height": 640,
+  "productionLaunchEnabled": false,
+  "financialActions": false,
+  "confirmedReceiptId": "review-coinminer-mine",
+  "revealedTileCount": 3,
+  "safeTileCount": 2,
+  "boostedTileIndices": [
+    6
+  ],
+  "controls": [
+    {
+      "label": "PLAY",
+      "action": "start",
+      "enabled": false
+    },
+    {
+      "label": "Tiles",
+      "action": "pick",
+      "enabled": false
+    },
+    {
+      "label": "Random tile",
+      "action": null,
+      "enabled": false
+    }
+  ],
+  "commands": [
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      },
+      "color": "#101d2f"
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 640
+      },
+      "color": "#212a39"
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 10,
+        "y": 154,
+        "width": 340,
+        "height": 350
+      },
+      "color": "#0e1017"
+    },
+    {
+      "type": "sprite",
+      "frame": "game_logo_portrait",
+      "box": {
+        "x": 40,
+        "y": 50,
+        "width": 280,
+        "height": 95.2
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "prize1",
+      "box": {
+        "x": 26,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 88,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 88,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 150,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 150,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 212,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 212,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 274,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 274,
+        "y": 174,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 26,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 26,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "prize1",
+      "box": {
+        "x": 88,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "bonus_label",
+      "box": {
+        "x": 88,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 150,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 150,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 212,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 212,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 274,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 274,
+        "y": 236,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 26,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 26,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 88,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 88,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile_explosion",
+      "box": {
+        "x": 150,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 212,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 212,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 274,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 274,
+        "y": 298,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 26,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 26,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 88,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 88,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 150,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 150,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 212,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 212,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 274,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 274,
+        "y": 360,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 26,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 26,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 88,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 88,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 150,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 150,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 212,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 212,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile1",
+      "box": {
+        "x": 274,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "tile2",
+      "box": {
+        "x": 274,
+        "y": 422,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "type": "text",
+      "text": "BALANCE",
+      "x": 42,
+      "y": 16,
+      "size": 10,
+      "color": "#909095",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "1000.00",
+      "x": 42,
+      "y": 33,
+      "size": 14,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "MINES",
+      "x": 247,
+      "y": 16,
+      "size": 10,
+      "color": "#909095",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "5",
+      "x": 247,
+      "y": 33,
+      "size": 14,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "BET",
+      "x": 324,
+      "y": 16,
+      "size": 10,
+      "color": "#909095",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "10.00",
+      "x": 324,
+      "y": 33,
+      "size": 14,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "bonus_active",
+      "box": {
+        "x": 192,
+        "y": 9,
+        "width": 30,
+        "height": 30
+      }
+    },
+    {
+      "type": "text",
+      "text": "FOUND 2",
+      "x": 62,
+      "y": 519,
+      "size": 12,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "WIN 0.00",
+      "x": 274,
+      "y": 519,
+      "size": 12,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "sprite",
+      "frame": "ui_menu",
+      "box": {
+        "x": 44,
+        "y": 572,
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "ui_random_disabled",
+      "box": {
+        "x": 82,
+        "y": 565,
+        "width": 46,
+        "height": 46
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "ui_bet",
+      "box": {
+        "x": 232,
+        "y": 565,
+        "width": 46,
+        "height": 46
+      }
+    },
+    {
+      "type": "sprite",
+      "frame": "ui_tournaments",
+      "box": {
+        "x": 284,
+        "y": 572,
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "type": "rect",
+      "box": {
+        "x": 136,
+        "y": 544,
+        "width": 88,
+        "height": 88
+      },
+      "color": "#a0a0a0",
+      "clipPolygon": [
+        {
+          "x": 224,
+          "y": 588
+        },
+        {
+          "x": 223.78812797357665,
+          "y": 592.3127541745007
+        },
+        {
+          "x": 223.15455233774213,
+          "y": 596.5839741687097
+        },
+        {
+          "x": 222.1053747722172,
+          "y": 600.7725257991964
+        },
+        {
+          "x": 220.65069943049662,
+          "y": 604.838071024064
+        },
+        {
+          "x": 218.8045356313276,
+          "y": 608.7414564203439
+        },
+        {
+          "x": 216.584662941312,
+          "y": 612.4450902528625
+        },
+        {
+          "x": 214.01245994796042,
+          "y": 615.9133045032004
+        },
+        {
+          "x": 211.1126983722081,
+          "y": 619.1126983722081
+        },
+        {
+          "x": 207.9133045032004,
+          "y": 622.0124599479605
+        },
+        {
+          "x": 204.44509025286249,
+          "y": 624.584662941312
+        },
+        {
+          "x": 200.7414564203439,
+          "y": 626.8045356313277
+        },
+        {
+          "x": 196.83807102406396,
+          "y": 628.6506994304966
+        },
+        {
+          "x": 192.77252579919633,
+          "y": 630.1053747722171
+        },
+        {
+          "x": 188.58397416870966,
+          "y": 631.1545523377422
+        },
+        {
+          "x": 184.31275417450067,
+          "y": 631.7881279735767
+        },
+        {
+          "x": 180,
+          "y": 632
+        },
+        {
+          "x": 175.68724582549933,
+          "y": 631.7881279735767
+        },
+        {
+          "x": 171.41602583129037,
+          "y": 631.1545523377422
+        },
+        {
+          "x": 167.22747420080367,
+          "y": 630.1053747722171
+        },
+        {
+          "x": 163.16192897593606,
+          "y": 628.6506994304966
+        },
+        {
+          "x": 159.2585435796561,
+          "y": 626.8045356313277
+        },
+        {
+          "x": 155.55490974713751,
+          "y": 624.584662941312
+        },
+        {
+          "x": 152.0866954967996,
+          "y": 622.0124599479605
+        },
+        {
+          "x": 148.8873016277919,
+          "y": 619.1126983722081
+        },
+        {
+          "x": 145.98754005203958,
+          "y": 615.9133045032004
+        },
+        {
+          "x": 143.415337058688,
+          "y": 612.4450902528625
+        },
+        {
+          "x": 141.1954643686724,
+          "y": 608.7414564203439
+        },
+        {
+          "x": 139.34930056950338,
+          "y": 604.838071024064
+        },
+        {
+          "x": 137.8946252277828,
+          "y": 600.7725257991964
+        },
+        {
+          "x": 136.84544766225787,
+          "y": 596.5839741687097
+        },
+        {
+          "x": 136.21187202642335,
+          "y": 592.3127541745007
+        },
+        {
+          "x": 136,
+          "y": 588
+        },
+        {
+          "x": 136.21187202642335,
+          "y": 583.6872458254993
+        },
+        {
+          "x": 136.84544766225787,
+          "y": 579.4160258312903
+        },
+        {
+          "x": 137.8946252277828,
+          "y": 575.2274742008036
+        },
+        {
+          "x": 139.34930056950338,
+          "y": 571.161928975936
+        },
+        {
+          "x": 141.1954643686724,
+          "y": 567.2585435796561
+        },
+        {
+          "x": 143.415337058688,
+          "y": 563.5549097471376
+        },
+        {
+          "x": 145.98754005203958,
+          "y": 560.0866954967996
+        },
+        {
+          "x": 148.8873016277919,
+          "y": 556.8873016277919
+        },
+        {
+          "x": 152.08669549679956,
+          "y": 553.9875400520395
+        },
+        {
+          "x": 155.55490974713751,
+          "y": 551.415337058688
+        },
+        {
+          "x": 159.25854357965608,
+          "y": 549.1954643686723
+        },
+        {
+          "x": 163.16192897593604,
+          "y": 547.3493005695034
+        },
+        {
+          "x": 167.22747420080364,
+          "y": 545.8946252277829
+        },
+        {
+          "x": 171.41602583129034,
+          "y": 544.8454476622578
+        },
+        {
+          "x": 175.68724582549933,
+          "y": 544.2118720264233
+        },
+        {
+          "x": 180,
+          "y": 544
+        },
+        {
+          "x": 184.31275417450064,
+          "y": 544.2118720264233
+        },
+        {
+          "x": 188.58397416870963,
+          "y": 544.8454476622578
+        },
+        {
+          "x": 192.77252579919633,
+          "y": 545.8946252277829
+        },
+        {
+          "x": 196.83807102406396,
+          "y": 547.3493005695034
+        },
+        {
+          "x": 200.7414564203439,
+          "y": 549.1954643686723
+        },
+        {
+          "x": 204.44509025286249,
+          "y": 551.415337058688
+        },
+        {
+          "x": 207.9133045032004,
+          "y": 553.9875400520395
+        },
+        {
+          "x": 211.1126983722081,
+          "y": 556.8873016277919
+        },
+        {
+          "x": 214.0124599479604,
+          "y": 560.0866954967996
+        },
+        {
+          "x": 216.584662941312,
+          "y": 563.5549097471375
+        },
+        {
+          "x": 218.8045356313276,
+          "y": 567.2585435796561
+        },
+        {
+          "x": 220.65069943049662,
+          "y": 571.161928975936
+        },
+        {
+          "x": 222.1053747722172,
+          "y": 575.2274742008036
+        },
+        {
+          "x": 223.15455233774213,
+          "y": 579.4160258312903
+        },
+        {
+          "x": 223.78812797357665,
+          "y": 583.6872458254993
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "PLAY",
+      "x": 180,
+      "y": 582,
+      "size": 16,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "REVIEW",
+      "x": 180,
+      "y": 603,
+      "size": 11,
+      "color": "#ffffff",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "coin_miner_94 · confirmed reveals only",
+      "x": 180,
+      "y": 637,
+      "size": 9,
+      "color": "#c4c7cf",
+      "align": "center"
+    }
+  ],
+  "reviewFixture": {
+    "id": "mine",
+    "label": "Synthetic94 receipt · a confirmed mine",
+    "synthetic": true,
+    "notAProductionReceipt": true
+  }
+}

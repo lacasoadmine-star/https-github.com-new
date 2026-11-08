@@ -1,0 +1,1889 @@
+TAP version 13
+# Subtest: real app waits for a new receipt and animation after the synchronous pending-before-busy emit
+ok 1 - real app waits for a new receipt and animation after the synchronous pending-before-busy emit
+  ---
+  duration_ms: 18.469945
+  type: 'test'
+  ...
+# Subtest: closing settings, explicit stop, and pagehide before the queued callback produce no POST
+ok 2 - closing settings, explicit stop, and pagehide before the queued callback produce no POST
+  ---
+  duration_ms: 9.225113
+  type: 'test'
+  ...
+# Subtest: a session change while an autoplay request is pending prevents all following starts
+ok 3 - a session change while an autoplay request is pending prevents all following starts
+  ---
+  duration_ms: 4.687062
+  type: 'test'
+  ...
+# Subtest: uncertain delivery retries only identical bytes and delayed confirmation never restarts autoplay
+ok 4 - uncertain delivery retries only identical bytes and delayed confirmation never restarts autoplay
+  ---
+  duration_ms: 5.240251
+  type: 'test'
+  ...
+# Subtest: reload restores an unresolved intent without restoring or starting autoplay
+ok 5 - reload restores an unresolved intent without restoring or starting autoplay
+  ---
+  duration_ms: 6.769336
+  type: 'test'
+  ...
+# Subtest: invalid preexisting stake cannot create an autoplay request
+ok 6 - invalid preexisting stake cannot create an autoplay request
+  ---
+  duration_ms: 2.766808
+  type: 'test'
+  ...
+# Subtest: finite autoplay consumes each new confirmed round exactly once with unique paid request IDs
+ok 7 - finite autoplay consumes each new confirmed round exactly once with unique paid request IDs
+  ---
+  duration_ms: 17.709008
+  type: 'test'
+  ...
+# Subtest: an old-round echo after submission stops the batch instead of authorizing another wager
+ok 8 - an old-round echo after submission stops the batch instead of authorizing another wager
+  ---
+  duration_ms: 5.378256
+  type: 'test'
+  ...
+# Subtest: a changed model version during result animation requires a fresh explicit autoplay start
+ok 9 - a changed model version during result animation requires a fresh explicit autoplay start
+  ---
+  duration_ms: 3.644468
+  type: 'test'
+  ...
+# Subtest: a confirmed balance crossing the chosen net limit before the next launch prevents an extra wager
+ok 10 - a confirmed balance crossing the chosen net limit before the next launch prevents an extra wager
+  ---
+  duration_ms: 9.09541
+  type: 'test'
+  ...
+# Subtest: pending or unavailable reference art blocks real start and autoplay handlers
+ok 11 - pending or unavailable reference art blocks real start and autoplay handlers
+  ---
+  duration_ms: 26.245541
+  type: 'test'
+  ...
+# Subtest: artwork failure stops a running autoplay batch after its already accepted receipt
+ok 12 - artwork failure stops a running autoplay batch after its already accepted receipt
+  ---
+  duration_ms: 8.228237
+  type: 'test'
+  ...
+# Subtest: pending art blocks picks and steps while an accepted cashout remains available
+ok 13 - pending art blocks picks and steps while an accepted cashout remains available
+  ---
+  duration_ms: 8.793863
+  type: 'test'
+  ...
+# Subtest: Coin overlay uses each reference cell rectangle and submits the selected index exactly once
+ok 14 - Coin overlay uses each reference cell rectangle and submits the selected index exactly once
+  ---
+  duration_ms: 4.532052
+  type: 'test'
+  ...
+# Subtest: reference loading and failure never paint a generic substitute or synthesized help symbols
+ok 15 - reference loading and failure never paint a generic substitute or synthesized help symbols
+  ---
+  duration_ms: 3.507585
+  type: 'test'
+  ...
+# Subtest: logout and delayed old paints cannot restore the balance, controls or Coin hit targets
+ok 16 - logout and delayed old paints cannot restore the balance, controls or Coin hit targets
+  ---
+  duration_ms: 5.312348
+  type: 'test'
+  ...
+# Subtest: same-state completion never creates a resize loop and geometry/model changes invalidate the old paint
+ok 17 - same-state completion never creates a resize loop and geometry/model changes invalidate the old paint
+  ---
+  duration_ms: 4.05084
+  type: 'test'
+  ...
+# Subtest: page suspension and offline events disable every action without accepting a late paint
+ok 18 - page suspension and offline events disable every action without accepting a late paint
+  ---
+  duration_ms: 6.510002
+  type: 'test'
+  ...
+# Subtest: explicit Refresh holds a new start until both the state read and reference repaint finish
+ok 19 - explicit Refresh holds a new start until both the state read and reference repaint finish
+  ---
+  duration_ms: 2.646279
+  type: 'test'
+  ...
+# Subtest: only the three requested arcade games are present and all gates remain closed
+ok 20 - only the three requested arcade games are present and all gates remain closed
+  ---
+  duration_ms: 1.905122
+  type: 'test'
+  ...
+# Subtest: locked public assets stay below100MB and have no executable or session URLs
+ok 21 - locked public assets stay below100MB and have no executable or session URLs
+  ---
+  duration_ms: 1.994824
+  type: 'test'
+  ...
+# Subtest: all captured bytes match their SHA-256 and size
+ok 22 - all captured bytes match their SHA-256 and size
+  ---
+  duration_ms: 124.179349
+  type: 'test'
+  ...
+# Subtest: a failed download records a precise blocker instead of fabricating an image
+ok 23 - a failed download records a precise blocker instead of fabricating an image
+  ---
+  duration_ms: 1.536946
+  type: 'test'
+  ...
+# Subtest: every review fixture renders deterministically from locked artwork without RNG or network
+ok 24 - every review fixture renders deterministically from locked artwork without RNG or network
+  ---
+  duration_ms: 8.278501
+  type: 'test'
+  ...
+# Subtest: unconfirmed and pending-only state cannot reveal outcomes
+ok 25 - unconfirmed and pending-only state cannot reveal outcomes
+  ---
+  duration_ms: 0.288357
+  type: 'test'
+  ...
+# Subtest: mismatched game/version and malformed money receipts are rejected
+ok 26 - mismatched game/version and malformed money receipts are rejected
+  ---
+  duration_ms: 0.579458
+  type: 'test'
+  ...
+# Subtest: Coin94 uses the exact public portrait tile positions and row-major hit testing
+ok 27 - Coin94 uses the exact public portrait tile positions and row-major hit testing
+  ---
+  duration_ms: 0.614801
+  type: 'test'
+  ...
+# Subtest: Coin94 only reveals exact confirmed picks and marks actual rescued picks
+ok 28 - Coin94 only reveals exact confirmed picks and marks actual rescued picks
+  ---
+  duration_ms: 1.617205
+  type: 'test'
+  ...
+# Subtest: duplicate tiles and invalid boost/mine records cannot produce a misleading scene
+ok 29 - duplicate tiles and invalid boost/mine records cannot produce a misleading scene
+  ---
+  duration_ms: 0.339553
+  type: 'test'
+  ...
+# Subtest: TowerX maps all five public building types and a frame prefix never displays later floors or final payout
+ok 30 - TowerX maps all five public building types and a frame prefix never displays later floors or final payout
+  ---
+  duration_ms: 1.042243
+  type: 'test'
+  ...
+# Subtest: TowerRush frozen, Temple and triple states use their distinct source artwork without inventing future floors
+ok 31 - TowerRush frozen, Temple and triple states use their distinct source artwork without inventing future floors
+  ---
+  duration_ms: 0.299834
+  type: 'test'
+  ...
+# Subtest: money display uses exact integer minor values even aboveNumber.MAX_SAFE_INTEGER
+ok 32 - money display uses exact integer minor values even aboveNumber.MAX_SAFE_INTEGER
+  ---
+  duration_ms: 0.387844
+  type: 'test'
+  ...
+# Subtest: all normalized frames remain inside verified atlas images, including Spine rotations
+ok 33 - all normalized frames remain inside verified atlas images, including Spine rotations
+  ---
+  duration_ms: 0.861827
+  type: 'test'
+  ...
+# Subtest: profiles retain the two observed control families and never advertise unfinished gamble or trigger flags
+ok 34 - profiles retain the two observed control families and never advertise unfinished gamble or trigger flags
+  ---
+  duration_ms: 2.283803
+  type: 'test'
+  ...
+# Subtest: every new instance is stopped and only an explicit valid begin creates intent
+ok 35 - every new instance is stopped and only an explicit valid begin creates intent
+  ---
+  duration_ms: 1.521804
+  type: 'test'
+  ...
+# Subtest: old settled receipt echoes and the pre-busy persistence emission never count or unlock a second submission
+ok 36 - old settled receipt echoes and the pre-busy persistence emission never count or unlock a second submission
+  ---
+  duration_ms: 0.456966
+  type: 'test'
+  ...
+# Subtest: observing the baseline before begin also excludes its later echoes
+ok 37 - observing the baseline before begin also excludes its later echoes
+  ---
+  duration_ms: 0.204523
+  type: 'test'
+  ...
+# Subtest: only accepted paid round IDs consume the count; active updates and bonus frames do not
+ok 38 - only accepted paid round IDs consume the count; active updates and bonus frames do not
+  ---
+  duration_ms: 0.277852
+  type: 'test'
+  ...
+# Subtest: a finite run ends exactly after its requested accepted paid rounds
+ok 39 - a finite run ends exactly after its requested accepted paid rounds
+  ---
+  duration_ms: 0.509985
+  type: 'test'
+  ...
+# Subtest: uncertain pending requests stop the run and later exact confirmation never resumes it
+ok 40 - uncertain pending requests stop the run and later exact confirmation never resumes it
+  ---
+  duration_ms: 0.537886
+  type: 'test'
+  ...
+# Subtest: disconnect and account changes cannot continue a prior autoplay intent
+ok 41 - disconnect and account changes cannot continue a prior autoplay intent
+  ---
+  duration_ms: 1.016776
+  type: 'test'
+  ...
+# Subtest: acceptance pause, confirmation/recovery and another active game stop intent without cancelling an accepted round
+ok 42 - acceptance pause, confirmation/recovery and another active game stop intent without cancelling an accepted round
+  ---
+  duration_ms: 0.403287
+  type: 'test'
+  ...
+# Subtest: explicit stop allows the accepted round to finish but cannot trigger another wager
+ok 43 - explicit stop allows the accepted round to finish but cannot trigger another wager
+  ---
+  duration_ms: 0.255358
+  type: 'test'
+  ...
+# Subtest: round-win thresholds compare exact BigInt amounts at the inclusive boundary
+ok 44 - round-win thresholds compare exact BigInt amounts at the inclusive boundary
+  ---
+  duration_ms: 0.413602
+  type: 'test'
+  ...
+# Subtest: modern net gain/loss uses confirmed balance and never binary floating point
+ok 45 - modern net gain/loss uses confirmed balance and never binary floating point
+  ---
+  duration_ms: 0.374655
+  type: 'test'
+  ...
+# Subtest: Burning legacy win threshold means cumulative settled gain and ignores unrelated wallet deposits
+ok 46 - Burning legacy win threshold means cumulative settled gain and ignores unrelated wallet deposits
+  ---
+  duration_ms: 0.17554
+  type: 'test'
+  ...
+# Subtest: legacy trigger stops consume only explicit confirmed flags, not animation names or an invented big-win ratio
+ok 47 - legacy trigger stops consume only explicit confirmed flags, not animation names or an invented big-win ratio
+  ---
+  duration_ms: 0.770421
+  type: 'test'
+  ...
+# Subtest: host canStart, animation and all in-flight guards must clear before a launch
+ok 48 - host canStart, animation and all in-flight guards must clear before a launch
+  ---
+  duration_ms: 0.2361
+  type: 'test'
+  ...
+# Subtest: unexpected or mismatched paid receipts stop autoplay without counting a new wager
+ok 49 - unexpected or mismatched paid receipts stop autoplay without counting a new wager
+  ---
+  duration_ms: 0.438289
+  type: 'test'
+  ...
+# Subtest: an ended host request without a new confirmed paid receipt cannot silently launch again
+ok 50 - an ended host request without a new confirmed paid receipt cannot silently launch again
+  ---
+  duration_ms: 0.129843
+  type: 'test'
+  ...
+# Subtest: each run pins its model version and a rules refresh cannot resume it
+ok 51 - each run pins its model version and a rules refresh cannot resume it
+  ---
+  duration_ms: 0.295938
+  type: 'test'
+  ...
+# Subtest: a version refresh stops new wagers while an already accepted old-version round finishes
+ok 52 - a version refresh stops new wagers while an already accepted old-version round finishes
+  ---
+  duration_ms: 0.262068
+  type: 'test'
+  ...
+# Subtest: the final launch boundary rechecks modern net thresholds after balance refreshes during animation
+ok 53 - the final launch boundary rechecks modern net thresholds after balance refreshes during animation
+  ---
+  duration_ms: 0.27008
+  type: 'test'
+  ...
+# Subtest: money is formatted as integer-backed strings without large-balance precision loss
+ok 54 - money is formatted as integer-backed strings without large-balance precision loss
+  ---
+  duration_ms: 2.260167
+  type: 'test'
+  ...
+# Subtest: signed-out initial and 401 states cannot place a wager and show no fake balance
+ok 55 - signed-out initial and 401 states cannot place a wager and show no fake balance
+  ---
+  duration_ms: 1.056815
+  type: 'test'
+  ...
+# Subtest: successful start freezes exact request, sends session header, and uses server wallet
+ok 56 - successful start freezes exact request, sends session header, and uses server wallet
+  ---
+  duration_ms: 2.385553
+  type: 'test'
+  ...
+# Subtest: ambiguous transport failures retry the identical bytes, ID and original session
+ok 57 - ambiguous transport failures retry the identical bytes, ID and original session
+  ---
+  duration_ms: 3.080342
+  type: 'test'
+  ...
+# Subtest: uncertain request is persisted, blocks new stakes and is retained after read-only refresh
+ok 58 - uncertain request is persisted, blocks new stakes and is retained after read-only refresh
+  ---
+  duration_ms: 1.37073
+  type: 'test'
+  ...
+# Subtest: reload restores the original pending bytes for the same game and session
+ok 59 - reload restores the original pending bytes for the same game and session
+  ---
+  duration_ms: 0.990567
+  type: 'test'
+  ...
+# Subtest: different game cannot restore another game pending request
+ok 60 - different game cannot restore another game pending request
+  ---
+  duration_ms: 0.267135
+  type: 'test'
+  ...
+# Subtest: identity change during explicit retry never posts the old account intent
+ok 61 - identity change during explicit retry never posts the old account intent
+  ---
+  duration_ms: 0.740367
+  type: 'test'
+  ...
+# Subtest: auth rejection after a lost reply preserves the original account pending record
+ok 62 - auth rejection after a lost reply preserves the original account pending record
+  ---
+  duration_ms: 0.386513
+  type: 'test'
+  ...
+# Subtest: late state read cannot overwrite a newer wager receipt
+ok 63 - late state read cannot overwrite a newer wager receipt
+  ---
+  duration_ms: 0.418019
+  type: 'test'
+  ...
+# Subtest: out-of-order reads apply only the latest requested state
+ok 64 - out-of-order reads apply only the latest requested state
+  ---
+  duration_ms: 0.22265
+  type: 'test'
+  ...
+# Subtest: disconnect invalidates outstanding read so stale authentication cannot return
+ok 65 - disconnect invalidates outstanding read so stale authentication cannot return
+  ---
+  duration_ms: 0.172195
+  type: 'test'
+  ...
+# Subtest: historical replay receipt never restores historical balance or round
+ok 66 - historical replay receipt never restores historical balance or round
+  ---
+  duration_ms: 0.512218
+  type: 'test'
+  ...
+# Subtest: replay requires a fresh successful read; failure keeps exact pending intent and blocks start
+ok 67 - replay requires a fresh successful read; failure keeps exact pending intent and blocks start
+  ---
+  duration_ms: 0.48625
+  type: 'test'
+  ...
+# Subtest: accepted round actions remain enabled when new rounds are paused and use stored model version
+ok 68 - accepted round actions remain enabled when new rounds are paused and use stored model version
+  ---
+  duration_ms: 0.669842
+  type: 'test'
+  ...
+# Subtest: version rejection refreshes the round and never silently resubmits a new action
+ok 69 - version rejection refreshes the round and never silently resubmits a new action
+  ---
+  duration_ms: 0.69591
+  type: 'test'
+  ...
+# Subtest: storage denial prevents POST before financial intent leaves the browser
+ok 70 - storage denial prevents POST before financial intent leaves the browser
+  ---
+  duration_ms: 0.335046
+  type: 'test'
+  ...
+# Subtest: corrupt persisted intent cannot be cleared by ordinary successful refresh
+ok 71 - corrupt persisted intent cannot be cleared by ordinary successful refresh
+  ---
+  duration_ms: 0.212074
+  type: 'test'
+  ...
+# Subtest: malformed settled payout is not applied and remains retryable
+ok 72 - malformed settled payout is not applied and remains retryable
+  ---
+  duration_ms: 0.259935
+  type: 'test'
+  ...
+# Subtest: receipt with another session or ID remains unresolved, never applied
+ok 73 - receipt with another session or ID remains unresolved, never applied
+  ---
+  duration_ms: 0.373984
+  type: 'test'
+  ...
+# Subtest: duplicate input while request is in flight cannot place another wager
+ok 74 - duplicate input while request is in flight cannot place another wager
+  ---
+  duration_ms: 0.240657
+  type: 'test'
+  ...
+# Subtest: insufficient funds and out-of-range stakes are rejected without a financial call
+ok 75 - insufficient funds and out-of-range stakes are rejected without a financial call
+  ---
+  duration_ms: 0.166066
+  type: 'test'
+  ...
+# Subtest: an active game elsewhere blocks starts here
+ok 76 - an active game elsewhere blocks starts here
+  ---
+  duration_ms: 0.135701
+  type: 'test'
+  ...
+# Subtest: server publicConfig and structured model are retained alongside authoritative stake limits
+ok 77 - server publicConfig and structured model are retained alongside authoritative stake limits
+  ---
+  duration_ms: 0.22949
+  type: 'test'
+  ...
+# Subtest: actions are strictly taken from declared round or game actions
+ok 78 - actions are strictly taken from declared round or game actions
+  ---
+  duration_ms: 0.118506
+  type: 'test'
+  ...
+# Subtest: presentation reads server frames, including cumulative Tower X building frames
+ok 79 - presentation reads server frames, including cumulative Tower X building frames
+  ---
+  duration_ms: 0.177693
+  type: 'test'
+  ...
+# Subtest: mobile and desktop scene geometry stays within canvas for every supported grid
+ok 80 - mobile and desktop scene geometry stays within canvas for every supported grid
+  ---
+  duration_ms: 1.214228
+  type: 'test'
+  ...
+# Subtest: all available public configs execute Canvas rendering without financial or network hooks
+ok 81 - all available public configs execute Canvas rendering without financial or network hooks
+  ---
+  duration_ms: 40.944465
+  type: 'test'
+  ...
+# Subtest: missing authenticated model or stake bounds cannot enable a new start
+ok 82 - missing authenticated model or stake bounds cannot enable a new start
+  ---
+  duration_ms: 0.733577
+  type: 'test'
+  ...
+# Subtest: actual presence events clear identity, preserve pending storage, and ready refreshes identity
+ok 83 - actual presence events clear identity, preserve pending storage, and ready refreshes identity
+  ---
+  duration_ms: 1.694399
+  type: 'test'
+  ...
+# Subtest: provided per-game rules are retained verbatim for the help dialog
+ok 84 - provided per-game rules are retained verbatim for the help dialog
+  ---
+  duration_ms: 0.2299
+  type: 'test'
+  ...
+# Subtest: Tower X overall multiplier uses the confirmed total payout and stake, not base-unit sum
+ok 85 - Tower X overall multiplier uses the confirmed total payout and stake, not base-unit sum
+  ---
+  duration_ms: 0.094259
+  type: 'test'
+  ...
+# Subtest: Tower Rush banked and at-risk displays derive only from confirmed money fields
+ok 86 - Tower Rush banked and at-risk displays derive only from confirmed money fields
+  ---
+  duration_ms: 0.103963
+  type: 'test'
+  ...
+# Subtest: final and skipped result grids highlight only their own frame while retaining total payout
+ok 87 - final and skipped result grids highlight only their own frame while retaining total payout
+  ---
+  duration_ms: 0.294506
+  type: 'test'
+  ...
+# Subtest: every first11 stake menu contains the complete official schedule and only accepted wagers
+ok 88 - every first11 stake menu contains the complete official schedule and only accepted wagers
+  ---
+  duration_ms: 955.945471
+  type: 'test'
+  ...
+# Subtest: a fixed schedule does not acquire generic amounts or an unlisted minimum or maximum
+ok 89 - a fixed schedule does not acquire generic amounts or an unlisted minimum or maximum
+  ---
+  duration_ms: 0.231292
+  type: 'test'
+  ...
+# Subtest: CoinMiner offers exactly the verified selectable mine counts and rejects obsolete selections
+ok 90 - CoinMiner offers exactly the verified selectable mine counts and rejects obsolete selections
+  ---
+  duration_ms: 0.285713
+  type: 'test'
+  ...
+# Subtest: region own translation, rotation and nonuniform scale compose with its slot bone
+ok 91 - region own translation, rotation and nonuniform scale compose with its slot bone
+  ---
+  duration_ms: 2.698387
+  type: 'test'
+  ...
+# Subtest: normal parent rotation and nonuniform scale preserve a mirrored child mesh
+ok 92 - normal parent rotation and nonuniform scale preserve a mirrored child mesh
+  ---
+  duration_ms: 0.447974
+  type: 'test'
+  ...
+# Subtest: bone shear changes the local axes before the parent affine transform
+ok 93 - bone shear changes the local axes before the parent affine transform
+  ---
+  duration_ms: 0.298883
+  type: 'test'
+  ...
+# Subtest: noRotationOrReflection removes inherited rotation but preserves the scaled world basis and ordinary origin
+ok 94 - noRotationOrReflection removes inherited rotation but preserves the scaled world basis and ordinary origin
+  ---
+  duration_ms: 2.547243
+  type: 'test'
+  ...
+# Subtest: noRotationOrReflection removes parent reflection while retaining reflected parent translation
+ok 95 - noRotationOrReflection removes parent reflection while retaining reflected parent translation
+  ---
+  duration_ms: 0.349908
+  type: 'test'
+  ...
+# Subtest: noRotationOrReflection retains its own rotation, scale and shear after removing a uniform parent rotation
+ok 96 - noRotationOrReflection retains its own rotation, scale and shear after removing a uniform parent rotation
+  ---
+  duration_ms: 0.295497
+  type: 'test'
+  ...
+# Subtest: noRotationOrReflection uses the finite small-parent-axis fallback
+ok 97 - noRotationOrReflection uses the finite small-parent-axis fallback
+  ---
+  duration_ms: 0.185966
+  type: 'test'
+  ...
+# Subtest: unweighted mesh vertices use the slot bone once and retain source UV/triangle order
+ok 98 - unweighted mesh vertices use the slot bone once and retain source UV/triangle order
+  ---
+  duration_ms: 0.168329
+  type: 'test'
+  ...
+# Subtest: weighted mesh groups transform each influence by its indexed world bone without reapplying the slot bone
+ok 99 - weighted mesh groups transform each influence by its indexed world bone without reapplying the slot bone
+  ---
+  duration_ms: 0.274687
+  type: 'test'
+  ...
+# Subtest: weighted export coefficients are preserved without hidden renormalization
+ok 100 - weighted export coefficients are preserved without hidden renormalization
+  ---
+  duration_ms: 3.668364
+  type: 'test'
+  ...
+# Subtest: slot and attachment RGBA multiply while the explicit blend mode is preserved
+ok 101 - slot and attachment RGBA multiply while the explicit blend mode is preserved
+  ---
+  duration_ms: 0.41173
+  type: 'test'
+  ...
+# Subtest: setup draw order is retained and inactive or alpha-zero effects are not invented
+ok 102 - setup draw order is retained and inactive or alpha-zero effects are not invented
+  ---
+  duration_ms: 0.418199
+  type: 'test'
+  ...
+# Subtest: atlas region path normalization preserves case and spaces without resolving traversal
+ok 103 - atlas region path normalization preserves case and spaces without resolving traversal
+  ---
+  duration_ms: 0.396267
+  type: 'test'
+  ...
+# Subtest: editor bounds are not runtime root offsets and animations are never applied
+ok 104 - editor bounds are not runtime root offsets and animations are never applied
+  ---
+  duration_ms: 0.191384
+  type: 'test'
+  ...
+# Subtest: all unsupported top-level constraint kinds suppress the pose with exact diagnostics
+ok 105 - all unsupported top-level constraint kinds suppress the pose with exact diagnostics
+  ---
+  duration_ms: 0.324551
+  type: 'test'
+  ...
+# Subtest: negative world translation mixes are applied and inherited by descendants, with mixY defaulting to mixX
+ok 106 - negative world translation mixes are applied and inherited by descendants, with mixY defaulting to mixX
+  ---
+  duration_ms: 0.882086
+  type: 'test'
+  ...
+# Subtest: translation offsets use the target world basis and explicit axis mixes remain independent
+ok 107 - translation offsets use the target world basis and explicit axis mixes remain independent
+  ---
+  duration_ms: 0.240446
+  type: 'test'
+  ...
+# Subtest: a computed zero translation delta is recorded as an evaluated constraint, not assumed inactive
+ok 108 - a computed zero translation delta is recorded as an evaluated constraint, not assumed inactive
+  ---
+  duration_ms: 0.825272
+  type: 'test'
+  ...
+# Subtest: unsupported transform modes, ordering, dependencies and mixed constraints keep the entire pose suppressed
+ok 109 - unsupported transform modes, ordering, dependencies and mixed constraints keep the entire pose suppressed
+  ---
+  duration_ms: 0.489495
+  type: 'test'
+  ...
+# Subtest: non-normal inheritance blocks the affected subtree without fabricating transforms
+ok 110 - non-normal inheritance blocks the affected subtree without fabricating transforms
+  ---
+  duration_ms: 0.264622
+  type: 'test'
+  ...
+# Subtest: active clipping suppresses all otherwise computable layers
+ok 111 - active clipping suppresses all otherwise computable layers
+  ---
+  duration_ms: 0.293865
+  type: 'test'
+  ...
+# Subtest: linked meshes, unknown blends and region shear are explicit blockers
+ok 112 - linked meshes, unknown blends and region shear are explicit blockers
+  ---
+  duration_ms: 0.163692
+  type: 'test'
+  ...
+# Subtest: Spine4.1 sequence setup uses the JSON start=1 default and ignores animation timelines
+ok 113 - Spine4.1 sequence setup uses the JSON start=1 default and ignores animation timelines
+  ---
+  duration_ms: 0.276129
+  type: 'test'
+  ...
+# Subtest: Spine4.1 sequence setup resolves zero start, padding, explicit setup and upper-index clamping
+ok 114 - Spine4.1 sequence setup resolves zero start, padding, explicit setup and upper-index clamping
+  ---
+  duration_ms: 0.476475
+  type: 'test'
+  ...
+# Subtest: mesh sequences retain mesh geometry and untrimmed UVs while resolving only the atlas frame
+ok 115 - mesh sequences retain mesh geometry and untrimmed UVs while resolving only the atlas frame
+  ---
+  duration_ms: 0.193156
+  type: 'test'
+  ...
+# Subtest: invalid sequence paths and numbers fail explicitly; unverified Spine versions remain blocked
+ok 116 - invalid sequence paths and numbers fail explicitly; unverified Spine versions remain blocked
+  ---
+  duration_ms: 0.758604
+  type: 'test'
+  ...
+# Subtest: triangle indices, UV pairs and weighted group boundaries are validated
+ok 117 - triangle indices, UV pairs and weighted group boundaries are validated
+  ---
+  duration_ms: 1.16133
+  type: 'test'
+  ...
+# Subtest: non-finite coordinates, overflow and invalid bone hierarchies fail rather than render
+ok 118 - non-finite coordinates, overflow and invalid bone hierarchies fail rather than render
+  ---
+  duration_ms: 0.507612
+  type: 'test'
+  ...
+# Subtest: input remains unchanged and no network or RNG is used
+ok 119 - input remains unchanged and no network or RNG is used
+  ---
+  duration_ms: 1.344111
+  type: 'test'
+  ...
+# Subtest: cached Egyptian symbol2 preserves its three visible setup layers and screen blend
+ok 120 - cached Egyptian symbol2 preserves its three visible setup layers and screen blend
+  ---
+  duration_ms: 11.509916
+  type: 'test'
+  ...
+# Subtest: cached Olympian symbol2 extracts its97-vertex weighted mesh and skips nine transparent effects
+ok 121 - cached Olympian symbol2 extracts its97-vertex weighted mesh and skips nine transparent effects
+  ---
+  duration_ms: 1.513962
+  type: 'test'
+  ...
+# Subtest: verified Egyptian gem6 computes its actual negative translation constraint and visible setup layers
+ok 122 - verified Egyptian gem6 computes its actual negative translation constraint and visible setup layers
+  ---
+  duration_ms: 3.803253
+  type: 'test'
+  ...
+# Subtest: verified Egyptian gem7 computes its actual negative translation constraint and visible setup layers
+ok 123 - verified Egyptian gem7 computes its actual negative translation constraint and visible setup layers
+  ---
+  duration_ms: 1.239686
+  type: 'test'
+  ...
+# Subtest: verified Egyptian gem8 computes its actual negative translation constraint and visible setup layers
+ok 124 - verified Egyptian gem8 computes its actual negative translation constraint and visible setup layers
+  ---
+  duration_ms: 0.840344
+  type: 'test'
+  ...
+# Subtest: verified Egyptian gem9 computes its actual negative translation constraint and visible setup layers
+ok 125 - verified Egyptian gem9 computes its actual negative translation constraint and visible setup layers
+  ---
+  duration_ms: 1.643594
+  type: 'test'
+  ...
+# Subtest: verified Olympian wild resolves its actual sequence setup frame without running animation
+ok 126 - verified Olympian wild resolves its actual sequence setup frame without running animation
+  ---
+  duration_ms: 1.191044
+  type: 'test'
+  ...
+# Subtest: verified Olympian scatter resolves its actual sequence setup frame without running animation
+ok 127 - verified Olympian scatter resolves its actual sequence setup frame without running animation
+  ---
+  duration_ms: 1.687429
+  type: 'test'
+  ...
+# Subtest: Legends source URLs allow only public static files without session material
+ok 128 - Legends source URLs allow only public static files without session material
+  ---
+  duration_ms: 1.303741
+  type: 'test'
+  ...
+# Subtest: both declared byte size and SHA-256 are enforced before static asset use
+ok 129 - both declared byte size and SHA-256 are enforced before static asset use
+  ---
+  duration_ms: 0.639127
+  type: 'test'
+  ...
+# Subtest: modern unindented Spine atlas preserves page boundaries, rotation and bottom trim
+ok 130 - modern unindented Spine atlas preserves page boundaries, rotation and bottom trim
+  ---
+  duration_ms: 1.332293
+  type: 'test'
+  ...
+# Subtest: captured reference receipts cover all declared public source records
+ok 131 - captured reference receipts cover all declared public source records
+  ---
+  duration_ms: 17.825164
+  type: 'test'
+  ...
+# Subtest: manifests retain separate original artwork, verified stages and explicit incomplete capabilities
+ok 132 - manifests retain separate original artwork, verified stages and explicit incomplete capabilities
+  ---
+  duration_ms: 2.069565
+  type: 'test'
+  ...
+# Subtest: derived symbol frames retain source hashes and fit only measured visible alpha bounds
+ok 133 - derived symbol frames retain source hashes and fit only measured visible alpha bounds
+  ---
+  duration_ms: 6.240703
+  type: 'test'
+  ...
+# Subtest: unconfirmed, signed-out and foreign-game state never exposes wallet or results
+ok 134 - unconfirmed, signed-out and foreign-game state never exposes wallet or results
+  ---
+  duration_ms: 2.77516
+  type: 'test'
+  ...
+# Subtest: review artwork always leaves financial actions and all controls closed
+ok 135 - review artwork always leaves financial actions and all controls closed
+  ---
+  duration_ms: 7.63663
+  type: 'test'
+  ...
+# Subtest: selected frame highlights and feature progress cannot fall back to later round data
+ok 136 - selected frame highlights and feature progress cannot fall back to later round data
+  ---
+  duration_ms: 2.003918
+  type: 'test'
+  ...
+# Subtest: invalid frame selection and malformed confirmed grid cannot display a sample outcome
+ok 137 - invalid frame selection and malformed confirmed grid cannot display a sample outcome
+  ---
+  duration_ms: 2.021504
+  type: 'test'
+  ...
+# Subtest: confirmed money labels preserve server values and round total stays separate from frame payout
+ok 138 - confirmed money labels preserve server values and round total stays separate from frame payout
+  ---
+  duration_ms: 1.037877
+  type: 'test'
+  ...
+# Subtest: unknown special artwork stays absent and invalid win cells cannot highlight outside the board
+ok 139 - unknown special artwork stays absent and invalid win cells cannot highlight outside the board
+  ---
+  duration_ms: 1.819835
+  type: 'test'
+  ...
+# Subtest: original board dimensions contain every symbol cell at 360, 390, 430 and desktop
+ok 140 - original board dimensions contain every symbol cell at 360, 390, 430 and desktop
+  ---
+  duration_ms: 3.054905
+  type: 'test'
+  ...
+# Subtest: every image and sprite command resolves to a declared hashed asset
+ok 141 - every image and sprite command resolves to a declared hashed asset
+  ---
+  duration_ms: 3.053122
+  type: 'test'
+  ...
+# Subtest: the prior nine backend modules remain byte-identical, including wallet, sessions and accepted models
+ok 142 - the prior nine backend modules remain byte-identical, including wallet, sessions and accepted models
+  ---
+  duration_ms: 14.525394
+  type: 'test'
+  ...
+# Subtest: the existing Balloon version resolves unchanged and new IDs never replace the old four machines
+ok 143 - the existing Balloon version resolves unchanged and new IDs never replace the old four machines
+  ---
+  duration_ms: 0.791583
+  type: 'test'
+  ...
+# Subtest: every identified draft model produces valid integer-money transitions within the unchanged ledger contract
+ok 144 - every identified draft model produces valid integer-money transitions within the unchanged ledger contract
+  ---
+  duration_ms: 1069.049391
+  type: 'test'
+  ...
+# Subtest: reservation bounds do not depend on whether a sampled start happens to win
+ok 145 - reservation bounds do not depend on whether a sampled start happens to win
+  ---
+  duration_ms: 73.860245
+  type: 'test'
+  ...
+# Subtest: worst uniform RNG outcomes remain bounded, serializable and valid for the ledger
+ok 146 - worst uniform RNG outcomes remain bounded, serializable and valid for the ledger
+  ---
+  duration_ms: 42.480216
+  type: 'test'
+  ...
+# Subtest: interactive actions and expiry cannot debit a second stake or expose hidden mines
+ok 147 - interactive actions and expiry cannot debit a second stake or expose hidden mines
+  ---
+  duration_ms: 1.62081
+  type: 'test'
+  ...
+# Subtest: the18 presentation mappings correspond to the actual draft identities, grids and provider symbols
+ok 148 - the18 presentation mappings correspond to the actual draft identities, grids and provider symbols
+  ---
+  duration_ms: 1.818975
+  type: 'test'
+  ...
+# Subtest: burningice_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 149 - burningice_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 445.339913
+  type: 'test'
+  ...
+# Subtest: burningice10_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 150 - burningice10_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 345.03375
+  type: 'test'
+  ...
+# Subtest: burningice40_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 151 - burningice40_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 75.278681
+  type: 'test'
+  ...
+# Subtest: habeshafortune5_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 152 - habeshafortune5_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 6.236917
+  type: 'test'
+  ...
+# Subtest: multihot100_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 153 - multihot100_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 18.009653
+  type: 'test'
+  ...
+# Subtest: multihot40_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 154 - multihot40_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 18.798992
+  type: 'test'
+  ...
+# Subtest: multihot5superwilds_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 155 - multihot5superwilds_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 24.875943
+  type: 'test'
+  ...
+# Subtest: multihot5wild_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 156 - multihot5wild_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 2.375909
+  type: 'test'
+  ...
+# Subtest: multihotdeluxe_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 157 - multihotdeluxe_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 5.21955
+  type: 'test'
+  ...
+# Subtest: multihotwildways_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 158 - multihotwildways_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 7.833882
+  type: 'test'
+  ...
+# Subtest: safarisimba_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 159 - safarisimba_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 5.505855
+  type: 'test'
+  ...
+# Subtest: vegasnights_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 160 - vegasnights_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 5.562869
+  type: 'test'
+  ...
+# Subtest: bookofmagic_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 161 - bookofmagic_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 6.438686
+  type: 'test'
+  ...
+# Subtest: towerx_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 162 - towerx_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 3.420476
+  type: 'test'
+  ...
+# Subtest: towerrush_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 163 - towerrush_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 4.747782
+  type: 'test'
+  ...
+# Subtest: coinminer_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 164 - coinminer_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 3.694272
+  type: 'test'
+  ...
+# Subtest: egyptianlegends_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 165 - egyptianlegends_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 15.396262
+  type: 'test'
+  ...
+# Subtest: olympianlegends_native: real public draft outcomes and stored frames render through the pinned host without mutation
+ok 166 - olympianlegends_native: real public draft outcomes and stored frames render through the pinned host without mutation
+  ---
+  duration_ms: 12.204535
+  type: 'test'
+  ...
+# Subtest: asset inventory deduplicates exact bytes but retains per-game source URLs
+ok 167 - asset inventory deduplicates exact bytes but retains per-game source URLs
+  ---
+  duration_ms: 9.748769
+  type: 'test'
+  ...
+# Subtest: executable provider assets are excluded and static URLs cannot carry sessions
+ok 168 - executable provider assets are excluded and static URLs cannot carry sessions
+  ---
+  duration_ms: 0.557736
+  type: 'test'
+  ...
+# Subtest: asset hash and byte count are both enforced
+ok 169 - asset hash and byte count are both enforced
+  ---
+  duration_ms: 0.366663
+  type: 'test'
+  ...
+# Subtest: a bad download cannot enter the cache
+ok 170 - a bad download cannot enter the cache
+  ---
+  duration_ms: 12.962507
+  type: 'test'
+  ...
+# Subtest: a verified cache hit performs no network call
+ok 171 - a verified cache hit performs no network call
+  ---
+  duration_ms: 3.809572
+  type: 'test'
+  ...
+# Subtest: aggregate selection cannot exceed200MB
+ok 172 - aggregate selection cannot exceed200MB
+  ---
+  duration_ms: 0.274036
+  type: 'test'
+  ...
+# Subtest: TexturePacker packed rotation and original trim positions are reconstructed
+ok 173 - TexturePacker packed rotation and original trim positions are reconstructed
+  ---
+  duration_ms: 0.534062
+  type: 'test'
+  ...
+# Subtest: Spine atlas rotation has the opposite direction and bottom offsets convert correctly
+ok 174 - Spine atlas rotation has the opposite direction and bottom offsets convert correctly
+  ---
+  duration_ms: 0.449035
+  type: 'test'
+  ...
+# Subtest: out-of-bounds atlas pixels are rejected; transparent placeholders do not discard useful art
+ok 175 - out-of-bounds atlas pixels are rejected; transparent placeholders do not discard useful art
+  ---
+  duration_ms: 0.237882
+  type: 'test'
+  ...
+# Subtest: both Multi Hot manifests contain exact separate titles,8symbols,controls,fonts and audio
+ok 176 - both Multi Hot manifests contain exact separate titles,8symbols,controls,fonts and audio
+  ---
+  duration_ms: 10.31682
+  type: 'test'
+  ...
+# Subtest: closed presentation gate disables spin even when a caller supplies canStart
+ok 177 - closed presentation gate disables spin even when a caller supplies canStart
+  ---
+  duration_ms: 2.230404
+  type: 'test'
+  ...
+# Subtest: money labels preserve integer precision and wheel angles cannot select new outcomes
+ok 178 - money labels preserve integer precision and wheel angles cannot select new outcomes
+  ---
+  duration_ms: 1.937309
+  type: 'test'
+  ...
+# Subtest: 360,390,430and desktop views keep the full reference layout within bounds
+ok 179 - 360,390,430and desktop views keep the full reference layout within bounds
+  ---
+  duration_ms: 0.370299
+  type: 'test'
+  ...
+# Subtest: Wild Ways, Wild5 and Super Wilds cells stay inside the visible source frame
+ok 180 - Wild Ways, Wild5 and Super Wilds cells stay inside the visible source frame
+  ---
+  duration_ms: 10.47229
+  type: 'test'
+  ...
+# Subtest: supplemental declarations preserve the shared Burning Ice base and40-line symbol override
+ok 181 - supplemental declarations preserve the shared Burning Ice base and40-line symbol override
+  ---
+  duration_ms: 0.36467
+  type: 'test'
+  ...
+# Subtest: all eleven mapped machines use their own symbol identities with no missing frame dependency
+ok 182 - all eleven mapped machines use their own symbol identities with no missing frame dependency
+  ---
+  duration_ms: 18.54782
+  type: 'test'
+  ...
+# Subtest: Deluxe composes both actual title parts and preserves the500px symbol canvas scale
+ok 183 - Deluxe composes both actual title parts and preserves the500px symbol canvas scale
+  ---
+  duration_ms: 2.204686
+  type: 'test'
+  ...
+# Subtest: Burning Ice variants retain distinct title art and40-line symbol9 is the observed override
+ok 184 - Burning Ice variants retain distinct title art and40-line symbol9 is the observed override
+  ---
+  duration_ms: 2.245486
+  type: 'test'
+  ...
+# Subtest: Burning Ice highlights only confirmed valid frozen columns
+ok 185 - Burning Ice highlights only confirmed valid frozen columns
+  ---
+  duration_ms: 7.723328
+  type: 'test'
+  ...
+# Subtest: browser asset loader verifies bytes before returning them and blocks arbitrary file paths
+ok 186 - browser asset loader verifies bytes before returning them and blocks arbitrary file paths
+  ---
+  duration_ms: 3.894608
+  type: 'test'
+  ...
+# Subtest: the selector contains exactly18 mapped presentations and refuses unresolved/help-only games
+ok 187 - the selector contains exactly18 mapped presentations and refuses unresolved/help-only games
+  ---
+  duration_ms: 13.19959
+  type: 'test'
+  ...
+# Subtest: verified manifests are fetched read-only and pinned before parsing or creating a store
+ok 188 - verified manifests are fetched read-only and pinned before parsing or creating a store
+  ---
+  duration_ms: 8.368944
+  type: 'test'
+  ...
+# Subtest: same-origin descriptor validation rejects external URLs, credentials, fragments and version drift
+ok 189 - same-origin descriptor validation rejects external URLs, credentials, fragments and version drift
+  ---
+  duration_ms: 2.358373
+  type: 'test'
+  ...
+# Subtest: a correct hash cannot authorize another game, model version, executable asset or open gate
+ok 190 - a correct hash cannot authorize another game, model version, executable asset or open gate
+  ---
+  duration_ms: 28.420142
+  type: 'test'
+  ...
+# Subtest: the asset fetch wrapper cannot request provider hosts, API routes or unlocked filenames
+ok 191 - the asset fetch wrapper cannot request provider hosts, API routes or unlocked filenames
+  ---
+  duration_ms: 10.058937
+  type: 'test'
+  ...
+# Subtest: a normal static paint retains all review gates and the logical DPR transform
+ok 192 - a normal static paint retains all review gates and the logical DPR transform
+  ---
+  duration_ms: 5.341035
+  type: 'test'
+  ...
+# Subtest: missing authentication, offline state, errors and absent session identity clear synchronously
+ok 193 - missing authentication, offline state, errors and absent session identity clear synchronously
+  ---
+  duration_ms: 11.765155
+  type: 'test'
+  ...
+# Subtest: wrong game/model versions and malformed monetary fields never draw a receipt
+ok 194 - wrong game/model versions and malformed monetary fields never draw a receipt
+  ---
+  duration_ms: 1.912402
+  type: 'test'
+  ...
+# Subtest: logout during manifest loading aborts the request and a late response cannot prepare or paint
+ok 195 - logout during manifest loading aborts the request and a late response cannot prepare or paint
+  ---
+  duration_ms: 1.471229
+  type: 'test'
+  ...
+# Subtest: out-of-order image loading across sessions only paints the most recent account state
+ok 196 - out-of-order image loading across sessions only paints the most recent account state
+  ---
+  duration_ms: 3.337423
+  type: 'test'
+  ...
+# Subtest: a changed round version supersedes a slower decode of an older receipt
+ok 197 - a changed round version supersedes a slower decode of an older receipt
+  ---
+  duration_ms: 2.866882
+  type: 'test'
+  ...
+# Subtest: stale frames and stale viewport sizes cannot overwrite a later presentation
+ok 198 - stale frames and stale viewport sizes cannot overwrite a later presentation
+  ---
+  duration_ms: 3.204336
+  type: 'test'
+  ...
+# Subtest: resize alone and explicit invalidation cancel an in-flight paint
+ok 199 - resize alone and explicit invalidation cancel an in-flight paint
+  ---
+  duration_ms: 4.970411
+  type: 'test'
+  ...
+# Subtest: switching games or model bindings retires old resources without a late image paint
+ok 200 - switching games or model bindings retires old resources without a late image paint
+  ---
+  duration_ms: 10.945515
+  type: 'test'
+  ...
+# Subtest: disposing during image loading is permanent and later decoded resources are disposed
+ok 201 - disposing during image loading is permanent and later decoded resources are disposed
+  ---
+  duration_ms: 10.615357
+  type: 'test'
+  ...
+# Subtest: same pending view shares one preparation and image failure resolves to an error without a paint
+ok 202 - same pending view shares one preparation and image failure resolves to an error without a paint
+  ---
+  duration_ms: 9.511777
+  type: 'test'
+  ...
+# Subtest: the snapshot is copied before decoding and later caller mutation does not affect the painted receipt
+ok 203 - the snapshot is copied before decoding and later caller mutation does not affect the painted receipt
+  ---
+  duration_ms: 4.28112
+  type: 'test'
+  ...
+# Subtest: Book provider9 aliases every selected frame without mutating the model receipt
+ok 204 - Book provider9 aliases every selected frame without mutating the model receipt
+  ---
+  duration_ms: 5.004106
+  type: 'test'
+  ...
+# Subtest: a visible frame never borrows a final-round grid, win outline or multiplier
+ok 205 - a visible frame never borrows a final-round grid, win outline or multiplier
+  ---
+  duration_ms: 9.409481
+  type: 'test'
+  ...
+# Subtest: Vegas selects the free-spin background only for an explicitly confirmed free-spin frame
+ok 206 - Vegas selects the free-spin background only for an explicitly confirmed free-spin frame
+  ---
+  duration_ms: 5.130458
+  type: 'test'
+  ...
+# Subtest: Coin geometry fits the original board at phone and desktop sizes and excludes every gutter
+ok 207 - Coin geometry fits the original board at phone and desktop sizes and excludes every gutter
+  ---
+  duration_ms: 5.386793
+  type: 'test'
+  ...
+# Subtest: TowerX frame prefixes cannot reveal later buildings or the final payout
+ok 208 - TowerX frame prefixes cannot reveal later buildings or the final payout
+  ---
+  duration_ms: 3.288931
+  type: 'test'
+  ...
+# Subtest: Legends only shows progress and symbols from the selected confirmed frame
+ok 209 - Legends only shows progress and symbols from the selected confirmed frame
+  ---
+  duration_ms: 2.64046
+  type: 'test'
+  ...
+# Subtest: malformed/cyclic snapshots, invalid dimensions and a painter exception all resolve without an unhandled rejection
+ok 210 - malformed/cyclic snapshots, invalid dimensions and a painter exception all resolve without an unhandled rejection
+  ---
+  duration_ms: 3.225056
+  type: 'test'
+  ...
+# Subtest: the stricter A-to-Z release inventory covers exactly the latest23 requested identities
+ok 211 - the stricter A-to-Z release inventory covers exactly the latest23 requested identities
+  ---
+  duration_ms: 6.107526
+  type: 'test'
+  ...
+# Subtest: a built model or a launchable flag alone cannot publish an unfinished official-reference machine
+ok 212 - a built model or a launchable flag alone cannot publish an unfinished official-reference machine
+  ---
+  duration_ms: 0.46599
+  type: 'test'
+  ...
+# Subtest: production retains the exact Balloon model while incomplete new models remain outside the wager registry
+ok 213 - production retains the exact Balloon model while incomplete new models remain outside the wager registry
+  ---
+  duration_ms: 1.091777
+  type: 'test'
+  ...
+# Subtest: production has no unfinished games; explicit isolated factory exposes only ten known drafts
+ok 214 - production has no unfinished games; explicit isolated factory exposes only ten known drafts
+  ---
+  duration_ms: 2.574382
+  type: 'test'
+  ...
+# Subtest: strict monetary and option validation prevents client payout/RNG injection
+ok 215 - strict monetary and option validation prevents client payout/RNG injection
+  ---
+  duration_ms: 5.784336
+  type: 'test'
+  ...
+# Subtest: every isolated draft replays deterministically with bounded integer liabilities and state size
+ok 216 - every isolated draft replays deterministically with bounded integer liabilities and state size
+  ---
+  duration_ms: 72.397834
+  type: 'test'
+  ...
+# Subtest: reserve bounds depend on wager/options, never on sampled success or payout
+ok 217 - reserve bounds depend on wager/options, never on sampled success or payout
+  ---
+  duration_ms: 15.827467
+  type: 'test'
+  ...
+# Subtest: verified Book20 and Vegas25 line geometry is used with the correct public Vegas line table
+ok 218 - verified Book20 and Vegas25 line geometry is used with the correct public Vegas line table
+  ---
+  duration_ms: 0.750801
+  type: 'test'
+  ...
+# Subtest: Book substituting wild doubles once; its free-spin multiplier is3 and retriggers add15
+ok 219 - Book substituting wild doubles once; its free-spin multiplier is3 and retriggers add15
+  ---
+  duration_ms: 1.106138
+  type: 'test'
+  ...
+# Subtest: Vegas golden centre adds exactly3 extra-wild respins; scatters award5FS, not10
+ok 220 - Vegas golden centre adds exactly3 extra-wild respins; scatters award5FS, not10
+  ---
+  duration_ms: 1.079148
+  type: 'test'
+  ...
+# Subtest: ways bonuses retain15/20/25 awards and stop resolution only at an explicit payout cap
+ok 221 - ways bonuses retain15/20/25 awards and stop resolution only at an explicit payout cap
+  ---
+  duration_ms: 0.874045
+  type: 'test'
+  ...
+# Subtest: Legends pay-anywhere wild substitution excludes all-wild-only results
+ok 222 - Legends pay-anywhere wild substitution excludes all-wild-only results
+  ---
+  duration_ms: 0.467623
+  type: 'test'
+  ...
+# Subtest: Legends queue powers from crashed-symbol progress, with game-specific god order
+ok 223 - Legends queue powers from crashed-symbol progress, with game-specific god order
+  ---
+  duration_ms: 5.199131
+  type: 'test'
+  ...
+# Subtest: Egyptian verified3/5/100 scatter awards apply only within the bonus, with exact retriggers
+ok 224 - Egyptian verified3/5/100 scatter awards apply only within the bonus, with exact retriggers
+  ---
+  duration_ms: 5.294341
+  type: 'test'
+  ...
+# Subtest: frame accounting is atomic and final displayed wins match the final grid after omitted frames
+ok 225 - frame accounting is atomic and final displayed wins match the final grid after omitted frames
+  ---
+  duration_ms: 17.461341
+  type: 'test'
+  ...
+# Subtest: TowerX exact independent expectation is97% with public cost/ranges and no active cashout
+ok 226 - TowerX exact independent expectation is97% with public cost/ranges and no active cashout
+  ---
+  duration_ms: 2.128112
+  type: 'test'
+  ...
+# Subtest: TowerRush full frozen bank is protected and its continuation option is priced before award
+ok 227 - TowerRush full frozen bank is protected and its continuation option is priced before award
+  ---
+  duration_ms: 0.638646
+  type: 'test'
+  ...
+# Subtest: TowerRush Temple has the verified freeze section and Triple adds3 guaranteed extra floors
+ok 228 - TowerRush Temple has the verified freeze section and Triple adds3 guaranteed extra floors
+  ---
+  duration_ms: 0.334465
+  type: 'test'
+  ...
+# Subtest: Coin Miner uses only verified discrete choices and the current official94-variant coefficients
+ok 229 - Coin Miner uses only verified discrete choices and the current official94-variant coefficients
+  ---
+  duration_ms: 0.352472
+  type: 'test'
+  ...
+# Subtest: Coin outcomes are per-pick, no hidden board; real rescue outcomes and duplicate prevention are exposed
+ok 230 - Coin outcomes are per-pick, no hidden board; real rescue outcomes and duplicate prevention are exposed
+  ---
+  duration_ms: 1.006
+  type: 'test'
+  ...
+# Subtest: Coin boost thresholds and complete finite stopping-return table stay at or below94.40% before caps
+ok 231 - Coin boost thresholds and complete finite stopping-return table stay at or below94.40% before caps
+  ---
+  duration_ms: 0.346813
+  type: 'test'
+  ...
+# Subtest: active timeout pays earned cashout or unused-stake refund with no second debit
+ok 232 - active timeout pays earned cashout or unused-stake refund with no second debit
+  ---
+  duration_ms: 0.519319
+  type: 'test'
+  ...
+# Subtest: all five generated manifests reproduce checked-in data and stay closed
+ok 233 - all five generated manifests reproduce checked-in data and stay closed
+  ---
+  duration_ms: 11.507994
+  type: 'test'
+  ...
+# Subtest: every normalized frame stays inside its hash-locked source image
+ok 234 - every normalized frame stays inside its hash-locked source image
+  ---
+  duration_ms: 0.737332
+  type: 'test'
+  ...
+# Subtest: Book portrait rotation, exact core geometry and thirteen symbol identities survive extraction
+ok 235 - Book portrait rotation, exact core geometry and thirteen symbol identities survive extraction
+  ---
+  duration_ms: 0.192275
+  type: 'test'
+  ...
+# Subtest: Vegas keeps three distinct wild identities and each source idle/blur/thumbnail/fallback mapping
+ok 236 - Vegas keeps three distinct wild identities and each source idle/blur/thumbnail/fallback mapping
+  ---
+  duration_ms: 0.235539
+  type: 'test'
+  ...
+# Subtest: opaque Vegas reel artwork is behind visible symbols and all fixtures use valid mapped IDs
+ok 237 - opaque Vegas reel artwork is behind visible symbols and all fixtures use valid mapped IDs
+  ---
+  duration_ms: 1.128732
+  type: 'test'
+  ...
+# Subtest: missing or invalid server grids display no fabricated symbol outcome
+ok 238 - missing or invalid server grids display no fabricated symbol outcome
+  ---
+  duration_ms: 0.583384
+  type: 'test'
+  ...
+# Subtest: all exact paylines are valid and highlights only mark requested reference cells
+ok 239 - all exact paylines are valid and highlights only mark requested reference cells
+  ---
+  duration_ms: 1.695862
+  type: 'test'
+  ...
+# Subtest: free-spin presentation uses the actual Vegas alternate backgrounds without inventing a round
+ok 240 - free-spin presentation uses the actual Vegas alternate backgrounds without inventing a round
+  ---
+  duration_ms: 0.197552
+  type: 'test'
+  ...
+# Subtest: help-only and unresolved games cannot become generic gameplay substitutes
+ok 241 - help-only and unresolved games cannot become generic gameplay substitutes
+  ---
+  duration_ms: 0.430477
+  type: 'test'
+  ...
+# Subtest: all scene asset dependencies are locked and review mode cannot be promoted by a caller
+ok 242 - all scene asset dependencies are locked and review mode cannot be promoted by a caller
+  ---
+  duration_ms: 0.883058
+  type: 'test'
+  ...
+# Subtest: public asset selection is bounded and excludes scripts, credentials, sessions and wagering paths
+ok 243 - public asset selection is bounded and excludes scripts, credentials, sessions and wagering paths
+  ---
+  duration_ms: 1.488554
+  type: 'test'
+  ...
+# Subtest: the transfer limit applies before any requested bytes are received
+ok 244 - the transfer limit applies before any requested bytes are received
+  ---
+  duration_ms: 0.584886
+  type: 'test'
+  ...
+# Subtest: inline package extraction decodes image data only and rejects malformed or executable resources
+ok 245 - inline package extraction decodes image data only and rejects malformed or executable resources
+  ---
+  duration_ms: 0.484327
+  type: 'test'
+  ...
+# Subtest: cached art is fully rehashed with no network, and corruption cannot pass verify-only mode
+ok 246 - cached art is fully rehashed with no network, and corruption cannot pass verify-only mode
+  ---
+  duration_ms: 8.680806
+  type: 'test'
+  ...
+# Subtest: an incorrect download never becomes a cached source or image
+ok 247 - an incorrect download never becomes a cached source or image
+  ---
+  duration_ms: 16.473268
+  type: 'test'
+  ...
+# Subtest: SVG controls reject active content and external references before decoding
+ok 248 - SVG controls reject active content and external references before decoding
+  ---
+  duration_ms: 1.085107
+  type: 'test'
+  ...
+# Subtest: SVG loading still requires the original full-byte hash before a decode is attempted
+ok 249 - SVG loading still requires the original full-byte hash before a decode is attempted
+  ---
+  duration_ms: 3.783383
+  type: 'test'
+  ...
+# Subtest: all 11 draft models have immutable versions; production start/config gates stay closed
+ok 250 - all 11 draft models have immutable versions; production start/config gates stay closed
+  ---
+  duration_ms: 2.300157
+  type: 'test'
+  ...
+# Subtest: 40/100-line machines use the recovered official four-row geometry, not legacy 3-row paths
+ok 251 - 40/100-line machines use the recovered official four-row geometry, not legacy 3-row paths
+  ---
+  duration_ms: 5.679431
+  type: 'test'
+  ...
+# Subtest: sevens in MH40/MH100 do not act as wilds; verified wild titles do substitute
+ok 252 - sevens in MH40/MH100 do not act as wilds; verified wild titles do substitute
+  ---
+  duration_ms: 0.440032
+  type: 'test'
+  ...
+# Subtest: fixed lines and 27 ways award materially different combinations
+ok 253 - fixed lines and 27 ways award materially different combinations
+  ---
+  duration_ms: 5.428811
+  type: 'test'
+  ...
+# Subtest: Super Wild supports multiple added cells and reveals the initial grid before final evaluation
+ok 254 - Super Wild supports multiple added cells and reveals the initial grid before final evaluation
+  ---
+  duration_ms: 39.247768
+  type: 'test'
+  ...
+# Subtest: Safari expansion preserves the already-existing grid and adds no invented payout
+ok 255 - Safari expansion preserves the already-existing grid and adds no invented payout
+  ---
+  duration_ms: 1.057707
+  type: 'test'
+  ...
+# Subtest: Burning Ice public line counts, row counts, scatter and coin distinctions are retained
+ok 256 - Burning Ice public line counts, row counts, scatter and coin distinctions are retained
+  ---
+  duration_ms: 0.355326
+  type: 'test'
+  ...
+# Subtest: frozen reels persist unchanged; respins pay only incremental new line awards and are bounded
+ok 257 - frozen reels persist unchanged; respins pay only incremental new line awards and are bounded
+  ---
+  duration_ms: 395.796952
+  type: 'test'
+  ...
+# Subtest: Dollar and Pot scatters add whole-stake awards and freeze the actual winning reels
+ok 258 - Dollar and Pot scatters add whole-stake awards and freeze the actual winning reels
+  ---
+  duration_ms: 0.498568
+  type: 'test'
+  ...
+# Subtest: clover and coin expansion preserve every scatter instead of substituting it
+ok 259 - clover and coin expansion preserve every scatter instead of substituting it
+  ---
+  duration_ms: 0.302518
+  type: 'test'
+  ...
+# Subtest: Burning Ice uses exact title maximum instead of the invented100×or10k caps
+ok 260 - Burning Ice uses exact title maximum instead of the invented100×or10k caps
+  ---
+  duration_ms: 467.206948
+  type: 'test'
+  ...
+# Subtest: a paid round uses integer money strings, one debit, exact award totals and an outcome-independent reserve
+ok 261 - a paid round uses integer money strings, one debit, exact award totals and an outcome-independent reserve
+  ---
+  duration_ms: 23.333829
+  type: 'test'
+  ...
+# Subtest: 100 winning lines round once and remain below the service state size bound
+ok 262 - 100 winning lines round once and remain below the service state size bound
+  ---
+  duration_ms: 0.809509
+  type: 'test'
+  ...
+# Subtest: fractional total money primitive pays floor/ceiling with exact stratified frequency
+ok 263 - fractional total money primitive pays floor/ceiling with exact stratified frequency
+  ---
+  duration_ms: 0.644605
+  type: 'test'
+  ...
+# Subtest: exact totals and capped amounts consume no rounding draw
+ok 264 - exact totals and capped amounts consume no rounding draw
+  ---
+  duration_ms: 3.519282
+  type: 'test'
+  ...
+# Subtest: exact per-game public numerical maxima bound maximum-stake payouts and reserves
+ok 265 - exact per-game public numerical maxima bound maximum-stake payouts and reserves
+  ---
+  duration_ms: 2.051268
+  type: 'test'
+  ...
+# Subtest: invalid stakes/options/server RNG fail without a partial transition
+ok 266 - invalid stakes/options/server RNG fail without a partial transition
+  ---
+  duration_ms: 0.417088
+  type: 'test'
+  ...
+# Subtest: settled public views reveal only resolved outcomes; no next-round seed or liability leaks
+ok 267 - settled public views reveal only resolved outcomes; no next-round seed or liability leaks
+  ---
+  duration_ms: 0.367915
+  type: 'test'
+  ...
+# Subtest: raw public coefficients are preserved without a payout-calibration multiplier
+ok 268 - raw public coefficients are preserved without a payout-calibration multiplier
+  ---
+  duration_ms: 14.899006
+  type: 'test'
+  ...
+# Subtest: exact fixed demo stake schedules, including sub-0.10 minima, are enforced before RNG
+ok 269 - exact fixed demo stake schedules, including sub-0.10 minima, are enforced before RNG
+  ---
+  duration_ms: 1.981415
+  type: 'test'
+  ...
+# Subtest: Wild5 numbered paths match its own public help artwork
+ok 270 - Wild5 numbered paths match its own public help artwork
+  ---
+  duration_ms: 1.103414
+  type: 'test'
+  ...
+# Subtest: base Burning Ice expands a fifth-reel clover without moving the three coin positions
+ok 271 - base Burning Ice expands a fifth-reel clover without moving the three coin positions
+  ---
+  duration_ms: 0.246084
+  type: 'test'
+  ...
+# Subtest: Burning Ice40 does not invent the5/10-line lucky-coin feature
+ok 272 - Burning Ice40 does not invent the5/10-line lucky-coin feature
+  ---
+  duration_ms: 0.359192
+  type: 'test'
+  ...
+# Subtest: all exact demo stake schedules make raw public award coefficients integral in minor units
+ok 273 - all exact demo stake schedules make raw public award coefficients integral in minor units
+  ---
+  duration_ms: 6.475421
+  type: 'test'
+  ...
+# Subtest: the checked-in metadata enumerates all exact routes without reading any binary cache
+ok 274 - the checked-in metadata enumerates all exact routes without reading any binary cache
+  ---
+  duration_ms: 63.376743
+  type: 'test'
+  ...
+# Subtest: metadata is deterministic and preserves shared references while deduplicating bytes
+ok 275 - metadata is deterministic and preserves shared references while deduplicating bytes
+  ---
+  duration_ms: 1.133669
+  type: 'test'
+  ...
+# Subtest: unknown groups, repeated game identities, wrong paths and contradictory locks fail before assembly
+ok 276 - unknown groups, repeated game identities, wrong paths and contradictory locks fail before assembly
+  ---
+  duration_ms: 1.265625
+  type: 'test'
+  ...
+# Subtest: reference-art metadata cannot turn on production, money actions or executable resources
+ok 277 - reference-art metadata cannot turn on production, money actions or executable resources
+  ---
+  duration_ms: 1.198244
+  type: 'test'
+  ...
+# Subtest: readInventory pins the actual source bytes and rejects traversal or symbolic metadata files
+ok 278 - readInventory pins the actual source bytes and rejects traversal or symbolic metadata files
+  ---
+  duration_ms: 15.479777
+  type: 'test'
+  ...
+# Subtest: every allowed static type has an explicit MIME type and a matching signature
+ok 279 - every allowed static type has an explicit MIME type and a matching signature
+  ---
+  duration_ms: 1.689031
+  type: 'test'
+  ...
+# Subtest: matching a hash alone never permits executable or externally loading SVG/data content
+ok 280 - matching a hash alone never permits executable or externally loading SVG/data content
+  ---
+  duration_ms: 0.824692
+  type: 'test'
+  ...
+# Subtest: a changed hash or byte count is rejected independently of allowed file signatures
+ok 281 - a changed hash or byte count is rejected independently of allowed file signatures
+  ---
+  duration_ms: 0.291712
+  type: 'test'
+  ...
+# Subtest: missing source assets leave no partial output and report their group precisely
+ok 282 - missing source assets leave no partial output and report their group precisely
+  ---
+  duration_ms: 2.702602
+  type: 'test'
+  ...
+# Subtest: a changed file after an earlier copy discards the entire staged package
+ok 283 - a changed file after an earlier copy discards the entire staged package
+  ---
+  duration_ms: 13.015687
+  type: 'test'
+  ...
+# Subtest: successful assembly verifies every route, deduplicates content and never links to source cache bytes
+ok 284 - successful assembly verifies every route, deduplicates content and never links to source cache bytes
+  ---
+  duration_ms: 14.325886
+  type: 'test'
+  ...
+# Subtest: an existing output directory is preserved byte-for-byte
+ok 285 - an existing output directory is preserved byte-for-byte
+  ---
+  duration_ms: 4.410452
+  type: 'test'
+  ...
+# Subtest: binary output cannot be written anywhere inside the source repository
+ok 286 - binary output cannot be written anywhere inside the source repository
+  ---
+  duration_ms: 3.28122
+  type: 'test'
+  ...
+# Subtest: source-document changes invalidate an inventory before any binary package is published
+ok 287 - source-document changes invalidate an inventory before any binary package is published
+  ---
+  duration_ms: 11.174319
+  type: 'test'
+  ...
+# Subtest: cache search accepts explicit fallback roots but never symbolic asset files
+ok 288 - cache search accepts explicit fallback roots but never symbolic asset files
+  ---
+  duration_ms: 10.568763
+  type: 'test'
+  ...
+# Subtest: a tampered public route or MIME inventory cannot escape the fixed static prefix
+ok 289 - a tampered public route or MIME inventory cannot escape the fixed static prefix
+  ---
+  duration_ms: 1.128591
+  type: 'test'
+  ...
+# Subtest: the metadata-only CLI writes an honest non-deployment inventory without binaries
+ok 290 - the metadata-only CLI writes an honest non-deployment inventory without binaries
+  ---
+  duration_ms: 148.650492
+  type: 'test'
+  ...
+# Subtest: new game settlement uses the unchanged canonical wallet and real isolated PostgreSQL
+    # Subtest: all21 identified drafts settle without changing another account or creating money
+    ok 1 - all21 identified drafts settle without changing another account or creating money
+      ---
+      duration_ms: 1195.04
+      type: 'test'
+      ...
+    # Subtest: simultaneous retries produce one round, one stake and immutable receipts
+    ok 2 - simultaneous retries produce one round, one stake and immutable receipts
+      ---
+      duration_ms: 56.359331
+      type: 'test'
+      ...
+    # Subtest: failed funds, bankroll, cap and unavailable-model requests leave no partial financial rows
+    ok 3 - failed funds, bankroll, cap and unavailable-model requests leave no partial financial rows
+      ---
+      duration_ms: 79.586411
+      type: 'test'
+      ...
+    # Subtest: interactive actions never take a second stake and reject ownership or version changes
+    ok 4 - interactive actions never take a second stake and reject ownership or version changes
+      ---
+      duration_ms: 38.02036
+      type: 'test'
+      ...
+    # Subtest: accepted exposure is settled after starts are disabled, including a lower account cap
+    ok 5 - accepted exposure is settled after starts are disabled, including a lower account cap
+      ---
+      duration_ms: 50.010288
+      type: 'test'
+      ...
+    # Subtest: expiry settles a blocked player exactly once and returns all unused reserve
+    ok 6 - expiry settles a blocked player exactly once and returns all unused reserve
+      ---
+      duration_ms: 41.922649
+      type: 'test'
+      ...
+    # Subtest: new active rounds exclude legacy and JetX starts; a prior JetX bet excludes a new round
+    ok 7 - new active rounds exclude legacy and JetX starts; a prior JetX bet excludes a new round
+      ---
+      duration_ms: 80.310343
+      type: 'test'
+      ...
+    1..7
+ok 291 - new game settlement uses the unchanged canonical wallet and real isolated PostgreSQL
+  ---
+  duration_ms: 3211.729063
+  type: 'test'
+  ...
+# Subtest: all available distinct machine routes serve the bundled client and same-origin resources
+ok 292 - all available distinct machine routes serve the bundled client and same-origin resources
+  ---
+  duration_ms: 13.170106
+  type: 'test'
+  ...
+# Subtest: reference-pending models never become wagerable machines or catalogue entries
+ok 293 - reference-pending models never become wagerable machines or catalogue entries
+  ---
+  duration_ms: 6.340109
+  type: 'test'
+  ...
+# Subtest: legacy games, Balloon, JetX, other portals and scheduled handler remain delegated
+ok 294 - legacy games, Balloon, JetX, other portals and scheduled handler remain delegated
+  ---
+  duration_ms: 3.523248
+  type: 'test'
+  ...
+# Subtest: unauthenticated and invalid identities cannot read or submit wagers
+ok 295 - unauthenticated and invalid identities cannot read or submit wagers
+  ---
+  duration_ms: 0.993641
+  type: 'test'
+  ...
+# Subtest: cross-origin and changed-session actions are rejected before contacting the engine
+ok 296 - cross-origin and changed-session actions are rejected before contacting the engine
+  ---
+  duration_ms: 6.910436
+  type: 'test'
+  ...
+# Subtest: malformed, oversized and wrong-game requests cannot reach the engine
+ok 297 - malformed, oversized and wrong-game requests cannot reach the engine
+  ---
+  duration_ms: 2.994936
+  type: 'test'
+  ...
+# Subtest: read-only state uses authenticated subject and exact signed upstream path
+ok 298 - read-only state uses authenticated subject and exact signed upstream path
+  ---
+  duration_ms: 4.0305
+  type: 'test'
+  ...
+# Subtest: one frozen wager body is forwarded once and only server balance is returned
+ok 299 - one frozen wager body is forwarded once and only server balance is returned
+  ---
+  duration_ms: 1.87015
+  type: 'test'
+  ...
+# Subtest: upstream uncertainty never creates a success, balance or replacement wager
+ok 300 - upstream uncertainty never creates a success, balance or replacement wager
+  ---
+  duration_ms: 14.133692
+  type: 'test'
+  ...
+# Subtest: catalogue preserves old entries byte-for-byte and introduces each new title once
+ok 301 - catalogue preserves old entries byte-for-byte and introduces each new title once
+  ---
+  duration_ms: 1.433673
+  type: 'test'
+  ...
+# Subtest: the generated catalogue exports every symbol imported by the retained lobby
+ok 302 - the generated catalogue exports every symbol imported by the retained lobby
+  ---
+  duration_ms: 2.43063
+  type: 'test'
+  ...
+# Subtest: the current production entry keeps every incomplete A-to-Z machine unpublished
+ok 303 - the current production entry keeps every incomplete A-to-Z machine unpublished
+  ---
+  duration_ms: 1.729952
+  type: 'test'
+  ...
+# Subtest: reference artwork uses only the existing static binding and strips account headers and query parameters
+ok 304 - reference artwork uses only the existing static binding and strips account headers and query parameters
+  ---
+  duration_ms: 1.029915
+  type: 'test'
+  ...
+# Subtest: missing, non-read and failed reference assets cannot reach a provider, wallet or fallback HTML route
+ok 305 - missing, non-read and failed reference assets cannot reach a provider, wallet or fallback HTML route
+  ---
+  duration_ms: 0.627128
+  type: 'test'
+  ...
+# Subtest: generated reference descriptors pin18 specific manifests and the bundled module graph resolves locally
+ok 306 - generated reference descriptors pin18 specific manifests and the bundled module graph resolves locally
+  ---
+  duration_ms: 14.847369
+  type: 'test'
+  ...
+1..306
+# tests 313
+# suites 0
+# pass 313
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3876.221449

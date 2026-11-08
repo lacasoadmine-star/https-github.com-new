@@ -10,9 +10,10 @@ const files={};
 for(const [name,expected] of Object.entries(baselineManifest)){
  const source=await readFile(resolve(root,'backend-baseline',name),'utf8');if(hash(source)!==expected)throw Error('BASELINE_CHANGED:'+name);files[name]=source;
 }
-const modelModules=['smartsoft-slots.mjs','smartsoft-slots.data.json','remaining-games.mjs','remaining-engine.mjs','remaining-reference-data.mjs'];
+const modelModules=['smartsoft-slots.mjs','smartsoft-slots.data.json','remaining-games.mjs','remaining-engine.mjs','remaining-reference-data.mjs','multihot40-rules.mjs'];
 for(const name of modelModules){if(Object.hasOwn(files,name))throw Error('BASELINE_NAME_COLLISION:'+name);files[name]=await readFile(resolve(root,'models',name),'utf8');}
 files['expansion-entry.mjs']=await readFile(resolve(root,'expansion-entry.mjs'),'utf8');
+files['expansion-history.mjs']=await readFile(resolve(root,'expansion-history.mjs'),'utf8');
 files['release-policy.mjs']=await readFile(resolve(root,'release-policy.mjs'),'utf8');
 files['release-readiness.json']=await readFile(resolve(root,'release-readiness.json'),'utf8');
 // A function upload contains the full frozen baseline and only additive model

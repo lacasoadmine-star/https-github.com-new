@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob:; media-src 'self' blob:; font-src 'self' blob:; connect-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>ZPLAY · Arcade artwork review</title><link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <header><p class="eyebrow">ZPLAY · BUILD REVIEW</p><h1>Arcade presentation</h1><p>Official public artwork, displayed with synthetic receipt fixtures. These controls do not place wagers. All three release gates remain closed.</p></header>
+  <main>
+    <nav id="games" aria-label="Game"></nav>
+    <section class="layout">
+      <div class="stage"><canvas id="scene" width="420" height="900" aria-label="Reference artwork scene"></canvas><p id="status" role="status">Loading verified local artwork…</p></div>
+      <aside>
+        <h2 id="name"></h2><label for="fixture">Review state</label><select id="fixture"></select>
+        <p id="fixture-note"></p><h3>Controls from the reference</h3><div id="controls"></div>
+        <h3>Remaining work</h3><ul id="remaining"></ul><p class="muted">No provider JavaScript, live sessions, wallet requests or age assertions are used here. Images are verified against the locked SHA-256 hashes before display.</p>
+      </aside>
+    </section>
+  </main><script type="module" src="preview.mjs"></script>
+</body></html>

@@ -1,0 +1,2003 @@
+{
+  "schemaVersion": 1,
+  "sourceRef": "coinminer_config",
+  "portrait": {
+    "width": 360,
+    "height": 640,
+    "layers": [
+      "background",
+      "middle",
+      "foreground",
+      "ui"
+    ],
+    "font_family": "--primary-font",
+    "layouts": {
+      "tiles": {
+        "layer": "foreground",
+        "x": 26,
+        "y": 174,
+        "count_rows": 5,
+        "count_cols": 5,
+        "tile_width": 60,
+        "tile_height": 60,
+        "space_between_horizontal": 2,
+        "space_between_vertical": 2,
+        "asset_closed": [
+          "tile1",
+          "tile2"
+        ],
+        "asset_win": [
+          "prize1"
+        ],
+        "asset_win_star": [
+          "tile_star"
+        ],
+        "asset_loss": "tile_mine",
+        "asset_loss_clicked": "tile_explosion",
+        "asset_bonus": "bonus_label",
+        "asset_closed_display": "mix",
+        "asset_win_display": "random",
+        "asset_win_star_display": "strict",
+        "asset_loss_display": "strict",
+        "asset_loss_clicked_display": "strict",
+        "asset_bonus_display": "strict",
+        "shake_anim": {
+          "duration": 1.5,
+          "infinite": true,
+          "key_frames": [
+            {
+              "pos": 0.5,
+              "scale_x": 0.1,
+              "scale_y": 0.1,
+              "translate_x": -2.5,
+              "translate_y": -2.5
+            },
+            {
+              "pos": 1
+            }
+          ]
+        },
+        "open_anim": [
+          {
+            "duration": 0.5,
+            "infinite": false,
+            "key_frames": [
+              {
+                "pos": 1,
+                "translate_x": -30,
+                "alpha": -1
+              }
+            ]
+          },
+          {
+            "duration": 0.5,
+            "infinite": false,
+            "key_frames": [
+              {
+                "pos": 1,
+                "translate_x": 30,
+                "alpha": -1
+              }
+            ]
+          }
+        ],
+        "start_anim": {
+          "duration": 0.1,
+          "duration_2": 0.4,
+          "infinite": false,
+          "key_frames": [
+            {
+              "pos": 0,
+              "alpha": -0.5,
+              "translate_x": 15,
+              "translate_y": 15,
+              "scale_x": -0.5,
+              "scale_y": -0.5
+            },
+            {
+              "pos": 1
+            }
+          ]
+        },
+        "explosion": null,
+        "type": "tiles",
+        "order": 501,
+        "multiplier_item": {
+          "x": 3,
+          "y": 45,
+          "width": 54,
+          "height": 12,
+          "resolution": 4,
+          "font_size": 10,
+          "font_weight": 500,
+          "font_case": "default",
+          "prefix": "\u00d7",
+          "text_color": "--tile-label-txt",
+          "bg_color": "--tile-label-bg",
+          "bg_corner_radius": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "anim": {
+            "duration": 2,
+            "infinite": false,
+            "key_frames": [
+              {
+                "pos": 0,
+                "alpha": -1
+              },
+              {
+                "pos": 0.2
+              },
+              {
+                "pos": 0.6
+              },
+              {
+                "pos": 1,
+                "alpha": -1
+              }
+            ]
+          }
+        }
+      },
+      "items": [
+        {
+          "layer": "background",
+          "asset": "bg",
+          "type": "background",
+          "display": "min_side"
+        },
+        {
+          "layer": "background",
+          "asset": "bg_portrait",
+          "type": "background",
+          "display": "min_side"
+        },
+        {
+          "layer": "middle",
+          "x": 10,
+          "y": 154,
+          "width": 340,
+          "height": 350,
+          "color": "--block",
+          "type": "rounded_rectangle",
+          "order": 402,
+          "corner_radius": [
+            10,
+            10,
+            10,
+            10
+          ]
+        },
+        {
+          "layer": "middle",
+          "asset": "board",
+          "x": 10,
+          "y": 154,
+          "width": 340,
+          "height": 350,
+          "type": "image",
+          "order": 403
+        },
+        {
+          "layer": "middle",
+          "asset": "game_logo_portrait",
+          "x": 40,
+          "y": 50,
+          "width": 280,
+          "height": 95.2,
+          "type": "image",
+          "order": 401
+        },
+        {
+          "layer": "background",
+          "asset": "xlbet_player_board_r",
+          "x": 190,
+          "y": 60,
+          "width": 170.5,
+          "height": 149,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "xlbet_player_board_l",
+          "x": -14,
+          "y": 90,
+          "width": 145.45,
+          "height": 119.85,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "ui",
+          "asset": "ui_menu",
+          "x": 44,
+          "y": 572,
+          "width": 32,
+          "height": 32,
+          "type": "image_button",
+          "hit_box_radius": 23,
+          "order": 501,
+          "on_click": "show_menu"
+        },
+        {
+          "layer": "ui",
+          "asset": "ui_random_active",
+          "asset_disabled": "ui_random_disabled",
+          "x": 82,
+          "y": 565,
+          "width": 46,
+          "height": 46,
+          "type": "random_tile_button",
+          "hit_box_radius": 23,
+          "order": 501,
+          "game_components": [
+            {
+              "name": "visibility",
+              "repo": "configRepo",
+              "field": "isInstantWin",
+              "condition": "!==",
+              "compare_argument": "true",
+              "initial": true
+            }
+          ]
+        },
+        {
+          "layer": "ui",
+          "type": "v2_tiles_to_open_ctrl",
+          "x": 16,
+          "y": 518,
+          "width": 108,
+          "height": 28,
+          "resolution": 4,
+          "order": 501,
+          "controller_key": "tilesToOpen",
+          "game_components": [
+            {
+              "name": "visibility",
+              "repo": "configRepo",
+              "field": "isInstantWin",
+              "condition": "==",
+              "compare_argument": "true",
+              "initial": false
+            }
+          ],
+          "icon": {
+            "asset": "ic_tiles_found",
+            "width": 16,
+            "height": 16
+          },
+          "main": {
+            "font_family": "--primary-font",
+            "font_size": 12,
+            "font_weight": 500,
+            "min_width": 16,
+            "color": "--mine-ctrl-main-c",
+            "align": [
+              "center",
+              "center"
+            ]
+          },
+          "minus": {
+            "width": 28,
+            "height": 28,
+            "asset_width": 14,
+            "asset_height": 14,
+            "asset": "ic_minus",
+            "asset_disabled": "ic_minus_disabled",
+            "align": [
+              "left",
+              "center"
+            ],
+            "corner_radius": 14
+          },
+          "plus": {
+            "width": 28,
+            "height": 28,
+            "asset_width": 14,
+            "asset_height": 14,
+            "asset": "ic_plus",
+            "asset_disabled": "ic_plus_disabled",
+            "align": [
+              "right",
+              "center"
+            ],
+            "corner_radius": 14
+          },
+          "background": {
+            "color": "--mine-button-bg",
+            "stroke_color": "--mine-button-sc",
+            "stroke_width": 2,
+            "corner_radius": 14
+          },
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "layer": "ui",
+          "asset": {
+            "default": "ui_bet",
+            "sen": "ui_bet_sen"
+          },
+          "x": 232,
+          "y": 565,
+          "width": 46,
+          "height": 46,
+          "type": "image_button",
+          "hit_box_radius": 23,
+          "order": 501,
+          "on_click": "show_bet"
+        },
+        {
+          "layer": "ui",
+          "asset": "ui_tournaments",
+          "x": 284,
+          "y": 572,
+          "width": 32,
+          "height": 32,
+          "type": "tournaments_image_button",
+          "hit_box_radius": 16,
+          "order": 501,
+          "on_click": "show_tournaments"
+        },
+        {
+          "layer": "ui",
+          "x": 136,
+          "y": 544,
+          "width": 88,
+          "height": 88,
+          "type": "play_button",
+          "order": 501,
+          "play": {
+            "x": 44,
+            "y": 44,
+            "anchor": "center center",
+            "type": "label_text_view",
+            "direction": "column",
+            "font_family": "--primary-font",
+            "font_size_label": 17,
+            "font_weight_label": 500,
+            "font_case_label": "upper",
+            "label": "play",
+            "space_between": 0,
+            "resolution": 4,
+            "bg_x": 0,
+            "bg_y": 0,
+            "bg_width": 88,
+            "bg_height": 88,
+            "color_label": "--play-c-label",
+            "bg_color": "--play-bg",
+            "bg_stroke_color": "--play-b",
+            "bg_color_disabled": "--play-bg-disabled",
+            "bg_stroke_color_disabled": "--play-b-disabled"
+          },
+          "cashout": {
+            "x": 44,
+            "y": 44,
+            "anchor": "center center",
+            "type": "label_text_view",
+            "direction": "column",
+            "font_family": "--primary-font",
+            "font_size_label": 14,
+            "font_weight_label": 500,
+            "font_size_text": 12,
+            "font_case_label": "upper",
+            "font_weight_text": 700,
+            "label": "cashOut",
+            "space_between": 0,
+            "text_source": "event",
+            "event": "possible_win",
+            "resolution": 4,
+            "bg_x": 0,
+            "bg_y": 0,
+            "bg_width": 88,
+            "bg_height": 88,
+            "label_alpha": 1,
+            "color_label": "--cashout-c-label",
+            "color_text": "--cashout-c-text",
+            "color_label_disabled": "--cashout-c-label-disabled",
+            "color_text_disabled": "--cashout-c-text-disabled",
+            "bg_color": "--cashout-bg",
+            "bg_stroke_color": "--cashout-b",
+            "bg_color_disabled": "--cashout-bg-disabled",
+            "bg_stroke_color_disabled": "--cashout-b-disabled"
+          },
+          "timer": {
+            "x": 44,
+            "y": 44,
+            "anchor": "center center",
+            "type": "icon_text_view",
+            "direction": "column",
+            "asset": "play_icon_timer",
+            "width": 24,
+            "height": 24,
+            "font_size": 18,
+            "space_between": 3,
+            "resolution": 4,
+            "font_family": "--primary-font",
+            "font_weight": 500,
+            "bg_x": 0,
+            "bg_y": 0,
+            "bg_width": 88,
+            "bg_height": 88,
+            "color": "--play-timer-c",
+            "bg_color": "--play-timer-bg",
+            "bg_stroke_color": "--play-timer-b"
+          }
+        },
+        {
+          "layer": "ui",
+          "x": 11,
+          "y": 540,
+          "anchor": "left top",
+          "type": "label_text_view",
+          "direction": "column",
+          "font_size_text": 10,
+          "font_weight_text": 400,
+          "font_case_text": "default",
+          "align_text": "left",
+          "color_text": "--ui-rtp-c-text",
+          "order": 603,
+          "text_source": "event",
+          "event": "rtp",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "asset": "icon_timer",
+          "x": 11,
+          "y": 614,
+          "width": 11,
+          "height": 11,
+          "type": "icon_text_view",
+          "anchor": "left top",
+          "font_size": 12,
+          "color": "--timer-c",
+          "order": 501,
+          "space_between": 3,
+          "text_source": "event",
+          "event": "session_timer",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "asset": "icon_time",
+          "x": 304,
+          "y": 614,
+          "width": 10,
+          "height": 10,
+          "type": "icon_text_view",
+          "anchor": "left top",
+          "font_size": 12,
+          "color": "--time-c",
+          "order": 501,
+          "space_between": 3,
+          "text_source": "event",
+          "event": "current_timer",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "x": 10,
+          "y": 10,
+          "anchor": "left top",
+          "type": "label_text_view",
+          "direction": "column",
+          "font_size_label": 12,
+          "font_weight_label": 500,
+          "font_size_text": 15,
+          "font_case_label": "upper",
+          "font_weight_text": 500,
+          "color_label": "--ui-balance-c-label",
+          "color_text": "--ui-balance-c-value",
+          "order": 601,
+          "label": "balance",
+          "space_between": 2.7,
+          "text_source": "event",
+          "event": "balance",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "type": "linear_layout",
+          "x": 10,
+          "y": 50,
+          "space_between": 8,
+          "direction": "column",
+          "anchor": "left top",
+          "order": 602,
+          "items": [
+            {
+              "x": 0,
+              "type": "net_position",
+              "resolution": 4,
+              "space_between": 4,
+              "icon": {
+                "asset": "ic_info",
+                "width": 14,
+                "height": 14
+              },
+              "text": {
+                "font_size": 12,
+                "font_weight": 500,
+                "font_case": "upper",
+                "font_family": "--primary-font",
+                "color": "--ui-net-position-c-value"
+              },
+              "background": {
+                "padding": [
+                  4,
+                  2,
+                  4,
+                  2
+                ],
+                "corner_radius": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "color": "--ui-net-position-bg-value"
+              },
+              "game_components": [
+                {
+                  "name": "hint",
+                  "order": 1,
+                  "resolution": 2,
+                  "x": 0,
+                  "y": 20,
+                  "text": {
+                    "font_size": 11,
+                    "font_weight": 400,
+                    "font_family": "--primary-font",
+                    "color": "--ui-net-position-c-value",
+                    "text": "netPositionHint"
+                  },
+                  "background": {
+                    "color": "--ui-net-position-bg-value",
+                    "padding": [
+                      6,
+                      2,
+                      6,
+                      2
+                    ],
+                    "corner_radius": [
+                      7.5,
+                      7.5,
+                      7.5,
+                      7.5
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame_layout",
+              "x": 8,
+              "items": [
+                {
+                  "layer": "ui",
+                  "x": 0,
+                  "y": 0,
+                  "anchor": "left top",
+                  "type": "label_text_view",
+                  "direction": "column",
+                  "font_size_text": 12,
+                  "font_weight_text": 600,
+                  "color_text": "--tip-win-c",
+                  "order": 602,
+                  "text_source": "event",
+                  "event": [
+                    "game_won",
+                    "after_game_won"
+                  ],
+                  "event_property": "win_amount",
+                  "text_pre_prefix": "+",
+                  "resolution": 4,
+                  "background": {
+                    "color": "--tip-win-bg",
+                    "padding": [
+                      8,
+                      4,
+                      8,
+                      4
+                    ],
+                    "corner_radius": [
+                      10,
+                      10,
+                      10,
+                      10
+                    ]
+                  }
+                },
+                {
+                  "layer": "ui",
+                  "x": 0,
+                  "y": 0,
+                  "anchor": "left top",
+                  "type": "label_text_view",
+                  "direction": "column",
+                  "font_size_text": 12,
+                  "font_weight_text": 600,
+                  "color_text": "--tip-bet-c",
+                  "order": 602,
+                  "text_source": "event",
+                  "event": [
+                    "game_start",
+                    "in_playing"
+                  ],
+                  "event_property": "relative_bet",
+                  "on_add_visibility": "hidden",
+                  "text_pre_prefix": "-",
+                  "resolution": 4,
+                  "background": {
+                    "color": "--tip-bet-bg",
+                    "padding": [
+                      8,
+                      4,
+                      8,
+                      4
+                    ],
+                    "corner_radius": [
+                      10,
+                      10,
+                      10,
+                      10
+                    ]
+                  },
+                  "anim": {
+                    "duration": 2,
+                    "infinite": false,
+                    "forward": true,
+                    "key_frames": [
+                      {
+                        "pos": 0.5,
+                        "alpha": 0
+                      },
+                      {
+                        "pos": 1,
+                        "alpha": -1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "layer": "ui",
+          "type": "linear_layout",
+          "x": 350,
+          "y": 10,
+          "space_between": 10,
+          "direction": "row",
+          "anchor": "right top",
+          "items": [
+            {
+              "layer": "ui",
+              "asset": "bonus_active",
+              "asset_inactive": "bonus_inactive",
+              "x": 5,
+              "y": 2,
+              "width": 30,
+              "height": 30,
+              "background": {
+                "x": -5,
+                "y": -5,
+                "width": 40,
+                "height": 40,
+                "color": "--bonus-label-bg",
+                "alpha": 1,
+                "corner_radius": [
+                  10,
+                  10,
+                  10,
+                  10
+                ]
+              },
+              "type": "bonus_symbol",
+              "hit_box_radius": 15,
+              "order": 600
+            },
+            {
+              "layer": "ui",
+              "anchor": "left top",
+              "type": "label_text_view",
+              "direction": "column",
+              "font_size_label": 12,
+              "font_weight_label": 500,
+              "font_size_text": 15,
+              "font_case_label": "upper",
+              "font_weight_text": 500,
+              "color_label": "--ui-mine-c-label",
+              "color_text": "--ui-mine-c-value",
+              "order": 601,
+              "label": "mines",
+              "space_between": 2.7,
+              "text_source": "event",
+              "event": "mine_amount",
+              "resolution": 4
+            },
+            {
+              "layer": "ui",
+              "anchor": "left top",
+              "type": "label_text_view",
+              "direction": "column",
+              "font_size_label": 12,
+              "font_weight_label": 500,
+              "font_size_text": 15,
+              "font_case_label": "upper",
+              "font_weight_text": 500,
+              "color_label": "--ui-bet-c-label",
+              "color_text": "--ui-bet-c-value",
+              "order": 601,
+              "label": "bet",
+              "label_2": "freebets",
+              "space_between": 2.7,
+              "text_source": "event",
+              "event": "bet_amount",
+              "resolution": 4
+            }
+          ]
+        },
+        {
+          "layer": "ui",
+          "x": 30,
+          "y": 515,
+          "anchor": "left top",
+          "type": "label_text_view",
+          "direction": "row",
+          "font_size_label": 12,
+          "font_weight_label": 500,
+          "font_size_text": 12,
+          "font_weight_text": 500,
+          "font_case_label": "upper",
+          "color_label": "--found-c-label",
+          "color_text": "--found-c-text",
+          "order": 601,
+          "label": "found",
+          "space_between": 2,
+          "text_source": "event",
+          "event": [
+            "in_playing",
+            "opened_tiles"
+          ],
+          "resolution": 4,
+          "background": {
+            "color": "--ui-block-color",
+            "border_color": "--ui-block-border-color",
+            "border_width": 1,
+            "padding": [
+              12,
+              4,
+              12,
+              4
+            ],
+            "corner_radius": [
+              8,
+              8,
+              8,
+              8
+            ]
+          }
+        },
+        {
+          "layer": "ui",
+          "x": 355,
+          "y": 515,
+          "anchor": "right top",
+          "type": "label_text_view",
+          "direction": "row",
+          "font_size_label": 12,
+          "font_weight_label": 500,
+          "font_size_text": 12,
+          "font_weight_text": 500,
+          "font_case_label": "upper",
+          "color_label": "--next-win-c-label",
+          "color_text": "--next-win-c-text",
+          "order": 601,
+          "label": "nextTile",
+          "space_between": 2,
+          "text_source": "event",
+          "event": [
+            "in_playing",
+            "next_possible_win"
+          ],
+          "resolution": 4,
+          "background": {
+            "color": "--ui-block-color",
+            "border_color": "--ui-block-border-color",
+            "border_width": 1,
+            "padding": [
+              12,
+              4,
+              12,
+              4
+            ],
+            "corner_radius": [
+              8,
+              8,
+              8,
+              8
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "landscape": {
+    "width": 640,
+    "height": 360,
+    "layers": [
+      "background",
+      "middle",
+      "foreground",
+      "ui"
+    ],
+    "font_family": "--primary-font",
+    "layouts": {
+      "tiles": {
+        "layer": "foreground",
+        "x": 190,
+        "y": 70,
+        "count_rows": 5,
+        "count_cols": 5,
+        "tile_width": 50,
+        "tile_height": 50,
+        "space_between_horizontal": 2,
+        "space_between_vertical": 2,
+        "asset_closed": [
+          "tile1",
+          "tile2"
+        ],
+        "asset_win": [
+          "prize1"
+        ],
+        "asset_win_star": [
+          "tile_star"
+        ],
+        "asset_loss": "tile_mine",
+        "asset_loss_clicked": "tile_explosion",
+        "asset_bonus": "bonus_label",
+        "asset_closed_display": "mix",
+        "asset_win_display": "random",
+        "asset_win_star_display": "strict",
+        "asset_loss_display": "strict",
+        "asset_loss_clicked_display": "strict",
+        "asset_bonus_display": "strict",
+        "shake_anim": {
+          "duration": 1.5,
+          "infinite": true,
+          "key_frames": [
+            {
+              "pos": 0.5,
+              "scale_x": 0.1,
+              "scale_y": 0.1,
+              "translate_x": -2.5,
+              "translate_y": -2.5
+            },
+            {
+              "pos": 1
+            }
+          ]
+        },
+        "open_anim": [
+          {
+            "duration": 0.5,
+            "infinite": false,
+            "key_frames": [
+              {
+                "pos": 1,
+                "translate_x": -25,
+                "alpha": -1
+              }
+            ]
+          },
+          {
+            "duration": 0.5,
+            "infinite": false,
+            "key_frames": [
+              {
+                "pos": 1,
+                "translate_x": 25,
+                "alpha": -1
+              }
+            ]
+          }
+        ],
+        "start_anim": {
+          "duration": 0.1,
+          "duration_2": 0.4,
+          "infinite": false,
+          "key_frames": [
+            {
+              "pos": 0,
+              "alpha": -0.5,
+              "translate_x": 12,
+              "translate_y": 12,
+              "scale_x": -0.5,
+              "scale_y": -0.5
+            },
+            {
+              "pos": 1
+            }
+          ]
+        },
+        "explosion": null,
+        "type": "tiles",
+        "order": 501,
+        "multiplier_item": {
+          "x": 3,
+          "y": 35,
+          "width": 44,
+          "height": 12,
+          "resolution": 4,
+          "font_size": 10,
+          "font_weight": 500,
+          "font_case": "default",
+          "prefix": "\u00d7",
+          "text_color": "--tile-label-txt",
+          "bg_color": "--tile-label-bg",
+          "bg_corner_radius": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "anim": {
+            "duration": 2,
+            "infinite": false,
+            "key_frames": [
+              {
+                "pos": 0,
+                "alpha": -1
+              },
+              {
+                "pos": 0.2
+              },
+              {
+                "pos": 0.6
+              },
+              {
+                "pos": 1,
+                "alpha": -1
+              }
+            ]
+          }
+        }
+      },
+      "items": [
+        {
+          "layer": "background",
+          "asset": "bg",
+          "type": "background",
+          "display": "min_side",
+          "order": 100
+        },
+        {
+          "layer": "background",
+          "asset": "bg_landscape",
+          "type": "background",
+          "display": "min_side",
+          "order": 100
+        },
+        {
+          "layer": "background",
+          "asset": "b_el_l_casino770",
+          "x": -20,
+          "y": 280,
+          "width": 200,
+          "height": 100,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "b_el_r_casino770",
+          "x": 460,
+          "y": 280,
+          "width": 200,
+          "height": 100,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "casinostugan_character",
+          "x": 420,
+          "y": 110,
+          "width": 259,
+          "height": 318,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "xlbet_players_assembled",
+          "x": -50,
+          "y": 50,
+          "width": 233.75,
+          "height": 192.95,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "b_el_l_twin",
+          "x": 45,
+          "y": 100,
+          "width": 100,
+          "height": 132,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "b_el_r_twin",
+          "x": 425,
+          "y": 120,
+          "width": 150,
+          "height": 143,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "background",
+          "asset": "b_r_char_casitabi",
+          "x": 460,
+          "y": 168,
+          "width": 123,
+          "height": 192,
+          "type": "image",
+          "order": 101
+        },
+        {
+          "layer": "middle",
+          "x": 173,
+          "y": 50,
+          "width": 290,
+          "height": 300,
+          "color": "--block",
+          "type": "rounded_rectangle",
+          "order": 402,
+          "corner_radius": [
+            10,
+            10,
+            10,
+            10
+          ]
+        },
+        {
+          "layer": "middle",
+          "asset": "board",
+          "x": 173,
+          "y": 50,
+          "width": 290,
+          "height": 300,
+          "type": "image",
+          "order": 403
+        },
+        {
+          "layer": "middle",
+          "asset": "fortuna_player_board",
+          "x": 168,
+          "y": 45,
+          "width": 299,
+          "height": 309,
+          "type": "image",
+          "order": 403
+        },
+        {
+          "layer": "middle",
+          "asset": "game_logo_landscape",
+          "x": 245,
+          "y": 0,
+          "width": 150,
+          "height": 51,
+          "type": "image",
+          "order": 401
+        },
+        {
+          "layer": "middle",
+          "asset": "game_logo_landscape_leovegas",
+          "x": 190,
+          "y": 0,
+          "width": 250,
+          "height": 48,
+          "type": "image",
+          "order": 401
+        },
+        {
+          "layer": "middle",
+          "asset": "game_logo_landscape_2",
+          "x": 10,
+          "y": 90,
+          "width": 152,
+          "height": 78,
+          "type": "image",
+          "order": 401
+        },
+        {
+          "layer": "middle",
+          "asset": "bg_scientist_playzee",
+          "x": -20,
+          "y": 34,
+          "width": 188,
+          "height": 260,
+          "type": "image",
+          "order": 401
+        },
+        {
+          "layer": "ui",
+          "asset": "ui_menu",
+          "x": 573,
+          "y": 50,
+          "width": 32,
+          "height": 32,
+          "type": "image_button",
+          "hit_box_radius": 16,
+          "order": 501,
+          "on_click": "show_menu"
+        },
+        {
+          "layer": "ui",
+          "asset": "ui_random_active",
+          "asset_disabled": "ui_random_disabled",
+          "x": 568,
+          "y": 88,
+          "width": 42,
+          "height": 42,
+          "type": "random_tile_button",
+          "hit_box_radius": 21,
+          "order": 501,
+          "game_components": [
+            {
+              "name": "visibility",
+              "repo": "configRepo",
+              "field": "isInstantWin",
+              "condition": "!==",
+              "compare_argument": "true",
+              "initial": true
+            }
+          ]
+        },
+        {
+          "layer": "ui",
+          "type": "v2_tiles_to_open_ctrl",
+          "x": 546,
+          "y": 92,
+          "width": 84,
+          "height": 28,
+          "resolution": 4,
+          "order": 501,
+          "controller_key": "tilesToOpen",
+          "game_components": [
+            {
+              "name": "visibility",
+              "repo": "configRepo",
+              "field": "isInstantWin",
+              "condition": "==",
+              "compare_argument": "true",
+              "initial": false
+            }
+          ],
+          "icon": {
+            "asset": "ic_tiles_found",
+            "width": 14,
+            "height": 14
+          },
+          "main": {
+            "font_family": "--primary-font",
+            "font_size": 12,
+            "font_weight": 500,
+            "min_width": 14,
+            "color": "--mine-ctrl-main-c",
+            "align": [
+              "center",
+              "center"
+            ]
+          },
+          "minus": {
+            "width": 28,
+            "height": 28,
+            "asset_width": 14,
+            "asset_height": 14,
+            "asset": "ic_minus",
+            "asset_disabled": "ic_minus_disabled",
+            "align": [
+              "left",
+              "center"
+            ],
+            "corner_radius": 14
+          },
+          "plus": {
+            "width": 28,
+            "height": 28,
+            "asset_width": 14,
+            "asset_height": 14,
+            "asset": "ic_plus",
+            "asset_disabled": "ic_plus_disabled",
+            "align": [
+              "right",
+              "center"
+            ],
+            "corner_radius": 14
+          },
+          "background": {
+            "color": "--mine-button-bg",
+            "stroke_color": "--mine-button-sc",
+            "stroke_width": 2,
+            "corner_radius": 14
+          },
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "layer": "ui",
+          "asset": {
+            "default": "ui_bet",
+            "sen": "ui_bet_sen"
+          },
+          "x": 568,
+          "y": 230,
+          "width": 42,
+          "height": 42,
+          "type": "image_button",
+          "hit_box_radius": 21,
+          "order": 501,
+          "on_click": "show_bet"
+        },
+        {
+          "layer": "ui",
+          "asset": "ui_tournaments",
+          "x": 573,
+          "y": 278,
+          "width": 32,
+          "height": 32,
+          "type": "tournaments_image_button",
+          "hit_box_radius": 16,
+          "order": 501,
+          "on_click": "show_tournaments"
+        },
+        {
+          "layer": "ui",
+          "x": 546,
+          "y": 136,
+          "width": 84,
+          "height": 84,
+          "type": "play_button",
+          "play": {
+            "x": 44,
+            "y": 44,
+            "anchor": "center center",
+            "type": "label_text_view",
+            "direction": "column",
+            "font_family": "--primary-font",
+            "font_size_label": 17,
+            "font_weight_label": 500,
+            "font_case_label": "upper",
+            "label": "play",
+            "space_between": 0,
+            "resolution": 4,
+            "bg_x": 0,
+            "bg_y": 0,
+            "bg_width": 88,
+            "bg_height": 88,
+            "color_label": "--play-c-label",
+            "bg_color": "--play-bg",
+            "bg_stroke_color": "--play-b",
+            "bg_color_disabled": "--play-bg-disabled",
+            "bg_stroke_color_disabled": "--play-b-disabled"
+          },
+          "cashout": {
+            "x": 44,
+            "y": 44,
+            "anchor": "center center",
+            "type": "label_text_view",
+            "direction": "column",
+            "font_family": "--primary-font",
+            "font_size_label": 14,
+            "font_weight_label": 500,
+            "font_size_text": 12,
+            "font_case_label": "upper",
+            "font_weight_text": 700,
+            "label": "cashOut",
+            "space_between": 0,
+            "text_source": "event",
+            "event": "possible_win",
+            "resolution": 4,
+            "bg_x": 0,
+            "bg_y": 0,
+            "bg_width": 88,
+            "bg_height": 88,
+            "label_alpha": 1,
+            "color_label": "--cashout-c-label",
+            "color_text": "--cashout-c-text",
+            "color_label_disabled": "--cashout-c-label-disabled",
+            "color_text_disabled": "--cashout-c-text-disabled",
+            "bg_color": "--cashout-bg",
+            "bg_stroke_color": "--cashout-b",
+            "bg_color_disabled": "--cashout-bg-disabled",
+            "bg_stroke_color_disabled": "--cashout-b-disabled"
+          },
+          "timer": {
+            "x": 44,
+            "y": 44,
+            "anchor": "center center",
+            "type": "icon_text_view",
+            "direction": "column",
+            "asset": "play_icon_timer",
+            "width": 24,
+            "height": 24,
+            "font_size": 18,
+            "space_between": 3,
+            "resolution": 4,
+            "font_family": "--primary-font",
+            "font_weight": 500,
+            "bg_x": 0,
+            "bg_y": 0,
+            "bg_width": 88,
+            "bg_height": 88,
+            "color": "--play-timer-c",
+            "bg_color": "--play-timer-bg",
+            "bg_stroke_color": "--play-timer-b"
+          },
+          "order": 501
+        },
+        {
+          "layer": "ui",
+          "x": 22,
+          "y": 290,
+          "anchor": "left top",
+          "type": "label_text_view",
+          "direction": "column",
+          "font_size_text": 10,
+          "font_weight_text": 400,
+          "font_case_text": "default",
+          "align_text": "left",
+          "color_text": "--ui-rtp-c-text",
+          "order": 603,
+          "text_source": "event",
+          "event": "rtp",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "asset": "icon_timer",
+          "x": 22,
+          "y": 332,
+          "width": 11,
+          "height": 11,
+          "type": "icon_text_view",
+          "anchor": "left top",
+          "font_size": 12,
+          "color": "--timer-c",
+          "order": 501,
+          "space_between": 3,
+          "text_source": "event",
+          "event": "session_timer",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "asset": "icon_time",
+          "x": 567,
+          "y": 332,
+          "width": 10,
+          "height": 10,
+          "type": "icon_text_view",
+          "anchor": "left top",
+          "font_size": 12,
+          "color": "--time-c",
+          "order": 501,
+          "space_between": 3,
+          "text_source": "event",
+          "event": "current_timer",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "x": 10,
+          "y": 10,
+          "anchor": "left top",
+          "type": "label_text_view",
+          "direction": "column",
+          "font_size_label": 12,
+          "font_weight_label": 500,
+          "font_size_text": 15,
+          "font_case_label": "upper",
+          "font_weight_text": 500,
+          "color_label": "--ui-balance-c-label",
+          "color_text": "--ui-balance-c-value",
+          "order": 603,
+          "label": "balance",
+          "space_between": 2.7,
+          "text_source": "event",
+          "event": "balance",
+          "resolution": 4
+        },
+        {
+          "layer": "ui",
+          "type": "linear_layout",
+          "x": 10,
+          "y": 50,
+          "space_between": 8,
+          "direction": "column",
+          "anchor": "left top",
+          "order": 602,
+          "items": [
+            {
+              "x": 0,
+              "type": "net_position",
+              "resolution": 4,
+              "space_between": 4,
+              "icon": {
+                "asset": "ic_info",
+                "width": 14,
+                "height": 14
+              },
+              "text": {
+                "font_size": 12,
+                "font_weight": 500,
+                "font_case": "upper",
+                "font_family": "--primary-font",
+                "color": "--ui-net-position-c-value"
+              },
+              "background": {
+                "padding": [
+                  4,
+                  2,
+                  4,
+                  2
+                ],
+                "corner_radius": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "color": "--ui-net-position-bg-value"
+              },
+              "game_components": [
+                {
+                  "name": "hint",
+                  "order": 1,
+                  "resolution": 2,
+                  "x": 0,
+                  "y": 20,
+                  "text": {
+                    "font_size": 11,
+                    "font_weight": 400,
+                    "font_family": "--primary-font",
+                    "color": "--ui-net-position-c-value",
+                    "text": "netPositionHint"
+                  },
+                  "background": {
+                    "color": "--ui-net-position-bg-value",
+                    "padding": [
+                      6,
+                      2,
+                      6,
+                      2
+                    ],
+                    "corner_radius": [
+                      7.5,
+                      7.5,
+                      7.5,
+                      7.5
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame_layout",
+              "x": 8,
+              "items": [
+                {
+                  "layer": "ui",
+                  "x": 0,
+                  "y": 0,
+                  "anchor": "left top",
+                  "type": "label_text_view",
+                  "direction": "column",
+                  "font_size_text": 12,
+                  "font_weight_text": 600,
+                  "color_text": "--tip-win-c",
+                  "order": 602,
+                  "text_source": "event",
+                  "event": [
+                    "game_won",
+                    "after_game_won"
+                  ],
+                  "event_property": "win_amount",
+                  "text_pre_prefix": "+",
+                  "resolution": 4,
+                  "background": {
+                    "color": "--tip-win-bg",
+                    "padding": [
+                      8,
+                      4,
+                      8,
+                      4
+                    ],
+                    "corner_radius": [
+                      10,
+                      10,
+                      10,
+                      10
+                    ]
+                  }
+                },
+                {
+                  "layer": "ui",
+                  "x": 0,
+                  "y": 0,
+                  "anchor": "left top",
+                  "type": "label_text_view",
+                  "direction": "column",
+                  "font_size_text": 12,
+                  "font_weight_text": 600,
+                  "color_text": "--tip-bet-c",
+                  "order": 602,
+                  "text_source": "event",
+                  "event": [
+                    "game_start",
+                    "in_playing"
+                  ],
+                  "event_property": "relative_bet",
+                  "on_add_visibility": "hidden",
+                  "text_pre_prefix": "-",
+                  "resolution": 4,
+                  "background": {
+                    "color": "--tip-bet-bg",
+                    "padding": [
+                      8,
+                      4,
+                      8,
+                      4
+                    ],
+                    "corner_radius": [
+                      10,
+                      10,
+                      10,
+                      10
+                    ]
+                  },
+                  "anim": {
+                    "duration": 2,
+                    "infinite": false,
+                    "forward": true,
+                    "key_frames": [
+                      {
+                        "pos": 0.5,
+                        "alpha": 0
+                      },
+                      {
+                        "pos": 1,
+                        "alpha": -1
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "layer": "ui",
+          "type": "linear_layout",
+          "x": 630,
+          "y": 10,
+          "space_between": 10,
+          "direction": "row",
+          "anchor": "right top",
+          "items": [
+            {
+              "layer": "ui",
+              "asset": "bonus_active",
+              "asset_inactive": "bonus_inactive",
+              "x": 5,
+              "y": 2,
+              "width": 30,
+              "height": 30,
+              "type": "bonus_symbol",
+              "background": {
+                "x": -5,
+                "y": -5,
+                "width": 40,
+                "height": 40,
+                "color": "--bonus-label-bg",
+                "alpha": 1,
+                "corner_radius": [
+                  10,
+                  10,
+                  10,
+                  10
+                ]
+              },
+              "hit_box_radius": 18,
+              "order": 600
+            },
+            {
+              "layer": "ui",
+              "anchor": "left top",
+              "type": "label_text_view",
+              "direction": "column",
+              "font_size_label": 12,
+              "font_weight_label": 500,
+              "font_size_text": 15,
+              "font_case_label": "upper",
+              "font_weight_text": 500,
+              "color_label": "--ui-mine-c-label",
+              "color_text": "--ui-mine-c-value",
+              "order": 601,
+              "label": "mines",
+              "space_between": 2.7,
+              "text_source": "event",
+              "event": "mine_amount",
+              "resolution": 4
+            },
+            {
+              "layer": "ui",
+              "anchor": "left top",
+              "type": "label_text_view",
+              "direction": "column",
+              "font_size_label": 12,
+              "font_weight_label": 500,
+              "font_size_text": 15,
+              "font_case_label": "upper",
+              "font_weight_text": 500,
+              "color_label": "--ui-bet-c-label",
+              "color_text": "--ui-bet-c-value",
+              "order": 601,
+              "label": "bet",
+              "label_2": "freebets",
+              "space_between": 2.7,
+              "text_source": "event",
+              "event": "bet_amount",
+              "resolution": 4
+            }
+          ]
+        },
+        {
+          "layer": "ui",
+          "x": 100,
+          "y": 175,
+          "anchor": "center top",
+          "type": "label_text_view",
+          "direction": "column",
+          "font_size_label": 12,
+          "font_weight_label": 500,
+          "font_size_text": 12,
+          "font_weight_text": 500,
+          "font_case_label": "upper",
+          "color_label": "--found-c-label",
+          "color_text": "--found-c-text",
+          "order": 603,
+          "label": "found",
+          "space_between": 2,
+          "text_source": "event",
+          "event": [
+            "in_playing",
+            "opened_tiles"
+          ],
+          "resolution": 4,
+          "background": {
+            "color": "--ui-block-color",
+            "border_color": "--ui-block-border-color",
+            "border_width": 1,
+            "padding": [
+              12,
+              4,
+              12,
+              4
+            ],
+            "corner_radius": [
+              17,
+              17,
+              17,
+              17
+            ]
+          }
+        },
+        {
+          "layer": "ui",
+          "x": 100,
+          "y": 225,
+          "anchor": "center top",
+          "type": "label_text_view",
+          "direction": "column",
+          "font_size_label": 12,
+          "font_weight_label": 500,
+          "font_size_text": 12,
+          "font_weight_text": 500,
+          "font_case_label": "upper",
+          "color_label": "--next-win-c-label",
+          "color_text": "--next-win-c-text",
+          "order": 604,
+          "label": "nextTile",
+          "space_between": 2,
+          "text_source": "event",
+          "event": [
+            "in_playing",
+            "next_possible_win"
+          ],
+          "resolution": 4,
+          "background": {
+            "color": "--ui-block-color",
+            "border_color": "--ui-block-border-color",
+            "border_width": 1,
+            "padding": [
+              12,
+              4,
+              12,
+              4
+            ],
+            "corner_radius": [
+              17,
+              17,
+              17,
+              17
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "defaultColors": {
+    "--bg": "rgba(33, 42, 57)",
+    "--block": "rgba(14, 16, 23)",
+    "--white": "rgba(255, 255, 255)",
+    "--dark": "rgba(0, 0, 0)",
+    "--alert": "rgba(212, 0, 40)",
+    "--primary-1": "rgba(2, 130, 53)",
+    "--primary-2": "rgba(255, 227, 16)",
+    "--gray-light": "rgba(87, 88, 93)",
+    "--h1-primary-2": "rgba(255, 227, 16)",
+    "--lvl-0": "rgba(19, 21, 29, 0.2)",
+    "--lvl-1": "rgba(0, 0, 0, 0.2)",
+    "--lvl-2": "rgba(255, 255, 255, 0.1)",
+    "--txt-white": "rgba(255, 255, 255)",
+    "--txt-light-1": "rgba(144, 144, 149)",
+    "--nav-btn-c": "rgba(255, 255, 255, 1)",
+    "--nav-btn-bg": "rgba(43, 43, 43, 1)",
+    "--nav-btn-b": "rgba(255, 255, 255, 0.3)",
+    "--nav-btn-c-hover": "rgba(255, 255, 255, 1)",
+    "--nav-btn-bg-hover": "rgba(43, 43, 43, 1)",
+    "--nav-btn-b-hover": "rgba(255, 255, 255, 0.3)",
+    "--nav-btn-c-active": "rgba(255, 227, 16, 1)",
+    "--nav-btn-bg-active": "rgba(255, 227, 16, 0.1)",
+    "--nav-btn-b-active": "rgba(255, 227, 16, 0.4)",
+    "--nav-btn-c-disabled": "rgba(255, 255, 255, 0.3)",
+    "--nav-btn-bg-disabled": "rgba(43, 43, 43, 0.3)",
+    "--nav-btn-b-disabled": "rgba(255, 255, 255, 0.1)",
+    "--menu-btn-c": "rgba(144, 144, 149)",
+    "--menu-btn-bg": "",
+    "--menu-btn-b": "",
+    "--menu-btn-c-active": "rgba(255, 227, 16)",
+    "--menu-btn-bg-active": "none",
+    "--menu-btn-b-active": "rgba(255, 227, 16)",
+    "--bet-ctrl-bg": "rgba(0, 0, 0, 0.2)",
+    "--bet-ctrl-label-c": "rgba(144, 144, 149)",
+    "--bet-ctrl-value-c": "rgba(255, 255, 255)",
+    "--bet-ctrl-minmax-c": "rgba(144, 144, 149)",
+    "--bet-ctrl-minmax-c-disabled": "rgba(120, 120, 120)",
+    "--bet-ctrl-bg-disabled": "rgba(218, 218, 218)",
+    "--bet-ctrl-btn-bg": "rgba(255, 227, 16)",
+    "--bet-ctrl-btn-c": "rgba(0, 0, 0)",
+    "--mine-ctrl-main-c": "rgba(255, 255, 255)",
+    "--mine-button-bg": "rgba(43, 43, 43, 1)",
+    "--mine-button-sc": "rgba(85, 85, 85)",
+    "--action-btn-bg": "rgba(2, 130, 53)",
+    "--action-btn-b": "rgba(255, 255, 255, 0.3)",
+    "--action-btn-c": "rgba(255, 255, 255)",
+    "--action-btn-bg-back": "rgba(43, 43, 43)",
+    "--action-btn-b-back": "rgba(255, 255, 255, 0.3)",
+    "--action-btn-c-back": "rgba(255, 255, 255)",
+    "--tutorial-dots-bg": "rgba(2, 130, 53)",
+    "--tutorial-dots-bg-active": "rgba(2, 130, 53)",
+    "--tutorial-btn-c": "rgba(255, 227, 16)",
+    "--tutorial-btn-c-disabled": "rgba(255, 227, 16, 0.35)",
+    "--tutorial-header-c": "rgba(255, 227, 16)",
+    "--tutorial-text-c": "rgba(255, 255, 255)",
+    "--about-text-c": "rgba(144, 144, 149)",
+    "--about-title-c": "",
+    "--about-sub-title-c": "rgba(212, 0, 40)",
+    "--about-img-title-c": "rgba(2, 130, 53)",
+    "--about-list-dot-c": "rgba(2, 130, 53)",
+    "--game-preview-title-c": "rgba(255, 255, 255, 1)",
+    "--game-preview-card-c": "rgba(0, 0, 0, 0.5)",
+    "--game-preview-card-title-c": "rgba(255, 227, 16, 1)",
+    "--game-preview-card-content-c": "rgba(255, 255, 255, 1)",
+    "--game-preview-btn-c": "rgba(43, 43, 43, 1)",
+    "--game-preview-btn-c-active": "rgba(2, 130, 53, 1)",
+    "--collapser-header-c": "rgba(255, 255, 255)",
+    "--collapser-header-c-active": "rgba(40, 234, 27)",
+    "--collapser-header-bg": "rgba(255, 255, 255, 0.1)",
+    "--collapser-header-bg-active": "rgba(40, 234, 27, 0.1)",
+    "--collapser-icon-c": "rgba(255, 227, 16)",
+    "--table-header-c": "rgba(144, 144, 149)",
+    "--table-header-bg": "rgba(50, 48, 49)",
+    "--table-text-c": "rgba(255, 255, 255)",
+    "--table-text-bg": "rgba(255, 255, 255, 0.1)",
+    "--leaderb-btn-b-active": "rgba(255, 227, 16)",
+    "--leaderb-btn-c": "rgba(144, 144, 149)",
+    "--leaderb-btn-c-active": "rgba(255, 227, 16)",
+    "--leaderb-c": "rgba(255, 255, 255)",
+    "--leaderb-cup-bg": "rgba(255, 227, 16)",
+    "--leaderb-cup-c": "rgba(0, 0, 0)",
+    "--leaderb-empty-c": "rgba(255, 255, 255)",
+    "--leaderb-item-b-active": "rgba(255, 227, 16, 0.2)",
+    "--leaderb-item-bg": "rgba(255, 255, 255, 0.1)",
+    "--leaderb-item-bg-active": "rgba(255, 227, 16, 0.1)",
+    "--leaderb-label-c": "rgba(144, 144, 149)",
+    "--leaderb-loader-c": "rgba(144, 144, 149)",
+    "--leaderb-value-c-active": "rgba(255, 227, 16)",
+    "--prize-bg": "rgba(255, 255, 255, 0.1)",
+    "--prize-c-active": "rgba(255, 227, 16)",
+    "--prize-h-label-c": "rgba(144, 144, 149)",
+    "--prize-h-value-c": "rgba(255, 255, 255)",
+    "--prize-notify-c": "rgba(255, 255, 255)",
+    "--tab-item-b-active": "rgba(255, 227, 16)",
+    "--tab-item-c": "rgba(144, 144, 149)",
+    "--tab-item-c-active": "rgba(255, 227, 16)",
+    "--tourn-action-b": "rgba(255, 255, 255, 0.2)",
+    "--tourn-action-bg": "rgba(2, 130, 53)",
+    "--tourn-action-c": "rgba(255, 255, 255)",
+    "--tourn-c": "rgba(255, 255, 255)",
+    "--tourn-empty-c": "rgba(144, 144, 149)",
+    "--tourn-item-bg": "rgba(255, 255, 255, 0.1)",
+    "--tourn-item-btn-bg-end": "rgba(255, 255, 255, 0.2)",
+    "--tourn-item-btn-bg-live": "rgba(255, 227, 16, 0.2)",
+    "--tourn-item-btn-bg-soon": "rgba(52, 199, 89, 0.2)",
+    "--tourn-item-btn-c-end": "rgba(255, 255, 255)",
+    "--tourn-item-btn-c-live": "rgba(255, 227, 16)",
+    "--tourn-item-btn-c-soon": "rgba(52, 199, 89)",
+    "--tourn-item-c": "rgba(255, 255, 255)",
+    "--tourn-item-cup-bg-end": "rgba(255, 255, 255)",
+    "--tourn-item-cup-bg-live": "rgba(255, 149, 0)",
+    "--tourn-item-cup-bg-soon": "rgba(52, 199, 89)",
+    "--tourn-item-cup-c-end": "rgba(26, 27, 36)",
+    "--tourn-item-cup-c-live": "rgba(255, 255, 255)",
+    "--tourn-item-cup-c-soon": "rgba(26, 27, 36)",
+    "--tourn-item-dot-c-live": "rgba(255, 227, 16)",
+    "--tourn-item-label-c": "rgba(144, 144, 149)",
+    "--tourn-item-placeh-bg-end": "rgba(255, 255, 255)",
+    "--tourn-item-placeh-bg-live": "rgba(255, 227, 16)",
+    "--tourn-item-placeh-bg-soon": "rgba(2, 130, 53)",
+    "--tourn-item-value-c-end": "rgba(255, 255, 255)",
+    "--tourn-item-value-c-live": "rgba(255, 227, 16)",
+    "--tourn-item-value-c-soon": "rgba(52, 199, 89)",
+    "--tourn-label-c": "rgba(144, 144, 149)",
+    "--tourn-not-started-c": "rgba(255, 255, 255)",
+    "--tourn-pic-bg-end": "rgba(255, 255, 255, 0.2)",
+    "--tourn-pic-bg-live": "rgba(255, 227, 16, 0.2)",
+    "--tourn-pic-bg-soon": "rgba(2, 130, 53, 0.2)",
+    "--tourn-status-bg-end": "rgba(255, 255, 255)",
+    "--tourn-status-bg-live": "rgba(255, 227, 16)",
+    "--tourn-status-bg-soon": "rgba(2, 130, 53)",
+    "--tourn-status-c": "rgba(0, 0, 0)",
+    "--tourn-status-c-end": "rgba(0, 0, 0)",
+    "--tourn-status-c-live": "rgba(0, 0, 0)",
+    "--tourn-status-c-soon": "rgba(19, 21, 29)",
+    "--tourn-terms-btn-bg": "rgba(0, 0, 0, 0.2)",
+    "--tourn-terms-btn-c": "rgba(255, 255, 255)",
+    "--tourn-terms-date-bg": "rgba(255, 255, 255, 0.1)",
+    "--tourn-terms-date-label-c": "rgba(144, 144, 149)",
+    "--tourn-terms-header-bg": "rgba(255, 255, 255)",
+    "--tourn-toggle-bg": "rgba(255, 255, 255)",
+    "--tourn-toggle-c": "rgba(255, 255, 255)",
+    "--tourn-value-c": "rgba(255, 255, 255)",
+    "--bet-desc-c": "rgba(144, 144, 149)",
+    "--bet-history-empty-c": "rgba(144, 144, 149)",
+    "--bet-history-item-bg": "rgba(255, 255, 255, 0.1)",
+    "--bet-history-btn-c": "rgba(255, 255, 255)",
+    "--bet-history-grid-bg": "rgba(33, 33, 33, 1)",
+    "--bet-history-title-c": "rgba(144, 144, 149)",
+    "--bet-history-tile-bg": "rgba(102, 102, 102)",
+    "--bet-history-order-bg": "rgba(0, 0, 0)",
+    "--bet-history-order-c": "rgba(255, 255, 255)",
+    "--bet-history-value-c": "rgba(255, 255, 255)",
+    "--bet-history-label-c": "rgba(144, 144, 149)",
+    "--dialog-bg": "rgba(43, 43, 43)",
+    "--dialog-c": "rgba(255, 255, 255)",
+    "--dialog-b": "rgba(255, 255, 255, 0.2)",
+    "--dialog-bg-warning": "rgba(255, 227, 16)",
+    "--dialog-c-warning": "rgba(0, 0, 0)",
+    "--dialog-title-c": "rgba(0, 0, 0)",
+    "--dialog-text-c": "rgba(0, 0, 0)",
+    "--dialog-html-c": "rgba(0, 0, 0)",
+    "--dialog-btn-c": "rgba(255, 227, 16)",
+    "--dialog-btn-bg": "rgba(0, 0, 0)",
+    "--dialog-close-btn-bg": "rgba(43, 43, 43)",
+    "--dialog-close-btn-c": "rgba(255, 255, 255)",
+    "--dialog-close-btn-b": "rgba(255, 255, 255, 0.2)",
+    "--tile-label-bg": "rgba(2, 130, 53)",
+    "--tile-label-txt": "rgba(255, 255, 255)",
+    "--play-c-label": "rgba(255, 255, 255)",
+    "--play-bg": "rgba(2, 130, 53)",
+    "--play-b": "rgba(255, 255, 255, 0.3)",
+    "--play-bg-disabled": "rgba(160,160,160)",
+    "--play-b-disabled": "rgba(120,120,120)",
+    "--cashout-c-label": "rgba(0, 0, 0)",
+    "--cashout-c-text": "rgba(0, 0, 0)",
+    "--cashout-c-label-disabled": "rgba(0, 0, 0)",
+    "--cashout-c-text-disabled": "rgba(0, 0, 0)",
+    "--cashout-bg": "rgba(255, 227, 16)",
+    "--cashout-b": "rgba(255, 227, 16)",
+    "--cashout-bg-disabled": "rgba(160,160,160)",
+    "--cashout-b-disabled": "rgba(120,120,120)",
+    "--play-timer-bg": "rgba(255, 227, 16)",
+    "--play-timer-b": "rgba(255, 255, 255)",
+    "--play-timer-c": "rgba(255, 227, 16)",
+    "--timer-c": "rgba(255, 255, 255)",
+    "--time-c": "rgba(255, 255, 255)",
+    "--ui-balance-c-label": "rgba(144, 144, 149)",
+    "--ui-balance-c-value": "rgba(255, 255, 255)",
+    "--ui-net-position-c-value": "rgba(0, 0, 0)",
+    "--ui-net-position-bg-value": "rgba(255, 255, 255)",
+    "--ui-mine-c-label": "rgba(144, 144, 149)",
+    "--ui-mine-c-value": "rgba(255, 255, 255)",
+    "--ui-bet-c-label": "rgba(144, 144, 149)",
+    "--ui-bet-c-value": "rgba(255, 255, 255)",
+    "--tip-win-c": "rgba(255, 255, 255)",
+    "--tip-win-bg": "rgba(2, 130, 53)",
+    "--tip-bet-c": "rgba(0, 0, 0)",
+    "--tip-bet-bg": "rgba(255, 227, 16)",
+    "--bonus-label-bg": "rgba(14, 16, 23)",
+    "--found-c-label": "rgba(255, 255, 255)",
+    "--found-c-text": "rgba(255, 255, 255)",
+    "--next-win-c-label": "rgba(255, 255, 255)",
+    "--next-win-c-text": "rgba(255, 255, 255)",
+    "--ui-block-color": "rgba(14, 16, 23)",
+    "--ui-block-border-color": "rgba(14, 16, 23)",
+    "--ui-rtp-c-text": "rgba(144, 144, 149)"
+  },
+  "assetKeys": [
+    "tile_star",
+    "tile1",
+    "tile2",
+    "tile_mine",
+    "tile_explosion",
+    "prize1",
+    "bonus_label",
+    "game_logo_landscape",
+    "game_logo_portrait",
+    "ic_info",
+    "ui_menu",
+    "ui_bet",
+    "ui_bet_sen",
+    "ui_tournaments",
+    "ui_random_active",
+    "ui_random_disabled",
+    "ic_tiles_found",
+    "ic_minus",
+    "ic_minus_disabled",
+    "ic_plus",
+    "ic_plus_disabled",
+    "icon_timer",
+    "icon_time",
+    "play_icon_timer",
+    "bonus_active",
+    "bonus_inactive"
+  ],
+  "sourceVariant": "coin_miner_94",
+  "missingDefaultArt": [
+    "bg",
+    "board"
+  ],
+  "note": "Default runtime uses color panels; partner-specific backgrounds are not substituted."
+}

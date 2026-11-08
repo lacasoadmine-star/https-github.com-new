@@ -1,0 +1,945 @@
+{
+  "schemaVersion": 1,
+  "productionLaunchEnabled": false,
+  "providerJavaScriptIncluded": false,
+  "maximumUniqueBytes": 100000000,
+  "sources": [
+    {
+      "id": "towerx_canvas",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Scripts/TowerX/canvas.js",
+      "sha256": "818bf1beef8c87ed09688db8d22b95f71ff6a0e9aba64f2f87026bd564b44931",
+      "bytes": 20751,
+      "notes": "Read-only public scene resource and building coefficient mapping; provider code is not bundled or executed."
+    },
+    {
+      "id": "towerx_css",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Styles/TowerX.css",
+      "sha256": "d4fa86fea8bc177ccfee6733d0607a07c7cfb968cb504723da1ec8c4bebcb745",
+      "bytes": 56881,
+      "notes": "Public CSS image URLs and control styling."
+    },
+    {
+      "id": "towerx_client",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Scripts/TowerX/TowerX.js",
+      "sha256": "5d3ba3cb78839b5d0d0b0da6e818563751396c16c945d6946ffde50d8cd8f34d",
+      "bytes": 66882,
+      "notes": "Public audio and autoplay control definitions only."
+    },
+    {
+      "id": "towerrush_runtime",
+      "url": "https://cdn.galaxsys-games.com/fg-client/prd/fg-towerrush-client/v112/896.js",
+      "sha256": "30362a156d249c16332d066403176a4b16d1e6aee5a3cc08b5a757bc51b13947",
+      "bytes": 228131,
+      "notes": "Current v112 game asset declarations, normal floor variants, bonus sprites, buttons and audio sprite offsets."
+    },
+    {
+      "id": "towerrush_global",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/beforeLoad/global.json",
+      "sha256": "d1eeb9da036a37d4b50b7314d8c36a51a2b49024f52a3f57f8d8448e14280f5a",
+      "bytes": 2555,
+      "notes": "Exact TexturePacker frame names and rectangles; includes towers, crane hook and bonus floor artwork."
+    },
+    {
+      "id": "towerrush_spine_atlas",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/spines/towerrush/v2/tr_all.atlas",
+      "sha256": "0c45e3b69ee6f113a867d2736e7868c5ecf19c410a21f0c9d52e5d669052a925",
+      "bytes": 24278,
+      "notes": "Observed Spine page names/regions; only static regions are used in this review."
+    },
+    {
+      "id": "coinminer_config",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/config.json",
+      "sha256": "bf6da7d6d24be9cb081bc287234fb0870fca942de7ed66b1468932d82f308999",
+      "bytes": 249993,
+      "notes": "Default public artwork and exact portrait/landscape layout. Operator skins are excluded."
+    },
+    {
+      "id": "coinminer94_info",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/info/coin_miner_94.json",
+      "sha256": "43baa278a0e3afbbd52432bac03efb66678d41f48c03e735a3d60e30958e8a61",
+      "bytes": 8317,
+      "notes": "Current official public94 variant; no gameplay request."
+    },
+    {
+      "id": "towerrush_constants",
+      "url": "https://cdn.galaxsys-games.com/gx-common-client/prd/gx-engine-client/v75/9950.00361c0b49860701a636.js",
+      "sha256": "4af0ebebcf15ef6303096c39815a9610835fc043586fdd83d1419027844a936e",
+      "bytes": 51465,
+      "notes": "Observed v75 remoteEntry chunk mapping and CDN_URL fast-game /fg-cdn/prd/root resolution; provider code excluded."
+    },
+    {
+      "id": "towerx_loader",
+      "sha256": "cb60cec41bab09ba079397e060e85de434d31639e72c963786593dfbdfe128f0",
+      "bytes": 465637,
+      "notes": "Observed public loader uses .atlas.txt suffix; bare .atlas404 is resolved without guessing unrelated resources.",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Scripts/lib/pixi-spine.js"
+    },
+    {
+      "id": "towerx_base_canvas",
+      "sha256": "01b1476bce7fd0c675a0e6bcaf01033e86a5a8fe2012907e2d62459518d4b6be",
+      "bytes": 54927,
+      "notes": "Observed staticUrl function resolves scene image/sprite/Spine bases from StaticContentUrl.",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Scripts/canvas.js"
+    },
+    {
+      "id": "coinminer_runtime",
+      "sha256": "cf80c61777289229fe02429fe400d7f3360c8609074022d482b1e652ff4750e5",
+      "bytes": 819537,
+      "notes": "Public runtime pickAsset mix returns all referenced textures, so both left/right closed-tile halves are composited; bonus art overlays the whole tile.",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/game.341b6041de9868f30335.js"
+    },
+    {
+      "id": "towerx_umbrella_atlas",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine//cash%20out/qolgebi.atlas.txt",
+      "sha256": "beee3d32b2a2672cac506c11a7b63c0416b1753d178fef547d6efd80dc1efc5c",
+      "bytes": 2534,
+      "notes": "Exact observed .atlas.txt loader suffix and page names. Static regions only; no provider runtime is executed."
+    },
+    {
+      "id": "towerx_houses_atlas",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine//shenobis%20da%20x%20animaciebi/saxlebis%20dacema.atlas.txt",
+      "sha256": "242a482de3877eaca734aa27430245d23ac681675a02ce65244a833f192fc80f",
+      "bytes": 10724,
+      "notes": "Exact observed .atlas.txt loader suffix and page names. Static regions only; no provider runtime is executed."
+    }
+  ],
+  "assets": [
+    {
+      "gameId": "towerx_native",
+      "key": "StartDefault",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/StartDefault.png",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "background",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/full-bg.jpg",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "building1",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/building1.png",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "building2",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/building2.png",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "building3",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/building3.png",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "building4",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/building4.png",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "building5",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/building5.png",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "skyForLoop",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/sky-for-loop.jpg",
+      "kind": "image",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "logo",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/logo.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "border",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/canvas-border.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "body_background",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/background.jpg",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "bet_idle",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/place-bet-button.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "bet_active",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/active-bet-button.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "bet_cancel",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/cancel-bet.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "auto_idle",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/autoplay-icon.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "auto_active",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/autoplay-active-icon.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "auto_stop",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/autoplay-stop.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "auto_background",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/autoplay-bg.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "menu",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/menu-icon.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "sound_on",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/sound-on.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "sound_off",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/sound-off.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "plus",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/plus.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "minus",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/minus.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "win_background",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/won-bg.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "win_label",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/you-won-text.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "balance_background",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/balance-bg.png",
+      "kind": "image",
+      "sourceRef": "towerx_css"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_CancelBet",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Cancel_bet.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_ButtonsClick",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/General_Button.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_HighLanding",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/High_LandingNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_HigherLanding",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Higher_LandingNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_MediumLanding",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Medium_LandingNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_PlaceBet",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Place_Bet.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_SmallLanding",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Small_LandingNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_TopLanding",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Top_LandingNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_WinLarge",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Win_LargeNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_WinLow",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Win_LowNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_WinMedium",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Win_MediumNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_MainTheme",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Main_Theme_TowerXNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_LoadingMusic",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Loading_Music_TowerXNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "audio_JumpWin",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Sound/TowerX/Jump_WinNew.mp3",
+      "kind": "audio",
+      "sourceRef": "towerx_client"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "global_atlas",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/beforeLoad/global.json",
+      "kind": "texture-atlas",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "global_texture",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/beforeLoad/global.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_global"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "background-back",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/background-back.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "background-front",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/background-front.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "basis-tower",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/basis-tower.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "buildBtn",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/buildBtn.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "cashoutBtn",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/cashoutBtn.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "cashoutBtnFrozen",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/cashoutBtnFrozen.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "betPartBorder",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/betPartBorder.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "logo",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/logo.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-frozen",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/bonus-frozen.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-triple",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/bonus-triple.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/bonus-temple.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-background",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/bonus-temple-background.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "win",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/win.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "lose",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/lose.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bigWin",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/bigWin.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bigWinPopupBG",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/bigWinPopupBG.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "headerBg",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/mobile/headerBg.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-wheel",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/bonus-temple-wheel.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-wheel-frozen",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/bonus-temple-wheel-frozen.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-wheel-arrow",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/bonus-temple-wheel-arrow.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-wheel-centre",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/bonus-temple-wheel-centre.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-wheel-back",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/bonus-temple-wheel-back.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "bonus-temple-wheel-frame-shadow",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/bonus-temple-wheel-frame-shadow.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "resultItemFrozen",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/resultItemFrozen.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "buildBtnBolt",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/buildBtnBolt.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "betInputBackground",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/betInputBackground.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "quickBtnBackground",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/images/towerrush/global/quickBtnBackground.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "frozen_atlas",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/spines/towerrush/v2/tr_all.atlas",
+      "kind": "spine-atlas",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "frozen_texture_tr_all.webp",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/spines/towerrush/v2/tr_all.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_spine_atlas"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "frozen_texture_tr_all_2.webp",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/spines/towerrush/v2/tr_all_2.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_spine_atlas"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "frozen_texture_tr_all_3.webp",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/spines/towerrush/v2/tr_all_3.webp",
+      "kind": "image",
+      "sourceRef": "towerrush_spine_atlas"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "audio_effects",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/sounds/towerrush/sounds.mp3",
+      "kind": "audio",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "audio_background_music",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/sounds/towerrush/background.mp3",
+      "kind": "audio",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "font_RubikBlack",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/fonts/RubikBlack/RubikBlack.woff",
+      "kind": "font",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "font_RubikBold",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/fonts/RubikBold/RubikBold.woff",
+      "kind": "font",
+      "sourceRef": "towerrush_runtime"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "tile_star",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_star.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "tile1",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_tile01.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "tile2",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_tile02.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "tile_mine",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_mine.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "tile_explosion",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_explosion.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "prize1",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_coin.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "bonus_label",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tiles/img_bonus.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "game_logo_landscape",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/game_logo.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "game_logo_portrait",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/game_logo.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ic_info",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_info.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ui_menu",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/menu.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ui_bet",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/bet.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ui_bet_sen",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/bet_sen.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ui_tournaments",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/tournaments.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ui_random_active",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/random_active.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ui_random_disabled",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/random_disabled.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ic_tiles_found",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_tiles_found.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ic_minus",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_minus.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ic_minus_disabled",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_minus_disabled.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ic_plus",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_plus.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "ic_plus_disabled",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_plus_disabled.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "icon_timer",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_timer.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "icon_time",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/ic_time.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "play_icon_timer",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/play_ic_timer.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "bonus_active",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/bonus_active.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "bonus_inactive",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/imgs/bonus_inactive.min.png",
+      "kind": "image",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_button_clicked",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/button_enable.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_button_hover_in",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/button_hover.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_loss",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/dynamite_explosion.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_game_starter",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/game_starter.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_prize_reveal",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/gold_reveal.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_tile_click",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/stone_click.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_tile_hover",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/stone_hover.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "coinminer_native",
+      "key": "sound_win",
+      "url": "https://curacao-mines-ui.gamingcorpscasino.com/games/coin-miner/assets/sounds/win.mp3",
+      "kind": "audio",
+      "sourceRef": "coinminer_config"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "umbrella_atlas",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine//cash%20out/qolgebi.atlas.txt",
+      "kind": "spine-atlas",
+      "sourceRef": "towerx_loader"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "umbrella_texture_qolgebi.png",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine/cash%20out/qolgebi.png",
+      "kind": "image",
+      "sourceRef": "towerx_umbrella_atlas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "houses_atlas",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine//shenobis%20da%20x%20animaciebi/saxlebis%20dacema.atlas.txt",
+      "kind": "spine-atlas",
+      "sourceRef": "towerx_loader"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "houses_texture_saxlebis dacema.png",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine/shenobis%20da%20x%20animaciebi/saxlebis%20dacema.png",
+      "kind": "image",
+      "sourceRef": "towerx_houses_atlas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "umbrella_skeleton",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine//cash%20out/qolgebi.json",
+      "kind": "spine-skeleton",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerx_native",
+      "key": "houses_skeleton",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine//shenobis%20da%20x%20animaciebi/saxlebis%20dacema.json",
+      "kind": "spine-skeleton",
+      "sourceRef": "towerx_canvas"
+    },
+    {
+      "gameId": "towerrush_native",
+      "key": "frozen_skeleton",
+      "url": "https://cdn.galaxsys-games.com/fg-cdn/prd/root/spines/towerrush/v2/tr_tower_rush_frozen.json",
+      "kind": "spine-skeleton",
+      "sourceRef": "towerrush_runtime"
+    }
+  ],
+  "gaps": [
+    {
+      "gameId": "towerx_native",
+      "kind": "animation_metadata",
+      "url": "https://static.ssg-public.com/cache/b45/XGames/Content/Images/TowerX/Spine/cash%20out/qolgebi.atlas",
+      "status": 404,
+      "reason": "Bare .atlas URL returned404; automatic umbrella animation is not claimed complete.",
+      "resolvedBy": "towerx_loader",
+      "currentStatus": "Bare .atlas404 is historical; observed .atlas.txt metadata retrieved successfully. Full skeletal animation still unfinished."
+    }
+  ]
+}

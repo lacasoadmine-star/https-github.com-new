@@ -2,16 +2,23 @@ import {ExpansionSession,formatMoney,fromMinor,moneyMinor,getRoundActions,bindPl
 import {MachineScene,themeKind,frameList,featureLabel,displayFamily,gridGeometry,drawSymbol,presentationFrame,providedRules,confirmedTowerAmounts} from './scene.mjs';
 import {stakeChoices,mineChoices,selectedChoice} from './controls.mjs';
 import {AutoplayController,autoplayProfile} from './autoplay.mjs';
+import {ReferencePresentationHost} from './reference-presentation.mjs';
 const $=id=>document.getElementById(id);
-const ui=Object.fromEntries(['machineShell','headerTitle','wallet','gameCategory','gameTitle','connection','featureDescription','stage','scene','mineGrid','sequenceBadge','resultLabel','result','roundCaption','roundDetail','stake','stakeLabel','stakeRange','minus','plus','mines','mineOptions','play','playLabel','activeActions','step','cashout','cashoutAmount','riskSummary','bankedAmount','riskAmount','skip','notice','accountLink','otherGame','help','sound','refresh','playNote','footerGame','fullScreen','rulesDialog','rulesTitle','rulesContent','closeRules','autoplay','autoplayDialog','closeAutoplay','autoplayForm','autoplayCount','autoplayWinRow','autoplayWin','autoplayLoss','autoplayGain','autoplayFeatureStops','autoplayBonus','autoplayFreeSpins','autoplayBigWin','autoplayError','startAutoplay','autoplayRunning','autoplayStatus','stopAutoplay'].map(id=>[id,$(id)]));
+const ui=Object.fromEntries(['machineShell','headerTitle','wallet','gameCategory','gameTitle','connection','featureDescription','stage','scene','presentationNote','mineGrid','sequenceBadge','resultLabel','result','roundCaption','roundDetail','stake','stakeLabel','stakeRange','minus','plus','mines','mineOptions','play','playLabel','activeActions','step','cashout','cashoutAmount','riskSummary','bankedAmount','riskAmount','skip','notice','accountLink','otherGame','help','sound','refresh','playNote','footerGame','fullScreen','rulesDialog','rulesTitle','rulesContent','closeRules','autoplay','autoplayDialog','closeAutoplay','autoplayForm','autoplayCount','autoplayWinRow','autoplayWin','autoplayLoss','autoplayGain','autoplayFeatureStops','autoplayBonus','autoplayFreeSpins','autoplayBigWin','autoplayError','startAutoplay','autoplayRunning','autoplayStatus','stopAutoplay'].map(id=>[id,$(id)]));
 const gameId=location.pathname.split('/').filter(Boolean).at(-1)||'';
 const scene=new MachineScene(ui.scene);
+const referenceScene=new ReferencePresentationHost(scene.ctx,{origin:location.origin});
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let session=null,game=null,currentState=null,configSignature='',soundEnabled=true,audioContext=null,animation=null,seenRound='',lastDraw=0,lastRefresh=0;
+let presentationReady=true,presentationKey='',presentationSequence=0,pageSuspended=false,configuredReferenceKey='',explicitRefreshPending=false;
 const autoplay=new AutoplayController();let autoplayQueued=false;
+const usesReference=()=>!!game?.referencePresentation;
+const canStartVisible=()=>!pageSuspended&&!explicitRefreshPending&&session?.canStart()===true&&currentState?.connected===true&&(!usesReference()||presentationReady);
+const canActVisible=action=>!pageSuspended&&currentState?.connected===true&&session?.canAct(action)===true&&(action==='cashout'||!explicitRefreshPending&&(!usesReference()||presentationReady));
+const referenceBindingKey=value=>JSON.stringify([value?.id,value?.version,value?.referencePresentation,value?.columns,value?.rows,Array.isArray(value?.symbols)?value.symbols.map(symbol=>[String(symbol?.id),symbol?.providerSymbolId]):null]);
 function storage(){try{return window.sessionStorage;}catch{return null;}}
 function tone(type){
- if(!soundEnabled)return;
+ if(!soundEnabled||usesReference())return;
  try{
   const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
   audioContext??=new Audio();if(audioContext.state==='suspended')void audioContext.resume();
@@ -21,8 +28,13 @@ function tone(type){
 }
 function option(value,label){const element=document.createElement('option');element.value=value;element.textContent=label??value;return element;}
 function configure(next){
+ const nextReferenceKey=referenceBindingKey(next),changed=configuredReferenceKey!==nextReferenceKey;
+ configuredReferenceKey=nextReferenceKey;
  game=next;scene.setGame(game);ui.gameTitle.textContent=game.name;ui.headerTitle.textContent=game.name;ui.footerGame.textContent=game.name;document.title=game.name+' · ZPLAY';
- document.body.className='theme-'+themeKind(game);
+ referenceScene.setGame(game);
+ document.body.className='theme-'+themeKind(game)+(usesReference()?' reference-art':'');
+ document.documentElement.style.setProperty('--reference-aspect',game.id==='coinminer_native'?'360 / 640':'420 / 900');
+ ui.sound.hidden=usesReference();
  for(const [key,value]of Object.entries(game.theme||{}))if(['bg','accent','secondary'].includes(key)&&/^#[a-f\d]{6}$/i.test(value))document.documentElement.style.setProperty('--'+key,value);
  const family=displayFamily(game);ui.gameCategory.textContent='ZPLAY · '+(family==='tower'?'SKYLINE SERIES':family==='mines'?'COIN VAULT':game.ways?'ROLLING REELS':game.columns===6?'LEGENDS SERIES':'SLOT COLLECTION');
  ui.featureDescription.textContent=String(game.featureDescription||'Choose your stake to start a round.').slice(0,210);
@@ -38,7 +50,8 @@ function configure(next){
  }
  ui.mineOptions.hidden=family!=='mines';ui.mineGrid.hidden=family!=='mines';
  ui.playNote.textContent=family==='mines'?'Reveal a safe tile, then continue or collect. A mine ends the round.':game.id==='towerrush_native'?'Build the next floor or collect your confirmed win.':game.controls?.baseUnitsPerStake?'The displayed stake is the total cost of the building sequence.':'Each play starts one round. Bonus sequences complete within that round.';
- scene.resize();positionMineGrid();
+ if(changed){presentationKey='';presentationSequence++;presentationReady=!usesReference();scene.resize();referenceScene.resize(scene.width,scene.height);}
+ positionMineGrid();
 }
 function beginSequence(round){
  const frames=frameList(round);
@@ -54,14 +67,15 @@ function drawState(state){
   else if(animation?.roundId!==round?.round_id)animation=null;
   seenRound=key;
  }
- autoplay.observe({...state,canStart:session.canStart(),animationRunning:!!animation});
+ drawReference();
+ autoplay.observe({...state,canStart:canStartVisible(),animationRunning:!!animation});
  const automatic=autoplay.snapshot(),profile=autoplayProfile(game?.id);
  ui.wallet.textContent=formatMoney(state.balance);ui.wallet.title=state.balance===null?'Sign in to see your balance':formatMoney(state.balance)+' ETB';
  ui.connection.classList.toggle('online',state.connected&&state.authenticated);ui.connection.lastElementChild.textContent=state.connected?'Connected':state.authenticated?'Disconnected':'Sign in';
  const actions=getRoundActions(round,state.game),hasStep=actions.includes('step'),hasCashout=actions.includes('cashout');
- ui.play.hidden=active;ui.play.disabled=!session.canStart()||!!animation||automatic.active;ui.play.setAttribute('aria-busy',String(state.busy));
+ ui.play.hidden=active;ui.play.disabled=!canStartVisible()||!!animation||automatic.active;ui.play.setAttribute('aria-busy',String(state.busy));
  ui.playLabel.textContent=state.busy?'CONFIRMING':state.pending?'CONFIRM ACTION':animation?'RESULT SEQUENCE':!state.authenticated?'SIGN IN TO PLAY':!state.accepting?'PAUSED':displayFamily(game)==='tower'?'BUILD':displayFamily(game)==='mines'?'START ROUND':'SPIN';
- ui.activeActions.hidden=!active||!(hasStep||hasCashout);ui.step.hidden=!hasStep;ui.cashout.hidden=!hasCashout;ui.step.disabled=!session.canAct('step');ui.cashout.disabled=!session.canAct('cashout');ui.cashoutAmount.textContent=fromMinor(round?.currentCashoutMinor)+' ETB';
+ ui.activeActions.hidden=!active||!(hasStep||hasCashout);ui.step.hidden=!hasStep;ui.cashout.hidden=!hasCashout;ui.step.disabled=!canActVisible('step');ui.cashout.disabled=!canActVisible('cashout');ui.cashoutAmount.textContent=fromMinor(round?.currentCashoutMinor)+' ETB';
  const towerAmounts=confirmedTowerAmounts(round);ui.riskSummary.hidden=game?.id!=='towerrush_native'||!active;ui.bankedAmount.textContent=towerAmounts.banked+' ETB';ui.riskAmount.textContent=towerAmounts.atRisk+' ETB';
  if(automatic.active&&!state.busy&&!animation)ui.playLabel.textContent='AUTOPLAY';
  const stakeLocked=active||state.busy||state.pending||state.confirming||state.recoveryBlocked||!state.authenticated||!!animation||automatic.active;
@@ -71,18 +85,18 @@ function drawState(state){
  ui.roundDetail.textContent=active?(displayFamily(game)==='mines'?'Choose a tile or collect your win.':'Build another floor or collect.') :settled?(featureLabel(round.feature)||'Payout credited to your player balance.'):game?.launchable===false?'This game is being prepared.':'Your balance comes from your player account.';
  ui.notice.textContent=state.message;ui.notice.classList.toggle('error',state.error);ui.accountLink.hidden=state.authenticated;ui.otherGame.hidden=!state.otherActiveGame;
  if(state.otherActiveGame)ui.otherGame.href=/^[a-z0-9_]{1,64}$/.test(state.otherActiveGame)?'/games/'+state.otherActiveGame:'/';
- ui.refresh.disabled=state.busy;ui.refresh.classList.toggle('retry',state.pending);ui.refresh.replaceChildren();const icon=document.createElement('span');icon.setAttribute('aria-hidden','true');icon.textContent='↻';ui.refresh.append(icon,document.createTextNode(state.pending?'Retry':'Refresh'));
+ ui.refresh.disabled=state.busy||explicitRefreshPending;ui.refresh.classList.toggle('retry',state.pending);ui.refresh.replaceChildren();const icon=document.createElement('span');icon.setAttribute('aria-hidden','true');icon.textContent='↻';ui.refresh.append(icon,document.createTextNode(state.pending?'Retry':'Refresh'));
  ui.skip.hidden=!animation;ui.sequenceBadge.hidden=!animation;if(animation)ui.sequenceBadge.textContent='RESULT '+(animation.index+1)+' / '+animation.frames.length;
  const picks=new Map((round?.picks||[]).map(pick=>[pick.index,pick]));
- [...ui.mineGrid.children].forEach((button,index)=>{const pick=picks.get(index);button.disabled=!!pick||!session.canAct('pick');button.textContent=pick?'':String(index+1);button.setAttribute('aria-label','Tile '+(index+1)+(pick?pick.safe?', coin revealed':', mine revealed':', unrevealed'));button.setAttribute('aria-pressed',String(!!pick));});
+ [...ui.mineGrid.children].forEach((button,index)=>{const pick=picks.get(index);button.disabled=!!pick||!canActVisible('pick');button.textContent=pick?'':String(index+1);button.setAttribute('aria-label','Tile '+(index+1)+(pick?pick.safe?', coin revealed':', mine revealed':', unrevealed'));button.setAttribute('aria-pressed',String(!!pick));});
  ui.scene.setAttribute('aria-label',round?(game.name+'. '+(active?'Active round.': 'Settled round. Payout '+fromMinor(round.payoutMinor)+' ETB.')+' '+featureLabel(round.feature)):game?.name+'. Symbol preview. No round has been played.');
- ui.autoplay.hidden=!profile;ui.autoplay.disabled=automatic.active||!session.canStart()||!!animation;
+ ui.autoplay.hidden=!profile;ui.autoplay.disabled=automatic.active||!canStartVisible()||!!animation;
  ui.autoplayRunning.hidden=!automatic.active;
  ui.autoplayStatus.textContent=automatic.count==='continuous'?automatic.completed+' spins completed':automatic.remaining+' spins remaining';
  queueAutoplay();
 }
 
-function automaticState(){return {...currentState,canStart:session?.canStart()===true,animationRunning:!!animation};}
+function automaticState(){return {...currentState,canStart:canStartVisible(),animationRunning:!!animation};}
 function queueAutoplay(){
  if(autoplayQueued||!currentState||!autoplay.canLaunch(automaticState()))return;
  autoplayQueued=true;
@@ -96,7 +110,7 @@ function queueAutoplay(){
 }
 
 function openAutoplay(){
- const profile=autoplayProfile(game?.id);if(!profile||!session?.canStart()||animation||autoplay.snapshot().active)return;
+ const profile=autoplayProfile(game?.id);if(!profile||!canStartVisible()||animation||autoplay.snapshot().active)return;
  ui.autoplayCount.replaceChildren(...profile.counts.map(value=>option(String(value),value==='continuous'?'Continuous':value+' spins')));
  ui.autoplayCount.value=String(profile.defaultCount);
  ui.autoplayWinRow.hidden=profile.kind!=='modern';
@@ -120,7 +134,7 @@ ui.closeAutoplay.addEventListener('click',()=>ui.autoplayDialog.close());
 ui.stopAutoplay.addEventListener('click',()=>{autoplay.stop('user-stop');if(currentState)drawState(currentState);});
 ui.autoplayForm.addEventListener('submit',event=>{
  event.preventDefault();const profile=autoplayProfile(game?.id);
- if(!profile||!session?.canStart()||animation||autoplay.snapshot().active)return;
+ if(!profile||!canStartVisible()||animation||autoplay.snapshot().active)return;
  try{
   const stake=moneyMinor(ui.stake.value),balance=moneyMinor(currentState.balance);
   if(stake===null||balance===null)throw Error('Refresh your balance before starting autoplay.');
@@ -128,15 +142,45 @@ ui.autoplayForm.addEventListener('submit',event=>{
   ui.autoplayDialog.close();drawState(currentState);
  }catch(error){ui.autoplayError.textContent=error.message;ui.autoplayError.hidden=false;}
 });
+function drawReference(){
+ if(!usesReference()){presentationReady=true;ui.presentationNote.hidden=true;return;}
+ if(pageSuspended){presentationReady=false;return;}
+ const state=currentState;if(!state)return;
+ const key=JSON.stringify([configuredReferenceKey,state.sessionId,state.connected,state.authenticated,state.error,state.balance,state.currency,state.round?.round_id,state.round?.model_version,state.round?.version,state.round?.status,state.pending,state.busy,animation?.index??null,ui.stake.value,scene.width,scene.height]);
+ if(key===presentationKey)return;
+ presentationKey=key;const sequence=++presentationSequence;presentationReady=false;
+ ui.presentationNote.hidden=!state.connected||!state.authenticated||state.error;
+ ui.presentationNote.textContent='Loading game artwork…';positionMineGrid();
+ void referenceScene.draw(state,{frameIndex:animation?.index??null,selectedStake:ui.stake.value,width:scene.width,height:scene.height}).then(result=>{
+  if(sequence!==presentationSequence)return;
+  presentationReady=result.status==='painted';
+  const unavailable=['error','unsupported','disposed'].includes(result.status);
+  ui.presentationNote.hidden=!unavailable;
+  if(unavailable){ui.presentationNote.textContent='Game artwork is unavailable. Refresh to try again.';autoplay.stop('presentation_unavailable');}
+  positionMineGrid();
+  if(currentState)drawState(currentState);
+ });
+}
 function positionMineGrid(){
  if(!game||displayFamily(game)!=='mines')return;
+ if(usesReference()){
+  const geometry=presentationReady?referenceScene.getCoinGeometry(scene.width,scene.height):null;
+  ui.mineGrid.hidden=!geometry;
+  if(!geometry)return;
+  Object.assign(ui.mineGrid.style,{display:'block',left:'0px',top:'0px',width:scene.width+'px',height:scene.height+'px',pointerEvents:'none'});
+  [...ui.mineGrid.children].forEach((button,index)=>{const cell=geometry.cells[index];Object.assign(button.style,{position:'absolute',left:cell.x+'px',top:cell.y+'px',width:cell.width+'px',height:cell.height+'px',margin:'0px',pointerEvents:'auto'});});
+  return;
+ }
+ ui.mineGrid.hidden=false;ui.mineGrid.style.display='grid';ui.mineGrid.style.pointerEvents='';
+ for(const button of ui.mineGrid.children)for(const key of ['position','left','top','width','height','margin','pointerEvents'])button.style[key]='';
  const g=gridGeometry(scene.width,scene.height,5,5,'mines');Object.assign(ui.mineGrid.style,{left:g.x+'px',top:g.y+'px',width:g.w+'px',height:g.h+'px'});
 }
-function resize(){scene.resize();positionMineGrid();}
+function resize(){scene.resize();referenceScene.resize(scene.width,scene.height);presentationKey='';if(currentState)drawState(currentState);else positionMineGrid();}
 function animate(time){
  requestAnimationFrame(animate);if(document.visibilityState==='hidden'||time-lastDraw<(reducedMotion?250:30))return;lastDraw=time;
  if(animation&&time>=animation.next){animation.index++;animation.next=time+animation.duration;if(animation.index>=animation.frames.length){animation=null;drawState(currentState);}else ui.sequenceBadge.textContent='RESULT '+(animation.index+1)+' / '+animation.frames.length;}
- scene.draw(reducedMotion?0:time,{round:currentState?.round,busy:currentState?.busy,frame:animation?presentationFrame(currentState?.round,animation.index):null,preview:!currentState?.round});
+ if(usesReference())drawReference();
+ else scene.draw(reducedMotion?0:time,{round:currentState?.round,busy:currentState?.busy,frame:animation?presentationFrame(currentState?.round,animation.index):null,preview:!currentState?.round});
 }
 function element(tag,text,className){const node=document.createElement(tag);if(text!==undefined)node.textContent=String(text);if(className)node.className=className;return node;}
 function coefficient(value){
@@ -154,7 +198,7 @@ function showRules(){
  if(game.controls?.baseUnitsPerStake)box.append(element('p','One total stake contains '+game.controls.baseUnitsPerStake+' base units. Building multipliers apply to one base unit, not to the full stake.'));
  if(game.ways)box.append(element('p',game.ways+' ways. Matching symbols are evaluated according to the current game rules.'));else if(game.paylines)box.append(element('p',game.paylines+' fixed paylines. The stake shown is the total stake.'));
  if(game.minStake&&game.maxStake)box.append(element('p','Stake range: '+formatMoney(game.minStake)+'–'+formatMoney(game.maxStake)+' ETB.'));
- const symbols=game.symbols||[];if(symbols.length){box.append(element('h3','Symbols'));const legend=element('div',undefined,'symbol-key');symbols.forEach(symbol=>{const item=element('div'),canvas=element('canvas');canvas.width=84;canvas.height=74;canvas.style.width='42px';canvas.style.height='37px';canvas.style.margin='0 auto 6px';drawSymbol(canvas.getContext('2d'),symbol,42,37,63,themeKind(game));item.append(canvas,document.createTextNode(symbol.label));legend.append(item);});box.append(legend);}
+ const symbols=game.symbols||[];if(symbols.length){box.append(element('h3','Symbols'));const legend=element('div',undefined,'symbol-key');symbols.forEach(symbol=>{const item=element('div');if(!usesReference()){const canvas=element('canvas');canvas.width=84;canvas.height=74;canvas.style.width='42px';canvas.style.height='37px';canvas.style.margin='0 auto 6px';drawSymbol(canvas.getContext('2d'),symbol,42,37,63,themeKind(game));item.append(canvas);}item.append(document.createTextNode(symbol.label));legend.append(item);});box.append(legend);}
  const paytable=Array.isArray(game.paytable)?game.paytable:game.paytable&&typeof game.paytable==='object'?Object.entries(game.paytable).map(([symbol,counts])=>({symbol,counts})):[];
  if(paytable.length){
   box.append(element('h3','Paytable'));if(game.math?.payoutBasis)box.append(element('p',String(game.math.payoutBasis)));const bases=[...new Set(paytable.map(entry=>entry.basis).filter(Boolean))];for(const basis of bases)box.append(element('p','Payout basis: '+basis+'.'));
@@ -168,14 +212,18 @@ function showRules(){
  if(currentState?.round){box.append(element('h3','Current round'));box.append(element('p',currentState.round.round_id,'round-reference'));if(currentState.round.commitment)box.append(element('p','Commitment: '+currentState.round.commitment,'round-reference'));}
  ui.rulesDialog.showModal();
 }
-ui.play.addEventListener('click',()=>{if(!session?.canStart()||animation||autoplay.snapshot().active)return;tone('start');const options=game.controls?.mines?{mines:Number(ui.mines.value)}:{};void session.start(ui.stake.value,options);});
-ui.step.addEventListener('click',()=>{if(session?.canAct('step')){tone('pick');void session.act('step');}});
-ui.cashout.addEventListener('click',()=>{if(session?.canAct('cashout'))void session.act('cashout');});
-for(let i=0;i<25;i++){const button=document.createElement('button');button.type='button';button.disabled=true;button.textContent=String(i+1);button.setAttribute('aria-label','Tile '+(i+1)+', unrevealed');button.addEventListener('click',()=>{if(session?.canAct('pick')){tone('pick');void session.act('pick',{index:i});}});ui.mineGrid.append(button);}
+ui.play.addEventListener('click',()=>{if(!canStartVisible()||animation||autoplay.snapshot().active)return;tone('start');const options=game.controls?.mines?{mines:Number(ui.mines.value)}:{};void session.start(ui.stake.value,options);});
+ui.step.addEventListener('click',()=>{if(canActVisible('step')){tone('pick');void session.act('step');}});
+ui.cashout.addEventListener('click',()=>{if(canActVisible('cashout'))void session.act('cashout');});
+for(let i=0;i<25;i++){const button=document.createElement('button');button.type='button';button.disabled=true;button.textContent=String(i+1);button.setAttribute('aria-label','Tile '+(i+1)+', unrevealed');button.addEventListener('click',()=>{if(canActVisible('pick')){tone('pick');void session.act('pick',{index:i});}});ui.mineGrid.append(button);}
 ui.minus.addEventListener('click',()=>{if(!ui.stake.disabled&&ui.stake.selectedIndex>0){ui.stake.selectedIndex--;drawState(currentState);}});
 ui.plus.addEventListener('click',()=>{if(!ui.stake.disabled&&ui.stake.selectedIndex<ui.stake.options.length-1){ui.stake.selectedIndex++;drawState(currentState);}});
 ui.stake.addEventListener('change',()=>{if(currentState)drawState(currentState);});
-ui.refresh.addEventListener('click',()=>{if(session?.pending)void session.retry();else if(session)void session.refresh();});
+ui.refresh.addEventListener('click',()=>{
+ if(!session||explicitRefreshPending)return;
+ explicitRefreshPending=true;referenceScene.invalidate('retry');presentationSequence++;presentationKey='';presentationReady=!usesReference();if(currentState)drawState(currentState);
+ void(session.pending?session.retry():session.refresh()).finally(()=>{explicitRefreshPending=false;if(currentState)drawState(currentState);});
+});
 ui.skip.addEventListener('click',()=>{animation=null;if(currentState)drawState(currentState);});
 ui.help.addEventListener('click',showRules);ui.closeRules.addEventListener('click',()=>ui.rulesDialog.close());
 ui.rulesDialog.addEventListener('click',event=>{if(event.target===ui.rulesDialog){const r=ui.rulesDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)ui.rulesDialog.close();}});
@@ -183,10 +231,11 @@ ui.sound.addEventListener('click',()=>{soundEnabled=!soundEnabled;ui.sound.setAt
 ui.fullScreen.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{ui.fullScreen.hidden=true;}});
 if(!document.documentElement.requestFullscreen)ui.fullScreen.hidden=true;
 window.addEventListener('resize',resize);if(typeof ResizeObserver==='function')new ResizeObserver(resize).observe(ui.stage);
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&session)void session.refresh({quiet:true});});
-window.addEventListener('online',()=>{if(session)void session.refresh({quiet:true});});
-window.addEventListener('offline',()=>{autoplay.stop('disconnected');if(currentState)drawState(currentState);});
-window.addEventListener('pagehide',()=>autoplay.stop('page-left'));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&session&&!explicitRefreshPending)void session.refresh({quiet:true});});
+window.addEventListener('online',()=>{if(session&&!explicitRefreshPending)void session.refresh({quiet:true});});
+window.addEventListener('offline',()=>{autoplay.stop('disconnected');referenceScene.invalidate('offline');presentationSequence++;presentationKey='';presentationReady=!usesReference();if(currentState)drawState({...currentState,connected:false});});
+window.addEventListener('pagehide',()=>{pageSuspended=true;autoplay.stop('page-left');referenceScene.invalidate('page-left');presentationSequence++;presentationKey='';presentationReady=!usesReference();if(currentState)drawState(currentState);});
+window.addEventListener('pageshow',()=>{if(pageSuspended&&session)void session.refresh({quiet:true}).finally(()=>{pageSuspended=false;if(currentState)drawState(currentState);});});
 async function boot(){
  try{
   if(!/^[a-z0-9_]{1,64}$/.test(gameId))throw Error('Game not found');
@@ -195,7 +244,7 @@ async function boot(){
   const found=games.find(item=>item.id===gameId);if(!found)throw Error('This game is still being prepared');
   session=new ExpansionSession({gameId,storage:storage(),onChange:drawState});bindPlayerEvents(window,session);session.setGame(found);await session.refresh();
   requestAnimationFrame(animate);
-  setInterval(()=>{if(!session.state.busy&&document.visibilityState==='visible'&&Date.now()-lastRefresh>(session.state.round?.status==='active'?1800:6000)){lastRefresh=Date.now();void session.refresh({quiet:true});}},1000);
- }catch(error){ui.gameTitle.textContent='Game unavailable';ui.notice.textContent=error.message+'. Return to the lobby and try again.';ui.notice.classList.add('error');ui.accountLink.hidden=false;ui.playLabel.textContent='UNAVAILABLE';ui.connection.lastElementChild.textContent='Offline';}
+  setInterval(()=>{if(!session.state.busy&&!explicitRefreshPending&&document.visibilityState==='visible'&&Date.now()-lastRefresh>(session.state.round?.status==='active'?1800:6000)){lastRefresh=Date.now();void session.refresh({quiet:true});}},1000);
+ }catch(error){referenceScene.invalidate('boot-error');presentationSequence++;presentationReady=false;ui.gameTitle.textContent='Game unavailable';ui.notice.textContent=error.message+'. Return to the lobby and try again.';ui.notice.classList.add('error');ui.accountLink.hidden=false;ui.playLabel.textContent='UNAVAILABLE';ui.connection.lastElementChild.textContent='Offline';}
 }
 void boot();

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "productionLaunchEnabled": false,
+  "games": {
+    "egyptianlegends_native": {
+      "name": "Egyptian Legends",
+      "file": "manifests/egyptianlegends_native.json",
+      "status": "incomplete-static-pose-review",
+      "capabilities": {
+        "originalBackground": true,
+        "originalTitle": true,
+        "sourceAtlasRegions": 338,
+        "derivedStaticSymbols": 8,
+        "expectedSymbols": 11,
+        "weightedStaticPose": true,
+        "animationPlayback": false,
+        "financialActions": false
+      },
+      "missingSymbols": [
+        {
+          "id": "wild",
+          "label": "Wild",
+          "issue": "No finite setup geometry",
+          "setupLayers": 0,
+          "unsupported": [],
+          "missingRegions": []
+        },
+        {
+          "id": "scatter",
+          "label": "Pyramid Scatter",
+          "issue": "Incomplete source setup pose",
+          "setupLayers": 0,
+          "unsupported": [
+            {
+              "code": "CLIPPING_UNSUPPORTED",
+              "path": "skins.default.mask.mask",
+              "detail": "scatter_0006"
+            }
+          ],
+          "missingRegions": []
+        },
+        {
+          "id": "multiplier",
+          "label": "Multiplier",
+          "issue": "Incomplete source setup pose",
+          "setupLayers": 10,
+          "unsupported": [
+            {
+              "code": "ATTACHMENT_UNAVAILABLE",
+              "path": "slots[13]",
+              "detail": "scarab_multi1"
+            },
+            {
+              "code": "BONE_TRANSFORM_UNSUPPORTED",
+              "path": "bones[34].transform",
+              "detail": "noScale"
+            }
+          ],
+          "missingRegions": []
+        }
+      ]
+    },
+    "olympianlegends_native": {
+      "name": "Olympian Legends",
+      "file": "manifests/olympianlegends_native.json",
+      "status": "asset-backed-static-pose-review",
+      "capabilities": {
+        "originalBackground": true,
+        "originalTitle": true,
+        "sourceAtlasRegions": 158,
+        "derivedStaticSymbols": 10,
+        "expectedSymbols": 10,
+        "weightedStaticPose": true,
+        "animationPlayback": false,
+        "financialActions": false
+      },
+      "missingSymbols": []
+    }
+  }
+}
