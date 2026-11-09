@@ -1,0 +1,1 @@
+export const R5_NAMES=["art/7193713ce8e697b7c03ced5f047f3975f6c56158fb177f213b64ccc2e41d8a05.mp3","app.mjs","presentation/smartsoft-remaining7-view.mjs","presentation/smartsoft-native-presentation.mjs","presentation/manifests/burningice10_native.json","presentation/manifests/burningice40_native.json","demo-games.json"];
