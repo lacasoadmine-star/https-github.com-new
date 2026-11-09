@@ -1,0 +1,72 @@
+{
+  "release": "Burning Ice 10/40 native controls r4",
+  "commit": "a3be7aff7b868e2899662e60dbc55c6947f2ceb2",
+  "library": {
+    "success": true,
+    "worker": "superwin-library-100",
+    "deployment": {
+      "id": "3986ad64-9461-44f7-8a00-963635ad66b7"
+    },
+    "rollbackVersion": "2535be54-ed2a-4bb2-8ab1-1a268ff7a545",
+    "hashVerification": "51 complete module hashes; 48 old modules, 3 bindings, assets and credits actor namespace unchanged. Candidate 25 rounds per title, 12 native collects, 50 STOP actions passed.",
+    "financialChanges": false,
+    "versionId": "8ce758c1-7cb7-4f0e-bd62-6d2b010d2656",
+    "versionNumber": 25
+  },
+  "player": {
+    "success": true,
+    "worker": "superwin-player",
+    "deployment": {
+      "id": "cb089290-490d-4ec8-b75d-a88a7781b572"
+    },
+    "rollbackVersion": "d893eb63-054f-4219-9b41-43c188cf8b87",
+    "hashVerification": "261 complete module hashes; 258 old modules, 14 bindings, assets and wallet namespace unchanged. Candidate 50 rounds, 12 native collects, 50 STOP clicks, 3 mobile widths passed.",
+    "financialChanges": false,
+    "versionId": "7554326a-fa3c-46b1-b3c5-839722f63307",
+    "versionNumber": 346
+  },
+  "scope": "Existing two CREDITS deep links; desktop controls correction",
+  "candidatePreview": {
+    "games": 2,
+    "rounds": 50,
+    "stopClicks": 50,
+    "winningCollects": 12,
+    "realWalletMutations": 0,
+    "demoCreditActions": 62
+  },
+  "cashEnabledForNewPair": false,
+  "liveSmoke": [
+    {
+      "game": "burningice10_native",
+      "passed": true,
+      "rounds": 2,
+      "stopClicks": 2,
+      "checks": [
+        "Native stake rows: 1/2/40000 bounds, no modal and no wager/debit",
+        "2 visible SPIN rounds, one start per round, exact BigInt balance conservation",
+        "Reload retains exact final receipt and balance",
+        "Portrait canvas rendered at 360/390/430 widths"
+      ],
+      "jsErrors": 0,
+      "httpErrors": 0,
+      "blockedWrites": 0,
+      "localAssetOverrides": 0
+    },
+    {
+      "game": "burningice40_native",
+      "passed": true,
+      "rounds": 2,
+      "stopClicks": 2,
+      "checks": [
+        "Native stake rows: 1/2/40000 bounds, no modal and no wager/debit",
+        "2 visible SPIN rounds, one start per round, exact BigInt balance conservation",
+        "Reload retains exact final receipt and balance",
+        "Portrait canvas rendered at 360/390/430 widths"
+      ],
+      "jsErrors": 0,
+      "httpErrors": 0,
+      "blockedWrites": 0,
+      "localAssetOverrides": 0
+    }
+  ]
+}
