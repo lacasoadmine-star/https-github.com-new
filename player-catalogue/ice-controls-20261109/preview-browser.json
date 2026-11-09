@@ -1,0 +1,38 @@
+[
+  {
+    "game": "burningice10_native",
+    "scope": "preview",
+    "checks": [
+      "next/previous native stake rows select1/2;40000 boundary disabled; no dialog/debit",
+      "SPIN/STOP produces one accepted2.00 debit; balance conserves stake/payout",
+      "reload retains settled receipt and exact balance",
+      "portrait renders without JavaScript/HTTP failures"
+    ],
+    "round": {
+      "stakeMinor": "200",
+      "payoutMinor": "0",
+      "before": "100000.00",
+      "after": "99998.00"
+    },
+    "errors": [],
+    "http": []
+  },
+  {
+    "game": "burningice40_native",
+    "scope": "preview",
+    "checks": [
+      "next/previous native stake rows select1/2;40000 boundary disabled; no dialog/debit",
+      "SPIN/STOP produces one accepted2.00 debit; balance conserves stake/payout",
+      "reload retains settled receipt and exact balance",
+      "portrait renders without JavaScript/HTTP failures"
+    ],
+    "round": {
+      "stakeMinor": "200",
+      "payoutMinor": "0",
+      "before": "100000.00",
+      "after": "99998.00"
+    },
+    "errors": [],
+    "http": []
+  }
+]
