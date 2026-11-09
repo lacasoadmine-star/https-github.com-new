@@ -1,0 +1,54 @@
+/* Original per-title atlas artwork with captured coordinates. Only additive
+   new SmartSoft clients opt into these selectors; legacy live dialogs do not. */
+dialog[data-smartsoft-dialog]{padding:0;border:0;border-radius:0;max-width:none;max-height:none;background:transparent;box-shadow:none;overflow:visible;color:#fff}
+dialog[data-smartsoft-dialog]::backdrop{background:rgba(3,7,25,.85)}
+dialog[data-smartsoft-dialog]>:not(.smartsoft-native-stage){display:none!important}
+.smartsoft-native-stage{position:relative;width:100%;font-family:SmartSoftDialogRegular,Arial,sans-serif}
+.smartsoft-native-art{display:block;width:100%;height:100%;pointer-events:none}
+.smartsoft-native-stage .smartsoft-native-hit{position:absolute;display:block;margin:0;padding:0;min-width:0;min-height:0;border:0;border-radius:0;box-shadow:none;background:none;color:transparent;font-size:0;touch-action:manipulation;cursor:pointer}
+.smartsoft-native-hit:focus-visible{outline:2px solid #fff!important;outline-offset:2px}
+.smartsoft-native-hit:disabled{cursor:default;filter:none}
+.smartsoft-native-stage .smartsoft-native-input{position:absolute;box-sizing:border-box;border:0;border-radius:0;min-width:0;min-height:0;margin:0;padding:0;background:transparent;color:#fff;outline:none;font-family:SmartSoftDialogCaps,Arial,sans-serif;line-height:1}
+.smartsoft-native-input:disabled{opacity:.45}
+.smartsoft-native-input:focus-visible{outline:1px solid #fff}
+.smartsoft-native-toggle{position:absolute;margin:0;padding:0;opacity:0;cursor:pointer}
+.smartsoft-native-toggle:focus-visible{opacity:.2;outline:2px solid #fff}
+.smartsoft-native-form{display:none!important}
+.smartsoft-native-error,.smartsoft-native-status{position:absolute;left:3%;right:3%;bottom:-30px;min-height:20px;margin:0;background:rgba(4,17,23,.94);padding:4px;color:white;font:12px/1.25 Arial,sans-serif;text-align:center}
+.smartsoft-native-status:empty{display:none}
+.smartsoft-native-description{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.smartsoft-native-stage .smartsoft-bet-close{left:auto;right:0;top:-35px;width:32px;height:32px;font:28px/32px Arial,sans-serif;color:#fff;background:rgba(0,0,0,.65);border-radius:50%}
+/* Public legacy .autoplay stylesheet, scoped to the three NEW Burning games.
+   Shared Common image bytes are unchanged and independently hash verified. */
+dialog[data-smartsoft-legacy-auto]{position:fixed;inset:26px 0 0;margin:0;width:100%;height:calc(100% - 26px);overflow:auto;background:rgba(9,12,19,.5)}
+.smartsoft-legacy-auto{box-sizing:border-box;min-height:100%;padding:0 30px;background:rgba(9,12,19,.9);border:1px solid #e8083e}
+.smartsoft-legacy-auto>.head{height:70px;line-height:55px;text-align:left;font:18px/55px SmartSoftDialogCaps,Arial,sans-serif;position:relative;color:#fff}
+.smartsoft-legacy-auto>.head>.close{position:absolute;right:0;top:10px;width:38px;height:38px;min-width:0;min-height:0;padding:0;border:0;border-radius:0;background:var(--native-close) center/cover no-repeat;cursor:pointer;box-shadow:none}
+.smartsoft-legacy-auto>.head>.close:hover{background-image:var(--native-close-hover)}
+.smartsoft-legacy-auto>.spins{height:50px;text-align:center;white-space:nowrap}
+.smartsoft-legacy-auto>.spins>button{display:inline-block;width:45px;height:45px;min-height:0;padding:0;margin:0 4px;border:1px solid #3a3d41;border-radius:0;background:rgba(0,0,0,.3);font:30px/45px SmartSoftDialogCaps,Arial,sans-serif;color:rgba(255,255,255,.75);vertical-align:top;cursor:pointer;box-shadow:none}
+.smartsoft-legacy-auto>.spins>button:hover{border-color:#4f091f}
+.smartsoft-legacy-auto>.spins>button.active{border-color:#ef0139;background:#ef0139;color:#fff}
+.smartsoft-legacy-auto>.spins>button.infinite{background:rgba(0,0,0,.7) var(--native-infinite) center/cover no-repeat;opacity:.75}
+.smartsoft-legacy-auto>.spins>button.infinite.active{background:#ef0139 var(--native-infinite) center/cover no-repeat;opacity:1}
+.smartsoft-legacy-auto>.info{padding-bottom:25px}
+.smartsoft-legacy-auto>.info>.left,.smartsoft-legacy-auto>.info>.right{display:block;width:100%;vertical-align:top}
+.smartsoft-legacy-auto .info .head{height:40px;border-bottom:1px solid #860016;font:14px/40px SmartSoftDialogCaps,Arial,sans-serif;color:#fff}
+.smartsoft-legacy-auto .info .row{height:30px;line-height:30px}
+.smartsoft-legacy-auto .info .caption{display:inline;font:12px/30px SmartSoftDialogRegular,Arial,sans-serif;color:rgba(255,255,255,.8)}
+.smartsoft-legacy-auto .info .input{float:right;position:relative;width:105px;height:18px;margin-top:6px;border:1px solid rgba(161,161,161,.3);border-radius:9px;background:rgba(0,0,0,.3)}
+.smartsoft-legacy-auto .info .input:after{content:'';position:absolute;left:55px;top:2px;width:2px;height:14px;background:#ff0054}
+.smartsoft-legacy-auto .info .input input{position:absolute;left:5px;top:0;box-sizing:content-box;width:40px;height:18px;min-height:0;min-width:0;padding:0 5px;margin:0;background:none;border:0;border-radius:0;font:14px/18px SmartSoftDialogRegular,Arial,sans-serif;color:#fff}
+.smartsoft-legacy-auto .info .input .currency{position:absolute;right:5px;top:0;width:45px;height:20px;font:14px/18px SmartSoftDialogRegular,Arial,sans-serif;color:#fff;text-align:center}
+.smartsoft-legacy-auto .info .checkbox{float:right;position:relative;display:block;width:55px;height:18px;margin-top:6px;border:1px solid rgba(161,161,161,.3);border-radius:9px;background:rgba(0,0,0,.3)}
+.smartsoft-legacy-auto .info .checkbox span{position:absolute;inset:0;opacity:.7;cursor:pointer}
+.smartsoft-legacy-auto .info .checkbox span:before{content:'';position:absolute;left:0;top:-2px;width:20px;height:20px;background:var(--native-checkbox) center/cover no-repeat;transition:transform .4s;opacity:.7}
+.smartsoft-legacy-auto .info .checkbox input{position:absolute;inset:0;opacity:0;width:100%;height:100%;margin:0;z-index:2;cursor:pointer}
+.smartsoft-legacy-auto .info .checkbox input:checked+span{opacity:1}
+.smartsoft-legacy-auto .info .checkbox input:checked+span:before{transform:translateX(35px);opacity:1}
+.smartsoft-legacy-auto .info .checkbox input:focus-visible+span{outline:2px solid #fff}
+.smartsoft-legacy-auto>.buttons{height:34px;padding-bottom:20px}
+.smartsoft-legacy-auto>.buttons>button{display:block;width:100%;height:34px;min-height:0;margin:0 auto;padding:0;border:1px solid rgba(255,0,0,.9);border-radius:0;background:rgba(235,4,58,.9);font:18px/34px SmartSoftDialogCaps,Arial,sans-serif;color:#fff;text-align:center;cursor:pointer}
+.smartsoft-legacy-auto>.buttons>button:hover{box-shadow:0 0 5px #ff4344}
+.smartsoft-legacy-error{font:14px/1.4 SmartSoftDialogRegular,Arial,sans-serif;color:#fff}
+@media(orientation:landscape){.smartsoft-legacy-auto>.head{text-align:center}.smartsoft-legacy-auto>.info>.left,.smartsoft-legacy-auto>.info>.right{display:inline-block;width:calc(50% - 10px)}.smartsoft-legacy-auto>.info>.left{margin-right:7px}.smartsoft-legacy-auto>.info>.right{margin-left:7px}.smartsoft-legacy-auto>.buttons>button{max-width:300px}}

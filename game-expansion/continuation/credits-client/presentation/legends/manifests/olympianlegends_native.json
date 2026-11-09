@@ -1,0 +1,912 @@
+{
+  "schemaVersion": 1,
+  "id": "olympianlegends_native",
+  "name": "Olympian Legends",
+  "source": {
+    "url": "https://cdn.galaxsys-games.com/gsl-client/prd/gsl-olympianlegends-client/v165/240.js",
+    "sha256": "4b2b922650f80404d0bf6d85d3da414c6a7637b04d9d5fc9343a7c11733a5281"
+  },
+  "officialPage": "https://galaxsys.co/games/Olympian-Legends/",
+  "productionLaunchEnabled": false,
+  "status": "asset-backed-static-pose-review",
+  "grid": {
+    "columns": 6,
+    "rows": 5
+  },
+  "expectedSymbols": [
+    {
+      "id": "majorYellow",
+      "label": "Major yellow gem",
+      "providerId": 2
+    },
+    {
+      "id": "majorRed",
+      "label": "Major red gem",
+      "providerId": 3
+    },
+    {
+      "id": "majorBlue",
+      "label": "Major blue gem",
+      "providerId": 4
+    },
+    {
+      "id": "majorGreen",
+      "label": "Major green gem",
+      "providerId": 5
+    },
+    {
+      "id": "simpleYellow",
+      "label": "Yellow gem",
+      "providerId": 6
+    },
+    {
+      "id": "simpleRed",
+      "label": "Red gem",
+      "providerId": 7
+    },
+    {
+      "id": "simpleBlue",
+      "label": "Blue gem",
+      "providerId": 8
+    },
+    {
+      "id": "simpleGreen",
+      "label": "Green gem",
+      "providerId": 9
+    },
+    {
+      "id": "wild",
+      "label": "Wild",
+      "providerId": 1
+    },
+    {
+      "id": "scatter",
+      "label": "Scatter",
+      "providerId": 10
+    }
+  ],
+  "symbols": {
+    "majorYellow": {
+      "label": "Major yellow gem",
+      "providerId": 2,
+      "frame": "symbols/majorYellow",
+      "sourceLayerCount": 3
+    },
+    "majorRed": {
+      "label": "Major red gem",
+      "providerId": 3,
+      "frame": "symbols/majorRed",
+      "sourceLayerCount": 3
+    },
+    "majorBlue": {
+      "label": "Major blue gem",
+      "providerId": 4,
+      "frame": "symbols/majorBlue",
+      "sourceLayerCount": 3
+    },
+    "majorGreen": {
+      "label": "Major green gem",
+      "providerId": 5,
+      "frame": "symbols/majorGreen",
+      "sourceLayerCount": 6
+    },
+    "simpleYellow": {
+      "label": "Yellow gem",
+      "providerId": 6,
+      "frame": "symbols/simpleYellow",
+      "sourceLayerCount": 2
+    },
+    "simpleRed": {
+      "label": "Red gem",
+      "providerId": 7,
+      "frame": "symbols/simpleRed",
+      "sourceLayerCount": 2
+    },
+    "simpleBlue": {
+      "label": "Blue gem",
+      "providerId": 8,
+      "frame": "symbols/simpleBlue",
+      "sourceLayerCount": 2
+    },
+    "simpleGreen": {
+      "label": "Green gem",
+      "providerId": 9,
+      "frame": "symbols/simpleGreen",
+      "sourceLayerCount": 2
+    },
+    "wild": {
+      "label": "Wild",
+      "providerId": 1,
+      "frame": "symbols/wild",
+      "sourceLayerCount": 11
+    },
+    "scatter": {
+      "label": "Scatter",
+      "providerId": 10,
+      "frame": "symbols/scatter",
+      "sourceLayerCount": 9
+    }
+  },
+  "frames": {
+    "controls/spin": {
+      "name": "controls/spin",
+      "file": "fe092dd56cb5f9528a300e7dd1e761b347f3490753abd8f226b8ec5972bcc087.webp",
+      "textureSha256": "fe092dd56cb5f9528a300e7dd1e761b347f3490753abd8f226b8ec5972bcc087",
+      "x": 2,
+      "y": 794,
+      "width": 283,
+      "height": 281,
+      "packedWidth": 283,
+      "packedHeight": 281,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 359,
+        "y": 359,
+        "width": 283,
+        "height": 281
+      },
+      "original": {
+        "width": 1000,
+        "height": 1000
+      }
+    },
+    "symbols/majorYellow": {
+      "name": "symbols/majorYellow",
+      "file": "e9f2a9bd5f8921eb5703a6befae46150f8a6b8a6654d992d957d102cd7cbe210.png",
+      "textureSha256": "e9f2a9bd5f8921eb5703a6befae46150f8a6b8a6654d992d957d102cd7cbe210",
+      "x": 9,
+      "y": 7,
+      "width": 230,
+      "height": 231,
+      "packedWidth": 230,
+      "packedHeight": 231,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 230,
+        "height": 231
+      },
+      "original": {
+        "width": 230,
+        "height": 231
+      }
+    },
+    "symbols/majorRed": {
+      "name": "symbols/majorRed",
+      "file": "77f0105d1e2ea4f88bb50315018e32ecb939cc3c53e30a59cecb8328d11b1ffb.png",
+      "textureSha256": "77f0105d1e2ea4f88bb50315018e32ecb939cc3c53e30a59cecb8328d11b1ffb",
+      "x": 7,
+      "y": 7,
+      "width": 242,
+      "height": 242,
+      "packedWidth": 242,
+      "packedHeight": 242,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 242,
+        "height": 242
+      },
+      "original": {
+        "width": 242,
+        "height": 242
+      }
+    },
+    "symbols/majorBlue": {
+      "name": "symbols/majorBlue",
+      "file": "4802ec9560f38d28e13b3c13e3ad49a8fe5b41cb26bfe102ddd928fdc19dc107.png",
+      "textureSha256": "4802ec9560f38d28e13b3c13e3ad49a8fe5b41cb26bfe102ddd928fdc19dc107",
+      "x": 7,
+      "y": 7,
+      "width": 242,
+      "height": 242,
+      "packedWidth": 242,
+      "packedHeight": 242,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 242,
+        "height": 242
+      },
+      "original": {
+        "width": 242,
+        "height": 242
+      }
+    },
+    "symbols/majorGreen": {
+      "name": "symbols/majorGreen",
+      "file": "5f2b03ca788fd2581182c013c70dcc2586b8d0d5b1d915fe2774796c416e53d6.png",
+      "textureSha256": "5f2b03ca788fd2581182c013c70dcc2586b8d0d5b1d915fe2774796c416e53d6",
+      "x": 8,
+      "y": 7,
+      "width": 240,
+      "height": 242,
+      "packedWidth": 240,
+      "packedHeight": 242,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 240,
+        "height": 242
+      },
+      "original": {
+        "width": 240,
+        "height": 242
+      }
+    },
+    "symbols/simpleYellow": {
+      "name": "symbols/simpleYellow",
+      "file": "7b4938db3cff84f1d082142de0b9fdd2552e458400785cc9130d772b3ee8b18a.png",
+      "textureSha256": "7b4938db3cff84f1d082142de0b9fdd2552e458400785cc9130d772b3ee8b18a",
+      "x": 10,
+      "y": 16,
+      "width": 236,
+      "height": 225,
+      "packedWidth": 236,
+      "packedHeight": 225,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 236,
+        "height": 225
+      },
+      "original": {
+        "width": 236,
+        "height": 225
+      }
+    },
+    "symbols/simpleRed": {
+      "name": "symbols/simpleRed",
+      "file": "3ff80b8c54a64b6169e6af470e0d5bb5932ced1e230bb2f930dc61c0b68c7aa8.png",
+      "textureSha256": "3ff80b8c54a64b6169e6af470e0d5bb5932ced1e230bb2f930dc61c0b68c7aa8",
+      "x": 19,
+      "y": 10,
+      "width": 218,
+      "height": 236,
+      "packedWidth": 218,
+      "packedHeight": 236,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 218,
+        "height": 236
+      },
+      "original": {
+        "width": 218,
+        "height": 236
+      }
+    },
+    "symbols/simpleBlue": {
+      "name": "symbols/simpleBlue",
+      "file": "a87a1c4ff5e6ba58633567b9ab7b4a5d19009b9379aeaf680207eca977abaa09.png",
+      "textureSha256": "a87a1c4ff5e6ba58633567b9ab7b4a5d19009b9379aeaf680207eca977abaa09",
+      "x": 21,
+      "y": 10,
+      "width": 214,
+      "height": 236,
+      "packedWidth": 214,
+      "packedHeight": 236,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 214,
+        "height": 236
+      },
+      "original": {
+        "width": 214,
+        "height": 236
+      }
+    },
+    "symbols/simpleGreen": {
+      "name": "symbols/simpleGreen",
+      "file": "436e72040a42d802737b0d1245a034b1c92d6a48eb2de952e54a35f6212dfeba.png",
+      "textureSha256": "436e72040a42d802737b0d1245a034b1c92d6a48eb2de952e54a35f6212dfeba",
+      "x": 18,
+      "y": 10,
+      "width": 219,
+      "height": 235,
+      "packedWidth": 219,
+      "packedHeight": 235,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 219,
+        "height": 235
+      },
+      "original": {
+        "width": 219,
+        "height": 235
+      }
+    },
+    "symbols/wild": {
+      "name": "symbols/wild",
+      "file": "6cdcdc318973ca46665c67fb219bd958e82326cd925236a413824561b5d80ce3.png",
+      "textureSha256": "6cdcdc318973ca46665c67fb219bd958e82326cd925236a413824561b5d80ce3",
+      "x": 12,
+      "y": 7,
+      "width": 232,
+      "height": 239,
+      "packedWidth": 232,
+      "packedHeight": 239,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 232,
+        "height": 239
+      },
+      "original": {
+        "width": 232,
+        "height": 239
+      }
+    },
+    "symbols/scatter": {
+      "name": "symbols/scatter",
+      "file": "9f4039631db057468c7f6b8b26dabc83f065f7cf1c53ce6412b832ea7c2d1e68.png",
+      "textureSha256": "9f4039631db057468c7f6b8b26dabc83f065f7cf1c53ce6412b832ea7c2d1e68",
+      "x": 27,
+      "y": 20,
+      "width": 202,
+      "height": 214,
+      "packedWidth": 202,
+      "packedHeight": 214,
+      "rotated": false,
+      "unrotateDegrees": 0,
+      "trim": {
+        "x": 0,
+        "y": 0,
+        "width": 202,
+        "height": 214
+      },
+      "original": {
+        "width": 202,
+        "height": 214
+      }
+    }
+  },
+  "files": {
+    "08a48c20de9ef60b1c664302f0d5e4ec06de01dc8b72c6a77a24efcf44d5a832.woff": {
+      "sha256": "08a48c20de9ef60b1c664302f0d5e4ec06de01dc8b72c6a77a24efcf44d5a832",
+      "bytes": 68080,
+      "mimeType": "font/woff",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/common/fonts/RubikBold/RubikBold.woff",
+      "kind": "original-public-static-asset"
+    },
+    "29816502edf4167e9422457c31f67af5898e676be745c3d8589df9c961a27e17.mp3": {
+      "sha256": "29816502edf4167e9422457c31f67af5898e676be745c3d8589df9c961a27e17",
+      "bytes": 834400,
+      "mimeType": "audio/mpeg",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/audio/background-music.mp3",
+      "kind": "original-public-static-asset"
+    },
+    "0531f6a9dda14acf0c361101d94dff3be64b9ace808d1d31cd4cf1419f109078.mp3": {
+      "sha256": "0531f6a9dda14acf0c361101d94dff3be64b9ace808d1d31cd4cf1419f109078",
+      "bytes": 2985705,
+      "mimeType": "audio/mpeg",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/audio/sounds.mp3",
+      "kind": "original-public-static-asset"
+    },
+    "7d4de09b59afa8fb5a409d58592a31146fa466c132e89ccc1864f63222f2f65e.webp": {
+      "sha256": "7d4de09b59afa8fb5a409d58592a31146fa466c132e89ccc1864f63222f2f65e",
+      "bytes": 123134,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/background.webp",
+      "kind": "original-public-static-asset"
+    },
+    "e9cbfa1fad7676e4ff9682964cf0ecb03ea656a4cadf72d3574a8c82541b7ae1.webp": {
+      "sha256": "e9cbfa1fad7676e4ff9682964cf0ecb03ea656a4cadf72d3574a8c82541b7ae1",
+      "bytes": 40794,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/backgroundActive.webp",
+      "kind": "original-public-static-asset"
+    },
+    "556010dfe5fee72f17597e98ba6afa700a39d64961b26c516e25aa18bc783371.webp": {
+      "sha256": "556010dfe5fee72f17597e98ba6afa700a39d64961b26c516e25aa18bc783371",
+      "bytes": 300,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/BetPart/autoPlayButton/auto_play_icon.webp",
+      "kind": "original-public-static-asset"
+    },
+    "13c0a3209e4803841566e25fa527d0a0defd892bbbea1faa4f18b77535bd111b.webp": {
+      "sha256": "13c0a3209e4803841566e25fa527d0a0defd892bbbea1faa4f18b77535bd111b",
+      "bytes": 28562,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/BetPart/betButton/bet_button_bg.webp",
+      "kind": "original-public-static-asset"
+    },
+    "703a3ee1e2af2df4b08352de85ac3a2134a269b3e10b90ab094f945e441b3f28.webp": {
+      "sha256": "703a3ee1e2af2df4b08352de85ac3a2134a269b3e10b90ab094f945e441b3f28",
+      "bytes": 488,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/BetPart/betButton/spin_stop_icon.webp",
+      "kind": "original-public-static-asset"
+    },
+    "c3b3d7111e8f97fb10e9f4d4c6cde3635ddbf122709f492de44c57be81073a1d.webp": {
+      "sha256": "c3b3d7111e8f97fb10e9f4d4c6cde3635ddbf122709f492de44c57be81073a1d",
+      "bytes": 398,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/boardViewMask.webp",
+      "kind": "original-public-static-asset"
+    },
+    "76ea15ffc4916768be02ed631d835ac95c61b3bd1f64e51705d60cb122bd0f67.webp": {
+      "sha256": "76ea15ffc4916768be02ed631d835ac95c61b3bd1f64e51705d60cb122bd0f67",
+      "bytes": 22204,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/buyBonusBtn/buy_bonus.webp",
+      "kind": "original-public-static-asset"
+    },
+    "7f096bc96642fb8ff3600de03969f0b2d0c79571040dd201c58e316397284b35.webp": {
+      "sha256": "7f096bc96642fb8ff3600de03969f0b2d0c79571040dd201c58e316397284b35",
+      "bytes": 33944,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/logo.webp",
+      "kind": "original-public-static-asset"
+    },
+    "1f36b5a69cdfd9e21316d0b22d2906621e2e8eb12fc2156235fece887ff074f7.webp": {
+      "sha256": "1f36b5a69cdfd9e21316d0b22d2906621e2e8eb12fc2156235fece887ff074f7",
+      "bytes": 45982,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/progressBar/blue.webp",
+      "kind": "original-public-static-asset"
+    },
+    "2c11572dad6da75caaa5bcc77235d98e4c3923572d1f19057fd22d8a25dc2ea8.webp": {
+      "sha256": "2c11572dad6da75caaa5bcc77235d98e4c3923572d1f19057fd22d8a25dc2ea8",
+      "bytes": 13994,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/progressBar/default.webp",
+      "kind": "original-public-static-asset"
+    },
+    "3793912dbf7803052328dd460587160be546a888ccdeece794e6127b2ec379e1.webp": {
+      "sha256": "3793912dbf7803052328dd460587160be546a888ccdeece794e6127b2ec379e1",
+      "bytes": 46880,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/progressBar/yellow.webp",
+      "kind": "original-public-static-asset"
+    },
+    "4e9f2ff2110e324811744b3ebd77162c93d62877912e91b0b0d90cc0cd918856.webp": {
+      "sha256": "4e9f2ff2110e324811744b3ebd77162c93d62877912e91b0b0d90cc0cd918856",
+      "bytes": 34542,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/slotBoard.webp",
+      "kind": "original-public-static-asset"
+    },
+    "55acadf6fcd0217452e806e6e3e54c73d4ca56bb5255947e3c19619c52097507.webp": {
+      "sha256": "55acadf6fcd0217452e806e6e3e54c73d4ca56bb5255947e3c19619c52097507",
+      "bytes": 23044,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/slotBoardBgPortrait.webp",
+      "kind": "original-public-static-asset"
+    },
+    "6f0f5a1e9561ed958a87b60684e7dc4252fb73190b62eed18761a032f1a4a16f.atlas": {
+      "sha256": "6f0f5a1e9561ed958a87b60684e7dc4252fb73190b62eed18761a032f1a4a16f",
+      "bytes": 9071,
+      "mimeType": "text/plain",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/icons.atlas",
+      "kind": "original-public-static-asset"
+    },
+    "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e.webp": {
+      "sha256": "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e",
+      "bytes": 3147866,
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/icons.webp",
+      "kind": "original-public-static-asset"
+    },
+    "13f6b654e13bc9b11156d5b96b6bc6694bde3d0f73931b61c148593a4d0df3ba.json": {
+      "sha256": "13f6b654e13bc9b11156d5b96b6bc6694bde3d0f73931b61c148593a4d0df3ba",
+      "bytes": 22657,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorBlue.json",
+      "kind": "original-public-static-asset"
+    },
+    "431ad84b84ced4d077a46e22f6a07a5f041aab3c94a852a1be7de4cbb52dacb9.json": {
+      "sha256": "431ad84b84ced4d077a46e22f6a07a5f041aab3c94a852a1be7de4cbb52dacb9",
+      "bytes": 50164,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorGreen.json",
+      "kind": "original-public-static-asset"
+    },
+    "a9d65872b37a5cf1cfcb377e62fc853b5a4c3c33e052741f8c7cb1c336df2dce.json": {
+      "sha256": "a9d65872b37a5cf1cfcb377e62fc853b5a4c3c33e052741f8c7cb1c336df2dce",
+      "bytes": 6840,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorRed.json",
+      "kind": "original-public-static-asset"
+    },
+    "d2838429e4662d54b7c8ca0496fc7a9764bb9b015c725265e294ba288cabe406.json": {
+      "sha256": "d2838429e4662d54b7c8ca0496fc7a9764bb9b015c725265e294ba288cabe406",
+      "bytes": 34203,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorYellow.json",
+      "kind": "original-public-static-asset"
+    },
+    "6d1336a9fe91e486a86ee5217a7ed79895183e56cf733b4abff364e0ea496ea5.json": {
+      "sha256": "6d1336a9fe91e486a86ee5217a7ed79895183e56cf733b4abff364e0ea496ea5",
+      "bytes": 55056,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/scatter.json",
+      "kind": "original-public-static-asset"
+    },
+    "32c64049e6358688c6d3e1187ff9836493c50a401ce7c7ce0c3ac1f5bfb5aef0.json": {
+      "sha256": "32c64049e6358688c6d3e1187ff9836493c50a401ce7c7ce0c3ac1f5bfb5aef0",
+      "bytes": 3636,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleBlue.json",
+      "kind": "original-public-static-asset"
+    },
+    "6baa440397546197bf8a315662a81646c7e6aaabc41e8191a2743ba72927a285.json": {
+      "sha256": "6baa440397546197bf8a315662a81646c7e6aaabc41e8191a2743ba72927a285",
+      "bytes": 3767,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleGreen.json",
+      "kind": "original-public-static-asset"
+    },
+    "2372e791ccab52cba14d25774dd3bf81288d5d0e80e9c894535304361791c703.json": {
+      "sha256": "2372e791ccab52cba14d25774dd3bf81288d5d0e80e9c894535304361791c703",
+      "bytes": 3635,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleRed.json",
+      "kind": "original-public-static-asset"
+    },
+    "c64b1807b24c8da7c82e50e175491aab81f946f040d7f04c2a9ae82bf88f4285.json": {
+      "sha256": "c64b1807b24c8da7c82e50e175491aab81f946f040d7f04c2a9ae82bf88f4285",
+      "bytes": 3229,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleYellow.json",
+      "kind": "original-public-static-asset"
+    },
+    "db841cadf8e56b2ff66f7e2378eee62c94b4319ac0e178c6dc41da889519139a.json": {
+      "sha256": "db841cadf8e56b2ff66f7e2378eee62c94b4319ac0e178c6dc41da889519139a",
+      "bytes": 22569,
+      "mimeType": "application/json",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/wild.json",
+      "kind": "original-public-static-asset"
+    },
+    "fe092dd56cb5f9528a300e7dd1e761b347f3490753abd8f226b8ec5972bcc087.webp": {
+      "bytes": 75576,
+      "sha256": "fe092dd56cb5f9528a300e7dd1e761b347f3490753abd8f226b8ec5972bcc087",
+      "mimeType": "image/webp",
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/betButton/button.webp",
+      "kind": "original-public-static-asset"
+    },
+    "e9f2a9bd5f8921eb5703a6befae46150f8a6b8a6654d992d957d102cd7cbe210.png": {
+      "bytes": 108944,
+      "sha256": "e9f2a9bd5f8921eb5703a6befae46150f8a6b8a6654d992d957d102cd7cbe210",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorYellow.json",
+        "sha256": "d2838429e4662d54b7c8ca0496fc7a9764bb9b015c725265e294ba288cabe406"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "77f0105d1e2ea4f88bb50315018e32ecb939cc3c53e30a59cecb8328d11b1ffb.png": {
+      "bytes": 88208,
+      "sha256": "77f0105d1e2ea4f88bb50315018e32ecb939cc3c53e30a59cecb8328d11b1ffb",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorRed.json",
+        "sha256": "a9d65872b37a5cf1cfcb377e62fc853b5a4c3c33e052741f8c7cb1c336df2dce"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "4802ec9560f38d28e13b3c13e3ad49a8fe5b41cb26bfe102ddd928fdc19dc107.png": {
+      "bytes": 105824,
+      "sha256": "4802ec9560f38d28e13b3c13e3ad49a8fe5b41cb26bfe102ddd928fdc19dc107",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorBlue.json",
+        "sha256": "13f6b654e13bc9b11156d5b96b6bc6694bde3d0f73931b61c148593a4d0df3ba"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "5f2b03ca788fd2581182c013c70dcc2586b8d0d5b1d915fe2774796c416e53d6.png": {
+      "bytes": 106192,
+      "sha256": "5f2b03ca788fd2581182c013c70dcc2586b8d0d5b1d915fe2774796c416e53d6",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/majorGreen.json",
+        "sha256": "431ad84b84ced4d077a46e22f6a07a5f041aab3c94a852a1be7de4cbb52dacb9"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "7b4938db3cff84f1d082142de0b9fdd2552e458400785cc9130d772b3ee8b18a.png": {
+      "bytes": 53454,
+      "sha256": "7b4938db3cff84f1d082142de0b9fdd2552e458400785cc9130d772b3ee8b18a",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleYellow.json",
+        "sha256": "c64b1807b24c8da7c82e50e175491aab81f946f040d7f04c2a9ae82bf88f4285"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "3ff80b8c54a64b6169e6af470e0d5bb5932ced1e230bb2f930dc61c0b68c7aa8.png": {
+      "bytes": 56607,
+      "sha256": "3ff80b8c54a64b6169e6af470e0d5bb5932ced1e230bb2f930dc61c0b68c7aa8",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleRed.json",
+        "sha256": "2372e791ccab52cba14d25774dd3bf81288d5d0e80e9c894535304361791c703"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "a87a1c4ff5e6ba58633567b9ab7b4a5d19009b9379aeaf680207eca977abaa09.png": {
+      "bytes": 59296,
+      "sha256": "a87a1c4ff5e6ba58633567b9ab7b4a5d19009b9379aeaf680207eca977abaa09",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleBlue.json",
+        "sha256": "32c64049e6358688c6d3e1187ff9836493c50a401ce7c7ce0c3ac1f5bfb5aef0"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "436e72040a42d802737b0d1245a034b1c92d6a48eb2de952e54a35f6212dfeba.png": {
+      "bytes": 54462,
+      "sha256": "436e72040a42d802737b0d1245a034b1c92d6a48eb2de952e54a35f6212dfeba",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/simpleGreen.json",
+        "sha256": "6baa440397546197bf8a315662a81646c7e6aaabc41e8191a2743ba72927a285"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "6cdcdc318973ca46665c67fb219bd958e82326cd925236a413824561b5d80ce3.png": {
+      "bytes": 94575,
+      "sha256": "6cdcdc318973ca46665c67fb219bd958e82326cd925236a413824561b5d80ce3",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/wild.json",
+        "sha256": "db841cadf8e56b2ff66f7e2378eee62c94b4319ac0e178c6dc41da889519139a"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    },
+    "9f4039631db057468c7f6b8b26dabc83f065f7cf1c53ce6412b832ea7c2d1e68.png": {
+      "bytes": 78583,
+      "sha256": "9f4039631db057468c7f6b8b26dabc83f065f7cf1c53ce6412b832ea7c2d1e68",
+      "kind": "derived-static-spine-setup-pose",
+      "skeletonSource": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/icons/scatter.json",
+        "sha256": "6d1336a9fe91e486a86ee5217a7ed79895183e56cf733b4abff364e0ea496ea5"
+      },
+      "atlasSourceHashes": [
+        "3746b3f1eed18d65f008f8e12cac8ef80e269217e251f92b060ef08da40ae97e"
+      ]
+    }
+  },
+  "images": {
+    "logo": {
+      "file": "7f096bc96642fb8ff3600de03969f0b2d0c79571040dd201c58e316397284b35.webp",
+      "sha256": "7f096bc96642fb8ff3600de03969f0b2d0c79571040dd201c58e316397284b35",
+      "width": 272,
+      "height": 101,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/logo.webp"
+    },
+    "background": {
+      "file": "7d4de09b59afa8fb5a409d58592a31146fa466c132e89ccc1864f63222f2f65e.webp",
+      "sha256": "7d4de09b59afa8fb5a409d58592a31146fa466c132e89ccc1864f63222f2f65e",
+      "width": 750,
+      "height": 1180,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/background.webp"
+    },
+    "bonusBackground": {
+      "file": "e9cbfa1fad7676e4ff9682964cf0ecb03ea656a4cadf72d3574a8c82541b7ae1.webp",
+      "sha256": "e9cbfa1fad7676e4ff9682964cf0ecb03ea656a4cadf72d3574a8c82541b7ae1",
+      "width": 750,
+      "height": 1180,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/backgroundActive.webp"
+    },
+    "board": {
+      "file": "4e9f2ff2110e324811744b3ebd77162c93d62877912e91b0b0d90cc0cd918856.webp",
+      "sha256": "4e9f2ff2110e324811744b3ebd77162c93d62877912e91b0b0d90cc0cd918856",
+      "width": 702,
+      "height": 520,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/slotBoard.webp"
+    },
+    "boardBackground": {
+      "file": "55acadf6fcd0217452e806e6e3e54c73d4ca56bb5255947e3c19619c52097507.webp",
+      "sha256": "55acadf6fcd0217452e806e6e3e54c73d4ca56bb5255947e3c19619c52097507",
+      "width": 686,
+      "height": 506,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/slotBoardBgPortrait.webp"
+    },
+    "mask": {
+      "file": "c3b3d7111e8f97fb10e9f4d4c6cde3635ddbf122709f492de44c57be81073a1d.webp",
+      "sha256": "c3b3d7111e8f97fb10e9f4d4c6cde3635ddbf122709f492de44c57be81073a1d",
+      "width": 702,
+      "height": 520,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/boardViewMask.webp"
+    },
+    "spin": {
+      "file": "13c0a3209e4803841566e25fa527d0a0defd892bbbea1faa4f18b77535bd111b.webp",
+      "sha256": "13c0a3209e4803841566e25fa527d0a0defd892bbbea1faa4f18b77535bd111b",
+      "width": 172,
+      "height": 172,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/BetPart/betButton/bet_button_bg.webp"
+    },
+    "stop": {
+      "file": "703a3ee1e2af2df4b08352de85ac3a2134a269b3e10b90ab094f945e441b3f28.webp",
+      "sha256": "703a3ee1e2af2df4b08352de85ac3a2134a269b3e10b90ab094f945e441b3f28",
+      "width": 122,
+      "height": 122,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/BetPart/betButton/spin_stop_icon.webp"
+    },
+    "autoPlay": {
+      "file": "556010dfe5fee72f17597e98ba6afa700a39d64961b26c516e25aa18bc783371.webp",
+      "sha256": "556010dfe5fee72f17597e98ba6afa700a39d64961b26c516e25aa18bc783371",
+      "width": 48,
+      "height": 48,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/BetPart/autoPlayButton/auto_play_icon.webp"
+    },
+    "buyBonus": {
+      "file": "76ea15ffc4916768be02ed631d835ac95c61b3bd1f64e51705d60cb122bd0f67.webp",
+      "sha256": "76ea15ffc4916768be02ed631d835ac95c61b3bd1f64e51705d60cb122bd0f67",
+      "width": 174,
+      "height": 108,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/buyBonusBtn/buy_bonus.webp"
+    },
+    "progress": {
+      "file": "2c11572dad6da75caaa5bcc77235d98e4c3923572d1f19057fd22d8a25dc2ea8.webp",
+      "sha256": "2c11572dad6da75caaa5bcc77235d98e4c3923572d1f19057fd22d8a25dc2ea8",
+      "width": 80,
+      "height": 432,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/progressBar/default.webp"
+    },
+    "progressBlue": {
+      "file": "1f36b5a69cdfd9e21316d0b22d2906621e2e8eb12fc2156235fece887ff074f7.webp",
+      "sha256": "1f36b5a69cdfd9e21316d0b22d2906621e2e8eb12fc2156235fece887ff074f7",
+      "width": 128,
+      "height": 480,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/progressBar/blue.webp"
+    },
+    "progressYellow": {
+      "file": "3793912dbf7803052328dd460587160be546a888ccdeece794e6127b2ec379e1.webp",
+      "sha256": "3793912dbf7803052328dd460587160be546a888ccdeece794e6127b2ec379e1",
+      "width": 128,
+      "height": 480,
+      "sourceURL": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/images/mobile/progressBar/yellow.webp"
+    }
+  },
+  "fonts": [
+    {
+      "file": "08a48c20de9ef60b1c664302f0d5e4ec06de01dc8b72c6a77a24efcf44d5a832.woff",
+      "name": "RubikBold.woff",
+      "sha256": "08a48c20de9ef60b1c664302f0d5e4ec06de01dc8b72c6a77a24efcf44d5a832"
+    }
+  ],
+  "audio": {
+    "background-music.mp3": {
+      "file": "29816502edf4167e9422457c31f67af5898e676be745c3d8589df9c961a27e17.mp3",
+      "sha256": "29816502edf4167e9422457c31f67af5898e676be745c3d8589df9c961a27e17"
+    },
+    "sounds.mp3": {
+      "file": "0531f6a9dda14acf0c361101d94dff3be64b9ace808d1d31cd4cf1419f109078.mp3",
+      "sha256": "0531f6a9dda14acf0c361101d94dff3be64b9ace808d1d31cd4cf1419f109078"
+    }
+  },
+  "missingSymbols": [],
+  "spinControl": {
+    "frame": "controls/spin",
+    "placement": {
+      "rootScale": 0.25,
+      "rotationDegrees": -0.19,
+      "mobileChildY": 0,
+      "mobileStopY": 0
+    },
+    "source": {
+      "runtime": {
+        "url": "https://cdn.galaxsys-games.com/gsl-client/prd/gsl-olympianlegends-client/v165/240.js",
+        "sha256": "4b2b922650f80404d0bf6d85d3da414c6a7637b04d9d5fc9343a7c11733a5281"
+      },
+      "atlas": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/betButton/button.atlas",
+        "sha256": "b9347b65827bc79199ba42e2fd312a79a2e8aca56717fa72f5fdcc738762d174",
+        "bytes": 2266
+      },
+      "skeleton": {
+        "url": "https://cdn.galaxsys-games.com/gsl-cdn/prd/olympianlegends/spines/mobile/betButton/button.json",
+        "sha256": "91f79f856c7e3b557c95da0cdff72a9303ee2c0e5cf4164a1d1a81e5cf838eaf",
+        "bytes": 27960,
+        "version": "4.1.24"
+      }
+    },
+    "scope": "Original setup-sequence arrow only. Source gAnimation/gBounce/dot/text timelines are not played; full provider control animation/layout identity is not claimed."
+  },
+  "progress": {
+    "thresholds": [
+      20,
+      40,
+      60,
+      85,
+      110
+    ],
+    "unit": "crashed/winning symbols, not cascade count",
+    "features": [
+      {
+        "stage": 1,
+        "god": "Poseidon",
+        "name": "Sea Surge",
+        "threshold": 20
+      },
+      {
+        "stage": 2,
+        "god": "Hecate",
+        "name": "Magic Wilds",
+        "threshold": 40
+      },
+      {
+        "stage": 3,
+        "god": "Atlas",
+        "name": "Globe of Power",
+        "threshold": 60
+      },
+      {
+        "stage": 4,
+        "god": "Hephaestus",
+        "name": "Forge of Destiny",
+        "threshold": 85
+      },
+      {
+        "stage": 5,
+        "god": "Zeus",
+        "name": "Thunderbolts",
+        "threshold": 110
+      }
+    ]
+  },
+  "layout": {
+    "width": 420,
+    "height": 900,
+    "provenance": "Authored mobile review placement using original mobile source artwork; symbols fit their visible alpha bounds without changing source pose geometry. Full provider pixel/layout parity is not verified."
+  },
+  "capabilities": {
+    "originalBackground": true,
+    "originalTitle": true,
+    "sourceAtlasRegions": 158,
+    "derivedStaticSymbols": 10,
+    "expectedSymbols": 10,
+    "weightedStaticPose": true,
+    "animationPlayback": false,
+    "financialActions": false
+  },
+  "remaining": [
+    "Complete actual animation and unresolved attachment/constraint cases listed in missingSymbols",
+    "Full character/god effects, cascades, feature and bonus transitions",
+    "Exact provider placement and all menu/paytable/control flows",
+    "Numeric paytable/model gaps remain gated in references/galaxsys-runtime.json",
+    "No host integration, publication or actual browser validation"
+  ]
+}

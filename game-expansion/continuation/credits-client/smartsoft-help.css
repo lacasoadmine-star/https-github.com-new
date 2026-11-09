@@ -1,0 +1,58 @@
+/* New-title Help only. Original symbol art is painted from the selected
+   game's locked atlas. Existing titles never mount this component. */
+.smartsoft-help{color:#f3f3f3;font-family:ZplayReference,Arial,sans-serif;line-height:1.45}
+.smartsoft-help-title{text-align:center;font-size:21px;letter-spacing:.06em;margin:0 0 14px}
+.smartsoft-help-preview{border:1px solid #ffffff2b;border-radius:7px;background:#07090ee8;padding:12px;margin:0 0 14px}
+.smartsoft-help-preview-controls{display:flex;align-items:center;justify-content:center;gap:9px}
+.smartsoft-help-preview-controls label{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;letter-spacing:.05em}
+.smartsoft-help-preview-controls select{height:39px;min-width:114px;max-width:190px;border:1px solid #ffffff55;border-radius:5px;background:#10131c;color:#fff;font:700 16px Arial,sans-serif;font-variant-numeric:tabular-nums;padding:0 9px}
+.smartsoft-help-preview-controls button{flex:0 0 40px;height:40px;min-height:40px;border:1px solid #ffffff6b;border-radius:5px;background:#20232e;color:#fff;font:400 26px Arial,sans-serif;padding:0;align-self:flex-end}
+.smartsoft-help-preview-controls>span{align-self:flex-end;padding-bottom:10px;font-size:12px}
+.smartsoft-help-preview-controls button:disabled{opacity:.35}
+.smartsoft-help-preview-note{margin:8px 0 0!important;text-align:center;font:12px/1.45 Arial,sans-serif;color:#c6c9d3}
+.smartsoft-help-basis{font:13px/1.5 Arial,sans-serif;margin:5px 0!important;text-align:center;color:#d6d6de}
+.smartsoft-help-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+.smartsoft-help-card{min-width:0;overflow:hidden;border:1px solid #ffffff25;border-radius:8px;background:#070910b8;padding:10px 12px}
+.smartsoft-help-symbol{height:84px;display:grid;place-items:center;position:relative}
+.smartsoft-help-symbol canvas{width:112px;max-width:100%;height:84px;object-fit:contain}
+.smartsoft-help-art-status{font:11px/1.35 Arial,sans-serif;text-align:center;color:#adb4c3}
+.smartsoft-help-card h4{font:700 13px/1.4 Arial,sans-serif;min-height:20px;margin:7px 0 3px;text-align:center}
+.smartsoft-help-card-kind{font:8px/1.4 Arial,sans-serif;letter-spacing:.055em;text-align:center;color:#b4bac8;margin:0 0 9px!important}
+.smartsoft-help-prizes{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:6px;row-gap:6px;margin:0;font:13px/1.4 Arial,sans-serif;font-variant-numeric:tabular-nums}
+.smartsoft-help-prizes dt{margin:0;color:#b9bbc5;white-space:nowrap}
+.smartsoft-help-prizes dd{margin:0;text-align:right;font-weight:700;color:#fff;overflow-wrap:anywhere}
+.smartsoft-help-substitute{font:12px/1.5 Arial,sans-serif;text-align:center;color:#c5c7d1;margin:0!important}
+.smartsoft-help-rounding,.smartsoft-help-account-note{font:12px/1.55 Arial,sans-serif;color:#b9bfcc;margin:12px 0!important}
+.smartsoft-help details{margin:17px 0;border-top:1px solid #ffffff25;border-bottom:1px solid #ffffff25;padding:12px 0;font:13px/1.65 Arial,sans-serif}
+.smartsoft-help summary{cursor:pointer;font-weight:700;color:#fff}
+.smartsoft-help details ul{padding-left:20px;margin:10px 0 0}
+.smartsoft-help details li+li{margin-top:8px}
+@media(max-width:540px){.smartsoft-help-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.smartsoft-help-card{padding:10px 8px}.smartsoft-help-preview{padding:10px 7px}.smartsoft-help-preview-controls{gap:7px}.smartsoft-help-prizes{font-size:12px}.smartsoft-help-title{font-size:19px}.smartsoft-help-symbol,.smartsoft-help-symbol canvas{height:78px}}
+@media(max-width:340px){.smartsoft-help-preview-controls{gap:5px}.smartsoft-help-preview-controls select{min-width:100px;width:100px}.smartsoft-help-preview-controls button{flex-basis:34px}.smartsoft-help-prizes{font-size:11px}.smartsoft-help-card{padding:9px 6px}}
+
+/* MH100 only: observed desktop Help composition, adapted to narrower dialogs.
+   Four separate high symbols, then four low fruits sharing one cash table.
+   The other eight titles keep their independently scoped existing layout. */
+.smartsoft-help-mh100{background:rgba(25,25,25,.94);padding:16px 12px;font-family:ZplayMH100Help,ZplayReference,Arial,sans-serif}
+.smartsoft-help-mh100 .smartsoft-help-title{margin:0 0 10px;color:#fdb514;font:400 18px/23px ZplayMH100Help,Arial,sans-serif;letter-spacing:0}
+.smartsoft-help-mh100 .smartsoft-help-preview{border:0;border-radius:0;background:transparent;padding:0;margin:0}
+.smartsoft-help-mh100 .smartsoft-help-preview-controls{gap:16px}
+.smartsoft-help-mh100 .smartsoft-help-preview-controls label{width:142px;height:42px;gap:0;justify-content:center;border:2px solid #878acd;border-radius:24px;background:linear-gradient(#1a2145,#545880 43%,#171e44 60%,#454d7d);box-shadow:0 0 0 2px #383d5e,inset 0 0 5px #dde0ff99;font:400 13px/15px ZplayMH100Help,Arial,sans-serif;letter-spacing:0}
+.smartsoft-help-mh100 .smartsoft-help-preview-controls select{width:100%;min-width:0;max-width:100%;height:19px;min-height:19px;padding:0 8px;border:0;border-radius:18px;appearance:none;text-align:center;text-align-last:center;background:transparent;font:400 13px/17px ZplayMH100Help,Arial,sans-serif}
+.smartsoft-help-mh100 .smartsoft-help-preview-controls select option{background:#161a2b;color:#fff}
+.smartsoft-help-mh100 .smartsoft-help-preview-controls button{height:46px;min-height:46px;flex-basis:46px;align-self:center;border:1px solid #ffffff1f;border-radius:50%;background:#101112;color:#00ef94;font:700 36px/40px Arial,sans-serif}
+.smartsoft-help-mh100 .smartsoft-help-preview-controls label>span:last-child{font:400 13px/15px ZplayMH100Help,Arial,sans-serif;color:#fff}
+.smartsoft-help-mh100 .smartsoft-help-preview-note{margin:10px 0 0!important;color:#bfc0c4;font-size:11px}
+.smartsoft-help-mh100 .smartsoft-help-cards{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:10px;row-gap:42px;margin:28px 0 24px}
+.smartsoft-help-mh100 .smartsoft-help-card{border:0;border-radius:0;background:transparent;box-shadow:none;padding:0;overflow:visible;position:relative}
+.smartsoft-help-mh100 .smartsoft-help-symbol{height:140px;width:140px;max-width:100%;margin:0 auto}
+.smartsoft-help-mh100 .smartsoft-help-symbol canvas{width:140px;height:140px;max-width:100%;object-fit:contain}
+.smartsoft-help-mh100 .smartsoft-help-prizes{width:max-content;max-width:100%;grid-template-columns:auto auto;column-gap:0;row-gap:0;margin:0 auto;font:400 16px/27.2px ZplayMH100Help,Arial,sans-serif;font-variant-numeric:tabular-nums}
+.smartsoft-help-mh100 .smartsoft-help-prizes dt{color:#dfbf1c;padding:0 10px;border-right:2px solid #dfbf1c}
+.smartsoft-help-mh100 .smartsoft-help-prizes dd{padding:0 0 0 10px;text-align:left;color:#fff;font-weight:400;overflow-wrap:normal;white-space:nowrap}
+.smartsoft-help-mh100 .smartsoft-help-low-group{grid-column:1/-1;min-width:0}
+.smartsoft-help-mh100 .smartsoft-help-low-symbols{display:flex;justify-content:center;align-items:center;gap:0;margin:0 auto 14px;max-width:400px}
+.smartsoft-help-mh100 .smartsoft-help-low-symbols .smartsoft-help-card{flex:0 1 84px;min-width:0}
+.smartsoft-help-mh100 .smartsoft-help-low-symbols .smartsoft-help-symbol,.smartsoft-help-mh100 .smartsoft-help-low-symbols canvas{width:84px;height:84px;max-width:100%}
+.smartsoft-help-mh100 .smartsoft-help-card h4,.smartsoft-help-mh100 .smartsoft-help-card-kind,.smartsoft-help-mh100 .smartsoft-help-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px!important;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;min-height:0}
+@media(max-width:540px){.smartsoft-help-mh100{padding:14px 8px}.smartsoft-help-mh100 .smartsoft-help-title{font-size:16px}.smartsoft-help-mh100 .smartsoft-help-cards{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:8px;row-gap:28px;margin-top:24px}.smartsoft-help-mh100 .smartsoft-help-symbol,.smartsoft-help-mh100 .smartsoft-help-symbol canvas{width:112px;height:112px}.smartsoft-help-mh100 .smartsoft-help-prizes{font-size:14px;line-height:24px}.smartsoft-help-mh100 .smartsoft-help-prizes dt{padding:0 8px}.smartsoft-help-mh100 .smartsoft-help-prizes dd{padding-left:8px}.smartsoft-help-mh100 .smartsoft-help-low-symbols .smartsoft-help-symbol,.smartsoft-help-mh100 .smartsoft-help-low-symbols canvas{height:76px}.smartsoft-help-mh100 .smartsoft-help-preview-controls{gap:12px}}

@@ -1,0 +1,20 @@
+/* Original SmartSoft mobile.othergamesslots.css loader and dialog geometry.
+   Scoped to the nine new slot clients. The host keeps its 58px account header. */
+@font-face{font-family:ZplayStartup;src:url('/native-library/remaining20/reference-art/r1/smartsoft/assets/e63c19c510ebabb9b336c7fe10204dd3fc86d36b07df756d5fe54b099edc3f66.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+.smartsoft-startup{position:fixed;inset:58px 0 0;z-index:1000;color:#fff;font-family:ZplayStartup,sans-serif}
+.smartsoft-startup [hidden],.smartsoft-startup[hidden]{display:none!important}
+.smartsoft-loader{position:absolute;inset:0;background:#000}
+.smartsoft-loader-logo{position:absolute;top:50%;left:50%;width:205px;height:205px;margin:-102px 0 0 -102px;background:var(--startup-logo) no-repeat center / contain}
+.smartsoft-loader-bar{width:156px;height:5px;position:absolute;top:50%;left:50%;margin:90px 0 0 -89px;border-radius:1px}
+.smartsoft-loader-fill{position:absolute;width:0;top:-1px;left:-5px;height:5px;overflow:visible;background:var(--startup-bar) no-repeat center / cover;transition:width 100ms linear}
+.smartsoft-loader-icon{position:absolute;width:24px;height:21px;top:-8px;right:-12px;transition:transform .2s;transform:scale(.1);will-change:transform;background:var(--startup-icon)}
+.smartsoft-sound{position:absolute;inset:0;background:rgba(0,0,0,.7);transform-origin:top left}
+.smartsoft-sound-content{box-sizing:content-box;position:absolute;left:5%;top:50%;border-radius:5px;background:linear-gradient(0deg,rgba(18,18,16,.7),rgba(42,42,42,.7));box-shadow:0 0 9px rgba(0,0,0,.7);width:90%;height:381px;margin:-190px 0 0}
+.smartsoft-sound-question{box-sizing:content-box;text-align:center;color:#fff;font-size:50px;font-weight:400;line-height:normal;padding-top:70px;height:140px;margin:0}
+.smartsoft-sound-buttons{display:flex;justify-content:center;align-items:center;gap:26px}
+.smartsoft-sound-buttons button{box-sizing:content-box;display:inline-flex;align-items:center;justify-content:center;border:0;padding:0;border-radius:5px;background:rgb(62,62,62);box-shadow:0 0 9px rgba(0,0,0,.7);width:302px;height:127px;font-size:36px;font-family:inherit;font-weight:400;color:#fff;touch-action:manipulation}
+.smartsoft-sound-buttons button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.smartsoft-sound-buttons i{display:block;background-repeat:no-repeat;background-size:cover;margin-right:20px}
+.smartsoft-sound-buttons .yes i{width:49px;height:37px;background-image:var(--startup-yes)}
+.smartsoft-sound-buttons .no i{width:48px;height:48px;background-image:var(--startup-no)}
+@media(max-width:1024px){.smartsoft-sound-content{height:190px;margin-top:-95px}.smartsoft-sound-question{font-size:25px;padding-top:35px;height:70px}.smartsoft-sound-buttons{gap:14px}.smartsoft-sound-buttons button{width:135px;height:63px;font-size:18px}.smartsoft-sound-buttons i{margin-right:10px}.smartsoft-sound-buttons .yes i{width:25px;height:19px}.smartsoft-sound-buttons .no i{width:24px;height:24px}}

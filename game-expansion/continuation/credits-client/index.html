@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="theme-color" content="#09151f">
+ <title>ZPLAY Games</title>
+ <link rel="stylesheet" href="/native-library/remaining20/20261109-r5-seven/machine.css">
+ <link rel="stylesheet" href="/native-library/remaining20/20261109-r5-seven/smartsoft-startup.css">
+ <link rel="stylesheet" href="/native-library/remaining20/20261109-r5-seven/smartsoft-help.css">
+ <script type="module" src="/native-library/remaining20/20261109-r5-seven/app.mjs"></script>
+ 
+</head>
+<body>
+ <header class="player-bar">
+  <a class="icon-button back" href="/" aria-label="Back to ZPLAY lobby"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h14"/></svg></a>
+  <div class="brand"><span>Z<span class="brand-play">PLAY</span></span><small id="headerTitle">Games</small></div>
+  <div class="wallet"><span>YOUR BALANCE</span><strong id="wallet">—</strong><small>CREDITS</small></div>
+ </header>
+ <main class="machine-shell" id="machineShell">
+  <div class="title-row">
+   <div><p class="eyebrow" id="gameCategory">ZPLAY GAMES</p><h1 id="gameTitle">Connecting…</h1></div>
+   <span class="connection" id="connection"><i></i><span>Connecting</span></span>
+  </div>
+  <div class="machine-layout">
+   <section class="machine-cabinet" aria-label="Game machine">
+    <div class="feature-strip"><span class="feature-star" aria-hidden="true">✦</span><p id="featureDescription">Loading game details…</p></div>
+    <div class="stage" id="stage">
+     <canvas id="scene" aria-label="Game presentation. No round has been played." role="img"></canvas>
+     <div id="nativeControls" class="native-controls" hidden></div>
+     <div id="presentationNote" class="presentation-note" role="status" hidden></div>
+     <div class="mine-grid" id="mineGrid" aria-label="Minefield" hidden></div>
+     <div class="sequence-badge" id="sequenceBadge" hidden>RESULT SEQUENCE</div>
+    </div>
+    <div class="result-strip" aria-live="polite" aria-atomic="true">
+     <div><span id="resultLabel">LAST WIN</span><strong id="result">—</strong></div>
+     <div class="round-caption"><span id="roundCaption">Awaiting connection</span><small id="roundDetail">Your balance comes from your player account.</small></div>
+    </div>
+   </section>
+   <section class="control-panel" aria-label="Game controls">
+    <div class="control-heading"><span>PLAY YOUR WAY</span><span class="currency-badge">CREDITS</span></div>
+    <div class="stake-heading"><label for="stake" id="stakeLabel">Total stake</label><span id="stakeRange"></span></div>
+    <div class="stake-control">
+     <button class="stake-step" id="minus" type="button" aria-label="Decrease stake" disabled>−</button>
+     <select id="stake" aria-label="Total stake in CREDITS" disabled><option value="0.10">0.10 CREDITS</option></select>
+     <button class="stake-step" id="plus" type="button" aria-label="Increase stake" disabled>+</button>
+    </div>
+    <div class="mine-options" id="mineOptions" hidden><label for="mines">Mines</label><select id="mines" disabled></select><span>25 tiles</span></div>
+    <button class="play-button" id="play" type="button" disabled><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M25 11a10 10 0 1 0 1 8M25 4v8h-8"/></svg><span id="playLabel">CONNECTING</span></button>
+    <div class="risk-summary" id="riskSummary" aria-live="polite" hidden><div><span>BANKED</span><strong id="bankedAmount">—</strong></div><div><span>AT RISK</span><strong id="riskAmount">—</strong></div></div>
+    <div class="active-actions" id="activeActions" hidden>
+     <button class="step-button" id="step" type="button" disabled>BUILD NEXT FLOOR</button>
+     <button class="cashout-button" id="cashout" type="button" disabled><span>COLLECT</span><strong id="cashoutAmount">—</strong></button>
+    </div>
+    <div class="win-actions" id="winActions" hidden>
+     <button id="collect" type="button">TAKE WIN</button><button id="gamble" type="button">DOUBLE</button>
+    </div>
+    <button class="sequence-button" id="skip" type="button" hidden>Skip result animation</button>
+    <div class="autoplay-running" id="autoplayRunning" hidden><span id="autoplayStatus" role="status" aria-live="polite"></span><button type="button" id="stopAutoplay">Stop autoplay</button></div>
+    <p class="notice" id="notice" role="status" aria-live="polite">Connecting to your player account…</p>
+    <a href="/" class="account-link" id="accountLink" hidden>Open player account <span aria-hidden="true">↗</span></a>
+    <a href="/" class="account-link" id="otherGame" hidden>Return to your active game <span aria-hidden="true">↗</span></a>
+    <div class="tool-row">
+     <button type="button" id="help" aria-label="Game rules and paytable"><span aria-hidden="true">ⓘ</span> Rules</button>
+     <button type="button" id="sound" aria-pressed="false" aria-label="Mute sound"><span aria-hidden="true">♫</span> Sound</button>
+     <button type="button" id="refresh"><span aria-hidden="true">↻</span> Refresh</button>
+    </div>
+    <button type="button" id="gameOptions" class="autoplay-open" hidden>Game options</button>
+    <button type="button" id="turbo" class="autoplay-open" aria-pressed="false">Turbo off</button>
+    <button type="button" id="history" class="autoplay-open">Game history</button>
+    <button class="autoplay-open" type="button" id="autoplay" hidden>Autoplay settings</button>
+    <p class="play-note" id="playNote">Choose a stake. Each play is a new round.</p>
+   </section>
+  </div>
+  <footer class="machine-footer"><a href="/">ZPLAY LOBBY</a><span id="footerGame">Player games</span><button type="button" id="fullScreen" aria-label="Enter fullscreen">⛶ Fullscreen</button></footer>
+ </main>
+ <div id="startupCover" class="smartsoft-startup" hidden>
+  <div id="startupLoader" class="smartsoft-loader" role="status" aria-label="Loading game">
+   <div class="smartsoft-loader-logo" aria-hidden="true"></div>
+   <div id="startupProgress" class="smartsoft-loader-bar" role="progressbar" aria-label="Game resources loaded" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="startupFill" class="smartsoft-loader-fill"><div id="startupIcon" class="smartsoft-loader-icon"></div></div></div>
+  </div>
+  <div id="startupSound" class="smartsoft-sound" role="dialog" aria-modal="true" aria-labelledby="startupQuestion" hidden>
+   <div class="smartsoft-sound-content"><p id="startupQuestion" class="smartsoft-sound-question">Would you like sound?</p>
+    <div class="smartsoft-sound-buttons"><button id="startupYes" type="button" class="yes" disabled><i aria-hidden="true"></i><span>Yes</span></button><button id="startupNo" type="button" class="no" disabled><i aria-hidden="true"></i><span>No</span></button></div>
+   </div>
+  </div>
+ </div>
+ <dialog id="rulesDialog" aria-labelledby="rulesTitle">
+  <div class="dialog-heading"><div><p class="eyebrow">GAME GUIDE</p><h2 id="rulesTitle">Rules &amp; paytable</h2></div><button type="button" id="closeRules" class="icon-button" aria-label="Close rules">×</button></div>
+  <div class="dialog-content" id="rulesContent"></div>
+ </dialog>
+ <dialog id="autoplayDialog" aria-labelledby="autoplayTitle">
+  <div class="dialog-heading"><div><p class="eyebrow">AUTOPLAY</p><h2 id="autoplayTitle">Choose your limits</h2></div><button type="button" id="closeAutoplay" class="icon-button" aria-label="Close autoplay settings">×</button></div>
+  <form class="dialog-content autoplay-form" id="autoplayForm">
+   <label>Number of spins<select id="autoplayCount" aria-label="Autoplay spin count"></select></label>
+   <label id="autoplayWinRow">Stop when a round wins at least (CREDITS)<input id="autoplayWin" type="text" inputmode="decimal" autocomplete="off" placeholder="No limit"></label>
+   <label>Stop after a net loss of (CREDITS)<input id="autoplayLoss" type="text" inputmode="decimal" autocomplete="off" placeholder="No limit"></label>
+   <label>Stop after a net gain of (CREDITS)<input id="autoplayGain" type="text" inputmode="decimal" autocomplete="off" placeholder="No limit"></label>
+   <fieldset id="autoplayFeatureStops" hidden><legend>Stop when a feature starts</legend><label><input type="checkbox" id="autoplayBonus"> Bonus</label><label><input type="checkbox" id="autoplayFreeSpins"> Free spins</label><label><input type="checkbox" id="autoplayBigWin"> Big win</label></fieldset>
+   <p>Leave a limit blank to turn it off. Each spin uses your selected stake. Stopping autoplay lets the current round finish.</p>
+   <p id="autoplayError" role="alert" hidden></p>
+   <button type="submit" class="autoplay-start" id="startAutoplay">Start autoplay</button>
+  </form>
+ </dialog>
+ <dialog id="betDialog" aria-labelledby="betTitle">
+  <div class="dialog-heading"><h2 id="betTitle">Choose your bet</h2><button type="button" id="closeBet" class="icon-button" aria-label="Close bet settings">×</button></div>
+  <div class="dialog-content" id="betContent">
+   <label id="modeRow" hidden>Game mode<select id="gameMode"></select></label>
+   <label id="linesRow" hidden>Active paylines<select id="lineCount"></select></label>
+   <label id="riskRow" hidden><input type="checkbox" id="riskEnabled"> Offer red/black gamble after a win</label>
+   <p id="totalCost" aria-live="polite"></p>
+  </div>
+ </dialog>
+ <dialog id="menuDialog" aria-labelledby="menuTitle">
+  <div class="dialog-heading"><h2 id="menuTitle">Game menu</h2><button type="button" id="closeMenu" class="icon-button" aria-label="Close menu">×</button></div>
+  <div class="dialog-content menu-options">
+   <button type="button" id="menuBet">Bet settings</button><button type="button" id="menuRules">Rules &amp; paytable</button>
+   <button type="button" id="menuHistory">History</button><button type="button" id="menuSound">Sound on</button>
+   <button type="button" id="menuMusic">Music on</button><button type="button" id="menuTurbo">Turbo off</button>
+   <button type="button" id="menuFullscreen">Fullscreen</button><button type="button" id="menuRefresh">Refresh connection</button>
+  </div>
+ </dialog>
+ <dialog id="gambleDialog" aria-labelledby="gambleTitle">
+  <div class="dialog-heading"><h2 id="gambleTitle">Double or take your win</h2><button id="closeGamble" type="button" class="icon-button" aria-label="Close double game">×</button></div>
+  <div class="dialog-content gamble-content">
+   <p>Current win <strong id="gambleWin">—</strong> CREDITS</p><div id="gambleCard" class="gamble-card" aria-live="polite">?</div>
+   <div id="gambleCards" class="gamble-cards"></div><p id="gambleStatus" role="status"></p>
+   <div class="gamble-choices"><button id="red" type="button">♥ RED</button><button id="black" type="button">♠ BLACK</button></div>
+   <button id="gambleCollect" type="button">Take win</button>
+  </div>
+ </dialog>
+ <dialog id="historyDialog" aria-labelledby="historyTitle">
+  <div class="dialog-heading"><h2 id="historyTitle">Game history</h2><button id="closeHistory" type="button" class="icon-button" aria-label="Close history">×</button></div>
+  <div id="historyContent" class="dialog-content"></div>
+ </dialog>
+</body>
+</html>
