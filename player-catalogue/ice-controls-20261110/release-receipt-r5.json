@@ -1,0 +1,107 @@
+{
+  "status": "Player r5 rolled back to verified r4 while corrective r6 is prepared",
+  "sourceCommit": "e90f0155dfbceb139d448b03bf912d9065e8bae7",
+  "scope": [
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "library": {
+    "version": 26,
+    "versionId": "5c63c3a1-958b-4255-b32b-229447595036",
+    "deploymentId": "54c0e395-706b-479c-8b74-631f755c0832",
+    "active": true
+  },
+  "player": {
+    "attemptedVersion": 347,
+    "attemptedVersionId": "f5efa26e-96e9-4f65-b270-2eb8b72194c4",
+    "attemptedDeploymentId": "258b1811-1ba3-4f48-8216-ae9b4ac2587a",
+    "activeRollbackVersion": 346,
+    "activeRollbackVersionId": "7554326a-fa3c-46b1-b3c5-839722f63307",
+    "rollbackDeploymentId": "bc287f6b-43ed-467c-b7af-b96fc0766471"
+  },
+  "staticVerification": [
+    {
+      "worker": "superwin-library-100",
+      "versionId": "5c63c3a1-958b-4255-b32b-229447595036",
+      "number": 26,
+      "mainModule": "remaining20-ice-controls-library-entry-r5.mjs",
+      "verifiedModules": 54,
+      "verifiedBytes": 7830179,
+      "oldModulesUnchanged": 51,
+      "bindingsUnchanged": 3,
+      "assetsUnchanged": true,
+      "exportsUnchanged": true,
+      "migrationUnchanged": true,
+      "activeBaseline": "8ce758c1-7cb7-4f0e-bd62-6d2b010d2656",
+      "productionDeploymentChanged": false
+    },
+    {
+      "worker": "superwin-player",
+      "versionId": "f5efa26e-96e9-4f65-b270-2eb8b72194c4",
+      "number": 347,
+      "mainModule": "remaining20-ice-controls-player-entry-r5.mjs",
+      "verifiedModules": 264,
+      "verifiedBytes": 66878549,
+      "oldModulesUnchanged": 261,
+      "bindingsUnchanged": 14,
+      "assetsUnchanged": true,
+      "exportsUnchanged": true,
+      "migrationUnchanged": true,
+      "activeBaseline": "7554326a-fa3c-46b1-b3c5-839722f63307",
+      "productionDeploymentChanged": false
+    }
+  ],
+  "liveBrowser": {
+    "actualR5ScriptObserved": "/native-library/remaining20/20261110-ice-controls-r5/app.mjs",
+    "game": "burningice40_native",
+    "currency": "CREDITS",
+    "controlsVerified": [
+      "next stake1 to2",
+      "minimum1 and decrease disabled",
+      "maximum40000 and increase disabled",
+      "menu",
+      "paytable2 to1 exact halving",
+      "rules expansion",
+      "sound/music/turbo toggles",
+      "history",
+      "AUTO25 selection/start"
+    ],
+    "initialBalance": "100000.00",
+    "settledRoundsBeforeFailure": 14,
+    "stakeEach": "2.00",
+    "settledPayouts": [
+      "4.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "32.00"
+    ],
+    "finalBalance": "100008.00",
+    "conservation": "100000 - 14*2 + 4 + 32 = 100008",
+    "requestedAutoCount": 25,
+    "completedRequestedAutoSequence": false,
+    "lastReceiptId": "76bcf1d5-59a9-49ea-805e-231ad003fe63",
+    "failure": "r5 terminal thaw selected normal Ice40 column texture after all five reels froze, but prepare had loaded only the active-column page; rendering failed and AUTO stopped.",
+    "refreshInR5Failed": true,
+    "rollbackR4RestoredSameSettledReceipt": true,
+    "rollbackBalance": "100008.00",
+    "realWalletActions": 0
+  },
+  "correctiveSource": {
+    "file": "ice-artwork-followup/presentation/smartsoft-native-presentation.mjs",
+    "sha256": "026fbba3dfe9b99f352f89d3d4e01d9e457d5d845c1720f6ef05840c9c6f2994",
+    "regressionCases": 12,
+    "liveCorrectiveVerification": "pending r6"
+  },
+  "cashGatesChanged": false,
+  "oldGamesChanged": false
+}

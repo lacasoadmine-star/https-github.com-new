@@ -1,0 +1,96 @@
+{
+  "kind": "offline-exact-deployed-actor-and-client-bet-audit",
+  "scope": "Ten catalogue-r3 NEW demos, a subset of 13 unprotected live NEW titles",
+  "additionalLiveNewIdsNotAudited": [
+    "multihot40_native",
+    "balloon_native",
+    "jetx_native"
+  ],
+  "deployedActor": {
+    "name": "remaining20-credits-ten-r6-coin.mjs",
+    "sha256": "7121975156434b2650e97eaa247a6024900d18a64648a82abed35f1812182c39",
+    "bytes": 371060
+  },
+  "ids": [
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "multihotdeluxe_native",
+    "burningice_native",
+    "burningice10_native",
+    "burningice40_native",
+    "coinminer_native"
+  ],
+  "minimum": "1.00",
+  "maximum": "40000.00",
+  "currencyInLiveNewRoutes": "CREDITS",
+  "realWalletActions": 0,
+  "networkCalls": 0,
+  "cashGatesChanged": false,
+  "modelsChanged": false,
+  "checks": [
+    {
+      "name": "exact catalogue-r3 ten-title NEW subset and retained active module hashes",
+      "passed": true
+    },
+    {
+      "name": "all ten canonical models enforce 1–40000 with the exact displayed 15-value ladder",
+      "passed": true
+    },
+    {
+      "name": "nine slot payouts equal the exact coefficient total at every accepted stake, ascending and descending",
+      "passed": true
+    },
+    {
+      "name": "Coin accepted safe-pick table scales exactly for every mine setting, stake and safe-pick count",
+      "passed": true
+    },
+    {
+      "name": "invalid server stakes cannot debit or persist any new title round",
+      "passed": true
+    },
+    {
+      "name": "descending 40000→2→1 uses each newly accepted stake and retries never debit twice",
+      "passed": true
+    },
+    {
+      "name": "a manual win is credited once, receipts survive local store recreation, and collect replays never add money",
+      "passed": true
+    },
+    {
+      "name": "retained UI stake choices and request serialization preserve server amounts without thousands separators",
+      "passed": true
+    },
+    {
+      "name": "nine Help paytables scale every exact cash fraction and lower it again without changing the selected game bet",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "modelAcceptedStakeChecks": 150,
+    "modelRejectedStakeChecks": 100,
+    "slotRounds": 810,
+    "winningSamples": 13,
+    "losingSamples": 14,
+    "fractionalTotalChecks": 0,
+    "freezeRespinSamples": 3,
+    "coinSafePicks": 2040,
+    "coinRounds": 135,
+    "noDebitRejections": 110,
+    "descendingAcceptedRounds": 30,
+    "startReplays": 30,
+    "manualCollectionsAndReplays": 10,
+    "clientSerializedStakes": 150,
+    "exactHelpPrizeComparisons": 688
+  },
+  "catalogSha256": "dd47938afcda2f0d4db2539430dfe9af2902b48160bdd9f2de20a8eb8109adec",
+  "passed": true,
+  "limitations": [
+    "Offline deterministic tests of the exact retained deployed actor; no new production wallet or ledger transactions.",
+    "CREDITS UI and canonical numeric ladder do not establish cash release readiness.",
+    "Same-outcome scaling is verified; independent random rounds can have different outcomes at any stake.",
+    "No RTP or provider-private probability claim is made."
+  ]
+}

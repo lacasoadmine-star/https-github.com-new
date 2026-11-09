@@ -1,0 +1,110 @@
+{
+  "scope": "Root directly observed live NEW badges and Play hrefs; source audit only for authenticated service contracts. No live session, runtime flag read or real wager.",
+  "newBadgeCount": 15,
+  "protectedExcluded": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native"
+  ],
+  "targetCount": 13,
+  "catalogueCreditsSubsetCount": 10,
+  "additionalAuthenticatedEntries": [
+    {
+      "id": "multihot40_native",
+      "route": "/games/multihot40_native",
+      "version": "superwin-multihot40-2",
+      "currency": "ETB",
+      "minStake": "0.40",
+      "maxStake": "100.00",
+      "stakeValues": [
+        "0.40",
+        "0.80",
+        "1.20",
+        "1.60",
+        "2.00",
+        "4.00",
+        "6.00",
+        "8.00",
+        "10.00",
+        "12.00",
+        "16.00",
+        "20.00",
+        "30.00",
+        "40.00",
+        "50.00",
+        "60.00",
+        "80.00",
+        "100.00"
+      ],
+      "wallet": "Same LibraryService and canonical SharedWalletStore",
+      "startFlag": "NATIVE_LIBRARY_ACCEPT_NEW_ROUNDS",
+      "sourceLaunchable": true,
+      "readiness": "Retained source status verified/all8checks true; productionEnabled:false is stale metadata and is not consulted by isMachineReleased. Runtime accepting not read."
+    },
+    {
+      "id": "balloon_native",
+      "route": "/games/balloon_native",
+      "version": "superwin-balloon-1",
+      "currency": "ETB",
+      "minStake": "0.10",
+      "maxStake": "100.00",
+      "wallet": "Same LibraryService and canonical SharedWalletStore",
+      "startFlag": "NATIVE_LIBRARY_ACCEPT_NEW_ROUNDS",
+      "readiness": "Existing model registered; runtime accepting not read."
+    },
+    {
+      "id": "jetx_native",
+      "route": "/games/jetx_native",
+      "version": "superwin-jetx-1",
+      "currency": "ETB",
+      "minStake": "1.00",
+      "maxStake": "40000.00",
+      "positions": 4,
+      "wallet": "JetXService with same shared canonical wallet and session resolver",
+      "startFlag": "JETX_NATIVE_ACCEPT_NEW_ROUNDS",
+      "readiness": "Existing native route already exposed; runtime accepting not read."
+    }
+  ],
+  "scopeFinding": "The entire live NEW target union is thirteen, not the remaining20 catalogue ten. MultiHot40 and Balloon retain older lower wager bounds and need a separate versioned profile upgrade for the newly requested1–40000 range.",
+  "sources": [
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/multihot40-rules.mjs",
+      "sha256": "2bebaaa407af6bc1e9025d67619f31d7ca712943d17562c3a11a036eb8c0291c"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/balloon-rules.mjs",
+      "sha256": "c862dd7a39622205dae85fc4b371c85069d1f522cfd94375841dce4e0ece92b5"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/jetx-rules.mjs",
+      "sha256": "d7b19b7288ee452b605fae6ae8042d40f1f3974f518b584ff63d6983b99167bb"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/release-readiness.json",
+      "sha256": "3cd7151b61fc8d0f1d522b4d3113c77710fd3f764ef35cc8819e424dd7ef2694"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/release-policy.mjs",
+      "sha256": "c4118fd293b1849dc22af2a95dcf18dd4585f1725fe930d663fa70b91500565d"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/expansion-entry.mjs",
+      "sha256": "26c0bef2e8b573e9d9be95204c01eb48060feefdc6942656947173469a45e52d"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/jetx-railway-entry.mjs",
+      "sha256": "0879c5f0e87b2ee18deb2fab1b64db90dee2e74d77f1e2bbb93e14a871410fa9"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/jetx-auth.mjs",
+      "sha256": "878e77e1c6646053d85c4c5881c6454be2c69c3b9a198e76208580cfc5f91416"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/library-service.mjs",
+      "sha256": "8b30b859efcde0830c5097d75841bedbeee29f9c3c4833c904319a7a0a74e325"
+    },
+    {
+      "path": "/workspace/scratch/14a9686e6662/recovered-railway/r3-source/native-family-preserved.mjs",
+      "sha256": "cbf26301daa40cccc9a349456a3e21f65fba038111ecc7e791e8bb303133eda5"
+    }
+  ]
+}

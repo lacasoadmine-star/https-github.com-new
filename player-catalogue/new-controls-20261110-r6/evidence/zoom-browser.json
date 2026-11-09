@@ -1,0 +1,455 @@
+{
+  "scope": "Local Chromium mobile-gesture contract tests against the NEW-only wrapper. Exact retained SpinHold uses an inert counter, with no wallet/game API and no wagers.",
+  "checks": [
+    "Control fixture proves a real mobile pinch changes viewport scale",
+    "/demo/games/multihot100_native: early guard and CSS enabled",
+    "/demo/games/multihot100_native: idle pinch keeps scale one",
+    "/demo/games/multihot100_native: double tap keeps scale one",
+    "/demo/games/multihot100_native: menu single tap opens",
+    "/demo/games/multihot100_native: bet single tap opens",
+    "/demo/games/multihot100_native: one spin tap reaches one inert handler",
+    "/demo/games/multihot100_native: pinch during local reel animation keeps scale one",
+    "/demo/games/habeshafortune5_native: early guard and CSS enabled",
+    "/demo/games/habeshafortune5_native: idle pinch keeps scale one",
+    "/demo/games/habeshafortune5_native: double tap keeps scale one",
+    "/demo/games/habeshafortune5_native: menu single tap opens",
+    "/demo/games/habeshafortune5_native: bet single tap opens",
+    "/demo/games/habeshafortune5_native: one spin tap reaches one inert handler",
+    "/demo/games/habeshafortune5_native: pinch during local reel animation keeps scale one",
+    "/demo/games/multihotwildways_native: early guard and CSS enabled",
+    "/demo/games/multihotwildways_native: idle pinch keeps scale one",
+    "/demo/games/multihotwildways_native: double tap keeps scale one",
+    "/demo/games/multihotwildways_native: menu single tap opens",
+    "/demo/games/multihotwildways_native: bet single tap opens",
+    "/demo/games/multihotwildways_native: one spin tap reaches one inert handler",
+    "/demo/games/multihotwildways_native: pinch during local reel animation keeps scale one",
+    "/demo/games/multihot5wild_native: early guard and CSS enabled",
+    "/demo/games/multihot5wild_native: idle pinch keeps scale one",
+    "/demo/games/multihot5wild_native: double tap keeps scale one",
+    "/demo/games/multihot5wild_native: menu single tap opens",
+    "/demo/games/multihot5wild_native: bet single tap opens",
+    "/demo/games/multihot5wild_native: one spin tap reaches one inert handler",
+    "/demo/games/multihot5wild_native: pinch during local reel animation keeps scale one",
+    "/demo/games/multihot5superwilds_native: early guard and CSS enabled",
+    "/demo/games/multihot5superwilds_native: idle pinch keeps scale one",
+    "/demo/games/multihot5superwilds_native: double tap keeps scale one",
+    "/demo/games/multihot5superwilds_native: menu single tap opens",
+    "/demo/games/multihot5superwilds_native: bet single tap opens",
+    "/demo/games/multihot5superwilds_native: one spin tap reaches one inert handler",
+    "/demo/games/multihot5superwilds_native: pinch during local reel animation keeps scale one",
+    "/demo/games/multihotdeluxe_native: early guard and CSS enabled",
+    "/demo/games/multihotdeluxe_native: idle pinch keeps scale one",
+    "/demo/games/multihotdeluxe_native: double tap keeps scale one",
+    "/demo/games/multihotdeluxe_native: menu single tap opens",
+    "/demo/games/multihotdeluxe_native: bet single tap opens",
+    "/demo/games/multihotdeluxe_native: one spin tap reaches one inert handler",
+    "/demo/games/multihotdeluxe_native: pinch during local reel animation keeps scale one",
+    "/demo/games/burningice_native: early guard and CSS enabled",
+    "/demo/games/burningice_native: idle pinch keeps scale one",
+    "/demo/games/burningice_native: double tap keeps scale one",
+    "/demo/games/burningice_native: menu single tap opens",
+    "/demo/games/burningice_native: bet single tap opens",
+    "/demo/games/burningice_native: one spin tap reaches one inert handler",
+    "/demo/games/burningice_native: pinch during local reel animation keeps scale one",
+    "/demo/games/burningice10_native: early guard and CSS enabled",
+    "/demo/games/burningice10_native: idle pinch keeps scale one",
+    "/demo/games/burningice10_native: double tap keeps scale one",
+    "/demo/games/burningice10_native: menu single tap opens",
+    "/demo/games/burningice10_native: bet single tap opens",
+    "/demo/games/burningice10_native: one spin tap reaches one inert handler",
+    "/demo/games/burningice10_native: pinch during local reel animation keeps scale one",
+    "/demo/games/burningice40_native: early guard and CSS enabled",
+    "/demo/games/burningice40_native: idle pinch keeps scale one",
+    "/demo/games/burningice40_native: double tap keeps scale one",
+    "/demo/games/burningice40_native: menu single tap opens",
+    "/demo/games/burningice40_native: bet single tap opens",
+    "/demo/games/burningice40_native: one spin tap reaches one inert handler",
+    "/demo/games/burningice40_native: pinch during local reel animation keeps scale one",
+    "/demo/games/coinminer_native: early guard and CSS enabled",
+    "/demo/games/coinminer_native: idle pinch keeps scale one",
+    "/demo/games/coinminer_native: double tap keeps scale one",
+    "/demo/games/coinminer_native: menu single tap opens",
+    "/demo/games/coinminer_native: bet single tap opens",
+    "/demo/games/coinminer_native: one spin tap reaches one inert handler",
+    "/demo/games/coinminer_native: pinch during local reel animation keeps scale one",
+    "360px: fixed scale and reachable controls",
+    "430px: fixed scale and reachable controls",
+    "Pinch beginning over SPIN cancels retained SpinHold without a launch or click",
+    "Fresh single-finger hold still reaches retained SpinHold once",
+    "Normal tap after cancelled gesture remains usable",
+    "Keyboard Enter opens game menu",
+    "Text fields stay editable",
+    "Single-finger page scrolling preserved",
+    "Scrollable menu content stays scrollable",
+    "Dialog pinch also keeps scale one",
+    "Safari gesture fallback cancels events (hook test only)",
+    "Desktop Ctrl+wheel is cancelled",
+    "Desktop Ctrl+wheel leaves current size intact",
+    "Ordinary desktop wheel scrolling preserved",
+    "Browser keyboard zoom shortcut is not intercepted",
+    "/: no guard or restricted viewport injected",
+    "/games/multihot5_native: no guard or restricted viewport injected",
+    "/games/foxyhot20_native: no guard or restricted viewport injected",
+    "Old Foxy route still permits original browser pinch behavior",
+    "No wager, API request or external request",
+    "No browser exceptions"
+  ],
+  "games": [
+    {
+      "route": "/demo/games/multihot100_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/habeshafortune5_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 14,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/multihotwildways_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/multihot5wild_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/multihot5superwilds_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/multihotdeluxe_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/burningice_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/burningice10_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/burningice40_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 15,
+        "phase": "spinning"
+      }
+    },
+    {
+      "route": "/demo/games/coinminer_native",
+      "scale": 1,
+      "state": {
+        "launches": 1,
+        "frames": 14,
+        "phase": "spinning"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/baseline"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/multihot100_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/habeshafortune5_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/multihotwildways_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/multihot5wild_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/multihot5superwilds_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/multihotdeluxe_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/burningice_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/burningice10_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/burningice40_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/coinminer_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/burningice40_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/burningice40_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/burningice40_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/demo/games/multihot100_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/multihot5_native"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/foxyhot20_native"
+    },
+    {
+      "method": "GET",
+      "path": "/test/spin-hold.mjs"
+    }
+  ],
+  "outbound": [],
+  "errors": [],
+  "spinHoldSha256": "ed9e82d63539478d6827452d525b69d2f09f202b1d61175270e03c1c01c496ad",
+  "baseline": {
+    "before": 1,
+    "after": 5
+  },
+  "passed": true
+}

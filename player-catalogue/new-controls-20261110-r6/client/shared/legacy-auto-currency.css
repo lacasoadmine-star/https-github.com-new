@@ -1,0 +1,9 @@
+/* Adapt the existing three NEW Burning AUTO rows to the actual currency
+   label width. Keep the native controls, colors, amounts and input semantics. */
+.smartsoft-native-stage.smartsoft-legacy-auto .info .row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:30px;height:auto}
+.smartsoft-native-stage.smartsoft-legacy-auto .info .caption{min-width:0;flex:1 1 auto}
+.smartsoft-native-stage.smartsoft-legacy-auto .info .input{display:inline-flex;align-items:center;flex:0 0 auto;float:none;box-sizing:border-box;width:auto;min-width:105px;padding:0 5px;margin-top:0}
+.smartsoft-native-stage.smartsoft-legacy-auto .info .input:after{display:none}
+.smartsoft-native-stage.smartsoft-legacy-auto .info .input input{position:static;flex:0 0 auto;box-sizing:content-box;width:40px;padding:0 5px}
+.smartsoft-native-stage.smartsoft-legacy-auto .info .input .currency{position:static;flex:0 0 auto;box-sizing:content-box;width:auto;min-width:45px;height:14px;line-height:14px;white-space:nowrap;border-left:2px solid #ff0054}
+.smartsoft-native-stage.smartsoft-legacy-auto .info .checkbox{flex:0 0 55px;margin-top:0}

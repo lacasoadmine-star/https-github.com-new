@@ -1,0 +1,73 @@
+{
+  "scope": "Offline source, immutable-route composition and ECMAScript linking; no browser UI or ledger validation",
+  "networkRequests": 0,
+  "financialActions": 0,
+  "gameStateFixturesUsed": 0,
+  "usesMockedOutcomes": false,
+  "retainedSourceModules": [
+    {
+      "name": "remaining20-credits-r4.mjs",
+      "sha256": "b0f8e18b865eaaa2d9207ac05b877b8e70fb2aecb2272b60875fb685f38ee070"
+    },
+    {
+      "name": "remaining20-review2-assets.mjs",
+      "sha256": "b569d1188fdd8cec3074158623ea5b263d3a191de93c05898a3ed15e54b2e106"
+    },
+    {
+      "name": "remaining20-review3-assets.mjs",
+      "sha256": "40187dcc134530f7f443aa84167eb6a491c42fda710b334088576cae4e24e39f"
+    },
+    {
+      "name": "remaining20-review4-assets.mjs",
+      "sha256": "b9189b872510577a926fccee53938e3e36e90f282ebc7635be410a8393c302ba"
+    },
+    {
+      "name": "remaining20-r5-seven-assets.mjs",
+      "sha256": "92d0fbe8ce1de431a8760c200b37e62b0814cdf25324dd51e0fe71d560811807"
+    },
+    {
+      "name": "remaining20-seven-review1-assets.mjs",
+      "sha256": "dc571ad8d7824b6f3f10d4c3c83decdc322c62be436ff126a0837f6f4582740e"
+    }
+  ],
+  "passed": true,
+  "checks": [
+    "Actual r5 app and its static import graph parse and link with all retained exports",
+    "Executed actual app catalog expression and retained demo URL adapter select r5 catalog for both games",
+    "Actual r5 catalog resolves hash-verified manifests and legacy resolver selects exact original collect audio",
+    "Both terminal-freeze draw modules are in the linked r5 app graph with exact candidate hashes",
+    "Every changed browser JavaScript response parses without executing application or wagering code"
+  ],
+  "games": [
+    {
+      "id": "burningice10_native",
+      "catalogPath": "/native-library/remaining20/20261110-ice-controls-r5/demo-games.json",
+      "manifestPath": "/native-library/remaining20/20261110-ice-controls-r5/presentation/manifests/burningice10_native.json",
+      "manifestSha256": "e98f3ff415f6577b5d8fd667429030f4979c830774e24a0b240c9a275e3d2c5f",
+      "collectCue": "Start/WinToBalance.mp3",
+      "audioBytes": 20703,
+      "audioSha256": "7193713ce8e697b7c03ced5f047f3975f6c56158fb177f213b64ccc2e41d8a05"
+    },
+    {
+      "id": "burningice40_native",
+      "catalogPath": "/native-library/remaining20/20261110-ice-controls-r5/demo-games.json",
+      "manifestPath": "/native-library/remaining20/20261110-ice-controls-r5/presentation/manifests/burningice40_native.json",
+      "manifestSha256": "19ca7c30fb276feaf6715777294c5ef348ce799b6543623b1b3738f508e9d42a",
+      "collectCue": "Start/WinToBalance.mp3",
+      "audioBytes": 20703,
+      "audioSha256": "7193713ce8e697b7c03ced5f047f3975f6c56158fb177f213b64ccc2e41d8a05"
+    }
+  ],
+  "linkedModules": 47,
+  "staticResponses": 65,
+  "appSha256": "8e68e1fed6e95221d48855e31317da975972fa3a4d42d18a8ff34ab71f494da3",
+  "candidateResponses": {
+    "art/7193713ce8e697b7c03ced5f047f3975f6c56158fb177f213b64ccc2e41d8a05.mp3": "7193713ce8e697b7c03ced5f047f3975f6c56158fb177f213b64ccc2e41d8a05",
+    "app.mjs": "8e68e1fed6e95221d48855e31317da975972fa3a4d42d18a8ff34ab71f494da3",
+    "presentation/smartsoft-remaining7-view.mjs": "bdbccb4c8609df5db03fa8f202a24c6885bbb7a08713726338da1d0920b02a54",
+    "presentation/smartsoft-native-presentation.mjs": "c31be60a9563d0c0a4ba7868f1b710044ccbffd6bf436ae819ea7c5c04640bf1",
+    "presentation/manifests/burningice10_native.json": "e98f3ff415f6577b5d8fd667429030f4979c830774e24a0b240c9a275e3d2c5f",
+    "presentation/manifests/burningice40_native.json": "19ca7c30fb276feaf6715777294c5ef348ce799b6543623b1b3738f508e9d42a",
+    "demo-games.json": "1e8b96144cd39360a107afcd39c0d488d4678f6b10733399efeaf93bf9c1617f"
+  }
+}

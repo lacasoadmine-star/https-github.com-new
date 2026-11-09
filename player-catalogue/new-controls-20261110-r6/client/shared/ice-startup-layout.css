@@ -1,0 +1,14 @@
+/* Keep the original SmartSoft logo and prompt geometry inside the game surface.
+   Header heights and the credits banner are retained Player machine.css values. */
+html[data-zplay-ice-startup="1"] body {
+ --ice-startup-header: 76px;
+ --ice-startup-banner: 0px;
+}
+@media (max-width: 899px) {
+ html[data-zplay-ice-startup="1"] body { --ice-startup-header: 64px; }
+}
+html[data-zplay-ice-startup="1"] body.integrated-reference { --ice-startup-header: 58px; }
+html[data-zplay-ice-startup="1"][data-credits-demo="true"] body { --ice-startup-banner: 34px; }
+html[data-zplay-ice-startup="1"] .smartsoft-startup {
+ top: calc(var(--ice-startup-header) + var(--ice-startup-banner));
+}

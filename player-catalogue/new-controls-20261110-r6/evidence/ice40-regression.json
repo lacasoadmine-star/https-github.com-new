@@ -1,0 +1,154 @@
+{
+  "passed": true,
+  "scope": "Offline reproduction of real revealed CREDITS receipt; actual prepare/render/painter code with image-decode sentinels. No browser or network claim.",
+  "realWalletActions": 0,
+  "networkCalls": 0,
+  "modelChanged": false,
+  "receiptChanged": false,
+  "r4Unaffected": true,
+  "r5RegressionReproduced": true,
+  "fixed": true,
+  "sourceSha256": "c31be60a9563d0c0a4ba7868f1b710044ccbffd6bf436ae819ea7c5c04640bf1",
+  "candidateSha256": "026fbba3dfe9b99f352f89d3d4e01d9e457d5d845c1720f6ef05840c9c6f2994",
+  "fixture": {
+    "gameId": "burningice40_native",
+    "roundId": "76bcf1d5-59a9-49ea-805e-231ad003fe63",
+    "stakeMinor": "200",
+    "payoutMinor": "3200",
+    "frames": 2,
+    "terminalFrozenColumns": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "receiptSha256": "76e6988b03a9a4c345d70d16c98fd2ab7a878169454ee5e3933348c59cf2a8f8"
+  },
+  "evidence": [
+    {
+      "version": "r4",
+      "frame": 0,
+      "pending": true,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 34,
+      "loadedPages": 8
+    },
+    {
+      "version": "r4",
+      "frame": 1,
+      "pending": true,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 35,
+      "loadedPages": 7
+    },
+    {
+      "version": "r4",
+      "frame": 1,
+      "pending": false,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 35,
+      "loadedPages": 7
+    },
+    {
+      "version": "r4",
+      "frame": null,
+      "pending": false,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 35,
+      "loadedPages": 7
+    },
+    {
+      "version": "r5",
+      "frame": 0,
+      "pending": true,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 34,
+      "loadedPages": 8
+    },
+    {
+      "version": "r5",
+      "frame": 1,
+      "pending": true,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 35,
+      "loadedPages": 7
+    },
+    {
+      "version": "r5",
+      "frame": 1,
+      "pending": false,
+      "expectedFailure": true,
+      "missingImageFiles": [
+        "8c906c071e74d03a8fcab779a593ca06700eade6d42dec500dd8471eda9ab0b2.png"
+      ],
+      "paintSucceeded": false,
+      "drawCalls": 2,
+      "loadedPages": 7
+    },
+    {
+      "version": "r5",
+      "frame": null,
+      "pending": false,
+      "expectedFailure": true,
+      "missingImageFiles": [
+        "8c906c071e74d03a8fcab779a593ca06700eade6d42dec500dd8471eda9ab0b2.png"
+      ],
+      "paintSucceeded": false,
+      "drawCalls": 2,
+      "loadedPages": 7
+    },
+    {
+      "version": "fixed",
+      "frame": 0,
+      "pending": true,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 34,
+      "loadedPages": 8
+    },
+    {
+      "version": "fixed",
+      "frame": 1,
+      "pending": true,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 35,
+      "loadedPages": 8
+    },
+    {
+      "version": "fixed",
+      "frame": 1,
+      "pending": false,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 30,
+      "loadedPages": 8
+    },
+    {
+      "version": "fixed",
+      "frame": null,
+      "pending": false,
+      "expectedFailure": false,
+      "missingImageFiles": [],
+      "paintSucceeded": true,
+      "drawCalls": 30,
+      "loadedPages": 8
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-09T22:29:25.602833+00:00",
+  "scope": [
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "classification": "Host viewport alignment repair preserving already verified original SmartSoft startup art and controls",
+  "officialSource": {
+    "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Styles/mobile.othergamesslots.css",
+    "archivedFullSourceSha256": "9500724315a0aa3e027cffa4e8d00f138c863054af3a939505780b38ddbbd21a",
+    "evidenceRecord": {
+      "path": "/workspace/scratch/14a9686e6662/recovered-repo/publication-public/source/game-expansion/continuation/presentation/evidence/smartsoft-startup-source.json",
+      "bytes": 6949,
+      "sha256": "d65d75e505fc5fcdb10ee9c11ba6d6b343592ef70a6d93343a8f19debbb1d719"
+    },
+    "retainedExcerpt": {
+      "path": "/workspace/scratch/14a9686e6662/recovered-repo/publication-public/source/game-expansion/continuation/presentation/evidence/smartsoft-startup-source.css",
+      "bytes": 3680,
+      "sha256": "3c71f5f8e32613cc3b35af079bd6c6d353adf1ef12ec04427fc62eaf5ef4c21c"
+    },
+    "establishedGeometry": {
+      "logoBox": [
+        205,
+        205
+      ],
+      "promptCenter": "50 percent of game surface below provider header",
+      "promptHeights": {
+        "maxWidth1024": 190,
+        "desktop": 381
+      },
+      "buttonSize": {
+        "maxWidth1024": [
+          135,
+          63
+        ],
+        "desktop": [
+          302,
+          127
+        ]
+      }
+    },
+    "applicability": "Archived official shared mobile loader/dialog CSS. The existing pair uses its source geometry. This review does not assert a new title-specific Android observation."
+  },
+  "originalAssets": [
+    {
+      "name": "logo",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-logo.gif",
+      "file": "4d5662742ebb6a6c564a9c225040c034062c1fdc7d4e12e0b1f227350ad26c99.gif",
+      "bytes": 46937,
+      "sha256": "4d5662742ebb6a6c564a9c225040c034062c1fdc7d4e12e0b1f227350ad26c99"
+    },
+    {
+      "name": "bar",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-background.png",
+      "file": "2c4fb994168a8a1ba3bc6984849813561b7d19969b56cf3a9daa2ea9f2e7eaca.png",
+      "bytes": 340,
+      "sha256": "2c4fb994168a8a1ba3bc6984849813561b7d19969b56cf3a9daa2ea9f2e7eaca"
+    },
+    {
+      "name": "icon",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-icon.png",
+      "file": "5a147a489f158511a11f0b9e2339d2637aeb7b5f716f039eff1c77d05510bd8e.png",
+      "bytes": 475,
+      "sha256": "5a147a489f158511a11f0b9e2339d2637aeb7b5f716f039eff1c77d05510bd8e"
+    },
+    {
+      "name": "yes",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/othergames-mobile-yes.png",
+      "file": "eb793c74e011fccfdffafc0f82e2440ceebd8e5ad3244a61dde084a49da5c440.png",
+      "bytes": 2618,
+      "sha256": "eb793c74e011fccfdffafc0f82e2440ceebd8e5ad3244a61dde084a49da5c440"
+    },
+    {
+      "name": "no",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/othergames-mobile-no.png",
+      "file": "a31598c757991af6d09c49cd9e3110f3ef9810e4053d264596220bb3d77a5267.png",
+      "bytes": 2013,
+      "sha256": "a31598c757991af6d09c49cd9e3110f3ef9810e4053d264596220bb3d77a5267"
+    },
+    {
+      "name": "font",
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/font1/fontmt1-regular-webfont.woff2",
+      "file": "e63c19c510ebabb9b336c7fe10204dd3fc86d36b07df756d5fe54b099edc3f66.woff2",
+      "bytes": 52844,
+      "sha256": "e63c19c510ebabb9b336c7fe10204dd3fc86d36b07df756d5fe54b099edc3f66"
+    }
+  ],
+  "actualDefect": {
+    "previousCoverTop": 58,
+    "initialHeaderHeights": {
+      "maxWidth899": 64,
+      "desktop": 76
+    },
+    "integratedHeaderHeight": 58,
+    "creditsBannerHeight": 34,
+    "beforeOverlapPx": {
+      "initialMobile": 40,
+      "initialDesktop": 52,
+      "integrated": 34
+    },
+    "fix": "Compute cover top using retained header height plus banner height, with body integrated state and viewport breakpoints."
+  },
+  "unchanged": [
+    "All original artwork bytes",
+    "Caption and Yes/No text",
+    "Logo/prompt/button sizes and50percent centering",
+    "Existing first-load readiness,150ms delay and100ms fade",
+    "Yes/No callback and audio unlock/mute behavior",
+    "All client modules and engine/wallet/API code",
+    "CoinMiner provider identity",
+    "MultiHot5/FoxyHot20 and other games"
+  ],
+  "verification": {
+    "passed": true,
+    "checks": 77,
+    "report": {
+      "path": "/workspace/scratch/15f5b50f5a14/startup-followup/verification-report.json",
+      "bytes": 63167,
+      "sha256": "638a1ccb1a78731f6da07f24814ddaff406a2594efea7b76b0318b6564884a36"
+    },
+    "viewports": [
+      [
+        360,
+        844
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        1365,
+        850
+      ]
+    ],
+    "apiRequests": 0,
+    "wagers": 0,
+    "outboundRequests": 0,
+    "method": "Actual retained HTML/CSS/startup controller plus original hash-checked assets, local readiness fixture. No live engine execution."
+  },
+  "limits": [
+    "No new official provider session was opened; already captured source was sufficient for the host overlap defect.",
+    "A full official Android portrait comparison remains outside this bounded fix.",
+    "This change does not establish cash readiness or replace missing game features."
+  ],
+  "product": {
+    "css": {
+      "path": "/workspace/scratch/15f5b50f5a14/startup-followup/ice-startup-layout.css",
+      "bytes": 675,
+      "sha256": "82b4fac0406c838d45582d3e321d193202236e3322360e355d5fcb1804e79f50"
+    },
+    "htmlPatcher": {
+      "path": "/workspace/scratch/15f5b50f5a14/startup-followup/ice-startup-layout-r1.mjs",
+      "bytes": 894,
+      "sha256": "7fe9fafad3f76320dc7fe3f88554584b0bc60cb14312433f1d322b58c5ff4b4b"
+    },
+    "assetsModule": {
+      "path": "/workspace/scratch/15f5b50f5a14/startup-followup/ice-startup-layout-assets-r1.mjs",
+      "bytes": 950,
+      "sha256": "79babae581f36f1a881e6218020a7cfd05b460aa83728965ffd8cad2b233d06f"
+    }
+  }
+}

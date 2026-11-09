@@ -1,0 +1,63 @@
+{
+  "scope": "Only source-backed UI changes, source URLs used as provenance not new session launches",
+  "source": {
+    "autoplayComponent": {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/New/Components/autoPlay.js",
+      "path": "source/autoPlay.js",
+      "sha256": "fd3215d796f2324b275989a077e21e04438302901fbc9502944f1173d3d5acbe",
+      "bytes": 35698
+    },
+    "buttonDispatcher": {
+      "path": "/workspace/scratch/14a9686e6662/smartsoft-research/component-buttons.js",
+      "sha256": "0fde07c331a593d4eb64a907f397f96c435cb77210e461d7a1350e33a090ff3a",
+      "behavior": "Original pointerdown dispatcher selects ButtonsAutoplayStart/Stop by current button mode before autoPlay.click(); click opens settings when inactive and stops when active."
+    }
+  },
+  "artifacts": {
+    "client/autoplay-control-audio.mjs": {
+      "bytes": 928,
+      "sha256": "e9d6da1167f3d41ac0c3ef85585216e2b186a841f36878f85ab64c90277458a1"
+    },
+    "patch-autoplay-audio.mjs": {
+      "bytes": 1580,
+      "sha256": "4643b4e5da5296e52134f8d042a1dc13f42b2160bfd4d811d3668d648f71469a"
+    },
+    "legacy-auto-currency.css": {
+      "bytes": 978,
+      "sha256": "b675a33f28e1ebc6e85a38d544753dbd199675728a90f8ffb2864e6353115e48"
+    },
+    "source/autoPlay.js": {
+      "bytes": 35698,
+      "sha256": "fd3215d796f2324b275989a077e21e04438302901fbc9502944f1173d3d5acbe"
+    },
+    "legacy-auto-currency-r2.css": {
+      "bytes": 1139,
+      "sha256": "a9c902142625dbe463fc0b8990e59c0a6bf706d74dc77ce193fadf4dfb13b983"
+    }
+  },
+  "manifestAssetPolicy": "Use each title existing manifest and hash-locked Buttons/AutoplayStart.mp3 / Buttons/AutoplayStop.mp3. No replacement audio, no new music, no provider session required.",
+  "scopeIds": [
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihotdeluxe_native"
+  ],
+  "legacyLayoutScope": [
+    "burningice_native",
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "verification": {
+    "audio": "audio-verification.json",
+    "layout": "legacy-auto-layout-verification.json",
+    "layoutScreenshots": [
+      "legacy-auto-844-fixed.png",
+      "legacy-auto-390-fixed.png"
+    ],
+    "layoutRenderedAndVisuallyInspected": true,
+    "layoutR2": "legacy-auto-r2-layout-verification.json",
+    "layoutR2Cases": 16,
+    "layoutR2Reason": "Original SmartSoftDialogs constructor dynamically appends its CSS after HTML-injected override; actual stage-class specificity keeps override valid in either order."
+  },
+  "supersededArtifact": "legacy-auto-currency.css retained for provenance; use legacy-auto-currency-r2.css"
+}
