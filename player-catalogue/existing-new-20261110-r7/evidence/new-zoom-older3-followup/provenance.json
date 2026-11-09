@@ -1,0 +1,78 @@
+{
+  "scope": "Three additional NEW routes, beyond the frozen ten-demo guard; protected MultiHot5/FoxyHot20 excluded",
+  "sourceVersion": {
+    "worker": "superwin-player",
+    "number": 346,
+    "id": "7554326a-fa3c-46b1-b3c5-839722f63307",
+    "method": "Read-only Cloudflare version modules, exact module SHA-256 verified against active inventory"
+  },
+  "routes": [
+    {
+      "path": "/games/multihot40_native",
+      "htmlSource": "expansion-client-assets-20261108-fetch-fix.mjs ASSETS[\"multihot40.html\"]",
+      "input": "Delayed SpinHold; normal pointer cancellation must clear the timer"
+    },
+    {
+      "path": "/games/balloon_native",
+      "htmlSource": "balloon-assets-20261108.mjs ASSETS[\"index.html\"]",
+      "input": "Immediate primary hold; preserve touch-action:none and actual release. Suppress secondary down/up/cancel/lostcapture so second finger cannot start or release primary hold."
+    },
+    {
+      "path": "/games/jetx_native",
+      "htmlSource": "observed-assets.mjs ASSETS[\"/observed/jetx/index.html\"]",
+      "input": "Click/change and keyboard handlers in exact view.mjs; account/demo redirect preserved"
+    }
+  ],
+  "liveHttpAttempt": {
+    "count": 3,
+    "result": "403 error code 1010 for Python urllib default user agent",
+    "retries": 0,
+    "authConclusion": "None; response occurred before Worker app HTML",
+    "officialExplanation": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/"
+  },
+  "cashActions": 0,
+  "financialOrApiCodeModified": false,
+  "sourceModules": [
+    {
+      "name": "balloon-assets-20261108.mjs",
+      "bytes": 58600,
+      "sha256": "83f5b55ca75c9c5af44692932716501c8825ac14e7072b9161bda1ea63574ff8"
+    },
+    {
+      "name": "balloon-worker-20261108.mjs",
+      "bytes": 8105,
+      "sha256": "0a28ca4a593bc4925d11d18e468e44cf51dc2b4021677504da91bef9f5f02aca"
+    },
+    {
+      "name": "expansion-client-assets-20261108-fetch-fix.mjs",
+      "bytes": 573930,
+      "sha256": "5a818240cf8ad2d051774ffbc2dbc22743d79bfc65c60258a79bdb649058032a"
+    },
+    {
+      "name": "expansion-worker-20261108-fetch-fix.mjs",
+      "bytes": 9513,
+      "sha256": "d348ec638ddfae3a676a340c157eecc01971b5bb6a6e04b9b50a92e5148c1cec"
+    },
+    {
+      "name": "observed-assets.mjs",
+      "bytes": 397923,
+      "sha256": "3f9fe0acf49eb729fb9cfd6cc3342580086cd613a157cd7835eb56ffee3e2428"
+    },
+    {
+      "name": "observed-gateway-core.mjs",
+      "bytes": 21787,
+      "sha256": "0b340e3afcd4f54df7bae293b551c921e0dcc25f66545223a021a372b3726f8a"
+    },
+    {
+      "name": "observed-entry-20261108-r1.mjs",
+      "bytes": 780,
+      "sha256": "aec7152592f05e577946c5d24b1c10a2153e1294e09c466d7ca52b5c14f938b3"
+    },
+    {
+      "name": "jetx-worker.mjs",
+      "bytes": 9040,
+      "sha256": "652482dc1d4ba2e8515a6cd9347f64771ab7fe464dabd47dad650655deb7a3a3"
+    }
+  ],
+  "integration": "Wrap current previous Player export using installOlderNewZoomWorker(previous); serve only three new product modules. Parent owns baseline verification, stage/deploy/Git. Current r6/10 modules remain byte-identical."
+}

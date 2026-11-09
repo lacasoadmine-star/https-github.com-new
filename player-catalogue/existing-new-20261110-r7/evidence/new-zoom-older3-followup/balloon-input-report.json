@@ -1,0 +1,96 @@
+{
+  "scope": "Exact active Balloon pointer handlers and markup/styles; inert start/collect/heartbeat callbacks, no game/wallet/API execution",
+  "checks": [
+    "Baseline exact handler accepts a secondary touch on HOLD",
+    "Original Balloon pan-y and HOLD touch-action:none preserved",
+    "Guard blocks secondary-finger HOLD activation",
+    "Primary HOLD still reaches original handler once",
+    "Second finger does not synthesize an early Balloon release",
+    "Secondary release preserves the still-held primary pointer",
+    "Real primary release reaches original collection callback once",
+    "Secondary implicit-capture release on HOLD does not release primary hold",
+    "Primary release after same-button multitouch collects once",
+    "Keyboard hold/release remains usable",
+    "No API or mutation request",
+    "No browser errors"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/games/balloon_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/balloon/v1/balloon.css"
+    },
+    {
+      "method": "GET",
+      "path": "/bootstrap.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/balloon_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/balloon/v1/balloon.css"
+    },
+    {
+      "method": "GET",
+      "path": "/guard.css"
+    },
+    {
+      "method": "GET",
+      "path": "/bootstrap.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/guard.js"
+    }
+  ],
+  "errors": [],
+  "handlerSha256": "0a0e7ebd87a20d52254c75f7fe6b234d9f57ee3c48dd8b089dd1a6205f78bdd5",
+  "secondaryRelease": {
+    "snapshot": {
+      "starts": 1,
+      "collects": 0,
+      "heartbeats": 0,
+      "held": true,
+      "phase": "active"
+    },
+    "events": [
+      {
+        "type": "pointerdown",
+        "id": 2,
+        "primary": true,
+        "target": "sky"
+      },
+      {
+        "type": "pointerup",
+        "id": 2,
+        "primary": true,
+        "target": "sky"
+      },
+      {
+        "type": "lostpointercapture",
+        "id": 2,
+        "primary": true,
+        "target": "sky"
+      },
+      {
+        "type": "pointerdown",
+        "id": 4,
+        "primary": true,
+        "target": "handIcon"
+      }
+    ]
+  },
+  "finalInertCounters": {
+    "starts": 3,
+    "collects": 3,
+    "heartbeats": 0,
+    "held": false,
+    "phase": "settled"
+  },
+  "passed": true
+}

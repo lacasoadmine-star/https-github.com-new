@@ -1,0 +1,269 @@
+{
+  "schema": "superwin-release-receipt/v1",
+  "status": "Published assets and Ice40 live regression/AUTO verified; Ice10 live AUTO running",
+  "commit": "0c7249c2c5534b05b081eccba86f90fbb0f576e0",
+  "active": [
+    {
+      "worker": "superwin-player",
+      "latest": {
+        "id": "3f21e2b4-cdfa-4fd3-ab0e-9141067d399c",
+        "number": 349,
+        "main_module": "remaining20-new-controls-player-entry-r6.mjs"
+      },
+      "deployment": {
+        "id": "06f9693e-9658-4622-a38e-ea53d0735727",
+        "source": "api",
+        "strategy": "percentage",
+        "annotations": {
+          "workers/message": "Republish identical reviewed r6 modules through...",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "3f21e2b4-cdfa-4fd3-ab0e-9141067d399c",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-11-09T22:48:34.140969Z"
+      }
+    },
+    {
+      "worker": "superwin-library-100",
+      "latest": {
+        "id": "c40f38d0-3395-4e6c-8a48-c5f83502dd88",
+        "number": 28,
+        "main_module": "remaining20-new-controls-library-entry-r6.mjs"
+      },
+      "deployment": {
+        "id": "e72de883-6129-403e-a211-857137eb7ecc",
+        "source": "api",
+        "strategy": "percentage",
+        "annotations": {
+          "workers/message": "Republish identical reviewed r6 modules through...",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "c40f38d0-3395-4e6c-8a48-c5f83502dd88",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-11-09T22:47:35.099665Z"
+      }
+    }
+  ],
+  "republish": {
+    "library": {
+      "success": true,
+      "result": {
+        "created_on": "2026-11-07T23:30:02.146752Z",
+        "modified_on": "2026-11-09T22:47:35.099665Z",
+        "id": "superwin-library-100",
+        "tag": "42c35923f2aa48218c50812de49c26fd",
+        "entry_point": "remaining20-new-controls-library-entry-r6.mjs",
+        "tags": [
+          "zplay-expansion100"
+        ],
+        "deployment_id": "c40f38d033954e6c8a48c5f83502dd88",
+        "tail_consumers": [],
+        "logpush": false,
+        "observability": {
+          "enabled": true,
+          "head_sampling_rate": 1,
+          "redact_query_string": false,
+          "logs": {
+            "enabled": true,
+            "head_sampling_rate": 1,
+            "persist": true,
+            "invocation_logs": true
+          },
+          "traces": {
+            "enabled": true,
+            "persist": true,
+            "head_sampling_rate": 1
+          }
+        },
+        "has_assets": true,
+        "has_modules": true,
+        "etag": "60bc9ebcb61e807564560398d4e2a36554892cd5c32cad4f66013c55d6953d74",
+        "handlers": [
+          "fetch"
+        ],
+        "named_handlers": [
+          {
+            "name": "Remaining20CreditsDemoR4",
+            "handlers": [
+              "class"
+            ]
+          }
+        ],
+        "last_deployed_from": "api",
+        "exports": {
+          "Remaining20CreditsDemoR4": {
+            "type": "durable-object",
+            "storage": "sqlite"
+          }
+        },
+        "compatibility_date": "2026-11-07",
+        "usage_model": "standard",
+        "startup_time_ms": 750,
+        "exports_reconciliation": {
+          "created": [],
+          "updated": [],
+          "deleted": [],
+          "renamed": [],
+          "transferred": [],
+          "transfer_pending": [],
+          "warnings": [],
+          "info": [],
+          "removable_entries": []
+        }
+      },
+      "worker": "superwin-library-100",
+      "sourceVersion": "f0030594-7cae-4bfb-a37a-ece456ac4a35",
+      "mainModule": "remaining20-new-controls-library-entry-r6.mjs",
+      "verifiedUnchangedModules": 57,
+      "verifiedUnchangedBytes": 7840176,
+      "codeChanged": false,
+      "bindingsChanged": false,
+      "keepAssets": true
+    },
+    "player": {
+      "success": true,
+      "result": {
+        "created_on": "2026-10-17T00:56:37.17691Z",
+        "modified_on": "2026-11-09T22:48:34.140969Z",
+        "id": "superwin-player",
+        "tag": "de2bde7dad5e46b8ace8b00c0daf5450",
+        "entry_point": "remaining20-new-controls-player-entry-r6.mjs",
+        "tags": [],
+        "deployment_id": "3f21e2b4cdfa4fd3ab0e9141067d399c",
+        "tail_consumers": [],
+        "logpush": false,
+        "has_assets": true,
+        "has_modules": true,
+        "etag": "d1b89b86b1079361630d238eb3de92b39bb82b7aba051458f480e9c3e46693d3",
+        "handlers": [
+          "fetch",
+          "scheduled"
+        ],
+        "named_handlers": [
+          {
+            "name": "LocalDemoWallet",
+            "handlers": [
+              "class"
+            ]
+          }
+        ],
+        "last_deployed_from": "api",
+        "migration_tag": "local-demo-v1",
+        "exports": {
+          "LocalDemoWallet": {
+            "type": "durable-object",
+            "storage": "sqlite"
+          }
+        },
+        "compatibility_date": "2026-10-01",
+        "usage_model": "standard",
+        "startup_time_ms": 7,
+        "exports_reconciliation": {
+          "created": [],
+          "updated": [],
+          "deleted": [],
+          "renamed": [],
+          "transferred": [],
+          "transfer_pending": [],
+          "warnings": [],
+          "info": [],
+          "removable_entries": []
+        }
+      },
+      "worker": "superwin-player",
+      "sourceVersion": "5bc7a8e8-9f1b-4b0b-8add-fdfc46c394a1",
+      "mainModule": "remaining20-new-controls-player-entry-r6.mjs",
+      "verifiedUnchangedModules": 271,
+      "verifiedUnchangedBytes": 66894061,
+      "codeChanged": false,
+      "bindingsChanged": false,
+      "keepAssets": true
+    }
+  },
+  "deliveryIssue": {
+    "versionDeploymentMetadata": {
+      "player": "5bc7a8e8-9f1b-4b0b-8add-fdfc46c394a1",
+      "library": "f0030594-7cae-4bfb-a37a-ece456ac4a35"
+    },
+    "observed": "Public page remained r4; Player-local zoom and Library-backed CSS returned404 after version-deployment metadata showed100% r6.",
+    "remedy": "Hash-verified identical code republished through documented PUT script upload. Public URLs then returned200 and exact expected hashes.",
+    "sourceDefectReproduced": false
+  },
+  "liveAssets": [
+    {
+      "path": "/native-library/remaining20/20261110-new-zoom-r1/zoom.js",
+      "status": 200,
+      "bytes": 3131,
+      "sha256": "7e95108aaa789185a5399e72dbb4d778cf57bca4af1f92edfb04ec7fdbeb9873"
+    },
+    {
+      "path": "/native-library/remaining20/20261110-new-controls-r6/shared/legacy-auto-currency.css",
+      "status": 200,
+      "bytes": 1139,
+      "sha256": "a9c902142625dbe463fc0b8990e59c0a6bf706d74dc77ce193fadf4dfb13b983"
+    }
+  ],
+  "liveRegressionRecovery": {
+    "game": "burningice40_native",
+    "priorRoundId": "76bcf1d5-59a9-49ea-805e-231ad003fe63",
+    "payout": "32.00",
+    "balance": "100008.00",
+    "currency": "CREDITS",
+    "observed": "r6 app loaded, soundYes accepted, same settled round rendered successfully with normal columns; SPIN/menu/bet enabled; bet1to2 thenAUTO25 started."
+  },
+  "protectedGames": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native"
+  ],
+  "cashGatesChanged": false,
+  "realWagers": 0,
+  "liveAutoplayIce40": {
+    "mode": "CREDITS only",
+    "completedRounds": 25,
+    "stakeEach": "2.00",
+    "totalStake": "50.00",
+    "totalPayout": "90.50",
+    "startingBalance": "100008.00",
+    "endingBalance": "100048.50",
+    "balanceConserved": true,
+    "historyRowsAfter": 39,
+    "priorHistoryRows": 14,
+    "applicationConsoleErrorsAfterPublish": 0,
+    "realWagers": 0,
+    "payoutsNewestFirst": [
+      "0.00",
+      "2.00",
+      "5.00",
+      "0.00",
+      "0.00",
+      "21.00",
+      "10.00",
+      "9.00",
+      "0.00",
+      "4.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "2.00",
+      "0.00",
+      "0.00",
+      "0.00",
+      "11.00",
+      "0.00",
+      "2.00",
+      "0.00",
+      "11.00",
+      "9.00",
+      "4.50"
+    ]
+  }
+}

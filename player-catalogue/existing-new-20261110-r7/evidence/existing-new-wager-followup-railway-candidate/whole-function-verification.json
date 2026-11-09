@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "scope": "Complete exact Railway Function bootstrap plus canonical HTTP and disposable PostgreSQL wallet",
+  "remoteMutation": false,
+  "liveWagers": 0,
+  "productionCredentialsRead": false,
+  "sourceSha256": "ef58663f141a3f7692d66e0e6d4cef06bf7a69936a218b37f1fc967814cec058",
+  "recoverySourceSha256": "842076cbfc04b46680568a8412ec6347e39cd44752756eea77d2bb9b54ac9519",
+  "baselineSourceSha256": "92642f785a7d8a6771d225d55215217c275f349079b229f88032e3795e12cc6a",
+  "checks": [
+    {
+      "name": "Release and recovery payloads fit the existing Function; all56 original module bodies remain exact",
+      "pass": true,
+      "releaseBytes": 87716,
+      "recoveryBytes": 87636,
+      "modules": 61
+    },
+    {
+      "name": "Full successor Function boots with one canonical SQL/service instance and recovers both old-model active rounds before serving requests",
+      "pass": true,
+      "databaseConstructorsPerVersion": 1,
+      "retainedActiveRounds": 2,
+      "networkCalls": 0
+    },
+    {
+      "name": "Six unrelated HTTP routes, all260 retained client bodies and19 remaining-game definitions/gates are unchanged",
+      "pass": true,
+      "clientCount": 260,
+      "remainingGames": 19
+    },
+    {
+      "name": "Complete HTTP authentication resolves both canonical raw/hashed sessions and rejects expired/blocked/forged/demo identities without financial effects",
+      "pass": true
+    },
+    {
+      "name": "Old start receipts replay byte-identically after upgrade; conflicting/cross-account actions fail; old models collect exactly once",
+      "pass": true
+    },
+    {
+      "name": "Authenticated successor rounds at1/2/40000 reserve the full model liability; duplicate start and collect never debit or credit twice",
+      "pass": true,
+      "rounds": [
+        {
+          "game": "multihot40_native",
+          "stake": "1.00",
+          "modelVersion": "superwin-multihot40-2-etb1-40000-v1",
+          "roundId": "00000000-0000-4000-8000-000000003003",
+          "liabilityMinor": "250000",
+          "payoutMinor": "1000"
+        },
+        {
+          "game": "multihot40_native",
+          "stake": "2.00",
+          "modelVersion": "superwin-multihot40-2-etb1-40000-v1",
+          "roundId": "00000000-0000-4000-8000-000000003004",
+          "liabilityMinor": "500000",
+          "payoutMinor": "450"
+        },
+        {
+          "game": "multihot40_native",
+          "stake": "40000.00",
+          "modelVersion": "superwin-multihot40-2-etb1-40000-v1",
+          "roundId": "00000000-0000-4000-8000-000000003005",
+          "liabilityMinor": "10000000000",
+          "payoutMinor": "104000000"
+        },
+        {
+          "game": "balloon_native",
+          "stake": "1.00",
+          "modelVersion": "superwin-balloon-1-etb1-40000-v1",
+          "roundId": "00000000-0000-4000-8000-000000003006",
+          "liabilityMinor": "2500000",
+          "payoutMinor": "109"
+        },
+        {
+          "game": "balloon_native",
+          "stake": "2.00",
+          "modelVersion": "superwin-balloon-1-etb1-40000-v1",
+          "roundId": "00000000-0000-4000-8000-000000003007",
+          "liabilityMinor": "5000000",
+          "payoutMinor": "218"
+        },
+        {
+          "game": "balloon_native",
+          "stake": "40000.00",
+          "modelVersion": "superwin-balloon-1-etb1-40000-v1",
+          "roundId": "00000000-0000-4000-8000-000000003008",
+          "liabilityMinor": "100000000000",
+          "payoutMinor": "4360000"
+        }
+      ]
+    },
+    {
+      "name": "Below/above/off-preset stakes and superseded new-start versions reject; Ice cash gate remains closed; no failed-request ledger writes",
+      "pass": true
+    },
+    {
+      "name": "Full HTTP40000 exposure still obeys canonical house reserve and account cap; failed obligations roll back atomically",
+      "pass": true
+    },
+    {
+      "name": "Compatible recovery Function restores active successor rounds, stops both new starts, keeps old/new history and settles accepted receipts exactly once",
+      "pass": true
+    },
+    {
+      "name": "All isolated player/house/reserve balances conserve value and every transfer ledger sums to zero",
+      "pass": true,
+      "totalMinor": "1020001000000",
+      "finalTally": {
+        "wallets": 14,
+        "requests": 20,
+        "transfers": 40,
+        "rounds": 10
+      },
+      "productionFinancialActions": 0
+    },
+    {
+      "name": "Missing existing code part or corrupted inline delta fails before module writes, database construction or network",
+      "pass": true
+    }
+  ],
+  "passed": true,
+  "networkCalls": 0,
+  "databaseConstructors": 3,
+  "applicationModulesWritten": 178,
+  "retainedModules": 56,
+  "releaseModules": 61,
+  "inMemoryOnly": true
+}

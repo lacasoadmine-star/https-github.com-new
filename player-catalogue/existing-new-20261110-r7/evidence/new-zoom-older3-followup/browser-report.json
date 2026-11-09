@@ -1,0 +1,298 @@
+{
+  "scope": "Offline Chromium gestures on exact retained entry HTML/styles. JetX uses its exact view module with inert actions; MultiHot40 uses its exact SpinHold and local positioned input fixture. Balloon full original hold contract is verified separately. No account/game transport runs.",
+  "checks": [
+    "Original entry viewport permits a real CDP mobile pinch",
+    "/games/multihot40_native: exact guard installed before fixture",
+    "/games/multihot40_native: idle pinch keeps scale one",
+    "/games/multihot40_native: double tap keeps scale one",
+    "/games/multihot40_native: pinch during local motion keeps scale one",
+    "/games/balloon_native: exact guard installed before fixture",
+    "/games/balloon_native: idle pinch keeps scale one",
+    "/games/balloon_native: double tap keeps scale one",
+    "/games/balloon_native: pinch during local motion keeps scale one",
+    "/games/jetx_native: exact guard installed before fixture",
+    "/games/jetx_native: idle pinch keeps scale one",
+    "/games/jetx_native: double tap keeps scale one",
+    "/games/jetx_native: pinch during local motion keeps scale one",
+    "MultiHot40 menu tap works",
+    "MultiHot40 bet menu input works",
+    "MultiHot40 pinch cancels delayed SpinHold with no inert launch",
+    "MultiHot40 fresh tap still reaches one inert launch",
+    "MultiHot40 fresh hold launches before release",
+    "MultiHot40 hold release does not add a second click launch",
+    "Actual JetX menu click handler remains functional",
+    "Actual JetX stake-step emits one inert action",
+    "Actual JetX amount input change reaches original handler",
+    "Actual JetX primary click emits one inert action",
+    "Actual JetX keyboard menu activation works",
+    "360px JetX fixed scale and primary visible",
+    "430px JetX fixed scale and primary visible",
+    "Desktop Ctrl+wheel cancelled with scale unchanged",
+    "Browser keyboard zoom shortcut left unintercepted",
+    "No API, mutation or outbound requests",
+    "No browser exceptions"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/baseline"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/multihot40.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/multihot40-app.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/player-v236/presence.63ed199a80b6c700.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/multihot40_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/multihot40.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/multihot40-app.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/player-v236/presence.63ed199a80b6c700.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/balloon_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/balloon/v1/balloon.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/balloon/v1/balloon.js"
+    },
+    {
+      "method": "GET",
+      "path": "/player-v236/presence.63ed199a80b6c700.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/jetx_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/client.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/view.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/assets/jetx-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/games/multihot40_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/multihot40.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/multihot40-app.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/player-v236/presence.63ed199a80b6c700.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/expansion/r1/spin-hold.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/games/jetx_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/client.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/view.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/assets/jetx-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/games/jetx_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/client.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/view.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/assets/jetx-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/games/jetx_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/client.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/view.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/assets/jetx-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/games/jetx_native"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css"
+    },
+    {
+      "method": "GET",
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/client.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/view.mjs"
+    },
+    {
+      "method": "GET",
+      "path": "/observed/jetx/assets/jetx-logo.svg"
+    }
+  ],
+  "outbound": [],
+  "errors": [],
+  "games": [
+    {
+      "route": "/games/multihot40_native",
+      "scale": 1,
+      "frameCount": 46
+    },
+    {
+      "route": "/games/balloon_native",
+      "scale": 1,
+      "frameCount": 46
+    },
+    {
+      "route": "/games/jetx_native",
+      "scale": 1,
+      "frameCount": 45
+    }
+  ],
+  "baselineScale": 4.961055278778076,
+  "passed": true
+}

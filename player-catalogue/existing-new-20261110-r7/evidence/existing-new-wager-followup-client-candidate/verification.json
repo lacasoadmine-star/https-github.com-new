@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "scope": [
+    "multihot40_native",
+    "balloon_native"
+  ],
+  "kind": "Offline exact-source and route/import verification; no live API or wallet tests",
+  "checks": [
+    "exact active inputs and generated asset/module hashes match the candidate manifest",
+    "catalog uses exact drafted profile and bound manifest while old geometry stays identical",
+    "new-start profile checks reject old/missing/mismatched versions without blocking historical display",
+    "only two older NEW launch documents change and preserve cookies, CSP, presence and old prefixes",
+    "static overlays preserve exact GET/HEAD/304 bodies and strip credentials before Library access",
+    "accepted-round action, pending retry and history code remains byte-identical",
+    "both real app import graphs link through their correct family paths"
+  ],
+  "imports": [
+    {
+      "family": "multihot40",
+      "modules": 10
+    },
+    {
+      "family": "balloon",
+      "modules": 2
+    }
+  ],
+  "networkCalls": 0,
+  "financialActions": 0,
+  "sourceModules": {
+    "balloon": {
+      "name": "balloon-assets-20261108.mjs",
+      "sha256": "83f5b55ca75c9c5af44692932716501c8825ac14e7072b9161bda1ea63574ff8",
+      "file": "/workspace/scratch/15f5b50f5a14/current-new-modules/balloon-assets-20261108.mjs",
+      "bytes": 58600
+    },
+    "multihot40": {
+      "name": "expansion-client-assets-20261108-fetch-fix.mjs",
+      "sha256": "5a818240cf8ad2d051774ffbc2dbc22743d79bfc65c60258a79bdb649058032a",
+      "file": "/workspace/scratch/15f5b50f5a14/current-new-modules/expansion-client-assets-20261108-fetch-fix.mjs",
+      "bytes": 573930
+    }
+  },
+  "assetHashes": {
+    "multihot40/multihot40-app.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 25876,
+      "sha256": "a094f67cc3c209d846cb8ee9ff64b8940e8e1f905b93bd788e17f6acba68b6bd"
+    },
+    "multihot40/spin-hold.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 1890,
+      "sha256": "ed9e82d63539478d6827452d525b69d2f09f202b1d61175270e03c1c01c496ad"
+    },
+    "multihot40/wager-profile-client.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 1661,
+      "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79"
+    },
+    "multihot40/games.json": {
+      "type": "application/json; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 11812,
+      "sha256": "4610237a1e2bc575c94749ad32c00e8a5b969539972e9a245da05bbb8619acf0"
+    },
+    "multihot40/presentation/manifests/multihot40_native.json": {
+      "type": "application/json; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 99812,
+      "sha256": "35ad377c4f3b13c75ab523bec83c88f83a7a11b1c0fafc9a8eb0683e2d74bb0f"
+    },
+    "balloon/balloon.js": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 23265,
+      "sha256": "9a54803a1636d35670537de8e3e9da32aae6fd07039ee220b0771f4fe5a6e2d5"
+    },
+    "balloon/wager-profile-client.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 1661,
+      "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79"
+    }
+  },
+  "modelDefinitionsRemainClosed": true
+}

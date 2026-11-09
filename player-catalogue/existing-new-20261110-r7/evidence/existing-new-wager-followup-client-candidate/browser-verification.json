@@ -1,0 +1,250 @@
+{
+  "kind": "Offline browser UI fixture; all requests intercepted; no real sessions, outcomes or ledger proof",
+  "networkRequestsSent": 0,
+  "financialActions": 0,
+  "checks": [
+    "both old-server and closed-new profiles disable new starts while pages load",
+    "MultiHot40 shows fifteen ascending/descending presets without requests and sends selected new stake/version",
+    "MultiHot40 old active receipt keeps accepted stake and old-model collect; history remains read-only",
+    "Balloon fifteen options, plus/minus bounds and native select changes remain request-free",
+    "Balloon old accepted receipt remains collectible after current model changes"
+  ],
+  "contexts": [
+    {
+      "key": "multihot40",
+      "mode": "old",
+      "checks": [
+        "new-start disabled; zero fixture action requests"
+      ],
+      "fixturePosts": [],
+      "servedPaths": [
+        "/games/multihot40_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-app.mjs",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/wager-profile-client.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/session.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/autoplay.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-presentation.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/spin-hold.mjs",
+        "/api/expansion/state",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/games.json",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/manifests/multihot40_native.json"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "multihot40",
+      "mode": "closed",
+      "checks": [
+        "new-start disabled; zero fixture action requests"
+      ],
+      "fixturePosts": [],
+      "servedPaths": [
+        "/games/multihot40_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-app.mjs",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/wager-profile-client.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/session.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/autoplay.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-presentation.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/spin-hold.mjs",
+        "/api/expansion/state",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/games.json",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/manifests/multihot40_native.json"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "balloon",
+      "mode": "old",
+      "checks": [
+        "new-start disabled; zero fixture action requests"
+      ],
+      "fixturePosts": [],
+      "servedPaths": [
+        "/games/balloon_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.js",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/wager-profile-client.mjs",
+        "/api/library/state"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "balloon",
+      "mode": "closed",
+      "checks": [
+        "new-start disabled; zero fixture action requests"
+      ],
+      "fixturePosts": [],
+      "servedPaths": [
+        "/games/balloon_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.js",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/wager-profile-client.mjs",
+        "/api/library/state"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "multihot40",
+      "mode": "ready",
+      "checks": [
+        "30 zero-request selections; selected new model/stake POST captured locally; held timer launches once then pointercancel stops; mobile dialog opens"
+      ],
+      "fixturePosts": [
+        {
+          "request_id": "d1aff772-774e-457a-a85a-7e88d6aed8dd",
+          "type": "start",
+          "game_id": "multihot40_native",
+          "model_version": "superwin-multihot40-2-etb1-40000-v1",
+          "stake": "40000.00",
+          "options": {}
+        },
+        {
+          "request_id": "b541e55d-0dde-44f4-8fbc-4a7681e2efeb",
+          "type": "start",
+          "game_id": "multihot40_native",
+          "model_version": "superwin-multihot40-2-etb1-40000-v1",
+          "stake": "40000.00",
+          "options": {}
+        }
+      ],
+      "servedPaths": [
+        "/games/multihot40_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-app.mjs",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/wager-profile-client.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/session.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/autoplay.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-presentation.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/spin-hold.mjs",
+        "/api/expansion/state",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/games.json",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/manifests/multihot40_native.json",
+        "/api/expansion/state",
+        "/api/expansion/action",
+        "/api/expansion/action"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "multihot40",
+      "mode": "ready",
+      "checks": [
+        "accepted old bet; original old model_version collection; historical replay adds zero actions"
+      ],
+      "fixturePosts": [
+        {
+          "request_id": "7de4e26e-8a53-4d28-a1cf-07e0e00e657e",
+          "type": "action",
+          "game_id": "multihot40_native",
+          "model_version": "superwin-multihot40-2",
+          "round_id": "21fbc639-d324-424c-8c8a-f1237eafa4d6",
+          "expected_version": 0,
+          "action": "collect",
+          "input": {}
+        }
+      ],
+      "servedPaths": [
+        "/games/multihot40_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-app.mjs",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/wager-profile-client.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/session.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/autoplay.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-presentation.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/spin-hold.mjs",
+        "/api/expansion/state",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/games.json",
+        "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/manifests/multihot40_native.json",
+        "/api/expansion/action",
+        "/api/expansion/history"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "balloon",
+      "mode": "ready",
+      "checks": [
+        "28 request-free steps; native select updates boundary; exact new model/stake POST captured locally"
+      ],
+      "fixturePosts": [
+        {
+          "request_id": "c4ecfeb4-a533-4dca-bdae-3103ff3e06d3",
+          "game_id": "balloon_native",
+          "model_version": "superwin-balloon-1-etb1-40000-v1",
+          "type": "start",
+          "stake": "40000.00",
+          "options": {}
+        }
+      ],
+      "servedPaths": [
+        "/games/balloon_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.js",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/wager-profile-client.mjs",
+        "/api/library/state",
+        "/api/library/state",
+        "/api/library/action"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    },
+    {
+      "key": "balloon",
+      "mode": "ready",
+      "checks": [
+        "old accepted stake displayed; only original-model hold/collect requests"
+      ],
+      "fixturePosts": [
+        {
+          "request_id": "5c640bc0-3a03-4162-8424-e5471e728cbc",
+          "game_id": "balloon_native",
+          "model_version": "superwin-balloon-1",
+          "type": "action",
+          "round_id": "b055bbf6-0b1c-42b4-8502-7482a786335c",
+          "expected_version": 0,
+          "action": "hold",
+          "input": {}
+        },
+        {
+          "request_id": "6dd83674-1f2c-4219-8ba6-45af59ca4336",
+          "game_id": "balloon_native",
+          "model_version": "superwin-balloon-1",
+          "type": "action",
+          "round_id": "b055bbf6-0b1c-42b4-8502-7482a786335c",
+          "expected_version": 1,
+          "action": "collect",
+          "input": {}
+        }
+      ],
+      "servedPaths": [
+        "/games/balloon_native",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.css",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/balloon.js",
+        "/player-v236/presence.63ed199a80b6c700.mjs",
+        "/native-library/existing-new/20261110-etb1-40000-r1/balloon/wager-profile-client.mjs",
+        "/api/library/state",
+        "/api/library/action",
+        "/api/library/action"
+      ],
+      "unknownPaths": [],
+      "pageErrors": []
+    }
+  ],
+  "passed": true
+}

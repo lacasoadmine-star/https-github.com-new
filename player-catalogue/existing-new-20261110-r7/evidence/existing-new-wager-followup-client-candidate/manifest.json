@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "preparedOnly": true,
+  "prefix": "/native-library/existing-new/20261110-etb1-40000-r1/",
+  "libraryPrefix": "/v2/remaining20/client/existing-new-etb1-40000-r1/",
+  "scope": [
+    "multihot40_native",
+    "balloon_native"
+  ],
+  "launchPaths": [
+    "/games/multihot40_native",
+    "/games/balloon_native"
+  ],
+  "versions": {
+    "multihot40_native": "superwin-multihot40-2-etb1-40000-v1",
+    "balloon_native": "superwin-balloon-1-etb1-40000-v1"
+  },
+  "wagerProfile": {
+    "id": "existing-new-etb1-40000-v1",
+    "currency": "ETB",
+    "selection": "preset-ladder",
+    "minStakeMinor": "100",
+    "maxStakeMinor": "4000000",
+    "stepMinor": "100",
+    "stakeValues": [
+      "1.00",
+      "2.00",
+      "5.00",
+      "10.00",
+      "20.00",
+      "50.00",
+      "100.00",
+      "200.00",
+      "500.00",
+      "1000.00",
+      "2000.00",
+      "5000.00",
+      "10000.00",
+      "20000.00",
+      "40000.00"
+    ],
+    "stakeMinorValues": [
+      "100",
+      "200",
+      "500",
+      "1000",
+      "2000",
+      "5000",
+      "10000",
+      "20000",
+      "50000",
+      "100000",
+      "200000",
+      "500000",
+      "1000000",
+      "2000000",
+      "4000000"
+    ],
+    "source": "User-requested independent ETB wager profile for the existing NEW Multi Hot 40 and Balloon games."
+  },
+  "sources": {
+    "balloon": {
+      "name": "balloon-assets-20261108.mjs",
+      "sha256": "83f5b55ca75c9c5af44692932716501c8825ac14e7072b9161bda1ea63574ff8",
+      "file": "/workspace/scratch/15f5b50f5a14/current-new-modules/balloon-assets-20261108.mjs",
+      "bytes": 58600
+    },
+    "multihot40": {
+      "name": "expansion-client-assets-20261108-fetch-fix.mjs",
+      "sha256": "5a818240cf8ad2d051774ffbc2dbc22743d79bfc65c60258a79bdb649058032a",
+      "file": "/workspace/scratch/15f5b50f5a14/current-new-modules/expansion-client-assets-20261108-fetch-fix.mjs",
+      "bytes": 573930
+    }
+  },
+  "assets": {
+    "multihot40/multihot40-app.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 25876,
+      "sha256": "a094f67cc3c209d846cb8ee9ff64b8940e8e1f905b93bd788e17f6acba68b6bd"
+    },
+    "multihot40/spin-hold.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 1890,
+      "sha256": "ed9e82d63539478d6827452d525b69d2f09f202b1d61175270e03c1c01c496ad"
+    },
+    "multihot40/wager-profile-client.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 1661,
+      "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79"
+    },
+    "multihot40/games.json": {
+      "type": "application/json; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 11812,
+      "sha256": "4610237a1e2bc575c94749ad32c00e8a5b969539972e9a245da05bbb8619acf0"
+    },
+    "multihot40/presentation/manifests/multihot40_native.json": {
+      "type": "application/json; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 99812,
+      "sha256": "35ad377c4f3b13c75ab523bec83c88f83a7a11b1c0fafc9a8eb0683e2d74bb0f"
+    },
+    "balloon/balloon.js": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 23265,
+      "sha256": "9a54803a1636d35670537de8e3e9da32aae6fd07039ee220b0771f4fe5a6e2d5"
+    },
+    "balloon/wager-profile-client.mjs": {
+      "type": "application/javascript; charset=utf-8",
+      "encoding": "utf8",
+      "bytes": 1661,
+      "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79"
+    }
+  },
+  "modules": {
+    "player": [
+      {
+        "name": "existing-new-wager-client-player-entry-r1.mjs",
+        "file": "/workspace/scratch/15f5b50f5a14/existing-new-wager-followup/client-candidate/existing-new-wager-client-player-entry-r1.mjs",
+        "bytes": 280,
+        "sha256": "7596925a57e3c7063f6f57ad84f0e42307c8f7b8cb8becb00da091259f016e27",
+        "content_type": "application/javascript+module"
+      },
+      {
+        "name": "existing-new-wager-client-worker-r1.mjs",
+        "file": "/workspace/scratch/15f5b50f5a14/existing-new-wager-followup/client-candidate/existing-new-wager-client-worker-r1.mjs",
+        "bytes": 4175,
+        "sha256": "63b06aede739955ab11d03ee5447383964719309a50b621b2f3c3d9ffb9158d3",
+        "content_type": "application/javascript+module"
+      },
+      {
+        "name": "existing-new-wager-client-index-r1.mjs",
+        "file": "/workspace/scratch/15f5b50f5a14/existing-new-wager-followup/client-candidate/existing-new-wager-client-index-r1.mjs",
+        "bytes": 1857,
+        "sha256": "5b5beb868722962722dbff6817e2cb1e57850c6797026362aabab1534aff7b2f",
+        "content_type": "application/javascript+module"
+      }
+    ],
+    "library": [
+      {
+        "name": "existing-new-wager-client-library-entry-r1.mjs",
+        "file": "/workspace/scratch/15f5b50f5a14/existing-new-wager-followup/client-candidate/existing-new-wager-client-library-entry-r1.mjs",
+        "bytes": 295,
+        "sha256": "e3e3da3ae85afc5cdfc3f6ca7e7380317b35fa07819a7706d0b282a1b378ae49",
+        "content_type": "application/javascript+module"
+      },
+      {
+        "name": "existing-new-wager-client-library-r1.mjs",
+        "file": "/workspace/scratch/15f5b50f5a14/existing-new-wager-followup/client-candidate/existing-new-wager-client-library-r1.mjs",
+        "bytes": 1152,
+        "sha256": "d9de0a726193366c222147923c4849b8cb10aa57204618f2d82270f7589a47ac",
+        "content_type": "application/javascript+module"
+      },
+      {
+        "name": "existing-new-wager-client-assets-r1.mjs",
+        "file": "/workspace/scratch/15f5b50f5a14/existing-new-wager-followup/client-candidate/existing-new-wager-client-assets-r1.mjs",
+        "bytes": 179069,
+        "sha256": "dc8e0efcdaf6b45ba7cf5929d24e574f81d684c37bfd84a2642523f467e5e46b",
+        "content_type": "application/javascript+module"
+      }
+    ]
+  },
+  "entry": {
+    "player": "existing-new-wager-client-player-entry-r1.mjs",
+    "library": "existing-new-wager-client-library-entry-r1.mjs"
+  },
+  "previousEntries": {
+    "player": "remaining20-new-controls-player-entry-r6.mjs",
+    "library": "remaining20-new-controls-library-entry-r6.mjs"
+  },
+  "cashGateChanges": false,
+  "financialRequestChanges": false,
+  "modelChanges": false,
+  "modelSourceState": "Both new definitions remain launchable:false; this frontend cannot release them.",
+  "historicalReceipts": "Old accepted round.model_version, stakeMinor, actions, pending request body and history remain unchanged.",
+  "excluded": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native",
+    "jetx_native"
+  ]
+}
