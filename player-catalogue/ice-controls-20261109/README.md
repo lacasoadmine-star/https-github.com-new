@@ -1,6 +1,6 @@
 Burning Ice 10 and Burning Ice 40: native desktop controls
 
-This additive Player package keeps the existing catalogue and all cash routes.
+This additive Player/Library package keeps the existing catalogue and all cash routes.
 It changes only the two existing `/demo/games/burningice10_native` and
 `/demo/games/burningice40_native` pages, using a new immutable client prefix.
 
@@ -10,6 +10,9 @@ instead of opening a dialog. The recovered public `blazinghot.js` places the
 original COLLECT button at 137,671 and the menu Spine animation at 170,795.
 The package uses those original data files; it does not run provider scripts.
 Asset URLs, exact byte counts and SHA-256 hashes are in `provenance.json`.
+The existing Library Worker serves the immutable overlay through its existing
+service binding. The Player keeps only a small route wrapper and asset-name index,
+because its retained modules approach Cloudflare's uncompressed size limit.
 
 Changes:
 - Next and previous native stake rows use the existing bounded bet controls.

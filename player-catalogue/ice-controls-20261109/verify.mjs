@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {ASSETS} from './remaining20-ice-controls-assets-r4.mjs';
 import {installIceControls,PREFIX} from './remaining20-ice-controls-worker-r4.mjs';
+import {installIceAssets} from './remaining20-ice-controls-library-r4.mjs';
 let count=0;const calls=[];
 const old='/native-library/remaining20/20261109-r5-seven-review1/';
 const previous={scheduled(){return 'unchanged';},async fetch(request){calls.push(request.url);return new Response('<html><script type="module" src="'+old+'app.mjs"></script></html>',{headers:{'content-type':'text/html','set-cookie':'demo-test=preserved'}});}};
-const app=installIceControls(previous),env={PORTAL:'player'};
+const library=installIceAssets(previous);
+const app=installIceControls(previous),env={PORTAL:'player',EXPANSION100:{fetch:request=>library.fetch(request,{}, {})}};
 for(const[name,item]of Object.entries(ASSETS)){
  const response=await app.fetch(new Request('https://example.test'+PREFIX+name),env,{}),bytes=new Uint8Array(await response.arrayBuffer());
  assert.equal(bytes.length,item.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),item.sha256);count+=2;

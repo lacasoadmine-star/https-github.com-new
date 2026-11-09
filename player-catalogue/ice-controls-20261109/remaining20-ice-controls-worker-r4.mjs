@@ -1,4 +1,5 @@
-import {ASSETS} from './remaining20-ice-controls-assets-r4.mjs';
+import {OVERLAY_NAMES} from './remaining20-ice-controls-index-r4.mjs';
+const overlay=new Set(OVERLAY_NAMES);
 
 export const PREFIX='/native-library/remaining20/20261109-ice-controls-r4/';
 const PREVIOUS='/native-library/remaining20/20261109-r5-seven-review1/';
@@ -29,10 +30,13 @@ export function installIceControls(previous){
    if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{allow:'GET, HEAD','cache-control':'no-store'}});
    const name=url.pathname.slice(PREFIX.length);
    if(!/^[a-zA-Z0-9_./-]+$/.test(name)||name.includes('..')||name.startsWith('/'))return reply('Not found',404);
-   if(Object.hasOwn(ASSETS,name)){
-    const asset=ASSETS[name],headers=new Headers({'content-type':asset.type,'content-length':String(asset.bytes),'cache-control':'public, max-age=31536000, immutable','x-content-type-options':'nosniff','etag':'"'+asset.sha256+'"','x-zplay-remaining-sha256':asset.sha256});
-    if(request.headers.get('if-none-match')===headers.get('etag')){headers.delete('content-length');return new Response(null,{status:304,headers});}
-    return new Response(request.method==='HEAD'?null:asset.encoding==='base64'?Uint8Array.from(atob(asset.body),c=>c.charCodeAt(0)):asset.body,{headers});
+   if(overlay.has(name)){
+    if(typeof env.EXPANSION100?.fetch!=='function')return reply('Assets unavailable',503);
+    const headers=new Headers();for(const key of ['accept','if-none-match'])if(request.headers.has(key))headers.set(key,request.headers.get(key));
+    const response=await env.EXPANSION100.fetch(new Request(new URL('/v2/remaining20/client/ice-controls-r4/'+name,url.origin),{method:request.method,headers,redirect:'manual'}));
+    if(response.status>=300&&response.status<400&&response.status!==304)return reply('Assets unavailable',503);
+    const resultHeaders=new Headers(response.headers);resultHeaders.delete('set-cookie');
+    return new Response(request.method==='HEAD'?null:response.body,{status:response.status,statusText:response.statusText,headers:resultHeaders});
    }
    if(name.startsWith('art/')){
     if(!/^[a-f0-9]{64}\.[a-z0-9]+$/.test(name.slice(4)))return reply('Not found',404);
