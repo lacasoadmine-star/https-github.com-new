@@ -6,6 +6,8 @@
  <meta name="theme-color" content="#09151f">
  <title>ZPLAY Games</title>
  <link rel="stylesheet" href="./machine.css">
+ <link rel="stylesheet" href="./smartsoft-startup.css">
+ <link rel="stylesheet" href="./smartsoft-help.css">
  <script type="module" src="./app.mjs"></script>
  <script type="module" src="/player-v236/presence.63ed199a80b6c700.mjs"></script>
 </head>
@@ -25,6 +27,7 @@
     <div class="feature-strip"><span class="feature-star" aria-hidden="true">✦</span><p id="featureDescription">Loading game details…</p></div>
     <div class="stage" id="stage">
      <canvas id="scene" aria-label="Game presentation. No round has been played." role="img"></canvas>
+     <div id="nativeControls" class="native-controls" hidden></div>
      <div id="presentationNote" class="presentation-note" role="status" hidden></div>
      <div class="mine-grid" id="mineGrid" aria-label="Minefield" hidden></div>
      <div class="sequence-badge" id="sequenceBadge" hidden>RESULT SEQUENCE</div>
@@ -49,6 +52,9 @@
      <button class="step-button" id="step" type="button" disabled>BUILD NEXT FLOOR</button>
      <button class="cashout-button" id="cashout" type="button" disabled><span>COLLECT</span><strong id="cashoutAmount">—</strong></button>
     </div>
+    <div class="win-actions" id="winActions" hidden>
+     <button id="collect" type="button">TAKE WIN</button><button id="gamble" type="button">DOUBLE</button>
+    </div>
     <button class="sequence-button" id="skip" type="button" hidden>Skip result animation</button>
     <div class="autoplay-running" id="autoplayRunning" hidden><span id="autoplayStatus" role="status" aria-live="polite"></span><button type="button" id="stopAutoplay">Stop autoplay</button></div>
     <p class="notice" id="notice" role="status" aria-live="polite">Connecting to your player account…</p>
@@ -59,12 +65,26 @@
      <button type="button" id="sound" aria-pressed="false" aria-label="Mute sound"><span aria-hidden="true">♫</span> Sound</button>
      <button type="button" id="refresh"><span aria-hidden="true">↻</span> Refresh</button>
     </div>
+    <button type="button" id="gameOptions" class="autoplay-open" hidden>Game options</button>
+    <button type="button" id="turbo" class="autoplay-open" aria-pressed="false">Turbo off</button>
+    <button type="button" id="history" class="autoplay-open">Game history</button>
     <button class="autoplay-open" type="button" id="autoplay" hidden>Autoplay settings</button>
     <p class="play-note" id="playNote">Choose a stake. Each play is a new round.</p>
    </section>
   </div>
   <footer class="machine-footer"><a href="/">ZPLAY LOBBY</a><span id="footerGame">Player games</span><button type="button" id="fullScreen" aria-label="Enter fullscreen">⛶ Fullscreen</button></footer>
  </main>
+ <div id="startupCover" class="smartsoft-startup" hidden>
+  <div id="startupLoader" class="smartsoft-loader" role="status" aria-label="Loading game">
+   <div class="smartsoft-loader-logo" aria-hidden="true"></div>
+   <div id="startupProgress" class="smartsoft-loader-bar" role="progressbar" aria-label="Game resources loaded" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="startupFill" class="smartsoft-loader-fill"><div id="startupIcon" class="smartsoft-loader-icon"></div></div></div>
+  </div>
+  <div id="startupSound" class="smartsoft-sound" role="dialog" aria-modal="true" aria-labelledby="startupQuestion" hidden>
+   <div class="smartsoft-sound-content"><p id="startupQuestion" class="smartsoft-sound-question">Would you like sound?</p>
+    <div class="smartsoft-sound-buttons"><button id="startupYes" type="button" class="yes" disabled><i aria-hidden="true"></i><span>Yes</span></button><button id="startupNo" type="button" class="no" disabled><i aria-hidden="true"></i><span>No</span></button></div>
+   </div>
+  </div>
+ </div>
  <dialog id="rulesDialog" aria-labelledby="rulesTitle">
   <div class="dialog-heading"><div><p class="eyebrow">GAME GUIDE</p><h2 id="rulesTitle">Rules &amp; paytable</h2></div><button type="button" id="closeRules" class="icon-button" aria-label="Close rules">×</button></div>
   <div class="dialog-content" id="rulesContent"></div>
@@ -81,6 +101,37 @@
    <p id="autoplayError" role="alert" hidden></p>
    <button type="submit" class="autoplay-start" id="startAutoplay">Start autoplay</button>
   </form>
+ </dialog>
+ <dialog id="betDialog" aria-labelledby="betTitle">
+  <div class="dialog-heading"><h2 id="betTitle">Choose your bet</h2><button type="button" id="closeBet" class="icon-button" aria-label="Close bet settings">×</button></div>
+  <div class="dialog-content" id="betContent">
+   <label id="modeRow" hidden>Game mode<select id="gameMode"></select></label>
+   <label id="linesRow" hidden>Active paylines<select id="lineCount"></select></label>
+   <label id="riskRow" hidden><input type="checkbox" id="riskEnabled"> Offer red/black gamble after a win</label>
+   <p id="totalCost" aria-live="polite"></p>
+  </div>
+ </dialog>
+ <dialog id="menuDialog" aria-labelledby="menuTitle">
+  <div class="dialog-heading"><h2 id="menuTitle">Game menu</h2><button type="button" id="closeMenu" class="icon-button" aria-label="Close menu">×</button></div>
+  <div class="dialog-content menu-options">
+   <button type="button" id="menuBet">Bet settings</button><button type="button" id="menuRules">Rules &amp; paytable</button>
+   <button type="button" id="menuHistory">History</button><button type="button" id="menuSound">Sound on</button>
+   <button type="button" id="menuMusic">Music on</button><button type="button" id="menuTurbo">Turbo off</button>
+   <button type="button" id="menuFullscreen">Fullscreen</button><button type="button" id="menuRefresh">Refresh connection</button>
+  </div>
+ </dialog>
+ <dialog id="gambleDialog" aria-labelledby="gambleTitle">
+  <div class="dialog-heading"><h2 id="gambleTitle">Double or take your win</h2><button id="closeGamble" type="button" class="icon-button" aria-label="Close double game">×</button></div>
+  <div class="dialog-content gamble-content">
+   <p>Current win <strong id="gambleWin">—</strong> ETB</p><div id="gambleCard" class="gamble-card" aria-live="polite">?</div>
+   <div id="gambleCards" class="gamble-cards"></div><p id="gambleStatus" role="status"></p>
+   <div class="gamble-choices"><button id="red" type="button">♥ RED</button><button id="black" type="button">♠ BLACK</button></div>
+   <button id="gambleCollect" type="button">Take win</button>
+  </div>
+ </dialog>
+ <dialog id="historyDialog" aria-labelledby="historyTitle">
+  <div class="dialog-heading"><h2 id="historyTitle">Game history</h2><button id="closeHistory" type="button" class="icon-button" aria-label="Close history">×</button></div>
+  <div id="historyContent" class="dialog-content"></div>
  </dialog>
 </body>
 </html>

@@ -1,0 +1,348 @@
+{
+  "status": "EXACT_NATIVE_MATH_VERIFIED_PENDING_INDIVIDUAL_RELEASE",
+  "scope": "Ten newv2 SmartSoft machines; released MultiHot40 and existing four completed machines are excluded.",
+  "evidence": "references/official-demo-audit-20261109.json and original references/public-models/*.json",
+  "generatedAt": "2026-11-08T23:03:14.730Z",
+  "sourceTablesChanged": false,
+  "productionLaunchable": false,
+  "important": "Raw archived tables stay unchanged. Live help confirmed normalized scatter ratios for all three Burning Ice titles and a SuperWild payout divisor of10 despite five fixed lines. All ten fixed native distributions have exact rational RTP below100%, with no supported prize clipped or scaled. These are independent native laws, not provider-private RNG.",
+  "results": [
+    {
+      "id": "multihot100_native",
+      "version": "superwin-multihot100-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 100,
+      "exactNativeReturn": {
+        "numerator": "31425",
+        "denominator": "32768",
+        "value": 0.959014892578125,
+        "percent": "95.9014892578125",
+        "method": "Exact enumeration of the 8^5 symbol sequences on each public line, linearity over the 100 fixed paths, and independent wheel mean 15/4."
+      },
+      "proof": "Complete8^5 marginal enumeration and weighted wheel, asserted by test/smartsoft-slot-rounds.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706885120,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.9615339999999966,
+        "normalApproximation99": [
+          0.9163048798583242,
+          1.006763120141669
+        ],
+        "sampleMaximumStakeMultiples": 160,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "10000",
+        "reservedAtMaximumStakeMinor": "25000000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "multihotwildways_native",
+      "version": "superwin-multihotwildways-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 1,
+      "exactNativeReturn": {
+        "numerator": "10192985309",
+        "denominator": "10737418240",
+        "value": 0.9492957320995629
+      },
+      "proof": "Independent complete reel-support or weighted marginal enumeration in test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706895093,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.931342000000019,
+        "normalApproximation99": [
+          0.8983202110481583,
+          0.9643637889518797
+        ],
+        "sampleMaximumStakeMultiples": 92,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "30000",
+        "reservedAtMaximumStakeMinor": "8850000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "multihot5wild_native",
+      "version": "superwin-multihot5wild-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 5,
+      "exactNativeReturn": {
+        "numerator": "509795985",
+        "denominator": "536870912",
+        "value": 0.9495690185576677
+      },
+      "proof": "Independent complete reel-support or weighted marginal enumeration in test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706905066,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.9476,
+        "normalApproximation99": [
+          0.8750575056569518,
+          1.0201424943430482
+        ],
+        "sampleMaximumStakeMultiples": 150,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "40000",
+        "reservedAtMaximumStakeMinor": "15000000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "multihot5superwilds_native",
+      "version": "superwin-multihot5superwilds-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 10,
+      "exactNativeReturn": {
+        "numerator": "9213598116708926067443925",
+        "denominator": "9671406556917033397649408",
+        "value": 0.9526637167495889
+      },
+      "proof": "Independent complete reel-support or weighted marginal enumeration in test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706915039,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.91906,
+        "normalApproximation99": [
+          0.8616661702806582,
+          0.9764538297193418
+        ],
+        "sampleMaximumStakeMultiples": 215,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "20000",
+        "reservedAtMaximumStakeMinor": "20000000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Added-Wild presentation is supported; the fixed native one-in-256 per-cell trigger is disclosed independently, not claimed as provider odds.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "multihotdeluxe_native",
+      "version": "superwin-multihotdeluxe-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 5,
+      "exactNativeReturn": {
+        "numerator": "127449835",
+        "denominator": "134217728",
+        "value": 0.9495752677321434
+      },
+      "proof": "Independent complete reel-support or weighted marginal enumeration in test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706925012,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.9754,
+        "normalApproximation99": [
+          0.9165344639872827,
+          1.0342655360127173
+        ],
+        "sampleMaximumStakeMultiples": 116,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "40000",
+        "reservedAtMaximumStakeMinor": "5800000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "burningice_native",
+      "version": "superwin-burningice-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 5,
+      "exactNativeReturn": {
+        "numerator": "4710564116199635057506328463",
+        "denominator": "4951760157141521099596496896",
+        "value": 0.9512908474385561
+      },
+      "proof": "Exact integer Markov enumeration in test/smartsoft-freeze-math.cpp, asserted by test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706934985,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.94832,
+        "normalApproximation99": [
+          0.8857762349005814,
+          1.0108637650994188
+        ],
+        "sampleMaximumStakeMultiples": 220,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "10000",
+        "reservedAtMaximumStakeMinor": "30800000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "The exact native recurrence pays only incremental improvements and has a finite proven return. Public freeze/remaining-reel respin and cash prizes are confirmed; provider payment aggregation remains unobserved.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "burningice10_native",
+      "version": "superwin-burningice10-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 10,
+      "exactNativeReturn": {
+        "numerator": "4683140856253802169874115779",
+        "denominator": "4951760157141521099596496896",
+        "value": 0.9457527641963209
+      },
+      "proof": "Exact integer Markov enumeration in test/smartsoft-freeze-math.cpp, asserted by test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706944958,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.98138,
+        "normalApproximation99": [
+          0.9071794974635937,
+          1.0555805025364062
+        ],
+        "sampleMaximumStakeMultiples": 178,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "10000",
+        "reservedAtMaximumStakeMinor": "50800000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "The exact native recurrence pays only incremental improvements and has a finite proven return. Public freeze/remaining-reel respin and cash prizes are confirmed; provider payment aggregation remains unobserved.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "burningice40_native",
+      "version": "superwin-burningice40-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 40,
+      "exactNativeReturn": {
+        "numerator": "36840430807585190720444581",
+        "denominator": "38685626227668133590597632",
+        "value": 0.9523028163167422
+      },
+      "proof": "Exact integer Markov enumeration in test/smartsoft-freeze-math.cpp, asserted by test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706954931,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.951515,
+        "normalApproximation99": [
+          0.9260989375815613,
+          0.9769310624184387
+        ],
+        "sampleMaximumStakeMultiples": 33.25,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "10000",
+        "reservedAtMaximumStakeMinor": "11000000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "The exact native recurrence pays only incremental improvements and has a finite proven return. Public freeze/remaining-reel respin and cash prizes are confirmed; provider payment aggregation remains unobserved.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "safarisimba_native",
+      "version": "superwin-safarisimba-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 5,
+      "exactNativeReturn": {
+        "numerator": "1015487395",
+        "denominator": "1073741824",
+        "value": 0.9457463352009654
+      },
+      "proof": "Independent complete reel-support or weighted marginal enumeration in test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706964904,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.95128,
+        "normalApproximation99": [
+          0.8929530096245402,
+          1.0096069903754599
+        ],
+        "sampleMaximumStakeMultiples": 145,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "40000",
+        "reservedAtMaximumStakeMinor": "5800000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Help confirms first-reel-dependent visual expansion. The edge case of a matching full third reel with a nonmatching second reel is not settled by observed demo evidence; native presentation currently expands contiguous matching reels.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    },
+    {
+      "id": "habeshafortune5_native",
+      "version": "superwin-habeshafortune5-2",
+      "productionLaunchable": false,
+      "officialPrivateMathVerified": false,
+      "publicCoefficientsScaled": false,
+      "payoutDivisor": 5,
+      "exactNativeReturn": {
+        "numerator": "1023709965",
+        "denominator": "1073741824",
+        "value": 0.9534042002633214
+      },
+      "proof": "Independent complete reel-support or weighted marginal enumeration in test/smartsoft-native-math.test.mjs.",
+      "pilot": {
+        "count": 50000,
+        "seed": 1706974877,
+        "prng": "SFC32 with20 warmup outputs",
+        "meanAfterCeiling": 0.95266,
+        "normalApproximation99": [
+          0.8933693232295042,
+          1.0119506767704958
+        ],
+        "sampleMaximumStakeMultiples": 116,
+        "clippedOutcomes": 0,
+        "maximumStakeMinor": "40000",
+        "reservedAtMaximumStakeMinor": "5800000",
+        "meaning": "Exploratory seeded diagnostic, not a return guarantee or certification. Rare-event uncertainty remains; the normal interval does not bound all tail risk."
+      },
+      "remaining": [
+        "The exact native probability law is independently specified. The provider-private probability law is not claimed.",
+        "Production remains closed pending per-title release review and end-to-end presentation/wallet verification."
+      ]
+    }
+  ]
+}

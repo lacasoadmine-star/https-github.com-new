@@ -204,11 +204,20 @@ export const remainingPublicConfigs = [
       "secondary": "#dc9dff"
     },
     "featureDescription": "Three lucky boxes multiply qualifying lines. A magic symbol on reel five changes symbols to wilds.",
-    "version": "superwin-magicgarden-2",
+    "version": "superwin-magicgarden-3",
     "controls": {
-      "stakeLabel": "Total stake (ETB)"
+      "stakeLabel": "Total stake (ETB)",
+      "risk": {
+        "label": "Offer red/black gamble after a win",
+        "supported": true,
+        "default": false,
+        "maximumAttempts": 5
+      }
     },
-    "actions": [],
+    "actions": [
+      "gamble",
+      "cashout"
+    ],
     "launchable": false,
     "officialPrivateMathVerified": false,
     "modelNotice": "Unpublished review model. Verified public rules are cited separately. Complete official presentation, controls and any listed rule/paytable gaps remain unfinished; provider private mathematics are not reproduced.",
@@ -226,7 +235,7 @@ export const remainingPublicConfigs = [
       "productionEnabled": false,
       "remaining": [
         "Exact base-game payline geometry and numeric public paytable",
-        "Optional gamble",
+        "Official gamble presentation and audio",
         "Official presentation and audio"
       ]
     },
@@ -239,7 +248,20 @@ export const remainingPublicConfigs = [
       "maximumPayoutMinor": "1000000",
       "rounding": "Floor the final payable result to the nearest minor unit; caps can lower return.",
       "calibrationStatus": "Previous slot calibration invalidated by public-rule corrections. No97% return claim for these draft slots.",
-      "payoutCapTimesTotalStake": 100
+      "payoutCapTimesTotalStake": 100,
+      "riskModel": {
+        "colors": [
+          "red",
+          "black"
+        ],
+        "successProbability": "1/2",
+        "winMultiplier": 2,
+        "maximumAttempts": 5,
+        "automaticCollection": "After five wins or before a further double exceeds the reserved maximum",
+        "timeout": "Collect current earned win",
+        "newDebits": false,
+        "providerProbabilityClaim": false
+      }
     },
     "paytable": {
       "verifiedPublicTable": false,
@@ -355,9 +377,20 @@ export const remainingPublicConfigs = [
       "secondary": "#a38afa"
     },
     "featureDescription": "Three or more Scatters award15 free spins at3×; retriggers add15. Substituting Book Wilds double a line once. The20 verified paths are used.",
-    "version": "superwin-bookofmagic-2",
+    "version": "superwin-bookofmagic-3",
     "controls": {
-      "stakeLabel": "Total stake (ETB)"
+      "stakeLabel": "Total stake (ETB)",
+      "lines": {
+        "label": "Active paylines",
+        "values": [
+          1,
+          5,
+          10,
+          15,
+          20
+        ],
+        "default": 20
+      }
     },
     "actions": [],
     "launchable": false,
@@ -376,27 +409,33 @@ export const remainingPublicConfigs = [
       "presentationVerified": false,
       "productionEnabled": false,
       "remaining": [
-        "Numeric symbol paytable injected by public demo startup",
-        "Optional line selection, gamble and Jackpot Cards",
+        "Numeric symbol and two-scatter paytable injected by public demo startup",
+        "Gamble and Jackpot Cards",
         "Official presentation and audio"
       ]
     },
-    "maxWinMultiplier": 100,
+    "maxWinMultiplier": 500,
     "math": {
       "kind": "unpublished-review",
       "officialPrivateMathVerified": false,
       "currency": "ETB",
       "moneyUnit": "0.01 ETB",
       "maximumPayoutMinor": "1000000",
-      "rounding": "Floor the final payable result to the nearest minor unit; caps can lower return.",
+      "rounding": "Use exact rational line-bet units; floor only the final monetary settlement, with the platform maximum also applied.",
       "calibrationStatus": "Previous slot calibration invalidated by public-rule corrections. No97% return claim for these draft slots.",
-      "payoutCapTimesTotalStake": 100
+      "payoutCapTimesLineBet": 10000,
+      "pointsPerStakeByLineCount": {
+        "1": 10000,
+        "5": 10000,
+        "10": 10000,
+        "15": 30000,
+        "20": 10000
+      }
     },
     "paytable": {
       "verifiedPublicTable": false,
       "status": "Unpublished review coefficients; exact official numeric table unresolved.",
       "pointsPerStake": 10000,
-      "capTimesTotalStake": 100,
       "verifiedPaths": [
         [
           1,
@@ -538,7 +577,9 @@ export const remainingPublicConfigs = [
           0,
           1
         ]
-      ]
+      ],
+      "capTimesLineBet": 10000,
+      "maxWinSource": "https://amusnet.com/games/online-casino/book-of-magic"
     }
   },
   {
@@ -890,7 +931,7 @@ export const remainingPublicConfigs = [
       "secondary": "#70e8f3"
     },
     "featureDescription": "Three Scatters on reels2–4 award5 free spins and2× total stake; retriggers add5. A middle Super Wild on reel5 adds3 extra-wild respins. Free-spin Wild and Super Wild factors are2×/3×; converted royals have no factor.",
-    "version": "superwin-vegasnights-2",
+    "version": "superwin-vegasnights-3",
     "controls": {
       "stakeLabel": "Total stake (ETB)"
     },
@@ -913,21 +954,21 @@ export const remainingPublicConfigs = [
       "remaining": [
         "Exact symbol artwork mapping and full presentation/audio",
         "All official menu/optional controls",
-        "Independent uniform-stop model return evaluation"
+        "Independent external math review and explicit disclosure of capped, rounded return"
       ]
     },
     "maxWinMultiplier": 100,
     "math": {
-      "kind": "unpublished-review",
+      "kind": "independent-weighted-stops-v3",
       "officialPrivateMathVerified": false,
       "currency": "ETB",
       "moneyUnit": "0.01 ETB",
       "maximumPayoutMinor": "1000000",
       "rounding": "Floor the final payable result to the nearest minor unit; caps can lower return.",
-      "calibrationStatus": "Previous slot calibration invalidated by public-rule corrections. No97% return claim for these draft slots.",
+      "calibrationStatus": "Exact uncapped full-feature expectation is95.25380191203804%; the payout cap and minor-unit flooring can only reduce it. No claim of certified or provider-matching return.",
       "payoutCapTimesTotalStake": 100,
       "paytableStatus": "Exact public numeric line table and25paths; no prize scaling.",
-      "rng": "Independent uniform sampling of publicly exposed presentation strips; provider stop probabilities are not verified.",
+      "rng": "Fixed integer stop weights over the public presentation strips. Each visible window has product weights: normal1000, Wild/royal-Wild689, Scatter/Super-Wild100. Each reel samples independently. This is an explicit ZPLAY model, not provider probabilities.",
       "freeSpinWildFactors": {
         "wild": [
           2,
@@ -939,6 +980,115 @@ export const remainingPublicConfigs = [
         ],
         "convertedRoyal": 1,
         "combination": "Multiply factors on the winning line; maximum81."
+      },
+      "uniformStripAudit": {
+        "uncappedRtpNumerator": "132275730380249",
+        "uncappedRtpDenominator": "39573265696965",
+        "uncappedRtp": 3.3425528080790574,
+        "status": "Retired unsafe uniform-stop draft; preserved for diagnostic comparison only, never selected by new-round options."
+      },
+      "independentExpectation": {
+        "model": "zplay-vegas-weighted-stops-v3",
+        "providerReturnClaim": false,
+        "payoutCapIncluded": false,
+        "assumptions": {
+          "stopDistribution": "fixed integer weights, independent by reel",
+          "wildMultiplierWeights": {
+            "2": 2,
+            "3": 1
+          },
+          "freeSpinAward": 5,
+          "extraWildRespins": 3
+        },
+        "sets": [
+          {
+            "set": 0,
+            "lineReturn": {
+              "numerator": "197106214613743447802497065094486446956450",
+              "denominator": "217044833846611052821058491108458686035779",
+              "decimal": 0.908135941871998
+            },
+            "scatterProbability": {
+              "numerator": "2275600000000000000000000",
+              "denominator": "32276728530667912205331920003",
+              "decimal": 0.00007050280817146094
+            },
+            "goldProbability": {
+              "numerator": "68900000",
+              "denominator": "39324556483",
+              "decimal": 0.0017520858761569367
+            }
+          },
+          {
+            "set": 1,
+            "lineReturn": {
+              "numerator": "3995722131201743303571227321727398611670",
+              "denominator": "485319423241465174727919892467870160581",
+              "decimal": 8.2331799220278
+            },
+            "scatterProbability": {
+              "numerator": "0",
+              "denominator": "1",
+              "decimal": 0
+            },
+            "goldProbability": {
+              "numerator": "0",
+              "denominator": "1",
+              "decimal": 0
+            }
+          },
+          {
+            "set": 2,
+            "lineReturn": {
+              "numerator": "1449332693553303546567423749839411",
+              "denominator": "577343707275731527551026446616700",
+              "decimal": 2.51034639381827
+            },
+            "scatterProbability": {
+              "numerator": "14268000000",
+              "denominator": "678660852851071",
+              "decimal": 0.000021023755739055495
+            },
+            "goldProbability": {
+              "numerator": "50000",
+              "denominator": "16641163",
+              "decimal": 0.003004597695485586
+            }
+          },
+          {
+            "set": 3,
+            "lineReturn": {
+              "numerator": "4990085961577751845327583644872771713704",
+              "denominator": "158075533148976825376997602684292251725",
+              "decimal": 31.56773133812487
+            },
+            "scatterProbability": {
+              "numerator": "0",
+              "denominator": "1",
+              "decimal": 0
+            },
+            "goldProbability": {
+              "numerator": "0",
+              "denominator": "1",
+              "decimal": 0
+            }
+          }
+        ],
+        "freeSpinReturn": {
+          "numerator": "3123067842444785807618692219189719832771704842789218102593441253477",
+          "denominator": "1117285837607639179498406858242428838231771261865319821693157036900",
+          "decimal": 2.795227270697334
+        },
+        "freeSpinOffspring": {
+          "numerator": "71340000000",
+          "denominator": "678660852851071",
+          "decimal": 0.00010511877869527747
+        },
+        "paidRoundReturn": {
+          "numerator": "332492596825072258931175643403919293873356074310300986909756758013922603668723388134163901346777725405421051832955997678244815560650",
+          "denominator": "349059659720576817452105630083962648173465103956145101358184224134673634596745973423020631043492914856185291427887940446054632951263",
+          "decimal": 0.9525380191203804
+        }
       }
     },
     "paytable": {
@@ -949,49 +1099,49 @@ export const remainingPublicConfigs = [
         "1": {},
         "2": {},
         "3": {
-          "5": 150,
+          "3": 10,
           "4": 75,
-          "3": 10
+          "5": 150
         },
         "4": {
-          "5": 125,
+          "3": 5,
           "4": 50,
-          "3": 5
+          "5": 125
         },
         "5": {
-          "5": 100,
+          "3": 5,
           "4": 25,
-          "3": 5
+          "5": 100
         },
         "6": {
-          "5": 100,
+          "3": 5,
           "4": 25,
-          "3": 5
+          "5": 100
         },
         "7": {
-          "5": 75,
+          "3": 5,
           "4": 20,
-          "3": 5
+          "5": 75
         },
         "8": {
-          "5": 50,
+          "3": 5,
           "4": 20,
-          "3": 5
+          "5": 50
         },
         "9": {
-          "5": 50,
+          "3": 5,
           "4": 10,
-          "3": 5
+          "5": 50
         },
         "10": {
-          "5": 50,
+          "3": 5,
           "4": 10,
-          "3": 5
+          "5": 50
         },
         "11": {
-          "5": 50,
+          "3": 5,
           "4": 10,
-          "3": 5
+          "5": 50
         },
         "12": {},
         "13": {}
@@ -1548,9 +1698,91 @@ export const remainingPublicConfigs = [
       "secondary": "#8fd4df"
     },
     "featureDescription": "6×5 pay-anywhere cascades. Crashed symbols unlock Bastet, Sobek, Isis, Anubis and Horus at20/40/60/85/110 points. Bonus10 free spins; verified retriggers add2/3/5/10.",
-    "version": "superwin-egyptianlegends-2",
+    "version": "superwin-egyptianlegends-3",
     "controls": {
-      "stakeLabel": "Total stake (ETB)"
+      "stakeLabel": "Base bet (ETB)",
+      "paidModes": [
+        {
+          "id": "base",
+          "label": "Base game",
+          "multiplier": 1,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "10000",
+          "totalMinMinor": "10",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "bonus-buy",
+          "label": "Buy 10 free spins",
+          "multiplier": 100,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "100",
+          "totalMinMinor": "1000",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "super-bonus",
+          "label": "Super Bonus: five feature spins",
+          "multiplier": 500,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "20",
+          "totalMinMinor": "5000",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "feature",
+          "feature": "Bastet",
+          "label": "Bastet",
+          "multiplier": 10,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "1000",
+          "totalMinMinor": "100",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "feature",
+          "feature": "Sobek",
+          "label": "Sobek",
+          "multiplier": 15,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "666",
+          "totalMinMinor": "150",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "feature",
+          "feature": "Isis",
+          "label": "Isis",
+          "multiplier": 20,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "500",
+          "totalMinMinor": "200",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "feature",
+          "feature": "Anubis",
+          "label": "Anubis",
+          "multiplier": 40,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "250",
+          "totalMinMinor": "400",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "feature",
+          "feature": "Horus",
+          "label": "Horus",
+          "multiplier": 50,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "200",
+          "totalMinMinor": "500",
+          "totalMaxMinor": "10000"
+        }
+      ],
+      "baseStakeMinMinor": "10",
+      "totalStakeMaxMinor": "10000",
+      "anteSupported": false
     },
     "actions": [],
     "launchable": false,
@@ -1570,10 +1802,9 @@ export const remainingPublicConfigs = [
       "productionEnabled": false,
       "remaining": [
         "Exact numeric public symbol paytable",
-        "Buy bonus, ante bet and all official selectable modes",
         "Official presentation/audio and controls",
         "Exact Anubis cell increment and cell-sum scope",
-        "Super Bonus and paid feature selection"
+        "Ante probability model and complete in-demo validation of purchased modes"
       ]
     },
     "maxWinMultiplier": 100,
@@ -1592,8 +1823,10 @@ export const remainingPublicConfigs = [
         "Feature-generated cascades do not refill the ordinary progress bar during an active power.",
         "Multiplier appearance weights and numeric symbol prizes are independent review values.",
         "Base-game scatter award is unverified and not paid in this disabled prototype.",
-        "Buy bonus, ante bet, super bonus and paid power selection remain unavailable."
-      ]
+        "Super Bonus conditions the displayed board to contain a real paying feature combination; provider probabilities are not inferred.",
+        "Super Bonus retrigger/scatter behavior is not verified; this review mode is limited to the five documented fixed-order feature spins."
+      ],
+      "modeWagerContract": "The submitted stake is the total authorized debit. The server derives an exact minor-unit base bet by dividing by the selected mode cost, and pays wins in base-bet units."
     },
     "paytable": {
       "verifiedPublicTable": false,
@@ -1688,9 +1921,32 @@ export const remainingPublicConfigs = [
       "secondary": "#a3baff"
     },
     "featureDescription": "6×5 pay-anywhere cascades. Queued Poseidon, Hecate, Atlas, Hephaestus and Zeus powers unlock at20/40/60/85/110 points. Four or more Scatters award12 free spins.",
-    "version": "superwin-olympianlegends-2",
+    "version": "superwin-olympianlegends-3",
     "controls": {
-      "stakeLabel": "Total stake (ETB)"
+      "stakeLabel": "Base bet (ETB)",
+      "paidModes": [
+        {
+          "id": "base",
+          "label": "Base game",
+          "multiplier": 1,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "10000",
+          "totalMinMinor": "10",
+          "totalMaxMinor": "10000"
+        },
+        {
+          "id": "bonus-buy",
+          "label": "Buy 12 free spins",
+          "multiplier": 100,
+          "baseMinMinor": "10",
+          "baseMaxMinor": "100",
+          "totalMinMinor": "1000",
+          "totalMaxMinor": "10000"
+        }
+      ],
+      "baseStakeMinMinor": "10",
+      "totalStakeMaxMinor": "10000",
+      "anteSupported": false
     },
     "actions": [],
     "launchable": false,
@@ -1710,9 +1966,9 @@ export const remainingPublicConfigs = [
       "productionEnabled": false,
       "remaining": [
         "Exact numeric public symbol paytable",
-        "Buy bonus, ante bet and all official selectable modes",
         "Official presentation/audio and controls",
-        "Exact Atlas block dimensions and scatter/retrigger table"
+        "Exact Atlas block dimensions and scatter/retrigger table",
+        "Ante probability model and complete in-demo validation of purchased modes"
       ]
     },
     "maxWinMultiplier": 100,
@@ -1731,7 +1987,8 @@ export const remainingPublicConfigs = [
         "Free-spin retrigger and scatter payout table remain unavailable.",
         "Feature-generated cascades do not refill the ordinary progress bar during an active power.",
         "Buy bonus and ante bet remain unavailable."
-      ]
+      ],
+      "modeWagerContract": "The submitted stake is the total authorized debit. The server derives an exact minor-unit base bet by dividing by the selected mode cost, and pays wins in base-bet units."
     },
     "paytable": {
       "verifiedPublicTable": false,
@@ -1903,9 +2160,9 @@ export const remainingPublicConfigs = [
             13.43,
             18.8,
             28.2,
-            47.0,
-            94.0,
-            282.0
+            47,
+            94,
+            282
           ]
         },
         {
@@ -2039,6 +2296,7 @@ export const remainingPublicConfigs = [
 
 const engine = createRemainingEngine(remainingPublicConfigs);
 export const remainingGames = engine.adapter;
+export const createRecoveryAdapter = engine.createRecoveryAdapter;
 export const sampleRawSlot = engine.sampleRawSlot;
 export const evaluateDraftGrid = engine.evaluateDraftGrid;
 export const createIsolatedDraftAdapter = engine.createIsolatedDraftAdapter;

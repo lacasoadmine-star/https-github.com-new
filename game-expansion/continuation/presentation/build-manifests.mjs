@@ -4,6 +4,8 @@ import {resolve, dirname} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {normalizeFrame, normalizeTextureAtlas, parseSpineAtlas, normalizeSpineRegions} from './atlas.mjs';
 import {verifyAssetBytes} from '../scripts/fetch-reference-assets.mjs';
+import {withSmartSoftNativeAssets} from './smartsoft-native-assets.mjs';
+import {withSmartSoftStartupAssets} from './smartsoft-startup-assets.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const names = {
@@ -12,6 +14,38 @@ const names = {
   multihotwildways_native: 'Multi Hot Wild Ways', habeshafortune5_native: 'Habesha Fortune 5', safarisimba_native: 'Safari Simba',
   multihotdeluxe_native:'Multi Hot 5 Deluxe',burningice_native:'Burning Ice 5',burningice10_native:'Burning Ice 10',burningice40_native:'Burning Ice 40',
 };
+
+// These descriptors concern visible artwork only. The three displayed positions
+// are not a claim about the provider's multiplier-selection probabilities.
+const LEFT_MULTIPLIERS = {
+  multihotwildways_native: {gapRatio:.05, rowCenters:[.21,.5,.79], numberScale:1},
+  multihot5wild_native: {gapRatio:.05, rowCenters:[.21,.5,.79], numberScale:1},
+  multihotdeluxe_native: {gapRatio:-.015, rowCenters:[1/6,.5,5/6], numberScale:1},
+  safarisimba_native: {gapRatio:-.025, rowCenters:[.18,.5,.82], numberScale:1.5},
+  habeshafortune5_native: {gapRatio:-.025, rowCenters:[.18,.5,.82], numberScale:1},
+};
+
+export function first11FeatureDescriptors(id, frames, presentation={}) {
+  const mappedFrame=key=>frames['@Image/'+key]?'@Image/'+key:frames[key]?key:null;
+  let featurePresentation=presentation.feature?{type:presentation.feature,iceLogoFrame:mappedFrame(presentation.iceLogoFrame),lineIconsFrame:mappedFrame(presentation.lineIconsFrame),holdFrame:mappedFrame('Start/HoldActive'),declaredUnfetchedAnimations:presentation.declaredUnfetchedAnimations||[]}:null;
+  const side=LEFT_MULTIPLIERS[id];
+  if(side&&frames['Multiplier/Background'])featurePresentation={
+    ...featurePresentation,type:'vertical-multipliers',position:'left',visibleRows:3,selectedRow:1,
+    backgroundFrame:'Multiplier/Background',backgroundFillFrame:mappedFrame('Multiplier/BackgroundBorder'),
+    slotFrame:mappedFrame('Multiplier/Bottom'),activeSlotFrame:mappedFrame('Multiplier/BottomActive'),activeBorderFrame:mappedFrame('Multiplier/TopActive'),
+    values:[1,2,3,4,5],valueFrames:Object.fromEntries([1,2,3,4,5].map(value=>[value,mappedFrame('Multiplier/'+value)])),
+    activeValueFrames:Object.fromEntries([1,2,3,4,5].map(value=>[value,mappedFrame('Multiplier/Active-'+value)])),
+    ...side,
+    source:'Official free-demo visual audit 2026-11-09: left-side strip, three visible positions, selected value in the middle. Original locked atlas frames retained. Authored mobile placement; neighboring labels are decorative unless explicitly supplied.',
+  };
+  const wheel=/^multihot(?:40|100)_native$/.test(id)||id==='multihot5superwilds_native';
+  const multiplier=wheel?{type:'wheel',values:[1,2,3,4,5],angleNumerators:[null,3,5,2,4,1],angleDenominator:7,angleUnit:'pi',normal:'Multiplier/Numbers',light:'Multiplier/Light',background:'Multiplier/Background',source:'Public MultiHot40.js / MultiHot100.js drawWheelRotationStop mapping; artwork and angle are presentation only.'}:null;
+  if(id==='multihot5superwilds_native')Object.assign(multiplier,{
+    placement:'above-board',
+    source:'SuperWilds wheel observed above the board in the official free demo. Its locked Numbers, Light and Background frames decode to identical RGBA pixels and original geometry as the established MultiHot40/100 wheel; reuse that artwork orientation, not outcome selection.',
+  });
+  return {featurePresentation,multiplier};
+}
 
 export async function buildManifests(lock, {readAsset, publicConfigs = []} = {}) {
   const byURL = new Map(lock.assets.flatMap(asset => asset.urls.map(url => [url, asset])));
@@ -115,17 +149,19 @@ export async function buildManifests(lock, {readAsset, publicConfigs = []} = {})
     const board=presentation.boardColumnFrame?{type:'columns',frame:mappedFrame(presentation.boardColumnFrame),activeFrame:mappedFrame(presentation.boardColumnFrame.replace('Column','ColumnActive'))}:{type:'single',frame:presentation.boardFrame||'Box/Background'};
     const expectedSymbolCount = config?.symbols?.length || inventory.grid.symbolCount;
     const adapterReady = !!background && Object.keys(symbols).length === expectedSymbolCount && !!frames[board.frame];
+    const features=first11FeatureDescriptors(id,frames,presentation);
     manifests[id] = {
       schemaVersion: 1, id, name: names[id] || name, providerName: name, source: inventory.officialDemo,
       status: adapterReady ? 'asset-backed-presentation-review' : 'incomplete-asset-mapping', productionLaunchEnabled: false,
       grid: {columns: config?.columns || inventory.grid.reels, rows: config?.rows || inventory.grid.rows}, symbols, frames, atlases, spine, fonts, audio, background, logo, controls, files,board,symbolPlacement:presentation.symbolPlacement||null,
-      featurePresentation:presentation.feature?{type:presentation.feature,iceLogoFrame:mappedFrame(presentation.iceLogoFrame),lineIconsFrame:mappedFrame(presentation.lineIconsFrame),holdFrame:mappedFrame('Start/HoldActive'),declaredUnfetchedAnimations:presentation.declaredUnfetchedAnimations||[]}:null,
+      featurePresentation:features.featurePresentation,
       layout: {referenceWidth:420, referenceHeight:900, provenance:'Authored mobile review layout; first Multi Hot geometry derives from the existing player-machines hundredLayout. Full official mobile/desktop parity is not yet verified.'},
-      multiplier: /^multihot(?:40|100)_native$/.test(id) ? {type:'wheel', values:[1,2,3,4,5], angleNumerators:[null,3,5,2,4,1], angleDenominator:7, angleUnit:'pi', normal:'Multiplier/Numbers', light:'Multiplier/Light', background:'Multiplier/Background', source:'Public MultiHot40.js / MultiHot100.js drawWheelRotationStop mapping; artwork and angle are presentation only.'} : null,
+      multiplier:features.multiplier,
       capabilities: {originalSymbolArt: Object.keys(symbols).length, originalBackground: !!background, originalStaticTitle: !!logo, mappedControlStates: Object.values(controls).reduce((sum,item)=>sum+Object.keys(item).length,0), mappedAudioFiles: Object.keys(audio).length, spineAnimationPlayback: false, financialActions: false},
       missing,
       remaining: ['Full provider mobile/desktop placement comparison', 'Animated logo and all Spine feature/win sequences', 'Complete per-machine menu, gamble and bonus interaction presentation', 'Host session/controller integration and public browser validation; this preview cannot place bets'],
     };
+    manifests[id] = withSmartSoftStartupAssets(withSmartSoftNativeAssets(manifests[id]));
   }
   return {schemaVersion:1, productionLaunchEnabled:false, assetsBase:'./assets/', games:manifests, inventoryMissing:Object.keys(names).filter(id=>!manifests[id])};
 }

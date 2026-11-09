@@ -1,4 +1,5 @@
 import sourceModels from './smartsoft-slots.data.json' with {type:'json'};
+import {OPERATOR_WAGER_PROFILE,OPERATOR_GAME_IDS,operatorModelVersion} from './operator-wager-profile.mjs';
 
 // These immutable versions use independent ZPLAY sampling. Public provider rules,
 // geometry and coefficient references do not establish the provider's private RNG.
@@ -10,7 +11,7 @@ const decimalMinor=value=>{if(typeof value!=='string'||!/^(0|[1-9]\d*)\.\d{2}$/.
 const random=rng=>{const x=rng();if(!Number.isFinite(x)||x<0||x>=1)fail('INVALID_SERVER_RANDOM',500);return x;};
 const pick=(rng,n)=>Math.floor(random(rng)*n);
 const byId=Object.fromEntries(sourceModels.map(model=>[model.id,freeze(model)]));
-const lookups=new Map();
+const lookups=new WeakMap();
 
 function payoutCeiling(model,stake){
  const absolute=decimalMinor(model.maxWin);
@@ -56,14 +57,14 @@ export function evaluateSequence(sequence,modelOrId){
 // The lookup is an optimization of evaluateSequence, with every outcome enumerated.
 // It contains public award rules, never future RNG results or a player-specific profile.
 function lookup(model){
- if(lookups.has(model.id))return lookups.get(model.id);
+ if(lookups.has(model))return lookups.get(model);
  const n=model.symbols.length,total=n**model.columns,units=new Uint32Array(total),symbols=new Uint8Array(total),counts=new Uint8Array(total);
  const seq=new Array(model.columns);
  for(let code=0;code<total;code++){
   let k=code;for(let c=0;c<model.columns;c++){seq[c]=k%n;k=Math.floor(k/n);}
   const a=evaluateSequence(seq,model);units[code]=a.units;symbols[code]=a.symbol<0?255:a.symbol;counts[code]=a.count;
  }
- const result={units,symbols,counts,n};lookups.set(model.id,result);return result;
+ const result={units,symbols,counts,n};lookups.set(model,result);return result;
 }
 
 function evaluateLines(grid,model){
@@ -77,7 +78,8 @@ function evaluateLines(grid,model){
 }
 
 function sampleGrid(model,rng,frozen,previous){
- return Array.from({length:model.columns},(_,c)=>frozen?.has(c)?previous[c].slice():Array.from({length:model.rows},()=>{
+ return Array.from({length:model.columns},(_,c)=>frozen?.has(c)?previous[c].slice():model.reelWindows?
+  model.reelWindows[c][model.reelWindowTickets[c][pick(rng,model.reelWindowTickets[c].length)]].symbols.slice():Array.from({length:model.rows},()=>{
   const pool=model.sampling[c];return pool[pick(rng,pool.length)];
  }));
 }
@@ -106,8 +108,11 @@ function burningExpand(grid,model,rng,initial,frozen){
    grid[c]=grid[c].map(s=>isScatter(s)?s:0);expandedReels.push(c);
   }
  }
- if(initial&&model.coinChanceDenominator&&pick(rng,model.coinChanceDenominator)===0){
-  const c=model.coinReels[pick(rng,model.coinReels.length)];
+ let coin=null;
+ if(initial&&model.coinTickets)coin=model.coinTickets[pick(rng,model.coinTickets.length)];
+ else if(initial&&model.coinChanceDenominator&&pick(rng,model.coinChanceDenominator)===0)coin=model.coinReels[pick(rng,model.coinReels.length)];
+ if(coin!==null){
+  const c=coin;
   grid[c]=grid[c].map(s=>isScatter(s)?s:model.coinWildSymbol);coinReels.push(c);
  }
  return {expandedReels,coinReels};
@@ -123,7 +128,8 @@ function scatterAwards(grid,model){
   }
   const actualCount=cells.length,count=Math.min(actualCount,model.coefficients[scatter.symbol].length-1);
   const coefficient=count>=scatter.minCount?(model.coefficients[scatter.symbol][count]??0):0;
-  return coefficient?[{symbol:scatter.symbol,count,actualCount,cells,units:coefficient*model.lineStakeDivisor,scatter:true}]:[];
+  const basis=Object.hasOwn(scatter,'coefficientBasis')?scatter.coefficientBasis:'total-stake';
+  return coefficient?[{symbol:scatter.symbol,count,actualCount,cells,units:coefficient*(basis==='line-stake'?1:model.lineStakeDivisor),scatter:true}]:[];
  });
 }
 
@@ -131,6 +137,9 @@ function scatterAwards(grid,model){
 // optional trace only removes presentation allocation during offline calibration.
 export function sampleOutcome(id,rng,{trace=true}={}){
  const model=byId[id];if(!model)fail('GAME_NOT_FOUND',404);
+ return sampleModelOutcome(model,rng,{trace});
+}
+function sampleModelOutcome(model,rng,{trace=true}={}){
  let grid=sampleGrid(model,rng),rawUnits=0;
  const frames=[],awards=[];
  if(model.mechanic==='freeze-respin'){
@@ -161,7 +170,7 @@ export function sampleOutcome(id,rng,{trace=true}={}){
   }
   return {grid,awards,frames,rawUnits,feature:trace?frames.at(-1).feature:{type:'freeze-respin'}};
  }
- const multiplier=1+pick(rng,5);let addedWilds=[],beforeWildGrid=null;
+ const multiplier=model.multiplierTickets?model.multiplierTickets[pick(rng,model.multiplierTickets.length)]:1+pick(rng,5);let addedWilds=[],beforeWildGrid=null;
  if(model.mechanic==='super-wild'){
   const mask=[];beforeWildGrid=clone(grid);
   for(let c=0;c<model.columns;c++)for(let r=0;r<model.rows;r++){
@@ -192,7 +201,10 @@ function paidOutcome(model,outcome,stake,rng){
  const amounts=outcome.awards.map(w=>({win:w,numerator:stake*BigInt(w.units)*scaleN}));
  const cap=payoutCeiling(model,stake);
  const raw=amounts.reduce((sum,a)=>sum+a.numerator,0n),capped=raw>cap*denominator;
- const total=roundPayoutMinor(raw,denominator,cap,rng);
+ if(capped&&model.rejectCeilingOverflow)fail('NATIVE_SLOT_SUPPORT_EXCEEDS_PUBLISHED_MAXIMUM',500);
+ // Only the new operator version floors its exact TOTAL once. Historical
+ // reference versions retain their original stochastic rounding unchanged.
+ const total=model.payoutRounding==='floor-total'?raw/denominator:roundPayoutMinor(raw,denominator,cap,rng);
  // One unbiased whole-santim rounding draw for the TOTAL, using the existing
  // committed server RNG after all outcome draws. Exact integers and capped
  // totals need no draw. Largest-remainder allocation then preserves this total.
@@ -208,16 +220,120 @@ function paidOutcome(model,outcome,stake,rng){
 
 function reserveFor(model,stake){
  const lineMax=Math.max(0,...model.coefficients.flatMap((row,symbol)=>model.scatters.some(s=>s.symbol===symbol)?[]:row));
- const scatterMax=model.scatters.reduce((sum,scatter)=>sum+Math.max(...model.coefficients[scatter.symbol]),0);
+ const scatterMax=model.scatters.reduce((sum,scatter)=>sum+Math.max(...model.coefficients[scatter.symbol])*(scatter.coefficientBasis==='line-stake'?1:model.lineStakeDivisor),0);
  // A respin pays only increases over the largest prior award on each line.
  // Consequently the total round bound is one maximum award per line, plus
  // one maximum award per scatter symbol. It does not depend on the outcome.
  const multiplier=model.mechanic==='freeze-respin'?1:5;
- const rawMax=BigInt(lineMax*model.paths.length*multiplier+scatterMax*model.lineStakeDivisor);
+ const rawMax=BigInt(lineMax*model.paths.length*multiplier+scatterMax);
  const numerator=stake*rawMax*BigInt(model.scale.numerator),denominator=10n*BigInt(model.lineStakeDivisor)*BigInt(model.scale.denominator);
  const maximum=(numerator+denominator-1n)/denominator;
  const cap=payoutCeiling(model,stake);
  return String(maximum>cap?cap:maximum);
+}
+
+// Versioned interactive adapters reserve before they draw. Reuse the exact
+// original model bound instead of estimating it from a realized winning grid.
+export function maximumDraftPayoutMinor(gameId,stakeMinor){
+ const model=byId[gameId];if(!model)fail('GAME_NOT_FOUND',404);
+ if(!integer(stakeMinor)||!model.stakeMinorValues.includes(stakeMinor))fail('STAKE_NOT_IN_REFERENCE_SCHEDULE');
+ return reserveFor(model,BigInt(stakeMinor));
+}
+
+// Re-evaluate an already resolved grid/feature sequence without drawing again.
+// This validates the persisted prize before collect, double or expiry. It does
+// not establish where the random outcome came from; that remains server-owned.
+export function verifyResolvedReceipt(gameId,stakeMinor,receipt){
+ const model=byId[gameId];if(!model)fail('GAME_NOT_FOUND',404);
+ maximumDraftPayoutMinor(gameId,stakeMinor);
+ return verifyModelReceipt(model,stakeMinor,receipt);
+}
+function verifyModelReceipt(model,stakeMinor,receipt){
+ const invalid=()=>fail('INVALID_SLOT_RECEIPT',500);
+ const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
+ const canonical=value=>Array.isArray(value)?value.map(canonical):object(value)?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
+ const same=(a,b)=>JSON.stringify(canonical(a))===JSON.stringify(canonical(b));
+ const gridOf=value=>{
+  if(!Array.isArray(value)||value.length!==model.columns||value.some(reel=>!Array.isArray(reel)||reel.length!==model.rows||reel.some(symbol=>!integer(symbol)||Number(symbol)>=model.symbols.length)))invalid();
+  return value.map(reel=>reel.map(Number));
+ };
+ if(!object(receipt)||!integer(receipt.payoutMinor)||!Array.isArray(receipt.frames)||!receipt.frames.length||receipt.frames.length>model.maxFrames)invalid();
+ const grid=gridOf(receipt.grid),frames=[],awards=[];
+ const inputFrames=receipt.frames.map(frame=>{
+  if(!object(frame)||!object(frame.feature))invalid();
+  return {grid:gridOf(frame.grid),feature:clone(frame.feature)};
+ });
+ const inNativeSupport=(frame,index,frozen=new Set())=>{
+  if(!model.reelWindows)return;
+  const isScatter=symbol=>model.scatters.some(scatter=>scatter.symbol===symbol);
+  for(let column=0;column<model.columns;column++){
+   if(frozen.has(column))continue;
+   const expanded=frame.feature.expandedReels?.includes(column)??false,coin=frame.feature.coinReels?.includes(column)??false;
+   if(coin&&(index!==0||!model.coinTickets?.includes(column)))invalid();
+   const found=model.reelWindows[column].some(window=>{
+    let expected=window.symbols.slice(),didExpand=false;
+    if(model.mechanic==='freeze-respin'&&model.expandingReels.includes(column)&&expected.includes(0)){
+     expected=expected.map(symbol=>isScatter(symbol)?symbol:0);didExpand=true;
+    }
+    if(model.mechanic==='freeze-respin'&&didExpand!==expanded)return false;
+    if(coin)expected=expected.map(symbol=>isScatter(symbol)?symbol:model.coinWildSymbol);
+    return same(expected,frame.grid[column]);
+   });
+   if(!found)invalid();
+  }
+ };
+ if(!same(grid,inputFrames.at(-1).grid))invalid();
+ if(model.mechanic==='freeze-respin'){
+  const frozen=new Set(),paidLines=new Array(model.paths.length).fill(0),paidScatters=new Map();
+  for(let index=0;index<inputFrames.length;index++){
+   const frame=inputFrames[index],feature=frame.feature,fresh=[];
+   if(feature.type!=='freeze-respin'||feature.step!==index||!Array.isArray(feature.expandedReels)||!Array.isArray(feature.coinReels))invalid();
+   if(feature.expandedReels.some(reel=>!model.expandingReels.includes(reel)||frozen.has(reel))||new Set(feature.expandedReels).size!==feature.expandedReels.length)invalid();
+   if(feature.coinReels.some(reel=>index!==0||!model.coinReels?.includes(reel))||feature.coinReels.length>1)invalid();
+   if(index)for(const reel of frozen)if(!same(frame.grid[reel],inputFrames[index-1].grid[reel]))invalid();
+   inNativeSupport(frame,index,frozen);
+   for(const win of evaluateLines(frame.grid,model)){
+    const previous=paidLines[win.line-1];if(win.units<=previous)continue;
+    paidLines[win.line-1]=win.units;fresh.push({...win,units:win.units-previous,frame:index});
+    for(const [reel]of win.cells)frozen.add(reel);
+   }
+   for(const scatter of scatterAwards(frame.grid,model)){
+    const previous=paidScatters.get(scatter.symbol)??0;if(scatter.units<=previous)continue;
+    paidScatters.set(scatter.symbol,scatter.units);fresh.push({...scatter,units:scatter.units-previous,frame:index});
+    for(const [reel]of scatter.cells)frozen.add(reel);
+   }
+   if(!same(feature.frozenReels,[...frozen].sort()))invalid();
+   if(index+1<inputFrames.length&&(!fresh.length||frozen.size===model.columns))invalid();
+   if(index===inputFrames.length-1&&fresh.length&&frozen.size<model.columns&&inputFrames.length<model.maxFrames)invalid();
+   awards.push(...fresh);frames.push({grid:frame.grid,awards:fresh,feature,rawUnits:fresh.reduce((sum,win)=>sum+win.units,0)});
+  }
+ }else{
+  const final=inputFrames.at(-1),feature=final.feature;
+  inNativeSupport(final,inputFrames.length-1);
+  if(feature.type!==model.mechanic||!Number.isInteger(feature.multiplier)||feature.multiplier<1||feature.multiplier>5)invalid();
+  if(model.mechanic==='super-wild'){
+   if(!Array.isArray(feature.addedWilds))invalid();
+   if(inputFrames.length===2){
+    const before=inputFrames[0];if(before.feature.type!=='super-wild-before'||before.feature.multiplier!==feature.multiplier||!feature.addedWilds.length)invalid();
+    let transformed;try{transformed=applyAddedWilds(before.grid,feature.addedWilds);}catch{invalid();}
+    if(!same(transformed.grid,grid)||!same(transformed.addedWilds,feature.addedWilds))invalid();
+    frames.push({grid:before.grid,awards:[],feature:before.feature,rawUnits:0});
+   }else if(feature.addedWilds.length)invalid();
+  }else if(inputFrames.length!==1)invalid();
+  if(model.mechanic==='safari-multiplier'){
+   const symbol=grid[0][0],expanded=[];
+   if([4,5,6].includes(symbol))for(let reel=0;reel<model.columns;reel++){
+    if(grid[reel].every(value=>value===symbol))expanded.push(reel);else break;
+   }
+   if(!same(expanded,feature.expandedReels))invalid();
+  }
+  const fresh=evaluateLines(grid,model).map(win=>({...win,units:win.units*feature.multiplier,frame:frames.length}));
+  awards.push(...fresh);frames.push({grid,awards:fresh,feature,rawUnits:fresh.reduce((sum,win)=>sum+win.units,0)});
+ }
+ const outcome={grid,awards,frames,rawUnits:awards.reduce((sum,win)=>sum+win.units,0),feature:clone(frames.at(-1).feature)};
+ const expected=paidOutcome(model,outcome,BigInt(stakeMinor),()=>fail('NONINTEGRAL_PERSISTED_SLOT_PRIZE',500));
+ if(!same(expected,receipt))invalid();
+ return expected;
 }
 
 function publicConfig(model){
@@ -239,13 +355,49 @@ export function start(gameId,options,rng,now){
 // release gate remains mandatory even while draft rules are being verified.
 export function evaluateDraftRound(gameId,options,rng,now){
  const model=byId[gameId];if(!model)fail('GAME_NOT_FOUND',404);
+ return evaluateModelRound(model,options,rng,now);
+}
+function evaluateModelRound(model,options,rng,now){
  if(!options||typeof options!=='object'||Array.isArray(options)||Object.keys(options).some(k=>k!=='stakeMinor')||!integer(options.stakeMinor))fail('INVALID_SLOT_OPTIONS');
  const stake=BigInt(options.stakeMinor);if(!model.stakeMinorValues.includes(options.stakeMinor))fail('STAKE_NOT_IN_REFERENCE_SCHEDULE');
  if(!Number.isSafeInteger(now)||now<0)fail('INVALID_SERVER_TIME',500);
- const paid=paidOutcome(model,sampleOutcome(gameId,rng),stake,rng);
+ const paid=paidOutcome(model,sampleModelOutcome(model,rng),stake,rng);
  const liabilityMinor=reserveFor(model,stake);
- const state={gameId,modelVersion:model.version,family:'slots',status:'settled',stakeMinor:String(stake),startedAt:now,settledAt:now,expiresAt:now,liabilityMinor,...paid};
+ const state={gameId:model.id,modelVersion:model.version,family:'slots',status:'settled',stakeMinor:String(stake),startedAt:now,settledAt:now,expiresAt:now,liabilityMinor,...paid};
  return {state,debitMinor:String(stake),maxPayoutMinor:liabilityMinor,payoutMinor:paid.payoutMinor};
+}
+
+// A versioned adapter may correct an evidence-backed interpretation without
+// mutating old accepted rounds. This is a server-only construction function;
+// runtime request options never select a profile or override an award table.
+export function createReferenceSlotKernel(gameId,{version,scatterCoefficientBasis,payoutStakeDivisor,nativeProfile,operatorWagerProfile}={}){
+ const original=byId[gameId];if(!original)fail('GAME_NOT_FOUND',404);
+ if(typeof version!=='string'||version===original.version||!version.startsWith('superwin-'))fail('INVALID_DERIVED_SLOT_VERSION',500);
+ if(scatterCoefficientBasis!==undefined&&!['line-stake','total-stake'].includes(scatterCoefficientBasis))fail('INVALID_SCATTER_COEFFICIENT_BASIS',500);
+ if(payoutStakeDivisor!==undefined&&(!Number.isSafeInteger(payoutStakeDivisor)||payoutStakeDivisor<1))fail('INVALID_PAYOUT_STAKE_DIVISOR',500);
+ const distribution={};
+ if(nativeProfile){
+  if(nativeProfile.version!==version||nativeProfile.publicPayoutCoefficientsScaled!==false||nativeProfile.officialPrivateMathVerified!==false)fail('INVALID_NATIVE_SLOT_PROFILE',500);
+  for(const key of ['sampling','reelWindows','multiplierTickets','addWildChanceDenominator','coinTickets','rejectCeilingOverflow'])if(Object.hasOwn(nativeProfile,key))distribution[key]=clone(nativeProfile[key]);
+  if(distribution.reelWindows)distribution.reelWindowTickets=distribution.reelWindows.map(windows=>windows.flatMap((window,index)=>Array(window.weight).fill(index)));
+ }
+ let wager={};
+ if(operatorWagerProfile!==undefined){
+  if(operatorWagerProfile!==OPERATOR_WAGER_PROFILE||!OPERATOR_GAME_IDS.includes(gameId)||version!==operatorModelVersion(original.version.replace(/-1$/,'-2')))fail('INVALID_OPERATOR_SLOT_PROFILE',500);
+  // 10000x is above the independently proven bound of every selected slot.
+  // Relative published bounds remain; the former flat monetary cap is lifted.
+  // Any unsupported overflow rejects rather than reducing a winning award.
+  wager={stakeMinorValues:[...OPERATOR_WAGER_PROFILE.stakeMinorValues],minStake:'1.00',maxStake:'40000.00',maxWin:'400000000.00',payoutRounding:'floor-total',rejectCeilingOverflow:true,operatorWagerProfileId:OPERATOR_WAGER_PROFILE.id};
+ }
+ const model=freeze({...clone(original),...distribution,...wager,version,...(payoutStakeDivisor?{lineStakeDivisor:payoutStakeDivisor}:{}),scatters:original.scatters.map(scatter=>({...clone(scatter),...(scatterCoefficientBasis?{coefficientBasis:scatterCoefficientBasis}:{})}))});
+ const checkedStake=stake=>{if(!integer(stake)||!model.stakeMinorValues.includes(stake))fail('STAKE_NOT_IN_REFERENCE_SCHEDULE');};
+ return freeze({
+  model,
+  evaluateDraftRound:(options,rng,now)=>evaluateModelRound(model,options,rng,now),
+  sampleOutcome:(rng,options)=>sampleModelOutcome(model,rng,options),
+  maximumPayoutMinor:stake=>{checkedStake(stake);return reserveFor(model,BigInt(stake));},
+  verifyReceipt:(stake,receipt)=>{checkedStake(stake);return verifyModelReceipt(model,stake,receipt);}
+ });
 }
 export function act(state,input,rng,now){fail('ROUND_ALREADY_SETTLED',409);}
 export function expire(state,rng,now){

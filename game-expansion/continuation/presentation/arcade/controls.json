@@ -29,12 +29,12 @@
       "secondary": {"officialLabel": "CASH OUT", "nativeAction": "cashout", "previewEnabled": false},
       "board": {"columns": 5, "rows": 5, "nativeAction": "pick", "indexing": "row-major0..24", "previewEnabled": false},
       "mineChoices": [1, 2, 3, 5, 7, 10, 17, 20, 24],
-      "randomTile": {"officialPresent": true, "nativeImplemented": false, "previewEnabled": false},
+      "randomTile": {"officialPresent": true, "nativeImplemented": true, "nativeAction": "pick", "selection": "Uniform choice among confirmed unpicked row-major indices; outcomes remain server-authoritative", "previewEnabled": false},
       "instantWin": {"configurationControlled": true, "nativeImplemented": false, "previewEnabled": false},
       "treasureBoost": {"sourceFlag": "picks[].treasureBoost", "activeFlag": "treasureBoost.active", "renderOnlyConfirmedRescue": true},
       "layout": {"portrait": [360, 640], "landscape": [640, 360], "portraitTileOrigin": [26, 174], "tileSize": [60, 60], "gutter": [2, 2]},
       "closedTileComposition": {"mode": "mix", "layers": ["tile1", "tile2"], "sameBounds": true, "bonusOverlayUsesFullTileBounds": true},
-      "remaining": ["Exact UI font file, transitions, and responsive comparison are unfinished.", "Random-tile and instant-win controls are shown only as unavailable reference controls; they do not choose tiles or submit requests.", "Current demo monetary bet limits remain unverified.", "Default reference supplies color panels, not the partner-specific background/board artwork; no alternate partner skin is substituted."]
+      "remaining": ["Exact UI font file, transitions, and responsive comparison are unfinished.", "Instant-win is a separate configuration-controlled variant and is not implemented by the coin_miner_94 client.", "Current demo monetary bet limits remain unverified.", "Default reference supplies color panels, not the partner-specific background/board artwork; no alternate partner skin is substituted."]
     }
   }
 }

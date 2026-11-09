@@ -967,7 +967,9 @@
     ],
     "randomTile": {
       "officialPresent": true,
-      "nativeImplemented": false,
+      "nativeImplemented": true,
+      "nativeAction": "pick",
+      "selection": "Uniform choice among confirmed unpicked row-major indices; outcomes remain server-authoritative",
       "previewEnabled": false
     },
     "instantWin": {
@@ -1013,7 +1015,7 @@
     },
     "remaining": [
       "Exact UI font file, transitions, and responsive comparison are unfinished.",
-      "Random-tile and instant-win controls are shown only as unavailable reference controls; they do not choose tiles or submit requests.",
+      "Instant-win is a separate configuration-controlled variant and is not implemented by the coin_miner_94 client.",
       "Current demo monetary bet limits remain unverified.",
       "Default reference supplies color panels, not the partner-specific background/board artwork; no alternate partner skin is substituted."
     ]
@@ -1045,7 +1047,7 @@
   "requiredArtMissing": [],
   "blockers": [
     "Exact UI font file, transitions, and responsive comparison are unfinished.",
-    "Random-tile and instant-win controls are shown only as unavailable reference controls; they do not choose tiles or submit requests.",
+    "Instant-win is a separate configuration-controlled variant and is not implemented by the coin_miner_94 client.",
     "Current demo monetary bet limits remain unverified.",
     "Default reference supplies color panels, not the partner-specific background/board artwork; no alternate partner skin is substituted.",
     "Receipt-driven authored scene; exact provider camera timing, transitions, responsive comparison and complete sound synchronization remain unverified.",

@@ -1,3 +1,5 @@
+import {smartSoftAutoplayBigWin} from './smartsoft-dialog-state.mjs';
+import {smartSoftDialogProfile} from './smartsoft-dialog-profiles.mjs';
 // Pure, memory-only autoplay coordination. This module has no network, timer,
 // storage or wallet access. A new instance always starts stopped.
 //
@@ -21,7 +23,8 @@
 // contain round_id, game_id, model_version, stakeMinor, status, version and
 // (when settled) payoutMinor. Never pass animation frames as receipts. Optional trigger stops
 // consume only explicit confirmed booleans: bonusTriggered, freeSpinsTriggered,
-// bigWin (on round or round.feature). No payout threshold is invented for bigWin.
+// bigWin (on round or round.feature). The three new Burning titles additionally
+// use their captured strict per-frame >25x native Big Win threshold.
 
 const MODERN_IDS = Object.freeze([
   'multihot40_native', 'multihot100_native', 'multihotwildways_native',
@@ -49,16 +52,16 @@ const MODERN = freeze({
 const LEGACY = freeze({
   kind:'legacy', counts:[10, 25, 50, 75, 'continuous'], defaultCount:'continuous',
   sourceContinuousValue:'infinite', winLimitMeaning:'session-net-gain',
-  netBasis:'settled-rounds', stopFlagsAvailable:false,
-  referenceStopFlags:['bonus', 'freeSpins', 'bigWin'], gambleImplemented:false,
+  netBasis:'settled-rounds', stopFlagsAvailable:true,
+  referenceStopFlags:['bigWin'], gambleImplemented:true,
   reference:'../references/first11-optional-controls.json',
   source:'https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Scripts/Slots/canvas.js',
-  scope:'Legacy Burning controller; popup counts observed in Burning Ice40. Feature-stop UI stays unavailable until real receipt flags exist.'
+  scope:'Legacy Burning controller; bonus/free-spin rows are disabled by the title source. Big Win uses confirmed per-frame payout strictly greater than25x.'
 });
 
 export function autoplayProfile(gameId) {
   const profile = MODERN_IDS.includes(gameId) ? MODERN : LEGACY_IDS.includes(gameId) ? LEGACY : null;
-  return profile ? freeze({...profile, gameId}) : null;
+  return profile ? freeze({...profile,gameId,...(smartSoftDialogProfile(gameId)?{gambleImplemented:true}:{})}) : null;
 }
 
 const unsigned = /^(0|[1-9]\d{0,30})$/;
@@ -156,7 +159,7 @@ export class AutoplayController {
   #receiptStops(round) {
     if (this.#stops.bonus && flag(round, 'bonusTriggered')) this.stop('bonus');
     if (this.#stops.freeSpins && flag(round, 'freeSpinsTriggered')) this.stop('free_spins');
-    if (this.#stops.bigWin && flag(round, 'bigWin')) this.stop('big_win');
+    if (this.#stops.bigWin && (flag(round, 'bigWin')||smartSoftAutoplayBigWin(round,this.#gameId))) this.stop('big_win');
   }
 
   observe(state = {}) {
