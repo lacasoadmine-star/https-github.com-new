@@ -60,7 +60,7 @@ async def main():
         button=page.locator('[data-r20-game="multihot100_native"] .r20-native-open').first
         await button.click(timeout=15000)
         await page.wait_for_url(ORIGIN+'/games/multihot100_native')
-        assert await page.locator('html').get_attribute('data-reference-display')=='r16'
+        assert await page.locator('html').get_attribute('data-reference-display')=='r17'
         assert not errors,errors
         report={'references':1000,'firstPageCoversDecoded':decoded,'pagination':True,'studioFilter':True,
                 'nameSearch':True,'directAccountEntry':True,'liveNativeLinks':3,'unbuiltTitleRemainsPreparing':True,'financialActions':0,'errors':errors}

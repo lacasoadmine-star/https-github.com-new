@@ -80,7 +80,7 @@ async def main(ids):
             credited=int(after['round']['payoutMinor']) if after['round']['status']=='settled' else 0
             assert round(float(after['balance'])*100)==round(float(before['balance'])*100)-100+credited
             if after['round']['status']=='active':
-                await page.locator('#collect').click()
+                await page.locator('[data-control="collect"]:visible, #collect:visible').first.click()
                 await page.wait_for_timeout(500)
             assert not await page.locator('[data-control="bet"]').is_disabled(),game
             sound=page.locator('[data-control="sound"]:visible')

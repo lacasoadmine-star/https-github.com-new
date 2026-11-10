@@ -12,7 +12,7 @@ export function installConstructionPlayer(previous){
    if(!['GET','HEAD'].includes(request.method))return fail('METHOD_NOT_ALLOWED',405);
    if(typeof env.EXPANSION100?.fetch!=='function')return fail('EXISTING_ASSET_SERVICE_UNAVAILABLE');
    const name=path===QUEUE_API?'games.json':path.slice(PREFIX.length);
-   if(!/^(?:games\.json|queue\.json|queue-ui(?:-r16)?\.mjs|queue\.css|frame\.mjs|(?:mobile-controls|control-state|control-data)-r16b?\.mjs|mobile-(?:display(?:-data)?|background)\.mjs|backgrounds\/[a-f0-9]{64}\.(?:png|jpg)|covers\/[a-z0-9]+:[A-Za-z0-9_-]{1,100})$/.test(name))return fail('NOT_FOUND',404);
+   if(!/^(?:runtime-r17\/(?:[a-f0-9]{16}\/(?:app|smartsoft-startup)|entry|mobile-runtime-r17|autoplay-visual-r17)\.mjs|games\.json|queue\.json|queue-ui(?:-r16)?\.mjs|queue\.css|frame\.mjs|(?:mobile-controls|control-state|control-data)-r16b?\.mjs|mobile-(?:display(?:-data)?|background)\.mjs|backgrounds\/[a-f0-9]{64}\.(?:png|jpg)|covers\/[a-z0-9]+:[A-Za-z0-9_-]{1,100})$/.test(name))return fail('NOT_FOUND',404);
    const target=new URL(LIBRARY_PREFIX+name,url.origin);if(name==='games.json')target.search=url.search;
    // The existing asset binding receives public GET/HEAD only. No session,
    // Authorization, account balance or financial request can enter this route.
