@@ -1,0 +1,18 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {gzipSync} from 'node:zlib';
+import {transform,build} from 'esbuild';
+import {patchLobbyUI} from './lobby-ui-r19.mjs';
+import {UI_SOURCE} from './operator-ui-source-r16.mjs';
+const output=process.argv[2];if(!output)throw Error('EXPLICIT_OUTPUT_REQUIRED');
+const original=await readFile(new URL('operator-ui-r16.mjs',import.meta.url),'utf8');
+if(original!==UI_SOURCE)throw Error('RETAINED_LOBBY_SOURCE_CHANGED');
+const sha=x=>createHash('sha256').update(x).digest('hex');
+const text=(await transform(patchLobbyUI(original),{format:'esm',target:'es2022',minify:true,legalComments:'none'})).code;
+const bytes=Buffer.from(text),resource={type:'application/javascript; charset=utf-8',gzip:true,base64:gzipSync(bytes,{level:9}).toString('base64'),bytes:bytes.length,sha256:sha(bytes)};
+const source="import previous from './auth-library-entry-r18.mjs';export * from './auth-library-entry-r18.mjs';import {bundledResource,fail} from './reference-resources-r14.mjs';const resource="+JSON.stringify(resource)+";export default {...previous,async fetch(request,env,ctx){if(new URL(request.url).pathname!=='/v2/remaining20/construction-r15/queue-ui-r19.mjs')return previous.fetch(request,env,ctx);if(!['GET','HEAD'].includes(request.method))return fail('METHOD_NOT_ALLOWED',405);return bundledResource(resource,request.method);}};";
+const result=await build({stdin:{contents:source,resolveDir:new URL('.',import.meta.url).pathname},bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,legalComments:'none',write:false,external:['./auth-library-entry-r18.mjs','./reference-resources-r14.mjs']});
+await mkdir(output,{recursive:true});
+await writeFile(output+'/lobby-library-entry-r19.mjs',result.outputFiles[0].text);
+await writeFile(new URL('lobby-evidence-r19.json',import.meta.url),JSON.stringify({originalSha256:sha(original),resource:{...resource,base64:undefined},financialModulesChanged:0},null,2)+'\n');
+console.log(JSON.stringify({entryBytes:Buffer.byteLength(result.outputFiles[0].text),sourceSha256:sha(original),publicSha256:sha(bytes)}));

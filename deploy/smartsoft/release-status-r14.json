@@ -1,0 +1,126 @@
+{
+  "release": "reference-mobile-r14",
+  "status": "deployed_reference_presentation; financial release and remaining game construction pending",
+  "checkedAt": "2026-11-10T03:49:12.382377+00:00",
+  "existingPlayerUrl": "https://play.superwinn.net",
+  "automatedOrigin": "https://superwin-player.apdiy61.workers.dev",
+  "worker": "superwin-player",
+  "expectedPreviousEtag": "421e29e0336592f6e57ef642367926c0e2ae12483482d9c29f80c18abeec1296",
+  "previousWorkerVersion": "89d0dd27-8025-4553-8c5b-aba36c06baa4",
+  "existingBackend": "https://zplay-rebuild-api-staging.up.railway.app",
+  "walletLedger": "existing-postgresql",
+  "protectedExistingGames": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native"
+  ],
+  "mobilePresentationIds": [
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "multihotdeluxe_native",
+    "burningice_native",
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "verification": {
+    "nodeTests": 23,
+    "backendTests": 9,
+    "frontendBuilds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "isolatedAuthenticatedEntries": 10,
+    "originalServerDescriptorRefresh": true,
+    "nativeBetSelections": 6,
+    "legacyIncreaseDecreaseChecks": 3,
+    "distinctWinSoundDecodes": 20,
+    "winTierStakeScaleChecks": 32,
+    "officialModernViewportSamples": [
+      {
+        "width": 360,
+        "height": 668
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "publicAssetsWithSha256": 61,
+    "deployedIsolatedAuthenticatedEntries": 10,
+    "deployedAudioChecks": 20,
+    "deployedTierStakeScaleChecks": 32,
+    "deployedDirectWagerEndpointsRemainAuthenticated": true
+  },
+  "financialChanges": false,
+  "realMoneyRoundsPlaced": 0,
+  "newFinancialRoundsEnabled": false,
+  "completeProviderAnimationParityVerified": false,
+  "officialPrivateMathVerified": false,
+  "officialQueue": {
+    "selected": 69,
+    "source": "https://www.smartsoftgaming.com/games",
+    "status": "names_icons_and_official_demo_urls_identified",
+    "all69NativeGamesCompleted": false,
+    "newFinancialRelease": false
+  },
+  "remaining": [
+    "Finish each title's visible rules, bonus behaviors, remaining animations and full comparison against its own official demo.",
+    "Complete the selected 69-game construction queue; reference discovery is not native implementation.",
+    "Native new-round approval and authenticated production settlement verification remain pending."
+  ],
+  "evidence": {
+    "r14-controls-complete.jsonl": {
+      "sha256": "7649fa9e4ea59c8631fe2cc1460b0e82701794b41baefacab19a12da07c11914",
+      "bytes": 19219
+    },
+    "r14-audio-browser.json": {
+      "sha256": "08d0e51e00eabdca11d97a611c50cd5d2e657ae372127f0f70f20c7a0e4d72cd",
+      "bytes": 8005
+    },
+    "r14-production-ui.jsonl": {
+      "sha256": "7649fa9e4ea59c8631fe2cc1460b0e82701794b41baefacab19a12da07c11914",
+      "bytes": 19219
+    },
+    "r14-live-smoke.json": {
+      "sha256": "e41c8e84fcb9770601cc8e0e44f9ea944e33ed086e40cd3ca7d8853acaefbf38",
+      "bytes": 1079
+    },
+    "deployed-audio-browser.json": {
+      "sha256": "6d2c0c9054ce100ea09db3579bc31116c9be24c65b657a1ccb3c9b5e6c8012a6",
+      "bytes": 8513
+    }
+  },
+  "existingAssetService": "superwin-library-100",
+  "existingAssetBinding": "EXPANSION100",
+  "libraryPreviousEtag": "93d2a9ddffa82518e29ca6485aac8ad8e5f800ddef8e32e6ca969396b5974c29",
+  "publicationLayout": "Public artwork and audio metadata in the existing asset service; presentation and signed account transport in the existing Player.",
+  "publicationSizeRetry": {
+    "initialFullPlayerPackageRejected": true,
+    "originalPlayerUnchangedAfterRejection": true,
+    "originalPlayerModuleBytes": 66958997,
+    "retainedPlayerModules": 299,
+    "retainedLibraryModules": 80
+  },
+  "deployment": {
+    "player": {
+      "etag": "d6da450e84ba3af0ba5caef89f2405ca8beb3ce10783072d8904cc8f4ff49cfa",
+      "deployment": "ebd4619d-c540-468a-a0f2-2138dd97e31c",
+      "version": "9e4c090c-23f2-4fac-a82f-5b52833bf125",
+      "traffic": 100,
+      "created_on": "2026-11-10T03:47:05.512549Z",
+      "runtimeConfigurationPreserved": true
+    },
+    "library": {
+      "etag": "701908d91ed3fb882e56b134e1ad05558a1821c7ae1ebbd8d47a105d51a4d91d",
+      "deployment": "f16a566e-36da-484b-a26b-4701baaad7ec",
+      "version": "803946e0-fde6-4e9e-92e8-a21948d6d887",
+      "traffic": 100,
+      "created_on": "2026-11-10T03:46:20.368503Z",
+      "runtimeConfigurationPreserved": true
+    }
+  },
+  "publicAssetsStorage": "Hash-verified source bytes cached by the existing asset service; browsers request the original Player origin."
+}
