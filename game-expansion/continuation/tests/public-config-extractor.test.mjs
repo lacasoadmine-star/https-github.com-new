@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {extractPublicConfig} from '../reference-tools/public-config-extractor.mjs';
+import {extractPublicConfig,selectTitleScripts} from '../reference-tools/public-config-extractor.mjs';
+
+test('title directories bind generic resource filenames to the exact game only',()=>{
+ const urls=['https://static.ssg-public.com/cache/b24/Games/Content/MultiHotWheel/Scripts/resources.js','https://static.ssg-public.com/cache/b24/Games/Content/Common/Scripts/resources.js','https://static.ssg-public.com/cache/b24/Games/Content/OtherGame/Scripts/resources.js','https://example.com/Games/Content/MultiHotWheel/Scripts/resources.js'];
+ const selected=selectTitleScripts(urls.map(url=>({url})),{providerGameName:'MultiHotWheel',name:'Multi Hot Wheel'});
+ assert.deepEqual(selected.map(s=>s.url),[urls[0]]);
+});
+test('module configuration can be read without executing imports',()=>{
+ const result=extractPublicConfig('import x from "unavailable-module"; game.images={Logo:{url:"Logo.png"}};');
+ assert.deepEqual(result.fields.map(f=>f.value),[{Logo:{url:'Logo.png'}}]);
+});
 
 test('declarations and assignments retain public literal values',()=>{
  const result=extractPublicConfig('const gameInfo={lines:20,win:{duration:3000}}; Win.limit=9.99;');

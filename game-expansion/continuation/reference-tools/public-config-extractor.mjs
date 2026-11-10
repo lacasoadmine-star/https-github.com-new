@@ -1,4 +1,16 @@
 import {parse} from './node_modules/acorn/dist/acorn.mjs';
+const normalTitle=value=>String(value??'').toLowerCase().replace(/[^a-z0-9]/g,'');
+export function selectTitleScripts(scripts,title){
+ const names=new Set([title.providerGameName,title.name].map(normalTitle).filter(Boolean));
+ return scripts.filter(script=>{
+  let url;try{url=new URL(script.url);}catch{return false;}
+  if(!['static.ssg-public.com','eu-server.ssgportal.com'].includes(url.hostname))return false;
+  const parts=url.pathname.split('/');
+  if(names.has(normalTitle(parts.at(-1).replace(/\.js$/,''))))return true;
+  const content=parts.lastIndexOf('Content');
+  return content>=0&&names.has(normalTitle(parts[content+1]))&&parts[content+2]==='Scripts'&&url.pathname.endsWith('.js');
+ });
+}
 const roots=new Set(['game','gameInfo','gameSounds','gameSound','gameImages','gameSpines','gameSprite','slot','Box','Win','AutoPlay','Bets','Double','Start','Footer','Header','Menu','Line','RiskGame','BuyBonus','BuyFeature','FreeSpin','Multiplier']);
 function path(node){
  if(node?.type==='Identifier')return node.name;
@@ -22,7 +34,10 @@ function literal(node){
  return {known:false};
 }
 export function extractPublicConfig(source){
- const ast=parse(source,{ecmaVersion:'latest',sourceType:'script',allowReturnOutsideFunction:true}),fields=[];let dynamic=0;
+ let ast;
+ try{ast=parse(source,{ecmaVersion:'latest',sourceType:'script',allowReturnOutsideFunction:true});}
+ catch{ast=parse(source,{ecmaVersion:'latest',sourceType:'module'});}
+ const fields=[];let dynamic=0;
  function values(name,node,context){
   const value=literal(node);
   if(value.known){fields.push({path:name,value:value.value,conditional:context.length>0,conditions:context,offset:node.start});return;}

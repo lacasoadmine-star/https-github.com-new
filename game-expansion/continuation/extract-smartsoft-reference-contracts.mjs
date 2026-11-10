@@ -1,5 +1,6 @@
 import {readFile,readdir,writeFile} from 'node:fs/promises';
-import {extractPublicConfig as extract} from './reference-tools/public-config-extractor.mjs';
+import {extractPublicConfig as extract,selectTitleScripts} from './reference-tools/public-config-extractor.mjs';
+import {createHash} from 'node:crypto';
 const root=new URL('./evidence/smartsoft-queue-startup/',import.meta.url);
 const registry=JSON.parse(await readFile(new URL('./SMARTSOFT-69-WORK-REGISTRY.json',import.meta.url),'utf8'));
 const normal=s=>String(s??'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -9,10 +10,10 @@ for(const dir of await readdir(root,{withFileTypes:true})){
  let observation;try{observation=JSON.parse(await readFile(new URL(dir.name+'/observation.json',root),'utf8'));}catch{continue;}
  const title=registry.entries.find(row=>row.name===observation.name);if(!title)continue;
  const names=new Set([normal(title.providerGameName),normal(title.name)].filter(Boolean));
- const scripts=observation.scripts.filter(s=>names.has(normal(new URL(s.url).pathname.split('/').at(-1).replace(/\.js$/,''))));
+ const scripts=selectTitleScripts(observation.scripts,title);
  const captures=[];
  for(const script of scripts){
-  try{const source=await readFile(new URL(script.file,root),'utf8');captures.push({sourceURL:script.url,sha256:script.sha256,...extract(source)});}
+  try{const bytes=await readFile(new URL(script.file,root));if(createHash('sha256').update(bytes).digest('hex')!==script.sha256)throw Error('PUBLIC_SOURCE_HASH_MISMATCH');const source=bytes.toString('utf8');captures.push({sourceURL:script.url,sha256:script.sha256,...extract(source)});}
   catch(error){captures.push({sourceURL:script.url,sha256:script.sha256,parseError:String(error.message).slice(0,180),fields:[]});}
  }
  const contract={name:title.name,game_id:title.game_id,providerGameName:title.providerGameName,officialURL:title.officialURL,officialDemoURL:title.officialDemoURL,observedDate:'2026-11-10',status:captures.some(c=>c.fields.length)?'public-source-fragments-captured':'numeric-and-presentation-contract-pending',scope:'Literal public title configuration only; conditional branches remain labelled. No provider code is executed by this extractor. These fragments are not a complete engine or a cash approval.',captures,cashApproved:false};
