@@ -42,6 +42,9 @@ async def main():
             previous_response=await context.request.get(ORIGIN+'/native-library/remaining20/'+previous_namespace+'/'+group+'/games.json')
             config=next(x for x in await previous_response.json() if x['id']==game)
             fixture = {'balance':'137.25', 'session':'isolated-account-A'}
+            # This script is an explicit isolated account fixture. Actual
+            # signed-out deployment checks live in browser-auth-r18.py.
+            await page.route('**/api/machine-session',lambda route:route.fulfill(json={'authenticated':True}))
             async def route(request_route, request, *, config=config, fixture=fixture):
                 if request.method != 'GET':
                     writes.append(request.url)

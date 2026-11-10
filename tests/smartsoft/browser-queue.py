@@ -59,11 +59,12 @@ async def main():
         # The existing new-game card opens the same-origin account page directly.
         button=page.locator('[data-r20-game="multihot100_native"] .r20-native-open').first
         await button.click(timeout=15000)
-        await page.wait_for_url(ORIGIN+'/games/multihot100_native')
-        assert await page.locator('html').get_attribute('data-reference-display')=='r17'
+        await page.wait_for_url(ORIGIN+'/?play=multihot100_native')
+        await page.wait_for_function("()=>[...document.querySelectorAll('input')].some(x=>x.type==='password'&&x.getBoundingClientRect().width>0)")
+        assert await page.evaluate("sessionStorage.getItem('zplay.native.launch.return')")=='/games/multihot100_native'
         assert not errors,errors
         report={'references':1000,'firstPageCoversDecoded':decoded,'pagination':True,'studioFilter':True,
-                'nameSearch':True,'directAccountEntry':True,'liveNativeLinks':3,'unbuiltTitleRemainsPreparing':True,'financialActions':0,'errors':errors}
+                'nameSearch':True,'directAccountEntry':True,'signedOutLoginReturn':True,'liveNativeLinks':3,'unbuiltTitleRemainsPreparing':True,'financialActions':0,'errors':errors}
         (OUT/'results.json').write_text(json.dumps(report,indent=2)+'\n')
         print(json.dumps(report),flush=True)
         await browser.close()

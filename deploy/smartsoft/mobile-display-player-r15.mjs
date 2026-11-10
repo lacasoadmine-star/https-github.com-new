@@ -58,7 +58,8 @@ export function installMobileDisplay(previous){
    if(!html.includes(PREVIOUS)||!html.includes('</head>'))return fail('REFERENCE_SHELL_CHANGED');
    const current=id!=='coinminer_native';
    return reply(response,html.replaceAll(PREVIOUS,current?PREFIX:RECENT).replace('<html ',current?'<html data-reference-display="r17" data-native-entry="loading" ':'<html data-reference-display="r16" ')
-    .replace('</head>',current?'<style>html[data-native-entry="loading"] #machineShell{visibility:hidden}</style><script type="module" src="'+SHARED+'runtime-r17/entry.mjs"></script></head>':'</head>'),request.method,'text/html; charset=utf-8');
+    .replace('href="/" class="account-link" id="accountLink"',current?'href="/?play='+id+'" class="account-link" id="accountLink"':'href="/" class="account-link" id="accountLink"')
+    .replace('</head>',current?'<style>html[data-native-entry="loading"] #machineShell{visibility:hidden}</style><script type="module" src="'+SHARED+'auth-r18/entry.mjs"></script></head>':'</head>'),request.method,'text/html; charset=utf-8');
   }catch{return fail('REFERENCE_PAGE_UNAVAILABLE');}
  }};
 }
