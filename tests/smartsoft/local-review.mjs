@@ -14,6 +14,9 @@ import runtimeSources from '../../deploy/smartsoft/runtime-sources-r17.mjs';
 import runtimeSources20 from '../../deploy/smartsoft/runtime-sources-r20.mjs';
 import {bundledResource} from '../../deploy/smartsoft/reference-resources-r14.mjs';
 import {installNativePlayer} from '../../deploy/smartsoft/native-player-r22.mjs';
+import {installPresentationPlayer} from '../../deploy/smartsoft/presentation-player-r23.mjs';
+import {createPresentationService} from '../../deploy/smartsoft/presentation-service-r23.mjs';
+import presentationResources23 from '../../deploy/smartsoft/presentation-sources-r23.mjs';
 
 const modelRoot=process.env.SMARTSOFT_REVIEW_MODELS;
 if(!modelRoot)throw Error('SMARTSOFT_REVIEW_MODELS_REQUIRED');
@@ -147,10 +150,13 @@ const app={fetch(request,env,ctx){
  if(path.startsWith(prefix)&&! /^(?:queue-ui-r16\.mjs|queue\.css|queue\.json|games\.json|covers\/|runtime-r(?:17|20)\/)/.test(path.slice(prefix.length)))return previous.fetch(request,env,ctx);
  return constructionPlayer.fetch(request,env,ctx);
 }};
-const reviewedApp=process.env.SMARTSOFT_REVIEW_SHELL_R22==='true'?installNativePlayer(app,{
+const shellApp=process.env.SMARTSOFT_REVIEW_SHELL_R22==='true'?installNativePlayer(app,{
  css:await readFile(new URL('../../deploy/smartsoft/native-shell-r22.css',import.meta.url),'utf8'),
  script:await readFile(new URL('../../deploy/smartsoft/native-shell-r22.mjs',import.meta.url),'utf8'),
 }):app;
+const presentationReview=process.env.SMARTSOFT_REVIEW_PRESENTATION_R23==='true';
+const presentationChild=createPresentationService({release:'r23',resources:presentationResources23});
+const reviewedApp=presentationReview?installPresentationPlayer(shellApp):shellApp;
 const port=Number(process.env.SMARTSOFT_REVIEW_PORT||8765);
 if(!Number.isInteger(port)||port<1024||port>65535)throw Error('INVALID_LOOPBACK_PORT');
 const server=createServer(async(req,res)=>{
@@ -158,7 +164,7 @@ const server=createServer(async(req,res)=>{
   if(!['127.0.0.1:'+port,'localhost:'+port].includes(req.headers.host)){res.writeHead(403);res.end();return;}
   const chunks=[];let length=0;for await(const chunk of req){length+=chunk.length;if(length>8192)throw Error('BODY_TOO_LARGE');chunks.push(chunk);}
   const request=new Request('http://127.0.0.1:'+port+req.url,{method:req.method,headers:req.headers,body:['GET','HEAD'].includes(req.method)?undefined:Buffer.concat(chunks)});
-  const response=await reviewedApp.fetch(request,{PORTAL:'player',EXPANSION100:{fetch:r=>library.fetch(r,{}, {})}},{});
+  const response=await reviewedApp.fetch(request,{PORTAL:'player',EXPANSION100:{fetch:r=>library.fetch(r,{}, {})},...(presentationReview?{NATIVE_PRESENTATION:presentationChild}:{})},{});
   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(req.method==='HEAD'?undefined:Buffer.from(await response.arrayBuffer()));
  }catch(error){const status=Number.isInteger(error.status)?error.status:500;res.writeHead(status,{'content-type':'application/json'});res.end(JSON.stringify({error:error.message}));}
 });
