@@ -10,7 +10,7 @@ from playwright.async_api import async_playwright
 ORIGIN=os.environ.get('SMARTSOFT_REVIEW_ORIGIN','http://127.0.0.1:8765')
 if urlsplit(ORIGIN).hostname not in ('127.0.0.1','localhost'):
     raise ValueError('LOOPBACK_REVIEW_ONLY')
-ARTIFACTS=Path(__file__).resolve().parent/'artifacts'/'playback-r15'
+ARTIFACTS=Path(__file__).resolve().parent/'artifacts'/'playback-r16'
 ARTIFACTS.mkdir(parents=True,exist_ok=True)
 IDS=['multihot100_native','habeshafortune5_native','multihotwildways_native',
      'multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native',
@@ -29,10 +29,22 @@ async def main(ids):
             args=['--no-sandbox','--autoplay-policy=no-user-gesture-required'])
         context=await browser.new_context(viewport={'width':390,'height':844})
         await context.add_init_script('''window.__reviewAudio=[];
+          window.__reviewAudioRecords=new WeakMap();
+          window.__reviewText=[];
+          {const original=CanvasRenderingContext2D.prototype.fillText;
+           CanvasRenderingContext2D.prototype.fillText=function(text,...args){
+            if(text==='STOP')window.__reviewText.push({text,at:performance.now()});
+            return original.call(this,text,...args);};}
           {const original=AudioBufferSourceNode.prototype.start;
            AudioBufferSourceNode.prototype.start=function(...args){
-            window.__reviewAudio.push({at:performance.now(),duration:this.buffer?.duration,loop:this.loop});
+            const record={at:performance.now(),duration:this.buffer?.duration,loop:this.loop,stopped:false,ended:false};
+            window.__reviewAudio.push(record);window.__reviewAudioRecords.set(this,record);
+            this.addEventListener('ended',()=>{record.ended=true;},{once:true});
             return original.apply(this,args);};}''')
+        await context.add_init_script('''{const original=AudioBufferSourceNode.prototype.stop;
+          AudioBufferSourceNode.prototype.stop=function(...args){
+           const record=window.__reviewAudioRecords?.get(this);if(record)record.stopped=true;
+           return original.apply(this,args);};}''')
         report=[]
         for game in ids:
             page=await context.new_page();await page.bring_to_front();errors=[]
@@ -48,24 +60,35 @@ async def main(ids):
                 await page.locator('[data-control="bet"]:visible').click()
                 await page.locator('#betDialog [aria-label="1.00 ETB"]:visible').click()
             before=await (await context.request.get(ORIGIN+'/api/remaining20/state?game_id='+game)).json()
+            before_actions=(await (await context.request.get(ORIGIN+'/__review/status')).json())['actions']
             await page.screenshot(path=str(ARTIFACTS/(game+'-before.png')))
             play=page.locator('[data-control="play"]:visible')
             if not await play.count():play=page.locator('#play')
             await play.click()
             await page.wait_for_timeout(350)
+            assert await page.locator('[data-control="bet"]').is_disabled(),game
+            if not game.startswith('burningice'):
+                assert await page.evaluate("()=>window.__reviewText.some(item=>item.text==='STOP')"),game
             await page.screenshot(path=str(ARTIFACTS/(game+'-motion.png')))
+            # STOP accelerates only the accepted visual round. It must never
+            # create another native wager or debit while the reels are moving.
+            await play.click()
             await until(page,"()=>!document.querySelector('#play').disabled&&!['STOP','RESULT SEQUENCE','CONFIRMING'].includes(document.querySelector('#playLabel')?.textContent)",60)
             after=await (await context.request.get(ORIGIN+'/api/remaining20/state?game_id='+game)).json()
             assert after['round'] and after['round']['stakeMinor']=='100',after
+            assert (await (await context.request.get(ORIGIN+'/__review/status')).json())['actions']==before_actions+1,game
             credited=int(after['round']['payoutMinor']) if after['round']['status']=='settled' else 0
             assert round(float(after['balance'])*100)==round(float(before['balance'])*100)-100+credited
             if after['round']['status']=='active':
                 await page.locator('#collect').click()
                 await page.wait_for_timeout(500)
+            assert not await page.locator('[data-control="bet"]').is_disabled(),game
             sound=page.locator('[data-control="sound"]:visible')
             if await sound.count() and await sound.is_enabled():
                 before_sound=await page.locator('#menuSound').text_content()
                 await sound.click();assert before_sound!=await page.locator('#menuSound').text_content()
+                await page.wait_for_timeout(100)
+                assert await page.evaluate('()=>window.__reviewAudio.every(item=>item.stopped||item.ended)'),game
                 await sound.click()
                 sound_checked=True
             else:
@@ -75,6 +98,8 @@ async def main(ids):
                 before_sound=await page.locator('#menuSound').text_content()
                 await page.locator('#menuSound').click()
                 assert before_sound!=await page.locator('#menuSound').text_content()
+                await page.wait_for_timeout(100)
+                assert await page.evaluate('()=>window.__reviewAudio.every(item=>item.stopped||item.ended)'),game
                 await page.locator('#menuSound').click()
                 await page.evaluate("document.querySelector('#menuDialog').close()")
                 sound_checked=True
@@ -97,6 +122,7 @@ async def main(ids):
             assert not errors,errors
             record={'id':game,'nativeRoundStarted':True,'autoplayStartedAndStopped':True,
                     'soundControl':sound_checked,'audioStarts':len(audio),
+                    'stopDoesNotStartAnotherWager':True,'betLockedDuringMotionThenRestored':True,'soundOffStopsActiveSources':True,
                     'errors':errors,'realMoneyRoundsPlaced':0}
             report.append(record);print(json.dumps(record),flush=True)
             await page.close()

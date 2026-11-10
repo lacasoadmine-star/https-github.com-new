@@ -159,7 +159,7 @@ export function installAccountEntry(previous, {createTransport, lobbySource} = {
     if (path !== '/' || request.method !== 'GET' || response.status !== 200 || !response.headers.get('content-type')?.includes('text/html')) return response;
     let body;
     try { body = await textBounded(response.clone(), 131072); } catch { return response; }
-    const script = '<script data-zplay-account-entry-r13 type="module" src="' + PREFIX + 'lobby.mjs?v=10"></script>';
+    const script = '<script data-zplay-account-entry-r13 type="module" src="' + PREFIX + 'lobby.mjs?v=16"></script>';
     if (!body?.includes('</head>') || body.includes('data-zplay-account-entry-r13')) return response;
     return replacedResponse(response, body.replace('</head>', script + '</head>'), 'GET', 'text/html; charset=utf-8');
   }};

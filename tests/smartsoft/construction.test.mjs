@@ -10,6 +10,7 @@ import {installMobileDisplay} from '../../deploy/smartsoft/mobile-display-player
 const source=JSON.parse(await readFile(new URL('../../deploy/smartsoft/official-queue-1000.json',import.meta.url)));
 const original=JSON.parse(await readFile(new URL('../../deploy/smartsoft/official-queue-69.json',import.meta.url)));
 const queue=constructionQueue(source),PREFIX='/native-library/remaining20/20261110-construction-r15/';
+const DISPLAY_PREFIX='/native-library/remaining20/20261110-construction-r16b/';
 const page=query=>queuePage(queue,new URL('https://player.test/?'+query));
 
 test('1000 real references retain the original 69, unique demos, title identity and closed financial gates',()=>{
@@ -84,7 +85,7 @@ test('new display namespace preserves protected titles and changes no account re
   return new Response('exact retained response');}};
  const app=installMobileDisplay(previous),env={PORTAL:'player'};
  const response=await app.fetch(new Request('https://player.test/games/multihot100_native'),env),html=await response.text();
- assert.ok(html.includes(PREFIX+'5fddea498e1f0d39/app.mjs'));assert.ok(html.includes('retained errors and account controls'));assert.ok(html.includes('data-reference-display="r15"'));
+ assert.ok(html.includes(DISPLAY_PREFIX+'5fddea498e1f0d39/app.mjs'));assert.ok(html.includes('retained errors and account controls'));assert.ok(html.includes('data-reference-display="r16"'));
  for(const path of ['/games/multi_hot_5_native','/games/foxy_hot_20_native','/api/remaining20/state?game_id=multihot100_native','/demo/games/multihot100_native']){
   const request=new Request('https://player.test'+path);assert.equal(await(await app.fetch(request,env)).text(),'exact retained response');assert.equal(calls.at(-1),request);
  }
@@ -93,9 +94,16 @@ test('new display namespace preserves protected titles and changes no account re
 test('portrait CSS backgrounds require a transparent scoped canvas and fail closed when its contract changes',async()=>{
  let call;
  const make=source=>installMobileDisplay({async fetch(request){call=request;return new Response(source,{headers:{'content-type':'application/javascript'}});}});
- const path='https://player.test'+PREFIX+'5fddea498e1f0d39/scene.mjs';
+ const path='https://player.test'+DISPLAY_PREFIX+'5fddea498e1f0d39/scene.mjs';
  const good=await make("export class Scene {constructor(canvas){this.ctx=canvas.getContext('2d',{alpha:false});}}").fetch(new Request(path,{headers:{cookie:'private',authorization:'Bearer private'}}),{PORTAL:'player'});
  assert.equal(good.status,200);assert.ok((await good.text()).includes("getContext('2d',{alpha:true})"));
  assert.equal(call.headers.get('cookie'),null);assert.equal(call.headers.get('authorization'),null);
  assert.equal((await make('changed canvas contract').fetch(new Request(path),{PORTAL:'player'})).status,503);
+ const controls=await make('retained projection').fetch(new Request('https://player.test'+DISPLAY_PREFIX+'smartsoft-mobile.mjs',{headers:{cookie:'private',authorization:'Bearer private'}}),{PORTAL:'player'});
+ assert.equal(await controls.text(),'retained projection');assert.equal(new URL(call.url).pathname,PREFIX+'mobile-controls-r16b.mjs');assert.equal(call.headers.get('cookie'),null);assert.equal(call.headers.get('authorization'),null);
+ for(const [namespace,file]of [['20261110-construction-r15','mobile-display.mjs'],['20261110-construction-r16','mobile-controls-r16.mjs']]){
+  const publicPath='https://player.test/native-library/remaining20/'+namespace+'/';
+  assert.equal((await make("canvas.getContext('2d',{alpha:false})").fetch(new Request(publicPath+'5fddea498e1f0d39/scene.mjs'),{PORTAL:'player'})).status,200);
+  await make('retained earlier projection').fetch(new Request(publicPath+'smartsoft-mobile.mjs'),{PORTAL:'player'});assert.equal(new URL(call.url).pathname,PREFIX+file);
+ }
 });

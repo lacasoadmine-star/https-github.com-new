@@ -7,7 +7,8 @@ import {pathToFileURL} from 'node:url';
 import {resolve} from 'node:path';
 import {installConstructionPlayer} from '../../deploy/smartsoft/construction-player-r15.mjs';
 import {installConstructionLibrary} from '../../deploy/smartsoft/construction-library-r15.mjs';
-import {installMobileDisplay} from '../../deploy/smartsoft/mobile-display-player-r15.mjs';
+import {installOperationalLibrary,RELEASE_ID,HEALTH_URL} from '../../deploy/smartsoft/operator-status-r16.mjs';
+import {UI_SOURCE} from '../../deploy/smartsoft/operator-ui-source-r16.mjs';
 
 const modelRoot=process.env.SMARTSOFT_REVIEW_MODELS;
 if(!modelRoot)throw Error('SMARTSOFT_REVIEW_MODELS_REQUIRED');
@@ -71,12 +72,12 @@ async function api(request){
 const remote='https://superwin-player.apdiy61.workers.dev',cache=new Map();
 const previous={async fetch(request){
  const url=new URL(request.url);
- if(url.pathname.startsWith('/api/')||url.pathname.startsWith('/__review/'))return api(request);
+ if(url.pathname.startsWith('/__review/')||url.pathname.startsWith('/api/')&&!(url.pathname==='/api/config'&&request.method==='GET'))return api(request);
  if(!['GET','HEAD'].includes(request.method)){blockedWrites++;blockedWritePaths.add(url.pathname);return result({error:'REMOTE_WRITES_FORBIDDEN'},405);}
  url.protocol='https:';url.host=new URL(remote).host;url.port='';
  const key=request.method+' '+url.href;
  if(cache.has(key))return cache.get(key).clone();
- const response=await fetch(url,{method:request.method,redirect:'manual',headers:{accept:request.headers.get('accept')||'*/*'}});
+ const response=await fetch(url,{method:request.method,redirect:'manual',headers:{accept:request.headers.get('accept')||'*/*','user-agent':'Mozilla/5.0'}});
  const headers=new Headers(response.headers);for(const key of ['content-encoding','content-length','set-cookie'])headers.delete(key);
  let bytes=new Uint8Array(await response.arrayBuffer());
  if(headers.get('content-type')?.includes('text/html')){
@@ -86,8 +87,22 @@ const previous={async fetch(request){
  }
  const result=new Response(bytes,{status:response.status,headers});if(response.ok)cache.set(key,result.clone());return result;
 }};
-const library=librarySources?installConstructionLibrary(previous,librarySources):previous;
-const app=installMobileDisplay(installConstructionPlayer(previous));
+const construction=librarySources?installConstructionLibrary(previous,librarySources):previous;
+const library=installOperationalLibrary(construction,{uiSource:UI_SOURCE,fetchImpl:async url=>{
+ if(url!==HEALTH_URL)throw Error('ONLY_ISOLATED_REVIEW_STATUS_ALLOWED');
+ return result({ready:true,accepting:true,games:[...scope].map(id=>({...snapshot(id).game,accepting:true,
+  operatorRelease:{id:RELEASE_ID,providerPrivateMathVerified:false,completeReferenceParityVerified:false}}))});
+}});
+// These public pages already carry the deployed mobile renderer. Wrapping its
+// immutable module namespace a second time would reject the retained shell.
+const constructionPlayer=installConstructionPlayer(previous);
+const app={fetch(request,env,ctx){
+ const path=new URL(request.url).pathname,prefix='/native-library/remaining20/20261110-construction-r15/';
+ // The deployed renderer and its group modules are already projected. Only
+ // queue resources use this test's local status snapshot and source bundle.
+ if(path.startsWith(prefix)&&! /^(?:queue-ui-r16\.mjs|queue\.css|queue\.json|games\.json|covers\/)/.test(path.slice(prefix.length)))return previous.fetch(request,env,ctx);
+ return constructionPlayer.fetch(request,env,ctx);
+}};
 const port=Number(process.env.SMARTSOFT_REVIEW_PORT||8765);
 if(!Number.isInteger(port)||port<1024||port>65535)throw Error('INVALID_LOOPBACK_PORT');
 const server=createServer(async(req,res)=>{

@@ -1,5 +1,7 @@
 import {bounded,reply,fail} from './reference-resources-r14.mjs';
-const PREFIX='/native-library/remaining20/20261110-construction-r15/';
+const PREFIX='/native-library/remaining20/20261110-construction-r16b/';
+const SHARED='/native-library/remaining20/20261110-construction-r15/';
+const EARLIER='/native-library/remaining20/20261110-construction-r16/';
 const PREVIOUS='/native-library/remaining20/20261110-reference-mobile-r14/';
 const IDS=new Set(['multihot100_native','habeshafortune5_native','multihotwildways_native','multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native','burningice_native','burningice10_native','burningice40_native','coinminer_native']);
 const GROUPS=new Set(['5fddea498e1f0d39','7161514f85b0565e','b930310f3d5338cd','3d420e4fe5830b46','fe6fe5c2996189a2','6d57eebb88faa105','cc0f22635df0e9c7']);
@@ -12,15 +14,16 @@ export function installMobileDisplay(previous){
  return {...previous,async fetch(request,env,ctx){
   if(env.PORTAL!=='player')return previous.fetch(request,env,ctx);
   const url=new URL(request.url),path=url.pathname;
-  if(path.startsWith(PREFIX)){
-   const name=path.slice(PREFIX.length),match=name.match(/^([a-f0-9]{16})\/([a-zA-Z0-9_./-]+)$/);
+  const resourcePrefix=[PREFIX,EARLIER,SHARED].find(prefix=>path.startsWith(prefix));
+  if(resourcePrefix){
+   const name=path.slice(resourcePrefix.length),match=name.match(/^([a-f0-9]{16})\/([a-zA-Z0-9_./-]+)$/);
    if(match&&GROUPS.has(match[1])&&!match[2].includes('..')||name==='frame.css'||name==='hood-logo.png'||name==='reference-state.mjs'){
     if(!['GET','HEAD'].includes(request.method))return fail('METHOD_NOT_ALLOWED',405);
     url.pathname=PREVIOUS+name;url.search='';
     const response=await previous.fetch(new Request(url,{headers:{accept:'*/*'},redirect:'manual'}),env,ctx);
     if(response.status!==200||!name.endsWith('.mjs'))return reply(response,response.body,request.method,response.headers.get('content-type')||'application/octet-stream',response.status===200);
     try{
-     let source=(await text(response,2097152)).replaceAll(PREVIOUS,PREFIX);
+     let source=(await text(response,2097152)).replaceAll(PREVIOUS,resourcePrefix);
      if(match?.[2]==='scene.mjs'){
       const opaque="canvas.getContext('2d',{alpha:false})";
       if(source.split(opaque).length!==2)throw Error('REFERENCE_CANVAS_CONTRACT_CHANGED');
@@ -31,9 +34,13 @@ export function installMobileDisplay(previous){
    }
    // The R14 projection is imported by the R15 display wrapper, never recursively.
    if(name==='smartsoft-mobile.mjs'){
-    const target=new URL(PREFIX+'mobile-display.mjs',url.origin);
+    const target=new URL(SHARED+(resourcePrefix===PREFIX?'mobile-controls-r16b.mjs':resourcePrefix===EARLIER?'mobile-controls-r16.mjs':'mobile-display.mjs'),url.origin);
     return previous.fetch(new Request(target,{method:request.method,redirect:'manual'}),env,ctx);
    }
+   // New immutable URLs reuse the original assets and the shared projection.
+   // These public requests never carry account headers to the asset binding.
+   const target=new URL(SHARED+name,url.origin);
+   return previous.fetch(new Request(target,{method:request.method,redirect:'manual'}),env,ctx);
   }
   const id=path.match(/^\/games\/([a-z0-9_]+)$/)?.[1];
   if(!IDS.has(id))return previous.fetch(request,env,ctx);
@@ -43,7 +50,7 @@ export function installMobileDisplay(previous){
   try{
    const html=await text(response,131072);
    if(!html.includes(PREVIOUS)||!html.includes('</head>'))return fail('REFERENCE_SHELL_CHANGED');
-   return reply(response,html.replaceAll(PREVIOUS,PREFIX).replace('<html ','<html data-reference-display="r15" '),request.method,'text/html; charset=utf-8');
+   return reply(response,html.replaceAll(PREVIOUS,PREFIX).replace('<html ','<html data-reference-display="r16" '),request.method,'text/html; charset=utf-8');
   }catch{return fail('REFERENCE_PAGE_UNAVAILABLE');}
  }};
 }

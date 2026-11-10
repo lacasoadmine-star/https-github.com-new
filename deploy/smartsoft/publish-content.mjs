@@ -47,7 +47,7 @@ export async function publishContent({cloudflare, accountId, scriptName, expecte
   for (const [name, body] of Object.entries(modules)) {
     if (!/^[a-z0-9-]+\.mjs$/.test(name) || typeof body !== 'string') throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
     if (names.has(name)) {
-      if (!['account-lobby-source-r13.mjs','account-entry-r13.mjs','reference-resources-r14.mjs'].includes(name) || !/^[a-f0-9]{64}$/.test(replacementHashes[name] || '')) throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
+      if (!['account-lobby-source-r13.mjs','account-entry-r13.mjs','reference-resources-r14.mjs','construction-player-entry-r15.mjs','operator-library-entry-r16.mjs','operator-status-r16.mjs','operator-control-sources-r16.mjs'].includes(name) || !/^[a-f0-9]{64}$/.test(replacementHashes[name] || '')) throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
       const part = retained.find(part => part.name === name);
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', part.body)), value => value.toString(16).padStart(2,'0')).join('');
       if (digest !== replacementHashes[name]) throw Error('OWNED_MODULE_CHANGED:' + name);

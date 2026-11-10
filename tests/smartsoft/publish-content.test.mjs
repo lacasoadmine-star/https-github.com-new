@@ -71,3 +71,12 @@ test('only the exact reviewed account lobby module can be replaced; financial mo
   assert.ok(calls.every(call=>call.method==='GET'));
   await assert.rejects(publishContent({...options,modules:{'remaining20-worker-20261109.mjs':'changed'},replacementHashes:{'remaining20-worker-20261109.mjs':digest}}), /MODULE_COLLISION/);
 });
+
+test('the owned size-constrained Player entry can be replaced only under its reviewed hash',async()=>{
+ const name='construction-player-entry-r15.mjs',old='export default {fetch(){return new Response("retained");}};';
+ const parts=[{name:'remaining20-accepted-controls-player-entry-r12.mjs',body:'export default {};'}, {name:'remaining20-worker-20261109.mjs',body:'export default {};'}, {name,body:old}];
+ let writes=0;const cloudflare={async request(options){if(options.path.endsWith('/scripts'))return {result:[{id:'superwin-player',etag:'reviewed'}]};if(options.method==='GET')return multipart(parts);writes++;return {success:true};}};
+ const args={cloudflare,accountId:'existing',scriptName:'superwin-player',expectedEtag:'reviewed',mainModule:name,modules:{[name]:'export default {};'}};
+ await assert.rejects(publishContent(args),/MODULE_COLLISION/);assert.equal(writes,0);
+ await publishContent({...args,replacementHashes:{[name]:createHash('sha256').update(old).digest('hex')}});assert.equal(writes,1);
+});

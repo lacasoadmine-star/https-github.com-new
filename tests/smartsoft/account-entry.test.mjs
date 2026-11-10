@@ -140,7 +140,7 @@ test('gzip lobby responses retain the existing page and receive one account adap
   assert.equal(response.headers.get('content-length'), null);
   const html = await response.text();
   assert.ok(html.includes('retained lobby'));
-  assert.ok(html.includes(PREFIX + 'lobby.mjs?v=10'));
+  assert.ok(html.includes(PREFIX + 'lobby.mjs?v=16'));
   assert.equal(html.split('data-zplay-account-entry-r13').length - 1, 1);
 });
 
