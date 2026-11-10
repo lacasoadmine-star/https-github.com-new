@@ -47,6 +47,14 @@ test('content-only uploads retain every old module and address only the existing
   for (const part of original) assert.deepEqual(new Uint8Array(await upload.body.get(part.name).arrayBuffer()), new Uint8Array(Buffer.from(part.body)));
   assert.equal(await upload.body.get('account.mjs').text(), 'export default {};');
 });
+test('the existing library content can grow without replacing its original assets or durable object module',async()=>{
+ const original=[{name:'remaining20-accepted-controls-library-entry-r12.mjs',body:'export {RetainedObject} from "./library.mjs";'}, {name:'library.mjs',body:'export class RetainedObject{}'}, {name:'art.bin',type:'application/octet-stream',body:new Uint8Array([255,0,128])}];
+ let upload;const cloudflare={async request(options){if(options.path.endsWith('/scripts'))return {result:[{id:'superwin-library-100',etag:'reviewed'}]};if(options.method==='GET')return multipart(original);upload=options;return {success:true};}};
+ const result=await publishContent({cloudflare,accountId:'existing',scriptName:'superwin-library-100',expectedEtag:'reviewed',mainModule:'reference-library-entry-r14.mjs',modules:{'reference-library-entry-r14.mjs':'export * from "./remaining20-accepted-controls-library-entry-r12.mjs";'}});
+ assert.equal(result.retainedModuleCount,3);assert.equal(upload.path,'/accounts/existing/workers/scripts/superwin-library-100/content');
+ for(const part of original)assert.deepEqual(new Uint8Array(await upload.body.get(part.name).arrayBuffer()),new Uint8Array(Buffer.from(part.body)));
+ assert.deepEqual(JSON.parse(await upload.body.get('metadata').text()),{main_module:'reference-library-entry-r14.mjs'});
+});
 
 test('only the exact reviewed account lobby module can be replaced; financial modules remain immutable', async () => {
   const lobby = 'export const LOBBY_SOURCE="old";', name = 'account-lobby-source-r13.mjs';

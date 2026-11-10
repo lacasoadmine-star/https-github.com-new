@@ -33,7 +33,7 @@ export function retainedModules(raw) {
 }
 
 export async function publishContent({cloudflare, accountId, scriptName, expectedEtag, mainModule, modules, replacementHashes = {}}) {
-  if (scriptName !== 'superwin-player' || typeof expectedEtag !== 'string' || !/^[a-z0-9-]+\.mjs$/.test(mainModule)) throw Error('EXPLICIT_EXISTING_PLAYER_REQUIRED');
+  if (!['superwin-player','superwin-library-100'].includes(scriptName) || typeof expectedEtag !== 'string' || !/^[a-z0-9-]+\.mjs$/.test(mainModule)) throw Error('EXPLICIT_EXISTING_WORKER_REQUIRED');
   const root = '/accounts/' + accountId + '/workers/scripts';
   const list = await cloudflare.request({method: 'GET', path: root});
   const current = list.result.find(script => script.id === scriptName);
@@ -42,11 +42,12 @@ export async function publishContent({cloudflare, accountId, scriptName, expecte
   const previous = await cloudflare.request({method: 'GET', path});
   const retained = retainedModules(previous), names = new Set(retained.map(part => part.name));
   if (!names.has(mainModule) && !Object.hasOwn(modules, mainModule)) throw Error('EXPLICIT_EXISTING_ENTRY_REQUIRED');
-  if (!names.has('remaining20-accepted-controls-player-entry-r12.mjs') || !names.has('remaining20-worker-20261109.mjs')) throw Error('RETAINED_ENTRY_OR_TRANSPORT_MISSING');
+  const required=scriptName==='superwin-player'?['remaining20-accepted-controls-player-entry-r12.mjs','remaining20-worker-20261109.mjs']:['remaining20-accepted-controls-library-entry-r12.mjs','library.mjs'];
+  if(required.some(name=>!names.has(name)))throw Error('RETAINED_ENTRY_OR_TRANSPORT_MISSING');
   for (const [name, body] of Object.entries(modules)) {
     if (!/^[a-z0-9-]+\.mjs$/.test(name) || typeof body !== 'string') throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
     if (names.has(name)) {
-      if (!['account-lobby-source-r13.mjs','account-entry-r13.mjs'].includes(name) || !/^[a-f0-9]{64}$/.test(replacementHashes[name] || '')) throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
+      if (!['account-lobby-source-r13.mjs','account-entry-r13.mjs','reference-resources-r14.mjs'].includes(name) || !/^[a-f0-9]{64}$/.test(replacementHashes[name] || '')) throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
       const part = retained.find(part => part.name === name);
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', part.body)), value => value.toString(16).padStart(2,'0')).join('');
       if (digest !== replacementHashes[name]) throw Error('OWNED_MODULE_CHANGED:' + name);
@@ -56,10 +57,12 @@ export async function publishContent({cloudflare, accountId, scriptName, expecte
   form.append('metadata', new Blob([JSON.stringify({main_module: mainModule})], {type: 'application/json'}));
   for (const part of retained) if (!Object.hasOwn(modules, part.name)) form.append(part.name, new Blob([part.body], {type: part.type}), part.name);
   for (const [name, body] of Object.entries(modules)) form.append(name, new Blob([body], {type: 'application/javascript+module'}), name);
+  const sourceBytes=retained.filter(part=>!Object.hasOwn(modules,part.name)).reduce((n,part)=>n+part.body.byteLength,0)+Object.values(modules).reduce((n,source)=>n+new TextEncoder().encode(source).byteLength,0);
+  if(sourceBytes>67000000)throw Error('EXISTING_WORKER_SIZE_BUDGET_EXCEEDED');
   // Check the live head again immediately before the one content mutation.
   const latest = await cloudflare.request({method: 'GET', path: root});
   if (latest.result.find(script => script.id === scriptName)?.etag !== expectedEtag) throw Error('WORKER_CHANGED_DURING_PACKAGE');
   const result = await cloudflare.request({method: 'PUT', path: path + '/content', body: form});
   const replacedModules = Object.keys(modules).filter(name => names.has(name));
-  return {result, retainedModuleCount: retained.length - replacedModules.length, replacedModules, addedModules: Object.keys(modules).filter(name => !names.has(name)), mainModule};
+  return {result, retainedModuleCount: retained.length - replacedModules.length, replacedModules, addedModules: Object.keys(modules).filter(name => !names.has(name)), mainModule, sourceBytes};
 }
