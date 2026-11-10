@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-10",
+  "scope": {
+    "games": 10,
+    "pages": 12,
+    "protected": [
+      "MultiHot5",
+      "FoxyHot20"
+    ],
+    "changes": [
+      "Restore accepted active BET and CoinMiner mines only from the connected authenticated receipt; reject malformed or foreign state and avoid repeated cost repaint.",
+      "Show all accepted held paylines on a terminal Ice respin, with cumulative displayed awards and no second payout."
+    ]
+  },
+  "realMoneyWagersExecuted": false,
+  "cashReleaseGatesChanged": false,
+  "actorOrRoundSchemaChanged": false,
+  "deployments": {
+    "player": {
+      "version": 354,
+      "id": "0c74de2d-3377-4e2c-9e1c-b2288af6c794",
+      "deployment": "64180514-7010-40bb-a574-20228e71021d",
+      "main": "remaining20-accepted-controls-player-entry-r12.mjs",
+      "modules": 296,
+      "preservedModules": 290,
+      "addedModules": 6,
+      "allPriorModuleHashesMatch": true,
+      "bindingsPreserved": true,
+      "assetsPreserved": true,
+      "exportsPreserved": true,
+      "rollbackVersion": "07f133a6-5deb-4b88-9ed2-6478aa6e3298",
+      "sourceModules": [
+        {
+          "name": "remaining20-ice-receipt-worker-r11.mjs",
+          "sha256": "9ae92de2a5b886d54121b8a945780e5378410cf08f94e3c3069e8de47c794c0f"
+        },
+        {
+          "name": "remaining20-ice-receipt-index-r11.mjs",
+          "sha256": "019d80e82ca3c24e44a41988a498bfd02ce6b4456ff9b84bfcd979b287f5050a"
+        },
+        {
+          "name": "remaining20-ice-receipt-player-entry-r11.mjs",
+          "sha256": "4aa1a123386d92a090f6c6acbb986ef37dd1153d5e7bb2c9c7f40de189277e3c"
+        },
+        {
+          "name": "remaining20-accepted-controls-worker-r12.mjs",
+          "sha256": "372a8a93e1da431234f6487e3ca6431f89afde2c5a58506185a93ff885cf6137"
+        },
+        {
+          "name": "remaining20-accepted-controls-index-r12.mjs",
+          "sha256": "be0038f02cdd748d6ceaa2ba9addfed52154f0ba0a982df41f7a80b0765bde1e"
+        },
+        {
+          "name": "remaining20-accepted-controls-player-entry-r12.mjs",
+          "sha256": "28c60fae512c61f4e95d0b8dafaabe839104b9a0dde670e907857b35625c9ded"
+        }
+      ]
+    },
+    "library": {
+      "version": 33,
+      "id": "63e7a503-2be4-4f30-a651-8cbd98a86195",
+      "deployment": "a0602319-bf83-4fbe-bc9c-f1e528226dfb",
+      "main": "remaining20-accepted-controls-library-entry-r12.mjs",
+      "modules": 80,
+      "preservedModules": 72,
+      "addedModules": 8,
+      "allPriorModuleHashesMatch": true,
+      "bindingsPreserved": true,
+      "assetsPreserved": true,
+      "exportsPreserved": true,
+      "rollbackVersion": "15e2c8a2-a8aa-4cb1-a86a-8a09cd3e3e83",
+      "sourceModules": [
+        {
+          "name": "remaining20-ice-receipt-assets-r11.mjs",
+          "sha256": "650ae4327b30321034d87b9dba35ccd708ee1d4ab521b83d3ab56b82acb412ef"
+        },
+        {
+          "name": "remaining20-ice-receipt-index-r11.mjs",
+          "sha256": "019d80e82ca3c24e44a41988a498bfd02ce6b4456ff9b84bfcd979b287f5050a"
+        },
+        {
+          "name": "remaining20-ice-receipt-library-r11.mjs",
+          "sha256": "48b8db92211c94be012f7e5ecebe5b15a88a6e589b61d08ad2c058c52d184ccf"
+        },
+        {
+          "name": "remaining20-ice-receipt-library-entry-r11.mjs",
+          "sha256": "1fe02194229cb0be63c8063605b7a684f15f184f9c74ac990f9c042a154ddf47"
+        },
+        {
+          "name": "remaining20-accepted-controls-assets-r12.mjs",
+          "sha256": "8987075d03f8295c0ae8e59f0e79db841cda7d981cc8559f24c073f3939cedef"
+        },
+        {
+          "name": "remaining20-accepted-controls-index-r12.mjs",
+          "sha256": "be0038f02cdd748d6ceaa2ba9addfed52154f0ba0a982df41f7a80b0765bde1e"
+        },
+        {
+          "name": "remaining20-accepted-controls-library-r12.mjs",
+          "sha256": "108474bd7580c53dc5385438c27e7cd5c83e19e6a02f2d9d9e1b1d7eddd851b0"
+        },
+        {
+          "name": "remaining20-accepted-controls-library-entry-r12.mjs",
+          "sha256": "4d41418b376122896d3cf0e9b2f47febbeb2ac701163b9bc84119a27b89db1fc"
+        }
+      ]
+    }
+  }
+}
