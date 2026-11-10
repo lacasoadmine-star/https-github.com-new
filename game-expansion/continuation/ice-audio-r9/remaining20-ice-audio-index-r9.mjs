@@ -1,0 +1,3 @@
+export const PREFIX="/native-library/remaining20/20261110-ice-audio-r9/";
+export const LIBRARY_PREFIX='/v2/remaining20/client/ice-audio-r9/';
+export const SHARED=["art/337519fe4aa3944efdc1bf0e4bfdbb3901deb11bd2c6163bcc4fc2ca1dadf527.mp3","art/7a94a98fa5fd3ed28b73917e0dce1a4a725db3b7bcf6932aac19208086362e7f.mp3","art/a6762c90372c415a8500730a3872c4701817b9e63584ad404c4bf68c047fe750.mp3","art/cd6e1325bb21189543649a735ad771eca9f37aec71f4facb817135d0f68ee69c.mp3","presentation/ice-reel-audio.mjs","presentation/smartsoft-event-media.mjs","presentation/smartsoft-motion.mjs","reference-audio.mjs","reference-presentation.mjs","smartsoft-dialogs.mjs","presentation/manifests/burningice10_native.json","presentation/manifests/burningice40_native.json"];
