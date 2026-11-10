@@ -51,6 +51,26 @@ SNAPSHOT = r"""() => {
 }"""
 
 
+CONTROL_TARGET = r"""name => {
+ const machine=typeof slot!=='undefined'?slot:null;
+ const item=machine?.buttons?.buttons?.[name];
+ let image=item?.image || item?.container;
+ if(!image?.worldVisible){
+  let root=machine?.startItems?.headerContainer;
+  if(!root)return null;while(root.parent)root=root.parent;
+  const wanted={spin:'Buttons/SpinVertical',plus:'Buttons/PlusVertical',minus:'Buttons/MinusVertical',bet:'Buttons/Bet'}[name];
+  if(!wanted)return null;
+  const visit=n=>{if(!n.worldVisible)return null;const ids=n.texture?.textureCacheIds||[];
+   if(ids.includes(wanted)){const b=n.getBounds();if(b.width>2&&b.x+b.width/2>0&&b.x+b.width/2<566)return n;}
+   for(const child of n.children||[]){const found=visit(child);if(found)return found;}return null;};
+  image=visit(root);
+ }
+ if(!image?.worldVisible)return null;const b=image.getBounds();
+ return {x:b.x+b.width/2,y:b.y+b.height/2};
+}"""
+READY = "()=>typeof slot!=='undefined'&&(slot.buttons?.buttons?.spin?.image?.width>1||!!slot.startItems?.headerContainer?.parent)"
+
+
 def proxy_config():
     value = os.environ.get('HTTPS_PROXY') or os.environ.get('HTTP_PROXY')
     if not value:
@@ -64,8 +84,8 @@ def proxy_config():
     return proxy
 
 
-async def observe(browser, game, out, spins):
-    manifest = json.loads((Path('/workspace/superwin-live/client-r4/presentation/manifests') / (game + '.json')).read_text())
+async def observe(browser, game, out, spins, manifest_root):
+    manifest = json.loads((manifest_root / (game + '.json')).read_text())
     source = manifest['source']
     query = parse_qs(urlsplit(source).query)
     if urlsplit(source).hostname != 'eu-server.ssgportal.com' or not query.get('Token', [''])[0].startswith('DEMO'):
@@ -101,12 +121,7 @@ async def observe(browser, game, out, spins):
         return state
 
     async def click_native(name):
-        target = await frame.evaluate("""name => {
-          const item=slot.buttons?.buttons?.[name];
-          const image=item?.image || item?.container;
-          if(!image?.worldVisible)return null;
-          const b=image.getBounds();return {x:b.x+b.width/2,y:b.y+b.height/2};
-        }""", name)
+        target = await frame.evaluate(CONTROL_TARGET, name)
         if not target:
             return False
         canvas = frame.locator('canvas').first
@@ -125,15 +140,17 @@ async def observe(browser, game, out, spins):
                 yes = frame.get_by_text('Yes', exact=True).first
                 if await yes.count() and await yes.is_visible():
                     await yes.click(force=True)
-                if await frame.evaluate("()=>typeof slot!=='undefined'&&slot.buttons?.buttons?.spin?.image?.width>1"):
+                if await frame.evaluate(READY):
                     break
             else:
                 await page.wait_for_timeout(300)
                 continue
             break
-        if not frame or not await frame.evaluate("()=>typeof slot!=='undefined'&&slot.buttons?.buttons?.spin?.image?.width>1"):
+        if not frame or not await frame.evaluate(READY):
             raise ValueError('OFFICIAL_DEMO_NOT_READY')
         await page.wait_for_timeout(1200)
+        if game.startswith('burningice'):
+            await frame.wait_for_function("()=>typeof slot!=='undefined'&&Number.isFinite(slot.data?.GameState)",timeout=30000)
         await checkpoint('00-entry')
         for i in range(spins):
             if not await click_native('spin'):
@@ -141,13 +158,20 @@ async def observe(browser, game, out, spins):
             await page.wait_for_timeout(600)
             await checkpoint(f'{i+1:02d}-spin-start')
             await page.wait_for_timeout(5500)
+            if game.startswith('burningice'):
+                until=time.monotonic()+90
+                while time.monotonic()<until and not await frame.evaluate(CONTROL_TARGET,'spin'):
+                    await page.wait_for_timeout(500)
             await checkpoint(f'{i+1:02d}-spin-result')
         # These are visible native buttons. No hidden methods or forced outcomes.
-        for name in ['bet', 'menu']:
+        for name in (['plus', 'minus', 'bet'] if game.startswith('burningice') else ['bet', 'menu']):
             if await click_native(name):
                 await page.wait_for_timeout(600)
                 await checkpoint('control-' + name)
-                await page.keyboard.press('Escape')
+                if not game.startswith('burningice') and name=='bet':
+                    await click_native('bet')
+                else:
+                    await page.keyboard.press('Escape')
         report['ready'] = True
     except Exception as error:
         report['error'] = str(error)[:600]
@@ -167,7 +191,7 @@ async def main(args):
         browser = await p.chromium.launch(executable_path='/usr/bin/chromium', headless=True,
             proxy=proxy_config(), args=['--no-sandbox','--autoplay-policy=no-user-gesture-required'])
         for game in args.games:
-            report = await observe(browser, game, args.out, args.spins)
+            report = await observe(browser, game, args.out, args.spins, args.manifest_root)
             print(json.dumps({'id':game,'ready':report.get('ready',False),'error':report.get('error'),
                               'steps':len(report['steps']),'audioFiles':len(report['audioFiles'])}), flush=True)
         await browser.close()
@@ -176,7 +200,9 @@ async def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('games', nargs='+', choices=['multihot100_native','habeshafortune5_native',
-        'multihotwildways_native','multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native'])
+        'multihotwildways_native','multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native',
+        'burningice_native','burningice10_native','burningice40_native'])
+    parser.add_argument('--manifest-root', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--spins', type=int, choices=range(0, 11), default=4)
     asyncio.run(main(parser.parse_args()))

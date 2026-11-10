@@ -12,6 +12,8 @@ import {UI_SOURCE} from '../../deploy/smartsoft/operator-ui-source-r16.mjs';
 import {installRuntimeLibrary} from '../../deploy/smartsoft/runtime-library-r17.mjs';
 import runtimeSources from '../../deploy/smartsoft/runtime-sources-r17.mjs';
 import runtimeSources20 from '../../deploy/smartsoft/runtime-sources-r20.mjs';
+import runtimeSources21 from '../../deploy/smartsoft/runtime-sources-r21.mjs';
+import {installRoundsPlayer} from '../../deploy/smartsoft/runtime-player-r21.mjs';
 import {bundledResource} from '../../deploy/smartsoft/reference-resources-r14.mjs';
 
 const modelRoot=process.env.SMARTSOFT_REVIEW_MODELS;
@@ -46,6 +48,7 @@ function applyTransition(id,transition,record){
 }
 async function api(request){
  const url=new URL(request.url),path=url.pathname,id=url.searchParams.get('game_id');
+ if(path==='/api/machine-session'&&request.method==='GET')return result({authenticated:true,localReview:true});
  if(path==='/__review/status')return result({localReview:true,actions,starts,outgoingWrites:0,blockedWrites,blockedWritePaths:[...blockedWritePaths],rounds:rounds.size,realMoneyRoundsPlaced:0});
  if(path==='/api/remaining20/state'&&request.method==='GET'&&scope.has(id))return result(snapshot(id));
  if(path==='/api/remaining20/history'&&request.method==='GET'&&scope.has(id))return result({game_id:id,currency:'ETB',rows:history.get(id)||[]});
@@ -74,7 +77,8 @@ async function api(request){
 }
 
 const remote='https://superwin-player.apdiy61.workers.dev',cache=new Map();
-const review20=process.env.SMARTSOFT_REVIEW_RUNTIME_R20==='true';
+const review21=process.env.SMARTSOFT_REVIEW_RUNTIME_R21==='true';
+const review20=review21||process.env.SMARTSOFT_REVIEW_RUNTIME_R20==='true';
 const runtimeReview=review20||process.env.SMARTSOFT_REVIEW_RUNTIME_R17==='true';
 const runtimePrefix='/native-library/remaining20/20261110-construction-r'+(review20?'20':'17')+'/';
 const reviewedSources=review20?runtimeSources20:runtimeSources;
@@ -117,6 +121,11 @@ const library17=installRuntimeLibrary(installOperationalLibrary(construction,{ui
   operatorRelease:{id:RELEASE_ID,providerPrivateMathVerified:false,completeReferenceParityVerified:false}}))});
 }}),runtimeSources);
 const library={fetch(request,env,ctx){
+ const path=new URL(request.url).pathname,roundsPrefix='/v2/remaining20/rounds-r21/';
+ if(path.startsWith(roundsPrefix)){
+  const name=path.slice(roundsPrefix.length);
+  return Object.hasOwn(runtimeSources21,name)?bundledResource(runtimeSources21[name],request.method):result({error:'NOT_FOUND'},404);
+ }
  const url=new URL(request.url),prefix='/v2/remaining20/construction-r15/runtime-r20/';
  if(!url.pathname.startsWith(prefix))return library17.fetch(request,env,ctx);
  const key=url.pathname.slice(prefix.length);return Object.hasOwn(runtimeSources20,key)?bundledResource(runtimeSources20[key],request.method):result({error:'NOT_FOUND'},404);
@@ -131,6 +140,7 @@ const app={fetch(request,env,ctx){
  if(path.startsWith(prefix)&&! /^(?:queue-ui-r16\.mjs|queue\.css|queue\.json|games\.json|covers\/|runtime-r(?:17|20)\/)/.test(path.slice(prefix.length)))return previous.fetch(request,env,ctx);
  return constructionPlayer.fetch(request,env,ctx);
 }};
+const reviewedApp=review21?installRoundsPlayer(app,Object.keys(runtimeSources21)):app;
 const port=Number(process.env.SMARTSOFT_REVIEW_PORT||8765);
 if(!Number.isInteger(port)||port<1024||port>65535)throw Error('INVALID_LOOPBACK_PORT');
 const server=createServer(async(req,res)=>{
@@ -138,7 +148,7 @@ const server=createServer(async(req,res)=>{
   if(!['127.0.0.1:'+port,'localhost:'+port].includes(req.headers.host)){res.writeHead(403);res.end();return;}
   const chunks=[];let length=0;for await(const chunk of req){length+=chunk.length;if(length>8192)throw Error('BODY_TOO_LARGE');chunks.push(chunk);}
   const request=new Request('http://127.0.0.1:'+port+req.url,{method:req.method,headers:req.headers,body:['GET','HEAD'].includes(req.method)?undefined:Buffer.concat(chunks)});
-  const response=await app.fetch(request,{PORTAL:'player',EXPANSION100:{fetch:r=>library.fetch(r,{}, {})}},{});
+  const response=await reviewedApp.fetch(request,{PORTAL:'player',EXPANSION100:{fetch:r=>library.fetch(r,{}, {})}},{});
   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(req.method==='HEAD'?undefined:Buffer.from(await response.arrayBuffer()));
  }catch(error){const status=Number.isInteger(error.status)?error.status:500;res.writeHead(status,{'content-type':'application/json'});res.end(JSON.stringify({error:error.message}));}
 });

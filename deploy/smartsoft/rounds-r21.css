@@ -1,0 +1,14 @@
+/* Keep the title's canvas stable while its native win/auto controls are shown.
+   The original controls remain in the DOM and still own every action. */
+html[data-reference-display="r21"] .integrated-reference .control-panel {
+ position:fixed;bottom:27dvh;left:0;right:0;z-index:4;
+ max-width:420px;max-height:18dvh;overflow:auto;pointer-events:none;
+}
+html[data-reference-display="r21"] .control-panel>* {pointer-events:auto}
+html[data-reference-display="r21"][data-reference-notice="routine"] #notice {display:none}
+html[data-reference-display="r21"] .win-actions {padding:0;gap:8px}
+html[data-reference-display="r21"] .win-actions button {min-height:40px}
+html[data-reference-display="r21"][data-reference-notice="attention"] .control-panel {bottom:0;background:#081621ef}
+@media(orientation:landscape){html[data-reference-display="r21"] .integrated-reference .control-panel{bottom:4px;max-width:320px;max-height:25dvh}}
+html[data-reference-display="r21"] .integrated-reference #nativeControls {z-index:2}
+html[data-reference-display="r21"] #scene {touch-action:manipulation}
