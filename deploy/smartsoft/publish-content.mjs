@@ -32,7 +32,27 @@ export function retainedModules(raw) {
   return parts;
 }
 
-export async function publishContent({cloudflare, accountId, scriptName, expectedEtag, mainModule, modules, replacementHashes = {}}) {
+export function unreachablePrune(retained, modules, mainModule, names = []) {
+  if (!Array.isArray(names) || names.some(name => !['expansion-client-assets-20261108.mjs','expansion-worker-20261108.mjs','expansion-player-entry-20261108.mjs'].includes(name))) throw Error('INVALID_PRUNE_SCOPE');
+  if (!names.length) return retained;
+  const sources = new Map(retained.map(part => [part.name, new TextDecoder().decode(part.body)]));
+  for (const [name, body] of Object.entries(modules)) sources.set(name, body);
+  const reachable = new Set();
+  function visit(name) {
+    if (reachable.has(name)) return;
+    reachable.add(name);
+    const source = sources.get(name); if (typeof source !== 'string') throw Error('MODULE_DEPENDENCY_MISSING:' + name);
+    for (const match of source.matchAll(/["']([^"'\n]+\.(?:mjs|js|bin|wasm))["']/g)) {
+      const path = match[1], target = sources.has(path) ? path : path.startsWith('.') ? new URL(path, 'https://worker/' + name).pathname.slice(1) : null;
+      if (target && sources.has(target)) visit(target);
+    }
+  }
+  visit(mainModule);
+  for (const name of names) if (!sources.has(name) || reachable.has(name) || Object.hasOwn(modules, name)) throw Error('PRUNE_MODULE_IS_REACHABLE_OR_CHANGED:' + name);
+  return retained.filter(part => !names.includes(part.name));
+}
+
+export async function publishContent({cloudflare, accountId, scriptName, expectedEtag, mainModule, modules, replacementHashes = {}, pruneUnreachable = []}) {
   if (!['superwin-player','superwin-library-100'].includes(scriptName) || typeof expectedEtag !== 'string' || !/^[a-z0-9-]+\.mjs$/.test(mainModule)) throw Error('EXPLICIT_EXISTING_WORKER_REQUIRED');
   const root = '/accounts/' + accountId + '/workers/scripts';
   const list = await cloudflare.request({method: 'GET', path: root});
@@ -40,14 +60,14 @@ export async function publishContent({cloudflare, accountId, scriptName, expecte
   if (!current || current.etag !== expectedEtag) throw Error('WORKER_CHANGED_REVIEW_LATEST_SOURCE');
   const path = root + '/' + scriptName;
   const previous = await cloudflare.request({method: 'GET', path});
-  const retained = retainedModules(previous), names = new Set(retained.map(part => part.name));
+  const retained = unreachablePrune(retainedModules(previous), modules, mainModule, pruneUnreachable), names = new Set(retained.map(part => part.name));
   if (!names.has(mainModule) && !Object.hasOwn(modules, mainModule)) throw Error('EXPLICIT_EXISTING_ENTRY_REQUIRED');
   const required=scriptName==='superwin-player'?['remaining20-accepted-controls-player-entry-r12.mjs','remaining20-worker-20261109.mjs']:['remaining20-accepted-controls-library-entry-r12.mjs','library.mjs'];
   if(required.some(name=>!names.has(name)))throw Error('RETAINED_ENTRY_OR_TRANSPORT_MISSING');
   for (const [name, body] of Object.entries(modules)) {
     if (!/^[a-z0-9-]+\.mjs$/.test(name) || typeof body !== 'string') throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
     if (names.has(name)) {
-      if (!['account-lobby-source-r13.mjs','account-entry-r13.mjs','reference-resources-r14.mjs','construction-player-entry-r15.mjs','operator-library-entry-r16.mjs','operator-status-r16.mjs','operator-control-sources-r16.mjs'].includes(name) || !/^[a-f0-9]{64}$/.test(replacementHashes[name] || '')) throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
+      if (!['native-player-entry-r22.mjs','account-lobby-source-r13.mjs','account-entry-r13.mjs','reference-resources-r14.mjs','construction-player-entry-r15.mjs','operator-library-entry-r16.mjs','operator-status-r16.mjs','operator-control-sources-r16.mjs'].includes(name) || !/^[a-f0-9]{64}$/.test(replacementHashes[name] || '')) throw Error('MODULE_COLLISION_OR_INVALID_SOURCE:' + name);
       const part = retained.find(part => part.name === name);
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', part.body)), value => value.toString(16).padStart(2,'0')).join('');
       if (digest !== replacementHashes[name]) throw Error('OWNED_MODULE_CHANGED:' + name);
@@ -64,5 +84,5 @@ export async function publishContent({cloudflare, accountId, scriptName, expecte
   if (latest.result.find(script => script.id === scriptName)?.etag !== expectedEtag) throw Error('WORKER_CHANGED_DURING_PACKAGE');
   const result = await cloudflare.request({method: 'PUT', path: path + '/content', body: form});
   const replacedModules = Object.keys(modules).filter(name => names.has(name));
-  return {result, retainedModuleCount: retained.length - replacedModules.length, replacedModules, addedModules: Object.keys(modules).filter(name => !names.has(name)), mainModule, sourceBytes};
+  return {result, retainedModuleCount: retained.length - replacedModules.length, replacedModules, addedModules: Object.keys(modules).filter(name => !names.has(name)), prunedUnreachableModules:pruneUnreachable, mainModule, sourceBytes};
 }

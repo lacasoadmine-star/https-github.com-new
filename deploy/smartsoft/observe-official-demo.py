@@ -64,8 +64,8 @@ def proxy_config():
     return proxy
 
 
-async def observe(browser, game, out, spins):
-    manifest = json.loads((Path('/workspace/superwin-live/client-r4/presentation/manifests') / (game + '.json')).read_text())
+async def observe(browser, game, out, spins, manifest_root):
+    manifest = json.loads((manifest_root / (game + '.json')).read_text())
     source = manifest['source']
     query = parse_qs(urlsplit(source).query)
     if urlsplit(source).hostname != 'eu-server.ssgportal.com' or not query.get('Token', [''])[0].startswith('DEMO'):
@@ -73,7 +73,6 @@ async def observe(browser, game, out, spins):
     directory = out / game
     directory.mkdir(parents=True, exist_ok=True)
     context = await browser.new_context(viewport={'width':390,'height':844}, is_mobile=True, has_touch=True,
-        record_video_dir=str(directory / 'video'),
         user_agent='Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36')
     await context.add_init_script(INIT)
     page = await context.new_page()
@@ -104,8 +103,19 @@ async def observe(browser, game, out, spins):
         target = await frame.evaluate("""name => {
           const item=slot.buttons?.buttons?.[name];
           const image=item?.image || item?.container;
-          if(!image?.worldVisible)return null;
-          const b=image.getBounds();return {x:b.x+b.width/2,y:b.y+b.height/2};
+          if(image?.worldVisible){const b=image.getBounds();return {x:b.x+b.width/2,y:b.y+b.height/2};}
+          let root=slot.startItems?.headerContainer;if(!root)return null;
+          while(root.parent)root=root.parent;
+          const pattern={spin:/^Buttons\\/SpinVertical$/,menu:/^Buttons\\/Menu$/,bet:/^Buttons\\/Bet(?:Active)?$/}[name];
+          if(!pattern)return null;
+          let result=null;
+          function visit(node){
+            if(!node?.worldVisible)return;
+            const ids=node.texture?.textureCacheIds||node._texture?.textureCacheIds||[];
+            if(ids.some(id=>pattern.test(id))){const b=node.getBounds();if(b.width>0&&b.height>0)result={x:b.x+b.width/2,y:b.y+b.height/2};}
+            for(const child of node.children||[])visit(child);
+          }
+          visit(root);return result;
         }""", name)
         if not target:
             return False
@@ -125,13 +135,13 @@ async def observe(browser, game, out, spins):
                 yes = frame.get_by_text('Yes', exact=True).first
                 if await yes.count() and await yes.is_visible():
                     await yes.click(force=True)
-                if await frame.evaluate("()=>typeof slot!=='undefined'&&slot.buttons?.buttons?.spin?.image?.width>1"):
+                if await frame.evaluate("()=>typeof slot!=='undefined'&&(slot.buttons?.buttons?.spin?.image?.width>1||slot.startItems?.headerContainer?.width>1)"):
                     break
             else:
                 await page.wait_for_timeout(300)
                 continue
             break
-        if not frame or not await frame.evaluate("()=>typeof slot!=='undefined'&&slot.buttons?.buttons?.spin?.image?.width>1"):
+        if not frame or not await frame.evaluate("()=>typeof slot!=='undefined'&&(slot.buttons?.buttons?.spin?.image?.width>1||slot.startItems?.headerContainer?.width>1)"):
             raise ValueError('OFFICIAL_DEMO_NOT_READY')
         await page.wait_for_timeout(1200)
         await checkpoint('00-entry')
@@ -167,7 +177,7 @@ async def main(args):
         browser = await p.chromium.launch(executable_path='/usr/bin/chromium', headless=True,
             proxy=proxy_config(), args=['--no-sandbox','--autoplay-policy=no-user-gesture-required'])
         for game in args.games:
-            report = await observe(browser, game, args.out, args.spins)
+            report = await observe(browser, game, args.out, args.spins, args.manifest_root)
             print(json.dumps({'id':game,'ready':report.get('ready',False),'error':report.get('error'),
                               'steps':len(report['steps']),'audioFiles':len(report['audioFiles'])}), flush=True)
         await browser.close()
@@ -176,7 +186,9 @@ async def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('games', nargs='+', choices=['multihot100_native','habeshafortune5_native',
-        'multihotwildways_native','multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native'])
+        'multihotwildways_native','multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native',
+        'burningice_native','burningice10_native','burningice40_native'])
+    parser.add_argument('--manifest-root', type=Path, required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--spins', type=int, choices=range(0, 11), default=4)
     asyncio.run(main(parser.parse_args()))

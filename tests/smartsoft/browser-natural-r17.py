@@ -41,7 +41,7 @@ async def collect_visible(page):
     await control.wait_for(state='visible')
     await control.click()
 
-async def open_game(context,game):
+async def open_game(context,game,reset_stake=True):
     page=await context.new_page()
     page.native_start_requests=set()
     def track_request(request):
@@ -50,14 +50,17 @@ async def open_game(context,game):
             if body.get('type')=='start':page.native_start_requests.add(body['request_id'])
     page.on('request',track_request)
     await page.goto(ORIGIN+'/games/'+game,wait_until='domcontentloaded',timeout=45000)
-    await wait(page,"()=>document.querySelector('#startupCover')?.dataset.phase==='open'||document.querySelector('#startupYes')&&!document.querySelector('#startupYes').disabled")
-    if await page.locator('#startupCover').get_attribute('data-phase')!='open':
+    await wait(page,"()=>['open','recovery'].includes(document.querySelector('#startupCover')?.dataset.phase)||document.querySelector('#startupYes')&&!document.querySelector('#startupYes').disabled")
+    if await page.locator('#startupYes').is_visible() and await page.locator('#startupYes').is_enabled():
         await page.locator('#startupYes').click()
-    await wait(page,"()=>document.querySelector('#startupCover')?.dataset.phase==='open'&&!document.querySelector('#play').disabled")
+    await wait(page,"()=>['open','recovery'].includes(document.querySelector('#startupCover')?.dataset.phase)&&!document.querySelector('#play').disabled")
     existing=await state(context,game)
     if (existing.get('round') or {}).get('status')=='active':
         await collect_visible(page)
-    if await page.locator('#stake').input_value()!='1.00':
+        await wait(page,"()=>document.querySelector('#startupCover')?.dataset.phase==='open'||document.querySelector('#startupYes')&&!document.querySelector('#startupYes').disabled")
+        if await page.locator('#startupYes').is_visible() and await page.locator('#startupYes').is_enabled():await page.locator('#startupYes').click()
+        await wait(page,"()=>!document.querySelector('#play').disabled")
+    if reset_stake and await page.locator('#stake').input_value()!='1.00':
         await page.locator('[data-control="bet"]:visible').click()
         await page.locator('#betDialog [aria-label="1.00 ETB"]:visible').click()
     return page

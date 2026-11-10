@@ -1,7 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {retainedModules, publishContent} from '../../deploy/smartsoft/publish-content.mjs';
+import {retainedModules, publishContent, unreachablePrune} from '../../deploy/smartsoft/publish-content.mjs';
+
+test('size cleanup can prune only the allowlisted modules outside the complete entry graph',()=>{
+ const encode=value=>new TextEncoder().encode(value);
+ const old='expansion-client-assets-20261108.mjs';
+ const retained=[{name:'previous.mjs',body:encode('export default {};')},{name:old,body:encode('export default {};')}];
+ assert.deepEqual(unreachablePrune(retained,{'new.mjs':"import x from './previous.mjs';export default x;"},'new.mjs',[old]).map(p=>p.name),['previous.mjs']);
+ assert.throws(()=>unreachablePrune(retained,{'new.mjs':"export * from './"+old+"';"},'new.mjs',[old]),/REACHABLE/);
+ assert.throws(()=>unreachablePrune(retained,{'new.mjs':'export default {}'},'new.mjs',['worker.mjs']),/SCOPE/);
+});
 
 function multipart(parts) {
   const buffers = [];

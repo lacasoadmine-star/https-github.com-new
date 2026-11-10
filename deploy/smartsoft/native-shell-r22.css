@@ -1,0 +1,63 @@
+/* Scoped to the nine requested titles, including their credits demos. Keep
+   DOM ids for the original controller; remove the unrelated visible cabinet. */
+html[data-native-shell="r22"] {height:100%;background:#000}
+html[data-native-shell="r22"] body {
+ margin:0;min-height:0;height:100svh;height:100dvh;overflow:hidden;
+ display:flex;flex-direction:column;background:#000;
+}
+html[data-native-shell="r22"] .player-bar,
+html[data-native-shell="r22"] .title-row,
+html[data-native-shell="r22"] .feature-strip,
+html[data-native-shell="r22"] .result-strip,
+html[data-native-shell="r22"] .machine-footer,
+html[data-native-shell="r22"] .demo-session-note {display:none!important}
+html[data-native-shell="r22"] #machineShell {
+ flex:1 1 0!important;min-height:0!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;overflow:hidden!important;
+}
+html[data-native-shell="r22"] .machine-layout {
+ height:100%!important;min-height:0!important;display:flex!important;flex-direction:column;align-items:stretch!important;gap:0;
+}
+html[data-native-shell="r22"] .machine-cabinet {
+ flex:1 1 0;min-height:0;border:0;border-radius:0;box-shadow:none;
+ background:transparent;display:block!important;position:relative;overflow:hidden;width:100%!important;
+}
+html[data-native-shell="r22"] #stage {
+ position:absolute!important;inset:0!important;flex:none!important;min-height:0!important;
+ width:100%!important;height:100%!important;max-width:none!important;
+ margin:0!important;aspect-ratio:auto!important;background:#000;
+}
+html[data-native-shell="r22"] #scene {width:100%;height:100%}
+html[data-native-shell="r22"][data-native-ready="false"] #scene {visibility:hidden}
+html[data-native-shell="r22"] .demo-credits-banner {
+ flex:none;height:22px;min-height:22px;padding:3px 6px;
+ font:10px/16px system-ui;letter-spacing:.5px;background:#102a30;
+}
+html[data-native-shell="r22"] #presentationNote {
+ inset:auto 12px 18px;min-height:44px;padding:12px;border-radius:8px;
+ background:#081621ed;font:13px/1.4 system-ui;z-index:4;
+}
+html[data-native-shell="r22"] .control-panel {
+ display:flex!important;flex-direction:column;gap:4px;
+ position:fixed!important;left:8px;right:8px;bottom:8px!important;z-index:5;
+ max-width:420px;max-height:28dvh;overflow:auto;margin:auto;padding:8px 12px;
+ border:0;border-radius:8px;background:#081621ed;box-shadow:none;
+}
+html[data-native-shell="r22"][data-native-attention="false"] #notice {display:none}
+html[data-native-shell="r22"][data-native-attention="false"] .control-panel {
+ background:transparent;pointer-events:none;bottom:26dvh!important;
+}
+html[data-native-shell="r22"] .control-panel>* {pointer-events:auto}
+html[data-native-shell="r22"] .control-panel>.control-heading,
+html[data-native-shell="r22"] .control-panel>.stake-heading,
+html[data-native-shell="r22"] .control-panel>.stake-control,
+html[data-native-shell="r22"] .control-panel>.play-button,
+html[data-native-shell="r22"] .control-panel>.tool-row,
+html[data-native-shell="r22"] .control-panel>.play-note,
+html[data-native-shell="r22"] .control-panel>.autoplay-open {display:none!important}
+html[data-native-shell="r22"][data-native-collect="true"] #collect,
+html[data-native-shell="r22"][data-native-gamble="true"] #gamble {display:none!important}
+html[data-native-shell="r22"] .win-actions:not(:has(button:not([hidden]):not(:disabled))) {display:none}
+html[data-native-shell="r22"] #nativeControls {z-index:3}
+html[data-native-shell="r22"] #scene {touch-action:manipulation}
+html[data-native-shell="r22"] .smartsoft-startup {top:26px!important}
+html[data-native-shell="r22"][data-credits-demo="true"] .smartsoft-startup {top:48px!important}
