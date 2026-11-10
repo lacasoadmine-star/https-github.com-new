@@ -35,7 +35,7 @@ test('existing root sign-in gains immutable revised helper and nine pages retain
  const html=await(await app.fetch(new Request('https://player.test/'),{PORTAL:'player'})).text();assert.ok(html.includes('auth-r18/sign-in.mjs'));assert.ok(html.includes('existing account'));assert.ok(!html.includes('src="/jetx-sign-in-20261107.mjs"'));
  const old='<html><head><script src="/native-library/remaining20/20261110-reference-mobile-r14/fe6fe5c2996189a2/app.mjs"></script></head><body><a href="/" class="account-link" id="accountLink">Account</a></body></html>';
  const game=installMobileDisplay({fetch:async()=>new Response(old,{headers:{'content-type':'text/html'}})});
- for(const id of ACCOUNT_GAME_IDS){const response=await game.fetch(new Request('https://player.test/games/'+id),{PORTAL:'player'}),body=await response.text();assert.ok(body.includes('href="/?play='+id+'"'));assert.ok(body.includes('auth-r18/entry.mjs'));}
+ for(const id of ACCOUNT_GAME_IDS){const response=await game.fetch(new Request('https://player.test/games/'+id),{PORTAL:'player'}),body=await response.text();assert.ok(body.includes('href="/?play='+id+'"'));assert.ok(body.includes('runtime-r20/entry.mjs'));}
 });
 
 test('public account resources strip credentials and all financial requests keep original identity',async()=>{

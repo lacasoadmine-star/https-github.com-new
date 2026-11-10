@@ -1,0 +1,83 @@
+{
+  "release": "live-lobby-r19",
+  "status": "deployed_current_lobby_and_availability_labels; game_runtime_fixes_in_progress",
+  "checkedAt": "2026-11-10T20:53:56.715816+00:00",
+  "existingPlayerUrl": "https://play.superwinn.net",
+  "verifiedOrigin": "https://superwin-player.apdiy61.workers.dev",
+  "freshNavigation": "https://superwin-player.apdiy61.workers.dev/?update=20261110-r19",
+  "changes": [
+    "Use one new immutable lobby module and remove the earlier Preparing initializer from returned root HTML. Upgrade older retained root bootstrap URLs.",
+    "Keep LIVE tied to the existing native status. Existing native games show Checking while status loads and Unavailable when status cannot be verified; unbuilt titles remain Preparing.",
+    "Refresh public readiness every10seconds and when the tab becomes visible."
+  ],
+  "verification": {
+    "nodeTests": 59,
+    "backendTests": 9,
+    "frontendBuilds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "deployedLiveNativeCards": 9,
+    "deployedReferenceQueue": 1000,
+    "coversDecoded": 24,
+    "controlledStatusOutageRecovery": true,
+    "noIdentityOrWalletMocksInStatusRegression": true,
+    "financialWrites": 0,
+    "configurationFingerprintsPreserved": true,
+    "protectedPagesAndCataloguePreserved": true
+  },
+  "diagnosisLimits": [
+    "OldcachedR13source alone was NOT the reproduced cause: currentR16disposes it. Freshroot alreadyreported9LIVE. Do notclaimtheexactusercachecauseproved.",
+    "LatestuserscreenshotsconfirmLIVEbadgesbutreportstatic,blankorSTOPgameplay. Runtimeissueworkisongoing; these changes donotdeclareall9playableorfullproviderparity."
+  ],
+  "deployed": {
+    "superwin-player": {
+      "etag": "045da4f0877f6ee9538d8c3c573c96a79e407c4fc5e5cb358cdb080adc01ceab",
+      "settingsFingerprint": "29d0602b386fbd61ba02116b1a83698a5586fc10944f1cd62957f30ee1dce725",
+      "deployment": {
+        "id": "e51c48f9-5265-4841-bb9a-3da1f60c70cd",
+        "source": "api",
+        "strategy": "percentage",
+        "author_email": "apdiy61@gmail.com",
+        "annotations": {
+          "workers/message": "Automatic deployment on upload.",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "e1bb3ec4-e7d2-4861-9102-fe811aea1f9e",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-11-10T06:44:19.89938Z"
+      }
+    },
+    "superwin-library-100": {
+      "etag": "28448db78f81262eb8875c49ac3395e4573d4cfb58b370c9476af8bb8342e6dc",
+      "settingsFingerprint": "7c96fd1684ea3d99d818b4eb7c65c9c0a09343cc22ad4b8eaa9ad5da4a44b812",
+      "deployment": {
+        "id": "a25f2a9c-1aac-4e46-b384-8ac253f958cb",
+        "source": "api",
+        "strategy": "percentage",
+        "author_email": "apdiy61@gmail.com",
+        "annotations": {
+          "workers/message": "Automatic deployment on upload.",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "5289dd42-2e09-4c8e-a3c9-cee630938e0c",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-11-10T06:43:38.92329Z"
+      }
+    }
+  },
+  "financialRelease": "remaining-native-etb-r16_unchanged",
+  "walletLedger": "existing-postgresql",
+  "playerSourceBytes": 66977349,
+  "librarySourceBytes": 10832665,
+  "realMoneyRoundsPlaced": 0
+}

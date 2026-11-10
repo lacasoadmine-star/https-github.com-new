@@ -11,6 +11,8 @@ import {installOperationalLibrary,RELEASE_ID,HEALTH_URL} from '../../deploy/smar
 import {UI_SOURCE} from '../../deploy/smartsoft/operator-ui-source-r16.mjs';
 import {installRuntimeLibrary} from '../../deploy/smartsoft/runtime-library-r17.mjs';
 import runtimeSources from '../../deploy/smartsoft/runtime-sources-r17.mjs';
+import runtimeSources20 from '../../deploy/smartsoft/runtime-sources-r20.mjs';
+import {bundledResource} from '../../deploy/smartsoft/reference-resources-r14.mjs';
 
 const modelRoot=process.env.SMARTSOFT_REVIEW_MODELS;
 if(!modelRoot)throw Error('SMARTSOFT_REVIEW_MODELS_REQUIRED');
@@ -26,7 +28,7 @@ const blockedWritePaths=new Set();
 const rng=()=>randomBytes(4).readUInt32BE()/4294967296;
 const result=(data,status=200)=>Response.json(data,{status,headers:{'cache-control':'no-store'}});
 function snapshot(id){
- const record=rounds.get(id),game=structuredClone(model.publicGameConfigs[id]);
+ const record=rounds.get(id),game=structuredClone(process.env.SMARTSOFT_REVIEW_NATIVE_DEFINITION==='true'?model.definitions[id]:model.publicGameConfigs[id]);
  game.launchable=true;game.published=true;
  if(game.currencyAdaptation)game.currencyAdaptation.productionLaunchable=true;
  const round=record?{...model.publicState(record.state,Date.now()),round_id:record.id,game_id:id,
@@ -72,14 +74,16 @@ async function api(request){
 }
 
 const remote='https://superwin-player.apdiy61.workers.dev',cache=new Map();
-const runtimeReview=process.env.SMARTSOFT_REVIEW_RUNTIME_R17==='true';
-const runtimePrefix='/native-library/remaining20/20261110-construction-r17/';
+const review20=process.env.SMARTSOFT_REVIEW_RUNTIME_R20==='true';
+const runtimeReview=review20||process.env.SMARTSOFT_REVIEW_RUNTIME_R17==='true';
+const runtimePrefix='/native-library/remaining20/20261110-construction-r'+(review20?'20':'17')+'/';
+const reviewedSources=review20?runtimeSources20:runtimeSources;
 const previous={async fetch(request){
  const url=new URL(request.url);let projected=false;
  if(runtimeReview&&url.pathname.startsWith(runtimePrefix)){
   const name=url.pathname.slice(runtimePrefix.length);
-  if(Object.hasOwn(runtimeSources,name)||name==='smartsoft-mobile.mjs'){
-   const target=new URL('/v2/remaining20/construction-r15/runtime-r17/'+(name==='smartsoft-mobile.mjs'?'mobile-runtime-r17.mjs':name),url);
+  if(Object.hasOwn(reviewedSources,name)||name==='smartsoft-mobile.mjs'){
+   const target=new URL('/v2/remaining20/construction-r15/'+(name==='smartsoft-mobile.mjs'?'runtime-r17/mobile-runtime-r17.mjs':(review20?'runtime-r20/':'runtime-r17/')+name),url);
    return library.fetch(new Request(target,{method:request.method}),{},{});
   }
   url.pathname=url.pathname.replace(runtimePrefix,'/native-library/remaining20/20261110-construction-r16b/');projected=true;
@@ -97,8 +101,9 @@ const previous={async fetch(request){
   let html=new TextDecoder().decode(bytes);
   if(runtimeReview&&scope.has(url.pathname.split('/').at(-1))){
    html=html.replaceAll('/native-library/remaining20/20261110-construction-r16b/',runtimePrefix)
-    .replace('data-reference-display="r16"','data-reference-display="r17" data-native-entry="loading"')
-    .replace('</head>','<style>html[data-native-entry="loading"] #machineShell{visibility:hidden}</style><script type="module" src="/native-library/remaining20/20261110-construction-r15/runtime-r17/entry.mjs"></script></head>');
+    .replaceAll('/native-library/remaining20/20261110-construction-r17/',runtimePrefix)
+    .replace(/data-reference-display="r(?:16|17)"/,'data-reference-display="r'+(review20?'20':'17')+'" data-native-entry="loading"')
+    .replace('</head>','<style>html[data-native-entry="loading"] #machineShell{visibility:hidden}</style><script type="module" src="/native-library/remaining20/20261110-construction-r15/runtime-r'+(review20?'20':'17')+'/entry.mjs"></script></head>');
   }
   html=html.replace('</body>','<div style="position:fixed;bottom:0;left:0;right:0;z-index:9999999;text-align:center;background:#542b00;color:white;font:12px system-ui;padding:4px">LOCAL REVIEW · Simulated ETB · No real money</div></body>');
   bytes=new TextEncoder().encode(html);
@@ -106,11 +111,16 @@ const previous={async fetch(request){
  const result=new Response(bytes,{status:response.status,headers});if(response.ok)cache.set(key,result.clone());return result;
 }};
 const construction=librarySources?installConstructionLibrary(previous,librarySources):previous;
-const library=installRuntimeLibrary(installOperationalLibrary(construction,{uiSource:UI_SOURCE,fetchImpl:async url=>{
+const library17=installRuntimeLibrary(installOperationalLibrary(construction,{uiSource:UI_SOURCE,fetchImpl:async url=>{
  if(url!==HEALTH_URL)throw Error('ONLY_ISOLATED_REVIEW_STATUS_ALLOWED');
  return result({ready:true,accepting:true,games:[...scope].map(id=>({...snapshot(id).game,accepting:true,
   operatorRelease:{id:RELEASE_ID,providerPrivateMathVerified:false,completeReferenceParityVerified:false}}))});
 }}),runtimeSources);
+const library={fetch(request,env,ctx){
+ const url=new URL(request.url),prefix='/v2/remaining20/construction-r15/runtime-r20/';
+ if(!url.pathname.startsWith(prefix))return library17.fetch(request,env,ctx);
+ const key=url.pathname.slice(prefix.length);return Object.hasOwn(runtimeSources20,key)?bundledResource(runtimeSources20[key],request.method):result({error:'NOT_FOUND'},404);
+}};
 // These public pages already carry the deployed mobile renderer. Wrapping its
 // immutable module namespace a second time would reject the retained shell.
 const constructionPlayer=installConstructionPlayer(previous);
@@ -118,7 +128,7 @@ const app={fetch(request,env,ctx){
  const path=new URL(request.url).pathname,prefix='/native-library/remaining20/20261110-construction-r15/';
  // The deployed renderer and its group modules are already projected. Only
  // queue resources use this test's local status snapshot and source bundle.
- if(path.startsWith(prefix)&&! /^(?:queue-ui-r16\.mjs|queue\.css|queue\.json|games\.json|covers\/|runtime-r17\/)/.test(path.slice(prefix.length)))return previous.fetch(request,env,ctx);
+ if(path.startsWith(prefix)&&! /^(?:queue-ui-r16\.mjs|queue\.css|queue\.json|games\.json|covers\/|runtime-r(?:17|20)\/)/.test(path.slice(prefix.length)))return previous.fetch(request,env,ctx);
  return constructionPlayer.fetch(request,env,ctx);
 }};
 const port=Number(process.env.SMARTSOFT_REVIEW_PORT||8765);

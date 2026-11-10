@@ -54,5 +54,5 @@ test('current browser code is shared once, and the Player sends no account crede
  const env={PORTAL:'player',EXPANSION100:{fetch:async req=>{forwarded=req;return new Response(UI_SOURCE);}}};
  await app.fetch(new Request('https://player.test/native-library/remaining20/20261110-construction-r15/queue-ui-r16.mjs',{headers:{cookie:'private'}}),env);
  assert.equal(new URL(forwarded.url).pathname,UI_PATH);assert.equal(forwarded.headers.get('cookie'),null);
- assert.ok((await(await app.fetch(new Request('https://player.test/'),env)).text()).includes('/queue-ui-r16.mjs'));
+ assert.ok((await(await app.fetch(new Request('https://player.test/'),env)).text()).includes('/queue-ui-r19.mjs'));
 });

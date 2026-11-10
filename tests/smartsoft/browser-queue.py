@@ -23,6 +23,13 @@ async def main():
         errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
         await page.goto(ORIGIN+'/',wait_until='domcontentloaded',timeout=45000)
         await page.get_by_text('1,000 references',exact=True).wait_for(timeout=30000)
+        live_ids=['multihot100_native','habeshafortune5_native','multihotwildways_native',
+                  'multihot5wild_native','multihot5superwilds_native','multihotdeluxe_native',
+                  'burningice_native','burningice10_native','burningice40_native']
+        for game in live_ids:
+            assert await page.locator('[data-r20-game="'+game+'"] .r20-native-mode').first.inner_text()=='LIVE',game
+        assert await page.locator('script[src$="queue-ui-r19.mjs"]').count()==1
+        assert await page.locator('script[data-zplay-account-entry-r13]').count()==0
         await page.locator('#upcoming-games summary').click()
         cards=page.locator('.construction-cards article');assert await cards.count()==24
         initial=await cards.evaluate_all('(nodes)=>nodes.map(n=>n.dataset.queueId)')
@@ -64,7 +71,7 @@ async def main():
         assert await page.evaluate("sessionStorage.getItem('zplay.native.launch.return')")=='/games/multihot100_native'
         assert not errors,errors
         report={'references':1000,'firstPageCoversDecoded':decoded,'pagination':True,'studioFilter':True,
-                'nameSearch':True,'directAccountEntry':True,'signedOutLoginReturn':True,'liveNativeLinks':3,'unbuiltTitleRemainsPreparing':True,'financialActions':0,'errors':errors}
+                'nameSearch':True,'directAccountEntry':True,'signedOutLoginReturn':True,'liveNativeLinks':3,'operationalNativeCards':len(live_ids),'unbuiltTitleRemainsPreparing':True,'financialActions':0,'errors':errors}
         (OUT/'results.json').write_text(json.dumps(report,indent=2)+'\n')
         print(json.dumps(report),flush=True)
         await browser.close()
