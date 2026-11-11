@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-11",
+  "actualReference": {
+    "id": "ind74_official_mineisland",
+    "family": "ladder",
+    "steps": 10,
+    "claim": "Fresh reference correction by rules agent; do not describe as5x5minegrid"
+  },
+  "fixtureCoverage": {
+    "id": "ind74_official_fixturemines",
+    "kind": "Synthetic TESTONLY engine, not a catalogue game",
+    "purpose": [
+      "Unplayed stake refund",
+      "Private mine-map validation",
+      "Exactly-once retry and settlement",
+      "Retained financial ledger rollback/recovery"
+    ],
+    "paths": [
+      "server/tests/support/synthetic-mines-math.mjs",
+      "server/tests/support/retained-library-fixture.mjs"
+    ],
+    "productionCodeImportsFixture": false
+  },
+  "demoTests": "Now expiry/reload pays earned ladder award exactly once using real72catalogue; no invented officialminegrid",
+  "verification": {
+    "targetedCommand": "node --test server/tests/existing-library74-adapter.test.mjs server/tests/demo74-worker.test.mjs",
+    "targetedPass": 23,
+    "targetedFail": 0,
+    "evidence": "tests/evidence/mine-island-financial-targeted-tests.txt",
+    "retainedSqlGroups": "Both retainedSQLgroups passed in prior combinedrun; that run had one syntheticcorruption assertion failure subsequentlyfixed and retested in23/23targeted. Rootfullsuite supplies consolidated count."
+  },
+  "liveBackendChanged": false,
+  "liveWalletsAccessed": false
+}

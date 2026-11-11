@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "observations": [
+    {
+      "gameId": "ind74_official_multihot10",
+      "evidence": "ind74_official_multihot10-initial.png and stopped result screenshots",
+      "geometry": {
+        "reels": 5,
+        "rows": 3
+      },
+      "appearance": "Green clover background, gold reel borders and multiplier arc above the board. Pink 10 in the title. Orange, grape, plum, cherry, lemon, bell and watermelon artwork appears in stopped grids.",
+      "controls": "Right-side spin with native lightning Turbo above-right; auto above spin; dollar bet button below; menu bottom-left and sound bottom-right.",
+      "turbo": "Native QUICK PLAY dialog was displayed and ENABLE QUICK PLAY clicked. Ready spin arrow became yellow; public rendered button uses ButtonsSpinTurbo.",
+      "providerLinePlay": 10,
+      "boundary": "Provider LinePlay is a returned betting field; use official rules or explicit visible labels before asserting its meaning in other titles."
+    },
+    {
+      "gameId": "ind74_official_multihotwildways",
+      "evidence": "ind74_official_multihotwildways-initial.png",
+      "geometry": {
+        "reels": 3,
+        "rows": 3,
+        "ways": 27,
+        "multiplierPlacement": "separate vertical strip on left"
+      },
+      "appearance": "Green clover cabinet, gold borders, upper-right 27 WAYS label; double fruit, WILD crown, double dollar and double bell artwork in the initial board.",
+      "providerLinePlay": 1,
+      "correction": "The raw LinePlay1 field is not evidence of one payline. The direct public screenshot explicitly shows27 WAYS."
+    },
+    {
+      "gameId": "ind74_official_multihotways",
+      "evidence": "ind74_official_multihotways-initial.png",
+      "geometry": {
+        "reels": 3,
+        "rows": 3,
+        "multiplierPlacement": "separate vertical strip on left"
+      },
+      "appearance": "Bright green tropical-leaf background with neon green/gold reel border; orange/gold Ways script in title. Double fruit, double dollar, double bell and double-seven artwork. Menu and sound controls are beneath the cabinet, not at the extreme viewport corners.",
+      "providerLinePlay": 1,
+      "boundary": "The public result has9 symbols. Provider LinePlay1 is an internal betting field, not independently verified payline count."
+    }
+  ]
+}

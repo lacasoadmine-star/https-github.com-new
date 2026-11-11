@@ -125,6 +125,8 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
       if(html.includes('/independent74/lobby74.mjs'))return new Response(html,response);
       const body=html.replace('</head>','<link rel="stylesheet" href="/independent74/lobby74.css"></head>').replace('</body>','<script type="module" src="/independent74/lobby74.mjs"></script></body>');
       const headers=new Headers(response.headers);headers.delete('etag');headers.delete('content-length');headers.set('cache-control','private, no-store');
+      const policy=headers.get('content-security-policy');
+      if(policy&&!policy.includes('https://cdn.prod.website-files.com'))headers.set('content-security-policy',policy.replace(/img-src[^;]*/i,value=>value+' https://cdn.prod.website-files.com'));
       return new Response(body,{status:response.status,headers});
     }
     try {
@@ -170,6 +172,10 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
           if(!result||Array.isArray(result)||typeof result!=='object')throw Error('INVALID_RESPONSE');
         }catch(error){if(error instanceof GatewayError)throw error;reject(503,action==='action'?'ACTION_UNCONFIRMED':'ACCOUNT_SERVICE_UNAVAILABLE','The existing account service did not confirm this request.');}
         finally{clearTimeout(timeout);}
+        // The player session was already verified by the existing site.
+        // An unavailable/new engine route must not send a signed-in player
+        // through an endless login loop or invent a wallet balance.
+        if(upstream.status===401)reject(503,'GAME_ACCOUNT_ROUTE_UNAVAILABLE','The existing account is signed in, but this game account route is not available yet.');
         if(upstream.ok){
           if(result.authenticated!==true||result.currency!=='ETB')reject(502,'INVALID_ACCOUNT_RESPONSE','The account identity and currency could not be verified.');
           if(action==='history'){

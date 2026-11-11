@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-11",
+  "target": "Existing Railway superwin-native-family-engine-staging function; existing superwin-player native proxy",
+  "action": "Add independent74 authenticated ETB account state and history routes using the existing initialized LibraryService and session verifier",
+  "status": "OBSOLETE CANDIDATE; NOT DEPLOYED; DO NOT APPLY",
+  "candidate": {
+    "path": "/workspace/work/backend-independent74-candidate.mjs",
+    "schemaVersion": 1,
+    "method": "Exact final-export replacement plus additive verified gzip installer",
+    "originalSha256": "fde7296ab6fe6f9cc8b32cec989a2c6f4c6e8f28c1dfb8dbdfd0883464135bcb",
+    "patchedSha256": "af7790c360b6770a6e98ea120d4a84518f1d298ea3a602b8ded5d426c5336050",
+    "installerSha256": "ece4e4ff8f3fc640f16c1fa3dca466f41a29261b67b1ca9418ccd229123e52b0",
+    "originalBytes": 97161,
+    "patchedBytes": 182735,
+    "installerBytes": 522194,
+    "installerGzipBytes": 61304,
+    "defaultNewRoundsEnabled": false,
+    "createsInfrastructure": false,
+    "createsFinancialService": false,
+    "runsMigrations": false,
+    "changesBalances": false,
+    "legacyRestorationSha256": "fde7296ab6fe6f9cc8b32cec989a2c6f4c6e8f28c1dfb8dbdfd0883464135bcb",
+    "legacyBytesOutsideFinalExportPreserved": true,
+    "exposesRealAccountStateAndHistory": true,
+    "readonlyAudit": "Existing shared SQL connection; house aggregate, account cap aggregate, existing active liability aggregate, exact policy key metadata; no individual account rows"
+  },
+  "preserved": [
+    "Entire original deployed function source except exact final default-export replacement",
+    "All embedded module maps, integrity checks, and prior app wrappers",
+    "Original LibraryService,SharedWallet,SQL driver,account sessions,house wallets,cross-active guards,model-version registry delegation,recovery scheduler",
+    "Legacy default app passthrough if additive dependency assertion/import/install fails"
+  ],
+  "actualDependencyEvidence": {
+    "retainedEntryRepositoryCommit": "a0dd6a5f842c9c0fbc92eaeb441a136f49a49d78",
+    "retainedEntryPath": "game-expansion/continuation/expansion-entry.mjs",
+    "retainedEntrySha256": "ce364342fb9f07ea8271ac34f2f8e6dd03b9ea8c786b9537b6b02f3134ee882d",
+    "sameHashAsDeployedLoaderEntryBefore": true,
+    "declaredKeys": [
+      "service",
+      "verifyNative",
+      "readNativeBody",
+      "engineSecret",
+      "resolveSessionUser"
+    ],
+    "deployedActualImportedModule": "expansion-entry-wager-r1.mjs",
+    "deployedActualModuleSha256": "9660453b4a73ed820c01684cf0d05b980e68f07b0aef59da96b9857a38f4c967",
+    "liveDefinitiveVerification": "Startup type assertions followed by independent74_existing_account_routes_installed event; missing dependencies keep legacy app, log independent74_existing_account_installation_failed"
+  },
+  "schemaEvidence": "server/artifacts/production-schema-readonly-summary.json",
+  "readOnlyStartupAudit": {
+    "database": "Existing dependencies.service.sql.begin; SET TRANSACTION READ ONLY;5secondtimeout",
+    "queries": [
+      "Aggregate house balance wherewallet id=house",
+      "Count/min/max account max_balance caps, no player IDs or individual balances",
+      "Aggregate existing active library liability",
+      "Metadata for exactsettings key independent74_operator_policy_v1; no arbitrary settings or secrets"
+    ],
+    "writes": 0,
+    "individualAccountRowsRead": 0,
+    "logEvent": "independent74_existing_account_readonly_audit"
+  },
+  "releaseGate": {
+    "newRoundsEnabled": false,
+    "reviewedGameIds": [],
+    "gameLimits": {},
+    "reason": "Current production per-game policy,available house balance,and account cap values must be verified before opening independent stakes. No invented upper limits or fallback ETB balances."
+  },
+  "verificationNext": [
+    "Source-only function update; do not accept unrelated staged Railway patch",
+    "Verify current source checksum and new deployment ID/source readback",
+    "Inspect startup installed/audit events without dumping configuration secrets",
+    "GET /v2/independent74/health must report72models,existing-wallet,acceptingfalse",
+    "Verify unsigned player state/history/action reject401; no player wager test",
+    "Preserve and check existing legacy health/routes",
+    "Verify Cloudflare real-account gateway uses existing authenticated cookie/signedtransport",
+    "Activate only separately audited game policy and reviewed IDs within existing account/house constraints"
+  ],
+  "rollback": {
+    "method": "Restore the exact previous97161bytefunction source from /workspace/work/backend-current.mjs; source SHAfde7296ab6fe6f9cc8b32cec989a2c6f4c6e8f28c1dfb8dbdfd0883464135bcb",
+    "databases": "No migrations,no newfinancialtables,no balance changes; existing acceptedroundevaluators remain with retainedservice"
+  },
+  "secrets": "Current production bootstrap/candidate are private intermediate files outsideGit. Only code generator,manifest and safe evidence belong inGit.",
+  "supersededReason": "Latest user requires actual existing New Multi Hot 5/Foxy Hot 20 backend. Tracing identified superwin-nine-slot-engine; the native-family target below is a different service. Automatic approval review rejected the attempted live financial source update; no mutation succeeded.",
+  "reviewRejection": "Large unreviewed live financial replacement could enable ETB wagering before actual account, house reserve and provider parity limits were verified.",
+  "currentPlan": {
+    "target": "Existing protected superwin-nine-slot-engine, same accounts and wallet",
+    "candidate": "server/protected74-review.mjs",
+    "mode": "offline review only; no new wallet or financial service",
+    "missingCatalogueIdentities": 64,
+    "existingUniqueCatalogueIdentities": 10,
+    "requiredProofs": [
+      "Same actual protected database identity/schema",
+      "Existing initialized financial service and verified session resolver",
+      "Reciprocal legacy/new admission locking and current caps/funding",
+      "Reference evidence and explicit per-game limits"
+    ],
+    "liveUpdateAuthorizedByThisFile": false
+  }
+}

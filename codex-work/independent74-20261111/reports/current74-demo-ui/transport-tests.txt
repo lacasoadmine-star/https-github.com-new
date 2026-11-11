@@ -1,0 +1,21 @@
+✔ snapshot rejects another account currency, game, numeric money and malformed round (6.302989ms)
+✔ account client uses configured server limits including stakes above 40000 ETB before transport (132.96495ms)
+✔ uncertain action survives reload and retries exactly the original request identity (2.354725ms)
+✔ a changed login never replays a different session pending wager (0.764486ms)
+✔ pending request in a different game remains available until that same game is selected (1.449074ms)
+✔ duplicate clicks are blocked while the first request is awaiting confirmation (1.391252ms)
+✔ known rejection clears pending but a malformed success retains it (2.730495ms)
+✔ active round action uses its original model version and optimistic version (2.152587ms)
+✔ stale read cannot replace a newer account state (0.504757ms)
+✔ demo and ETB snapshots require the explicitly selected currency and mode (1.656661ms)
+✔ demo transport uses only the demo endpoint and guard header, and cannot change modes in place (76.903705ms)
+✔ demo retries cannot restore a real-wallet pending action even with a matching guard (10.439568ms)
+✔ demo history rejects ETB history and a switched-currency action remains unconfirmed (1.737348ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 428.534408

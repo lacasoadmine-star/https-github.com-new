@@ -77,15 +77,15 @@ test('boundedWebCrypto integer RNG provides valid safe outputs and rejects inval
  for(let i=0;i<10;i++){const n=secureUnitRandom();assert(n>=0&&n<1);}
  for(const args of [[0],[-1],[1.5],[2,1]])assert.throws(()=>randomInt(...args));
 });
-test('expired unplayedmine refunds freecredits once and storedrequest replay cannot refund twice',async()=>{
- const h=harness(),game=demo74Catalog().games.find(g=>g.family==='mines'),body=action(game,{stake:'20.00'});
+test('expired earnedladder pays freecredit award once and storedrequest replay cannot pay twice',async()=>{
+ const h=harness(),game=demo74Catalog().games.find(g=>g.family==='ladder'),body=action(game,{stake:'20.00'});
  const start=await h.request('action',body);assert.equal(start.data.balance,'9980.00');assert.equal(start.data.round.status,'active');
- h.advance(86400000);const recovered=await h.request('state',null,game.id);assert.equal(recovered.status,200);assert.equal(recovered.data.round.status,'settled');assert.equal(recovered.data.balance,'10000.00');
- const replay=await h.request('action',body);assert.equal(replay.status,200);assert.equal(replay.data.replayed,true);assert.equal(replay.data.current_balance,'10000.00');
- assert.equal((await h.request('state',null,game.id)).data.balance,'10000.00');
+ h.advance(86400000);const recovered=await h.request('state',null,game.id);assert.equal(recovered.status,200);assert.equal(recovered.data.round.status,'settled');const earned=BigInt(start.data.round.collectibleMinor);assert.equal(BigInt(recovered.data.balance.replace('.','')),998000n+earned);
+ const replay=await h.request('action',body);assert.equal(replay.status,200);assert.equal(replay.data.replayed,true);assert.equal(replay.data.current_balance,recovered.data.balance);
+ assert.equal((await h.request('state',null,game.id)).data.balance,recovered.data.balance);
 });
 test('independent sessioncontexts never share democredits,requests or active round ownership',async()=>{
- const a=harness(),b=harness(),game=demo74Catalog().games.find(g=>g.family==='mines'),body=action(game,{stake:'20.00'});
+ const a=harness(),b=harness(),game=demo74Catalog().games.find(g=>g.family==='ladder'),body=action(game,{stake:'20.00'});
  const accepted=await a.request('action',body);assert.equal(accepted.status,200);
  const state=await b.request('state',null,game.id);assert.equal(state.data.balance,'10000.00');assert.equal(state.data.round,null);
  const foreign=await b.request('action',commands(accepted.data.round,'reveal',{cell:1}));assert.equal(foreign.status,404);

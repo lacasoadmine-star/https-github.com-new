@@ -1,0 +1,39 @@
+{
+  "scope": "Requested74entry PlayNowETB +PlayDemo",
+  "entries": 74,
+  "internalFreeCreditGames": 72,
+  "protectedOfficialDemoGames": 2,
+  "realWalletGamesEnabledByThisChange": 0,
+  "entry": "/independent74/compare74.html",
+  "demoExample": "/independent74/machines74.html?mode=demo#ind74_official_rollx",
+  "protectedRealRoutes": {
+    "MultiHot5": "/games/multi_hot_5_video",
+    "FoxyHot20": "/games/hot_foxy_20"
+  },
+  "clientModeIsolation": [
+    "Mode is explicitlyselectedfrom?mode=demo; accountdefault remainsETB.",
+    "DemoAPI only /independent74/demo-api; separate pending idempotency storagekey and demo sessionguard header.",
+    "Client requiresDEMOcurrency+mode=demo fordemo snapshots/history; rejects realETB response inDemo or DEMO response inaccount.",
+    "Transport mode/base/currency are immutable for the client lifetime.",
+    "Balance,stake,win,history and rules labels useDEMO; internal demo is freecreditserverauthority, no localwallet balance."
+  ],
+  "validation": {
+    "nodeFocusedTests": 106,
+    "failed": 0,
+    "nodeLog": "reports/current74-demo-ui/focused-tests.txt",
+    "browserReport": "reports/current74-demo-ui/report.json",
+    "browser": "ActualChromium +actualdemo74server transactional isolatedstorage; gallery/mobile/dialvisible,server1.00DEMOround,repeatedSTOPoneaction,reload/history,0accountrequests.",
+    "widths": [
+      360,
+      390,
+      430,
+      1280
+    ]
+  },
+  "remaining": [
+    "Root must integrate gateway/sessionrouting and deploy/verify live.",
+    "Fullofficial provider parity and real72account financialreview are separate pendingwork."
+  ],
+  "deploymentPerformedByThisTask": false,
+  "playerWalletMutations": 0
+}

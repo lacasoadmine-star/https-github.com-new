@@ -1,0 +1,105 @@
+{
+  "gameId": "ind74_official_foxyhot20",
+  "title": "Foxy Hot 20",
+  "officialUrl": "https://www.smartsoftgaming.com/games/foxy-hot-20",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1154
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      540,
+      755,
+      970,
+      1185,
+      1400
+    ],
+    "yPositions": [
+      261,
+      491,
+      721
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "paylines": 20
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_foxyhot20-initial.png",
+    "sha256": "15a0ff5c2e818c520c694fa0620cea91c6ea570cdfb9b3d13c744fa67f3aa6b8"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.20 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_foxyhot20-turbo-prompt.png",
+      "sha256": "906912f70b1fb78632a6d62f76b11549c6ce6fe31dc5e38831668505a6204799"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_foxyhot20-turbo-state.png",
+      "sha256": "4d26d4967add0ac6bc0a6015b61c2bfce1f313ba9b1153a59858169da323ba1a"
+    }
+  },
+  "bet": {
+    "before": "0.20",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_foxyhot20-bet-confirmed.png",
+      "sha256": "20a12787a9dbdc5da47ce025bb243dbb12e0d46d1a932c83878ffb23829ac16f"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/FoxyHot20.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_foxyhot20-official-help.html",
+      "sha256": "e345637bba96a77ffea52db09462ee44fbb114580d189d5d19078a4dbe321b3d",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

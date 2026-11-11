@@ -1,0 +1,78 @@
+{
+  "capturedAt": "2026-11-11T06:11:33.424Z",
+  "sourceType": "official-public-pages",
+  "sources": [
+    {
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+      "htmlSha256": "ac229d95e1b6350402b138f8598305f130defaea19cd8ae3440c5352b6ef9419"
+    },
+    {
+      "url": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+      "htmlSha256": "d369a53098bcebbb3c12f4f07121639b6a08c66a636e177b34ec3aca36cd0e60"
+    },
+    {
+      "url": "https://www.smartsoftgaming.com/games/dice-jungle",
+      "htmlSha256": "2fdeaa6d28cf954487dc81ae0c77c622eed54e1dbb0d613b77217ea63241f029"
+    }
+  ],
+  "changes": [
+    {
+      "games": [
+        "Multi Hot 5 Wild",
+        "Multi Hot 5 Burn Wilds"
+      ],
+      "feature": "Optional held award red/black X2 or collect; no additional stake",
+      "evidence": "Both public pages explicitly offer doubling a winning award by guessing a flashing card color, or collecting.",
+      "versions": [
+        "official72-multihot5wild-r5",
+        "official72-multihot5burnwilds-r4"
+      ],
+      "operatorChoices": [
+        "Fair red/black outcomes",
+        "Three-attempt cap",
+        "Pre-spin holdWin option"
+      ],
+      "liability": "Reserve complete bounded8× chain before admission using existing retained account/house checks; exact integer units."
+    },
+    {
+      "game": "Dice Jungle",
+      "feature": "Public geometry provenance5columns×3rows",
+      "evidence": "The page explicitly describes5x3 twice and the horizontal multiplier above the dice grid."
+    }
+  ],
+  "conflictsPreserved": [
+    "Genies Bonanza intro six-reel vs specifications five reels and six rows",
+    "Hot Samba intro5reels/20lines vs specification3reels/5lines",
+    "Multi Hot Ways page describes Burning Ice40",
+    "Samurai page names Samurai Deluxe"
+  ],
+  "validation": {
+    "command": "node --test tests/public-gamble.test.mjs tests/math-public-mechanics.test.mjs tests/math-official72-audit.test.mjs",
+    "tests": 26,
+    "pass": 26,
+    "fail": 0,
+    "log": "reports/current74-rules-tests.txt"
+  },
+  "officialRoundsPlayed": 0,
+  "productionWrites": 0,
+  "fullReferenceParityVerified": false,
+  "retainedLedgerValidation": {
+    "command": "node --test server/tests/public-gamble-ledger.test.mjs",
+    "tests": 3,
+    "pass": 3,
+    "fail": 0,
+    "log": "reports/current74-rules-ledger-tests.txt",
+    "coverage": [
+      "20ETB one-original-debit per title",
+      "6 concurrent identical gamble requests produce5 replays",
+      "one settlement payout",
+      "collect replay pays no extra",
+      "full per-round reserve release",
+      "balanced transfer legs",
+      "conserved total wallet value"
+    ],
+    "limitations": [
+      "Disposable PGlite fixture has one connection; production multi-process contention remains unverified."
+    ]
+  }
+}

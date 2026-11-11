@@ -9,14 +9,13 @@
     "models": 72,
     "families": {
       "crash": 13,
-      "ladder": 9,
+      "ladder": 10,
       "plinko": 3,
       "slots": 40,
       "wheel": 5,
-      "mines": 1,
       "dice": 1
     },
-    "observedGeometry": 17
+    "observedGeometry": 21
   },
   "games": [
     {
@@ -65,16 +64,31 @@
       "family": "ladder",
       "mathVersion": "official72-mineisland2-r2",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence/mineisland2-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official MineIsland2 EASY demo shows ten ascending platforms from 1.1x to 100x. PLAY resolves a first jump; a successful first step can COLLECT 1.10 DMO from a 1.00 DMO stake."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Medium and hard multipliers, boost/portal mechanics and survival probabilities remain independently authored or unverified."
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": true,
+        "observedDefaultMultipliersBps": [
+          11000,
+          12000,
+          15000,
+          20000,
+          30000,
+          50000,
+          100000,
+          200000,
+          500000,
+          1000000
+        ],
         "modes": [
           "easy",
           "medium",
@@ -296,41 +310,51 @@
       "id": "ind74_official_poweroftiger",
       "title": "Power of Tiger",
       "family": "slots",
-      "mathVersion": "official72-poweroftiger-r3",
+      "mathVersion": "official72-poweroftiger-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official DEMO shows a3-by-3 grid and a top20X sign. Five completed returned public results contain9symbols each. The public page lists5active paylines."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The20X sign alone does not establish a feature trigger or probability. The conditional multiplier and respin structure come from the separate official public rules.",
+          "The line chart, symbol prizes, probabilities, initial respin holds and base-plus-feature aggregation remain independent or unverified."
         ],
         "kind": "reels",
         "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "placement": "top-arc",
+          "observedValues": [
+            20
+          ],
+          "implementedValues": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "calculationImplemented": true,
+          "condition": "identical-full-board-or-all-five-lines-win",
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31176",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "118100",
-          "maximumStakeMaximumPayoutMinor": "999999999994800"
+          "minimumStakeMaximumPayoutMinor": "168000",
+          "maximumStakeMaximumPayoutMinor": "999999999936000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -484,6 +508,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -638,6 +664,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -756,6 +784,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -880,7 +910,7 @@
       "id": "ind74_official_coinsofatlantis",
       "title": "Coins Of Atlantis",
       "family": "slots",
-      "mathVersion": "official72-coinsofatlantis-r2",
+      "mathVersion": "official72-coinsofatlantis-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -897,18 +927,19 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31280",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
@@ -992,41 +1023,57 @@
       "id": "ind74_official_multihotwildways",
       "title": "Multi Hot Wild Ways",
       "family": "slots",
-      "mathVersion": "official72-multihotwildways-r2",
+      "mathVersion": "official72-multihotwildways-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The initial official DEMO screen shows3reels,3rows,27WAYS and a left multiplier reel. Twenty returned public result grids contain9symbols each; result factors1x,2x,3x,4x,5x were recorded."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Provider LinePlay1 is a betting field, not a payline count.",
+          "The provider symbol-ID mapping, award basis, probabilities and full bonus behavior remain unverified.27-way allocation and awards are independently authored."
         ],
         "kind": "reels",
         "rows": 3,
-        "columns": 5,
-        "paylines": 20,
+        "columns": 3,
+        "paylines": null,
         "paylinesVerified": false,
+        "ways": 27,
+        "waysCountVerified": true,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31296",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "109100",
-          "maximumStakeMaximumPayoutMinor": "999999999953100"
+          "minimumStakeMaximumPayoutMinor": "20385",
+          "maximumStakeMaximumPayoutMinor": "999999999981990"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1048,6 +1095,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -1117,7 +1166,7 @@
       },
       "independentReturn": {
         "verified": false,
-        "description": "Independent expanding-wild model; aggregate return is not certified or inferred from the provider."
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
@@ -1154,6 +1203,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -1273,6 +1324,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -1333,7 +1386,7 @@
       "id": "ind74_official_jinglebellbonanza",
       "title": "Jingle Bell Bonanza",
       "family": "slots",
-      "mathVersion": "official72-jinglebellbonanza-r2",
+      "mathVersion": "official72-jinglebellbonanza-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -1350,24 +1403,29 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31360",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "128100",
-          "maximumStakeMaximumPayoutMinor": "999999999996900"
+          "minimumStakeMaximumPayoutMinor": "640500",
+          "maximumStakeMaximumPayoutMinor": "999999999484500"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1435,6 +1493,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -1580,35 +1640,52 @@
     {
       "id": "ind74_official_mineisland",
       "title": "Mine Island",
-      "family": "mines",
-      "mathVersion": "official72-mineisland-r2",
+      "family": "ladder",
+      "mathVersion": "official72-mineisland-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        "observedFacts": [
+          "The official MineIsland demo shows ten ascending platforms from 1.1x to 100x, an ocean, kangaroo and TNT barrels. A first PLAY attempt was observed to lose and return to PLAY."
         ],
-        "kind": "mine-board",
-        "rows": 5,
-        "columns": 5,
-        "cells": 25,
-        "mines": 4,
-        "maximumSafePicks": 5
+        "limitations": [
+          "The marketing page instead describes a rectangular tile/mines game; this conflict is unresolved.",
+          "Original-demo continuation controls, provider survival probabilities, rare features, exact artwork and audio remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": true,
+        "observedDefaultMultipliersBps": [
+          11000,
+          12000,
+          15000,
+          20000,
+          30000,
+          50000,
+          100000,
+          200000,
+          500000,
+          1000000
+        ],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
       },
       "independentReturn": {
         "numerator": "96",
         "denominator": "100",
-        "type": "upper-bound-before-floor",
-        "proof": "Survival=C(21,k)/C(25,k).Multiplythisbyflooredpayouttocomputeexactbetreturn;nominalupperbound96%."
+        "description": "Independent authored survival model. This is not a provider RTP claim."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "250",
-          "maximumStakeMaximumPayoutMinor": "999999999999920"
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "10000",
+          "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2173,7 +2250,7 @@
       "id": "ind74_official_farmsfortune",
       "title": "Farm's Fortune",
       "family": "slots",
-      "mathVersion": "official72-farmsfortune-r2",
+      "mathVersion": "official72-farmsfortune-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2190,24 +2267,29 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31544",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "138100",
-          "maximumStakeMaximumPayoutMinor": "999999999969600"
+          "minimumStakeMaximumPayoutMinor": "690500",
+          "maximumStakeMaximumPayoutMinor": "999999999831500"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2343,6 +2425,8 @@
         ],
         "kind": "ladder",
         "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
         "modes": [
           "easy"
         ],
@@ -3644,5 +3728,5 @@
     ],
     "source": "Revised user instruction: low initial/test presets 1–20 ETB; game max and payout policy must come from verified server configuration. Model maxima are derived from retained 15-digit storage and worst-case multiplier; retained account and funded house checks remain authoritative. Live policy is not verified."
   },
-  "generatedAt": "2026-11-11T06:11:33.415Z"
+  "generatedAt": "2026-11-11T08:04:38.219Z"
 }

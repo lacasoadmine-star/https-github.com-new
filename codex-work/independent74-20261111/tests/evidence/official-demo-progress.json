@@ -1,20 +1,27 @@
 {
-  "schemaVersion": 1,
-  "updatedAt": "2026-11-11T06:45:25.037Z",
+  "schemaVersion": 2,
+  "updatedAt": "2026-11-11T08:10:30.775Z",
   "requestedTotal": 1480,
   "interpretation": "20-completed-rounds-per-title-preserve-historical-counts",
   "targetPerGame": 20,
-  "revisionReason": "Latest user instruction replaces the former 10,000-total plan; no new rounds for titles already at or above 20.",
-  "verifiedCompletedRounds": 312,
-  "gamesWithVerifiedRounds": 9,
-  "gamesMeetingTarget": 9,
-  "remainingRequiredRounds": 1300,
-  "creditedTowardTarget": 180,
+  "revisionReason": "Latest user instruction replaces the former10,000-total plan. Do not schedule further rounds for any title already at20. Historical discoveries and all genuine fresh rounds are retained.",
+  "dedupePolicy": "Distinct provider session+completed counter/round ID, explicit observation keys or identical retained screenshot/result records count once. Local evaluations and unresolved historical claims are excluded.",
+  "verifiedCompletedRounds": 775,
+  "reportedCompletedRounds": 775,
+  "duplicateIdentitiesExcluded": 0,
+  "historicalImportedCompletedRounds": 242,
+  "gamesWithVerifiedRounds": 24,
+  "gamesMeetingTarget": 23,
+  "remainingRequiredRounds": 1019,
+  "creditedTowardTarget": 461,
   "countsExclude": [
     "unconfirmed-autoplay-batches",
+    "clicks-or-debits-only",
     "local-simulations",
     "unit-tests",
-    "ledger-fixture-rounds"
+    "ledger-fixture-rounds",
+    "duplicate-provider-round-identities",
+    "unresolved-historical-overlap"
   ],
   "games": [
     {
@@ -25,9 +32,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -38,12 +49,24 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland2&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-mine20.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-mine20.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_neweraofjetx",
@@ -53,9 +76,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -66,9 +93,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=BalloonX&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -79,12 +110,24 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 152,
+      "reportedCompletedRounds": 152,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-root.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-root.json",
+          "reportedCompletedRounds": 152,
+          "uniqueCompletedRoundsAdded": 152,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_propelx",
@@ -94,9 +137,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PropelX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -107,9 +154,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WorldChampionX&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -119,11 +170,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/power-of-tiger",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multifruitschargingwilds",
@@ -132,11 +197,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_gemscrownchargingwilds",
@@ -145,11 +224,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_gatesofmerlyn",
@@ -159,9 +252,23 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -172,9 +279,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=Chickenways&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -185,9 +296,23 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -198,13 +323,32 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-frontend.json",
         "official-demo-observations-slots20.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-frontend.json",
+          "reportedCompletedRounds": 10,
+          "uniqueCompletedRoundsAdded": 10,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20.json",
+          "reportedCompletedRounds": 10,
+          "uniqueCompletedRoundsAdded": 10,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_cheesyroad",
@@ -214,9 +358,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoad&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -227,10 +375,22 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [
         "official-demo-observations-math.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-math.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
       ],
       "status": "not-yet-play-verified"
     },
@@ -242,12 +402,24 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-slots20.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_cheesyroadclassic",
@@ -257,9 +429,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoadClassic&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -269,11 +445,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multihot40",
@@ -283,12 +473,24 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-slots20.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_coinsofatlantis",
@@ -298,9 +500,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -310,13 +516,33 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-100",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 20,
+      "verifiedCompletedRounds": 50,
+      "reportedCompletedRounds": 50,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 30,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
+        "official-demo-observations-historical-import.json",
         "official-demo-observations-slots20.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-historical-import.json",
+          "reportedCompletedRounds": 30,
+          "uniqueCompletedRoundsAdded": 30,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": true
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multihotwildways",
@@ -325,11 +551,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_bottlemania",
@@ -339,9 +579,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -352,13 +596,32 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-frontend.json",
         "official-demo-observations-slots20.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-frontend.json",
+          "reportedCompletedRounds": 1,
+          "uniqueCompletedRoundsAdded": 1,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20.json",
+          "reportedCompletedRounds": 19,
+          "uniqueCompletedRoundsAdded": 19,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_chickenhighway",
@@ -367,11 +630,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/chicken-highway",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
+      "verifiedCompletedRounds": 1,
+      "reportedCompletedRounds": 1,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 19,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "evidenceFiles": [
+        "official-demo-observations-nonslots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-nonslots20-remaining.json",
+          "reportedCompletedRounds": 1,
+          "uniqueCompletedRoundsAdded": 1,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "observed-rounds-below-target"
     },
     {
       "gameId": "ind74_official_multihot5deluxe",
@@ -380,11 +657,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_carx",
@@ -394,9 +685,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -407,9 +702,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CaiBalaoCappadocia&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -420,9 +719,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -433,9 +736,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -445,11 +752,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_balloon",
@@ -459,9 +780,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=Balloon&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -472,13 +797,32 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-plinkox20.json",
         "official-demo-observations-root.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-plinkox20.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        },
+        {
+          "evidenceFile": "official-demo-observations-root.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_helicopterx",
@@ -488,9 +832,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=HelicopterX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -500,11 +848,33 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 115,
+      "reportedCompletedRounds": 115,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 115,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-historical-import.json",
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-historical-import.json",
+          "reportedCompletedRounds": 115,
+          "uniqueCompletedRoundsAdded": 115,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": true
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_safarisimba",
@@ -514,9 +884,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -526,11 +900,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/mine-island",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-nonslots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-nonslots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multihotways",
@@ -539,11 +927,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-ways",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_footballx",
@@ -553,9 +955,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FootballX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -565,11 +971,33 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/foxy-hot-20",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 62,
+      "reportedCompletedRounds": 62,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 42,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-historical-import.json",
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-historical-import.json",
+          "reportedCompletedRounds": 42,
+          "uniqueCompletedRoundsAdded": 42,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": true
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_burningice40",
@@ -578,11 +1006,33 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/burning-ice-40",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 25,
+      "reportedCompletedRounds": 25,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 25,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-historical-import.json",
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-historical-import.json",
+          "reportedCompletedRounds": 25,
+          "uniqueCompletedRoundsAdded": 25,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": true
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_mariachicoins",
@@ -592,9 +1042,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -604,11 +1058,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/hab",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_4bonusesbonanza",
@@ -618,9 +1086,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoJoker&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -631,9 +1103,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -644,9 +1120,23 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -657,9 +1147,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CricketerX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -670,9 +1164,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -682,11 +1180,25 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/wild-multi-stars",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "status": "not-yet-play-verified"
+      "verifiedCompletedRounds": 30,
+      "reportedCompletedRounds": 30,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 30,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-historical-import.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-historical-import.json",
+          "reportedCompletedRounds": 30,
+          "uniqueCompletedRoundsAdded": 30,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": true
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_crashduel",
@@ -696,9 +1208,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TugOfWar&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -709,9 +1225,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -722,9 +1242,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=BonusTime&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -735,9 +1259,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FarmsFortune&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -748,9 +1276,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MadSlot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -761,9 +1293,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=JetX3&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -774,9 +1310,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=SmashX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -787,9 +1327,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TowerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -800,9 +1344,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -813,9 +1361,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildsAndGods&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -826,9 +1378,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BaoSlot5X&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -839,9 +1395,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -852,9 +1412,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BokaJamba10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -865,9 +1429,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -878,9 +1446,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -891,9 +1463,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -904,9 +1480,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -917,9 +1497,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -930,9 +1514,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -943,9 +1531,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -956,9 +1548,23 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -969,13 +1575,32 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-current20.json",
         "official-demo-observations-math.json"
       ],
-      "status": "observed-rounds"
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-current20.json",
+          "reportedCompletedRounds": 19,
+          "uniqueCompletedRoundsAdded": 19,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        },
+        {
+          "evidenceFile": "official-demo-observations-math.json",
+          "reportedCompletedRounds": 1,
+          "uniqueCompletedRoundsAdded": 1,
+          "duplicateIdentitiesExcluded": 0,
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_doublex",
@@ -985,9 +1610,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     },
     {
@@ -998,9 +1627,13 @@
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
       "verifiedCompletedRounds": 0,
+      "reportedCompletedRounds": 0,
+      "duplicatesExcluded": 0,
+      "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [],
+      "evidenceCounts": [],
       "status": "not-yet-play-verified"
     }
   ]

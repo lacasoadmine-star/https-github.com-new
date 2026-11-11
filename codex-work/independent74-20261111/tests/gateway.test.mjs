@@ -94,3 +94,15 @@ test('isolated assets honor missing/HEAD/304 boundaries and CSP',async()=>{
   const page=await handler(new Request(ORIGIN+'/independent74/'),ENV,{});assert.ok(page.headers.get('content-security-policy').includes("connect-src 'self'"));
   const post=await handler(new Request(ORIGIN+'/independent74/app.mjs',{method:'POST'}),ENV,{});assert.equal(post.status,405);
 });
+
+test('homepage enhancement preserves account headers and restricts the added image source',async()=>{
+  const html='<!doctype html><html><head></head><body><div id="root">Existing account and navigation</div></body></html>';
+  const policy="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src 'none'; form-action 'self'";
+  const previous={fetch:async()=>new Response(html,{headers:{'content-type':'text/html','content-security-policy':policy,'set-cookie':'retained-account=test; HttpOnly; Secure','etag':'old-page'}})};
+  const handler=createGateway({previous,homeEnhancement:true});
+  const response=await handler(new Request(ORIGIN+'/'),ENV,{}),body=await response.text();
+  assert.ok(body.includes('Existing account and navigation'));assert.equal(body.split('/independent74/lobby74.mjs').length,2);assert.equal(body.split('/independent74/lobby74.css').length,2);
+  assert.equal(response.headers.get('set-cookie'),'retained-account=test; HttpOnly; Secure');assert.equal(response.headers.get('etag'),null);
+  assert.equal(response.headers.get('content-security-policy'),policy.replace("img-src 'self' data:","img-src 'self' data: https://cdn.prod.website-files.com"));
+  const other=await handler(new Request(ORIGIN+'/games/retained'),ENV,{});assert.equal(await other.text(),html);assert.equal(other.headers.get('content-security-policy'),policy);
+});

@@ -93,7 +93,10 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": false,
+      "additionalEvidence": [
+        "reports/current74-evidence/mineisland2-initial.png"
+      ]
     },
     {
       "id": "ind74_official_neweraofjetx",
@@ -298,7 +301,10 @@
       "sourceUrl": "https://www.smartsoftgaming.com/games/power-of-tiger",
       "sourceAccess": "official-public-page",
       "sourceReadDate": "2026-11-11",
-      "publicGeometry": null,
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
       "publicPaylineCounts": [
         5
       ],
@@ -314,21 +320,37 @@
       "advertisedMaximumMultiplier": 2500,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-poweroftiger-r3",
+        "mathVersion": "official72-poweroftiger-r4",
         "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 11810000,
+        "maximumMultiplierBps": 16800000,
         "independentModel": true
       },
-      "implementedPublicFeatureSubset": [],
-      "unimplementedOrUnverifiedPublicFeatures": [
+      "implementedPublicFeatureSubset": [
         "wild-symbol",
-        "respin"
+        "conditional-base-multiplier",
+        "locked-symbol-respin"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "provider-initial-respin-holds",
+        "provider-base-feature-award-aggregation",
+        "provider-full-board-wild-multiplier-condition"
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": true,
+      "additionalEvidence": [
+        "tests/evidence/official-demo-observations-slots20-remaining.json",
+        "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-initial.png",
+        "reports/current74-evidence-slots-remaining/poweroftiger-official-help-en.json"
+      ],
+      "independentImplementationLimits": [
+        "Symbol awards, five-line chart and probabilities remain independently authored.",
+        "The independent respin begins blank and adds only the final feature-board award to the retained base award; provider initial carryover and aggregation remain unverified.",
+        "The English Help is ambiguous about wilds counting toward the final full-board multiplier; this implementation counts them.",
+        "One server spin settles all frames with one original stake and one final payout."
+      ]
     },
     {
       "id": "ind74_official_multifruitschargingwilds",
@@ -826,17 +848,18 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-coinsofatlantis-r2",
+        "mathVersion": "official72-coinsofatlantis-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 5,
         "maximumMultiplierBps": 12990000,
         "independentModel": true
       },
-      "implementedPublicFeatureSubset": [],
-      "unimplementedOrUnverifiedPublicFeatures": [
+      "implementedPublicFeatureSubset": [
         "wild-symbol",
-        "expanding-wild",
+        "expanding-wild"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
         "bonus-purchase",
         "respin",
         "multiplayer",
@@ -844,7 +867,10 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": false,
+      "independentImplementationLimits": [
+        "The implementation expands initially contributing wilds once; repeated provider expansion order is unverified. Symbol awards, paylines and probabilities are independently authored."
+      ]
     },
     {
       "id": "ind74_official_multihot100",
@@ -892,7 +918,10 @@
       "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
       "sourceAccess": "official-public-page",
       "sourceReadDate": "2026-11-11",
-      "publicGeometry": null,
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
       "publicPaylineCounts": [],
       "publicFeatures": [
         "wild-symbol",
@@ -905,21 +934,33 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihotwildways-r2",
+        "mathVersion": "official72-multihotwildways-r3",
         "rows": 3,
-        "columns": 5,
-        "paylines": 20,
-        "maximumMultiplierBps": 10910000,
+        "columns": 3,
+        "paylines": null,
+        "ways": 27,
+        "maximumMultiplierBps": 2050000,
         "independentModel": true
       },
-      "implementedPublicFeatureSubset": [],
-      "unimplementedOrUnverifiedPublicFeatures": [
+      "implementedPublicFeatureSubset": [
+        "27-ways",
         "wild-symbol",
         "extra-multiplier"
       ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": true,
+      "publicWaysCount": 27,
+      "independentImplementationLimits": [
+        "The provider LinePlay1 field is not a payline count.",
+        "The implementation enumerates all27row combinations with authored prizes and total-stake/27 allocation; complete provider award basis, symbol-ID mapping, all-wild treatment and probabilities are unverified."
+      ],
+      "additionalEvidence": [
+        "tests/evidence/official-demo-observations-slots20-remaining.json",
+        "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-initial.png",
+        "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-official-help.html"
+      ]
     },
     {
       "id": "ind74_official_bottlemania",
@@ -1200,22 +1241,28 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-jinglebellbonanza-r2",
+        "mathVersion": "official72-jinglebellbonanza-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 12810000,
+        "maximumMultiplierBps": 64050000,
         "independentModel": true
       },
-      "implementedPublicFeatureSubset": [],
-      "unimplementedOrUnverifiedPublicFeatures": [
+      "implementedPublicFeatureSubset": [
         "wild-symbol",
-        "scatter",
+        "expanding-wild",
         "extra-multiplier"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "scatter"
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": false,
+      "independentImplementationLimits": [
+        "The implementation expands initially contributing wilds once; repeated provider expansion order is unverified. Symbol awards, paylines and probabilities are independently authored.",
+        "The public maximum wheel factor is5x; this independent implementation uses equally likely1x through5x. Exact provider labels and distribution remain unverified."
+      ]
     },
     {
       "id": "ind74_official_multihot5superwilds",
@@ -1402,28 +1449,59 @@
       "sourceUrl": "https://www.smartsoftgaming.com/games/mine-island",
       "sourceAccess": "official-public-page",
       "sourceReadDate": "2026-11-11",
-      "publicGeometry": null,
+      "publicGeometry": {
+        "kind": "ascending-island-ladder",
+        "steps": 10,
+        "observedMultipliersBps": [
+          11000,
+          12000,
+          15000,
+          20000,
+          30000,
+          50000,
+          100000,
+          200000,
+          500000,
+          1000000
+        ]
+      },
       "publicPaylineCounts": [],
       "publicFeatures": [],
       "publicRulesSummary": [
-        "A grid-based pick game reveals multipliers while avoiding mines. The page does not specify exact dimensions or award probabilities."
+        "The official public marketing page describes tiles and mines. Its linked MineIsland launcher instead shows ten ascending island platforms over an ocean, a kangaroo and TNT barrels.",
+        "Visible platforms show1.1x,1.2x,1.5x,2x,3x,5x,10x,20x,50x,100x. A firstPLAY attempt at1DMO was observed to lose and return toPLAY; later continuation controls are unverified."
       ],
-      "sourceConflicts": [],
+      "sourceConflicts": [
+        "Official marketing describes a rectangular tile/mines game while the linked official MineIsland demo shows an ascending-platform ladder. Full title/rule equivalence is unresolved."
+      ],
       "advertisedMaximumMultiplier": null,
       "currentModel": {
-        "family": "mines",
-        "mathVersion": "official72-mineisland-r2",
-        "rows": 5,
-        "columns": 5,
+        "family": "ladder",
+        "mathVersion": "official72-mineisland-r3",
+        "rows": null,
+        "columns": null,
         "paylines": null,
-        "maximumMultiplierBps": 25065,
+        "maximumMultiplierBps": 1000000,
         "independentModel": true
       },
-      "implementedPublicFeatureSubset": [],
-      "unimplementedOrUnverifiedPublicFeatures": [],
+      "implementedPublicFeatureSubset": [
+        "observed-ten-platform-ladder",
+        "observed-visible-default-multipliers",
+        "possible-first-jump-loss"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "original-continuation-controls",
+        "provider-survival-probabilities",
+        "rare-features",
+        "exact-art-and-audio"
+      ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": true,
+      "additionalEvidence": [
+        "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
+        "reports/current74-evidence-nonslots/ind74_official_mineisland-round01.png"
+      ]
     },
     {
       "id": "ind74_official_multihotways",
@@ -1926,26 +2004,31 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-farmsfortune-r2",
+        "mathVersion": "official72-farmsfortune-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 10,
-        "maximumMultiplierBps": 13810000,
+        "maximumMultiplierBps": 69050000,
         "independentModel": true
       },
-      "implementedPublicFeatureSubset": [],
-      "unimplementedOrUnverifiedPublicFeatures": [
+      "implementedPublicFeatureSubset": [
         "wild-symbol",
         "expanding-wild",
+        "extra-multiplier"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
         "scatter",
         "bonus-purchase",
-        "extra-multiplier",
         "x2-gamble",
         "risk-mode-choice"
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": false,
+      "independentImplementationLimits": [
+        "The implementation expands initially contributing wilds once; repeated provider expansion order is unverified. Symbol awards, paylines and probabilities are independently authored.",
+        "The public maximum wheel factor is5x; this independent implementation uses equally likely1x through5x. Exact provider labels and distribution remain unverified."
+      ]
     },
     {
       "id": "ind74_official_madslot",

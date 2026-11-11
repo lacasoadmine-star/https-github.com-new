@@ -1,0 +1,47 @@
+{
+  "gameId": "ind74_official_rollx",
+  "baselineCommit": "f636b93dd38f59173587e3e36979deeb7595a422",
+  "officialReferenceJournal": "tests/evidence/official-demo-observations-current20.json",
+  "officialEvidence": [
+    "reports/current74-evidence/rollx-initial.png",
+    "tests/evidence/current20-rollx-01.png",
+    "tests/evidence/current20-rollx-02.png",
+    "tests/evidence/current20-rollx-04.png"
+  ],
+  "observed": {
+    "geometry": "Continuous green/black circular disk, fixed white top pointer, central WIN/WON or TRY AGAIN text. No numeric00\u201399 roll was displayed.",
+    "controls": "Multiplier adjustment slider displayed1.4; bet slider displayed0.2DMO; roundedgreenSPIN control; STOP during spin; sound/history/autoplay/turbo controls.",
+    "winExample": "0.2DMO stake returned0.28DMO at displayed1.4\u00d7.",
+    "officialRoundQuota": "Evidence agent reports20total verified rounds; this presentation task played no additional demo rounds."
+  },
+  "comparisonGapBefore": "Active RollX used generic numeric dice box and horizontal00\u201399 result track instead of observed dial.",
+  "implemented": [
+    "Title-specific original SVG green/black disk and fixed top pointer.",
+    "Central WON/TRY AGAIN labels and integer-formatted confirmed payout.",
+    "Disk spin animation; result labels hidden until reveal or STOP.",
+    "Previous angle set synchronously before first animation frame; unchanged supplied server outcome remains authoritative.",
+    "Other registered dice presentations retain generic dice renderer."
+  ],
+  "independentSemantics": {
+    "greenSector": "Existing independent server target /100 of circle.",
+    "rotation": "Existing server roll0\u201399 mapped to angle-(roll+0.5)\u00d73.6degrees.",
+    "providerEquivalence": false,
+    "reason": "The official UI did not reveal a numeric roll. Provider mapping from adjustable multiplier to sector/probabilities is not verified. Existing authored math and public target input remain unchanged; no1.4 multiplier is hardcoded."
+  },
+  "validation": {
+    "command": "node --test tests/machine74-renderer.test.mjs tests/machine74-plinko-presentation.test.mjs tests/machine74-rollx-presentation.test.mjs",
+    "passed": 93,
+    "failed": 0,
+    "evidence": "reports/current74-renderer-tests.txt",
+    "newCoverage": "All100 independent server rolls map to confirmed labels and immutable supplied outcome; ready and selected targets; invalid target rejection; original generic dice presentation retained."
+  },
+  "unknown": [
+    "Provider multiplier-to-green-sector and outcome probability mapping.",
+    "Exact official fonts, assets, timing, sounds and full visual parity.",
+    "Official multiplier slider semantics are not implemented; existing public integer target control remains."
+  ],
+  "newOfficialRoundsPerformed": 0,
+  "playerWalletMutations": 0,
+  "deploymentPerformedByThisTask": false,
+  "fullOfficialParityVerified": false
+}

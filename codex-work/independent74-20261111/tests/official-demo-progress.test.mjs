@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,writeFile,readFile,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+const run=promisify(execFile),script=new URL('./update-official-demo-progress.mjs',import.meta.url).pathname;
+const base={gameId:'ind74_official_multihot5',mode:'official-demo',demoUrl:'https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=MultiHot5&Token=DEMO'};
+const range=(session,end)=>({...base,verifiedCompletedRounds:end,providerRoundRanges:[{nativeSessionId:session,firstCompletedCounter:1,lastCompletedCounter:end}]});
+async function fixture(rows,fn){const dir=await mkdtemp(join(tmpdir(),'ind74-evidence-'));try{await Promise.all(rows.map((o,i)=>writeFile(join(dir,'official-demo-observations-'+i+'.json'),JSON.stringify({observations:[o]}))));const output=join(dir,'progress.json');return await fn(async()=>{await run(process.execPath,[script],{env:{...process.env,IND74_EVIDENCE_DIRECTORY:dir,IND74_PROGRESS_OUTPUT:output}});return JSON.parse(await readFile(output,'utf8'))})}finally{await rm(dir,{recursive:true,force:true})}}
+test('later counter snapshot extends the same provider session rather than adding snapshots',async()=>fixture([range('1954712061',30),range('1954712061',41)],async read=>{const p=await read(),g=p.games.find(g=>g.gameId===base.gameId);assert.equal(g.verifiedCompletedRounds,41);assert.equal(g.duplicatesExcluded,30);assert.equal(g.furtherRoundsAllowed,false);assert.equal(p.creditedTowardTarget,20)}));
+test('a genuinely different fresh session is added and historical extra rounds stay intact',async()=>fixture([range('1954712061',30),range('1965943025',20)],async read=>{const p=await read();assert.equal(p.verifiedCompletedRounds,50);assert.equal(p.duplicateIdentitiesExcluded,0);assert.equal(p.games.length,74);assert.equal(p.requestedTotal,1480)}));
+test('explicit per-round receipts do not duplicate an imported counter range',async()=>fixture([range('1954712061',30),{...base,verifiedCompletedRounds:20,rounds:Array.from({length:20},(_,i)=>({spinId:'1954712061.'+(i+1)}))}],async read=>{const p=await read();assert.equal(p.verifiedCompletedRounds,30);assert.equal(p.duplicateIdentitiesExcluded,20)}));
+test('a MultiHot5 provider URL cannot be assigned to the different MultiHot5Wild catalogue ID',async()=>fixture([{...range('1954712061',30),gameId:'ind74_official_multihot5wild'}],async read=>{await assert.rejects(read,/PROVIDER_IDENTITY_MISMATCH/)}));
+test('local fixture rows cannot count as official demo rounds',async()=>fixture([{...range('fixture',20),mode:'isolated-local-fixture'}],async read=>{await assert.rejects(read,/NON_OFFICIAL_OBSERVATION_MODE/)}));
+test('copied documentary completed batches add zero duplicate rounds',async()=>{const o={...base,verifiedCompletedRounds:152,countEvidence:'Two complete native batches100+50 plus2individual results',batches:[{count:100,at:'2026-11-11T05:21Z'},{count:50,at:'2026-11-11T05:23Z'}]};return fixture([o,{...o,importedAt:'a later editorial timestamp'}],async read=>{const p=await read();assert.equal(p.verifiedCompletedRounds,152);assert.equal(p.duplicateIdentitiesExcluded,152);assert.equal(p.remainingRequiredRounds,1460)})});

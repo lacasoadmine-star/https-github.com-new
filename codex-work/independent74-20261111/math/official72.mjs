@@ -17,6 +17,10 @@ import {startThreeReelSlot, startPublicWildSlot, holdSlotWin, gambleSlotWin, col
 import {configurePopxCascade,startPopxCascade,syncPopxCascade,collectPopxCascade,
   publicPopxCascade,validatePopxCascade} from './popx.mjs';
 import {configurePublicColorGamble} from './public-gamble.mjs';
+import {configurePublicSlotFeatures, PUBLIC_EXPANDING_WILD_IDS} from './public-slot-features.mjs';
+import {configureObservedWildWays,startObservedWildWays,OBSERVED_WILD_WAYS_ID} from './ways-slot.mjs';
+import {configurePowerOfTiger,startPowerOfTiger,validatePowerTigerRound,maximumPowerTigerPayout,
+  powerTigerMaximumMultiplierBps,POWER_TIGER_ID} from './power-of-tiger.mjs';
 
 const norm = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
 const models = originalModels();
@@ -28,10 +32,12 @@ const PLINKO_CLASSIC = 'ind74_official_plinkoxclassic';
 const WILD_THREE = 'ind74_official_multihot5wild';
 const BURN_WILDS = 'ind74_official_multihot5burnwilds';
 const GAMBLE_HUNDRED = 'ind74_official_multihot100';
-const THREE_REEL_TITLES=new Set(['Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X']);
+const MINE_ISLAND = 'ind74_official_mineisland';
+const THREE_REEL_TITLES=new Set(['Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X','Power of Tiger']);
 const VERIFIED_LINE_COUNTS=new Map([['Power of Tiger',5],['Gems Crown Charging Wilds',5],['Burning Ice',5],['Jungle Sisters Deluxe',20],['Sugar Fiesta',3]]);
 
 function maximumMultiplier(d) {
+  if(d.id===POWER_TIGER_ID)return powerTigerMaximumMultiplierBps(d);
   if (d.family === 'slots') return largestSymbolPrize(d) * largestWheel(d) * 10000 * (d.gamble?.enabled ? 2 ** d.gamble.maxRounds : 1);
   if (d.family === 'crash') return d.maxMultiplierBps;
   if (d.id === GAME_ID) return Math.max(...d.paytable.flatMap(table => table.rows.map(row => row.multiplierBps)));
@@ -58,6 +64,31 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
   d.implementationStatus = 'independent-model; full-reference-parity-and-production-ledger-unverified';
   d.limits = {minBetMinor: '100', maxBetMinor: '0', betStepMinor: '100', maxWinMinor: '0'};
 
+  if (d.id === MINE_ISLAND) {
+    // The actual MineIsland launcher is an ascending island ladder, not a
+    // rectangular mine-picker. Do not transfer geometry from a similar name.
+    d.family = 'ladder';
+    d.mathVersion = 'official72-mineisland-r3';
+    for (const key of ['rows','cols','cells','mines','maxPicks']) delete d[key];
+    d.modes = ['easy']; d.defaultMode = 'easy'; d.maxSteps = 10;
+    d.multipliersBps = [11000,12000,15000,20000,30000,50000,100000,200000,500000,1000000];
+    d.returnBps = 9600;
+    d.paytable = [{mode:'easy',rows:d.multipliersBps.map((multiplierBps,index)=>({step:index+1,multiplierBps}))}];
+    d.nominalReturn = {numerator:'96',denominator:'100',description:'Independent authored survival model. This is not a provider RTP claim.'};
+    d.rules = [
+      'The observed official Mine Island demo shows ten ascending island platforms labelled 1.1x, 1.2x, 1.5x, 2x, 3x, 5x, 10x, 20x, 50x and 100x.',
+      'Play debits one stake and resolves the first jump. The observed first attempt could lose. This independent continuation offers Jump to attempt the next platform or Collect to pay the confirmed current multiplier; the original demo continuation controls remain unverified.',
+      'The tenth successful jump collects at 100x. Winnings use integer minor units and round down after multiplication.',
+      'The server chooses the outcomes. This independent model uses a 9600/first-multiplier survival threshold, then the preceding multiplier divided by the next multiplier; those probabilities are operator choices and are not verified provider probabilities.',
+      'Selected visual cell numbers do not change the server result. No private RNG, rare provider bonus, artwork, audio or full reference equivalence is claimed.',
+      'Source conflict: the official marketing page describes a rectangular tile/mines game, while its linked MineIsland demo shows this ascending island ladder. The observed launcher geometry is used here; complete title/rule equivalence is not established.',
+    ];
+    d.provenance = {...d.provenance,
+      observed:'Official MineIsland launcher screenshot shows an ocean, kangaroo, TNT barrels and ten ascending island platforms; the first PLAY attempt was observed to lose and return to PLAY. Later continuation controls are unverified.',
+      geometrySource:'reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png',
+      designed:'Independent survival probabilities and server round transitions with observed ten-step visible multipliers. The previous rectangular mines model does not match this game.'};
+  }
+
   if(THREE_REEL_TITLES.has(entry.name)) {
     d.rows=3;d.cols=3;d.mathVersion='official72-'+norm(entry.name)+'-r3';
     d.paylines=[[1,1,1],[0,0,0],[2,2,2],[0,1,2],[2,1,0]];
@@ -68,6 +99,11 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
       'The complete provider paytable, paylines, bonus features and probabilities remain unverified. No provider return percentage is claimed.',
     ];
     d.provenance={...d.provenance,geometrySource:entry.officialUrl,designed:'Independent three-reel regular-symbol model with author-generated five paylines and symbol awards.'};
+    if(entry.name==='Power of Tiger') {
+      d.provenance.geometrySource='reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-initial.png';
+      d.provenance.observed='Five fresh official DEMO results contain nine symbols each, matching the rendered3-by-3 grid. The public page and result LinePlay field both specify five lines.';
+      d.rules.push('The observed20X sign is presentation evidence only. The advertised wild, locked-symbol respin and conditional5x/10x/15x/20x feature remain unimplemented; no trigger probabilities or active feature award are inferred from that sign.');
+    }
   }
   if(VERIFIED_LINE_COUNTS.has(entry.name)) {
     const count=VERIFIED_LINE_COUNTS.get(entry.name);
@@ -136,6 +172,9 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
       designed: three?'Observed nine regular-symbol awards and the Wild award; independently authored five-line chart and probabilities. The provider maximum-win coupling remains unresolved.'
         :'Independent symbol awards, five-line chart and probabilities; public geometry and wild rules implemented separately from those operator choices.'};
   }
+  if (d.id === POWER_TIGER_ID) configurePowerOfTiger(d);
+  if (d.id === OBSERVED_WILD_WAYS_ID) configureObservedWildWays(d);
+  if (PUBLIC_EXPANDING_WILD_IDS.includes(d.id)) configurePublicSlotFeatures(d);
   if ([WILD_THREE, BURN_WILDS].includes(d.id)) configurePublicColorGamble(d);
   if (d.id === GAMBLE_HUNDRED) {
     d.mathVersion = 'official72-' + norm(entry.name) + '-r3';
@@ -175,8 +214,8 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
       const weightedAwards = d.symbols.reduce((sum, symbol) => sum + BigInt(symbol.pays[3]) * (33n ** 3n - 1n), 0n) + BigInt(largestSymbolPrize(d));
       d.nominalReturn = {numerator: (weightedAwards * 15n).toString(), denominator: (BigInt(d.symbols.length*32+1) ** 3n * 5n).toString(),
         description: 'Independent three-reel weighted model, including the observed own prize for an all-wild line.', rounding: 'Before per-line minor-unit flooring.'};
-    } else if (d.id === BURN_WILDS) {
-      d.nominalReturn = {verified: false, description: 'Independent expanding-wild model; aggregate return is not certified or inferred from the provider.'};
+    } else if (d.wildSymbol) {
+      d.nominalReturn = {verified: false, description: 'Independent wild-bearing model; aggregate return is not certified or inferred from the provider.'};
     } else if(d.cols===3) {
       const wheel=d.multiplierValues??[1];
       d.nominalReturn={numerator:(d.symbols.reduce((sum,symbol)=>sum+BigInt(symbol.pays[3]),0n)*BigInt(wheel.reduce((a,b)=>a+b,0))).toString(),
@@ -260,6 +299,7 @@ function acceptedBet(d, betMinor, options = {}) {
 }
 
 function maximumFor(d, bet, options = {}) {
+  if(d.id===POWER_TIGER_ID)return maximumPowerTigerPayout(d,bet);
   // Per-line floors precede the wheel multiplier in the actual slot engine.
   // Reserving an unrelated global maximum needlessly rejects smaller wagers.
   if (d.family === 'slots') {
@@ -289,6 +329,7 @@ function checked(round) {
   if (d.family === 'dice') startOptions(d, options);
   if (BigInt(round.winMinor) > BigInt(maximumFor(d, round.betMinor, options))) error('INVALID_ROUND', 'Stored payout exceeds the accepted model bound.');
   if (d.family === 'slots') validateHeldSlot(d, round, maximumFor(d, round.betMinor));
+  if(d.id===POWER_TIGER_ID)validatePowerTigerRound(d,round);
   if (d.id === PLINKO_CLASSIC && (!d.ballMultipliers.includes(round.ballMultiplier) ||
       round.totalBetMinor !== round.betMinor || round.baseBetMinor !== round.betMinor ||
       round.outcome?.ballMultiplier !== round.ballMultiplier || round.outcome?.totalBetMinor !== round.betMinor ||
@@ -327,8 +368,9 @@ export function startRound({gameId, betMinor, options = {}, rng, now} = {}) {
   startOptions(initial, options);
   const d = get(gameId, options.mode);
   betMinor = acceptedBet(d, betMinor, options);
+  if(d.id===POWER_TIGER_ID)return result(startPowerOfTiger(d,{betMinor,rng}));
   if (d.family === 'slots') return result(holdSlotWin(d,
-    d.wildSymbol ? startPublicWildSlot(d, {betMinor, rng}) : d.cols===3 ? startThreeReelSlot(d,{betMinor,rng}) : startSlot(d, {betMinor, rng}), options.holdWin));
+    d.ways ? startObservedWildWays(d,{betMinor,rng}) : d.wildSymbol ? startPublicWildSlot(d, {betMinor, rng}) : d.cols===3 ? startThreeReelSlot(d,{betMinor,rng}) : startSlot(d, {betMinor, rng}), options.holdWin));
   if(d.crashMechanic==='cascade')return result(startPopxCascade(d,{betMinor,rng,now}));
   if (d.family === 'crash') return result(startCrash(d, {betMinor, rng, now}));
   if (d.family === 'ladder') return result({...startLadder(d, {betMinor, rng}), mode: options.mode ?? d.defaultMode ?? 'easy'});

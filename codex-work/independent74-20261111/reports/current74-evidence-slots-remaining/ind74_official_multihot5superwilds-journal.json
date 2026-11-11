@@ -1,0 +1,105 @@
+{
+  "gameId": "ind74_official_multihot5superwilds",
+  "title": "Multi Hot 5 Super Wilds",
+  "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      394,
+      610,
+      826,
+      1042,
+      1258
+    ],
+    "yPositions": [
+      209,
+      419,
+      629
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "paylines": 5
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5superwilds-initial.png",
+    "sha256": "446efee65491200b4f0db10dfb0945e59800cdc059e229487b0307a272e64943"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.10 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5superwilds-turbo-prompt.png",
+      "sha256": "cdfd247a139b6248f4b1ac69f5154c850f866193e72c0a9d512bbfffd2d989ed"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5superwilds-turbo-state.png",
+      "sha256": "0d1b8f227c71381407ded7536b520478c071f6e9dd719ea3eae8ea973b31c94f"
+    }
+  },
+  "bet": {
+    "before": "0.10",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5superwilds-bet-confirmed.png",
+      "sha256": "28f8c991481e7726babb8db2109cab62a6ece4bd84148773936150b191f1af40"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot5SuperWilds.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5superwilds-official-help.html",
+      "sha256": "b676c2b514e3a5bdf0d10c62d091efc15615fa5b86bb6670cfd75dde5d2aaf9c",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

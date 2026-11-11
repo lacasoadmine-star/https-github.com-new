@@ -1,0 +1,852 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-11",
+  "scope": "Read-only offline capability audit of EXACT currently deployed protected-game backend, not the unrelated native-family library. No network requests made during final capability audit.",
+  "service": {
+    "id": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+    "name": "superwin-nine-slot-engine",
+    "domain": "https://superwin-nine-slot-engine-staging.up.railway.app",
+    "decodedRuntimeSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91"
+  },
+  "methodPathAllowlist": [
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/games",
+      "normalizedServicePath": "/api/games",
+      "purpose": "Public list of registered13 slot model views"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/games/{gameId}",
+      "normalizedServicePath": "/api/games/{gameId}",
+      "purpose": "Public fixed registry model view; unknown IDs404"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/session",
+      "normalizedServicePath": "/api/session",
+      "purpose": "Authentication state"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/balance",
+      "normalizedServicePath": "/api/balance",
+      "purpose": "Authenticated canonical ETB balance"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/state/{gameId}",
+      "normalizedServicePath": "/api/state/{gameId}",
+      "purpose": "Existing slot free-spin/session state, not a generic new-game active state"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/rounds",
+      "normalizedServicePath": "/api/rounds",
+      "purpose": "Authenticated round receipts/history"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/rounds/{roundId}",
+      "normalizedServicePath": "/api/rounds/{roundId}",
+      "purpose": "Authenticated stored round receipt"
+    },
+    {
+      "method": "POST",
+      "playerPath": "/api/slots/spin",
+      "normalizedServicePath": "/api/spin",
+      "purpose": "Existing registered slot wager; NOT CALLED"
+    },
+    {
+      "method": "POST",
+      "playerPath": "/api/slots/gamble",
+      "normalizedServicePath": "/api/gamble",
+      "purpose": "Existing held-win gamble/collect; NOT CALLED"
+    },
+    {
+      "method": "POST",
+      "playerPath": "/api/slots/bonus/pick",
+      "normalizedServicePath": "/api/bonus/pick",
+      "purpose": "Existing pick bonus; NOT CALLED"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/originals/session",
+      "normalizedServicePath": "/api/originals/session",
+      "purpose": "Existing20 unrelated original games account state"
+    },
+    {
+      "method": "GET",
+      "playerPath": "/api/slots/originals/history",
+      "normalizedServicePath": "/api/originals/history",
+      "purpose": "History for20 unrelated original titles"
+    },
+    {
+      "method": "POST",
+      "playerPath": "/api/slots/originals/spin",
+      "normalizedServicePath": "/api/originals/spin",
+      "purpose": "Existing20 unrelated original slots; NOT CALLED"
+    }
+  ],
+  "health": {
+    "method": "GET observed; matching path handler itself has no method restriction",
+    "servicePath": "/health",
+    "readOnlyDatabaseCheck": "SELECT1 +Redis ping",
+    "modelCounts": {
+      "slots": 13,
+      "unrelatedOriginals": 20
+    }
+  },
+  "registrationCapability": {
+    "adminRegistrationEndpointFound": false,
+    "configurationWriteEndpointFound": false,
+    "putPatchGameRoutesFound": false,
+    "databaseLoadedGameDefinitionRegistryFound": false,
+    "modelUrlOrJsonEnvironmentOverrideFound": false,
+    "actualEnvironmentNames": [
+      "DATABASE_URL",
+      "REDIS_URL",
+      "PLAYER_ORIGIN",
+      "SLOT_ENGINE_ENABLED",
+      "PORT"
+    ],
+    "runtimeBuildInput": "Gzip-embedded math core/revised core; inline original-games module; fixed versioned dispatch selects newer math only for two explicitly named_native IDs.",
+    "unknownIdGate": "getGame(id): check(Object.hasOwn(MATH.games,id),UNKNOWN_GAME). API games lookup returns404 before a model can be used.",
+    "betGate": "spin(gameId,bet): requires exact membership in game.betLevels or global MATH.betLevels. Broad decimal parsing is NOT permission to exceed configured bets.",
+    "freezingBoundary": "Exported top-level MATH is Object.freeze(decoded); registry data is embedded and has no exposed write/configuration route. Object.freeze is shallow; this is a closed external API boundary, not a claim every nested object is recursively immutable.",
+    "conclusion": "No existing POST/admin/env registration mechanism can add the missing official IDs without a reviewed source/deployment extension to THIS existing service. No POST or variable/configuration change was attempted."
+  },
+  "supportedEvaluatorContract": {
+    "family": "Configured reel slots only in public13-model registry;20 unrelated original reel slots have separate fixed list.",
+    "requiredData": [
+      "id",
+      "name",
+      "theme",
+      "reels",
+      "rows",
+      "lineSet",
+      "reelStrips",
+      "paytable",
+      "wheel.values/weights",
+      "features",
+      "symbolsCodec or recipe",
+      "optional betLevels"
+    ],
+    "registeredReelShapes": [
+      "3reels×3rows",
+      "5reels×3rows",
+      "5reels×4rows"
+    ],
+    "implementedFeatureBranches": [
+      "paylines",
+      "multiplier wheel",
+      "configured free spins/retrigger",
+      "bounded cascades",
+      "wild stacks",
+      "configured jackpots",
+      "pick bonus",
+      "bounded gamble/collect"
+    ],
+    "coreMoneyRepresentation": "Integer4-decimal core units CASH_SCALE10000; financial account helpers use integer2-decimal wallet minor units. A new bridge must preserve explicit conversion/rounding; never copy the new72 cent units into core4-decimal fields blindly.",
+    "noGenericRegistrationFor": [
+      "timed crash",
+      "platform ladder",
+      "hidden tile mines",
+      "Plinko peg/bucket paths",
+      "other new-family active-state evaluators"
+    ],
+    "spinRequest": [
+      "gameId",
+      "bet decimal string",
+      "roundToken idempotency token"
+    ],
+    "authority": "Existing backend computes outcomes and owns canonical account authentication, wallet/house locks and ledger; browser-supplied outcomes or payouts are not accepted as new models."
+  },
+  "actual13ModelLimits": [
+    {
+      "id": "multi_hot_40",
+      "name": "Multi Hot 40",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 40,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 5000
+    },
+    {
+      "id": "multi_hot_5_super_wilds",
+      "name": "Multi Hot 5 Super Wilds",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 5,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 10000
+    },
+    {
+      "id": "burning_ice",
+      "name": "Burning Ice",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 5,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 3000
+    },
+    {
+      "id": "wild_multi_stars",
+      "name": "Wild Multi Stars",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 20,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 6000
+    },
+    {
+      "id": "safari_simba",
+      "name": "Safari Simba",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 3,
+      "rows": 3,
+      "paylines": 5,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 5000
+    },
+    {
+      "id": "fruity_wilds_jackpot",
+      "name": "Fruity Wilds Jackpot",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 20,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 10000
+    },
+    {
+      "id": "hot_foxy_20",
+      "name": "Hot Foxy 20",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 20,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "4.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00",
+        "200.00",
+        "400.00",
+        "500.00",
+        "1000.00",
+        "2000.00",
+        "3000.00",
+        "4000.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "400000",
+      "maxWinMultiplier": 1000
+    },
+    {
+      "id": "jungle_sisters",
+      "name": "Jungle Sisters",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 20,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 4000
+    },
+    {
+      "id": "bao_slot_5x",
+      "name": "Bao Slot 5X",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 5,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 7000
+    },
+    {
+      "id": "multi_hot_5_video",
+      "name": "Multi Hot 5",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-10-27-reference-v3000",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 3,
+      "rows": 3,
+      "paylines": 5,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "4.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00",
+        "200.00",
+        "400.00",
+        "500.00",
+        "1000.00",
+        "2000.00",
+        "3000.00",
+        "4000.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "400000",
+      "maxWinMultiplier": 250
+    },
+    {
+      "id": "multi_hot_100",
+      "name": "Multi Hot 100",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "zplaybet-multi100-v1",
+      "engineVersion": "superwin-slot-runtime-reference-v3000",
+      "reels": 5,
+      "rows": 4,
+      "paylines": 100,
+      "betLevels": [
+        "0.10",
+        "0.20",
+        "0.50",
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00"
+      ],
+      "minBetMinor": "10",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 5000
+    },
+    {
+      "id": "foxy_hot_20_native",
+      "name": "Foxy Hot 20",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-11-07-foxy-native-v1",
+      "engineVersion": "superwin-slot-runtime-r13",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 20,
+      "betLevels": [
+        "0.20",
+        "0.40",
+        "0.60",
+        "0.80",
+        "1.00",
+        "2.00",
+        "3.00",
+        "4.00",
+        "5.00",
+        "6.00",
+        "8.00",
+        "10.00",
+        "15.00",
+        "20.00",
+        "30.00",
+        "40.00",
+        "50.00",
+        "60.00",
+        "80.00",
+        "100.00"
+      ],
+      "minBetMinor": "20",
+      "maxBetMinor": "10000",
+      "maxWinMultiplier": 1000
+    },
+    {
+      "id": "multi_hot_5_native",
+      "name": "Multi Hot 5",
+      "currency": "ETB",
+      "enabled": true,
+      "mathVersion": "2026-11-07-mh5-native-v1",
+      "engineVersion": "superwin-slot-runtime-r13",
+      "reels": 3,
+      "rows": 3,
+      "paylines": 5,
+      "betLevels": [
+        "0.05",
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50",
+        "0.60",
+        "0.80",
+        "1.00",
+        "1.50",
+        "2.00",
+        "3.00",
+        "4.00",
+        "5.00",
+        "6.00",
+        "8.00",
+        "10.00",
+        "15.00",
+        "20.00",
+        "30.00",
+        "40.00",
+        "50.00",
+        "60.00",
+        "80.00",
+        "100.00",
+        "150.00",
+        "200.00",
+        "300.00",
+        "400.00"
+      ],
+      "minBetMinor": "5",
+      "maxBetMinor": "40000",
+      "maxWinMultiplier": 145
+    }
+  ],
+  "notProvenByThisAudit": [
+    "Current available production house balance",
+    "Current per-account cap values",
+    "Provider-private RNG/RTP equivalence",
+    "Paid settlement of any newly added model",
+    "Support for missing official catalogue identities"
+  ],
+  "requiredScopeForFutureWork": [
+    "Preserve protected legacy IDs/math versions and all accepted obligations.",
+    "A reviewed additive registry/evaluation extension must be inside this actual protected service and reuse its existing wallet/transaction/history code.",
+    "Static model data alone covers only rules understood by its reel-slot evaluator; other families require explicit versioned evaluation/action support.",
+    "Do not redirect missing IDs to unrelated generic or original20 titles.",
+    "No backend change is made by this report."
+  ],
+  "actionsExecuted": {
+    "readOnlyMetadataRequestsBeforeOfflineAudit": true,
+    "posts": 0,
+    "sourceUpdates": 0,
+    "environmentChanges": 0,
+    "walletMutations": 0,
+    "qaTriggered": false
+  },
+  "official74CoverageOfExactProtectedBackend": {
+    "registeredUniqueCatalogueIdentities": 10,
+    "missingOfficialCatalogueIdentities": 64,
+    "existingModels": {
+      "ind74_official_multihot40": "multi_hot_40",
+      "ind74_official_multihot5superwilds": "multi_hot_5_super_wilds",
+      "ind74_official_burningice": "burning_ice",
+      "ind74_official_wildmultistars": "wild_multi_stars",
+      "ind74_official_safarisimba": "safari_simba",
+      "ind74_official_foxyhot20": "hot_foxy_20",
+      "ind74_official_junglesisters": "jungle_sisters",
+      "ind74_official_baoslot5x": "bao_slot_5x",
+      "ind74_official_multihot5": "multi_hot_5_video",
+      "ind74_official_multihot100": "multi_hot_100"
+    },
+    "missingIds": [
+      {
+        "gameId": "ind74_official_popx",
+        "name": "PopX"
+      },
+      {
+        "gameId": "ind74_official_mineisland2",
+        "name": "Mine Island2"
+      },
+      {
+        "gameId": "ind74_official_neweraofjetx",
+        "name": "New Era of JetX"
+      },
+      {
+        "gameId": "ind74_official_balloonx",
+        "name": "BalloonX"
+      },
+      {
+        "gameId": "ind74_official_plinkoxclassic",
+        "name": "Plinko X Classic"
+      },
+      {
+        "gameId": "ind74_official_propelx",
+        "name": "Propel X"
+      },
+      {
+        "gameId": "ind74_official_worldchampionx",
+        "name": "World Champion X"
+      },
+      {
+        "gameId": "ind74_official_poweroftiger",
+        "name": "Power of Tiger"
+      },
+      {
+        "gameId": "ind74_official_multifruitschargingwilds",
+        "name": "Multi Fruits Charging Wilds"
+      },
+      {
+        "gameId": "ind74_official_gemscrownchargingwilds",
+        "name": "Gems Crown Charging Wilds"
+      },
+      {
+        "gameId": "ind74_official_gatesofmerlyn",
+        "name": "Gates of Merlyn"
+      },
+      {
+        "gameId": "ind74_official_chickenways",
+        "name": "Chicken Ways"
+      },
+      {
+        "gameId": "ind74_official_dicejungle",
+        "name": "Dice Jungle"
+      },
+      {
+        "gameId": "ind74_official_multihot5wild",
+        "name": "Multi Hot 5 Wild"
+      },
+      {
+        "gameId": "ind74_official_cheesyroad",
+        "name": "Cheesy Road"
+      },
+      {
+        "gameId": "ind74_official_fortunecatch",
+        "name": "Fortune Catch"
+      },
+      {
+        "gameId": "ind74_official_multihot20",
+        "name": "Multi Hot 20"
+      },
+      {
+        "gameId": "ind74_official_cheesyroadclassic",
+        "name": "Cheesy Road Classic"
+      },
+      {
+        "gameId": "ind74_official_multihot10",
+        "name": "Multi Hot 10"
+      },
+      {
+        "gameId": "ind74_official_coinsofatlantis",
+        "name": "Coins Of Atlantis"
+      },
+      {
+        "gameId": "ind74_official_multihotwildways",
+        "name": "Multi Hot Wild Ways"
+      },
+      {
+        "gameId": "ind74_official_bottlemania",
+        "name": "Bottle Mania"
+      },
+      {
+        "gameId": "ind74_official_multihot5burnwilds",
+        "name": "Multi Hot 5 Burn Wilds"
+      },
+      {
+        "gameId": "ind74_official_chickenhighway",
+        "name": "Chicken Highway"
+      },
+      {
+        "gameId": "ind74_official_multihot5deluxe",
+        "name": "Multi Hot 5 Deluxe"
+      },
+      {
+        "gameId": "ind74_official_carx",
+        "name": "CarX"
+      },
+      {
+        "gameId": "ind74_official_caibalaocappadocia",
+        "name": "Cai Balao Cappadocia"
+      },
+      {
+        "gameId": "ind74_official_multihotwheel",
+        "name": "Multi Hot Wheel"
+      },
+      {
+        "gameId": "ind74_official_jinglebellbonanza",
+        "name": "Jingle Bell Bonanza"
+      },
+      {
+        "gameId": "ind74_official_balloon",
+        "name": "Balloon"
+      },
+      {
+        "gameId": "ind74_official_plinkox",
+        "name": "Plinko X"
+      },
+      {
+        "gameId": "ind74_official_helicopterx",
+        "name": "Helicopter X"
+      },
+      {
+        "gameId": "ind74_official_mineisland",
+        "name": "Mine Island"
+      },
+      {
+        "gameId": "ind74_official_multihotways",
+        "name": "Multi Hot Ways"
+      },
+      {
+        "gameId": "ind74_official_footballx",
+        "name": "Football X"
+      },
+      {
+        "gameId": "ind74_official_burningice40",
+        "name": "Burning Ice 40"
+      },
+      {
+        "gameId": "ind74_official_mariachicoins",
+        "name": "Mariachi Coins"
+      },
+      {
+        "gameId": "ind74_official_habeshafortune5",
+        "name": "Habesha Fortune 5"
+      },
+      {
+        "gameId": "ind74_official_4bonusesbonanza",
+        "name": "4 Bonuses Bonanza"
+      },
+      {
+        "gameId": "ind74_official_cricketx",
+        "name": "Cricket X"
+      },
+      {
+        "gameId": "ind74_official_cricketerx",
+        "name": "CricketerX"
+      },
+      {
+        "gameId": "ind74_official_wheelofdestiny",
+        "name": "Wheel Of Destiny"
+      },
+      {
+        "gameId": "ind74_official_crashduel",
+        "name": "Crash Duel"
+      },
+      {
+        "gameId": "ind74_official_geniesbonanza",
+        "name": "Genie's Bonanza"
+      },
+      {
+        "gameId": "ind74_official_bonustime",
+        "name": "Bonus Time"
+      },
+      {
+        "gameId": "ind74_official_farmsfortune",
+        "name": "Farm's Fortune"
+      },
+      {
+        "gameId": "ind74_official_madslot",
+        "name": "Mad Slot"
+      },
+      {
+        "gameId": "ind74_official_aviastar",
+        "name": "AviaStar"
+      },
+      {
+        "gameId": "ind74_official_smashx",
+        "name": "Smash X"
+      },
+      {
+        "gameId": "ind74_official_towerx",
+        "name": "Tower X"
+      },
+      {
+        "gameId": "ind74_official_hotsamba",
+        "name": "Hot Samba"
+      },
+      {
+        "gameId": "ind74_official_wildsandgods",
+        "name": "Wilds and Gods"
+      },
+      {
+        "gameId": "ind74_official_bokajamba10",
+        "name": "Boka Jamba 10"
+      },
+      {
+        "gameId": "ind74_official_junglesistersdeluxe",
+        "name": "Jungle Sisters Deluxe"
+      },
+      {
+        "gameId": "ind74_official_dragonscode",
+        "name": "Dragon's Code"
+      },
+      {
+        "gameId": "ind74_official_draculasfortune",
+        "name": "Dracula's Fortune"
+      },
+      {
+        "gameId": "ind74_official_bookoffuturia",
+        "name": "Book of Futuria"
+      },
+      {
+        "gameId": "ind74_official_bookofbonanza",
+        "name": "Book of Bonanza"
+      },
+      {
+        "gameId": "ind74_official_sugarfiesta",
+        "name": "Sugar Fiesta"
+      },
+      {
+        "gameId": "ind74_official_vampires",
+        "name": "Vampires"
+      },
+      {
+        "gameId": "ind74_official_burningice10",
+        "name": "Burning Ice 10"
+      },
+      {
+        "gameId": "ind74_official_rollx",
+        "name": "Roll X"
+      },
+      {
+        "gameId": "ind74_official_doublex",
+        "name": "Double X"
+      },
+      {
+        "gameId": "ind74_official_samurai",
+        "name": "Samurai"
+      }
+    ],
+    "nonCatalogueRegisteredTitle": "fruity_wilds_jackpot",
+    "duplicateExistingCatalogueVersions": [
+      "foxy_hot_20_native",
+      "multi_hot_5_native"
+    ],
+    "note": "13registeredmodels are not13distinctofficial74titles. The separate14existingfrontendroutes audit spans other financial engines; it must not be used as the count for this exact protected wallet backend."
+  }
+}

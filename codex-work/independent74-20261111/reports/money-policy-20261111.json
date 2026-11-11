@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-11",
+  "baseCommit": "f636b93dd38f59173587e3e36979deeb7595a422",
+  "newPolicy": {
+    "testInitialPresetsEtb": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "fixed4000EtbCapRemoved": true,
+    "gameMaximum": "server gameLimits ID map or resolver; no default configured policy",
+    "accountMaximum": "existing retained sw_rebuild.account_limits.max_balance applied to potential post-round balance",
+    "houseMaximum": "existing retained service atomically funds a per-round reserve from actual house balance",
+    "technicalMoneyRepresentation": "15-digit canonical integer minor-unit contract of retained LibraryService; mathematical model bet ceiling derived from worst-case payout multiplier",
+    "defaultNewRoundsEnabled": false,
+    "publicUnconfiguredMaximum": null
+  },
+  "verification": [
+    {
+      "command": "npm test",
+      "tests": 652,
+      "passed": 652,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "tests/evidence/money-policy-full-tests.txt",
+      "note": "Full suite before subsequent public-rules gamble feature work by another agent."
+    },
+    {
+      "command": "node --test server/tests/existing-library74-service.test.mjs",
+      "tests": 93,
+      "passed": 93,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "tests/evidence/money-policy-large-ledger-tests.txt",
+      "covers": [
+        "40001 ETB stake within fixture policy",
+        "held payout greater than40000 ETB funded in reserve",
+        "collect and duplicate replay credit once",
+        "wallet and ledger conservation",
+        "insufficient player funds",
+        "account max_balance refusal",
+        "insufficient house reserve",
+        "rollback and retry",
+        "expiry and accepted model version recovery"
+      ]
+    }
+  ],
+  "limitations": [
+    "No live production player or house balances accessed or changed.",
+    "Current production game limits, account caps and actual house available capacity remain unverified.",
+    "Fixture policy50000 ETB is synthetic test configuration, not a proposed production policy.",
+    "Single-connection isolated PGlite fixture does not prove distributed PostgreSQL locking.",
+    "Live independent model financial gate remains disabled."
+  ]
+}

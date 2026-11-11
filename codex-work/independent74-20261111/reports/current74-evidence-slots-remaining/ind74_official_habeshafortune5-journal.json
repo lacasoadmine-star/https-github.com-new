@@ -1,0 +1,103 @@
+{
+  "gameId": "ind74_official_habeshafortune5",
+  "title": "Habesha Fortune 5",
+  "officialUrl": "https://www.smartsoftgaming.com/games/hab",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 9,
+    "visibleReelCandidates": 3,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      607,
+      832,
+      1057
+    ],
+    "yPositions": [
+      77,
+      282,
+      487
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 3,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "paylines": 5
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_habeshafortune5-initial.png",
+    "sha256": "14a8327954f50d0df2ed9e66d37312c23e3240f3eca0058c00cfae10ccc1b1aa"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.05 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_habeshafortune5-turbo-prompt.png",
+      "sha256": "287140c1853267dd88df8f22eaaad625fd6ffa21030929f36fbdba963710ab7a"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_habeshafortune5-turbo-state.png",
+      "sha256": "bb767612c8c1275fb8a03284a72cae32b7a2ef90e17fa2c0d8b4c92fb612103d"
+    }
+  },
+  "bet": {
+    "before": "0.05",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_habeshafortune5-bet-confirmed.png",
+      "sha256": "b257f13894b1e31806cb90b4a6fae1d0efa63cf5032139fd02b802d98c69b2cf"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/HabeshaFortune5.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_habeshafortune5-official-help.html",
+      "sha256": "8a0a8a94d6a696b081836779f38532338b622c07dc6a947f2751cf4416e2bc25",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

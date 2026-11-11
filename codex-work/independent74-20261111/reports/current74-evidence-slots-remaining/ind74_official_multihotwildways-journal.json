@@ -1,0 +1,103 @@
+{
+  "gameId": "ind74_official_multihotwildways",
+  "title": "Multi Hot Wild Ways",
+  "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1154
+  },
+  "geometry": {
+    "renderedSymbolInstances": 9,
+    "visibleReelCandidates": 3,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      607,
+      943,
+      1279
+    ],
+    "yPositions": [
+      64,
+      274,
+      484
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 3,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "paylines": 1
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-initial.png",
+    "sha256": "44a418684fb6e92e50207685e3d3ff3fea63a650eef72c4c0d027d4cb1a8bcc5"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20000.00 DMO",
+    "BET 0.20 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-turbo-prompt.png",
+      "sha256": "c02265f4d1e48b997c2f207681cb48e22968c8e37d99cf268c26a4331dbfbd0d"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-turbo-state.png",
+      "sha256": "7385d279f5acf3b596b292b7f8a28ec417beb526a78f12cd064502329a5a7d53"
+    }
+  },
+  "bet": {
+    "before": "0.20",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-bet-confirmed.png",
+      "sha256": "a910a929db160a264a6143491e44f40eae70e3b05c796482bc43bb1c3a9e175d"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHotWildWays.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-official-help.html",
+      "sha256": "9ab1aafbe252651ff38ce228d877dc3af78f6e49e3e5fe94343aefbf16a7c4c9",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

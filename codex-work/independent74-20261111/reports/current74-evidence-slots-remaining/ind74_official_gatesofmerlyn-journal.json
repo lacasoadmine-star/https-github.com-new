@@ -1,0 +1,87 @@
+{
+  "gameId": "ind74_official_gatesofmerlyn",
+  "title": "Gates of Merlyn",
+  "officialUrl": "https://www.smartsoftgaming.com/games/gates-of-merlyn",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 0,
+  "totalVerifiedRounds": 0,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1312
+  },
+  "geometry": {
+    "renderedSymbolInstances": 30,
+    "visibleReelCandidates": 6,
+    "visibleRowCandidates": 5,
+    "xPositions": [
+      437,
+      596.5,
+      756,
+      915.5,
+      1075,
+      1234.5
+    ],
+    "yPositions": [
+      12.2,
+      174.4,
+      336.6,
+      498.8,
+      661
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-initial.png",
+    "sha256": "bb47acf65622658232d4e379aaeaeb7b15c7025119422d9d1af83a1a08cc2cca"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "50",
+    "Activate or Buy Feature",
+    "BALANCE 20,000.00 DMO",
+    "BET 30.00 DMO"
+  ],
+  "controls": [
+    "ButtonsBet",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin",
+    "ButtonsAutoPlay",
+    "ButtonsMenu"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayDisabled",
+      "ButtonsSpinDisabled"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-turbo-state.png",
+      "sha256": "0029a9af8047f43e42c3804eb5a9dca49e820fcfa0aaabb318746861652e80b9"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/GatesOfMerlyn.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-official-help.html",
+      "sha256": "1ef5bebeeea013c8c5c6d5f44d8b6f61936aa482ac236a58d9e05bd9cf05abb8",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "blocker": "BET_CONTROL_UNSUPPORTED",
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

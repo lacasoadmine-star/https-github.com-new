@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 import { LibraryService, createRegistry } from './retained-library/library-service.mjs';
 import { installCrossActiveGuards } from './retained-library/library-backend.mjs';
 import { installExistingLibrary74 } from '../../existing-library74-service.mjs';
-import { listGameDefinitions } from '../../../math/official72.mjs';
+import * as officialMath from '../../../math/official72.mjs';
 
 // This module is test infrastructure, never a production bootstrap. It runs the
 // exact retained financial classes against a disposable, in-memory PostgreSQL
@@ -61,7 +61,8 @@ INSERT INTO sw_rebuild.users VALUES('fixture-agent',NULL,'agent','active');
 
 export async function createRetainedLibrary74Fixture({
   isolated = false,
-  reviewedGameIds = listGameDefinitions().map(game => game.id),
+  math = officialMath,
+  reviewedGameIds = math.listGameDefinitions().map(game => game.id),
   allowNewRounds = true,
   accepting = true,
   activeTtlMs = 15 * 60 * 1000,
@@ -102,7 +103,7 @@ export async function createRetainedLibrary74Fixture({
   const service = new LibraryService(shared, { registry: createRegistry(legacyAdapters), now, accepting, autoTimers: false, ...(seed ? { seed } : {}), ...(id ? { id } : {}) });
   // Isolated schema creation is deliberately outside installExistingLibrary74.
   await service.migrate();
-  const facade = installExistingLibrary74({ service, reviewedGameIds, allowNewRounds, activeTtlMs, gameLimits: Object.fromEntries(listGameDefinitions().map(g=>[g.id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])) });
+  const facade = installExistingLibrary74({ service, math, reviewedGameIds, allowNewRounds, activeTtlMs, gameLimits: Object.fromEntries(math.listGameDefinitions().map(g=>[g.id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])) });
   installCrossActiveGuards(shared, service);
   return {
     db, pglite: db, sql, shared, service, facade, fixtureUserId, addPlayer, legacyNativeDefinitions: nativeDefinitions, verifyNative, readNativeBody,

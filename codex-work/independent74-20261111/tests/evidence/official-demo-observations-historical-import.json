@@ -1,0 +1,2849 @@
+{
+  "schemaVersion": 2,
+  "observer": "historical-evidence-import",
+  "observations": [
+    {
+      "gameId": "ind74_official_multihot5",
+      "title": "Multi Hot 5",
+      "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "observedOn": "2026-11-06T04:12:46.837454+00:00",
+      "mode": "official-demo",
+      "historicalImport": true,
+      "verifiedCompletedRounds": 115,
+      "countEvidence": [
+        {
+          "gameId": "ind74_official_multihot5",
+          "completedRounds": 30,
+          "completionEvidence": "Explicit completed busy-to-ready cycle count plus final provider Rules UI counter",
+          "providerCounter": "1954712061.30",
+          "sourcePath": "player-machines/evidence/r10/official-primary30-results.json",
+          "gitBlob": "56e8b1e6a420b1a0fc9f41e6ebf1c9320b44941a",
+          "sourceSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d",
+          "rawCounterRecord": {
+            "completed": 30,
+            "spinId": "1954712061.30",
+            "screenshot": "/workspace/work/r10-official-play/batch30/MultiHot5-015-normal-menu-after30.png"
+          },
+          "referenceAvailability": "Saved JSON counter record is in Git; screenshot paths refer to original work directory and are not in this branch."
+        },
+        {
+          "gameId": "ind74_official_multihot5",
+          "completedRounds": 40,
+          "providerCounter": "1956542731.40",
+          "completionEvidence": "40 recorded natural official DEMO result snapshots, final ready-state counter40 and balance reconciliation",
+          "sourcePath": "player-machines/evidence/r13/mh5-gamble-ceiling-natural40.json",
+          "gitBlob": "807589826a8226e800af884df9772d72173ae463",
+          "sourceSha256": "48e711ba454f2edb0a24c88fe71a60377873d73e04f39af4c72ed13f77e3329e",
+          "balanceReconciliation": "20000 -40*50 +2000+2100 =22100",
+          "finalBalanceDmo": 22100
+        },
+        {
+          "gameId": "ind74_official_multihot5",
+          "completedRounds": 41,
+          "providerCounter": "1954746179.41",
+          "source": "r10.additionalDemoRoundInventory.MultiHot5ControlledReturn"
+        },
+        {
+          "gameId": "ind74_official_multihot5",
+          "completedRounds": 3,
+          "providerCounter": "1954783489.3",
+          "source": "r10.additionalDemoRoundInventory.MultiHot5ActiveXReturn"
+        },
+        {
+          "gameId": "ind74_official_multihot5",
+          "completedRounds": 1,
+          "providerCounter": "1956059968.1",
+          "source": "r11.MH5Stop.providerFinalCounter"
+        }
+      ],
+      "method": {
+        "viewportCss": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "mobileTouch": true,
+        "ua": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+        "readyCheck": "Rendered central ready control pixel signature before tap; visible busy/STOP transition and stable return required to count",
+        "perCycleEvidence": "Initial verifier saves prior full ready/settled PNG, moving PNG and after PNG. Slower continuation saves full moving/after PNGs and timestamps. Four early Foxy counter-confirmed cycles and five slower early moving captures lack distinct busy-pair PNGs; all30 are independently confirmed by the final provider counter.",
+        "audio": "Parallel MediaStreamAudioDestinationNode tap from actual WebAudio output; original destination preserved. Exported after each batch; video itself is silent.",
+        "oneTableLimit": "Only normal visible Exit and normal context close/re-entry. No token changes, authentication, provider state clearing or limit bypass.",
+        "accountsUsed": false,
+        "productionWagers": 0,
+        "sourceCodeModified": false
+      },
+      "importedAt": "2026-11-11T07:38:37.340521+00:00",
+      "provenance": {
+        "gitRef": "origin/codex/mh5-foxy-parity-20261106",
+        "gitCommit": "042f06e4425a6257cda332e626abaa6ec538f657",
+        "gitPath": "player-machines/evidence/r10/official-primary30-results.json",
+        "retainedCopy": "references/historical-20261106/official-primary30-results.json",
+        "retainedSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d"
+      },
+      "limitations": [
+        "Historical Git-retained observation journal supplies exact completed native counter and cycle evidence. Its raw PNG/audio paths refer to an earlier workspace and have not been recovered locally.",
+        "Provider receipts were not independently validated in that historical batch; public completed counter was directly observed.",
+        "No claim of provider probabilities, RTP or full equivalence.",
+        "Newer fresh sessions stay separate and must be added; historical counts are never reduced to20.",
+        "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+        "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+        "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+        "Historical stakes outside the new1\u201320 test presets are preserved as actually observed, not rewritten."
+      ],
+      "providerGameName": "MultiHot5",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1954712061",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 30
+        },
+        {
+          "nativeSessionId": "1956542731",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 40
+        },
+        {
+          "nativeSessionId": "1954746179",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 41
+        },
+        {
+          "nativeSessionId": "1954783489",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 3
+        },
+        {
+          "nativeSessionId": "1956059968",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 1
+        }
+      ],
+      "historicalAudit": {
+        "file": "reports/current74-historical-rules-audit.json",
+        "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+        "auditedDistinctRemoteHeads": 42
+      }
+    },
+    {
+      "gameId": "ind74_official_foxyhot20",
+      "title": "Foxy Hot 20",
+      "officialUrl": "https://www.smartsoftgaming.com/games/foxy-hot-20",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "observedOn": "2026-11-06T04:12:46.837454+00:00",
+      "mode": "official-demo",
+      "historicalImport": true,
+      "verifiedCompletedRounds": 42,
+      "countEvidence": [
+        {
+          "gameId": "ind74_official_foxyhot20",
+          "completedRounds": 30,
+          "completionEvidence": "Explicit completed busy-to-ready cycle count plus final provider Rules UI counter",
+          "providerCounter": "1954721159.30",
+          "sourcePath": "player-machines/evidence/r10/official-primary30-results.json",
+          "gitBlob": "56e8b1e6a420b1a0fc9f41e6ebf1c9320b44941a",
+          "sourceSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d",
+          "rawCounterRecord": {
+            "completed": 30,
+            "spinId": "1954721159.30",
+            "screenshot": "/workspace/work/r10-official-play/batch30/FoxyHot20-059-count-menu-after17-slow.png",
+            "note": "9 busy-to-ready captured cycles and13 provider-confirmed rounds before slower17 single-tap continuation. Final Rules UI confirms exact30, same table.",
+            "fullyLoadedPaytableAtStake2": {
+              "orange_lemon_cherry": {
+                "5": 4,
+                "4": 1,
+                "3": 0.5
+              },
+              "watermelon_bell": {
+                "5": 10,
+                "4": 4,
+                "3": 1
+              },
+              "seven": {
+                "5": 20,
+                "4": 10,
+                "3": 2
+              },
+              "star": {
+                "5": 100,
+                "4": 20,
+                "3": 10
+              }
+            },
+            "wild": "substitutes except Scatter"
+          },
+          "referenceAvailability": "Saved JSON counter record is in Git; screenshot paths refer to original work directory and are not in this branch."
+        },
+        {
+          "gameId": "ind74_official_foxyhot20",
+          "completedRounds": 5,
+          "providerCounter": "1954766799.5",
+          "source": "r10.additionalDemoRoundInventory.FoxyControlsReturn"
+        },
+        {
+          "gameId": "ind74_official_foxyhot20",
+          "completedRounds": 7,
+          "providerCounter": "1956040550.7",
+          "source": "r11.extraVirtualRounds.FoxyHot20"
+        }
+      ],
+      "method": {
+        "viewportCss": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "mobileTouch": true,
+        "ua": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+        "readyCheck": "Rendered central ready control pixel signature before tap; visible busy/STOP transition and stable return required to count",
+        "perCycleEvidence": "Initial verifier saves prior full ready/settled PNG, moving PNG and after PNG. Slower continuation saves full moving/after PNGs and timestamps. Four early Foxy counter-confirmed cycles and five slower early moving captures lack distinct busy-pair PNGs; all30 are independently confirmed by the final provider counter.",
+        "audio": "Parallel MediaStreamAudioDestinationNode tap from actual WebAudio output; original destination preserved. Exported after each batch; video itself is silent.",
+        "oneTableLimit": "Only normal visible Exit and normal context close/re-entry. No token changes, authentication, provider state clearing or limit bypass.",
+        "accountsUsed": false,
+        "productionWagers": 0,
+        "sourceCodeModified": false
+      },
+      "importedAt": "2026-11-11T07:38:37.340640+00:00",
+      "provenance": {
+        "gitRef": "origin/codex/mh5-foxy-parity-20261106",
+        "gitCommit": "042f06e4425a6257cda332e626abaa6ec538f657",
+        "gitPath": "player-machines/evidence/r10/official-primary30-results.json",
+        "retainedCopy": "references/historical-20261106/official-primary30-results.json",
+        "retainedSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d"
+      },
+      "limitations": [
+        "Historical Git-retained observation journal supplies exact completed native counter and cycle evidence. Its raw PNG/audio paths refer to an earlier workspace and have not been recovered locally.",
+        "Provider receipts were not independently validated in that historical batch; public completed counter was directly observed.",
+        "No claim of provider probabilities, RTP or full equivalence.",
+        "Newer fresh sessions stay separate and must be added; historical counts are never reduced to20.",
+        "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+        "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+        "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+        "Historical stakes outside the new1\u201320 test presets are preserved as actually observed, not rewritten."
+      ],
+      "providerGameName": "FoxyHot20",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1954721159",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 30
+        },
+        {
+          "nativeSessionId": "1954766799",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 5
+        },
+        {
+          "nativeSessionId": "1956040550",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 7
+        }
+      ],
+      "historicalAudit": {
+        "file": "reports/current74-historical-rules-audit.json",
+        "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+        "auditedDistinctRemoteHeads": 42
+      }
+    },
+    {
+      "gameId": "ind74_official_multihot100",
+      "title": "Multi Hot 100",
+      "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-100",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
+      "observedOn": "2026-11-06T04:12:46.837454+00:00",
+      "mode": "official-demo",
+      "historicalImport": true,
+      "verifiedCompletedRounds": 30,
+      "countEvidence": [
+        {
+          "gameId": "ind74_official_multihot100",
+          "completedRounds": 30,
+          "completionEvidence": "Explicit completed busy-to-ready cycle count plus final provider Rules UI counter",
+          "providerCounter": "1954727963.30",
+          "sourcePath": "player-machines/evidence/r10/official-primary30-results.json",
+          "gitBlob": "56e8b1e6a420b1a0fc9f41e6ebf1c9320b44941a",
+          "sourceSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d",
+          "rawCounterRecord": {
+            "completed": 30,
+            "spinId": "1954727963.30",
+            "screenshot": "/workspace/work/r10-official-play/batch30/MultiHot100-006-normal-rules-after30.png",
+            "note": "30 trusted individual inputs and30 captured busy-to-ready cycles, independently confirmed by provider Rules UI counter."
+          },
+          "referenceAvailability": "Saved JSON counter record is in Git; screenshot paths refer to original work directory and are not in this branch."
+        }
+      ],
+      "method": {
+        "viewportCss": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "mobileTouch": true,
+        "ua": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+        "readyCheck": "Rendered central ready control pixel signature before tap; visible busy/STOP transition and stable return required to count",
+        "perCycleEvidence": "Initial verifier saves prior full ready/settled PNG, moving PNG and after PNG. Slower continuation saves full moving/after PNGs and timestamps. Four early Foxy counter-confirmed cycles and five slower early moving captures lack distinct busy-pair PNGs; all30 are independently confirmed by the final provider counter.",
+        "audio": "Parallel MediaStreamAudioDestinationNode tap from actual WebAudio output; original destination preserved. Exported after each batch; video itself is silent.",
+        "oneTableLimit": "Only normal visible Exit and normal context close/re-entry. No token changes, authentication, provider state clearing or limit bypass.",
+        "accountsUsed": false,
+        "productionWagers": 0,
+        "sourceCodeModified": false
+      },
+      "importedAt": "2026-11-11T07:38:37.340761+00:00",
+      "provenance": {
+        "gitRef": "origin/codex/mh5-foxy-parity-20261106",
+        "gitCommit": "042f06e4425a6257cda332e626abaa6ec538f657",
+        "gitPath": "player-machines/evidence/r10/official-primary30-results.json",
+        "retainedCopy": "references/historical-20261106/official-primary30-results.json",
+        "retainedSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d"
+      },
+      "limitations": [
+        "Historical Git-retained observation journal supplies exact completed native counter and cycle evidence. Its raw PNG/audio paths refer to an earlier workspace and have not been recovered locally.",
+        "Provider receipts were not independently validated in that historical batch; public completed counter was directly observed.",
+        "No claim of provider probabilities, RTP or full equivalence.",
+        "Newer fresh sessions stay separate and must be added; historical counts are never reduced to20.",
+        "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+        "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+        "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+        "Historical stakes outside the new1\u201320 test presets are preserved as actually observed, not rewritten."
+      ],
+      "providerGameName": "MultiHot100",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1954727963",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 30
+        }
+      ],
+      "historicalAudit": {
+        "file": "reports/current74-historical-rules-audit.json",
+        "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+        "auditedDistinctRemoteHeads": 42
+      }
+    },
+    {
+      "gameId": "ind74_official_wildmultistars",
+      "title": "Wild Multi Stars",
+      "officialUrl": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "observedOn": "2026-11-06T04:12:46.837454+00:00",
+      "mode": "official-demo",
+      "historicalImport": true,
+      "verifiedCompletedRounds": 30,
+      "countEvidence": [
+        {
+          "gameId": "ind74_official_wildmultistars",
+          "completedRounds": 30,
+          "completionEvidence": "Explicit completed busy-to-ready cycle count plus final provider Rules UI counter",
+          "providerCounter": "1954734089.30",
+          "sourcePath": "player-machines/evidence/r10/official-primary30-results.json",
+          "gitBlob": "56e8b1e6a420b1a0fc9f41e6ebf1c9320b44941a",
+          "sourceSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d",
+          "rawCounterRecord": {
+            "completed": 30,
+            "spinId": "1954734089.30",
+            "screenshot": "/workspace/work/r10-official-play/batch30/WildMultiStars-018-rules-after30-actual-position.png",
+            "note": "30 trusted individual inputs and30 captured busy-to-ready cycles, independently confirmed by provider Rules UI counter."
+          },
+          "referenceAvailability": "Saved JSON counter record is in Git; screenshot paths refer to original work directory and are not in this branch."
+        }
+      ],
+      "method": {
+        "viewportCss": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "mobileTouch": true,
+        "ua": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+        "readyCheck": "Rendered central ready control pixel signature before tap; visible busy/STOP transition and stable return required to count",
+        "perCycleEvidence": "Initial verifier saves prior full ready/settled PNG, moving PNG and after PNG. Slower continuation saves full moving/after PNGs and timestamps. Four early Foxy counter-confirmed cycles and five slower early moving captures lack distinct busy-pair PNGs; all30 are independently confirmed by the final provider counter.",
+        "audio": "Parallel MediaStreamAudioDestinationNode tap from actual WebAudio output; original destination preserved. Exported after each batch; video itself is silent.",
+        "oneTableLimit": "Only normal visible Exit and normal context close/re-entry. No token changes, authentication, provider state clearing or limit bypass.",
+        "accountsUsed": false,
+        "productionWagers": 0,
+        "sourceCodeModified": false
+      },
+      "importedAt": "2026-11-11T07:38:37.340860+00:00",
+      "provenance": {
+        "gitRef": "origin/codex/mh5-foxy-parity-20261106",
+        "gitCommit": "042f06e4425a6257cda332e626abaa6ec538f657",
+        "gitPath": "player-machines/evidence/r10/official-primary30-results.json",
+        "retainedCopy": "references/historical-20261106/official-primary30-results.json",
+        "retainedSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d"
+      },
+      "limitations": [
+        "Historical Git-retained observation journal supplies exact completed native counter and cycle evidence. Its raw PNG/audio paths refer to an earlier workspace and have not been recovered locally.",
+        "Provider receipts were not independently validated in that historical batch; public completed counter was directly observed.",
+        "No claim of provider probabilities, RTP or full equivalence.",
+        "Newer fresh sessions stay separate and must be added; historical counts are never reduced to20.",
+        "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+        "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+        "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+        "Historical stakes outside the new1\u201320 test presets are preserved as actually observed, not rewritten."
+      ],
+      "providerGameName": "WildMultiStars",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1954734089",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 30
+        }
+      ],
+      "historicalAudit": {
+        "file": "reports/current74-historical-rules-audit.json",
+        "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+        "auditedDistinctRemoteHeads": 42
+      }
+    },
+    {
+      "gameId": "ind74_official_burningice40",
+      "title": "Burning Ice 40",
+      "officialUrl": "https://www.smartsoftgaming.com/games/burning-ice-40",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "mode": "official-demo",
+      "historicalImport": true,
+      "limitations": [
+        "Original raw capture is referenced by hash but not present in Git. This preserved projection has public result grids, awards and sequential balances.",
+        "Derived observed-component-receipts.json replays these same25 results locally and must not be counted again.",
+        "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+        "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+        "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+        "Historical stakes outside the new1\u201320 test presets are preserved as actually observed, not rewritten."
+      ],
+      "verifiedCompletedRounds": 25,
+      "countEvidence": [
+        {
+          "gameId": "ind74_official_burningice40",
+          "completedRounds": 25,
+          "completionEvidence": "Stored official BlazingHot40 DEMO round results,25 distinct ordered observation indices, exact payout and balance chain",
+          "sourcePath": "game-expansion/continuation/ice-receipt-r11/evidence/official-replay.json",
+          "gitBlob": "4582da55b75877983fa0ef7dbf7b8bbc9890a510",
+          "sourceSha256": "dd20809375a7b32f5c73254ae9de5013f0ebf7213ca27d6c386b80e504285277",
+          "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&Lang=en",
+          "sourceGameName": "BlazingHot40",
+          "currency": "DMO",
+          "rawObservationSha256": "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a",
+          "balanceProof": {
+            "all25UniqueObservationIndices": true,
+            "all24TransitionsReconcile": true,
+            "all25TerminalFrameTotalsMatchPayout": true,
+            "startingBalanceMinor": "2000000",
+            "totalStakeMinor": "1000",
+            "totalPayoutMinor": "1940",
+            "finalBalanceMinor": "2000940"
+          },
+          "limitations": [
+            "Original raw capture is referenced by hash but not present in Git. This preserved projection has public result grids, awards and sequential balances.",
+            "Derived observed-component-receipts.json replays these same25 results locally and must not be counted again."
+          ]
+        }
+      ],
+      "historicalAudit": {
+        "file": "reports/current74-historical-rules-audit.json",
+        "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+        "auditedDistinctRemoteHeads": 42
+      },
+      "importedAt": "2026-11-11T07:38:37.340956+00:00",
+      "providerObservationKeys": [
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:1",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:2",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:3",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:4",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:5",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:6",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:7",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:8",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:9",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:10",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:11",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:12",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:13",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:14",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:15",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:16",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:17",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:18",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:19",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:20",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:21",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:22",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:23",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:24",
+        "b137470ddf47622ae7003ec880a077919fa589cb73e973cf3b8c58f54bfee72a:25"
+      ],
+      "historicalRounds": [
+        {
+          "observationIndex": 1,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "1999960",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  5,
+                  5
+                ],
+                [
+                  2,
+                  2,
+                  0,
+                  0
+                ],
+                [
+                  3,
+                  3,
+                  4,
+                  4
+                ],
+                [
+                  8,
+                  2,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 2,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "1999920",
+          "payoutMinor": "40",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  3,
+                  8,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  4,
+                  9,
+                  0
+                ],
+                [
+                  4,
+                  8,
+                  6,
+                  2
+                ],
+                [
+                  4,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  2,
+                  1,
+                  2,
+                  6
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "40",
+              "displayedAwardMinor": "40",
+              "totalMinor": "40",
+              "wins": [
+                {
+                  "line": 3,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 9,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 31,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 33,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "frameIndex": 1,
+              "grid": [
+                [
+                  3,
+                  8,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  4,
+                  9,
+                  0
+                ],
+                [
+                  4,
+                  8,
+                  6,
+                  2
+                ],
+                [
+                  4,
+                  2,
+                  4,
+                  4
+                ],
+                [
+                  2,
+                  9,
+                  9,
+                  3
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "40",
+              "wins": [
+                {
+                  "line": 3,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 9,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 31,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 33,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "observationIndex": 3,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "1999920",
+          "payoutMinor": "960",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  3,
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  6,
+                  6,
+                  6,
+                  5
+                ],
+                [
+                  4,
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  6,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  1,
+                  9,
+                  9
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "incrementalMinor": "960",
+              "displayedAwardMinor": "960",
+              "totalMinor": "960",
+              "wins": [
+                {
+                  "line": 1,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 2,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 6,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 11,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                },
+                {
+                  "line": 14,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 15,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 17,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 18,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                },
+                {
+                  "line": 19,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 21,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                },
+                {
+                  "line": 22,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 23,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 25,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 26,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 29,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 35,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 38,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 39,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "frameIndex": 1,
+              "grid": [
+                [
+                  3,
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  6,
+                  6,
+                  6,
+                  5
+                ],
+                [
+                  4,
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  6,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  3,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "960",
+              "wins": [
+                {
+                  "line": 1,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 2,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 6,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 11,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                },
+                {
+                  "line": 14,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 15,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 17,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 18,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                },
+                {
+                  "line": 19,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 21,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                },
+                {
+                  "line": 22,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 23,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 25,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 26,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 29,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 35,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 38,
+                  "units": 400,
+                  "symbol": 6,
+                  "count": 3
+                },
+                {
+                  "line": 39,
+                  "units": 1000,
+                  "symbol": 6,
+                  "count": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "observationIndex": 4,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000840",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  6,
+                  5,
+                  5,
+                  1
+                ],
+                [
+                  4,
+                  4,
+                  4,
+                  4
+                ],
+                [
+                  1,
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  5
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 5,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000800",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  6,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  5,
+                  5,
+                  5
+                ],
+                [
+                  3,
+                  6,
+                  4,
+                  2
+                ],
+                [
+                  4,
+                  4,
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 6,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000760",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  4,
+                  4
+                ],
+                [
+                  9,
+                  2,
+                  2,
+                  2
+                ],
+                [
+                  6,
+                  7,
+                  2,
+                  8
+                ],
+                [
+                  5,
+                  3,
+                  4,
+                  4
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  2
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 7,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000720",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  4,
+                  4,
+                  1,
+                  1
+                ],
+                [
+                  6,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  8,
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  2,
+                  4,
+                  4,
+                  8
+                ],
+                [
+                  2,
+                  7,
+                  7,
+                  3
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 8,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000680",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  9,
+                  9,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  3,
+                  5
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  5
+                ],
+                [
+                  8,
+                  4,
+                  3,
+                  3
+                ],
+                [
+                  2,
+                  5,
+                  5,
+                  5
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 9,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000640",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  5,
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  7,
+                  9,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  1,
+                  2,
+                  2,
+                  2
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 10,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000600",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  2,
+                  6,
+                  5,
+                  5
+                ],
+                [
+                  5,
+                  5,
+                  5,
+                  8
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  8
+                ],
+                [
+                  4,
+                  4,
+                  4,
+                  1
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 11,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000560",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  6,
+                  3,
+                  1,
+                  8
+                ],
+                [
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  4,
+                  4,
+                  4,
+                  4
+                ],
+                [
+                  4,
+                  4,
+                  4,
+                  4
+                ],
+                [
+                  3,
+                  3,
+                  1,
+                  1
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 12,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000520",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  3,
+                  3,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  8,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  2,
+                  0,
+                  0
+                ],
+                [
+                  4,
+                  4,
+                  7,
+                  7
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  6
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 13,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000480",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  4,
+                  4,
+                  4,
+                  5
+                ],
+                [
+                  8,
+                  2,
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  3,
+                  3,
+                  3,
+                  4
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 14,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000440",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  3,
+                  3,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  7,
+                  6,
+                  6
+                ],
+                [
+                  8,
+                  2,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  7
+                ],
+                [
+                  2,
+                  3,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 15,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000400",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  5,
+                  1,
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  4,
+                  9,
+                  9
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  8
+                ],
+                [
+                  7,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  1,
+                  4,
+                  4,
+                  5
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 16,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000360",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  4,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  3,
+                  5,
+                  5
+                ],
+                [
+                  6,
+                  6,
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  3,
+                  3,
+                  3,
+                  8
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 17,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000320",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  8,
+                  1,
+                  3,
+                  3
+                ],
+                [
+                  6,
+                  6,
+                  4,
+                  4
+                ],
+                [
+                  7,
+                  2,
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  2
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 18,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000280",
+          "payoutMinor": "840",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  5,
+                  5,
+                  5
+                ],
+                [
+                  3,
+                  9,
+                  9,
+                  9
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "240",
+              "displayedAwardMinor": "240",
+              "totalMinor": "240",
+              "wins": [
+                {
+                  "line": 1,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 2,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 3,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 6,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 7,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 9,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 11,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 13,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 15,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 17,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 18,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 19,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 21,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 22,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 23,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 25,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 26,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 27,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 29,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 31,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 33,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 35,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 37,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 39,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "frameIndex": 1,
+              "grid": [
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  2,
+                  2,
+                  2
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "incrementalMinor": "600",
+              "displayedAwardMinor": "840",
+              "totalMinor": "840",
+              "wins": [
+                {
+                  "line": 1,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 2,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 3,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 6,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 7,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 9,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 11,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 13,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 15,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 17,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 18,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 19,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 21,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 22,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 23,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 25,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 26,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 27,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 29,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 31,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 33,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 35,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 37,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 39,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "frameIndex": 2,
+              "grid": [
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  2,
+                  2,
+                  2
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "840",
+              "wins": [
+                {
+                  "line": 1,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 2,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 3,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 6,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 7,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 9,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 11,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 13,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 15,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 17,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 18,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 19,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 21,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                },
+                {
+                  "line": 22,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 23,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 25,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 26,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 27,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 29,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 31,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 33,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 35,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 37,
+                  "units": 400,
+                  "symbol": 1,
+                  "count": 4
+                },
+                {
+                  "line": 39,
+                  "units": 100,
+                  "symbol": 1,
+                  "count": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "observationIndex": 19,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2001080",
+          "payoutMinor": "20",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  2,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  2,
+                  4,
+                  4,
+                  0
+                ],
+                [
+                  4,
+                  2,
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  7,
+                  7,
+                  1
+                ],
+                [
+                  9,
+                  9,
+                  2,
+                  2
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "20",
+              "displayedAwardMinor": "20",
+              "totalMinor": "20",
+              "wins": [
+                {
+                  "line": 8,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 28,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "frameIndex": 1,
+              "grid": [
+                [
+                  2,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  2,
+                  4,
+                  4,
+                  0
+                ],
+                [
+                  4,
+                  2,
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  9,
+                  9,
+                  9
+                ],
+                [
+                  9,
+                  3,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "20",
+              "wins": [
+                {
+                  "line": 8,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 28,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "observationIndex": 20,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2001060",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  6,
+                  1,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  3,
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3,
+                  3,
+                  8
+                ],
+                [
+                  4,
+                  4,
+                  4,
+                  4
+                ],
+                [
+                  3,
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 21,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2001020",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  6,
+                  6
+                ],
+                [
+                  0,
+                  2,
+                  2,
+                  5
+                ],
+                [
+                  5,
+                  2,
+                  2,
+                  8
+                ],
+                [
+                  2,
+                  4,
+                  4,
+                  4
+                ],
+                [
+                  7,
+                  7,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 22,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000980",
+          "payoutMinor": "60",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  4,
+                  5,
+                  3,
+                  3
+                ],
+                [
+                  5,
+                  5,
+                  5,
+                  5
+                ],
+                [
+                  5,
+                  3,
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4,
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  4,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "60",
+              "displayedAwardMinor": "60",
+              "totalMinor": "60",
+              "wins": [
+                {
+                  "line": 10,
+                  "units": 200,
+                  "symbol": 5,
+                  "count": 3
+                },
+                {
+                  "line": 30,
+                  "units": 200,
+                  "symbol": 5,
+                  "count": 3
+                },
+                {
+                  "line": 34,
+                  "units": 200,
+                  "symbol": 5,
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "frameIndex": 1,
+              "grid": [
+                [
+                  4,
+                  5,
+                  3,
+                  3
+                ],
+                [
+                  5,
+                  5,
+                  5,
+                  5
+                ],
+                [
+                  5,
+                  3,
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  3,
+                  3,
+                  6
+                ],
+                [
+                  1,
+                  3,
+                  3,
+                  3
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "60",
+              "wins": [
+                {
+                  "line": 10,
+                  "units": 200,
+                  "symbol": 5,
+                  "count": 3
+                },
+                {
+                  "line": 30,
+                  "units": 200,
+                  "symbol": 5,
+                  "count": 3
+                },
+                {
+                  "line": 34,
+                  "units": 200,
+                  "symbol": 5,
+                  "count": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "observationIndex": 23,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2001000",
+          "payoutMinor": "20",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  4,
+                  2,
+                  2,
+                  8
+                ],
+                [
+                  2,
+                  4,
+                  4,
+                  3
+                ],
+                [
+                  6,
+                  2,
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  3,
+                  7,
+                  7
+                ],
+                [
+                  3,
+                  5,
+                  5,
+                  5
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "20",
+              "displayedAwardMinor": "20",
+              "totalMinor": "20",
+              "wins": [
+                {
+                  "line": 14,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 38,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "frameIndex": 1,
+              "grid": [
+                [
+                  4,
+                  2,
+                  2,
+                  8
+                ],
+                [
+                  2,
+                  4,
+                  4,
+                  3
+                ],
+                [
+                  6,
+                  2,
+                  2,
+                  2
+                ],
+                [
+                  4,
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  3,
+                  4,
+                  4,
+                  4
+                ]
+              ],
+              "freezeColumns": [
+                0,
+                1,
+                2
+              ],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "20",
+              "wins": [
+                {
+                  "line": 14,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                },
+                {
+                  "line": 38,
+                  "units": 100,
+                  "symbol": 2,
+                  "count": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "observationIndex": 24,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000980",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  6,
+                  3
+                ],
+                [
+                  9,
+                  5,
+                  5,
+                  5
+                ],
+                [
+                  0,
+                  9,
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  5,
+                  5,
+                  7
+                ],
+                [
+                  9,
+                  5,
+                  5,
+                  5
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        },
+        {
+          "observationIndex": 25,
+          "stakeMinor": "40",
+          "balanceAfterDebitMinor": "2000940",
+          "payoutMinor": "0",
+          "frames": [
+            {
+              "frameIndex": 0,
+              "grid": [
+                [
+                  1,
+                  1,
+                  1,
+                  8
+                ],
+                [
+                  7,
+                  7,
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  3,
+                  3,
+                  3
+                ],
+                [
+                  2,
+                  3,
+                  3,
+                  3
+                ],
+                [
+                  2,
+                  5,
+                  8,
+                  1
+                ]
+              ],
+              "freezeColumns": [],
+              "incrementalMinor": "0",
+              "displayedAwardMinor": "0",
+              "totalMinor": "0",
+              "wins": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dedupeRules": [
+    "Same Git blob across branches counts once.",
+    "Same provider session counter prefix contributes its maximum confirmed completed suffix, never the sum of snapshots.",
+    "Explicitly derived local evaluations/component replay add zero official rounds.",
+    "New current-session rounds must remain distinct and should expose any overshoot after historical evidence was available.",
+    "These are evidence lower bounds, not a claim that the provider private math or full parity is verified."
+  ],
+  "unresolvedClaims": [
+    {
+      "source": "game-expansion/continuation/references/multihot40-official-walkthrough.json",
+      "reason": "Selected25 autoplay stopped under thresholds; only2 zero-win stakes inferred from balance. No25 completed counter; do not count25 or inferred2 as confirmed."
+    },
+    {
+      "source": "deploy/smartsoft/official-observations-r15.json",
+      "reason": "HabeshaFortune5 and MultiHot100 list16 sampledSpinStarts each, without completed-result counters. Referenced raw captures are absent. Starts are not completed rounds."
+    },
+    {
+      "source": "deploy/smartsoft/official-observations-r16.json",
+      "reason": "Four games list10 sampledResultCheckpoints each. These are legacy completion claims with raw captures absent, no provider round IDs/counters in the summary. Keep separate from verified counter/outcome totals pending recovery."
+    },
+    {
+      "source": "deploy/smartsoft/official-observations-r21.json",
+      "reason": "Nine games list two spin-result stage labels each. Raw observation hashes alone do not establish distinct completed rounds; do not silently add them to r15/r16 or current sessions."
+    },
+    {
+      "source": "game-expansion/continuation/ice-receipt-r11/observed-component-receipts.json",
+      "reason": "Local component replay receipts derived from the same25 BlazingHot40 results, not additional official rounds."
+    },
+    {
+      "source": "player-machines/evidence/r13/natural-official40-local-evaluation.json",
+      "reason": "Explicitly re-evaluates the40 previously observed MH5 grids; exact duplicate of the natural40 evidence."
+    },
+    {
+      "source": "player-machines/evidence/r12/official-demo-audit.json",
+      "reason": "Records2 completed rounds each for protected MH5/Foxy20 but full session-counter prefixes are absent. Preserve as separate observed claims pending dedupe."
+    },
+    {
+      "source": "player-machines/evidence/r13/foxy-visible-natural3-local-evaluation.json",
+      "reason": "Three screenshot-transcribed natural Foxy results, no distinct provider counters; local comparison is not3 extra rounds. Check source sessions before adding."
+    }
+  ],
+  "note": "Qualified audit imported by distinct provider session/counter or raw-capture observation index. Existing fresh sessions remain separate. Historical actual lower bounds are never capped at20."
+}

@@ -1,0 +1,97 @@
+{
+  "pass": true,
+  "command": "node tests/machine74-layout-audit.mjs --label=after",
+  "sourceCorrection": "client/machines74.css:content-height for five proven affected families",
+  "games": 72,
+  "states": [
+    "ready",
+    "settled"
+  ],
+  "widths": [
+    360,
+    390,
+    430,
+    1280
+  ],
+  "casesBefore": 576,
+  "failuresBefore": 339,
+  "casesAfter": 576,
+  "failuresAfter": 0,
+  "familyResultsBefore": {
+    "crash": {
+      "cases": 104,
+      "failures": 56,
+      "maxVerticalClipPx": 454.59375
+    },
+    "ladder": {
+      "cases": 80,
+      "failures": 31,
+      "maxVerticalClipPx": 183.96875
+    },
+    "plinko": {
+      "cases": 24,
+      "failures": 24,
+      "maxVerticalClipPx": 235.703125
+    },
+    "slots": {
+      "cases": 320,
+      "failures": 188,
+      "maxVerticalClipPx": 221.84375
+    },
+    "wheel": {
+      "cases": 40,
+      "failures": 40,
+      "maxVerticalClipPx": 176.96875
+    },
+    "dice": {
+      "cases": 8,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    }
+  },
+  "familyResultsAfter": {
+    "crash": {
+      "cases": 104,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    },
+    "ladder": {
+      "cases": 80,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    },
+    "plinko": {
+      "cases": 24,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    },
+    "slots": {
+      "cases": 320,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    },
+    "wheel": {
+      "cases": 40,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    },
+    "dice": {
+      "cases": 8,
+      "failures": 0,
+      "maxVerticalClipPx": 0
+    }
+  },
+  "publicDefinitionChecks": {
+    "MineIsland2": "ten visible platforms in all eight cases",
+    "MultiHotWildWays": "public3x3reels;27WAYS;no fixed-payline chart;all eight labels correct"
+  },
+  "checks": "Complete rendered machine fits its stage vertically and horizontally, page does not overflow horizontally, controls remain below stage. Vertical page scrolling is allowed.",
+  "method": "Local actual renderMachine + public adapter fixtures; no financial HTTP or providers",
+  "externalRequests": 0,
+  "financialRequests": 0,
+  "playerWalletMutations": 0,
+  "providerWagers": 0,
+  "limitations": [
+    "Ready and one deterministic settled public fixture per model; this is a layout check, not proof of provider parity, bonus outcomes, live wallet integration or deployment."
+  ]
+}

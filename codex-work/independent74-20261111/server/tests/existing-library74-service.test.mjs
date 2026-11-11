@@ -6,9 +6,10 @@ import { installExistingLibrary74 } from '../existing-library74-service.mjs';
 import { integerRngFromLibrary } from '../existing-library74-adapter.mjs';
 import { createRegistry, seededRandom } from './support/retained-library/library-service.mjs';
 import { createRetainedLibrary74Fixture } from './support/retained-library-fixture.mjs';
+import * as fixtureMath from './support/synthetic-mines-math.mjs';
 
 const games = math.listGameDefinitions();
-const gameFor = family => games.find(game => game.family === family);
+const gameFor = family => family === 'mines' ? fixtureMath.syntheticMinesDefinition() : games.find(game => game.family === family);
 const moneyMinor = cash => BigInt(cash.replace('.', ''));
 const rejected = message => error => error.message === message;
 const noPrivateState = round => {
@@ -21,7 +22,7 @@ const noPrivateState = round => {
 
 test('official72 uses the retained SQL financial classes in an isolated PostgreSQL fixture', { timeout: 180000 }, async t => {
   let now = 1794355200000;
-  const fixture = await createRetainedLibrary74Fixture({ isolated: true, now: () => now, activeTtlMs: 1000 });
+  const fixture = await createRetainedLibrary74Fixture({ isolated: true, math: fixtureMath, now: () => now, activeTtlMs: 1000 });
   const { sql, facade, service, shared } = fixture;
   const wallet = async user => BigInt((await sql.unsafe('SELECT balance FROM sw_rebuild.wallets WHERE id=$1', [user]))[0].balance);
   const allMoney = async () => BigInt((await sql.unsafe('SELECT SUM(balance)::text AS value FROM sw_rebuild.wallets'))[0].value);
@@ -480,7 +481,7 @@ test('installing the new catalog preserves an accepted round and its original ev
   let now = 1794355200000;
   const fixture = await createRetainedLibrary74Fixture({ isolated: true, now: () => now });
   try {
-    const gameId = gameFor('mines').id;
+    const gameId = gameFor('ladder').id;
     const legacy = {
       definitions: { [gameId]: { version: 'previous-reviewed-fixture-v0', name: 'Previous fixture model' }, protected_fixture: { version: 'protected-fixture-v1' } },
       start(id, options, _rng, at) { return { state: { gameId: id, status: 'active', stakeMinor: options.stakeMinor, expiresAt: at + 1000 }, debitMinor: options.stakeMinor, maxPayoutMinor: '200', payoutMinor: null }; },

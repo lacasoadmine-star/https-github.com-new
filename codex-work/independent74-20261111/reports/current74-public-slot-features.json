@@ -1,0 +1,93 @@
+{
+  "capturedAt": "2026-11-11T07:17:49.233Z",
+  "sourceKind": "official-public-documents; no new official demo rounds",
+  "games": [
+    {
+      "gameId": "ind74_official_coinsofatlantis",
+      "mathVersion": "official72-coinsofatlantis-r3",
+      "source": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "sourceQuote": "The game includes an Expanding Wild symbol that can appear on the 2nd, 3rd, and 4th reels. It substitutes for all symbols and expands vertically to cover the entire reel when part of a winning combination.",
+      "htmlSha256": "4626f610679fbde9d5dff87773e6ee72d46b58da07ef1fa836d70faec320960c",
+      "implemented": [
+        "Wild substitution restricted to reels2–4",
+        "Only participating wild columns expand vertically",
+        "Re-evaluate all lines once after expansion",
+        "Preserve original grid and expanded-column evidence in settled public result",
+        "Exact integer payout and full maximum liability"
+      ],
+      "independentChoices": [
+        "Symbol awards and line charts",
+        "Each eligible cell has8×32regular tickets and1wild ticket",
+        "One-pass expansion evaluation order",
+        "Neutral1x multiplier"
+      ],
+      "fullProviderParityVerified": false
+    },
+    {
+      "gameId": "ind74_official_jinglebellbonanza",
+      "mathVersion": "official72-jinglebellbonanza-r3",
+      "source": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+      "sourceQuote": "Wild symbols appear on the 2nd, 3rd, and 4th reels and, if they participate in winning combinations, they expand to cover the entire vertical reel.",
+      "htmlSha256": "3c99c24f75e31fb8caaa1652acac0787d80ac5dc27515c5a84cc03f4b5e174b7",
+      "implemented": [
+        "Wild substitution restricted to reels2–4",
+        "Only participating wild columns expand vertically",
+        "Re-evaluate all lines once after expansion",
+        "Preserve original grid and expanded-column evidence in settled public result",
+        "Exact integer payout and full maximum liability"
+      ],
+      "independentChoices": [
+        "Symbol awards and line charts",
+        "Each eligible cell has8×32regular tickets and1wild ticket",
+        "One-pass expansion evaluation order",
+        "Uniform1x–5x wheel; only public maximum5x is verified"
+      ],
+      "fullProviderParityVerified": false
+    },
+    {
+      "gameId": "ind74_official_farmsfortune",
+      "mathVersion": "official72-farmsfortune-r3",
+      "source": "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+      "sourceQuote": "The Farmer acts as the Wild symbol, appearing on the 2nd, 3rd, and 4th reels. When part of a winning combination, he expands to cover the entire vertical reel.",
+      "htmlSha256": "537ef0f5544d64fcb260a7db46090f95ab05bf1acbe4b8d7a0592b552bb4ba73",
+      "implemented": [
+        "Wild substitution restricted to reels2–4",
+        "Only participating wild columns expand vertically",
+        "Re-evaluate all lines once after expansion",
+        "Preserve original grid and expanded-column evidence in settled public result",
+        "Exact integer payout and full maximum liability"
+      ],
+      "independentChoices": [
+        "Symbol awards and line charts",
+        "Each eligible cell has8×32regular tickets and1wild ticket",
+        "One-pass expansion evaluation order",
+        "Uniform1x–5x wheel; only public maximum5x is verified"
+      ],
+      "fullProviderParityVerified": false
+    }
+  ],
+  "unimplemented": [
+    "Coins Of Atlantis coin respin and full-board doubling",
+    "Jingle Bell Bonanza scatter awards",
+    "Farm's Fortune scatter bonuses and gamble",
+    "Exact provider artwork/audio",
+    "Provider probability distributions"
+  ],
+  "validation": {
+    "command": "node --test tests/public-slot-features.test.mjs tests/math-official72-audit.test.mjs tests/math-public-mechanics.test.mjs",
+    "tests": 28,
+    "pass": 28,
+    "fail": 0,
+    "log": "reports/current74-public-slot-features-tests.txt",
+    "coverage": [
+      "Participating expansion on each allowed column",
+      "Nonparticipating wild does not expand",
+      "Wild rejected on reels1and5",
+      "Exact maximum payout at1/20/50000ETB",
+      "All outcomes bounded by accepted liability",
+      "Terminal actions rejected",
+      "Protected IDs excluded"
+    ]
+  },
+  "productionWrites": 0
+}

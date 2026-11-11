@@ -1,0 +1,1005 @@
+{
+  "observedAt": "2026-11-11T07:11:22.298Z",
+  "health": {
+    "status": "ready",
+    "version": "superwin-native-families-v2",
+    "new_rounds_enabled": false,
+    "database_ready": true,
+    "dashboard_sync_ready": true,
+    "financial_ready": true,
+    "configured_games": 0,
+    "recovery_games": 30,
+    "families": [
+      "slots",
+      "crash",
+      "plinko",
+      "mines",
+      "wheel",
+      "hilo"
+    ]
+  },
+  "library": {
+    "ready": true,
+    "accepting": true,
+    "games": [
+      {
+        "id": "balloon_native",
+        "name": "Balloon",
+        "version": "superwin-balloon-1-etb1-40000-v1",
+        "type": "crash",
+        "currency": "ETB",
+        "launchable": true,
+        "minStake": "1.00",
+        "maxStake": "40000.00",
+        "maxWin": "1000000000.00",
+        "stakeValues": [
+          "1.00",
+          "2.00",
+          "5.00",
+          "10.00",
+          "20.00",
+          "50.00",
+          "100.00",
+          "200.00",
+          "500.00",
+          "1000.00",
+          "2000.00",
+          "5000.00",
+          "10000.00",
+          "20000.00",
+          "40000.00"
+        ],
+        "stakeMinorValues": [
+          "100",
+          "200",
+          "500",
+          "1000",
+          "2000",
+          "5000",
+          "10000",
+          "20000",
+          "50000",
+          "100000",
+          "200000",
+          "500000",
+          "1000000",
+          "2000000",
+          "4000000"
+        ],
+        "operatorWagerProfile": {
+          "id": "existing-new-etb1-40000-v1",
+          "currency": "ETB",
+          "selection": "preset-ladder",
+          "minStakeMinor": "100",
+          "maxStakeMinor": "4000000",
+          "stepMinor": "100",
+          "stakeValues": [
+            "1.00",
+            "2.00",
+            "5.00",
+            "10.00",
+            "20.00",
+            "50.00",
+            "100.00",
+            "200.00",
+            "500.00",
+            "1000.00",
+            "2000.00",
+            "5000.00",
+            "10000.00",
+            "20000.00",
+            "40000.00"
+          ],
+          "stakeMinorValues": [
+            "100",
+            "200",
+            "500",
+            "1000",
+            "2000",
+            "5000",
+            "10000",
+            "20000",
+            "50000",
+            "100000",
+            "200000",
+            "500000",
+            "1000000",
+            "2000000",
+            "4000000"
+          ],
+          "source": "User-requested independent ETB wager profile for the existing NEW Multi Hot 40 and Balloon games."
+        },
+        "stakeLimits": {
+          "min": "1.00",
+          "max": "40000.00",
+          "maxWin": "1000000000.00",
+          "currency": "ETB"
+        },
+        "releaseGate": {
+          "status": "reviewed_versioned_wager_profile",
+          "productionLaunchable": true
+        },
+        "maxMultiplier": 25000,
+        "officialReference": "https://www.smartsoftgaming.com/games/balloon",
+        "officialPrivateMathVerified": false,
+        "math": "Independent Superwin distribution: 97% survival draw law, original growth timing and 25000x multiplier ceiling. The complete stake-relative liability is reserved; payout scales with whole-ETB stake without the old absolute 10000 ETB clipping. Public demo artwork and press-and-hold interaction.",
+        "published": true
+      },
+      {
+        "id": "multihot40_native",
+        "name": "Multi Hot 40",
+        "type": "slots",
+        "launchable": true,
+        "columns": 5,
+        "rows": 4,
+        "paylines": 40,
+        "maxWinMultiplier": 2500,
+        "paylinePaths": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            2,
+            1,
+            1,
+            1,
+            2
+          ],
+          [
+            3,
+            2,
+            2,
+            2,
+            3
+          ],
+          [
+            2,
+            3,
+            3,
+            3,
+            2
+          ],
+          [
+            1,
+            2,
+            2,
+            2,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            2,
+            3,
+            2
+          ],
+          [
+            3,
+            2,
+            3,
+            2,
+            3
+          ],
+          [
+            2,
+            1,
+            2,
+            1,
+            2
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            2,
+            1,
+            1
+          ],
+          [
+            2,
+            2,
+            3,
+            2,
+            2
+          ],
+          [
+            3,
+            3,
+            2,
+            3,
+            3
+          ],
+          [
+            2,
+            2,
+            1,
+            2,
+            2
+          ],
+          [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            3,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            3,
+            3,
+            3,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            1,
+            1,
+            1
+          ],
+          [
+            3,
+            3,
+            2,
+            2,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            3,
+            3,
+            3,
+            2,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          [
+            0,
+            1,
+            2,
+            1,
+            0
+          ],
+          [
+            3,
+            2,
+            1,
+            2,
+            3
+          ]
+        ],
+        "symbols": [
+          {
+            "id": "0",
+            "label": "Seven",
+            "mark": "7",
+            "color": "#fdd24a"
+          },
+          {
+            "id": "1",
+            "label": "Bell",
+            "mark": "♟",
+            "color": "#f28c28"
+          },
+          {
+            "id": "2",
+            "label": "Grapes",
+            "mark": "🍇",
+            "color": "#fdd24a"
+          },
+          {
+            "id": "3",
+            "label": "Watermelon",
+            "mark": "🍉",
+            "color": "#f28c28"
+          },
+          {
+            "id": "4",
+            "label": "Cherries",
+            "mark": "🍒",
+            "color": "#fdd24a"
+          },
+          {
+            "id": "5",
+            "label": "Orange",
+            "mark": "🍊",
+            "color": "#f28c28"
+          },
+          {
+            "id": "6",
+            "label": "Plum",
+            "mark": "🟣",
+            "color": "#fdd24a"
+          },
+          {
+            "id": "7",
+            "label": "Lemon",
+            "mark": "🍋",
+            "color": "#f28c28"
+          }
+        ],
+        "theme": {
+          "bg": "#151307",
+          "accent": "#fdd24a",
+          "secondary": "#f28c28"
+        },
+        "featureDescription": "40 fixed paylines, a 1x–5x multiplier, Take Win and optional red/black doubling.",
+        "version": "superwin-multihot40-2-etb1-40000-v1",
+        "actions": [
+          "collect",
+          "gamble"
+        ],
+        "minStake": "1.00",
+        "maxStake": "40000.00",
+        "stakeValues": [
+          "1.00",
+          "2.00",
+          "5.00",
+          "10.00",
+          "20.00",
+          "50.00",
+          "100.00",
+          "200.00",
+          "500.00",
+          "1000.00",
+          "2000.00",
+          "5000.00",
+          "10000.00",
+          "20000.00",
+          "40000.00"
+        ],
+        "stakeMinorValues": [
+          "100",
+          "200",
+          "500",
+          "1000",
+          "2000",
+          "5000",
+          "10000",
+          "20000",
+          "50000",
+          "100000",
+          "200000",
+          "500000",
+          "1000000",
+          "2000000",
+          "4000000"
+        ],
+        "referenceStakeSchedule": {
+          "currency": "DMO",
+          "lines": 40,
+          "chipCoefficient": "0.01",
+          "perLineValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            40,
+            50,
+            75,
+            100,
+            125,
+            150,
+            200,
+            250
+          ],
+          "minimum": "0.40",
+          "maximum": "100.00",
+          "source": "references/public-models/multihot40_native.json",
+          "status": "preserved reference schedule; independent operator ETB presets differ"
+        },
+        "referenceLimits": {
+          "currency": "DMO",
+          "maximumWin": "250000.00",
+          "maximumWinMultiplier": 2500,
+          "DoublingMaxCount": "5.0",
+          "DoublingMaxWin": "500.00",
+          "doublingLimitMeaningVerified": false
+        },
+        "currencyAdaptation": {
+          "source": "DMO",
+          "currency": "ETB",
+          "method": "User-requested independent whole-ETB preset ladder 1.00 through 40000.00. Original coefficients and probability weights are retained; this is not a provider currency conversion.",
+          "productionLaunchable": true,
+          "operatorWagerProfileId": "existing-new-etb1-40000-v1"
+        },
+        "maxWin": "100000000.00",
+        "officialReference": "https://www.smartsoftgaming.com/games/multi-hot-40",
+        "officialPrivateMathVerified": false,
+        "releaseGate": {
+          "status": "reviewed_versioned_wager_profile",
+          "productionLaunchable": true,
+          "scope": "Existing NEW Multi Hot 40 versioned ETB1–40000 profile; historical model retained",
+          "referenceParityClaim": false,
+          "required": [
+            "versioned_wallet_integration",
+            "stake_frontend_alignment",
+            "rounded_award_verification",
+            "historical_receipt_recovery"
+          ],
+          "manifest": "existing-new-wager-review.json"
+        },
+        "referenceNotes": [
+          "The public 40 paths, eight symbols and line coefficients are unchanged. The ETB wager presets are an independent operator choice.",
+          "The native probability profile is independent. Its theoretical return before aggregate currency flooring is 95.9014892578125%; the provider demo displays 96.58%. Odd whole-ETB stakes may lose half a santim in final rounding.",
+          "Red/black and Take Win are reference controls. The exact provider interpretation of the public doubling boundary remains unverified; the native ETB rule is stated explicitly."
+        ],
+        "math": "Independent ZPLAY model: theoretical return 95.9014892578125% (31425/32768) before aggregate currency flooring, unchanged public line coefficients and fixed probability weights. Exact rational awards scale with stake; final whole-santim settlement can round down by half a santim at odd whole-ETB stakes. No payout clipping.",
+        "paytable": [
+          {
+            "symbol": "0",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "200",
+                "denominator": "10",
+                "value": 20
+              },
+              "4": {
+                "numerator": "2000",
+                "denominator": "10",
+                "value": 200
+              },
+              "5": {
+                "numerator": "5000",
+                "denominator": "10",
+                "value": 500
+              }
+            }
+          },
+          {
+            "symbol": "1",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "150",
+                "denominator": "10",
+                "value": 15
+              },
+              "4": {
+                "numerator": "1000",
+                "denominator": "10",
+                "value": 100
+              },
+              "5": {
+                "numerator": "2000",
+                "denominator": "10",
+                "value": 200
+              }
+            }
+          },
+          {
+            "symbol": "2",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "100",
+                "denominator": "10",
+                "value": 10
+              },
+              "4": {
+                "numerator": "500",
+                "denominator": "10",
+                "value": 50
+              },
+              "5": {
+                "numerator": "1000",
+                "denominator": "10",
+                "value": 100
+              }
+            }
+          },
+          {
+            "symbol": "3",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "100",
+                "denominator": "10",
+                "value": 10
+              },
+              "4": {
+                "numerator": "500",
+                "denominator": "10",
+                "value": 50
+              },
+              "5": {
+                "numerator": "1000",
+                "denominator": "10",
+                "value": 100
+              }
+            }
+          },
+          {
+            "symbol": "4",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "50",
+                "denominator": "10",
+                "value": 5
+              },
+              "4": {
+                "numerator": "100",
+                "denominator": "10",
+                "value": 10
+              },
+              "5": {
+                "numerator": "500",
+                "denominator": "10",
+                "value": 50
+              }
+            }
+          },
+          {
+            "symbol": "5",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "50",
+                "denominator": "10",
+                "value": 5
+              },
+              "4": {
+                "numerator": "100",
+                "denominator": "10",
+                "value": 10
+              },
+              "5": {
+                "numerator": "500",
+                "denominator": "10",
+                "value": 50
+              }
+            }
+          },
+          {
+            "symbol": "6",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "50",
+                "denominator": "10",
+                "value": 5
+              },
+              "4": {
+                "numerator": "100",
+                "denominator": "10",
+                "value": 10
+              },
+              "5": {
+                "numerator": "500",
+                "denominator": "10",
+                "value": 50
+              }
+            }
+          },
+          {
+            "symbol": "7",
+            "basis": "stake divided by 40",
+            "counts": {
+              "3": {
+                "numerator": "50",
+                "denominator": "10",
+                "value": 5
+              },
+              "4": {
+                "numerator": "100",
+                "denominator": "10",
+                "value": 10
+              },
+              "5": {
+                "numerator": "500",
+                "denominator": "10",
+                "value": 50
+              }
+            }
+          }
+        ],
+        "rules": [
+          "The game has five reels, four rows and 40 fixed paylines. Matching symbols pay consecutively from the leftmost reel. The highest win on each line is paid; simultaneous winning lines add.",
+          "A line stake is the total stake divided by 40. The line prize is the displayed coefficient multiplied by the line stake and the server-selected 1x–5x multiplier.",
+          "This independent ZPLAY model draws each of the eight symbols equally in each cell. Wheel probabilities for 1x, 2x, 3x, 4x and 5x are 1/16, 2/16, 3/16, 4/16 and 6/16. They do not depend on account, balance, stake, history or player action.",
+          "The theoretical return before currency flooring is 95.9014892578125%. Exact line awards are summed before one floor to santim; odd whole-ETB stakes can lose half a santim to rounding. The official reference demo displays a different provider-specific return of 96.58%.",
+          "A manual winning round waits for Take Win. The next Spin collects the previous confirmed win before placing a new wager. Autoplay can request automatic collection when the paid round starts.",
+          "A current win of at most 500.00 ETB can be risked on red or black, up to five attempts. Each fair attempt doubles the whole current win or loses it. A win above 500.00 ETB, or after five attempts, can only be collected. No second wallet stake is taken.",
+          "A pending win is automatically collected after 30 minutes, including after disconnection. Reloading restores the same accepted round. Collection does not draw a new result.",
+          "The maximum slot win is 2500 times total stake, up to 100000000.00 ETB at the 40000.00 ETB preset. The server reserves that complete bound before accepting the wager; insufficient bankroll or account limits reject it instead of clipping a win.",
+          "Only the displayed fixed ETB stakes are accepted. Outcomes, line prizes, current wins and credits come from the authenticated server."
+        ],
+        "currency": "ETB",
+        "operatorWagerProfile": {
+          "id": "existing-new-etb1-40000-v1",
+          "currency": "ETB",
+          "selection": "preset-ladder",
+          "minStakeMinor": "100",
+          "maxStakeMinor": "4000000",
+          "stepMinor": "100",
+          "stakeValues": [
+            "1.00",
+            "2.00",
+            "5.00",
+            "10.00",
+            "20.00",
+            "50.00",
+            "100.00",
+            "200.00",
+            "500.00",
+            "1000.00",
+            "2000.00",
+            "5000.00",
+            "10000.00",
+            "20000.00",
+            "40000.00"
+          ],
+          "stakeMinorValues": [
+            "100",
+            "200",
+            "500",
+            "1000",
+            "2000",
+            "5000",
+            "10000",
+            "20000",
+            "50000",
+            "100000",
+            "200000",
+            "500000",
+            "1000000",
+            "2000000",
+            "4000000"
+          ],
+          "source": "User-requested independent ETB wager profile for the existing NEW Multi Hot 40 and Balloon games."
+        },
+        "stakeLimits": {
+          "min": "1.00",
+          "max": "40000.00",
+          "maxWin": "100000000.00",
+          "currency": "ETB"
+        },
+        "controls": {
+          "manualCollection": true,
+          "automaticCollectionOption": "autoCollect",
+          "holdToSpin": true,
+          "holdDelayMs": 500,
+          "gambleColors": [
+            "red",
+            "black"
+          ]
+        },
+        "gamble": {
+          "chance": {
+            "numerator": "1",
+            "denominator": "2"
+          },
+          "payoffMultiplier": 2,
+          "suits": [
+            "clubs",
+            "diamonds",
+            "hearts",
+            "spades"
+          ],
+          "maximumAttempts": 5,
+          "maximumCurrentWinMinor": "50000",
+          "maximumPossibleGambleWinMinor": "100000",
+          "referenceLimitSemanticsVerified": false,
+          "limitMeaning": "The independent ETB profile permits gambling a current win of at most 500.00 ETB. A successful attempt doubles it without clipping; a win above 500.00 ETB can only be collected. The reference source contains the number 500, but its exact pre/post-double boundary remains unverified.",
+          "expectedReturn": "Fair independent red/black choices preserve the expected slot payout for any strategy bounded by the five-attempt and eligibility limits; collection and disconnection expiry return the full remaining amount."
+        },
+        "published": true
+      }
+    ],
+    "officialPrivateMathVerified": false
+  },
+  "queue": {
+    "schemaVersion": 1,
+    "targetCount": 1000,
+    "referenceCount": 1000,
+    "total": 1000,
+    "offset": 0,
+    "limit": 1,
+    "nextOffset": 1,
+    "providers": [
+      "4ThePlayer",
+      "Avatar UX",
+      "Big Time Gaming",
+      "Boomerang",
+      "Curious Games",
+      "Electric Elephant",
+      "Fantasma Games",
+      "Four Leaf Gaming",
+      "Hacksaw Gaming",
+      "Kalamba",
+      "Max Win Gaming",
+      "Play'n GO",
+      "Print Studios",
+      "ReelPlay",
+      "ReelPlay (Silver Bullet)",
+      "Relax Gaming",
+      "SmartSoft Gaming",
+      "Storm Gaming",
+      "Trigger"
+    ],
+    "items": [
+      {
+        "queueId": "smartsoft:popx",
+        "providerKey": "popx",
+        "name": "PopX",
+        "officialPage": "https://www.smartsoftgaming.com/games/popx",
+        "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialIcon": "https://cdn.prod.website-files.com/68263adafcf8918559aaa083/6ae33fc63e0c83b17fdbf408_493x617.webp",
+        "status": "reference_identified",
+        "presentationVerified": false,
+        "financialRelease": false,
+        "provider": "smartsoft",
+        "studio": "SmartSoft Gaming",
+        "demoObserved": false,
+        "sourceSha256": "1ed3baa65a372a26abecb1300f1a3320431998578ad01f726943c57378ef43f8",
+        "evidenceKind": "official_catalogue",
+        "cover": {
+          "sha256": "0646a2faa695ce534086d3974bdf9371b32ca1f86cbcb5998f500a817395ed52",
+          "bytes": 28018,
+          "type": "image/webp"
+        }
+      }
+    ],
+    "operationalGames": [
+      {
+        "id": "multihot100_native",
+        "providerKey": "multihot100",
+        "name": "Multi Hot 100",
+        "version": "superwin-multihot100-2-etb1-40000-v1",
+        "href": "/games/multihot100_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "habeshafortune5_native",
+        "providerKey": "habeshafortune5",
+        "name": "Habesha Fortune 5",
+        "version": "superwin-habeshafortune5-2-etb1-40000-v1",
+        "href": "/games/habeshafortune5_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "multihotwildways_native",
+        "providerKey": "multihotwildways",
+        "name": "Multi Hot Wild Ways",
+        "version": "superwin-multihotwildways-2-etb1-40000-v1",
+        "href": "/games/multihotwildways_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "multihot5wild_native",
+        "providerKey": "multihot5wild",
+        "name": "Multi Hot 5 Wild",
+        "version": "superwin-multihot5wild-2-etb1-40000-v1",
+        "href": "/games/multihot5wild_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "multihot5superwilds_native",
+        "providerKey": "multihot5superwilds",
+        "name": "Multi Hot 5 Super Wilds",
+        "version": "superwin-multihot5superwilds-2-etb1-40000-v1",
+        "href": "/games/multihot5superwilds_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "multihotdeluxe_native",
+        "providerKey": "multihot5deluxe",
+        "name": "Multi Hot Deluxe",
+        "version": "superwin-multihotdeluxe-2-etb1-40000-v1",
+        "href": "/games/multihotdeluxe_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "burningice_native",
+        "providerKey": "blazinghot",
+        "name": "Burning Ice",
+        "version": "superwin-burningice-2-etb1-40000-v1",
+        "href": "/games/burningice_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "burningice10_native",
+        "providerKey": "blazinghot10",
+        "name": "Burning Ice 10",
+        "version": "superwin-burningice10-2-etb1-40000-v1",
+        "href": "/games/burningice10_native",
+        "status": "operator_live_reference_review_in_progress"
+      },
+      {
+        "id": "burningice40_native",
+        "providerKey": "blazinghot40",
+        "name": "Burning Ice 40",
+        "version": "superwin-burningice40-2-etb1-40000-v1",
+        "href": "/games/burningice40_native",
+        "status": "operator_live_reference_review_in_progress"
+      }
+    ],
+    "operationalReleaseId": "remaining-native-etb-r16"
+  },
+  "known": [
+    {
+      "path": "/games/multi_hot_5_video",
+      "headers": [
+        "HTTP/1.1 200 OK",
+        "HTTP/2 200 "
+      ]
+    },
+    {
+      "path": "/games/hot_foxy_20",
+      "headers": [
+        "HTTP/1.1 200 OK",
+        "HTTP/2 200 "
+      ]
+    },
+    {
+      "path": "/games/balloon_native",
+      "headers": [
+        "HTTP/1.1 200 OK",
+        "HTTP/2 200 "
+      ]
+    },
+    {
+      "path": "/games/multihot40_native",
+      "headers": [
+        "HTTP/1.1 200 OK",
+        "HTTP/2 200 "
+      ]
+    }
+  ]
+}

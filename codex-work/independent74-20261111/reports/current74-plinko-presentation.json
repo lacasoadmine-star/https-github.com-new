@@ -1,0 +1,27 @@
+{
+  "gameId": "ind74_official_plinkoxclassic",
+  "baselineCommit": "f636b93dd38f59173587e3e36979deeb7595a422",
+  "changedFiles": [
+    "client/machine74-renderer.mjs",
+    "client/machine74-renderer.css",
+    "tests/machine74-plinko-presentation.test.mjs"
+  ],
+  "implemented": [
+    "Reset the confirmed Plinko ball to release synchronously before the first browser animation frame, preventing an initial destination flash.",
+    "Hide final multiplier and bucket strip during the drop, then reveal the unchanged confirmed result on landing or STOP."
+  ],
+  "validation": {
+    "command": "node --test tests/machine74-renderer.test.mjs tests/machine74-plinko-presentation.test.mjs",
+    "passed": 91,
+    "failed": 0,
+    "evidence": "reports/current74-plinko-presentation-tests.txt",
+    "coverage": "Existing72 public presentation models; added first-frame release and repeated STOP test with no actions and immutable round."
+  },
+  "remaining": [
+    "Full official visual, audio and bonus parity remains unverified.",
+    "This task did not establish live wallet integration or deployment."
+  ],
+  "newOfficialCompletedRounds": 0,
+  "playerWalletMutations": 0,
+  "obsoleteEarlierWork": "Earlier pegboard-only report/test at ef0cf91 is superseded by this active machine renderer change; do not count that earlier task as a current release feature."
+}

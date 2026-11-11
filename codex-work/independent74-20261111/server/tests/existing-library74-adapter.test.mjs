@@ -2,13 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as math from '../../math/official72.mjs';
 import scope from '../../scope/official74.json' with { type: 'json' };
+import * as fixtureMath from './support/synthetic-mines-math.mjs';
 import { createRegistry } from './support/retained-library/library-service.mjs';
 import { createExistingLibrary74Adapter, composeExistingLibrary74Registry, publicLibrary74Definitions, integerRngFromLibrary, minorToMoney } from '../existing-library74-adapter.mjs';
 
 const definitions = math.listGameDefinitions();
 const ids = definitions.map(game => game.id);
-const definition = family => definitions.find(game => game.family === family && (family !== 'crash' || game.crashMechanic !== 'cascade'));
+const definition = family => family === 'mines' ? fixtureMath.syntheticMinesDefinition() : definitions.find(game => game.family === family && (family !== 'crash' || game.crashMechanic !== 'cascade'));
 const openAdapter = options => createExistingLibrary74Adapter({ reviewedGameIds: ids, allowNewRounds: true, gameLimits: Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])), ...options });
+const openMinesAdapter=options=>{const ids=fixtureMath.listGameDefinitions().map(g=>g.id);return openAdapter({math:fixtureMath,reviewedGameIds:ids,gameLimits:Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])),...options});};
 const startedAt = 1794355200000;
 const zero = () => 0;
 
@@ -114,7 +116,7 @@ test('all 72 adapters start and settle inside their exact per-round reserve boun
 });
 
 test('active public state hides seeds, future mine cells, survival arrays and crash deadlines', () => {
-  const adapter = openAdapter();
+  const adapter = openMinesAdapter();
   for (const family of ['crash', 'mines', 'ladder']) {
     const game = definition(family);
     const round = adapter.start(game.id, { stakeMinor: '100' }, zero, startedAt).state;
@@ -129,7 +131,7 @@ test('active public state hides seeds, future mine cells, survival arrays and cr
 });
 
 test('expiry returns an unplayed mine stake, collects an earned award and resolves actual crash loss', () => {
-  const adapter = openAdapter({ activeTtlMs: 1000 });
+  const adapter = openMinesAdapter({ activeTtlMs: 1000 });
   const mine = definition('mines');
   const unplayed = adapter.start(mine.id, { stakeMinor: '100' }, zero, startedAt).state;
   assert.throws(() => adapter.expire(unplayed, zero, startedAt + 999), /ROUND_NOT_EXPIRED/);
@@ -153,7 +155,7 @@ test('expiry returns an unplayed mine stake, collects an earned award and resolv
 });
 
 test('actions cannot supply money, choose a hidden outcome or reset a crash clock', () => {
-  const adapter = openAdapter();
+  const adapter = openMinesAdapter();
   const game = definition('mines');
   const round = adapter.start(game.id, { stakeMinor: '100' }, zero, startedAt).state;
   for (const input of [{ type: 'reveal', cell: 24, payoutMinor: '999' }, { type: 'reveal', cell: 24, seed: 'seed' }, { type: 'sync' }, { type: 'start' }]) {

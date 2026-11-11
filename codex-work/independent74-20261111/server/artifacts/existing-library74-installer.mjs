@@ -18064,6 +18064,42 @@ var publishedReelLayout = (rows, columns, source2, paylines) => Object.freeze({
   limitations: Object.freeze(["The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."])
 });
 var OBSERVED_LAYOUTS = Object.freeze({
+  ind74_official_poweroftiger: Object.freeze({
+    rows: 3,
+    columns: 3,
+    paylines: 5,
+    multiplierPlacement: "top-arc",
+    observedMultiplierValues: Object.freeze([20]),
+    completeMultiplierLabelsVerified: false,
+    source: "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-journal.json",
+    evidence: "The official DEMO shows a3-by-3 grid and a top20X sign. Five completed returned public results contain9symbols each. The public page lists5active paylines.",
+    limitations: Object.freeze(["The20X sign does not establish a feature trigger, active award or probability.", "Wild substitution, locked-symbol respins, complete provider paytable and fixed line chart remain unimplemented or unverified."])
+  }),
+  ind74_official_multihotwildways: Object.freeze({
+    rows: 3,
+    columns: 3,
+    ways: 27,
+    multiplierPlacement: "left-reel",
+    observedMultiplierValues: Object.freeze([1, 2, 3, 4, 5]),
+    completeMultiplierLabelsVerified: false,
+    source: "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-journal.json",
+    evidence: "The initial official DEMO screen shows3reels,3rows,27WAYS and a left multiplier reel. Twenty returned public result grids contain9symbols each; result factors1x,2x,3x,4x,5x were recorded.",
+    limitations: Object.freeze(["Provider LinePlay1 is a betting field, not a payline count.", "The provider symbol-ID mapping, award basis, probabilities and full bonus behavior remain unverified.27-way allocation and awards are independently authored."])
+  }),
+  ind74_official_mineisland: Object.freeze({
+    steps: 10,
+    observedMultipliersBps: Object.freeze([11e3, 12e3, 15e3, 2e4, 3e4, 5e4, 1e5, 2e5, 5e5, 1e6]),
+    source: "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
+    evidence: "The official MineIsland demo shows ten ascending platforms from 1.1x to 100x, an ocean, kangaroo and TNT barrels. A first PLAY attempt was observed to lose and return to PLAY.",
+    limitations: Object.freeze(["The marketing page instead describes a rectangular tile/mines game; this conflict is unresolved.", "Original-demo continuation controls, provider survival probabilities, rare features, exact artwork and audio remain unverified."])
+  }),
+  ind74_official_mineisland2: Object.freeze({
+    steps: 10,
+    observedMultipliersBps: Object.freeze([11e3, 12e3, 15e3, 2e4, 3e4, 5e4, 1e5, 2e5, 5e5, 1e6]),
+    source: "reports/current74-evidence/mineisland2-initial.png",
+    evidence: "The official MineIsland2 EASY demo shows ten ascending platforms from 1.1x to 100x. PLAY resolves a first jump; a successful first step can COLLECT 1.10 DMO from a 1.00 DMO stake.",
+    limitations: Object.freeze(["Medium and hard multipliers, boost/portal mechanics and survival probabilities remain independently authored or unverified."])
+  }),
   ind74_official_dicejungle: Object.freeze({
     rows: 3,
     columns: 5,
@@ -18157,9 +18193,10 @@ function officialLayout(definition2) {
       kind: "reels",
       rows: d.rows,
       columns: d.cols ?? 5,
-      paylines: d.paylines.length,
+      paylines: d.ways ? null : d.paylines.length,
       paylinesVerified: false,
-      paylineCountVerified: observed?.paylines === d.paylines.length || Boolean(d.provenance?.paylineCountSource),
+      ...d.ways ? { ways: d.ways, waysCountVerified: observed?.ways === d.ways } : {},
+      paylineCountVerified: !d.ways && (observed?.paylines === d.paylines.length || Boolean(d.provenance?.paylineCountSource)),
       multiplier: {
         placement: observed?.multiplierPlacement ?? (values.length ? "independent-display" : "none"),
         observedValues: [...observed?.observedMultiplierValues ?? []],
@@ -18183,6 +18220,8 @@ function officialLayout(definition2) {
     ...common,
     kind: "ladder",
     steps: d.multipliersBps.length,
+    stepCountVerified: observed?.steps === d.multipliersBps.length,
+    observedDefaultMultipliersBps: [...observed?.observedMultipliersBps ?? []],
     modes: [...d.modes ?? ["easy"]],
     visualChoicesAffectProbabilities: false
   };
@@ -18750,6 +18789,119 @@ function configurePublicColorGamble(definition2) {
   return definition2;
 }
 
+// math/public-slot-features.mjs
+var FEATURES = Object.freeze({
+  ind74_official_coinsofatlantis: Object.freeze({
+    source: "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+    version: "official72-coinsofatlantis-r3",
+    label: "Atlantis Wild",
+    maximumWheel: 1,
+    missing: "The separately advertised coin respin, bonus purchase and full-board coin doubling are not implemented by this regular-spin feature."
+  }),
+  ind74_official_jinglebellbonanza: Object.freeze({
+    source: "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+    version: "official72-jinglebellbonanza-r3",
+    label: "Jingle Wild",
+    maximumWheel: 5,
+    missing: "The advertised scatter awards and complete provider bonus behavior remain unverified and are not implemented by this regular-spin feature."
+  }),
+  ind74_official_farmsfortune: Object.freeze({
+    source: "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+    version: "official72-farmsfortune-r3",
+    label: "Farmer Wild",
+    maximumWheel: 5,
+    missing: "The advertised scatter bonuses, bonus purchase and gamble are not implemented by this regular-spin feature."
+  })
+});
+var PUBLIC_EXPANDING_WILD_IDS = Object.freeze(Object.keys(FEATURES));
+function configurePublicSlotFeatures(definition2) {
+  const feature = FEATURES[definition2?.id];
+  if (!feature || definition2.family !== "slots" || definition2.cols !== 5 || !Array.isArray(definition2.symbols) || !Array.isArray(definition2.paylines)) {
+    throw new TypeError("A documented five-reel expanding-wild model is required.");
+  }
+  definition2.mathVersion = feature.version;
+  definition2.wildSymbol = { id: definition2.id.slice("ind74_official_".length) + "-wild", label: feature.label, glyph: "W" };
+  definition2.wildRule = {
+    columns: [1, 2, 3],
+    substitutesRegularSymbols: true,
+    expandWhenWinning: true,
+    expansionEvaluation: "initial-winning-lines-only",
+    allWildAward: "highest-eligible-symbol-award",
+    regularSymbolWeight: 32,
+    wildWeight: 1,
+    probabilityModel: "independent-per-cell-tickets",
+    providerProbabilitiesVerified: false,
+    source: feature.source
+  };
+  definition2.multiplierValues = Array.from({ length: feature.maximumWheel }, (_, index) => index + 1);
+  definition2.rules = [
+    `This independent ${definition2.cols}-reel, ${definition2.rows}-row model uses ${definition2.paylines.length} independently authored paylines and symbol awards. The complete provider geometry and line chart are not established.`,
+    "The official public rule restricts wilds to reels 2, 3 and 4. A wild substitutes for a regular symbol and expands vertically when participating in a winning combination.",
+    "This implementation identifies wilds in the initial winning lines, fills those columns with wilds, and evaluates all paylines once more. Repeated provider expansion ordering remains unverified.",
+    feature.maximumWheel === 5 ? "The official page advertises a multiplier up to 5x. This independent implementation uses equally likely factors 1x through 5x; their exact provider labels and probabilities remain unverified." : "This regular-spin feature uses a neutral 1x multiplier. No additional provider multiplier behavior is inferred.",
+    `Each eligible cell has ${definition2.symbols.length * 32} independent regular-symbol tickets and one wild ticket. These probabilities, line chart and symbol awards are operator choices, not recovered provider mathematics.`,
+    feature.missing
+  ];
+  definition2.provenance = {
+    ...definition2.provenance,
+    publicExpandingWildSource: feature.source,
+    designed: "Documented wild reel restriction and winning-participation expansion; independently authored awards, line chart, probability distribution and one-pass expansion order."
+  };
+  return definition2;
+}
+
+// math/ways-slot.mjs
+var OBSERVED_WILD_WAYS_ID = "ind74_official_multihotwildways";
+function configureObservedWildWays(definition2) {
+  if (definition2?.id !== OBSERVED_WILD_WAYS_ID || definition2.family !== "slots") {
+    throw new TypeError("The observed Multi Hot Wild Ways definition is required.");
+  }
+  definition2.mathVersion = "official72-multihotwildways-r3";
+  definition2.model = "independent-three-reel-27-ways";
+  definition2.rows = 3;
+  definition2.cols = 3;
+  definition2.ways = 27;
+  definition2.paylines = [];
+  for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) for (let c = 0; c < 3; c++) {
+    definition2.paylines.push([a, b, c]);
+  }
+  definition2.symbols = definition2.symbols.map((symbol) => ({ ...symbol, pays: { 3: symbol.pays[3] } }));
+  definition2.wildSymbol = { id: "multihotwildways-wild", label: "Wild", glyph: "W" };
+  definition2.wildRule = {
+    columns: [0, 1, 2],
+    substitutesRegularSymbols: true,
+    expandWhenWinning: false,
+    expansionEvaluation: "none",
+    allWildAward: "highest-eligible-symbol-award",
+    regularSymbolWeight: 32,
+    wildWeight: 1,
+    probabilityModel: "independent-per-cell-tickets",
+    providerProbabilitiesVerified: false
+  };
+  definition2.multiplierValues = [1, 2, 3, 4, 5];
+  definition2.rules = [
+    "The observed official demo has three reels and three rows, a left multiplier reel, and an explicit27WAYS label. All20 recorded result grids contain nine symbols.",
+    "The official public rule pays matching symbols from consecutive reels beginning at the leftmost reel. Selecting one row from each of three reels gives27 possible ways. Wild substitutes for regular symbols.",
+    "This independent model evaluates each of the27 row combinations exactly once. A matching three-symbol way pays floor(total stake \xD7 the authored symbol prize /27); way awards add, then the server multiplier applies.",
+    "An all-wild way receives the highest eligible regular-symbol award once. No vertical wild expansion is inferred for this title.",
+    "Factors1x through5x occurred in the recorded public results. This independent implementation gives them equal probability; provider distribution and complete label order are unverified.",
+    "Symbol prizes, total-stake/27 award allocation, all-wild treatment and per-cell ticket probabilities are operator choices. The static Help document does not establish the complete provider award basis, symbol-ID mapping or probabilities.",
+    "The raw provider LinePlay value1 is a betting field. It is not treated as one payline, nor as evidence of27 fixed paylines. Gamble and complete provider bonus behavior remain unimplemented or unverified."
+  ];
+  definition2.provenance = {
+    ...definition2.provenance,
+    observed: "Twenty official DEMO results with nine symbols each; rendered3\xD73 grid, left multiplier reel and27WAYS label.",
+    geometrySource: "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-initial.png",
+    publicWaysSource: "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+    designed: "Independent regular-symbol awards,27-way stake allocation, wild tickets, highest-award all-wild treatment and uniform multiplier distribution."
+  };
+  return definition2;
+}
+function startObservedWildWays(definition2, options) {
+  const round = startPublicWildSlot(definition2, options);
+  return { ...round, outcome: { ...round.outcome, ways: 27, winningWaysCount: round.outcome.lineWins.length } };
+}
+
 // math/official72.mjs
 var norm = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 var models = listGameDefinitions();
@@ -18761,7 +18913,8 @@ var PLINKO_CLASSIC = "ind74_official_plinkoxclassic";
 var WILD_THREE = "ind74_official_multihot5wild";
 var BURN_WILDS = "ind74_official_multihot5burnwilds";
 var GAMBLE_HUNDRED = "ind74_official_multihot100";
-var THREE_REEL_TITLES = /* @__PURE__ */ new Set(["Multi Hot 5 Deluxe", "Safari Simba", "Habesha Fortune 5", "Bao Slot 5X"]);
+var MINE_ISLAND = "ind74_official_mineisland";
+var THREE_REEL_TITLES = /* @__PURE__ */ new Set(["Multi Hot 5 Deluxe", "Safari Simba", "Habesha Fortune 5", "Bao Slot 5X", "Power of Tiger"]);
 var VERIFIED_LINE_COUNTS = /* @__PURE__ */ new Map([["Power of Tiger", 5], ["Gems Crown Charging Wilds", 5], ["Burning Ice", 5], ["Jungle Sisters Deluxe", 20], ["Sugar Fiesta", 3]]);
 function maximumMultiplier(d) {
   if (d.family === "slots") return largestSymbolPrize(d) * largestWheel(d) * 1e4 * (d.gamble?.enabled ? 2 ** d.gamble.maxRounds : 1);
@@ -18791,6 +18944,32 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
   };
   d.implementationStatus = "independent-model; full-reference-parity-and-production-ledger-unverified";
   d.limits = { minBetMinor: "100", maxBetMinor: "0", betStepMinor: "100", maxWinMinor: "0" };
+  if (d.id === MINE_ISLAND) {
+    d.family = "ladder";
+    d.mathVersion = "official72-mineisland-r3";
+    for (const key of ["rows", "cols", "cells", "mines", "maxPicks"]) delete d[key];
+    d.modes = ["easy"];
+    d.defaultMode = "easy";
+    d.maxSteps = 10;
+    d.multipliersBps = [11e3, 12e3, 15e3, 2e4, 3e4, 5e4, 1e5, 2e5, 5e5, 1e6];
+    d.returnBps = 9600;
+    d.paytable = [{ mode: "easy", rows: d.multipliersBps.map((multiplierBps, index) => ({ step: index + 1, multiplierBps })) }];
+    d.nominalReturn = { numerator: "96", denominator: "100", description: "Independent authored survival model. This is not a provider RTP claim." };
+    d.rules = [
+      "The observed official Mine Island demo shows ten ascending island platforms labelled 1.1x, 1.2x, 1.5x, 2x, 3x, 5x, 10x, 20x, 50x and 100x.",
+      "Play debits one stake and resolves the first jump. The observed first attempt could lose. This independent continuation offers Jump to attempt the next platform or Collect to pay the confirmed current multiplier; the original demo continuation controls remain unverified.",
+      "The tenth successful jump collects at 100x. Winnings use integer minor units and round down after multiplication.",
+      "The server chooses the outcomes. This independent model uses a 9600/first-multiplier survival threshold, then the preceding multiplier divided by the next multiplier; those probabilities are operator choices and are not verified provider probabilities.",
+      "Selected visual cell numbers do not change the server result. No private RNG, rare provider bonus, artwork, audio or full reference equivalence is claimed.",
+      "Source conflict: the official marketing page describes a rectangular tile/mines game, while its linked MineIsland demo shows this ascending island ladder. The observed launcher geometry is used here; complete title/rule equivalence is not established."
+    ];
+    d.provenance = {
+      ...d.provenance,
+      observed: "Official MineIsland launcher screenshot shows an ocean, kangaroo, TNT barrels and ten ascending island platforms; the first PLAY attempt was observed to lose and return to PLAY. Later continuation controls are unverified.",
+      geometrySource: "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
+      designed: "Independent survival probabilities and server round transitions with observed ten-step visible multipliers. The previous rectangular mines model does not match this game."
+    };
+  }
   if (THREE_REEL_TITLES.has(entry.name)) {
     d.rows = 3;
     d.cols = 3;
@@ -18803,6 +18982,11 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
       "The complete provider paytable, paylines, bonus features and probabilities remain unverified. No provider return percentage is claimed."
     ];
     d.provenance = { ...d.provenance, geometrySource: entry.officialUrl, designed: "Independent three-reel regular-symbol model with author-generated five paylines and symbol awards." };
+    if (entry.name === "Power of Tiger") {
+      d.provenance.geometrySource = "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-initial.png";
+      d.provenance.observed = "Five fresh official DEMO results contain nine symbols each, matching the rendered3-by-3 grid. The public page and result LinePlay field both specify five lines.";
+      d.rules.push("The observed20X sign is presentation evidence only. The advertised wild, locked-symbol respin and conditional5x/10x/15x/20x feature remain unimplemented; no trigger probabilities or active feature award are inferred from that sign.");
+    }
   }
   if (VERIFIED_LINE_COUNTS.has(entry.name)) {
     const count = VERIFIED_LINE_COUNTS.get(entry.name);
@@ -18895,6 +19079,8 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
       designed: three ? "Observed nine regular-symbol awards and the Wild award; independently authored five-line chart and probabilities. The provider maximum-win coupling remains unresolved." : "Independent symbol awards, five-line chart and probabilities; public geometry and wild rules implemented separately from those operator choices."
     };
   }
+  if (d.id === OBSERVED_WILD_WAYS_ID) configureObservedWildWays(d);
+  if (PUBLIC_EXPANDING_WILD_IDS.includes(d.id)) configurePublicSlotFeatures(d);
   if ([WILD_THREE, BURN_WILDS].includes(d.id)) configurePublicColorGamble(d);
   if (d.id === GAMBLE_HUNDRED) {
     d.mathVersion = "official72-" + norm(entry.name) + "-r3";
@@ -18958,8 +19144,8 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
         description: "Independent three-reel weighted model, including the observed own prize for an all-wild line.",
         rounding: "Before per-line minor-unit flooring."
       };
-    } else if (d.id === BURN_WILDS) {
-      d.nominalReturn = { verified: false, description: "Independent expanding-wild model; aggregate return is not certified or inferred from the provider." };
+    } else if (d.wildSymbol) {
+      d.nominalReturn = { verified: false, description: "Independent wild-bearing model; aggregate return is not certified or inferred from the provider." };
     } else if (d.cols === 3) {
       const wheel = d.multiplierValues ?? [1];
       d.nominalReturn = {
@@ -19082,7 +19268,7 @@ function startRound({ gameId, betMinor, options = {}, rng, now } = {}) {
   betMinor = acceptedBet(d, betMinor, options);
   if (d.family === "slots") return result(holdSlotWin(
     d,
-    d.wildSymbol ? startPublicWildSlot(d, { betMinor, rng }) : d.cols === 3 ? startThreeReelSlot(d, { betMinor, rng }) : startSlot(d, { betMinor, rng }),
+    d.ways ? startObservedWildWays(d, { betMinor, rng }) : d.wildSymbol ? startPublicWildSlot(d, { betMinor, rng }) : d.cols === 3 ? startThreeReelSlot(d, { betMinor, rng }) : startSlot(d, { betMinor, rng }),
     options.holdWin
   ));
   if (d.crashMechanic === "cascade") return result(startPopxCascade(d, { betMinor, rng, now }));
@@ -19284,7 +19470,8 @@ function publicLibrary74Definition(definition2, { accepting = false, policy = nu
   if (definition2.gamble) view.gamble = publishedTable(definition2.gamble);
   if (definition2.ballSelection) view.ballTypes = definition2.ballSelection.map(({ type, multiplier }) => ({ type, multiplier }));
   if (definition2.symbols) view.symbols = definition2.symbols.map(({ id, label, glyph, pays }) => ({ id, label, glyph, pays: clone(pays) }));
-  if (definition2.paylines) view.paylines = clone(definition2.paylines);
+  if (definition2.ways) view.ways = definition2.ways;
+  else if (definition2.paylines) view.paylines = clone(definition2.paylines);
   if (definition2.sectors) view.sectors = definition2.sectors.map(({ id, label, multiplierBps }) => ({ id, label, multiplierBps }));
   if (definition2.paytable) view.paytable = publishedTable(definition2.paytable);
   return view;

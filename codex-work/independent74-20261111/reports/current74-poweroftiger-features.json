@@ -1,0 +1,94 @@
+{
+  "updatedAt": "2026-11-11T08:03:36.501Z",
+  "gameId": "ind74_official_poweroftiger",
+  "modelVersion": "official72-poweroftiger-r4",
+  "sourceType": "Official public marketing and English Help documents; bonus behavior not claimed as directly observed provider gameplay",
+  "sources": [
+    {
+      "url": "https://www.smartsoftgaming.com/games/power-of-tiger",
+      "htmlSha256": "daa2eb042fcdfc976bfc75faa15bf30f67bfe4ceb9e88aa70ec32ce45dcac50b"
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/content/Scripts/Locale.ashx?locale=en&version=4bb2841a-5b86-44a4-ad31-31cad7860e79&GameCategory=slots&GameName=poweroftiger",
+      "sha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+      "record": "reports/current74-evidence-slots-remaining/poweroftiger-official-help-en.json"
+    }
+  ],
+  "documentedRules": {
+    "wild": "The WILD symbol substitutes for all symbols on active paylines.\nIt can appear on all reels. In the base game, whenever a full screen of the same symbol lands or all 5 active paylines form winning combinations, all wins are multiplied by one of the following multipliers selected at random: x5, x10, x15, or x20.",
+    "respin": [
+      "The RESPIN feature may trigger randomly on any spin. When activated, a random paying symbol is selected. At the beginning of the RESPIN, a multiplier of x5, x10, x15, or x20 is randomly selected and displayed.\nThe reels then spin and stop displaying only the selected symbol, any Wild symbols, and blank positions.",
+      "The reels will respin if additional symbols of the selected type or Wild symbols land. These symbols remain locked in place, and a new respin is awarded.",
+      "The RESPIN feature ends when no additional selected symbols land during a respin or when the entire screen is filled with the selected symbol and/or Wild symbols.",
+      "At the end of the RESPIN, if the screen is fully filled with the selected symbol, all wins are multiplied by the multiplier selected at the beginning of the RESPIN.\nRespin winnings are awarded to the player after the round is completed."
+    ],
+    "lineAccounting": "Only the highest win per payline is paid. When winning on multiple paylines, all wins are added together to determine the total win."
+  },
+  "implemented": [
+    "Wild substitution on all reels",
+    "Conditional5x/10x/15x/20x base multiplier for identical full board or all five line wins",
+    "Random selected-symbol respin with selected/Wild/blank positions",
+    "Locked positions never replaced; new locks continue and no new locks stop",
+    "Full nine-cell board ends and applies selected feature factor",
+    "All feature frames resolved server-side inside one settled spin",
+    "Exact integer per-line awards and full base-plus-feature liability"
+  ],
+  "independentChoices": {
+    "baseSymbolWeights": "32tickets per regular symbol and1wild ticket",
+    "respinTrigger": "1of128tickets",
+    "selectedSymbol": "uniform regular symbol",
+    "factor": "uniform5x/10x/15x/20x",
+    "unlockedCell": "8selected,1wild,55blank tickets outof64",
+    "initialFeatureBoard": "empty, no inherited base locks",
+    "awardAggregation": "base award plus final feature-grid award once; no intermediate payments",
+    "wildFullBoardMultiplier": "selected symbols and substituting wilds count as filled"
+  },
+  "unverifiedOrAmbiguous": [
+    "Provider probability distributions and RTP",
+    "Provider symbol prizes and exact five-line chart",
+    "Initial base-symbol carryover into respin",
+    "Whether provider base and feature awards add",
+    "English Help termination includes selected/Wild but multiplier sentence says selected symbol; wild multiplier treatment unresolved",
+    "Full provider bonus/presentation equivalence"
+  ],
+  "maximum": {
+    "independentMaximumMultiplierBps": 16800000,
+    "accounting": "40× largest single-symbol base award covers base20× plus final feature20×, attainable without a payout clamp.",
+    "maximumFrames": 9,
+    "proof": "Each continuing frame adds at least one of nine locks; a no-new-lock frame ends immediately."
+  },
+  "publicFrameContract": {
+    "mainGrid": "base grid retained for compatibility",
+    "bonusFrames": "completed past grids; null denotes blank, plus lockedCells/newLocks, lineWins, raw/displayed award, multiplierApplied and terminal",
+    "noPrivateOrFutureState": true
+  },
+  "validation": {
+    "math": {
+      "command": "node --test tests/poweroftiger-features.test.mjs tests/observed-poweroftiger.test.mjs tests/math-official72-audit.test.mjs",
+      "tests": 22,
+      "pass": 22,
+      "fail": 0,
+      "log": "reports/current74-poweroftiger-feature-tests.txt"
+    },
+    "ledger": {
+      "command": "node --test server/tests/poweroftiger-feature-ledger.test.mjs",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "log": "reports/current74-poweroftiger-ledger-tests.txt",
+      "coverage": [
+        "explicit local RNG branch fixture only",
+        "six identical concurrent deliveries yield five replays",
+        "one stake debit",
+        "one full base-plus-feature payout",
+        "zero remaining reserve",
+        "one canonical history record",
+        "balanced ledger and conserved value",
+        "state reload adds no payout"
+      ],
+      "limitation": "PGlite is a disposable single-connection fixture, not proof of production distributed contention."
+    }
+  },
+  "newOfficialDemoRoundsByThisAgent": 0,
+  "productionWrites": 0
+}

@@ -1,8 +1,8 @@
 import {entries} from './official74-data.mjs';
+import {existingWalletRoute} from './existing-wallet-routes.mjs';
 // Additive catalogue only: the existing React account header, navigation,
 // authentication and game engines remain owned by the existing application.
-const existing={ind74_official_multihot5:'/games/multi_hot_5_video',ind74_official_foxyhot20:'/games/hot_foxy_20'};
-const url=(game,demo=false)=>game.protected?(demo?game.demoUrl:existing[game.gameId]):'/independent74/machines74.html'+(demo?'?mode=demo':'')+'#'+encodeURIComponent(game.gameId);
+const url=(game,demo=false)=>!demo&&existingWalletRoute(game.gameId)?existingWalletRoute(game.gameId):game.protected?game.demoUrl:'/independent74/machines74.html'+(demo?'?mode=demo':'')+'#'+encodeURIComponent(game.gameId);
 const element=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text)node.textContent=text;return node;};
 const source=value=>{const link=new URL(value);if(link.protocol!=='https:'||!['cdn.prod.website-files.com','www.smartsoftgaming.com','smartsoftgaming.com','eu-server.ssgportal.com'].includes(link.hostname))throw Error('Invalid catalogue source');return link.href;};
 const section=element('section','i74-lobby');section.id='i74-lobby';section.setAttribute('aria-label','74 ZPLAY games');

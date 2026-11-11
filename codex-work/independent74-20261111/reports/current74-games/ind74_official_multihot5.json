@@ -1,0 +1,540 @@
+{
+  "number": 36,
+  "gameId": "ind74_official_multihot5",
+  "title": "Multi Hot 5",
+  "protected": true,
+  "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "category": "Slots",
+  "verifiedCompletedOfficialRounds": 115,
+  "targetRounds": 20,
+  "remainingRequiredRounds": 0,
+  "furtherRoundsAllowed": false,
+  "construction": "protected-existing-game-unchanged",
+  "comparison": {
+    "status": "full-provider-parity-unverified",
+    "publicGeometryVerified": false,
+    "demoGeometryObserved": false,
+    "sourceFacts": [],
+    "unresolved": []
+  },
+  "wallet": {
+    "productionVerified": false,
+    "moneyPolicyEvidence": "reports/money-policy-20261111.json",
+    "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
+    "accountGameHouseProductionLimitsVerified": false,
+    "status": "existing-wallet-not-retested-in-this-audit"
+  },
+  "tests": {
+    "freshSharedSuitePassed": 728,
+    "freshSharedSuiteFailed": 0,
+    "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
+    "sharedSuiteRunInProgress": false,
+    "browserEvidence": "tests/machine74-browser-report.json",
+    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserResult": null,
+    "historicalCheckpointFullSuitePassed": 651,
+    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "perGameProductionWalletTest": false,
+    "newMachineBrowserVerified": false
+  },
+  "deployment": {
+    "completedReleaseDeployed": false,
+    "lastRecordedRelease": "r5",
+    "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
+    "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/",
+    "comparisonUrl": "https://superwin-player.apdiy61.workers.dev/independent74/compare74.html#ind74_official_multihot5",
+    "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
+  },
+  "observationJournal": {
+    "viewport": {
+      "width": 1280,
+      "height": 800,
+      "scope": "historical launch audit only; gameplay observations specify own viewport if captured"
+    },
+    "aspectRatio": "not-gameplay-verified",
+    "launchCanvasDimensions": [
+      {
+        "width": 2170,
+        "height": 1130,
+        "sourceFrame": "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/MultiHot5/Game.aspx",
+        "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
+      }
+    ],
+    "geometry": [],
+    "controls": [],
+    "visibleLaunchButtons": [],
+    "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_multihot5",
+        "title": "Multi Hot 5",
+        "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "observedOn": "2026-11-06T04:12:46.837454+00:00",
+        "mode": "official-demo",
+        "historicalImport": true,
+        "verifiedCompletedRounds": 115,
+        "countEvidence": [
+          {
+            "gameId": "ind74_official_multihot5",
+            "completedRounds": 30,
+            "completionEvidence": "Explicit completed busy-to-ready cycle count plus final provider Rules UI counter",
+            "providerCounter": "1954712061.30",
+            "sourcePath": "player-machines/evidence/r10/official-primary30-results.json",
+            "gitBlob": "56e8b1e6a420b1a0fc9f41e6ebf1c9320b44941a",
+            "sourceSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d",
+            "rawCounterRecord": {
+              "completed": 30,
+              "spinId": "1954712061.30",
+              "screenshot": "/workspace/work/r10-official-play/batch30/MultiHot5-015-normal-menu-after30.png"
+            },
+            "referenceAvailability": "Saved JSON counter record is in Git; screenshot paths refer to original work directory and are not in this branch."
+          },
+          {
+            "gameId": "ind74_official_multihot5",
+            "completedRounds": 40,
+            "providerCounter": "1956542731.40",
+            "completionEvidence": "40 recorded natural official DEMO result snapshots, final ready-state counter40 and balance reconciliation",
+            "sourcePath": "player-machines/evidence/r13/mh5-gamble-ceiling-natural40.json",
+            "gitBlob": "807589826a8226e800af884df9772d72173ae463",
+            "sourceSha256": "48e711ba454f2edb0a24c88fe71a60377873d73e04f39af4c72ed13f77e3329e",
+            "balanceReconciliation": "20000 -40*50 +2000+2100 =22100",
+            "finalBalanceDmo": 22100
+          },
+          {
+            "gameId": "ind74_official_multihot5",
+            "completedRounds": 41,
+            "providerCounter": "1954746179.41",
+            "source": "r10.additionalDemoRoundInventory.MultiHot5ControlledReturn"
+          },
+          {
+            "gameId": "ind74_official_multihot5",
+            "completedRounds": 3,
+            "providerCounter": "1954783489.3",
+            "source": "r10.additionalDemoRoundInventory.MultiHot5ActiveXReturn"
+          },
+          {
+            "gameId": "ind74_official_multihot5",
+            "completedRounds": 1,
+            "providerCounter": "1956059968.1",
+            "source": "r11.MH5Stop.providerFinalCounter"
+          }
+        ],
+        "method": {
+          "viewportCss": [
+            390,
+            844
+          ],
+          "dpr": 2,
+          "mobileTouch": true,
+          "ua": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+          "readyCheck": "Rendered central ready control pixel signature before tap; visible busy/STOP transition and stable return required to count",
+          "perCycleEvidence": "Initial verifier saves prior full ready/settled PNG, moving PNG and after PNG. Slower continuation saves full moving/after PNGs and timestamps. Four early Foxy counter-confirmed cycles and five slower early moving captures lack distinct busy-pair PNGs; all30 are independently confirmed by the final provider counter.",
+          "audio": "Parallel MediaStreamAudioDestinationNode tap from actual WebAudio output; original destination preserved. Exported after each batch; video itself is silent.",
+          "oneTableLimit": "Only normal visible Exit and normal context close/re-entry. No token changes, authentication, provider state clearing or limit bypass.",
+          "accountsUsed": false,
+          "productionWagers": 0,
+          "sourceCodeModified": false
+        },
+        "importedAt": "2026-11-11T07:38:37.340521+00:00",
+        "provenance": {
+          "gitRef": "origin/codex/mh5-foxy-parity-20261106",
+          "gitCommit": "042f06e4425a6257cda332e626abaa6ec538f657",
+          "gitPath": "player-machines/evidence/r10/official-primary30-results.json",
+          "retainedCopy": "references/historical-20261106/official-primary30-results.json",
+          "retainedSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d"
+        },
+        "limitations": [
+          "Historical Git-retained observation journal supplies exact completed native counter and cycle evidence. Its raw PNG/audio paths refer to an earlier workspace and have not been recovered locally.",
+          "Provider receipts were not independently validated in that historical batch; public completed counter was directly observed.",
+          "No claim of provider probabilities, RTP or full equivalence.",
+          "Newer fresh sessions stay separate and must be added; historical counts are never reduced to20.",
+          "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+          "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+          "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+          "Historical stakes outside the new1–20 test presets are preserved as actually observed, not rewritten."
+        ],
+        "providerGameName": "MultiHot5",
+        "providerRoundRanges": [
+          {
+            "nativeSessionId": "1954712061",
+            "firstCompletedCounter": 1,
+            "lastCompletedCounter": 30
+          },
+          {
+            "nativeSessionId": "1956542731",
+            "firstCompletedCounter": 1,
+            "lastCompletedCounter": 40
+          },
+          {
+            "nativeSessionId": "1954746179",
+            "firstCompletedCounter": 1,
+            "lastCompletedCounter": 41
+          },
+          {
+            "nativeSessionId": "1954783489",
+            "firstCompletedCounter": 1,
+            "lastCompletedCounter": 3
+          },
+          {
+            "nativeSessionId": "1956059968",
+            "firstCompletedCounter": 1,
+            "lastCompletedCounter": 1
+          }
+        ],
+        "historicalAudit": {
+          "file": "reports/current74-historical-rules-audit.json",
+          "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+          "auditedDistinctRemoteHeads": 42
+        },
+        "evidenceFile": "tests/evidence/official-demo-observations-historical-import.json"
+      },
+      {
+        "gameId": "ind74_official_multihot5",
+        "title": "Multi Hot 5",
+        "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "protectedImplementation": true,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T07:23:56.315Z",
+            "providerEventTime": "2026-11-11T08:23:54.8634471+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1965952675.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 5,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T07:23:58.668Z",
+            "providerEventTime": "2026-11-11T08:23:54.8634471+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1965952675.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 5,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot5.html",
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5-official-help.html",
+            "sha256": "9e080dea55bafb9d9fd322dc3b14bed7b6c209d71b415f3ef7736472a006990e",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "blocked-or-partial",
+        "blocker": "WAIT_TIMEOUT",
+        "blockerScreenshot": {
+          "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5-blocker.png",
+          "sha256": "76accb727b7a7992eda79449520ec6c2bb33e043f49b0cf604257999ea2752af"
+        },
+        "blockerUi": "07\n:\n24\n:\n35",
+        "historicalAtFirstLaunch": 0,
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
+      }
+    ],
+    "featuresAndRules": {
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_multihot5",
+          "title": "Multi Hot 5",
+          "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "observedOn": "2026-11-06T04:12:46.837454+00:00",
+          "mode": "official-demo",
+          "historicalImport": true,
+          "verifiedCompletedRounds": 115,
+          "countEvidence": [
+            {
+              "gameId": "ind74_official_multihot5",
+              "completedRounds": 30,
+              "completionEvidence": "Explicit completed busy-to-ready cycle count plus final provider Rules UI counter",
+              "providerCounter": "1954712061.30",
+              "sourcePath": "player-machines/evidence/r10/official-primary30-results.json",
+              "gitBlob": "56e8b1e6a420b1a0fc9f41e6ebf1c9320b44941a",
+              "sourceSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d",
+              "rawCounterRecord": {
+                "completed": 30,
+                "spinId": "1954712061.30",
+                "screenshot": "/workspace/work/r10-official-play/batch30/MultiHot5-015-normal-menu-after30.png"
+              },
+              "referenceAvailability": "Saved JSON counter record is in Git; screenshot paths refer to original work directory and are not in this branch."
+            },
+            {
+              "gameId": "ind74_official_multihot5",
+              "completedRounds": 40,
+              "providerCounter": "1956542731.40",
+              "completionEvidence": "40 recorded natural official DEMO result snapshots, final ready-state counter40 and balance reconciliation",
+              "sourcePath": "player-machines/evidence/r13/mh5-gamble-ceiling-natural40.json",
+              "gitBlob": "807589826a8226e800af884df9772d72173ae463",
+              "sourceSha256": "48e711ba454f2edb0a24c88fe71a60377873d73e04f39af4c72ed13f77e3329e",
+              "balanceReconciliation": "20000 -40*50 +2000+2100 =22100",
+              "finalBalanceDmo": 22100
+            },
+            {
+              "gameId": "ind74_official_multihot5",
+              "completedRounds": 41,
+              "providerCounter": "1954746179.41",
+              "source": "r10.additionalDemoRoundInventory.MultiHot5ControlledReturn"
+            },
+            {
+              "gameId": "ind74_official_multihot5",
+              "completedRounds": 3,
+              "providerCounter": "1954783489.3",
+              "source": "r10.additionalDemoRoundInventory.MultiHot5ActiveXReturn"
+            },
+            {
+              "gameId": "ind74_official_multihot5",
+              "completedRounds": 1,
+              "providerCounter": "1956059968.1",
+              "source": "r11.MH5Stop.providerFinalCounter"
+            }
+          ],
+          "method": {
+            "viewportCss": [
+              390,
+              844
+            ],
+            "dpr": 2,
+            "mobileTouch": true,
+            "ua": "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36",
+            "readyCheck": "Rendered central ready control pixel signature before tap; visible busy/STOP transition and stable return required to count",
+            "perCycleEvidence": "Initial verifier saves prior full ready/settled PNG, moving PNG and after PNG. Slower continuation saves full moving/after PNGs and timestamps. Four early Foxy counter-confirmed cycles and five slower early moving captures lack distinct busy-pair PNGs; all30 are independently confirmed by the final provider counter.",
+            "audio": "Parallel MediaStreamAudioDestinationNode tap from actual WebAudio output; original destination preserved. Exported after each batch; video itself is silent.",
+            "oneTableLimit": "Only normal visible Exit and normal context close/re-entry. No token changes, authentication, provider state clearing or limit bypass.",
+            "accountsUsed": false,
+            "productionWagers": 0,
+            "sourceCodeModified": false
+          },
+          "importedAt": "2026-11-11T07:38:37.340521+00:00",
+          "provenance": {
+            "gitRef": "origin/codex/mh5-foxy-parity-20261106",
+            "gitCommit": "042f06e4425a6257cda332e626abaa6ec538f657",
+            "gitPath": "player-machines/evidence/r10/official-primary30-results.json",
+            "retainedCopy": "references/historical-20261106/official-primary30-results.json",
+            "retainedSha256": "7c666ca29510d56af39320a50cb24d9cfb25320a8668b0d189b93d855b7e329d"
+          },
+          "limitations": [
+            "Historical Git-retained observation journal supplies exact completed native counter and cycle evidence. Its raw PNG/audio paths refer to an earlier workspace and have not been recovered locally.",
+            "Provider receipts were not independently validated in that historical batch; public completed counter was directly observed.",
+            "No claim of provider probabilities, RTP or full equivalence.",
+            "Newer fresh sessions stay separate and must be added; historical counts are never reduced to20.",
+            "These are retained historical verified lower bounds, not a complete count of every past attempt.",
+            "Some raw original PNG/audio/capture paths are unavailable; exact native counter journals or ordered stored result/balance chains remain in Git.",
+            "Repeated branch blobs, snapshot counters within the same session, local component/evaluator replays and unresolved r12/r16/r21 claims add zero.",
+            "Historical stakes outside the new1–20 test presets are preserved as actually observed, not rewritten."
+          ],
+          "providerGameName": "MultiHot5",
+          "providerRoundRanges": [
+            {
+              "nativeSessionId": "1954712061",
+              "firstCompletedCounter": 1,
+              "lastCompletedCounter": 30
+            },
+            {
+              "nativeSessionId": "1956542731",
+              "firstCompletedCounter": 1,
+              "lastCompletedCounter": 40
+            },
+            {
+              "nativeSessionId": "1954746179",
+              "firstCompletedCounter": 1,
+              "lastCompletedCounter": 41
+            },
+            {
+              "nativeSessionId": "1954783489",
+              "firstCompletedCounter": 1,
+              "lastCompletedCounter": 3
+            },
+            {
+              "nativeSessionId": "1956059968",
+              "firstCompletedCounter": 1,
+              "lastCompletedCounter": 1
+            }
+          ],
+          "historicalAudit": {
+            "file": "reports/current74-historical-rules-audit.json",
+            "sha256": "e969af3d96aed3a4724e46241f7205d0c8f1cc121dafbc799b447dafae8f5d93",
+            "auditedDistinctRemoteHeads": 42
+          },
+          "evidenceFile": "tests/evidence/official-demo-observations-historical-import.json"
+        },
+        {
+          "gameId": "ind74_official_multihot5",
+          "title": "Multi Hot 5",
+          "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "protectedImplementation": true,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T07:23:56.315Z",
+              "providerEventTime": "2026-11-11T08:23:54.8634471+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1965952675.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 5,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T07:23:58.668Z",
+              "providerEventTime": "2026-11-11T08:23:54.8634471+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1965952675.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 5,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot5.html",
+              "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5-official-help.html",
+              "sha256": "9e080dea55bafb9d9fd322dc3b14bed7b6c209d71b415f3ef7736472a006990e",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "blocked-or-partial",
+          "blocker": "WAIT_TIMEOUT",
+          "blockerScreenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5-blocker.png",
+            "sha256": "76accb727b7a7992eda79449520ec6c2bb33e043f49b0cf604257999ea2752af"
+          },
+          "blockerUi": "07\n:\n24\n:\n35",
+          "historicalAtFirstLaunch": 0,
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
+        }
+      ],
+      "publicDocumentedLayout": null,
+      "implemented": "Independent source model exists; official feature completeness unverified",
+      "testVerified": "See individual test logs and browser evidence; not inferred from demo count",
+      "unknown": [
+        "Full per-title audiovisual parity",
+        "Provider RNG distributions and reel strips",
+        "Every rare bonus feature",
+        "Provider feature frequency"
+      ]
+    },
+    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "launchAudit": {
+      "httpStatus": 200,
+      "status": "canvas-present-gameplay-unverified",
+      "visibleCanvas": true
+    }
+  },
+  "evidenceFiles": [
+    "scope/official74.json",
+    "tests/math-official72-audit.json",
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-historical-import.json",
+    "tests/evidence/official-demo-observations-slots20-remaining.json"
+  ],
+  "remaining": [
+    "Protect existing implementation; verify official references only",
+    "No complete-provider-equivalence claim supported"
+  ]
+}

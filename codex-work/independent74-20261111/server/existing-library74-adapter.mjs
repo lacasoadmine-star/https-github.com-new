@@ -10,7 +10,7 @@ const ID = /^ind74_official_[a-z0-9_]{1,48}$/;
 const FAMILIES = new Set(['slots', 'crash', 'ladder', 'mines', 'wheel', 'plinko', 'dice']);
 // Match the retained LibraryService's 15-digit minor-unit contract.
 const MAX_MINOR = 999999999999999n;
-const PUBLIC_FIELDS = ['rows', 'cols', 'cells', 'mines', 'minMatch', 'cascadeMs', 'crashMechanic', 'cascadeRules', 'maxPicks', 'maxSteps', 'modes', 'defaultMode', 'minTarget', 'maxTarget', 'defaultTarget', 'maxMultiplierBps', 'maximumMultiplierBps', 'growthBpsPerSecond', 'multiplierValues', 'multipliersBps', 'bucketMultipliersBps', 'observedPegboard', 'implementedBallMultiplier', 'wildSymbol', 'wildRule', 'ballMultipliers', 'ballSelectionModel'];
+const PUBLIC_FIELDS = ['rows', 'cols', 'cells', 'mines', 'minMatch', 'cascadeMs', 'crashMechanic', 'cascadeRules', 'maxPicks', 'maxSteps', 'modes', 'defaultMode', 'minTarget', 'maxTarget', 'defaultTarget', 'maxMultiplierBps', 'maximumMultiplierBps', 'growthBpsPerSecond', 'multiplierValues', 'multipliersBps', 'bucketMultipliersBps', 'observedPegboard', 'implementedBallMultiplier', 'wildSymbol', 'wildRule', 'ballMultipliers', 'ballSelectionModel', 'baseGameMultiplier', 'respinFeature'];
 const ROUND_FIELDS = ['gameId', 'mathVersion', 'family', 'betMinor', 'winMinor', 'step', 'multiplierBps', 'maxSteps', 'history', 'nextMultiplierBps', 'collectibleMinor', 'revealedCells', 'path', 'cells', 'rows', 'cols', 'mines', 'mode', 'startedAt', 'serverNow', 'growthBpsPerSecond', 'maxMultiplierBps', 'pendingResolution', 'pendingWinMinor', 'gambleHistory', 'gambleRounds', 'maxGambleRounds', 'holdWin', 'ballMultiplier', 'baseBetMinor', 'totalBetMinor', 'crashMechanic', 'cascadeIndex', 'nextCascadeAt', 'grid', 'matchedPositions', 'matchedSymbols'];
 const clone = value => structuredClone(value);
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -105,7 +105,10 @@ export function publicLibrary74Definition(definition, { accepting = false, polic
   if (definition.gamble) view.gamble = publishedTable(definition.gamble);
   if (definition.ballSelection) view.ballTypes = definition.ballSelection.map(({ type, multiplier }) => ({ type, multiplier }));
   if (definition.symbols) view.symbols = definition.symbols.map(({ id, label, glyph, pays }) => ({ id, label, glyph, pays: clone(pays) }));
-  if (definition.paylines) view.paylines = clone(definition.paylines);
+  // A ways game enumerates row combinations internally; do not publish that
+  // implementation as a provider fixed-payline chart.
+  if (definition.ways) view.ways = definition.ways;
+  else if (definition.paylines) view.paylines = clone(definition.paylines);
   if (definition.sectors) view.sectors = definition.sectors.map(({ id, label, multiplierBps }) => ({ id, label, multiplierBps }));
   if (definition.paytable) view.paytable = publishedTable(definition.paytable);
   return view;

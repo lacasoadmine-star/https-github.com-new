@@ -1,0 +1,103 @@
+{
+  "gameId": "ind74_official_multihot5deluxe",
+  "title": "Multi Hot 5 Deluxe",
+  "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 9,
+    "visibleReelCandidates": 3,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      612,
+      842,
+      1072
+    ],
+    "yPositions": [
+      89,
+      306,
+      523
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 3,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 5,
+    "paylineMeaningVerified": false
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5deluxe-initial.png",
+    "sha256": "f011bd1b34a27ed80554f5b146dc77c4be52a0443d1cbecaaf298a975d17fa1c"
+  },
+  "publicUiLabels": [
+    "BALANCE 20,000.00 DMO",
+    "BET 0.05 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5deluxe-turbo-prompt.png",
+      "sha256": "d1f052d0716f0732add4451ebfcf07abe8677fed6e6f9dc0b66af0ee9df5893b"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5deluxe-turbo-state.png",
+      "sha256": "93d6615a11a73a43ef09d6a2fc7405a8c80af3c4b1c08bbf50a730b0e5e34e37"
+    }
+  },
+  "bet": {
+    "before": "0.05",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5deluxe-bet-confirmed.png",
+      "sha256": "5ebfe9b77b59481c74da078b273b29f4da4870718132ed49625ac84f646faa10"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot5Deluxe.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot5deluxe-official-help.html",
+      "sha256": "ee3635e07a37c3e79c35e7a440c215e7f3bd57d9fd67a96d3ddde7bb0d571ade",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

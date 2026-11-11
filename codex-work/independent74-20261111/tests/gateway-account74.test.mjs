@@ -46,3 +46,10 @@ test('bad upstream snapshots never become successful authenticated account state
     const response=await handler(new Request('https://player.example/independent74/account-api/state?game_id='+id,{headers:{cookie:'sw_session=fixture'}}),env,{});assert.equal(response.status,502);
   }
 });
+
+test('missing engine route cannot mislabel a verified player session as signed out',async()=>{
+  const id='ind74_official_rollx',env={NATIVE_ENGINE_ORIGIN:'https://fixture-engine.invalid',NATIVE_ENGINE_SECRET:'fixture-key-with-at-least-forty-characters-long'};
+  const handler=createGateway({previous:{fetch:()=>Response.json({authenticated:true})},accountGames:[{id}],fetchImpl:()=>Promise.resolve(Response.json({error:'UNAUTHORIZED'},{status:401}))});
+  const response=await handler(new Request('https://player.example/independent74/account-api/state?game_id='+id,{headers:{cookie:'sw_session=fixture'}}),env,{});
+  assert.equal(response.status,503);const value=await response.json();assert.equal(value.error.code,'GAME_ACCOUNT_ROUTE_UNAVAILABLE');assert.equal(value.wallet,undefined);assert.equal(value.balance,undefined);
+});

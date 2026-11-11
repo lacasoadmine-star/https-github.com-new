@@ -1,0 +1,91 @@
+{
+  "capturedAt": "2026-11-11T07:42:08.622Z",
+  "gameId": "ind74_official_multihotwildways",
+  "priorModel": "5reels ×3rows,20fixed lines, no wild or multiplier",
+  "newModelVersion": "official72-multihotwildways-r3",
+  "source": {
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+    "htmlSha256": "fd18d8920983995c94d0227e9fedcc041ed6e3585ec4837282d8f1c9e587b2f2",
+    "quote": "Multi Hot Ways features27 Reel Ways to Pay. Winning combinations can contain only one symbol in an enabled position from each consecutive reel. These combinations are paid from left to right on adjacent reels, beginning with the leftmost reel. Symbols in different positions on the same reel also count as part of the same combination. The Wild symbol substitutes for all other symbols on the27 Ways to Pay, from left to right, if it can create a winning combination. Total winnings from a single spin are multiplied by the Multiplier Reel value to determine the final Total Win.",
+    "initialScreenshot": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-initial.png",
+    "resultEvidence": "tests/evidence/official-demo-observations-slots20-remaining.json",
+    "completedResults": 20,
+    "allResultGridsHaveNineSymbols": true,
+    "providerCounters": [
+      "1965949317.1",
+      "1965949317.2",
+      "1965949317.3",
+      "1965949317.4",
+      "1965949317.5",
+      "1965949317.6",
+      "1965949317.7",
+      "1965949317.8",
+      "1965949317.9",
+      "1965949317.10",
+      "1965949317.11",
+      "1965949317.12",
+      "1965949317.13",
+      "1965949317.14",
+      "1965949317.15",
+      "1965949317.16",
+      "1965949317.17",
+      "1965949317.18",
+      "1965949317.19",
+      "1965949317.20"
+    ],
+    "observedMultiplierValues": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "englishHelp": {
+      "file": "references/official-slot-help-en-20261111.json",
+      "sourceBodySha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+      "ways": "Multi Hot Ways features 27 Reel Ways Pay. Winning combinations can contain only one symbol in an enabled position from each consecutive reel. These combinations are paid from left to right on adjacent reels, beginning with the leftmost reel. Symbols in different positions on the same reel will also count as part of the same combination. The Wild symbol substitutes for all other symbols on the 27 Ways to Pay, from left to right, if it can create a winning combination. Total winnings from a single spin are multiplied by the Multiplier Reel multiplier to determine the final Total Win.",
+      "multiplier": "In addition to these standard rules, Multi Hot Ways also includes the X multiplier, which can randomly appear on the left side reel. With five possible multipliers (1x, 2x, 3x, 4x, and 5x), any win can be multiplied for even greater rewards."
+    }
+  },
+  "implemented": [
+    "Observed3×3geometry",
+    "27row-combination ways from consecutive reels",
+    "Wild substitution without expansion",
+    "One highest eligible award per way, including all-wild ways",
+    "Server-selected1x–5x factor",
+    "Exact per-way integer award floors and complete payout bound",
+    "Public ways27, no fabricated fixed-payline chart",
+    "Renderer27WAYS and WINNINGWAYS labels"
+  ],
+  "independentChoices": [
+    "Original eight-symbol prizes",
+    "Total-stake/27 allocation",
+    "Highest regular-symbol prize for all-wild ways",
+    "Regular symbol32tickets each and wild1ticket per cell",
+    "Uniform1x–5x factor distribution"
+  ],
+  "unverified": [
+    "Complete provider award basis",
+    "Provider symbol-ID mapping",
+    "Provider wild probabilities and all-wild treatment",
+    "Provider multiplier probabilities",
+    "Exact audio, graphics and full reference parity",
+    "Gamble and complete bonus mechanics"
+  ],
+  "validation": {
+    "tests": 121,
+    "pass": 121,
+    "fail": 0,
+    "command": "node --test tests/observed-wild-ways.test.mjs tests/observed-poweroftiger.test.mjs tests/math-official72-audit.test.mjs tests/machine74-renderer.test.mjs server/tests/existing-library74-adapter.test.mjs",
+    "log": "reports/current74-wild-ways-tests.txt",
+    "coverage": [
+      "6ways from1×2×3matches with regular or wild substitution",
+      "27all-wild paths pay only once each",
+      "Exact reserve at1/20/50000ETB",
+      "Other71IDs cannot be mutated by ways configuration and fixed charts retained",
+      "Renderer and public adapter ways contract"
+    ]
+  },
+  "newProviderWagersByThisAgent": 0,
+  "productionWrites": 0
+}

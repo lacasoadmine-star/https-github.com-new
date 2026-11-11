@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-11T07:21:28.992Z",
+  "scope": "Read-only follow-up of existing ENGINE_EXTENSION and EXPANSION100 bindings. No backend, route, variable, credential, or release-gate change.",
+  "sourceUrls": [
+    "https://superwin-engine-extension.apdiy61.workers.dev/health",
+    "https://superwin-engine-extension.apdiy61.workers.dev/_extension/health",
+    "https://superwin-library-100.apdiy61.workers.dev/health",
+    "https://superwin-player.apdiy61.workers.dev/api/config"
+  ],
+  "extension": {
+    "health": {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "service": "superwin-engine-extension",
+        "state": "awaiting_database",
+        "readinessUrl": "/_extension/health",
+        "catalogs": {
+          "five": 5,
+          "hub": 100
+        },
+        "fiveRealConfigured": false,
+        "hubRealEnabled": false
+      }
+    },
+    "readiness": {
+      "status": 503,
+      "body": {
+        "ok": false,
+        "ready": false,
+        "code": "DATABASE_NOT_CONNECTED",
+        "error": "The existing PostgreSQL connection has not been configured",
+        "fiveRealEnabled": false,
+        "hubRealEnabled": false
+      }
+    },
+    "apiMetadataOnly": {
+      "workersDevEnabled": true,
+      "previewsEnabled": false,
+      "bindings": [
+        {
+          "name": "SW_FIVE_ENGINE_ENABLED",
+          "type": "plain_text",
+          "value": "false"
+        },
+        {
+          "name": "SW_HYPERDRIVE_CACHE_DISABLED",
+          "type": "plain_text"
+        }
+      ],
+      "databaseBindingPresent": false
+    },
+    "result": "No additional configured financial game can be established: engine explicitly reports database not connected and both real-release gates false."
+  },
+  "library100": {
+    "apiMetadataOnly": {
+      "workersDevEnabled": true,
+      "previewsEnabled": false,
+      "bindings": [
+        {
+          "name": "ASSETS",
+          "type": "assets"
+        },
+        {
+          "name": "REMAINING20_CREDITS_DEMOS",
+          "type": "durable_object_namespace"
+        },
+        {
+          "name": "REMAINING20_RELEASE_TOKEN",
+          "type": "secret_text",
+          "value": "NOT READ"
+        }
+      ]
+    },
+    "publicHealth": {
+      "status": 302,
+      "redirect": "Cloudflare Access login; challenge/session values intentionally omitted"
+    },
+    "result": "No additional existing ETB evaluator or enabled financial game identity verified. Binding names/namespace existence and static assets do not establish real settlement readiness. Access controls not bypassed."
+  },
+  "publicConfig": {
+    "gameCount": 59,
+    "candidateExactTitles": [
+      {
+        "id": "hot-samba",
+        "name": "Hot Samba",
+        "type": "samba",
+        "engine": "Lacaso local engine v2",
+        "minBet": 100,
+        "maxBet": 10000,
+        "route": "/games/hot-samba",
+        "httpStatus": 200,
+        "pageTitle": "Game unavailable · ZPLAY",
+        "verifiedPlayable": false,
+        "reason": "Public config title exists, but direct game route returns an unavailable fallback. Do not add a wallet route from config identity alone."
+      },
+      {
+        "id": "stars",
+        "name": "Wild Multi Stars",
+        "type": "stars10",
+        "engine": "Lacaso local engine v2",
+        "minBet": 100,
+        "maxBet": 10000,
+        "route": "/games/stars",
+        "httpStatus": 200,
+        "pageTitle": "Game unavailable · ZPLAY",
+        "verifiedPlayable": false,
+        "reason": "Public config title exists, but direct game route returns an unavailable fallback. Do not add a wallet route from config identity alone."
+      },
+      {
+        "id": "plinko",
+        "name": "Plinko X",
+        "type": "plinko",
+        "engine": "Lacaso local engine v2",
+        "minBet": 100,
+        "maxBet": 10000,
+        "route": "/games/plinko",
+        "httpStatus": 200,
+        "pageTitle": "Game unavailable · ZPLAY",
+        "verifiedPlayable": false,
+        "reason": "Public config title exists, but direct game route returns an unavailable fallback. Do not add a wallet route from config identity alone."
+      },
+      {
+        "id": "double",
+        "name": "Double X",
+        "type": "double",
+        "engine": "Lacaso local engine v2",
+        "minBet": 100,
+        "maxBet": 10000,
+        "route": "/games/double",
+        "httpStatus": 200,
+        "pageTitle": "Game unavailable · ZPLAY",
+        "verifiedPlayable": false,
+        "reason": "Public config title exists, but direct game route returns an unavailable fallback. Do not add a wallet route from config identity alone."
+      },
+      {
+        "id": "safari-simba",
+        "name": "Safari Simba",
+        "type": "safari",
+        "engine": "Lacaso local engine v2",
+        "minBet": 100,
+        "maxBet": 10000,
+        "route": "/games/safari-simba",
+        "httpStatus": 200,
+        "pageTitle": "Game unavailable · ZPLAY",
+        "verifiedPlayable": false,
+        "reason": "Public config title exists, but direct game route returns an unavailable fallback. Do not add a wallet route from config identity alone."
+      }
+    ],
+    "plainJetX": {
+      "id": "jetx_native",
+      "title": "JetX",
+      "available": true,
+      "enabled": true,
+      "demo": false,
+      "rejectedAlias": "ind74_official_neweraofjetx",
+      "reason": "New Era of JetX is a different catalogue identity; no automatic alias."
+    },
+    "genericIndependentOriginalTitlesExcluded": true,
+    "newMachineStaticCatalogue": {
+      "ids": [
+        "multihot40_new",
+        "safarisimba_fresh"
+      ],
+      "directRoutesStatus": 302,
+      "result": "Static identity plus login redirect does not verify a funded ETB release gate; not added."
+    }
+  },
+  "conclusion": {
+    "additionalVerifiedExactWalletMappings": 0,
+    "existingVerifiedMappingsRemain": 13,
+    "unverifiedRemain": 61,
+    "noGenericAliasesAdded": true,
+    "noPrivateSourceRead": true,
+    "noCredentialValuesRead": true,
+    "noApplicationOrBackendChanges": true,
+    "noWagersExecuted": true
+  },
+  "evidence": "Public metadata and filtered Cloudflare API GET script subdomain/settings metadata only. No scripts/content APIs invoked."
+}

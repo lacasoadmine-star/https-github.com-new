@@ -1,6 +1,7 @@
 import {MachineAccountClient} from './machine74-api.mjs';
 import {renderMachine,animateRound} from './machine74-renderer.mjs';
 import {MachineAudio} from './machine74-audio.mjs';
+import {existingWalletRoute} from './existing-wallet-routes.mjs';
 
 const $=id=>document.getElementById(id);
 const demo=new URLSearchParams(location.search).get('mode')==='demo';
@@ -77,7 +78,7 @@ async function select(id){
   autoplay=false;game=definitions.find(g=>g.id===id)||definitions[0];if(!game)return;
   snapshot=null;historyLoaded=false;$('history').replaceChildren();$('history-status').textContent='';
   $('game-title').textContent=game.catalogName||game.title;$('family').textContent=game.family.toUpperCase();$('game-select').value=game.id;
-  $('play-now-link').href='/independent74/machines74.html#'+encodeURIComponent(game.id);
+  $('play-now-link').href=existingWalletRoute(game.id)||'/independent74/machines74.html#'+encodeURIComponent(game.id);
   $('play-demo-link').href='/independent74/machines74.html?mode=demo#'+encodeURIComponent(game.id);
   history.replaceState(null,'','#'+game.id);createOptions();draw();await refresh();
 }

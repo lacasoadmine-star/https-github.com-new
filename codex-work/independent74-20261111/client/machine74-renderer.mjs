@@ -139,6 +139,17 @@ function assertRound(definition, round) {
     const {rows,columns} = machineGeometry(definition), grid = round.outcome?.grid ?? round.grid;
     const ids = new Set(symbolsOf(definition).map(symbol => symbol.id));
     if (!Array.isArray(grid) || grid.length !== rows || grid.some(row => !Array.isArray(row) || row.length !== columns || row.some(id => !ids.has(id)))) throw new TypeError('A matching server reel grid is required.');
+    if(definition.respinFeature){
+      const frames=round.outcome?.bonusFrames;
+      if(!Array.isArray(frames)||frames.length>definition.respinFeature.maximumFrames)throw new TypeError('Completed server respin frames are required.');
+      let previous=Array.from({length:rows},()=>Array(columns).fill(null)),locks=0;
+      for(const [index,frame]of frames.entries()){
+        if(!Array.isArray(frame.grid)||frame.grid.length!==rows||frame.grid.some((row,r)=>!Array.isArray(row)||row.length!==columns||row.some((id,c)=>id!==null&&!ids.has(id)||previous[r][c]!==null&&id!==previous[r][c])))throw new TypeError('A matching locked server respin grid is required.');
+        const count=frame.grid.flat().filter(id=>id!==null).length;
+        if(frame.index!==index+1||frame.lockedCells!==count||frame.newLocks!==count-locks||typeof frame.terminal!=='boolean'||![1,...definition.respinFeature.values].includes(frame.multiplierApplied))throw new TypeError('The server respin frame is incomplete.');
+        previous=frame.grid;locks=count;
+      }
+    }
   }
   if (definition.family === 'plinko') {
     const outcome = round.outcome;
@@ -271,14 +282,24 @@ function pendingMarkup(round) {
 function symbolCell(symbol, profile, row, column, win) {
   return '<div class="m74-symbol'+(win?' is-winning':'')+'" data-symbol="'+escape(symbol.id)+'" data-row="'+row+'" data-col="'+column+'" aria-label="'+escape(symbol.label || symbol.id)+'">'+symbolArt(symbol,profile)+'</div>';
 }
-function slotMarkup(definition, round, profile) {
-  const {rows,columns} = machineGeometry(definition), outcome = round?.outcome;
+function slotMarkup(definition, round, profile,options={}) {
+  const {rows,columns} = machineGeometry(definition),sourceOutcome=round?.outcome;
+  const frames=definition.respinFeature?sourceOutcome?.bonusFrames??[]:[];
+  const frameIndex=Number.isInteger(options.bonusFrameIndex)?options.bonusFrameIndex:frames.length-1;
+  const featureFrame=frameIndex>=0?frames[frameIndex]:null;
+  const previousFrame=frameIndex>0?frames[frameIndex-1]:null;
+  const outcome=featureFrame?{...sourceOutcome,grid:featureFrame.grid,lineWins:featureFrame.lineWins}:sourceOutcome;
   const grid = outcome?.grid ?? round?.grid ?? Array.from({length:rows},(_,row) => Array.from({length:columns},(_,column) => definition.symbols[(row + column) % definition.symbols.length].id));
   const symbols = new Map(symbolsOf(definition).map(symbol => [symbol.id,symbol]));
   const lines = Array.isArray(outcome?.lineWins) ? outcome.lineWins : [];
   const winning = new Set(lines.flatMap(line => (line.positions || []).filter(p => integer(p.row,0,rows-1) && integer(p.col,0,columns-1)).map(p => p.row + ':' + p.col)));
   const expanded = new Set(Array.isArray(outcome?.expandedColumns) ? outcome.expandedColumns.filter(column => integer(column,0,columns-1)) : []);
-  const reels = Array.from({length:columns},(_,column) => '<div class="m74-reel-window'+(expanded.has(column)?' is-expanded':'')+'" data-column="'+column+'"'+(expanded.has(column)?' aria-label="Expanded wild reel '+(column+1)+'"':'')+'><div class="m74-reel-strip">'+grid.map((row,index) => symbolCell(symbols.get(row[column]),profile,index,column,winning.has(index+':'+column))).join('')+'</div></div>').join('');
+  const cell=(id,row,column)=>{
+    if(id===null)return '<div class="m74-symbol" data-blank="true" data-row="'+row+'" data-col="'+column+'" aria-label="Blank"></div>';
+    const markup=symbolCell(symbols.get(id),profile,row,column,winning.has(row+':'+column));
+    return featureFrame?markup.replace(' data-symbol=',' data-locked="true" data-new-lock="'+String(previousFrame?.grid[row][column]===null||!previousFrame)+'" data-symbol='):markup;
+  };
+  const reels = Array.from({length:columns},(_,column) => '<div class="m74-reel-window'+(expanded.has(column)?' is-expanded':'')+'" data-column="'+column+'"'+(expanded.has(column)?' aria-label="Expanded wild reel '+(column+1)+'"':'')+'><div class="m74-reel-strip">'+grid.map((row,index) => cell(row[column],index,column)).join('')+'</div></div>').join('');
   const paths = lines.slice(0,20).map((line,index) => {
     const positions = (line.positions || []).filter(p => integer(p.row,0,rows-1) && integer(p.col,0,columns-1));
     return positions.length > 1 ? '<polyline class="m74-payline line'+index%5+'" points="'+positions.map(p => ((p.col+.5)/columns*1000).toFixed(2)+','+((p.row+.5)/rows*1000).toFixed(2)).join(' ')+'"/>' : '';
@@ -287,7 +308,11 @@ function slotMarkup(definition, round, profile) {
   const multi = multipliers.length ? '<div class="m74-multiplier-reel" aria-label="Reel multiplier">'+multipliers.map(value => '<span'+(outcome?.reelMultiplier===value?' class="is-selected"':'')+'>'+escape(value)+'×</span>').join('')+'</div>' : '';
   const missingMultiplier = definition.layout?.multiplier?.placement === 'top-arc' && definition.layout.multiplier.calculationImplemented === false;
   const pending = missingMultiplier ? '<div class="m74-multiplier-pending" role="note"><span>MULTIPLIER</span><b>Weli la dhisayo</b></div>' : '';
-  return pending+'<div class="m74-slot-cabinet'+(multipliers.length?' has-multiplier':'')+'">'+multi+'<div class="m74-reels" data-rows="'+rows+'" data-columns="'+columns+'">'+reels+'<svg class="m74-paylines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">'+paths+'</svg></div></div><div class="m74-stage-strip"><span>'+columns+' × '+rows+' REELS</span><span>'+escape(definition.paylines?.length ?? '—')+' LINES</span><span>'+(round?.status==='active'&&round.pendingWinMinor?'WIN TO COLLECT':lines.length?lines.length+' WINNING LINES':round?'ROUND COMPLETE':'READY')+'</span></div>';
+  const countLabel=definition.ways?definition.ways+' WAYS':(definition.paylines?.length??'—')+' LINES';
+  const winsLabel=lines.length+' WINNING '+(definition.ways?'WAYS':'LINES');
+  const conditional=definition.baseGameMultiplier?'<div class="m74-conditional-factor">'+(featureFrame?'RESPIN FACTOR '+escape(sourceOutcome.featureMultiplier)+'× · APPLIED '+escape(featureFrame.multiplierApplied)+'×':sourceOutcome?'BASE MULTIPLIER '+escape(sourceOutcome.baseMultiplier)+'×':'FULL BOARD / ALL 5 LINES · '+definition.baseGameMultiplier.values.map(value=>escape(value)+'×').join(' / '))+'</div>':'';
+  const feature=featureFrame?'<div class="m74-respin-meter" data-frame="'+featureFrame.index+'" data-locked="'+featureFrame.lockedCells+'" data-new-locks="'+featureFrame.newLocks+'"><span>RESPIN '+featureFrame.index+' · LOCKED '+featureFrame.lockedCells+' / '+rows*columns+'</span><span>'+escape(featureFrame.terminal?'FEATURE COMPLETE':'NEW LOCKS '+featureFrame.newLocks)+'</span></div>':'';
+  return pending+conditional+'<div class="m74-slot-cabinet'+(multipliers.length?' has-multiplier':'')+'">'+multi+'<div class="m74-reels" data-rows="'+rows+'" data-columns="'+columns+'">'+reels+'<svg class="m74-paylines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">'+paths+'</svg></div></div>'+feature+'<div class="m74-stage-strip"><span>'+columns+' × '+rows+' REELS</span><span>'+escape(countLabel)+'</span><span>'+(round?.status==='active'&&round.pendingWinMinor?'WIN TO COLLECT':lines.length?winsLabel:round?'ROUND COMPLETE':'READY')+'</span></div>';
 }
 function crashMarkup(definition, round, profile) {
   if(isCascade(definition))return cascadeMarkup(definition,round,profile);
@@ -434,7 +459,7 @@ export function animateRound(stage,definition,previous,next,options={}) {
   assertRound(definition,next);
   const {turbo=false,reduced=false,audio}=options;
   const renderOptions={...options,disabled:options.disabled ?? true};
-  const mounted=renderMachine(stage,definition,next,renderOptions);
+  const mounted=renderMachine(stage,definition,next,definition.respinFeature?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
   stage.classList.add('m74-animating');
   if(definition.family==='plinko'&&!reduced){
     // Mounting the confirmed state places the ball in its destination bucket.
@@ -536,6 +561,21 @@ export function animateRound(stage,definition,previous,next,options={}) {
         }
       }));
       if(!done&&Array.isArray(definition.multiplierValues)&&definition.multiplierValues.length)cue('multiplier');
+      if(!done&&definition.baseGameMultiplier&&next.outcome?.baseMultiplier>1)cue('multiplier');
+      const frames=definition.respinFeature?next.outcome?.bonusFrames??[]:[];
+      for(const [index,feature]of frames.entries()){
+        if(done||handles.get(stage)!==mounted)return;
+        const area=stage.querySelector('.m74-game-area');
+        if(!area)break;
+        area.innerHTML=slotMarkup(definition,next,presentationProfile(definition),{bonusFrameIndex:index});
+        cue('bonus');
+        const previousFrame=frames[index-1];
+        const changing=[...area.querySelectorAll('.m74-symbol')].filter(cell=>previousFrame?.grid[Number(cell.dataset.row)][Number(cell.dataset.col)]==null);
+        await Promise.all(changing.map(cell=>animate(cell,[{opacity:.15,filter:'blur(3px)',transform:'translateY(-12px)'},{opacity:1,filter:'blur(0)',transform:'translateY(0)'}],turbo?100:360)));
+        if(done||handles.get(stage)!==mounted)return;
+        if(feature.multiplierApplied>1)cue('multiplier');
+        await new Promise(res=>{pendingResolves.add(res);schedule(()=>{pendingResolves.delete(res);res();},turbo?45:180);});
+      }
     } else if(definition.family==='wheel') {
       const rotor=stage.querySelector('.m74-wheel-rotor');
       rotor.style.transformOrigin='300px 300px';

@@ -4,6 +4,26 @@ const publishedReelLayout=(rows,columns,source,paylines)=>Object.freeze({rows,co
   evidence:`The official public page specifies ${columns} reels and ${rows} rows${paylines?` with ${paylines} fixed paylines`:''}.`,
   limitations:Object.freeze(['The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified.'])});
 export const OBSERVED_LAYOUTS = Object.freeze({
+  ind74_official_poweroftiger:Object.freeze({rows:3,columns:3,paylines:5,multiplierPlacement:'top-arc',
+    observedMultiplierValues:Object.freeze([20]),completeMultiplierLabelsVerified:false,
+    source:'reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-journal.json',
+    evidence:'The official DEMO shows a3-by-3 grid and a top20X sign. Five completed returned public results contain9symbols each. The public page lists5active paylines.',
+    limitations:Object.freeze(['The20X sign alone does not establish a feature trigger or probability. The conditional multiplier and respin structure come from the separate official public rules.','The line chart, symbol prizes, probabilities, initial respin holds and base-plus-feature aggregation remain independent or unverified.'])}),
+  ind74_official_multihotwildways:Object.freeze({rows:3,columns:3,ways:27,multiplierPlacement:'left-reel',
+    observedMultiplierValues:Object.freeze([1,2,3,4,5]),completeMultiplierLabelsVerified:true,
+    source:'reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-journal.json',
+    evidence:'The initial official DEMO screen shows3reels,3rows,27WAYS and a left multiplier reel. Twenty returned public result grids contain9symbols each; result factors1x,2x,3x,4x,5x were recorded.',
+    limitations:Object.freeze(['Provider LinePlay1 is a betting field, not a payline count.','The provider symbol-ID mapping, award basis, probabilities and full bonus behavior remain unverified.27-way allocation and awards are independently authored.'])}),
+  ind74_official_mineisland:Object.freeze({steps:10,
+    observedMultipliersBps:Object.freeze([11000,12000,15000,20000,30000,50000,100000,200000,500000,1000000]),
+    source:'reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png',
+    evidence:'The official MineIsland demo shows ten ascending platforms from 1.1x to 100x, an ocean, kangaroo and TNT barrels. A first PLAY attempt was observed to lose and return to PLAY.',
+    limitations:Object.freeze(['The marketing page instead describes a rectangular tile/mines game; this conflict is unresolved.','Original-demo continuation controls, provider survival probabilities, rare features, exact artwork and audio remain unverified.'])}),
+  ind74_official_mineisland2:Object.freeze({steps:10,
+    observedMultipliersBps:Object.freeze([11000,12000,15000,20000,30000,50000,100000,200000,500000,1000000]),
+    source:'reports/current74-evidence/mineisland2-initial.png',
+    evidence:'The official MineIsland2 EASY demo shows ten ascending platforms from 1.1x to 100x. PLAY resolves a first jump; a successful first step can COLLECT 1.10 DMO from a 1.00 DMO stake.',
+    limitations:Object.freeze(['Medium and hard multipliers, boost/portal mechanics and survival probabilities remain independently authored or unverified.'])}),
   ind74_official_dicejungle:Object.freeze({rows:3,columns:5,
     source:'https://www.smartsoftgaming.com/games/dice-jungle',
     evidence:'The official public page describes a 5x3 dice grid and a synchronized horizontal multiplier reel above it, with awards boosted by up to 5x.',
@@ -71,16 +91,19 @@ export function officialLayout(definition) {
     limitations: observed ? [...observed.limitations] : ['Official geometry, visual behaviour, audio and complete game mechanics remain unverified.'],
   };
   if (d.family === 'slots') {
-    const values = Array.isArray(d.multiplierValues) ? [...d.multiplierValues] : [];
+    const values = Array.isArray(d.baseGameMultiplier?.values) ? [...d.baseGameMultiplier.values]
+      : Array.isArray(d.multiplierValues) ? [...d.multiplierValues] : [];
     return {
       ...common, kind: 'reels', rows: d.rows, columns: d.cols ?? 5,
-      paylines: d.paylines.length, paylinesVerified: false,
-      paylineCountVerified:observed?.paylines===d.paylines.length||Boolean(d.provenance?.paylineCountSource),
+      paylines: d.ways ? null : d.paylines.length, paylinesVerified: false,
+      ...(d.ways ? {ways:d.ways,waysCountVerified:observed?.ways===d.ways} : {}),
+      paylineCountVerified:!d.ways&&(observed?.paylines===d.paylines.length||Boolean(d.provenance?.paylineCountSource)),
       multiplier: {
         placement: observed?.multiplierPlacement ?? (values.length ? 'independent-display' : 'none'),
         observedValues: [...(observed?.observedMultiplierValues ?? [])],
         implementedValues: values,
         calculationImplemented: values.length > 0,
+        ...(d.baseGameMultiplier ? {condition:d.baseGameMultiplier.trigger} : {}),
         completeLabelsVerified: observed?.completeMultiplierLabelsVerified === true,
         providerProbabilitiesVerified: false,
       },
@@ -91,6 +114,8 @@ export function officialLayout(definition) {
     ballMultiplierStakeMeaning: 'one-stake-with-server-award-multiplier',
     completeBallMechanicsVerified: false};
   if (d.family === 'ladder') return {...common, kind: 'ladder', steps: d.multipliersBps.length,
+    stepCountVerified:observed?.steps===d.multipliersBps.length,
+    observedDefaultMultipliersBps:[...(observed?.observedMultipliersBps??[])],
     modes: [...(d.modes ?? ['easy'])], visualChoicesAffectProbabilities: false};
   if (d.family === 'mines') return {...common, kind: 'mine-board', rows: d.rows, columns: d.cols,
     cells: d.cells, mines: d.mines, maximumSafePicks: d.maxPicks};

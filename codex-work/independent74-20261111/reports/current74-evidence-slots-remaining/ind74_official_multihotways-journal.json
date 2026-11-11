@@ -1,0 +1,103 @@
+{
+  "gameId": "ind74_official_multihotways",
+  "title": "Multi Hot Ways",
+  "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 9,
+    "visibleReelCandidates": 3,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      616,
+      954,
+      1292
+    ],
+    "yPositions": [
+      264,
+      474,
+      684
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 3,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "paylines": 1
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-initial.png",
+    "sha256": "c73b5fe9d1e854efdf3c1c6556c5de8d46e7e41fd5bcce19e112d1f8ae3e9b51"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.20 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-turbo-prompt.png",
+      "sha256": "1c01a64c37f2a0bbabc6d56073ebf29285a35e04db336435893c9cdbb8fa36fb"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-turbo-state.png",
+      "sha256": "c4015e0e4cb2ef5a65d0ae767397de55768bf3cb48930b6b488f7d61e26e7c29"
+    }
+  },
+  "bet": {
+    "before": "0.20",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-bet-confirmed.png",
+      "sha256": "a914db67fa4eb36029e24830f44cb7e625242f88ddeb8198f87905ea7c5c4703"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHotWays.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-official-help.html",
+      "sha256": "08540d1dffac6e375f28c11d90028b457c3d2f11c4ddea56a30418a6cb4a37a9",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

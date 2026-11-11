@@ -1,0 +1,105 @@
+{
+  "gameId": "ind74_official_multihot10",
+  "title": "Multi Hot 10",
+  "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      394,
+      610,
+      826,
+      1042,
+      1258
+    ],
+    "yPositions": [
+      209,
+      419,
+      629
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "paylines": 10
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-initial.png",
+    "sha256": "50d2b0df304377af583c968e547b8e9db8ed56d898e1730affa08644e0bf983a"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.10 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-turbo-prompt.png",
+      "sha256": "1c97f9c0d0fd57bb2bcb898ea7fdd32ef2923221ab80992f33c8b38189a58fe7"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-turbo-state.png",
+      "sha256": "4f176f0f71b40793cd9efeeb2076d8760978f490144e4ed8963c80dfcc6b48dc"
+    }
+  },
+  "bet": {
+    "before": "0.10",
+    "chosenVisibleItem": "1.00 DMO",
+    "confirmedDmo": "2.50",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-bet-confirmed.png",
+      "sha256": "416be9b3240320c793fda93ca0c4a95f8874a6dc407861766febe7fb07108505"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MultiHot10.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-official-help.html",
+      "sha256": "4cfc01482c6aa6fe6858ccf2acbd16e5b34c1d94db7494e7e7242bd1f95c5025",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

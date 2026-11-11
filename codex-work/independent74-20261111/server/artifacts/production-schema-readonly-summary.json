@@ -1,0 +1,39 @@
+{
+  "observedAt": "2026-11-11T06:06:29.679Z",
+  "method": "Existing deployed read-only schema-audit startup logs; assembled163 chunks and verified complete SHA256",
+  "deployment": "768764e4-2ecb-45fc-ae5b-f4b9d9b44f0a",
+  "sourceSchemaBytes": 243145,
+  "sha256": "a3568a3716801c1b25abb05ad045294e9b5047158be78e86acf5af3d0bb28f05",
+  "readOnly": true,
+  "accountRowsRead": 0,
+  "writes": 0,
+  "tables": 58,
+  "triggers": 23,
+  "verified": [
+    "sw_rebuild.wallets balance/credit_limit bigint",
+    "sw_rebuild.account_limits max_balance bigint",
+    "sw_native_library.rounds bigint total_stake/liability",
+    "sw_native_library.requests PK(user_id,request_id)",
+    "sw_rebuild.ledger and transfers exist",
+    "partial unique library_one_active_round_per_player on sw_native_library.rounds(user_id) WHERE status=active",
+    "unique native request key(user_id,request_id)",
+    "immutable UPDATE/DELETE triggers on sw_rebuild.ledger and sw_rebuild.transfers (trigger definitions only; functions not read)"
+  ],
+  "notVerified": [
+    "Live account max_balance values",
+    "Live per-game wager limits for independent74",
+    "Available house reserve values",
+    "Multi-process production contention",
+    "72-model bootstrap installed in live backend"
+  ],
+  "financialEnablement": false,
+  "actualLivePolicyValuesRead": false,
+  "unsignedIndependentHealth": {
+    "url": "https://superwin-native-family-engine-staging.up.railway.app/v2/independent74/health",
+    "status": 401,
+    "body": {
+      "error": "UNAUTHORIZED"
+    },
+    "interpretation": "No successful public independent74 health response; this unsigned request does not establish route installation or financial readiness."
+  }
+}

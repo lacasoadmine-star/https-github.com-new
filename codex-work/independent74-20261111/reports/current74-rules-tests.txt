@@ -1,0 +1,34 @@
+✔ all 72 models have consistent geometry, public evidence boundaries and independent disclosures (7.97269ms)
+✔ Multi Hot 40 uses all four rows, Multi Hot 100 places its observed multiplier on the left, and Plinko remains a 16-row board (0.642386ms)
+✔ every model and valid start option is reproducible with injected integer draws and completes within its accepted payout bound (190.910853ms)
+✔ all 40 slot models pay their symbol awards without a hidden clamp and their per-line bound is attainable (172.087701ms)
+✔ wheel sectors and every Plinko bucket settle the displayed multiplier exactly (1.526611ms)
+✔ Roll X validates all 81 target choices and reserves the selected target rather than the unrelated maximum (35.223555ms)
+✔ every ladder mode publishes its selected mode and reserves exactly its final step (6.614975ms)
+✔ mines cannot cash out before a safe reveal, reveal duplicate cells, or lose more than the accepted stake (0.623518ms)
+✔ crash views never credit a future result before reconciliation and maximum surviving rounds settle exactly once (26.200451ms)
+✔ reserve and start reject the same invalid options and post-start requests cannot change stake, payout, mode, or seed (158.966311ms)
+✔ all families reject invalid bounded RNG output and public snapshots cannot mutate stored state (53.813199ms)
+✔ the audit matrix covers all models, every supported option and explicit unresolved reference gaps (2.728157ms)
+✔ Multi Hot 5 Wild implements the public 3×3 geometry and all substitution combinations with exact independent return (122.361255ms)
+✔ Burn Wilds expands only permitted wilds participating in an initial winning line and returns both grids (7.798136ms)
+✔ wild-bearing maximum outcomes stay within the exact advertised model bound without clamping (1.208644ms)
+✔ X2 holds a completed spin award without a second stake and can collect immediately exactly once (4.800109ms)
+✔ each successful X2 doubles only the pending award and the third success settles the fully reserved bound (23.191412ms)
+✔ an incorrect X2 loses only the held award, records the actual revealed color and cannot replay (2.933815ms)
+✔ gamble input and stored history validation reject client outcomes, invalid colors, invalid RNG and tampering (12.671178ms)
+✔ Plinko draws each public ball factor on the server and applies it to one unchanged stake (12.476134ms)
+✔ additional public three-reel geometry and fixed line counts reach the actual evaluator (2.169075ms)
+✔ ind74_official_multihot5wild optional documented X2 reserves all three doublings and collects exactly once (35.18449ms)
+✔ ind74_official_multihot5wild wrong color loses only the held award; collect preserves award and optional flow (4.054011ms)
+✔ ind74_official_multihot5burnwilds optional documented X2 reserves all three doublings and collects exactly once (1.810514ms)
+✔ ind74_official_multihot5burnwilds wrong color loses only the held award; collect preserves award and optional flow (0.676863ms)
+✔ public color configuration cannot accidentally enable an undocumented or protected game (0.407349ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1134.986084

@@ -1,0 +1,105 @@
+{
+  "gameId": "ind74_official_poweroftiger",
+  "title": "Power of Tiger",
+  "officialUrl": "https://www.smartsoftgaming.com/games/power-of-tiger",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 9,
+    "visibleReelCandidates": 3,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      615,
+      820,
+      1025
+    ],
+    "yPositions": [
+      184,
+      381,
+      578
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 3,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 5,
+    "paylineMeaningVerified": false
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-initial.png",
+    "sha256": "2ca0ef4088dad24b53e1381d37df99c6dfd946fd3ec357d6ff98a3bfed20c9a8"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.10 DMO",
+    "SPIN TO WIN!"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin",
+    "ButtonsMenu"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-turbo-prompt.png",
+      "sha256": "7679ae31e6e641b7f38ede3971b2b13aa009dfa8d203d268fe959b31680ae674"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-turbo-state.png",
+      "sha256": "be11c323ff77af40804fcad26ec76bf7d41072fde26234e1038bab3628e5be69"
+    }
+  },
+  "bet": {
+    "before": "0.10",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-bet-confirmed.png",
+      "sha256": "2451b54b8044c701dd715430a9e920f6fceca788070a54ff65841a54161bf0e7"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/PowerOfTiger.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-official-help.html",
+      "sha256": "03fbde5972f860a4797394eb34007f8cabb370dc3bdb4b9d54d0e8097ad4c073",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

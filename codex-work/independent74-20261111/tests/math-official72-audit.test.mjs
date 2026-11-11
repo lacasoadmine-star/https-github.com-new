@@ -42,7 +42,7 @@ function finish(d, round) {
 test('all 72 models have consistent geometry, public evidence boundaries and independent disclosures', () => {
   assert.equal(definitions.length, 72);
   assert.deepEqual(definitions.reduce((counts, d) => { counts[d.family] = (counts[d.family] ?? 0) + 1; return counts; }, {}),
-    {crash: 13, ladder: 9, plinko: 3, slots: 40, wheel: 5, mines: 1, dice: 1});
+    {crash: 13, ladder: 10, plinko: 3, slots: 40, wheel: 5, dice: 1});
   assert.equal(new Set(definitions.map(d => d.id)).size, 72);
   assert.equal(math.getGameDefinition('ind74_official_multihot5'), null);
   assert.equal(math.getGameDefinition('ind74_official_foxyhot20'), null);
@@ -57,10 +57,10 @@ test('all 72 models have consistent geometry, public evidence boundaries and ind
     assert.equal(d.limits.betStepMinor, '100', d.id);
     assert.ok(BigInt(d.limits.maxWinMinor) > 0n);
     if (d.family === 'slots') {
-      assert.equal(d.cols, ['Multi Hot 5 Wild','Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X'].includes(d.catalogName) ? 3 : 5);
+      assert.equal(d.cols, ['Multi Hot 5 Wild','Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X','Multi Hot Wild Ways','Power of Tiger'].includes(d.catalogName) ? 3 : 5);
       assert.equal(d.layout.rows, d.rows);
       assert.equal(d.layout.columns, d.cols);
-      assert.equal(d.layout.paylines, d.paylines.length);
+      assert.equal(d.layout.paylines, d.ways ? null : d.paylines.length);
       assert.equal(new Set(d.paylines.map(line => line.join(','))).size, d.paylines.length);
       assert.ok(d.paylines.every(line => line.length === d.cols && line.every(row => Number.isInteger(row) && row >= 0 && row < d.rows)));
       assert.equal(d.symbols.length, d.id==='ind74_official_multihot5wild'?9:8);
@@ -112,8 +112,9 @@ test('every model and valid start option is reproducible with injected integer d
   }
 });
 
-test('all 40 slot models pay their symbol awards without a hidden clamp and their per-line bound is attainable', () => {
-  for (const d of family('slots')) for (const betMinor of ['100', '300', '400000']) {
+test('regular slot evaluators pay their symbol awards without a hidden clamp and their per-line bound is attainable; Tiger has separate conditional-feature coverage', () => {
+  assert.equal(family('slots').filter(d=>d.id!=='ind74_official_poweroftiger').length,39);
+  for (const d of family('slots').filter(d=>d.id!=='ind74_official_poweroftiger')) for (const betMinor of ['100', '300', '400000']) {
     let greatest = 0n;
     const wheelIndex = (d.multiplierValues ?? [1]).indexOf(Math.max(...(d.multiplierValues ?? [1])));
     const wheel = (d.multiplierValues ?? [1])[wheelIndex];
@@ -203,17 +204,18 @@ test('every ladder mode publishes its selected mode and reserves exactly its fin
   assert.equal(math.maximumPayoutMinor({gameId: math.GAME_ID, betMinor: '100', options: {mode: 'hard'}}), '50000');
 });
 
-test('mines cannot cash out before a safe reveal, reveal duplicate cells, or lose more than the accepted stake', () => {
+test('Mine Island follows its observed ascending ladder, rejects duplicate steps and cannot lose more than its stake', () => {
   const d = byId('mineisland');
   const first = math.startRound({gameId: d.id, betMinor: '100', rng: () => 0});
   const view = math.publicRound(first);
-  assert.equal(view.collectibleMinor, '0');
-  assert.deepEqual(view.allowedActions, ['reveal']);
-  assert.throws(() => math.collectRound(first), {code: 'NO_PROGRESS'});
-  const safe = math.advanceRound(first, {cell: d.cells - 1});
+  assert.equal(d.family, 'ladder');
+  assert.equal(view.collectibleMinor, '110');
+  assert.deepEqual(view.allowedActions, ['reveal','collect']);
+  assert.equal(math.collectRound(first).winMinor,'110');
+  const safe = math.advanceRound(first, {cell: 1});
   assert.ok(BigInt(math.publicRound(safe).collectibleMinor) > 0n);
-  assert.throws(() => math.advanceRound(safe, {cell: d.cells - 1}), {code: 'INVALID_CELL'});
-  const lost = math.advanceRound(safe, {cell: first.private.mines[0]});
+  assert.throws(() => math.advanceRound(safe, {cell: 1}), {code: 'INVALID_CELL'});
+  const lost = math.startRound({gameId:d.id,betMinor:'100',rng:bound=>bound-1});
   assert.equal(lost.status, 'lost');
   assert.equal(lost.winMinor, '0');
   assert.equal(math.publicRound(lost).collectibleMinor, '0');

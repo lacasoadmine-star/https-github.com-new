@@ -1,9 +1,9 @@
 import {entries} from './official74-data.mjs';
+import {existingWalletRoute} from './existing-wallet-routes.mjs';
 const $=id=>document.getElementById(id),cards=new Map();
 let view='both';
 const qa=new URLSearchParams(location.search).get('qa')==='1';
-const protectedPlayRoutes={ind74_official_multihot5:'/games/multi_hot_5_video',ind74_official_foxyhot20:'/games/hot_foxy_20'};
-const playUrl=(game,demo=false)=>game.protected?(demo?safeUrl(game.demoUrl,['eu-server.ssgportal.com']):protectedPlayRoutes[game.gameId]||'/'):'/independent74/machines74.html'+(demo?'?mode=demo':'')+'#'+encodeURIComponent(game.gameId);
+const playUrl=(game,demo=false)=>!demo&&existingWalletRoute(game.gameId)?existingWalletRoute(game.gameId):game.protected?safeUrl(game.demoUrl,['eu-server.ssgportal.com']):'/independent74/machines74.html'+(demo?'?mode=demo':'')+'#'+encodeURIComponent(game.gameId);
 function safeUrl(value,hosts){const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||!hosts.includes(u.hostname))throw Error('Unrecognized reference URL.');return u.href;}
 function setView(next){
   view=['both','official','build'].includes(next)?next:'both';

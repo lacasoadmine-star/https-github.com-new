@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as math from '../math/official72.mjs';
 import {publicLibrary74Definition} from '../server/existing-library74-adapter.mjs';
+import {syntheticMinesDefinition} from '../server/tests/support/synthetic-mines-math.mjs';
 import {MACHINE_PROFILES, presentationProfile, machineGeometry, machineMarkup, renderMachine,
   animateRound, minorText, presentationTier, plinkoGeometry, wheelRotation} from '../client/machine74-renderer.mjs';
 
@@ -12,6 +13,10 @@ const publicFixture = full => {
   return math.publicRound(stored,1700000000000);
 };
 const count = (text, pattern) => [...text.matchAll(pattern)].length;
+// Generic mine-renderer privacy coverage uses an isolated synthetic model.
+// It borrows an existing art palette only; actual Mine Island is a ladder
+// and is covered with that geometry in the complete 72-title matrix above.
+const syntheticMineView=()=>publicLibrary74Definition({...syntheticMinesDefinition(),id:'ind74_official_mineisland'});
 
 test('all 72 public identities have distinct explicit original-art profiles; retained games are excluded', () => {
   assert.equal(Object.keys(MACHINE_PROFILES).length,72);
@@ -156,8 +161,8 @@ test('wheel rotates to the supplied sector and rejects an unknown result', () =>
   assert.throws(()=>machineMarkup(view,{status:'settled',outcome:{sector:'not-a-sector'}}),/server wheel sector/);
 });
 
-test('covered mine cells reveal no hidden board and only settled public mines may display', () => {
-  const view=definitions.map(publicLibrary74Definition).find(game=>game.family==='mines');
+test('synthetic generic mine renderer reveals no hidden board before settlement', () => {
+  const view=syntheticMineView();
   const active={gameId:view.id,status:'active',allowedActions:['reveal','collect'],history:[],private:{mines:[0]},mineCells:[1]};
   assert.equal(count(machineMarkup(view,active),/m74-mine-cell mine/g),0);
   assert.equal(count(machineMarkup(view,{...active,status:'settled'}),/m74-mine-cell mine/g),1);
@@ -216,8 +221,8 @@ class FakeStage {
   click(cell,disabled=false){const button={disabled,dataset:{m74Cell:String(cell)}};this.listeners.get('click')?.({target:{closest:()=>button}});}
 }
 
-test('cell actions require an active server permission; replacing/disposal removes stale listeners', () => {
-  const view=definitions.map(publicLibrary74Definition).find(game=>game.family==='mines'),stage=new FakeStage(),actions=[];
+test('synthetic mine cell actions require server permission; replacing/disposal removes stale listeners', () => {
+  const view=syntheticMineView(),stage=new FakeStage(),actions=[];
   const round={gameId:view.id,status:'active',allowedActions:['reveal'],history:[]};
   let mounted=renderMachine(stage,view,round,{onAction:event=>actions.push(event)});
   stage.click(4);assert.deepEqual(actions,[{type:'reveal',options:{cell:4}}]);

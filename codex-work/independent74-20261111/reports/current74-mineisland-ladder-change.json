@@ -1,0 +1,66 @@
+{
+  "updatedAt": "2026-11-11T07:09:42.495Z",
+  "gameId": "ind74_official_mineisland",
+  "priorModel": "official72-mineisland-r2: rectangular5by5mine-picker with4mines",
+  "newModel": "official72-mineisland-r3: ten ascending island platforms",
+  "sources": [
+    {
+      "url": "https://www.smartsoftgaming.com/games/mine-island",
+      "type": "official-public-marketing",
+      "statement": "Uncover rewards hidden beneath the tiles without triggering a mine in Mine Island, a grid-based game of chance, risk, and strategy.",
+      "sha256": "500c3b024ba00008f864278f96e9abe311746a65494bef8f5ad21d2c1104296f"
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "type": "official-demo-DMO",
+      "initialEvidence": "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
+      "completedLossEvidence": "reports/current74-evidence-nonslots/ind74_official_mineisland-round01.png",
+      "observed": "Ten ascending platforms, ocean, kangaroo,TNTbarrels, firstPLAY canlose andreturnPLAY."
+    }
+  ],
+  "sourceConflict": "Marketing rectangulartile/mines description conflicts with linked official launcher ascendingplatforms; preserved explicitly in public definition and source matrix.",
+  "observedMultipliers": [
+    "1.1",
+    "1.2",
+    "1.5",
+    "2",
+    "3",
+    "5",
+    "10",
+    "20",
+    "50",
+    "100"
+  ],
+  "implemented": [
+    "Remove false rows/cols/cells/mines geometry",
+    "Ten exact visible default step awards",
+    "PLAY resolves firsthop",
+    "Independent Jump/Collect continuation, final100xauto-collect",
+    "Integer money and existing server maximum reserve",
+    "New immutable mathversion and safe publicstate"
+  ],
+  "notVerified": [
+    "Originaldemo latercontinuationcontrols",
+    "Provider RNG survival probabilities",
+    "Rarefeatures",
+    "Exactart/audio",
+    "Fullproviderparity"
+  ],
+  "independentChoices": [
+    "Survival9600/firstmultiplier then previous/next",
+    "Selectablevisualstep has no probability effect",
+    "ContinuationJump/Collect andfinalauto-collect remain operatorimplementation until sourceconfirmed"
+  ],
+  "mineIsland2": {
+    "changedMath": false,
+    "reason": "Existing ladder already startsatstep1 and matches observedEASY multipliers; added observedlayout provenance only."
+  },
+  "validation": {
+    "command": "node --test tests/observed-mineisland-ladder.test.mjs tests/math-official72-audit.test.mjs tests/public-gamble.test.mjs",
+    "tests": 21,
+    "pass": 21,
+    "fail": 0,
+    "evidence": "reports/current74-mineisland-ladder-tests.txt"
+  },
+  "productionWrites": 0
+}

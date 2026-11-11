@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-11T07:36:38.296Z",
+  "userDirection": "Follow exactly the two protected working games wallet/backend path; reuse the existing backend without replacing its financial machinery.",
+  "actualService": {
+    "platform": "Railway",
+    "projectId": "5e2d5a78-b695-4d10-a0f1-7d7ded24b7f7",
+    "environmentId": "7ae2354a-69f3-4214-8b95-bcd276a84b89",
+    "serviceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+    "name": "superwin-nine-slot-engine",
+    "domain": "https://superwin-nine-slot-engine-staging.up.railway.app",
+    "health": {
+      "brand": "SUPERWIN.BET",
+      "db": "up",
+      "redis": "up",
+      "games": 13,
+      "originalGames": 20,
+      "originalVersion": "originals-2.0.0",
+      "enabled": true,
+      "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+      "engineVersion": "superwin-slot-runtime-r13",
+      "legacyEngineVersion": "superwin-slot-runtime-reference-v3000",
+      "nativeSchemaCompatibility": {
+        "status": "review_required",
+        "compatible": false,
+        "target": "sw_rebuild.rounds.game",
+        "gameIds": [
+          "foxy_hot_20_native",
+          "multi_hot_5_native"
+        ],
+        "columnType": "text",
+        "maxLength": null,
+        "constraints": [],
+        "insertTriggers": [
+          {
+            "name": "sw_live_rounds",
+            "definition": "CREATE TRIGGER sw_live_rounds AFTER INSERT OR DELETE OR UPDATE ON sw_rebuild.rounds FOR EACH ROW EXECUTE FUNCTION sw_rebuild.sw_live_user_change('user_id')"
+          }
+        ],
+        "insertRules": [],
+        "reasons": [
+          "INSERT_TRIGGERS_REQUIRE_REVIEW"
+        ]
+      },
+      "activeModels": {
+        "foxy_hot_20_native": {
+          "mathVersion": "2026-11-07-foxy-native-v1",
+          "engineVersion": "superwin-slot-runtime-r13",
+          "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272"
+        },
+        "multi_hot_5_native": {
+          "mathVersion": "2026-11-07-mh5-native-v1",
+          "engineVersion": "superwin-slot-runtime-r13",
+          "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272"
+        }
+      }
+    },
+    "configuredModels": [
+      {
+        "id": "multi_hot_40",
+        "name": "Multi Hot 40",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "multi_hot_5_super_wilds",
+        "name": "Multi Hot 5 Super Wilds",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "burning_ice",
+        "name": "Burning Ice",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "wild_multi_stars",
+        "name": "Wild Multi Stars",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "safari_simba",
+        "name": "Safari Simba",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "fruity_wilds_jackpot",
+        "name": "Fruity Wilds Jackpot",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "hot_foxy_20",
+        "name": "Hot Foxy 20",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "jungle_sisters",
+        "name": "Jungle Sisters",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "bao_slot_5x",
+        "name": "Bao Slot 5X",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "multi_hot_5_video",
+        "name": "Multi Hot 5",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-10-27-reference-v3000",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "multi_hot_100",
+        "name": "Multi Hot 100",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "zplaybet-multi100-v1",
+        "engineVersion": "superwin-slot-runtime-reference-v3000"
+      },
+      {
+        "id": "foxy_hot_20_native",
+        "name": "Foxy Hot 20",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-11-07-foxy-native-v1",
+        "engineVersion": "superwin-slot-runtime-r13"
+      },
+      {
+        "id": "multi_hot_5_native",
+        "name": "Multi Hot 5",
+        "currency": "ETB",
+        "enabled": true,
+        "mathVersion": "2026-11-07-mh5-native-v1",
+        "engineVersion": "superwin-slot-runtime-r13"
+      }
+    ]
+  },
+  "clientContract": {
+    "file": "work/legacy-wallet.mjs",
+    "session": "GET/api/machine-session",
+    "model": "GET/api/slots/games/{id}",
+    "balance": "GET/api/slots/balance",
+    "history": "GET/api/slots/rounds",
+    "spin": "POST/api/slots/spin{gameId,bet,roundToken}",
+    "gamble": "POST/api/slots/gamble{roundId,choice,roundToken}",
+    "postHeader": "X-Zplay-Machine-Session",
+    "postsExecuted": 0
+  },
+  "sourceReadOnlyInspection": {
+    "deployedRuntimeBytes": 113506,
+    "sha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+    "integrityMatchedDeployedLoader": true,
+    "privateScratchSource": "/workspace/work/protected-slot-runtime-readonly.mjs",
+    "doNotCommitScratchSource": true,
+    "environmentNamesOnly": [
+      "DATABASE_URL",
+      "REDIS_URL",
+      "PLAYER_ORIGIN",
+      "SLOT_ENGINE_ENABLED",
+      "PORT"
+    ],
+    "credentialsRead": false,
+    "verifiedMechanisms": [
+      "Canonical sw_rebuild.sessions joined to active player role/status",
+      "Canonical sw_rebuild.wallets player/house balances",
+      "Transactional stable wallet locks and sw_nine round records",
+      "Existing shared transfer/ledger methods",
+      "Versioned evaluator preserves legacy protected models alongside newer native duplicate variants"
+    ],
+    "notEstablished": [
+      "Current production house wallet available balance",
+      "Current account limit values",
+      "All74model registry support",
+      "Execution of a player wager or paid settlement"
+    ]
+  },
+  "sameRegistryExtraMatches": {
+    "workingRoute": {
+      "gameId": "ind74_official_wildmultistars",
+      "modelId": "wild_multi_stars",
+      "route": "/games/wild_multi_stars",
+      "httpStatus": 200,
+      "realController": "/zplay-machines-20261106-r12/controller.mjs"
+    },
+    "modelsWithMissingFrontendRoute": [
+      {
+        "gameId": "ind74_official_safarisimba",
+        "modelId": "safari_simba",
+        "modelShape": "3reels×3rows",
+        "routeStatus": "Game unavailable fallback"
+      },
+      {
+        "gameId": "ind74_official_junglesisters",
+        "modelId": "jungle_sisters",
+        "modelShape": "5reels×3rows",
+        "routeStatus": "Game unavailable fallback"
+      },
+      {
+        "gameId": "ind74_official_baoslot5x",
+        "modelId": "bao_slot_5x",
+        "modelShape": "5reels×3rows",
+        "routeStatus": "Game unavailable fallback",
+        "referenceConflict": "Fresh official observation says3reels; existing engine shape must not be relabeled faithful."
+      }
+    ],
+    "notOfficial74": "fruity_wilds_jackpot",
+    "protectedDuplicatesNotSubstituted": [
+      "foxy_hot_20_native",
+      "multi_hot_5_native"
+    ]
+  },
+  "qaServiceBoundary": {
+    "name": "superwin-postgres-qa",
+    "serviceId": "ba5afc23-b2fa-45f6-a395-2274f9dafe3e",
+    "sourceReadOnly": true,
+    "sourcePurpose": "qaRuntime creates separate superwin_slots_v2_qa_20261024 DB and synthetic users/qa-house, runs mutation tests at startup",
+    "environmentNamesOnly": [
+      "QA_BOOTSTRAP_DATABASE_URL",
+      "REDIS_URL",
+      "PORT"
+    ],
+    "notProductionHouseEvidence": true,
+    "noQaEndpointTriggered": true,
+    "noQaChanges": true
+  },
+  "backendChanged": false,
+  "configurationChanged": false,
+  "liveMoneyCalls": 0,
+  "sourceCodeUpdates": 0
+}

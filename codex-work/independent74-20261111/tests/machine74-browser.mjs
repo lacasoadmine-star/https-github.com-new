@@ -16,7 +16,7 @@ const {chromium}=runtime?await import(pathToFileURL(join(runtime,'playwright','i
 const widths=[360,390,430,1280];
 const report={pass:false,environment:'isolated local PGlite + retained LibraryService + actual Chromium UI',
   productionRequests:0,createdAt:new Date().toISOString(),games:[],checks:[],screenshots:[],blockedRequests:[],pageErrors:[]};
-let harness,browser,context,page,currentGame='startup',sequence=0,clockOffset=0;
+let harness,browser,context,page,currentGame='startup',sequence=0,clockOffset=0,recoveredActive=false;
 const snapshots=new Map();
 
 try {
@@ -159,7 +159,7 @@ try {
     await select(game);
     const startActions=harness.metrics.actions;
     const started=await perform('#play');
-    if(game.family==='mines') {
+    if(!recoveredActive&&started.round.status==='active'&&['ladder','mines'].includes(game.family)) {
       assert.equal(started.round.status,'active');
       const actions=harness.metrics.actions,balance=started.current_balance??started.balance,id=started.round.round_id;
       const responsePromise=page.waitForResponse(response=>new URL(response.url()).pathname==='/independent74/account-api/state');
@@ -168,7 +168,8 @@ try {
       assert.equal(recovered.round.round_id,id);assert.equal(recovered.round.status,'active');
       assert.equal(recovered.current_balance??recovered.balance,balance);assert.equal(harness.metrics.actions,actions);
       await page.locator('#turbo').check();
-      report.checks.push('active mine round reload restores the same round and balance without a new action');
+      recoveredActive=true;
+      report.checks.push('active interactive round reload restores the same round and balance without a new action');
     }
     const result=await settle(game),layouts=[];
     for(const width of widths)layouts.push(await layout(game,width));
@@ -179,7 +180,7 @@ try {
       initialStatus:started.round.status,...result,actions:harness.metrics.actions-startActions,layouts});
     console.log(JSON.stringify({checked:report.games.length,total:72,game:game.id,status:result.status}));
   }
-  assert.equal(represented.size,7);
+  assert.deepEqual([...represented].sort(),['crash','dice','ladder','plinko','slots','wheel']);
 
   // STOP must shorten the animation while preserving the one server result.
   const slot=definitions.find(game=>game.id==='ind74_official_multihot100');await select(slot);await page.locator('#turbo').uncheck();
