@@ -142,7 +142,8 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
       if(!homeEnhancement||path!=='/'||request.method!=='GET'||response.status!==200||!response.headers.get('content-type')?.includes('text/html')||response.headers.has('content-encoding'))return response;
       const html=await response.text();
       if(html.includes('/independent74/lobby74.mjs'))return new Response(html,response);
-      const body=html.replace('</head>','<link rel="stylesheet" href="/independent74/lobby74.css"></head>').replace('</body>','<script type="module" src="/independent74/lobby74.mjs"></script></body>');
+      const revision=name=>{const digest=assets[name]?.etag?.match(/[a-f0-9]{64}/)?.[0];return digest?'?v='+digest:'';};
+      const body=html.replace('</head>','<link rel="stylesheet" href="/independent74/lobby74.css'+revision('/lobby74.css')+'"></head>').replace('</body>','<script type="module" src="/independent74/lobby74.mjs'+revision('/lobby74.mjs')+'"></script></body>');
       const headers=new Headers(response.headers);headers.delete('etag');headers.delete('content-length');headers.set('cache-control','private, no-store');
       const policy=headers.get('content-security-policy');
       if(policy&&!policy.includes('https://cdn.prod.website-files.com'))headers.set('content-security-policy',policy.replace(/img-src[^;]*/i,value=>value+' https://cdn.prod.website-files.com'));
