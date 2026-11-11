@@ -1,0 +1,237 @@
+{
+  "format": "fresh-mh10-account-activation-evidence-v2",
+  "recordedAt": "2026-11-11T19:04:24.877103Z",
+  "currentState": "temporarily_closed_pending_runtime_identity_verification",
+  "sourceCheckpointCommit": "93662c35a551b972eb6982f27f2d31e6edbb8ef6",
+  "historicalEvidence": "deployment-evidence.json",
+  "authorization": "Owner explicitly approved enabling ETB wagers for Fresh Multi Hot 10 using the existing wallet.",
+  "activation": {
+    "verifiedAt": "2026-11-11T18:47:19.240127Z",
+    "configurationChange": {
+      "platform": "Railway",
+      "serviceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+      "environmentId": "7ae2354a-69f3-4214-8b95-bcd276a84b89",
+      "variable": "FRESH74_ACCOUNT_RELEASE",
+      "previousValuePresent": false,
+      "value": "mh10-v1",
+      "sourceChanged": false,
+      "otherReleaseFlagsChanged": false
+    },
+    "backendDeployment": {
+      "deploymentId": "da801e21-783a-4ef7-ad54-e954e6a3b291",
+      "createdAt": "2026-11-11T18:46:43.097Z",
+      "status": "SUCCESS",
+      "health": {
+        "database": "up",
+        "redis": "up",
+        "enabled": true
+      }
+    },
+    "publicCatalog": {
+      "url": "https://superwin-player.apdiy61.workers.dev/api/slots/games",
+      "gameCount": 87,
+      "freshGameCount": 74,
+      "enabledFreshGameIds": [
+        "fresh_multihot10"
+      ],
+      "closedFreshGameCount": 73,
+      "multiHot10": {
+        "id": "fresh_multihot10",
+        "enabled": true,
+        "freshReleaseReady": true,
+        "buildStatus": "draft",
+        "currency": "ETB",
+        "betLevels": [
+          0.1,
+          0.2,
+          0.5,
+          1,
+          2,
+          5,
+          10,
+          20,
+          50,
+          100,
+          200
+        ],
+        "mathVersion": "fresh-mh10-20261111-v1",
+        "engineVersion": "zplay-fresh-slot-v1",
+        "mathSha256": "383b2348149f8eb50c14f26edfa6a1b3dc7816130d5d2ea1244d9b6ce855700a",
+        "modelUnchanged": true,
+        "providerCertified": false
+      }
+    },
+    "liveBrowser": {
+      "signedOut": true,
+      "freshMultiHot10CardLabel": "PLAY · ETB",
+      "cardOpensGame": true,
+      "directGameUrlVerified": true,
+      "loginPrompt": "Gal akoonkaaga ZPLAY si aad u isticmaasho wallet-ka ETB.",
+      "guestSpinDisabled": true,
+      "loginAttempts": 0,
+      "productionWagers": 0,
+      "productionDebitOrPayoutExercised": false
+    },
+    "observationsAreHistorical": true
+  },
+  "closure": {
+    "reason": "The live catalog normalization differed from the reviewed runtime; positively identifying the executing financial-guard runtime remained unresolved.",
+    "configurationChange": {
+      "platform": "Railway",
+      "serviceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+      "environmentId": "7ae2354a-69f3-4214-8b95-bcd276a84b89",
+      "variable": "FRESH74_ACCOUNT_RELEASE",
+      "previousValue": "mh10-v1",
+      "value": "",
+      "onlyNewReleaseFlagChanged": true,
+      "sourceChanged": false,
+      "otherReleaseFlagsChanged": false
+    },
+    "backendDeployment": {
+      "deploymentId": "461c1004-c35b-4415-84da-4f7042920cb4",
+      "createdAt": "2026-11-11T19:00:15.251Z",
+      "status": "SUCCESS"
+    },
+    "publicCatalog": {
+      "verifiedAt": "2026-11-11T19:04:24.877103Z",
+      "url": "https://superwin-nine-slot-engine-staging.up.railway.app/api/games",
+      "totalGames": 87,
+      "freshGames": 74,
+      "enabledFreshGameIds": [],
+      "multiHot10": {
+        "id": "fresh_multihot10",
+        "enabled": false,
+        "freshReleaseReady": false,
+        "betLevels": [],
+        "buildStatus": "draft"
+      }
+    }
+  },
+  "runtimeIdentityReview": {
+    "configuredFunctionSourceMatchesReviewedSource": true,
+    "decodedCurrentStartCommandMatchesReviewedSource": true,
+    "startCommandUnchangedAcrossActivation": true,
+    "sourceMutationApplied": false,
+    "observedRoutes": [
+      "https://superwin-player.apdiy61.workers.dev/api/slots/games",
+      "https://superwin-nine-slot-engine-staging.up.railway.app/api/games",
+      "https://superwin-nine-slot-engine-staging.up.railway.app/api/games/fresh_multihot10"
+    ],
+    "observedDuringActivation": {
+      "buildStatus": "draft",
+      "freshReleaseReady": true,
+      "enabled": true
+    },
+    "reviewedRuntimeExpectedBuildStatusWhenReady": "ready",
+    "buildStatusControlsWagerAdmission": false,
+    "directSingleGameCheck": {
+      "responseDate": "2026-11-11T18:50:25Z",
+      "cacheBusted": true,
+      "cacheControl": "no-store"
+    },
+    "routeExplanationConfirmed": false,
+    "executingFinancialGuardRuntimePositivelyIdentified": false,
+    "remainingQuestion": "Why do the public routes return the static draft label when the reviewed configured runtime normalizes it to ready? Configuration identity alone does not prove which runtime code served the response."
+  },
+  "diagnosticCandidate": {
+    "status": "prepared_offline_not_deployed",
+    "purpose": "Positively identify the reviewed guard runtime through public health and its existing startup log.",
+    "field": "runtimeRelease",
+    "value": "fresh-account-guards-20261111-v1",
+    "runtimeInsertions": 1,
+    "runtimeInsertedBytes": 50,
+    "locations": [
+      "/health JSON",
+      "existing slot_runtime_ready log through health response spread"
+    ],
+    "allOtherRuntimeBytesUnchanged": true,
+    "financialHelpersUnchanged": true,
+    "modelPayloadsUnchanged": true,
+    "financialRoutesUnchanged": true,
+    "environmentGatesUnchanged": true,
+    "inverseRestoresOriginalRuntimeExactly": true,
+    "inverseRestoresOriginalCarrierExactly": true,
+    "dependencylessSyntaxChecks": {
+      "runtime": "passed",
+      "carrier": "passed"
+    },
+    "sanitizedDiffFile": "diagnostic-health-marker.diff.txt",
+    "deploymentApproval": {
+      "result": "rejected_by_automatic_approval_review",
+      "action": "Replace and deploy the existing nine-slot function source with the prepared diagnostic candidate.",
+      "reason": "The action replaces and deploys the entire wallet-connected wagering service; the user did not explicitly authorize this new source replacement/production-like deployment, and the unresolved runtime discrepancy makes disruption risk material.",
+      "remoteSourceChangeApplied": false,
+      "retryAttempted": false,
+      "workaroundAttempted": false
+    }
+  },
+  "player": {
+    "url": "https://superwin-player.apdiy61.workers.dev/",
+    "freshGameUrl": "https://superwin-player.apdiy61.workers.dev/independent74/fresh74.html",
+    "versionId": "2a07c969-d64d-4299-bc55-5c2544f09510",
+    "versionNumber": 393,
+    "deploymentId": "e2767574-72ca-412a-8f41-080d6e4d7579",
+    "trafficPercent": 100,
+    "versionUnchanged": true,
+    "redeployedForActivation": false,
+    "lobbyReleaseCondition": "game.enabled === true && game.freshReleaseReady === true",
+    "lobbyMetadataRefresh": "New page load"
+  },
+  "offlineVerification": {
+    "freshAccountClient": {
+      "rerunForActivation": true,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "pendingReceiptRecovery": "Same token and session guard with replayOnly:true",
+      "acceptedReceiptRefreshFailure": "GET state recovery without wager resubmission",
+      "gambleRecovery": "Server attempt and stake with authenticated session guard and validated receipt arithmetic"
+    },
+    "backendGuards": {
+      "rerunForActivation": false,
+      "previouslyPassed": 27,
+      "reason": "The reviewed configured source remained unchanged; the prior isolated tests apply to that source but do not positively identify the runtime serving live requests.",
+      "provesExecutingLiveRuntime": false
+    },
+    "clientReleaseBlockers": [],
+    "isolatedModelReleaseGate": {
+      "passed": true,
+      "databaseUsed": false,
+      "networkUsed": false,
+      "absentValueEnablesFreshGames": [],
+      "incorrectValueEnablesFreshGames": [],
+      "exactValue": "mh10-v1",
+      "exactValueEnablesFreshGames": [
+        "fresh_multihot10"
+      ],
+      "otherFreshGamesClosed": 73,
+      "legacyMetadataUnchanged": true
+    }
+  },
+  "verificationActivity": {
+    "productionLoginAttempts": 0,
+    "productionWagersPlaced": 0,
+    "liveDebitOrPayoutSettlementExercised": false,
+    "existingBalancesEdited": false,
+    "productionTestAccountsCreated": false
+  },
+  "scope": {
+    "existingAccountWalletReused": true,
+    "existingBalancesEdited": false,
+    "productionTestAccountsCreated": false,
+    "otherFreshGamesActivated": false,
+    "native60Activated": false,
+    "historicalDeploymentEvidenceModified": false
+  },
+  "reviewableRemainder": [
+    "The proposed diagnostic whole-function source deployment requires the explicit authorization identified by automatic approval review.",
+    "Keep the fresh release closed while positively verifying the diagnostic marker and executing guard runtime.",
+    "Resolve the served-response discrepancy and verify runtime identity before reopening the owner-authorized MH10 release."
+  ],
+  "publication": {
+    "privateRuntimeSnapshotsIncluded": false,
+    "privateRuntimeFingerprintsIncluded": false,
+    "privateCarriersIncluded": false,
+    "credentialValuesIncluded": false
+  }
+}
