@@ -40,8 +40,8 @@ async def audit(browser,gid):
   return await fixture.route(r)
  await ctx.route('**/*',route)
  page=await ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
- await page.goto(ORIGIN+'/games/'+gid,wait_until='networkidle')
- await expect(page.locator('#sound-no')).to_be_visible(timeout=20000);await page.locator('#sound-no').click()
+ await page.goto(ORIGIN+'/games/'+gid,wait_until='domcontentloaded')
+ await expect(page.locator('#sound-no')).to_be_visible(timeout=45000);await page.locator('#sound-no').click()
  await expect(page.locator('#spin')).to_be_enabled()
  await page.screenshot(path=str(OUT/(gid+'-portrait.png')))
  await click_native(page,'#menu');await expect(page.locator('#menu-dialog')).to_be_visible();await page.locator('#menu-dialog [data-close]').click()
@@ -51,13 +51,13 @@ async def audit(browser,gid):
  assert len(fixture.requests)==1 and fixture.settlements==1,(fixture.requests,fixture.settlements)
  for w,h in [(320,568),(844,390)]:
   await page.set_viewport_size({'width':w,'height':h});await page.screenshot(path=str(OUT/(gid+f'-{w}.png')))
-  for selector in ['#spin','#menu','#bet']:
+  for selector in ['#spin','#menu','#bet','#auto']:
    b=await page.locator(selector).bounding_box();assert b and b['x']>=0 and b['y']>=0 and b['x']+b['width']<=w+1 and b['y']+b['height']<=h+1,(gid,w,selector,b)
  # Restore an active fixture win through the canonical state refresh.
  fixture.round.pop('payoutMinor',None)
  fixture.round.update(status='active',currentCashoutMinor='100',actions=['collect','gamble'],gambleAvailable=True,gambleAttemptsRemaining=5)
  await page.set_viewport_size({'width':390,'height':844})
- await page.reload(wait_until='networkidle')
+ await page.reload(wait_until='domcontentloaded')
  await click_native(page,'#gamble-win');await click_native(page,'#gamble-red')
  await expect(page.locator('#gamble-stake')).to_have_text('2.00 ETB')
  await expect(page.locator('#revealed-card')).to_have_text('RED')
@@ -76,4 +76,4 @@ async def main():
    results.append(result);print(json.dumps(result),flush=True)
   await browser.close()
  (OUT/'results.json').write_text(json.dumps(results,indent=2))
-asyncio.run(main())
+if __name__=='__main__':asyncio.run(main())

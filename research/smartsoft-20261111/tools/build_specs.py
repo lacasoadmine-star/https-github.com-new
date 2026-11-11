@@ -23,6 +23,11 @@ def write_json(path,value):
 
 def build(game,backend_by_url):
  directory=ROOT/'games'/game['id'];capture=read_json(directory/'09-network/capture-manifest.json',{})
+ verified=read_json(directory/'10-layout-mobile/batch10-control-session.json',{})
+ native_rounds=verified.get('native_rounds',[])
+ verified_rounds=sum(bool(r.get('native_spin_clicked') and r.get('account_state_changed')) for r in native_rounds)
+ native_clicked=bool(capture.get('play_clicked') or any(r.get('native_spin_clicked') for r in native_rounds))
+ round_changed=bool(capture.get('round_state_change_observed') or verified_rounds)
  captures=[];controls={};configurations=[];observed_text=[]
  for path in sorted((directory/'09-network').glob('state-*.json')):
   record=read_json(path,{})
@@ -63,8 +68,8 @@ def build(game,backend_by_url):
  backend=backend_by_url.get(game['official_url'],{})
  missing=[]
  if len(usable)<10:missing.append('Fewer than 10 game-canvas screenshots without a reported loader')
- if not capture.get('play_clicked'):missing.append('Native play action has not yet been successfully recorded')
- if not capture.get('round_state_change_observed'):missing.append('A changed round/account state still needs confirmation')
+ if not native_clicked:missing.append('Native play action has not yet been successfully recorded')
+ if not round_changed:missing.append('A changed round/account state still needs confirmation')
  if not audio:missing.append('No genuine audio files captured yet')
  if not video.exists()or video.stat().st_size<3000:missing.append('No usable original gameplay recording saved yet')
  if capture.get('status')in['blocked_by_provider','partial_timeout','unverified_load']:missing.append('Capture status requires another official-demo visit: '+capture['status'])
@@ -75,8 +80,8 @@ def build(game,backend_by_url):
    'existing_backend_registration':backend.get('id'),'current_build_status':backend.get('buildStatus'),
    'instruction':'Implement the same existing unfinished game route. Do not create a reference website, dashboard, duplicate card, static-image game or public archive link.'},
   'evidence':{'capture_status':capture.get('status','not_visited'),'captured_screenshots':len(captures),
-   'canvas_screenshots_without_reported_loader':len(usable),'native_play_clicked':capture.get('play_clicked',False),
-   'round_state_change_observed':capture.get('round_state_change_observed',False),'actual_native_click_count':len(actual_clicks),
+   'canvas_screenshots_without_reported_loader':len(usable),'native_play_clicked':native_clicked,
+   'round_state_change_observed':round_changed,'verified_batch10_rounds':verified_rounds,'actual_native_click_count':len(actual_clicks),
    'audio_files':len(audio),'video_saved':video.exists(),'video_contains_audio':False},
   'screenshots':captures,'controls':list(controls.values()),'observed_actions':actual_clicks,
   'observed_configuration':configurations,'visible_text_and_rules':observed_text,
@@ -102,7 +107,7 @@ def main():
  report={'generated_at':datetime.now(timezone.utc).isoformat(),'requested_games':74,'games':games,
   'counts':{'official_pages':len(games),'demo_sessions_recorded':sum(g['capture_status']!='not_visited'for g in games),
    'screenshots':sum(g['captured_screenshots']for g in games),'games_with_ten_canvas_screenshots':sum(g['canvas_screenshots_without_reported_loader']>=10 for g in games),
-   'native_play_recorded':sum(g['native_play_clicked']for g in games),'games_with_audio':sum(g['audio_files']>0 for g in games),
+   'native_play_clicked':sum(g['native_play_clicked']for g in games),'games_with_changed_round_state':sum(g['round_state_change_observed']for g in games),'verified_batch10_rounds':sum(g['verified_batch10_rounds']for g in games),'games_with_audio':sum(g['audio_files']>0 for g in games),
    'games_with_video':sum(g['video_saved']for g in games)},
   'status':'collection_in_progress'if any(g['unresolved']for g in games)else'collection_evidence_complete',
   'public_reference_dashboard':False,'game_construction_complete':False}

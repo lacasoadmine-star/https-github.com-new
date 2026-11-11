@@ -59,3 +59,13 @@ Cloudflare current release r24 corrects the stale remaining20 catalogue that rej
 Active Worker version d34ea3b7-7f0f-443c-a53d-89bb41d1fdea; deployment38642714-d969-4662-aaa7-db253caaae31. Existing LocalDemoWallet namespace35b5522424774086b506e28e8ea3990b is unchanged. A separate NativeGameResources class in the SAME Worker serves only actual game modules/textures/audio; private SQL ingestion avoids the exhausted daily KV write quota. No public ingestion or research viewer exists.
 
 The first ten research/control profiles are multi-hot-20, multi-hot-40, multi-hot-100, multi-hot-5-deluxe, burning-ice-41, blazing-hot-10, burning-ice-40, hab, hot-samba and boca-jamba-10. Native checked rounds and unresolved provider restrictions are recorded individually, not inferred from screenshots/clicks. Rebuilding all74 games is still incomplete; catalogue coverage, evidence completeness and live implementation are separate actual counts.
+
+## Current continuation checkpoint — native nine deployed
+
+User's current instruction: rebuild every other game while preserving accepted MultiHot5 and FoxyHot20; work in groups of ten; keep all game entry points on the existing Worker and backend. No reference website or archive dashboard.
+
+Nine existing native routes now use fresh official artwork profiles, clean interactive rendering and the retained ExpansionSession transport. Active Worker version: 7fe6bc30-e463-4a3f-b538-9cafee3f326e, deployment b7598de5-56b9-42e5-b75e-3bf7484ad753. Together with the previously rebuilt Multi Hot 10, this is the first ten-game frontend batch. This is not certification of full provider feature parity.
+
+Deployed nine-game browser verification passed menu, stake selection, STOP without a second start request, active win recovery, Gamble and Take Win. Mobile portrait/landscape checked; Burning Ice AUTO clipping fixed and retested. All monetary test responses were isolated browser fixtures, zero real wagers. Public guest opens login from SPIN with no API writes.
+
+Reference counts are deliberately distinct: 74 pages/sessions recorded, 1190 screenshots, 66 titles with ten canvas screenshots, 49 native play clicks, 21 titles with changed round state, 16 verified first-batch official rounds. A clicked Play button does not establish a completed round. Remaining feature gaps and remaining games must continue from this checkpoint.
