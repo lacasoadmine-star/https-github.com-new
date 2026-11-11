@@ -143,7 +143,7 @@ export function createGateway({ previous, assets = {}, games = [], fetchImpl = (
         return carryIdentity(json(upstream.ok ? { ...result, sessionGuard: guard } : result, upstream.status), identity);
       }
       if (!['GET', 'HEAD'].includes(request.method)) reject(405, 'METHOD_NOT_ALLOWED', 'GET is required.');
-      const asset = assets[path === PREFIX + '/' ? '/index.html' : path.slice(PREFIX.length)];
+      const asset = assets[path === PREFIX + '/' ? (assets['/test72.html'] ? '/test72.html' : '/index.html') : path.slice(PREFIX.length)];
       if (!asset) reject(404, 'NOT_FOUND', 'Asset not found.');
       if (request.headers.get('if-none-match') === asset.etag) return new Response(null, { status: 304, headers: { etag: asset.etag } });
       const headers = { 'content-type': asset.type, etag: asset.etag, 'cache-control': asset.type.includes('html') ? 'no-store' : 'public, max-age=300', 'x-content-type-options': 'nosniff', 'referrer-policy': 'same-origin' };

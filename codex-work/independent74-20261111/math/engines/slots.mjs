@@ -10,7 +10,7 @@ export function evaluateSlotGrid(config,betMinor,grid){
  for(let lineIndex=0;lineIndex<config.paylines.length;lineIndex++){
   const line=config.paylines[lineIndex];const id=grid[line[0]][0];let matches=1;
   while(matches<5&&grid[line[matches]][matches]===id)matches++;
-  if(matches>=3){const symbol=config.symbols.find(x=>x.id===id);const prize=symbol.pays[matches];const win=stakePerLine*BigInt(prize);total+=win;lineWins.push({lineIndex,payline:[...line],symbolId:id,matches,multiplier:prize,winMinor:win.toString(),positions:line.slice(0,matches).map((row,col)=>({row,col}))});}
+  if(matches>=3){const symbol=config.symbols.find(x=>x.id===id);const prize=symbol.pays[matches];const win=config.proratedStake===true?BigInt(betMinor)*BigInt(prize)/BigInt(config.paylines.length):stakePerLine*BigInt(prize);total+=win;lineWins.push({lineIndex,payline:[...line],symbolId:id,matches,multiplier:prize,winMinor:win.toString(),positions:line.slice(0,matches).map((row,col)=>({row,col}))});}
  }
  return{winMinor:total.toString(),lineWins};
 }
