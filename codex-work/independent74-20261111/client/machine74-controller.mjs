@@ -7,6 +7,7 @@ import {isPlinkoX,plinkoxBatch,plinkoxRiskAvailable} from './plinkox-controls.mj
 const $=id=>document.getElementById(id);
 const demo=new URLSearchParams(location.search).get('mode')==='demo';
 const currency=demo?'DEMO':'ETB';
+if(new URLSearchParams(location.search).get('embedded')==='1')document.body.classList.add('dashboard-embed');
 const api=new MachineAccountClient({mode:demo?'demo':'account'});
 document.body.dataset.mode=demo?'demo':'account';
 for(const label of document.querySelectorAll('[data-currency]'))label.textContent=currency;
@@ -34,7 +35,7 @@ function options(){if(isDestiny())return {bets:wheelAllocations.map(item=>({...i
 function wheelChipMinor(){const minor=BigInt(parsedStake().replace('.',''));if(minor<100n||minor%100n!==0n)throw Error('Use whole '+currency+' chips of at least1.');return minor;}
 function wheelPreview(){if(!isDestiny())return null;wheelChipMinor();if(!wheelAllocations.length)throw Error('Choose at least one field.');const total=wheelAllocations.reduce((sum,item)=>sum+BigInt(item.amountMinor),0n);return {totalBetMinor:total.toString(),totalStake:decimal(total.toString())};}
 function paintWheelChoices(){if(!isDestiny())return;for(const button of $('options').querySelectorAll('[data-wheel-symbol]')){const field=game.betFields.find(f=>f.symbolIndex===Number(button.dataset.wheelSymbol)),bet=wheelAllocations.find(b=>b.symbolIndex===field.symbolIndex);button.textContent=field.label+' · '+(field.implemented===false?'Unavailable':bet?decimal(bet.amountMinor):'+');button.classList.toggle('is-staked',!!bet);button.setAttribute('aria-pressed',String(!!bet));}}
-function editWheel(type,symbolIndex){if(!isDestiny()||working||refreshing||api.pending||!snapshot?.accepting)return;try{const previous=structuredClone(wheelAllocations),chip=wheelChipMinor();if(type==='undo'){wheelAllocations=wheelUndo.pop()??wheelAllocations;}else{wheelUndo.push(previous);if(wheelUndo.length>30)wheelUndo.shift();if(type==='clear')wheelAllocations=[];else{const indexes=type==='all'?game.betFields.filter(f=>f.implemented!==false).map(f=>f.symbolIndex):[symbolIndex];for(const index of indexes){if(!game.betFields.find(f=>f.symbolIndex===index&&f.implemented!==false))throw Error('That field is unavailable.');const existing=wheelAllocations.find(b=>b.symbolIndex===index);if(existing)existing.amountMinor=(BigInt(existing.amountMinor)+chip).toString();else wheelAllocations.push({symbolIndex:index,amountMinor:chip.toString()});}wheelAllocations.sort((a,b)=>a.symbolIndex-b.symbolIndex);}}paintWheelChoices();updateControls();}catch(error){message(error.message,true);}}
+function editWheel(type,symbolIndex){if(!isDestiny()||working||refreshing||api.pending||snapshot?.round?.status==='active')return;try{const previous=structuredClone(wheelAllocations),chip=wheelChipMinor();if(type==='undo'){wheelAllocations=wheelUndo.pop()??wheelAllocations;}else{wheelUndo.push(previous);if(wheelUndo.length>30)wheelUndo.shift();if(type==='clear')wheelAllocations=[];else{const indexes=type==='all'?game.betFields.filter(f=>f.implemented!==false).map(f=>f.symbolIndex):[symbolIndex];for(const index of indexes){if(!game.betFields.find(f=>f.symbolIndex===index&&f.implemented!==false))throw Error('That field is unavailable.');const existing=wheelAllocations.find(b=>b.symbolIndex===index);if(existing)existing.amountMinor=(BigInt(existing.amountMinor)+chip).toString();else wheelAllocations.push({symbolIndex:index,amountMinor:chip.toString()});}wheelAllocations.sort((a,b)=>a.symbolIndex-b.symbolIndex);}}paintWheelChoices();updateControls();}catch(error){message(error.message,true);}}
 function batchPreview(){if(!isPlinkoX(game))return null;return plinkoxBatch(game,parsedStake(),options());}
 function collectAllowed(){const r=snapshot?.round;if(r?.status!=='active')return false;if(game?.family==='slots')return r.allowedActions?.includes('collect')===true;if(['ladder','mines'].includes(game?.family))return Number(r.step??r.history?.filter(x=>x.survived)?.length??0)>0;return game?.family==='crash';}
 function updateControls(){
@@ -55,8 +56,10 @@ function updateControls(){
   for(const id of ['gamble-red','gamble-black']){$(id).hidden=!gamble;$(id).disabled=busy||waiting||!gamble;}
   $('auto').hidden=['crash','ladder','mines'].includes(game?.family);$('auto').disabled=!autoplay&&(busy||waiting||!playable||active||batchUnavailable||wheelUnavailable);$('auto').textContent=autoplay?'JOOJI AUTO':'AUTO · 5';
   $('game-select').disabled=busy||active||!definitions.length;
-  for(const el of [$('bet'),$('bet-less'),$('bet-more'),...$('options').querySelectorAll('input,select')])el.disabled=busy||active||waiting||!playable;
-  if(isDestiny())for(const button of $('options').querySelectorAll('button'))button.disabled=busy||active||waiting||!playable||button.dataset.wheelSupported==='0';
+  // Configuration is available while account verification or settlement is pending.
+  // Only actions that submit wagers depend on the server's accepting flag.
+  for(const el of [$('bet'),$('bet-less'),$('bet-more'),...$('options').querySelectorAll('input,select')])el.disabled=busy||active||waiting||!game;
+  if(isDestiny())for(const button of $('options').querySelectorAll('button'))button.disabled=busy||active||waiting||!game||button.dataset.wheelSupported==='0';
   $('rules').disabled=!game;$('refresh').disabled=working||refreshing;
   $('retry').hidden=!waiting;$('retry').disabled=busy||api.pending?.body.game_id!==game?.id;
   $('balance').textContent=snapshot?.balance??'—';
@@ -108,7 +111,7 @@ async function refresh({silent=false}={}){
     if(restoreWheelBets&&isDestiny()){if(next.round?.bets?.length)wheelAllocations=next.round.bets.map(item=>({...item}));restoreWheelBets=false;paintWheelChoices();}
     if(api.pending&&!silent)message(api.pending.body.game_id===game.id?'Codsigii hore lama xaqiijin. Isticmaal “Xaqiiji codsigii hore”.':'Codsi hore ayaa sugaya ciyaar kale. Dib ugu noqo ciyaartaas.',true);
     else if(next.other_active_game&&!silent)message('Wareeg kale ayaa furan: '+next.other_active_game+'. Marka hore dhammaystir.',true);
-    else if(!next.accepting||next.game?.launchable===false){if(!silent)message('Ciyaartan weli lama heli karo. Fadlan dooro ciyaar kale.');}
+    else if(!next.accepting||next.game?.launchable===false){if(!silent)message('Mashiinka iyo dejintu way furan yihiin. SPIN-ka ETB wuxuu sugayaa xaqiijinta server-ka, wallet-ka iyo settlement-ka.');}
     else if(!silent)message(next.round?.status==='active'?'Wareeggaagii furan ayaa dib loo helay.':demo?'DEMO waa diyaar. Isticmaal credits-ka bilaashka ah.':'Akoonka ETB waa la xaqiijiyey.');
   }catch(error){if(error?.code!=='STALE_RESPONSE'){snapshot=null;failure(error);}}
   finally{refreshing=false;if(!animation)draw();}
@@ -166,7 +169,9 @@ function showRules(){
   $('rules-dialog').showModal();
 }
 async function loadHistory(){
-  if(!game||!snapshot||historyLoaded)return;
+  if(!game||historyLoaded)return;
+  if(!snapshot){$('history-status').textContent='Gal akoonkaaga oo dib u hubi si aad u hesho history-ga server-ka.';return;}
+  if(snapshot.historyAvailable===false){$('history-status').textContent='History-ga ciyaartan weli backend-ka laguma xaqiijin. Wareeg lacag leh lama bilaabin.';return;}
   const id=game.id;$('history-status').textContent='Soo dejinaya…';
   try{const records=await api.history(id);if(game.id!==id)return;$('history').replaceChildren();for(const item of records){const li=document.createElement('li');const r=item.round||item;li.textContent=(r.round_id||r.id||'Wareeg')+' · Sharad '+decimal(r.stakeMinor??r.total_stake??r.betMinor??'0')+' '+currency+' · Guul '+decimal(r.payoutMinor??r.winMinor??'0')+' '+currency;$('history').append(li);}$('history-status').textContent=records.length?'':'Wareeg hore lama helin.';historyLoaded=true;}catch(error){$('history-status').textContent=error.message;}
 }
@@ -213,3 +218,4 @@ try{
   for(const d of definitions){const option=document.createElement('option');option.value=d.id;option.textContent=d.catalogName||d.title;$('game-select').append(option);}
   await select(location.hash.slice(1));
 }catch(error){failure(error);updateControls();}
+
