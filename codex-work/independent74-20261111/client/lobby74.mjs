@@ -19,8 +19,8 @@ function open(game,button){
 }
 const cards=new Map();
 for(const game of entries){
- const article=element('article','collection-card i74-card');article.dataset.i74GameId=game.gameId;
- const card=element('button','collection-card-open i74-open');card.type='button';card.setAttribute('aria-label','Open '+game.name);card.setAttribute('aria-haspopup','dialog');
+ const article=element('article','portal-r9-card i74-card');article.dataset.i74GameId=game.gameId;
+ const card=element('button','portal-r9-card-open i74-open');card.type='button';card.setAttribute('aria-label','Open '+game.name);card.setAttribute('aria-haspopup','dialog');
  const image=element('img','i74-cover');image.src=source(game.coverUrl);image.alt=game.name;image.loading='lazy';image.decoding='async';image.width=493;image.height=617;card.append(image);
  if(!url(game))card.append(element('span','i74-review','Under review'));
  card.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();open(game,card);},true);article.append(card);cards.set(game.gameId,article);
@@ -30,11 +30,11 @@ dialog.addEventListener('keydown',event=>{if(event.key!=='Tab')return;const cont
 let frame=0;
 function sync(){
  frame=0;
- const gallery=document.querySelector('main.player-main #portal-r9-gallery'),grid=gallery?.querySelector('.collection-grid');
+ const gallery=document.querySelector('main.player-main #portal-r9-gallery'),grid=gallery?.querySelector('.portal-r9-grid');
  const active=(document.querySelector('.bottom-nav button.active')?.textContent||'Home').trim().toUpperCase();
  const show=location.pathname==='/'&&!!grid&&['HOME','GAMES'].includes(active)&&['home','games','casino'].includes(gallery.dataset.surface||'home');
  if(!show){if(dialog.open)dialog.close();return;}
- const originals=[...grid.querySelectorAll('.collection-card')].filter(node=>!node.classList.contains('i74-card'));
+ const originals=[...grid.querySelectorAll('article')].filter(node=>!node.classList.contains('i74-card'));
  const query=(document.querySelector('#portal-r9-search')?.value||'').trim().toLocaleLowerCase();
  for(const game of entries){
   const route=url(game),key=route?.split('/').at(-1);
