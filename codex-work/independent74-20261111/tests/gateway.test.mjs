@@ -106,3 +106,5 @@ test('homepage enhancement preserves account headers and restricts the added ima
   assert.equal(response.headers.get('content-security-policy'),policy.replace("img-src 'self' data:","img-src 'self' data: https://cdn.prod.website-files.com"));
   const other=await handler(new Request(ORIGIN+'/games/retained'),ENV,{});assert.equal(await other.text(),html);assert.equal(other.headers.get('content-security-policy'),policy);
 });
+
+test('retired progress URL returns users to the exact existing homepage',async()=>{let calls=0;const handler=createGateway({previous:{fetch(){calls++;return new Response('retained')}}});const result=await handler(new Request('https://player.example/independent74/progress.html'),{},{});assert.equal(result.status,302);assert.equal(result.headers.get('location'),'/');assert.equal(calls,0);const legacy=await handler(new Request('https://player.example/games/multi_hot_5_video'),{},{});assert.equal(await legacy.text(),'retained');assert.equal(calls,1);});

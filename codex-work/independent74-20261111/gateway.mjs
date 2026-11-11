@@ -136,6 +136,7 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
   const accountIds = new Set(accountGames.map(game => game.id));
   return async function independent74(request, env, ctx) {
     const url = new URL(request.url), path = url.pathname;
+    if(path===PREFIX+'/progress.html')return new Response(null,{status:302,headers:{location:'/', 'cache-control':'no-store'}});
     if (path !== PREFIX && !path.startsWith(PREFIX + '/')) {
       const response=await previous.fetch(request,env,ctx);
       if(!homeEnhancement||path!=='/'||request.method!=='GET'||response.status!==200||!response.headers.get('content-type')?.includes('text/html')||response.headers.has('content-encoding'))return response;
