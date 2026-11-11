@@ -1,6 +1,7 @@
 import {readFile, writeFile, mkdir, rename, readdir, access} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
+import {gzipSync} from 'node:zlib';
 import {dirname, resolve, join} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 
@@ -102,10 +103,10 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     return ['/'+name,{type:MIME[extension],etag:'"independent74-'+digest+'"',body}];
   }));
   const files={
-    [NAMES.assets]:`// Generated from current independent client source. No legacy assets are included.\nexport const assets=Object.freeze(Object.assign(Object.create(null),${js(assets)}));\n`,
+    [NAMES.assets]:hasDemo?`// Compressed independent assets only; inherited modules remain byte-exact.\nlet cached;\nexport async function loadAssets(){\n if(cached)return cached;\n const bytes=Uint8Array.from(atob(${js(gzipSync(JSON.stringify(assets),{level:9}).toString('base64'))}),c=>c.charCodeAt(0));\n const text=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();\n cached=Object.freeze(Object.assign(Object.create(null),JSON.parse(text)));return cached;\n}\n`:`// Generated from current independent client source. No legacy assets are included.\nexport const assets=Object.freeze(Object.assign(Object.create(null),${js(assets)}));\n`,
     [NAMES.catalog]:`// Public definitions only. Outcomes and wallet state stay on the existing account server.\n${hasDemo?`import {account74Catalog} from './${DEMO}';\n`:''}export const games=Object.freeze(${serializedGames});\nexport const accountGames=Object.freeze(${hasDemo?'account74Catalog()':serializedAccountGames});\n`,
     [NAMES.gateway]:gatewayOutput,
-    [NAMES.entry]:`import previous${hasDemo?", {LocalDemoWallet as PreviousDemoWallet}":''} from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {assets} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\n${hasDemo?`import {handleDemo74Request} from './${DEMO}';\nimport {createDemoGateway} from './${DEMO_GATEWAY}';\nexport class LocalDemoWallet extends PreviousDemoWallet {\n constructor(ctx,env){super(ctx,env);this.__independent74Context=ctx;}\n fetch(request){return new URL(request.url).pathname.startsWith('/independent74-demo-internal/')?handleDemo74Request(this.__independent74Context,request):super.fetch(request);}\n}\n`:''}export default {...previous,fetch:createGateway({previous,assets,games,accountGames${hasDemo?',demoHandler:createDemoGateway({previous}),homeEnhancement:true':''}})};\n`,
+    [NAMES.entry]:`import previous${hasDemo?", {LocalDemoWallet as PreviousDemoWallet}":''} from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {${hasDemo?'loadAssets':'assets'}} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\n${hasDemo?`import {handleDemo74Request} from './${DEMO}';\nimport {createDemoGateway} from './${DEMO_GATEWAY}';\nexport class LocalDemoWallet extends PreviousDemoWallet {\n constructor(ctx,env){super(ctx,env);this.__independent74Context=ctx;}\n fetch(request){return new URL(request.url).pathname.startsWith('/independent74-demo-internal/')?handleDemo74Request(this.__independent74Context,request):super.fetch(request);}\n}\nlet handler;\nexport default {...previous,async fetch(request,env,ctx){\n if(!handler)handler=createGateway({previous,assets:await loadAssets(),games,accountGames,demoHandler:createDemoGateway({previous}),homeEnhancement:true});\n return handler(request,env,ctx);\n}};\n`:`export default {...previous,fetch:createGateway({previous,assets,games,accountGames})};\n`}`,
     ...(hasDemo?{[DEMO]:demoEngine,[DEMO_GATEWAY]:demoGateway}:{})
   };
   for(const [name,source]of Object.entries(files))checkModule(source,name);
