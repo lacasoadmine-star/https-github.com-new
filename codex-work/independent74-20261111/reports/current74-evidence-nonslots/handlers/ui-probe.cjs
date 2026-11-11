@@ -1,0 +1,1 @@
+module.exports=async ctx=>{const t=await require('./ui-tools.cjs')(ctx);const started=Date.now();return{text:await t.text(),screenshot:await t.screenshot('probe-'+Date.now()),captureMs:Date.now()-started,transportEvents:ctx.rec.publicTransportEvidence?.length||0}}

@@ -1,0 +1,42 @@
+{
+  "gameId": "ind74_official_poweroftiger",
+  "modelVersion": "official72-poweroftiger-r4",
+  "sourceRuleJournal": "reports/current74-poweroftiger-features.json",
+  "changedSource": [
+    "server/existing-library74-adapter.mjs:PUBLIC_FIELDS only",
+    "client/machine74-renderer.mjs",
+    "client/machine74-renderer.css"
+  ],
+  "publicDefinition": "baseGameMultiplier/respinFeature are filtered; ticket and weight fields omitted; uncertainty flags retained. Completed outcome frames remain past-state only.",
+  "presentation": [
+    "Base grid animates first; conditional multiplier is displayed only from confirmed outcome.",
+    "Completed nullable respin frames replay in order; selected/wild positions stay locked; no blank placeholder is replaced by a fake symbol.",
+    "Top factor distinguishes selected feature multiplier from multiplier actually applied to the current board.",
+    "STOP cancels all pending presentation and reveals the unchanged final completed frame and canonical total result once.",
+    "No animation callback emits a wager or settlement action."
+  ],
+  "validation": {
+    "focusedTests": 105,
+    "focusedFailures": 0,
+    "focusedLog": "reports/current74-tiger-presentation/focused-tests.txt",
+    "browserPass": true,
+    "browserReport": "reports/current74-tiger-presentation/browser-report.json",
+    "layoutReport": "reports/current74-layout-audit/tiger-r4.json"
+  },
+  "helpExtraction": {
+    "report": "reports/current74-exact-help-namespaces.json",
+    "reproduce": "node references/extract-exact-help74.mjs",
+    "method": "Only exact namespace matching against officialURLGameName;casefoldingonly,noaliases",
+    "matchedGames": 33,
+    "unmatchedGames": 41,
+    "totalNamespaces": 82
+  },
+  "limitations": [
+    "Provider private probabilities, exact media/audio and complete visual equivalence remain unverified.",
+    "Respin preview contract currently follows Tiger semantics; other feature families need explicit matching contracts before reuse.",
+    "This work did not connect or mutate production wallets, deploy or push."
+  ],
+  "newOfficialDemoRounds": 0,
+  "playerWalletMutations": 0,
+  "productionWrites": 0
+}

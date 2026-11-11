@@ -39,7 +39,8 @@
         "columns": 6,
         "paylines": null,
         "maximumMultiplierBps": 1000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out",
@@ -52,7 +53,27 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/popx",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies a 6-by-5 grid, eleven symbols, and matches of eight or more identical symbols anywhere. The official screenshot confirms six columns and five rows."
+        ],
+        "limitations": [
+          "Conditional board probabilities, cycle timing, multiplier schedule and 100x cap are independently authored.",
+          "Shared multiplayer sessions and any provider bonus mechanics are not implemented."
+        ],
+        "kind": "cascade",
+        "rows": 5,
+        "columns": 6,
+        "symbols": 11,
+        "minimumMatchingSymbols": 8,
+        "maximumMultiplierBps": 1000000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_mineisland2",
@@ -81,7 +102,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 5000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -93,10 +115,43 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false,
+      "geometryMatchesCurrentModel": null,
       "additionalEvidence": [
         "reports/current74-evidence/mineisland2-initial.png"
-      ]
+      ],
+      "observedLayout": {
+        "source": "reports/current74-evidence/mineisland2-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official MineIsland2 EASY demo shows ten ascending platforms from 1.1x to 100x. PLAY resolves a first jump; a successful first step can COLLECT 1.10 DMO from a 1.00 DMO stake."
+        ],
+        "limitations": [
+          "Medium and hard multipliers, boost/portal mechanics and survival probabilities remain independently authored or unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": true,
+        "observedDefaultMultipliersBps": [
+          11000,
+          12000,
+          15000,
+          20000,
+          30000,
+          50000,
+          100000,
+          200000,
+          500000,
+          1000000
+        ],
+        "modes": [
+          "easy",
+          "medium",
+          "hard"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_neweraofjetx",
@@ -124,7 +179,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 900000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -136,7 +192,20 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 900000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_balloonx",
@@ -164,7 +233,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1100000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -176,7 +246,20 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_plinkoxclassic",
@@ -206,7 +289,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 100000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "colored-ball-factors"
@@ -217,7 +301,30 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "references/plinkoxclassic-observed-20261111.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Sixteen peg rows and seventeen buckets were observed in a completed official pink-ball demo round."
+        ],
+        "limitations": [
+          "Marketing describes selectable stake factors; the observed demo instead presents a static pink/orange/fire 1x/5x/10x legend and a 10000x maximum.",
+          "Server color selection, its 995/4/1 weights and fair paths are independent operator choices. Provider selection semantics and probabilities remain unverified."
+        ],
+        "kind": "pegboard",
+        "rows": 16,
+        "buckets": 17,
+        "implementedBallMultipliers": [
+          1,
+          5,
+          10
+        ],
+        "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
+        "completeBallMechanicsVerified": false
+      }
     },
     {
       "id": "ind74_official_propelx",
@@ -245,7 +352,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1500000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -257,7 +365,20 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1500000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_worldchampionx",
@@ -283,7 +404,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 500000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -293,7 +415,20 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 500000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_poweroftiger",
@@ -325,7 +460,8 @@
         "columns": 3,
         "paylines": 5,
         "maximumMultiplierBps": 16800000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "wild-symbol",
@@ -350,7 +486,42 @@
         "The independent respin begins blank and adds only the final feature-board award to the retained base award; provider initial carryover and aggregation remain unverified.",
         "The English Help is ambiguous about wilds counting toward the final full-board multiplier; this implementation counts them.",
         "One server spin settles all frames with one original stake and one final payout."
-      ]
+      ],
+      "observedLayout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official DEMO shows a3-by-3 grid and a top20X sign. Five completed returned public results contain9symbols each. The public page lists5active paylines."
+        ],
+        "limitations": [
+          "The20X sign alone does not establish a feature trigger or probability. The conditional multiplier and respin structure come from the separate official public rules.",
+          "The line chart, symbol prizes, probabilities, initial respin holds and base-plus-feature aggregation remain independent or unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "top-arc",
+          "observedValues": [
+            20
+          ],
+          "implementedValues": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "calculationImplemented": true,
+          "condition": "identical-full-board-or-all-five-lines-win",
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_multifruitschargingwilds",
@@ -374,12 +545,13 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multifruitschargingwilds-r2",
+        "mathVersion": "official72-multifruitschargingwilds-r3",
         "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 15250000,
-        "independentModel": true
+        "maximumMultiplierBps": 350000,
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -389,7 +561,35 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact MultiFruitsChargingWilds Help specifies five fixed active paylines."
+        ],
+        "limitations": [
+          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
+          "The retained financial transaction must atomically save and restore that feature state.",
+          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_gemscrownchargingwilds",
@@ -413,12 +613,13 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-gemscrownchargingwilds-r3",
+        "mathVersion": "official72-gemscrownchargingwilds-r4",
         "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 14210000,
-        "independentModel": true
+        "maximumMultiplierBps": 360000,
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -428,7 +629,35 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact GemsCrownChargingWilds Help specifies five fixed active paylines."
+        ],
+        "limitations": [
+          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
+          "The retained financial transaction must atomically save and restore that feature state.",
+          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_gatesofmerlyn",
@@ -457,7 +686,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 13170000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -468,7 +698,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_chickenways",
@@ -493,7 +747,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1110000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -501,7 +756,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_dicejungle",
@@ -534,7 +807,8 @@
         "columns": 5,
         "paylines": 5,
         "maximumMultiplierBps": 13960000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -547,7 +821,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/dice-jungle",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page describes a 5x3 dice grid and a synchronized horizontal multiplier reel above it, with awards boosted by up to 5x."
+        ],
+        "limitations": [
+          "The complete provider hold-and-spin rules, paytable, multiplier labels and probabilities remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_multihot5wild",
@@ -580,7 +880,8 @@
         "columns": 3,
         "paylines": 5,
         "maximumMultiplierBps": 40000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "extra-multiplier",
@@ -597,7 +898,46 @@
       ],
       "independentImplementationLimits": [
         "X2 card probabilities, three-attempt limit and pre-spin holdWin control are operator choices. Provider probabilities, limits, complete mechanics and parity remain unverified."
-      ]
+      ],
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies a 3-by-3 grid, five fixed paylines, wild substitution, three matching symbols and a left-side 1x–5x multiplier reel."
+        ],
+        "limitations": [
+          "The observed own wild prize plus 5x permits a 500x independent base bound, while help advertises 375x; provider award restrictions are unverified.",
+          "The provider payline chart and probabilities are unverified. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_cheesyroad",
@@ -623,7 +963,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1140000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -633,7 +974,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_fortunecatch",
@@ -656,13 +1015,26 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 519000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      }
     },
     {
       "id": "ind74_official_multihot20",
@@ -695,7 +1067,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 13400000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -704,7 +1077,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-20",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_cheesyroadclassic",
@@ -731,7 +1130,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1170000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -742,7 +1142,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_multihot10",
@@ -773,7 +1191,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 15070000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -782,7 +1201,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 10 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_multihot40",
@@ -813,7 +1258,8 @@
         "columns": 5,
         "paylines": 40,
         "maximumMultiplierBps": 14030000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -822,7 +1268,38 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-40; official demo browser observation on 2026-11-11",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Five columns and four visible rows; multiplier arc above the reels. Visible labels include 5x, 2x and 4x."
+        ],
+        "limitations": [
+          "Full multiplier distribution and full label order are unverified.",
+          "The complete provider payline chart and reel strips are unverified."
+        ],
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 40,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "top-arc",
+          "observedValues": [
+            2,
+            4,
+            5
+          ],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_coinsofatlantis",
@@ -830,7 +1307,10 @@
       "sourceUrl": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
       "sourceAccess": "official-public-page",
       "sourceReadDate": "2026-11-11",
-      "publicGeometry": null,
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 4
+      },
       "publicPaylineCounts": [],
       "publicFeatures": [
         "wild-symbol",
@@ -848,28 +1328,68 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-coinsofatlantis-r3",
-        "rows": 3,
+        "mathVersion": "official72-coinsofatlantis-r4",
+        "rows": 4,
         "columns": 5,
         "paylines": 5,
-        "maximumMultiplierBps": 12990000,
-        "independentModel": true
+        "maximumMultiplierBps": 32990000,
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "wild-symbol",
-        "expanding-wild"
+        "expanding-wild",
+        "regular-coin-respin",
+        "plus-one-respin",
+        "mini-major-coin-awards",
+        "full-board-coin-double"
       ],
       "unimplementedOrUnverifiedPublicFeatures": [
+        "mega-grand-coin-grouping",
         "bonus-purchase",
-        "respin",
-        "multiplayer",
-        "multiple-bets"
+        "ante-bet",
+        "provider-coin-probabilities",
+        "provider-base-feature-ordering",
+        "exact-provider-line-chart-and-count"
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false,
+      "geometryMatchesCurrentModel": true,
       "independentImplementationLimits": [
-        "The implementation expands initially contributing wilds once; repeated provider expansion order is unverified. Symbol awards, paylines and probabilities are independently authored."
+        "Regular symbol prizes, line chart and probabilities are independently authored.",
+        "Initial landed coins are counted before regular-spin wild expansion; the regular award and final feature coin sum are added. Provider ordering/aggregation remain unverified.",
+        "The complete provider2500x maximum and jackpot joint-availability constraints are not reproduced."
+      ],
+      "observedLayout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official DEMO initial screen directly shows five columns and four rows, including coin and wild symbols. The regular/+1/MINI/MAJOR respin subset follows separate English Help documents."
+        ],
+        "limitations": [
+          "The exact provider line chart and count remain unverified.",
+          "MEGA/GRAND jackpot grouping, buy/ANTE features, provider probabilities and base/feature ordering remain unimplemented or unverified."
+        ],
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "additionalEvidence": [
+        "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+        "references/official-slot-help-en-20261111.json"
       ]
     },
     {
@@ -901,7 +1421,8 @@
         "columns": 5,
         "paylines": 100,
         "maximumMultiplierBps": 200000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "extra-multiplier",
@@ -910,7 +1431,46 @@
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "references/multihot100-observed-20261111.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Five columns and four rows. The observed help explicitly places the 1x–5x multiplier on the left side reel."
+        ],
+        "limitations": [
+          "The provider multiplier probabilities and reel strips are unverified.",
+          "The full provider payline chart is unverified. X2 uses independent fair colors and an explicitly independent three-attempt limit."
+        ],
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 100,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_multihotwildways",
@@ -960,7 +1520,48 @@
         "tests/evidence/official-demo-observations-slots20-remaining.json",
         "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-initial.png",
         "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-official-help.html"
-      ]
+      ],
+      "observedLayout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The initial official DEMO screen shows3reels,3rows,27WAYS and a left multiplier reel. Twenty returned public result grids contain9symbols each; result factors1x,2x,3x,4x,5x were recorded."
+        ],
+        "limitations": [
+          "Provider LinePlay1 is a betting field, not a payline count.",
+          "The provider symbol-ID mapping, award basis, probabilities and full bonus behavior remain unverified.27-way allocation and awards are independently authored."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": null,
+        "paylinesVerified": false,
+        "ways": 27,
+        "waysCountVerified": true,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_bottlemania",
@@ -986,7 +1587,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1230000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -996,7 +1598,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_multihot5burnwilds",
@@ -1031,7 +1651,8 @@
         "columns": 5,
         "paylines": 5,
         "maximumMultiplierBps": 200000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "expanding-wild",
@@ -1047,7 +1668,46 @@
       "geometryMatchesCurrentModel": true,
       "independentImplementationLimits": [
         "X2 card probabilities, three-attempt limit and pre-spin holdWin control are operator choices. Provider probabilities, limits, complete mechanics and parity remain unverified."
-      ]
+      ],
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies three rows, five reels and five paylines. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier."
+        ],
+        "limitations": [
+          "Full provider paytable, probabilities and repeated expansion order remain unverified.",
+          "The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "independent-display",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_chickenhighway",
@@ -1072,7 +1732,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1250000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1080,7 +1741,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_multihot5deluxe",
@@ -1110,7 +1789,8 @@
         "columns": 3,
         "paylines": 5,
         "maximumMultiplierBps": 370000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1118,7 +1798,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_carx",
@@ -1144,7 +1850,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1100000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -1154,7 +1861,20 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_caibalaocappadocia",
@@ -1180,7 +1900,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1280000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -1190,7 +1911,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_multihotwheel",
@@ -1213,13 +1952,26 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 525400,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      }
     },
     {
       "id": "ind74_official_jinglebellbonanza",
@@ -1246,7 +1998,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 64050000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "wild-symbol",
@@ -1258,11 +2011,41 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false,
+      "geometryMatchesCurrentModel": null,
       "independentImplementationLimits": [
         "The implementation expands initially contributing wilds once; repeated provider expansion order is unverified. Symbol awards, paylines and probabilities are independently authored.",
         "The public maximum wheel factor is5x; this independent implementation uses equally likely1x through5x. Exact provider labels and distribution remain unverified."
-      ]
+      ],
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "independent-display",
+          "observedValues": [],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_multihot5superwilds",
@@ -1294,7 +2077,8 @@
         "columns": 5,
         "paylines": 5,
         "maximumMultiplierBps": 11770000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1304,7 +2088,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_balloon",
@@ -1327,7 +2137,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1320000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -1335,7 +2146,25 @@
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_plinkox",
@@ -1358,7 +2187,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 525000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1366,7 +2196,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "pegboard",
+        "rows": 10,
+        "buckets": 11,
+        "implementedBallMultipliers": [
+          1
+        ],
+        "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
+        "completeBallMechanicsVerified": false
+      }
     },
     {
       "id": "ind74_official_helicopterx",
@@ -1389,7 +2237,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1300000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -1397,7 +2246,20 @@
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1300000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_safarisimba",
@@ -1430,7 +2292,8 @@
         "columns": 3,
         "paylines": 5,
         "maximumMultiplierBps": 390000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1441,7 +2304,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/safari-simba-2",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_mineisland",
@@ -1482,7 +2371,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1000000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "observed-ten-platform-ladder",
@@ -1501,7 +2391,39 @@
       "additionalEvidence": [
         "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
         "reports/current74-evidence-nonslots/ind74_official_mineisland-round01.png"
-      ]
+      ],
+      "observedLayout": {
+        "source": "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official MineIsland demo shows ten ascending platforms from 1.1x to 100x, an ocean, kangaroo and TNT barrels. A first PLAY attempt was observed to lose and return to PLAY."
+        ],
+        "limitations": [
+          "The marketing page instead describes a rectangular tile/mines game; this conflict is unresolved.",
+          "Original-demo continuation controls, provider survival probabilities, rare features, exact artwork and audio remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": true,
+        "observedDefaultMultipliersBps": [
+          11000,
+          12000,
+          15000,
+          20000,
+          30000,
+          50000,
+          100000,
+          200000,
+          500000,
+          1000000
+        ],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_multihotways",
@@ -1526,12 +2448,13 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihotways-r2",
+        "mathVersion": "official72-multihotways-r3",
         "rows": 3,
-        "columns": 5,
-        "paylines": 20,
-        "maximumMultiplierBps": 11840000,
-        "independentModel": true
+        "columns": 3,
+        "paylines": null,
+        "maximumMultiplierBps": 2050000,
+        "independentModel": true,
+        "ways": 27
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1539,7 +2462,49 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": false,
+      "observedLayout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact MultiHotWays Help documents27 Reel Ways Pay and a left1x–5x multiplier."
+        ],
+        "limitations": [
+          "Provider LinePlay1 is a betting field, not a payline count.",
+          "Conditional same-symbol x2 and separate red/black X2 Gamble remain unimplemented.",
+          "The provider award basis, symbol prizes and probabilities remain unverified; no Wild substitution is inferred from a different title."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": null,
+        "paylinesVerified": false,
+        "ways": 27,
+        "waysCountVerified": true,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_footballx",
@@ -1562,7 +2527,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1100000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -1570,7 +2536,20 @@
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_burningice40",
@@ -1598,7 +2577,8 @@
         "columns": 5,
         "paylines": 40,
         "maximumMultiplierBps": 16070000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1606,7 +2586,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/burning-ice-40",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 40 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 40,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_mariachicoins",
@@ -1630,7 +2636,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 15030000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1639,7 +2646,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_habeshafortune5",
@@ -1665,13 +2696,40 @@
         "columns": 3,
         "paylines": 5,
         "maximumMultiplierBps": 380000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/habesha-fortune-5",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_4bonusesbonanza",
@@ -1696,7 +2754,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 2063200,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1704,7 +2763,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "pegboard",
+        "rows": 12,
+        "buckets": 13,
+        "implementedBallMultipliers": [
+          1
+        ],
+        "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
+        "completeBallMechanicsVerified": false
+      }
     },
     {
       "id": "ind74_official_cricketx",
@@ -1727,7 +2804,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1100000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -1735,7 +2813,20 @@
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_burningice",
@@ -1767,7 +2858,8 @@
         "columns": 5,
         "paylines": 5,
         "maximumMultiplierBps": 10870000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1777,7 +2869,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/burning-ice-41",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_cricketerx",
@@ -1798,13 +2916,27 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1500000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1500000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_wheelofdestiny",
@@ -1829,7 +2961,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 514800,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1837,7 +2970,19 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      }
     },
     {
       "id": "ind74_official_wildmultistars",
@@ -1862,7 +3007,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 15100000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1870,7 +3016,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_crashduel",
@@ -1893,13 +3063,27 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 900000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 900000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_geniesbonanza",
@@ -1929,7 +3113,8 @@
         "columns": 5,
         "paylines": 25,
         "maximumMultiplierBps": 13020000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1939,7 +3124,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": false,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_bonustime",
@@ -1967,7 +3176,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 510200,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -1978,7 +3188,19 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      }
     },
     {
       "id": "ind74_official_farmsfortune",
@@ -2009,7 +3231,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 69050000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "wild-symbol",
@@ -2024,11 +3247,41 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false,
+      "geometryMatchesCurrentModel": null,
       "independentImplementationLimits": [
         "The implementation expands initially contributing wilds once; repeated provider expansion order is unverified. Symbol awards, paylines and probabilities are independently authored.",
         "The public maximum wheel factor is5x; this independent implementation uses equally likely1x through5x. Exact provider labels and distribution remain unverified."
-      ]
+      ],
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "independent-display",
+          "observedValues": [],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_madslot",
@@ -2062,7 +3315,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 12770000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2074,7 +3328,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/mad-slot",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 20 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_aviastar",
@@ -2100,7 +3380,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 700000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -2110,7 +3391,20 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 700000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_smashx",
@@ -2133,7 +3427,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 900000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -2141,7 +3436,20 @@
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 900000,
+        "synchronizedMultiplayerVerified": false
+      }
     },
     {
       "id": "ind74_official_towerx",
@@ -2167,7 +3475,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 1570000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [
         "cash-out"
@@ -2177,7 +3486,25 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "stepCountVerified": false,
+        "observedDefaultMultipliersBps": [],
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      }
     },
     {
       "id": "ind74_official_hotsamba",
@@ -2210,7 +3537,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 13090000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2220,7 +3548,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": false,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_wildsandgods",
@@ -2249,7 +3601,8 @@
         "columns": 5,
         "paylines": 25,
         "maximumMultiplierBps": 14920000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2261,7 +3614,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_baoslot5x",
@@ -2289,7 +3666,8 @@
         "columns": 3,
         "paylines": 5,
         "maximumMultiplierBps": 390000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2297,7 +3675,33 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "https://www.smartsoftgaming.com/games/bao-slot-5x",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_junglesisters",
@@ -2327,7 +3731,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 12840000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2340,7 +3745,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_bokajamba10",
@@ -2366,7 +3795,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 11800000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2375,7 +3805,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_junglesistersdeluxe",
@@ -2405,7 +3859,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 10760000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2416,7 +3871,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_dragonscode",
@@ -2444,7 +3923,8 @@
         "columns": 5,
         "paylines": 5,
         "maximumMultiplierBps": 14200000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2454,7 +3934,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_draculasfortune",
@@ -2481,7 +3985,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 16030000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2491,7 +3996,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_bookoffuturia",
@@ -2519,7 +4048,8 @@
         "columns": 5,
         "paylines": 20,
         "maximumMultiplierBps": 14990000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2530,7 +4060,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_bookofbonanza",
@@ -2559,7 +4113,8 @@
         "columns": 5,
         "paylines": 25,
         "maximumMultiplierBps": 13950000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2571,7 +4126,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_sugarfiesta",
@@ -2599,7 +4178,8 @@
         "columns": 5,
         "paylines": 3,
         "maximumMultiplierBps": 12910000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2608,7 +4188,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 3,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_vampires",
@@ -2634,7 +4238,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 11870000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2643,7 +4248,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_burningice10",
@@ -2669,7 +4298,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 10830000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2678,7 +4308,31 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     },
     {
       "id": "ind74_official_rollx",
@@ -2701,13 +4355,28 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 96000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "dice",
+        "outcomes": 100,
+        "minimumTarget": 10,
+        "maximumTarget": 90
+      }
     },
     {
       "id": "ind74_official_doublex",
@@ -2732,7 +4401,8 @@
         "columns": null,
         "paylines": null,
         "maximumMultiplierBps": 502200,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2740,7 +4410,19 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": null,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      }
     },
     {
       "id": "ind74_official_samurai",
@@ -2776,7 +4458,8 @@
         "columns": 5,
         "paylines": 10,
         "maximumMultiplierBps": 14350000,
-        "independentModel": true
+        "independentModel": true,
+        "ways": null
       },
       "implementedPublicFeatureSubset": [],
       "unimplementedOrUnverifiedPublicFeatures": [
@@ -2790,7 +4473,32 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "observedLayout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      }
     }
-  ]
+  ],
+  "generatedModelFactsAt": "2026-11-11T08:26:06.692Z"
 }

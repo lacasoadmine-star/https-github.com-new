@@ -1,0 +1,87 @@
+{
+  "gameId": "ind74_official_mariachicoins",
+  "title": "Mariachi Coins",
+  "officialUrl": "https://www.smartsoftgaming.com/games/mariachi-coins",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 0,
+  "totalVerifiedRounds": 0,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      575,
+      809,
+      1043,
+      1277,
+      1511
+    ],
+    "yPositions": [
+      297,
+      530,
+      763
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png",
+    "sha256": "935f78e4a811eb439d4506984f13cb6b4437ed1009e998e5e00f13d38b74e0ee"
+  },
+  "publicUiLabels": [
+    "BUY RESPIN 1.00 DMO",
+    "HOLD & SPIN",
+    "5.00 DMO",
+    "50.00 DMO",
+    "1.25 DMO",
+    "2.50 DMO",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.05 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayDisabled",
+      "ButtonsSpinDisabled"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-turbo-state.png",
+      "sha256": "f1bc903fafb0873ff7e52c4791e51835f4a339a9a00e9d371f354b801703027e"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MariachiCoins.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-official-help.html",
+      "sha256": "8cc51f762119f6389fa9947a66cc38edc356a97e297991968b3b90770f97f75d",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "blocker": "BET_CONTROL_UNSUPPORTED",
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

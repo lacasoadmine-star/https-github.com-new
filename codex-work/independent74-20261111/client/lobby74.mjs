@@ -29,6 +29,7 @@ for(const game of entries){
 }
 search.addEventListener('input',()=>{const query=search.value.trim().toLocaleLowerCase();entries.forEach((game,index)=>{grid.children[index].hidden=!game.name.toLocaleLowerCase().includes(query);});});
 close.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>opener?.focus());
+dialog.addEventListener('keydown',event=>{if(event.key!=='Tab')return;const controls=[...dialog.querySelectorAll('button,a[href],input')].filter(node=>!node.hidden&&node.getClientRects().length);const first=controls[0],last=controls.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}});
 let frame=0,currentMain;
 function sync(){
  frame=0;
@@ -45,4 +46,4 @@ function sync(){
 }
 const schedule=()=>{if(!frame)frame=requestAnimationFrame(sync);};
 new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
-document.addEventListener('click',schedule);window.addEventListener('popstate',schedule);window.addEventListener('hashchange',schedule);sync();
+document.addEventListener('click',schedule);window.addEventListener('popstate',()=>{if(dialog.open)dialog.close();schedule();});window.addEventListener('hashchange',schedule);sync();

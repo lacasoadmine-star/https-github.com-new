@@ -1,0 +1,94 @@
+{
+  "gameId": "ind74_official_geniesbonanza",
+  "title": "Genie's Bonanza",
+  "officialUrl": "https://www.smartsoftgaming.com/games/genies-bonanza",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 0,
+  "totalVerifiedRounds": 0,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1312
+  },
+  "geometry": {
+    "renderedSymbolInstances": 30,
+    "visibleReelCandidates": 6,
+    "visibleRowCandidates": 5,
+    "xPositions": [
+      419,
+      587,
+      755,
+      923,
+      1091,
+      1259
+    ],
+    "yPositions": [
+      12,
+      178,
+      344,
+      510,
+      676
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png",
+    "sha256": "e6145212bf1d7a2f997bb9fc948c5888d91be8db9428e5dca442afa3e1aed405"
+  },
+  "publicUiLabels": [
+    "BUY BONUS 20.00 DMO",
+    "HOLD & SPIN",
+    "BONUS",
+    "0%",
+    "Play responsibly: www.rgf.org.mt +18;",
+    "This product is created and owned by Smartsoft LLC",
+    "BALANCE 20,000.00 DMO",
+    "WIN 0.00 DMO",
+    "BET 0.20 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlayTurbo",
+    "ButtonsSoundOn",
+    "ButtonsSpinTurbo"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "reason": "No visible native lightning button"
+  },
+  "bet": {
+    "before": "0.20",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-bet-confirmed.png",
+      "sha256": "bcccc23f957da109aa88131d5a86104664a12da4b574e0a8912773f528e2a034"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/GeniesBonanza.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-official-help.html",
+      "sha256": "bc58c12e638eea0731b5abac63e890895558d35c009fd3a814cd1d266b8b5f65",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "blocker": "COORDINATOR_PAUSE_BEFORE_SPIN",
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

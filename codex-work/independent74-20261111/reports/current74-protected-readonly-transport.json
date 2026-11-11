@@ -1,0 +1,16 @@
+{
+  "status": "Source implemented; not deployed",
+  "productionTransport": "Existing /api/machine-session used by protected Multi Hot 5 and Foxy Hot 20",
+  "balance": "Exact authenticated canonical ETB balance returned by the existing session endpoint; no local fallback or test credits",
+  "sessionBinding": "Opaque existing machine-session.sessionId copied unchanged",
+  "newGameActions": "Always 503 GAME_RELEASE_NOT_READY",
+  "newGameHistory": "503 GAME_HISTORY_NOT_AVAILABLE; no fabricated empty history",
+  "newGameRecovery": "Explicitly unverified and disabled",
+  "otherBackendContacted": false,
+  "existingBackendSourceChanged": false,
+  "newFinancialServiceCreated": false,
+  "newDatabaseCreated": false,
+  "playerFundsTested": false,
+  "offlineFixtureTransport": "library74 explicitly selected by isolated local harness only; production entry uses protected-readonly",
+  "evidence": "work/current74-protected-gateway-tests.txt"
+}

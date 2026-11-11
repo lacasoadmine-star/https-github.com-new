@@ -69,15 +69,15 @@ test('all-wild ways pay one highest award per path, apply one multiplier and set
   assert.ok(BigInt(math.maximumPayoutMinor({gameId:id,betMinor:d.limits.maxBetMinor}))<=999999999999999n);
 });
 
-test('all other71 definitions keep their geometry and fixed charts outside the ways configuration',()=>{
+test('other definitions reject the Wild Ways configuration without mutating their own charts',()=>{
   let checked=0;
   for(const d of math.listGameDefinitions().filter(d=>d.id!==id)) {
     const copy=structuredClone(d);
     assert.throws(()=>configureObservedWildWays(copy));
     assert.deepEqual(copy,d,'Rejecting unrelated IDs must not mutate them.');
     const view=publicLibrary74Definition(d);
-    assert.equal(view.ways,undefined);
-    if(d.family==='slots')assert.deepEqual(view.paylines,d.paylines);
+    if(d.id==='ind74_official_multihotways'){assert.equal(view.ways,27);assert.equal(view.paylines,undefined);}
+    else {assert.equal(view.ways,undefined);if(d.family==='slots')assert.deepEqual(view.paylines,d.paylines);}
     checked++;
   }
   assert.equal(checked,71);

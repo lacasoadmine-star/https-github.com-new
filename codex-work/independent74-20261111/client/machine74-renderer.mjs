@@ -88,9 +88,20 @@ const allowed = (round, action) => round?.status === 'active' && Array.isArray(r
 const isCascade = definition => definition?.family === 'crash' && definition.crashMechanic === 'cascade';
 const symbolsOf = definition => {
   const symbols = [...(definition.symbols || [])];
-  if (definition.wildSymbol?.id && !symbols.some(symbol => symbol.id === definition.wildSymbol.id)) symbols.push(definition.wildSymbol);
+  for(const symbol of [definition.wildSymbol,definition.coinSymbol,definition.plusRespinSymbol])if(symbol?.id&&!symbols.some(item=>item.id===symbol.id))symbols.push(symbol);
   return symbols;
 };
+const coinKey=coin=>coin.row+':'+coin.col;
+function publicCoins(definition,coins){
+  const {rows,columns}=machineGeometry(definition),seen=new Map(),feature=definition.coinFeature;
+  if(!Array.isArray(coins)||coins.length>rows*columns)throw new TypeError('Public coin positions are required.');
+  for(const coin of coins){
+    const prizes=coin?.kind==='mini'?[feature.miniValue]:coin?.kind==='major'?[feature.majorValue]:feature.regularValues;
+    if(!coin||!integer(coin.row,0,rows-1)||!integer(coin.col,0,columns-1)||!['regular','mini','major','plus-one'].includes(coin.kind)||!prizes.includes(coin.multiplier)||seen.has(coinKey(coin)))throw new TypeError('A matching public coin value is required.');
+    seen.set(coinKey(coin),coin);
+  }
+  return seen;
+}
 
 export function presentationProfile(definition) {
   const profile = MACHINE_PROFILES[definition?.id];
@@ -149,6 +160,23 @@ function assertRound(definition, round) {
         if(frame.index!==index+1||frame.lockedCells!==count||frame.newLocks!==count-locks||typeof frame.terminal!=='boolean'||![1,...definition.respinFeature.values].includes(frame.multiplierApplied))throw new TypeError('The server respin frame is incomplete.');
         previous=frame.grid;locks=count;
       }
+    }
+    if(definition.coinFeature){
+      const outcome=round.outcome,frames=outcome?.bonusFrames,feature=definition.coinFeature;
+      if(outcome?.featureType!=='coin-respin'||!Array.isArray(frames)||frames.length>feature.maximumFrames)throw new TypeError('Completed server coin-respin frames are required.');
+      let previous=publicCoins(definition,outcome.coinValues),remaining=feature.initialRespins,reset=feature.initialRespins;
+      for(const [index,frame]of frames.entries()){
+        const coins=publicCoins(definition,frame.coinValues),added=[...coins.values()].filter(coin=>!previous.has(coinKey(coin)));
+        if([...previous].some(([key,coin])=>coins.get(key)?.kind!==coin.kind||coins.get(key)?.multiplier!==coin.multiplier))throw new TypeError('A locked public coin changed.');
+        if(added.some(coin=>coin.kind==='plus-one'))reset=feature.plusOneResetLimit;
+        remaining=added.length?reset:remaining-1;
+        const full=coins.size===rows*columns;
+        if(!Array.isArray(frame.grid)||frame.grid.length!==rows||frame.grid.some((row,r)=>!Array.isArray(row)||row.length!==columns||row.some((id,c)=>{const coin=coins.get(r+':'+c);return id!==(coin?(coin.kind==='plus-one'?definition.plusRespinSymbol.id:definition.coinSymbol.id):null);})))throw new TypeError('A matching nullable coin grid is required.');
+        if(frame.index!==index+1||frame.lockedCells!==coins.size||frame.newCoins!==added.length||frame.resetLimit!==reset||frame.respinsRemaining!==remaining||remaining<0||frame.terminal!==(full||remaining===0)||frame.multiplierApplied!==(full?feature.fullBoardMultiplier:1)||frame.terminal&&index!==frames.length-1)throw new TypeError('The public coin-respin counter is inconsistent.');
+        previous=coins;
+      }
+      const final=publicCoins(definition,outcome.finalCoinValues);
+      if(final.size!==previous.size||[...previous].some(([key,coin])=>final.get(key)?.kind!==coin.kind||final.get(key)?.multiplier!==coin.multiplier))throw new TypeError('The final public coin board changed.');
     }
   }
   if (definition.family === 'plinko') {
@@ -284,11 +312,15 @@ function symbolCell(symbol, profile, row, column, win) {
 }
 function slotMarkup(definition, round, profile,options={}) {
   const {rows,columns} = machineGeometry(definition),sourceOutcome=round?.outcome;
-  const frames=definition.respinFeature?sourceOutcome?.bonusFrames??[]:[];
+  const coinFeature=definition.coinFeature,coinMode=coinFeature&&sourceOutcome?.featureType==='coin-respin';
+  const frames=definition.respinFeature||coinFeature?sourceOutcome?.bonusFrames??[]:[];
   const frameIndex=Number.isInteger(options.bonusFrameIndex)?options.bonusFrameIndex:frames.length-1;
   const featureFrame=frameIndex>=0?frames[frameIndex]:null;
   const previousFrame=frameIndex>0?frames[frameIndex-1]:null;
-  const outcome=featureFrame?{...sourceOutcome,grid:featureFrame.grid,lineWins:featureFrame.lineWins}:sourceOutcome;
+  const displayFeature=!!featureFrame||coinMode&&sourceOutcome.bonusTriggered&&frames.length===0&&options.bonusFrameIndex!==-1;
+  const outcome=featureFrame?{...sourceOutcome,grid:featureFrame.grid,lineWins:featureFrame.lineWins,expandedColumns:[]}:sourceOutcome;
+  const coins=coinMode?publicCoins(definition,featureFrame?.coinValues??sourceOutcome.coinValues):new Map();
+  const priorCoins=coinMode?publicCoins(definition,previousFrame?.coinValues??sourceOutcome.coinValues):null;
   const grid = outcome?.grid ?? round?.grid ?? Array.from({length:rows},(_,row) => Array.from({length:columns},(_,column) => definition.symbols[(row + column) % definition.symbols.length].id));
   const symbols = new Map(symbolsOf(definition).map(symbol => [symbol.id,symbol]));
   const lines = Array.isArray(outcome?.lineWins) ? outcome.lineWins : [];
@@ -296,8 +328,13 @@ function slotMarkup(definition, round, profile,options={}) {
   const expanded = new Set(Array.isArray(outcome?.expandedColumns) ? outcome.expandedColumns.filter(column => integer(column,0,columns-1)) : []);
   const cell=(id,row,column)=>{
     if(id===null)return '<div class="m74-symbol" data-blank="true" data-row="'+row+'" data-col="'+column+'" aria-label="Blank"></div>';
-    const markup=symbolCell(symbols.get(id),profile,row,column,winning.has(row+':'+column));
-    return featureFrame?markup.replace(' data-symbol=',' data-locked="true" data-new-lock="'+String(previousFrame?.grid[row][column]===null||!previousFrame)+'" data-symbol='):markup;
+    let markup=symbolCell(symbols.get(id),profile,row,column,winning.has(row+':'+column));
+    const coin=coins.get(row+':'+column);
+    if(coin&&(id===definition.coinSymbol?.id||id===definition.plusRespinSymbol?.id)){
+      const label=coin.kind==='mini'?'MINI':coin.kind==='major'?'MAJOR':coin.kind==='plus-one'?'+1 RESPIN':'';
+      markup=markup.replace(/<\/div>$/,'<span class="m74-coin-value" data-coin-kind="'+coin.kind+'">'+(label?'<small>'+label+'</small>':'')+'<b>'+coin.multiplier+'×</b></span></div>');
+    }
+    return displayFeature?markup.replace(' data-symbol=',' data-locked="true" data-new-lock="'+String(coinMode?!priorCoins.has(row+':'+column):previousFrame?.grid[row][column]===null||!previousFrame)+'" data-symbol='):markup;
   };
   const reels = Array.from({length:columns},(_,column) => '<div class="m74-reel-window'+(expanded.has(column)?' is-expanded':'')+'" data-column="'+column+'"'+(expanded.has(column)?' aria-label="Expanded wild reel '+(column+1)+'"':'')+'><div class="m74-reel-strip">'+grid.map((row,index) => cell(row[column],index,column)).join('')+'</div></div>').join('');
   const paths = lines.slice(0,20).map((line,index) => {
@@ -310,8 +347,9 @@ function slotMarkup(definition, round, profile,options={}) {
   const pending = missingMultiplier ? '<div class="m74-multiplier-pending" role="note"><span>MULTIPLIER</span><b>Weli la dhisayo</b></div>' : '';
   const countLabel=definition.ways?definition.ways+' WAYS':(definition.paylines?.length??'—')+' LINES';
   const winsLabel=lines.length+' WINNING '+(definition.ways?'WAYS':'LINES');
-  const conditional=definition.baseGameMultiplier?'<div class="m74-conditional-factor">'+(featureFrame?'RESPIN FACTOR '+escape(sourceOutcome.featureMultiplier)+'× · APPLIED '+escape(featureFrame.multiplierApplied)+'×':sourceOutcome?'BASE MULTIPLIER '+escape(sourceOutcome.baseMultiplier)+'×':'FULL BOARD / ALL 5 LINES · '+definition.baseGameMultiplier.values.map(value=>escape(value)+'×').join(' / '))+'</div>':'';
-  const feature=featureFrame?'<div class="m74-respin-meter" data-frame="'+featureFrame.index+'" data-locked="'+featureFrame.lockedCells+'" data-new-locks="'+featureFrame.newLocks+'"><span>RESPIN '+featureFrame.index+' · LOCKED '+featureFrame.lockedCells+' / '+rows*columns+'</span><span>'+escape(featureFrame.terminal?'FEATURE COMPLETE':'NEW LOCKS '+featureFrame.newLocks)+'</span></div>':'';
+  const coinFull=coinMode&&(featureFrame?featureFrame.multiplierApplied===coinFeature.fullBoardMultiplier:frames.length===0&&sourceOutcome.featureFinishedReason==='full-board')&&options.bonusFrameIndex!==-1;
+  const conditional=coinFeature?'<div class="m74-conditional-factor">'+(coinFull?'FULL COIN BOARD · '+coinFeature.fullBoardMultiplier+'× APPLIED':coinFeature.triggerCoins+' COINS · '+coinFeature.initialRespins+' RESPINS · FULL BOARD '+coinFeature.fullBoardMultiplier+'×')+'</div>':definition.baseGameMultiplier?'<div class="m74-conditional-factor">'+(featureFrame?'RESPIN FACTOR '+escape(sourceOutcome.featureMultiplier)+'× · APPLIED '+escape(featureFrame.multiplierApplied)+'×':sourceOutcome?'BASE MULTIPLIER '+escape(sourceOutcome.baseMultiplier)+'×':'FULL BOARD / ALL 5 LINES · '+definition.baseGameMultiplier.values.map(value=>escape(value)+'×').join(' / '))+'</div>':'';
+  const feature=featureFrame?'<div class="m74-respin-meter" data-frame="'+featureFrame.index+'" data-locked="'+featureFrame.lockedCells+'" data-new-locks="'+(coinMode?featureFrame.newCoins:featureFrame.newLocks)+'"'+(coinMode?' data-respins-remaining="'+featureFrame.respinsRemaining+'" data-reset-limit="'+featureFrame.resetLimit+'"':'')+'><span>'+(coinMode?'RESPINS '+featureFrame.respinsRemaining+' / '+featureFrame.resetLimit:'RESPIN '+featureFrame.index)+' · LOCKED '+featureFrame.lockedCells+' / '+rows*columns+'</span><span>'+escape(featureFrame.terminal?'FEATURE COMPLETE':'NEW '+(coinMode?'COINS '+featureFrame.newCoins:'LOCKS '+featureFrame.newLocks))+'</span></div>':displayFeature?'<div class="m74-respin-meter" data-frame="0" data-locked="'+coins.size+'"><span>LOCKED '+coins.size+' / '+rows*columns+'</span><span>FEATURE COMPLETE</span></div>':'';
   return pending+conditional+'<div class="m74-slot-cabinet'+(multipliers.length?' has-multiplier':'')+'">'+multi+'<div class="m74-reels" data-rows="'+rows+'" data-columns="'+columns+'">'+reels+'<svg class="m74-paylines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">'+paths+'</svg></div></div>'+feature+'<div class="m74-stage-strip"><span>'+columns+' × '+rows+' REELS</span><span>'+escape(countLabel)+'</span><span>'+(round?.status==='active'&&round.pendingWinMinor?'WIN TO COLLECT':lines.length?winsLabel:round?'ROUND COMPLETE':'READY')+'</span></div>';
 }
 function crashMarkup(definition, round, profile) {
@@ -336,11 +374,28 @@ function cascadeMarkup(definition,round,profile) {
   const label=!round?'READY':round.status==='active'?'LIVE · SERVER CONFIRMED':resultStatus==='lost'?'ROUND ENDED':'COLLECTED';
   return '<div class="m74-cascade-score"><strong class="m74-counter">'+multiplier(round?.multiplierBps??10000)+'</strong><span>'+label+'</span></div><div class="m74-cascade-board" data-rows="'+rows+'" data-columns="'+columns+'" aria-label="'+columns+' columns and '+rows+' rows">'+cells+'</div><div class="m74-stage-strip"><span>'+columns+' × '+rows+' GRID</span><span>'+(round?'CASCADE '+escape(outcome?.cascadeIndex??round?.cascadeIndex??0):escape(definition.minMatch??'—')+'+ MATCH')+'</span><span>'+marked.size+' MATCHED</span></div>';
 }
+function highwayMarkup(definition,round,profile,options,values,steps) {
+  const history=historyOf(round),current=round?.step??0;
+  // The original road pans horizontally. Show a bounded window around the
+  // confirmed progress rather than squeezing an entire unknown route on screen.
+  const start=Math.max(0,Math.min(steps-7,current-1)),end=Math.min(steps,start+7);
+  const next=Array.from({length:steps},(_,i)=>i).find(cell=>!history.some(item=>item.cell===cell));
+  const lanes=Array.from({length:end-start},(_,offset)=>{
+    const cell=start+offset,item=history.find(item=>item.cell===cell),active=!options.disabled&&allowed(round,'reveal')&&cell===next;
+    const occupied=current>0&&cell===current-1;
+    return '<div class="m74-highway-lane'+(occupied?' is-current':'')+(item&&!item.survived?' is-collision':'')+'" data-lane="'+cell+'"><span class="m74-highway-car" aria-hidden="true"></span>'+
+      '<button type="button" class="m74-highway-target'+(item?item.survived?' safe':' lost':'')+'" data-m74-cell="'+cell+'"'+(active?'':' disabled')+' aria-label="Lane '+(cell+1)+', '+multiplier(values[cell])+(item?item.survived?', crossed':', collision':', next crossing')+'">'+multiplier(values[cell])+'</button>'+
+      (occupied?'<span class="m74-highway-chicken" aria-label="Chicken at lane '+current+'">'+icon('chicken')+'</span>':'')+'</div>';
+  }).join('');
+  return '<div class="m74-highway" data-total-lanes="'+steps+'" data-window-start="'+start+'"><div class="m74-highway-verge"><span aria-hidden="true">🌵</span>'+(!current?'<span class="m74-highway-chicken">'+icon('chicken')+'</span>':'')+'</div><div class="m74-highway-road" style="--m74-visible-lanes:'+String(end-start)+'">'+lanes+'</div></div>'+
+    '<div class="m74-stage-strip"><span>LANE '+current+'</span><strong>'+multiplier(round?.multiplierBps??0)+'</strong><span>NEXT '+multiplier(round?.nextMultiplierBps)+'</span></div>';
+}
 function ladderMarkup(definition, round, profile, options) {
   const {steps} = machineGeometry(definition), history = historyOf(round);
   const mode = round?.mode ?? options.selectedOptions?.mode ?? definition.defaultMode;
   const table = Array.isArray(definition.paytable) ? definition.paytable.find(item => item.mode === mode)?.rows : null;
   const values = table?.map(row => row.multiplierBps) ?? definition.multipliersBps ?? [];
+  if(definition.id==='ind74_official_chickenhighway')return highwayMarkup(definition,round,profile,options,values,steps);
   const nextCell = Array.from({length:steps},(_,i) => i).find(cell => !history.some(item => item.cell === cell));
   const buttons = Array.from({length:steps},(_,cell) => {
     const item = history.find(item => item.cell === cell), state = item ? item.survived ? 'safe' : 'lost' : 'covered';
@@ -459,7 +514,7 @@ export function animateRound(stage,definition,previous,next,options={}) {
   assertRound(definition,next);
   const {turbo=false,reduced=false,audio}=options;
   const renderOptions={...options,disabled:options.disabled ?? true};
-  const mounted=renderMachine(stage,definition,next,definition.respinFeature?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
+  const mounted=renderMachine(stage,definition,next,definition.respinFeature||definition.coinFeature?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
   stage.classList.add('m74-animating');
   if(definition.family==='plinko'&&!reduced){
     // Mounting the confirmed state places the ball in its destination bucket.
@@ -562,19 +617,27 @@ export function animateRound(stage,definition,previous,next,options={}) {
       }));
       if(!done&&Array.isArray(definition.multiplierValues)&&definition.multiplierValues.length)cue('multiplier');
       if(!done&&definition.baseGameMultiplier&&next.outcome?.baseMultiplier>1)cue('multiplier');
-      const frames=definition.respinFeature?next.outcome?.bonusFrames??[]:[];
+      const frames=definition.respinFeature||definition.coinFeature?next.outcome?.bonusFrames??[]:[];
+      // Coin features can contain up to60 completed frames. Compress their
+      // visual replay to3.5s normal/2.4s turbo, in addition to the base spin.
+      // Slow displays fast-forward remaining past frames at that wall budget.
+      const frameBudget=definition.coinFeature?Math.min(turbo?145:540,(turbo?2400:3500)/Math.max(1,frames.length)):turbo?145:540;
+      const replayDeadline=definition.coinFeature?performance.now()+(turbo?2400:3500):Infinity;
       for(const [index,feature]of frames.entries()){
         if(done||handles.get(stage)!==mounted)return;
+        if(performance.now()>=replayDeadline)break;
         const area=stage.querySelector('.m74-game-area');
         if(!area)break;
         area.innerHTML=slotMarkup(definition,next,presentationProfile(definition),{bonusFrameIndex:index});
         cue('bonus');
         const previousFrame=frames[index-1];
-        const changing=[...area.querySelectorAll('.m74-symbol')].filter(cell=>previousFrame?.grid[Number(cell.dataset.row)][Number(cell.dataset.col)]==null);
-        await Promise.all(changing.map(cell=>animate(cell,[{opacity:.15,filter:'blur(3px)',transform:'translateY(-12px)'},{opacity:1,filter:'blur(0)',transform:'translateY(0)'}],turbo?100:360)));
+        const held=definition.coinFeature?new Set((previousFrame?.coinValues??next.outcome.coinValues).map(coinKey)):null;
+        const changing=[...area.querySelectorAll('.m74-symbol')].filter(cell=>held?!held.has(cell.dataset.row+':'+cell.dataset.col):previousFrame?.grid[Number(cell.dataset.row)][Number(cell.dataset.col)]==null);
+        const available=Math.min(frameBudget,replayDeadline-performance.now());
+        await Promise.all(changing.map(cell=>animate(cell,[{opacity:.15,filter:'blur(3px)',transform:'translateY(-12px)'},{opacity:1,filter:'blur(0)',transform:'translateY(0)'}],Math.max(12,Math.round(available*.7)))));
         if(done||handles.get(stage)!==mounted)return;
         if(feature.multiplierApplied>1)cue('multiplier');
-        await new Promise(res=>{pendingResolves.add(res);schedule(()=>{pendingResolves.delete(res);res();},turbo?45:180);});
+        await new Promise(res=>{pendingResolves.add(res);schedule(()=>{pendingResolves.delete(res);res();},Math.max(0,Math.min(Math.floor(frameBudget*.3),replayDeadline-performance.now())));});
       }
     } else if(definition.family==='wheel') {
       const rotor=stage.querySelector('.m74-wheel-rotor');
@@ -597,7 +660,10 @@ export function animateRound(stage,definition,previous,next,options={}) {
       if(!done)cue('wheelStop');
     } else if(definition.family==='mines'||definition.family==='ladder') {
       const last=historyOf(next).at(-1),cell=stage.querySelector('[data-m74-cell="'+Number(last?.cell)+'"]');
-      if(cell)await animate(cell,[{transform:'scale(.92) rotateY(75deg)',opacity:.3},{transform:'scale(1.08) rotateY(0deg)',opacity:1,offset:.72},{transform:'scale(1) rotateY(0deg)',opacity:1}],turbo?100:430);
+      if(definition.id==='ind74_official_chickenhighway') {
+        const chicken=stage.querySelector('.m74-highway-chicken');
+        if(chicken)await animate(chicken,[{transform:'translateX(-100%) translateY(0)'},{transform:'translateX(-45%) translateY(-15px)',offset:.5},{transform:'translateX(0) translateY(0)'}],turbo?100:430);
+      } else if(cell)await animate(cell,[{transform:'scale(.92) rotateY(75deg)',opacity:.3},{transform:'scale(1.08) rotateY(0deg)',opacity:1,offset:.72},{transform:'scale(1) rotateY(0deg)',opacity:1}],turbo?100:430);
     } else if(definition.family==='dice') {
       cue('spin');
       if(definition.id==='ind74_official_rollx'){
@@ -620,6 +686,6 @@ export function animateRound(stage,definition,previous,next,options={}) {
     finish();
   }
   // Start in a microtask so the caller obtains STOP/dispose before any completion.
-  Promise.resolve().then(run).catch(()=>finish());
+  Promise.resolve().then(run).catch(error=>{try{options.onError?.(error);}catch{}finish();});
   return {promise,stop:()=>finish(false),dispose:()=>finish(true)};
 }

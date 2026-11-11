@@ -15,7 +15,7 @@
       "wheel": 5,
       "dice": 1
     },
-    "observedGeometry": 21
+    "observedGeometry": 25
   },
   "games": [
     {
@@ -364,63 +364,23 @@
       "id": "ind74_official_multifruitschargingwilds",
       "title": "Multi Fruits Charging Wilds",
       "family": "slots",
-      "mathVersion": "official72-multifruitschargingwilds-r2",
+      "mathVersion": "official72-multifruitschargingwilds-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact MultiFruitsChargingWilds Help specifies five fixed active paylines."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
+          "The retained financial transaction must atomically save and restore that feature state.",
+          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
         ],
         "kind": "reels",
         "rows": 3,
-        "columns": 5,
-        "paylines": 5,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
-        "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
-          "providerProbabilitiesVerified": false
-        }
-      },
-      "independentReturn": {
-        "numerator": "31184",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
-      },
-      "optionPayoutBounds": [
-        {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "152500",
-          "maximumStakeMaximumPayoutMinor": "999999999972500"
-        }
-      ],
-      "fullReferenceParityVerified": false,
-      "providerPrivateMathVerified": false
-    },
-    {
-      "id": "ind74_official_gemscrownchargingwilds",
-      "title": "Gems Crown Charging Wilds",
-      "family": "slots",
-      "mathVersion": "official72-gemscrownchargingwilds-r3",
-      "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
-        "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
-        ],
-        "kind": "reels",
-        "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": true,
@@ -434,15 +394,63 @@
         }
       },
       "independentReturn": {
-        "numerator": "31192",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "numerator": "224",
+        "denominator": "512",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "142100",
-          "maximumStakeMaximumPayoutMinor": "999999999901700"
+          "minimumStakeMaximumPayoutMinor": "3500",
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_gemscrownchargingwilds",
+      "title": "Gems Crown Charging Wilds",
+      "family": "slots",
+      "mathVersion": "official72-gemscrownchargingwilds-r4",
+      "layout": {
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact GemsCrownChargingWilds Help specifies five fixed active paylines."
+        ],
+        "limitations": [
+          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
+          "The retained financial transaction must atomically save and restore that feature state.",
+          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "232",
+        "denominator": "512",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "3600",
+          "maximumStakeMaximumPayoutMinor": "999999999997200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -910,29 +918,30 @@
       "id": "ind74_official_coinsofatlantis",
       "title": "Coins Of Atlantis",
       "family": "slots",
-      "mathVersion": "official72-coinsofatlantis-r3",
+      "mathVersion": "official72-coinsofatlantis-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official DEMO initial screen directly shows five columns and four rows, including coin and wild symbols. The regular/+1/MINI/MAJOR respin subset follows separate English Help documents."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The exact provider line chart and count remain unverified.",
+          "MEGA/GRAND jackpot grouping, buy/ANTE features, provider probabilities and base/feature ordering remain unimplemented or unverified."
         ],
         "kind": "reels",
-        "rows": 3,
+        "rows": 4,
         "columns": 5,
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "independent-display",
+          "placement": "none",
           "observedValues": [],
-          "implementedValues": [
-            1
-          ],
-          "calculationImplemented": true,
+          "implementedValues": [],
+          "calculationImplemented": false,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -944,8 +953,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "129900",
-          "maximumStakeMaximumPayoutMinor": "999999999969300"
+          "minimumStakeMaximumPayoutMinor": "329900",
+          "maximumStakeMaximumPayoutMinor": "999999999901800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1695,41 +1704,59 @@
       "id": "ind74_official_multihotways",
       "title": "Multi Hot Ways",
       "family": "slots",
-      "mathVersion": "official72-multihotways-r2",
+      "mathVersion": "official72-multihotways-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-journal.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact MultiHotWays Help documents27 Reel Ways Pay and a left1x–5x multiplier."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Provider LinePlay1 is a betting field, not a payline count.",
+          "Conditional same-symbol x2 and separate red/black X2 Gamble remain unimplemented.",
+          "The provider award basis, symbol prizes and probabilities remain unverified; no Wild substitution is inferred from a different title."
         ],
         "kind": "reels",
         "rows": 3,
-        "columns": 5,
-        "paylines": 20,
+        "columns": 3,
+        "paylines": null,
         "paylinesVerified": false,
+        "ways": 27,
+        "waysCountVerified": true,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31424",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "numerator": "4080",
+        "denominator": "2560",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "118400",
-          "maximumStakeMaximumPayoutMinor": "999999999888000"
+          "minimumStakeMaximumPayoutMinor": "20385",
+          "maximumStakeMaximumPayoutMinor": "999999999981990"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -3728,5 +3755,5 @@
     ],
     "source": "Revised user instruction: low initial/test presets 1–20 ETB; game max and payout policy must come from verified server configuration. Model maxima are derived from retained 15-digit storage and worst-case multiplier; retained account and funded house checks remain authoritative. Live policy is not verified."
   },
-  "generatedAt": "2026-11-11T08:04:38.219Z"
+  "generatedAt": "2026-11-11T08:26:06.660Z"
 }

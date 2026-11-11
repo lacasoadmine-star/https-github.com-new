@@ -20,18 +20,33 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": "/games/hot_foxy_20",
+    "existingRouteIdentityVerified": true,
+    "existingRouteEngineId": "hot_foxy_20",
+    "existingRouteVersion": null,
+    "existingRouteProvenance": "Existing protected project route + fresh HTTP200, preserved independently of new engines",
+    "exactRequestedProtectedBackendModel": "hot_foxy_20",
+    "exactRequestedProtectedBackendIdentityExists": true,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Protected existing account settings preserved",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-wallet-not-retested-in-this-audit"
+    "status": "exact-protected-backend-identity-metadata-exists-financial-flow-untested"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": null,
     "historicalCheckpointFullSuitePassed": 651,
     "scope": "shared suite at f636b93; not 651 individual tests per game",
@@ -40,6 +55,9 @@
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": "/games/hot_foxy_20",
+    "existingWalletLiveUrl": "https://superwin-player.apdiy61.workers.dev/games/hot_foxy_20",
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/",
@@ -7972,6 +7990,7 @@
     "tests/evidence/official-demo-observations-slots20-remaining.json"
   ],
   "remaining": [
+    "PlayNow can navigate to this exact existing account engine; updated independent prototype remains a separate model",
     "Protect existing implementation; verify official references only",
     "No complete-provider-equivalence claim supported"
   ]

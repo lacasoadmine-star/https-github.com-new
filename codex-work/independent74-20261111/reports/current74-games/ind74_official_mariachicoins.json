@@ -14,7 +14,7 @@
   "comparison": {
     "status": "full-provider-parity-unverified",
     "publicGeometryVerified": false,
-    "demoGeometryObserved": false,
+    "demoGeometryObserved": true,
     "sourceFacts": [],
     "unresolved": [
       "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
@@ -22,18 +22,33 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": null,
+    "existingRouteIdentityVerified": false,
+    "existingRouteEngineId": null,
+    "existingRouteVersion": null,
+    "existingRouteProvenance": null,
+    "exactRequestedProtectedBackendModel": null,
+    "exactRequestedProtectedBackendIdentityExists": false,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Cannot establish actual limits without configured deployed game",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-service-adapter-prepared-release-disabled-no-production-player-funds-tested"
+    "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": {
       "id": "ind74_official_mariachicoins",
       "title": "Mariachi Coins",
@@ -111,6 +126,9 @@
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": null,
+    "existingWalletLiveUrl": null,
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html#ind74_official_mariachicoins",
@@ -132,14 +150,439 @@
         "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
       }
     ],
-    "geometry": [],
+    "geometry": [
+      {
+        "renderedSymbolInstances": 15,
+        "visibleReelCandidates": 5,
+        "visibleRowCandidates": 3,
+        "xPositions": [
+          575,
+          809,
+          1043,
+          1277,
+          1511
+        ],
+        "yPositions": [
+          297,
+          530,
+          763
+        ],
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+      }
+    ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
-    "betChanges": [],
-    "roundProgressAndResults": [],
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_mariachicoins",
+        "title": "Mariachi Coins",
+        "officialUrl": "https://www.smartsoftgaming.com/games/mariachi-coins",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "protectedImplementation": false,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T08:12:46.426Z",
+            "providerEventTime": "2026-11-11T09:12:44.3639622+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966003443.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 5,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:12:52.994Z",
+            "providerEventTime": "2026-11-11T09:12:44.3639622+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966003443.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 5,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MariachiCoins.html",
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-official-help.html",
+            "sha256": "8cc51f762119f6389fa9947a66cc38edc356a97e297991968b3b90770f97f75d",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "blocked-or-partial",
+        "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/MariachiCoins.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "canvas": {
+          "width": 2170,
+          "height": 1220
+        },
+        "initialUiLabels": [
+          "BUY RESPIN 1.00 DMO",
+          "HOLD & SPIN",
+          "5.00 DMO",
+          "50.00 DMO",
+          "1.25 DMO",
+          "2.50 DMO",
+          "BALANCE 20,000.00 DMO",
+          "BET 0.05 DMO"
+        ],
+        "currencyObserved": "DMO",
+        "initialScreenshot": {
+          "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png",
+          "sha256": "935f78e4a811eb439d4506984f13cb6b4437ed1009e998e5e00f13d38b74e0ee"
+        },
+        "geometry": {
+          "renderedSymbolInstances": 15,
+          "visibleReelCandidates": 5,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            575,
+            809,
+            1043,
+            1277,
+            1511
+          ],
+          "yPositions": [
+            297,
+            530,
+            763
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        },
+        "publicControls": [
+          "ButtonsAutoPlay",
+          "ButtonsBet",
+          "ButtonsMenu",
+          "ButtonsQuickPlay",
+          "ButtonsSoundOn",
+          "ButtonsSpin"
+        ],
+        "turbo": {
+          "enabled": false,
+          "publicButtonTextures": [
+            "ButtonsQuickPlayDisabled",
+            "ButtonsSpinDisabled"
+          ],
+          "screenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-turbo-state.png",
+            "sha256": "f1bc903fafb0873ff7e52c4791e51835f4a339a9a00e9d371f354b801703027e"
+          }
+        },
+        "blocker": "BET_CONTROL_UNSUPPORTED",
+        "framePaths": [
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+          "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/MariachiCoins/Game.aspx",
+          "about:",
+          "about:",
+          "chrome-error:",
+          "about:"
+        ],
+        "blockerScreenshot": {
+          "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-blocker.png",
+          "sha256": "365a8c20c0192994552cdf38ff368dc3cf40495bee692903fa6e3568d4cb7609"
+        },
+        "blockerUi": [
+          "BUY RESPIN 1.00 DMO",
+          "HOLD & SPIN",
+          "5.00 DMO",
+          "50.00 DMO",
+          "1.25 DMO",
+          "2.50 DMO",
+          "BALANCE 20,000.00 DMO",
+          "BET 0.05 DMO",
+          "QUICK PLAY",
+          "For faster play enable",
+          "turbo mode",
+          "You can disable the feature",
+          "from game menu",
+          "enable quick play",
+          "NO"
+        ],
+        "historicalAtFirstLaunch": 0,
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
+      }
+    ],
     "featuresAndRules": {
-      "directlyObserved": [],
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_mariachicoins",
+          "title": "Mariachi Coins",
+          "officialUrl": "https://www.smartsoftgaming.com/games/mariachi-coins",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+          "protectedImplementation": false,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T08:12:46.426Z",
+              "providerEventTime": "2026-11-11T09:12:44.3639622+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966003443.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 5,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:12:52.994Z",
+              "providerEventTime": "2026-11-11T09:12:44.3639622+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966003443.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 5,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MariachiCoins.html",
+              "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-official-help.html",
+              "sha256": "8cc51f762119f6389fa9947a66cc38edc356a97e297991968b3b90770f97f75d",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "blocked-or-partial",
+          "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/MariachiCoins.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            }
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "canvas": {
+            "width": 2170,
+            "height": 1220
+          },
+          "initialUiLabels": [
+            "BUY RESPIN 1.00 DMO",
+            "HOLD & SPIN",
+            "5.00 DMO",
+            "50.00 DMO",
+            "1.25 DMO",
+            "2.50 DMO",
+            "BALANCE 20,000.00 DMO",
+            "BET 0.05 DMO"
+          ],
+          "currencyObserved": "DMO",
+          "initialScreenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png",
+            "sha256": "935f78e4a811eb439d4506984f13cb6b4437ed1009e998e5e00f13d38b74e0ee"
+          },
+          "geometry": {
+            "renderedSymbolInstances": 15,
+            "visibleReelCandidates": 5,
+            "visibleRowCandidates": 3,
+            "xPositions": [
+              575,
+              809,
+              1043,
+              1277,
+              1511
+            ],
+            "yPositions": [
+              297,
+              530,
+              763
+            ],
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          },
+          "publicControls": [
+            "ButtonsAutoPlay",
+            "ButtonsBet",
+            "ButtonsMenu",
+            "ButtonsQuickPlay",
+            "ButtonsSoundOn",
+            "ButtonsSpin"
+          ],
+          "turbo": {
+            "enabled": false,
+            "publicButtonTextures": [
+              "ButtonsQuickPlayDisabled",
+              "ButtonsSpinDisabled"
+            ],
+            "screenshot": {
+              "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-turbo-state.png",
+              "sha256": "f1bc903fafb0873ff7e52c4791e51835f4a339a9a00e9d371f354b801703027e"
+            }
+          },
+          "blocker": "BET_CONTROL_UNSUPPORTED",
+          "framePaths": [
+            "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+            "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/MariachiCoins/Game.aspx",
+            "about:",
+            "about:",
+            "chrome-error:",
+            "about:"
+          ],
+          "blockerScreenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-blocker.png",
+            "sha256": "365a8c20c0192994552cdf38ff368dc3cf40495bee692903fa6e3568d4cb7609"
+          },
+          "blockerUi": [
+            "BUY RESPIN 1.00 DMO",
+            "HOLD & SPIN",
+            "5.00 DMO",
+            "50.00 DMO",
+            "1.25 DMO",
+            "2.50 DMO",
+            "BALANCE 20,000.00 DMO",
+            "BET 0.05 DMO",
+            "QUICK PLAY",
+            "For faster play enable",
+            "turbo mode",
+            "You can disable the feature",
+            "from game menu",
+            "enable quick play",
+            "NO"
+          ],
+          "historicalAtFirstLaunch": 0,
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
+        }
+      ],
       "publicDocumentedLayout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -183,9 +626,12 @@
   "evidenceFiles": [
     "scope/official74.json",
     "tests/math-official72-audit.json",
-    "references/official74-browser-audit-20261111.json"
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-slots20-remaining.json"
   ],
   "remaining": [
+    "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",
+    "Existing backend unchanged; this evaluator is not installed or verified under the exact requested backend identity",
     "20 additional confirmed official demo rounds required",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",

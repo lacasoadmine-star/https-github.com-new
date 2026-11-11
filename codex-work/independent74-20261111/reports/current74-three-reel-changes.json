@@ -1,0 +1,185 @@
+{
+  "createdAt": "2026-11-11T08:13:57.649008+00:00",
+  "status": "Source correction verified locally; provider parity and live wallet unchanged",
+  "officialProviderRoundsStartedByThisTask": 0,
+  "liveWrites": 0,
+  "proof": "reports/current74-three-reel-tests.txt",
+  "games": [
+    {
+      "gameId": "ind74_official_multihotways",
+      "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "directlyObserved": {
+        "confirmedCompletedRounds": 20,
+        "geometry": {
+          "renderedSymbolInstances": 9,
+          "visibleReelCandidates": 3,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            616,
+            954,
+            1292
+          ],
+          "yPositions": [
+            264,
+            474,
+            684
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+          "reels": 3,
+          "rows": 3,
+          "resultLengthCrossCheck": true,
+          "providerLinePlay": 1,
+          "paylineMeaningVerified": false
+        },
+        "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-initial.png",
+        "screenshotSha256": "c73b5fe9d1e854efdf3c1c6556c5de8d46e7e41fd5bcce19e112d1f8ae3e9b51",
+        "manuallyInspectedByGeometryAgent": true
+      },
+      "publicDocumentation": {
+        "file": "references/official-slot-help-en-20261111.json",
+        "sourceBodySha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+        "exactCaptions": {
+          "help.slots.multihotways.doubleDIv.description": "Welcome to Multi Hot Ways, a thrilling video slot game that offers exciting opportunities to win big! To enhance your gaming experience, we would like to provide you with a detailed overview of the game's rules.Multi Hot Ways features 27 Reel Ways Pay, where the total bet is determined by multiplying the Reel Ways Pay bet by the bet multiplier. Winning combinations can only contain one symbol in an enabled position from each consecutive reel. These combinations are paid from left to right on adjacent reels, beginning with the leftmost reel, and any symbols in a different position on the same reel will also pay the same combination. The payouts for win combinations are multiplied by the number of the bet multiplier and can be paid multiple times.Multi Hot Ways features an exciting Multiplier Feature that can boost your winnings even higher! If the same symbols appear on all three reels, your total game win will be multiplied by 2, giving you the chance to win even bigger payouts. Below is a screen displaying paying symbols with a x2 feature.",
+          "help.slots.multihotways.multiplier.description": "In addition to these standard rules, Multi Hot Ways also includes the X multiplier, which can randomly appear on the left side reel. With five possible multipliers (1x, 2x, 3x, 4x, and 5x), any win can be multiplied for even greater rewards.",
+          "help.slots.multihotways.cards.description": "In Multi Hot Ways, players have the opportunity to double their winnings with the X2 Gamble Feature. After a winning spin, players can access the Gamble round by clicking the \"X2\" button. Once the gamble screen appears, a card in the middle of the screen will flash red and black while face down, indicating that the gamble feature is active.\n\nTo double their winnings, players must correctly guess the color of the card that will be revealed next. If they succeed, their winnings will be doubled. However, if they guess incorrectly, their original win will be lost. At any point, players can use the \"Take Win\" button to collect their winnings and add them to their main balance."
+        }
+      },
+      "before": "Independent fallback had five reels and three rows",
+      "implemented": "Three-by-three regular27ways, distinct from WildWays, left1x\u20135x and explicit per-way flooring",
+      "modelVersion": "official72-multihotways-r3",
+      "unimplemented": [
+        "Conditional same-symbol extra x2 (precise trigger unresolved)",
+        "Red/black X2 Gamble"
+      ],
+      "independentChoices": [
+        "Symbol prizes",
+        "Regular symbol probabilities",
+        "Stake allocation and per-path integer flooring",
+        "Payline chart for charging titles / ways allocation for MultiHotWays"
+      ],
+      "providerPrivateMathVerified": false,
+      "completedReleaseDeployed": false
+    },
+    {
+      "gameId": "ind74_official_multifruitschargingwilds",
+      "officialUrl": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo",
+      "directlyObserved": {
+        "confirmedCompletedRounds": 20,
+        "geometry": {
+          "renderedSymbolInstances": 9,
+          "visibleReelCandidates": 3,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            518,
+            838,
+            1158
+          ],
+          "yPositions": [
+            66,
+            344,
+            622
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+          "reels": 3,
+          "rows": 3,
+          "resultLengthCrossCheck": true,
+          "providerLinePlay": 5,
+          "paylineMeaningVerified": false
+        },
+        "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-initial.png",
+        "screenshotSha256": "8e2f55fbb58fcbf7964ffcacdf05234629022fe408681295e98ed1971ef89e90",
+        "manuallyInspectedByGeometryAgent": true
+      },
+      "publicDocumentation": {
+        "file": "references/official-slot-help-en-20261111.json",
+        "sourceBodySha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+        "exactCaptions": {
+          "help.slots.multifruitschargingwilds.payline.chart": "The game has 5 fixed active paylines.",
+          "help.slots.multifruitschargingwilds.payline.chart.description": "All symbols pay from the left to right on adjacent reels starting from the leftmost reel. Highest payline wins are only paid. Line wins are multiplied by the bet value on the winning line.Only the highest win per payline is paid. When winning on multiple paylines, all wins are added together to determine the total win.",
+          "help.slots.multifruitschargingwilds.big.wild.description": "The WILD symbol substitutes for all other symbols in winning combinations on active paylines. If a WILD symbol does not participate in a win, it remains on the grid and its multiplier increases by +1 on each new spin. When the WILD symbol forms part of a winning combination, the win is multiplied by its current multiplier value.",
+          "help.slots.multifruitschargingwilds.multiplier.reel.description": "When a WILD symbol appears anywhere on the game grid and does not participate in a winning combination, the WILD symbol remains fixed in its position while a new spin is performed. The selected bet amount is deducted from the player's balance for each new spin.<br>After each new spin in which the WILD symbol does not take part in a winning combination, its multiplier increases by +1 (for example, x2, x3, x4, and so on).<br>Your accumulated WILD Multiplier is linked to your chosen bet value. If you change your bet, the current WILD Multiplier is saved and will reactivate whenever you switch back to that specific betting value.<br>The WILD multiplier increases only when the WILD symbol does not participate in a winning combination. When the WILD symbol forms part of a winning combination, the win is paid and multiplied by the current WILD multiplier value.<br>\nIf a winning combination occurs without the participation of a WILD symbol, that win is paid normally. (According to the paytable). A new spin then follows, and the WILD multiplier increases if the WILD symbol again does not form part of a winning combination.<br>Multiple WILD symbols may appear on the game grid at the same time. Any WILD symbol that participates in a winning combination is removed from the grid. WILD symbols that do not participate remain in place, and their multipliers increase by +1 on each new spin in which they do not form part of a winning combination."
+        }
+      },
+      "before": "Independent fallback had five reels and three rows",
+      "implemented": "Three-by-three regular-symbol fallback with five independently authored paylines",
+      "modelVersion": "official72-multifruitschargingwilds-r3",
+      "unimplemented": [
+        "Persistent charging Wild positions and +1 multipliers per paid spin",
+        "Saved feature state per bet value",
+        "Atomic carry-state update with retained wallet settlement",
+        "Ante-bet guarantees and feature purchase",
+        "X2 Gamble"
+      ],
+      "independentChoices": [
+        "Symbol prizes",
+        "Regular symbol probabilities",
+        "Stake allocation and per-path integer flooring",
+        "Payline chart for charging titles / ways allocation for MultiHotWays"
+      ],
+      "providerPrivateMathVerified": false,
+      "completedReleaseDeployed": false
+    },
+    {
+      "gameId": "ind74_official_gemscrownchargingwilds",
+      "officialUrl": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "directlyObserved": {
+        "confirmedCompletedRounds": 20,
+        "geometry": {
+          "renderedSymbolInstances": 9,
+          "visibleReelCandidates": 3,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            458,
+            828,
+            1198
+          ],
+          "yPositions": [
+            -24,
+            286,
+            596
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+          "reels": 3,
+          "rows": 3,
+          "resultLengthCrossCheck": true,
+          "providerLinePlay": 5,
+          "paylineMeaningVerified": false
+        },
+        "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-initial.png",
+        "screenshotSha256": "5020acaf3b09c2fc90f26e387cc769f60848222f4a2e5a783774a99a961c213c",
+        "manuallyInspectedByGeometryAgent": true
+      },
+      "publicDocumentation": {
+        "file": "references/official-slot-help-en-20261111.json",
+        "sourceBodySha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+        "exactCaptions": {
+          "help.slots.gemscrownchargingwilds.payline.chart": "The game has 5 fixed active paylines.",
+          "help.slots.gemscrownchargingwilds.payline.chart.description": "All symbols pay from the left to right on adjacent reels starting from the leftmost reel. Highest payline wins are only paid. Line wins are multiplied by the bet value on the winning line.Only the highest win per payline is paid. When winning on multiple paylines, all wins are added together to determine the total win.",
+          "help.slots.gemscrownchargingwilds.big.wild.description": "The WILD symbol substitutes for all other symbols in winning combinations on active paylines. If a WILD symbol does not participate in a win, it remains on the grid and its multiplier increases by +1 on each new spin. When the WILD symbol forms part of a winning combination, the win is multiplied by its current multiplier value.",
+          "help.slots.gemscrownchargingwilds.multiplier.reel.description": "When a WILD symbol appears anywhere on the game grid and does not participate in a winning combination, the WILD symbol remains fixed in its position while a new spin is performed. The selected bet amount is deducted from the player's balance for each new spin.<br>After each new spin in which the WILD symbol does not take part in a winning combination, its multiplier increases by +1 (for example, x2, x3, x4, and so on).<br>Your accumulated WILD Multiplier is linked to your chosen bet value. If you change your bet, the current WILD Multiplier is saved and will reactivate whenever you switch back to that specific betting value.<br>The WILD multiplier increases only when the WILD symbol does not participate in a winning combination. When the WILD symbol forms part of a winning combination, the win is paid and multiplied by the current WILD multiplier value.<br>\nIf a winning combination occurs without the participation of a WILD symbol, that win is paid normally. (According to the paytable). A new spin then follows, and the WILD multiplier increases if the WILD symbol again does not form part of a winning combination.<br>Multiple WILD symbols may appear on the game grid at the same time. Any WILD symbol that participates in a winning combination is removed from the grid. WILD symbols that do not participate remain in place, and their multipliers increase by +1 on each new spin in which they do not form part of a winning combination."
+        }
+      },
+      "before": "Independent fallback had five reels and three rows",
+      "implemented": "Three-by-three regular-symbol fallback with five independently authored paylines",
+      "modelVersion": "official72-gemscrownchargingwilds-r4",
+      "unimplemented": [
+        "Persistent charging Wild positions and +1 multipliers per paid spin",
+        "Saved feature state per bet value",
+        "Atomic carry-state update with retained wallet settlement",
+        "Ante-bet guarantees and feature purchase",
+        "X2 Gamble"
+      ],
+      "independentChoices": [
+        "Symbol prizes",
+        "Regular symbol probabilities",
+        "Stake allocation and per-path integer flooring",
+        "Payline chart for charging titles / ways allocation for MultiHotWays"
+      ],
+      "providerPrivateMathVerified": false,
+      "completedReleaseDeployed": false
+    }
+  ]
+}

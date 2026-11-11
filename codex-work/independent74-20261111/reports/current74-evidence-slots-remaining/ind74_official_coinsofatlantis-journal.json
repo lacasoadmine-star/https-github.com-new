@@ -1,0 +1,147 @@
+{
+  "gameId": "ind74_official_coinsofatlantis",
+  "title": "Coins Of Atlantis",
+  "officialUrl": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 3,
+  "totalVerifiedRounds": 3,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 20,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 4,
+    "xPositions": [
+      650,
+      816,
+      982,
+      1148,
+      1314
+    ],
+    "yPositions": [
+      299,
+      469,
+      639,
+      809
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 4,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 1,
+    "paylineMeaningVerified": false
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+    "sha256": "1a7e853b5b3cd5e5ea51a8ce8f122884fb1c8eafd8b79e761dc67207a7edf9f5"
+  },
+  "publicUiLabels": [
+    "BUY BONUS",
+    "HOLD & SPIN",
+    "100.00 DMO",
+    "500.00 DMO",
+    "12.50 DMO",
+    "25.00 DMO",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.50 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "mode": "normal",
+    "reason": "Normal native play selected; the optional Quick Play confirmation is not yet safely verified on this skin"
+  },
+  "bet": {
+    "before": "0.50",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-bet-confirmed.png",
+      "sha256": "44454ae1011921432b129484d8c7814b203504725375ce33954a28b726afa205"
+    }
+  },
+  "observedFeatures": [
+    {
+      "spinId": "1966021468.1",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        3,
+        7,
+        7,
+        7,
+        6,
+        3,
+        7,
+        7,
+        7,
+        6,
+        6,
+        7,
+        6,
+        9,
+        8,
+        6,
+        8,
+        6,
+        0,
+        8
+      ],
+      "expandedGrid": [
+        3,
+        7,
+        7,
+        0,
+        6,
+        3,
+        7,
+        7,
+        0,
+        6,
+        6,
+        7,
+        6,
+        0,
+        8,
+        6,
+        8,
+        6,
+        0,
+        8
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round01.png"
+    }
+  ],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/CoinsOfAtlantis.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-official-help.html",
+      "sha256": "c94c28c867f562ae4e66c1a958c9eca025c360d910f3249e6d12a4e82b2e0db2",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

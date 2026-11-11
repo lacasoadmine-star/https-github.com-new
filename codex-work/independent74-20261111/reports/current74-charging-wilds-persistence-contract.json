@@ -1,0 +1,46 @@
+{
+  "updatedAt": "2026-11-11T08:16:02.330Z",
+  "games": [
+    "ind74_official_multifruitschargingwilds",
+    "ind74_official_gemscrownchargingwilds"
+  ],
+  "source": {
+    "file": "references/official-slot-help-en-20261111.json",
+    "sha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+    "namespaces": [
+      "help.slots.multifruitschargingwilds",
+      "help.slots.gemscrownchargingwilds"
+    ]
+  },
+  "documentedRules": [
+    "A paid spin debits the selected bet once; this is not a free-respin feature.",
+    "Nonparticipating wilds stay in the same cell and increase their own multiplier by1 on each new paid spin.",
+    "Wilds participating in awarded winning combinations multiply that award and are removed; other wilds remain.",
+    "Carry state is linked to the exact selected bet. Switching bets saves the old state and restores the bucket when that bet is selected again.",
+    "Multi Fruits ANTE5x/10x changes the actual debit and initial wild multiplier; two participating ANTE wild multipliers add according to the relevant Help clause."
+  ],
+  "requiredPersistentKey": [
+    "authenticated_player_id",
+    "game_id",
+    "accepted_model_version",
+    "exact_stake_minor",
+    "ante_profile"
+  ],
+  "transactionContract": [
+    "Read the selected bet/profile carry bucket under the same account transaction lock as stake admission.",
+    "Calculate complete next-spin potential liability using stored wild multipliers before accepting the new paid stake. Reject an unaffordable stake without changing the saved wild state.",
+    "Store the accepted round input carry, result, resulting carry bucket and wallet/ledger changes atomically.",
+    "A duplicate request replay must not debit, increment, remove or re-save wild state again.",
+    "Reload/state/history are read-only and must never advance charges.",
+    "Changing bet must select another saved bucket; it must not overwrite or transfer the old multipliers."
+  ],
+  "unresolved": [
+    "Ordinary multiple-wild multiplier combination is not fully explicit outside the ANTE clause; do not silently copy an ANTE-only rule.",
+    "Provider probabilities and a maximum charging multiplier are not established.",
+    "Exact symbol paytable and line chart remain unverified."
+  ],
+  "implementationGap": "The current synchronous adapter.start receives stake/options/RNG but no transactionally loaded player/bet carry context. A one-spin approximation would not implement these rules. Prepared runtime integration needs a retained-service transaction hook or equivalent server context; a browser-supplied carry object or in-memory global map is unacceptable.",
+  "financialGate": "Persistent charging remains disabled/unimplemented until the atomic retained-wallet carry contract and configured account/game/house liability policy are verified.",
+  "newProviderWagers": 0,
+  "productionWrites": 0
+}

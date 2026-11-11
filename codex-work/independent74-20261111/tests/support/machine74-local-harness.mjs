@@ -31,7 +31,7 @@ export async function createLocalMachine74Harness({isolated=false,manualQa=false
     if(manualQa&&name==='machines74.html')body=body.replace('<body>','<body><aside role="note">ISOLATED BUILD QA · Disposable test database · No player funds</aside>');
     assets['/'+name]={body,type:types[ext],etag:'"qa-'+sha(body)+'"'};
   }
-  const gateway=createGateway({assets,accountGames:fixture.facade.definitions(),previous:{fetch:async request=>{
+  const gateway=createGateway({accountTransport:'library74',assets,accountGames:fixture.facade.definitions(),previous:{fetch:async request=>{
     const path=new URL(request.url).pathname;
     if(path==='/api/machine-session')return Response.json({authenticated:request.headers.get('cookie')?.split(';').some(s=>s.trim()==='sw_session='+token)===true});
     if(path.startsWith('/player-v236/'))return new Response('export {};',{headers:{'content-type':'application/javascript'}});

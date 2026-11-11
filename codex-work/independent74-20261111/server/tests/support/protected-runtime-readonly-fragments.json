@@ -1,0 +1,26 @@
+{
+  "purpose": "TESTONLY byte-exact non-mutating auth/balance/transaction helper excerpts; no credentials/source bootstrap. Never deploy fixture.",
+  "actualRuntimeSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+  "fragments": {
+    "transaction": {
+      "source": " async function transaction(fn){const c=await pool.connect();try{await c.query('BEGIN');await c.query('SET LOCAL search_path = pg_catalog, sw_rebuild, public');await c.query(\"SET LOCAL lock_timeout='5s'\");await c.query(\"SET LOCAL statement_timeout='15s'\");const result=await fn(c);await c.query('COMMIT');return result;}catch(e){await c.query('ROLLBACK').catch(()=>{});throw e;}finally{c.release();}}\n",
+      "sha256": "1b9b397e42345c4f8b1cf7f30ac94d6b2014819ee6b151ceb22c7f3c5af1b521",
+      "bytes": 401
+    },
+    "authenticate": {
+      "source": " async function authenticate(req,c=pool,locked=false){const raw=req.headers.get('cookie')?.match(/(?:^|;\\s*)sw_session=([a-f0-9]{64})(?:;|$)/)?.[1];if(!raw)fail(401,'PLAYER_LOGIN_REQUIRED');\n const r=await c.query(`SELECT u.id,u.role,u.status FROM sw_rebuild.sessions s JOIN sw_rebuild.users u ON u.id=s.user_id WHERE s.token=ANY($1::text[]) AND s.expires>$2${locked?' FOR SHARE OF s,u':''}`,[[raw,hash(raw)],Date.now()]);\n if(r.rowCount!==1||r.rows[0].role!=='player'||r.rows[0].status!=='active')fail(401,'ACTIVE_PLAYER_SESSION_REQUIRED');return r.rows[0].id;}\n",
+      "sha256": "e2800505c1fa03b9b1bb35ca3aafcee056527256d673e821575269aedab64af3",
+      "bytes": 563
+    },
+    "balance": {
+      "source": " async function balance(c,uid){const r=await c.query('SELECT balance FROM sw_rebuild.wallets WHERE id=$1',[uid]);if(r.rowCount!==1)fail(503,'WALLET_NOT_CONFIGURED');return r.rows[0].balance;}\n",
+      "sha256": "db2ca54b4573c912f581c84f163ca317a62fc5856113635a3dd409823c6c2615",
+      "bytes": 192
+    },
+    "cash": {
+      "source": "const cash=x=>{const n=BigInt(x),a=n<0n?-n:n;return (n<0n?'-':'')+(a/100n).toString()+'.'+(a%100n).toString().padStart(2,'0');},integer=x=>BigInt(x),keyOK=x=>typeof x==='string'&&/^[a-zA-Z0-9_-]{16,128}$/.test(x);",
+      "sha256": "0dead75c5297bbcd402770740b8a33c1b8987761e847cd09da53928d9211547d",
+      "bytes": 213
+    }
+  }
+}

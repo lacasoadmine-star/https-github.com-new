@@ -1,0 +1,50 @@
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+const directory='tests/evidence';
+const baseline=new Set(['official-demo-observations-root.json','official-demo-observations-frontend.json','official-demo-observations-math.json']);
+const report={createdAt:new Date().toISOString(),scope:'All current fresh official demo observation sources; historical imports and reference checkpoint sources are separate, never replayed as new tests.',freshSources:[],baselineSources:[],historicalSources:[],games:[],rounds:[],totals:{freshReportedCompleted:0,rowsChecked:0,screenshotsPresent:0,screenshotHashesMatch:0,completionProofsPresent:0,exactSettlementChecksPassed:0,exactSettlementChecksUnknown:0,exactSettlementChecksFailed:0,debitChecksPassed:0,debitChecksUnknown:0,debitChecksFailed:0,collectChecksPassed:0,collectChecksUnknown:0,collectChecksFailed:0,creditConversionChecksPassed:0,creditConversionChecksUnknown:0,creditConversionChecksFailed:0},hardFailures:[],unknownEvidence:[]};
+const amount=v=>{if(v===undefined||v===null)return null;const s=String(v).replaceAll(',','').trim();if(!/^\d+(?:\.\d{1,2})?$/.test(s))return null;const[a,b='']=s.split('.');return BigInt(a)*100n+BigInt((b+'00').slice(0,2))};
+const integer=v=>typeof v==='string'&&/^\d+$/.test(v)?BigInt(v):null;
+const first=(...v)=>v.find(x=>x!==undefined&&x!==null);
+const visibleBalance=texts=>{if(!texts)return null;const s=(Array.isArray(texts)?texts.join(' '):String(texts)).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ');const m=s.match(/BALANCE\s*:?\s*([\d,.]+)/i);return m?amount(m[1]):null};
+const check=(name,actual,expected,item)=>{if(actual===null||expected===null){item.money[name]={status:'unknown'};report.totals[name+'Unknown']++;return}const ok=actual===expected;item.money[name]={status:ok?'passed':'failed',observedMinor:String(actual),expectedMinor:String(expected)};report.totals[name+(ok?'Passed':'Failed')]++;if(!ok)report.hardFailures.push({gameId:item.gameId,ordinal:item.ordinal,check:name,observed:String(actual),expected:String(expected)})};
+const proofKeys=new Set();
+for(const file of fs.readdirSync(directory).filter(n=>/^official-demo-observations-.+\.json$/.test(n)).sort()){
+ const data=JSON.parse(fs.readFileSync(directory+'/'+file));
+ if(baseline.has(file)){report.baselineSources.push(file);continue}
+ if((data.observations||[]).every(o=>o.historicalImport)){report.historicalSources.push(file);continue}
+ report.freshSources.push(file);
+ for(const o of data.observations||[]){if(o.historicalImport)continue;report.totals.freshReportedCompleted+=o.verifiedCompletedRounds;
+  const game={gameId:o.gameId,title:o.title,source:file,reportedCompleted:o.verifiedCompletedRounds,rows:o.rounds?.length||0,unknown:[]};report.games.push(game);
+  if(game.rows!==game.reportedCompleted){game.unknown.push('Per-round row count differs from claimed completed count; retain source counters without inventing rows.');report.unknownEvidence.push({gameId:o.gameId,source:file,reported:game.reportedCompleted,rows:game.rows})}
+  let priorFinal=null,priorSession=null;
+  for(const r of o.rounds||[]){
+   const native=r.spinId||r.publicResult?.spinId||r.providerDealNumber||null,key=native?o.gameId+':'+native:o.gameId+':'+r.screenshot;
+   if(proofKeys.has(key)){report.unknownEvidence.push({gameId:o.gameId,source:file,ordinal:r.ordinal,note:'Repeated round identity; canonical dedupe excludes it.'});continue}proofKeys.add(key);
+   const item={gameId:o.gameId,source:file,ordinal:r.ordinal,providerRoundId:native,screenshot:r.screenshot||null,completionProof:r.completionEvidence||r.completionProof||null,money:{},unknown:[]};report.totals.rowsChecked++;
+   const hasResult=!!(r.publicResult||r.resultGrid||r.completedVisibleText||r.finalVisibleTexts||r.nativeCompletedHistoryCount||r.nativeCompletedCounter||r.completedPublicTransport||r.publicCompletedResult||r.collectEvidence||r.creditEvidence);
+   item.resultOrCompletedCounterProofPresent=!!item.completionProof&&hasResult;if(item.resultOrCompletedCounterProofPresent)report.totals.completionProofsPresent++;else{item.unknown.push('Explicit result/completed-counter proof is not independently structured in this row.');report.unknownEvidence.push({gameId:o.gameId,ordinal:r.ordinal,note:'Completion proof metadata incomplete'})}
+   if(item.screenshot&&fs.existsSync(item.screenshot)){report.totals.screenshotsPresent++;const bytes=fs.readFileSync(item.screenshot);item.screenshotSha256=createHash('sha256').update(bytes).digest('hex');item.screenshotBytes=bytes.length;item.recordedHashMatches=r.screenshotSha256?item.screenshotSha256===r.screenshotSha256:null;if(item.recordedHashMatches===true)report.totals.screenshotHashesMatch++;if(item.recordedHashMatches===false)report.hardFailures.push({gameId:o.gameId,ordinal:r.ordinal,check:'screenshot-hash',path:item.screenshot})}else report.hardFailures.push({gameId:o.gameId,ordinal:r.ordinal,check:'missing-screenshot',path:item.screenshot});
+   const stake=first(integer(r.stakeMinorDMO),integer(r.stakeMinorDemo),amount(r.stakeDmo),amount(r.stake));
+   const paid=first(integer(r.payoutMinorDMO),integer(r.payoutMinorDemo),amount(r.payoutDmo),amount(r.observedPayoutDmo));
+   const session=native?native.split('.')[0]:null;
+   let before=first(integer(r.balanceBeforeMinorDMO),integer(r.balanceBeforeMinorDemo),amount(r.beforeBalanceDmo),amount(r.creditEvidence?.beforeBetDmo));
+   if(before===undefined&&session&&session===priorSession&&priorFinal!==null){before=priorFinal;item.beforeBalanceEvidence='previous settled row in same native session'}
+   if(before===undefined)before=null;
+   const final=first(integer(r.balanceAfterMinorDMO),integer(r.balanceAfterMinorDemo),amount(r.finalBalanceDmo),amount(r.creditEvidence?.finalBalanceDmo),amount(r.collectEvidence?.postCollectBalance),visibleBalance(r.finalVisibleTexts),amount(r.observedBalance))??null;
+   const debit=first(amount(r.creditEvidence?.afterDebitDmo),amount(r.observedBalance))??null;
+   check('exactSettlementChecks',final,before!==null&&stake!==undefined&&paid!==undefined?before-stake+paid:null,item);
+   check('debitChecks',debit,before!==null&&stake!==undefined?before-stake:null,item);
+   if(paid!==undefined&&paid>0n){const collectFinal=first(amount(r.creditEvidence?.finalBalanceDmo),amount(r.collectEvidence?.postCollectBalance),integer(r.balanceAfterMinorDMO),integer(r.balanceAfterMinorDemo))??null;check('collectChecks',collectFinal,debit!==null?debit+paid:null,item)}
+   else item.money.collectChecks={status:'not-required-zero-return'};
+   const raw=first(r.rawWinCredits,r.publicResult?.rawTotalWinCredits,r.publicResult?.rawWinCredits),chip=first(r.chipCoefficient,r.publicResult?.chipCoefficient);
+   if(raw!==undefined&&chip!==undefined&&paid!==undefined&&!r.bonusTriggered&&!(r.bonusSubresults?.length)){
+    const chipText=String(chip),m=chipText.match(/^(\d+)(?:\.(\d+))?$/),rawText=String(raw);if(m&&/^\d+$/.test(rawText)){const denominator=10n**BigInt((m[2]||'').length),numerator=BigInt(m[1]+(m[2]||'')),converted=BigInt(rawText)*numerator*100n/denominator;check('creditConversionChecks',converted,paid,item)}else{item.money.creditConversionChecks={status:'unknown'};report.totals.creditConversionChecksUnknown++}
+   }else{item.money.creditConversionChecks={status:'unknown-or-not-applicable-multistage'};report.totals.creditConversionChecksUnknown++}
+   if(item.money.exactSettlementChecks.status==='unknown')item.unknown.push('An independently captured before/after/stake/payout field is missing; no inferred arithmetic pass.');
+   priorFinal=final;priorSession=session;report.rounds.push(item);
+  }
+ }
+}
+const canonical=JSON.parse(fs.readFileSync('tests/evidence/official-demo-progress.json'));report.canonicalSnapshot={updatedAt:canonical.updatedAt,actualCompleted:canonical.verifiedCompletedRounds,creditedToward1480:canonical.creditedTowardTarget,remaining:canonical.remainingRequiredRounds,historicalImported:canonical.historicalImportedCompletedRounds,duplicateIdentitiesExcluded:canonical.duplicateIdentitiesExcluded};report.capturedChecksPass=report.hardFailures.length===0;report.fullArithmeticEvidenceForEveryFreshRound=report.totals.exactSettlementChecksUnknown===0&&report.totals.exactSettlementChecksFailed===0;report.note='Unknown evidence is preserved explicitly. Passing captured checks does not convert a missing field into a pass, count unit tests as official rounds, or establish provider probabilities/production wallet behavior.';
+const file='reports/current74-result-proof-check.json',temporary=file+'.tmp-'+process.pid;fs.writeFileSync(temporary,JSON.stringify(report,null,2)+'\n');fs.renameSync(temporary,file);console.log(JSON.stringify({capturedChecksPass:report.capturedChecksPass,totals:report.totals,hardFailures:report.hardFailures.length,canonical:report.canonicalSnapshot}));

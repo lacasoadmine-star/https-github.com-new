@@ -1,0 +1,14 @@
+const fs=require('fs'),path=require('path');
+module.exports=async ctx=>{
+ const {frame,rec,root,save}=ctx,t=await require('./ui-tools.cjs')(ctx);
+ const result=await frame().evaluate(()=>{
+  const texts=[],types={},seen=new Set();function walk(n,label,depth=0){if(!n||seen.has(n)||depth>35)return;seen.add(n);const type=n.constructor?.name||'unknown';types[type]=(types[type]||0)+1;const text=typeof n.text==='string'?n.text:typeof n._text==='string'?n._text:typeof n._text?.text==='string'?n._text.text:null;if(text)texts.push({path:label,type,text,visible:n.visible,alpha:n.alpha,x:n.x,y:n.y});for(const[c,index]of(n.children||[]).map((c,i)=>[c,i]))walk(c,label+'.children['+index+']',depth+1)}
+  if(typeof game!=='undefined')for(const[k,v]of Object.entries(game.containers||{}))if(v.container)walk(v.container,'game.containers.'+k+'.container');
+  const configuration=[];function extract(v,label){if(/prob|rng|seed|chance|frequency|strip|token|secret|auth|password|session/i.test(label))return;if(Array.isArray(v)){if(/coeff|multiplier|level|step|lane|difficulty/i.test(label)&&v.every(x=>typeof x==='number'||typeof x==='string'&&x.length<100))configuration.push({path:label,value:v});else v.forEach((x,i)=>extract(x,label+'['+i+']'))}else if(v&&typeof v==='object')for(const[k,x]of Object.entries(v))extract(x,label+'.'+k);else if(/coeff|multiplier|level|step|lane|difficulty/i.test(label)&&(typeof v==='number'||typeof v==='string'&&v.length<500))configuration.push({path:label,value:v})}
+  for(const input of document.querySelectorAll('input'))if(/coeff|multiplier|globalparameters|gameparameters|config|lane|difficulty/i.test(input.id||input.className)){try{extract(JSON.parse(input.value),'publicHTMLInput.'+(input.id||input.className))}catch{}}
+  const embeddedHelp=[...document.querySelectorAll('[data-caption^="help"],[class*="rules"],[class*="help"]')].map(x=>({tag:x.tagName,caption:x.getAttribute('data-caption'),text:x.textContent?.trim().slice(0,10000),visible:!!x.getClientRects().length})).filter(x=>x.text);
+  return{body:document.body.innerText,rendererText:texts,nodeTypes:types,publicDisplayConfiguration:configuration,embeddedHelp};
+ });
+ result.gameId=rec.gameId;result.observedAt=new Date().toISOString();result.method='Read-only public rendered/offscreen display text, publicly served display-coefficient configuration, and embedded public Help; no outcome/RNG state changed or probability fields collected.';result.screenshot=await t.screenshot('readonly-rules-'+Date.now());
+ const file='reports/current74-evidence-nonslots/'+rec.gameId+'-rendered-rules.json';fs.writeFileSync(path.join(root,file),JSON.stringify(result,null,2)+'\n');rec.publicRulesDocuments=rec.publicRulesDocuments||[];rec.publicRulesDocuments.push({path:file,method:result.method,screenshot:result.screenshot});save();return{file,textCount:result.rendererText.length,configuration:result.publicDisplayConfiguration,embeddedHelp:result.embeddedHelp};
+};

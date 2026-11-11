@@ -6,3 +6,7 @@
 body[data-mode=demo] .m74-result>strong:after,body[data-mode=demo] .m74-pending-win>strong:after,body[data-mode=demo] .m74-rollx-readout>strong:after{content:' DEMO';font:700 11px system-ui;color:#9edaff;letter-spacing:.02em}
 /* The Roll X portrait dial must fit fully above its controls on narrow screens. */
 .machine-stage:has(.m74-rollx-dial){aspect-ratio:auto;max-height:none}
+.machine-stage:has(.m74-machine[data-profile=ind74_official_mineisland2]){aspect-ratio:auto;max-height:none}
+/* All 72-title layout audit proved clipping in these five families. Keep the
+   complete board and settled award above the controls; page scrolling is free. */
+.machine-stage:has(.m74-machine:is([data-family=slots],[data-family=crash],[data-family=ladder],[data-family=plinko],[data-family=wheel])){aspect-ratio:auto;max-height:none}

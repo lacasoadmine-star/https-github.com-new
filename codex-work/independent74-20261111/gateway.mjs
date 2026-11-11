@@ -112,7 +112,7 @@ export function validateNativeAction(input, ids) {
   return input;
 }
 
-export function createGateway({ previous, assets = {}, games = [], accountGames = [], demoHandler = null, homeEnhancement = false, fetchImpl = (...args) => fetch(...args) }) {
+export function createGateway({ previous, assets = {}, games = [], accountGames = [], demoHandler = null, homeEnhancement = false, accountTransport = 'protected-readonly', fetchImpl = (...args) => fetch(...args) }) {
   if (typeof previous?.fetch !== 'function') throw new Error('Legacy handler required.');
   const ids = new Set(games.map(game => game.id));
   const accountIds = new Set(accountGames.map(game => game.id));
@@ -147,6 +147,26 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
         let identityData;
         try{identityData=JSON.parse(await readBody(identity.body,16384));}catch{reject(502,'INVALID_ACCOUNT_RESPONSE','Unreadable identity response.');}
         if(identityData?.authenticated!==true)return carryIdentity(json({error:{code:'SIGN_IN_REQUIRED',message:'Sign in to your existing player account.'}},401),identity);
+        if(accountTransport==='protected-readonly'){
+          // The working protected games already use this exact authenticated
+          // session balance. Do not route new machines to a different engine
+          // or invent a financial action while their evaluator is uninstalled.
+          if(identityData.currency!=='ETB'||typeof identityData.balance!=='string'||!/^(?:0|[1-9][0-9]{0,12})\.[0-9]{2}$/.test(identityData.balance)||!/^[a-f0-9]{64}$/.test(identityData.sessionId||''))reject(502,'INVALID_ACCOUNT_RESPONSE','The existing account balance could not be verified.');
+          if(action==='action'){
+            if(url.search||!await constantEqual(request.headers.get('x-independent74-session')||'',identityData.sessionId))reject(403,'SESSION_REFRESH_REQUIRED','Refresh account state before playing.');
+            validateNativeAction(parse(await readBody(request.body,8192)),accountIds);
+            reject(503,'GAME_RELEASE_NOT_READY','This game has not been enabled on the existing wallet.');
+          }
+          for(const key of url.searchParams.keys())if(key!=='game_id'||url.searchParams.getAll(key).length!==1)reject(400,'INVALID_QUERY','Unsupported query parameter.');
+          const gameId=url.searchParams.get('game_id');if(!accountIds.has(gameId))reject(400,'UNKNOWN_GAME','Unknown game.');
+          if(action==='history')reject(503,'GAME_HISTORY_NOT_AVAILABLE','This new game has no verified history route on the existing backend.');
+          const game=accountGames.find(g=>g.id===gameId);
+          return carryIdentity(json({authenticated:true,mode:'account',currency:'ETB',balance:identityData.balance,
+            game:{...game,accepting:false,launchable:false},accepting:false,round:null,
+            activeRecoveryVerified:false,historyAvailable:false,existingWalletReadOnly:true,
+            sessionGuard:identityData.sessionId}),identity);
+        }
+        if(accountTransport!=='library74')reject(503,'ACCOUNT_SERVICE_UNAVAILABLE','Unsupported account transport.');
         const guard=await csrfGuard(token);
         let body='',gameId,backendPath='/v2/independent74/'+action;
         if(action==='action'){

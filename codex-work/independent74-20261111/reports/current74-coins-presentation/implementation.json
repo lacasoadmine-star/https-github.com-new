@@ -1,0 +1,52 @@
+{
+  "gameId": "ind74_official_coinsofatlantis",
+  "modelVersion": "official72-coinsofatlantis-r4",
+  "sourceMapping": "reports/current74-coins-presentation/exact-help-caption-map.json",
+  "changedSource": [
+    "server/existing-library74-adapter.mjs:PUBLIC_FIELDS only",
+    "client/machine74-renderer.mjs",
+    "client/machine74-renderer.css"
+  ],
+  "publicMetadata": "Distinct coinSymbol/plusRespinSymbol and filtered coinFeature; documented values/counters and unverified flags retained; ticket weights omitted.",
+  "presentation": [
+    "Five-reel/four-row base and nullable coin-respin boards.",
+    "Individual locked values including MINI25x,MAJOR50x,and+1RESPINregular value.",
+    "Initial locks retained; new coins reset3respins; +1coin permanently increases later reset allowance to4.",
+    "Only a full current board displays2xAPPLIED; partial frames do not display the final future multiplier as applied.",
+    "A fully coined initial board completes directly without an invented respin frame.",
+    "Feature boards do not inherit regular-spin expanding-wild column decoration.",
+    "STOP reveals the unchanged server final total and last frame once; no extra wager/settlement action.",
+    "Feature replay has3.5snormal/2.4sturbowall budget; remaining completed frames fast-forward if rendering is slow."
+  ],
+  "validation": {
+    "focusedTests": 118,
+    "focusedFailures": 0,
+    "focusedLog": "reports/current74-coins-presentation/final-focused-tests.txt",
+    "browserPass": true,
+    "browserReport": "reports/current74-coins-presentation/browser-report.json",
+    "longReplay": {
+      "serverFrames": 59,
+      "displayedFrames": 26,
+      "elapsedMs": 3651,
+      "configuredFeatureMotionBudgetMs": 2400,
+      "fullBoardFactor": 2,
+      "locked": 20,
+      "extraActions": 0,
+      "renderErrors": [],
+      "budgetFastForwarded": true
+    },
+    "layoutCases": 576,
+    "layoutFailures": 0,
+    "layoutReport": "reports/current74-layout-audit/coin-tiger-final.json",
+    "rootLobbyProof": "reports/current74-root-lobby-browser.json"
+  },
+  "limits": [
+    "This is the documented regular/+1/MINI/MAJOR subset using independently authored probabilities, symbol awards and aggregation/order.",
+    "MEGA/GRAND group restrictions,buybonus,ANTE,providerprivate probabilities and fullprovider visual/audio parity remain unverified/unimplemented.",
+    "Localbranchfixtures are not official-demo completion evidence or productionwalletverification."
+  ],
+  "newOfficialRounds": 0,
+  "productionWrites": 0,
+  "playerWalletMutations": 0,
+  "deployedByThisTask": false
+}

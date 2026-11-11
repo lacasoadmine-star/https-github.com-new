@@ -27,7 +27,7 @@ export function evaluatePublicWildGrid(d, betMinor, suppliedGrid) {
   const wild = d.wildSymbol.id;
   if (!Array.isArray(suppliedGrid) || suppliedGrid.length !== d.rows || suppliedGrid.some(row =>
     !Array.isArray(row) || row.length !== d.cols || row.some((id, col) =>
-      id === wild ? !d.wildRule.columns.includes(col) : !d.symbols.some(symbol => symbol.id === id)))) {
+      id === wild ? !d.wildRule.columns.includes(col) : !d.symbols.some(symbol => symbol.id === id) && !(d.blockerSymbols??[]).includes(id)))) {
     error('INVALID_GRID', 'The grid must use the configured geometry and permitted wild columns.');
   }
   const grid = structuredClone(suppliedGrid);

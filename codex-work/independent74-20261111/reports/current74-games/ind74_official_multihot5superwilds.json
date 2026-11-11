@@ -24,18 +24,33 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": "/games/multihot5superwilds_native",
+    "existingRouteIdentityVerified": true,
+    "existingRouteEngineId": "multihot5superwilds_native",
+    "existingRouteVersion": "superwin-multihot5superwilds-2-etb1-40000-v1",
+    "existingRouteProvenance": "Live public operationalGames list: exact providerKey/name to catalogue identity",
+    "exactRequestedProtectedBackendModel": "multi_hot_5_super_wilds",
+    "exactRequestedProtectedBackendIdentityExists": true,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Versioned existing release profile etb1-40000-v1; no limit changed",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-service-adapter-prepared-release-disabled-no-production-player-funds-tested"
+    "status": "exact-protected-backend-identity-metadata-exists-financial-flow-untested"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": {
       "id": "ind74_official_multihot5superwilds",
       "title": "Multi Hot 5 Super Wilds",
@@ -113,6 +128,9 @@
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": "/games/multihot5superwilds_native",
+    "existingWalletLiveUrl": "https://superwin-player.apdiy61.workers.dev/games/multihot5superwilds_native",
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html#ind74_official_multihot5superwilds",
@@ -8098,6 +8116,7 @@
     "tests/evidence/official-demo-observations-slots20-remaining.json"
   ],
   "remaining": [
+    "PlayNow can navigate to this exact existing account engine; updated independent prototype remains a separate model",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",
     "Build and verify final release before deployment",

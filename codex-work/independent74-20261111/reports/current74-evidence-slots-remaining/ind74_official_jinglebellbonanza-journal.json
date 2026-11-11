@@ -1,0 +1,82 @@
+{
+  "gameId": "ind74_official_jinglebellbonanza",
+  "title": "Jingle Bell Bonanza",
+  "officialUrl": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 0,
+  "totalVerifiedRounds": 0,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      501,
+      670,
+      839,
+      1008,
+      1177
+    ],
+    "yPositions": [
+      132,
+      329,
+      526
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png",
+    "sha256": "782313bc8e006cd4ef36feef70022260f5d1ae95981b48dc61bb6c7f3045223d"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.10 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayDisabled",
+      "ButtonsSpinDisabled"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-turbo-state.png",
+      "sha256": "e5a9ec5ae1f1db10aaa7728b60b734d943ce56d328da39be748abc2c83e0e16a"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/JingleBellBonanza.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-official-help.html",
+      "sha256": "7774114b01b4f202cdd3628bc7a323358bc44d754a2a65dfa2459784f38c8afb",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "blocker": "BET_CONTROL_UNSUPPORTED",
+  "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

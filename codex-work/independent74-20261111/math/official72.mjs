@@ -19,8 +19,11 @@ import {configurePopxCascade,startPopxCascade,syncPopxCascade,collectPopxCascade
 import {configurePublicColorGamble} from './public-gamble.mjs';
 import {configurePublicSlotFeatures, PUBLIC_EXPANDING_WILD_IDS} from './public-slot-features.mjs';
 import {configureObservedWildWays,startObservedWildWays,OBSERVED_WILD_WAYS_ID} from './ways-slot.mjs';
+import {configureObservedThreeReel,startObservedRegularWays,OBSERVED_THREE_IDS,MULTI_HOT_WAYS_ID} from './observed-three-reel.mjs';
 import {configurePowerOfTiger,startPowerOfTiger,validatePowerTigerRound,maximumPowerTigerPayout,
   powerTigerMaximumMultiplierBps,POWER_TIGER_ID} from './power-of-tiger.mjs';
+import {configureCoinsOfAtlantis,startCoinsOfAtlantis,validateCoinsAtlantisRound,maximumCoinsAtlantisPayout,
+  coinsAtlantisMaximumMultiplierBps,COINS_ATLANTIS_ID} from './coins-of-atlantis.mjs';
 
 const norm = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
 const models = originalModels();
@@ -37,6 +40,7 @@ const THREE_REEL_TITLES=new Set(['Multi Hot 5 Deluxe','Safari Simba','Habesha Fo
 const VERIFIED_LINE_COUNTS=new Map([['Power of Tiger',5],['Gems Crown Charging Wilds',5],['Burning Ice',5],['Jungle Sisters Deluxe',20],['Sugar Fiesta',3]]);
 
 function maximumMultiplier(d) {
+  if(d.id===COINS_ATLANTIS_ID)return coinsAtlantisMaximumMultiplierBps(d);
   if(d.id===POWER_TIGER_ID)return powerTigerMaximumMultiplierBps(d);
   if (d.family === 'slots') return largestSymbolPrize(d) * largestWheel(d) * 10000 * (d.gamble?.enabled ? 2 ** d.gamble.maxRounds : 1);
   if (d.family === 'crash') return d.maxMultiplierBps;
@@ -174,7 +178,9 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
   }
   if (d.id === POWER_TIGER_ID) configurePowerOfTiger(d);
   if (d.id === OBSERVED_WILD_WAYS_ID) configureObservedWildWays(d);
+  if (OBSERVED_THREE_IDS.includes(d.id)) configureObservedThreeReel(d);
   if (PUBLIC_EXPANDING_WILD_IDS.includes(d.id)) configurePublicSlotFeatures(d);
+  if (d.id === COINS_ATLANTIS_ID) configureCoinsOfAtlantis(d);
   if ([WILD_THREE, BURN_WILDS].includes(d.id)) configurePublicColorGamble(d);
   if (d.id === GAMBLE_HUNDRED) {
     d.mathVersion = 'official72-' + norm(entry.name) + '-r3';
@@ -299,6 +305,7 @@ function acceptedBet(d, betMinor, options = {}) {
 }
 
 function maximumFor(d, bet, options = {}) {
+  if(d.id===COINS_ATLANTIS_ID)return maximumCoinsAtlantisPayout(d,bet);
   if(d.id===POWER_TIGER_ID)return maximumPowerTigerPayout(d,bet);
   // Per-line floors precede the wheel multiplier in the actual slot engine.
   // Reserving an unrelated global maximum needlessly rejects smaller wagers.
@@ -330,6 +337,7 @@ function checked(round) {
   if (BigInt(round.winMinor) > BigInt(maximumFor(d, round.betMinor, options))) error('INVALID_ROUND', 'Stored payout exceeds the accepted model bound.');
   if (d.family === 'slots') validateHeldSlot(d, round, maximumFor(d, round.betMinor));
   if(d.id===POWER_TIGER_ID)validatePowerTigerRound(d,round);
+  if(d.id===COINS_ATLANTIS_ID)validateCoinsAtlantisRound(d,round);
   if (d.id === PLINKO_CLASSIC && (!d.ballMultipliers.includes(round.ballMultiplier) ||
       round.totalBetMinor !== round.betMinor || round.baseBetMinor !== round.betMinor ||
       round.outcome?.ballMultiplier !== round.ballMultiplier || round.outcome?.totalBetMinor !== round.betMinor ||
@@ -369,8 +377,9 @@ export function startRound({gameId, betMinor, options = {}, rng, now} = {}) {
   const d = get(gameId, options.mode);
   betMinor = acceptedBet(d, betMinor, options);
   if(d.id===POWER_TIGER_ID)return result(startPowerOfTiger(d,{betMinor,rng}));
+  if(d.id===COINS_ATLANTIS_ID)return result(startCoinsOfAtlantis(d,{betMinor,rng}));
   if (d.family === 'slots') return result(holdSlotWin(d,
-    d.ways ? startObservedWildWays(d,{betMinor,rng}) : d.wildSymbol ? startPublicWildSlot(d, {betMinor, rng}) : d.cols===3 ? startThreeReelSlot(d,{betMinor,rng}) : startSlot(d, {betMinor, rng}), options.holdWin));
+    d.id===MULTI_HOT_WAYS_ID ? startObservedRegularWays(d,{betMinor,rng}) : d.ways ? startObservedWildWays(d,{betMinor,rng}) : d.wildSymbol ? startPublicWildSlot(d, {betMinor, rng}) : d.cols===3 ? startThreeReelSlot(d,{betMinor,rng}) : startSlot(d, {betMinor, rng}), options.holdWin));
   if(d.crashMechanic==='cascade')return result(startPopxCascade(d,{betMinor,rng,now}));
   if (d.family === 'crash') return result(startCrash(d, {betMinor, rng, now}));
   if (d.family === 'ladder') return result({...startLadder(d, {betMinor, rng}), mode: options.mode ?? d.defaultMode ?? 'easy'});

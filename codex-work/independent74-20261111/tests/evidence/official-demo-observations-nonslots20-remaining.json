@@ -1765,7 +1765,7 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/chicken-highway",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "mode": "official-demo",
-      "verifiedCompletedRounds": 1,
+      "verifiedCompletedRounds": 3,
       "rounds": [
         {
           "ordinal": 1,
@@ -1866,6 +1866,79 @@
           "proofKind": "public-win-result-and-credited-wallet",
           "arithmeticVerified": true,
           "screenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-ui-mwbu3kce-31244-result.png"
+        },
+        {
+          "ordinal": 2,
+          "at": "2026-11-11T08:18:32.061Z",
+          "stakeMinorDMO": "100",
+          "balanceBeforeMinorDMO": "2000002",
+          "balanceAfterMinorDMO": "2000004",
+          "payoutMinorDMO": "102",
+          "netChangeMinorDMO": "2",
+          "beforeVisibleText": "START\nCASHOUT\nEASY\nBALANCE\n20000.02\nDMO\nBET\n1.00\nDMO\nWIN\n1.02\nDMO",
+          "stepVisibleText": "GO\nCASHOUT\n1.02 DMO\nEASY\nBALANCE\n19999.02\nDMO\nBET\n1.00\nDMO\nWIN\n0.00\nDMO",
+          "completedVisibleText": "GO\nCASHOUT\n1.02 DMO\nEASY\nBALANCE\n20000.04\nDMO\nBET\n1.00\nDMO\nWIN\n1.02\nDMO\nWIN\n1.02",
+          "beforeScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-round02-before.png",
+          "screenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-round02.png",
+          "transportEvidenceStart": 0,
+          "transportEvidenceEnd": 3,
+          "completedPublicTransport": {
+            "IsFinished": true,
+            "IsWin": true,
+            "BetAmount": 1
+          },
+          "completionProof": "Public first-laneGO/CASHOUTgrossamount followed by one CASHOUT; WIN result and exact credited wallet balance confirmsettlement.",
+          "arithmeticVerified": true
+        },
+        {
+          "ordinal": 3,
+          "providerDealNumber": "1965984706.2",
+          "providerEventId": "ac3d43ea-dda8-11f1-83e8-000c2938ae7b",
+          "stepsToTry": 0,
+          "at": "2026-11-11T08:20:11.304Z",
+          "stakeMinorDMO": "100",
+          "balanceBeforeMinorDMO": "2000004",
+          "balanceAfterMinorDMO": "1999904",
+          "payoutMinorDMO": "0",
+          "netChangeMinorDMO": "-100",
+          "beforeVisibleText": "START\nCASHOUT\nEASY\nBALANCE\n20000.04\nDMO\nBET\n1.00\nDMO\nWIN\n1.02\nDMO",
+          "stepVisibleText": "START\nCASHOUT\nEASY\nBALANCE\n19999.04\nDMO\nBET\n1.00\nDMO\nWIN\n0.00\nDMO",
+          "completedVisibleText": "START\nCASHOUT\nEASY\nBALANCE\n19999.04\nDMO\nBET\n1.00\nDMO\nWIN\n0.00\nDMO",
+          "beforeScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-round03-before.png",
+          "screenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-round03.png",
+          "transportEvidenceStart": 3,
+          "transportEvidenceEnd": 5,
+          "completedPublicTransport": {
+            "R": {
+              "AvailableEventDetails": {
+                "EventId": "ac3d43ea-dda8-11f1-83e8-000c2938ae7b",
+                "EventType": {
+                  "EventCustomTime": 0
+                },
+                "EventTime": "2026-11-11T09:20:01.5690957+01:00"
+              },
+              "EventResponse": {
+                "BoardInfo": {
+                  "IsFinished": true,
+                  "IsWin": false,
+                  "BetAmount": 1
+                },
+                "GameInfo": {
+                  "Player": {
+                    "AvailableAmount": 19999.04,
+                    "GiftSpinTotalWin": 0,
+                    "GiftSpinTotalCreditWin": 0
+                  },
+                  "WinAmount": 0,
+                  "DealNumber": "1965984706.2",
+                  "IsGameFinished": false,
+                  "Options": []
+                }
+              }
+            }
+          },
+          "completionProof": "Public transport finished result, no activeGO/CASHOUT state, exact1DMOlostbalance and terminal screenshot.",
+          "arithmeticVerified": true
         }
       ],
       "publicNetworkEvidence": [],
@@ -1874,7 +1947,7 @@
         "Every rare feature",
         "Complete reference equivalence"
       ],
-      "status": "observation-in-progress",
+      "status": "partial-confirmed-continue-within-quota",
       "currencyObserved": "DMO",
       "geometry": {
         "kind": "horizontal-road-crossing-ladder",
@@ -1902,7 +1975,188 @@
       "controlsVerified": [
         "Bet menu opened and1.00DMO selected"
       ],
-      "stakeScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-ui-mwbtunf0-30786.png"
+      "stakeScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-ui-mwbtunf0-30786.png",
+      "publicTransportEvidence": [
+        {
+          "at": "2026-11-11T08:18:21.719Z",
+          "kind": "websocket",
+          "url": "public-websocket",
+          "publicData": {
+            "R": {
+              "AvailableEventDetails": {
+                "EventId": "70706bc7-dda8-11f1-83e8-000c2938ae7b",
+                "EventType": {
+                  "EventCustomTime": 0
+                },
+                "EventTime": "2026-11-11T09:18:21.0236012+01:00"
+              },
+              "EventResponse": {
+                "BoardInfo": {
+                  "IsFinished": false,
+                  "IsWin": false,
+                  "BetAmount": 1
+                },
+                "GameInfo": {
+                  "Player": {
+                    "AvailableAmount": 19999.02,
+                    "GiftSpinTotalWin": 0,
+                    "GiftSpinTotalCreditWin": 0
+                  },
+                  "WinAmount": 0,
+                  "DealNumber": "1965984706.1",
+                  "IsGameFinished": false,
+                  "Options": []
+                }
+              }
+            }
+          }
+        },
+        {
+          "at": "2026-11-11T08:18:26.966Z",
+          "kind": "websocket",
+          "url": "public-websocket",
+          "publicData": {
+            "R": {
+              "AvailableEventDetails": {
+                "EventId": "766942af-dda8-11f1-83e8-000c2938ae7b",
+                "EventType": {
+                  "EventCustomTime": 0
+                },
+                "EventTime": "2026-11-11T09:18:26.5694012+01:00"
+              },
+              "EventResponse": {
+                "GameInfo": {
+                  "Player": {
+                    "AvailableAmount": 19999.02,
+                    "GiftSpinTotalWin": 0,
+                    "GiftSpinTotalCreditWin": 0
+                  },
+                  "WinAmount": 1.02,
+                  "DealNumber": "1965984706.1",
+                  "IsGameFinished": false,
+                  "Options": []
+                },
+                "BoardInfo": {
+                  "IsFinished": true,
+                  "IsWin": true,
+                  "BetAmount": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "at": "2026-11-11T08:18:28.491Z",
+          "kind": "websocket",
+          "url": "public-websocket",
+          "publicData": {
+            "R": {
+              "AvailableEventDetails": {
+                "EventId": "766942f6-dda8-11f1-83e8-000c2938ae7b",
+                "EventType": {
+                  "EventCustomTime": 0
+                },
+                "EventTime": "2026-11-11T09:18:27.3727826+01:00"
+              },
+              "EventResponse": {
+                "GameInfo": {
+                  "Player": {
+                    "AvailableAmount": 20000.04,
+                    "GiftSpinTotalWin": 0,
+                    "GiftSpinTotalCreditWin": 0
+                  },
+                  "WinAmount": 0,
+                  "DealNumber": "1965984706.2",
+                  "IsGameFinished": false,
+                  "Options": []
+                }
+              }
+            }
+          }
+        },
+        {
+          "at": "2026-11-11T08:20:02.261Z",
+          "kind": "websocket",
+          "url": "public-websocket",
+          "publicData": {
+            "R": {
+              "AvailableEventDetails": {
+                "EventId": "ac3d43ea-dda8-11f1-83e8-000c2938ae7b",
+                "EventType": {
+                  "EventCustomTime": 0
+                },
+                "EventTime": "2026-11-11T09:20:01.5690957+01:00"
+              },
+              "EventResponse": {
+                "BoardInfo": {
+                  "IsFinished": true,
+                  "IsWin": false,
+                  "BetAmount": 1
+                },
+                "GameInfo": {
+                  "Player": {
+                    "AvailableAmount": 19999.04,
+                    "GiftSpinTotalWin": 0,
+                    "GiftSpinTotalCreditWin": 0
+                  },
+                  "WinAmount": 0,
+                  "DealNumber": "1965984706.2",
+                  "IsGameFinished": false,
+                  "Options": []
+                }
+              }
+            }
+          }
+        },
+        {
+          "at": "2026-11-11T08:20:08.276Z",
+          "kind": "websocket",
+          "url": "public-websocket",
+          "publicData": {
+            "R": {
+              "AvailableEventDetails": {
+                "EventId": "b239959d-dda8-11f1-83e8-000c2938ae7b",
+                "EventType": {
+                  "EventCustomTime": 0
+                },
+                "EventTime": "2026-11-11T09:20:07.3592563+01:00"
+              },
+              "EventResponse": {
+                "GameInfo": {
+                  "Player": {
+                    "AvailableAmount": 19999.04,
+                    "GiftSpinTotalWin": 0,
+                    "GiftSpinTotalCreditWin": 0
+                  },
+                  "WinAmount": 0,
+                  "DealNumber": "1965984706.3",
+                  "IsGameFinished": false,
+                  "Options": []
+                }
+              }
+            }
+          }
+        }
+      ],
+      "pendingAttempt": {
+        "ordinal": 4,
+        "startedAt": "2026-11-11T08:20:15.109Z",
+        "stakeMinorDMO": "100",
+        "beforeBalanceMinorDMO": "1999904",
+        "beforeVisibleText": "START\nCASHOUT\nEASY\nBALANCE\n19999.04\nDMO\nBET\n1.00\nDMO\nWIN\n0.00\nDMO",
+        "beforeScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-round04-before.png"
+      },
+      "publicRulesDocuments": [
+        {
+          "path": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-rendered-rules.json",
+          "method": "Read-only public rendered/offscreen display text, publicly served display-coefficient configuration, and embedded public Help; no outcome/RNG state changed or probability fields collected.",
+          "screenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-readonly-rules-1794385608592.png"
+        },
+        {
+          "path": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-public-coefficient-data.json",
+          "method": "Read-only public loaded presentation-script numeric display arrays and public form metadata; no game logic copied into product and no RNG/probability/outcome state inspected or changed."
+        }
+      ]
     }
   ]
 }

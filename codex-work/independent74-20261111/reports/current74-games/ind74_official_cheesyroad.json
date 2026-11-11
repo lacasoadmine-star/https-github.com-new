@@ -22,18 +22,33 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": null,
+    "existingRouteIdentityVerified": false,
+    "existingRouteEngineId": null,
+    "existingRouteVersion": null,
+    "existingRouteProvenance": null,
+    "exactRequestedProtectedBackendModel": null,
+    "exactRequestedProtectedBackendIdentityExists": false,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Cannot establish actual limits without configured deployed game",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-service-adapter-prepared-release-disabled-no-production-player-funds-tested"
+    "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": {
       "id": "ind74_official_cheesyroad",
       "title": "Cheesy Road",
@@ -119,6 +134,9 @@
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": null,
+    "existingWalletLiveUrl": null,
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html#ind74_official_cheesyroad",
@@ -181,6 +199,8 @@
     "references/official74-browser-audit-20261111.json"
   ],
   "remaining": [
+    "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",
+    "Existing backend unchanged; this evaluator is not installed or verified under the exact requested backend identity",
     "20 additional confirmed official demo rounds required",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",

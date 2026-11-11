@@ -1,0 +1,13 @@
+// OFFLINE bundle builder. No deployment, DB clients, runtime bootstrap, or funds.
+import{build,version}from'esbuild';import{createHash}from'node:crypto';import{readFile,writeFile,mkdir}from'node:fs/promises';import{dirname,resolve}from'node:path';import{fileURLToPath}from'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),hash=b=>createHash('sha256').update(b).digest('hex');
+export async function buildProtected74Review({outdir=resolve(root,'server/artifacts')}={}){
+ const result=await build({absWorkingDir:root,entryPoints:['server/protected74-review.mjs'],bundle:true,format:'esm',platform:'node',target:'es2022',write:false,metafile:true,minify:false,legalComments:'inline',logLevel:'silent',banner:{js:'// OFFLINE PROTECTED74 REVIEW ONLY: all new actions hard-disabled; no financial classes/DB/server constructed.'}});
+ const bytes=result.outputFiles[0].contents,imports=[...new Set(Object.values(result.metafile.outputs).flatMap(x=>x.imports.filter(y=>y.external).map(y=>y.path)))];
+ if(imports.some(x=>x!=='node:crypto'))throw Error('UNEXPECTED_REVIEW_RUNTIME_IMPORT');
+ const source=Buffer.from(bytes).toString('utf8');if(/class\s+LibraryService\s*\{|class\s+SharedWallet\s*\{|new\s+(?:SQL|pg\.Pool)\s*\(|Bun\.serve\s*\(/.test(source))throw Error('FINANCIAL_IMPLEMENTATION_OR_BOOTSTRAP_BUNDLED');
+ const loaded=await import('data:text/javascript;base64,'+Buffer.from(bytes).toString('base64'));const c=loaded.protected74ReviewCatalog();if(c.games.length!==64||c.games.some(g=>g.accepting)||loaded.PROTECTED74_NEW_ROUNDS_ENABLED!==false)throw Error('NEW_FINANCIAL_GATE_NOT_CLOSED');
+ const manifest={format:'protected74-review-installer-v1',reviewOnly:true,esbuildVersion:version,bytes:bytes.length,sha256:hash(bytes),modelCount:64,existingProtectedCatalogueIdentities:10,models:c.games.map(g=>({id:g.id,version:g.version,mathVersion:g.mathVersion,family:g.family})),publicNewWagerActions:'HARD503',constructsFinancialClasses:false,constructsDbPool:false,startsServer:false,migrates:false,externalImports:imports,sources:await Promise.all(Object.keys(result.metafile.inputs).sort().map(async path=>{const b=await readFile(resolve(root,path));return{path,bytes:b.length,sha256:hash(b)};}))};
+ await mkdir(outdir,{recursive:true});const path=resolve(outdir,'protected74-review-installer.mjs');await writeFile(path,bytes);await writeFile(path+'.manifest.json',JSON.stringify(manifest,null,2)+'\n');return{path,manifest};
+}
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const r=await buildProtected74Review();console.log(JSON.stringify({path:r.path,sha256:r.manifest.sha256,bytes:r.manifest.bytes,models:64,newWagers:'HARD503'}));}

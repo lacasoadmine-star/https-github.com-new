@@ -1,0 +1,519 @@
+{
+  "format": "protected74-review-installer-v1",
+  "reviewOnly": true,
+  "esbuildVersion": "0.25.12",
+  "bytes": 565653,
+  "sha256": "8cb9d50a33c2bce5a04fe3399c2fba5d0d448569f8251b1542a424683b8150e9",
+  "modelCount": 64,
+  "existingProtectedCatalogueIdentities": 10,
+  "publicNewWagerActions": "HARD503",
+  "constructsFinancialClasses": false,
+  "constructsDbPool": false,
+  "startsServer": false,
+  "migrates": false,
+  "externalImports": [
+    "node:crypto"
+  ],
+  "sources": [
+    {
+      "path": "math/engines/crash.mjs",
+      "bytes": 3078,
+      "sha256": "04145266218b27fefb3f34fa363429d213138665804347ebf8fea2cd91aeb417"
+    },
+    {
+      "path": "math/engines/instant.mjs",
+      "bytes": 1569,
+      "sha256": "c716d964cb36ec729590e4e35b09ffa1fe00a8368f4a005be5b4a1e4b0d49b7c"
+    },
+    {
+      "path": "math/engines/ladder.mjs",
+      "bytes": 1844,
+      "sha256": "7b456df398e641e498d73684449f202adf4ed6643f9c50c3724f0cdaa6e463d4"
+    },
+    {
+      "path": "math/engines/mines.mjs",
+      "bytes": 2309,
+      "sha256": "70344014579e0e81ab09e08386a16da77de9e7c1d1ff1e249a6215e3590eeb90"
+    },
+    {
+      "path": "math/engines/shared.mjs",
+      "bytes": 1673,
+      "sha256": "5e94af7b87d8c218cce8fb88fc240c5927595aab21b6179edcc280f0edb6d1e1"
+    },
+    {
+      "path": "math/engines/slots.mjs",
+      "bytes": 2673,
+      "sha256": "671cac510ff5c12feb18b884bbe4b0a61133a15c1665597b37d07d9392a646d7"
+    },
+    {
+      "path": "math/engines/table-games.mjs",
+      "bytes": 7130,
+      "sha256": "66da259c99130e95b958fa08a873fdb502722a493e4ffcb79729c9140cca2633"
+    },
+    {
+      "path": "math/engines/target-crash.mjs",
+      "bytes": 941,
+      "sha256": "b487cef057f53db27032710751dcb8a7a7c4899b321bd339a4def209f8250c28"
+    },
+    {
+      "path": "math/fresh-plinkoxclassic.mjs",
+      "bytes": 2385,
+      "sha256": "2772bcf5095a7810ba6b6b67099cd3328b08859f9dbc1012f52714b5e75e1c3d"
+    },
+    {
+      "path": "math/games/balloon.mjs",
+      "bytes": 4102,
+      "sha256": "515d5a303841ef5b0172202658683119e64edb8ba83a285f82f385a64e5ea914"
+    },
+    {
+      "path": "math/games/balloonx.mjs",
+      "bytes": 1822,
+      "sha256": "f9f20cf2d4a7691b20f5ca424b98103fc1e21b3c8a875d31cd67df297b5c4a3b"
+    },
+    {
+      "path": "math/games/baoslot5x.mjs",
+      "bytes": 3538,
+      "sha256": "db9143800afd8710a332ac49dd1fa79096615a048d82f0599adb69738fffa6e8"
+    },
+    {
+      "path": "math/games/blazinghot.mjs",
+      "bytes": 4404,
+      "sha256": "6cd749698662e4ff7af1e18dc256332b85c2aac124779d3e9d4ca639d61278f2"
+    },
+    {
+      "path": "math/games/blazinghot10.mjs",
+      "bytes": 3860,
+      "sha256": "98191b669e7c2aa49a0f17df7644540247eed84a0407f09d58093272289d0bb5"
+    },
+    {
+      "path": "math/games/blazinghot40.mjs",
+      "bytes": 5574,
+      "sha256": "0a1b4a11f0ab184f86d7c1ca886ab406dd49c820121d7a3c2c1cff8d991b545e"
+    },
+    {
+      "path": "math/games/bokajamba10.mjs",
+      "bytes": 3849,
+      "sha256": "e26fee1acff16febd9a0086ecc3d72baafc8323510f61357754015556b134942"
+    },
+    {
+      "path": "math/games/bonustime.mjs",
+      "bytes": 3194,
+      "sha256": "a2c59a090afd9f08ddb65feadbf06ada759a84420cbe020ae27d889bcb73b952"
+    },
+    {
+      "path": "math/games/bookofbonanza.mjs",
+      "bytes": 4734,
+      "sha256": "4a0a5e7e8fc757fbbe6bb57555a5eba9bdabde5c25bc08845907457f3ab281af"
+    },
+    {
+      "path": "math/games/bookoffuturia.mjs",
+      "bytes": 4449,
+      "sha256": "c56cc45ea5b7c25fb41160d017d5f0827749510d051a08f1d4c98fad54c954b0"
+    },
+    {
+      "path": "math/games/bottlemania.mjs",
+      "bytes": 4124,
+      "sha256": "d69d7ab6d0258d53b3c747c90d619034b66530f854b2e7102e7bb403695fdbaf"
+    },
+    {
+      "path": "math/games/caibalaocappadocia.mjs",
+      "bytes": 4163,
+      "sha256": "6f34bf51f2c056bca71f4c3af219108c77ec1002d197c8d49945251cee3a50bc"
+    },
+    {
+      "path": "math/games/carx.mjs",
+      "bytes": 1803,
+      "sha256": "399aa283f2e6d888ed1fe9155a732484503d80534b025a93ef6299e3a8bdd6b8"
+    },
+    {
+      "path": "math/games/cheesyroad.mjs",
+      "bytes": 4117,
+      "sha256": "12dce110c41eefa57d3e8a24df999b8604c531f18afe24fc5b6bf07107bac7a2"
+    },
+    {
+      "path": "math/games/cheesyroadclassic.mjs",
+      "bytes": 4154,
+      "sha256": "f2b0d0fc938da28181921d064656f828973eb9cc5adc7eaa3c1c672d2ea98021"
+    },
+    {
+      "path": "math/games/chickenhighway.mjs",
+      "bytes": 4138,
+      "sha256": "66b47293c905f86a3eececf2d4ed0a84793b1ab0be5a3398739e952de8511ed2"
+    },
+    {
+      "path": "math/games/chickenways.mjs",
+      "bytes": 4121,
+      "sha256": "45e6ab1288411063cfb91e460dfbf11039571344c898344447788e3629790f26"
+    },
+    {
+      "path": "math/games/coinsofatlantis.mjs",
+      "bytes": 3616,
+      "sha256": "67e88ba5051219d96f787dfde439f5f00bdd9135411dbc147a9efc2e237da493"
+    },
+    {
+      "path": "math/games/cricketerx.mjs",
+      "bytes": 1829,
+      "sha256": "58cac483856d8f79e428d997f46752fa3e59416bcc9676a6b932ac3154170903"
+    },
+    {
+      "path": "math/games/cricketx.mjs",
+      "bytes": 1826,
+      "sha256": "d48519afa4f0d7fa80f614c520ffb5c01e36559f28827b13b705f02f7d8b7969"
+    },
+    {
+      "path": "math/games/dicejungle.mjs",
+      "bytes": 3549,
+      "sha256": "42e0e1a193b9f835c1fbdbaea98844cc59123608efc456eaca3637130c300deb"
+    },
+    {
+      "path": "math/games/draculasfortune.mjs",
+      "bytes": 3904,
+      "sha256": "bde7c4536a791ab9bf748553ddf817c0b04ae3017199fae6879c884d47cc050f"
+    },
+    {
+      "path": "math/games/dragonscode.mjs",
+      "bytes": 3563,
+      "sha256": "f17c85d4a6d2bc0c0fc12759fdba452615b61a2b81b9332f26cf27881d7f7c62"
+    },
+    {
+      "path": "math/games/farmsfortune.mjs",
+      "bytes": 3869,
+      "sha256": "2aa815f205cc88e6e10a213d8f4b611245af80755cdd37c9afdec64bce3d4cf3"
+    },
+    {
+      "path": "math/games/footballx.mjs",
+      "bytes": 1829,
+      "sha256": "0a3f625ba545eec11375f6c9bfd4f3b25cd19bed395109f1e24f17d7ff996818"
+    },
+    {
+      "path": "math/games/fortunecatch.mjs",
+      "bytes": 3212,
+      "sha256": "530ad9c52faaf939ba7f8f5dfbd893c30416dd3fefaf06d3ae8b4a928d83bfcf"
+    },
+    {
+      "path": "math/games/foxyhot20.mjs",
+      "bytes": 4396,
+      "sha256": "04809b5f996cd6df00ab7e30400e63c8fe406a3f5c15cf5fe17982e3ff23713f"
+    },
+    {
+      "path": "math/games/gatesofmerlyn.mjs",
+      "bytes": 4448,
+      "sha256": "455621272371532814771d36473692041ccb73ebebf3a7c19c0a62c5ac1da45b"
+    },
+    {
+      "path": "math/games/gemscrownchargingwilds.mjs",
+      "bytes": 4001,
+      "sha256": "a8aa3d3de0b1930530859a0ba2564f93ce030919934f5ca72a985ff2f7965f0b"
+    },
+    {
+      "path": "math/games/geniesbonanza.mjs",
+      "bytes": 4735,
+      "sha256": "efcc2d126f12db0608f0eb57d4005e7e8ea4bfd7895666095fc3d201a5cfb1ad"
+    },
+    {
+      "path": "math/games/habeshafortune5.mjs",
+      "bytes": 3603,
+      "sha256": "b886402a95588154b2cb1e041c10c3069c3e5700d7671a151e56a8cf5f4cf65e"
+    },
+    {
+      "path": "math/games/helicopterx.mjs",
+      "bytes": 1838,
+      "sha256": "24d8b71576e2b841742d473013e322765e9878ec949d68fc329e14ba7d80f99e"
+    },
+    {
+      "path": "math/games/hotsamba.mjs",
+      "bytes": 4380,
+      "sha256": "a09670d5385a8b581c3bd7c4dec70dc44ff9d535e6f682f470cb60b4088970c2"
+    },
+    {
+      "path": "math/games/jetx.mjs",
+      "bytes": 1818,
+      "sha256": "48974d733d1bb5936af245c5626b4f8ffe775fb18f7148ed6d29a5bac43259ac"
+    },
+    {
+      "path": "math/games/jetx3.mjs",
+      "bytes": 1812,
+      "sha256": "b6ebf82e003d2d6637966f742a5b7616830f11afe4e902efe96d3adefb157712"
+    },
+    {
+      "path": "math/games/jinglebellbonanza.mjs",
+      "bytes": 4501,
+      "sha256": "9c8b7b29e3574f227c9ad7f3c670ee9bcd4890f365f9d0bc7c59dfdd2f0cd356"
+    },
+    {
+      "path": "math/games/junglesisters.mjs",
+      "bytes": 3876,
+      "sha256": "6c7b0d5da98d6ee2c215e5ec2f52fe773c3b9c77e0aba9463f8e4b441479f846"
+    },
+    {
+      "path": "math/games/junglesistersdeluxe.mjs",
+      "bytes": 4808,
+      "sha256": "0aa992d00024812c28a3b9d6d9be9492bd7efa28e8bba7de10fd2895700c660f"
+    },
+    {
+      "path": "math/games/madslot.mjs",
+      "bytes": 4367,
+      "sha256": "e5182091895d5a0085c05c2fab2d385af926b1f357784498ddab7234f04cd7ea"
+    },
+    {
+      "path": "math/games/mariachicoins.mjs",
+      "bytes": 4446,
+      "sha256": "c24e29aa30e0e51e60b9b90a846667d2db6f516c0f527b108a5b6f4a155915ae"
+    },
+    {
+      "path": "math/games/mineisland.mjs",
+      "bytes": 2486,
+      "sha256": "7d09d11860ea792e7173437821fc850a7f7b8678143a57d74659fa5a26023979"
+    },
+    {
+      "path": "math/games/multifruitschargingwilds.mjs",
+      "bytes": 3735,
+      "sha256": "f66444a0d9f3f410552d94b146b4c405da5d6a5857e3ddc3d3f1dfdc2022229b"
+    },
+    {
+      "path": "math/games/multihot10.mjs",
+      "bytes": 3842,
+      "sha256": "40f64fb1181b2ee509de4e534850b1bf7a9ab7161e0d5b0c718a8daea09f18cd"
+    },
+    {
+      "path": "math/games/multihot100.mjs",
+      "bytes": 8985,
+      "sha256": "bc2954863eebe9426d04089c9abca4f36140e105a5f76dc51eb1597425631ffd"
+    },
+    {
+      "path": "math/games/multihot20.mjs",
+      "bytes": 2360,
+      "sha256": "099420641779d8fd2c87d735d8157acf8398f2edcdf14c02d945735ca8bd220c"
+    },
+    {
+      "path": "math/games/multihot40.mjs",
+      "bytes": 5550,
+      "sha256": "339a147f83fb5448d0b42c4df6305548b2745a4b689a0449d562b4313049279f"
+    },
+    {
+      "path": "math/games/multihot5.mjs",
+      "bytes": 3535,
+      "sha256": "affefccf5d30be149f3a5d280eaac6a501084dca32a679cb48148d91833be443"
+    },
+    {
+      "path": "math/games/multihot5burnwilds.mjs",
+      "bytes": 3662,
+      "sha256": "7e0e1d19877ba4cb8eff555ba92d15b2a741d232dee68ccd39e377df6491de01"
+    },
+    {
+      "path": "math/games/multihot5deluxe.mjs",
+      "bytes": 3619,
+      "sha256": "02912b5a36f772e23729802345b1bc3ffad1ea26eb4e0d69cdaea791e0347a17"
+    },
+    {
+      "path": "math/games/multihot5superwilds.mjs",
+      "bytes": 3672,
+      "sha256": "65ae772e2801b4db515e91f61e6b7a242d3925ee33f272e5f872ffe4b58d688c"
+    },
+    {
+      "path": "math/games/multihot5wild.mjs",
+      "bytes": 3594,
+      "sha256": "8b03e4efe84c9a725df85157f88bd725a084b4ab61aab9bfe00064635ee926ef"
+    },
+    {
+      "path": "math/games/multihotways.mjs",
+      "bytes": 4432,
+      "sha256": "b8f8cc6214c3f602acc18261d9f76485c5f8327857ed049460cbb9094b8d9bcf"
+    },
+    {
+      "path": "math/games/multihotwheel.mjs",
+      "bytes": 3216,
+      "sha256": "aa22c0f0455b944a65ee31d0847e3f6433fd5200051ee6be3d07fe298cd75f3b"
+    },
+    {
+      "path": "math/games/multihotwildways.mjs",
+      "bytes": 4485,
+      "sha256": "27b954bf3a7edec7a3936acd61cf4a250a951a10b40bb64a89a141dc540560d3"
+    },
+    {
+      "path": "math/games/plinkojoker.mjs",
+      "bytes": 3599,
+      "sha256": "8df11afa4cabd9530a0e308341e3ef3f9ad792b08ea39eed9ad1fb86e14a3c58"
+    },
+    {
+      "path": "math/games/plinkox.mjs",
+      "bytes": 3244,
+      "sha256": "b7d8611c7cde4d2ab0b30d42667dccb22378dddc2ea4ff467e88d35f5c50791e"
+    },
+    {
+      "path": "math/games/plinkoxclassic.mjs",
+      "bytes": 2947,
+      "sha256": "c7c72b7fb44ab22df5886d49f046e8a2a37d43f9c6e770084110827ddff78098"
+    },
+    {
+      "path": "math/games/popx.mjs",
+      "bytes": 1787,
+      "sha256": "7b5cf33fa00a458513724f3215a3e6240fc9a95c8097c15ac3294dfebb3ae02c"
+    },
+    {
+      "path": "math/games/poweroftiger.mjs",
+      "bytes": 4717,
+      "sha256": "0879797bb3011bb8ffe77346c6468dcee87bf0545a827c1a0b7ea9d56230f0ae"
+    },
+    {
+      "path": "math/games/propelx.mjs",
+      "bytes": 1816,
+      "sha256": "2497c43a83db1df0ee8390a01b939fb52e7a8865ee203909543f9fe916d15798"
+    },
+    {
+      "path": "math/games/rollx.mjs",
+      "bytes": 2375,
+      "sha256": "4586a5e50bf1ecf16952ee5e12272240f33b1d620f67148eca2cd3e3414d7f66"
+    },
+    {
+      "path": "math/games/safarisimba.mjs",
+      "bytes": 3564,
+      "sha256": "834e3dfe3e475b98763b463f12aed46d12e4d28a53f5af8533d5e118c9f62fdd"
+    },
+    {
+      "path": "math/games/samurai.mjs",
+      "bytes": 3802,
+      "sha256": "d753f4ef7f1c9056e03ea6767521022a4ea88c73d391e4de71114af839749280"
+    },
+    {
+      "path": "math/games/slicerx.mjs",
+      "bytes": 3184,
+      "sha256": "2fdbbdcca42c34b59e89a856d7e025c2c1d336c0d0a11313d6d01eeaf2280d8f"
+    },
+    {
+      "path": "math/games/smashx.mjs",
+      "bytes": 1810,
+      "sha256": "5aa71cbd42a5a0e7072f2b06d3858b2fdbea3800093fd5f4680082666cd8ffc5"
+    },
+    {
+      "path": "math/games/sugarfiesta.mjs",
+      "bytes": 3561,
+      "sha256": "ffea143905597b3adc7e9ee28aee8e3a740e1dee8c9ee96d385abc9e413829ad"
+    },
+    {
+      "path": "math/games/towerx.mjs",
+      "bytes": 4103,
+      "sha256": "45edf95761c2c06a0a85c9cfc7c83948fab0de382aae01d9bdd86c3a6470625a"
+    },
+    {
+      "path": "math/games/tugofwar.mjs",
+      "bytes": 1812,
+      "sha256": "7e600026eaa33048b92f96db865830483a60c2862120411888ef29ef29fe3371"
+    },
+    {
+      "path": "math/games/vampires.mjs",
+      "bytes": 3807,
+      "sha256": "02a095c8a10011a462270d48bb002207c81fc2f4abbb4b9fb236277841a66417"
+    },
+    {
+      "path": "math/games/wheelofdestiny.mjs",
+      "bytes": 3223,
+      "sha256": "413f4943867066881cb5c42b2b759e97c47229eaec389771d7bea5261d2ba1df"
+    },
+    {
+      "path": "math/games/wildmultistars.mjs",
+      "bytes": 3892,
+      "sha256": "9d9303f69d67c8f659959aae1afbddd4c85402410ddf23900142cbc100853c59"
+    },
+    {
+      "path": "math/games/wildsandgods.mjs",
+      "bytes": 4719,
+      "sha256": "1952631d0d32550e2d8effebab9b666cbd7928987f7e324d34b601d063942f36"
+    },
+    {
+      "path": "math/games/worldchampionx.mjs",
+      "bytes": 1853,
+      "sha256": "72f20aab3acaca22d095d433748deb4fa2366e37d8756aebb4d01ab86370eee7"
+    },
+    {
+      "path": "math/generated-registry.mjs",
+      "bytes": 3368,
+      "sha256": "cc9da9cd202fc01ae2717df137ccb682f5acd208f325595d988d5ea818007ac6"
+    },
+    {
+      "path": "math/index.mjs",
+      "bytes": 5158,
+      "sha256": "1575f89ce09ae2f4a640c710ed14593217956cc1abb3812b772ccfe6d8c5ec26"
+    },
+    {
+      "path": "math/mine-island2.mjs",
+      "bytes": 8491,
+      "sha256": "c341d9d206bb49c752c7e808f4ea005e33d38c815f4eb1e0b0279828745991bf"
+    },
+    {
+      "path": "math/observed-three-reel.mjs",
+      "bytes": 4985,
+      "sha256": "90c0261351f90a52791551a94370617ba19ba9942ef4cc59313e850e7b3d9ebc"
+    },
+    {
+      "path": "math/official72-layouts.mjs",
+      "bytes": 15432,
+      "sha256": "229f88e4f2555dcafa39c4d9904c812e908e365dce0fde86c334aee1e20baad0"
+    },
+    {
+      "path": "math/official72-mechanics.mjs",
+      "bytes": 9908,
+      "sha256": "e5125a9c080167c0895fc86c52457423befbe315ee5df573c5a17342927d9668"
+    },
+    {
+      "path": "math/official72.mjs",
+      "bytes": 31999,
+      "sha256": "69600079c82be8b1fb7a95cc73817fe20099fce8588b5e8d5ec53b1bd0ea930b"
+    },
+    {
+      "path": "math/popx.mjs",
+      "bytes": 15814,
+      "sha256": "a14cbaec3baac143a66365fa38e8ce5a15573da1f8338c931fd4f5cfd53ba879"
+    },
+    {
+      "path": "math/power-of-tiger.mjs",
+      "bytes": 11702,
+      "sha256": "5dda83ccaddfff1926cc1f84f31ed703b150b9c87824d37e74e2c9cdbf780164"
+    },
+    {
+      "path": "math/public-gamble.mjs",
+      "bytes": 2193,
+      "sha256": "923019b294904bed1649a622739316df227be3921ac23fc0c37ddcf71e28eb14"
+    },
+    {
+      "path": "math/public-slot-features.mjs",
+      "bytes": 3884,
+      "sha256": "5e438d46ea577c8046a242339791cfdb01262653c600aceac7650fc6a0ff0fd2"
+    },
+    {
+      "path": "math/requested72.mjs",
+      "bytes": 14478,
+      "sha256": "271f923586104c73ebb10c4093c4b78fae9334d2ba4b91be9c8c87a27dc7b923"
+    },
+    {
+      "path": "math/ways-slot.mjs",
+      "bytes": 3899,
+      "sha256": "8a5d8da0ceb03d033f11c64f0e541281eddedcb0f173e20a0df8cb781c985d81"
+    },
+    {
+      "path": "scope/official74.json",
+      "bytes": 47807,
+      "sha256": "94c66dac3c62b064153c424b3576dfd856ebf5042f0792e599face4853a0020b"
+    },
+    {
+      "path": "scope/requested74.json",
+      "bytes": 85409,
+      "sha256": "12d37c7047d20a234484e0de572cdabf2a5b039b7c1874334c2c4671bf115070"
+    },
+    {
+      "path": "server/existing-library74-adapter.mjs",
+      "bytes": 21903,
+      "sha256": "db370e74e5f72f5673d5d15db54ef32fc63de3045a3dca56b1482449d110a329"
+    },
+    {
+      "path": "server/existing-library74-service.mjs",
+      "bytes": 3828,
+      "sha256": "e251b3b4f319c1bd787ce2b678657383e4a928dc3a96a2fd59d7927b8e3abae3"
+    },
+    {
+      "path": "server/protected74-review.mjs",
+      "bytes": 13751,
+      "sha256": "a759a0f5de87b08ead8255dcc12b623a16e9df26a4e21813252a199f8cfce02b"
+    }
+  ]
+}

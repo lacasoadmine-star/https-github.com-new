@@ -22,18 +22,33 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": "/games/balloon_native",
+    "existingRouteIdentityVerified": true,
+    "existingRouteEngineId": "balloon_native",
+    "existingRouteVersion": "superwin-balloon-1-etb1-40000-v1",
+    "existingRouteProvenance": "Live existing backend library health: exact title and ID",
+    "exactRequestedProtectedBackendModel": null,
+    "exactRequestedProtectedBackendIdentityExists": false,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Existing deployed operator profile advertises maximum40000 ETB; unchanged by latest user instruction",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-service-adapter-prepared-release-disabled-no-production-player-funds-tested"
+    "status": "other-existing-engine-route-metadata-only-exact-protected-backend-identity-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": {
       "id": "ind74_official_balloon",
       "title": "Balloon",
@@ -119,6 +134,9 @@
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": "/games/balloon_native",
+    "existingWalletLiveUrl": "https://superwin-player.apdiy61.workers.dev/games/balloon_native",
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html#ind74_official_balloon",
@@ -188,6 +206,8 @@
     "references/official74-browser-audit-20261111.json"
   ],
   "remaining": [
+    "PlayNow can navigate to this exact existing account engine; updated independent prototype remains a separate model",
+    "Existing backend unchanged; this evaluator is not installed or verified under the exact requested backend identity",
     "20 additional confirmed official demo rounds required",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",

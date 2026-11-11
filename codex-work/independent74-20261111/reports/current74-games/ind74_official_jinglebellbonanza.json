@@ -14,7 +14,7 @@
   "comparison": {
     "status": "full-provider-parity-unverified",
     "publicGeometryVerified": false,
-    "demoGeometryObserved": false,
+    "demoGeometryObserved": true,
     "sourceFacts": [],
     "unresolved": [
       "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
@@ -22,23 +22,38 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": null,
+    "existingRouteIdentityVerified": false,
+    "existingRouteEngineId": null,
+    "existingRouteVersion": null,
+    "existingRouteProvenance": null,
+    "exactRequestedProtectedBackendModel": null,
+    "exactRequestedProtectedBackendIdentityExists": false,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Cannot establish actual limits without configured deployed game",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-service-adapter-prepared-release-disabled-no-production-player-funds-tested"
+    "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": {
       "id": "ind74_official_jinglebellbonanza",
       "title": "Jingle Bell Bonanza",
       "family": "slots",
-      "modelVersion": "library74-v1:official72-jinglebellbonanza-r2",
+      "modelVersion": "library74-v1:official72-jinglebellbonanza-r3",
       "initialStatus": "settled",
       "roundId": "00000000-0000-4000-8000-00000000001f",
       "status": "settled",
@@ -107,10 +122,13 @@
     "historicalCheckpointFullSuitePassed": 651,
     "scope": "shared suite at f636b93; not 651 individual tests per game",
     "perGameProductionWalletTest": false,
-    "newMachineBrowserVerified": false
+    "newMachineBrowserVerified": true
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": null,
+    "existingWalletLiveUrl": null,
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html#ind74_official_jinglebellbonanza",
@@ -132,14 +150,419 @@
         "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
       }
     ],
-    "geometry": [],
+    "geometry": [
+      {
+        "renderedSymbolInstances": 15,
+        "visibleReelCandidates": 5,
+        "visibleRowCandidates": 3,
+        "xPositions": [
+          501,
+          670,
+          839,
+          1008,
+          1177
+        ],
+        "yPositions": [
+          132,
+          329,
+          526
+        ],
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+      }
+    ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
-    "betChanges": [],
-    "roundProgressAndResults": [],
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_jinglebellbonanza",
+        "title": "Jingle Bell Bonanza",
+        "officialUrl": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "protectedImplementation": false,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T08:11:46.870Z",
+            "providerEventTime": "2026-11-11T09:11:44.3330039+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966002328.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:11:52.473Z",
+            "providerEventTime": "2026-11-11T09:11:44.3330039+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966002328.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/JingleBellBonanza.html",
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-official-help.html",
+            "sha256": "7774114b01b4f202cdd3628bc7a323358bc44d754a2a65dfa2459784f38c8afb",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "blocked-or-partial",
+        "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JingleBellBonanza.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "canvas": {
+          "width": 2170,
+          "height": 1220
+        },
+        "initialUiLabels": [
+          "HOLD & SPIN",
+          "BALANCE 20,000.00 DMO",
+          "BET 0.10 DMO"
+        ],
+        "currencyObserved": "DMO",
+        "initialScreenshot": {
+          "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png",
+          "sha256": "782313bc8e006cd4ef36feef70022260f5d1ae95981b48dc61bb6c7f3045223d"
+        },
+        "geometry": {
+          "renderedSymbolInstances": 15,
+          "visibleReelCandidates": 5,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            501,
+            670,
+            839,
+            1008,
+            1177
+          ],
+          "yPositions": [
+            132,
+            329,
+            526
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        },
+        "publicControls": [
+          "ButtonsAutoPlay",
+          "ButtonsBet",
+          "ButtonsMenu",
+          "ButtonsQuickPlay",
+          "ButtonsSoundOn",
+          "ButtonsSpin"
+        ],
+        "turbo": {
+          "enabled": false,
+          "publicButtonTextures": [
+            "ButtonsQuickPlayDisabled",
+            "ButtonsSpinDisabled"
+          ],
+          "screenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-turbo-state.png",
+            "sha256": "e5a9ec5ae1f1db10aaa7728b60b734d943ce56d328da39be748abc2c83e0e16a"
+          }
+        },
+        "blocker": "BET_CONTROL_UNSUPPORTED",
+        "framePaths": [
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+          "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/JingleBellBonanza/Game.aspx",
+          "about:",
+          "about:",
+          "chrome-error:",
+          "about:"
+        ],
+        "blockerScreenshot": {
+          "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-blocker.png",
+          "sha256": "5ec62cd7f9e875b7167f664d605b74a9873472762e96886fcc4efc4935ddf19a"
+        },
+        "blockerUi": [
+          "HOLD & SPIN",
+          "BALANCE 20,000.00 DMO",
+          "BET 0.10 DMO",
+          "QUICK PLAY",
+          "For faster play enable",
+          "turbo mode",
+          "You can disable the feature",
+          "from game menu",
+          "enable quick play",
+          "NO"
+        ],
+        "historicalAtFirstLaunch": 0,
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
+      }
+    ],
     "featuresAndRules": {
-      "directlyObserved": [],
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_jinglebellbonanza",
+          "title": "Jingle Bell Bonanza",
+          "officialUrl": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+          "protectedImplementation": false,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T08:11:46.870Z",
+              "providerEventTime": "2026-11-11T09:11:44.3330039+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966002328.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:11:52.473Z",
+              "providerEventTime": "2026-11-11T09:11:44.3330039+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966002328.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/JingleBellBonanza.html",
+              "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-official-help.html",
+              "sha256": "7774114b01b4f202cdd3628bc7a323358bc44d754a2a65dfa2459784f38c8afb",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "blocked-or-partial",
+          "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JingleBellBonanza.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            }
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "canvas": {
+            "width": 2170,
+            "height": 1220
+          },
+          "initialUiLabels": [
+            "HOLD & SPIN",
+            "BALANCE 20,000.00 DMO",
+            "BET 0.10 DMO"
+          ],
+          "currencyObserved": "DMO",
+          "initialScreenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png",
+            "sha256": "782313bc8e006cd4ef36feef70022260f5d1ae95981b48dc61bb6c7f3045223d"
+          },
+          "geometry": {
+            "renderedSymbolInstances": 15,
+            "visibleReelCandidates": 5,
+            "visibleRowCandidates": 3,
+            "xPositions": [
+              501,
+              670,
+              839,
+              1008,
+              1177
+            ],
+            "yPositions": [
+              132,
+              329,
+              526
+            ],
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          },
+          "publicControls": [
+            "ButtonsAutoPlay",
+            "ButtonsBet",
+            "ButtonsMenu",
+            "ButtonsQuickPlay",
+            "ButtonsSoundOn",
+            "ButtonsSpin"
+          ],
+          "turbo": {
+            "enabled": false,
+            "publicButtonTextures": [
+              "ButtonsQuickPlayDisabled",
+              "ButtonsSpinDisabled"
+            ],
+            "screenshot": {
+              "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-turbo-state.png",
+              "sha256": "e5a9ec5ae1f1db10aaa7728b60b734d943ce56d328da39be748abc2c83e0e16a"
+            }
+          },
+          "blocker": "BET_CONTROL_UNSUPPORTED",
+          "framePaths": [
+            "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+            "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/JingleBellBonanza/Game.aspx",
+            "about:",
+            "about:",
+            "chrome-error:",
+            "about:"
+          ],
+          "blockerScreenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-blocker.png",
+            "sha256": "5ec62cd7f9e875b7167f664d605b74a9873472762e96886fcc4efc4935ddf19a"
+          },
+          "blockerUi": [
+            "HOLD & SPIN",
+            "BALANCE 20,000.00 DMO",
+            "BET 0.10 DMO",
+            "QUICK PLAY",
+            "For faster play enable",
+            "turbo mode",
+            "You can disable the feature",
+            "from game menu",
+            "enable quick play",
+            "NO"
+          ],
+          "historicalAtFirstLaunch": 0,
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
+        }
+      ],
       "publicDocumentedLayout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -189,9 +612,12 @@
   "evidenceFiles": [
     "scope/official74.json",
     "tests/math-official72-audit.json",
-    "references/official74-browser-audit-20261111.json"
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-slots20-remaining.json"
   ],
   "remaining": [
+    "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",
+    "Existing backend unchanged; this evaluator is not installed or verified under the exact requested backend identity",
     "20 additional confirmed official demo rounds required",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",

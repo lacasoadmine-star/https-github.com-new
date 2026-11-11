@@ -1,0 +1,47 @@
+{
+  "attempts": [
+    {
+      "phase": "initial transient-frame locator proof",
+      "result": "timeout waiting for first transient frame",
+      "cause": "Locator polling backoff could miss a short-lived frame; later instrumentation confirmed frame sequence and no render errors."
+    },
+    {
+      "phase": "instrumented replay before wall-clock deadline",
+      "result": "passed",
+      "displayedFrames": 59,
+      "elapsedMs": 6980,
+      "renderErrors": []
+    },
+    {
+      "phase": "deadline replay with old locator",
+      "result": "transient-frame locator timeout",
+      "renderErrors": [],
+      "framesActuallyRendered": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "phase": "RAF-polled proof with wall-clock budget",
+      "result": "passed",
+      "latestBrowserReport": "reports/current74-coins-presentation/browser-report.json",
+      "longReplay": {
+        "serverFrames": 59,
+        "displayedFrames": 26,
+        "elapsedMs": 3651,
+        "configuredFeatureMotionBudgetMs": 2400,
+        "fullBoardFactor": 2,
+        "locked": 20,
+        "extraActions": 0,
+        "renderErrors": [],
+        "budgetFastForwarded": true
+      }
+    }
+  ]
+}

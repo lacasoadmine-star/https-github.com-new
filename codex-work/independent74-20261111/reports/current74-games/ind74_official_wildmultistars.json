@@ -22,18 +22,33 @@
   },
   "wallet": {
     "productionVerified": false,
+    "existingRouteMetadataEvidence": "reports/current74-existing-wallet-map.json",
+    "existingWalletRoute": "/games/wild_multi_stars",
+    "existingRouteIdentityVerified": true,
+    "existingRouteEngineId": "wild_multi_stars",
+    "existingRouteVersion": "2026-10-27-reference-v3000",
+    "existingRouteProvenance": "Exact existing protected wallet model GET200 ETB enabledtrue +real ZPLAYcontroller route200",
+    "exactRequestedProtectedBackendModel": "wild_multi_stars",
+    "exactRequestedProtectedBackendIdentityExists": true,
+    "exactProtectedBackendEvidence": "reports/protected-wallet-api-capability.json",
+    "independentPrototypeAttachedToExistingWallet": false,
+    "financialWagerTested": false,
+    "existingLimitsNote": "Existing modelbetLevels .10,.20,.50,1,2,5,10,20,50,100ETB; no limit changed",
+    "backendUnchanged": true,
+    "existingWalletReadOnlySourcePrepared": true,
+    "financialActionsInstalledAndVerified": false,
     "moneyPolicyEvidence": "reports/money-policy-20261111.json",
     "largeAmountFixtureEvidence": "tests/evidence/money-policy-large-ledger-tests.txt",
     "accountGameHouseProductionLimitsVerified": false,
-    "status": "existing-service-adapter-prepared-release-disabled-no-production-player-funds-tested"
+    "status": "exact-protected-backend-identity-metadata-exists-financial-flow-untested"
   },
   "tests": {
-    "freshSharedSuitePassed": 728,
+    "freshSharedSuitePassed": 757,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
     "browserEvidence": "tests/machine74-browser-report.json",
-    "browserCreatedAt": "2026-11-11T06:20:28.708Z",
+    "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": {
       "id": "ind74_official_wildmultistars",
       "title": "Wild Multi Stars",
@@ -111,6 +126,9 @@
   },
   "deployment": {
     "completedReleaseDeployed": false,
+    "newReleasePublished": false,
+    "existingWalletRoute": "/games/wild_multi_stars",
+    "existingWalletLiveUrl": "https://superwin-player.apdiy61.workers.dev/games/wild_multi_stars",
     "lastRecordedRelease": "r5",
     "lastRecordedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
     "livePrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html#ind74_official_wildmultistars",
@@ -341,6 +359,7 @@
     "tests/evidence/official-demo-observations-historical-import.json"
   ],
   "remaining": [
+    "PlayNow may navigate to exact existing wallet engine; no updated prototype/provider parity claim.",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",
     "Build and verify final release before deployment",

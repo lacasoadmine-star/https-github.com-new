@@ -28,9 +28,11 @@ function collectAllowed(){const r=snapshot?.round;if(r?.status!=='active')return
 function updateControls(){
   const active=snapshot?.round?.status==='active',busy=working||refreshing,waiting=!!api.pending;
   const playable=!!snapshot&&snapshot.accepting===true&&snapshot.game?.launchable!==false&&!snapshot.other_active_game;
-  $('play').disabled=busy||waiting||active||!playable;$('play').textContent=working&&!animation?'SUGAYA…':game?.family==='slots'||game?.id==='ind74_official_rollx'?'SPIN':'BILOW';
-  $('play').hidden=!!animation;$('stop').hidden=!animation;
-  $('next').hidden=game?.family!=='ladder';$('next').disabled=busy||waiting||!active;
+  $('play').disabled=busy||waiting||active||!playable;$('play').textContent=working&&!animation?'SUGAYA…':game?.id==='ind74_official_chickenhighway'?'START':game?.family==='slots'||game?.id==='ind74_official_rollx'?'SPIN':'BILOW';
+  $('play').hidden=!!animation||(game?.id==='ind74_official_chickenhighway'&&active);$('stop').hidden=!animation;
+  $('next').textContent=game?.id==='ind74_official_chickenhighway'?'GO':'TALLAABADA XIGTA';$('collect').textContent=game?.id==='ind74_official_chickenhighway'?'CASHOUT'+(collectAllowed()?' · '+decimal(snapshot?.round?.collectibleMinor):''):'QAADO';
+  $('next').classList.toggle('primary',game?.id==='ind74_official_chickenhighway');$('collect').classList.toggle('highway-cashout',game?.id==='ind74_official_chickenhighway');
+  $('next').hidden=game?.family!=='ladder'||(game?.id==='ind74_official_chickenhighway'&&(!active||!!animation));$('next').disabled=busy||waiting||!active;
   $('collect').hidden=!['crash','ladder','mines'].includes(game?.family)&&!game?.gamble?.enabled;$('collect').disabled=busy||waiting||!collectAllowed();
   const gamble=active&&snapshot?.round?.allowedActions?.includes('gamble');
   for(const id of ['gamble-red','gamble-black']){$(id).hidden=!gamble;$(id).disabled=busy||waiting||!gamble;}
@@ -68,7 +70,7 @@ async function refresh({silent=false}={}){
     game={...game,...next.game,id:game.id};
     if(api.pending&&!silent)message(api.pending.body.game_id===game.id?'Codsigii hore lama xaqiijin. Isticmaal “Xaqiiji codsigii hore”.':'Codsi hore ayaa sugaya ciyaar kale. Dib ugu noqo ciyaartaas.',true);
     else if(next.other_active_game&&!silent)message('Wareeg kale ayaa furan: '+next.other_active_game+'. Marka hore dhammaystir.',true);
-    else if(!next.accepting||next.game?.launchable===false){if(!silent)message('Mashiinka waa la dhisay; wareegyada cusub waxay sugayaan xaqiijinta server-ka.');}
+    else if(!next.accepting||next.game?.launchable===false){if(!silent)message('Ciyaartan weli lama heli karo. Fadlan dooro ciyaar kale.');}
     else if(!silent)message(next.round?.status==='active'?'Wareeggaagii furan ayaa dib loo helay.':demo?'DEMO waa diyaar. Isticmaal credits-ka bilaashka ah.':'Akoonka ETB waa la xaqiijiyey.');
   }catch(error){if(error?.code!=='STALE_RESPONSE'){snapshot=null;failure(error);}}
   finally{refreshing=false;if(!animation)draw();}

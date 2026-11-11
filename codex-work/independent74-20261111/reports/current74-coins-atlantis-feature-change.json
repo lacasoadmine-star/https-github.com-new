@@ -1,0 +1,115 @@
+{
+  "updatedAt": "2026-11-11T08:24:44.790Z",
+  "gameId": "ind74_official_coinsofatlantis",
+  "modelVersion": "official72-coinsofatlantis-r4",
+  "implementationStatus": "Documented regular/+1/MINI/MAJOR coin-respin subset; full provider feature parity remains false",
+  "sources": {
+    "geometry": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+    "observedGeometry": "5columns ×4rows,20cells",
+    "officialHelp": "references/official-slot-help-en-20261111.json",
+    "sourceBodySha256": "e0421247259a11d1d1871c6b6ccb7adea9f9a8788dfc089f7e7bdfae13c281d2",
+    "quotedRules": {
+      "triggerAndResets": "The main feature of this slot is collecting Coins to trigger Respins and aiming to land high-value Jackpot Coins for bigger wins.\n3 Respins are triggered when 5 or more Coins of any value land anywhere on the board during the base game.\n\nAll landed Coins remain locked in their positions while the empty cells Respin.\nIf one or more new Coin symbols land in any empty position, the remaining Respins are reset back to 3.\nRespins end when no Coin lands during 3 consecutive Respins or when the entire board is filled with Coin symbols.\nIf the board becomes fully filled with Coins, the total win is multiplied by X2.\n\nAfter the Respins finish, all Coin values are added together to determine the total Respin win.",
+      "plusOne": "When the +1 RESPIN symbol lands, the number of Respins increases to 4.\nAdditionally, the +1 RESPIN symbol is assigned a random value of:\n1X, 2X, 3X, 4X, 5X, 6X, 7X, 8X, 9X, 10X, 15X, or 20X. <br>\nImportantly, once +1 RESPIN symbol appears, every time another Coin lands, the Respins reset to 4 again.",
+      "regularValues": "When landed, the golden regular Coin carries one of the following multiplier values relative to the bet:1X, 2X, 3X, 4X, 5X, 6X, 7X, 8X, 9X, 10X, 15X, or 20X.",
+      "mini": "MINI (blue Coin) — 25X the bet",
+      "major": "MAJOR (purple Coin) — 50X the bet",
+      "megaGrandGrouping": "To win the MEGA Jackpot, the player must land 2 MEGA Coins.\nIf only 1 MEGA Coin lands, the MEGA Jackpot is not awarded. In this case, the value of the single MEGA Coin is 25X the bet.<br>\nIf 2 MEGA Coins land, one MEGA Coin will have a value of 25X, and the second will have a value of 175X, for a total combined value of 200X the bet.<br>\nTo win the GRAND Jackpot, the player must land 3 GRAND Coins.\nIf only 1 or 2 GRAND Coins land, the GRAND Jackpot is not awarded. In this case, each GRAND Coin has a value of 50X the bet. <br>\nIf 3 GRAND Coins land, the first GRAND Coin will have a value of 50X, the second 50X, and the third 900X, giving a total combined value of 1000X the bet."
+    }
+  },
+  "implemented": [
+    "Five initial coins trigger three respins",
+    "Initial coins and subsequent new coins stay locked",
+    "New coin resets the current allowance",
+    "+1RESPIN coin raises the persistent reset allowance to four",
+    "Regular values1–10,15,20; MINI25 and MAJOR50 relative to accepted total bet",
+    "Feature ends on full board or exhausted consecutive empty respins",
+    "Final coin sum pays once; a full board doubles it",
+    "One settled server spin with base and all past coin frames",
+    "Exact integer awards and complete base-plus-feature reserve"
+  ],
+  "independentChoices": [
+    "Base regular symbols32tickets each; eligible wild1, regular coins16, MINI2 and MAJOR1",
+    "Empty feature cells64tickets:8regular,1MINI,1MAJOR,1+1and53blank",
+    "Uniform regular/+1coin values",
+    "Initial coin count before regular-spin wild expansion",
+    "Regular symbol prizes and five-line chart pending exact provider chart/count",
+    "Base regular award plus final feature coin sum once"
+  ],
+  "unimplementedOrUnverified": [
+    "MEGA/GRAND grouping beyond the exact documented thresholds and joint availability restrictions",
+    "Buy Bonus60x, ANTE+50% and their exact probabilities",
+    "Complete provider maximum2500x distribution/constraints",
+    "Provider base/coin/wild expansion ordering and award aggregation",
+    "Full reference artwork/audio and rare-feature observation"
+  ],
+  "bounds": {
+    "cells": 20,
+    "minimumInitialCoins": 5,
+    "maxResetAllowance": 4,
+    "maximumFramesUpperBound": 60,
+    "proof": "Each successful reset adds at least one locked coin; between additions or terminal exhaustion at most4respins occur. Thus no more than4×(cells−initialCoins)frames.",
+    "testedLongSequenceFrames": 59,
+    "independentMaximumMultiplierBps": 32990000,
+    "maximumAward": "Largest regular base award plus2×20×50×accepted bet. An explicit local fixture attains the bound; there is no hidden provider2500x clamp."
+  },
+  "publicPresentationContract": {
+    "definition": [
+      "coinSymbol",
+      "plusRespinSymbol",
+      "coinFeature"
+    ],
+    "outcome": [
+      "featureType=coin-respin",
+      "coinValues(initial)",
+      "finalCoinValues",
+      "initialCoinCount",
+      "baseAwardMinor",
+      "bonusTriggered",
+      "bonusFrames",
+      "bonusAwardMinor",
+      "featureResetLimit",
+      "featureFinishedReason"
+    ],
+    "frame": [
+      "grid(nullblank)",
+      "coinValues(row,col,kind,multiplier)",
+      "lockedCells",
+      "newCoins",
+      "resetLimit",
+      "respinsRemaining",
+      "rawAwardMinor",
+      "displayedAwardMinor",
+      "multiplierApplied",
+      "terminal"
+    ]
+  },
+  "validation": {
+    "math": {
+      "command": "node --test tests/coins-atlantis-features.test.mjs tests/public-slot-features.test.mjs tests/math-official72-audit.test.mjs",
+      "tests": 27,
+      "pass": 27,
+      "fail": 0,
+      "log": "reports/current74-coins-atlantis-tests.txt"
+    },
+    "ledger": {
+      "command": "node --test server/tests/coins-atlantis-feature-ledger.test.mjs",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "log": "reports/current74-coins-atlantis-ledger-tests.txt",
+      "coverage": [
+        "One20ETB fixture stake",
+        "Payout65980ETB exceeds40000ETB under configured fixture limits",
+        "Six identical concurrent deliveries yield five replays",
+        "One debit,one payout,one canonical history record",
+        "Zero residual reserve",
+        "Balanced transfer legs and conserved total",
+        "Reload adds no credit"
+      ],
+      "limitation": "Disposable single-connection PGlite fixture; not production multi-process contention evidence."
+    }
+  },
+  "newOfficialDemoRoundsByThisAgent": 0,
+  "productionWrites": 0
+}

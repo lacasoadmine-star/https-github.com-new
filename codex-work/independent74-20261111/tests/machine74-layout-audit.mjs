@@ -37,7 +37,7 @@ const server=createServer(async(req,res)=>{
   const path=new URL(req.url,'http://localhost').pathname;
   if(path==='/audit'){
    res.writeHead(200,{'content-type':'text/html','content-security-policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'"});
-   res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/client/machines74.css"><link rel="stylesheet" href="/client/machine74-renderer.css"></head><body><main><section class="machine"><div id="stage" class="machine-stage"></div><div class="controls"><button>Controls below stage</button></div></section></main></body></html>');return;
+   res.end('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/client/machines74.css"><link rel="stylesheet" href="/client/machine74-renderer.css"></head><body><main><section class="machine"><div id="stage" class="machine-stage"></div><div class="controls"><button>Controls below stage</button></div></section></main></body></html>');return;
   }
   if(!/^\/client\/[a-zA-Z0-9-]+\.(mjs|css)$/.test(path))throw Error('Unexpected local path');
   const body=await readFile(join(root,path));res.writeHead(200,{'content-type':extname(path)==='.css'?'text/css':'application/javascript'});res.end(body);

@@ -52,7 +52,7 @@ export function validateProtected74MachineSessionHeaders(request,{playerOrigin,s
 export function protected74ReviewReadiness(evidence={}){
  const required=['sameProtectedDatabaseVerified','actualSchemaConstraintsVerified','retainedFinancialClassHashesVerified',
   'protectedSessionResolverVerified','protectedMachineSessionGuardVerified','accountCapsAndHouseReserveVerified','reciprocalLegacyAdmissionGuardVerified',
-  'canonicalUserHouseRowLockOrderVerified','all74ReferenceEvidenceComplete','verifiedPerGamePolicy'];
+  'canonicalUserHouseRowLockOrderVerified','all74ReferenceEvidenceComplete','persistentPerPlayerGameStakeCarryVerified','verifiedPerGamePolicy'];
  const reasons=required.filter(key=>evidence[key]!==true).map(key=>'MISSING_'+key.replace(/[A-Z]/g,c=>'_'+c).toUpperCase());
  return {reviewOnly:true,newRoundsEnabled:false,hardGate:'PROTECTED74_NEW_ROUNDS_ENABLED=false',
   readyForSeparateReleaseReview:reasons.length===0,reasons};
@@ -124,4 +124,46 @@ export function prepareProtectedRuntimeExportOnly(source,{expectedSha256=ACTUAL_
   exactOriginalPrefixPreserved:true,changedExistingCodeBytes:0,newFinancialClasses:0,newWallets:0,newRoutesInstalled:0,
   newRoundGatesEnabled:0,exportsOnly:'existing service instance',unexposedPrivateHelpers:['authenticate','balance','lockWallets','move','houseFor'],
   blocker:'Existing Bun.serve already captures its fetch handler; a separately reviewed bootstrap hook and compatible retained-service injection are still required.'}};
+}
+
+// In-process closure hook for the ACTUAL protected slot factory. References are
+// its existing private helpers, not newly implemented authentication or money
+// functions. No LibraryService/SharedWallet instance is created here. This build
+// exposes closed catalogue + read-only account snapshots only; persistent new
+// round admission/settlement remains blocked pending the separate proofs.
+export function createProtected74ClosureReviewNamespace({previous,capabilities}={}){
+ if(typeof previous?.fetch!=='function'||typeof capabilities?.authenticate!=='function'||typeof capabilities?.transaction!=='function'||typeof capabilities?.balance!=='function'||typeof capabilities?.cash!=='function')throw new TypeError('Exact protected factory helper references are required.');
+ const {authenticate,transaction,balance,cash}=capabilities;
+ return {...previous,async fetch(request,...context){
+  const url=new URL(request.url);
+  const pathname=url.pathname.startsWith('/api/independent74/')?url.pathname.replace('/api/','/api/slots/'):url.pathname;
+  if(!pathname.startsWith(PROTECTED74_PREFIX))return previous.fetch.call(previous,request,...context);
+  const route=pathname.slice(PROTECTED74_PREFIX.length);
+  if(request.method==='GET'&&route==='catalog')return response({...protected74ReviewCatalog(),wallet:'same-existing-protected-account',persistentNewRoundsReady:false});
+  if(!['state','history','action'].includes(route))return response({error:{code:'NOT_FOUND'}},404);
+  if(request.method!==(route==='action'?'POST':'GET'))return response({error:{code:'METHOD_NOT_ALLOWED'}},405);
+  // No session/gate/config input can make this review build move money.
+  if(route==='action')return response({error:{code:'PROTECTED74_REVIEW_ONLY_NEW_ROUNDS_DISABLED'},new_rounds_enabled:false},503);
+  const id=url.searchParams.get('game_id');
+  if(!ids.has(id)||url.searchParams.getAll('game_id').length!==1||[...url.searchParams.keys()].some(k=>k!=='game_id'))return response({error:{code:'GAME_MODEL_UNAVAILABLE'}},404);
+  try{
+   const snapshot=await transaction(async connection=>{
+    // Existing transaction() has only SET LOCAL statements before this hook;
+    // establish database-enforced read-only mode before any data query.
+    await connection.query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY');
+    const user=await authenticate(request,connection,false);
+    const actualBalance=await balance(connection,user);
+    const rows=route==='history'?await connection.query('SELECT id,game,bet::text AS stake_minor,payout::text AS payout_minor,created_at FROM sw_rebuild.rounds WHERE user_id=$1 AND game=$2 ORDER BY created_at DESC,id DESC LIMIT 20',[user,id]):{rows:[]};
+    return {authenticated:true,mode:'account',currency:'ETB',balance:cash(actualBalance),
+      game:reviewAdapter.definitions[id],game_id:id,model_version:reviewAdapter.definitions[id].version,
+      accepting:false,reviewOnly:true,walletSource:'existing-protected-account',
+      // No accepted new round exists in this hardclosed candidate. Do not
+      // pretend that settled canonical history proves active-round recovery.
+      round:null,activeRecoveryVerified:false,other_active_game:null,
+      ...(route==='history'?{history:rows.rows.map(r=>({round_id:r.id,game_id:r.game,stakeMinor:r.stake_minor,payoutMinor:r.payout_minor,status:'settled',created_at:r.created_at}))}:{}),
+      machineSessionContract:'Use the existing /api/machine-session and X-Zplay-Machine-Session gateway guard; future action transport remains unverified and disabled.'};
+   });
+   return response(snapshot);
+  }catch(failure){const status=Number.isInteger(failure.status)&&failure.status>=400&&failure.status<500?failure.status:503;return response({error:{code:status<500?failure.message:'PROTECTED74_ACCOUNT_READINESS_UNVERIFIED'},new_rounds_enabled:false},status);}
+ }};
 }

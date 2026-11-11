@@ -1,0 +1,58 @@
+{
+  "createdAt": "2026-11-11T08:24:19.846888+00:00",
+  "gameId": "ind74_official_chickenhighway",
+  "status": "Presentation source corrected; multiplier model correction waiting for full public lane-chain read-only inspection",
+  "observed": "Official screenshot has chicken/desert/cactus verge at left, horizontal road lanes, hubcap multiplier targets, moving vehicles, yellow CASHOUT and green START/GO. Confirmed first crossing1.02x then cashout1.02DMO for1stake.",
+  "initialScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-initial.png",
+  "initialScreenshotSha256": "fbe5493731190267bc7dba5f8e0a3a9a9cd4f9bff341ad60d921b73b9bd319c5",
+  "publicMarketing": "references/chicken-highway-public-20261111.json",
+  "implemented": [
+    "Distinct horizontal road renderer with bounded progress-following lane window",
+    "Native-style START/GO/CASHOUT labels only for this title",
+    "Chicken follows confirmed lane state; collisions are based on settled server state",
+    "Original CSS traffic/chicken animation; reduced-motion disables animation",
+    "Other ladder titles keep their existing renderer and labels"
+  ],
+  "verification": {
+    "rendererTests": "reports/current74-chicken-renderer-tests.txt",
+    "rendererPass": 90,
+    "browserTests": "reports/current74-chicken-browser/report.json",
+    "browserChecks": 16,
+    "browserWidths": [
+      360,
+      390,
+      430,
+      1280
+    ],
+    "browserStates": [
+      "ready",
+      "active",
+      "collected",
+      "lost"
+    ],
+    "noDocumentHorizontalOverflow": true,
+    "reducedMotion": true,
+    "repeatedStop": {
+      "immutableConfirmedReceipt": true,
+      "actions": 0,
+      "animationEnded": true
+    }
+  },
+  "remaining": [
+    "Full native lane count/multiplier chain and other difficulty tables",
+    "Current math has unrelated authored1.2-to125 multipliers and still requires correction",
+    "Provider probabilities, artwork/audio/complete visual equivalence",
+    "Account/wallet live integration and deployment"
+  ],
+  "officialDemoRoundsStartedByThisTask": 0,
+  "playerWalletMutations": 0,
+  "liveWrites": 0,
+  "deploymentPerformed": false,
+  "publicHelp": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-rendered-rules.json",
+  "documented": [
+    "Easy max20x, Medium max1000x, Hard max10000x",
+    "Cash out before next crossing",
+    "Disconnect>8s triggerscashout; liveconnectionpolicyunimplemented/unverified",
+    "Autoplaynumberofrunsandcashoutstep documented, notimplemented"
+  ]
+}

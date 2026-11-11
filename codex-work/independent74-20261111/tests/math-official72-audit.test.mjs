@@ -57,7 +57,7 @@ test('all 72 models have consistent geometry, public evidence boundaries and ind
     assert.equal(d.limits.betStepMinor, '100', d.id);
     assert.ok(BigInt(d.limits.maxWinMinor) > 0n);
     if (d.family === 'slots') {
-      assert.equal(d.cols, ['Multi Hot 5 Wild','Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X','Multi Hot Wild Ways','Power of Tiger'].includes(d.catalogName) ? 3 : 5);
+      assert.equal(d.cols, ['Multi Hot 5 Wild','Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X','Multi Hot Wild Ways','Power of Tiger','Multi Hot Ways','Multi Fruits Charging Wilds','Gems Crown Charging Wilds'].includes(d.catalogName) ? 3 : 5);
       assert.equal(d.layout.rows, d.rows);
       assert.equal(d.layout.columns, d.cols);
       assert.equal(d.layout.paylines, d.ways ? null : d.paylines.length);
@@ -112,9 +112,10 @@ test('every model and valid start option is reproducible with injected integer d
   }
 });
 
-test('regular slot evaluators pay their symbol awards without a hidden clamp and their per-line bound is attainable; Tiger has separate conditional-feature coverage', () => {
-  assert.equal(family('slots').filter(d=>d.id!=='ind74_official_poweroftiger').length,39);
-  for (const d of family('slots').filter(d=>d.id!=='ind74_official_poweroftiger')) for (const betMinor of ['100', '300', '400000']) {
+test('regular slot evaluators pay their symbol awards without a hidden clamp; Tiger and Coins have separate conditional-feature coverage', () => {
+  const simple=family('slots').filter(d=>!['ind74_official_poweroftiger','ind74_official_coinsofatlantis'].includes(d.id));
+  assert.equal(simple.length,38);
+  for (const d of simple) for (const betMinor of ['100', '300', '400000']) {
     let greatest = 0n;
     const wheelIndex = (d.multiplierValues ?? [1]).indexOf(Math.max(...(d.multiplierValues ?? [1])));
     const wheel = (d.multiplierValues ?? [1])[wheelIndex];
