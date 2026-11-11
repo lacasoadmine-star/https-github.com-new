@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 
 CHUNK=1048576
-GAMES={'shared','multi-hot-10-2','multi-hot-20','multi-hot-40','multi-hot-100','multi-hot-5-deluxe','burning-ice-41','blazing-hot-10','burning-ice-40','hab','hot-samba','boca-jamba-10'}
+GAMES={'shared','multi-hot-10-2','multi-hot-20','multi-hot-40','multi-hot-100','multi-hot-5-deluxe','burning-ice-41','blazing-hot-10','burning-ice-40','hab','hot-samba','boca-jamba-10','multi-hot-wild-ways','multi-hot-5-wild','multi-hot-5-super-wilds'}
 ALLOWED=re.compile(r'^(?:index\.html|[a-z0-9-]+\.mjs|style\.css|profile\.json|assets/[a-z0-9-]+\.(?:webp|png|mp3|ogg|woff2))$')
 
 def write(path,value):

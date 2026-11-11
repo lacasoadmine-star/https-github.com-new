@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="so">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#042b1c">
+ <title>ZPLAY</title>
+ <link rel="stylesheet" href="/independent74/native/shared/style.css">
+ <script type="module" src="/independent74/native/shared/native-game.mjs"></script>
+</head>
+<body>
+ <header class="topbar"><a href="/" target="_top" aria-label="Ku noqo ZPLAY">ZPLAY</a><span id="top-title"></span><time id="clock"></time><a class="exit" href="/" target="_top" aria-label="Xidh ciyaarta">×</a></header>
+ <main id="game" class="game" aria-busy="true">
+  <h1><img id="title-image" alt="" hidden><span id="title-suffix" class="title-suffix"></span></h1>
+  <section class="machine" aria-label="Reels-ka ciyaarta">
+   <div class="multiplier" id="multiplier-box" hidden>
+    <img class="wheel-back" id="wheel-background" alt="" hidden>
+    <div class="wheel" id="wheel"><img id="wheel-numbers" class="wheel-numbers" alt="" hidden></div>
+    <img id="wheel-current" class="wheel-current" alt="" hidden>
+    <strong id="multiplier" aria-live="polite">1x</strong>
+   </div>
+   <div id="coin-row" class="coin-row" aria-label="Lucky coins" hidden></div>
+   <img id="reel-frame" class="frame-image" alt="" hidden>
+   <div id="reels" class="reels" aria-label="Qaabka ciyaarta"></div>
+   <svg id="win-lines" class="win-lines" aria-hidden="true"></svg>
+   <div id="line-count" class="line-count"></div>
+  </section>
+  <p id="feature-note" class="feature-note" role="status"></p>
+  <div id="win-display" class="win-display" hidden><span class="win-caption">WIN</span><strong id="win-amount">0.00</strong><small>ETB</small><div class="feature-controls"><button id="gamble-win" class="picture-button" type="button" aria-label="Gamble ×2" hidden><img alt=""><span>×2</span></button><button id="take-win" class="picture-button" type="button" aria-label="Take Win" hidden><img alt=""><span>TAKE WIN</span></button></div></div>
+  <p id="message" class="message" role="status" aria-live="polite">Hubinaya ciyaarta…</p>
+  <div class="play-controls">
+   <button id="auto" class="picture-button auto-button" type="button" aria-label="Autoplay"><img alt=""><span class="button-fallback">AUTO</span><small id="auto-count" hidden></small></button>
+   <button id="spin" class="picture-button spin-button" type="button" aria-label="SPIN" disabled><img id="spin-image" alt=""><span id="spin-label">SPIN</span><strong id="spin-stake">—</strong><small id="spin-currency">ETB</small></button>
+   <button id="bet" class="picture-button bet-button" type="button" aria-label="Dooro sharadka"><img alt=""><span class="button-fallback">BET</span></button>
+   <button id="turbo" class="picture-button turbo-button" type="button" aria-label="Turbo" aria-pressed="false"><img alt=""><svg viewBox="0 0 24 32" aria-hidden="true"><path d="M14 1 2 18h9L9 31l14-19h-9z"/></svg></button>
+  </div>
+  <div class="bet-step-controls"><button id="bet-minus" type="button" aria-label="Yaree sharadka">−</button><button id="bet-step-open" type="button" aria-label="Dooro sharadka"><span>BET</span><strong id="bet-next">—</strong><small>ETB</small></button><button id="bet-plus" type="button" aria-label="Kordhi sharadka">+</button></div>
+  <button id="menu" class="plain-icon menu-button" type="button" aria-label="Game menu"><img alt="" hidden><svg viewBox="0 0 28 24" aria-hidden="true"><path d="M2 4h24M2 12h24M2 20h24"/></svg></button>
+  <footer class="account-bar">
+   <div class="account-field balance-field"><span>BALANCE</span><strong id="balance">—</strong><small>ETB</small></div>
+   <button id="bet-display" class="account-field" type="button" aria-label="Sharadka ETB"><span>BET</span><strong id="bet-amount">—</strong><small>ETB</small></button>
+   <div class="account-field round-win-field"><span>WIN</span><strong id="round-win">0.00</strong><small>ETB</small></div>
+   <div class="account-field last-win-field"><span>LAST WIN</span><strong id="last-win">0.00</strong><small>ETB</small></div>
+  </footer>
+  <button id="sound" class="plain-icon sound-button" type="button" aria-label="Codka" aria-pressed="false"><img alt="" hidden><svg viewBox="0 0 28 24" aria-hidden="true"><path d="M2 9h5l7-6v18l-7-6H2z"/><path class="sound-waves" d="M18 7q7 5 0 10M21 3q12 9 0 18"/></svg><span class="sound-muted" aria-hidden="true">×</span></button>
+  <button id="retry" class="recovery" type="button" hidden>Dib u xaqiiji codsigii hore</button>
+ </main>
+ <dialog id="sound-dialog" class="sound-dialog"><h2>Would you like sound?</h2><div class="choice-row"><button id="sound-yes" type="button">Yes</button><button id="sound-no" type="button">No</button></div></dialog>
+ <dialog id="bet-dialog"><header><h2>BET · ETB</h2><button data-close type="button" aria-label="Xidh">×</button></header><p id="bet-description"></p><div class="bet-stepper"><button id="bet-less" type="button" aria-label="Yaree sharadka">−</button><strong id="bet-choice">—</strong><button id="bet-more" type="button" aria-label="Kordhi sharadka">+</button></div><div id="bet-levels" class="bet-levels"></div><button id="bet-confirm" class="confirm" type="button">OK</button></dialog>
+ <dialog id="auto-dialog"><header><h2>AUTOPLAY</h2><button data-close type="button" aria-label="Xidh">×</button></header><label>Number of spins<select id="auto-spins"><option>5</option><option>10</option><option>20</option><option>50</option><option>100</option></select></label><label class="check"><input id="auto-stop-win" type="checkbox" checked> Stop on any win</label><label>Loss limit · ETB<input id="auto-loss" type="text" inputmode="decimal" value="10.00"></label><p id="auto-error" role="alert"></p><button id="auto-start" class="confirm" type="button">START</button></dialog>
+ <dialog id="menu-dialog" class="menu-dialog"><header><h2 id="menu-title">ZPLAY</h2><button data-close type="button" aria-label="Xidh">×</button></header><div class="menu-content">
+  <section id="rules-panel"><h3 id="rules-title"></h3><div id="paytable" class="paytable"></div><div id="paylines" class="paylines"></div><div id="rules-text"></div><p id="model-note" class="math-note"></p></section>
+  <section id="settings-panel" hidden><h3>SETTINGS</h3><label class="check"><input id="effects-enabled" type="checkbox"> Sound effects</label><label>Sound volume<input id="effects-volume" type="range" min="0" max="100" value="70"></label><label class="check"><input id="music-enabled" type="checkbox"> Background music</label><label>Music volume<input id="music-volume" type="range" min="0" max="100" value="35"></label><label class="check"><input id="motion-reduced" type="checkbox"> Reduce animation</label><button id="fullscreen" class="confirm" type="button">FULLSCREEN</button><p id="settings-message" role="status"></p></section>
+  <section id="history-panel" hidden><h3>HISTORY</h3><p id="history-status" role="status"></p><div class="history-sort"><button data-history-sort="recent" type="button" aria-pressed="true">RECENT</button><button data-history-sort="wins" type="button" aria-pressed="false">WINS</button></div><ol id="history"></ol><button id="history-refresh" class="confirm" type="button">REFRESH</button></section>
+ </div><nav class="menu-tabs"><button data-tab="rules" type="button" aria-selected="true">RULES</button><button data-tab="settings" type="button" aria-selected="false">SETTINGS</button><button data-tab="history" type="button" aria-selected="false">HISTORY</button></nav></dialog>
+ <dialog id="gamble-dialog"><header><h2>GAMBLE · ×2</h2><button data-close type="button" aria-label="Xidh">×</button></header><p>Dooro casaanka ama madowga. Guul: ×2. Khasaaro: 0.</p><strong id="gamble-stake"></strong><div id="revealed-card" class="revealed-card" hidden></div><div class="choice-row"><button id="gamble-red" class="red-card" type="button" aria-label="Casaan">RED</button><button id="gamble-black" class="black-card" type="button" aria-label="Madow">BLACK</button></div><button id="gamble-take" class="confirm" type="button">TAKE WIN</button><p id="gamble-message" role="status"></p></dialog>
+ <dialog id="login-dialog"><header><h2>Gal akoonkaaga</h2><button data-close type="button" aria-label="Xidh">×</button></header><p>Ciyaartani waxay isticmaashaa wallet-ka ETB ee akoonkaaga ZPLAY.</p><a href="/" target="_top" class="confirm">GAL AKOONKAAGA</a></dialog>
+</body>
+</html>

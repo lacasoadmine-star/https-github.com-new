@@ -1,7 +1,7 @@
 // Read-only serving for fresh game resources. Populate only through Cloudflare's
 // authenticated Durable Objects SQL API; this class has no public upload action.
 export const NATIVE_RESOURCE_PREFIX='/independent74/native/';
-export const NATIVE_RESOURCE_GAMES=Object.freeze(['shared','multi-hot-10-2','multi-hot-20','multi-hot-40','multi-hot-100','multi-hot-5-deluxe','burning-ice-41','blazing-hot-10','burning-ice-40','hab','hot-samba','boca-jamba-10']);
+export const NATIVE_RESOURCE_GAMES=Object.freeze(['shared','multi-hot-10-2','multi-hot-20','multi-hot-40','multi-hot-100','multi-hot-5-deluxe','burning-ice-41','blazing-hot-10','burning-ice-40','hab','hot-samba','boca-jamba-10','multi-hot-wild-ways','multi-hot-5-wild','multi-hot-5-super-wilds']);
 export const NATIVE_RESOURCE_CHUNK_BYTES=1048576;
 const TYPES={html:'text/html; charset=utf-8',mjs:'application/javascript; charset=utf-8',css:'text/css; charset=utf-8',json:'application/json; charset=utf-8',webp:'image/webp',png:'image/png',mp3:'audio/mpeg',ogg:'audio/ogg',woff2:'font/woff2'};
 export const NATIVE_RESOURCE_SCHEMA=`CREATE TABLE IF NOT EXISTS native_game_files(path TEXT PRIMARY KEY,version TEXT NOT NULL,bytes INTEGER NOT NULL,chunks INTEGER NOT NULL,sha256 TEXT NOT NULL);CREATE TABLE IF NOT EXISTS native_game_chunks(path TEXT NOT NULL,version TEXT NOT NULL,part INTEGER NOT NULL,data TEXT NOT NULL,PRIMARY KEY(path,version,part)) WITHOUT ROWID;`;

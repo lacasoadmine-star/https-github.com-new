@@ -1,0 +1,1397 @@
+{
+  "schema": 1,
+  "backendId": "multihot100_native",
+  "officialId": "multi-hot-100",
+  "name": "Multi Hot 100",
+  "columns": 5,
+  "rows": 4,
+  "paylines": 100,
+  "layout": "top-wheel",
+  "titleSuffix": "",
+  "assetBase": "/independent74/native/multi-hot-100/assets/",
+  "assetRevision": "c9a2c398718739b0b12e",
+  "assets": {
+    "symbols": {
+      "0": "symbol-0.webp",
+      "1": "symbol-1.webp",
+      "2": "symbol-2.webp",
+      "3": "symbol-3.webp",
+      "4": "symbol-4.webp",
+      "5": "symbol-5.webp",
+      "6": "symbol-6.webp",
+      "7": "symbol-7.webp"
+    },
+    "buttons": {
+      "spin": "spin.webp",
+      "spin-stop": "spin-stop.webp",
+      "autoplay": "autoplay.webp",
+      "autoplay-stop": "autoplay-stop.webp",
+      "bet": "bet.webp",
+      "collect": "collect.webp",
+      "gamble": "gamble.webp",
+      "turbo": "turbo.webp",
+      "menu": "menu.webp",
+      "sound-on": "sound-on.webp",
+      "sound-off": "sound-off.webp"
+    },
+    "art": {
+      "reel-frame": "reel-frame.webp",
+      "wheel-background": "wheel-background.webp",
+      "wheel-numbers": "wheel-numbers.webp",
+      "wheel-light": "wheel-light.webp",
+      "footer-balance": "footer-balance.webp",
+      "footer-bet": "footer-bet.webp",
+      "double-background": "double-background.webp",
+      "title": "title.webp",
+      "background-vertical": "background-vertical.webp",
+      "background": "background.webp"
+    },
+    "sound": {
+      "DoubleLose": "sound-doublelose.mp3",
+      "WinMultiplier": "sound-winmultiplier.mp3",
+      "DoubleWin": "sound-doublewin.mp3",
+      "ObjectMove": "sound-objectmove.mp3",
+      "ButtonsDoubleTake": "sound-buttonsdoubletake.mp3",
+      "DoubleTake": "sound-doubletake.mp3",
+      "Win": "sound-win.mp3",
+      "BoxReelStop1": "sound-boxreelstop1.mp3",
+      "BoxReelStop2": "sound-boxreelstop2.mp3",
+      "BoxReelStop3": "sound-boxreelstop3.mp3",
+      "BoxReelStopFast": "sound-boxreelstopfast.mp3",
+      "ButtonsSpin": "sound-buttonsspin.mp3",
+      "ButtonsDefault": "sound-buttonsdefault.mp3",
+      "BoxReelStop0": "sound-boxreelstop0.mp3",
+      "BoxReelStop4": "sound-boxreelstop4.mp3",
+      "Background": "sound-background.mp3"
+    },
+    "animations": {
+      "win": [
+        "win-01.webp",
+        "win-02.webp",
+        "win-03.webp",
+        "win-04.webp",
+        "win-05.webp",
+        "win-06.webp",
+        "win-07.webp",
+        "win-08.webp",
+        "win-09.webp",
+        "win-10.webp",
+        "win-11.webp",
+        "win-12.webp",
+        "win-13.webp",
+        "win-14.webp",
+        "win-15.webp",
+        "win-16.webp",
+        "win-17.webp",
+        "win-18.webp",
+        "win-19.webp",
+        "win-20.webp",
+        "win-21.webp",
+        "win-22.webp",
+        "win-23.webp"
+      ]
+    }
+  },
+  "assetHashes": {
+    "autoplay-stop.webp": "09c4ae6f6d9406bfe528577f7c82ca38f5a96d847c74869a34452a387baff1e3",
+    "autoplay.webp": "c2c05199e4f6e5042462c53ae776e8a4873c42c310c752f5b7d219b0c23dc09e",
+    "background-vertical.webp": "9c5969a15a072ab4e26e9321c68f22e79e7d605218f7d67784aa9771a8d24ed4",
+    "background.webp": "26db3f2b928685dd74f54d316490f96fe964900771b181a4edc7887968265b02",
+    "bet.webp": "e3a1ef9e08ee4c65b8f478f51185121b68013c38c5c9b4c20abec6cc5e31f0f4",
+    "collect.webp": "e21bb90ee69848eff4913ccb5955ff420ac299ec9b44a2b6e396c410bff54b12",
+    "double-background.webp": "bed81ed293c4e4b949925b2a39fcbe30e4ce4925106de32e8e6edf617e45bb96",
+    "footer-balance.webp": "1010fc73fffc98a4420b332f71c2758a5d2f49cceebdd2220c20fcaa7906c78b",
+    "footer-bet.webp": "1010fc73fffc98a4420b332f71c2758a5d2f49cceebdd2220c20fcaa7906c78b",
+    "gamble.webp": "5afe439bfec326eac94d5a52e8ab1da3102420acc5610f2a5be6072fba461825",
+    "menu.webp": "94b07448c18c2d17a8ae95d468056f18a3327cf8b492c00a6876344254d54c2c",
+    "reel-frame.webp": "8d21348ded6202eda41aa6a24e7812aa282d9fed2896bd73f17ca5cde0735e15",
+    "sound-background.mp3": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5",
+    "sound-boxreelstop0.mp3": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+    "sound-boxreelstop1.mp3": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+    "sound-boxreelstop2.mp3": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+    "sound-boxreelstop3.mp3": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+    "sound-boxreelstop4.mp3": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+    "sound-boxreelstopfast.mp3": "63a970209db2dfd356c2f8ed596a1a5e8d2b9256526e8194ace0dad0c7c56cbc",
+    "sound-buttonsdefault.mp3": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003",
+    "sound-buttonsdoubletake.mp3": "fe6e63ebba93f0819b417b0c56a0c5401b1e1000ca5760a7938ff29542065497",
+    "sound-buttonsspin.mp3": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87",
+    "sound-doublelose.mp3": "339c86eb8a354bcef5850928bb19d644cede4d1ee4903df3d4c644c3043b306d",
+    "sound-doubletake.mp3": "fe6e63ebba93f0819b417b0c56a0c5401b1e1000ca5760a7938ff29542065497",
+    "sound-doublewin.mp3": "9c0677c1b677c909c36fb2fc952e9006549a9e9d522a5674e25d9625789b0b63",
+    "sound-objectmove.mp3": "92ba19d0b1e60221f80e3cc87e02b7a357c2d5bafef16648049264602bb959ce",
+    "sound-off.webp": "a7fc25c9bc2cbe419c5b120bf97c0bb5c29c81a81048cc0b850c02a89b9bd9f8",
+    "sound-on.webp": "116e704b55ef119560cba6f3702305ea2fba6e73ee65b7c7592aa2c072088d76",
+    "sound-win.mp3": "b57af677432d4840de8c2d6f908e4afabcec906b96305d0263ad8cfaaf48ef52",
+    "sound-winmultiplier.mp3": "e511cc791eca3fe7b9f836c8f7701b94eae754d2ef7267423cac27962b4a44aa",
+    "spin-stop.webp": "0816e2d60072025967da3cb8c9faca4d9b23f5a0e1c322cdfcec8f67ddf4ca67",
+    "spin.webp": "e25560167ceae46d819836a248598964047a51cf9463f15b6e8d68e460be53de",
+    "symbol-0.webp": "ca224a9b2760eb849f80135b55aa5f7fa8425266ba51f155d8ae8a66b919e2e3",
+    "symbol-1.webp": "eee3ec5ad98e03b36226d671b4ab737786c01e4985429b127e2d2aa1b060f6d8",
+    "symbol-2.webp": "5ee210d1fcef9f4a8566743a21baca310e3a91a4a649e6fed5ff9cd4aa3dced5",
+    "symbol-3.webp": "60fa8f7bdf85124914f43c95281bb7e54101ae2a26f127bd2c9e2c950fb8a86f",
+    "symbol-4.webp": "a8fe919e1805acbd2d67e810ed3a52c03b5687f7b4cf3a375acb146690013c11",
+    "symbol-5.webp": "9d3fe0bb2bf13ca100057901501555ebba977f814d43b28c4381309a3df98821",
+    "symbol-6.webp": "1c426a44df1550d1919b6ce003ab4f70f5dbf23f85f2ecc03c807e9540a8e032",
+    "symbol-7.webp": "ba22fe598f630420a3e3d36b9787b9e226553c942c6db1525bebf5a6e25e532d",
+    "title.webp": "4cd9b1cd32fe26e8b4f26444d99ffa2733cdae2b8a3fd7a9a8dda5c6fabab219",
+    "turbo.webp": "1116910445e4ff053dbea0ef58d18d0ba3b2507ca0ae90f3d08c05193ae7094c",
+    "wheel-background.webp": "f17b4036031695b0edf4d3f4ff3824e4963f345d5f7ec05042583dfa5671f822",
+    "wheel-light.webp": "ffce14a594d7937f173251012c2d154839091a95ac1a33f35ab0777e7f01d0a7",
+    "wheel-numbers.webp": "893f01806694c5adf785d3a616909da54a80ff50cda15e86d0333b537eb1916b",
+    "win-01.webp": "17169df448fe3254934be6f3edec272bc99c4897fbf25a6dd8e6435ccf4e5b03",
+    "win-02.webp": "1d6258176e671e41114e89aec2110ae54cd838305ec907f8b29f6a05bbfab09a",
+    "win-03.webp": "a704401ffdf90bb00ed4f771e5ee342ad647159ab7ebf217bceae0bc676d15f0",
+    "win-04.webp": "c3ad6529e0c2f37a63ea6973c305d03ad353cb054c8e9d774a18440c3a2285b0",
+    "win-05.webp": "f96214c28554f5a2738cd4a7e40f7d57085d8918aa6fd07b431211ab3b12cbc5",
+    "win-06.webp": "0fa152053099c109fd1976c0f3d56f6fa5c6ac8dc65fa19c3bd0d74b6b49919a",
+    "win-07.webp": "ead177653bda25d78616f598485686eed7d4cc32456891e68c7bbc64597f9420",
+    "win-08.webp": "e4c428ad9c94d0e83c5fd5fc8a438532f8464a82d5aa7520e8352157e37a2ff9",
+    "win-09.webp": "a59824afa19f25004bfc119e8e17b5a8e9695ebefe0400439b342e9b40923ba6",
+    "win-10.webp": "402e3a6b0bfc6f1133de324730905ddaf41843bccaada49f52494cdc4c0a0073",
+    "win-11.webp": "7619976db30cac56bebdf739c38721a927098be0c9b85794d315acf27070ab5c",
+    "win-12.webp": "0b9753711ac7455d7e0d56fa4495abe5bdeb0a28c0e1e397165811409d632d5a",
+    "win-13.webp": "1138a94e0df72ed4a9f52ca8f24754c677b918c97269ea28abe4386b067f50ea",
+    "win-14.webp": "9e878bc2ad1682e18eb6de58dd57430ba3a30e2523e15e98a54eb30822b28427",
+    "win-15.webp": "24ce5e8d82cbd868825816219a4e1c2f759c47383b17fc8d6b61c81deb53340a",
+    "win-16.webp": "cb044bea70906307ee9e9a386cc7c9323e40c223dfffd7d6ad685a5081b5f694",
+    "win-17.webp": "a37c8ca92d158704a62937251eb17d2c1d02c70ac3c2cb3cf1c78fd1a2d0c08f",
+    "win-18.webp": "ba1b8c84431e243c2fe34fa600ba1bbb3217b465a3c6c7208707429d182fd81f",
+    "win-19.webp": "48da4822714801fe6b2c03152ebbec5bdccee760b1887126141beaa237ccc9a4",
+    "win-20.webp": "c9cf35b07d2165e17e99633d3582fca6c1e162ad848bbcd34bcf50780f804c8d",
+    "win-21.webp": "89b35725db8a5a6252f1298d5ee554695ebc1bf58d0f27576590855f97d7620c",
+    "win-22.webp": "ad85ab9089290d2b65cab11cc83121501fbdd70cc03425649aed46fc2d6addfb",
+    "win-23.webp": "db1370c3470b14556549b24ea34d4c0a837c034c436501ec0cba1d8955022d7d"
+  },
+  "game": {
+    "id": "multihot100_native",
+    "name": "Multi Hot 100",
+    "type": "slots",
+    "launchable": true,
+    "columns": 5,
+    "rows": 4,
+    "paylines": 100,
+    "maxWinMultiplier": 2500,
+    "paylinePaths": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        2,
+        1,
+        1,
+        1,
+        2
+      ],
+      [
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      [
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      [
+        2,
+        3,
+        2,
+        3,
+        2
+      ],
+      [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      [
+        3,
+        3,
+        2,
+        3,
+        3
+      ],
+      [
+        2,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        3,
+        3,
+        3
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        3,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        2
+      ],
+      [
+        0,
+        1,
+        2,
+        1,
+        0
+      ],
+      [
+        3,
+        2,
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        1
+      ],
+      [
+        2,
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      [
+        2,
+        2,
+        2,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        3,
+        2
+      ],
+      [
+        3,
+        3,
+        3,
+        2,
+        3
+      ],
+      [
+        2,
+        2,
+        2,
+        1,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        2,
+        1
+      ],
+      [
+        2,
+        2,
+        3,
+        3,
+        2
+      ],
+      [
+        3,
+        3,
+        2,
+        2,
+        3
+      ],
+      [
+        2,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        3,
+        2,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      [
+        2,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        1,
+        1
+      ],
+      [
+        2,
+        3,
+        3,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        2,
+        3,
+        3
+      ],
+      [
+        2,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        3,
+        2,
+        3,
+        3
+      ],
+      [
+        3,
+        2,
+        3,
+        2,
+        2
+      ],
+      [
+        2,
+        1,
+        2,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      [
+        2,
+        2,
+        3,
+        2,
+        3
+      ],
+      [
+        3,
+        3,
+        2,
+        3,
+        2
+      ],
+      [
+        2,
+        2,
+        1,
+        2,
+        1
+      ],
+      [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      [
+        3,
+        3,
+        2,
+        2,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        2
+      ],
+      [
+        3,
+        3,
+        2,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        2
+      ],
+      [
+        3,
+        2,
+        2,
+        2,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        2,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        3,
+        3,
+        2,
+        1
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        3,
+        3
+      ]
+    ],
+    "symbols": [
+      {
+        "id": "0",
+        "label": "Seven",
+        "color": "#e2b1ff"
+      },
+      {
+        "id": "1",
+        "label": "Bell",
+        "color": "#fa4cba"
+      },
+      {
+        "id": "2",
+        "label": "Grapes",
+        "color": "#e2b1ff"
+      },
+      {
+        "id": "3",
+        "label": "Watermelon",
+        "color": "#fa4cba"
+      },
+      {
+        "id": "4",
+        "label": "Cherries",
+        "color": "#e2b1ff"
+      },
+      {
+        "id": "5",
+        "label": "Orange",
+        "color": "#fa4cba"
+      },
+      {
+        "id": "6",
+        "label": "Plum",
+        "color": "#e2b1ff"
+      },
+      {
+        "id": "7",
+        "label": "Lemon",
+        "color": "#fa4cba"
+      }
+    ],
+    "theme": {
+      "bg": "#171026",
+      "accent": "#e2b1ff",
+      "secondary": "#fa4cba"
+    },
+    "featureDescription": "100 fixed lines with an independent 1×–5× multiplier.",
+    "version": "superwin-multihot100-2-etb1-40000-v1",
+    "actions": [
+      "collect",
+      "gamble"
+    ],
+    "minStake": "1.00",
+    "maxStake": "40000.00",
+    "stakeValues": [
+      "1.00",
+      "2.00",
+      "5.00",
+      "10.00",
+      "20.00",
+      "50.00",
+      "100.00",
+      "200.00",
+      "500.00",
+      "1000.00",
+      "2000.00",
+      "5000.00",
+      "10000.00",
+      "20000.00",
+      "40000.00"
+    ],
+    "stakeMinorValues": [
+      "100",
+      "200",
+      "500",
+      "1000",
+      "2000",
+      "5000",
+      "10000",
+      "20000",
+      "50000",
+      "100000",
+      "200000",
+      "500000",
+      "1000000",
+      "2000000",
+      "4000000"
+    ],
+    "referenceStakeSchedule": {
+      "currency": "DMO",
+      "lines": 100,
+      "chipCoefficient": "0.01",
+      "perLineValues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        15,
+        20,
+        25,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        100
+      ],
+      "minimum": "1.00",
+      "maximum": "100.00",
+      "source": "references/public-models/multihot100_native.json",
+      "status": "verified_demo_values; production_currency_profile_requires_review"
+    },
+    "referenceLimits": {
+      "currency": "DMO",
+      "maximumWin": "250000.00",
+      "maximumWinMultiplier": 2500,
+      "DoublingMaxCount": "5.0",
+      "DoublingMaxWin": "500.00",
+      "doublingLimitMeaningVerified": false
+    },
+    "currencyAdaptation": {
+      "source": "DMO",
+      "draft": "ETB",
+      "method": "Noncash demo credits only. The exact operator wager amounts and coefficient model are shown without any connection to a real account or currency balance.",
+      "productionLaunchable": false,
+      "operatorWagerProfileId": "remaining20-etb1-40000-v1",
+      "currency": "ETB"
+    },
+    "maxWin": "100000000.00",
+    "officialReference": "https://www.smartsoftgaming.com/games/multi-hot-100",
+    "officialPrivateMathVerified": false,
+    "releaseGate": {
+      "status": "interactive_draft_pending_individual_release",
+      "productionLaunchable": false,
+      "required": [
+        "presentation_audio",
+        "gamble_collect",
+        "source_maximum_semantics",
+        "independent_probability_calibration",
+        "currency_profile"
+      ],
+      "manifest": "references/first11-release-divergences.json",
+      "reason": "Raw coefficients, exact schedules and numerical reference maxima are aligned. Public controls/presentation, source maximum semantics and Burning respin rules remain incomplete; independent probabilities are uncalibrated.",
+      "referenceParityClaim": false
+    },
+    "referenceNotes": [
+      "Public coefficient values are now preserved exactly; no payout calibration multiplier is applied. Independent probabilities and public-rule fidelity are under review; launching is disabled.",
+      "Only listed fixed demo stake amounts are accepted. Demo currency is DMO; no claim is made that its numerical limits are a provider-approved ETB profile.",
+      "Take Win, red/black doubling and the public five-attempt/500 fields are recorded in first11-optional-controls.json. The ETB boundary is an explicit independent rule, not a verified provider boundary."
+    ],
+    "math": {
+      "kind": "independent-zplay",
+      "version": "superwin-multihot100-2-etb1-40000-v1",
+      "officialPrivateMathVerified": false,
+      "publicPayoutCoefficientsScaled": false,
+      "symbolWeights": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "multiplierWeights": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "multiplierWeightTotal": 16,
+      "nativeReturn": {
+        "numerator": "31425",
+        "denominator": "32768",
+        "value": 0.959014892578125,
+        "percent": "95.9014892578125",
+        "method": "Exact enumeration of the 8^5 symbol sequences on each public line, linearity over the 100 fixed paths, and independent wheel mean 15/4."
+      },
+      "maximum": "2500 times total stake, attained by five sevens on all100 lines and5x. No coefficient scaling or payout clipping is required by this model.",
+      "randomness": "Eight symbol buckets and sixteen wheel tickets exactly divide the canonical53-bit uniform RNG space. The fixed profile does not depend on player, stake, balance or history.",
+      "rounding": "Exact BigInt coefficient total is floored once to santim; per-line largest remainders conserve the settled total. No extra RNG draw or payout clipping.",
+      "description": "Independent fixed native distribution, unchanged public coefficients, and the user-requested whole-ETB operator wager ladder. Exact total prizes are floored once to santim; no supported award is clipped.",
+      "coefficientProfileVersion": "superwin-multihot100-2",
+      "returnQualification": "The inherited coefficient-profile return precedes currency flooring. Newly allowed wagers with fractional santim may have a rounding difference; no provider-private RTP is claimed."
+    },
+    "paytable": [
+      {
+        "symbol": "0",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "200",
+            "denominator": "10",
+            "value": 20
+          },
+          "4": {
+            "numerator": "2000",
+            "denominator": "10",
+            "value": 200
+          },
+          "5": {
+            "numerator": "5000",
+            "denominator": "10",
+            "value": 500
+          }
+        }
+      },
+      {
+        "symbol": "1",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "150",
+            "denominator": "10",
+            "value": 15
+          },
+          "4": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          },
+          "5": {
+            "numerator": "2000",
+            "denominator": "10",
+            "value": 200
+          }
+        }
+      },
+      {
+        "symbol": "2",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "4": {
+            "numerator": "500",
+            "denominator": "10",
+            "value": 50
+          },
+          "5": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          }
+        }
+      },
+      {
+        "symbol": "3",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "4": {
+            "numerator": "500",
+            "denominator": "10",
+            "value": 50
+          },
+          "5": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          }
+        }
+      },
+      {
+        "symbol": "4",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "50",
+            "denominator": "10",
+            "value": 5
+          },
+          "4": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "5": {
+            "numerator": "500",
+            "denominator": "10",
+            "value": 50
+          }
+        }
+      },
+      {
+        "symbol": "5",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "50",
+            "denominator": "10",
+            "value": 5
+          },
+          "4": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "5": {
+            "numerator": "500",
+            "denominator": "10",
+            "value": 50
+          }
+        }
+      },
+      {
+        "symbol": "6",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "50",
+            "denominator": "10",
+            "value": 5
+          },
+          "4": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "5": {
+            "numerator": "500",
+            "denominator": "10",
+            "value": 50
+          }
+        }
+      },
+      {
+        "symbol": "7",
+        "basis": "stake divided by 100",
+        "counts": {
+          "3": {
+            "numerator": "50",
+            "denominator": "10",
+            "value": 5
+          },
+          "4": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "5": {
+            "numerator": "500",
+            "denominator": "10",
+            "value": 50
+          }
+        }
+      }
+    ],
+    "rules": [
+      "This operator profile accepts the displayed whole-ETB presets from1.00 through40000.00 ETB. These amounts are a local operator choice, not conversion of the demo currency.",
+      "The complete slot outcome and automatic respin/extra-Wild sequence are resolved by the server from one stake. A manual winning round waits for Take Win; paid autoplay may request autoCollect when the round starts.",
+      "The next paid Spin first collects an accepted pending win. Collection and optional red/black doubling never debit a second stake.",
+      "A current win of at most500.00 ETB may be risked on red or black up to five times. A fair independent attempt doubles it or loses it. No successful doubled win is clipped. Availability also respects the fixed round liability reserved before the outcome.",
+      "A disconnected pending win is automatically collected after30 minutes. Reloading restores the same accepted round and does not draw again.",
+      "Each symbol is equally likely. Wheel weights for1x–5x are1,2,3,4,6 out of16; the exact independent theoretical return is95.9014892578125%.",
+      "The exact sum of all public coefficient awards is calculated before a single floor to santim. Increasing the wager scales the exact award ratio; displayed and settled minor-unit amounts account for that final rounding.",
+      "The full potential liability is reserved before sampling. Insufficient house reserve rejects before debit. High wagers never invoke the former absolute monetary payout ceiling."
+    ],
+    "controls": {
+      "manualCollection": true,
+      "automaticCollectionOption": "autoCollect",
+      "gambleColors": [
+        "red",
+        "black"
+      ]
+    },
+    "gamble": {
+      "maximumAttempts": 5,
+      "maximumCurrentWinMinor": "50000",
+      "maximumPossibleWinMinor": "100000",
+      "chance": {
+        "numerator": "1",
+        "denominator": "2"
+      },
+      "payoffMultiplier": 2,
+      "referenceLimitSemanticsVerified": false,
+      "limitMeaning": "Independent ETB rule: a current win up to500.00 may be doubled, up to five attempts, within the reserved liability. A larger current win is collection-only. The raw public500 DMO field does not verify the provider pre/post-double eligibility boundary."
+    },
+    "collection": {
+      "expiresAfterMs": 1800000,
+      "expiryReturnsCurrentWin": true,
+      "policy": "ZPLAY30-minute disconnect safeguard; not a claim about the provider timeout."
+    },
+    "currency": "ETB",
+    "operatorWagerProfile": {
+      "id": "remaining20-etb1-40000-v1",
+      "currency": "ETB",
+      "minStakeMinor": "100",
+      "maxStakeMinor": "4000000",
+      "stepMinor": "100",
+      "selection": "preset-ladder",
+      "stakeValues": [
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00",
+        "200.00",
+        "500.00",
+        "1000.00",
+        "2000.00",
+        "5000.00",
+        "10000.00",
+        "20000.00",
+        "40000.00"
+      ],
+      "stakeMinorValues": [
+        "100",
+        "200",
+        "500",
+        "1000",
+        "2000",
+        "5000",
+        "10000",
+        "20000",
+        "50000",
+        "100000",
+        "200000",
+        "500000",
+        "1000000",
+        "2000000",
+        "4000000"
+      ],
+      "source": "User-requested independent operator wager range; not a provider currency conversion."
+    },
+    "stakeLimits": {
+      "min": "1.00",
+      "max": "40000.00",
+      "maxWin": "100000000.00",
+      "currency": "ETB"
+    },
+    "referencePresentation": {
+      "manifestURL": "/native-library/remaining20/20261110-reference-mobile-r14/manifests/multihot100_native.json",
+      "manifestSha256": "13ecf151b1d54dc4cbbc4b0fd8ec5a6bb6882c24eb1c2208d88f8a801518c233",
+      "assetBaseURL": "/native-library/remaining20/20261110-reference-mobile-r14/assets/multihot100_native/",
+      "modelVersion": "superwin-multihot100-2-etb1-40000-v1",
+      "retainedManifestSha256": "3b717ffbcc0938ba8aecde418bb05a610f5883df9c51732593e0659c6ccd8a04"
+    },
+    "published": true
+  },
+  "initialGrid": [
+    [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    [
+      "6",
+      "7",
+      "0",
+      "1"
+    ],
+    [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    [
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
+  ],
+  "initialGridIsOutcome": false,
+  "reference": {
+    "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-100",
+    "freshOfficialArtwork": true,
+    "userMediaUsed": false,
+    "providerPrivateMathReproduced": false
+  },
+  "wheel": {
+    "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "arcSequence": [
+      2,
+      4,
+      2,
+      5,
+      1,
+      3,
+      5,
+      2,
+      3,
+      4,
+      1,
+      3,
+      5
+    ]
+  }
+}

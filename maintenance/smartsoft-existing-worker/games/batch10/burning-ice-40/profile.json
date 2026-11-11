@@ -1,0 +1,963 @@
+{
+  "schema": 1,
+  "backendId": "burningice40_native",
+  "officialId": "burning-ice-40",
+  "name": "Burning Ice 40",
+  "columns": 5,
+  "rows": 4,
+  "paylines": 40,
+  "layout": "burning",
+  "titleSuffix": "40",
+  "assetBase": "/independent74/native/burning-ice-40/assets/",
+  "assetRevision": "edb50a595cd00cff2ec1",
+  "assets": {
+    "symbols": {
+      "0": "symbol-0.webp",
+      "1": "symbol-1.webp",
+      "2": "symbol-2.webp",
+      "3": "symbol-3.webp",
+      "4": "symbol-4.webp",
+      "5": "symbol-5.webp",
+      "6": "symbol-6.webp",
+      "7": "symbol-7.webp",
+      "8": "symbol-8.webp",
+      "9": "symbol-10.webp"
+    },
+    "buttons": {
+      "spin": "spin.webp",
+      "spin-stop": "spin-stop.webp",
+      "autoplay": "autoplay.webp",
+      "collect": "collect.webp",
+      "gamble": "gamble.webp",
+      "menu": "menu.webp"
+    },
+    "art": {
+      "title": "title.webp",
+      "footer": "footer.webp",
+      "double-background": "double-background.webp",
+      "background": "background.webp",
+      "background-vertical": "background-vertical.webp"
+    },
+    "sound": {
+      "AutoPlayStop": "sound-autoplaystop.mp3",
+      "AutoPlayStopHover": "sound-autoplaystophover.mp3",
+      "DoubleWin": "sound-doublewin.mp3",
+      "DoubleLose": "sound-doublelose.mp3",
+      "DoubleTake": "sound-doubletake.mp3",
+      "Background": "sound-background.mp3",
+      "ObjectMove": "sound-objectmove.mp3",
+      "ObjectMoveStop": "sound-objectmovestop.mp3"
+    },
+    "animations": {
+      "flame": [
+        "flame-01.webp",
+        "flame-02.webp",
+        "flame-03.webp",
+        "flame-04.webp",
+        "flame-05.webp",
+        "flame-06.webp",
+        "flame-07.webp",
+        "flame-08.webp",
+        "flame-09.webp",
+        "flame-10.webp",
+        "flame-11.webp",
+        "flame-12.webp",
+        "flame-13.webp",
+        "flame-14.webp",
+        "flame-15.webp",
+        "flame-16.webp"
+      ]
+    }
+  },
+  "assetHashes": {
+    "autoplay.webp": "6d396227966b63ffdbf58dd5db30ca98ae247e57aa1427d2a58bdf58c5d8b0a7",
+    "background-vertical.webp": "d32a93b0f554e62620074d84a237d699105b04508a8ad1b14f5f15570cf76f6e",
+    "background.webp": "a06162ebceed0fdee6d564db493b87595bf9fa79ee024611a256d056d8e8c4f8",
+    "collect.webp": "4d4129838e962c19bb3a15b2f2bd654a241024782f5cf239ee6b8bb27de31176",
+    "double-background.webp": "213adaf5944bfc2b01586b1ef9c79d6e2bb5a7e98fc1d5ba246a5caaa8691bf7",
+    "flame-01.webp": "a87773afd750e7800b80447032ee4206c7161a5f7a87543b81c92ab505594537",
+    "flame-02.webp": "bd17bf575f5b63ea44ce610b4979623c45949d82a4aeaed96347597e2d93e1d8",
+    "flame-03.webp": "8842542402bccfd2eaca631f04dac99d3ce62be8e5a123aa4f8b2a67b894010e",
+    "flame-04.webp": "8f7c6e817c431514b192b10e1abee8bb9c8554085c66bf67c02f9d93b09fe9fd",
+    "flame-05.webp": "286fec150fbe197deb2859f3c0987f7725a0f865c35065cf00d396d8719dac56",
+    "flame-06.webp": "54aa0d241a6ba210b95e922694064f8078e5709ddd50baee401e870458435963",
+    "flame-07.webp": "7fedf2c016a11543b49f0ada82cf2d921b99fb193b3b23990fc20953c319a52a",
+    "flame-08.webp": "ca3024514885fb4af418bf1f9bd3dc1dd57f5db95e29d98f75e029aeb9585f3d",
+    "flame-09.webp": "27f078612592d4eba5b1c5394c820fa01862f7ddfc374ec0cdade4dd9e4c7e4f",
+    "flame-10.webp": "7a6c82d131486828a7d2ccc0131f5fbf9a7f660125edfabfe7aac3a8a5627175",
+    "flame-11.webp": "ff9b9cc7dbc70378c6202ab9f59ba08bd09de02ad5fe3a5cf45207046e26c0f8",
+    "flame-12.webp": "5679dedd753179eb02392e98a70fd2dfb33bfa3aa2814496eb26cc4b0dad345f",
+    "flame-13.webp": "ec814f5a6970e7c4fa366de35b3e6f6d658ce5d787dc401ec6110dd0d8fa6571",
+    "flame-14.webp": "d767d6bb0654fddf0c31b31eaf1cbc6f844dcc915bae1d9209192dd7d95d76ae",
+    "flame-15.webp": "bb27f65148c38575992665b4b9ed8fa19454984cf68f4b9e3d16a52fa83198a9",
+    "flame-16.webp": "6db630c5d244f70d3015a97792fe95d378b0d08acb912b2dd76dee3344faabd5",
+    "footer.webp": "9a0a6b14667ec77aefa9ef0d30757aa637b3d4285e9dc1ceb497ef7742375967",
+    "gamble.webp": "8093a94ee73a54398cdcd2bf1af06688d39c4b58e78fabf9ecaa7c796709165b",
+    "menu.webp": "e334bf738076947d44c6179c45b193cff6778479516e30c0f0e874e0e405a17a",
+    "sound-autoplaystop.mp3": "7138cbdbde031edda949ee2b3155ab343aa77716da4fb90888c250e317a7e1d1",
+    "sound-autoplaystophover.mp3": "13d1e6c07f8693897dbf6b785310603dbc680629fe137ab09aafe33045743381",
+    "sound-background.mp3": "9ffe3c04c2ed691b93e078cf1f56f6c37047fc0e635c0e68271d2cde49fcb86b",
+    "sound-doublelose.mp3": "061c9405f42f562cd351eb9b5d91fae575668f9170cb54d6e4ccac0194162973",
+    "sound-doubletake.mp3": "f1ef093abd50c4777bb16b2024fc58456db8eb1d4ddd42551c05b22dfc796943",
+    "sound-doublewin.mp3": "3c028fe82f9d582e76c6029d4d392001db1cc2666eb8c9bc6054108ec771f6fe",
+    "sound-objectmove.mp3": "337519fe4aa3944efdc1bf0e4bfdbb3901deb11bd2c6163bcc4fc2ca1dadf527",
+    "sound-objectmovestop.mp3": "3ecf376a5b3e99933af501365415f3d90d58582919da9a113d91e181c5c14709",
+    "spin-stop.webp": "8d4fedcbbe6a91f2d07dd0e81fccacbf05f1edbf5c046e383be8de069128f9b2",
+    "spin.webp": "8d4fedcbbe6a91f2d07dd0e81fccacbf05f1edbf5c046e383be8de069128f9b2",
+    "symbol-0.webp": "320c95218ec1cb86fd7b466536fac145d14aec41fcec215bb197720d5925e989",
+    "symbol-1.webp": "b8fc583080b5b76cba639934cb65427b1f78d4d84be9dc819cd37bf641aa08d2",
+    "symbol-10.webp": "3b7ca5b67544323d6a1fcb1aa4f97a6dba43ccd083c61a888e5854ed4d460cfb",
+    "symbol-2.webp": "2c78f396c0b8324f5a19aef8208410fc0756b8ef36150158fea4326df5331c94",
+    "symbol-3.webp": "bce9c036ca7a7e493c8b719334c37d27f1ac44fefc240aa513e3062f092d0591",
+    "symbol-4.webp": "8bb04ac10f4d6430dccf1119e2bbdffb83294d256723a52af29c462fe19b7626",
+    "symbol-5.webp": "bc4f7e626fb1094d319b030010198ba9a85890213c5a8e93acf8d02aff4c1b4f",
+    "symbol-6.webp": "14541c0da05e549ec9927f1bb8eb1d71f56a87fd8b59e99bc5e35e2eb63a3146",
+    "symbol-7.webp": "3f8d5fda7ce4dfb8b93d914801b70e794e42d7f7239cbdb994e5250cbb2a19d7",
+    "symbol-8.webp": "10a8013b070311f4cf8ea75e16af1627266139fa2501295b470e10d1639f9d54",
+    "title.webp": "d89e71e600b47640336ddadba8645bf3c0dbd15551301e071b55cf7ca3e2b272"
+  },
+  "game": {
+    "id": "burningice40_native",
+    "name": "Burning Ice 40",
+    "type": "slots",
+    "launchable": true,
+    "columns": 5,
+    "rows": 4,
+    "paylines": 40,
+    "paylinePaths": [
+      [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        1
+      ],
+      [
+        3,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        3
+      ],
+      [
+        2,
+        3,
+        2,
+        1,
+        2
+      ],
+      [
+        1,
+        0,
+        1,
+        2,
+        1
+      ],
+      [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        2,
+        3,
+        2
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        2,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        2,
+        3,
+        3
+      ],
+      [
+        3,
+        2,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        2,
+        3
+      ],
+      [
+        2,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        3
+      ],
+      [
+        3,
+        3,
+        2,
+        3,
+        3
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        3,
+        2,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        3,
+        3,
+        2,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        2,
+        2,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        2,
+        3
+      ],
+      [
+        2,
+        3,
+        2,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        2
+      ]
+    ],
+    "symbols": [
+      {
+        "id": "0",
+        "label": "Clover wild",
+        "color": "#65f5df"
+      },
+      {
+        "id": "1",
+        "label": "Plum",
+        "color": "#ffb341"
+      },
+      {
+        "id": "2",
+        "label": "Orange",
+        "color": "#65f5df"
+      },
+      {
+        "id": "3",
+        "label": "Lemon",
+        "color": "#ffb341"
+      },
+      {
+        "id": "4",
+        "label": "Cherries",
+        "color": "#65f5df"
+      },
+      {
+        "id": "5",
+        "label": "Bell",
+        "color": "#ffb341"
+      },
+      {
+        "id": "6",
+        "label": "Watermelon",
+        "color": "#65f5df"
+      },
+      {
+        "id": "7",
+        "label": "Grapes",
+        "color": "#ffb341"
+      },
+      {
+        "id": "8",
+        "label": "Dollar scatter",
+        "color": "#65f5df"
+      },
+      {
+        "id": "9",
+        "label": "Seven",
+        "color": "#ffb341"
+      }
+    ],
+    "theme": {
+      "bg": "#051b20",
+      "accent": "#65f5df",
+      "secondary": "#ffb341"
+    },
+    "featureDescription": "40 fixed lines, dollar scatters, expanding clover wilds, and frozen winning reels with automatic respins. Exact respin settlement fidelity remains under review.",
+    "version": "superwin-burningice40-2-etb1-40000-v1",
+    "actions": [
+      "collect",
+      "gamble"
+    ],
+    "minStake": "1.00",
+    "maxStake": "40000.00",
+    "stakeValues": [
+      "1.00",
+      "2.00",
+      "5.00",
+      "10.00",
+      "20.00",
+      "50.00",
+      "100.00",
+      "200.00",
+      "500.00",
+      "1000.00",
+      "2000.00",
+      "5000.00",
+      "10000.00",
+      "20000.00",
+      "40000.00"
+    ],
+    "stakeMinorValues": [
+      "100",
+      "200",
+      "500",
+      "1000",
+      "2000",
+      "5000",
+      "10000",
+      "20000",
+      "50000",
+      "100000",
+      "200000",
+      "500000",
+      "1000000",
+      "2000000",
+      "4000000"
+    ],
+    "referenceStakeSchedule": {
+      "currency": "DMO",
+      "lines": 40,
+      "chipCoefficient": "0.01",
+      "perLineValues": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        40,
+        50,
+        75,
+        100,
+        125,
+        150,
+        200,
+        250
+      ],
+      "minimum": "0.40",
+      "maximum": "100.00",
+      "source": "references/public-models/burningice40_native.bootstrap.json",
+      "status": "verified_demo_values; production_currency_profile_requires_review"
+    },
+    "referenceLimits": {
+      "currency": "DMO",
+      "maximumWin": "15000000.00",
+      "DoublingMaxCount": "5.0",
+      "DoublingMaxWin": "500.0",
+      "doublingLimitMeaningVerified": false
+    },
+    "currencyAdaptation": {
+      "source": "DMO",
+      "draft": "ETB",
+      "method": "User-requested whole-ETB wager presets from1.00 through40000.00. Public coefficients are retained; these amounts are an independent operator choice, not a conversion of demo currency.",
+      "productionLaunchable": false,
+      "operatorWagerProfileId": "remaining20-etb1-40000-v1",
+      "currency": "ETB"
+    },
+    "maxWin": "44000000.00",
+    "officialReference": "https://www.smartsoftgaming.com/games/burning-ice-40",
+    "officialPrivateMathVerified": false,
+    "releaseGate": {
+      "status": "interactive_draft_pending_individual_release",
+      "productionLaunchable": false,
+      "required": [
+        "presentation_audio",
+        "gamble_collect",
+        "source_maximum_semantics",
+        "independent_probability_calibration",
+        "currency_profile",
+        "respin_payment",
+        "coin_feature_ambiguity"
+      ],
+      "manifest": "references/first11-release-divergences.json",
+      "reason": "Raw coefficients, exact schedules and numerical reference maxima are aligned. Public controls/presentation, source maximum semantics and Burning respin rules remain incomplete; independent probabilities are uncalibrated.",
+      "referenceParityClaim": false
+    },
+    "referenceNotes": [
+      "Public coefficient values are now preserved exactly; no payout calibration multiplier is applied. Independent probabilities and public-rule fidelity are under review; launching is disabled.",
+      "Official help artwork identifies Dollar(8) as a scatter in every variant; Pot(9) is a second scatter only in5/10. Both are excluded from wild substitution. Seven is9 in40 and10 in5/10.",
+      "Only listed fixed demo stake amounts are accepted. Demo currency is DMO; no claim is made that its numerical limits are a provider-approved ETB profile.",
+      "Removed the unverified lucky-coin effect. The40-line help has a Dollar-scatter third section instead of the coin section used by5/10, and its count10 runtime does not instantiate the i===10 coin-symbol branch. Provider response observation is still needed to settle residual inherited-client ambiguity.",
+      "Take Win, red/black doubling and the public five-attempt/500 fields are recorded in first11-optional-controls.json. The ETB boundary is an explicit independent rule, not a verified provider boundary.",
+      "Official live demo help, 2026-11-09: at0.40 DMO total stake, Dollar3/4/5 displays1.20/8.00/40.00. Normalized total-stake coefficients are3/20/100; raw fields are retained as reference metadata. "
+    ],
+    "math": "Independent fixed native distribution, unchanged public coefficients, and the user-requested whole-ETB operator wager ladder. Exact total prizes are floored once to santim; no supported award is clipped.",
+    "paytable": [
+      {
+        "symbol": "0",
+        "basis": "stake divided by 40",
+        "counts": {}
+      },
+      {
+        "symbol": "1",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "4": {
+            "numerator": "400",
+            "denominator": "10",
+            "value": 40
+          },
+          "5": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          }
+        }
+      },
+      {
+        "symbol": "2",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "4": {
+            "numerator": "400",
+            "denominator": "10",
+            "value": 40
+          },
+          "5": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          }
+        }
+      },
+      {
+        "symbol": "3",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "4": {
+            "numerator": "400",
+            "denominator": "10",
+            "value": 40
+          },
+          "5": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          }
+        }
+      },
+      {
+        "symbol": "4",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "100",
+            "denominator": "10",
+            "value": 10
+          },
+          "4": {
+            "numerator": "400",
+            "denominator": "10",
+            "value": 40
+          },
+          "5": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          }
+        }
+      },
+      {
+        "symbol": "5",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "200",
+            "denominator": "10",
+            "value": 20
+          },
+          "4": {
+            "numerator": "800",
+            "denominator": "10",
+            "value": 80
+          },
+          "5": {
+            "numerator": "2000",
+            "denominator": "10",
+            "value": 200
+          }
+        }
+      },
+      {
+        "symbol": "6",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "400",
+            "denominator": "10",
+            "value": 40
+          },
+          "4": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          },
+          "5": {
+            "numerator": "3000",
+            "denominator": "10",
+            "value": 300
+          }
+        }
+      },
+      {
+        "symbol": "7",
+        "basis": "stake divided by 40",
+        "counts": {
+          "3": {
+            "numerator": "400",
+            "denominator": "10",
+            "value": 40
+          },
+          "4": {
+            "numerator": "1000",
+            "denominator": "10",
+            "value": 100
+          },
+          "5": {
+            "numerator": "3000",
+            "denominator": "10",
+            "value": 300
+          }
+        }
+      },
+      {
+        "symbol": "8",
+        "basis": "total stake",
+        "counts": {
+          "3": {
+            "numerator": "1200",
+            "denominator": "400",
+            "value": 3
+          },
+          "4": {
+            "numerator": "8000",
+            "denominator": "400",
+            "value": 20
+          },
+          "5": {
+            "numerator": "40000",
+            "denominator": "400",
+            "value": 100
+          }
+        },
+        "rawReferenceBasis": "total stake divided by40",
+        "rawReferenceCounts": {
+          "3": {
+            "numerator": "1200",
+            "denominator": "10",
+            "value": 120
+          },
+          "4": {
+            "numerator": "8000",
+            "denominator": "10",
+            "value": 800
+          },
+          "5": {
+            "numerator": "40000",
+            "denominator": "10",
+            "value": 4000
+          }
+        }
+      },
+      {
+        "symbol": "9",
+        "basis": "stake divided by 40",
+        "counts": {
+          "2": {
+            "numerator": "50",
+            "denominator": "10",
+            "value": 5
+          },
+          "3": {
+            "numerator": "600",
+            "denominator": "10",
+            "value": 60
+          },
+          "4": {
+            "numerator": "2000",
+            "denominator": "10",
+            "value": 200
+          },
+          "5": {
+            "numerator": "10000",
+            "denominator": "10",
+            "value": 1000
+          }
+        }
+      }
+    ],
+    "rules": [
+      "This operator profile accepts the displayed whole-ETB presets from1.00 through40000.00 ETB. These amounts are a local operator choice, not conversion of the demo currency.",
+      "This independent native probability profile has an exact theoretical return of 95.230281632%. Its fixed weighted reel windows or cells and feature probabilities do not depend on the player, balance, stake or history. They are not the provider's private probabilities.",
+      "The complete native outcome support pays the public coefficients in full within a proved bound of 1100 times total stake. No supported win is reduced by a payout ceiling.",
+      "A newly paid or improved winning combination freezes the participating reels; only the remaining reels respin. Previously paid line/scatter amounts are retained, and only increases are added. The native sequence ends when there is no improvement or all reels are frozen. Each continuation adds a frozen reel, making the existing five-frame bound redundant. This payment recurrence is an explicit independent native rule.",
+      "Clover expands on reels 2, 3, 4, preserving every Dollar scatter.",
+      "This40-line variant has no assumed lucky-coin effect.",
+      "Highest left-to-right regular award per line. Dollar scatter pays3/20/100 times total stake for3/4/5 or more symbols anywhere; one highest scatter award adds to line wins.  The raw reference scatter coefficients multiply total stake divided by40.",
+      "The complete slot outcome and automatic respin/extra-Wild sequence are resolved by the server from one stake. A manual winning round waits for Take Win; paid autoplay may request autoCollect when the round starts.",
+      "The next paid Spin first collects an accepted pending win. Collection and optional red/black doubling never debit a second stake.",
+      "A current win of at most500.00 ETB may be risked on red or black up to five times. A fair independent attempt doubles it or loses it. No successful doubled win is clipped. Availability also respects the fixed round liability reserved before the outcome.",
+      "A disconnected pending win is automatically collected after30 minutes. Reloading restores the same accepted round and does not draw again.",
+      "The exact sum of all public coefficient awards is calculated before a single floor to santim. Increasing the wager scales the exact award ratio; displayed and settled minor-unit amounts account for that final rounding.",
+      "The full potential liability is reserved before sampling. Insufficient house reserve rejects before debit. High wagers never invoke the former absolute monetary payout ceiling."
+    ],
+    "controls": {
+      "manualCollection": true,
+      "automaticCollectionOption": "autoCollect",
+      "gambleColors": [
+        "red",
+        "black"
+      ]
+    },
+    "gamble": {
+      "maximumAttempts": 5,
+      "maximumCurrentWinMinor": "50000",
+      "maximumPossibleWinMinor": "100000",
+      "chance": {
+        "numerator": "1",
+        "denominator": "2"
+      },
+      "payoffMultiplier": 2,
+      "referenceLimitSemanticsVerified": false,
+      "limitMeaning": "Independent ETB rule: a current win up to500.00 may be doubled, up to five attempts, within the reserved liability. A larger current win is collection-only. The raw public500 DMO field does not verify the provider pre/post-double eligibility boundary."
+    },
+    "collection": {
+      "expiresAfterMs": 1800000,
+      "expiryReturnsCurrentWin": true,
+      "policy": "ZPLAY30-minute disconnect safeguard; not a claim about the provider timeout."
+    },
+    "currency": "ETB",
+    "operatorWagerProfile": {
+      "id": "remaining20-etb1-40000-v1",
+      "currency": "ETB",
+      "minStakeMinor": "100",
+      "maxStakeMinor": "4000000",
+      "stepMinor": "100",
+      "selection": "preset-ladder",
+      "stakeValues": [
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00",
+        "200.00",
+        "500.00",
+        "1000.00",
+        "2000.00",
+        "5000.00",
+        "10000.00",
+        "20000.00",
+        "40000.00"
+      ],
+      "stakeMinorValues": [
+        "100",
+        "200",
+        "500",
+        "1000",
+        "2000",
+        "5000",
+        "10000",
+        "20000",
+        "50000",
+        "100000",
+        "200000",
+        "500000",
+        "1000000",
+        "2000000",
+        "4000000"
+      ],
+      "source": "User-requested independent operator wager range; not a provider currency conversion."
+    },
+    "stakeLimits": {
+      "min": "1.00",
+      "max": "40000.00",
+      "maxWin": "44000000.00",
+      "currency": "ETB"
+    },
+    "published": true,
+    "demo": false,
+    "demoCreditsOnly": false,
+    "referencePresentation": {
+      "manifestURL": "/native-library/remaining20/20261110-reference-mobile-r14/manifests/burningice40_native.json",
+      "manifestSha256": "251985f9bf0ddebd55e1da765faae489960b93387f80a6903fe86c9a1e8f1723",
+      "assetBaseURL": "/native-library/remaining20/20261110-reference-mobile-r14/assets/burningice40_native/",
+      "modelVersion": "superwin-burningice40-2-etb1-40000-v1",
+      "retainedManifestSha256": "020690f0db81c9985075f529e114df4a263a06d08c58a58e026cf2586fcb86ae"
+    }
+  },
+  "initialGrid": [
+    [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    [
+      "7",
+      "9",
+      "1",
+      "2"
+    ],
+    [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    [
+      "5",
+      "6",
+      "7",
+      "9"
+    ]
+  ],
+  "initialGridIsOutcome": false,
+  "reference": {
+    "officialUrl": "https://www.smartsoftgaming.com/games/burning-ice-40",
+    "freshOfficialArtwork": true,
+    "userMediaUsed": false,
+    "providerPrivateMathReproduced": false
+  },
+  "wheel": {
+    "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "arcSequence": [
+      2,
+      4,
+      2,
+      5,
+      1,
+      3,
+      5,
+      2,
+      3,
+      4,
+      1,
+      3,
+      5
+    ]
+  }
+}
