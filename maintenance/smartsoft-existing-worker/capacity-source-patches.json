@@ -1,0 +1,10 @@
+[
+  [
+    "        await lockWallets(connection, userId);\n",
+    "        const lockedWallets = await lockWallets(connection, userId);\n"
+  ],
+  [
+    "        const game = currentGame();\n",
+    "        const game = referenceAvailableGame(currentGame(), lockedWallets.find(wallet => wallet.id !== userId)?.balance);\n"
+  ]
+]

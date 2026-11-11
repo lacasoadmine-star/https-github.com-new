@@ -1,0 +1,9 @@
+The private account state now offers only stakes whose declared maximum payout fits the house wallet's locked balance. The payout guard in settlement still runs before RNG; this state filter is a UI hint and cannot authorize a wager.
+
+Apply each exact `[before, after]` replacement in `capacity-source-patches.json` to the retained runtime before adding `reference-finance-addon.mjs`. Require exactly one match for each replacement. These replacements retain the rows returned by the existing `lockWallets` call and call `referenceAvailableGame` with the house row. They add no balance query and do not change the inner math modules, database schema, wallet records or public game catalogue.
+
+Serve `games/shared/fresh74-account.mjs` at the existing account-module URL. It accepts empty private bet levels only when the server explicitly reports `wagerAvailability: 'house_capacity'`. `ready()` rejects that state before creating a pending action. A canonical HTTP 503 `HOUSE_RESERVE_INSUFFICIENT` response is a definite rejected transaction and clears the pending action. Unknown 5xx responses and network failures retain the original token for replay. Following a definite rejection, refresh state before allowing another action.
+
+The live UI must include `state.game.wagerAvailability !== 'house_capacity'` in its accepting check, map `HOUSE_RESERVE_INSUFFICIENT` to a clear availability message, and refresh/apply state following the definite rejection. Do not remove the server's locked balance or maximum payout checks.
+
+Verification: `node --test tests/fresh-account-capacity.test.mjs` passes 7 tests covering exact arithmetic boundaries, the retained private-state transaction, unavailable stakes, definite rejection, uncertain response replay, and network errors. All data is an in-memory test fixture. No network calls, real wagers or database writes occur.

@@ -50,8 +50,8 @@ SNAPSHOT = r"""() => {
  }}catch(e){out.inspectError=String(e)}
  try {if(typeof slot!=='undefined'&&slot?.buttons?.buttons){
   for(const[name,b]of Object.entries(slot.buttons.buttons)){const image=b.container||b.image;let r;try{r=image?.getBounds?.()}catch(e){}
-   out.pixi.push({name,status:b.mode||b.status,bounds:r?{x:r.x,y:r.y,width:r.width,height:r.height}:null,visible:image?.worldVisible,interactive:image?.interactive,source:'slot.buttons.buttons'});}
-  out.slotState=primitives(slot.user||slot.info?.user||slot.data);out.slotInfo=primitives(slot.info);out.slotWin=primitives(slot.win?.info);
+   out.pixi.push({name,status:b.option||b.mode||b.status,bounds:r?{x:r.x,y:r.y,width:r.width,height:r.height}:null,visible:image?.worldVisible,interactive:image?.interactive,source:'slot.buttons.buttons'});}
+  out.slotState=primitives(slot.user||slot.info?.user||slot.data);out.slotInfo=primitives(slot.info);out.slotWin=primitives(slot.win?.info);out.slotRendering={spinning:slot.box?.spinning??null,spinOption:slot.buttons.buttons.spin?.option??null};
  }}catch(e){}
  try{if(typeof gameClass!=='undefined'){out.instantState=primitives(gameClass)}}catch(e){}
  for(const n of ['gameButtons','gameButton','buttons']) {try {const m=eval('typeof '+n+'!=="undefined"?'+n+':null');if(m&&typeof m==='object')out[n+'Names']=Object.keys(m).slice(0,100)}catch(e){}}
@@ -186,7 +186,7 @@ class Session:
             if not self.is_game_frame(frame):continue
             try:
                 point=await asyncio.wait_for(frame.evaluate(r"""selectors=>{
-                  for(const selector of selectors){let elements;try{elements=document.querySelectorAll(selector)}catch{continue}
+                  for(const selector of selectors){let elements;try{if(selector.startsWith('text=')){const wanted=selector.slice(5);elements=Array.from(document.querySelectorAll('button,a,[role=button],.button,[data-button],.bet')).filter(e=>{const text=(e.innerText||'').trim().replace(/\s+/g,' ').toUpperCase();return text===wanted||text.startsWith(wanted+' ')})}else elements=document.querySelectorAll(selector)}catch{continue}
                    for(const e of elements){const r=e.getBoundingClientRect(),s=getComputedStyle(e),x=r.x+r.width/2,y=r.y+r.height/2;
                     if(r.width<=2||r.height<=2||x<0||y<0||x>=innerWidth||y>=innerHeight||s.display==='none'||s.visibility==='hidden'||e.disabled||e.classList.contains('disable-main-button')||e.classList.contains('disabled')||e.classList.contains('disable'))continue;
                     const top=document.elementFromPoint(x,y);if(top!==e&&!e.contains(top))continue;
@@ -220,16 +220,16 @@ class Session:
                 continue
             try:
                 point = await asyncio.wait_for(frame.evaluate(r"""(name)=>{
-                    let button=null,applicationCanvas=null;
-                    if(typeof gameInfo!=='undefined')button=gameInfo.buttons?.[name];
-                    if((!button?.image)&&typeof slot!=='undefined'&&slot?.buttons?.buttons){
+                    let button=null,applicationCanvas=null,modern=false;
+                    if(typeof slot!=='undefined'&&slot?.buttons?.buttons){
                      const key=Object.keys(slot.buttons.buttons).find(k=>k.toLowerCase()===name.toLowerCase());
-                     button=slot.buttons.buttons[key];applicationCanvas=slot.canvas?.canvas?.view;
+                     button=slot.buttons.buttons[key];applicationCanvas=slot.canvas?.canvas?.view;modern=!!button;
                     }
+                    if(!button&&typeof gameInfo!=='undefined')button=gameInfo.buttons?.[name];
                     if(!button?.image&&typeof gameClass!=='undefined'&&['Play','Start','Bet','Collect'].includes(name)){
                      const el=gameClass.button||gameClass.startButton; if(el?.interactive)button={image:el,status:'Native'};
                     }
-                    const image=button?.image||button?.container;const interactive=button?.container?.interactive?button.container:image;
+                    const image=modern?(button?.container||button?.image):(button?.image||button?.container);const interactive=button?.container?.interactive?button.container:image;
                     if(!image||!image.worldVisible||(!interactive?.interactive&&interactive?.eventMode!=='static')||button.status==='disabled'||button.mode==='Disabled')return null;
                     const b=image.getBounds();const c=applicationCanvas||document.querySelector('canvas');
                     if(!c||b.width<3||b.height<3)return null;
@@ -237,11 +237,11 @@ class Session:
                     const x=r.x+(b.x+b.width/2)*r.width/c.width;const y=r.y+(b.y+b.height/2)*r.height/c.height;
                     if(x<0||y<0||x>innerWidth||y>innerHeight)return null;
                     if(document.elementFromPoint(x,y)!==c)return null;
-                    return {x,y,status:button.mode||button.status,bounds:{x:b.x,y:b.y,width:b.width,height:b.height},canvas:{width:c.width,height:c.height,cssWidth:r.width,cssHeight:r.height}};
+                    return {x,y,status:button.option??button.mode??button.status,bounds:{x:b.x,y:b.y,width:b.width,height:b.height},canvas:{width:c.width,height:c.height,cssWidth:r.width,cssHeight:r.height}};
                 }""", name), timeout=3)
                 if not point:
                     continue
-                if required_status and point.get('status') != required_status:
+                if required_status and str(point.get('status','')).lower() != required_status.lower():
                     continue
                 frame_element = await frame.frame_element() if frame.parent_frame else None
                 box = await frame_element.bounding_box() if frame_element else {"x": 0, "y": 0}
@@ -274,7 +274,7 @@ class Session:
             clicked = await self.dom_click("play-start", [
                 'button[data-action="bet"]', '[data-action="place-bet"]',
                 '.bet-button', '.button-bet', '.place-bet-button', '.start-button', '.play-button', '.BetSlot', '.spin-button:not(.disable-main-button)', '.bet-btn', '.bet.place-bet', '.buttons-col.place-bet .bet', '.buttons .bet', '.button.bet', '#bet-button', '#bet', '#start',
-                '[data-bet-button]', '[data-action="play"]'
+                '[data-bet-button]', '[data-action="play"]', 'text=BET', 'text=PLAY', 'text=START', 'text=SPIN', 'text=DROP', 'text=PLACE BET'
             ], delay=0.2)
         if not clicked:
             for name in ["Start", "Bet", "Play", "Drop", "Shoot", "Go"]:
@@ -283,7 +283,7 @@ class Session:
                     break
         self.play_attempted = clicked
         if clicked:
-            await asyncio.sleep(1.5)
+            await asyncio.sleep(0.3)
             await self.pixi_click('Spin',label='stop-reels',delay=0.2,required_status='Stop')
             await asyncio.sleep(1.5)
             after = await self.capture("play-response")
@@ -403,7 +403,7 @@ class Session:
                      };
                      const out={url:location.href};
                      try{if(typeof game!=='undefined')out.resources={url:clean(game.url),images:clean(game.images),sounds:clean(game.sounds),spines:clean(game.spines),sprites:clean(game.sprites)}}catch{}
-                     try{if(typeof slot!=='undefined')out.slot={info:clean(slot.info),buttons:clean(slot.buttons?.config),boxes:clean(slot.boxes?.config),lines:clean(slot.lines?.config)}}catch{}
+                     try{if(typeof slot!=='undefined')out.slot={info:clean(slot.info),buttons:clean(slot.buttons?.config),boxes:clean(slot.boxes?.config||slot.box?.config),lines:clean(slot.lines?.config||slot.line?.config)}}catch{}
                      try{if(typeof gameClass!=='undefined')out.instantConfig=clean(gameClass.config)}catch{}
                      return out;
                     }"""),timeout=4)
@@ -419,8 +419,12 @@ class Session:
             else:
                 self.status = "loaded" if any(f["canvas"] or f["pixi"] for f in initial) else "unverified_load"
                 await self.dom_click('start-playing', ['[data-welcome-start]', '.info-button', '.how-to-play-popup .ok-button', '.version-btn[data-option="option1"]'])
+                await self.dom_click('allow-official-sound',['.sound-popup-content-buttons .yes'],capture=False)
                 await self.dom_click('choose-low-risk', ['.version-btn[data-option="option1"]'])
                 await self.close_overlays()
+                # Observe a genuine round while Spin is still uncovered. Some
+                # native canvas bet/autoplay sheets do not have DOM close buttons.
+                await self.observe_play()
                 if self.game['category'] != 'Slots':
                     await self.dom_click('jump-or-play', ['.start-button.jump', '.jump-button', '[data-action="jump"]'])
                     await self.dom_click('collect-demo', ['.collect-button', '.cashout-button', '.cash-out-button'])
@@ -450,7 +454,6 @@ class Session:
                         await self.close_overlays()
                 if self.game['id'] in ['multi-hot-wheel','wheel-of-destiny']:
                     await self.dom_click('choose-wheel-field',['.bet-field-item.item1'])
-                await self.observe_play()
                 if len(self.captures) < 9:
                     for n in range(2):
                         if await self.pixi_click("Spin", label=f"spin-{n+2}-animation", delay=0.15):
@@ -526,7 +529,7 @@ class Session:
                 "observations": [{"label":c["label"],"frames":[{"url":f["url"],"text":f.get("text",""),"configuration":f.get("configuration",{})} for f in c["frames"]]} for c in self.captures if any(w in c['label'] for w in ['rule','help','menu','initial'])]
             })
             save_json(self.directory / "07-buttons/actions.json", self.actions)
-            save_json(self.directory / "05-reels-system/observed-states.json", [{"label":c["label"],"elapsed":c["elapsed"],"frames":[{"url":f["url"],"state":f["state"],"configuration":f.get("configuration")} for f in c["frames"]]} for c in self.captures])
+            save_json(self.directory / "05-reels-system/observed-states.json", [{"label":c["label"],"elapsed":c["elapsed"],"frames":[{"url":f["url"],"state":f["state"],"slotInfo":f.get("slotInfo"),"slotRendering":f.get("slotRendering"),"slotWin":f.get("slotWin"),"configuration":f.get("configuration")} for f in c["frames"]]} for c in self.captures])
             save_json(self.directory / "10-layout-mobile/viewports.json", [{"label":c["label"],"frames":[{"viewport":f["viewport"],"canvas":f["canvas"]} for f in c["frames"]]} for c in self.captures])
             inventories = []
             for capture in self.captures:

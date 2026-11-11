@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="so">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#002319"><title>Multi Hot 10 · ZPLAY</title><link rel="stylesheet" href="/independent74/mh10/style.css?v=21"><script type="module" src="/independent74/mh10/live.mjs?v=21"></script></head>
+<body>
+<header class="topbar"><a href="/" target="_top" aria-label="Ku noqo ZPLAY">ZPLAY</a><span>MULTI HOT 10</span><time id="clock"></time><a class="exit" href="/" target="_top" aria-label="Xidh ciyaarta">×</a></header>
+<main class="game" id="game" aria-label="Multi Hot 10">
+ <h1><img src="/independent74/native/multi-hot-10-2/assets/title.webp" alt="MULTI HOT 10"></h1>
+ <section class="machine" aria-label="Shan reel, saddex saf, toban payline">
+  <div class="multiplier" aria-label="Multiplier-ka wareegga"><img class="wheel-back" src="/independent74/mh10/assets/wheel-background.webp" alt=""><div class="wheel" id="wheel"><img src="/independent74/mh10/assets/wheel-numbers.webp" alt="" draggable="false"></div><div class="selected-multiplier"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 2 96 14 82 98H18L4 14Z" fill="none" stroke="#b98c32" stroke-width="3"/><path d="M50 6 91 17 78 94H22L9 17Z" fill="none" stroke="#a83d59" stroke-width="2"/></svg><strong id="multiplier">2x</strong></div></div>
+  <div class="reel-frame"><div id="reels" class="reels" aria-label="Reels-ka ciyaarta"></div><svg id="win-lines" class="win-lines" viewBox="0 0 500 300" aria-hidden="true"></svg></div>
+  <div class="line-count">10 LINES FIXED</div>
+ </section>
+ <div id="win-display" class="win-display" role="status" hidden><span>WIN</span><strong id="win-amount">0.00</strong><small>ETB</small><button id="take-win" type="button">TAKE WIN</button><button id="gamble-win" type="button">×2</button></div>
+ <p id="message" class="message" role="status" aria-live="polite">Hubinaya akoonka…</p>
+ <div class="play-controls">
+  <button id="auto" class="picture-button auto-button" type="button" aria-label="Autoplay"><img src="/independent74/mh10/assets/autoplay.webp" alt=""><small id="auto-count" hidden></small></button>
+  <button id="spin" class="picture-button spin-button" type="button" aria-label="SPIN"><img id="spin-image" src="/independent74/mh10/assets/spin.webp" alt=""><span id="spin-label">SPIN</span></button>
+  <button id="bet" class="picture-button bet-button" type="button" aria-label="Dooro sharadka"><img src="/independent74/mh10/assets/bet.webp" alt=""></button>
+  <button id="turbo" class="turbo-button" type="button" aria-label="Turbo" aria-pressed="false"><svg viewBox="0 0 24 32" aria-hidden="true"><path d="M14 1 2 18h9L9 31l14-19h-9z"/></svg></button>
+ </div>
+ <footer class="account-bar">
+  <button id="menu" class="plain-icon" type="button" aria-label="Menu"><svg viewBox="0 0 28 24" aria-hidden="true"><path d="M2 4h24M2 12h24M2 20h24"/></svg></button>
+  <div class="account-field"><span>BALANCE</span><strong id="balance">—</strong><small> ETB</small></div>
+  <button id="bet-display" class="account-field" type="button" aria-label="Sharadka ETB"><span>BET</span><strong id="bet-amount">0.10</strong><small> ETB</small></button>
+  <button id="sound" class="plain-icon" type="button" aria-label="Codka" aria-pressed="false"><svg viewBox="0 0 28 24" aria-hidden="true"><path d="M2 9h5l7-6v18l-7-6H2z"/><path class="sound-waves" d="M18 7q7 5 0 10M21 3q12 9 0 18"/></svg><span class="sound-muted" aria-hidden="true">×</span></button>
+ </footer>
+ <button id="retry" class="recovery" type="button" hidden>Dib u xaqiiji wareegga</button>
+</main>
+
+<dialog id="sound-dialog" class="sound-dialog"><h2>Would you like sound?</h2><div class="choice-row"><button id="sound-yes" type="button">Yes</button><button id="sound-no" type="button">No</button></div></dialog>
+<dialog id="bet-dialog"><header><h2>BET · ETB</h2><button data-close aria-label="Xidh">×</button></header><p>10 lines fixed</p><div class="bet-stepper"><button id="bet-less" aria-label="Yaree sharadka">−</button><strong id="bet-choice">0.10</strong><button id="bet-more" aria-label="Kordhi sharadka">+</button></div><div id="bet-levels" class="bet-levels"></div><button id="bet-confirm" class="confirm">OK</button></dialog>
+<dialog id="auto-dialog"><header><h2>AUTOPLAY</h2><button data-close aria-label="Xidh">×</button></header><label>Number of spins<select id="auto-spins"><option>5</option><option>10</option><option>20</option><option>50</option><option>100</option></select></label><label class="check"><input id="auto-stop-win" type="checkbox" checked> Stop on any win</label><label>Loss limit · ETB<input id="auto-loss" inputmode="decimal" type="text" value="10.00"></label><p id="auto-error" role="alert"></p><button id="auto-start" class="confirm">START</button></dialog>
+<dialog id="menu-dialog" class="menu-dialog"><header><h2>Multi Hot 10</h2><button data-close aria-label="Xidh">×</button></header><div class="menu-content">
+ <section id="rules-panel"><h3>10 lines fixed</h3><p>Guushu waxay ka bilaabataa reel-ka bidix. Saddex ama ka badan oo symbols isku mid ah oo isku payline ah ayaa guulaysta. Sharadka guud waxaa loo qaybiyaa 10-ka line; multiplier-ka wareegga ayaa ku dhufanaya guusha.</p><div id="paytable" class="paytable"></div><div id="paylines" class="paylines"></div><p class="math-note">Xisaabta ZPLAY: symbols iyo multiplier madax-bannaan; celceliska xisaabeed 99.2431640625%. Guusha waxaa si toos ah loogu qoraa wallet-ka ETB. TAKE WIN wuxuu xiraa doorashada ×2 ee shaashaddan.</p></section>
+ <section id="settings-panel" hidden><h3>SETTINGS</h3><label class="check"><input id="effects-enabled" type="checkbox"> Sound effects</label><label>Sound volume<input id="effects-volume" type="range" min="0" max="100" value="70"></label><label class="check"><input id="music-enabled" type="checkbox"> Background music</label><label>Music volume<input id="music-volume" type="range" min="0" max="100" value="35"></label><button id="fullscreen" class="confirm">FULLSCREEN</button></section>
+ <section id="history-panel" hidden><h3>HISTORY</h3><p id="history-status"></p><ol id="history"></ol><button id="history-refresh" class="confirm">REFRESH</button></section>
+ </div><nav class="menu-tabs"><button data-tab="rules" aria-selected="true">RULES</button><button data-tab="settings" aria-selected="false">SETTINGS</button><button data-tab="history" aria-selected="false">HISTORY</button></nav></dialog>
+<dialog id="gamble-dialog"><header><h2>GAMBLE · ×2</h2><button data-close aria-label="Xidh">×</button></header><p>Dooro casaanka ama madowga. Guul: ×2. Khasaaro: 0.</p><strong id="gamble-stake"></strong><div id="revealed-card" class="revealed-card" hidden></div><div class="choice-row"><button id="gamble-red" class="red-card" aria-label="Casaan">RED</button><button id="gamble-black" class="black-card" aria-label="Madow">BLACK</button></div><button id="gamble-take" class="confirm">TAKE WIN</button><p id="gamble-message" role="status"></p></dialog>
+<dialog id="login-dialog"><header><h2>Gal akoonkaaga</h2><button data-close aria-label="Xidh">×</button></header><p>Ciyaartani waxay isticmaashaa wallet-ka ETB ee akoonkaaga ZPLAY.</p><a href="/" target="_top" class="confirm">GAL AKOONKAAGA</a></dialog>
+</body></html>

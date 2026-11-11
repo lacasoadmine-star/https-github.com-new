@@ -1,0 +1,40 @@
+{
+  "reason": "STOP freezes decorative pending reel motion immediately; only a validated server receipt resumes the landing animation. No receipt, grid, round or financial calculation is fabricated or changed.",
+  "patches": [
+    {
+      "target": "/native-library/remaining20/20261110-rounds-r21/3d420e4fe5830b46/presentation/smartsoft-motion.mjs",
+      "oldSHA256": "21009546f06d9bd4ac9eef8eba6eb3a87045c4ba633fbb4543a3b53ab69d063b",
+      "before": "advance(i){const e=this.state;!e||!Number.isFinite(i)||i<e.last||(e.elapsed+=i-e.last,e.last=i)}",
+      "after": "advance(i){const e=this.state;!e||!Number.isFinite(i)||i<e.last||(!e.received&&e.accelerated?(e.last=i):(e.elapsed+=i-e.last,e.last=i))}",
+      "file": "games/remaining20/burningice-smartsoft-motion.mjs"
+    },
+    {
+      "target": "/native-library/remaining20/20261110-rounds-r21/5fddea498e1f0d39/presentation/smartsoft-motion.mjs",
+      "oldSHA256": "aca520d9da2cb2d6151559e4667b1aef4ae246ce653bdff33092ca20265e5ccb",
+      "before": "advance(time){const s=this.state;if(!s||!Number.isFinite(time)||time<s.last)return;s.elapsed+=time-s.last;s.last=time;}",
+      "after": "advance(time){const s=this.state;if(!s||!Number.isFinite(time)||time<s.last)return;if(!s.received&&s.accelerated){s.last=time;return;}s.elapsed+=time-s.last;s.last=time;}",
+      "file": "games/remaining20/multihot100-smartsoft-motion.mjs"
+    },
+    {
+      "target": "/native-library/remaining20/20261110-rounds-r21/fe6fe5c2996189a2/presentation/smartsoft-motion.mjs",
+      "oldSHA256": "fcda5af63b00088c56e59837b2b4fbeeff470b263bb5dd1943eb6b6ce2d40bf0",
+      "before": "advance(time){const s=this.state;if(!s||!Number.isFinite(time)||time<s.last)return;s.elapsed+=time-s.last;s.last=time;}",
+      "after": "advance(time){const s=this.state;if(!s||!Number.isFinite(time)||time<s.last)return;if(!s.received&&s.accelerated){s.last=time;return;}s.elapsed+=time-s.last;s.last=time;}",
+      "file": "games/remaining20/multihotdeluxe-smartsoft-motion.mjs"
+    },
+    {
+      "target": "/native-library/remaining20/20261110-rounds-r21/cc0f22635df0e9c7/presentation/smartsoft-motion.mjs",
+      "oldSHA256": "93be900d7b897ea02eb60cd396bce06de8d1d18a9e4ca52b11f1b02fd56f9def",
+      "before": "advance(i){const e=this.state;!e||!Number.isFinite(i)||i<e.last||(e.elapsed+=i-e.last,e.last=i)}",
+      "after": "advance(i){const e=this.state;!e||!Number.isFinite(i)||i<e.last||(!e.received&&e.accelerated?(e.last=i):(e.elapsed+=i-e.last,e.last=i))}",
+      "file": "games/remaining20/burningice40-smartsoft-motion.mjs"
+    },
+    {
+      "target": "/native-library/remaining20/20261110-rounds-r21/7161514f85b0565e/presentation/smartsoft-motion.mjs",
+      "oldSHA256": "aca520d9da2cb2d6151559e4667b1aef4ae246ce653bdff33092ca20265e5ccb",
+      "before": "advance(time){const s=this.state;if(!s||!Number.isFinite(time)||time<s.last)return;s.elapsed+=time-s.last;s.last=time;}",
+      "after": "advance(time){const s=this.state;if(!s||!Number.isFinite(time)||time<s.last)return;if(!s.received&&s.accelerated){s.last=time;return;}s.elapsed+=time-s.last;s.last=time;}",
+      "file": "games/remaining20/habeshafortune5-smartsoft-motion.mjs"
+    }
+  ]
+}
