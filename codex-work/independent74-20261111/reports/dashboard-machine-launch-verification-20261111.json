@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-11-11",
+  "website": "https://superwin-player.apdiy61.workers.dev/",
+  "worker": "superwin-player",
+  "version": "fa7bd935-5e02-4cfc-b27e-46cd6ca4630e",
+  "deployment": "82b67d3a-7d4a-497d-b8e8-1c0d1012dcf0",
+  "rollbackVersion": "0698e22d-52f0-499e-8479-63a4fbf8ac92",
+  "changes": [
+    "PLAY opens 60 unfinished authored machine UIs inside a same-origin dashboard dialog; top-level URL remains /",
+    "Preserve all14 existing wallet mappings and engines",
+    "Keep wager buttons server-gated while allowing local configuration",
+    "Show history unavailable or sign-in state without inventing records",
+    "Reuse9 existing r20 cards instead of duplicating them"
+  ],
+  "browserVerification": {
+    "signedIn": false,
+    "unfinishedMachinesOpened": 60,
+    "allRendered": true,
+    "allStakeConfigurationEnabled": true,
+    "allMoneyWagerControlsDisabled": true,
+    "newCardsAfterDeduplication": 60,
+    "retainedMultihot100Cards": 1,
+    "rootUrlUnchanged": true,
+    "sampleControlsTested": [
+      "MultiHot10 stake increment1.00->2.00",
+      "MultiHot10 sound toggle muted->enabled",
+      "MultiHot10 history sign-in status"
+    ],
+    "audioAudiblyVerified": false,
+    "animationAndStopCashWagerTested": false
+  },
+  "validation": {
+    "focusedTestsPassed": 13,
+    "legacyModuleChecksumsVerified": 304,
+    "legacyModulesModified": 0,
+    "financialCodeModified": 0,
+    "playerBalancesModified": 0,
+    "productionWagersPlaced": 0
+  },
+  "referenceComparison": {
+    "sample": "MultiHot10 official demo opened and visually inspected",
+    "matchingGeometry": "5 reels x3 rows",
+    "gaps": [
+      "Official fruit artwork differs from current independent symbols",
+      "Official upper multiplier wheel absent from generic slot renderer",
+      "Controls layout and full animation parity remain incomplete"
+    ],
+    "all74ReferencesComparedThisTurn": false
+  },
+  "remainingBlocker": "Current account-api is protected-readonly. Actual retained-wallet settlement adapter is not installed or verified for the60 unfinished games; live per-game bet/liability policies and shared ledger admission proof remain incomplete. No replacement wallet was created, and gates were not set true."
+}

@@ -50,7 +50,7 @@ function sync(){
  const query=(document.querySelector('#portal-r9-search')?.value||'').trim().toLocaleLowerCase();
  for(const game of entries){
   const route=url(game),key=route?.split('/').at(-1);
-  const existing=route?originals.find(article=>[...article.querySelectorAll('[data-game],a[href]')].some(node=>node.dataset.game===key||node.getAttribute('href')===route)):null;
+  const existing=route?originals.find(article=>article.dataset.r20Game===key||[...article.querySelectorAll('[data-game],a[href]')].some(node=>node.dataset.game===key||node.getAttribute('href')===route)):null;
   const card=cards.get(game.gameId);
   if(existing){existing.dataset.i74GameId=game.gameId;if(card.isConnected)card.remove();}
   else{if(card.parentNode!==grid)grid.append(card);card.hidden=!!query&&!game.name.toLocaleLowerCase().includes(query);}
