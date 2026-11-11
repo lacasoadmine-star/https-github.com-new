@@ -1,0 +1,38 @@
+{
+  "updatedAt": "2026-11-11T10:07:25.066776+00:00",
+  "authorizedByUser": true,
+  "website": "https://superwin-player.apdiy61.workers.dev/",
+  "phase1": {
+    "targetGames": 74,
+    "officialRoundsPerGame": 20,
+    "targetRoundCredits": 1480,
+    "mustBeCompletedPublishedAndVerifiedBeforePhase2": true
+  },
+  "phase2": {
+    "targetDistinctNewGames": 1000,
+    "officialRoundsPerGame": 20,
+    "targetRoundCredits": 20000,
+    "batchSize": 20,
+    "started": false,
+    "verifiedCandidates": 0,
+    "built": 0,
+    "tested": 0,
+    "published": 0,
+    "records": []
+  },
+  "finalTargetGames": 1074,
+  "identityPolicy": [
+    "Provider plus verified official game identifier",
+    "Exclude all74 and their documented aliases",
+    "Reject alternateURLs/translations/mobile-desktop duplicates",
+    "Open actual official-page and demo links; never guess URLs"
+  ],
+  "moneyPolicy": {
+    "initialAndTestEtb": "1\u201320",
+    "largerAmounts": "server game/account/house configured and fully funded reserve; support >40000",
+    "canonicalWallet": "existing sw_rebuild.wallets and sw_rebuild.ledger",
+    "playerFundsUsedForTests": false
+  },
+  "publicationPolicy": "Same existing website; only finished verified new batches in player catalogue; incomplete games in review/progress; no new wallet or replacement backend",
+  "currentCheckpointPublication": "UI/progress checkpoint only; does not assert all74 completed or open new ETB wagers"
+}

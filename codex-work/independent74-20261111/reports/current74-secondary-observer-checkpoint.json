@@ -1,0 +1,63 @@
+{
+  "at": "2026-11-11T09:19:38.141084+00:00",
+  "observer": "rules",
+  "scope": "Eight disjoint official DEMO slot titles only",
+  "source": "tests/evidence/official-demo-observations-slots20-secondary.json",
+  "productionFundsTouched": false,
+  "syntheticBettingRequests": false,
+  "reader": "Public rendered worldTransform \u00d7 untrimmed texture.orig + anchor; no getBounds, animation/RNG/timer writes",
+  "readerValidation": "reports/current74-evidence-slots-remaining/cached-untrimmed-reader-validation.json",
+  "pointer": "Native move/down/up;90ms press release scheduled independently of protocol acknowledgement",
+  "rules": [
+    "Refresh canonical20-round eligibility before every paid input",
+    "Accepted unconfirmed cycles cannot be replaced",
+    "Native result/balance/ready receipt persisted before bounded screenshots",
+    "Capture failures and animation gaps disclosed",
+    "All provider wagers1\u201320DMO; never production wallet"
+  ],
+  "games": [
+    {
+      "gameId": "ind74_official_junglesisters",
+      "verified": 1,
+      "status": "financial-result-confirmed-animation-unverified",
+      "acceptedUnconfirmed": [],
+      "animationGap": "Last visible native label STOP; no ready/SPIN or stopped screenshot captured.",
+      "blocker": "READ_ONLY_VISIBLE_SNAPSHOT_TIMEOUT"
+    },
+    {
+      "gameId": "ind74_official_junglesistersdeluxe",
+      "verified": 2,
+      "status": "opening",
+      "acceptedUnconfirmed": [
+        "native-play-input-requested"
+      ],
+      "animationGap": null,
+      "blocker": null
+    },
+    {
+      "gameId": "ind74_official_dragonscode",
+      "verified": 0,
+      "status": "blocked-or-partial",
+      "acceptedUnconfirmed": [],
+      "animationGap": null,
+      "blocker": "NATIVE_BET_MENU_NOT_VISIBLE"
+    },
+    {
+      "gameId": "ind74_official_draculasfortune",
+      "verified": 0,
+      "status": "blocked-or-partial",
+      "acceptedUnconfirmed": [],
+      "animationGap": null,
+      "blocker": "NATIVE_BET_MENU_NOT_VISIBLE"
+    },
+    {
+      "gameId": "ind74_official_bookoffuturia",
+      "verified": 0,
+      "status": "blocked-or-partial",
+      "acceptedUnconfirmed": [],
+      "animationGap": null,
+      "blocker": "WAIT_TIMEOUT"
+    }
+  ],
+  "next": "Complete eligible18 remaining Deluxe rounds; inspect other titles actual viewport/control geometry before wagers; preserve Jungle financial-only adjudication gap."
+}

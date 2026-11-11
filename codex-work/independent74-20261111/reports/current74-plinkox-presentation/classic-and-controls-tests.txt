@@ -1,0 +1,14 @@
+✔ fresh pink-ball board replaces the old 8-row model and reproduces the observed 50-to-100 payout (7.143412ms)
+✔ each of the 17 paths lands in its payout bucket and stays inside the exact wager cap (9.544916ms)
+✔ per-ball input becomes one exact accepted total without floating-point arithmetic or a new arbitrary cap (5.891667ms)
+✔ Plinko X matches observed LOW16rows/17buckets and pink/yellow/blue legend without changing Classic color identities (11.736196ms)
+✔ every settled batch ball renders the supplied path, color and landing; aggregate result is not resampled or changed (21.127181ms)
+✔ all risk tables are explicit and missing profiles cannot silently fall back to LOW (12.151637ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1192.534025

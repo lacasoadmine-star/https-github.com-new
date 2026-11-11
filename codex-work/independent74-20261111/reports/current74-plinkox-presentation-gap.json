@@ -1,0 +1,69 @@
+{
+  "gameId": "ind74_official_plinkox",
+  "officialEvidence": "tests/evidence/official-demo-observations-plinkox20.json",
+  "referenceScreenshot": "reports/current74-evidence/plinkox-low-ready-desktop-dpr1.png",
+  "verifiedOfficialCompletedRounds": 20,
+  "newOfficialRoundsThisTask": 0,
+  "observed": {
+    "geometry": "16pegrows with3..18pegs,17prizebuckets",
+    "lowBucketMultipliers": [
+      "20",
+      "10",
+      "5",
+      "2",
+      "1.5",
+      "1.3",
+      "1.1",
+      "0.8",
+      "0.5",
+      "0.8",
+      "1.1",
+      "1.3",
+      "1.5",
+      "2",
+      "5",
+      "10",
+      "20"
+    ],
+    "legend": "pink1x,yellow5x,blue10x",
+    "controls": "CircularHOLD&DROPtopright;betminus/plus;VersionLOW/MEDIUM/HIGH;Amount1/5/10/25;balance/WINbelowboard",
+    "completedEvidence": "Twenty single-ballLOW rounds at1DMO; other risk/batch modes were visible but not played."
+  },
+  "baselineGaps": [
+    "Definition has10rows/11buckets,notobserved16/17.",
+    "Independent LOW bucket awards differ from observed LOW prizes.",
+    "No risk/ball-amount selection or published ball variants forPlinkoX.",
+    "Generic renderer has no nonClassic underwaterpurple palette/verticallegend or observed Drop control."
+  ],
+  "doNotInfer": [
+    "Provider ball/path probabilities orRTP.",
+    "Medium/high complete bucket arrays from only their published maximums.",
+    "Gross11xaward is not proof of a particular ball type.",
+    "Official multi-ball accounting,exactaudio,hold-repeat,mobilelayout orreloadbehavior."
+  ],
+  "coordination": "Geometry agent owns math/config/sourcegeometry. Presentation owns controls/rendering/public metadata only; batch stake must remain single accepted server total with exact minor-unit accounting.",
+  "protectedClassic": "NoClassicrounds requested; preserve152existingverifiedClassicrounds andClassicimplementation.",
+  "modelVersion": "official72-plinkox-r4",
+  "additionalReadOnlySources": [
+    "reports/current74-evidence-nonslots/ind74_official_plinkox-rendered-buckets.json",
+    "reports/current74-evidence-nonslots/ind74_official_plinkox-amount-help.json"
+  ],
+  "resolved": [
+    "16rows,168pegs,17buckets andall51LOW/MEDIUM/HIGHdisplayedbucketprizes.",
+    "AllthreeversionsenableonlyfromcompletepublishedserverbucketTablesBps;unknown/missingprofilescannotfallbacktoLOW.",
+    "Pink1x/yellow5x/blue10xlegendandserverprovidedballcolors;nochoose-colorcontrol.",
+    "Per-ballstake\u00d71/5/10/25asonecanonicalacceptedTOTAL;exactBigIntformattingandlive-serverlimits.",
+    "Native-likeAGREE/CANCEL/DONTSHOWAGAINamountselection;agreementdoesnotbet,cancelretainscommittedamount.",
+    "Eachserverballanimatesfromitsprovidedpath,STOPfastforwardsunchangedcompletedreceipt,noadditionalactions.",
+    "Reloadrestoreslastserverrisk/amount/per-ballstake;laterrefreshpreservesnextselection.",
+    "Desktopboardleft/controlspanelright,mobilestacked;bucketlabelsandfullstagecheckedat360/390/430/1280."
+  ],
+  "remaining": [
+    "B+50%extracostoptionisnotimplementedandisneversilentlycharged.",
+    "Providerprivateball/pathprobabilities,RTPandexactmotion/audio/medialayoutremainunverified.",
+    "NativeHelpdescribesper-ballindividualdeductions;thisoperatorusesoneatomicbatchdebit/reserve/payout.Equivalentprovidertransactionatomicitywasnotobserved.",
+    "OfficialMEDIUM/HIGHoutcomesandmulti-ballsettlementswerenotplayed;theirtables/committedTOTALBETcontrolsareverifiedread-only.",
+    "Fullprovidergraphics,fonts,initialversion-modalflow,hold-to-repeatandcompletebehaviorparityremainunverified."
+  ],
+  "fullProviderParityVerified": false
+}

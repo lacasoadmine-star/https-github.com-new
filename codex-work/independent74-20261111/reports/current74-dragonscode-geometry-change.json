@@ -1,0 +1,57 @@
+{
+  "createdAt": "2026-11-11T09:57:28.580473+00:00",
+  "gameId": "ind74_official_dragonscode",
+  "modelVersion": "official72-dragonscode-r3",
+  "before": {
+    "rows": 3,
+    "columns": 5,
+    "paylines": "Generic independent fallback"
+  },
+  "directlyObserved": {
+    "rows": 4,
+    "columns": 5,
+    "symbols": 20,
+    "nativeCanvas": {
+      "width": 2170,
+      "height": 1220
+    },
+    "visibleArcLabels": [
+      1,
+      2,
+      5
+    ],
+    "screenshot": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png",
+    "screenshotSha256": "e303fefc81021b743fa947ddfe77f26b2faa65454be33f94aebbf5e0ee8ddf87",
+    "screenshotManuallyInspected": true,
+    "newOfficialWagersByThisTask": 0
+  },
+  "documented": {
+    "source": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-official-help-en.json",
+    "mappingProof": "Exact data-caption selectors extracted from this title Help HTML, then exact key lookup; no fuzzy title/prefix inference",
+    "exactCaption": "help.slots.dragonscode.multiplier.reel.description.second",
+    "quote": "Dragon's Code\" is an enchanting 50-payline slot that invites players into a mystical world inspired by the majesty of elves. The game offers a thrilling Re-spin bonus feature, as well as a Re-spin Buy option for those seeking extra chances to win. With captivating graphics and immersive gameplay, this slot brings the allure of the elven realm to life",
+    "paylines": 50
+  },
+  "implemented": [
+    "Five reels and four rows",
+    "Fifty independent paylines including a fourth-row horizontal winner",
+    "Model version bumped and storage/liability bounds retained",
+    "Renderer geometry follows the new public definition"
+  ],
+  "independentOrUnverified": [
+    "Provider line chart, symbol prizes and probabilities remain unknown",
+    "Regular-symbol awards and uniform eight-symbol draws remain independently authored",
+    "Documented1x\u20135x multiplier, Wild, Golden Egg, respins, buy feature and Gamble remain unimplemented",
+    "Full artwork/audio/controls/provider equivalence and production wallet release remain incomplete"
+  ],
+  "verification": {
+    "evidence": "reports/current74-dragonscode-geometry-tests.txt",
+    "passed": 88,
+    "failed": 0,
+    "scope": "Two focused Dragon geometry/payout tests plus shared official72/audit regression coverage; not88 per-title tests",
+    "fourthRowWin": true,
+    "exactMaximumAtLargeAndStorageStakes": true
+  },
+  "liveWrites": 0,
+  "deploymentPerformed": false
+}

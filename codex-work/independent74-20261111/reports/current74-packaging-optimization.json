@@ -1,0 +1,88 @@
+{
+  "recordedAt": "2026-11-11T09:38:12.688Z",
+  "scope": "Build-only fixed import-edge data capture; no game math, financial rules, legacy modules, bindings or deployment changed.",
+  "packing": {
+    "edge": "math/official72.mjs -> ./requested72.mjs",
+    "modelId": "ind74_multihot100",
+    "fixedCallCount": 2,
+    "sourceSha256": "58c353c330f5373961ef6ea7a5b6a4df9b76e86aae4a69de109b07351281e938",
+    "definitionSha256": "c5fcbea840ace97f3c7440c83cb96c5fd271e4a455376fe687bb4c81a7eb6221",
+    "definitionBytes": 4462,
+    "interceptedImports": 1,
+    "unrelatedRequestedRegistryBundled": false
+  },
+  "semantics": {
+    "losslessJSONCapture": true,
+    "defensiveClonePreserved": true,
+    "otherImportersUntouched": true,
+    "all72DefinitionsDeepEqual": true,
+    "seededRawAndPublicRoundPairs": 216,
+    "mh100StakeMinorCases": [
+      "100",
+      "2000",
+      "4000100"
+    ],
+    "guard": "Parsed source must retain exactly two literal ind74_multihot100 revisedModel calls and no other references; build fails if another requested registry enters the graph."
+  },
+  "sameSourceProductionEngine": {
+    "baselineEngineBytes": 398777,
+    "optimizedEngineBytes": 341892,
+    "savedBytes": 56885
+  },
+  "actualBuiltOwnModules": {
+    "bytes": 478740,
+    "modules": {
+      "independent74-assets-r6.mjs": {
+        "bytes": 105685,
+        "sha256": "4a76c2844b997ebb2cc8731620b99cb4a5710276d643239c58ebf486dde00d2b"
+      },
+      "independent74-catalog-r6.mjs": {
+        "bytes": 8086,
+        "sha256": "08637f60e2e6b3e81e0b7fd919426824751e6e6cc580f7096f89303734ac4ac1"
+      },
+      "independent74-gateway-r6.mjs": {
+        "bytes": 18275,
+        "sha256": "68101cec1fe14f2ee415a3fd5822f49e98f382ac22068ff1580a41f6a6f6e298"
+      },
+      "independent74-entry-r6.mjs": {
+        "bytes": 1471,
+        "sha256": "4eb2e346c12115112dcc7b3f20e578416ff2a9db9c0eefe69965150273123dcc"
+      },
+      "independent74-demo-r6.mjs": {
+        "bytes": 341892,
+        "sha256": "cb5ab8d53f2343f99776e5a30956f141b4b745544f259cdbab70e8d6b5bab335"
+      },
+      "independent74-demo-gateway-r6.mjs": {
+        "bytes": 3331,
+        "sha256": "93510addd306f08d7d8b8d6dde7ea608267a33a3e511910a5c7786cb901e6e7b"
+      }
+    }
+  },
+  "estimate": {
+    "previousMultipartBytes": 66959824,
+    "previousOwnModuleBytes": 480737,
+    "estimatedMultipartBytesBeforeBoundaryOverhead": 66957827,
+    "providerErrorLimitMiB": 63.9,
+    "estimatedHeadroomBytes": 46179,
+    "note": "Estimate only, not a provider acceptance test. No upload/deployment performed."
+  },
+  "verification": {
+    "focusedTestsPassed": 5,
+    "generatedWorkerSmoke": {
+      "pass": true,
+      "generatedModules": true,
+      "compressedAssets": true,
+      "legacyRoutesPreserved": true,
+      "legacyDoConstructorAndMethodsPreserved": true,
+      "demoStorageIsolated": true,
+      "currency": "DEMO",
+      "accountDefinitions": 72,
+      "newEtbGamesEnabled": 0,
+      "existingAccountReadonly": true,
+      "externalRequests": 0,
+      "playerWalletMutations": 0
+    },
+    "testsLog": "reports/current74-packaging-fixed-tests.txt"
+  },
+  "deploymentPerformed": false
+}

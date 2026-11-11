@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-11-11T08:44:48.592865+00:00",
+  "scope": "Startup READ ONLY audit only; no financial functions, endpoints, evaluators, gates, variables or existing bytes changed in candidate",
+  "candidateSha256": "e05c4e0de5b06e0d3cb8b4828e2e85a21f6fb0cca8853ae129c273e3e5c2fade",
+  "baselineSha256": "83755318696124ce3566dd80d44c723288f14d79f4d45b761b821234662bd738",
+  "freshBaselineVerified": true,
+  "isolatedTestsPassed": 4,
+  "toolResponse": {
+    "changed": true,
+    "staged": null,
+    "message": "Updated source and deploying"
+  },
+  "actualDeploymentVerified": false,
+  "actualReadbackBytes": 82860,
+  "expectedCandidateBytes": 85472,
+  "latestObservedDeployment": "3cc34ab8-5d40-4830-81c9-0288f6222994",
+  "latestObservedDeploymentCreated": "2026-11-06T23:16:14.742Z",
+  "auditLogEventsFound": 0,
+  "legacy13CatalogueUnchanged": true,
+  "repeatedWriteAttempted": false,
+  "conclusion": "Connector reported update but subsequent source readback and deployment inventory still show the old release. Do not call this deployed or audit executed. Continue bounded monitoring; no blind source retry or redeploy.",
+  "unrelatedStagedPatchAccepted": false,
+  "playerFundsTested": false
+}

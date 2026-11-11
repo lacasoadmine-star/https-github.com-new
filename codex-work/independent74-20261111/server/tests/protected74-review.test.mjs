@@ -139,3 +139,9 @@ test('64newmodel fixture reserves and pays a large heldwin once; accountandhouse
  await sql.unsafe('INSERT INTO sw_rebuild.account_limits(user_id,max_balance) VALUES($1,$2)',[failureUser,String(await wallet(failureUser))]);original=await footprint();await assert.rejects(facade.action(failureUser,request()),e=>e.message==='POTENTIAL_PAYOUT_EXCEEDS_ACCOUNT_LIMIT');assert.equal(await footprint(),original);
  }finally{await fixture.close();}
 });
+test('retainedSQL facade reuses the exact existing protectedpool/transaction without newdrivers or ledger SQL',async()=>{
+ const calls=[],connection={query:async(text,parameters)=>{calls.push({context:'existing-transaction',text,parameters});return{rows:[{value:'tx'}]};}},pool={query:async(text,parameters)=>{calls.push({context:'existing-pool',text,parameters});return{rows:[{value:'pool'}]};}};
+ let transactions=0;const facade=review.createProtectedSqlFacade({pool,transaction:async callback=>{transactions++;return callback(connection);}});
+ assert(review.assertProtectedSqlPool(facade,pool));assert(Object.isFrozen(facade));assert.deepEqual(await facade.unsafe('SELECT1',[]),[{value:'pool'}]);assert.deepEqual(await facade.begin(tx=>tx.unsafe('SELECT2',['bound'])),[{value:'tx'}]);assert.equal(transactions,1);assert.deepEqual(calls,[{context:'existing-pool',text:'SELECT1',parameters:[]},{context:'existing-transaction',text:'SELECT2',parameters:['bound']}]);
+ assert.throws(()=>review.assertProtectedSqlPool({unsafe:facade.unsafe,begin:facade.begin},pool),/RETAINED_CLASSES_MUST_USE_EXACT_PROTECTED_POOL/);assert.throws(()=>review.assertProtectedSqlPool(facade,{}),/RETAINED_CLASSES_MUST_USE_EXACT_PROTECTED_POOL/);
+});

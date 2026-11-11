@@ -1,0 +1,77 @@
+{
+  "format": "protected74-in-factory-review-v1",
+  "reviewOnly": true,
+  "originalRuntimeSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+  "candidateRuntimeSha256": "1124b1e0400f5339d679c0752a704eb429c3c09f3f9ab1f493d34f97b113180e",
+  "restoredOriginalSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+  "originalBytes": 113506,
+  "candidateBytes": 218468,
+  "installerBytes": 587077,
+  "installerGzipBytes": 78153,
+  "installerSha256": "97ef7ba48b6a767b3f00e68968243103dfac0e8e1469044c2f3e7ecd0afa5c4e",
+  "splices": [
+    "Insert verified pure review module before existing factory declaration",
+    "Insert in-process closure hook immediately before existing return object",
+    "Return wrapped fetch pointer before original unchanged Bun.serve captures it"
+  ],
+  "originalFinancialHelperBodiesPreserved": {
+    "transaction": {
+      "bytes": 401,
+      "sha256": "1b9b397e42345c4f8b1cf7f30ac94d6b2014819ee6b151ceb22c7f3c5af1b521"
+    },
+    "authenticate": {
+      "bytes": 563,
+      "sha256": "e2800505c1fa03b9b1bb35ca3aafcee056527256d673e821575269aedab64af3"
+    },
+    "balance": {
+      "bytes": 192,
+      "sha256": "db2ca54b4573c912f581c84f163ca317a62fc5856113635a3dd409823c6c2615"
+    },
+    "lockWallets": {
+      "bytes": 249,
+      "sha256": "0029ef90591661179bef384fbd676a1112e7274ba4b10390f88211a871119c98"
+    },
+    "move": {
+      "bytes": 1462,
+      "sha256": "a897c280c8ac09c477600beba11412152234389d15afa469cb8a4a06928e72f1"
+    },
+    "locked": {
+      "bytes": 364,
+      "sha256": "26d6ae83f9bf5d0cf5083d86d1a4320cf410b21bc7bc8ec4c9e260c2c918e97c"
+    },
+    "settle": {
+      "bytes": 4145,
+      "sha256": "5ed0a5c95736cf97b8243073add6541489d1b59a5c64a1976cdccad24d0caaac"
+    },
+    "action": {
+      "bytes": 4213,
+      "sha256": "a9c563fdf73bf8ca686506671ecf330db61c588d6d0895f4e6bc4d74e5c74bfc"
+    },
+    "reconcile": {
+      "bytes": 689,
+      "sha256": "c86a5e5229ee6f5a92e5ce17b6d365ded9863f51a57cad9d7aaa7540ce4cce37"
+    },
+    "fetchHandler": {
+      "bytes": 4447,
+      "sha256": "f01243ffae328605a3052fac8f9a6645efa5f8670cfb4a0df18f888e9777703f"
+    }
+  },
+  "originalBootstrapByteIdentical": true,
+  "originalMathPayloadsByteIdentical": true,
+  "newWagerActions": "HARD503",
+  "old13ModelsChanged": 0,
+  "newFinancialClassesConstructed": 0,
+  "newMigrationsAdded": 0,
+  "newServicesCreated": 0,
+  "newWalletsCreated": 0,
+  "namespace": "/api/slots/independent74/{catalog,state,action,history}",
+  "runtimeCapabilities": "Existing private auth/transaction/balance/cash references; no copied money SQL. State/history use SETTRANSACTIONREADONLY; no financewrites.",
+  "unimplementedReleaseBlockers": [
+    "Same protected DB schema and class reuse proof",
+    "Persistent maximum-liability escrow and accepted-round recovery capability",
+    "Reciprocal legacy free-spin/bonus/gamble and active-round admission guards",
+    "Actual current account/house/per-game policies",
+    "All74 officialreference readiness",
+    "Verified existing machine-session guard for eventual action transport"
+  ]
+}

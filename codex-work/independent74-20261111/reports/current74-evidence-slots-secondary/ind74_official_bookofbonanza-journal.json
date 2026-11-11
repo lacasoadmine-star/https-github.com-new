@@ -1,0 +1,76 @@
+{
+  "gameId": "ind74_official_bookofbonanza",
+  "title": "Book of Bonanza",
+  "officialUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 0,
+  "totalVerifiedRounds": 0,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1312
+  },
+  "geometry": {
+    "renderedSymbolInstances": 24,
+    "visibleReelCandidates": 6,
+    "visibleRowCandidates": 4,
+    "xPositions": [
+      460,
+      610,
+      760,
+      910,
+      1060,
+      1210
+    ],
+    "yPositions": [
+      110,
+      259,
+      408,
+      557
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-initial.png",
+    "sha256": "a25fc25a5e12ccf29c62b8d7acdb5b21161f3ca6a3d538a971f3f5a55f5f743c"
+  },
+  "publicUiLabels": [
+    "BUY BONUS 40.00 DMO",
+    "HOLD & SPIN",
+    "BONUS",
+    "0%",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.40 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BookOfBonanza.html",
+      "path": "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help.html",
+      "sha256": "39171fceb5d1fa03e494a29ed6b73235f28d2a1c0406a52e267e054badcc56b9",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "acceptedUnconfirmed": [],
+  "source": "tests/evidence/official-demo-observations-slots20-secondary.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

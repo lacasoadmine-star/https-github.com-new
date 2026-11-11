@@ -102,3 +102,30 @@ test('Workerbundle usesWebCrypto shim and containsnoNode imports or financialbac
  const text=compiled.outputFiles[0].text;assert(!Object.values(compiled.metafile.outputs).some(x=>x.imports.length));assert.doesNotMatch(text,/class LibraryService|class SharedWallet|NATIVE_ENGINE_ORIGIN|DATABASE_URL/);
  const module=await import('data:text/javascript;base64,'+Buffer.from(text).toString('base64'));assert.equal(module.demo74Catalog().games.length,72);assert.equal(module.demo74Catalog().currency,'DEMO');
 });
+test('PlinkoX DEMO batch cap applies to TOTAL and one batch/retry/reload credits the per-ball sum once',async()=>{
+ const h=harness(),game=demo74Catalog().games.find(g=>g.id==='ind74_official_plinkox');
+ assert.equal(game.batchTotalStake,true);assert.deepEqual(game.ballAmounts,[1,5,10,25]);
+ for(const[stake,ballAmount]of[['25.00',25],['1.00',5],['6.00',5],['20.00',25]]){
+  const before=h.ctx.data.size,res=await h.request('action',action(game,{stake,options:{risk:'low',ballAmount}}));
+  assert.equal(res.status,422);assert.equal(h.ctx.data.size,before);
+ }
+ const body=action(game,{stake:'20.00',options:{risk:'low',ballAmount:10}}),r=await h.request('action',body);
+ assert.equal(r.status,200,JSON.stringify(r.data));assert.equal(r.data.round.stakeMinor,'2000');assert.equal(r.data.round.totalBetMinor,'2000');assert.equal(r.data.round.perBallBetMinor,'200');assert.equal(r.data.round.ballAmount,10);
+ const balls=r.data.round.outcome.balls;assert.equal(balls.length,10);
+ const sum=balls.reduce((sum,b)=>sum+200n*BigInt(b.bucketMultiplierBps)*BigInt(b.ballMultiplier)/10000n,0n);
+ assert.equal(r.data.round.payoutMinor,sum.toString());assert.equal(BigInt(r.data.balance.replace('.','')),1000000n-2000n+sum);
+ const replay=await h.request('action',body);assert.equal(replay.data.replayed,true);assert.equal(replay.data.balance,r.data.balance);
+ const reload=await h.request('state',null,game.id);assert.equal(reload.data.balance,r.data.balance);assert.equal(reload.data.round.round_id,r.data.round.round_id);
+ assert.equal((await h.request('history',null,game.id)).data.history.length,1);
+});
+
+test('all3PlinkoXrisks acceptTOTAL20DEMO with serverbound and wrongrisk remains422',async()=>{
+ for(const risk of ['low','medium','high']){
+  const h=harness(),game=demo74Catalog().games.find(g=>g.id==='ind74_official_plinkox');
+  const response=await h.request('action',action(game,{stake:'20.00',options:{risk,ballAmount:10}}));
+  assert.equal(response.status,200,JSON.stringify(response.data));assert.equal(response.data.round.risk,risk);assert.equal(response.data.round.stakeMinor,'2000');
+  const sum=response.data.round.outcome.balls.reduce((sum,b)=>sum+200n*BigInt(b.bucketMultiplierBps)*BigInt(b.ballMultiplier)/10000n,0n);
+  assert.equal(response.data.round.payoutMinor,sum.toString());assert.equal(BigInt(response.data.balance.replace('.','')),1000000n-2000n+sum);
+  const wrong=await h.request('action',action(game,{stake:'1.00',options:{risk:'unknown'}}));assert.equal(wrong.status,422);assert.equal((await h.request('state',null,game.id)).data.balance,response.data.balance);
+ }
+});

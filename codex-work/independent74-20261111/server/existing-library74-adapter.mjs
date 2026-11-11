@@ -10,8 +10,8 @@ const ID = /^ind74_official_[a-z0-9_]{1,48}$/;
 const FAMILIES = new Set(['slots', 'crash', 'ladder', 'mines', 'wheel', 'plinko', 'dice']);
 // Match the retained LibraryService's 15-digit minor-unit contract.
 const MAX_MINOR = 999999999999999n;
-const PUBLIC_FIELDS = ['rows', 'cols', 'cells', 'mines', 'minMatch', 'cascadeMs', 'crashMechanic', 'cascadeRules', 'maxPicks', 'maxSteps', 'modes', 'defaultMode', 'minTarget', 'maxTarget', 'defaultTarget', 'maxMultiplierBps', 'maximumMultiplierBps', 'growthBpsPerSecond', 'multiplierValues', 'multipliersBps', 'bucketMultipliersBps', 'observedPegboard', 'implementedBallMultiplier', 'wildSymbol', 'wildRule', 'ballMultipliers', 'ballSelectionModel', 'baseGameMultiplier', 'respinFeature', 'coinSymbol', 'plusRespinSymbol', 'coinFeature'];
-const ROUND_FIELDS = ['gameId', 'mathVersion', 'family', 'betMinor', 'winMinor', 'step', 'multiplierBps', 'maxSteps', 'history', 'nextMultiplierBps', 'collectibleMinor', 'revealedCells', 'path', 'cells', 'rows', 'cols', 'mines', 'mode', 'startedAt', 'serverNow', 'growthBpsPerSecond', 'maxMultiplierBps', 'pendingResolution', 'pendingWinMinor', 'gambleHistory', 'gambleRounds', 'maxGambleRounds', 'holdWin', 'ballMultiplier', 'baseBetMinor', 'totalBetMinor', 'crashMechanic', 'cascadeIndex', 'nextCascadeAt', 'grid', 'matchedPositions', 'matchedSymbols'];
+const PUBLIC_FIELDS = ['rows', 'cols', 'cells', 'mines', 'minMatch', 'cascadeMs', 'crashMechanic', 'cascadeRules', 'maxPicks', 'maxSteps', 'modes', 'defaultMode', 'minTarget', 'maxTarget', 'defaultTarget', 'maxMultiplierBps', 'maximumMultiplierBps', 'growthBpsPerSecond', 'multiplierValues', 'multipliersBps', 'bucketMultipliersBps', 'bucketTablesBps', 'observedPegboard', 'implementedBallMultiplier', 'wildSymbol', 'wildRule', 'ballMultipliers', 'ballSelectionModel', 'betFields', 'displayWheelSymbolIndexes', 'bonusDisplaySymbolIndexes', 'bonusPrizes', 'destinyBonus', 'defaultBetSymbolIndex', 'defaultRisk', 'riskLevels', 'ballAmounts', 'defaultBallAmount', 'minBallStakeMinor', 'ballStakeStepMinor', 'batchTotalStake', 'baseGameMultiplier', 'respinFeature', 'coinSymbol', 'plusRespinSymbol', 'coinFeature'];
+const ROUND_FIELDS = ['bets', 'gameId', 'mathVersion', 'family', 'betMinor', 'winMinor', 'step', 'multiplierBps', 'maxSteps', 'history', 'nextMultiplierBps', 'collectibleMinor', 'revealedCells', 'path', 'cells', 'rows', 'cols', 'mines', 'mode', 'startedAt', 'serverNow', 'growthBpsPerSecond', 'maxMultiplierBps', 'pendingResolution', 'pendingWinMinor', 'gambleHistory', 'gambleRounds', 'maxGambleRounds', 'holdWin', 'ballMultiplier', 'baseBetMinor', 'totalBetMinor', 'risk', 'ballAmount', 'perBallBetMinor', 'crashMechanic', 'cascadeIndex', 'nextCascadeAt', 'grid', 'matchedPositions', 'matchedSymbols'];
 const clone = value => structuredClone(value);
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 function fail(code, status = 422) { throw Object.assign(new Error(code), { code, status }); }
@@ -123,7 +123,8 @@ function mathOperation(operation) {
   catch (error) {
     if (Number.isInteger(error?.status)) throw error;
     const code = typeof error?.code === 'string' ? error.code : 'LIBRARY74_ENGINE_FAILURE';
-    if (/^INVALID_(BET|MODE|CELL|TARGET|OPTIONS)$/.test(code)) fail(code, 422);
+    if(code==='UNVERIFIED_BONUS')fail(code,503);
+    if (/^(?:INVALID_(?:BET|MODE|CELL|TARGET|OPTIONS|BALL_AMOUNT|BALL_STAKE|WHEEL_BETS)|UNVERIFIED_RISK)$/.test(code)) fail(code, 422);
     if (['ROUND_FINISHED', 'NO_PROGRESS'].includes(code)) fail(code, 409);
     fail(code, 500);
   }

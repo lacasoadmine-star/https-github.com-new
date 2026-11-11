@@ -18057,6 +18057,120 @@ var fresh_plinkoxclassic_default = {
   paytable: bucketMultipliersBps.map((multiplierBps, k) => ({ label: "Bucket " + k, multiplierBps, probabilityNumerator: String(choose2(16, k)), probabilityDenominator: "65536" }))
 };
 
+// math/chicken-highway.mjs
+var CHICKEN_HIGHWAY_ID = "ind74_official_chickenhighway";
+var CHICKEN_HIGHWAY_TABLES = Object.freeze({
+  "easy": [
+    10200,
+    10600,
+    11e3,
+    11500,
+    12200,
+    13e3,
+    14e3,
+    15500,
+    17200,
+    19e3,
+    21e3,
+    22500,
+    25e3,
+    3e4,
+    35e3,
+    42e3,
+    5e4,
+    6e4,
+    72e3,
+    86e3,
+    103e3,
+    123e3,
+    147e3,
+    175e3,
+    2e5
+  ],
+  "medium": [
+    11200,
+    13e3,
+    15e3,
+    17500,
+    21e3,
+    28e3,
+    39e3,
+    55e3,
+    76e3,
+    107e3,
+    152e3,
+    215e3,
+    304e3,
+    434e3,
+    615e3,
+    867e3,
+    1236e3,
+    1764e3,
+    2505e3,
+    3556e3,
+    5067e3,
+    7208e3,
+    1e7
+  ],
+  "hard": [
+    12500,
+    15500,
+    20500,
+    25700,
+    34500,
+    56700,
+    94700,
+    172e3,
+    311e3,
+    562e3,
+    1019e3,
+    1841e3,
+    3313e3,
+    6017e3,
+    10927e3,
+    19829e3,
+    35963e3,
+    61754e3,
+    1e8
+  ]
+});
+for (const values of Object.values(CHICKEN_HIGHWAY_TABLES)) Object.freeze(values);
+function configureChickenHighway(d) {
+  if (d?.id !== CHICKEN_HIGHWAY_ID || d.family !== "ladder") throw new TypeError("Chicken Highway ladder definition required.");
+  d.mathVersion = "official72-chickenhighway-r3";
+  d.modes = ["easy", "medium", "hard"];
+  d.defaultMode = "easy";
+  d.multipliersBps = [...CHICKEN_HIGHWAY_TABLES.easy];
+  d.maxSteps = d.multipliersBps.length;
+  d.returnBps = 9480;
+  d.paytable = d.modes.map((mode) => ({ mode, rows: CHICKEN_HIGHWAY_TABLES[mode].map((multiplierBps, index) => ({ step: index + 1, label: "Lane " + (index + 1), multiplierBps })) }));
+  d.nominalReturn = {
+    numerator: "9480",
+    denominator: "10000",
+    type: "independent-before-integer-floor",
+    verified: false,
+    description: "Independent survival model:9480/first multiplier, then previous/next multiplier. This is not the documented provider97% RTP."
+  };
+  d.rules = [
+    "Chicken Highway is a horizontal road-crossing game. The official public presentation source supplies25 EASY lanes ending20x,23 MEDIUM lanes ending1000x and19 HARD lanes ending10000x. These are documented display values, not observed wins at every lane.",
+    "START accepts one stake and attempts the first crossing. A safe first EASY crossing offers CASHOUT at1.02x. GO attempts the next lane without another debit; CASHOUT collects the confirmed current multiplier. A collision loses the uncollected stake and award. The final successful lane automatically collects in this independent implementation.",
+    "Choose difficulty before starting. Mode and accepted stake remain fixed while the server round is active. Payouts use integer minor units and floor after multiplication; the browser cannot choose the outcome or supply a balance.",
+    "Independent operator probabilities use9480/first-multiplier survival, then previous-multiplier/next-multiplier conditional survival. Those authored probabilities are not recovered provider probabilities and do not reproduce the official Help97% RTP claim.",
+    "The official Help describes automatic runs with a selected cashout step and cashout after a disconnection longer than8seconds. These provider-specific autoplay and connection policies are not implemented; the retained server expiry/recovery policy still applies.",
+    "The earlier visual reading of EASY lane8 as1.54 was inaccurate; the public presentation source specifies1.55. Full artwork, sound, probability and provider equivalence remain unverified."
+  ];
+  d.provenance = {
+    ...d.provenance,
+    observed: "Official DEMO START crossed the first EASY1.02x lane; CASHOUT credited1.02DMO from a1DMO stake. The native controls become GO/CASHOUT while active.",
+    publicDisplayTables: "reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json",
+    publicDisplaySource: "https://static.ssg-public.com/cache/b25/Games/Content/ChickenHighway/Scripts/index.js",
+    publicDisplaySourceSha256: "5f4dd17e30a5a13390b41ae1e4463485ac4991a0f648f266beab4b377650f2bd",
+    publicHelp: "reports/current74-evidence-nonslots/ind74_official_chickenhighway-rendered-rules.json",
+    designed: "Independent survival probabilities and final-lane auto-collection; verified public coefficient tables and observed first-crossing control flow."
+  };
+  return d;
+}
+
 // math/official72-layouts.mjs
 var publishedReelLayout = (rows, columns, source2, paylines) => Object.freeze({
   rows,
@@ -18067,6 +18181,21 @@ var publishedReelLayout = (rows, columns, source2, paylines) => Object.freeze({
   limitations: Object.freeze(["The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."])
 });
 var OBSERVED_LAYOUTS = Object.freeze({
+  ind74_official_chickenhighway: Object.freeze({
+    steps: 25,
+    modeStepCounts: Object.freeze({ easy: 25, medium: 23, hard: 19 }),
+    observedMultipliersBps: Object.freeze([10200]),
+    source: "reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json",
+    evidence: "The official road presentation source specifies25 EASY,23 MEDIUM and19 HARD lanes and exact coefficient arrays. First EASY1.02x crossing/cashout was directly observed; later coefficients are display-source facts.",
+    limitations: Object.freeze(["The directly played first EASY crossing does not prove all future lane outcomes or other difficulties.", "Provider survival probabilities, full visual/audio parity, native autoplay and8second-disconnection cashout remain unverified or unimplemented."])
+  }),
+  ind74_official_coinsofatlantis: Object.freeze({
+    rows: 4,
+    columns: 5,
+    source: "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+    evidence: "The official DEMO initial screen directly shows five columns and four rows, including coin and wild symbols. The regular/+1/MINI/MAJOR respin subset follows separate English Help documents.",
+    limitations: Object.freeze(["The exact provider line chart and count remain unverified.", "MEGA/GRAND jackpot grouping, buy/ANTE features, provider probabilities and base/feature ordering remain unimplemented or unverified."])
+  }),
   ind74_official_multihotways: Object.freeze({
     rows: 3,
     columns: 3,
@@ -18252,6 +18381,7 @@ function officialLayout(definition2) {
     kind: "ladder",
     steps: d.multipliersBps.length,
     stepCountVerified: observed?.steps === d.multipliersBps.length,
+    ...observed?.modeStepCounts ? { stepCountScope: "default-easy", modeStepCounts: { ...observed.modeStepCounts } } : {},
     observedDefaultMultipliersBps: [...observed?.observedMultipliersBps ?? []],
     modes: [...d.modes ?? ["easy"]],
     visualChoicesAffectProbabilities: false
@@ -18304,9 +18434,9 @@ function independentPaylines(columns, rows, count) {
       n = Math.floor(n / rows);
       return row;
     });
-    const key = line.join(",");
-    if (!used.has(key)) {
-      used.add(key);
+    const key2 = line.join(",");
+    if (!used.has(key2)) {
+      used.add(key2);
       lines.push(line);
     }
   }
@@ -18343,7 +18473,7 @@ function startThreeReelSlot(d, { betMinor, rng }) {
 }
 function evaluatePublicWildGrid(d, betMinor, suppliedGrid) {
   const wild = d.wildSymbol.id;
-  if (!Array.isArray(suppliedGrid) || suppliedGrid.length !== d.rows || suppliedGrid.some((row) => !Array.isArray(row) || row.length !== d.cols || row.some((id, col) => id === wild ? !d.wildRule.columns.includes(col) : !d.symbols.some((symbol) => symbol.id === id)))) {
+  if (!Array.isArray(suppliedGrid) || suppliedGrid.length !== d.rows || suppliedGrid.some((row) => !Array.isArray(row) || row.length !== d.cols || row.some((id, col) => id === wild ? !d.wildRule.columns.includes(col) : !d.symbols.some((symbol) => symbol.id === id) && !(d.blockerSymbols ?? []).includes(id)))) {
     error("INVALID_GRID", "The grid must use the configured geometry and permitted wild columns.");
   }
   const grid = structuredClone(suppliedGrid);
@@ -18530,7 +18660,7 @@ var ART = [
   ["diamond", "Diamond", "\u25C6"]
 ];
 var copy = (value) => structuredClone(value);
-var canonical = (value) => Array.isArray(value) ? value.map(canonical) : value !== null && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonical(value[key])])) : value;
+var canonical = (value) => Array.isArray(value) ? value.map(canonical) : value !== null && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map((key2) => [key2, canonical(value[key2])])) : value;
 var equal = (left, right) => JSON.stringify(canonical(left)) === JSON.stringify(canonical(right));
 function configurePopxCascade(definition2) {
   const d = copy(definition2);
@@ -19188,6 +19318,210 @@ function validatePowerTigerRound(d, round) {
   if (o.bonusAwardMinor !== bonus || round.winMinor !== total || BigInt(total) > BigInt(maximumPowerTigerPayout(d, round.betMinor)) || round.status !== (total === "0" ? "lost" : "collected")) error("INVALID_ROUND", "The Tiger total award is inconsistent.");
 }
 
+// math/coins-of-atlantis.mjs
+var COINS_ATLANTIS_ID = "ind74_official_coinsofatlantis";
+var VALUES = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20]);
+var copy3 = (value) => structuredClone(value);
+var key = (coin) => coin.row + ":" + coin.col;
+var largestPrize2 = (d) => Math.max(...d.symbols.flatMap((symbol) => Object.values(symbol.pays)));
+var capacity = (d) => d.rows * d.cols;
+var emptyGrid2 = (d) => Array.from({ length: d.rows }, () => Array(d.cols).fill(null));
+var coinSum = (coins, bet) => coins.reduce((sum, coin) => sum + BigInt(bet) * BigInt(coin.multiplier), 0n);
+var symbolFor = (d, coin) => coin.kind === "plus-one" ? d.plusRespinSymbol.id : d.coinSymbol.id;
+var coinGrid = (d, coins) => {
+  const grid = emptyGrid2(d);
+  for (const coin of coins) grid[coin.row][coin.col] = symbolFor(d, coin);
+  return grid;
+};
+function configureCoinsOfAtlantis(d) {
+  if (d?.id !== COINS_ATLANTIS_ID || d.family !== "slots" || d.cols !== 5) throw new TypeError("The Coins Of Atlantis definition is required.");
+  d.mathVersion = "official72-coinsofatlantis-r4";
+  d.model = "independent-atlantis-coin-respin";
+  d.rows = 4;
+  d.cols = 5;
+  delete d.multiplierValues;
+  d.paylines = independentPaylines(5, 4, d.paylines.length);
+  d.coinSymbol = { id: "coinsofatlantis-coin", label: "Coin", glyph: "\u25C9" };
+  d.plusRespinSymbol = { id: "coinsofatlantis-plus-respin", label: "+1 Respin Coin", glyph: "+1" };
+  d.blockerSymbols = [d.coinSymbol.id, d.plusRespinSymbol.id];
+  d.coinFeature = {
+    source: "references/official-slot-help-en-20261111.json:help.slots.coinofatlantis",
+    triggerCoins: 5,
+    initialRespins: 3,
+    plusOneResetLimit: 4,
+    fullBoardMultiplier: 2,
+    regularValues: [...VALUES],
+    miniValue: 25,
+    majorValue: 50,
+    baseRegularCoinTickets: 16,
+    baseMiniTickets: 2,
+    baseMajorTickets: 1,
+    respinTickets: 64,
+    respinRegularTickets: 8,
+    respinMiniTickets: 1,
+    respinMajorTickets: 1,
+    respinPlusOneTickets: 1,
+    maximumFrames: 4 * (capacity(d) - 5),
+    probabilityModel: "independent-ticket-model",
+    providerProbabilitiesVerified: false,
+    baseFeatureAggregation: "independent-base-plus-final-coin-sum",
+    coinCountTiming: "independent-before-wild-expansion",
+    unsupportedCoinTypes: ["mega", "grand"]
+  };
+  d.provenance = {
+    ...d.provenance,
+    geometrySource: "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
+    publicCoinRules: "references/official-slot-help-en-20261111.json:help.slots.coinofatlantis.jackpot.win.description",
+    designed: "Documented regular/+1/MINI/MAJOR coin-respin subset with independent probabilities, regular symbol awards, payline chart and base/feature ordering."
+  };
+  d.rules = [
+    "The observed official entry shows five reels and four rows. This independent model uses an authored line chart; the exact provider chart and count remain unverified.",
+    "Documented wilds on reels2\u20134 expand when used in a winning combination. This implementation counts landed coins before that one-pass regular-spin wild expansion; provider coin/expansion order is unverified.",
+    "Five or more landed coins trigger3respins. Initial coins lock; only empty cells respin. A new coin resets the allowance to3. A +1RESPIN coin changes the persistent reset allowance to4, including later resets.",
+    "Regular coin values are1x through10x,15x or20x; MINI is25x and MAJOR is50x of the accepted total bet. A +1RESPIN coin carries one of the regular values.",
+    "The feature ends after the current3-or4 consecutive empty respins or a full board. At the end all coin values add; a full board doubles that coin sum. Intermediate boards do not create separate payments.",
+    "The feature has a finite capacity-based bound: each successful reset locks at least one new cell; between locks at most4respins occur. With20cells and at least5initial coins, at most60respin frames are possible.",
+    "This independently authored aggregation retains the regular-spin award and adds the final coin feature award once. Provider base-plus-feature aggregation and coin/expansion ordering remain unverified.",
+    "MEGA/GRAND multi-coin jackpot restrictions, buy bonus and ANTE are not implemented. The provider2500x marketing maximum does not establish a hidden clamp for this independent model.",
+    "Base symbols receive32tickets each, eligible wilds one, regular coins16, MINI2 and MAJOR1. Each empty feature cell has64tickets:8regular-coin,1MINI,1MAJOR,1+1RESPIN and53blank. Regular coin values are uniform. These probabilities, original symbol prizes and line chart are operator choices, not provider mathematics."
+  ];
+  return d;
+}
+function coinsAtlantisMaximumMultiplierBps(d) {
+  return (largestPrize2(d) + 2 * capacity(d) * 50) * 1e4;
+}
+function maximumCoinsAtlantisPayout(d, bet) {
+  const lines = BigInt(d.paylines.length);
+  return (lines * (BigInt(bet) * BigInt(largestPrize2(d)) / lines) + 2n * BigInt(capacity(d)) * 50n * BigInt(bet)).toString();
+}
+function newCoin(kind, row, col, rng) {
+  return { row, col, kind, multiplier: kind === "mini" ? 25 : kind === "major" ? 50 : VALUES[draw(rng, VALUES.length)] };
+}
+function baseBoard(d, rng) {
+  const coins = [], regularTickets = d.symbols.length * 32;
+  const grid = Array.from({ length: d.rows }, (_, row) => Array.from({ length: d.cols }, (_2, col) => {
+    const eligible = d.wildRule.columns.includes(col), wildTickets = eligible ? 1 : 0;
+    const ticket = draw(rng, regularTickets + wildTickets + 19);
+    if (ticket < regularTickets) return d.symbols[ticket % d.symbols.length].id;
+    if (eligible && ticket === regularTickets) return d.wildSymbol.id;
+    const coinTicket = ticket - regularTickets - wildTickets;
+    const kind = coinTicket < 16 ? "regular" : coinTicket < 18 ? "mini" : "major";
+    const coin = newCoin(kind, row, col, rng);
+    coins.push(coin);
+    return d.coinSymbol.id;
+  }));
+  return { grid, coins };
+}
+function expandedBase(d, bet, original) {
+  let scored = evaluatePublicWildGrid(d, bet, original);
+  const expandedColumns = [...new Set(scored.lineWins.flatMap((line) => line.wildPositions.map((position) => position.col)))].sort((a, b) => a - b);
+  const grid = original.map((row) => row.map((id, col) => expandedColumns.includes(col) ? d.wildSymbol.id : id));
+  if (expandedColumns.length) scored = evaluatePublicWildGrid(d, bet, grid);
+  return { grid, expandedColumns, ...scored };
+}
+function startCoinsOfAtlantis(d, { betMinor, rng }) {
+  const round = baseRound(d, betMinor), initial = baseBoard(d, rng), base2 = expandedBase(d, round.betMinor, initial.grid);
+  const bonusTriggered = initial.coins.length >= 5, bonusFrames = [];
+  let coins = copy3(initial.coins), remaining = 3, resetLimit = 3;
+  const maximumFrames = 4 * (capacity(d) - initial.coins.length);
+  if (bonusTriggered) while (coins.length < capacity(d) && remaining > 0) {
+    const occupied = new Set(coins.map(key)), next = copy3(coins), before = coins.length;
+    for (let row = 0; row < d.rows; row++) for (let col = 0; col < d.cols; col++) if (!occupied.has(row + ":" + col)) {
+      const ticket = draw(rng, 64);
+      const kind = ticket < 8 ? "regular" : ticket === 8 ? "mini" : ticket === 9 ? "major" : ticket === 10 ? "plus-one" : null;
+      if (kind) {
+        const coin = newCoin(kind, row, col, rng);
+        next.push(coin);
+        if (kind === "plus-one") resetLimit = 4;
+      }
+    }
+    const newCoins = next.length - before, full2 = next.length === capacity(d);
+    remaining = newCoins ? resetLimit : remaining - 1;
+    const raw = coinSum(next, round.betMinor), award = raw * BigInt(full2 ? 2 : 1);
+    bonusFrames.push({
+      index: bonusFrames.length + 1,
+      grid: coinGrid(d, next),
+      coinValues: copy3(next),
+      lockedCells: next.length,
+      newCoins,
+      resetLimit,
+      respinsRemaining: remaining,
+      rawAwardMinor: raw.toString(),
+      displayedAwardMinor: award.toString(),
+      multiplierApplied: full2 ? 2 : 1,
+      terminal: full2 || remaining === 0
+    });
+    coins = next;
+    if (bonusFrames.length > maximumFrames) error("INVALID_COIN_FEATURE", "The coin-capacity progress bound was exceeded.");
+  }
+  const full = bonusTriggered && coins.length === capacity(d), bonusAwardMinor = bonusTriggered ? (coinSum(coins, round.betMinor) * BigInt(full ? 2 : 1)).toString() : "0";
+  const winMinor = (BigInt(base2.winMinor) + BigInt(bonusAwardMinor)).toString();
+  return {
+    ...round,
+    status: winMinor === "0" ? "lost" : "collected",
+    step: 1,
+    winMinor,
+    multiplierBps: Number(BigInt(winMinor) * 10000n / BigInt(round.betMinor)),
+    outcome: {
+      kind: "slots",
+      grid: base2.grid,
+      originalGrid: initial.grid,
+      lineWins: base2.lineWins,
+      expandedColumns: base2.expandedColumns,
+      featureType: "coin-respin",
+      coinValues: initial.coins,
+      initialCoinCount: initial.coins.length,
+      baseAwardMinor: base2.winMinor,
+      bonusTriggered,
+      bonusFrames,
+      finalCoinValues: coins,
+      bonusAwardMinor,
+      featureResetLimit: resetLimit,
+      featureFinishedReason: bonusTriggered ? full ? "full-board" : "respins-exhausted" : null,
+      featureAggregation: "independent-base-plus-final-coin-sum"
+    }
+  };
+}
+function checkedCoins(d, coins, { initial = false } = {}) {
+  if (!Array.isArray(coins) || coins.length > capacity(d)) error("INVALID_ROUND", "The coin list is malformed.");
+  const seen = /* @__PURE__ */ new Set();
+  for (const coin of coins) {
+    if (!coin || !Number.isInteger(coin.row) || coin.row < 0 || coin.row >= d.rows || !Number.isInteger(coin.col) || coin.col < 0 || coin.col >= d.cols || seen.has(key(coin))) error("INVALID_ROUND", "Coin coordinates are invalid.");
+    seen.add(key(coin));
+    const valid = coin.kind === "mini" ? coin.multiplier === 25 : coin.kind === "major" ? coin.multiplier === 50 : ["regular", ...initial ? [] : ["plus-one"]].includes(coin.kind) && VALUES.includes(coin.multiplier);
+    if (!valid) error("INVALID_ROUND", "The coin type or value is invalid.");
+  }
+  return coins;
+}
+var sameCoins = (a, b) => a.length === b.length && a.every((coin) => b.some((other) => key(other) === key(coin) && other.kind === coin.kind && other.multiplier === coin.multiplier));
+function validateCoinsAtlantisRound(d, round) {
+  const o = round.outcome;
+  if (!o || o.featureType !== "coin-respin" || !Array.isArray(o.bonusFrames)) error("INVALID_ROUND", "The coin result is malformed.");
+  const initial = checkedCoins(d, o.coinValues, { initial: true });
+  const base2 = expandedBase(d, round.betMinor, o.originalGrid);
+  if (JSON.stringify(base2.grid) !== JSON.stringify(o.grid) || o.baseAwardMinor !== base2.winMinor || o.initialCoinCount !== initial.length || o.bonusTriggered !== initial.length >= 5) error("INVALID_ROUND", "The base coin result is inconsistent.");
+  const baseCoinPositions = [];
+  for (let row = 0; row < d.rows; row++) for (let col = 0; col < d.cols; col++) if (o.originalGrid[row][col] === d.coinSymbol.id) baseCoinPositions.push({ row, col });
+  if (baseCoinPositions.length !== initial.length || !initial.every((coin) => baseCoinPositions.some((position) => key(position) === key(coin)))) error("INVALID_ROUND", "Initial coin positions are inconsistent.");
+  let coins = initial, remaining = 3, resetLimit = 3;
+  if (o.bonusFrames.length > 4 * (capacity(d) - initial.length)) error("INVALID_ROUND", "The feature has too many frames.");
+  for (const [index, frame] of o.bonusFrames.entries()) {
+    const next = checkedCoins(d, frame.coinValues), newCoins = next.filter((coin) => !coins.some((previous) => key(previous) === key(coin)));
+    if (!coins.every((coin) => next.some((other) => key(other) === key(coin) && other.kind === coin.kind && other.multiplier === coin.multiplier))) error("INVALID_ROUND", "A locked coin changed.");
+    if (newCoins.some((coin) => coin.kind === "plus-one")) resetLimit = 4;
+    remaining = newCoins.length ? resetLimit : remaining - 1;
+    const full2 = next.length === capacity(d), raw = coinSum(next, round.betMinor), terminal = full2 || remaining === 0;
+    if (remaining < 0 || frame.index !== index + 1 || frame.lockedCells !== next.length || frame.newCoins !== newCoins.length || frame.resetLimit !== resetLimit || frame.respinsRemaining !== remaining || frame.rawAwardMinor !== raw.toString() || frame.displayedAwardMinor !== (raw * BigInt(full2 ? 2 : 1)).toString() || frame.multiplierApplied !== (full2 ? 2 : 1) || frame.terminal !== terminal || JSON.stringify(frame.grid) !== JSON.stringify(coinGrid(d, next)) || terminal && index !== o.bonusFrames.length - 1) error("INVALID_ROUND", "The respin counter or coin award is inconsistent.");
+    coins = next;
+  }
+  checkedCoins(d, o.finalCoinValues);
+  if (!sameCoins(coins, o.finalCoinValues) || o.featureResetLimit !== resetLimit) error("INVALID_ROUND", "The final coin board is inconsistent.");
+  const full = coins.length === capacity(d), bonus = o.bonusTriggered ? coinSum(coins, round.betMinor) * BigInt(full ? 2 : 1) : 0n;
+  if (o.bonusTriggered && (!full && remaining !== 0) || !o.bonusTriggered && o.bonusFrames.length !== 0 || o.featureFinishedReason !== (o.bonusTriggered ? full ? "full-board" : "respins-exhausted" : null) || o.bonusAwardMinor !== bonus.toString()) error("INVALID_ROUND", "The coin feature did not finish consistently.");
+  const total = BigInt(base2.winMinor) + bonus;
+  if (round.winMinor !== total.toString() || total > BigInt(maximumCoinsAtlantisPayout(d, round.betMinor)) || round.status !== (total === 0n ? "lost" : "collected")) error("INVALID_ROUND", "The total coin award is inconsistent.");
+}
+
 // math/official72.mjs
 var norm = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 var models = listGameDefinitions();
@@ -19203,11 +19537,12 @@ var MINE_ISLAND = "ind74_official_mineisland";
 var THREE_REEL_TITLES = /* @__PURE__ */ new Set(["Multi Hot 5 Deluxe", "Safari Simba", "Habesha Fortune 5", "Bao Slot 5X", "Power of Tiger"]);
 var VERIFIED_LINE_COUNTS = /* @__PURE__ */ new Map([["Power of Tiger", 5], ["Gems Crown Charging Wilds", 5], ["Burning Ice", 5], ["Jungle Sisters Deluxe", 20], ["Sugar Fiesta", 3]]);
 function maximumMultiplier(d) {
+  if (d.id === COINS_ATLANTIS_ID) return coinsAtlantisMaximumMultiplierBps(d);
   if (d.id === POWER_TIGER_ID) return powerTigerMaximumMultiplierBps(d);
   if (d.family === "slots") return largestSymbolPrize(d) * largestWheel(d) * 1e4 * (d.gamble?.enabled ? 2 ** d.gamble.maxRounds : 1);
   if (d.family === "crash") return d.maxMultiplierBps;
   if (d.id === GAME_ID2) return Math.max(...d.paytable.flatMap((table) => table.rows.map((row) => row.multiplierBps)));
-  if (d.family === "ladder") return d.multipliersBps.at(-1);
+  if (d.family === "ladder") return d.id === CHICKEN_HIGHWAY_ID ? Math.max(...d.paytable.map((table) => table.rows.at(-1).multiplierBps)) : d.multipliersBps.at(-1);
   if (d.family === "mines") return mineMultiplier(d, d.maxPicks);
   if (d.family === "plinko") return Math.max(...d.bucketMultipliersBps) * Math.max(...d.ballMultipliers ?? [1]);
   if (d.family === "wheel") return Math.max(...d.sectors.map((sector) => sector.multiplierBps));
@@ -19231,10 +19566,11 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
   };
   d.implementationStatus = "independent-model; full-reference-parity-and-production-ledger-unverified";
   d.limits = { minBetMinor: "100", maxBetMinor: "0", betStepMinor: "100", maxWinMinor: "0" };
+  if (d.id === CHICKEN_HIGHWAY_ID) configureChickenHighway(d);
   if (d.id === MINE_ISLAND) {
     d.family = "ladder";
     d.mathVersion = "official72-mineisland-r3";
-    for (const key of ["rows", "cols", "cells", "mines", "maxPicks"]) delete d[key];
+    for (const key2 of ["rows", "cols", "cells", "mines", "maxPicks"]) delete d[key2];
     d.modes = ["easy"];
     d.defaultMode = "easy";
     d.maxSteps = 10;
@@ -19370,6 +19706,7 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
   if (d.id === OBSERVED_WILD_WAYS_ID) configureObservedWildWays(d);
   if (OBSERVED_THREE_IDS.includes(d.id)) configureObservedThreeReel(d);
   if (PUBLIC_EXPANDING_WILD_IDS.includes(d.id)) configurePublicSlotFeatures(d);
+  if (d.id === COINS_ATLANTIS_ID) configureCoinsOfAtlantis(d);
   if ([WILD_THREE, BURN_WILDS].includes(d.id)) configurePublicColorGamble(d);
   if (d.id === GAMBLE_HUNDRED) {
     d.mathVersion = "official72-" + norm(entry.name) + "-r3";
@@ -19474,16 +19811,16 @@ function get(id, mode) {
   if (d.family === "ladder") {
     const selected = mode ?? d.defaultMode ?? "easy";
     if (!(d.modes ?? ["easy"]).includes(selected)) error("INVALID_MODE", "Choose a supported mode.");
-    if (d.id === GAME_ID2) {
+    if (d.id === GAME_ID2 || d.id === CHICKEN_HIGHWAY_ID) {
       const table = d.paytable.find((item) => item.mode === selected);
-      d = { ...d, multipliersBps: table.rows.map((row) => row.multiplierBps) };
+      d = { ...d, multipliersBps: table.rows.map((row) => row.multiplierBps), maxSteps: table.rows.length };
     }
   }
   return d;
 }
 function startOptions(d, options) {
   const allowed = d.family === "ladder" ? ["mode"] : d.family === "dice" ? ["target"] : d.gamble?.enabled ? ["holdWin"] : [];
-  if (!record(options) || Object.keys(options).some((key) => !allowed.includes(key))) {
+  if (!record(options) || Object.keys(options).some((key2) => !allowed.includes(key2))) {
     error("INVALID_OPTIONS", "Only supported game choices are accepted.");
   }
   if (d.family === "ladder") get(d.id, options.mode);
@@ -19500,7 +19837,7 @@ function startOptions(d, options) {
 }
 function actionOptions(d, options, collecting = false) {
   const allowed = !collecting && ["ladder", "mines"].includes(d.family) ? ["cell"] : !collecting && d.gamble?.enabled ? ["color"] : [];
-  if (!record(options) || Object.keys(options).some((key) => !allowed.includes(key))) {
+  if (!record(options) || Object.keys(options).some((key2) => !allowed.includes(key2))) {
     error("INVALID_OPTIONS", "Only the current round action is accepted.");
   }
   if (!collecting && d.gamble?.enabled && !d.gamble.choices.includes(options.color)) error("INVALID_OPTIONS", "Choose red or black.");
@@ -19510,6 +19847,7 @@ function acceptedBet(d, betMinor, options = {}) {
   return stake(betMinor, d.limits);
 }
 function maximumFor(d, bet, options = {}) {
+  if (d.id === COINS_ATLANTIS_ID) return maximumCoinsAtlantisPayout(d, bet);
   if (d.id === POWER_TIGER_ID) return maximumPowerTigerPayout(d, bet);
   if (d.family === "slots") {
     const lines = BigInt(d.paylines.length);
@@ -19532,6 +19870,7 @@ function checked(round) {
   if (BigInt(round.winMinor) > BigInt(maximumFor(d, round.betMinor, options))) error("INVALID_ROUND", "Stored payout exceeds the accepted model bound.");
   if (d.family === "slots") validateHeldSlot(d, round, maximumFor(d, round.betMinor));
   if (d.id === POWER_TIGER_ID) validatePowerTigerRound(d, round);
+  if (d.id === COINS_ATLANTIS_ID) validateCoinsAtlantisRound(d, round);
   if (d.id === PLINKO_CLASSIC && (!d.ballMultipliers.includes(round.ballMultiplier) || round.totalBetMinor !== round.betMinor || round.baseBetMinor !== round.betMinor || round.outcome?.ballMultiplier !== round.ballMultiplier || round.outcome?.totalBetMinor !== round.betMinor || round.outcome?.baseBetMinor !== round.baseBetMinor || !d.ballSelection.some((ball) => ball.type === round.outcome?.ballType && ball.multiplier === round.ballMultiplier) || round.outcome?.bucketMultiplierBps !== d.bucketMultipliersBps[round.outcome?.bucket] || round.multiplierBps !== round.outcome.bucketMultiplierBps * round.ballMultiplier || round.winMinor !== payout(round.betMinor, round.multiplierBps))) error("INVALID_ROUND", "The stored colored-ball award is inconsistent.");
   if (d.family === "ladder") {
     if (!Array.isArray(round.private?.survival) || round.private.survival.length !== d.multipliersBps.length || round.private.survival.some((value) => typeof value !== "boolean") || round.step < 1 || round.step > d.multipliersBps.length || round.history.length !== round.step) {
@@ -19558,6 +19897,7 @@ function startRound({ gameId, betMinor, options = {}, rng, now } = {}) {
   const d = get(gameId, options.mode);
   betMinor = acceptedBet(d, betMinor, options);
   if (d.id === POWER_TIGER_ID) return result(startPowerOfTiger(d, { betMinor, rng }));
+  if (d.id === COINS_ATLANTIS_ID) return result(startCoinsOfAtlantis(d, { betMinor, rng }));
   if (d.family === "slots") return result(holdSlotWin(
     d,
     d.id === MULTI_HOT_WAYS_ID ? startObservedRegularWays(d, { betMinor, rng }) : d.ways ? startObservedWildWays(d, { betMinor, rng }) : d.wildSymbol ? startPublicWildSlot(d, { betMinor, rng }) : d.cols === 3 ? startThreeReelSlot(d, { betMinor, rng }) : startSlot(d, { betMinor, rng }),
@@ -19661,7 +20001,7 @@ var MINOR = /^(0|[1-9][0-9]*)$/;
 var ID = /^ind74_official_[a-z0-9_]{1,48}$/;
 var FAMILIES = /* @__PURE__ */ new Set(["slots", "crash", "ladder", "mines", "wheel", "plinko", "dice"]);
 var MAX_MINOR = 999999999999999n;
-var PUBLIC_FIELDS = ["rows", "cols", "cells", "mines", "minMatch", "cascadeMs", "crashMechanic", "cascadeRules", "maxPicks", "maxSteps", "modes", "defaultMode", "minTarget", "maxTarget", "defaultTarget", "maxMultiplierBps", "maximumMultiplierBps", "growthBpsPerSecond", "multiplierValues", "multipliersBps", "bucketMultipliersBps", "observedPegboard", "implementedBallMultiplier", "wildSymbol", "wildRule", "ballMultipliers", "ballSelectionModel", "baseGameMultiplier", "respinFeature"];
+var PUBLIC_FIELDS = ["rows", "cols", "cells", "mines", "minMatch", "cascadeMs", "crashMechanic", "cascadeRules", "maxPicks", "maxSteps", "modes", "defaultMode", "minTarget", "maxTarget", "defaultTarget", "maxMultiplierBps", "maximumMultiplierBps", "growthBpsPerSecond", "multiplierValues", "multipliersBps", "bucketMultipliersBps", "observedPegboard", "implementedBallMultiplier", "wildSymbol", "wildRule", "ballMultipliers", "ballSelectionModel", "baseGameMultiplier", "respinFeature", "coinSymbol", "plusRespinSymbol", "coinFeature"];
 var ROUND_FIELDS = ["gameId", "mathVersion", "family", "betMinor", "winMinor", "step", "multiplierBps", "maxSteps", "history", "nextMultiplierBps", "collectibleMinor", "revealedCells", "path", "cells", "rows", "cols", "mines", "mode", "startedAt", "serverNow", "growthBpsPerSecond", "maxMultiplierBps", "pendingResolution", "pendingWinMinor", "gambleHistory", "gambleRounds", "maxGambleRounds", "holdWin", "ballMultiplier", "baseBetMinor", "totalBetMinor", "crashMechanic", "cascadeIndex", "nextCascadeAt", "grid", "matchedPositions", "matchedSymbols"];
 var clone = (value) => structuredClone(value);
 var plain = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -19698,22 +20038,22 @@ function integerRngFromLibrary(random) {
 function publishedTable(value) {
   if (Array.isArray(value)) return value.map(publishedTable);
   if (!plain(value)) return clone(value);
-  return Object.fromEntries(Object.entries(value).filter(([key]) => !/weight|probability|survival|private|secret|seed|ticket|returnBps/i.test(key)).map(([key, item]) => [key, publishedTable(item)]));
+  return Object.fromEntries(Object.entries(value).filter(([key2]) => !/weight|probability|survival|private|secret|seed|ticket|returnBps/i.test(key2)).map(([key2, item]) => [key2, publishedTable(item)]));
 }
 function effectiveLimits(definition2, policy) {
-  const limits = Object.fromEntries(["minBetMinor", "maxBetMinor", "betStepMinor", "maxWinMinor"].map((key) => {
-    integerMoney(definition2.limits?.[key]);
-    return [key, definition2.limits[key]];
+  const limits = Object.fromEntries(["minBetMinor", "maxBetMinor", "betStepMinor", "maxWinMinor"].map((key2) => {
+    integerMoney(definition2.limits?.[key2]);
+    return [key2, definition2.limits[key2]];
   }));
   limits.minBetMinor = LIBRARY74_MIN_STAKE_MINOR;
   limits.testPresetsMinor = [...LIBRARY74_TEST_PRESETS_MINOR];
   limits.policy = "server-game-policy-and-retained-account-house-reserve";
   if (!policy) return { ...limits, maxBetMinor: null, maxWinMinor: null };
   if (!plain(policy)) fail("INVALID_LIBRARY74_BET_POLICY", 500);
-  for (const key of ["maxBetMinor", "maxWinMinor"]) {
-    integerMoney(policy[key], "INVALID_LIBRARY74_BET_POLICY");
-    if (BigInt(policy[key]) <= 0n) fail("INVALID_LIBRARY74_BET_POLICY", 500);
-    if (BigInt(policy[key]) < BigInt(limits[key])) limits[key] = policy[key];
+  for (const key2 of ["maxBetMinor", "maxWinMinor"]) {
+    integerMoney(policy[key2], "INVALID_LIBRARY74_BET_POLICY");
+    if (BigInt(policy[key2]) <= 0n) fail("INVALID_LIBRARY74_BET_POLICY", 500);
+    if (BigInt(policy[key2]) < BigInt(limits[key2])) limits[key2] = policy[key2];
   }
   const possible = BigInt(limits.maxBetMinor) * BigInt(definition2.maximumMultiplierBps) / 10000n;
   if (possible < BigInt(limits.maxWinMinor)) limits.maxWinMinor = possible.toString();
@@ -19755,7 +20095,7 @@ function publicLibrary74Definition(definition2, { accepting = false, policy = nu
     controls: { actions: ["crash", "ladder", "mines"].includes(definition2.family) ? ["reveal", "collect", ...definition2.family === "crash" ? ["sync"] : []] : definition2.gamble?.enabled ? ["gamble", "collect"] : [] },
     expiryPolicy: definition2.family === "crash" ? "server_terminal_result" : "collect_earned_award_or_return_unplayed_stake"
   };
-  for (const key of PUBLIC_FIELDS) if (definition2[key] !== void 0) view[key] = publishedTable(definition2[key]);
+  for (const key2 of PUBLIC_FIELDS) if (definition2[key2] !== void 0) view[key2] = publishedTable(definition2[key2]);
   if (definition2.theme) view.theme = publishedTable(definition2.theme);
   if (definition2.layout) view.layout = publishedTable(definition2.layout);
   if (definition2.rules) view.rules = definition2.rules.filter((rule) => typeof rule === "string");
@@ -19780,7 +20120,7 @@ function mathOperation(operation) {
   }
 }
 function createExistingLibrary74Adapter({ math = official72_exports, reviewedGameIds = [], allowNewRounds = false, gameLimits = {}, activeTtlMs = 15 * 60 * 1e3 } = {}) {
-  if (["listGameDefinitions", "getGameDefinition", "startRound", "advanceRound", "collectRound", "publicRound", "reconcileRound", "maximumPayoutMinor"].some((key) => typeof math[key] !== "function")) throw new TypeError("The complete official72 server math contract is required.");
+  if (["listGameDefinitions", "getGameDefinition", "startRound", "advanceRound", "collectRound", "publicRound", "reconcileRound", "maximumPayoutMinor"].some((key2) => typeof math[key2] !== "function")) throw new TypeError("The complete official72 server math contract is required.");
   if (!Number.isSafeInteger(activeTtlMs) || activeTtlMs < 1e3 || activeTtlMs > 864e5) throw new TypeError("Use a reviewed active-round timeout from one second through one day.");
   if (typeof allowNewRounds !== "boolean" && typeof allowNewRounds !== "function") throw new TypeError("New-round readiness must be a boolean or a function.");
   const source2 = math.listGameDefinitions();
@@ -19898,7 +20238,7 @@ function createExistingLibrary74Adapter({ math = official72_exports, reviewedGam
       if (!plain(input) || !["reveal", "collect", "sync", "gamble"].includes(input.type)) fail("INVALID_LIBRARY_ACTION");
       const { type, ...options } = input;
       const allowed = type === "reveal" && ["mines", "ladder"].includes(d.family) ? ["cell"] : type === "gamble" && d.family === "slots" && d.gamble?.enabled === true ? ["color"] : [];
-      if (Object.keys(options).some((key) => !allowed.includes(key)) || type === "sync" && d.family !== "crash" || type === "gamble" && (d.family !== "slots" || d.gamble?.enabled !== true) || type === "reveal" && d.family === "slots") fail("INVALID_LIBRARY_OPTIONS");
+      if (Object.keys(options).some((key2) => !allowed.includes(key2)) || type === "sync" && d.family !== "crash" || type === "gamble" && (d.family !== "slots" || d.gamble?.enabled !== true) || type === "reveal" && d.family === "slots") fail("INVALID_LIBRARY_OPTIONS");
       const previousRound = clone(state.mathState);
       const round = mathOperation(() => type === "collect" ? math.collectRound(previousRound, options, now) : type === "sync" ? math.reconcileRound(previousRound, now) : math.advanceRound(previousRound, options, now, integerRngFromLibrary(random)));
       return result2(d, round, { previous: state, maximum: state.maximumPayoutMinor, debit: "0", now });
@@ -19906,7 +20246,7 @@ function createExistingLibrary74Adapter({ math = official72_exports, reviewedGam
     publicState(state, at) {
       const d = checked2(state), now = clock(at);
       const publicRound2 = mathOperation(() => math.publicRound(clone(state.mathState), Math.max(now, state.lastActionAt)));
-      const view = Object.fromEntries(ROUND_FIELDS.filter((key) => publicRound2[key] !== void 0).map((key) => [key, publishedTable(publicRound2[key])]));
+      const view = Object.fromEntries(ROUND_FIELDS.filter((key2) => publicRound2[key2] !== void 0).map((key2) => [key2, publishedTable(publicRound2[key2])]));
       view.family = d.family;
       view.status = state.status;
       view.resultStatus = state.mathState.status;
@@ -20076,7 +20416,7 @@ function protected74ReviewReadiness(evidence = {}) {
     "persistentPerPlayerGameStakeCarryVerified",
     "verifiedPerGamePolicy"
   ];
-  const reasons = required.filter((key) => evidence[key] !== true).map((key) => "MISSING_" + key.replace(/[A-Z]/g, (c) => "_" + c).toUpperCase());
+  const reasons = required.filter((key2) => evidence[key2] !== true).map((key2) => "MISSING_" + key2.replace(/[A-Z]/g, (c) => "_" + c).toUpperCase());
   return {
     reviewOnly: true,
     newRoundsEnabled: false,
@@ -20097,9 +20437,28 @@ function protected74ReviewCatalog() {
     games: Object.values(reviewAdapter.definitions)
   };
 }
-function attachProtected74ReviewModels({ retainedLibrary, evidence = {} } = {}) {
+var protectedSqlOrigins = /* @__PURE__ */ new WeakMap();
+function createProtectedSqlFacade({ pool, transaction } = {}) {
+  if (typeof pool?.query !== "function" || typeof transaction !== "function") throw new TypeError("Existing protected pool/transaction references are required.");
+  const wrap = (connection) => Object.freeze({ unsafe: async (text, parameters = []) => {
+    const result2 = await connection.query(text, parameters);
+    return result2.rows;
+  } });
+  const facade = Object.freeze({ unsafe: async (text, parameters = []) => {
+    const result2 = await pool.query(text, parameters);
+    return result2.rows;
+  }, begin: (callback) => transaction((connection) => callback(wrap(connection))) });
+  protectedSqlOrigins.set(facade, pool);
+  return facade;
+}
+function assertProtectedSqlPool(sql, pool) {
+  if (protectedSqlOrigins.get(sql) !== pool) throw Error("RETAINED_CLASSES_MUST_USE_EXACT_PROTECTED_POOL");
+  return true;
+}
+function attachProtected74ReviewModels({ retainedLibrary, protectedPool = null, evidence = {} } = {}) {
   const readiness = protected74ReviewReadiness(evidence);
   if (!retainedLibrary) throw Error("EXISTING_RETAINED_LIBRARY_INSTANCE_REQUIRED");
+  if (protectedPool) assertProtectedSqlPool(retainedLibrary.shared?.sql, protectedPool);
   if (evidence.sameProtectedDatabaseVerified !== true || evidence.actualSchemaConstraintsVerified !== true || evidence.retainedFinancialClassHashesVerified !== true) throw Error("ACTUAL_PROTECTED_DATABASE_AND_RETAINED_CLASS_PROOF_REQUIRED");
   const facade = installExistingLibrary74({ service: retainedLibrary, math: protected64Math, reviewedGameIds: [], allowNewRounds: false, gameLimits: {} });
   return { facade, readiness };
@@ -20126,7 +20485,7 @@ function createProtected74ReviewNamespace({ previous, facade = null, evidence = 
     if (route === "action") return response({ error: { code: "PROTECTED74_REVIEW_ONLY_NEW_ROUNDS_DISABLED" }, new_rounds_enabled: false }, 503);
     try {
       const gameId = url.searchParams.get("game_id");
-      if (!ids.has(gameId) || [...url.searchParams.keys()].some((key) => key !== "game_id") || url.searchParams.getAll("game_id").length !== 1) throw error2("GAME_MODEL_UNAVAILABLE", 404);
+      if (!ids.has(gameId) || [...url.searchParams.keys()].some((key2) => key2 !== "game_id") || url.searchParams.getAll("game_id").length !== 1) throw error2("GAME_MODEL_UNAVAILABLE", 404);
       session(request);
       if (!facade || typeof resolveAuthenticatedPlayer !== "function" || evidence.sameProtectedDatabaseVerified !== true || evidence.actualSchemaConstraintsVerified !== true || evidence.protectedSessionResolverVerified !== true || evidence.protectedMachineSessionGuardVerified !== true) throw error2("PROTECTED74_ACCOUNT_READINESS_UNVERIFIED", 503);
       const authenticated = await resolveAuthenticatedPlayer(request);
@@ -20166,8 +20525,9 @@ function createProtected74ClosureReviewNamespace({ previous, capabilities } = {}
   const { authenticate, transaction, balance, cash } = capabilities;
   return { ...previous, async fetch(request, ...context) {
     const url = new URL(request.url);
-    if (!url.pathname.startsWith(PROTECTED74_PREFIX)) return previous.fetch.call(previous, request, ...context);
-    const route = url.pathname.slice(PROTECTED74_PREFIX.length);
+    const pathname = url.pathname.startsWith("/api/independent74/") ? url.pathname.replace("/api/", "/api/slots/") : url.pathname;
+    if (!pathname.startsWith(PROTECTED74_PREFIX)) return previous.fetch.call(previous, request, ...context);
+    const route = pathname.slice(PROTECTED74_PREFIX.length);
     if (request.method === "GET" && route === "catalog") return response({ ...protected74ReviewCatalog(), wallet: "same-existing-protected-account", persistentNewRoundsReady: false });
     if (!["state", "history", "action"].includes(route)) return response({ error: { code: "NOT_FOUND" } }, 404);
     if (request.method !== (route === "action" ? "POST" : "GET")) return response({ error: { code: "METHOD_NOT_ALLOWED" } }, 405);
@@ -20212,9 +20572,11 @@ export {
   PROTECTED74_NEW_ROUNDS_ENABLED,
   PROTECTED74_PREFIX,
   PROTECTED_EXISTING_MODELS,
+  assertProtectedSqlPool,
   attachProtected74ReviewModels,
   createProtected74ClosureReviewNamespace,
   createProtected74ReviewNamespace,
+  createProtectedSqlFacade,
   prepareProtectedRuntimeExportOnly,
   protected64Math,
   protected74ReviewCatalog,

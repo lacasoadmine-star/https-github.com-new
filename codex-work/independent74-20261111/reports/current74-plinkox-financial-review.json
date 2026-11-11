@@ -1,0 +1,63 @@
+{
+  "format": "plinkox-batch-financial-review-v1",
+  "gameId": "ind74_official_plinkox",
+  "mathVersion": "official72-plinkox-r4",
+  "scope": "Offline adapter and unchanged retained LibraryService/SharedWallet financial classes against disposable PGlite; isolated free DEMO service",
+  "liveBackendChanged": false,
+  "productionWagersExecuted": 0,
+  "contract": {
+    "requestStake": "TOTAL accepted batch stake in ETB, canonical two-decimal string; never the per-ball stake",
+    "ballAmounts": [
+      1,
+      5,
+      10,
+      25
+    ],
+    "risk": "LOW/MEDIUM/HIGH rendered bucket tables verified read-only; no additional official rounds",
+    "split": "TOTAL minor units divides exactly by ballAmount; each per-ball stake is at least100 minor and a multiple100",
+    "colorFactors": "Server-only independently authored pink1/yellow5/blue10 factors affect payout, never stake",
+    "award": "Sum each floor(perBallMinor * bucketMultiplierBps * colorFactor /10000) using BigInt",
+    "roundingScope": "All three verified tables use tenths; whole-ETB per-ball stakes produce integer cents. Tests independently floor and sum per-ball BigInt awards; no unreachable fractional-cent claim.",
+    "liabilityMinor": "TOTAL minor *risk maximum:LOW200,MEDIUM1000,HIGH10000; reserve once before settlement. Global storage ceiling based onHIGH10000.",
+    "financialLifecycle": "ONE debit for TOTAL, ONE reserve for maximum aggregate liability, ONE aggregate payout, remaining reserve released. One canonical history row; request receipt replay and reload cannot credit again.",
+    "demoMaximum": "20.00 TOTAL:25balls at minimum1each are rejected;10balls at2each accepted. No cap increase."
+  },
+  "validation": {
+    "tests": [
+      "server/tests/plinkox-batch-ledger.test.mjs",
+      "server/tests/demo74-worker.test.mjs"
+    ],
+    "evidence": "tests/evidence/plinkox-risk-financial-tests.txt",
+    "cases": [
+      "Pink single-ball net loss",
+      "Five-ball batch containingyellow",
+      "Twentyfive-ball batch containingblue",
+      "40005ETB TOTAL with aggregate win above40000",
+      "Exact total debit and200x maximum reserve",
+      "One aggregate payout and released reserve",
+      "Retry/reload/history and second-collect rejection",
+      "Per-account cap/fundedhouse rollback",
+      "Server per-game TOTAL cap and bad split/options rejected before RNG",
+      "DEMO20TOTAL cap and replay-safe sum payout",
+      "MEDIUM five-ball authoredyellow reserve1000xTOTAL",
+      "HIGH twentyfive-ball authoredblue reserve10000xTOTAL",
+      "HIGH net-loss batch with positivegross0.2xcentral awards",
+      "HIGH40005ETBtotal payoutabove40000 and maximumreserve",
+      "HIGHaccountcap and fundedhouse rollback",
+      "Global15digitstorageceiling HIGH10000x plus separateperriskbounds",
+      "All3DEMO risk batches20TOTAL; unknownrisk422 beforeRNG"
+    ],
+    "integrationFix": "New user option errors INVALID_BALL_AMOUNT,INVALID_BALL_STAKE,UNVERIFIED_RISK now map to422 rather than500; batch configuration and settled round fields published.",
+    "combinedTestsPassed": 37,
+    "combinedTestsFailed": 0,
+    "durationMs": 16786.15647
+  },
+  "limitations": [
+    "Twenty official rounds remain LOWsingleball. MEDIUM/HIGHbucket captions were read-onlyverified; no additional official Play. Native multiball accounting and medium/high outcomes remain independently modeled, not observed.",
+    "Fair path and995/4/1 color ticket probabilities are independent model choices, not provider RNG/RTP evidence.",
+    "PGlite has one connection and does not prove multiprocess PostgreSQL concurrency.",
+    "No production account caps, actual fundedhouse capacity or schema constraints established by this fixture.",
+    "All independent protected-backend financial action gates remain closed; no live integration/activation/deployment is claimed."
+  ],
+  "referenceEvidence": "reports/current74-evidence-nonslots/ind74_official_plinkox-rendered-buckets.json"
+}

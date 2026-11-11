@@ -15,7 +15,7 @@
       "wheel": 5,
       "dice": 1
     },
-    "observedGeometry": 25
+    "observedGeometry": 29
   },
   "games": [
     {
@@ -712,7 +712,8 @@
           "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
         ],
         "kind": "wheel",
-        "sectors": 8
+        "sectors": 8,
+        "sectorCountVerified": false
       },
       "independentReturn": {
         "numerator": "945000",
@@ -1200,38 +1201,66 @@
       "id": "ind74_official_chickenhighway",
       "title": "Chicken Highway",
       "family": "ladder",
-      "mathVersion": "official72-chickenhighway-r2",
+      "mathVersion": "official72-chickenhighway-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official road presentation source specifies25 EASY,23 MEDIUM and19 HARD lanes and exact coefficient arrays. First EASY1.02x crossing/cashout was directly observed; later coefficients are display-source facts."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The directly played first EASY crossing does not prove all future lane outcomes or other difficulties.",
+          "Provider survival probabilities, full visual/audio parity, native autoplay and8second-disconnection cashout remain unverified or unimplemented."
         ],
         "kind": "ladder",
-        "steps": 10,
-        "stepCountVerified": false,
-        "observedDefaultMultipliersBps": [],
+        "steps": 25,
+        "stepCountVerified": true,
+        "stepCountScope": "default-easy",
+        "modeStepCounts": {
+          "easy": 25,
+          "medium": 23,
+          "hard": 19
+        },
+        "observedDefaultMultipliersBps": [
+          10200
+        ],
         "modes": [
-          "easy"
+          "easy",
+          "medium",
+          "hard"
         ],
         "visualChoicesAffectProbabilities": false
       },
       "independentReturn": {
         "numerator": "9480",
         "denominator": "10000",
-        "type": "before-integer-floor",
-        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+        "type": "independent-before-integer-floor",
+        "verified": false,
+        "description": "Independent survival model:9480/first multiplier, then previous/next multiplier. This is not the documented provider97% RTP."
       },
       "optionPayoutBounds": [
         {
           "options": {
             "mode": "easy"
           },
-          "minimumStakeMaximumPayoutMinor": "12500",
-          "maximumStakeMaximumPayoutMinor": "999999999987500"
+          "minimumStakeMaximumPayoutMinor": "2000",
+          "maximumStakeMaximumPayoutMinor": "1999999998000"
+        },
+        {
+          "options": {
+            "mode": "medium"
+          },
+          "minimumStakeMaximumPayoutMinor": "100000",
+          "maximumStakeMaximumPayoutMinor": "99999999900000"
+        },
+        {
+          "options": {
+            "mode": "hard"
+          },
+          "minimumStakeMaximumPayoutMinor": "1000000",
+          "maximumStakeMaximumPayoutMinor": "999999999000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1373,7 +1402,8 @@
           "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
         ],
         "kind": "wheel",
-        "sectors": 8
+        "sectors": 8,
+        "sectorCountVerified": false
       },
       "independentReturn": {
         "numerator": "957000",
@@ -1531,36 +1561,42 @@
       "id": "ind74_official_plinkox",
       "title": "Plinko X",
       "family": "plinko",
-      "mathVersion": "official72-plinkox-r2",
+      "mathVersion": "official72-plinkox-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence/plinkox-low-ready-desktop-dpr1.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official non-Classic Plinko X LOW screen shows16 peg rows,17 buckets, pink1x/yellow5x/blue10x legend, VersionLOW/MEDIUM/HIGH and ball Amount1/5/10/25. Twenty LOW single-ball debits/results/credited balances were verified. Later read-only rendered-caption inspection verified Medium/High bucket tables without further wagers."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "All three17-bucket tables are verified from rendered captions/screenshots. Only LOW single-ball outcomes were directly played; Medium/High outcomes remain unobserved.",
+          "Paths, color selection and atomic total-stake batch settlement are independent operator choices; native multi-ball accounting was not played.",
+          "Provider probabilities, exact artwork/audio, recovery and complete parity remain unverified."
         ],
         "kind": "pegboard",
-        "rows": 10,
-        "buckets": 11,
+        "rows": 16,
+        "buckets": 17,
         "implementedBallMultipliers": [
-          1
+          1,
+          5,
+          10
         ],
         "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
         "completeBallMechanicsVerified": false
       },
       "independentReturn": {
-        "numerator": "9728000",
-        "denominator": "10240000",
-        "type": "before-integer-floor",
-        "proof": "Sum(C(rows,k)×bucketBps[k])/(2^rows×10000).Exactbetreturn uses integer flooredprizes."
+        "numerator": "645477350000",
+        "denominator": "655360000000",
+        "verified": false,
+        "description": "DefaultLOW independent16-fair-turn path and authored995/4/1 color-ticket expectation, before per-ball integer flooring. Other risk distributions are also independent; no provider RTP claim."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "5250",
-          "maximumStakeMaximumPayoutMinor": "999999999999000"
+          "minimumStakeMaximumPayoutMinor": "20000",
+          "maximumStakeMaximumPayoutMinor": "19999999980000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2089,30 +2125,42 @@
       "id": "ind74_official_wheelofdestiny",
       "title": "Wheel Of Destiny",
       "family": "wheel",
-      "mathVersion": "official72-wheelofdestiny-r2",
+      "mathVersion": "official72-wheelofdestiny-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "references/wheel-of-destiny-display-20261111.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The public main-wheel display array has50 entries with7.2degree positions and is used to render the target matching the server result. The separate betting grid has nine fields, not nine wheel segments. Matched3x and unmatched losses were directly observed."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Uniform50 outcome tickets are independent operator probabilities, not inferred provider probabilities.",
+          "Nine multiplier fields and documented BONUS/DOUBLE transitions are implemented with independently authored uniform segment probabilities.",
+          "BONUS was not triggered in the twenty regular-only observed rounds; its rules and display tables are documented, while native feature outcomes and full artwork/audio/control parity remain unverified."
         ],
         "kind": "wheel",
-        "sectors": 8
+        "sectors": 50,
+        "sectorCountVerified": true
       },
       "independentReturn": {
-        "numerator": "954000",
-        "denominator": "1000000",
-        "type": "before-integer-floor",
-        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+        "verified": false,
+        "scope": "Independent per-selected-field expectations; no single global or provider RTP claim",
+        "regular": {
+          "numerator": "24",
+          "denominator": "25"
+        },
+        "bonus": {
+          "numerator": "60009",
+          "denominator": "62500"
+        },
+        "description": "Authored uniform50 main and bonus segment tickets give96% gross expectation on regular allocations and96.0144% on BONUS allocations before floors. Mixed-allocation expectation is weighted by those amounts. The public Help96.00% is a provider document claim, not proof of these authored probabilities."
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "5148",
-          "maximumStakeMaximumPayoutMinor": "999999999999000"
+          "minimumStakeMaximumPayoutMinor": "300",
+          "maximumStakeMaximumPayoutMinor": "2499999999900"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2255,7 +2303,8 @@
           "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
         ],
         "kind": "wheel",
-        "sectors": 8
+        "sectors": 8,
+        "sectorCountVerified": false
       },
       "independentReturn": {
         "numerator": "951000",
@@ -2747,25 +2796,33 @@
       "id": "ind74_official_dragonscode",
       "title": "Dragon's Code",
       "family": "slots",
-      "mathVersion": "official72-dragonscode-r2",
+      "mathVersion": "official72-dragonscode-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The actual official DEMO screenshot shows5 reels and4 rows,20 symbol cells. Native canvas2170×1220. Exact title Help describes a50-payline slot. The top arc visibly shows1x,2x and5x."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The full provider payline chart and symbol prizes are not established.",
+          "Multiplier, Wild, Golden Egg, respin, buy feature and Gamble remain unimplemented by this regular-symbol fallback.",
+          "Geometry is observed; provider probabilities and complete audiovisual/feature equivalence are unverified."
         ],
         "kind": "reels",
-        "rows": 3,
+        "rows": 4,
         "columns": 5,
-        "paylines": 5,
+        "paylines": 50,
         "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
+          "placement": "top-arc",
+          "observedValues": [
+            1,
+            2,
+            5
+          ],
           "implementedValues": [],
           "calculationImplemented": false,
           "completeLabelsVerified": false,
@@ -3663,7 +3720,8 @@
           "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
         ],
         "kind": "wheel",
-        "sectors": 8
+        "sectors": 8,
+        "sectorCountVerified": false
       },
       "independentReturn": {
         "numerator": "951000",
@@ -3755,5 +3813,5 @@
     ],
     "source": "Revised user instruction: low initial/test presets 1–20 ETB; game max and payout policy must come from verified server configuration. Model maxima are derived from retained 15-digit storage and worst-case multiplier; retained account and funded house checks remain authoritative. Live policy is not verified."
   },
-  "generatedAt": "2026-11-11T08:26:06.660Z"
+  "generatedAt": "2026-11-11T10:06:24.555Z"
 }

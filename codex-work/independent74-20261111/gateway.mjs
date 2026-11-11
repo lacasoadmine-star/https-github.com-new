@@ -95,7 +95,25 @@ export function validateNativeAction(input, ids) {
     const minor=BigInt(input.stake.replace('.',''));
     if(minor<100n||minor%100n!==0n)reject(400,'INVALID_STAKE','Choose a positive whole-ETB stake within the server account and game limits.');
     const options=input.options??{};
-    if(!options||Array.isArray(options)||typeof options!=='object'||Object.keys(options).some(k=>!['mode','target','holdWin'].includes(k)))reject(400,'INVALID_OPTIONS','Unsupported game option.');
+    const plinkoX=input.game_id==='ind74_official_plinkox',destinyWheel=input.game_id==='ind74_official_wheelofdestiny';
+    const optionKeys=plinkoX?['risk','ballAmount']:destinyWheel?['bets']:['mode','target','holdWin'];
+    if(!options||Array.isArray(options)||typeof options!=='object'||Object.keys(options).some(k=>!optionKeys.includes(k)))reject(400,'INVALID_OPTIONS','Unsupported game option.');
+    if(plinkoX){
+      if(options.risk!==undefined&&!['low','medium','high'].includes(options.risk))reject(400,'INVALID_OPTIONS','Choose a verified risk board.');
+      if(options.ballAmount!==undefined&&(!Number.isSafeInteger(options.ballAmount)||![1,5,10,25].includes(options.ballAmount)))reject(400,'INVALID_OPTIONS','Choose a supported ball amount.');
+      const count=BigInt(options.ballAmount??1);
+      if(minor%(count*100n)!==0n)reject(400,'INVALID_STAKE','The total stake must split into whole-ETB stakes per ball.');
+    }
+    if(destinyWheel&&options.bets!==undefined){
+      if(!Array.isArray(options.bets)||options.bets.length<1||options.bets.length>9)reject(400,'INVALID_OPTIONS','Choose one to nine distinct wheel fields.');
+      const chosen=new Set();let allocated=0n;
+      for(const bet of options.bets){
+        if(!bet||typeof bet!=='object'||Array.isArray(bet)||Object.keys(bet).length!==2||Object.keys(bet).some(k=>!['symbolIndex','amountMinor'].includes(k))||!Number.isSafeInteger(bet.symbolIndex)||bet.symbolIndex<0||bet.symbolIndex>8||chosen.has(bet.symbolIndex)||typeof bet.amountMinor!=='string'||!/^[1-9][0-9]{0,14}$/.test(bet.amountMinor))reject(400,'INVALID_OPTIONS','Invalid wheel allocation.');
+        const amount=BigInt(bet.amountMinor);if(amount<100n||amount%100n!==0n)reject(400,'INVALID_STAKE','Wheel allocations must use whole-ETB stakes.');
+        chosen.add(bet.symbolIndex);allocated+=amount;
+      }
+      if(allocated!==minor)reject(400,'INVALID_STAKE','Wheel allocations must equal the total stake.');
+    }
     if(options.mode!==undefined&&(typeof options.mode!=='string'||!/^[a-z0-9_-]{1,24}$/.test(options.mode)))reject(400,'INVALID_OPTIONS','Invalid game mode.');
     if(options.target!==undefined&&(!Number.isSafeInteger(options.target)||options.target<1||options.target>99))reject(400,'INVALID_OPTIONS','Invalid dice target.');
     if(options.holdWin!==undefined&&typeof options.holdWin!=='boolean')reject(400,'INVALID_OPTIONS','Invalid held-win choice.');

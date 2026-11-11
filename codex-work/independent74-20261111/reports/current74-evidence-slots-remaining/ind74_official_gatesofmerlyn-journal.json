@@ -39,14 +39,13 @@
   },
   "initialScreenshot": {
     "path": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-initial.png",
-    "sha256": "bb47acf65622658232d4e379aaeaeb7b15c7025119422d9d1af83a1a08cc2cca"
+    "sha256": "b3c31bb476cac6426bac25630f7a24f46caf18bb64a83730b2018136427dda48"
   },
   "publicUiLabels": [
     "HOLD & SPIN",
-    "50",
     "Activate or Buy Feature",
     "BALANCE 20,000.00 DMO",
-    "BET 30.00 DMO"
+    "BET 50.00 DMO"
   ],
   "controls": [
     "ButtonsBet",
@@ -57,14 +56,26 @@
     "ButtonsMenu"
   ],
   "nativeTurbo": {
-    "enabled": false,
+    "enabled": true,
+    "reason": "Native mode only considered enabled when rendered ButtonsSpinTurbo is visible",
+    "mode": "native-visible-toggle-attempt",
     "publicButtonTextures": [
-      "ButtonsQuickPlayDisabled",
-      "ButtonsSpinDisabled"
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
     ],
     "screenshot": {
       "path": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-turbo-state.png",
-      "sha256": "0029a9af8047f43e42c3804eb5a9dca49e820fcfa0aaabb318746861652e80b9"
+      "sha256": "c8c7c9f0c381dd518f7a540b937b1584d30f4a2bfb7e194b6b6fa71479f67893"
+    }
+  },
+  "bet": {
+    "before": "50.00",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "4.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-bet-confirmed.png",
+      "sha256": "29fbdf49c65e60009876c611c1eb6bb2ca297936422c35e31fd609ab2fda90ac"
     }
   },
   "observedFeatures": [],
@@ -76,7 +87,11 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
-  "blocker": "BET_CONTROL_UNSUPPORTED",
+  "reload": {
+    "verified": false,
+    "reason": "Same-session refresh and open-round recovery not captured; reopening the DEMO launcher is not proof of recovery"
+  },
+  "blocker": "BONUS_OR_COLLECTION_NOT_FULLY_SETTLED",
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

@@ -4,12 +4,219 @@
   "officialUrl": "https://www.smartsoftgaming.com/games/dice-jungle",
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
   "mode": "official DEMO only",
+  "currency": "DMO",
   "historicalVerifiedRounds": 0,
-  "freshVerifiedRounds": 0,
-  "totalVerifiedRounds": 0,
-  "observedFeatures": [],
-  "rulesDocuments": [],
-  "blocker": "WAIT_TIMEOUT",
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      351,
+      601,
+      851,
+      1101,
+      1351
+    ],
+    "yPositions": [
+      164,
+      414,
+      664
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 10,
+    "paylineMeaningVerified": false
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-initial.png",
+    "sha256": "774b57717ee1b4f6e8c1d555100fdd5022b41c4811a6e58cf76d78b2ea4ea2d4"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.10 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-turbo-prompt.png",
+      "sha256": "e363b69db1a5064f042bad446df5c1caba137e79d720fa2bff519f32d7b5ec48"
+    },
+    "enabled": true,
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-turbo-state.png",
+      "sha256": "be8078da06c37269ccb6819917a901598cff035af33cbb5104631bfbf22e5288"
+    }
+  },
+  "bet": {
+    "before": "0.10",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "3.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-bet-confirmed.png",
+      "sha256": "18b69b363a6f94dd98ad2c8b716e6b8fb030c2fe6f0cf0b57fc87fdfe01b388a"
+    }
+  },
+  "observedFeatures": [
+    {
+      "spinId": "1966049910.3",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        1,
+        3,
+        1,
+        2,
+        4,
+        5,
+        5,
+        6,
+        2,
+        9,
+        1,
+        0,
+        3,
+        2,
+        6
+      ],
+      "expandedGrid": [
+        1,
+        0,
+        1,
+        2,
+        4,
+        5,
+        0,
+        6,
+        2,
+        9,
+        1,
+        0,
+        3,
+        2,
+        6
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-round03.png"
+    },
+    {
+      "spinId": "1966049910.7",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        4,
+        0,
+        0,
+        3,
+        4,
+        4,
+        3,
+        4,
+        4,
+        5,
+        4,
+        4,
+        8,
+        3,
+        5
+      ],
+      "expandedGrid": [
+        4,
+        0,
+        0,
+        3,
+        4,
+        4,
+        0,
+        0,
+        4,
+        5,
+        4,
+        0,
+        0,
+        3,
+        5
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-round07.png"
+    },
+    {
+      "spinId": "1966049910.20",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        5,
+        3,
+        3,
+        3,
+        9,
+        1,
+        1,
+        0,
+        0,
+        6,
+        1,
+        3,
+        3,
+        5,
+        2
+      ],
+      "expandedGrid": [
+        5,
+        3,
+        0,
+        0,
+        9,
+        1,
+        1,
+        0,
+        0,
+        6,
+        1,
+        3,
+        0,
+        0,
+        2
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-round20.png"
+    }
+  ],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/DiceJungle.html",
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-official-help.html",
+      "sha256": "25e5524eb238b1e4f2dbdaa9ae9240318dc6a08dc3001912ec183c886517b230",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

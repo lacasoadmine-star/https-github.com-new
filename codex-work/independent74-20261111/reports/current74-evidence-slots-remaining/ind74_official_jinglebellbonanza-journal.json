@@ -6,8 +6,8 @@
   "mode": "official DEMO only",
   "currency": "DMO",
   "historicalVerifiedRounds": 0,
-  "freshVerifiedRounds": 0,
-  "totalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
   "viewport": {
     "width": 1280,
     "height": 800
@@ -32,11 +32,16 @@
       329,
       526
     ],
-    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 10,
+    "paylineMeaningVerified": false
   },
   "initialScreenshot": {
     "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png",
-    "sha256": "782313bc8e006cd4ef36feef70022260f5d1ae95981b48dc61bb6c7f3045223d"
+    "sha256": "016a8c87bd9e589d28e32f0a31e0cf5694c5105f7a2876efd19b52c1ff808e3a"
   },
   "publicUiLabels": [
     "HOLD & SPIN",
@@ -53,16 +58,141 @@
   ],
   "nativeTurbo": {
     "enabled": false,
-    "publicButtonTextures": [
-      "ButtonsQuickPlayDisabled",
-      "ButtonsSpinDisabled"
-    ],
+    "mode": "normal",
+    "reason": "Normal native play selected; the optional Quick Play confirmation is not yet safely verified on this skin"
+  },
+  "bet": {
+    "before": "0.10",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "3.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
     "screenshot": {
-      "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-turbo-state.png",
-      "sha256": "e5a9ec5ae1f1db10aaa7728b60b734d943ce56d328da39be748abc2c83e0e16a"
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-bet-confirmed.png",
+      "sha256": "b237d912e769cccf4a7f3a4c3b0e654315a3fea5b4f29765d31cbe6422d241aa"
     }
   },
-  "observedFeatures": [],
+  "observedFeatures": [
+    {
+      "spinId": "1966067800.2",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        6,
+        1,
+        4,
+        1,
+        5,
+        4,
+        8,
+        6,
+        4,
+        5,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "expandedGrid": [
+        6,
+        0,
+        0,
+        0,
+        5,
+        4,
+        0,
+        0,
+        0,
+        5,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-round02.png"
+    },
+    {
+      "spinId": "1966067800.7",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        1,
+        2,
+        2,
+        4,
+        3,
+        5,
+        1,
+        2,
+        3,
+        3,
+        1,
+        0,
+        0,
+        0,
+        3
+      ],
+      "expandedGrid": [
+        1,
+        0,
+        0,
+        0,
+        3,
+        5,
+        0,
+        0,
+        0,
+        3,
+        1,
+        0,
+        0,
+        0,
+        3
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-round07.png"
+    },
+    {
+      "spinId": "1966067800.20",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        1,
+        5,
+        4,
+        6,
+        3,
+        1,
+        2,
+        4,
+        1,
+        4,
+        1,
+        0,
+        0,
+        1,
+        4
+      ],
+      "expandedGrid": [
+        1,
+        0,
+        0,
+        6,
+        3,
+        1,
+        0,
+        0,
+        1,
+        4,
+        1,
+        0,
+        0,
+        1,
+        4
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-round20.png"
+    }
+  ],
   "rulesDocuments": [
     {
       "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/JingleBellBonanza.html",
@@ -71,7 +201,6 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
-  "blocker": "BET_CONTROL_UNSUPPORTED",
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

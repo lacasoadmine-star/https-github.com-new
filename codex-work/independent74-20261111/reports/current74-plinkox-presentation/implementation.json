@@ -1,0 +1,135 @@
+{
+  "gameId": "ind74_official_plinkox",
+  "modelVersion": "official72-plinkox-r4",
+  "sourceComparison": "reports/current74-plinkox-presentation-gap.json",
+  "sourceGeometryOwnerReport": "reports/current74-plinkox-math-change.json",
+  "officialCompletedRounds": 20,
+  "newOfficialRounds": 0,
+  "classic": {
+    "definitionUnchanged": true,
+    "newOfficialRounds": 0,
+    "stakeActions": 0,
+    "existingVerifiedRounds": 152
+  },
+  "implementationStatus": "Source-backedthree-riskgeometry/controlswithindependentlyauthoredbatch/color/pathmodel;fullproviderparityunverified",
+  "changedPresentationFiles": [
+    "client/plinkox-controls.mjs",
+    "client/machine74-controller.mjs",
+    "client/machines74.html",
+    "client/machines74.css",
+    "client/machine74-renderer.mjs",
+    "client/machine74-renderer.css"
+  ],
+  "backendChangedByThisTask": false,
+  "validation": {
+    "nodeFocusedTests": 95,
+    "nodeFailures": 0,
+    "focusedLog": "reports/current74-plinkox-presentation/focused-tests.txt",
+    "accountBrowserPass": true,
+    "accountBrowserReport": "reports/current74-plinkox-presentation/browser-report.json",
+    "riskCases": [
+      {
+        "risk": "low",
+        "sourceBucketsMatched": 17,
+        "serverRisk": "low",
+        "acceptedTotal": "5.00",
+        "oneAction": true,
+        "reloadRestoresRisk": true
+      },
+      {
+        "risk": "medium",
+        "sourceBucketsMatched": 17,
+        "serverRisk": "medium",
+        "acceptedTotal": "5.00",
+        "oneAction": true,
+        "reloadRestoresRisk": true
+      },
+      {
+        "risk": "high",
+        "sourceBucketsMatched": 17,
+        "serverRisk": "high",
+        "acceptedTotal": "5.00",
+        "oneAction": true,
+        "reloadRestoresRisk": true
+      }
+    ],
+    "batchCases": [
+      {
+        "amount": 1,
+        "perBallStake": "1.00",
+        "acceptedTotal": "1.00",
+        "payoutMinor": "110",
+        "colors": [
+          "pink"
+        ],
+        "oneAction": true,
+        "reloadNoExtraDebit": true
+      },
+      {
+        "amount": 5,
+        "perBallStake": "1.00",
+        "acceptedTotal": "5.00",
+        "payoutMinor": "950",
+        "colors": [
+          "pink",
+          "yellow"
+        ],
+        "oneAction": true,
+        "reloadNoExtraDebit": true
+      },
+      {
+        "amount": 10,
+        "perBallStake": "1.00",
+        "acceptedTotal": "10.00",
+        "payoutMinor": "1320",
+        "colors": [
+          "pink",
+          "yellow"
+        ],
+        "oneAction": true,
+        "reloadNoExtraDebit": true
+      },
+      {
+        "amount": 25,
+        "perBallStake": "1.00",
+        "acceptedTotal": "25.00",
+        "payoutMinor": "3370",
+        "colors": [
+          "pink",
+          "blue"
+        ],
+        "oneAction": true,
+        "reloadNoExtraDebit": true
+      }
+    ],
+    "amountConfirmation": {
+      "cancelPreservesCommittedAmount": true,
+      "agreementDoesNotBet": true,
+      "dontShowAgain": true,
+      "selectionChangesDoNotBet": true
+    },
+    "refreshPreservesNextRisk": true,
+    "demoCapAndCurrency": {
+      "amount25Above20TotalCapDisabled": true,
+      "amount5AcceptedOnce": true,
+      "renderedBalls": 5,
+      "currency": "DEMO",
+      "balanceAfter": "10095.92"
+    },
+    "demoReport": "reports/current74-demo-ui/report.json",
+    "layoutCases": 576,
+    "layoutPass": true,
+    "layoutReport": "reports/current74-layout-audit/plinkox-r4.json"
+  },
+  "accounting": "Browserformatsprospectiveper-ballinputintooneTOTALrequest;serverownsallpath/color/outcome/reserve/settlement.25balls\u00d71isnotadmittedunder20TOTALDEMOcap.",
+  "limitations": [
+    "B+50%extracostoptionisnotimplementedandisneversilentlycharged.",
+    "Providerprivateball/pathprobabilities,RTPandexactmotion/audio/medialayoutremainunverified.",
+    "NativeHelpdescribesper-ballindividualdeductions;thisoperatorusesoneatomicbatchdebit/reserve/payout.Equivalentprovidertransactionatomicitywasnotobserved.",
+    "OfficialMEDIUM/HIGHoutcomesandmulti-ballsettlementswerenotplayed;theirtables/committedTOTALBETcontrolsareverifiedread-only.",
+    "Fullprovidergraphics,fonts,initialversion-modalflow,hold-to-repeatandcompletebehaviorparityremainunverified."
+  ],
+  "productionWrites": 0,
+  "playerWalletMutations": 0,
+  "deployedByThisTask": false
+}

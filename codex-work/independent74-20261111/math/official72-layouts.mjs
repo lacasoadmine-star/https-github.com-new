@@ -4,6 +4,28 @@ const publishedReelLayout=(rows,columns,source,paylines)=>Object.freeze({rows,co
   evidence:`The official public page specifies ${columns} reels and ${rows} rows${paylines?` with ${paylines} fixed paylines`:''}.`,
   limitations:Object.freeze(['The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified.'])});
 export const OBSERVED_LAYOUTS = Object.freeze({
+  ind74_official_dragonscode:Object.freeze({rows:4,columns:5,paylines:50,multiplierPlacement:'top-arc',
+    observedMultiplierValues:Object.freeze([1,2,5]),completeMultiplierLabelsVerified:false,
+    source:'reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png',
+    evidence:'The actual official DEMO screenshot shows5 reels and4 rows,20 symbol cells. Native canvas2170×1220. Exact title Help describes a50-payline slot. The top arc visibly shows1x,2x and5x.',
+    limitations:Object.freeze(['The full provider payline chart and symbol prizes are not established.','Multiplier, Wild, Golden Egg, respin, buy feature and Gamble remain unimplemented by this regular-symbol fallback.','Geometry is observed; provider probabilities and complete audiovisual/feature equivalence are unverified.'])}),
+
+  ind74_official_wheelofdestiny:Object.freeze({sectors:50,
+    source:'references/wheel-of-destiny-display-20261111.json',
+    evidence:'The public main-wheel display array has50 entries with7.2degree positions and is used to render the target matching the server result. The separate betting grid has nine fields, not nine wheel segments. Matched3x and unmatched losses were directly observed.',
+    limitations:Object.freeze(['Uniform50 outcome tickets are independent operator probabilities, not inferred provider probabilities.','Nine multiplier fields and documented BONUS/DOUBLE transitions are implemented with independently authored uniform segment probabilities.','BONUS was not triggered in the twenty regular-only observed rounds; its rules and display tables are documented, while native feature outcomes and full artwork/audio/control parity remain unverified.'])}),
+
+  ind74_official_plinkox:Object.freeze({rows:16,buckets:17,
+    source:'reports/current74-evidence/plinkox-low-ready-desktop-dpr1.png',
+    evidence:'The official non-Classic Plinko X LOW screen shows16 peg rows,17 buckets, pink1x/yellow5x/blue10x legend, VersionLOW/MEDIUM/HIGH and ball Amount1/5/10/25. Twenty LOW single-ball debits/results/credited balances were verified. Later read-only rendered-caption inspection verified Medium/High bucket tables without further wagers.',
+    limitations:Object.freeze(['All three17-bucket tables are verified from rendered captions/screenshots. Only LOW single-ball outcomes were directly played; Medium/High outcomes remain unobserved.','Paths, color selection and atomic total-stake batch settlement are independent operator choices; native multi-ball accounting was not played.','Provider probabilities, exact artwork/audio, recovery and complete parity remain unverified.'])}),
+
+  ind74_official_chickenhighway:Object.freeze({steps:25,modeStepCounts:Object.freeze({easy:25,medium:23,hard:19}),
+    observedMultipliersBps:Object.freeze([10200]),
+    source:'reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json',
+    evidence:'The official road presentation source specifies25 EASY,23 MEDIUM and19 HARD lanes and exact coefficient arrays. First EASY1.02x crossing/cashout was directly observed; later coefficients are display-source facts.',
+    limitations:Object.freeze(['The directly played first EASY crossing does not prove all future lane outcomes or other difficulties.','Provider survival probabilities, full visual/audio parity, native autoplay and8second-disconnection cashout remain unverified or unimplemented.'])}),
+
   ind74_official_coinsofatlantis:Object.freeze({rows:4,columns:5,
     source:'reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png',
     evidence:'The official DEMO initial screen directly shows five columns and four rows, including coin and wild symbols. The regular/+1/MINI/MAJOR respin subset follows separate English Help documents.',
@@ -133,11 +155,12 @@ export function officialLayout(definition) {
     completeBallMechanicsVerified: false};
   if (d.family === 'ladder') return {...common, kind: 'ladder', steps: d.multipliersBps.length,
     stepCountVerified:observed?.steps===d.multipliersBps.length,
+    ...(observed?.modeStepCounts?{stepCountScope:'default-easy',modeStepCounts:{...observed.modeStepCounts}}:{}),
     observedDefaultMultipliersBps:[...(observed?.observedMultipliersBps??[])],
     modes: [...(d.modes ?? ['easy'])], visualChoicesAffectProbabilities: false};
   if (d.family === 'mines') return {...common, kind: 'mine-board', rows: d.rows, columns: d.cols,
     cells: d.cells, mines: d.mines, maximumSafePicks: d.maxPicks};
-  if (d.family === 'wheel') return {...common, kind: 'wheel', sectors: d.sectors.length};
+  if (d.family === 'wheel') return {...common, kind: 'wheel', sectors: d.sectors.length,sectorCountVerified:observed?.sectors===d.sectors.length};
   if (d.family === 'dice') return {...common, kind: 'dice', outcomes: 100,
     minimumTarget: d.minTarget, maximumTarget: d.maxTarget};
   if(d.crashMechanic==='cascade')return {...common,kind:'cascade',rows:d.rows,columns:d.cols,

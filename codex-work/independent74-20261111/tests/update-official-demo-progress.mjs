@@ -3,6 +3,7 @@ import {createHash} from 'node:crypto';
 import {resolve,sep} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {entries} from '../client/official74-data.mjs';
+import {roundQualification,quarantinedIdentitiesForObservation} from './official-demo-round-qualification.mjs';
 const folder=process.env.IND74_EVIDENCE_DIRECTORY?pathToFileURL(resolve(process.env.IND74_EVIDENCE_DIRECTORY)+sep):new URL('./evidence/',import.meta.url);
 const output=process.env.IND74_PROGRESS_OUTPUT?pathToFileURL(resolve(process.env.IND74_PROGRESS_OUTPUT)):new URL('official-demo-progress.json',folder);
 await mkdir(folder,{recursive:true});
@@ -21,6 +22,7 @@ for(const name of files){
   observations.push({...row,evidenceFile:name});
  }
 }
+const quarantineByGame=new Map();for(const o of observations){if(!quarantineByGame.has(o.gameId))quarantineByGame.set(o.gameId,new Set());for(const id of quarantinedIdentitiesForObservation(o))quarantineByGame.get(o.gameId).add(id)}
 function identities(row){
  const count=row.verifiedCompletedRounds;if(!count)return [];
  if(row.providerRoundRanges?.length){
@@ -33,13 +35,13 @@ function identities(row){
   return [...new Set(result)];
  }
  if(row.providerObservationKeys?.length){if(new Set(row.providerObservationKeys).size!==count)throw Error('OBSERVATION_KEY_COUNT:'+row.gameId);return row.providerObservationKeys.map(k=>'observation:'+k)}
- if(row.rounds?.length===count)return row.rounds.map((r,index)=>{
+ if(row.rounds?.length===count||(Array.isArray(row.rounds)&&((row.quarantinedRounds?.length||0)>0||row.rounds.some(r=>!roundQualification(r,{quarantinedIds:quarantineByGame.get(row.gameId)}).eligible)))){const qualified=row.rounds.filter((r,index)=>{const q=roundQualification(r,{quarantinedIds:quarantineByGame.get(row.gameId)});if(!q.eligible){row.qualificationExcludedRounds=row.qualificationExcludedRounds||[];row.qualificationExcludedRounds.push({ordinal:r.ordinal??index+1,providerRoundId:r.spinId||r.publicResult?.spinId||r.providerDealNumber||null,...q})}return q.eligible});return qualified.map((r,index)=>{
   const id=r.spinId||r.publicResult?.spinId||r.providerDealNumber;
   if(id)return 'provider:'+id;
   if(r.screenshotSha256)return 'screenshot-hash:'+r.screenshotSha256;
   if(r.screenshot)return 'screenshot-path:'+r.screenshot;
   const hash=createHash('sha256').update(JSON.stringify(r)).digest('hex');return 'result:'+hash;
- });
+ })}
  const c=row.countEvidence;
  if(c&&typeof c==='object'){
   const last=c.lastSpinId||c.settledSpinId||c.spinId;
@@ -55,17 +57,17 @@ function identities(row){
 }
 const games=entries.map(entry=>{
  const evidence=observations.filter(o=>o.gameId===entry.gameId),seen=new Set(),evidenceCounts=[];
- let historicalImported=0,reported=0;
+ let historicalImported=0,reported=0,qualificationExcluded=0;
  for(const row of evidence){
-  const keys=identities(row);let accepted=0;
+  const keys=identities(row).filter(key=>{if(key.startsWith('provider:')&&quarantineByGame.get(row.gameId)?.has(key.slice(9))){row.qualificationExcludedRounds=row.qualificationExcludedRounds||[];row.qualificationExcludedRounds.push({providerRoundId:key.slice(9),eligible:false,reasons:['native-round-explicitly-quarantined']});return false}return true});let accepted=0;
   for(const key of keys)if(!seen.has(key)){seen.add(key);accepted++}
-  reported+=row.verifiedCompletedRounds;if(row.historicalImport)historicalImported+=accepted;
-  evidenceCounts.push({evidenceFile:row.evidenceFile,reportedCompletedRounds:row.verifiedCompletedRounds,uniqueCompletedRoundsAdded:accepted,duplicateIdentitiesExcluded:keys.length-accepted,historicalImport:!!row.historicalImport});
+  reported+=row.verifiedCompletedRounds;const excludedClaimCount=Math.max(0,row.verifiedCompletedRounds-keys.length);qualificationExcluded+=excludedClaimCount;if(row.historicalImport)historicalImported+=accepted;
+  evidenceCounts.push({evidenceFile:row.evidenceFile,reportedCompletedRounds:row.verifiedCompletedRounds,uniqueCompletedRoundsAdded:accepted,duplicateIdentitiesExcluded:keys.length-accepted,unqualifiedClaimCountExcluded:excludedClaimCount,unqualifiedRoundsExcluded:row.qualificationExcludedRounds||[],historicalImport:!!row.historicalImport});
  }
  const count=seen.size;
- return {gameId:entry.gameId,title:entry.name,protected:entry.protected,officialUrl:entry.officialUrl,demoUrl:entry.demoUrl,targetRounds:20,verifiedCompletedRounds:count,reportedCompletedRounds:reported,duplicatesExcluded:reported-count,historicalImportedCompletedRounds:historicalImported,remainingRounds:Math.max(0,20-count),furtherRoundsAllowed:count<20,evidenceFiles:[...new Set(evidence.map(o=>o.evidenceFile))],evidenceCounts,status:count>=20?'quota-met-no-further-rounds':count>0?'observed-rounds-below-target':'not-yet-play-verified'};
+ return {gameId:entry.gameId,title:entry.name,protected:entry.protected,officialUrl:entry.officialUrl,demoUrl:entry.demoUrl,targetRounds:20,verifiedCompletedRounds:count,reportedCompletedRounds:reported,duplicatesExcluded:reported-qualificationExcluded-count,unqualifiedRoundsExcluded:qualificationExcluded,quarantinedProviderRoundIds:[...(quarantineByGame.get(entry.gameId)||[])],historicalImportedCompletedRounds:historicalImported,remainingRounds:Math.max(0,20-count),furtherRoundsAllowed:count<20,evidenceFiles:[...new Set(evidence.map(o=>o.evidenceFile))],evidenceCounts,status:count>=20?'quota-met-no-further-rounds':count>0?'observed-rounds-below-target':'not-yet-play-verified'};
 });
 const sum=key=>games.reduce((n,g)=>n+g[key],0);
-const report={schemaVersion:2,updatedAt:new Date().toISOString(),requestedTotal:1480,interpretation:'20-completed-rounds-per-title-preserve-historical-counts',targetPerGame:20,revisionReason:'Latest user instruction replaces the former10,000-total plan. Do not schedule further rounds for any title already at20. Historical discoveries and all genuine fresh rounds are retained.',dedupePolicy:'Distinct provider session+completed counter/round ID, explicit observation keys or identical retained screenshot/result records count once. Local evaluations and unresolved historical claims are excluded.',verifiedCompletedRounds:sum('verifiedCompletedRounds'),reportedCompletedRounds:sum('reportedCompletedRounds'),duplicateIdentitiesExcluded:sum('duplicatesExcluded'),historicalImportedCompletedRounds:sum('historicalImportedCompletedRounds'),gamesWithVerifiedRounds:games.filter(g=>g.verifiedCompletedRounds>0).length,gamesMeetingTarget:games.filter(g=>g.verifiedCompletedRounds>=20).length,remainingRequiredRounds:sum('remainingRounds'),creditedTowardTarget:games.reduce((sum,g)=>sum+Math.min(20,g.verifiedCompletedRounds),0),countsExclude:['unconfirmed-autoplay-batches','clicks-or-debits-only','local-simulations','unit-tests','ledger-fixture-rounds','duplicate-provider-round-identities','unresolved-historical-overlap'],games};
+const report={schemaVersion:2,updatedAt:new Date().toISOString(),requestedTotal:1480,interpretation:'20-completed-rounds-per-title-preserve-historical-counts',targetPerGame:20,revisionReason:'Latest user instruction replaces the former10,000-total plan. Do not schedule further rounds for any title already at20. Historical discoveries and all genuine fresh rounds are retained.',dedupePolicy:'Distinct provider session+completed counter/round ID, explicit observation keys or identical retained screenshot/result records count once. Local evaluations and unresolved historical claims are excluded.',verifiedCompletedRounds:sum('verifiedCompletedRounds'),reportedCompletedRounds:sum('reportedCompletedRounds'),duplicateIdentitiesExcluded:sum('duplicatesExcluded'),unqualifiedRoundsExcluded:sum('unqualifiedRoundsExcluded'),quarantinedProviderRoundIds:games.flatMap(g=>g.quarantinedProviderRoundIds.map(id=>({gameId:g.gameId,providerRoundId:id}))),historicalImportedCompletedRounds:sum('historicalImportedCompletedRounds'),gamesWithVerifiedRounds:games.filter(g=>g.verifiedCompletedRounds>0).length,gamesMeetingTarget:games.filter(g=>g.verifiedCompletedRounds>=20).length,remainingRequiredRounds:sum('remainingRounds'),creditedTowardTarget:games.reduce((sum,g)=>sum+Math.min(20,g.verifiedCompletedRounds),0),countsExclude:['unconfirmed-autoplay-batches','clicks-or-debits-only','local-simulations','unit-tests','ledger-fixture-rounds','duplicate-provider-round-identities','unresolved-historical-overlap','quarantined-or-unresolved-feature-lifecycles'],games};
 const temporary=new URL(output.href+'.'+process.pid+'.tmp');await writeFile(temporary,JSON.stringify(report,null,2)+'\n');await rename(temporary,output);
 console.log(JSON.stringify({verifiedCompletedRounds:report.verifiedCompletedRounds,gamesWithVerifiedRounds:report.gamesWithVerifiedRounds,target:report.requestedTotal,duplicatesExcluded:report.duplicateIdentitiesExcluded}));

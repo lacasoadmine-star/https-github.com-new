@@ -2,7 +2,7 @@
   "gameId": "ind74_official_junglesisters",
   "title": "Jungle Sisters",
   "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
-  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=[redacted-session]&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "mode": "official DEMO only",
   "currency": "DMO",
   "historicalVerifiedRounds": 0,
@@ -16,12 +16,59 @@
     "width": 2170,
     "height": 1154
   },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      525,
+      750,
+      975,
+      1200,
+      1425
+    ],
+    "yPositions": [
+      231,
+      461,
+      691
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+  },
+  "initialScreenshot": {
+    "path": null,
+    "sha256": null,
+    "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+  },
   "publicUiLabels": [
     "HOLD & SPIN",
     "BUY BONUS 10.00 DMO",
     "BALANCE 20,000.00 DMO",
     "BET 0.20 DMO"
   ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "mode": "normal",
+    "reason": "Secondary observer uses normal native play; optional Turbo dialog is not yet verified for these skins"
+  },
+  "bet": {
+    "before": "0.20",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": null,
+      "sha256": null,
+      "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+    }
+  },
   "observedFeatures": [],
   "rulesDocuments": [
     {
@@ -31,7 +78,7 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
-  "blocker": "page.screenshot: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n",
+  "blocker": "READ_ONLY_VISIBLE_SNAPSHOT_TIMEOUT",
   "source": "tests/evidence/official-demo-observations-slots20-secondary.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

@@ -142,8 +142,8 @@ test('regular slot evaluators pay their symbol awards without a hidden clamp; Ti
   }
 });
 
-test('wheel sectors and every Plinko bucket settle the displayed multiplier exactly', () => {
-  for (const d of family('wheel')) for (const betMinor of ['100', '400000']) {
+test('four direct-award wheels and every Plinko bucket settle the displayed multiplier exactly', () => {
+  for (const d of family('wheel').filter(d=>d.id!=='ind74_official_wheelofdestiny')) for (const betMinor of ['100', '400000']) {
     let offset = 0;
     for (const sector of d.sectors) {
       const round = math.startRound({gameId: d.id, betMinor, rng: () => offset});

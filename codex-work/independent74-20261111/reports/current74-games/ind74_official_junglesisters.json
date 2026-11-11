@@ -6,9 +6,11 @@
   "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "category": "Slots",
-  "verifiedCompletedOfficialRounds": 0,
+  "verifiedCompletedOfficialRounds": 1,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
-  "remainingRequiredRounds": 20,
+  "remainingRequiredRounds": 19,
   "furtherRoundsAllowed": true,
   "construction": "account-only-independent-machine-source-exists-incomplete-provider-parity",
   "comparison": {
@@ -43,7 +45,7 @@
     "status": "exact-protected-backend-identity-metadata-exists-financial-flow-untested"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -120,7 +122,7 @@
       ]
     },
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": true
   },
@@ -136,6 +138,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -174,9 +183,209 @@
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
     "betChanges": [
-      []
+      [
+        {
+          "ordinal": 1,
+          "at": "2026-11-11T08:57:47.316Z",
+          "spinId": "1966050825.1",
+          "publicResult": {
+            "at": "2026-11-11T08:57:47.316Z",
+            "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966050825.1",
+            "boardVersion": 3,
+            "originalGrid": [
+              6,
+              2,
+              8,
+              5,
+              5,
+              6,
+              2,
+              8,
+              1,
+              5,
+              6,
+              3,
+              10,
+              1,
+              5
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 5,
+            "chipCoefficient": 0.01,
+            "balance": 19999,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 3,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          "stakeMinorDMO": "100",
+          "balanceBeforeMinorDMO": "2000000",
+          "balanceAfterMinorDMO": "1999900",
+          "payoutMinorDMO": "0",
+          "completionProof": "Complete public Event2 primary15-symbol result with zero award, no continuation and exact resulting wallet balance. Native animation remained STOP; ready-state not verified.",
+          "screenshot": null,
+          "screenshotAvailability": "unavailable-transport-timeout-and-black-canvas-export",
+          "nativeReadyStateVerified": false,
+          "visualAnimationComplete": false,
+          "adjudicationEvidence": "reports/current74-jungle-sisters-round1-adjudication.json",
+          "sourceEvidence": "tests/evidence/official-demo-observations-slots20-secondary.json",
+          "arithmeticVerified": true
+        }
+      ],
+      [
+        {
+          "ordinal": 1,
+          "ordinalIncludingHistory": 1,
+          "startedAt": "2026-11-11T08:57:16.579Z",
+          "confirmedAt": "2026-11-11T08:57:47.316Z",
+          "spinId": "1966050825.1",
+          "stakeDmo": "1.00",
+          "currency": "DMO",
+          "beforeBalanceDmo": "20000.00",
+          "finalBalanceDmo": "19999.00",
+          "payoutDmo": "0.00",
+          "publicResult": {
+            "at": "2026-11-11T08:57:47.316Z",
+            "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966050825.1",
+            "boardVersion": 3,
+            "originalGrid": [
+              6,
+              2,
+              8,
+              5,
+              5,
+              6,
+              2,
+              8,
+              1,
+              5,
+              6,
+              3,
+              10,
+              1,
+              5
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 5,
+            "chipCoefficient": 0.01,
+            "balance": 19999,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 3,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          "bonusTriggered": false,
+          "bonusSubresults": [],
+          "screenshot": null,
+          "screenshotSha256": null,
+          "visualAnimationComplete": false,
+          "nativeReadyVerified": false,
+          "completionEvidence": "Completed server financial result adjudicated: full15-cell result, zero award, no free spins or bonus continuation, exact20000−1=19999DMO. STOP animation completion remains unverified.",
+          "adjudication": "reports/current74-jungle-sisters-round1-adjudication.json"
+        }
+      ]
     ],
     "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_junglesisters",
+        "title": "Jungle Sisters",
+        "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "mode": "official-demo",
+        "verifiedCompletedRounds": 1,
+        "rounds": [
+          {
+            "ordinal": 1,
+            "at": "2026-11-11T08:57:47.316Z",
+            "spinId": "1966050825.1",
+            "publicResult": {
+              "at": "2026-11-11T08:57:47.316Z",
+              "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966050825.1",
+              "boardVersion": 3,
+              "originalGrid": [
+                6,
+                2,
+                8,
+                5,
+                5,
+                6,
+                2,
+                8,
+                1,
+                5,
+                6,
+                3,
+                10,
+                1,
+                5
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 5,
+              "chipCoefficient": 0.01,
+              "balance": 19999,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 3,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            "stakeMinorDMO": "100",
+            "balanceBeforeMinorDMO": "2000000",
+            "balanceAfterMinorDMO": "1999900",
+            "payoutMinorDMO": "0",
+            "completionProof": "Complete public Event2 primary15-symbol result with zero award, no continuation and exact resulting wallet balance. Native animation remained STOP; ready-state not verified.",
+            "screenshot": null,
+            "screenshotAvailability": "unavailable-transport-timeout-and-black-canvas-export",
+            "nativeReadyStateVerified": false,
+            "visualAnimationComplete": false,
+            "adjudicationEvidence": "reports/current74-jungle-sisters-round1-adjudication.json",
+            "sourceEvidence": "tests/evidence/official-demo-observations-slots20-secondary.json",
+            "arithmeticVerified": true
+          }
+        ],
+        "adjudicationOnly": true,
+        "sourceOwner": "rules",
+        "note": "Count one existing accepted server result only; no new wager. Original secondary attempt is retained by its owner; full spin ID dedupe prevents any later promotion from counting twice.",
+        "notEstablished": [
+          "Native animation completion",
+          "Spin-ready state",
+          "Spin screenshot",
+          "Production wallet behavior"
+        ],
+        "evidenceFile": "tests/evidence/official-demo-observations-adjudicated-results.json"
+      },
       {
         "gameId": "ind74_official_junglesisters",
         "title": "Jungle Sisters",
@@ -186,8 +395,70 @@
         "date": "2026-11-11",
         "mode": "official-demo",
         "historicalCompletedRounds": 0,
-        "verifiedCompletedRounds": 0,
-        "rounds": [],
+        "verifiedCompletedRounds": 1,
+        "rounds": [
+          {
+            "ordinal": 1,
+            "ordinalIncludingHistory": 1,
+            "startedAt": "2026-11-11T08:57:16.579Z",
+            "confirmedAt": "2026-11-11T08:57:47.316Z",
+            "spinId": "1966050825.1",
+            "stakeDmo": "1.00",
+            "currency": "DMO",
+            "beforeBalanceDmo": "20000.00",
+            "finalBalanceDmo": "19999.00",
+            "payoutDmo": "0.00",
+            "publicResult": {
+              "at": "2026-11-11T08:57:47.316Z",
+              "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966050825.1",
+              "boardVersion": 3,
+              "originalGrid": [
+                6,
+                2,
+                8,
+                5,
+                5,
+                6,
+                2,
+                8,
+                1,
+                5,
+                6,
+                3,
+                10,
+                1,
+                5
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 5,
+              "chipCoefficient": 0.01,
+              "balance": 19999,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 3,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            "bonusTriggered": false,
+            "bonusSubresults": [],
+            "screenshot": null,
+            "screenshotSha256": null,
+            "visualAnimationComplete": false,
+            "nativeReadyVerified": false,
+            "completionEvidence": "Completed server financial result adjudicated: full15-cell result, zero award, no free spins or bonus continuation, exact20000−1=19999DMO. STOP animation completion remains unverified.",
+            "adjudication": "reports/current74-jungle-sisters-round1-adjudication.json"
+          }
+        ],
         "unconfirmedAttempts": [],
         "events": [
           {
@@ -321,6 +592,377 @@
             "freeSpinSum": 0,
             "bonusWin": false,
             "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:37:27.203Z",
+            "providerEventTime": "2026-11-11T09:37:24.3006762+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966030571.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:37:43.575Z",
+            "providerEventTime": "2026-11-11T09:37:24.3006762+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966030571.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:45:56.075Z",
+            "providerEventTime": "2026-11-11T09:45:51.902472+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966040112.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:46:36.148Z",
+            "providerEventTime": "2026-11-11T09:45:51.902472+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966040112.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:47:15.581Z",
+            "providerEventTime": "2026-11-11T09:47:11.6907892+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966041618.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:47:46.003Z",
+            "providerEventTime": "2026-11-11T09:47:11.6907892+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966041618.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:49:53.972Z",
+            "providerEventTime": "2026-11-11T09:49:48.6580105+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966044482.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:50:22.468Z",
+            "providerEventTime": "2026-11-11T09:49:48.6580105+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966044482.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:55:27.947Z",
+            "providerEventTime": "2026-11-11T09:55:23.4326631+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966050825.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:55:51.656Z",
+            "providerEventTime": "2026-11-11T09:55:23.4326631+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966050825.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:57:47.316Z",
+            "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966050825.1",
+            "boardVersion": 3,
+            "originalGrid": [
+              6,
+              2,
+              8,
+              5,
+              5,
+              6,
+              2,
+              8,
+              1,
+              5,
+              6,
+              3,
+              10,
+              1,
+              5
+            ],
+            "expandedGrid": null,
+            "linePlay": 20,
+            "betPerLine": 5,
+            "chipCoefficient": 0.01,
+            "balance": 19999,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 3,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
           }
         ],
         "rulesDocuments": [
@@ -333,8 +975,88 @@
         ],
         "observedFeatures": [],
         "productionFundsTouched": false,
-        "status": "opening",
+        "status": "financial-result-confirmed-animation-unverified",
         "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
           {
             "origin": "https://static.ssg-public.com",
             "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
@@ -394,13 +1116,38 @@
           {
             "at": "2026-11-11T08:33:12.083Z",
             "reason": "page.screenshot: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n"
+          },
+          {
+            "at": "2026-11-11T08:36:01.297332+00:00",
+            "reason": "CDP screenshot was slow but did finish. Actual second-attempt blocker was locator.boundingBox30s timeout for the already visible native canvas, before any wager.",
+            "acceptedProviderWagers": 0
+          },
+          {
+            "at": "2026-11-11T08:37:22.344Z",
+            "reason": "VISIBLE_CANVAS_BOUNDINGBOX_TIMEOUT_BEFORE_WAGER"
+          },
+          {
+            "at": "2026-11-11T08:45:50.091Z",
+            "reason": "READ_ONLY_CAPTURE_TIMEOUT"
+          },
+          {
+            "at": "2026-11-11T08:47:09.306Z",
+            "reason": "frame.evaluate: Target page, context or browser has been closed"
+          },
+          {
+            "at": "2026-11-11T08:49:46.748Z",
+            "reason": "READ_ONLY_FRAME_ELEMENT_TIMEOUT"
+          },
+          {
+            "at": "2026-11-11T08:55:21.082Z",
+            "reason": "READ_ONLY_PARENT_IFRAME_RECTS_TIMEOUT"
           }
         ],
         "screenshotCaptureMethod": "CDP current rendered viewport; font-readiness wait bypassed in capture tool only because external font load was blocked",
         "initialScreenshot": {
-          "path": "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-initial.png",
-          "sha256": "0dd8d9a923b797b38742518b8e3a63ac5de2a2c69506fb67db57e9d297adc5fc",
-          "method": "CDP Page.captureScreenshot"
+          "path": null,
+          "sha256": null,
+          "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
         },
         "geometry": {
           "renderedSymbolInstances": 15,
@@ -433,6 +1180,75 @@
           "mode": "normal",
           "reason": "Secondary observer uses normal native play; optional Turbo dialog is not yet verified for these skins"
         },
+        "blockerScreenshot": {
+          "path": null,
+          "sha256": null,
+          "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+        },
+        "blockerUi": [
+          "STOP",
+          "BUY BONUS 50.00 DMO",
+          "BALANCE 19,999.00 DMO",
+          "BET 1.00 DMO"
+        ],
+        "betMenuScreenshot": {
+          "path": null,
+          "sha256": null,
+          "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+        },
+        "lastReadOnlyCaptureError": "response.text: Target page, context or browser has been closed",
+        "screenshotTransportErrors": [
+          {
+            "name": "initial",
+            "at": "2026-11-11T08:48:27.390Z",
+            "reason": "SCREENSHOT_TRANSPORT_TIMEOUT"
+          },
+          {
+            "name": "blocker",
+            "at": "2026-11-11T08:48:58.598Z",
+            "reason": "SCREENSHOT_TRANSPORT_TIMEOUT"
+          }
+        ],
+        "captureMethod": "Actual rendered game canvas PNG; full viewport transport unavailable; excludes outer browser chrome",
+        "priorValidScreenshot": {
+          "path": "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-initial.png",
+          "kind": "Earlier actual viewport screenshot; inspected, valid visible controls, no wager"
+        },
+        "captureLimitation": "Full viewport capture timed out; direct WebGL canvas export yielded black. Missing captures are not claimed as evidence.",
+        "controlCoordinateProof": {
+          "method": "Measured existing actual viewport screenshot; no top-frame DOM dependency",
+          "reference": "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-initial.png",
+          "canvasIntrinsic": {
+            "width": 2170,
+            "height": 1154
+          },
+          "canvasViewport": {
+            "x": 0,
+            "y": 26,
+            "width": 1280,
+            "height": 680.7004608294931
+          },
+          "scope": "Jungle Sisters only, viewport 1280x800, exact intrinsic dimensions required"
+        },
+        "screenshotUnavailable": {
+          "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+          "at": "2026-11-11T08:58:42.758Z",
+          "captureName": "blocker"
+        },
+        "betAdjustment": {
+          "before": "0.20",
+          "intendedVisibleItem": "1.00 DMO",
+          "confirmedDmo": "1.00",
+          "method": "Native dollar button, menu scroll if needed, visible amount click",
+          "screenshot": {
+            "path": null,
+            "sha256": null,
+            "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+          }
+        },
+        "stakeDmo": "1.00",
+        "blocker": "READ_ONLY_VISIBLE_SNAPSHOT_TIMEOUT",
+        "animationVerificationGap": "Last visible native label STOP; no ready/SPIN or stopped screenshot captured.",
         "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
       }
     ],
@@ -443,12 +1259,152 @@
           "title": "Jungle Sisters",
           "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
           "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "mode": "official-demo",
+          "verifiedCompletedRounds": 1,
+          "rounds": [
+            {
+              "ordinal": 1,
+              "at": "2026-11-11T08:57:47.316Z",
+              "spinId": "1966050825.1",
+              "publicResult": {
+                "at": "2026-11-11T08:57:47.316Z",
+                "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+                "eventCode": "start.game",
+                "apiEvent": "2",
+                "spinId": "1966050825.1",
+                "boardVersion": 3,
+                "originalGrid": [
+                  6,
+                  2,
+                  8,
+                  5,
+                  5,
+                  6,
+                  2,
+                  8,
+                  1,
+                  5,
+                  6,
+                  3,
+                  10,
+                  1,
+                  5
+                ],
+                "expandedGrid": null,
+                "linePlay": 20,
+                "betPerLine": 5,
+                "chipCoefficient": 0.01,
+                "balance": 19999,
+                "rawWinCredits": 0,
+                "rawTotalWinCredits": 0,
+                "multiplier": 3,
+                "wildColumns": null,
+                "reelsToFreeze": null,
+                "freeSpinsCount": 0,
+                "freeSpinUsed": 0,
+                "freeSpinFinished": false,
+                "freeSpinSum": 0,
+                "bonusWin": false,
+                "bonusWinAmount": 0
+              },
+              "stakeMinorDMO": "100",
+              "balanceBeforeMinorDMO": "2000000",
+              "balanceAfterMinorDMO": "1999900",
+              "payoutMinorDMO": "0",
+              "completionProof": "Complete public Event2 primary15-symbol result with zero award, no continuation and exact resulting wallet balance. Native animation remained STOP; ready-state not verified.",
+              "screenshot": null,
+              "screenshotAvailability": "unavailable-transport-timeout-and-black-canvas-export",
+              "nativeReadyStateVerified": false,
+              "visualAnimationComplete": false,
+              "adjudicationEvidence": "reports/current74-jungle-sisters-round1-adjudication.json",
+              "sourceEvidence": "tests/evidence/official-demo-observations-slots20-secondary.json",
+              "arithmeticVerified": true
+            }
+          ],
+          "adjudicationOnly": true,
+          "sourceOwner": "rules",
+          "note": "Count one existing accepted server result only; no new wager. Original secondary attempt is retained by its owner; full spin ID dedupe prevents any later promotion from counting twice.",
+          "notEstablished": [
+            "Native animation completion",
+            "Spin-ready state",
+            "Spin screenshot",
+            "Production wallet behavior"
+          ],
+          "evidenceFile": "tests/evidence/official-demo-observations-adjudicated-results.json"
+        },
+        {
+          "gameId": "ind74_official_junglesisters",
+          "title": "Jungle Sisters",
+          "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
           "protectedImplementation": false,
           "date": "2026-11-11",
           "mode": "official-demo",
           "historicalCompletedRounds": 0,
-          "verifiedCompletedRounds": 0,
-          "rounds": [],
+          "verifiedCompletedRounds": 1,
+          "rounds": [
+            {
+              "ordinal": 1,
+              "ordinalIncludingHistory": 1,
+              "startedAt": "2026-11-11T08:57:16.579Z",
+              "confirmedAt": "2026-11-11T08:57:47.316Z",
+              "spinId": "1966050825.1",
+              "stakeDmo": "1.00",
+              "currency": "DMO",
+              "beforeBalanceDmo": "20000.00",
+              "finalBalanceDmo": "19999.00",
+              "payoutDmo": "0.00",
+              "publicResult": {
+                "at": "2026-11-11T08:57:47.316Z",
+                "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+                "eventCode": "start.game",
+                "apiEvent": "2",
+                "spinId": "1966050825.1",
+                "boardVersion": 3,
+                "originalGrid": [
+                  6,
+                  2,
+                  8,
+                  5,
+                  5,
+                  6,
+                  2,
+                  8,
+                  1,
+                  5,
+                  6,
+                  3,
+                  10,
+                  1,
+                  5
+                ],
+                "expandedGrid": null,
+                "linePlay": 20,
+                "betPerLine": 5,
+                "chipCoefficient": 0.01,
+                "balance": 19999,
+                "rawWinCredits": 0,
+                "rawTotalWinCredits": 0,
+                "multiplier": 3,
+                "wildColumns": null,
+                "reelsToFreeze": null,
+                "freeSpinsCount": 0,
+                "freeSpinUsed": 0,
+                "freeSpinFinished": false,
+                "freeSpinSum": 0,
+                "bonusWin": false,
+                "bonusWinAmount": 0
+              },
+              "bonusTriggered": false,
+              "bonusSubresults": [],
+              "screenshot": null,
+              "screenshotSha256": null,
+              "visualAnimationComplete": false,
+              "nativeReadyVerified": false,
+              "completionEvidence": "Completed server financial result adjudicated: full15-cell result, zero award, no free spins or bonus continuation, exact20000−1=19999DMO. STOP animation completion remains unverified.",
+              "adjudication": "reports/current74-jungle-sisters-round1-adjudication.json"
+            }
+          ],
           "unconfirmedAttempts": [],
           "events": [
             {
@@ -582,6 +1538,377 @@
               "freeSpinSum": 0,
               "bonusWin": false,
               "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:37:27.203Z",
+              "providerEventTime": "2026-11-11T09:37:24.3006762+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966030571.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:37:43.575Z",
+              "providerEventTime": "2026-11-11T09:37:24.3006762+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966030571.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:45:56.075Z",
+              "providerEventTime": "2026-11-11T09:45:51.902472+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966040112.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:46:36.148Z",
+              "providerEventTime": "2026-11-11T09:45:51.902472+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966040112.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:47:15.581Z",
+              "providerEventTime": "2026-11-11T09:47:11.6907892+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966041618.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:47:46.003Z",
+              "providerEventTime": "2026-11-11T09:47:11.6907892+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966041618.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:49:53.972Z",
+              "providerEventTime": "2026-11-11T09:49:48.6580105+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966044482.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:50:22.468Z",
+              "providerEventTime": "2026-11-11T09:49:48.6580105+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966044482.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:55:27.947Z",
+              "providerEventTime": "2026-11-11T09:55:23.4326631+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966050825.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:55:51.656Z",
+              "providerEventTime": "2026-11-11T09:55:23.4326631+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966050825.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:57:47.316Z",
+              "providerEventTime": "2026-11-11T09:57:30.8815768+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966050825.1",
+              "boardVersion": 3,
+              "originalGrid": [
+                6,
+                2,
+                8,
+                5,
+                5,
+                6,
+                2,
+                8,
+                1,
+                5,
+                6,
+                3,
+                10,
+                1,
+                5
+              ],
+              "expandedGrid": null,
+              "linePlay": 20,
+              "betPerLine": 5,
+              "chipCoefficient": 0.01,
+              "balance": 19999,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 3,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
             }
           ],
           "rulesDocuments": [
@@ -594,8 +1921,88 @@
           ],
           "observedFeatures": [],
           "productionFundsTouched": false,
-          "status": "opening",
+          "status": "financial-result-confirmed-animation-unverified",
           "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
             {
               "origin": "https://static.ssg-public.com",
               "path": "/cache/b1/SlotsDemo/Content/Help/Styles/JungleSisters.css",
@@ -655,13 +2062,38 @@
             {
               "at": "2026-11-11T08:33:12.083Z",
               "reason": "page.screenshot: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n"
+            },
+            {
+              "at": "2026-11-11T08:36:01.297332+00:00",
+              "reason": "CDP screenshot was slow but did finish. Actual second-attempt blocker was locator.boundingBox30s timeout for the already visible native canvas, before any wager.",
+              "acceptedProviderWagers": 0
+            },
+            {
+              "at": "2026-11-11T08:37:22.344Z",
+              "reason": "VISIBLE_CANVAS_BOUNDINGBOX_TIMEOUT_BEFORE_WAGER"
+            },
+            {
+              "at": "2026-11-11T08:45:50.091Z",
+              "reason": "READ_ONLY_CAPTURE_TIMEOUT"
+            },
+            {
+              "at": "2026-11-11T08:47:09.306Z",
+              "reason": "frame.evaluate: Target page, context or browser has been closed"
+            },
+            {
+              "at": "2026-11-11T08:49:46.748Z",
+              "reason": "READ_ONLY_FRAME_ELEMENT_TIMEOUT"
+            },
+            {
+              "at": "2026-11-11T08:55:21.082Z",
+              "reason": "READ_ONLY_PARENT_IFRAME_RECTS_TIMEOUT"
             }
           ],
           "screenshotCaptureMethod": "CDP current rendered viewport; font-readiness wait bypassed in capture tool only because external font load was blocked",
           "initialScreenshot": {
-            "path": "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-initial.png",
-            "sha256": "0dd8d9a923b797b38742518b8e3a63ac5de2a2c69506fb67db57e9d297adc5fc",
-            "method": "CDP Page.captureScreenshot"
+            "path": null,
+            "sha256": null,
+            "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
           },
           "geometry": {
             "renderedSymbolInstances": 15,
@@ -694,6 +2126,75 @@
             "mode": "normal",
             "reason": "Secondary observer uses normal native play; optional Turbo dialog is not yet verified for these skins"
           },
+          "blockerScreenshot": {
+            "path": null,
+            "sha256": null,
+            "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+          },
+          "blockerUi": [
+            "STOP",
+            "BUY BONUS 50.00 DMO",
+            "BALANCE 19,999.00 DMO",
+            "BET 1.00 DMO"
+          ],
+          "betMenuScreenshot": {
+            "path": null,
+            "sha256": null,
+            "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+          },
+          "lastReadOnlyCaptureError": "response.text: Target page, context or browser has been closed",
+          "screenshotTransportErrors": [
+            {
+              "name": "initial",
+              "at": "2026-11-11T08:48:27.390Z",
+              "reason": "SCREENSHOT_TRANSPORT_TIMEOUT"
+            },
+            {
+              "name": "blocker",
+              "at": "2026-11-11T08:48:58.598Z",
+              "reason": "SCREENSHOT_TRANSPORT_TIMEOUT"
+            }
+          ],
+          "captureMethod": "Actual rendered game canvas PNG; full viewport transport unavailable; excludes outer browser chrome",
+          "priorValidScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-initial.png",
+            "kind": "Earlier actual viewport screenshot; inspected, valid visible controls, no wager"
+          },
+          "captureLimitation": "Full viewport capture timed out; direct WebGL canvas export yielded black. Missing captures are not claimed as evidence.",
+          "controlCoordinateProof": {
+            "method": "Measured existing actual viewport screenshot; no top-frame DOM dependency",
+            "reference": "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-initial.png",
+            "canvasIntrinsic": {
+              "width": 2170,
+              "height": 1154
+            },
+            "canvasViewport": {
+              "x": 0,
+              "y": 26,
+              "width": 1280,
+              "height": 680.7004608294931
+            },
+            "scope": "Jungle Sisters only, viewport 1280x800, exact intrinsic dimensions required"
+          },
+          "screenshotUnavailable": {
+            "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+            "at": "2026-11-11T08:58:42.758Z",
+            "captureName": "blocker"
+          },
+          "betAdjustment": {
+            "before": "0.20",
+            "intendedVisibleItem": "1.00 DMO",
+            "confirmedDmo": "1.00",
+            "method": "Native dollar button, menu scroll if needed, visible amount click",
+            "screenshot": {
+              "path": null,
+              "sha256": null,
+              "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+            }
+          },
+          "stakeDmo": "1.00",
+          "blocker": "READ_ONLY_VISIBLE_SNAPSHOT_TIMEOUT",
+          "animationVerificationGap": "Last visible native label STOP; no ready/SPIN or stopped screenshot captured.",
           "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
         }
       ],
@@ -730,7 +2231,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "canvas-present-gameplay-unverified",
@@ -741,11 +2245,12 @@
     "scope/official74.json",
     "tests/math-official72-audit.json",
     "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-adjudicated-results.json",
     "tests/evidence/official-demo-observations-slots20-secondary.json"
   ],
   "remaining": [
     "Existing protected wallet API already exposes matching enabled ETB model; frontend route currently returns Game unavailable. Frontend-only shell/wallet wiring can be evaluated without adding backend model.",
-    "20 additional confirmed official demo rounds required",
+    "19 additional confirmed official demo rounds required",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",
     "Build and verify final release before deployment",

@@ -7,6 +7,7 @@ import {join,resolve} from 'node:path';
 import assert from 'node:assert/strict';
 import {handleDemo74Request,demo74Catalog} from '../server/demo74-worker.mjs';
 import {entries} from '../client/official74-data.mjs';
+import {existingWalletRoute} from '../client/existing-wallet-routes.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)),artifacts=join(root,'reports/current74-demo-ui');
 const runtime=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const {chromium}=await import(pathToFileURL(runtime?join(runtime,'playwright/index.mjs'):'/opt/codex/cua_node/lib/node_modules/playwright/index.mjs').href);
@@ -46,7 +47,7 @@ try{
  assert.equal(await page.locator('button a,a button').count(),0);
  for(const game of entries){const card=page.locator('.card[data-game-id="'+game.gameId+'"]');
   const now=await card.locator('.card-play-now').getAttribute('href'),demo=await card.locator('.card-play-demo').getAttribute('href');
-  if(!game.protected){assert(now.endsWith('#'+game.gameId));assert(!now.includes('mode=demo'));assert(demo.includes('?mode=demo#'+game.gameId));}
+  if(!game.protected){assert.equal(now,existingWalletRoute(game.gameId)||'/independent74/machines74.html#'+game.gameId);assert(!now.includes('mode=demo'));assert(demo.includes('?mode=demo#'+game.gameId));}
   else{assert.equal(now,game.gameId.endsWith('multihot5')?'/games/multi_hot_5_video':'/games/hot_foxy_20');assert(demo.includes('ssgportal.com'));assert(demo.includes('DEMO'));}
  }
  for(const width of [360,390,430,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));const file='gallery-'+width+'.png';await page.screenshot({path:join(artifacts,file)});report.screenshots.push(file);}
@@ -62,6 +63,7 @@ try{
  await page.reload();await page.waitForFunction(()=>!document.querySelector('#play').disabled);assert.equal(await page.locator('#balance').textContent(),balance);assert.equal(demoActions,1);
  for(const width of [360,390,430,1280]){await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert(await page.locator('#stage').evaluate(stage=>stage.querySelector('.m74-machine').getBoundingClientRect().bottom<=stage.getBoundingClientRect().bottom+1));await page.evaluate(()=>scrollTo(0,0));const file='rollx-demo-'+width+'.png';await page.screenshot({path:join(artifacts,file),fullPage:true});report.screenshots.push(file);}
  await page.locator('#rules').click();assert(!(await page.locator('#rules-body').textContent()).includes(' ETB'));assert((await page.locator('#rules-body').textContent()).includes('DEMO'));await page.locator('#close-rules').click();
+ await page.goto(base+'/independent74/machines74.html?mode=demo#ind74_official_plinkox');await page.waitForFunction(()=>!document.querySelector('#play').disabled);await page.selectOption('[data-option=ballAmount]','25');await page.locator('#plinko-amount-agree').click();assert(await page.locator('#play').isDisabled());assert((await page.locator('#batch-preview').textContent()).includes('Above the current total-bet limit'));const beforeBatch=demoActions;await page.selectOption('[data-option=ballAmount]','5');await page.locator('#plinko-amount-agree').click();await page.locator('#play').click();await page.waitForFunction(()=>!document.querySelector('#stop').hidden);await page.locator('#stop').click();await page.waitForFunction(()=>!document.querySelector('#play').disabled);assert.equal(demoActions,beforeBatch+1);assert.equal(await page.locator('.m74-plinko-ball').count(),5);assert((await page.locator('.m74-plinkox-total').textContent()).includes('DEMO'));assert(!(await page.locator('.m74-plinkox-total').textContent()).includes('ETB'));report.plinko={amount25Above20TotalCapDisabled:true,amount5AcceptedOnce:true,renderedBalls:5,currency:'DEMO',balanceAfter:await page.locator('#balance').textContent()};
  assert.equal(accountRequests,0);assert.deepEqual(errors,[]);report.pass=true;report.accountRequests=accountRequests;report.demoActions=demoActions;report.after=balance;report.pageErrors=errors;report.repeatedStopSettlementOnce=true;report.reloadRecovered=true;
 }finally{await writeFile(join(artifacts,'report.json'),JSON.stringify(report,null,2));await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify(report));

@@ -53,3 +53,21 @@ test('missing engine route cannot mislabel a verified player session as signed o
   const response=await handler(new Request('https://player.example/independent74/account-api/state?game_id='+id,{headers:{cookie:'sw_session=fixture'}}),env,{});
   assert.equal(response.status,503);const value=await response.json();assert.equal(value.error.code,'GAME_ACCOUNT_ROUTE_UNAVAILABLE');assert.equal(value.wallet,undefined);assert.equal(value.balance,undefined);
 });
+
+// Batch values are presentation choices; color/outcome remains server-owned.
+test('Plinko X start boundary validates only its supported risk and batch contract',()=>{
+ const game_id='ind74_official_plinkox',ids=new Set([game_id,'ind74_official_rollx']);
+ const input={request_id:randomUUID(),game_id,model_version:'library74-v1:plinkox',type:'start',stake:'25.00',options:{risk:'low',ballAmount:25}};
+ assert.equal(validateNativeAction(input,ids),input);
+ for(const risk of ['low','medium','high'])assert.equal(validateNativeAction({...input,options:{...input.options,risk}},ids).options.risk,risk);
+ for(const options of [{risk:'unknown'},{risk:['high']},{ballAmount:0},{ballAmount:2},{ballAmount:5.1},{ballAmount:'5'},{ballMultiplier:10},{color:'blue'},{target:50},{mode:'low'},{holdWin:true}])assert.throws(()=>validateNativeAction({...input,options},ids));
+ assert.throws(()=>validateNativeAction({...input,stake:'26.00'},ids));
+ assert.throws(()=>validateNativeAction({...input,game_id:'ind74_official_rollx'},ids));
+});
+
+test('Wheel allocation boundary preserves canonical total and rejects duplicate/outcome injections',()=>{
+ const game_id='ind74_official_wheelofdestiny',ids=new Set([game_id,'ind74_official_rollx']);
+ const input={request_id:randomUUID(),game_id,model_version:'library74-v1:wheel-r4',type:'start',stake:'5.00',options:{bets:[{symbolIndex:0,amountMinor:'100'},{symbolIndex:8,amountMinor:'400'}]}};assert.equal(validateNativeAction(input,ids),input);
+ for(const bets of [[],null,[{symbolIndex:0,amountMinor:'100'}],[{symbolIndex:0,amountMinor:'100'},{symbolIndex:0,amountMinor:'400'}],[{symbolIndex:9,amountMinor:'500'}],[{symbolIndex:0,amountMinor:500}],[{symbolIndex:0,amountMinor:'500',winMinor:'900000'}],[{symbolIndex:0,amountMinor:'10'},{symbolIndex:1,amountMinor:'490'}]])assert.throws(()=>validateNativeAction({...input,options:{bets}},ids));
+ assert.throws(()=>validateNativeAction({...input,game_id:'ind74_official_rollx'},ids));assert.throws(()=>validateNativeAction({...input,options:{...input.options,seed:'chosen'}},ids));
+});

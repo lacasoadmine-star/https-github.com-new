@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-11-11T09:53:15.301865+00:00",
+  "serviceId": "45b70d31-51a2-4b89-a1af-82e24b200751",
+  "name": "superwin-readonly-audit-once-20261111",
+  "httpEndpoint": false,
+  "publicDomainCreated": false,
+  "databaseCreated": false,
+  "financialClassCreated": false,
+  "queriesExecutedVerified": false,
+  "liveInstanceObserved": false,
+  "sourceAttachRejectedByAutomaticReview": true,
+  "rejectionReason": "Unpinned public container image could deploy with existing Postgres credential; exact immutable runtime/entrypoint not yet verified",
+  "databaseReferenceAfterRejection": "Cleared on this new diagnostic service only, skipDeploys:true; no canonical backend variables changed",
+  "next": "Inspect immutable image digest and entrypoint and pinned driver; do not retry an unpinned image or otherwise bypass the rejection"
+}

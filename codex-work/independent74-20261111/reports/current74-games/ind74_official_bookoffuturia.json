@@ -7,6 +7,8 @@
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
   "category": "Slots",
   "verifiedCompletedOfficialRounds": 0,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
   "remainingRequiredRounds": 20,
   "furtherRoundsAllowed": true,
@@ -14,7 +16,7 @@
   "comparison": {
     "status": "full-provider-parity-unverified",
     "publicGeometryVerified": false,
-    "demoGeometryObserved": false,
+    "demoGeometryObserved": true,
     "sourceFacts": [],
     "unresolved": [
       "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
@@ -43,7 +45,7 @@
     "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -120,7 +122,7 @@
       ]
     },
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": true
   },
@@ -136,6 +138,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -150,14 +159,867 @@
         "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
       }
     ],
-    "geometry": [],
+    "geometry": [
+      {
+        "renderedSymbolInstances": 15,
+        "visibleReelCandidates": 5,
+        "visibleRowCandidates": 3,
+        "xPositions": [
+          394,
+          603,
+          812,
+          1021,
+          1230
+        ],
+        "yPositions": [
+          149,
+          361,
+          573
+        ],
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+      }
+    ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
-    "betChanges": [],
-    "roundProgressAndResults": [],
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_bookoffuturia",
+        "title": "Book of Futuria",
+        "officialUrl": "https://www.smartsoftgaming.com/games/book-of-futuria",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
+        "protectedImplementation": false,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T08:54:17.370Z",
+            "providerEventTime": "2026-11-11T09:54:14.7983018+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966049529.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 2,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:54:34.597Z",
+            "providerEventTime": "2026-11-11T09:54:14.7983018+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966049529.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 2,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:05:50.694Z",
+            "providerEventTime": "2026-11-11T10:05:15.4270629+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966061863.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 2,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:33:02.882Z",
+            "providerEventTime": "2026-11-11T10:32:59.7937641+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966094074.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 2,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:33:30.662Z",
+            "providerEventTime": "2026-11-11T10:32:59.7937641+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966094074.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 2,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BookOfFuturia.html",
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_bookoffuturia-official-help.html",
+            "sha256": "0eaba64b353cc0486abf1221bb74b76e26816cf377a08729c29271f4d1615d8e",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "native-controls-readonly",
+        "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfFuturia.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfFuturia.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfFuturia.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "framePaths": [
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+          "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/BookOfFuturia/Game.aspx",
+          "about:",
+          "about:",
+          "chrome-error:",
+          "about:"
+        ],
+        "captureMethod": "Actual rendered game canvas PNG; full viewport transport unavailable; excludes outer browser chrome",
+        "blockerScreenshot": {
+          "path": null,
+          "sha256": null,
+          "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+        },
+        "blockerUi": "",
+        "captureLimitation": "Full viewport capture timed out; direct WebGL canvas export yielded black. Missing captures are not claimed as evidence.",
+        "historicalAtFirstLaunch": 0,
+        "priorBlockers": [
+          {
+            "at": "2026-11-11T09:05:12.162Z",
+            "reason": "PUBLIC_FRAME_RECT_NOT_UNIQUE:[{\"src\":\"https://eu-server-w3.ssgportal.com/SlotsDemo/Loader.aspx?GameType=Slots&GameName=BookOfFuturia&StartPage=Game&token=[redacted-session]&Lang=en&ReturnURL=&Skin=&JurisdictionName=RO\",\"x\":0,\"y\":0,\"width\":1280,\"height\":800},{\"src\":\"\",\"x\":0,\"y\":800,\"width\":1280,\"height\":800},{\"src\":\"https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=[redacted-session]&PortalName=demo\",\"x\":0,\"y\":1600,\"width\":300,\"height\":150},{\"src\":\"https://static.static-ssgmrr17.xyz/cache/b5/Themes/Default/JetX/Styles/fonts.css\",\"x\":0,\"y\":0,\"width\":0,\"height\":0}]"
+          },
+          {
+            "at": "2026-11-11T09:32:58.370Z",
+            "reason": "WAIT_TIMEOUT"
+          }
+        ],
+        "screenshotUnavailable": {
+          "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+          "at": "2026-11-11T09:05:54.903Z",
+          "captureName": "blocker"
+        },
+        "lastReadOnlyCaptureError": "response.json: Target page, context or browser has been closed",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "canvas": {
+          "width": 2170,
+          "height": 1312
+        },
+        "initialUiLabels": [
+          "BONUS",
+          "0%",
+          "BUY BONUS 20.00 DMO",
+          "HOLD & SPIN",
+          "BALANCE 20,000.00 DMO",
+          "BET 0.20 DMO",
+          "FREE SPINS",
+          "3 or more SCATTERS reveal the book and award 10 FREE SPINS!",
+          "win more on free spins with special EXPANDING symbol!",
+          "Continue"
+        ],
+        "currencyObserved": "DMO",
+        "initialScreenshot": {
+          "path": "reports/current74-evidence-slots-secondary/ind74_official_bookoffuturia-initial.png",
+          "sha256": "3e84a110f547e20c63bab3506928dd514db5d042f28bf64c517682da5fe86d5e"
+        },
+        "geometry": {
+          "renderedSymbolInstances": 15,
+          "visibleReelCandidates": 5,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            394,
+            603,
+            812,
+            1021,
+            1230
+          ],
+          "yPositions": [
+            149,
+            361,
+            573
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        },
+        "publicControls": [
+          "ButtonsAutoPlay",
+          "ButtonsBet",
+          "ButtonsMenu",
+          "ButtonsQuickPlay",
+          "ButtonsSoundOn",
+          "ButtonsSpin"
+        ],
+        "publicNativeControlRectangles": [
+          {
+            "names": [
+              "ButtonsAutoPlay"
+            ],
+            "x": 1831,
+            "y": 350,
+            "w": 119,
+            "h": 119
+          },
+          {
+            "names": [
+              "ButtonsBet"
+            ],
+            "x": 1832,
+            "y": 778,
+            "w": 135,
+            "h": 135
+          },
+          {
+            "names": [
+              "ButtonsBuyBonus"
+            ],
+            "x": 24,
+            "y": 901,
+            "w": 398,
+            "h": 143
+          },
+          {
+            "names": [
+              "ButtonsMenu"
+            ],
+            "x": 10,
+            "y": 1142,
+            "w": 92,
+            "h": 77
+          },
+          {
+            "names": [
+              "ButtonsQuickPlay"
+            ],
+            "x": 1999,
+            "y": 482,
+            "w": 80,
+            "h": 93
+          },
+          {
+            "names": [
+              "ButtonsRiskGame"
+            ],
+            "x": 2048,
+            "y": 570,
+            "w": 119,
+            "h": 119
+          },
+          {
+            "names": [
+              "ButtonsSoundOn"
+            ],
+            "x": 2104,
+            "y": 1157,
+            "w": 59,
+            "h": 46
+          },
+          {
+            "names": [
+              "ButtonsSpin"
+            ],
+            "x": 1768,
+            "y": 500,
+            "w": 256,
+            "h": 259
+          },
+          {
+            "names": [
+              "IntroPopup"
+            ],
+            "x": 469,
+            "y": 256,
+            "w": 1279,
+            "h": 703
+          },
+          {
+            "names": [
+              "IntroButton"
+            ],
+            "x": 913,
+            "y": 952,
+            "w": 369,
+            "h": 90
+          }
+        ],
+        "localCanvasRect": {
+          "x": 0,
+          "y": 26,
+          "width": 1280,
+          "height": 773.890625,
+          "innerWidth": 1280,
+          "innerHeight": 800
+        },
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+      }
+    ],
     "featuresAndRules": {
-      "directlyObserved": [],
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_bookoffuturia",
+          "title": "Book of Futuria",
+          "officialUrl": "https://www.smartsoftgaming.com/games/book-of-futuria",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
+          "protectedImplementation": false,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T08:54:17.370Z",
+              "providerEventTime": "2026-11-11T09:54:14.7983018+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966049529.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 2,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:54:34.597Z",
+              "providerEventTime": "2026-11-11T09:54:14.7983018+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966049529.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 2,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:05:50.694Z",
+              "providerEventTime": "2026-11-11T10:05:15.4270629+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966061863.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 2,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:33:02.882Z",
+              "providerEventTime": "2026-11-11T10:32:59.7937641+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966094074.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 2,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:33:30.662Z",
+              "providerEventTime": "2026-11-11T10:32:59.7937641+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966094074.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 2,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BookOfFuturia.html",
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_bookoffuturia-official-help.html",
+              "sha256": "0eaba64b353cc0486abf1221bb74b76e26816cf377a08729c29271f4d1615d8e",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "native-controls-readonly",
+          "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfFuturia.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfFuturia.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfFuturia.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            }
+          ],
+          "framePaths": [
+            "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+            "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/BookOfFuturia/Game.aspx",
+            "about:",
+            "about:",
+            "chrome-error:",
+            "about:"
+          ],
+          "captureMethod": "Actual rendered game canvas PNG; full viewport transport unavailable; excludes outer browser chrome",
+          "blockerScreenshot": {
+            "path": null,
+            "sha256": null,
+            "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+          },
+          "blockerUi": "",
+          "captureLimitation": "Full viewport capture timed out; direct WebGL canvas export yielded black. Missing captures are not claimed as evidence.",
+          "historicalAtFirstLaunch": 0,
+          "priorBlockers": [
+            {
+              "at": "2026-11-11T09:05:12.162Z",
+              "reason": "PUBLIC_FRAME_RECT_NOT_UNIQUE:[{\"src\":\"https://eu-server-w3.ssgportal.com/SlotsDemo/Loader.aspx?GameType=Slots&GameName=BookOfFuturia&StartPage=Game&token=[redacted-session]&Lang=en&ReturnURL=&Skin=&JurisdictionName=RO\",\"x\":0,\"y\":0,\"width\":1280,\"height\":800},{\"src\":\"\",\"x\":0,\"y\":800,\"width\":1280,\"height\":800},{\"src\":\"https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=[redacted-session]&PortalName=demo\",\"x\":0,\"y\":1600,\"width\":300,\"height\":150},{\"src\":\"https://static.static-ssgmrr17.xyz/cache/b5/Themes/Default/JetX/Styles/fonts.css\",\"x\":0,\"y\":0,\"width\":0,\"height\":0}]"
+            },
+            {
+              "at": "2026-11-11T09:32:58.370Z",
+              "reason": "WAIT_TIMEOUT"
+            }
+          ],
+          "screenshotUnavailable": {
+            "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+            "at": "2026-11-11T09:05:54.903Z",
+            "captureName": "blocker"
+          },
+          "lastReadOnlyCaptureError": "response.json: Target page, context or browser has been closed",
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "canvas": {
+            "width": 2170,
+            "height": 1312
+          },
+          "initialUiLabels": [
+            "BONUS",
+            "0%",
+            "BUY BONUS 20.00 DMO",
+            "HOLD & SPIN",
+            "BALANCE 20,000.00 DMO",
+            "BET 0.20 DMO",
+            "FREE SPINS",
+            "3 or more SCATTERS reveal the book and award 10 FREE SPINS!",
+            "win more on free spins with special EXPANDING symbol!",
+            "Continue"
+          ],
+          "currencyObserved": "DMO",
+          "initialScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_bookoffuturia-initial.png",
+            "sha256": "3e84a110f547e20c63bab3506928dd514db5d042f28bf64c517682da5fe86d5e"
+          },
+          "geometry": {
+            "renderedSymbolInstances": 15,
+            "visibleReelCandidates": 5,
+            "visibleRowCandidates": 3,
+            "xPositions": [
+              394,
+              603,
+              812,
+              1021,
+              1230
+            ],
+            "yPositions": [
+              149,
+              361,
+              573
+            ],
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          },
+          "publicControls": [
+            "ButtonsAutoPlay",
+            "ButtonsBet",
+            "ButtonsMenu",
+            "ButtonsQuickPlay",
+            "ButtonsSoundOn",
+            "ButtonsSpin"
+          ],
+          "publicNativeControlRectangles": [
+            {
+              "names": [
+                "ButtonsAutoPlay"
+              ],
+              "x": 1831,
+              "y": 350,
+              "w": 119,
+              "h": 119
+            },
+            {
+              "names": [
+                "ButtonsBet"
+              ],
+              "x": 1832,
+              "y": 778,
+              "w": 135,
+              "h": 135
+            },
+            {
+              "names": [
+                "ButtonsBuyBonus"
+              ],
+              "x": 24,
+              "y": 901,
+              "w": 398,
+              "h": 143
+            },
+            {
+              "names": [
+                "ButtonsMenu"
+              ],
+              "x": 10,
+              "y": 1142,
+              "w": 92,
+              "h": 77
+            },
+            {
+              "names": [
+                "ButtonsQuickPlay"
+              ],
+              "x": 1999,
+              "y": 482,
+              "w": 80,
+              "h": 93
+            },
+            {
+              "names": [
+                "ButtonsRiskGame"
+              ],
+              "x": 2048,
+              "y": 570,
+              "w": 119,
+              "h": 119
+            },
+            {
+              "names": [
+                "ButtonsSoundOn"
+              ],
+              "x": 2104,
+              "y": 1157,
+              "w": 59,
+              "h": 46
+            },
+            {
+              "names": [
+                "ButtonsSpin"
+              ],
+              "x": 1768,
+              "y": 500,
+              "w": 256,
+              "h": 259
+            },
+            {
+              "names": [
+                "IntroPopup"
+              ],
+              "x": 469,
+              "y": 256,
+              "w": 1279,
+              "h": 703
+            },
+            {
+              "names": [
+                "IntroButton"
+              ],
+              "x": 913,
+              "y": 952,
+              "w": 369,
+              "h": 90
+            }
+          ],
+          "localCanvasRect": {
+            "x": 0,
+            "y": 26,
+            "width": 1280,
+            "height": 773.890625,
+            "innerWidth": 1280,
+            "innerHeight": 800
+          },
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+        }
+      ],
       "publicDocumentedLayout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -191,7 +1053,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "canvas-present-gameplay-unverified",
@@ -201,7 +1066,8 @@
   "evidenceFiles": [
     "scope/official74.json",
     "tests/math-official72-audit.json",
-    "references/official74-browser-audit-20261111.json"
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-slots20-secondary.json"
   ],
   "remaining": [
     "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",

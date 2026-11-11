@@ -1,19 +1,26 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-11T08:33:57.000Z",
+  "updatedAt": "2026-11-11T10:02:08.192Z",
   "requestedTotal": 1480,
   "interpretation": "20-completed-rounds-per-title-preserve-historical-counts",
   "targetPerGame": 20,
   "revisionReason": "Latest user instruction replaces the former10,000-total plan. Do not schedule further rounds for any title already at20. Historical discoveries and all genuine fresh rounds are retained.",
   "dedupePolicy": "Distinct provider session+completed counter/round ID, explicit observation keys or identical retained screenshot/result records count once. Local evaluations and unresolved historical claims are excluded.",
-  "verifiedCompletedRounds": 780,
-  "reportedCompletedRounds": 780,
-  "duplicateIdentitiesExcluded": 0,
+  "verifiedCompletedRounds": 926,
+  "reportedCompletedRounds": 928,
+  "duplicateIdentitiesExcluded": 2,
+  "unqualifiedRoundsExcluded": 0,
+  "quarantinedProviderRoundIds": [
+    {
+      "gameId": "ind74_official_dragonscode",
+      "providerRoundId": "1966101498.3"
+    }
+  ],
   "historicalImportedCompletedRounds": 242,
-  "gamesWithVerifiedRounds": 25,
-  "gamesMeetingTarget": 23,
-  "remainingRequiredRounds": 1014,
-  "creditedTowardTarget": 466,
+  "gamesWithVerifiedRounds": 34,
+  "gamesMeetingTarget": 30,
+  "remainingRequiredRounds": 868,
+  "creditedTowardTarget": 612,
   "countsExclude": [
     "unconfirmed-autoplay-batches",
     "clicks-or-debits-only",
@@ -21,7 +28,8 @@
     "unit-tests",
     "ledger-fixture-rounds",
     "duplicate-provider-round-identities",
-    "unresolved-historical-overlap"
+    "unresolved-historical-overlap",
+    "quarantined-or-unresolved-feature-lifecycles"
   ],
   "games": [
     {
@@ -34,6 +42,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -51,6 +61,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -63,6 +75,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -78,6 +92,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -95,6 +111,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -112,6 +130,8 @@
       "verifiedCompletedRounds": 152,
       "reportedCompletedRounds": 152,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -124,6 +144,8 @@
           "reportedCompletedRounds": 152,
           "uniqueCompletedRoundsAdded": 152,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -139,6 +161,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -156,6 +180,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -173,6 +199,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -185,6 +213,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -200,6 +230,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -212,6 +244,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -227,6 +261,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -239,6 +275,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -254,6 +292,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -266,6 +306,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -281,6 +323,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -295,25 +339,29 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/dice-jungle",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-slots20-remaining.json"
       ],
       "evidenceCounts": [
         {
           "evidenceFile": "official-demo-observations-slots20-remaining.json",
-          "reportedCompletedRounds": 0,
-          "uniqueCompletedRoundsAdded": 0,
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
-      "status": "not-yet-play-verified"
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multihot5wild",
@@ -325,6 +373,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -338,6 +388,8 @@
           "reportedCompletedRounds": 10,
           "uniqueCompletedRoundsAdded": 10,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         },
         {
@@ -345,6 +397,8 @@
           "reportedCompletedRounds": 10,
           "uniqueCompletedRoundsAdded": 10,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -360,6 +414,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -377,6 +433,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -389,6 +447,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -404,6 +464,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -416,6 +478,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -431,6 +495,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -448,6 +514,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -460,6 +528,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -475,6 +545,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -487,6 +559,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -499,25 +573,39 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 3,
-      "reportedCompletedRounds": 3,
-      "duplicatesExcluded": 0,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 21,
+      "duplicatesExcluded": 1,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 17,
-      "furtherRoundsAllowed": true,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
       "evidenceFiles": [
+        "official-demo-observations-adjudicated-results.json",
         "official-demo-observations-slots20-remaining.json"
       ],
       "evidenceCounts": [
         {
-          "evidenceFile": "official-demo-observations-slots20-remaining.json",
-          "reportedCompletedRounds": 3,
-          "uniqueCompletedRoundsAdded": 3,
+          "evidenceFile": "official-demo-observations-adjudicated-results.json",
+          "reportedCompletedRounds": 1,
+          "uniqueCompletedRoundsAdded": 1,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 19,
+          "duplicateIdentitiesExcluded": 1,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
-      "status": "observed-rounds-below-target"
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multihot100",
@@ -529,6 +617,8 @@
       "verifiedCompletedRounds": 50,
       "reportedCompletedRounds": 50,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 30,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -542,6 +632,8 @@
           "reportedCompletedRounds": 30,
           "uniqueCompletedRoundsAdded": 30,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": true
         },
         {
@@ -549,6 +641,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -564,6 +658,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -576,6 +672,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -591,6 +689,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -608,6 +708,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -621,6 +723,8 @@
           "reportedCompletedRounds": 1,
           "uniqueCompletedRoundsAdded": 1,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         },
         {
@@ -628,6 +732,8 @@
           "reportedCompletedRounds": 19,
           "uniqueCompletedRoundsAdded": 19,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -640,25 +746,29 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/chicken-highway",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 3,
-      "reportedCompletedRounds": 3,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 17,
-      "furtherRoundsAllowed": true,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-nonslots20-remaining.json"
       ],
       "evidenceCounts": [
         {
           "evidenceFile": "official-demo-observations-nonslots20-remaining.json",
-          "reportedCompletedRounds": 3,
-          "uniqueCompletedRoundsAdded": 3,
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
-      "status": "observed-rounds-below-target"
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_multihot5deluxe",
@@ -670,6 +780,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -682,6 +794,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -697,11 +811,25 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
+      "evidenceFiles": [
+        "official-demo-observations-nonslots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-nonslots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -714,6 +842,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -731,6 +861,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -745,36 +877,11 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
-      "duplicatesExcluded": 0,
-      "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [
-        "official-demo-observations-slots20-remaining.json"
-      ],
-      "evidenceCounts": [
-        {
-          "evidenceFile": "official-demo-observations-slots20-remaining.json",
-          "reportedCompletedRounds": 0,
-          "uniqueCompletedRoundsAdded": 0,
-          "duplicateIdentitiesExcluded": 0,
-          "historicalImport": false
-        }
-      ],
-      "status": "not-yet-play-verified"
-    },
-    {
-      "gameId": "ind74_official_multihot5superwilds",
-      "title": "Multi Hot 5 Super Wilds",
-      "protected": false,
-      "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
-      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
-      "targetRounds": 20,
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -787,6 +894,39 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
+    },
+    {
+      "gameId": "ind74_official_multihot5superwilds",
+      "title": "Multi Hot 5 Super Wilds",
+      "protected": false,
+      "officialUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "targetRounds": 20,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -802,6 +942,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -819,19 +961,33 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
       "evidenceFiles": [
+        "official-demo-observations-nonslots20-remaining.json",
         "official-demo-observations-plinkox20.json",
         "official-demo-observations-root.json"
       ],
       "evidenceCounts": [
         {
+          "evidenceFile": "official-demo-observations-nonslots20-remaining.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        },
+        {
           "evidenceFile": "official-demo-observations-plinkox20.json",
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         },
         {
@@ -839,6 +995,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -854,6 +1012,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -871,6 +1031,8 @@
       "verifiedCompletedRounds": 115,
       "reportedCompletedRounds": 115,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 115,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -884,6 +1046,8 @@
           "reportedCompletedRounds": 115,
           "uniqueCompletedRoundsAdded": 115,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": true
         },
         {
@@ -891,6 +1055,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -903,25 +1069,29 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/safari-simba-2",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
       "evidenceFiles": [
         "official-demo-observations-slots20-remaining.json"
       ],
       "evidenceCounts": [
         {
           "evidenceFile": "official-demo-observations-slots20-remaining.json",
-          "reportedCompletedRounds": 0,
-          "uniqueCompletedRoundsAdded": 0,
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
-      "status": "not-yet-play-verified"
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_mineisland",
@@ -933,6 +1103,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -945,6 +1117,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -960,6 +1134,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -972,6 +1148,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -987,6 +1165,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1004,6 +1184,8 @@
       "verifiedCompletedRounds": 62,
       "reportedCompletedRounds": 62,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 42,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -1017,6 +1199,8 @@
           "reportedCompletedRounds": 42,
           "uniqueCompletedRoundsAdded": 42,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": true
         },
         {
@@ -1024,6 +1208,8 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -1039,6 +1225,8 @@
       "verifiedCompletedRounds": 25,
       "reportedCompletedRounds": 25,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 25,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -1052,6 +1240,8 @@
           "reportedCompletedRounds": 25,
           "uniqueCompletedRoundsAdded": 25,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": true
         },
         {
@@ -1059,6 +1249,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -1071,36 +1263,11 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/mariachi-coins",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
-      "duplicatesExcluded": 0,
-      "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [
-        "official-demo-observations-slots20-remaining.json"
-      ],
-      "evidenceCounts": [
-        {
-          "evidenceFile": "official-demo-observations-slots20-remaining.json",
-          "reportedCompletedRounds": 0,
-          "uniqueCompletedRoundsAdded": 0,
-          "duplicateIdentitiesExcluded": 0,
-          "historicalImport": false
-        }
-      ],
-      "status": "not-yet-play-verified"
-    },
-    {
-      "gameId": "ind74_official_habeshafortune5",
-      "title": "Habesha Fortune 5",
-      "protected": false,
-      "officialUrl": "https://www.smartsoftgaming.com/games/hab",
-      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
-      "targetRounds": 20,
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -1113,6 +1280,39 @@
           "reportedCompletedRounds": 20,
           "uniqueCompletedRoundsAdded": 20,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
+    },
+    {
+      "gameId": "ind74_official_habeshafortune5",
+      "title": "Habesha Fortune 5",
+      "protected": false,
+      "officialUrl": "https://www.smartsoftgaming.com/games/hab",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "targetRounds": 20,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
+      "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
+      "historicalImportedCompletedRounds": 0,
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-slots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -1128,6 +1328,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1145,6 +1347,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1162,6 +1366,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1174,6 +1380,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -1189,6 +1397,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1203,15 +1413,29 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
+      "verifiedCompletedRounds": 20,
+      "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
-      "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
-      "status": "not-yet-play-verified"
+      "remainingRounds": 0,
+      "furtherRoundsAllowed": false,
+      "evidenceFiles": [
+        "official-demo-observations-nonslots20-remaining.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-nonslots20-remaining.json",
+          "reportedCompletedRounds": 20,
+          "uniqueCompletedRoundsAdded": 20,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
+      "status": "quota-met-no-further-rounds"
     },
     {
       "gameId": "ind74_official_wildmultistars",
@@ -1223,6 +1447,8 @@
       "verifiedCompletedRounds": 30,
       "reportedCompletedRounds": 30,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 30,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -1235,6 +1461,8 @@
           "reportedCompletedRounds": 30,
           "uniqueCompletedRoundsAdded": 30,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": true
         }
       ],
@@ -1250,6 +1478,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1264,11 +1494,13 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/genies-bonanza",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
+      "verifiedCompletedRounds": 3,
+      "reportedCompletedRounds": 3,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
+      "remainingRounds": 17,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [
         "official-demo-observations-slots20-remaining.json"
@@ -1276,13 +1508,15 @@
       "evidenceCounts": [
         {
           "evidenceFile": "official-demo-observations-slots20-remaining.json",
-          "reportedCompletedRounds": 0,
-          "uniqueCompletedRoundsAdded": 0,
+          "reportedCompletedRounds": 3,
+          "uniqueCompletedRoundsAdded": 3,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
-      "status": "not-yet-play-verified"
+      "status": "observed-rounds-below-target"
     },
     {
       "gameId": "ind74_official_bonustime",
@@ -1294,6 +1528,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1311,6 +1547,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1328,6 +1566,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1345,6 +1585,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1362,6 +1604,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1379,6 +1623,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1396,6 +1642,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1413,6 +1661,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1430,6 +1680,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1444,25 +1696,39 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
-      "duplicatesExcluded": 0,
+      "verifiedCompletedRounds": 1,
+      "reportedCompletedRounds": 2,
+      "duplicatesExcluded": 1,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
+      "remainingRounds": 19,
       "furtherRoundsAllowed": true,
       "evidenceFiles": [
+        "official-demo-observations-adjudicated-results.json",
         "official-demo-observations-slots20-secondary.json"
       ],
       "evidenceCounts": [
         {
-          "evidenceFile": "official-demo-observations-slots20-secondary.json",
-          "reportedCompletedRounds": 0,
-          "uniqueCompletedRoundsAdded": 0,
+          "evidenceFile": "official-demo-observations-adjudicated-results.json",
+          "reportedCompletedRounds": 1,
+          "uniqueCompletedRoundsAdded": 1,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        },
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 1,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 1,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
-      "status": "not-yet-play-verified"
+      "status": "observed-rounds-below-target"
     },
     {
       "gameId": "ind74_official_bokajamba10",
@@ -1474,6 +1740,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1488,15 +1756,29 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
+      "verifiedCompletedRounds": 6,
+      "reportedCompletedRounds": 6,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
+      "remainingRounds": 14,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
-      "status": "not-yet-play-verified"
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 6,
+          "uniqueCompletedRoundsAdded": 6,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
+      "status": "observed-rounds-below-target"
     },
     {
       "gameId": "ind74_official_dragonscode",
@@ -1505,15 +1787,31 @@
       "officialUrl": "https://www.smartsoftgaming.com/games/dragons-code",
       "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
       "targetRounds": 20,
-      "verifiedCompletedRounds": 0,
-      "reportedCompletedRounds": 0,
+      "verifiedCompletedRounds": 2,
+      "reportedCompletedRounds": 2,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [
+        "1966101498.3"
+      ],
       "historicalImportedCompletedRounds": 0,
-      "remainingRounds": 20,
+      "remainingRounds": 18,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
-      "status": "not-yet-play-verified"
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 2,
+          "uniqueCompletedRoundsAdded": 2,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
+      "status": "observed-rounds-below-target"
     },
     {
       "gameId": "ind74_official_draculasfortune",
@@ -1525,11 +1823,25 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -1542,11 +1854,25 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -1559,11 +1885,25 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -1576,11 +1916,25 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -1593,11 +1947,25 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
-      "evidenceFiles": [],
-      "evidenceCounts": [],
+      "evidenceFiles": [
+        "official-demo-observations-slots20-secondary.json"
+      ],
+      "evidenceCounts": [
+        {
+          "evidenceFile": "official-demo-observations-slots20-secondary.json",
+          "reportedCompletedRounds": 0,
+          "uniqueCompletedRoundsAdded": 0,
+          "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
+          "historicalImport": false
+        }
+      ],
       "status": "not-yet-play-verified"
     },
     {
@@ -1610,6 +1978,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1622,6 +1992,8 @@
           "reportedCompletedRounds": 0,
           "uniqueCompletedRoundsAdded": 0,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -1637,6 +2009,8 @@
       "verifiedCompletedRounds": 20,
       "reportedCompletedRounds": 20,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 0,
       "furtherRoundsAllowed": false,
@@ -1650,6 +2024,8 @@
           "reportedCompletedRounds": 19,
           "uniqueCompletedRoundsAdded": 19,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         },
         {
@@ -1657,6 +2033,8 @@
           "reportedCompletedRounds": 1,
           "uniqueCompletedRoundsAdded": 1,
           "duplicateIdentitiesExcluded": 0,
+          "unqualifiedClaimCountExcluded": 0,
+          "unqualifiedRoundsExcluded": [],
           "historicalImport": false
         }
       ],
@@ -1672,6 +2050,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,
@@ -1689,6 +2069,8 @@
       "verifiedCompletedRounds": 0,
       "reportedCompletedRounds": 0,
       "duplicatesExcluded": 0,
+      "unqualifiedRoundsExcluded": 0,
+      "quarantinedProviderRoundIds": [],
       "historicalImportedCompletedRounds": 0,
       "remainingRounds": 20,
       "furtherRoundsAllowed": true,

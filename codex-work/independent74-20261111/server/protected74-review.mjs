@@ -68,9 +68,22 @@ export function protected74ReviewCatalog(){
 // LibraryService supplied by the caller. It never constructs SharedWallet or
 // LibraryService and never calls migrate/recoverTimers/setEnabled. Actual live
 // protected process does not yet expose such an initialized instance: block.
-export function attachProtected74ReviewModels({retainedLibrary,evidence={}}={}){
+// Driver-shape adapter only: retained classes use unsafe()/begin(), the exact
+// protected process uses pg query()/transaction(). No ledger SQL, DB client,
+// wallet or financial class is implemented or constructed here.
+const protectedSqlOrigins=new WeakMap();
+export function createProtectedSqlFacade({pool,transaction}={}){
+ if(typeof pool?.query!=='function'||typeof transaction!=='function')throw new TypeError('Existing protected pool/transaction references are required.');
+ const wrap=connection=>Object.freeze({unsafe:async(text,parameters=[])=>{const result=await connection.query(text,parameters);return result.rows;}});
+ const facade=Object.freeze({unsafe:async(text,parameters=[])=>{const result=await pool.query(text,parameters);return result.rows;},begin:callback=>transaction(connection=>callback(wrap(connection)))});
+ protectedSqlOrigins.set(facade,pool);return facade;
+}
+export function assertProtectedSqlPool(sql,pool){if(protectedSqlOrigins.get(sql)!==pool)throw Error('RETAINED_CLASSES_MUST_USE_EXACT_PROTECTED_POOL');return true;}
+
+export function attachProtected74ReviewModels({retainedLibrary,protectedPool=null,evidence={}}={}){
  const readiness=protected74ReviewReadiness(evidence);
  if(!retainedLibrary)throw Error('EXISTING_RETAINED_LIBRARY_INSTANCE_REQUIRED');
+ if(protectedPool)assertProtectedSqlPool(retainedLibrary.shared?.sql,protectedPool);
  if(evidence.sameProtectedDatabaseVerified!==true||evidence.actualSchemaConstraintsVerified!==true||evidence.retainedFinancialClassHashesVerified!==true)throw Error('ACTUAL_PROTECTED_DATABASE_AND_RETAINED_CLASS_PROOF_REQUIRED');
  const facade=installExistingLibrary74({service:retainedLibrary,math:protected64Math,reviewedGameIds:[],allowNewRounds:false,gameLimits:{}});
  return {facade,readiness};

@@ -6,8 +6,8 @@
   "mode": "official DEMO only",
   "currency": "DMO",
   "historicalVerifiedRounds": 0,
-  "freshVerifiedRounds": 3,
-  "totalVerifiedRounds": 3,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
   "viewport": {
     "width": 1280,
     "height": 800
@@ -42,7 +42,7 @@
   },
   "initialScreenshot": {
     "path": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
-    "sha256": "1a7e853b5b3cd5e5ea51a8ce8f122884fb1c8eafd8b79e761dc67207a7edf9f5"
+    "sha256": "e163ae29aa95aeb91e54cc2dfb8018cb306beaac889adfe203fedef2a014e1a6"
   },
   "publicUiLabels": [
     "BUY BONUS",
@@ -63,9 +63,17 @@
     "ButtonsSpin"
   ],
   "nativeTurbo": {
-    "enabled": false,
-    "mode": "normal",
-    "reason": "Normal native play selected; the optional Quick Play confirmation is not yet safely verified on this skin"
+    "enabled": true,
+    "mode": "native-visible-toggle-attempt",
+    "reason": "Native mode only considered enabled when rendered ButtonsSpinTurbo is visible",
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-turbo-state.png",
+      "sha256": "532b0df7e818eeb14015f7f9927f4aededdbd4693f2555396178779728fec684"
+    }
   },
   "bet": {
     "before": "0.50",
@@ -74,7 +82,7 @@
     "method": "Native dollar button, menu scroll if needed, visible amount click",
     "screenshot": {
       "path": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-bet-confirmed.png",
-      "sha256": "44454ae1011921432b129484d8c7814b203504725375ce33954a28b726afa205"
+      "sha256": "14a38fec27493607ddf320e4342d44b61f0c9543d061c6668e62d3be93ea87eb"
     }
   },
   "observedFeatures": [
@@ -127,6 +135,256 @@
       ],
       "wildColumns": null,
       "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round01.png"
+    },
+    {
+      "spinId": "1966037473.2",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        9,
+        6,
+        6,
+        9,
+        8,
+        9,
+        6,
+        6,
+        9,
+        6,
+        8,
+        7,
+        5,
+        7,
+        6,
+        8,
+        0,
+        5,
+        7,
+        7
+      ],
+      "expandedGrid": [
+        9,
+        0,
+        6,
+        9,
+        8,
+        9,
+        0,
+        6,
+        9,
+        6,
+        8,
+        0,
+        5,
+        7,
+        6,
+        8,
+        0,
+        5,
+        7,
+        7
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round06.png"
+    },
+    {
+      "spinId": "1966037473.3",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        2,
+        8,
+        2,
+        3,
+        9,
+        2,
+        5,
+        6,
+        3,
+        7,
+        2,
+        5,
+        0,
+        6,
+        7,
+        7,
+        3,
+        9,
+        6,
+        5
+      ],
+      "expandedGrid": [
+        2,
+        8,
+        0,
+        3,
+        9,
+        2,
+        5,
+        0,
+        3,
+        7,
+        2,
+        5,
+        0,
+        6,
+        7,
+        7,
+        3,
+        0,
+        6,
+        5
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round07.png"
+    },
+    {
+      "spinId": "1966077709.7",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        8,
+        9,
+        10,
+        7,
+        2,
+        8,
+        9,
+        3,
+        7,
+        2,
+        8,
+        7,
+        6,
+        0,
+        6,
+        8,
+        7,
+        6,
+        8,
+        6
+      ],
+      "expandedGrid": [
+        8,
+        9,
+        10,
+        0,
+        2,
+        8,
+        9,
+        3,
+        0,
+        2,
+        8,
+        7,
+        6,
+        0,
+        6,
+        8,
+        7,
+        6,
+        0,
+        6
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round18.png"
+    },
+    {
+      "spinId": "1966077709.8",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        9,
+        10,
+        6,
+        10,
+        7,
+        6,
+        6,
+        6,
+        6,
+        10,
+        6,
+        4,
+        6,
+        8,
+        8,
+        6,
+        4,
+        0,
+        8,
+        6
+      ],
+      "expandedGrid": [
+        9,
+        10,
+        0,
+        10,
+        7,
+        6,
+        6,
+        0,
+        6,
+        10,
+        6,
+        4,
+        0,
+        8,
+        8,
+        6,
+        4,
+        0,
+        8,
+        6
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round19.png"
+    },
+    {
+      "spinId": "1966077709.9",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        9,
+        10,
+        8,
+        9,
+        6,
+        9,
+        9,
+        7,
+        9,
+        4,
+        10,
+        5,
+        0,
+        7,
+        4,
+        1,
+        5,
+        7,
+        7,
+        5
+      ],
+      "expandedGrid": [
+        9,
+        10,
+        0,
+        9,
+        6,
+        9,
+        9,
+        0,
+        9,
+        4,
+        10,
+        5,
+        0,
+        7,
+        4,
+        1,
+        5,
+        0,
+        7,
+        5
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-round20.png"
     }
   ],
   "rulesDocuments": [
@@ -137,6 +395,10 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
+  "reload": {
+    "verified": false,
+    "reason": "Same-session refresh and open-round recovery not captured; reopening the DEMO launcher is not proof of recovery"
+  },
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

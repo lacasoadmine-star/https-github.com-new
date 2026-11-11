@@ -1,0 +1,89 @@
+{
+  "pass": false,
+  "originalCsp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+  "retainedCsp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.prod.website-files.com; media-src 'self' blob:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+  "blockedWrites": [
+    {
+      "method": "POST",
+      "path": "/_player/presence"
+    },
+    {
+      "method": "POST",
+      "path": "/_player/presence"
+    },
+    {
+      "method": "POST",
+      "path": "/_player/presence"
+    }
+  ],
+  "providerWagers": 0,
+  "playerWalletMutations": 0,
+  "pageErrors": [],
+  "originalCardsBefore": [
+    {
+      "id": "balloon_native",
+      "visible": false
+    },
+    {
+      "id": "balloon_native",
+      "visible": false
+    },
+    {
+      "id": "jetx_native",
+      "visible": false
+    },
+    {
+      "id": "jetx_native",
+      "visible": false
+    },
+    {
+      "id": "foxy_hot_20_native",
+      "visible": false
+    },
+    {
+      "id": "foxy_hot_20_native",
+      "visible": false
+    },
+    {
+      "id": "multi_hot_5_native",
+      "visible": false
+    },
+    {
+      "id": "multi_hot_5_native",
+      "visible": false
+    },
+    {
+      "id": "multi_hot_5_video",
+      "visible": false
+    },
+    {
+      "id": "multi_hot_5_video",
+      "visible": false
+    },
+    {
+      "id": "hot_foxy_20",
+      "visible": false
+    },
+    {
+      "id": "hot_foxy_20",
+      "visible": false
+    },
+    {
+      "id": "wild_multi_stars",
+      "visible": false
+    },
+    {
+      "id": "wild_multi_stars",
+      "visible": false
+    },
+    {
+      "id": "multi_hot_100",
+      "visible": false
+    },
+    {
+      "id": "multi_hot_100",
+      "visible": false
+    }
+  ],
+  "failure": "page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#i74-lobby .i74-card')\u001b[22m\n"
+}

@@ -7,6 +7,8 @@
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "category": "Slots",
   "verifiedCompletedOfficialRounds": 0,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
   "remainingRequiredRounds": 20,
   "furtherRoundsAllowed": true,
@@ -14,7 +16,7 @@
   "comparison": {
     "status": "full-provider-parity-unverified",
     "publicGeometryVerified": false,
-    "demoGeometryObserved": false,
+    "demoGeometryObserved": true,
     "sourceFacts": [],
     "unresolved": [
       "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
@@ -43,7 +45,7 @@
     "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -120,7 +122,7 @@
       ]
     },
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": true
   },
@@ -136,6 +138,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -150,14 +159,473 @@
         "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
       }
     ],
-    "geometry": [],
+    "geometry": [
+      {
+        "renderedSymbolInstances": 9,
+        "visibleReelCandidates": 3,
+        "visibleRowCandidates": 3,
+        "xPositions": [
+          637,
+          857,
+          1077
+        ],
+        "yPositions": [
+          92,
+          292,
+          492
+        ],
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+      }
+    ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
-    "betChanges": [],
-    "roundProgressAndResults": [],
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_sugarfiesta",
+        "title": "Sugar Fiesta",
+        "officialUrl": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "protectedImplementation": false,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T09:34:22.408Z",
+            "providerEventTime": "2026-11-11T10:34:18.7719915+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966095601.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 5,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:34:54.761Z",
+            "providerEventTime": "2026-11-11T10:34:18.7719915+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966095601.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 5,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/SugarFiesta.html",
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-official-help.html",
+            "sha256": "65b88694ce9b8539290430bc09e34db7ba9f17169fcadaf572b1402b143b16d4",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "native-controls-readonly",
+        "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/SugarFiesta.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "canvas": {
+          "width": 2170,
+          "height": 1220
+        },
+        "initialUiLabels": [
+          "BALANCE 20,000.00 DMO",
+          "BET 0.05 DMO",
+          "HOLD & SPIN"
+        ],
+        "currencyObserved": "DMO",
+        "screenshotTransportErrors": [
+          {
+            "name": "initial",
+            "at": "2026-11-11T09:35:31.611Z",
+            "reason": "SCREENSHOT_TRANSPORT_TIMEOUT"
+          }
+        ],
+        "initialScreenshot": {
+          "path": null,
+          "sha256": null,
+          "error": "SCREENSHOT_TRANSPORT_TIMEOUT"
+        },
+        "geometry": {
+          "renderedSymbolInstances": 9,
+          "visibleReelCandidates": 3,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            637,
+            857,
+            1077
+          ],
+          "yPositions": [
+            92,
+            292,
+            492
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        },
+        "publicControls": [
+          "ButtonsAutoPlay",
+          "ButtonsBet",
+          "ButtonsMenu",
+          "ButtonsQuickPlay",
+          "ButtonsSoundOn",
+          "ButtonsSpin"
+        ],
+        "publicNativeControlRectangles": [
+          {
+            "names": [
+              "ButtonsAutoPlay"
+            ],
+            "x": 1831,
+            "y": 290,
+            "w": 141,
+            "h": 141
+          },
+          {
+            "names": [
+              "ButtonsBet"
+            ],
+            "x": 1832,
+            "y": 711,
+            "w": 141,
+            "h": 141
+          },
+          {
+            "names": [
+              "ButtonsMenu"
+            ],
+            "x": 40,
+            "y": 1100,
+            "w": 48,
+            "h": 33
+          },
+          {
+            "names": [
+              "ButtonsQuickPlay"
+            ],
+            "x": 1979,
+            "y": 400,
+            "w": 83,
+            "h": 97
+          },
+          {
+            "names": [
+              "ButtonsSoundOn"
+            ],
+            "x": 2084,
+            "y": 1100,
+            "w": 48,
+            "h": 38
+          },
+          {
+            "names": [
+              "ButtonsSpin"
+            ],
+            "x": 1755,
+            "y": 430,
+            "w": 279,
+            "h": 279
+          }
+        ],
+        "localCanvasRect": {
+          "x": 0,
+          "y": 26,
+          "width": 1280,
+          "height": 719.625,
+          "innerWidth": 1280,
+          "innerHeight": 800
+        },
+        "historicalAtFirstLaunch": 0,
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+      }
+    ],
     "featuresAndRules": {
-      "directlyObserved": [],
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_sugarfiesta",
+          "title": "Sugar Fiesta",
+          "officialUrl": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "protectedImplementation": false,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T09:34:22.408Z",
+              "providerEventTime": "2026-11-11T10:34:18.7719915+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966095601.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 5,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:34:54.761Z",
+              "providerEventTime": "2026-11-11T10:34:18.7719915+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966095601.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 5,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/SugarFiesta.html",
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-official-help.html",
+              "sha256": "65b88694ce9b8539290430bc09e34db7ba9f17169fcadaf572b1402b143b16d4",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "native-controls-readonly",
+          "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/SugarFiesta.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            }
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "canvas": {
+            "width": 2170,
+            "height": 1220
+          },
+          "initialUiLabels": [
+            "BALANCE 20,000.00 DMO",
+            "BET 0.05 DMO",
+            "HOLD & SPIN"
+          ],
+          "currencyObserved": "DMO",
+          "screenshotTransportErrors": [
+            {
+              "name": "initial",
+              "at": "2026-11-11T09:35:31.611Z",
+              "reason": "SCREENSHOT_TRANSPORT_TIMEOUT"
+            }
+          ],
+          "initialScreenshot": {
+            "path": null,
+            "sha256": null,
+            "error": "SCREENSHOT_TRANSPORT_TIMEOUT"
+          },
+          "geometry": {
+            "renderedSymbolInstances": 9,
+            "visibleReelCandidates": 3,
+            "visibleRowCandidates": 3,
+            "xPositions": [
+              637,
+              857,
+              1077
+            ],
+            "yPositions": [
+              92,
+              292,
+              492
+            ],
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          },
+          "publicControls": [
+            "ButtonsAutoPlay",
+            "ButtonsBet",
+            "ButtonsMenu",
+            "ButtonsQuickPlay",
+            "ButtonsSoundOn",
+            "ButtonsSpin"
+          ],
+          "publicNativeControlRectangles": [
+            {
+              "names": [
+                "ButtonsAutoPlay"
+              ],
+              "x": 1831,
+              "y": 290,
+              "w": 141,
+              "h": 141
+            },
+            {
+              "names": [
+                "ButtonsBet"
+              ],
+              "x": 1832,
+              "y": 711,
+              "w": 141,
+              "h": 141
+            },
+            {
+              "names": [
+                "ButtonsMenu"
+              ],
+              "x": 40,
+              "y": 1100,
+              "w": 48,
+              "h": 33
+            },
+            {
+              "names": [
+                "ButtonsQuickPlay"
+              ],
+              "x": 1979,
+              "y": 400,
+              "w": 83,
+              "h": 97
+            },
+            {
+              "names": [
+                "ButtonsSoundOn"
+              ],
+              "x": 2084,
+              "y": 1100,
+              "w": 48,
+              "h": 38
+            },
+            {
+              "names": [
+                "ButtonsSpin"
+              ],
+              "x": 1755,
+              "y": 430,
+              "w": 279,
+              "h": 279
+            }
+          ],
+          "localCanvasRect": {
+            "x": 0,
+            "y": 26,
+            "width": 1280,
+            "height": 719.625,
+            "innerWidth": 1280,
+            "innerHeight": 800
+          },
+          "historicalAtFirstLaunch": 0,
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+        }
+      ],
       "publicDocumentedLayout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -191,7 +659,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "launch-error",
@@ -201,7 +672,8 @@
   "evidenceFiles": [
     "scope/official74.json",
     "tests/math-official72-audit.json",
-    "references/official74-browser-audit-20261111.json"
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-slots20-secondary.json"
   ],
   "remaining": [
     "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",

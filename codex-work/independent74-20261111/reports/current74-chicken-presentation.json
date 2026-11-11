@@ -1,7 +1,7 @@
 {
   "createdAt": "2026-11-11T08:24:19.846888+00:00",
   "gameId": "ind74_official_chickenhighway",
-  "status": "Presentation source corrected; multiplier model correction waiting for full public lane-chain read-only inspection",
+  "status": "Math and presentation source corrected; isolated tests passed; full provider parity and live wallet unchanged",
   "observed": "Official screenshot has chicken/desert/cactus verge at left, horizontal road lanes, hubcap multiplier targets, moving vehicles, yellow CASHOUT and green START/GO. Confirmed first crossing1.02x then cashout1.02DMO for1stake.",
   "initialScreenshot": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-initial.png",
   "initialScreenshotSha256": "fbe5493731190267bc7dba5f8e0a3a9a9cd4f9bff341ad60d921b73b9bd319c5",
@@ -11,7 +11,10 @@
     "Native-style START/GO/CASHOUT labels only for this title",
     "Chicken follows confirmed lane state; collisions are based on settled server state",
     "Original CSS traffic/chicken animation; reduced-motion disables animation",
-    "Other ladder titles keep their existing renderer and labels"
+    "Other ladder titles keep their existing renderer and labels",
+    "Exact public EASY25 / MEDIUM23 / HARD19 lane tables, maxima20x/1000x/10000x",
+    "Accepted mode selects its own server continuation and payout reserve",
+    "Global storage-derived ceiling includes the highest HARD liability; integer flooring throughout"
   ],
   "verification": {
     "rendererTests": "reports/current74-chicken-renderer-tests.txt",
@@ -36,12 +39,37 @@
       "immutableConfirmedReceipt": true,
       "actions": 0,
       "animationEnded": true
+    },
+    "mathAndLedger": {
+      "evidence": "reports/current74-chicken-math-tests.txt",
+      "passed": 95,
+      "failed": 0,
+      "scope": "Eight title math tests, one retained-ledger test and shared official72/audit regression coverage; not95 per-title tests",
+      "duplicateDelivery": "Six duplicate starts and six duplicate collects per mode produce one debit/payout",
+      "largeStakeEtb": "40001.00",
+      "allThreeFirstLanePayoutsExceed40000Etb": true,
+      "reserveReleased": true,
+      "ledgerConserved": true
+    },
+    "actualControllerDemo": {
+      "evidence": "reports/current74-chicken-demo-ui/report.json",
+      "pass": true,
+      "currency": "DEMO",
+      "actions": 2,
+      "startBalance": "10000.00",
+      "stake": "1.00",
+      "firstLaneGrossPayout": "1.02",
+      "finalBalance": "10000.02",
+      "accountApiRequests": 0,
+      "duplicateStopAddsNoAction": true,
+      "reloadRecovered": true,
+      "pageErrors": []
     }
   },
   "remaining": [
-    "Full native lane count/multiplier chain and other difficulty tables",
-    "Current math has unrelated authored1.2-to125 multipliers and still requires correction",
-    "Provider probabilities, artwork/audio/complete visual equivalence",
+    "Provider-specific autoplay runs/target cashout step",
+    "Provider-specific disconnect>8second cashout policy",
+    "Provider probabilities, complete artwork/audio and visual equivalence",
     "Account/wallet live integration and deployment"
   ],
   "officialDemoRoundsStartedByThisTask": 0,
@@ -54,5 +82,23 @@
     "Cash out before next crossing",
     "Disconnect>8s triggerscashout; liveconnectionpolicyunimplemented/unverified",
     "Autoplaynumberofrunsandcashoutstep documented, notimplemented"
-  ]
+  ],
+  "updatedAt": "2026-11-11T08:41:20.592057+00:00",
+  "modelVersion": "official72-chickenhighway-r3",
+  "publicDisplayTables": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json",
+  "before": {
+    "laneCount": 10,
+    "modes": [
+      "easy"
+    ],
+    "firstMultiplier": "1.2",
+    "finalMultiplier": "125"
+  },
+  "independentChoices": [
+    "9480/first-multiplier then previous/next conditional survival probabilities",
+    "Automatic final-lane collection",
+    "Retained expiry/recovery rather than provider-specific disconnect policy"
+  ],
+  "directObservationVsDocumented": "First EASY1.02 crossing and cashout were directly observed. Other coefficients and lane counts come from public presentation-source display tables; no sampled wins or provider probabilities are inferred.",
+  "correction": "Earlier eighth-lane reading1.54 was incorrect; public source states1.55."
 }

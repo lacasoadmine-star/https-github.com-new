@@ -1,0 +1,87 @@
+{
+  "adjudicatedAt": "2026-11-11T09:31:26.473656+00:00",
+  "gameId": "ind74_official_junglesistersdeluxe",
+  "attemptOrdinal": 7,
+  "decision": "no-completed-result-and-acceptance-unresolved-without-request-lifecycle-proof",
+  "countedRoundContribution": 0,
+  "acceptedFinancialRoundContribution": null,
+  "basis": "Only an input-request/acknowledgement-timeout record exists. No provider result/new roundID/debit arrived during the retained60-second public wait; subsequent native state remains HOLD & SPIN ready with19997DMO, unchanged from the sixth settled result1966082149.3. This matches the earlier Chicken no-acceptance classification. The available record establishes no completed round, but cannot now establish that no native request remained in flight.",
+  "source": "tests/evidence/official-demo-observations-slots20-secondary.json",
+  "sourceSha256AtAdjudication": "0cc20e0272751b873de10abaecae311777cd61099de6bd47334ff60cd20c24f4",
+  "attempt": {
+    "startedAt": "2026-11-11T09:28:11.244Z",
+    "ordinal": 7,
+    "state": "native-play-input-requested",
+    "nativeInput": {
+      "x": 1160.258064516129,
+      "y": 365.7603686635945,
+      "sentAt": "2026-11-11T09:28:11.246Z",
+      "mousePressMilliseconds": 90,
+      "acknowledgements": null,
+      "acknowledgementTimeout": true,
+      "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+    }
+  },
+  "lastAcceptedCompletedResult": {
+    "at": "2026-11-11T09:27:32.917Z",
+    "providerEventTime": "2026-11-11T10:27:13.250069+01:00",
+    "eventCode": "start.game",
+    "apiEvent": "2",
+    "spinId": "1966082149.3",
+    "boardVersion": 7,
+    "originalGrid": [
+      2,
+      4,
+      2,
+      3,
+      6,
+      3,
+      4,
+      9,
+      3,
+      7,
+      3,
+      4,
+      9,
+      2,
+      7
+    ],
+    "expandedGrid": null,
+    "linePlay": 20,
+    "betPerLine": 5,
+    "chipCoefficient": 0.01,
+    "balance": 19997,
+    "rawWinCredits": 0,
+    "rawTotalWinCredits": 0,
+    "multiplier": 5,
+    "wildColumns": null,
+    "reelsToFreeze": null,
+    "freeSpinsCount": 0,
+    "freeSpinUsed": 0,
+    "freeSpinFinished": false,
+    "freeSpinSum": 0,
+    "bonusWin": false,
+    "bonusWinAmount": 0
+  },
+  "subsequentNativeReadyLabels": [
+    "HOLD & SPIN",
+    "BUY BONUS 100.00 DMO",
+    "BALANCE 19,997.00 DMO",
+    "BET 1.00 DMO"
+  ],
+  "screenshot": {
+    "path": null,
+    "sha256": null,
+    "error": "SCREENSHOT_TRANSPORT_TIMEOUT"
+  },
+  "notClaimed": [
+    "The click is not a completed round.",
+    "No new accepted round or additional stake debit is established.",
+    "A missing request can never prove all hypothetical delayed server activity; this decision reflects the retained ready-state/counter/wallet evidence."
+  ],
+  "nextWagerPermittedWithinCanonicalRemainingQuota": false,
+  "instruction": "Retain this input-only record as unresolved, counted0completed and holding1accepted-budget slot. Do not clear/retry on the basis of the earlier ready-only decision. New observer must retain actual native request lifecycle and allow150seconds for the same input; no acknowledgement-based replacement.",
+  "updatedAt": "2026-11-11T09:33:48.508788+00:00",
+  "acceptedBudgetHeld": 1,
+  "missingEvidence": "No native API request-start/finish/in-flight snapshot was retained. The old browser is closed, so unchanged ready/counter/wallet alone does not satisfy the parent coordinator\u2019s newer no-request-in-flight requirement."
+}

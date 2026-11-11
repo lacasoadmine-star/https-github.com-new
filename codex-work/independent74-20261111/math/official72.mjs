@@ -5,6 +5,9 @@ import scope from '../scope/official74.json' with {type:'json'};
 import {listGameDefinitions as originalModels} from './index.mjs';
 import {getGameDefinition as revisedModel} from './requested72.mjs';
 import freshPlinko from './fresh-plinkoxclassic.mjs';
+import {configureChickenHighway,CHICKEN_HIGHWAY_ID} from './chicken-highway.mjs';
+import {configureWheelOfDestiny,startWheelOfDestiny,validateWheelOfDestinyRound,maximumWheelOfDestinyPayout,WHEEL_OF_DESTINY_ID} from './wheel-of-destiny.mjs';
+import {configureObservedPlinkoX,startObservedPlinkoX,validateObservedPlinkoXRound,maximumObservedPlinkoXPayout,observedPlinkoXOptions,OBSERVED_PLINKOX_ID} from './observed-plinkox.mjs';
 import {officialLayout, independentPaylines, OBSERVED_LAYOUTS} from './official72-layouts.mjs';
 import {startSlot, publicSlot, calculateSlotReturn} from './engines/slots.mjs';
 import {startCrash, advanceCrash, collectCrash, publicCrash, syncCrash} from './engines/crash.mjs';
@@ -40,12 +43,14 @@ const THREE_REEL_TITLES=new Set(['Multi Hot 5 Deluxe','Safari Simba','Habesha Fo
 const VERIFIED_LINE_COUNTS=new Map([['Power of Tiger',5],['Gems Crown Charging Wilds',5],['Burning Ice',5],['Jungle Sisters Deluxe',20],['Sugar Fiesta',3]]);
 
 function maximumMultiplier(d) {
+  if(d.id===WHEEL_OF_DESTINY_ID)return 12000000;
+  if(d.id===OBSERVED_PLINKOX_ID)return Math.max(...Object.values(d.bucketTablesBps).flat())*10;
   if(d.id===COINS_ATLANTIS_ID)return coinsAtlantisMaximumMultiplierBps(d);
   if(d.id===POWER_TIGER_ID)return powerTigerMaximumMultiplierBps(d);
   if (d.family === 'slots') return largestSymbolPrize(d) * largestWheel(d) * 10000 * (d.gamble?.enabled ? 2 ** d.gamble.maxRounds : 1);
   if (d.family === 'crash') return d.maxMultiplierBps;
   if (d.id === GAME_ID) return Math.max(...d.paytable.flatMap(table => table.rows.map(row => row.multiplierBps)));
-  if (d.family === 'ladder') return d.multipliersBps.at(-1);
+  if (d.family === 'ladder') return d.id===CHICKEN_HIGHWAY_ID?Math.max(...d.paytable.map(table=>table.rows.at(-1).multiplierBps)):d.multipliersBps.at(-1);
   if (d.family === 'mines') return mineMultiplier(d, d.maxPicks);
   if (d.family === 'plinko') return Math.max(...d.bucketMultipliersBps) * Math.max(...(d.ballMultipliers ?? [1]));
   if (d.family === 'wheel') return Math.max(...d.sectors.map(sector => sector.multiplierBps));
@@ -67,6 +72,10 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
     catalogVerifiedOn: scope.fetchedOn, fullGameplayVerified: false};
   d.implementationStatus = 'independent-model; full-reference-parity-and-production-ledger-unverified';
   d.limits = {minBetMinor: '100', maxBetMinor: '0', betStepMinor: '100', maxWinMinor: '0'};
+
+  if (d.id === CHICKEN_HIGHWAY_ID) configureChickenHighway(d);
+  if (d.id === WHEEL_OF_DESTINY_ID) configureWheelOfDestiny(d);
+  if (d.id === OBSERVED_PLINKOX_ID) configureObservedPlinkoX(d);
 
   if (d.id === MINE_ISLAND) {
     // The actual MineIsland launcher is an ascending island ladder, not a
@@ -119,6 +128,19 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
     }
   }
 
+  if(d.id==='ind74_official_dragonscode') {
+    d.rows=4;d.cols=5;d.paylines=independentPaylines(5,4,50);d.mathVersion='official72-dragonscode-r3';
+    d.rules=[
+      'The official DEMO renders five reels and four rows. Exact title-specific English Help documents50 paylines. This regular-symbol fallback uses50 independently authored lines, including the fourth row.',
+      'Only the longest left-to-right regular-symbol match of3,4 or5 pays on each line. Per-line award is floor(total stake times the authored symbol prize divided by50); line awards add.',
+      'The visible top multiplier arc and documented1x-to5x multiplier, Wild, Golden Egg, respins, feature purchase and Gamble are not implemented by this regular fallback. Geometry evidence does not establish their probabilities or the full provider paytable.',
+      'Symbol prizes, uniform regular-symbol draws and the50-line chart remain independent operator choices; no complete provider artwork, audio, RTP or feature equivalence is claimed.',
+    ];
+    d.provenance={...d.provenance,geometrySource:'reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png',
+      paylineCountSource:'reports/current74-evidence-slots-secondary/ind74_official_dragonscode-official-help-en.json:help.slots.dragonscode.multiplier.reel.description.second',
+      observed:'Rendered5-by4 grid with20 symbol positions; native canvas2170-by1220. Top arc visibly shows1x,2x and5x.',
+      designed:'Independent50-line regular-symbol fallback, preserving unknown provider prizes/probabilities and unimplemented feature rules.'};
+  }
   if (d.id === 'ind74_official_multihot40') {
     const observed = OBSERVED_LAYOUTS[d.id];
     d.rows = observed.rows;
@@ -263,19 +285,23 @@ function get(id, mode) {
   if (d.family === 'ladder') {
     const selected = mode ?? d.defaultMode ?? 'easy';
     if (!(d.modes ?? ['easy']).includes(selected)) error('INVALID_MODE', 'Choose a supported mode.');
-    if (d.id === GAME_ID) {
+    if (d.id === GAME_ID || d.id === CHICKEN_HIGHWAY_ID) {
       const table = d.paytable.find(item => item.mode === selected);
-      d = {...d, multipliersBps: table.rows.map(row => row.multiplierBps)};
+      d = {...d, multipliersBps: table.rows.map(row => row.multiplierBps),maxSteps:table.rows.length};
     }
   }
   return d;
 }
 
 function startOptions(d, options) {
-  const allowed = d.family === 'ladder' ? ['mode'] : d.family === 'dice' ? ['target']
+  const allowed = d.id===WHEEL_OF_DESTINY_ID?['bets']:d.id===OBSERVED_PLINKOX_ID?['risk','ballAmount']:d.family === 'ladder' ? ['mode'] : d.family === 'dice' ? ['target']
     : d.gamble?.enabled ? ['holdWin'] : [];
   if (!record(options) || Object.keys(options).some(key => !allowed.includes(key))) {
     error('INVALID_OPTIONS', 'Only supported game choices are accepted.');
+  }
+  if(d.id===OBSERVED_PLINKOX_ID)observedPlinkoXOptions(options);
+  if(d.id===WHEEL_OF_DESTINY_ID&&options.bets!==undefined){
+    if(!Array.isArray(options.bets))error('INVALID_WHEEL_BETS','A list of field allocations is required.');
   }
   if (d.family === 'ladder') get(d.id, options.mode);
   if (d.gamble?.enabled && options.holdWin !== undefined && typeof options.holdWin !== 'boolean') {
@@ -305,6 +331,8 @@ function acceptedBet(d, betMinor, options = {}) {
 }
 
 function maximumFor(d, bet, options = {}) {
+  if(d.id===WHEEL_OF_DESTINY_ID)return maximumWheelOfDestinyPayout(d,bet,options);
+  if(d.id===OBSERVED_PLINKOX_ID)return maximumObservedPlinkoXPayout(d,bet,options);
   if(d.id===COINS_ATLANTIS_ID)return maximumCoinsAtlantisPayout(d,bet);
   if(d.id===POWER_TIGER_ID)return maximumPowerTigerPayout(d,bet);
   // Per-line floors precede the wheel multiplier in the actual slot engine.
@@ -332,12 +360,14 @@ function checked(round) {
   }
   acceptedBet(d, round.betMinor);
   if (round.status !== 'collected' && round.winMinor !== '0') error('INVALID_ROUND', 'Unsettled or lost rounds cannot contain a credited payout.');
-  const options = d.family === 'dice' ? {target: round.outcome?.target} : d.gamble?.enabled ? {holdWin: round.holdWin === true} : {};
+  const options = d.id===WHEEL_OF_DESTINY_ID?{bets:round.bets}:d.id===OBSERVED_PLINKOX_ID?{risk:round.risk,ballAmount:round.ballAmount}:d.family === 'dice' ? {target: round.outcome?.target} : d.gamble?.enabled ? {holdWin: round.holdWin === true} : {};
   if (d.family === 'dice') startOptions(d, options);
   if (BigInt(round.winMinor) > BigInt(maximumFor(d, round.betMinor, options))) error('INVALID_ROUND', 'Stored payout exceeds the accepted model bound.');
   if (d.family === 'slots') validateHeldSlot(d, round, maximumFor(d, round.betMinor));
   if(d.id===POWER_TIGER_ID)validatePowerTigerRound(d,round);
   if(d.id===COINS_ATLANTIS_ID)validateCoinsAtlantisRound(d,round);
+  if(d.id===OBSERVED_PLINKOX_ID)validateObservedPlinkoXRound(d,round);
+  if(d.id===WHEEL_OF_DESTINY_ID)validateWheelOfDestinyRound(d,round);
   if (d.id === PLINKO_CLASSIC && (!d.ballMultipliers.includes(round.ballMultiplier) ||
       round.totalBetMinor !== round.betMinor || round.baseBetMinor !== round.betMinor ||
       round.outcome?.ballMultiplier !== round.ballMultiplier || round.outcome?.totalBetMinor !== round.betMinor ||
@@ -378,6 +408,8 @@ export function startRound({gameId, betMinor, options = {}, rng, now} = {}) {
   betMinor = acceptedBet(d, betMinor, options);
   if(d.id===POWER_TIGER_ID)return result(startPowerOfTiger(d,{betMinor,rng}));
   if(d.id===COINS_ATLANTIS_ID)return result(startCoinsOfAtlantis(d,{betMinor,rng}));
+  if(d.id===OBSERVED_PLINKOX_ID)return result(startObservedPlinkoX(d,{betMinor,rng,options}));
+  if(d.id===WHEEL_OF_DESTINY_ID)return result(startWheelOfDestiny(d,{betMinor,rng,options}));
   if (d.family === 'slots') return result(holdSlotWin(d,
     d.id===MULTI_HOT_WAYS_ID ? startObservedRegularWays(d,{betMinor,rng}) : d.ways ? startObservedWildWays(d,{betMinor,rng}) : d.wildSymbol ? startPublicWildSlot(d, {betMinor, rng}) : d.cols===3 ? startThreeReelSlot(d,{betMinor,rng}) : startSlot(d, {betMinor, rng}), options.holdWin));
   if(d.crashMechanic==='cascade')return result(startPopxCascade(d,{betMinor,rng,now}));
@@ -429,6 +461,8 @@ export function publicRound(round, now) {
   else if (d.family === 'ladder') view = {...publicLadder(d, round), mode: round.mode ?? d.defaultMode ?? 'easy'};
   else if (d.family === 'mines') view = publicMines(d, round);
   else view = publicInstant(round);
+  if(d.id===WHEEL_OF_DESTINY_ID)view.bets=structuredClone(round.bets);
+  if(d.id===OBSERVED_PLINKOX_ID)Object.assign(view,{risk:round.risk,ballAmount:round.ballAmount,perBallBetMinor:round.perBallBetMinor,totalBetMinor:round.totalBetMinor});
   if (d.id === PLINKO_CLASSIC) Object.assign(view, {ballMultiplier: round.ballMultiplier,
     baseBetMinor: round.baseBetMinor, totalBetMinor: round.totalBetMinor});
   // Renderer mutation must never alter the stored result or future outcomes.

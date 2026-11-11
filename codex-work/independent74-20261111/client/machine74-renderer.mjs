@@ -1,4 +1,5 @@
 import {fruitArt} from './fruit-art.mjs';
+import {plinkoxTable,plinkoxRiskAvailable} from './plinkox-controls.mjs';
 
 // Explicit original presentation choices for every unprotected official title.
 // A profile does not assert that its artwork or mechanics match the provider.
@@ -36,7 +37,7 @@ const PROFILE_ROWS = [
   ['jinglebellbonanza','#1e3441','#a6e6ef','#f6d47d','snow','bell'],
   ['multihot5superwilds','#163521','#c8f079','#f0c861','palace','star'],
   ['balloon','#253d54','#e5a3e7','#f6d883','sky','balloon'],
-  ['plinkox','#193447','#6dd9ef','#87a9ff','neon','orb'],
+  ['plinkox','#1b1257','#fc5bac','#7b61da','ocean','orb'],
   ['helicopterx','#142d40','#66d6e0','#d4e4a3','sky','helicopter'],
   ['safarisimba','#433514','#d7e267','#f5c77c','savanna','lion'],
   ['mineisland','#103e3b','#79e3bb','#dec98c','ocean','island'],
@@ -137,7 +138,8 @@ export function machineGeometry(definition) {
     return {steps};
   }
   if (definition.family === 'wheel') {
-    if (!Array.isArray(definition.sectors) || !integer(definition.sectors.length,2,32)) throw new TypeError('Published wheel sectors are required.');
+    const maximum=definition.id==='ind74_official_wheelofdestiny'?50:32;
+    if (!Array.isArray(definition.sectors) || !integer(definition.sectors.length,2,maximum)) throw new TypeError('Published wheel sectors are required.');
     return {sectors:definition.sectors.length};
   }
   return {};
@@ -182,6 +184,11 @@ function assertRound(definition, round) {
   if (definition.family === 'plinko') {
     const outcome = round.outcome;
     if (!outcome || !Array.isArray(outcome.path) || outcome.path.length !== definition.rows || outcome.path.some(bit => bit !== 0 && bit !== 1) || !integer(outcome.bucket,0,definition.rows) || outcome.path.reduce((total,bit) => total + bit,0) !== outcome.bucket) throw new TypeError('A matching server Plinko path is required.');
+    if(definition.id==='ind74_official_plinkox'){
+      if(!plinkoxRiskAvailable(definition,outcome.risk)||!definition.ballAmounts?.includes(outcome.ballAmount)||!Array.isArray(outcome.balls)||outcome.balls.length!==outcome.ballAmount)throw new TypeError('A matching settled Plinko X batch is required.');
+      const table=plinkoxTable(definition,outcome.risk);
+      for(const [index,ball]of outcome.balls.entries())if(ball.index!==index||!Array.isArray(ball.path)||ball.path.length!==definition.rows||ball.path.some(bit=>bit!==0&&bit!==1)||!integer(ball.bucket,0,definition.rows)||ball.path.reduce((sum,bit)=>sum+bit,0)!==ball.bucket||ball.bucketMultiplierBps!==table[ball.bucket]||!definition.ballTypes?.some(type=>type.type===ball.ballType&&type.multiplier===ball.ballMultiplier)||typeof ball.winMinor!=='string'||!/^\d+$/.test(ball.winMinor))throw new TypeError('A matching server Plinko X ball is required.');
+    }
   }
   if (definition.family === 'wheel' && !definition.sectors.some(sector => sector.id === round.outcome?.sector)) throw new TypeError('A matching server wheel sector is required.');
   if (definition.family === 'dice' && (!integer(round.outcome?.roll,0,99) || !integer(round.outcome?.target,definition.minTarget,definition.maxTarget))) throw new TypeError('A matching server dice result is required.');
@@ -391,10 +398,11 @@ function highwayMarkup(definition,round,profile,options,values,steps) {
     '<div class="m74-stage-strip"><span>LANE '+current+'</span><strong>'+multiplier(round?.multiplierBps??0)+'</strong><span>NEXT '+multiplier(round?.nextMultiplierBps)+'</span></div>';
 }
 function ladderMarkup(definition, round, profile, options) {
-  const {steps} = machineGeometry(definition), history = historyOf(round);
+  const {steps:defaultSteps} = machineGeometry(definition), history = historyOf(round);
   const mode = round?.mode ?? options.selectedOptions?.mode ?? definition.defaultMode;
   const table = Array.isArray(definition.paytable) ? definition.paytable.find(item => item.mode === mode)?.rows : null;
   const values = table?.map(row => row.multiplierBps) ?? definition.multipliersBps ?? [];
+  const steps=definition.id==='ind74_official_chickenhighway'?values.length:defaultSteps;
   if(definition.id==='ind74_official_chickenhighway')return highwayMarkup(definition,round,profile,options,values,steps);
   const nextCell = Array.from({length:steps},(_,i) => i).find(cell => !history.some(item => item.cell === cell));
   const buttons = Array.from({length:steps},(_,cell) => {
@@ -426,19 +434,27 @@ export function plinkoGeometry(definition, path) {
   return {rows,columns,dx,dy,points};
 }
 function plinkoMarkup(definition, round, profile, options) {
+  const nonClassic=definition.id==='ind74_official_plinkox';
+  const currency=['ETB','DEMO'].includes(definition.currency)?' '+definition.currency:'';
+  const risk=nonClassic?round?.outcome?.risk??options.selectedOptions?.risk??definition.defaultRisk:null;
+  const bucketValues=nonClassic?plinkoxTable(definition,risk):definition.bucketMultipliersBps;
+  const outcomes=nonClassic?round?.outcome?.balls??[]:round?[round.outcome]:[];
   const {rows,columns,dx,dy,points} = plinkoGeometry(definition,round?.outcome?.path);
   let pegs = '';
   for (let row=0;row<rows;row++) for (let col=0;col<row+3;col++) pegs += '<circle cx="'+(300+(col-(row+2)/2)*dx).toFixed(2)+'" cy="'+(50+row*dy).toFixed(2)+'" r="3.2"/>';
-  const buckets = definition.bucketMultipliersBps.map((value,index) => {
+  const buckets = bucketValues.map((value,index) => {
     const x = 300+(index-rows/2)*dx;
-    return '<g class="m74-bucket'+(round?.outcome?.bucket===index?' is-selected':'')+'" data-bucket="'+index+'"><rect x="'+(x-dx/2+1).toFixed(2)+'" y="404" width="'+(dx-2).toFixed(2)+'" height="32" rx="4"/><text x="'+x.toFixed(2)+'" y="424">'+escape(value/10000)+'×</text><title>Bucket '+(index+1)+': '+multiplier(value)+'</title></g>';
+    const label=nonClassic?'<text class="'+(value>=10000000?'m74-prize-long':value>=1000000?'m74-prize-medium':'')+'" x="'+x.toFixed(2)+'" y="417"><tspan x="'+x.toFixed(2)+'">'+escape(value/10000)+'</tspan><tspan x="'+x.toFixed(2)+'" dy="13">×</tspan></text>':'<text x="'+x.toFixed(2)+'" y="424">'+escape(value/10000)+'×</text>';
+    return '<g class="m74-bucket'+(nonClassic?' m74-bucket-'+Math.min(index,columns-1-index):'')+(outcomes.some(ball=>ball.bucket===index)?' is-selected':'')+'" data-bucket="'+index+'"><rect x="'+(x-dx/2+1).toFixed(2)+'" y="404" width="'+(dx-2).toFixed(2)+'" height="32" rx="4"/>'+label+'<title>Bucket '+(index+1)+': '+multiplier(value)+'</title></g>';
   }).join('');
   const ball = points.at(-1);
-  const ballType = ['pink','orange','fire'].includes(round?.outcome?.ballType) ? round.outcome.ballType : null;
+  const colors=['pink','orange','fire','yellow','blue'];
+  const ballType = colors.includes(round?.outcome?.ballType) ? round.outcome.ballType : null;
   const ballFactor = round?.outcome?.ballMultiplier ?? round?.ballMultiplier;
   const publishedBalls = Array.isArray(definition.ballTypes) ? definition.ballTypes : [];
-  const legend = publishedBalls.length ? '<div class="m74-ball-legend" aria-label="Ball multipliers">'+publishedBalls.map(item=>'<span class="m74-ball-'+(['pink','orange','fire'].includes(item.type)?item.type:'neutral')+'"><i aria-hidden="true"></i>'+escape(item.multiplier)+'×</span>').join('')+'</div>' : '';
-  return legend+'<svg class="m74-plinko" viewBox="0 0 600 450" role="img" aria-label="'+rows+' rows and '+columns+' buckets"><g class="m74-pegs">'+pegs+'</g>'+buckets+'<circle class="m74-plinko-ball'+(ballType?' m74-ball-'+ballType:!round?' is-waiting':'')+'" cx="'+ball.x+'" cy="'+ball.y+'" r="6"/></svg><div class="m74-stage-strip"><span>'+rows+' ROWS'+(ballFactor!==undefined?' · BALL '+escape(ballFactor)+'×':'')+'</span><strong>'+multiplier(round?.outcome?.multiplierBps)+'</strong><span>'+(round?'BUCKET '+(round.outcome.bucket+1):columns+' BUCKETS')+'</span></div>';
+  const legend = publishedBalls.length ? '<div class="m74-ball-legend" aria-label="Ball multipliers">'+(nonClassic?[...publishedBalls].reverse():publishedBalls).map(item=>'<span class="m74-ball-'+(colors.includes(item.type)?item.type:'neutral')+'"><i aria-hidden="true"></i>'+escape(item.multiplier)+'×</span>').join('')+'</div>' : '';
+  const balls=nonClassic&&outcomes.length?outcomes.map((outcome,index)=>{const end=plinkoGeometry(definition,outcome.path).points.at(-1);return '<circle class="m74-plinko-ball m74-ball-'+(colors.includes(outcome.ballType)?outcome.ballType:'neutral')+'" data-ball-index="'+index+'" cx="'+end.x+'" cy="'+end.y+'" r="6"><title>Ball '+(index+1)+' · '+escape(outcome.ballMultiplier)+'× · '+minorText(outcome.winMinor)+'</title></circle>';}).join(''):'<circle class="m74-plinko-ball'+(ballType?' m74-ball-'+ballType:!round?' is-waiting':'')+'" cx="'+ball.x+'" cy="'+ball.y+'" r="6"/>';
+  return (nonClassic?'<div class="m74-plinkox-board">':'')+legend+'<svg class="m74-plinko" viewBox="0 0 600 450" role="img" aria-label="'+rows+' rows and '+columns+' buckets"><g class="m74-pegs">'+pegs+'</g>'+buckets+balls+'</svg>'+(nonClassic?'</div>':'')+'<div class="m74-stage-strip"><span>'+rows+' ROWS'+(!nonClassic&&ballFactor!==undefined?' · BALL '+escape(ballFactor)+'×':'')+'</span><strong>'+multiplier(round?.outcome?.multiplierBps)+'</strong><span>'+(nonClassic?risk.toUpperCase()+' · '+(round?.outcome?.ballAmount??options.selectedOptions?.ballAmount??definition.defaultBallAmount)+' BALLS':round?'BUCKET '+(round.outcome.bucket+1):columns+' BUCKETS')+'</span></div>'+(nonClassic&&round?'<div class="m74-plinkox-total">ROUND TOTAL '+minorText(round.outcome.totalBetMinor)+currency+' · RETURN '+minorText(round.payoutMinor??round.winMinor)+currency+'</div>':'');
 }
 const point = (radius,angle) => [300+radius*Math.cos(angle*Math.PI/180),300+radius*Math.sin(angle*Math.PI/180)];
 function wedge(start,end) {
@@ -450,13 +466,27 @@ export function wheelRotation(definition, round) {
   const index=definition.sectors.findIndex(sector => sector.id===round?.outcome?.sector);
   return index<0?0:-(index+.5)*360/definition.sectors.length;
 }
-function wheelMarkup(definition, round, profile) {
+function wheelMarkup(definition, round, profile,options={}) {
+  if(definition.id==='ind74_official_wheelofdestiny')return destinyWheelMarkup(definition,round,options);
   const {sectors:count}=machineGeometry(definition);
   const sectors=definition.sectors.map((sector,index) => {
     const start=index*360/count-90,end=(index+1)*360/count-90,middle=(start+end)/2,[x,y]=point(178,middle);
     return '<g class="m74-wheel-sector sector-'+index%4+(round?.outcome?.sector===sector.id?' is-selected':'')+'" data-sector="'+escape(sector.id)+'"><path d="'+wedge(start,end)+'"/><text x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" transform="rotate('+(middle+90)+' '+x+' '+y+')">'+escape(sector.multiplierBps/10000)+'×</text><title>'+escape(sector.label)+' · '+multiplier(sector.multiplierBps)+'</title></g>';
   }).join('');
   return '<div class="m74-wheel-wrap"><svg class="m74-wheel" viewBox="0 0 600 600" role="img" aria-label="'+count+'-sector wheel"><circle class="m74-wheel-rim" cx="300" cy="300" r="274"/><g class="m74-wheel-rotor" transform="rotate('+wheelRotation(definition,round)+' 300 300)">'+sectors+'</g><circle class="m74-wheel-hub" cx="300" cy="300" r="80"/><path class="m74-wheel-pointer" d="M276 8H324L300 62Z"/></svg><div class="m74-wheel-center">'+icon(profile.motif)+'</div></div><div class="m74-stage-strip"><span>'+count+' SECTORS</span><strong>'+multiplier(round?.outcome?.multiplierBps)+'</strong><span>'+escape(round?.outcome?.label ?? 'READY')+'</span></div>';
+}
+function destinyWheelMarkup(definition,round,options={}) {
+  const {sectors:count}=machineGeometry(definition);
+  const fields=definition.betFields??[],frames=round?.outcome?.bonusFrames??[],frameIndex=Number.isInteger(options.bonusFrameIndex)?options.bonusFrameIndex:frames.length-1,featureFrame=frameIndex>=0?frames[frameIndex]:null;
+  const order=featureFrame?definition.bonusDisplaySymbolIndexes:definition.displayWheelSymbolIndexes;
+  const labelFor=symbol=>featureFrame?(symbol===8?featureFrame.doubleSegmentsTransformed?'1200x':'DOUBLE':String(definition.bonusPrizes[symbol]*featureFrame.prizeScaleBefore)+'x'):fields[symbol].label;
+  if(count!==50||!Array.isArray(order)||order.length!==50||fields.length!==9)throw new TypeError('The documented fifty-segment wheel and nine betting fields are required.');
+  const wedges=definition.sectors.map((sector,index)=>{
+    const symbol=order[index],start=index*7.2-90,end=(index+1)*7.2-90,middle=(start+end)/2,[x,y]=point(229,middle);
+    return '<g class="m74-wheel-sector m74-destiny-symbol-'+symbol+((featureFrame?featureFrame.segmentIndex===index:round?.outcome?.sector===sector.id)?' is-selected':'')+'" data-sector="'+escape(sector.id)+'" data-symbol-index="'+symbol+'"><path d="'+wedge(start,end)+'"/><text x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" transform="rotate('+(middle+90)+' '+x+' '+y+')">'+escape(symbol===8?(featureFrame?featureFrame.doubleSegmentsTransformed?'1200x':'×2':'◆'):labelFor(symbol))+'</text><title>'+escape(labelFor(symbol))+'</title></g>';
+  }).join('');
+  const decorations=Array.from({length:12},(_,i)=>{const[x,y]=point(139,i*30-90);return '<path d="M'+x.toFixed(2)+' '+(y-13).toFixed(2)+'l10 13-10 13-10-13Z"/>';}).join('');
+  return '<div class="m74-wheel-wrap m74-destiny-wheel"'+(featureFrame?' data-bonus-frame="'+frameIndex+'"':'')+'><svg class="m74-wheel" viewBox="0 0 600 600" role="img" aria-label="Wheel of Destiny fifty-segment ring"><circle class="m74-wheel-rim" cx="300" cy="300" r="274"/><g class="m74-wheel-rotor" transform="rotate('+(featureFrame?-(featureFrame.segmentIndex+.5)*7.2:wheelRotation(definition,round))+' 300 300)">'+wedges+'<circle class="m74-destiny-disc" cx="300" cy="300" r="194"/><g class="m74-destiny-engravings">'+decorations+'</g><circle class="m74-destiny-hub" cx="300" cy="300" r="88"/></g><path class="m74-wheel-pointer" d="M280 10H320L300 63Z"/></svg><div class="m74-wheel-center">'+icon('gem')+'</div></div><div class="m74-stage-strip"><span>'+(featureFrame?'BONUS '+(frameIndex+1)+' / '+frames.length:'50 SECTORS')+'</span><strong>'+escape(featureFrame?.label??round?.outcome?.label??'READY')+'</strong><span>'+(round?'RETURN '+minorText(round.payoutMinor??round.winMinor):'CHOOSE YOUR FIELDS')+'</span></div>';
 }
 export function rollXRotation(round) {
   const roll=round?.outcome?.roll;
@@ -514,7 +544,7 @@ export function animateRound(stage,definition,previous,next,options={}) {
   assertRound(definition,next);
   const {turbo=false,reduced=false,audio}=options;
   const renderOptions={...options,disabled:options.disabled ?? true};
-  const mounted=renderMachine(stage,definition,next,definition.respinFeature||definition.coinFeature?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
+  const mounted=renderMachine(stage,definition,next,definition.respinFeature||definition.coinFeature||definition.destinyBonus?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
   stage.classList.add('m74-animating');
   if(definition.family==='plinko'&&!reduced){
     // Mounting the confirmed state places the ball in its destination bucket.
@@ -524,6 +554,7 @@ export function animateRound(stage,definition,previous,next,options={}) {
     const release=plinkoGeometry(definition,next.outcome.path).points[0];
     ball?.setAttribute('cx',String(release.x));
     ball?.setAttribute('cy',String(release.y));
+    if(definition.id==='ind74_official_plinkox')for(const [index,node]of [...stage.querySelectorAll('.m74-plinko-ball')].entries()){node.setAttribute('cx',String(release.x));node.setAttribute('cy',String(release.y));node.setAttribute('visibility',index?'hidden':'visible');}
   }
   if(definition.id==='ind74_official_rollx'&&!reduced){
     stage.querySelector('.m74-rollx-rotor')?.setAttribute('transform','rotate('+rollXRotation(previous)+' 300 300)');
@@ -646,16 +677,30 @@ export function animateRound(stage,definition,previous,next,options={}) {
       let ticks=0;const tick=()=>{if(done)return;cue('wheelTick');ticks++;schedule(tick,turbo?30:70+ticks*5);};tick();
       await animate(rotor,[{transform:'rotate('+from+'deg)'},{transform:'rotate('+to+'deg)'}],turbo?220:1700);
       if(!done)cue('wheelStop');
+      if(definition.id==='ind74_official_wheelofdestiny')for(const[index,feature]of(next.outcome?.bonusFrames??[]).entries()){
+        if(done||handles.get(stage)!==mounted)return;const area=stage.querySelector('.m74-game-area');if(!area)break;
+        area.innerHTML=destinyWheelMarkup(definition,next,{bonusFrameIndex:index});cue('bonus');
+        const bonusRotor=area.querySelector('.m74-wheel-rotor'),target=-(feature.segmentIndex+.5)*7.2;
+        bonusRotor.style.transformOrigin='300px 300px';await animate(bonusRotor,[{transform:'rotate(0deg)'},{transform:'rotate('+(target+1080)+'deg)'}],turbo?190:900);
+        if(done||handles.get(stage)!==mounted)return;cue(feature.kind==='double'?'multiplier':'wheelStop');
+      }
     } else if(definition.family==='plinko') {
       cue('tap');
-      const ball=stage.querySelector('.m74-plinko-ball'),{points}=plinkoGeometry(definition,next.outcome.path);
+      const nonClassic=definition.id==='ind74_official_plinkox';
+      const balls=nonClassic?[...stage.querySelectorAll('.m74-plinko-ball')]:[stage.querySelector('.m74-plinko-ball')];
+      const paths=nonClassic?next.outcome.balls.map(ball=>plinkoGeometry(definition,ball.path).points):[plinkoGeometry(definition,next.outcome.path).points];
+      const drop=turbo?190:1450,stagger=nonClassic?(turbo?8:32):0,duration=drop+Math.max(0,balls.length-1)*stagger;
       let lastPoint=-1;
-      await tween(turbo?190:1450,progress=>{
-        const cursor=progress*(points.length-1),index=Math.min(points.length-2,Math.floor(cursor)),fraction=cursor-index;
-        const a=points[index],b=points[index+1],bounce=Math.sin(fraction*Math.PI)*3;
-        ball.setAttribute('cx',String(a.x+(b.x-a.x)*fraction));
-        ball.setAttribute('cy',String(a.y+(b.y-a.y)*fraction-bounce));
-        if(index!==lastPoint){lastPoint=index;cue('wheelTick');}
+      await tween(duration,progress=>{
+        balls.forEach((ball,ballIndex)=>{
+          const points=paths[ballIndex],local=Math.max(0,Math.min(1,(progress*duration-ballIndex*stagger)/drop));
+          ball?.setAttribute('visibility',progress*duration>=ballIndex*stagger?'visible':'hidden');
+          const cursor=local*(points.length-1),index=Math.min(points.length-2,Math.floor(cursor)),fraction=cursor-index;
+          const a=points[index],b=points[index+1],bounce=Math.sin(fraction*Math.PI)*3;
+          ball?.setAttribute('cx',String(a.x+(b.x-a.x)*fraction));
+          ball?.setAttribute('cy',String(a.y+(b.y-a.y)*fraction-bounce));
+          if(ballIndex===0&&index!==lastPoint){lastPoint=index;cue('wheelTick');}
+        });
       });
       if(!done)cue('wheelStop');
     } else if(definition.family==='mines'||definition.family==='ladder') {

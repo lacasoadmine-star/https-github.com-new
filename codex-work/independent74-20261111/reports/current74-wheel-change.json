@@ -1,0 +1,100 @@
+{
+  "createdAt": "2026-11-11T09:54:06.457416+00:00",
+  "gameId": "ind74_official_wheelofdestiny",
+  "modelVersion": "official72-wheelofdestiny-r4",
+  "before": "Unrelated eight-sector Cloud/Mist direct-award wheel with no selection allocations",
+  "directlyObserved": {
+    "completedOfficialDemoRounds": 20,
+    "paidSelection": "1 DMO on 3x only",
+    "wins": 4,
+    "losses": 16,
+    "grossPayoutDMO": "12.00",
+    "startingBalanceDMO": "20000.00",
+    "endingBalanceDMO": "19992.00",
+    "grossBasis": "Matched 3x field returned 3 DMO from 1 DMO; other selected fields lost when a different result occurred.",
+    "bonusPaidOutcomeObserved": false,
+    "source": "tests/evidence/official-demo-observations-nonslots20-remaining.json"
+  },
+  "documented": {
+    "mainAndBonusTables": "reports/current74-evidence-nonslots/ind74_official_wheelofdestiny-official-help-tables.json",
+    "rules": "reports/current74-evidence-nonslots/ind74_official_wheelofdestiny-rendered-rules.json",
+    "mainDisplayOrder": "references/wheel-of-destiny-display-20261111.json",
+    "readOnlySelections": "reports/current74-evidence-nonslots/ind74_official_wheelofdestiny-readonly-selections.json",
+    "mainSectors": 50,
+    "bettingFields": 9,
+    "bonusPrizes": [
+      10,
+      13,
+      20,
+      25,
+      50,
+      75,
+      100,
+      150
+    ],
+    "bonusDoubleCount": 2,
+    "maxBonusFrames": 3,
+    "thirdDoubleReplacement": 1200,
+    "allNativeSelectionsWereReadOnly": true
+  },
+  "implemented": [
+    "Fifty-segment main wheel and separate nine-cell allocation grid",
+    "Canonical whole-ETB selected amounts sum exactly to one TOTAL accepted stake",
+    "Only the matched field pays its own allocated stake times the gross result multiplier",
+    "Selected BONUS hit resolves the documented max-three-spin DOUBLE/DOUBLE/1200 conversion within the same server receipt",
+    "One debit and one payout; reserve is maximum attainable selected-field award including BONUS allocation times1200",
+    "Gold wheel, source-backed segment order, CHIP and TOTAL preview, ALL/CLEAR/UNDO, exact receipt rotation and bounded bonus replay",
+    "Repeated STOP during bonus goes to final settled receipt without another request",
+    "Reload restores the server-confirmed allocation and wallet state"
+  ],
+  "independentMath": {
+    "providerProbabilitiesVerified": false,
+    "selection": "Uniform50 authored main segment tickets and uniform50 authored bonus tickets",
+    "regularReturnFraction": {
+      "numerator": "24",
+      "denominator": "25"
+    },
+    "bonusReturnFraction": {
+      "numerator": "60009",
+      "denominator": "62500"
+    },
+    "bonusConditionalMultiplierFraction": {
+      "numerator": "60009",
+      "denominator": "1250"
+    },
+    "globalProviderRtpClaim": false,
+    "warning": "The public Help reports96.00% provider RTP. These independently authored probabilities produce96% on regular allocations and96.0144% on BONUS allocations. Mixed-allocation expectation depends on the amounts selected; no one global/provider96% is asserted."
+  },
+  "verification": {
+    "mathRendererLedger": "reports/current74-wheel-math-tests.txt",
+    "passed": 185,
+    "failed": 0,
+    "scope": "Eight Wheel math tests, one retained-ledger test,90 renderer cases and shared official72/audit regression checks; not185 tests per game",
+    "largeStakeAndPayout": "40,002 ETB total containing40,001 ETB on48x or BONUS; payout/reserve1920048 ETB or48001200 ETB respectively",
+    "replay": "Six deliveries per accepted large request yield five replays, one debit/payout, one history row, reserve release and conserved ledger",
+    "jsonbRecovery": "Settlement validation compares field values, preserving correct recovery after JSONB key reordering",
+    "actualDemoBrowser": "reports/current74-wheel-demo-ui/report.json",
+    "browserCurrency": "DEMO",
+    "browserAccountApiRequests": 0,
+    "browserActions": 3,
+    "browserRepeatedStopDuringBonus": true,
+    "browserFinalBalance": "11199.00",
+    "widths": [
+      360,
+      390,
+      430,
+      1280
+    ]
+  },
+  "remaining": [
+    "No native paid BONUS feature was directly observed; mechanics are documented and locally tested",
+    "Provider RNG probabilities and exact RTP are not recovered",
+    "Full artwork, audio, native manual bonus-spin pacing and all source-control behavior are not equivalent",
+    "Native viewport reference captures used desktop user-agent; true mobile-UA provider comparison remains unverified",
+    "Live account/game/house limits, wallet integration and completed deployment remain unverified"
+  ],
+  "officialDemoRoundsStartedByThisTask": 0,
+  "liveWrites": 0,
+  "deploymentPerformed": false,
+  "fullProviderParityVerified": false
+}

@@ -7,6 +7,8 @@
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "category": "Slots",
   "verifiedCompletedOfficialRounds": 0,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
   "remainingRequiredRounds": 20,
   "furtherRoundsAllowed": true,
@@ -14,7 +16,7 @@
   "comparison": {
     "status": "full-provider-parity-unverified",
     "publicGeometryVerified": false,
-    "demoGeometryObserved": false,
+    "demoGeometryObserved": true,
     "sourceFacts": [],
     "unresolved": [
       "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
@@ -43,7 +45,7 @@
     "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -120,7 +122,7 @@
       ]
     },
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": true
   },
@@ -136,6 +138,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -150,14 +159,1281 @@
         "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
       }
     ],
-    "geometry": [],
+    "geometry": [
+      {
+        "renderedSymbolInstances": 15,
+        "visibleReelCandidates": 5,
+        "visibleRowCandidates": 3,
+        "xPositions": [
+          442,
+          642,
+          842,
+          1042,
+          1242
+        ],
+        "yPositions": [
+          232,
+          442,
+          652
+        ],
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+      }
+    ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
-    "betChanges": [],
-    "roundProgressAndResults": [],
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_draculasfortune",
+        "title": "Dracula's Fortune",
+        "officialUrl": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "protectedImplementation": false,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T08:53:45.582Z",
+            "providerEventTime": "2026-11-11T09:53:42.2996765+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966048908.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T08:53:56.310Z",
+            "providerEventTime": "2026-11-11T09:53:42.2996765+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966048908.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:03:40.180Z",
+            "providerEventTime": "2026-11-11T10:03:36.4179929+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966059999.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:03:50.339Z",
+            "providerEventTime": "2026-11-11T10:03:36.4179929+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966059999.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:32:32.504Z",
+            "providerEventTime": "2026-11-11T10:32:29.064291+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966093437.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:32:43.880Z",
+            "providerEventTime": "2026-11-11T10:32:29.064291+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966093437.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:45:09.752Z",
+            "providerEventTime": "2026-11-11T10:45:06.2313508+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966108495.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:45:19.496Z",
+            "providerEventTime": "2026-11-11T10:45:06.2313508+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966108495.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 10,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/DraculasFortune.html",
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-official-help.html",
+            "sha256": "75dfd5c31437e024c16912086362c927aba250f1ae927eacfacc8c0c23c3b398",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "paused-by-coordinator",
+        "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "canvas": {
+          "width": 2170,
+          "height": 1220
+        },
+        "initialUiLabels": [
+          "HOLD & SPIN",
+          "BALANCE 20,000.00 DMO",
+          "WIN 0.00 DMO",
+          "BET 0.10 DMO"
+        ],
+        "currencyObserved": "DMO",
+        "captureMethod": "Actual rendered game canvas PNG; full viewport transport unavailable; excludes outer browser chrome",
+        "initialScreenshot": {
+          "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-initial.png",
+          "sha256": "4e185175d79341b8e3cf48d5d7ad4b0f53f67fc146a6ed542f4fae5986584bec"
+        },
+        "geometry": {
+          "renderedSymbolInstances": 15,
+          "visibleReelCandidates": 5,
+          "visibleRowCandidates": 3,
+          "xPositions": [
+            442,
+            642,
+            842,
+            1042,
+            1242
+          ],
+          "yPositions": [
+            232,
+            442,
+            652
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        },
+        "publicControls": [
+          "ButtonsAutoPlay",
+          "ButtonsBet",
+          "ButtonsMenu",
+          "ButtonsQuickPlay",
+          "ButtonsSoundOn",
+          "ButtonsSpin"
+        ],
+        "turbo": {
+          "enabled": true,
+          "mode": "native-visible-controls-only",
+          "toggleInput": {
+            "x": 1216.589861751152,
+            "y": 299.3985143442623,
+            "sentAt": "2026-11-11T09:45:35.646Z",
+            "mousePressMilliseconds": 90,
+            "acknowledgements": [
+              {
+                "acknowledged": true
+              },
+              {
+                "acknowledged": true
+              },
+              {
+                "acknowledged": true
+              }
+            ],
+            "acknowledgementTimeout": false,
+            "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+          },
+          "promptScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-turbo-prompt.png",
+            "sha256": "61ba63f2d74e369d3d7c1e6e83c8bd27efd0f757dedc071f9a7ec62f4fc83010"
+          },
+          "confirmBounds": {
+            "names": [
+              "QuickPlayConfirm"
+            ],
+            "x": 825,
+            "y": 525,
+            "w": 525,
+            "h": 108
+          },
+          "confirmInput": {
+            "x": 641.4746543778801,
+            "y": 367.52694672131145,
+            "sentAt": "2026-11-11T09:45:52.374Z",
+            "mousePressMilliseconds": 90,
+            "acknowledgements": [
+              {
+                "acknowledged": true
+              },
+              {
+                "acknowledged": true
+              },
+              {
+                "acknowledged": true
+              }
+            ],
+            "acknowledgementTimeout": false,
+            "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+          },
+          "reason": "Enabled only with actual rendered ButtonsSpinTurbo; no provider engine/timer/RNG changes",
+          "publicButtonTextures": [
+            "ButtonsQuickPlayTurbo",
+            "ButtonsSpinTurbo"
+          ],
+          "screenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-turbo-state.png",
+            "sha256": "22a2513fd64572ffa0ae7e89615807f97566b9a6c04f68cf10429f4a4bc19d6c"
+          }
+        },
+        "framePaths": [
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+          "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/DraculasFortune/Game.aspx",
+          "about:",
+          "about:",
+          "chrome-error:",
+          "about:"
+        ],
+        "blockerScreenshot": {
+          "path": null,
+          "sha256": null,
+          "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+        },
+        "blockerUi": [
+          "HOLD & SPIN",
+          "BALANCE 20,000.00 DMO",
+          "WIN 0.00 DMO",
+          "BET 0.10 DMO"
+        ],
+        "captureLimitation": "Full viewport capture timed out; direct WebGL canvas export yielded black. Missing captures are not claimed as evidence.",
+        "historicalAtFirstLaunch": 0,
+        "priorBlockers": [
+          {
+            "at": "2026-11-11T09:03:34.393Z",
+            "reason": "PUBLIC_FRAME_RECT_NOT_UNIQUE:[{\"src\":\"https://eu-server-w3.ssgportal.com/SlotsDemo/Loader.aspx?GameType=Slots&GameName=DraculasFortune&StartPage=Game&token=[redacted-session]&Lang=en&ReturnURL=https%3A%2F%2Fwww.smartsoftgaming.com&Skin=&JurisdictionName=RO\",\"x\":0,\"y\":0,\"width\":1280,\"height\":800},{\"src\":\"\",\"x\":0,\"y\":800,\"width\":1280,\"height\":800},{\"src\":\"https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=[redacted-session]&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en\",\"x\":0,\"y\":1600,\"width\":300,\"height\":150},{\"src\":\"https://static.static-ssgmrr17.xyz/cache/b5/Themes/Default/JetX/Styles/fonts.css\",\"x\":0,\"y\":0,\"width\":0,\"height\":0}]"
+          },
+          {
+            "at": "2026-11-11T09:32:26.962Z",
+            "reason": "NATIVE_BET_MENU_NOT_VISIBLE"
+          }
+        ],
+        "screenshotUnavailable": {
+          "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+          "at": "2026-11-11T09:04:25.166Z",
+          "captureName": "blocker"
+        },
+        "betMenuScreenshot": {
+          "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-bet-menu.png",
+          "sha256": "1a27224e7cd70e6751ed222d37f603cf2b4f4768856c61d28c7e09983c7196ee"
+        },
+        "publicNativeControlRectangles": [
+          {
+            "names": [
+              "ButtonsAutoPlay"
+            ],
+            "x": 1867,
+            "y": 316,
+            "w": 141,
+            "h": 141
+          },
+          {
+            "names": [
+              "ButtonsBet"
+            ],
+            "x": 1867,
+            "y": 745,
+            "w": 141,
+            "h": 141
+          },
+          {
+            "names": [
+              "ButtonsMenu"
+            ],
+            "x": 68,
+            "y": 1068,
+            "w": 48,
+            "h": 33
+          },
+          {
+            "names": [
+              "ButtonsQuickPlay"
+            ],
+            "x": 2021,
+            "y": 415,
+            "w": 83,
+            "h": 97
+          },
+          {
+            "names": [
+              "ButtonsSoundOn"
+            ],
+            "x": 2090,
+            "y": 1060,
+            "w": 48,
+            "h": 38
+          },
+          {
+            "names": [
+              "ButtonsSpin"
+            ],
+            "x": 1806,
+            "y": 465,
+            "w": 279,
+            "h": 279
+          }
+        ],
+        "localCanvasRect": {
+          "x": 0,
+          "y": 26,
+          "width": 1280,
+          "height": 719.625,
+          "innerWidth": 1280,
+          "innerHeight": 800
+        },
+        "betMenuInput": {
+          "x": 1142.857142857143,
+          "y": 507.0280225409836,
+          "sentAt": "2026-11-11T09:46:07.689Z",
+          "mousePressMilliseconds": 90,
+          "acknowledgements": [
+            {
+              "acknowledged": true
+            },
+            {
+              "acknowledged": true
+            },
+            {
+              "acknowledged": true
+            }
+          ],
+          "acknowledgementTimeout": false,
+          "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+        },
+        "betAdjustment": {
+          "before": "0.10",
+          "intendedVisibleItem": "1.00 DMO",
+          "confirmedDmo": "4.00",
+          "method": "Native dollar button, menu scroll if needed, visible amount click",
+          "screenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-bet-confirmed.png",
+            "sha256": "acef4ea1c8422bacb3382dc851f22cc67432e42bba7ae87d5016d60a60966989"
+          }
+        },
+        "stakeDmo": "4.00",
+        "furtherRoundsAllowed": true,
+        "finalScreenshot": {
+          "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-final.png",
+          "sha256": "8f5ef8a7262308efd13be175ed00ae2eba2c8a060aec01bb10320995348d5e7d"
+        },
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+      }
+    ],
     "featuresAndRules": {
-      "directlyObserved": [],
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_draculasfortune",
+          "title": "Dracula's Fortune",
+          "officialUrl": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "protectedImplementation": false,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T08:53:45.582Z",
+              "providerEventTime": "2026-11-11T09:53:42.2996765+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966048908.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T08:53:56.310Z",
+              "providerEventTime": "2026-11-11T09:53:42.2996765+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966048908.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:03:40.180Z",
+              "providerEventTime": "2026-11-11T10:03:36.4179929+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966059999.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:03:50.339Z",
+              "providerEventTime": "2026-11-11T10:03:36.4179929+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966059999.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:32:32.504Z",
+              "providerEventTime": "2026-11-11T10:32:29.064291+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966093437.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:32:43.880Z",
+              "providerEventTime": "2026-11-11T10:32:29.064291+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966093437.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:45:09.752Z",
+              "providerEventTime": "2026-11-11T10:45:06.2313508+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966108495.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:45:19.496Z",
+              "providerEventTime": "2026-11-11T10:45:06.2313508+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966108495.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 10,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/DraculasFortune.html",
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-official-help.html",
+              "sha256": "75dfd5c31437e024c16912086362c927aba250f1ae927eacfacc8c0c23c3b398",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "paused-by-coordinator",
+          "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/DraculasFortune.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/DraculasFortune/freespin-background.jpg",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            }
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "canvas": {
+            "width": 2170,
+            "height": 1220
+          },
+          "initialUiLabels": [
+            "HOLD & SPIN",
+            "BALANCE 20,000.00 DMO",
+            "WIN 0.00 DMO",
+            "BET 0.10 DMO"
+          ],
+          "currencyObserved": "DMO",
+          "captureMethod": "Actual rendered game canvas PNG; full viewport transport unavailable; excludes outer browser chrome",
+          "initialScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-initial.png",
+            "sha256": "4e185175d79341b8e3cf48d5d7ad4b0f53f67fc146a6ed542f4fae5986584bec"
+          },
+          "geometry": {
+            "renderedSymbolInstances": 15,
+            "visibleReelCandidates": 5,
+            "visibleRowCandidates": 3,
+            "xPositions": [
+              442,
+              642,
+              842,
+              1042,
+              1242
+            ],
+            "yPositions": [
+              232,
+              442,
+              652
+            ],
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          },
+          "publicControls": [
+            "ButtonsAutoPlay",
+            "ButtonsBet",
+            "ButtonsMenu",
+            "ButtonsQuickPlay",
+            "ButtonsSoundOn",
+            "ButtonsSpin"
+          ],
+          "turbo": {
+            "enabled": true,
+            "mode": "native-visible-controls-only",
+            "toggleInput": {
+              "x": 1216.589861751152,
+              "y": 299.3985143442623,
+              "sentAt": "2026-11-11T09:45:35.646Z",
+              "mousePressMilliseconds": 90,
+              "acknowledgements": [
+                {
+                  "acknowledged": true
+                },
+                {
+                  "acknowledged": true
+                },
+                {
+                  "acknowledged": true
+                }
+              ],
+              "acknowledgementTimeout": false,
+              "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+            },
+            "promptScreenshot": {
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-turbo-prompt.png",
+              "sha256": "61ba63f2d74e369d3d7c1e6e83c8bd27efd0f757dedc071f9a7ec62f4fc83010"
+            },
+            "confirmBounds": {
+              "names": [
+                "QuickPlayConfirm"
+              ],
+              "x": 825,
+              "y": 525,
+              "w": 525,
+              "h": 108
+            },
+            "confirmInput": {
+              "x": 641.4746543778801,
+              "y": 367.52694672131145,
+              "sentAt": "2026-11-11T09:45:52.374Z",
+              "mousePressMilliseconds": 90,
+              "acknowledgements": [
+                {
+                  "acknowledged": true
+                },
+                {
+                  "acknowledged": true
+                },
+                {
+                  "acknowledged": true
+                }
+              ],
+              "acknowledgementTimeout": false,
+              "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+            },
+            "reason": "Enabled only with actual rendered ButtonsSpinTurbo; no provider engine/timer/RNG changes",
+            "publicButtonTextures": [
+              "ButtonsQuickPlayTurbo",
+              "ButtonsSpinTurbo"
+            ],
+            "screenshot": {
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-turbo-state.png",
+              "sha256": "22a2513fd64572ffa0ae7e89615807f97566b9a6c04f68cf10429f4a4bc19d6c"
+            }
+          },
+          "framePaths": [
+            "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
+            "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/DraculasFortune/Game.aspx",
+            "about:",
+            "about:",
+            "chrome-error:",
+            "about:"
+          ],
+          "blockerScreenshot": {
+            "path": null,
+            "sha256": null,
+            "error": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable)."
+          },
+          "blockerUi": [
+            "HOLD & SPIN",
+            "BALANCE 20,000.00 DMO",
+            "WIN 0.00 DMO",
+            "BET 0.10 DMO"
+          ],
+          "captureLimitation": "Full viewport capture timed out; direct WebGL canvas export yielded black. Missing captures are not claimed as evidence.",
+          "historicalAtFirstLaunch": 0,
+          "priorBlockers": [
+            {
+              "at": "2026-11-11T09:03:34.393Z",
+              "reason": "PUBLIC_FRAME_RECT_NOT_UNIQUE:[{\"src\":\"https://eu-server-w3.ssgportal.com/SlotsDemo/Loader.aspx?GameType=Slots&GameName=DraculasFortune&StartPage=Game&token=[redacted-session]&Lang=en&ReturnURL=https%3A%2F%2Fwww.smartsoftgaming.com&Skin=&JurisdictionName=RO\",\"x\":0,\"y\":0,\"width\":1280,\"height\":800},{\"src\":\"\",\"x\":0,\"y\":800,\"width\":1280,\"height\":800},{\"src\":\"https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=[redacted-session]&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en\",\"x\":0,\"y\":1600,\"width\":300,\"height\":150},{\"src\":\"https://static.static-ssgmrr17.xyz/cache/b5/Themes/Default/JetX/Styles/fonts.css\",\"x\":0,\"y\":0,\"width\":0,\"height\":0}]"
+            },
+            {
+              "at": "2026-11-11T09:32:26.962Z",
+              "reason": "NATIVE_BET_MENU_NOT_VISIBLE"
+            }
+          ],
+          "screenshotUnavailable": {
+            "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+            "at": "2026-11-11T09:04:25.166Z",
+            "captureName": "blocker"
+          },
+          "betMenuScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-bet-menu.png",
+            "sha256": "1a27224e7cd70e6751ed222d37f603cf2b4f4768856c61d28c7e09983c7196ee"
+          },
+          "publicNativeControlRectangles": [
+            {
+              "names": [
+                "ButtonsAutoPlay"
+              ],
+              "x": 1867,
+              "y": 316,
+              "w": 141,
+              "h": 141
+            },
+            {
+              "names": [
+                "ButtonsBet"
+              ],
+              "x": 1867,
+              "y": 745,
+              "w": 141,
+              "h": 141
+            },
+            {
+              "names": [
+                "ButtonsMenu"
+              ],
+              "x": 68,
+              "y": 1068,
+              "w": 48,
+              "h": 33
+            },
+            {
+              "names": [
+                "ButtonsQuickPlay"
+              ],
+              "x": 2021,
+              "y": 415,
+              "w": 83,
+              "h": 97
+            },
+            {
+              "names": [
+                "ButtonsSoundOn"
+              ],
+              "x": 2090,
+              "y": 1060,
+              "w": 48,
+              "h": 38
+            },
+            {
+              "names": [
+                "ButtonsSpin"
+              ],
+              "x": 1806,
+              "y": 465,
+              "w": 279,
+              "h": 279
+            }
+          ],
+          "localCanvasRect": {
+            "x": 0,
+            "y": 26,
+            "width": 1280,
+            "height": 719.625,
+            "innerWidth": 1280,
+            "innerHeight": 800
+          },
+          "betMenuInput": {
+            "x": 1142.857142857143,
+            "y": 507.0280225409836,
+            "sentAt": "2026-11-11T09:46:07.689Z",
+            "mousePressMilliseconds": 90,
+            "acknowledgements": [
+              {
+                "acknowledged": true
+              },
+              {
+                "acknowledged": true
+              },
+              {
+                "acknowledged": true
+              }
+            ],
+            "acknowledgementTimeout": false,
+            "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+          },
+          "betAdjustment": {
+            "before": "0.10",
+            "intendedVisibleItem": "1.00 DMO",
+            "confirmedDmo": "4.00",
+            "method": "Native dollar button, menu scroll if needed, visible amount click",
+            "screenshot": {
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-bet-confirmed.png",
+              "sha256": "acef4ea1c8422bacb3382dc851f22cc67432e42bba7ae87d5016d60a60966989"
+            }
+          },
+          "stakeDmo": "4.00",
+          "furtherRoundsAllowed": true,
+          "finalScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-final.png",
+            "sha256": "8f5ef8a7262308efd13be175ed00ae2eba2c8a060aec01bb10320995348d5e7d"
+          },
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+        }
+      ],
       "publicDocumentedLayout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -191,7 +1467,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "canvas-present-gameplay-unverified",
@@ -201,7 +1480,8 @@
   "evidenceFiles": [
     "scope/official74.json",
     "tests/math-official72-audit.json",
-    "references/official74-browser-audit-20261111.json"
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-slots20-secondary.json"
   ],
   "remaining": [
     "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",

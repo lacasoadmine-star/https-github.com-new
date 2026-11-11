@@ -1,0 +1,7 @@
+const fs=require('fs'),path=require('path');
+module.exports=async ctx=>{
+ if(ctx.rec.pendingAttempt)throw Error('PENDING_ATTEMPT_DO_NOT_RELOAD');
+ const g=JSON.parse(fs.readFileSync(path.join(ctx.root,'tests/evidence/official-demo-progress.json'))).games.find(g=>g.gameId===ctx.rec.gameId);if(g.verifiedCompletedRounds<20)throw Error('SETTLED_QUOTA_REVIEW_ONLY');
+ delete require.cache[require.resolve('./ui-tools.cjs')];const t=await require('./ui-tools.cjs')(ctx),review={gameId:ctx.rec.gameId,at:new Date().toISOString(),mode:'official-demo-read-only-settled-reload',newWagers:0,beforeText:await t.text(),beforeScreenshot:await t.screenshot('settled-before-reload-'+Date.now()),scope:'Only reload after a completed settled round; open-round recovery remains unverified.'};
+ await ctx.p.reload({waitUntil:'domcontentloaded',timeout:30000});await ctx.p.waitForTimeout(14000);review.afterText=await t.text();review.afterScreenshot=await t.screenshot('settled-after-reload-'+Date.now());const bank=s=>s.match(/BALANCE\s*([\d,.]+)\s*DMO/i)?.[1]||null;review.beforeBankDmo=bank(review.beforeText);review.afterBankDmo=bank(review.afterText);review.sameDisplayedBank=review.beforeBankDmo!==null&&review.beforeBankDmo===review.afterBankDmo;review.finishedAt=new Date().toISOString();ctx.rec.settledReloadObserved=review;ctx.save();const file=path.join(ctx.root,'reports/current74-evidence-nonslots/'+ctx.rec.gameId+'-settled-reload.json'),temp=file+'.tmp-'+process.pid;fs.writeFileSync(temp,JSON.stringify(review,null,2)+'\n');fs.renameSync(temp,file);return review;
+};

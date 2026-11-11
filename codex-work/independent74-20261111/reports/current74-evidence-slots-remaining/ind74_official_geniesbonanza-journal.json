@@ -6,8 +6,8 @@
   "mode": "official DEMO only",
   "currency": "DMO",
   "historicalVerifiedRounds": 0,
-  "freshVerifiedRounds": 0,
-  "totalVerifiedRounds": 0,
+  "freshVerifiedRounds": 3,
+  "totalVerifiedRounds": 3,
   "viewport": {
     "width": 1280,
     "height": 800
@@ -35,11 +35,16 @@
       510,
       676
     ],
-    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 6,
+    "rows": 5,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 1,
+    "paylineMeaningVerified": false
   },
   "initialScreenshot": {
     "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png",
-    "sha256": "e6145212bf1d7a2f997bb9fc948c5888d91be8db9428e5dca442afa3e1aed405"
+    "sha256": "30f5cfcb64d1ae9f26782bffab66360efd3f7aa11fa336ece77533dfb8fda8cc"
   },
   "publicUiLabels": [
     "BUY BONUS 20.00 DMO",
@@ -61,8 +66,8 @@
     "ButtonsSpinTurbo"
   ],
   "nativeTurbo": {
-    "enabled": false,
-    "reason": "No visible native lightning button"
+    "enabled": true,
+    "reason": "No inactive native lightning control; existing mode preserved"
   },
   "bet": {
     "before": "0.20",
@@ -71,7 +76,7 @@
     "method": "Native dollar button, menu scroll if needed, visible amount click",
     "screenshot": {
       "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-bet-confirmed.png",
-      "sha256": "bcccc23f957da109aa88131d5a86104664a12da4b574e0a8912773f528e2a034"
+      "sha256": "65734c414e28945b1b9214f3caf94c50ab76562ee5ae5a6c07fc27a36826a4ca"
     }
   },
   "observedFeatures": [],
@@ -83,7 +88,10 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
-  "blocker": "COORDINATOR_PAUSE_BEFORE_SPIN",
+  "reload": {
+    "verified": false,
+    "reason": "Same-session refresh and open-round recovery not captured; reopening the DEMO launcher is not proof of recovery"
+  },
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

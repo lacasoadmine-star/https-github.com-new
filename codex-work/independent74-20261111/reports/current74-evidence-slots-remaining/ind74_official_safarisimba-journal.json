@@ -6,8 +6,8 @@
   "mode": "official DEMO only",
   "currency": "DMO",
   "historicalVerifiedRounds": 0,
-  "freshVerifiedRounds": 0,
-  "totalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
   "viewport": {
     "width": 1280,
     "height": 800
@@ -30,11 +30,16 @@
       282,
       482
     ],
-    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 3,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 5,
+    "paylineMeaningVerified": false
   },
   "initialScreenshot": {
     "path": "reports/current74-evidence-slots-remaining/ind74_official_safarisimba-initial.png",
-    "sha256": "8a75f6acb1d9cccf652ebaf61896fcbf5c65e167950ee245aa30c9ad1bfafc07"
+    "sha256": "ce64a021ca7f81d8eeeda3f3e80db15a337ac1483712e13f782f7c890569b22b"
   },
   "publicUiLabels": [
     "BALANCE 20,000.00 DMO",
@@ -49,14 +54,36 @@
     "ButtonsSpin"
   ],
   "nativeTurbo": {
-    "enabled": false,
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_safarisimba-turbo-prompt.png",
+      "sha256": "ff972bb60c43a190b06d3d3cc3a49189a5db237d54707bc10ee602a084bba384"
+    },
+    "mode": "native-visible-toggle-attempt",
+    "reason": "Native mode only considered enabled when rendered ButtonsSpinTurbo is visible",
+    "enabled": true,
     "publicButtonTextures": [
-      "ButtonsQuickPlayDisabled",
-      "ButtonsSpinDisabled"
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
     ],
     "screenshot": {
       "path": "reports/current74-evidence-slots-remaining/ind74_official_safarisimba-turbo-state.png",
-      "sha256": "291a4f3f1ea3cd710b28776501840a25321850fe9b0e7304f52afd0fb18087b3"
+      "sha256": "94ac6ff14bb5b962e7b8e67fad46c0426b99d947cdf9b020f6df7a2e0984a14c"
+    }
+  },
+  "bet": {
+    "before": "0.05",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "5.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_safarisimba-bet-confirmed.png",
+      "sha256": "b1914dbacb4849dd81887ce7bf602a4b7f41908e2a88f4d399101a84aea5a0da"
     }
   },
   "observedFeatures": [],
@@ -68,7 +95,10 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
-  "blocker": "BET_CONTROL_UNSUPPORTED",
+  "reload": {
+    "verified": false,
+    "reason": "Same-session refresh and open-round recovery not captured; reopening the DEMO launcher is not proof of recovery"
+  },
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

@@ -1,0 +1,492 @@
+{
+  "format": "protected74-same-backend-integration-review-v1",
+  "checkedAt": "2026-11-11T08:47:07.074424+00:00",
+  "status": "OFFLINE REVIEW ONLY; financial activation blocked",
+  "productionWagersExecuted": 0,
+  "childAgentLiveChanges": 0,
+  "actualBackend": {
+    "service": "superwin-nine-slot-engine",
+    "serviceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+    "existingProtectedModels": [
+      "multi_hot_5_video",
+      "hot_foxy_20"
+    ],
+    "registryModels": 13,
+    "distinctOfficial74Identities": 10,
+    "absentOfficial74Identities": 64,
+    "replacementBackendAllowed": false,
+    "newWalletAllowed": false
+  },
+  "lastVerifiedSource": {
+    "outerBytes": 82860,
+    "outerSha256": "83755318696124ce3566dd80d44c723288f14d79f4d45b761b821234662bd738",
+    "runtimeBytes": 113506,
+    "runtimeSha256": "c434a085e736326db5f9c8822bf1feb8212073495174889527a0655e9a5b5c91",
+    "freshReadbackRequiredBeforeAnyApplication": true,
+    "auditDeployment": "Connector reported updated/deploying, but repeated readback/deployment inventory still original; no audit execution confirmed. See current74-protected-audit-deployment-attempt.json."
+  },
+  "deliverableStages": [
+    {
+      "stage": "Current production frontend readonly bridge",
+      "transport": "EXISTING /api/machine-session; canonical account session and ETB balance",
+      "backendChangeRequired": false,
+      "newWagerActions": "503",
+      "newHistory": "503 explicitly unavailable",
+      "recoveryVerified": false
+    },
+    {
+      "stage": "Startup audit-only carrier",
+      "source": "server/protected74-startup-readonly-audit.mjs",
+      "purpose": "Bounded existing-pool READ ONLY transaction; sanitized schema and aggregates to private logs; always ROLLBACK",
+      "endpointAdded": false,
+      "financialCodeChanged": false,
+      "actualDeploymentVerified": false
+    },
+    {
+      "stage": "64-model in-process integration candidate",
+      "source": "server/protected74-review.mjs",
+      "purpose": "Precise in-factory hook before existing Bun.serve captures fetch; old 13 models, helper bodies, math payloads and startup preserved",
+      "newWagerActions": "HARD503 regardless of browser or injected evidence flags",
+      "liveInstalled": false
+    }
+  ],
+  "namespaceContract": {
+    "prefix": "/api/slots/independent74/",
+    "catalog": "GET public closed candidate metadata; 64 game IDs and exact versions",
+    "state": "GET game_id; existing private authenticate/transaction/balance/cash only; SET TRANSACTION READ ONLY; real own balance, round null, accepting false, activeRecoveryVerified false",
+    "history": "GET; authenticated own canonical SQL history capped at20; read-only candidate only, not claimed as verified independent-round recovery",
+    "action": "POST always503 before finance or supplied service.action",
+    "legacy": "All other paths and request/context objects passed unchanged to original fetch",
+    "session": "Exact existing sw_session cookie resolver; no raw browser user ID. Eventual action guard must retain existing opaque machine-session header and origin rules. Readonly candidate invents no sessionGuard."
+  },
+  "sameDatabaseAndMoney": {
+    "pool": "createProtectedSqlFacade reuses exact existing service.pool and transaction; WeakMap proves injected retained shared.sql belongs to this pool; creates no driver or financial classes",
+    "currency": "ETB integer cents for canonical ledger; existing protected evaluator scale10000",
+    "conversion": "minorToCore = cents*100n; coreToMinor = coreUnits/100n floor; decimal input parsed to BigInt without floating-point",
+    "initialAndTestBetsETB": "1 through20",
+    "largeAmounts": "Offline fixtures accept40001 ETB and settle win above40000 with configured caps and funded per-round reserve. No arbitrary new production financial ceiling. Existing protected caps unchanged.",
+    "protectedMove": "Cannot be reused as generic reserve transfer blindly: sw_nine wallet audit event and round semantics assume slot stake/win. No copied or replacement financial class introduced."
+  },
+  "retainedClassReuse": {
+    "sourceProvenance": "server/tests/support/retained-library/provenance.json",
+    "LibraryServiceSha256": "8b30b859efcde0830c5097d75841bedbeee29f9c3c4833c904319a7a0a74e325",
+    "SharedWalletContainingModuleSha256": "cbf26301daa40cccc9a349456a3e21f65fba038111ecc7e791e8bb303133eda5",
+    "restriction": "Only byte-exact existing financial classes on same canonical protected SQL; do not import auto-migrating native bootstrap or construct another wallet/pool. Current candidate does not initialize production financial classes."
+  },
+  "activationBlockers": [
+    "Actual protected DB schema/index/constraint/trigger semantics and same-pool readiness not yet proven by deployed audit. An isolated database fixture is not that proof.",
+    "Actual per-account caps, per-game authorized policy and funded house capacity still unverified. Aggregate capacity alone does not authorize a bet.",
+    "Reciprocal old/new active round, free-spin, bonus and gamble admission guard must execute in same transaction under canonical user/house row locks. Retained native-library guard does not cover sw_nine obligations.",
+    "Accepted open-round maximum liability reserve and recovery must remain durable/idempotent before accepting any new bet. Protected slot helpers expose immediate settle, not generic persistent reserve.",
+    "Charging Wilds requires per-player/game/model/stake/ante carry stored inside the same ledger/idempotency/reserve transaction; synchronous adapter.start lacks carry context. See charging-wilds-persistence-contract report.",
+    "All74 reference parity/20 completed demo rounds and documented feature readiness are not complete. Hidden provider RNG/RTP/strips remain unverified.",
+    "Eight existing same-title nonprotected models can differ from new geometry/rules; preserving the old13 does not make the newly built72 compatible with their old model revisions. Versioned review required."
+  ],
+  "auditAccessBoundary": "Existing authenticate permits player roles only. No operator-authenticated audit endpoint exists or was added. Audit-only candidate emits private aggregate logs, never player rows/credentials.",
+  "offlineEvidence": {
+    "suite": "tests/evidence/protected74-final-offline-tests.txt",
+    "testSubjects": [
+      "Actual protected auth/transaction/balance helper fragments",
+      "Exact byte-preservation and reversible in-factory splice",
+      "All64 retained-class lifecycle/replay/reload/conservation against isolated PGlite",
+      "Configured40001 ETB stake and >40000 win, single payout, caps/reserve rollback",
+      "Same exact existing pool/transaction facade; no new drivers or ledger SQL",
+      "Startup audit sanitized SELECTs/rollback/failure behavior and loader scope/hash proof"
+    ],
+    "limits": "No live player funds, no production transaction/schema verification, no multiprocess PostgreSQL locking proof, no provider-math equivalence claim",
+    "testsPassed": 18,
+    "testsFailed": 0,
+    "durationMs": 61954.812847
+  },
+  "build": {
+    "manifest": "server/artifacts/protected74-review-installer.mjs.manifest.json",
+    "sha256": "97ef7ba48b6a767b3f00e68968243103dfac0e8e1469044c2f3e7ecd0afa5c4e",
+    "bytes": 587077,
+    "models": [
+      {
+        "id": "ind74_official_popx",
+        "version": "library74-v1:official72-popx-r3",
+        "mathVersion": "official72-popx-r3",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_mineisland2",
+        "version": "library74-v1:official72-mineisland2-r2",
+        "mathVersion": "official72-mineisland2-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_neweraofjetx",
+        "version": "library74-v1:official72-neweraofjetx-r2",
+        "mathVersion": "official72-neweraofjetx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_balloonx",
+        "version": "library74-v1:official72-balloonx-r2",
+        "mathVersion": "official72-balloonx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_plinkoxclassic",
+        "version": "library74-v1:official72-plinkoxclassic-r3",
+        "mathVersion": "official72-plinkoxclassic-r3",
+        "family": "plinko"
+      },
+      {
+        "id": "ind74_official_propelx",
+        "version": "library74-v1:official72-propelx-r2",
+        "mathVersion": "official72-propelx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_worldchampionx",
+        "version": "library74-v1:official72-worldchampionx-r2",
+        "mathVersion": "official72-worldchampionx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_poweroftiger",
+        "version": "library74-v1:official72-poweroftiger-r4",
+        "mathVersion": "official72-poweroftiger-r4",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_multifruitschargingwilds",
+        "version": "library74-v1:official72-multifruitschargingwilds-r3",
+        "mathVersion": "official72-multifruitschargingwilds-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_gemscrownchargingwilds",
+        "version": "library74-v1:official72-gemscrownchargingwilds-r4",
+        "mathVersion": "official72-gemscrownchargingwilds-r4",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_gatesofmerlyn",
+        "version": "library74-v1:official72-gatesofmerlyn-r2",
+        "mathVersion": "official72-gatesofmerlyn-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_chickenways",
+        "version": "library74-v1:official72-chickenways-r2",
+        "mathVersion": "official72-chickenways-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_dicejungle",
+        "version": "library74-v1:official72-dicejungle-r2",
+        "mathVersion": "official72-dicejungle-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_multihot5wild",
+        "version": "library74-v1:official72-multihot5wild-r5",
+        "mathVersion": "official72-multihot5wild-r5",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_cheesyroad",
+        "version": "library74-v1:official72-cheesyroad-r2",
+        "mathVersion": "official72-cheesyroad-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_fortunecatch",
+        "version": "library74-v1:official72-fortunecatch-r2",
+        "mathVersion": "official72-fortunecatch-r2",
+        "family": "wheel"
+      },
+      {
+        "id": "ind74_official_multihot20",
+        "version": "library74-v1:official72-multihot20-r2",
+        "mathVersion": "official72-multihot20-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_cheesyroadclassic",
+        "version": "library74-v1:official72-cheesyroadclassic-r2",
+        "mathVersion": "official72-cheesyroadclassic-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_multihot10",
+        "version": "library74-v1:official72-multihot10-r2",
+        "mathVersion": "official72-multihot10-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_coinsofatlantis",
+        "version": "library74-v1:official72-coinsofatlantis-r4",
+        "mathVersion": "official72-coinsofatlantis-r4",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_multihotwildways",
+        "version": "library74-v1:official72-multihotwildways-r3",
+        "mathVersion": "official72-multihotwildways-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_bottlemania",
+        "version": "library74-v1:official72-bottlemania-r2",
+        "mathVersion": "official72-bottlemania-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_multihot5burnwilds",
+        "version": "library74-v1:official72-multihot5burnwilds-r4",
+        "mathVersion": "official72-multihot5burnwilds-r4",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_chickenhighway",
+        "version": "library74-v1:official72-chickenhighway-r3",
+        "mathVersion": "official72-chickenhighway-r3",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_multihot5deluxe",
+        "version": "library74-v1:official72-multihot5deluxe-r3",
+        "mathVersion": "official72-multihot5deluxe-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_carx",
+        "version": "library74-v1:official72-carx-r2",
+        "mathVersion": "official72-carx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_caibalaocappadocia",
+        "version": "library74-v1:official72-caibalaocappadocia-r2",
+        "mathVersion": "official72-caibalaocappadocia-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_multihotwheel",
+        "version": "library74-v1:official72-multihotwheel-r2",
+        "mathVersion": "official72-multihotwheel-r2",
+        "family": "wheel"
+      },
+      {
+        "id": "ind74_official_jinglebellbonanza",
+        "version": "library74-v1:official72-jinglebellbonanza-r3",
+        "mathVersion": "official72-jinglebellbonanza-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_balloon",
+        "version": "library74-v1:official72-balloon-r2",
+        "mathVersion": "official72-balloon-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_plinkox",
+        "version": "library74-v1:official72-plinkox-r2",
+        "mathVersion": "official72-plinkox-r2",
+        "family": "plinko"
+      },
+      {
+        "id": "ind74_official_helicopterx",
+        "version": "library74-v1:official72-helicopterx-r2",
+        "mathVersion": "official72-helicopterx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_mineisland",
+        "version": "library74-v1:official72-mineisland-r3",
+        "mathVersion": "official72-mineisland-r3",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_multihotways",
+        "version": "library74-v1:official72-multihotways-r3",
+        "mathVersion": "official72-multihotways-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_footballx",
+        "version": "library74-v1:official72-footballx-r2",
+        "mathVersion": "official72-footballx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_burningice40",
+        "version": "library74-v1:official72-burningice40-r2",
+        "mathVersion": "official72-burningice40-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_mariachicoins",
+        "version": "library74-v1:official72-mariachicoins-r2",
+        "mathVersion": "official72-mariachicoins-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_habeshafortune5",
+        "version": "library74-v1:official72-habeshafortune5-r3",
+        "mathVersion": "official72-habeshafortune5-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_4bonusesbonanza",
+        "version": "library74-v1:official72-4bonusesbonanza-r2",
+        "mathVersion": "official72-4bonusesbonanza-r2",
+        "family": "plinko"
+      },
+      {
+        "id": "ind74_official_cricketx",
+        "version": "library74-v1:official72-cricketx-r2",
+        "mathVersion": "official72-cricketx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_cricketerx",
+        "version": "library74-v1:official72-cricketerx-r2",
+        "mathVersion": "official72-cricketerx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_wheelofdestiny",
+        "version": "library74-v1:official72-wheelofdestiny-r2",
+        "mathVersion": "official72-wheelofdestiny-r2",
+        "family": "wheel"
+      },
+      {
+        "id": "ind74_official_crashduel",
+        "version": "library74-v1:official72-crashduel-r2",
+        "mathVersion": "official72-crashduel-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_geniesbonanza",
+        "version": "library74-v1:official72-geniesbonanza-r2",
+        "mathVersion": "official72-geniesbonanza-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_bonustime",
+        "version": "library74-v1:official72-bonustime-r2",
+        "mathVersion": "official72-bonustime-r2",
+        "family": "wheel"
+      },
+      {
+        "id": "ind74_official_farmsfortune",
+        "version": "library74-v1:official72-farmsfortune-r3",
+        "mathVersion": "official72-farmsfortune-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_madslot",
+        "version": "library74-v1:official72-madslot-r2",
+        "mathVersion": "official72-madslot-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_aviastar",
+        "version": "library74-v1:official72-aviastar-r2",
+        "mathVersion": "official72-aviastar-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_smashx",
+        "version": "library74-v1:official72-smashx-r2",
+        "mathVersion": "official72-smashx-r2",
+        "family": "crash"
+      },
+      {
+        "id": "ind74_official_towerx",
+        "version": "library74-v1:official72-towerx-r2",
+        "mathVersion": "official72-towerx-r2",
+        "family": "ladder"
+      },
+      {
+        "id": "ind74_official_hotsamba",
+        "version": "library74-v1:official72-hotsamba-r2",
+        "mathVersion": "official72-hotsamba-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_wildsandgods",
+        "version": "library74-v1:official72-wildsandgods-r2",
+        "mathVersion": "official72-wildsandgods-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_bokajamba10",
+        "version": "library74-v1:official72-bokajamba10-r2",
+        "mathVersion": "official72-bokajamba10-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_junglesistersdeluxe",
+        "version": "library74-v1:official72-junglesistersdeluxe-r3",
+        "mathVersion": "official72-junglesistersdeluxe-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_dragonscode",
+        "version": "library74-v1:official72-dragonscode-r2",
+        "mathVersion": "official72-dragonscode-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_draculasfortune",
+        "version": "library74-v1:official72-draculasfortune-r2",
+        "mathVersion": "official72-draculasfortune-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_bookoffuturia",
+        "version": "library74-v1:official72-bookoffuturia-r2",
+        "mathVersion": "official72-bookoffuturia-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_bookofbonanza",
+        "version": "library74-v1:official72-bookofbonanza-r2",
+        "mathVersion": "official72-bookofbonanza-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_sugarfiesta",
+        "version": "library74-v1:official72-sugarfiesta-r3",
+        "mathVersion": "official72-sugarfiesta-r3",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_vampires",
+        "version": "library74-v1:official72-vampires-r2",
+        "mathVersion": "official72-vampires-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_burningice10",
+        "version": "library74-v1:official72-burningice10-r2",
+        "mathVersion": "official72-burningice10-r2",
+        "family": "slots"
+      },
+      {
+        "id": "ind74_official_rollx",
+        "version": "library74-v1:official72-rollx-r2",
+        "mathVersion": "official72-rollx-r2",
+        "family": "dice"
+      },
+      {
+        "id": "ind74_official_doublex",
+        "version": "library74-v1:official72-doublex-r2",
+        "mathVersion": "official72-doublex-r2",
+        "family": "wheel"
+      },
+      {
+        "id": "ind74_official_samurai",
+        "version": "library74-v1:official72-samurai-r2",
+        "mathVersion": "official72-samurai-r2",
+        "family": "slots"
+      }
+    ]
+  }
+}

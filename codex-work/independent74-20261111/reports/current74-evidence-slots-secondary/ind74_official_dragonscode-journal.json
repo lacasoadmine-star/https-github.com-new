@@ -1,0 +1,167 @@
+{
+  "gameId": "ind74_official_dragonscode",
+  "title": "Dragon's Code",
+  "officialUrl": "https://www.smartsoftgaming.com/games/dragons-code",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 3,
+  "totalVerifiedRounds": 3,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1220
+  },
+  "geometry": {
+    "renderedSymbolInstances": 20,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 4,
+    "xPositions": [
+      517,
+      684,
+      851,
+      1018,
+      1185
+    ],
+    "yPositions": [
+      101,
+      263,
+      425,
+      587
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 4,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 50,
+    "paylineMeaningVerified": false
+  },
+  "initialScreenshot": {
+    "path": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png",
+    "sha256": "e303fefc81021b743fa947ddfe77f26b2faa65454be33f94aebbf5e0ee8ddf87"
+  },
+  "publicUiLabels": [
+    "BUY RESPIN",
+    "HOLD & SPIN",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.50 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "enabled": true,
+    "mode": "native-visible-controls-only",
+    "toggleInput": {
+      "x": 1220.1290322580646,
+      "y": 303.2325819672131,
+      "sentAt": "2026-11-11T09:40:01.585Z",
+      "mousePressMilliseconds": 90,
+      "acknowledgements": [
+        {
+          "acknowledged": true
+        },
+        {
+          "acknowledged": true
+        },
+        {
+          "acknowledged": true
+        }
+      ],
+      "acknowledgementTimeout": false,
+      "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+    },
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-turbo-prompt.png",
+      "sha256": "7f471352d1b2ddc2b39c582496e58bbc1ece11bae996d80ce5b4d9420358cc96"
+    },
+    "confirmBounds": {
+      "names": [
+        "QuickPlayConfirm"
+      ],
+      "x": 775,
+      "y": 595,
+      "w": 634,
+      "h": 118
+    },
+    "confirmInput": {
+      "x": 644.1290322580644,
+      "y": 411.7661885245902,
+      "sentAt": "2026-11-11T09:40:30.378Z",
+      "mousePressMilliseconds": 90,
+      "acknowledgements": [
+        {
+          "acknowledged": true
+        },
+        {
+          "acknowledged": true
+        },
+        {
+          "acknowledged": true
+        }
+      ],
+      "acknowledgementTimeout": false,
+      "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+    },
+    "reason": "Enabled only with actual rendered ButtonsSpinTurbo; no provider engine/timer/RNG changes",
+    "publicButtonTextures": [
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
+    ],
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-turbo-state.png",
+      "sha256": "e39405c3bd562fd8557a7a3d7f640aef278287ee3be736fb11bb03165f3ecfd9"
+    }
+  },
+  "bet": {
+    "before": "0.50",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": null,
+      "sha256": null,
+      "error": "SCREENSHOT_TRANSPORT_TIMEOUT"
+    }
+  },
+  "observedFeatures": [
+    {
+      "spinId": "1966101498.3",
+      "type": "completed bonus chain",
+      "subresults": 0,
+      "continuationClicks": 0,
+      "screenshot": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-round03.png"
+    }
+  ],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/DragonsCode.html",
+      "path": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-official-help.html",
+      "sha256": "05a4ca6d09c39c193b7cdcd3497339f1efe0ffdf64988cfc5fe6324548888c12",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "blocker": "READY_NATIVE_SPIN_BUTTON_NOT_VISIBLE",
+  "screenshotUnavailable": {
+    "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+    "at": "2026-11-11T09:03:29.606Z",
+    "captureName": "blocker"
+  },
+  "acceptedUnconfirmed": [],
+  "source": "tests/evidence/official-demo-observations-slots20-secondary.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

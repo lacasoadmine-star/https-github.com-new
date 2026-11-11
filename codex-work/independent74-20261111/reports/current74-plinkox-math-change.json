@@ -1,0 +1,144 @@
+{
+  "createdAt": "2026-11-11T08:52:58.092398+00:00",
+  "gameId": "ind74_official_plinkox",
+  "modelVersion": "official72-plinkox-r4",
+  "officialUrl": "https://www.smartsoftgaming.com/games/plinkox",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "before": {
+    "rows": 10,
+    "buckets": 11,
+    "edgeMultiplier": "52.5",
+    "colorModel": "No three-color support; unrelated binomial fallback"
+  },
+  "directlyObserved": {
+    "completedOfficialDemoRounds": 20,
+    "risk": "LOW paid rounds; LOW/MEDIUM/HIGH rendered caption inspection without wagers",
+    "singleBallAmount": 1,
+    "geometry": {
+      "rows": 16,
+      "buckets": 17,
+      "pegCountsByRow": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "lowBucketMultipliers": [
+        "20",
+        "10",
+        "5",
+        "2",
+        "1.5",
+        "1.3",
+        "1.1",
+        "0.8",
+        "0.5",
+        "0.8",
+        "1.1",
+        "1.3",
+        "1.5",
+        "2",
+        "5",
+        "10",
+        "20"
+      ],
+      "status": "visible-screenshot-verified",
+      "nativeCanvasDimensionsFromHistoricalLaunchAudit": [
+        {
+          "width": 2170,
+          "height": 1220
+        },
+        {
+          "width": 1300,
+          "height": 144
+        }
+      ]
+    },
+    "colorLegend": "pink1x/yellow5x/blue10x",
+    "visibleAmountChoices": [
+      1,
+      5,
+      10,
+      25
+    ],
+    "effective11xAwardObserved": true,
+    "colorNotInferredFromGrossAward": true,
+    "screenshot": "reports/current74-evidence/plinkox-low-ready-desktop-dpr1.png",
+    "screenshotSha256": "cc6f27bde1066d786c8f5cf3c21a6b1ad7fc893418a3f2d7be89b898f0941cf7",
+    "screenshotManuallyInspected": true,
+    "fullObservation": "tests/evidence/official-demo-observations-plinkox20.json",
+    "readOnlyRiskTables": "reports/current74-evidence-nonslots/ind74_official_plinkox-rendered-buckets.json",
+    "riskScreenshots": [
+      {
+        "risk": "LOW",
+        "path": "reports/current74-evidence-nonslots/ind74_official_plinkox-read-only-rendered-low-1794388032089.png",
+        "sha256": "25bb625bebbd09f0bec220d815973364bc388c81686f0cc88c419fcc87405aba",
+        "manuallyInspected": true
+      },
+      {
+        "risk": "MEDIUM",
+        "path": "reports/current74-evidence-nonslots/ind74_official_plinkox-read-only-rendered-medium-1794388035059.png",
+        "sha256": "e32ed1cb0b4b6b2b7a1be07baba440c484d6741113d64a8d6c8954717835bef3",
+        "manuallyInspected": true
+      },
+      {
+        "risk": "HIGH",
+        "path": "reports/current74-evidence-nonslots/ind74_official_plinkox-read-only-rendered-high-1794388038687.png",
+        "sha256": "556576e82ddb11c043d9973b3104f2bf0a69e42a70026ff3f07e8c40aa70016a",
+        "manuallyInspected": true
+      }
+    ]
+  },
+  "publicDocumentation": "references/plinkox-public-20261111.json",
+  "implemented": [
+    "16 rows and17 exact LOW/MEDIUM/HIGH bucket awards from rendered native captions",
+    "Server-owned pink/yellow/blue payout factors1/5/10",
+    "Options risklow/medium/high and ballAmount1/5/10/25",
+    "One accepted TOTAL stake, equal whole-ETB per-ball split, per-ball integer floor, one aggregate payout",
+    "Risk-specific liability bounds200x/1000x/10000xTOTAL; global HIGH storage-derived overflow ceiling",
+    "Strict stored selected-risk/path/color/count/aggregate payout validation before public recovery",
+    "Plinko X Classic untouched by the title-specific helper"
+  ],
+  "independentChoices": [
+    "16 fair left/right path steps",
+    "995/4/1 color-ticket weights",
+    "Color is selected by server, never by client",
+    "One total debit/reserve/payout batch protocol; native multi accounting was not directly played"
+  ],
+  "verification": {
+    "mathSuite": "reports/current74-plinkox-math-tests.txt",
+    "passed": 92,
+    "failed": 0,
+    "scope": "Six title math tests and shared official72/audit regression coverage, not92 per-title tests",
+    "financialReport": "reports/current74-plinkox-financial-review.json",
+    "financialReportExists": true,
+    "uiEvidenceOwner": "presentation agent; see separate browser report",
+    "riskScope": "All17buckets \u00d7 three colors \u00d7 three risks \u00d7 three stakes checked, plus every risk/batch maximum and storage ceiling; still92 shared test cases, not individual provider observations."
+  },
+  "remaining": [
+    "MEDIUM/HIGH outcomes were not sampled; their visible prize tables were verified read-only",
+    "Native color-selection semantics and probability distributions",
+    "Native5/10/25-ball accounting confirmation",
+    "Official recovery/history/autoplay/sound verification",
+    "Exact artwork/mobile/audio/provider parity",
+    "Production account/game/house limits and live wallet release"
+  ],
+  "officialDemoRoundsStartedByThisTask": 0,
+  "playerWalletMutations": 0,
+  "deploymentPerformed": false,
+  "fullProviderParityVerified": false,
+  "updatedAt": "2026-11-11T09:11:31.681274+00:00",
+  "riskTableEvidenceBoundary": "Exactly20 earlier LOWsingleball completed rounds remain the reference count. Subsequent LOW/MEDIUM/HIGH selections only changed displayed captions; wallet stayed20000DMO and no DROP/Play was pressed."
+}

@@ -7,6 +7,8 @@
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "category": "Slots",
   "verifiedCompletedOfficialRounds": 62,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
   "remainingRequiredRounds": 0,
   "furtherRoundsAllowed": false,
@@ -41,7 +43,7 @@
     "status": "exact-protected-backend-identity-metadata-exists-financial-flow-untested"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -49,7 +51,7 @@
     "browserCreatedAt": "2026-11-11T08:19:04.352Z",
     "browserResult": null,
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": false
   },
@@ -65,6 +67,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -4800,6 +4809,7 @@
           "sha256": "40633c0c466e8bbc3ea4c604b7d2f1d374a17c5c4021795aeb84d3b4ca939e7f"
         },
         "historicalAtFirstLaunch": 0,
+        "acceptedPaidCycles": 20,
         "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
       }
     ],
@@ -7962,6 +7972,7 @@
             "sha256": "40633c0c466e8bbc3ea4c604b7d2f1d374a17c5c4021795aeb84d3b4ca939e7f"
           },
           "historicalAtFirstLaunch": 0,
+          "acceptedPaidCycles": 20,
           "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
         }
       ],
@@ -7975,7 +7986,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "page-opened-gameplay-unverified",

@@ -6,8 +6,8 @@
   "mode": "official DEMO only",
   "currency": "DMO",
   "historicalVerifiedRounds": 0,
-  "freshVerifiedRounds": 0,
-  "totalVerifiedRounds": 0,
+  "freshVerifiedRounds": 20,
+  "totalVerifiedRounds": 20,
   "viewport": {
     "width": 1280,
     "height": 800
@@ -32,11 +32,16 @@
       530,
       763
     ],
-    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 5,
+    "paylineMeaningVerified": false
   },
   "initialScreenshot": {
     "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png",
-    "sha256": "935f78e4a811eb439d4506984f13cb6b4437ed1009e998e5e00f13d38b74e0ee"
+    "sha256": "729ecf22d1477c782c5db9333e66392bdd5c2fbebd7a4dd2ccaf6a34b86cbb67"
   },
   "publicUiLabels": [
     "BUY RESPIN 1.00 DMO",
@@ -57,17 +62,400 @@
     "ButtonsSpin"
   ],
   "nativeTurbo": {
-    "enabled": false,
+    "nativePrompt": [
+      "QUICK PLAY",
+      "For faster play enable",
+      "turbo mode",
+      "enable quick play"
+    ],
+    "promptScreenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-turbo-prompt.png",
+      "sha256": "65236dce68ebcf59f2aec4d3449b6536c06d25ccfad3b8e84ea2a3c45fb92fba"
+    },
+    "mode": "native-visible-toggle-attempt",
+    "reason": "Native mode only considered enabled when rendered ButtonsSpinTurbo is visible",
+    "enabled": true,
     "publicButtonTextures": [
-      "ButtonsQuickPlayDisabled",
-      "ButtonsSpinDisabled"
+      "ButtonsQuickPlayTurbo",
+      "ButtonsSpinTurbo"
     ],
     "screenshot": {
       "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-turbo-state.png",
-      "sha256": "f1bc903fafb0873ff7e52c4791e51835f4a339a9a00e9d371f354b801703027e"
+      "sha256": "97e2ac9a07d57081848f0f1d455774ab437c1509bb82b86e9f6a13c1596c1137"
     }
   },
-  "observedFeatures": [],
+  "bet": {
+    "before": "0.05",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "5.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-bet-confirmed.png",
+      "sha256": "92873ee0d16906651861485d6e1c6eef2cd29bed8c1e3b17e233022ec223e8b5"
+    }
+  },
+  "observedFeatures": [
+    {
+      "spinId": "1966100557.1",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        1,
+        9,
+        9,
+        9,
+        2,
+        6,
+        9,
+        9,
+        9,
+        3,
+        6,
+        9,
+        3,
+        9,
+        3
+      ],
+      "expandedGrid": [
+        1,
+        2,
+        3,
+        6,
+        2,
+        6,
+        5,
+        3,
+        4,
+        3,
+        6,
+        5,
+        3,
+        4,
+        3
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round01.png"
+    },
+    {
+      "spinId": "1966100557.5",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        7,
+        9,
+        9,
+        4,
+        2,
+        7,
+        6,
+        9,
+        7,
+        6,
+        7,
+        1,
+        1,
+        9,
+        6
+      ],
+      "expandedGrid": [
+        7,
+        6,
+        2,
+        4,
+        2,
+        7,
+        6,
+        2,
+        7,
+        6,
+        7,
+        1,
+        1,
+        7,
+        6
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round05.png"
+    },
+    {
+      "spinId": "1966100557.7",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        7,
+        4,
+        3,
+        6,
+        10,
+        7,
+        4,
+        6,
+        4,
+        5,
+        7,
+        4,
+        6,
+        4,
+        5
+      ],
+      "expandedGrid": [
+        7,
+        4,
+        3,
+        6,
+        5,
+        7,
+        4,
+        6,
+        4,
+        5,
+        7,
+        4,
+        6,
+        4,
+        5
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round07.png"
+    },
+    {
+      "spinId": "1966100557.8",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        6,
+        4,
+        6,
+        6,
+        4,
+        6,
+        4,
+        2,
+        6,
+        10,
+        6,
+        8,
+        2,
+        2,
+        8
+      ],
+      "expandedGrid": [
+        6,
+        4,
+        6,
+        6,
+        4,
+        6,
+        4,
+        2,
+        6,
+        8,
+        6,
+        8,
+        2,
+        2,
+        8
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round08.png"
+    },
+    {
+      "spinId": "1966100557.12",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        10,
+        4,
+        6,
+        7,
+        6,
+        1,
+        4,
+        6,
+        2,
+        4,
+        4,
+        4,
+        6,
+        2,
+        4
+      ],
+      "expandedGrid": [
+        1,
+        4,
+        6,
+        7,
+        6,
+        1,
+        4,
+        6,
+        2,
+        4,
+        4,
+        4,
+        6,
+        2,
+        4
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round12.png"
+    },
+    {
+      "spinId": "1966100557.14",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        2,
+        9,
+        6,
+        9,
+        8,
+        2,
+        1,
+        9,
+        9,
+        8,
+        2,
+        3,
+        9,
+        9,
+        8
+      ],
+      "expandedGrid": [
+        2,
+        1,
+        6,
+        3,
+        8,
+        2,
+        1,
+        8,
+        3,
+        8,
+        2,
+        3,
+        8,
+        3,
+        8
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round14.png"
+    },
+    {
+      "spinId": "1966100557.15",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        2,
+        7,
+        1,
+        6,
+        10,
+        2,
+        7,
+        1,
+        3,
+        7,
+        2,
+        7,
+        1,
+        3,
+        7
+      ],
+      "expandedGrid": [
+        2,
+        7,
+        1,
+        6,
+        7,
+        2,
+        7,
+        1,
+        3,
+        7,
+        2,
+        7,
+        1,
+        3,
+        7
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round15.png"
+    },
+    {
+      "spinId": "1966100557.18",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        8,
+        4,
+        6,
+        2,
+        1,
+        10,
+        8,
+        6,
+        4,
+        1,
+        8,
+        8,
+        6,
+        4,
+        2
+      ],
+      "expandedGrid": [
+        8,
+        4,
+        6,
+        2,
+        1,
+        8,
+        8,
+        6,
+        4,
+        1,
+        8,
+        8,
+        6,
+        4,
+        2
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round18.png"
+    },
+    {
+      "spinId": "1966100557.19",
+      "type": "public expanded/wild result",
+      "originalGrid": [
+        7,
+        1,
+        6,
+        2,
+        2,
+        7,
+        1,
+        3,
+        4,
+        2,
+        5,
+        4,
+        3,
+        4,
+        10
+      ],
+      "expandedGrid": [
+        7,
+        1,
+        6,
+        2,
+        2,
+        7,
+        1,
+        3,
+        4,
+        2,
+        5,
+        4,
+        3,
+        4,
+        6
+      ],
+      "wildColumns": null,
+      "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-round19.png"
+    }
+  ],
   "rulesDocuments": [
     {
       "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/MariachiCoins.html",
@@ -76,7 +464,10 @@
       "evidenceKind": "official static Help document, separate from directly observed gameplay"
     }
   ],
-  "blocker": "BET_CONTROL_UNSUPPORTED",
+  "reload": {
+    "verified": false,
+    "reason": "Same-session refresh and open-round recovery not captured; reopening the DEMO launcher is not proof of recovery"
+  },
   "source": "tests/evidence/official-demo-observations-slots20-remaining.json",
   "unknown": [
     "Provider RNG/reel strips/RTP unless independently documented",

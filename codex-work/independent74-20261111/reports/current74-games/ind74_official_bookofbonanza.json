@@ -7,6 +7,8 @@
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "category": "Slots",
   "verifiedCompletedOfficialRounds": 0,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
   "remainingRequiredRounds": 20,
   "furtherRoundsAllowed": true,
@@ -14,7 +16,7 @@
   "comparison": {
     "status": "full-provider-parity-unverified",
     "publicGeometryVerified": false,
-    "demoGeometryObserved": false,
+    "demoGeometryObserved": true,
     "sourceFacts": [],
     "unresolved": [
       "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
@@ -43,7 +45,7 @@
     "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -120,7 +122,7 @@
       ]
     },
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": true
   },
@@ -136,6 +138,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -150,14 +159,541 @@
         "scope": "historical launcher snapshot; not proof of completed play or final responsive geometry"
       }
     ],
-    "geometry": [],
+    "geometry": [
+      {
+        "renderedSymbolInstances": 24,
+        "visibleReelCandidates": 6,
+        "visibleRowCandidates": 4,
+        "xPositions": [
+          460,
+          610,
+          760,
+          910,
+          1060,
+          1210
+        ],
+        "yPositions": [
+          110,
+          259,
+          408,
+          557
+        ],
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+      }
+    ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
-    "betChanges": [],
-    "roundProgressAndResults": [],
+    "betChanges": [
+      []
+    ],
+    "roundProgressAndResults": [
+      {
+        "gameId": "ind74_official_bookofbonanza",
+        "title": "Book of Bonanza",
+        "officialUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "protectedImplementation": false,
+        "date": "2026-11-11",
+        "mode": "official-demo",
+        "historicalCompletedRounds": 0,
+        "verifiedCompletedRounds": 0,
+        "rounds": [],
+        "unconfirmedAttempts": [],
+        "events": [
+          {
+            "at": "2026-11-11T09:33:58.504Z",
+            "providerEventTime": "2026-11-11T10:33:55.0709284+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966095156.0",
+            "boardVersion": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 40,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:34:08.713Z",
+            "providerEventTime": "2026-11-11T10:33:55.0709284+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966095156.0",
+            "boardVersion": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 40,
+            "betPerLine": 1,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0
+          }
+        ],
+        "rulesDocuments": [
+          {
+            "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BookOfBonanza.html",
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help.html",
+            "sha256": "39171fceb5d1fa03e494a29ed6b73235f28d2a1c0406a52e267e054badcc56b9",
+            "evidenceKind": "official static Help document, separate from directly observed gameplay"
+          }
+        ],
+        "observedFeatures": [],
+        "productionFundsTouched": false,
+        "status": "native-controls-readonly",
+        "failedAssetRequests": [
+          {
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfBonanza.css",
+            "error": "net::ERR_BLOCKED_BY_ORB"
+          },
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          }
+        ],
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "canvas": {
+          "width": 2170,
+          "height": 1312
+        },
+        "initialUiLabels": [
+          "BUY BONUS 40.00 DMO",
+          "HOLD & SPIN",
+          "BONUS",
+          "0%",
+          "BALANCE 20,000.00 DMO",
+          "BET 0.40 DMO"
+        ],
+        "currencyObserved": "DMO",
+        "initialScreenshot": {
+          "path": "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-initial.png",
+          "sha256": "a25fc25a5e12ccf29c62b8d7acdb5b21161f3ca6a3d538a971f3f5a55f5f743c"
+        },
+        "geometry": {
+          "renderedSymbolInstances": 24,
+          "visibleReelCandidates": 6,
+          "visibleRowCandidates": 4,
+          "xPositions": [
+            460,
+            610,
+            760,
+            910,
+            1060,
+            1210
+          ],
+          "yPositions": [
+            110,
+            259,
+            408,
+            557
+          ],
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        },
+        "publicControls": [
+          "ButtonsAutoPlay",
+          "ButtonsBet",
+          "ButtonsMenu",
+          "ButtonsQuickPlay",
+          "ButtonsSoundOn",
+          "ButtonsSpin"
+        ],
+        "publicNativeControlRectangles": [
+          {
+            "names": [
+              "ButtonsAutoPlay"
+            ],
+            "x": 1811,
+            "y": 320,
+            "w": 141,
+            "h": 141
+          },
+          {
+            "names": [
+              "ButtonsBet"
+            ],
+            "x": 1813,
+            "y": 742,
+            "w": 141,
+            "h": 141
+          },
+          {
+            "names": [
+              "ButtonsBuyBonus"
+            ],
+            "x": 0,
+            "y": 951,
+            "w": 513,
+            "h": 161
+          },
+          {
+            "names": [
+              "ButtonsMenu"
+            ],
+            "x": 565,
+            "y": 1146,
+            "w": 92,
+            "h": 77
+          },
+          {
+            "names": [
+              "ButtonsQuickPlay"
+            ],
+            "x": 1978,
+            "y": 435,
+            "w": 77,
+            "h": 91
+          },
+          {
+            "names": [
+              "ButtonsRiskGame"
+            ],
+            "x": 1829,
+            "y": 882,
+            "w": 110,
+            "h": 110
+          },
+          {
+            "names": [
+              "ButtonsSoundOn"
+            ],
+            "x": 1517,
+            "y": 1160,
+            "w": 59,
+            "h": 46
+          },
+          {
+            "names": [
+              "ButtonsSpin"
+            ],
+            "x": 1759,
+            "y": 480,
+            "w": 248,
+            "h": 248
+          }
+        ],
+        "localCanvasRect": {
+          "x": 0,
+          "y": 26,
+          "width": 1280,
+          "height": 773.890625,
+          "innerWidth": 1280,
+          "innerHeight": 800
+        },
+        "historicalAtFirstLaunch": 0,
+        "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+      }
+    ],
     "featuresAndRules": {
-      "directlyObserved": [],
+      "directlyObserved": [
+        {
+          "gameId": "ind74_official_bookofbonanza",
+          "title": "Book of Bonanza",
+          "officialUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+          "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "protectedImplementation": false,
+          "date": "2026-11-11",
+          "mode": "official-demo",
+          "historicalCompletedRounds": 0,
+          "verifiedCompletedRounds": 0,
+          "rounds": [],
+          "unconfirmedAttempts": [],
+          "events": [
+            {
+              "at": "2026-11-11T09:33:58.504Z",
+              "providerEventTime": "2026-11-11T10:33:55.0709284+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966095156.0",
+              "boardVersion": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 40,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:34:08.713Z",
+              "providerEventTime": "2026-11-11T10:33:55.0709284+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966095156.0",
+              "boardVersion": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 40,
+              "betPerLine": 1,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0
+            }
+          ],
+          "rulesDocuments": [
+            {
+              "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/BookOfBonanza.html",
+              "path": "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help.html",
+              "sha256": "39171fceb5d1fa03e494a29ed6b73235f28d2a1c0406a52e267e054badcc56b9",
+              "evidenceKind": "official static Help document, separate from directly observed gameplay"
+            }
+          ],
+          "observedFeatures": [],
+          "productionFundsTouched": false,
+          "status": "native-controls-readonly",
+          "failedAssetRequests": [
+            {
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Help/Styles/BookOfBonanza.css",
+              "error": "net::ERR_BLOCKED_BY_ORB"
+            },
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            }
+          ],
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "canvas": {
+            "width": 2170,
+            "height": 1312
+          },
+          "initialUiLabels": [
+            "BUY BONUS 40.00 DMO",
+            "HOLD & SPIN",
+            "BONUS",
+            "0%",
+            "BALANCE 20,000.00 DMO",
+            "BET 0.40 DMO"
+          ],
+          "currencyObserved": "DMO",
+          "initialScreenshot": {
+            "path": "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-initial.png",
+            "sha256": "a25fc25a5e12ccf29c62b8d7acdb5b21161f3ca6a3d538a971f3f5a55f5f743c"
+          },
+          "geometry": {
+            "renderedSymbolInstances": 24,
+            "visibleReelCandidates": 6,
+            "visibleRowCandidates": 4,
+            "xPositions": [
+              460,
+              610,
+              760,
+              910,
+              1060,
+              1210
+            ],
+            "yPositions": [
+              110,
+              259,
+              408,
+              557
+            ],
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          },
+          "publicControls": [
+            "ButtonsAutoPlay",
+            "ButtonsBet",
+            "ButtonsMenu",
+            "ButtonsQuickPlay",
+            "ButtonsSoundOn",
+            "ButtonsSpin"
+          ],
+          "publicNativeControlRectangles": [
+            {
+              "names": [
+                "ButtonsAutoPlay"
+              ],
+              "x": 1811,
+              "y": 320,
+              "w": 141,
+              "h": 141
+            },
+            {
+              "names": [
+                "ButtonsBet"
+              ],
+              "x": 1813,
+              "y": 742,
+              "w": 141,
+              "h": 141
+            },
+            {
+              "names": [
+                "ButtonsBuyBonus"
+              ],
+              "x": 0,
+              "y": 951,
+              "w": 513,
+              "h": 161
+            },
+            {
+              "names": [
+                "ButtonsMenu"
+              ],
+              "x": 565,
+              "y": 1146,
+              "w": 92,
+              "h": 77
+            },
+            {
+              "names": [
+                "ButtonsQuickPlay"
+              ],
+              "x": 1978,
+              "y": 435,
+              "w": 77,
+              "h": 91
+            },
+            {
+              "names": [
+                "ButtonsRiskGame"
+              ],
+              "x": 1829,
+              "y": 882,
+              "w": 110,
+              "h": 110
+            },
+            {
+              "names": [
+                "ButtonsSoundOn"
+              ],
+              "x": 1517,
+              "y": 1160,
+              "w": 59,
+              "h": 46
+            },
+            {
+              "names": [
+                "ButtonsSpin"
+              ],
+              "x": 1759,
+              "y": 480,
+              "w": 248,
+              "h": 248
+            }
+          ],
+          "localCanvasRect": {
+            "x": 0,
+            "y": 26,
+            "width": 1280,
+            "height": 773.890625,
+            "innerWidth": 1280,
+            "innerHeight": 800
+          },
+          "historicalAtFirstLaunch": 0,
+          "evidenceFile": "tests/evidence/official-demo-observations-slots20-secondary.json"
+        }
+      ],
       "publicDocumentedLayout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -191,7 +727,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "canvas-present-gameplay-unverified",
@@ -201,7 +740,8 @@
   "evidenceFiles": [
     "scope/official74.json",
     "tests/math-official72-audit.json",
-    "references/official74-browser-audit-20261111.json"
+    "references/official74-browser-audit-20261111.json",
+    "tests/evidence/official-demo-observations-slots20-secondary.json"
   ],
   "remaining": [
     "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",

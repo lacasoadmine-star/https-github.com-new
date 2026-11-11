@@ -23,7 +23,7 @@
       <div id="stage" class="machine-stage" aria-label="Mashiinka ciyaarta"></div>
       <div class="win-bar"><span id="win-label">GUUL</span><strong id="win">—</strong><span id="round-status">Sugaya server-ka</span></div>
       <section class="controls" aria-label="Xakamaynta ciyaarta">
-        <label class="bet-control" for="bet">SHARAD · <span data-currency>ETB</span>
+        <label class="bet-control" for="bet"><span id="bet-caption">SHARAD</span> · <span data-currency>ETB</span>
           <span class="bet-row"><button id="bet-less" type="button" aria-label="Yaree sharadka" disabled>−</button><input id="bet" type="text" inputmode="decimal" value="1.00" aria-label="Sharadka ETB; qiimayaasha bilowga 1 ilaa 20" autocomplete="off" disabled><button id="bet-more" type="button" aria-label="Kordhi sharadka" disabled>+</button></span>
         </label>
         <div id="options" class="game-options"></div>
@@ -37,5 +37,6 @@
     <details class="history"><summary>Taariikhda wareegyada</summary><p id="history-status"></p><ol id="history"></ol></details>
   </main>
   <dialog id="rules-dialog" aria-labelledby="rules-title"><header><h2 id="rules-title">Xeerarka</h2><button id="close-rules" aria-label="Xidh">×</button></header><div id="rules-body"></div></dialog>
+  <dialog id="plinko-amount-dialog" class="plinko-amount-dialog" aria-labelledby="plinko-amount-title"><h2 id="plinko-amount-title">Ball amount</h2><p id="plinko-amount-cost"></p><p>Do you want to proceed?</p><div class="plinko-amount-actions"><button id="plinko-amount-agree" type="button">AGREE</button><button id="plinko-amount-cancel" type="button">CANCEL</button></div><label><input id="plinko-amount-skip" type="checkbox"> DON'T SHOW AGAIN</label></dialog>
 </body>
 </html>

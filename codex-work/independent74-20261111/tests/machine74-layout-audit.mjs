@@ -68,6 +68,8 @@ try{
      horizontalOverflow:document.documentElement.scrollWidth>innerWidth,
      contentRightOverflowPx:Math.max(0,inner.right-box.right),
      controlsBelowStage:controls.top>=box.bottom-1,
+     controlsDoNotOverlap:controls.top>=box.bottom-1||controls.left>=box.right-1,
+     controlsPlacement:controls.top>=box.bottom-1?'below':controls.left>=box.right-1?'beside':'overlap',
      rows:fixture.definition.rows??null,columns:fixture.definition.cols??fixture.definition.columns??null,
      publicWays:fixture.definition.ways??null,waysLabelCorrect:!fixture.definition.ways||stage.querySelector('.m74-stage-strip')?.textContent.includes(fixture.definition.ways+' WAYS'),
      visibleSteps:stage.querySelectorAll('.m74-step').length});
@@ -76,7 +78,7 @@ try{
   },{fixtures,width});
   report.records.push(...records);
  }
- report.failures=report.records.filter(row=>row.verticalClipPx>1||row.horizontalOverflow||row.contentRightOverflowPx>1||!row.controlsBelowStage||!row.waysLabelCorrect||row.id==='ind74_official_mineisland2'&&row.visibleSteps!==10);
+ report.failures=report.records.filter(row=>row.verticalClipPx>1||row.horizontalOverflow||row.contentRightOverflowPx>1||!row.controlsDoNotOverlap||!row.waysLabelCorrect||row.id==='ind74_official_mineisland2'&&row.visibleSteps!==10);
  report.byFamily=Object.fromEntries([...new Set(fixtures.map(f=>f.family))].map(family=>[family,{cases:report.records.filter(row=>row.family===family).length,failures:report.failures.filter(row=>row.family===family).length,maxVerticalClipPx:Math.max(0,...report.records.filter(row=>row.family===family).map(row=>row.verticalClipPx))}]));
  report.pass=report.failures.length===0&&report.pageErrors.length===0&&report.requests.every(request=>request.local&&request.method==='GET')&&report.records.length===576;
  await writeFile(join(directory,label+'.json'),JSON.stringify(report,null,2));

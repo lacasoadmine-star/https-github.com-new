@@ -1,0 +1,93 @@
+{
+  "createdAt": "2026-11-11T09:11:51.285728+00:00",
+  "gameId": "ind74_official_plinkox",
+  "newWagers": 0,
+  "existingVerifiedCompletedRounds": 20,
+  "walletUnchangedDmo": "20000.00",
+  "bucketTables": {
+    "LOW": [
+      "20",
+      "10",
+      "5",
+      "2",
+      "1.5",
+      "1.3",
+      "1.1",
+      "0.8",
+      "0.5",
+      "0.8",
+      "1.1",
+      "1.3",
+      "1.5",
+      "2",
+      "5",
+      "10",
+      "20"
+    ],
+    "MEDIUM": [
+      "100",
+      "50",
+      "10",
+      "5",
+      "3",
+      "1",
+      "0.1",
+      "0.2",
+      "0.5",
+      "0.2",
+      "0.1",
+      "1",
+      "3",
+      "5",
+      "10",
+      "50",
+      "100"
+    ],
+    "HIGH": [
+      "1000",
+      "100",
+      "20",
+      "10",
+      "4",
+      "2",
+      "0.2",
+      "0.2",
+      "0.2",
+      "0.2",
+      "0.2",
+      "2",
+      "4",
+      "10",
+      "20",
+      "100",
+      "1000"
+    ]
+  },
+  "bucketEvidence": "reports/current74-evidence-nonslots/ind74_official_plinkox-rendered-buckets.json",
+  "committedAmountTotals": {
+    "1": "1.00 DMO \u00d71=1.00 DMO",
+    "5": "1.00 DMO \u00d75=5.00 DMO",
+    "10": "1.00 DMO \u00d710=10.00 DMO",
+    "25": "1.00 DMO \u00d725=25.00 DMO"
+  },
+  "amountSelection": "5/10/25 require native AGREE confirmation; selection does not itself place a bet. Restored1after review.",
+  "amountAndHelpEvidence": "reports/current74-evidence-nonslots/ind74_official_plinkox-amount-help.json",
+  "nativeHelpSource": "https://eu-server-w6.ssgportal.com/PlinkoX2/OtherGames/PlinkoX/Board.aspx",
+  "documentedRules": {
+    "deduction": "Each ball individually deducts the corresponding bet amount.",
+    "quickPlay": "25balls at once with a single click.",
+    "ballTypes": "Randomly selected1x/5x/10x balls.",
+    "bonusPlus": "50% extra cost, excluded from payout calculation; documented increased higher-value-ball chance.",
+    "reload": "Documentation says active bets complete automatically and credit wins after disconnection/reload; not directly observed.",
+    "theoreticalRtp": "Official Help publishes base97% and B+LOW97.02/MEDIUM97.03/HIGH97.01%; retained as published claims only.",
+    "rareResult": "Help publishes approximately1in4,802,650for10,000x High; not empirically verified or used to infer full provider probabilities."
+  },
+  "notVerified": [
+    "Actual multi-ball settlement or provider atomicity",
+    "Medium/high outcomes",
+    "Provider distributions/ball frequencies",
+    "B+ wagers",
+    "Active-round recovery",
+    "Production ETBwallet integration"
+  ]
+}

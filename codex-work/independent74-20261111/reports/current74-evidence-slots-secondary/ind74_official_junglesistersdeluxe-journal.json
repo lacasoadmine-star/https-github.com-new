@@ -1,0 +1,130 @@
+{
+  "gameId": "ind74_official_junglesistersdeluxe",
+  "title": "Jungle Sisters Deluxe",
+  "officialUrl": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "mode": "official DEMO only",
+  "currency": "DMO",
+  "historicalVerifiedRounds": 0,
+  "freshVerifiedRounds": 6,
+  "totalVerifiedRounds": 6,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "canvas": {
+    "width": 2170,
+    "height": 1154
+  },
+  "geometry": {
+    "renderedSymbolInstances": 15,
+    "visibleReelCandidates": 5,
+    "visibleRowCandidates": 3,
+    "xPositions": [
+      525,
+      750,
+      975,
+      1200,
+      1425
+    ],
+    "yPositions": [
+      231,
+      461,
+      691
+    ],
+    "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+    "reels": 5,
+    "rows": 3,
+    "resultLengthCrossCheck": true,
+    "providerLinePlay": 20,
+    "paylineMeaningVerified": false
+  },
+  "initialScreenshot": {
+    "path": null,
+    "sha256": null,
+    "error": "SCREENSHOT_TRANSPORT_TIMEOUT"
+  },
+  "publicUiLabels": [
+    "HOLD & SPIN",
+    "BUY BONUS 20.00 DMO",
+    "BALANCE 20,000.00 DMO",
+    "BET 0.20 DMO"
+  ],
+  "controls": [
+    "ButtonsAutoPlay",
+    "ButtonsBet",
+    "ButtonsMenu",
+    "ButtonsQuickPlay",
+    "ButtonsSoundOn",
+    "ButtonsSpin"
+  ],
+  "nativeTurbo": {
+    "enabled": false,
+    "mode": "normal",
+    "reason": "Secondary observer uses normal native play; optional Turbo dialog is not yet verified for these skins"
+  },
+  "bet": {
+    "before": "0.20",
+    "intendedVisibleItem": "1.00 DMO",
+    "confirmedDmo": "1.00",
+    "method": "Native dollar button, menu scroll if needed, visible amount click",
+    "screenshot": {
+      "path": null,
+      "sha256": null,
+      "error": "SCREENSHOT_TRANSPORT_TIMEOUT"
+    }
+  },
+  "observedFeatures": [],
+  "rulesDocuments": [
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Menu/Help/JungleSistersDeluxe.html",
+      "path": "reports/current74-evidence-slots-secondary/ind74_official_junglesistersdeluxe-official-help.html",
+      "sha256": "752689c49c2217e0a7c89c14c261e9164e328bf850d0aa058fbd3c80ae49052c",
+      "evidenceKind": "official static Help document, separate from directly observed gameplay"
+    }
+  ],
+  "blocker": "WAIT_TIMEOUT",
+  "screenshotUnavailable": {
+    "reason": "Full viewport screenshot transport timed out; direct WebGL canvas export visually inspected and all black (unusable).",
+    "at": "2026-11-11T09:02:44.041Z",
+    "captureName": "blocker"
+  },
+  "controlCoordinateProof": {
+    "method": "Measured existing actual viewport screenshot; no top-frame DOM dependency",
+    "reference": "reports/current74-evidence-slots-secondary/ind74_official_junglesistersdeluxe-initial.png",
+    "canvasIntrinsic": {
+      "width": 2170,
+      "height": 1154
+    },
+    "canvasViewport": {
+      "x": 0,
+      "y": 26,
+      "width": 1280,
+      "height": 680.7004608294931
+    },
+    "scope": "Jungle Sisters Deluxe only, viewport 1280x800, exact intrinsic dimensions required"
+  },
+  "acceptedUnconfirmed": [
+    {
+      "startedAt": "2026-11-11T09:28:11.244Z",
+      "ordinal": 7,
+      "state": "native-play-input-requested",
+      "nativeInput": {
+        "x": 1160.258064516129,
+        "y": 365.7603686635945,
+        "sentAt": "2026-11-11T09:28:11.246Z",
+        "mousePressMilliseconds": 90,
+        "acknowledgements": null,
+        "acknowledgementTimeout": true,
+        "method": "Native pointer move/down/up; release scheduled independently of delayed input acknowledgements"
+      }
+    }
+  ],
+  "source": "tests/evidence/official-demo-observations-slots20-secondary.json",
+  "unknown": [
+    "Provider RNG/reel strips/RTP unless independently documented",
+    "Unseen rare features",
+    "Full audio and mobile-reference parity"
+  ],
+  "productionFundsTouched": false
+}

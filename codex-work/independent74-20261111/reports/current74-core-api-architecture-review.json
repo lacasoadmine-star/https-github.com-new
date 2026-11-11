@@ -1,0 +1,80 @@
+{
+  "format": "current74-core-native-protected-architecture-review-v1",
+  "checkedAt": "2026-11-11T09:02:39.077779+00:00",
+  "readOnly": true,
+  "liveWrites": 0,
+  "playerFundsTested": false,
+  "secretValuesRetrieved": false,
+  "selectedArchitecture": {
+    "project": "superwinbet-platform",
+    "environment": "staging",
+    "coreAPI": "https://api.superwinn.net",
+    "coreServiceId": "8ff24aed-50d6-4aa8-8deb-186d086b3436",
+    "nativeGameServiceId": "f617aec9-d705-4dd3-b68b-dc058f9a0781",
+    "actualProtectedGameServiceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+    "postgresServiceId": "6903d386-3f27-43fa-89f6-8d65b8322f1a",
+    "canonicalTables": [
+      "sw_rebuild.wallets",
+      "sw_rebuild.ledger"
+    ]
+  },
+  "verifiedObservations": [
+    "Core API domains belong to zplay-rebuild-api, existing node:22-alpine container port8789. Latest listed deployment e65471a2-6655-49c6-ad3d-672dac41be48 SUCCESS2026-10-23.",
+    "Core startCommand loads checksum-verified gzip catalogue and runtime from environment chunks SW_CATALOG_1..4/SW_INTERNAL_RUNTIME_1..4. Function source API returns INVALID_ARGUMENT because this is not a RailwayFunction.",
+    "Existing environment has unrelated staged patch c6a932e7-c076-43ca-9ebe-8b01d0d14f11 fromNov8. It was not accepted or changed.",
+    "Public core /api/health200 reports version2.12.0 PostgreSQL startup_qa_passed:true and configured_provider_games0. Health alone does not expose actual schema or live house/account caps.",
+    "Public /api/config200 contains older distinct generic models: e.g Plinko X13 buckets and adjusted max49.56; do not alias it to newly observed16row17bucket PlinkoX. Protected same-name titles also require exact version identity.",
+    "Anonymous core /api/session and /api/slots/games return401. No session or operator authentication was fabricated.",
+    "Actual protected newMH5/Foxy20 browser API previously traced to nine-slot service. Native-family service also uses canonical sw_rebuild SQL tables, but same table names and common project do not prove the exact same physical database/schema at runtime.",
+    "Existing Postgres18 service has private endpointpostgres, existing500MBvolume; no public domains or TCPproxy. No proxy/credentials/newservice was created."
+  ],
+  "availableSQLConnectorInvestigation": {
+    "tool": "floot_query_database",
+    "safety": "Only readonly schema EXISTS+transaction_read_only SELECTs; no user rows or wallet amounts queried",
+    "ownerProjects": [
+      {
+        "name": "Superwin Bet Platform",
+        "id": "7cd6c4d9-2b35-4be6-a382-b7c731b558b5",
+        "transactionReadOnly": "on",
+        "has_sw_rebuild": false,
+        "has_sw_nine": false,
+        "has_sw_native_family": false,
+        "sourceProof": "Wallet endpoint and db helper use independent FLOOT_DATABASE_URL/public wallets/platformAccounts; not canonical Railway ledger."
+      },
+      {
+        "name": "Superwin Agent Portal",
+        "database": "none"
+      },
+      {
+        "name": "Superwin Owner Console",
+        "database": "none"
+      },
+      {
+        "name": "ZPLAY Native Slots Independent Live",
+        "database": "none"
+      }
+    ],
+    "conclusion": "A genuine readonly SQL capability exists but is not connected to selected RailwayPostgres. It cannot supply canonical financial proof. No database provisioned or credential requested.",
+    "otherConnector": "WoWSQL tools are scoped to WoWSQL projects; no evidence selected Railway database is one; no unrelated project discovery/query performed."
+  },
+  "sourceSearch": {
+    "repository": "lacasoadmine-star/https-github.com-new",
+    "referenceCommitSearched": "a0dd6a5f842c9c0fbc92eaeb441a136f49a49d78",
+    "locations": [
+      "game-expansion/continuation/backend-baseline",
+      "server-fixes/native-rules-20261107",
+      "backend",
+      "deploy",
+      "apps"
+    ],
+    "result": "Retained native-family/library and protected-nine source available. Repository backend is Python and does not match live coreNode2.12 runtime. No checksum-matched deployed core runtime found; never substitute wrong implementation."
+  },
+  "requiredEvidenceBeforeFinancialActivation": [
+    "Checksum-matched current core runtime or authorized existing execution path into actual protected/native/core database, with credentials kept private. OAuthRailway variables are namesonly.",
+    "Bounded actual canonical schema/index/trigger semantics and SHA databaseidentity across selected services; current accountcap/house aggregates.",
+    "Reciprocal active/free/bonus/gamble admission locks across actual protected and native financial flows.",
+    "Configured pergame/account/house limits and persistent liability; preserve existing user identities and financial implementation."
+  ],
+  "minimalReviewableFix": "Keep current readonly actual machine-session/accountbalance bridge and all independent wager gates closed. Finish checksum-preserving same-service integration candidate only. A source-matched core runtime or verified actual-pool readonly audit execution would resolve the remaining financial evidence gap; do not replace core/native/protected backend or use separate Flootwallet.",
+  "auditAttempt": "Tiny startupreadonly protected audit connector reportedupdated/deploying but subsequentsource/deployment evidence remains original. No confirmed execution; no blindretry performed."
+}

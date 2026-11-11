@@ -6,9 +6,11 @@
   "officialUrl": "https://www.smartsoftgaming.com/games/genies-bonanza",
   "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
   "category": "Slots",
-  "verifiedCompletedOfficialRounds": 0,
+  "verifiedCompletedOfficialRounds": 3,
+  "quarantinedOfficialRoundIds": [],
+  "unqualifiedRoundClaimsExcluded": 0,
   "targetRounds": 20,
-  "remainingRequiredRounds": 20,
+  "remainingRequiredRounds": 17,
   "furtherRoundsAllowed": true,
   "construction": "account-only-independent-machine-source-exists-incomplete-provider-parity",
   "comparison": {
@@ -43,7 +45,7 @@
     "status": "requested-protected-backend-identity-and-exact-wallet-route-missing"
   },
   "tests": {
-    "freshSharedSuitePassed": 757,
+    "freshSharedSuitePassed": 797,
     "freshSharedSuiteFailed": 0,
     "freshSharedSuiteEvidence": "reports/current74-last-completed-suite.txt",
     "sharedSuiteRunInProgress": false,
@@ -120,7 +122,7 @@
       ]
     },
     "historicalCheckpointFullSuitePassed": 651,
-    "scope": "shared suite at f636b93; not 651 individual tests per game",
+    "scope": "Current and historical shared-suite totals are not individual tests per title; per-title browser result is retained separately",
     "perGameProductionWalletTest": false,
     "newMachineBrowserVerified": true
   },
@@ -136,6 +138,13 @@
     "note": "Existing URL identifies prior prototype/reference viewer; it is not proof the completed account-only release is deployed."
   },
   "observationJournal": {
+    "gameplayViewports": [
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "officialResponsiveReadyReferences": [],
     "viewport": {
       "width": 1280,
       "height": 800,
@@ -170,14 +179,878 @@
           510,
           676
         ],
-        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+        "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+        "reels": 6,
+        "rows": 5,
+        "resultLengthCrossCheck": true,
+        "providerLinePlay": 1,
+        "paylineMeaningVerified": false
       }
     ],
     "controls": [],
     "visibleLaunchButtons": [],
     "symbolsColorsTextButtonPlacement": "See cited screenshots/observations; not comprehensively verified",
     "betChanges": [
-      []
+      [
+        {
+          "ordinal": 1,
+          "ordinalIncludingHistory": 1,
+          "startedAt": "2026-11-11T09:45:30.761Z",
+          "confirmedAt": "2026-11-11T09:45:41.078Z",
+          "spinId": "1966108174.1",
+          "stakeDmo": "1.00",
+          "currency": "DMO",
+          "beforeBalanceDmo": "20000.00",
+          "finalBalanceDmo": "19999.00",
+          "payoutDmo": "0.00",
+          "publicResult": {
+            "at": "2026-11-11T09:45:35.585Z",
+            "providerEventTime": "2026-11-11T10:45:34.0281779+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966108174.1",
+            "boardVersion": 3,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              3,
+              4,
+              0,
+              8,
+              9,
+              1,
+              3,
+              4,
+              2,
+              10,
+              9,
+              0,
+              1,
+              2,
+              2,
+              6,
+              6,
+              0,
+              1,
+              2,
+              9,
+              6,
+              6,
+              2,
+              1,
+              4,
+              9,
+              0,
+              4,
+              2
+            ],
+            "expandedGrid": [
+              3,
+              4,
+              0,
+              8,
+              9,
+              1,
+              3,
+              4,
+              2,
+              10,
+              9,
+              0,
+              1,
+              2,
+              2,
+              6,
+              6,
+              0,
+              1,
+              2,
+              9,
+              6,
+              6,
+              2,
+              1,
+              4,
+              9,
+              0,
+              4,
+              2
+            ],
+            "linePlay": 1,
+            "betPerLine": 100,
+            "chipCoefficient": 0.01,
+            "balance": 19999,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "array",
+                "length": 30
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "array",
+                "length": 30
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          "creditEvidence": null,
+          "nativeStopAction": null,
+          "bonusTriggered": false,
+          "bonusSubresults": [],
+          "bonusContinuationClicks": 0,
+          "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round01.png",
+          "screenshotSha256": "79504e799cab1bd8ba41b818d92f9354736c5e4a158c145ca10aef638b5bdd0d",
+          "screenshotTransportError": null,
+          "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+        },
+        {
+          "ordinal": 2,
+          "ordinalIncludingHistory": 2,
+          "startedAt": "2026-11-11T09:45:41.953Z",
+          "confirmedAt": "2026-11-11T09:45:52.140Z",
+          "spinId": "1966108174.2",
+          "stakeDmo": "1.00",
+          "currency": "DMO",
+          "beforeBalanceDmo": "19999.00",
+          "finalBalanceDmo": "19998.00",
+          "payoutDmo": "0.00",
+          "publicResult": {
+            "at": "2026-11-11T09:45:46.742Z",
+            "providerEventTime": "2026-11-11T10:45:45.0180208+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966108174.2",
+            "boardVersion": 5,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              8,
+              3,
+              5,
+              0,
+              4,
+              1,
+              8,
+              3,
+              10,
+              0,
+              4,
+              2,
+              0,
+              4,
+              7,
+              0,
+              7,
+              2,
+              0,
+              4,
+              7,
+              3,
+              7,
+              10,
+              0,
+              9,
+              7,
+              3,
+              7,
+              1
+            ],
+            "expandedGrid": [
+              8,
+              3,
+              5,
+              0,
+              4,
+              1,
+              8,
+              3,
+              10,
+              0,
+              4,
+              2,
+              0,
+              4,
+              7,
+              0,
+              7,
+              2,
+              0,
+              4,
+              7,
+              3,
+              7,
+              10,
+              0,
+              9,
+              7,
+              3,
+              7,
+              1
+            ],
+            "linePlay": 1,
+            "betPerLine": 100,
+            "chipCoefficient": 0.01,
+            "balance": 19998,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "array",
+                "length": 30
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "array",
+                "length": 30
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          "creditEvidence": null,
+          "nativeStopAction": null,
+          "bonusTriggered": false,
+          "bonusSubresults": [],
+          "bonusContinuationClicks": 0,
+          "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round02.png",
+          "screenshotSha256": "21499da7385a44babe17ac958bb94a8a378902729a4a8daa131c16b61c96cb71",
+          "screenshotTransportError": null,
+          "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+        },
+        {
+          "ordinal": 3,
+          "ordinalIncludingHistory": 3,
+          "startedAt": "2026-11-11T09:45:53.082Z",
+          "confirmedAt": "2026-11-11T09:46:02.966Z",
+          "spinId": "1966108174.3",
+          "stakeDmo": "1.00",
+          "currency": "DMO",
+          "beforeBalanceDmo": "19998.00",
+          "finalBalanceDmo": "19997.00",
+          "payoutDmo": "0.00",
+          "publicResult": {
+            "at": "2026-11-11T09:45:58.006Z",
+            "providerEventTime": "2026-11-11T10:45:56.5078995+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966108174.3",
+            "boardVersion": 7,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              0,
+              2,
+              4,
+              7,
+              9,
+              0,
+              5,
+              9,
+              1,
+              7,
+              9,
+              9,
+              5,
+              9,
+              1,
+              8,
+              7,
+              9,
+              6,
+              2,
+              3,
+              8,
+              7,
+              2,
+              6,
+              2,
+              3,
+              0,
+              6,
+              2
+            ],
+            "expandedGrid": [
+              0,
+              2,
+              4,
+              7,
+              9,
+              0,
+              5,
+              9,
+              1,
+              7,
+              9,
+              9,
+              5,
+              9,
+              1,
+              8,
+              7,
+              9,
+              6,
+              2,
+              3,
+              8,
+              7,
+              2,
+              6,
+              2,
+              3,
+              0,
+              6,
+              2
+            ],
+            "linePlay": 1,
+            "betPerLine": 100,
+            "chipCoefficient": 0.01,
+            "balance": 19997,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "array",
+                "length": 30
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "array",
+                "length": 30
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          "creditEvidence": null,
+          "nativeStopAction": null,
+          "bonusTriggered": false,
+          "bonusSubresults": [],
+          "bonusContinuationClicks": 0,
+          "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round03.png",
+          "screenshotSha256": "a84b37e51e94d5e192ef360ac1180d989d0dca25a8548a7b6f7a02ecf9ed7b6e",
+          "screenshotTransportError": null,
+          "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+        }
+      ]
     ],
     "roundProgressAndResults": [
       {
@@ -189,8 +1062,867 @@
         "date": "2026-11-11",
         "mode": "official-demo",
         "historicalCompletedRounds": 0,
-        "verifiedCompletedRounds": 0,
-        "rounds": [],
+        "verifiedCompletedRounds": 3,
+        "rounds": [
+          {
+            "ordinal": 1,
+            "ordinalIncludingHistory": 1,
+            "startedAt": "2026-11-11T09:45:30.761Z",
+            "confirmedAt": "2026-11-11T09:45:41.078Z",
+            "spinId": "1966108174.1",
+            "stakeDmo": "1.00",
+            "currency": "DMO",
+            "beforeBalanceDmo": "20000.00",
+            "finalBalanceDmo": "19999.00",
+            "payoutDmo": "0.00",
+            "publicResult": {
+              "at": "2026-11-11T09:45:35.585Z",
+              "providerEventTime": "2026-11-11T10:45:34.0281779+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966108174.1",
+              "boardVersion": 3,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                3,
+                4,
+                0,
+                8,
+                9,
+                1,
+                3,
+                4,
+                2,
+                10,
+                9,
+                0,
+                1,
+                2,
+                2,
+                6,
+                6,
+                0,
+                1,
+                2,
+                9,
+                6,
+                6,
+                2,
+                1,
+                4,
+                9,
+                0,
+                4,
+                2
+              ],
+              "expandedGrid": [
+                3,
+                4,
+                0,
+                8,
+                9,
+                1,
+                3,
+                4,
+                2,
+                10,
+                9,
+                0,
+                1,
+                2,
+                2,
+                6,
+                6,
+                0,
+                1,
+                2,
+                9,
+                6,
+                6,
+                2,
+                1,
+                4,
+                9,
+                0,
+                4,
+                2
+              ],
+              "linePlay": 1,
+              "betPerLine": 100,
+              "chipCoefficient": 0.01,
+              "balance": 19999,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "array",
+                  "length": 30
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            "creditEvidence": null,
+            "nativeStopAction": null,
+            "bonusTriggered": false,
+            "bonusSubresults": [],
+            "bonusContinuationClicks": 0,
+            "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round01.png",
+            "screenshotSha256": "79504e799cab1bd8ba41b818d92f9354736c5e4a158c145ca10aef638b5bdd0d",
+            "screenshotTransportError": null,
+            "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+          },
+          {
+            "ordinal": 2,
+            "ordinalIncludingHistory": 2,
+            "startedAt": "2026-11-11T09:45:41.953Z",
+            "confirmedAt": "2026-11-11T09:45:52.140Z",
+            "spinId": "1966108174.2",
+            "stakeDmo": "1.00",
+            "currency": "DMO",
+            "beforeBalanceDmo": "19999.00",
+            "finalBalanceDmo": "19998.00",
+            "payoutDmo": "0.00",
+            "publicResult": {
+              "at": "2026-11-11T09:45:46.742Z",
+              "providerEventTime": "2026-11-11T10:45:45.0180208+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966108174.2",
+              "boardVersion": 5,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                8,
+                3,
+                5,
+                0,
+                4,
+                1,
+                8,
+                3,
+                10,
+                0,
+                4,
+                2,
+                0,
+                4,
+                7,
+                0,
+                7,
+                2,
+                0,
+                4,
+                7,
+                3,
+                7,
+                10,
+                0,
+                9,
+                7,
+                3,
+                7,
+                1
+              ],
+              "expandedGrid": [
+                8,
+                3,
+                5,
+                0,
+                4,
+                1,
+                8,
+                3,
+                10,
+                0,
+                4,
+                2,
+                0,
+                4,
+                7,
+                0,
+                7,
+                2,
+                0,
+                4,
+                7,
+                3,
+                7,
+                10,
+                0,
+                9,
+                7,
+                3,
+                7,
+                1
+              ],
+              "linePlay": 1,
+              "betPerLine": 100,
+              "chipCoefficient": 0.01,
+              "balance": 19998,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "array",
+                  "length": 30
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            "creditEvidence": null,
+            "nativeStopAction": null,
+            "bonusTriggered": false,
+            "bonusSubresults": [],
+            "bonusContinuationClicks": 0,
+            "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round02.png",
+            "screenshotSha256": "21499da7385a44babe17ac958bb94a8a378902729a4a8daa131c16b61c96cb71",
+            "screenshotTransportError": null,
+            "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+          },
+          {
+            "ordinal": 3,
+            "ordinalIncludingHistory": 3,
+            "startedAt": "2026-11-11T09:45:53.082Z",
+            "confirmedAt": "2026-11-11T09:46:02.966Z",
+            "spinId": "1966108174.3",
+            "stakeDmo": "1.00",
+            "currency": "DMO",
+            "beforeBalanceDmo": "19998.00",
+            "finalBalanceDmo": "19997.00",
+            "payoutDmo": "0.00",
+            "publicResult": {
+              "at": "2026-11-11T09:45:58.006Z",
+              "providerEventTime": "2026-11-11T10:45:56.5078995+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966108174.3",
+              "boardVersion": 7,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                0,
+                2,
+                4,
+                7,
+                9,
+                0,
+                5,
+                9,
+                1,
+                7,
+                9,
+                9,
+                5,
+                9,
+                1,
+                8,
+                7,
+                9,
+                6,
+                2,
+                3,
+                8,
+                7,
+                2,
+                6,
+                2,
+                3,
+                0,
+                6,
+                2
+              ],
+              "expandedGrid": [
+                0,
+                2,
+                4,
+                7,
+                9,
+                0,
+                5,
+                9,
+                1,
+                7,
+                9,
+                9,
+                5,
+                9,
+                1,
+                8,
+                7,
+                9,
+                6,
+                2,
+                3,
+                8,
+                7,
+                2,
+                6,
+                2,
+                3,
+                0,
+                6,
+                2
+              ],
+              "linePlay": 1,
+              "betPerLine": 100,
+              "chipCoefficient": 0.01,
+              "balance": 19997,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "array",
+                  "length": 30
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            "creditEvidence": null,
+            "nativeStopAction": null,
+            "bonusTriggered": false,
+            "bonusSubresults": [],
+            "bonusContinuationClicks": 0,
+            "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round03.png",
+            "screenshotSha256": "a84b37e51e94d5e192ef360ac1180d989d0dca25a8548a7b6f7a02ecf9ed7b6e",
+            "screenshotTransportError": null,
+            "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+          }
+        ],
         "unconfirmedAttempts": [],
         "events": [
           {
@@ -273,6 +2005,1232 @@
             "freeSpinSum": 0,
             "bonusWin": false,
             "bonusWinAmount": 0
+          },
+          {
+            "at": "2026-11-11T09:44:55.077Z",
+            "providerEventTime": "2026-11-11T10:44:50.1297347+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966108174.0",
+            "boardVersion": 1,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": null,
+            "expandedGrid": null,
+            "linePlay": 1,
+            "betPerLine": 20,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "null"
+              },
+              "RiskBetProgres": {
+                "type": "null"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "null"
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "null"
+              },
+              "BarabanExpanded": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "at": "2026-11-11T09:45:06.023Z",
+            "providerEventTime": "2026-11-11T10:44:50.1297347+01:00",
+            "eventCode": "start.game",
+            "apiEvent": null,
+            "spinId": "1966108174.0",
+            "boardVersion": 1,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "expandedGrid": null,
+            "linePlay": 1,
+            "betPerLine": 20,
+            "chipCoefficient": 0.01,
+            "balance": 20000,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "null"
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "at": "2026-11-11T09:45:35.585Z",
+            "providerEventTime": "2026-11-11T10:45:34.0281779+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966108174.1",
+            "boardVersion": 3,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              3,
+              4,
+              0,
+              8,
+              9,
+              1,
+              3,
+              4,
+              2,
+              10,
+              9,
+              0,
+              1,
+              2,
+              2,
+              6,
+              6,
+              0,
+              1,
+              2,
+              9,
+              6,
+              6,
+              2,
+              1,
+              4,
+              9,
+              0,
+              4,
+              2
+            ],
+            "expandedGrid": [
+              3,
+              4,
+              0,
+              8,
+              9,
+              1,
+              3,
+              4,
+              2,
+              10,
+              9,
+              0,
+              1,
+              2,
+              2,
+              6,
+              6,
+              0,
+              1,
+              2,
+              9,
+              6,
+              6,
+              2,
+              1,
+              4,
+              9,
+              0,
+              4,
+              2
+            ],
+            "linePlay": 1,
+            "betPerLine": 100,
+            "chipCoefficient": 0.01,
+            "balance": 19999,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "array",
+                "length": 30
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "array",
+                "length": 30
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "at": "2026-11-11T09:45:46.742Z",
+            "providerEventTime": "2026-11-11T10:45:45.0180208+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966108174.2",
+            "boardVersion": 5,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              8,
+              3,
+              5,
+              0,
+              4,
+              1,
+              8,
+              3,
+              10,
+              0,
+              4,
+              2,
+              0,
+              4,
+              7,
+              0,
+              7,
+              2,
+              0,
+              4,
+              7,
+              3,
+              7,
+              10,
+              0,
+              9,
+              7,
+              3,
+              7,
+              1
+            ],
+            "expandedGrid": [
+              8,
+              3,
+              5,
+              0,
+              4,
+              1,
+              8,
+              3,
+              10,
+              0,
+              4,
+              2,
+              0,
+              4,
+              7,
+              0,
+              7,
+              2,
+              0,
+              4,
+              7,
+              3,
+              7,
+              10,
+              0,
+              9,
+              7,
+              3,
+              7,
+              1
+            ],
+            "linePlay": 1,
+            "betPerLine": 100,
+            "chipCoefficient": 0.01,
+            "balance": 19998,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "array",
+                "length": 30
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "array",
+                "length": 30
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "at": "2026-11-11T09:45:58.006Z",
+            "providerEventTime": "2026-11-11T10:45:56.5078995+01:00",
+            "eventCode": "start.game",
+            "apiEvent": "2",
+            "spinId": "1966108174.3",
+            "boardVersion": 7,
+            "machineInfoIndex": 0,
+            "machineInfoCount": 1,
+            "originalGrid": [
+              0,
+              2,
+              4,
+              7,
+              9,
+              0,
+              5,
+              9,
+              1,
+              7,
+              9,
+              9,
+              5,
+              9,
+              1,
+              8,
+              7,
+              9,
+              6,
+              2,
+              3,
+              8,
+              7,
+              2,
+              6,
+              2,
+              3,
+              0,
+              6,
+              2
+            ],
+            "expandedGrid": [
+              0,
+              2,
+              4,
+              7,
+              9,
+              0,
+              5,
+              9,
+              1,
+              7,
+              9,
+              9,
+              5,
+              9,
+              1,
+              8,
+              7,
+              9,
+              6,
+              2,
+              3,
+              8,
+              7,
+              2,
+              6,
+              2,
+              3,
+              0,
+              6,
+              2
+            ],
+            "linePlay": 1,
+            "betPerLine": 100,
+            "chipCoefficient": 0.01,
+            "balance": 19997,
+            "rawWinCredits": 0,
+            "rawTotalWinCredits": 0,
+            "multiplier": 0,
+            "wildColumns": null,
+            "reelsToFreeze": null,
+            "freeSpinsCount": 0,
+            "freeSpinUsed": 0,
+            "freeSpinFinished": false,
+            "freeSpinSum": 0,
+            "bonusWin": false,
+            "bonusWinAmount": 0,
+            "machineSequence": [],
+            "visibleOutcomeFieldShape": {
+              "MultiplierBaraban": {
+                "type": "array",
+                "length": 30
+              },
+              "RiskBetProgres": {
+                "type": "object"
+              },
+              "FreeSpinCascadeWin": {
+                "type": "boolean"
+              },
+              "LinePlay": {
+                "type": "number"
+              },
+              "BetPerLine": {
+                "type": "number"
+              },
+              "ChipCoef": {
+                "type": "number"
+              },
+              "Balance": {
+                "type": "number"
+              },
+              "FoundationBet": {
+                "type": "number"
+              },
+              "MaxWinMultiplier": {
+                "type": "number"
+              },
+              "FreeSpinsCount": {
+                "type": "number"
+              },
+              "FreeSpinUsed": {
+                "type": "number"
+              },
+              "FreeSpinsTotalCount": {
+                "type": "number"
+              },
+              "FreeSpinSum": {
+                "type": "number"
+              },
+              "FreeSpinStarted": {
+                "type": "boolean"
+              },
+              "FreeSpinFinished": {
+                "type": "boolean"
+              },
+              "GiftFinished": {
+                "type": "boolean"
+              },
+              "GiftSpinStatus": {
+                "type": "string"
+              },
+              "BonusWin": {
+                "type": "boolean"
+              },
+              "BonusWinAmount": {
+                "type": "number"
+              },
+              "BonusSum": {
+                "type": "number"
+              },
+              "BonusSet": {
+                "type": "array",
+                "length": 0
+              },
+              "BonusSteps": {
+                "type": "null"
+              },
+              "BonusStageScore": {
+                "type": "null"
+              },
+              "BonusPrices": {
+                "type": "array",
+                "length": 1
+              },
+              "BonusHint": {
+                "type": "null"
+              },
+              "UserWin": {
+                "type": "number"
+              },
+              "TotalWin": {
+                "type": "number"
+              },
+              "Baraban": {
+                "type": "array",
+                "length": 30
+              },
+              "BarabanExpanded": {
+                "type": "array",
+                "length": 30
+              },
+              "ConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "FreeSpinTotalWin": {
+                "type": "number"
+              },
+              "FreeSpinConsecutiveWinsCount": {
+                "type": "number"
+              },
+              "GiftSpinTotalWin": {
+                "type": "number"
+              },
+              "GiftSpinTotalCreditWin": {
+                "type": "number"
+              },
+              "DoubleGameStage": {
+                "type": "number"
+              },
+              "JackpotWinAmount": {
+                "type": "number"
+              },
+              "TreeLevels": {
+                "type": "null"
+              },
+              "ConsecutiveWinsCountAfterFreeSpin": {
+                "type": "number"
+              },
+              "BarabanAfterFreeSpin": {
+                "type": "null"
+              },
+              "WildRainBaraban": {
+                "type": "null"
+              },
+              "Multiplier": {
+                "type": "number"
+              },
+              "FreeSpinStageScore": {
+                "type": "null"
+              },
+              "ReelsToFreeze": {
+                "type": "null"
+              },
+              "SymbolsToFreeze": {
+                "type": "null"
+              },
+              "IsBonuses": {
+                "type": "null"
+              },
+              "BonusSums": {
+                "type": "null"
+              },
+              "BonusStageScores": {
+                "type": "null"
+              },
+              "SuperBonusLife": {
+                "type": "number"
+              },
+              "SuperBonusDestroyed": {
+                "type": "number"
+              },
+              "SuperBonusWin": {
+                "type": "number"
+              },
+              "SumFreeSpinWin": {
+                "type": "boolean"
+              },
+              "FreeSpinMultipliers": {
+                "type": "null"
+              },
+              "IsRiskBet": {
+                "type": "boolean"
+              },
+              "RiskBetMultiplier": {
+                "type": "number"
+              },
+              "RiskBetMultipliers": {
+                "type": "null"
+              },
+              "RiskBetIndex": {
+                "type": "number"
+              }
+            }
           }
         ],
         "rulesDocuments": [
@@ -287,6 +3245,16 @@
         "productionFundsTouched": false,
         "status": "paused-by-coordinator",
         "failedAssetRequests": [
+          {
+            "origin": "https://static.static-ssgmrr17.xyz",
+            "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+            "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "origin": "https://www.google-analytics.com",
+            "path": "/g/collect",
+            "error": "net::ERR_ABORTED"
+          },
           {
             "origin": "https://static.static-ssgmrr17.xyz",
             "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
@@ -320,7 +3288,7 @@
         "currencyObserved": "DMO",
         "initialScreenshot": {
           "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png",
-          "sha256": "e6145212bf1d7a2f997bb9fc948c5888d91be8db9428e5dca442afa3e1aed405"
+          "sha256": "30f5cfcb64d1ae9f26782bffab66360efd3f7aa11fa336ece77533dfb8fda8cc"
         },
         "geometry": {
           "renderedSymbolInstances": 30,
@@ -341,7 +3309,12 @@
             510,
             676
           ],
-          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+          "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+          "reels": 6,
+          "rows": 5,
+          "resultLengthCrossCheck": true,
+          "providerLinePlay": 1,
+          "paylineMeaningVerified": false
         },
         "publicControls": [
           "ButtonsAutoPlay",
@@ -352,12 +3325,12 @@
           "ButtonsSpinTurbo"
         ],
         "turbo": {
-          "enabled": false,
-          "reason": "No visible native lightning button"
+          "enabled": true,
+          "reason": "No inactive native lightning control; existing mode preserved"
         },
         "betMenuScreenshot": {
           "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-bet-menu.png",
-          "sha256": "95771ab51a1b5fa98cb14d6e8093a004acd81f4d5b8cdabe98230a3852111476"
+          "sha256": "39a9f187822fd96814b28d25961a68d3a78e7ff0133a66b0dd70bfbec7095ad8"
         },
         "betAdjustment": {
           "before": "0.20",
@@ -366,11 +3339,10 @@
           "method": "Native dollar button, menu scroll if needed, visible amount click",
           "screenshot": {
             "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-bet-confirmed.png",
-            "sha256": "bcccc23f957da109aa88131d5a86104664a12da4b574e0a8912773f528e2a034"
+            "sha256": "65734c414e28945b1b9214f3caf94c50ab76562ee5ae5a6c07fc27a36826a4ca"
           }
         },
         "stakeDmo": "1.00",
-        "blocker": "COORDINATOR_PAUSE_BEFORE_SPIN",
         "framePaths": [
           "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
           "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/GeniesBonanza/Game.aspx",
@@ -395,6 +3367,68 @@
           "BET 1.00 DMO"
         ],
         "historicalAtFirstLaunch": 0,
+        "acceptedPaidCycles": 3,
+        "publicHttpErrors": [
+          {
+            "at": "2026-11-11T09:44:54.166Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/Close.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.294Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/Minus.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.406Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/MinusHover.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.545Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/Plus.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.592Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/BetBackground.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.677Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/CloseHover.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.781Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/PlusHover.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:44:54.874Z",
+            "origin": "https://static.ssg-public.com",
+            "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/AmountBackground.png",
+            "status": 404
+          },
+          {
+            "at": "2026-11-11T09:45:05.157Z",
+            "origin": "https://eu-server-wp.ssgportal.com",
+            "path": "/GamesLobby/api/v1/games-lobby/info",
+            "status": 403
+          }
+        ],
+        "furtherRoundsAllowed": true,
+        "finalScreenshot": {
+          "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-final.png",
+          "sha256": "d8bb50e05db03166b5627ce2ba35384414685f2ffe080dcac4157a1520ce115f"
+        },
         "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
       }
     ],
@@ -409,8 +3443,867 @@
           "date": "2026-11-11",
           "mode": "official-demo",
           "historicalCompletedRounds": 0,
-          "verifiedCompletedRounds": 0,
-          "rounds": [],
+          "verifiedCompletedRounds": 3,
+          "rounds": [
+            {
+              "ordinal": 1,
+              "ordinalIncludingHistory": 1,
+              "startedAt": "2026-11-11T09:45:30.761Z",
+              "confirmedAt": "2026-11-11T09:45:41.078Z",
+              "spinId": "1966108174.1",
+              "stakeDmo": "1.00",
+              "currency": "DMO",
+              "beforeBalanceDmo": "20000.00",
+              "finalBalanceDmo": "19999.00",
+              "payoutDmo": "0.00",
+              "publicResult": {
+                "at": "2026-11-11T09:45:35.585Z",
+                "providerEventTime": "2026-11-11T10:45:34.0281779+01:00",
+                "eventCode": "start.game",
+                "apiEvent": "2",
+                "spinId": "1966108174.1",
+                "boardVersion": 3,
+                "machineInfoIndex": 0,
+                "machineInfoCount": 1,
+                "originalGrid": [
+                  3,
+                  4,
+                  0,
+                  8,
+                  9,
+                  1,
+                  3,
+                  4,
+                  2,
+                  10,
+                  9,
+                  0,
+                  1,
+                  2,
+                  2,
+                  6,
+                  6,
+                  0,
+                  1,
+                  2,
+                  9,
+                  6,
+                  6,
+                  2,
+                  1,
+                  4,
+                  9,
+                  0,
+                  4,
+                  2
+                ],
+                "expandedGrid": [
+                  3,
+                  4,
+                  0,
+                  8,
+                  9,
+                  1,
+                  3,
+                  4,
+                  2,
+                  10,
+                  9,
+                  0,
+                  1,
+                  2,
+                  2,
+                  6,
+                  6,
+                  0,
+                  1,
+                  2,
+                  9,
+                  6,
+                  6,
+                  2,
+                  1,
+                  4,
+                  9,
+                  0,
+                  4,
+                  2
+                ],
+                "linePlay": 1,
+                "betPerLine": 100,
+                "chipCoefficient": 0.01,
+                "balance": 19999,
+                "rawWinCredits": 0,
+                "rawTotalWinCredits": 0,
+                "multiplier": 0,
+                "wildColumns": null,
+                "reelsToFreeze": null,
+                "freeSpinsCount": 0,
+                "freeSpinUsed": 0,
+                "freeSpinFinished": false,
+                "freeSpinSum": 0,
+                "bonusWin": false,
+                "bonusWinAmount": 0,
+                "machineSequence": [],
+                "visibleOutcomeFieldShape": {
+                  "MultiplierBaraban": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "RiskBetProgres": {
+                    "type": "object"
+                  },
+                  "FreeSpinCascadeWin": {
+                    "type": "boolean"
+                  },
+                  "LinePlay": {
+                    "type": "number"
+                  },
+                  "BetPerLine": {
+                    "type": "number"
+                  },
+                  "ChipCoef": {
+                    "type": "number"
+                  },
+                  "Balance": {
+                    "type": "number"
+                  },
+                  "FoundationBet": {
+                    "type": "number"
+                  },
+                  "MaxWinMultiplier": {
+                    "type": "number"
+                  },
+                  "FreeSpinsCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinUsed": {
+                    "type": "number"
+                  },
+                  "FreeSpinsTotalCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinSum": {
+                    "type": "number"
+                  },
+                  "FreeSpinStarted": {
+                    "type": "boolean"
+                  },
+                  "FreeSpinFinished": {
+                    "type": "boolean"
+                  },
+                  "GiftFinished": {
+                    "type": "boolean"
+                  },
+                  "GiftSpinStatus": {
+                    "type": "string"
+                  },
+                  "BonusWin": {
+                    "type": "boolean"
+                  },
+                  "BonusWinAmount": {
+                    "type": "number"
+                  },
+                  "BonusSum": {
+                    "type": "number"
+                  },
+                  "BonusSet": {
+                    "type": "array",
+                    "length": 0
+                  },
+                  "BonusSteps": {
+                    "type": "null"
+                  },
+                  "BonusStageScore": {
+                    "type": "null"
+                  },
+                  "BonusPrices": {
+                    "type": "array",
+                    "length": 1
+                  },
+                  "BonusHint": {
+                    "type": "null"
+                  },
+                  "UserWin": {
+                    "type": "number"
+                  },
+                  "TotalWin": {
+                    "type": "number"
+                  },
+                  "Baraban": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "BarabanExpanded": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "ConsecutiveWinsCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinTotalWin": {
+                    "type": "number"
+                  },
+                  "FreeSpinConsecutiveWinsCount": {
+                    "type": "number"
+                  },
+                  "GiftSpinTotalWin": {
+                    "type": "number"
+                  },
+                  "GiftSpinTotalCreditWin": {
+                    "type": "number"
+                  },
+                  "DoubleGameStage": {
+                    "type": "number"
+                  },
+                  "JackpotWinAmount": {
+                    "type": "number"
+                  },
+                  "TreeLevels": {
+                    "type": "null"
+                  },
+                  "ConsecutiveWinsCountAfterFreeSpin": {
+                    "type": "number"
+                  },
+                  "BarabanAfterFreeSpin": {
+                    "type": "null"
+                  },
+                  "WildRainBaraban": {
+                    "type": "null"
+                  },
+                  "Multiplier": {
+                    "type": "number"
+                  },
+                  "FreeSpinStageScore": {
+                    "type": "null"
+                  },
+                  "ReelsToFreeze": {
+                    "type": "null"
+                  },
+                  "SymbolsToFreeze": {
+                    "type": "null"
+                  },
+                  "IsBonuses": {
+                    "type": "null"
+                  },
+                  "BonusSums": {
+                    "type": "null"
+                  },
+                  "BonusStageScores": {
+                    "type": "null"
+                  },
+                  "SuperBonusLife": {
+                    "type": "number"
+                  },
+                  "SuperBonusDestroyed": {
+                    "type": "number"
+                  },
+                  "SuperBonusWin": {
+                    "type": "number"
+                  },
+                  "SumFreeSpinWin": {
+                    "type": "boolean"
+                  },
+                  "FreeSpinMultipliers": {
+                    "type": "null"
+                  },
+                  "IsRiskBet": {
+                    "type": "boolean"
+                  },
+                  "RiskBetMultiplier": {
+                    "type": "number"
+                  },
+                  "RiskBetMultipliers": {
+                    "type": "null"
+                  },
+                  "RiskBetIndex": {
+                    "type": "number"
+                  }
+                }
+              },
+              "creditEvidence": null,
+              "nativeStopAction": null,
+              "bonusTriggered": false,
+              "bonusSubresults": [],
+              "bonusContinuationClicks": 0,
+              "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round01.png",
+              "screenshotSha256": "79504e799cab1bd8ba41b818d92f9354736c5e4a158c145ca10aef638b5bdd0d",
+              "screenshotTransportError": null,
+              "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+            },
+            {
+              "ordinal": 2,
+              "ordinalIncludingHistory": 2,
+              "startedAt": "2026-11-11T09:45:41.953Z",
+              "confirmedAt": "2026-11-11T09:45:52.140Z",
+              "spinId": "1966108174.2",
+              "stakeDmo": "1.00",
+              "currency": "DMO",
+              "beforeBalanceDmo": "19999.00",
+              "finalBalanceDmo": "19998.00",
+              "payoutDmo": "0.00",
+              "publicResult": {
+                "at": "2026-11-11T09:45:46.742Z",
+                "providerEventTime": "2026-11-11T10:45:45.0180208+01:00",
+                "eventCode": "start.game",
+                "apiEvent": "2",
+                "spinId": "1966108174.2",
+                "boardVersion": 5,
+                "machineInfoIndex": 0,
+                "machineInfoCount": 1,
+                "originalGrid": [
+                  8,
+                  3,
+                  5,
+                  0,
+                  4,
+                  1,
+                  8,
+                  3,
+                  10,
+                  0,
+                  4,
+                  2,
+                  0,
+                  4,
+                  7,
+                  0,
+                  7,
+                  2,
+                  0,
+                  4,
+                  7,
+                  3,
+                  7,
+                  10,
+                  0,
+                  9,
+                  7,
+                  3,
+                  7,
+                  1
+                ],
+                "expandedGrid": [
+                  8,
+                  3,
+                  5,
+                  0,
+                  4,
+                  1,
+                  8,
+                  3,
+                  10,
+                  0,
+                  4,
+                  2,
+                  0,
+                  4,
+                  7,
+                  0,
+                  7,
+                  2,
+                  0,
+                  4,
+                  7,
+                  3,
+                  7,
+                  10,
+                  0,
+                  9,
+                  7,
+                  3,
+                  7,
+                  1
+                ],
+                "linePlay": 1,
+                "betPerLine": 100,
+                "chipCoefficient": 0.01,
+                "balance": 19998,
+                "rawWinCredits": 0,
+                "rawTotalWinCredits": 0,
+                "multiplier": 0,
+                "wildColumns": null,
+                "reelsToFreeze": null,
+                "freeSpinsCount": 0,
+                "freeSpinUsed": 0,
+                "freeSpinFinished": false,
+                "freeSpinSum": 0,
+                "bonusWin": false,
+                "bonusWinAmount": 0,
+                "machineSequence": [],
+                "visibleOutcomeFieldShape": {
+                  "MultiplierBaraban": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "RiskBetProgres": {
+                    "type": "object"
+                  },
+                  "FreeSpinCascadeWin": {
+                    "type": "boolean"
+                  },
+                  "LinePlay": {
+                    "type": "number"
+                  },
+                  "BetPerLine": {
+                    "type": "number"
+                  },
+                  "ChipCoef": {
+                    "type": "number"
+                  },
+                  "Balance": {
+                    "type": "number"
+                  },
+                  "FoundationBet": {
+                    "type": "number"
+                  },
+                  "MaxWinMultiplier": {
+                    "type": "number"
+                  },
+                  "FreeSpinsCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinUsed": {
+                    "type": "number"
+                  },
+                  "FreeSpinsTotalCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinSum": {
+                    "type": "number"
+                  },
+                  "FreeSpinStarted": {
+                    "type": "boolean"
+                  },
+                  "FreeSpinFinished": {
+                    "type": "boolean"
+                  },
+                  "GiftFinished": {
+                    "type": "boolean"
+                  },
+                  "GiftSpinStatus": {
+                    "type": "string"
+                  },
+                  "BonusWin": {
+                    "type": "boolean"
+                  },
+                  "BonusWinAmount": {
+                    "type": "number"
+                  },
+                  "BonusSum": {
+                    "type": "number"
+                  },
+                  "BonusSet": {
+                    "type": "array",
+                    "length": 0
+                  },
+                  "BonusSteps": {
+                    "type": "null"
+                  },
+                  "BonusStageScore": {
+                    "type": "null"
+                  },
+                  "BonusPrices": {
+                    "type": "array",
+                    "length": 1
+                  },
+                  "BonusHint": {
+                    "type": "null"
+                  },
+                  "UserWin": {
+                    "type": "number"
+                  },
+                  "TotalWin": {
+                    "type": "number"
+                  },
+                  "Baraban": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "BarabanExpanded": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "ConsecutiveWinsCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinTotalWin": {
+                    "type": "number"
+                  },
+                  "FreeSpinConsecutiveWinsCount": {
+                    "type": "number"
+                  },
+                  "GiftSpinTotalWin": {
+                    "type": "number"
+                  },
+                  "GiftSpinTotalCreditWin": {
+                    "type": "number"
+                  },
+                  "DoubleGameStage": {
+                    "type": "number"
+                  },
+                  "JackpotWinAmount": {
+                    "type": "number"
+                  },
+                  "TreeLevels": {
+                    "type": "null"
+                  },
+                  "ConsecutiveWinsCountAfterFreeSpin": {
+                    "type": "number"
+                  },
+                  "BarabanAfterFreeSpin": {
+                    "type": "null"
+                  },
+                  "WildRainBaraban": {
+                    "type": "null"
+                  },
+                  "Multiplier": {
+                    "type": "number"
+                  },
+                  "FreeSpinStageScore": {
+                    "type": "null"
+                  },
+                  "ReelsToFreeze": {
+                    "type": "null"
+                  },
+                  "SymbolsToFreeze": {
+                    "type": "null"
+                  },
+                  "IsBonuses": {
+                    "type": "null"
+                  },
+                  "BonusSums": {
+                    "type": "null"
+                  },
+                  "BonusStageScores": {
+                    "type": "null"
+                  },
+                  "SuperBonusLife": {
+                    "type": "number"
+                  },
+                  "SuperBonusDestroyed": {
+                    "type": "number"
+                  },
+                  "SuperBonusWin": {
+                    "type": "number"
+                  },
+                  "SumFreeSpinWin": {
+                    "type": "boolean"
+                  },
+                  "FreeSpinMultipliers": {
+                    "type": "null"
+                  },
+                  "IsRiskBet": {
+                    "type": "boolean"
+                  },
+                  "RiskBetMultiplier": {
+                    "type": "number"
+                  },
+                  "RiskBetMultipliers": {
+                    "type": "null"
+                  },
+                  "RiskBetIndex": {
+                    "type": "number"
+                  }
+                }
+              },
+              "creditEvidence": null,
+              "nativeStopAction": null,
+              "bonusTriggered": false,
+              "bonusSubresults": [],
+              "bonusContinuationClicks": 0,
+              "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round02.png",
+              "screenshotSha256": "21499da7385a44babe17ac958bb94a8a378902729a4a8daa131c16b61c96cb71",
+              "screenshotTransportError": null,
+              "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+            },
+            {
+              "ordinal": 3,
+              "ordinalIncludingHistory": 3,
+              "startedAt": "2026-11-11T09:45:53.082Z",
+              "confirmedAt": "2026-11-11T09:46:02.966Z",
+              "spinId": "1966108174.3",
+              "stakeDmo": "1.00",
+              "currency": "DMO",
+              "beforeBalanceDmo": "19998.00",
+              "finalBalanceDmo": "19997.00",
+              "payoutDmo": "0.00",
+              "publicResult": {
+                "at": "2026-11-11T09:45:58.006Z",
+                "providerEventTime": "2026-11-11T10:45:56.5078995+01:00",
+                "eventCode": "start.game",
+                "apiEvent": "2",
+                "spinId": "1966108174.3",
+                "boardVersion": 7,
+                "machineInfoIndex": 0,
+                "machineInfoCount": 1,
+                "originalGrid": [
+                  0,
+                  2,
+                  4,
+                  7,
+                  9,
+                  0,
+                  5,
+                  9,
+                  1,
+                  7,
+                  9,
+                  9,
+                  5,
+                  9,
+                  1,
+                  8,
+                  7,
+                  9,
+                  6,
+                  2,
+                  3,
+                  8,
+                  7,
+                  2,
+                  6,
+                  2,
+                  3,
+                  0,
+                  6,
+                  2
+                ],
+                "expandedGrid": [
+                  0,
+                  2,
+                  4,
+                  7,
+                  9,
+                  0,
+                  5,
+                  9,
+                  1,
+                  7,
+                  9,
+                  9,
+                  5,
+                  9,
+                  1,
+                  8,
+                  7,
+                  9,
+                  6,
+                  2,
+                  3,
+                  8,
+                  7,
+                  2,
+                  6,
+                  2,
+                  3,
+                  0,
+                  6,
+                  2
+                ],
+                "linePlay": 1,
+                "betPerLine": 100,
+                "chipCoefficient": 0.01,
+                "balance": 19997,
+                "rawWinCredits": 0,
+                "rawTotalWinCredits": 0,
+                "multiplier": 0,
+                "wildColumns": null,
+                "reelsToFreeze": null,
+                "freeSpinsCount": 0,
+                "freeSpinUsed": 0,
+                "freeSpinFinished": false,
+                "freeSpinSum": 0,
+                "bonusWin": false,
+                "bonusWinAmount": 0,
+                "machineSequence": [],
+                "visibleOutcomeFieldShape": {
+                  "MultiplierBaraban": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "RiskBetProgres": {
+                    "type": "object"
+                  },
+                  "FreeSpinCascadeWin": {
+                    "type": "boolean"
+                  },
+                  "LinePlay": {
+                    "type": "number"
+                  },
+                  "BetPerLine": {
+                    "type": "number"
+                  },
+                  "ChipCoef": {
+                    "type": "number"
+                  },
+                  "Balance": {
+                    "type": "number"
+                  },
+                  "FoundationBet": {
+                    "type": "number"
+                  },
+                  "MaxWinMultiplier": {
+                    "type": "number"
+                  },
+                  "FreeSpinsCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinUsed": {
+                    "type": "number"
+                  },
+                  "FreeSpinsTotalCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinSum": {
+                    "type": "number"
+                  },
+                  "FreeSpinStarted": {
+                    "type": "boolean"
+                  },
+                  "FreeSpinFinished": {
+                    "type": "boolean"
+                  },
+                  "GiftFinished": {
+                    "type": "boolean"
+                  },
+                  "GiftSpinStatus": {
+                    "type": "string"
+                  },
+                  "BonusWin": {
+                    "type": "boolean"
+                  },
+                  "BonusWinAmount": {
+                    "type": "number"
+                  },
+                  "BonusSum": {
+                    "type": "number"
+                  },
+                  "BonusSet": {
+                    "type": "array",
+                    "length": 0
+                  },
+                  "BonusSteps": {
+                    "type": "null"
+                  },
+                  "BonusStageScore": {
+                    "type": "null"
+                  },
+                  "BonusPrices": {
+                    "type": "array",
+                    "length": 1
+                  },
+                  "BonusHint": {
+                    "type": "null"
+                  },
+                  "UserWin": {
+                    "type": "number"
+                  },
+                  "TotalWin": {
+                    "type": "number"
+                  },
+                  "Baraban": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "BarabanExpanded": {
+                    "type": "array",
+                    "length": 30
+                  },
+                  "ConsecutiveWinsCount": {
+                    "type": "number"
+                  },
+                  "FreeSpinTotalWin": {
+                    "type": "number"
+                  },
+                  "FreeSpinConsecutiveWinsCount": {
+                    "type": "number"
+                  },
+                  "GiftSpinTotalWin": {
+                    "type": "number"
+                  },
+                  "GiftSpinTotalCreditWin": {
+                    "type": "number"
+                  },
+                  "DoubleGameStage": {
+                    "type": "number"
+                  },
+                  "JackpotWinAmount": {
+                    "type": "number"
+                  },
+                  "TreeLevels": {
+                    "type": "null"
+                  },
+                  "ConsecutiveWinsCountAfterFreeSpin": {
+                    "type": "number"
+                  },
+                  "BarabanAfterFreeSpin": {
+                    "type": "null"
+                  },
+                  "WildRainBaraban": {
+                    "type": "null"
+                  },
+                  "Multiplier": {
+                    "type": "number"
+                  },
+                  "FreeSpinStageScore": {
+                    "type": "null"
+                  },
+                  "ReelsToFreeze": {
+                    "type": "null"
+                  },
+                  "SymbolsToFreeze": {
+                    "type": "null"
+                  },
+                  "IsBonuses": {
+                    "type": "null"
+                  },
+                  "BonusSums": {
+                    "type": "null"
+                  },
+                  "BonusStageScores": {
+                    "type": "null"
+                  },
+                  "SuperBonusLife": {
+                    "type": "number"
+                  },
+                  "SuperBonusDestroyed": {
+                    "type": "number"
+                  },
+                  "SuperBonusWin": {
+                    "type": "number"
+                  },
+                  "SumFreeSpinWin": {
+                    "type": "boolean"
+                  },
+                  "FreeSpinMultipliers": {
+                    "type": "null"
+                  },
+                  "IsRiskBet": {
+                    "type": "boolean"
+                  },
+                  "RiskBetMultiplier": {
+                    "type": "number"
+                  },
+                  "RiskBetMultipliers": {
+                    "type": "null"
+                  },
+                  "RiskBetIndex": {
+                    "type": "number"
+                  }
+                }
+              },
+              "creditEvidence": null,
+              "nativeStopAction": null,
+              "bonusTriggered": false,
+              "bonusSubresults": [],
+              "bonusContinuationClicks": 0,
+              "screenshot": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-round03.png",
+              "screenshotSha256": "a84b37e51e94d5e192ef360ac1180d989d0dca25a8548a7b6f7a02ecf9ed7b6e",
+              "screenshotTransportError": null,
+              "completionEvidence": "Public result and exact final balance agree with the returned native state; rendered native SPIN ready button restored; any positive award is credited. Stopped result screenshot saved."
+            }
+          ],
           "unconfirmedAttempts": [],
           "events": [
             {
@@ -493,6 +4386,1232 @@
               "freeSpinSum": 0,
               "bonusWin": false,
               "bonusWinAmount": 0
+            },
+            {
+              "at": "2026-11-11T09:44:55.077Z",
+              "providerEventTime": "2026-11-11T10:44:50.1297347+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966108174.0",
+              "boardVersion": 1,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": null,
+              "expandedGrid": null,
+              "linePlay": 1,
+              "betPerLine": 20,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "null"
+                },
+                "RiskBetProgres": {
+                  "type": "null"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "null"
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "null"
+                },
+                "BarabanExpanded": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "at": "2026-11-11T09:45:06.023Z",
+              "providerEventTime": "2026-11-11T10:44:50.1297347+01:00",
+              "eventCode": "start.game",
+              "apiEvent": null,
+              "spinId": "1966108174.0",
+              "boardVersion": 1,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "expandedGrid": null,
+              "linePlay": 1,
+              "betPerLine": 20,
+              "chipCoefficient": 0.01,
+              "balance": 20000,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "null"
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "at": "2026-11-11T09:45:35.585Z",
+              "providerEventTime": "2026-11-11T10:45:34.0281779+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966108174.1",
+              "boardVersion": 3,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                3,
+                4,
+                0,
+                8,
+                9,
+                1,
+                3,
+                4,
+                2,
+                10,
+                9,
+                0,
+                1,
+                2,
+                2,
+                6,
+                6,
+                0,
+                1,
+                2,
+                9,
+                6,
+                6,
+                2,
+                1,
+                4,
+                9,
+                0,
+                4,
+                2
+              ],
+              "expandedGrid": [
+                3,
+                4,
+                0,
+                8,
+                9,
+                1,
+                3,
+                4,
+                2,
+                10,
+                9,
+                0,
+                1,
+                2,
+                2,
+                6,
+                6,
+                0,
+                1,
+                2,
+                9,
+                6,
+                6,
+                2,
+                1,
+                4,
+                9,
+                0,
+                4,
+                2
+              ],
+              "linePlay": 1,
+              "betPerLine": 100,
+              "chipCoefficient": 0.01,
+              "balance": 19999,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "array",
+                  "length": 30
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "at": "2026-11-11T09:45:46.742Z",
+              "providerEventTime": "2026-11-11T10:45:45.0180208+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966108174.2",
+              "boardVersion": 5,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                8,
+                3,
+                5,
+                0,
+                4,
+                1,
+                8,
+                3,
+                10,
+                0,
+                4,
+                2,
+                0,
+                4,
+                7,
+                0,
+                7,
+                2,
+                0,
+                4,
+                7,
+                3,
+                7,
+                10,
+                0,
+                9,
+                7,
+                3,
+                7,
+                1
+              ],
+              "expandedGrid": [
+                8,
+                3,
+                5,
+                0,
+                4,
+                1,
+                8,
+                3,
+                10,
+                0,
+                4,
+                2,
+                0,
+                4,
+                7,
+                0,
+                7,
+                2,
+                0,
+                4,
+                7,
+                3,
+                7,
+                10,
+                0,
+                9,
+                7,
+                3,
+                7,
+                1
+              ],
+              "linePlay": 1,
+              "betPerLine": 100,
+              "chipCoefficient": 0.01,
+              "balance": 19998,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "array",
+                  "length": 30
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "at": "2026-11-11T09:45:58.006Z",
+              "providerEventTime": "2026-11-11T10:45:56.5078995+01:00",
+              "eventCode": "start.game",
+              "apiEvent": "2",
+              "spinId": "1966108174.3",
+              "boardVersion": 7,
+              "machineInfoIndex": 0,
+              "machineInfoCount": 1,
+              "originalGrid": [
+                0,
+                2,
+                4,
+                7,
+                9,
+                0,
+                5,
+                9,
+                1,
+                7,
+                9,
+                9,
+                5,
+                9,
+                1,
+                8,
+                7,
+                9,
+                6,
+                2,
+                3,
+                8,
+                7,
+                2,
+                6,
+                2,
+                3,
+                0,
+                6,
+                2
+              ],
+              "expandedGrid": [
+                0,
+                2,
+                4,
+                7,
+                9,
+                0,
+                5,
+                9,
+                1,
+                7,
+                9,
+                9,
+                5,
+                9,
+                1,
+                8,
+                7,
+                9,
+                6,
+                2,
+                3,
+                8,
+                7,
+                2,
+                6,
+                2,
+                3,
+                0,
+                6,
+                2
+              ],
+              "linePlay": 1,
+              "betPerLine": 100,
+              "chipCoefficient": 0.01,
+              "balance": 19997,
+              "rawWinCredits": 0,
+              "rawTotalWinCredits": 0,
+              "multiplier": 0,
+              "wildColumns": null,
+              "reelsToFreeze": null,
+              "freeSpinsCount": 0,
+              "freeSpinUsed": 0,
+              "freeSpinFinished": false,
+              "freeSpinSum": 0,
+              "bonusWin": false,
+              "bonusWinAmount": 0,
+              "machineSequence": [],
+              "visibleOutcomeFieldShape": {
+                "MultiplierBaraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "RiskBetProgres": {
+                  "type": "object"
+                },
+                "FreeSpinCascadeWin": {
+                  "type": "boolean"
+                },
+                "LinePlay": {
+                  "type": "number"
+                },
+                "BetPerLine": {
+                  "type": "number"
+                },
+                "ChipCoef": {
+                  "type": "number"
+                },
+                "Balance": {
+                  "type": "number"
+                },
+                "FoundationBet": {
+                  "type": "number"
+                },
+                "MaxWinMultiplier": {
+                  "type": "number"
+                },
+                "FreeSpinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinUsed": {
+                  "type": "number"
+                },
+                "FreeSpinsTotalCount": {
+                  "type": "number"
+                },
+                "FreeSpinSum": {
+                  "type": "number"
+                },
+                "FreeSpinStarted": {
+                  "type": "boolean"
+                },
+                "FreeSpinFinished": {
+                  "type": "boolean"
+                },
+                "GiftFinished": {
+                  "type": "boolean"
+                },
+                "GiftSpinStatus": {
+                  "type": "string"
+                },
+                "BonusWin": {
+                  "type": "boolean"
+                },
+                "BonusWinAmount": {
+                  "type": "number"
+                },
+                "BonusSum": {
+                  "type": "number"
+                },
+                "BonusSet": {
+                  "type": "array",
+                  "length": 0
+                },
+                "BonusSteps": {
+                  "type": "null"
+                },
+                "BonusStageScore": {
+                  "type": "null"
+                },
+                "BonusPrices": {
+                  "type": "array",
+                  "length": 1
+                },
+                "BonusHint": {
+                  "type": "null"
+                },
+                "UserWin": {
+                  "type": "number"
+                },
+                "TotalWin": {
+                  "type": "number"
+                },
+                "Baraban": {
+                  "type": "array",
+                  "length": 30
+                },
+                "BarabanExpanded": {
+                  "type": "array",
+                  "length": 30
+                },
+                "ConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "FreeSpinTotalWin": {
+                  "type": "number"
+                },
+                "FreeSpinConsecutiveWinsCount": {
+                  "type": "number"
+                },
+                "GiftSpinTotalWin": {
+                  "type": "number"
+                },
+                "GiftSpinTotalCreditWin": {
+                  "type": "number"
+                },
+                "DoubleGameStage": {
+                  "type": "number"
+                },
+                "JackpotWinAmount": {
+                  "type": "number"
+                },
+                "TreeLevels": {
+                  "type": "null"
+                },
+                "ConsecutiveWinsCountAfterFreeSpin": {
+                  "type": "number"
+                },
+                "BarabanAfterFreeSpin": {
+                  "type": "null"
+                },
+                "WildRainBaraban": {
+                  "type": "null"
+                },
+                "Multiplier": {
+                  "type": "number"
+                },
+                "FreeSpinStageScore": {
+                  "type": "null"
+                },
+                "ReelsToFreeze": {
+                  "type": "null"
+                },
+                "SymbolsToFreeze": {
+                  "type": "null"
+                },
+                "IsBonuses": {
+                  "type": "null"
+                },
+                "BonusSums": {
+                  "type": "null"
+                },
+                "BonusStageScores": {
+                  "type": "null"
+                },
+                "SuperBonusLife": {
+                  "type": "number"
+                },
+                "SuperBonusDestroyed": {
+                  "type": "number"
+                },
+                "SuperBonusWin": {
+                  "type": "number"
+                },
+                "SumFreeSpinWin": {
+                  "type": "boolean"
+                },
+                "FreeSpinMultipliers": {
+                  "type": "null"
+                },
+                "IsRiskBet": {
+                  "type": "boolean"
+                },
+                "RiskBetMultiplier": {
+                  "type": "number"
+                },
+                "RiskBetMultipliers": {
+                  "type": "null"
+                },
+                "RiskBetIndex": {
+                  "type": "number"
+                }
+              }
             }
           ],
           "rulesDocuments": [
@@ -507,6 +5626,16 @@
           "productionFundsTouched": false,
           "status": "paused-by-coordinator",
           "failedAssetRequests": [
+            {
+              "origin": "https://static.static-ssgmrr17.xyz",
+              "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+              "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+            },
+            {
+              "origin": "https://www.google-analytics.com",
+              "path": "/g/collect",
+              "error": "net::ERR_ABORTED"
+            },
             {
               "origin": "https://static.static-ssgmrr17.xyz",
               "path": "/cache/b5/Themes/Default/JetX/Styles/fonts.css",
@@ -540,7 +5669,7 @@
           "currencyObserved": "DMO",
           "initialScreenshot": {
             "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png",
-            "sha256": "e6145212bf1d7a2f997bb9fc948c5888d91be8db9428e5dca442afa3e1aed405"
+            "sha256": "30f5cfcb64d1ae9f26782bffab66360efd3f7aa11fa336ece77533dfb8fda8cc"
           },
           "geometry": {
             "renderedSymbolInstances": 30,
@@ -561,7 +5690,12 @@
               510,
               676
             ],
-            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels"
+            "method": "Public rendered symbol positions; cross-checked against returned result length before asserting rows/reels",
+            "reels": 6,
+            "rows": 5,
+            "resultLengthCrossCheck": true,
+            "providerLinePlay": 1,
+            "paylineMeaningVerified": false
           },
           "publicControls": [
             "ButtonsAutoPlay",
@@ -572,12 +5706,12 @@
             "ButtonsSpinTurbo"
           ],
           "turbo": {
-            "enabled": false,
-            "reason": "No visible native lightning button"
+            "enabled": true,
+            "reason": "No inactive native lightning control; existing mode preserved"
           },
           "betMenuScreenshot": {
             "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-bet-menu.png",
-            "sha256": "95771ab51a1b5fa98cb14d6e8093a004acd81f4d5b8cdabe98230a3852111476"
+            "sha256": "39a9f187822fd96814b28d25961a68d3a78e7ff0133a66b0dd70bfbec7095ad8"
           },
           "betAdjustment": {
             "before": "0.20",
@@ -586,11 +5720,10 @@
             "method": "Native dollar button, menu scroll if needed, visible amount click",
             "screenshot": {
               "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-bet-confirmed.png",
-              "sha256": "bcccc23f957da109aa88131d5a86104664a12da4b574e0a8912773f528e2a034"
+              "sha256": "65734c414e28945b1b9214f3caf94c50ab76562ee5ae5a6c07fc27a36826a4ca"
             }
           },
           "stakeDmo": "1.00",
-          "blocker": "COORDINATOR_PAUSE_BEFORE_SPIN",
           "framePaths": [
             "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx",
             "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/GeniesBonanza/Game.aspx",
@@ -615,6 +5748,68 @@
             "BET 1.00 DMO"
           ],
           "historicalAtFirstLaunch": 0,
+          "acceptedPaidCycles": 3,
+          "publicHttpErrors": [
+            {
+              "at": "2026-11-11T09:44:54.166Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/Close.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.294Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/Minus.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.406Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/MinusHover.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.545Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/Plus.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.592Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/BetBackground.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.677Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/CloseHover.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.781Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/PlusHover.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:44:54.874Z",
+              "origin": "https://static.ssg-public.com",
+              "path": "/cache/b1/SlotsDemo/Content/Images/GeniesBonanza/Images/BuyFeature/AmountBackground.png",
+              "status": 404
+            },
+            {
+              "at": "2026-11-11T09:45:05.157Z",
+              "origin": "https://eu-server-wp.ssgportal.com",
+              "path": "/GamesLobby/api/v1/games-lobby/info",
+              "status": 403
+            }
+          ],
+          "furtherRoundsAllowed": true,
+          "finalScreenshot": {
+            "path": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-final.png",
+            "sha256": "d8bb50e05db03166b5627ce2ba35384414685f2ffe080dcac4157a1520ce115f"
+          },
           "evidenceFile": "tests/evidence/official-demo-observations-slots20-remaining.json"
         }
       ],
@@ -651,7 +5846,10 @@
         "Provider feature frequency"
       ]
     },
-    "reloadAndOpenRoundRecovery": "Official demo behavior not yet systematically verified",
+    "reloadAndOpenRoundRecovery": {
+      "settledReloadObservations": [],
+      "openRoundRecovery": "Not yet verified in official demo; a settled-page reload does not establish active-round recovery"
+    },
     "launchAudit": {
       "httpStatus": 200,
       "status": "canvas-present-gameplay-unverified",
@@ -667,7 +5865,7 @@
   "remaining": [
     "An actual backend evaluator/version is not verified under this identity. Do not map it to an unrelated engine.",
     "Existing backend unchanged; this evaluator is not installed or verified under the exact requested backend identity",
-    "20 additional confirmed official demo rounds required",
+    "17 additional confirmed official demo rounds required",
     "Complete per-title rules/geometry/controls/animation/audio and responsive comparison",
     "Verify intended live wallet/account/game/house limits, reservations, replay, reload, concurrency and large amounts",
     "Build and verify final release before deployment",
