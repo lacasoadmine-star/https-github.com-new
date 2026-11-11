@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "observer": "root",
+  "observations": [
+    {
+      "gameId": "ind74_official_plinkoxclassic",
+      "officialUrl": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo",
+      "date": "2026-11-11",
+      "mode": "official-demo",
+      "currencyObserved": "DMO",
+      "verifiedCompletedRounds": 152,
+      "countEvidence": "Two manual rounds in visible MY WINS history, followed by native 100- and 50-round batches. Each selected count was observed as STOP 100 / STOP 50, then returned to AUTOPLAY with completed history rows and no manual stop, insufficient-balance message or active stop thresholds.",
+      "rounds": [
+        {
+          "ordinal": 1,
+          "stake": "50.00",
+          "displayedMultiplier": "0.2x",
+          "payout": "10.00",
+          "ballTypeObserved": "pink"
+        },
+        {
+          "ordinal": 2,
+          "stake": "50.00",
+          "displayedMultiplier": "4x",
+          "payout": "200.00",
+          "ballTypeObserved": "pink"
+        }
+      ],
+      "visibleGeometry": {
+        "pegRows": 16,
+        "buckets": 17
+      },
+      "observedFeatures": [
+        "How to Play shows pink 1x, orange 5x and fire 10x balls, and a maximum displayed award of 10000x the bet.",
+        "The main board has a static 1x/5x/10x color legend and a turbo slider.",
+        "The displayed outer bucket values are 1000x; central buckets include 0.2x.",
+        "Autoplay settings expose 50, 100, 500, 1000 and 10000 rounds plus stop thresholds for a single win, balance decrease and balance increase.",
+        "Entering 1 in this demo session returned the visible stake input to 50.00; the general minimum for other currencies or jurisdictions has not been established.",
+        "A fire-ball history row displayed an effective 2x result on the same 50.00 DMO stake, paying 100.00 DMO. The fixed wager across observed colors supports an award multiplier, rather than charging another stake for the color."
+      ],
+      "unconfirmedAttempts": [],
+      "conflicts": [
+        "The public marketing page suggests selectable stake scaling, while the observed demo shows a static ball legend. Provider ball-selection probabilities are not established by the observed rounds."
+      ],
+      "implementationChanges": [
+        "Server-owned color factor with explicitly independent weights; unchanged total stake debit; 10000x maximum reservation; renderer shows the public ball result and a static legend."
+      ],
+      "notEstablished": [
+        "Provider color probabilities",
+        "Provider path probabilities",
+        "Full reference parity",
+        "Mobile layout",
+        "Audio equivalence"
+      ],
+      "batches": [
+        {
+          "selectedRounds": 100,
+          "verifiedCompletedRounds": 100,
+          "startedAtVisible": "2026-11-11 08:21:08",
+          "finishedByVisible": "2026-11-11 08:21:45",
+          "beforeBalance": "20110.00",
+          "afterBalance": "18000.00",
+          "stake": "50.00",
+          "currency": "DMO",
+          "nativeCounterAtStart": "STOP 100",
+          "nativeControlAtEnd": "AUTOPLAY",
+          "stopThresholds": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "selectedRounds": 50,
+          "verifiedCompletedRounds": 50,
+          "startedAtVisible": "2026-11-11 08:23:48",
+          "finishedByVisible": "2026-11-11 08:24:22",
+          "beforeBalance": "18000.00",
+          "afterBalance": "17340.00",
+          "stake": "50.00",
+          "currency": "DMO",
+          "nativeCounterAtStart": "STOP 50",
+          "nativeControlAtEnd": "AUTOPLAY",
+          "stopThresholds": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_plinkox",
+      "officialUrl": "https://www.smartsoftgaming.com/games/plinkox",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "date": "2026-11-11",
+      "mode": "official-demo",
+      "currencyObserved": "DMO",
+      "verifiedCompletedRounds": 0,
+      "status": "controls-observed-no-round-started",
+      "observedFeatures": [
+        "Visible 20000.00 DMO balance.",
+        "Risk selection offers LOW, MEDIUM and HIGH with displayed maximum multipliers 200x, 1000x and 10000x.",
+        "Ball amount choices are 1, 5, 10 and 25. Initial total bet reads 1 x 1 = 1 DMO."
+      ],
+      "notEstablished": [
+        "Completed round behavior",
+        "Exact peg and bucket geometry",
+        "Risk-specific payout tables and probabilities",
+        "Multiple-ball accounting",
+        "Audio and mobile layout"
+      ],
+      "implementationGap": "Current independent Plinko X model has a generic board and does not yet reproduce the observed risk selector or multiple-ball amounts. No corrective model change was made in this observation."
+    }
+  ]
+}

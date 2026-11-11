@@ -6,8 +6,8 @@ import {fileURLToPath, pathToFileURL} from 'node:url';
 
 const ROOT=dirname(fileURLToPath(import.meta.url));
 const PRESENCE='/player-v236/presence.63ed199a80b6c700.mjs';
-// The client currently has a complete implementation for this game only.
-// Registering additional server math never silently exposes an unfinished client.
+// Preserve the prepared v1 API catalog for compatibility. The 72 new machines
+// use the distinct account-api and retained LibraryService catalog below.
 export const CLIENT_GAME_IDS=Object.freeze(['ind74_mineisland2']);
 const MIME={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'application/javascript; charset=utf-8'};
 const sha=value=>createHash('sha256').update(value).digest('hex');
@@ -34,7 +34,7 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
   if(!/^r[1-9][0-9]*$/.test(release))throw new Error('Use an explicit release identifier.');
   const MAIN='independent74-entry-'+release+'.mjs';
   const NAMES=Object.fromEntries(['assets','catalog','gateway','entry'].map(name=>[name,'independent74-'+name+'-'+release+'.mjs']));
-  const requiredNames=['index.html','style.css','app.mjs','api.mjs','audio.mjs'];
+  const requiredNames=['index.html','style.css','app.mjs','api.mjs','audio.mjs','machines74.html','machines74.css','machine74-controller.mjs','machine74-api.mjs','machine74-renderer.mjs','machine74-renderer.css','machine74-audio.mjs'];
   async function webFiles(directory,prefix='') {
     const entries=await readdir(directory,{withFileTypes:true});
     const result=[];
@@ -45,9 +45,9 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     }
     return result.sort();
   }
-  // These sources are already included in test72-bundle.mjs. Keeping a second
-  // served copy wastes the existing Worker's limited uncompressed module size.
-  const bundledOnly=new Set(['test72-entry.mjs','test72-rng.mjs','presentation.mjs','fruit-art.mjs','pegboard.mjs']);
+  // Keep the historical point models in source for offline regression only.
+  // The new machine client accepts account state from the retained server.
+  const bundledOnly=new Set(['test72-entry.mjs','test72-rng.mjs','test72-bundle.mjs','test72.css','test72.html','official74.html','presentation.mjs']);
   const names=(await webFiles(join(rootDir,'client'))).filter(name=>!bundledOnly.has(name));
   for(const name of requiredNames)if(!names.includes(name))throw new Error('Required build input is unavailable: client/'+name);
   const sources=Object.fromEntries(await Promise.all(names.map(async name=>[name,await required(join(rootDir,'client',name))])));
@@ -56,6 +56,8 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
   checkModule(gateway,'gateway.mjs');
   if(!sources['index.html'].includes('</head>'))throw new Error('Client HTML must contain a closing head element.');
   if(!sources['index.html'].includes(PRESENCE))sources['index.html']=sources['index.html'].replace('</head>',`  <script type="module" src="${PRESENCE}"></script>\n</head>`);
+  if(!sources['machines74.html'].includes('</head>'))throw new Error('Machine HTML must contain a closing head element.');
+  if(!sources['machines74.html'].includes(PRESENCE))sources['machines74.html']=sources['machines74.html'].replace('</head>',`  <script type="module" src="${PRESENCE}"></script>\n</head>`);
 
   // Build-time only: the Worker receives public definitions as JSON, never Node math or round state.
   const registry=await import(pathToFileURL(join(rootDir,'math/index.mjs')).href+'?build='+Date.now());
@@ -73,6 +75,11 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     ids.add(game.id);
   }
   const serializedGames=js(games);
+  const adapter=await import(pathToFileURL(join(rootDir,'server/existing-library74-adapter.mjs')).href+'?build='+Date.now());
+  const accountGames=adapter.publicLibrary74Definitions();
+  if(!Array.isArray(accountGames)||accountGames.length!==72||new Set(accountGames.map(g=>g.id)).size!==72)throw new Error('All 72 independent account definitions are required.');
+  if(accountGames.some(g=>!/^ind74_official_[a-z0-9_]+$/.test(g.id)||g.currency!=='ETB'||g.accepting!==false||g.launchable!==false))throw new Error('New account definitions must default to closed release gates.');
+  const serializedAccountGames=js(accountGames);
   const assets=Object.fromEntries(names.map(name=>{
     const extension=name.slice(name.lastIndexOf('.'));
     const body=sources[name],digest=sha(body);
@@ -80,9 +87,9 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
   }));
   const files={
     [NAMES.assets]:`// Generated from current independent client source. No legacy assets are included.\nexport const assets=Object.freeze(Object.assign(Object.create(null),${js(assets)}));\n`,
-    [NAMES.catalog]:`// Public definitions only. Outcomes and wallet state stay on the account server.\nexport const games=Object.freeze(${serializedGames});\n`,
+    [NAMES.catalog]:`// Public definitions only. Outcomes and wallet state stay on the existing account server.\nexport const games=Object.freeze(${serializedGames});\nexport const accountGames=Object.freeze(${serializedAccountGames});\n`,
     [NAMES.gateway]:gateway,
-    [NAMES.entry]:`import previous from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {assets} from './${NAMES.assets}';\nimport {games} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\nexport default {...previous,fetch:createGateway({previous,assets,games})};\n`
+    [NAMES.entry]:`import previous from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {assets} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\nexport default {...previous,fetch:createGateway({previous,assets,games,accountGames})};\n`
   };
   for(const [name,source]of Object.entries(files))checkModule(source,name);
   const modules=Object.entries(files).map(([name,source])=>({name,type:'application/javascript+module',source}));
@@ -92,15 +99,20 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     workerId:'de2bde7dad5e46b8ace8b00c0daf5450',
     expectedVersion,
     mainModule:MAIN,
-    message:`Add isolated independent game namespace (${games.length} authored game${games.length===1?'':'s'}); preserve legacy modules, exports, assets and wallet routes`,
+    message:'Build 72 server-authoritative independent machines for the existing shared wallet; preserve protected games and legacy modules. Release gates remain closed until reviewed.',
     additionalBindings:[],
     modules
   };
   const report={
     namespace:'/independent74/',
-    playableDefinitionCount:games.length,
+    preparedV1DefinitionCount:games.length,
+    supportedMachineCount:accountGames.length,
+    realMoneyReleaseEnabledCount:accountGames.filter(game=>game.launchable).length,
     registeredMathDefinitionCount:definitions.length,
     clientReleaseAllowlist:CLIENT_GAME_IDS,
+    accountDefinitionCount:accountGames.length,
+    browserOutcomeEngineServed:false,
+    accountWallet:'retained LibraryService; no new wallet or database',
     gameIds:[...ids],
     legacyMain:'presentation-player-entry-r23.mjs',
     legacySourcesChanged:false,

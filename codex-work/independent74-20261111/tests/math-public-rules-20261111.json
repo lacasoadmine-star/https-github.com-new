@@ -1,0 +1,2705 @@
+{
+  "schemaVersion": 1,
+  "capturedDate": "2026-11-11",
+  "scope": "All 72 unprotected official-catalogue entries; all 74 primary pages were read; protected Multi Hot 5 and Foxy Hot 20 were not modified.",
+  "sourcesRead": 74,
+  "models": 72,
+  "protectedTitles": [
+    "Multi Hot 5",
+    "Foxy Hot 20"
+  ],
+  "sourcePolicy": "Primary public pages and already observed public DEMO help only. No private endpoints or provider source-code extraction.",
+  "interpretationPolicy": "An advertised feature is not proof of implementation, probability equivalence, certified RTP or production readiness. Source conflicts are retained.",
+  "games": [
+    {
+      "id": "ind74_official_popx",
+      "title": "PopX",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/popx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 6,
+        "rows": 5
+      },
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "tumble-or-cascade",
+        "multiplayer"
+      ],
+      "publicRulesSummary": [
+        "A 6-column, 5-row board has 11 symbol types. Groups of at least eight identical symbols anywhere win and disappear; refill cascades increase the multiplier. A nonwinning refill ends the round.",
+        "The public page describes a shared multiplayer board. This independent implementation does not establish synchronized multiplayer equivalence."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-popx-r3",
+        "rows": 5,
+        "columns": 6,
+        "paylines": null,
+        "maximumMultiplierBps": 1000000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out",
+        "tumble-or-cascade",
+        "6-by-5-grid",
+        "8-or-more-anywhere-matches"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "multiplayer"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_mineisland2",
+      "title": "Mine Island2",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/mine-island2",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice",
+        "automatic-play",
+        "automatic-cash-out",
+        "portal-rescue",
+        "boost"
+      ],
+      "publicRulesSummary": [
+        "Ten multiplier steps and three risk modes are specified. A boost increases remaining awards by 1.5x–2x, and a portal can rescue a fall. The advertised hard-mode maximum is 10000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 10000,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-mineisland2-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 5000000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice",
+        "automatic-play",
+        "automatic-cash-out",
+        "portal-rescue",
+        "boost"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_neweraofjetx",
+      "title": "New Era of JetX",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/jetx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "automatic-play",
+        "automatic-cash-out",
+        "cash-out",
+        "multiple-bets"
+      ],
+      "publicRulesSummary": [
+        "The page lists four concurrent bets, auto-play and auto-cash-out, live round history and player data."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-neweraofjetx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 900000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "automatic-play",
+        "automatic-cash-out",
+        "multiple-bets"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_balloonx",
+      "title": "BalloonX",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/balloonx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice",
+        "cash-out",
+        "multiplayer",
+        "multiple-bets"
+      ],
+      "publicRulesSummary": [
+        "Collect before the growing balloon bursts. Four concurrent bets are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-balloonx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1100000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice",
+        "multiplayer",
+        "multiple-bets"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_plinkoxclassic",
+      "title": "Plinko X Classic",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "tumble-or-cascade",
+        "automatic-play",
+        "colored-ball-factors"
+      ],
+      "publicRulesSummary": [
+        "The observed demo has 16 peg rows and 17 buckets. Pink, orange and fire balls carry 1x, 5x and 10x factors. The advertised maximum is 10000x.",
+        "The implementation uses server-selected colors and independent 995/4/1 weights; neither the weights nor the selection process are claimed as provider probabilities."
+      ],
+      "sourceConflicts": [
+        "Marketing describes player-selected stake factors. The separately observed demo presents a static color legend and a 10000x maximum without an observed color selector."
+      ],
+      "advertisedMaximumMultiplier": 10000,
+      "currentModel": {
+        "family": "plinko",
+        "mathVersion": "official72-plinkoxclassic-r3",
+        "rows": 16,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 100000000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "colored-ball-factors"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "tumble-or-cascade",
+        "automatic-play"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_propelx",
+      "title": "Propel X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/propel-x",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "automatic-play",
+        "cash-out",
+        "multiplayer",
+        "multiple-bets"
+      ],
+      "publicRulesSummary": [
+        "The plane passes three visual danger zones. Two concurrent bets and automatic cash-out are listed. The advertised maximum is 1000000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 1000000,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-propelx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1500000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "automatic-play",
+        "multiplayer",
+        "multiple-bets"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_worldchampionx",
+      "title": "World Champion X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/world-champion-x",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out",
+        "multiplayer"
+      ],
+      "publicRulesSummary": [
+        "Collect before the football attacker is tackled. Both click-and-collect and press-and-hold controls are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-worldchampionx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 500000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "multiplayer"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_poweroftiger",
+      "title": "Power of Tiger",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/power-of-tiger",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "respin"
+      ],
+      "publicRulesSummary": [
+        "Five active paylines are specified. A full board of one symbol or wins on all five lines activates a 5x, 10x, 15x or 20x multiplier.",
+        "The random respin feature locks the selected symbol and wilds; it ends after no new locks or a full board. The feature multiplier applies to a full board."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 2500,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-poweroftiger-r3",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 11810000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "respin"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multifruitschargingwilds",
+      "title": "Multi Fruits Charging Wilds",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "x2-gamble",
+        "persistent-wild"
+      ],
+      "publicRulesSummary": [
+        "A nonwinning wild stays in place and increases its multiplier by one each new spin. Five fixed paylines are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multifruitschargingwilds-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 15250000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "x2-gamble",
+        "persistent-wild"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_gemscrownchargingwilds",
+      "title": "Gems Crown Charging Wilds",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "x2-gamble",
+        "persistent-wild"
+      ],
+      "publicRulesSummary": [
+        "Each nonwinning crown wild persists and increases its multiplier independently. A contributing wild multiplies its win and is removed; unused wilds continue charging. Five lines are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-gemscrownchargingwilds-r3",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 14210000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "x2-gamble",
+        "persistent-wild"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_gatesofmerlyn",
+      "title": "Gates of Merlyn",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/gates-of-merlyn",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "tumble-or-cascade"
+      ],
+      "publicRulesSummary": [
+        "Four or more scatters trigger 15 free spins. Three or more scatters within the bonus add five spins. Contributing multipliers accumulate across the bonus.",
+        "Multiplier symbols combine across the tumble sequence. A magic symbol can remove another symbol after a nonwinning board."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 5000,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-gatesofmerlyn-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 13170000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "tumble-or-cascade"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_chickenways",
+      "title": "Chicken Ways",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/chicken-ways",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Each step offers two or three risk choices. Difficulty can change at individual steps. The advertised maximum is 10000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 10000,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-chickenways-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1110000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_dicejungle",
+      "title": "Dice Jungle",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/dice-jungle",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "tumble-or-cascade",
+        "extra-multiplier",
+        "risk-mode-choice",
+        "boost"
+      ],
+      "publicRulesSummary": [
+        "The page lists a 5x3 dice grid, a synchronized horizontal multiplier reel, wilds, scatters and hold-and-spin. The complete payout rules are absent."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-dicejungle-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 13960000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "tumble-or-cascade",
+        "extra-multiplier",
+        "risk-mode-choice",
+        "boost"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot5wild",
+      "title": "Multi Hot 5 Wild",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "Three reels and three rows with five fixed lines. Wild substitutes on three-symbol left-to-right wins; the left multiplier reel offers 1x–5x. X2 is advertised.",
+        "The observed Rules paytable contains nine regular symbols and a separate Wild award. At total stake 0.05 DMO over five lines, prizes correspond to line multipliers 75, 50, 25, 15, 15, 5, 5, 5, 5 and Wild 100."
+      ],
+      "sourceConflicts": [
+        "The observed all-wild prize and a possible 5x multiplier permit a 500x independent full-board bound; the help states 375x. Provider restrictions or coupling are unverified."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot5wild-r4",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "maximumMultiplierBps": 5000000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "extra-multiplier",
+        "wild-symbol"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "x2-gamble"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true,
+      "additionalEvidence": [
+        "tests/evidence/official-demo-observations-frontend.json",
+        "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+      ]
+    },
+    {
+      "id": "ind74_official_cheesyroad",
+      "title": "Cheesy Road",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/cheesy-road",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice",
+        "cash-out"
+      ],
+      "publicRulesSummary": [
+        "Easy, medium and difficult directions can be chosen at each step, followed by another jump or cash-out. The advertised maximum is 10000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 10000,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-cheesyroad-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1140000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_fortunecatch",
+      "title": "Fortune Catch",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/fortune-catch",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [
+        "The multiplier increases after successful player picks, not merely with elapsed time. A wrong pick can end the round. Eight multipliers are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "wheel",
+        "mathVersion": "official72-fortunecatch-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 519000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot20",
+      "title": "Multi Hot 20",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-20",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        100
+      ],
+      "publicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "Three rows and five reels, an extra 1x–5x multiplier and red/black X2 are described. The fixed-line count is inconsistent on this page."
+      ],
+      "sourceConflicts": [
+        "The game is titled Multi Hot 20, but its feature list states 100 fixed paylines; this is not reliable evidence to replace the 20-line configuration."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot20-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 13400000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_cheesyroadclassic",
+      "title": "Cheesy Road Classic",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/cheesy-road-classic",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice",
+        "automatic-play",
+        "cash-out"
+      ],
+      "publicRulesSummary": [
+        "Choose whether to advance toward another multiplier or collect before a trap. Three difficulty levels are advertised."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-cheesyroadclassic-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1170000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice",
+        "automatic-play"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot10",
+      "title": "Multi Hot 10",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        10
+      ],
+      "publicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "Three rows and five reels with ten fixed lines, a 1x–5x multiplier and red/black X2."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot10-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 15070000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_multihot40",
+      "title": "Multi Hot 40",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-40",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 4
+      },
+      "publicPaylineCounts": [
+        40
+      ],
+      "publicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "Four rows and five reels with 40 fixed lines, an extra multiplier and X2. The text does not enumerate the multiplier values."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot40-r2",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 40,
+        "maximumMultiplierBps": 14030000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_coinsofatlantis",
+      "title": "Coins Of Atlantis",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "bonus-purchase",
+        "respin",
+        "multiplayer",
+        "multiple-bets"
+      ],
+      "publicRulesSummary": [
+        "Wilds on reels two through four expand when used in a win. Five or more coins trigger a locked-coin respin feature.",
+        "New coins reset the three-respin allowance. Filling the board doubles the feature total."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-coinsofatlantis-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 12990000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "bonus-purchase",
+        "respin",
+        "multiplayer",
+        "multiple-bets"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot100",
+      "title": "Multi Hot 100",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-100",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 4
+      },
+      "publicPaylineCounts": [
+        100
+      ],
+      "publicFeatures": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "Four rows and five reels with 100 fixed lines and a 1x–5x multiplier. Observed help permits red/black doubling or collecting a held win."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot100-r3",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 100,
+        "maximumMultiplierBps": 200000000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_multihotwildways",
+      "title": "Multi Hot Wild Ways",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "extra-multiplier"
+      ],
+      "publicRulesSummary": [
+        "The page specifies 27 ways and wild substitution across successive reels from the left. The multiplier reel applies to the total spin win."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihotwildways-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 10910000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "extra-multiplier"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_bottlemania",
+      "title": "Bottle Mania",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/bottle-mania",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice",
+        "cash-out"
+      ],
+      "publicRulesSummary": [
+        "Choose a bottle with its own color and maximum; collect before it bursts. The advertised overall maximum is 50000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 50000,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-bottlemania-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1230000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "extra-multiplier",
+        "x2-gamble",
+        "boost"
+      ],
+      "publicRulesSummary": [
+        "Three rows and five reels, five lines, and wilds restricted to reels two through four. A contributing wild fills its reel vertically.",
+        "The total win receives a 1x–5x multiplier; X2 is also advertised."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot5burnwilds-r3",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 25000000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "expanding-wild",
+        "extra-multiplier",
+        "wild-symbol"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "x2-gamble",
+        "boost"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_chickenhighway",
+      "title": "Chicken Highway",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/chicken-highway",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Three starting difficulty levels are described. The advertised maximum is 10000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 10000,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-chickenhighway-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1250000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot5deluxe",
+      "title": "Multi Hot 5 Deluxe",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "The specifications explicitly state three reels, three rows and five fixed lines."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot5deluxe-r3",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "maximumMultiplierBps": 370000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_carx",
+      "title": "CarX",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/carx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out",
+        "multiplayer"
+      ],
+      "publicRulesSummary": [
+        "Separate cash-out and end-range bets are described; the present independent cash-out model does not implement the range bet."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-carx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1100000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "multiplayer"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_caibalaocappadocia",
+      "title": "Cai Balao Cappadocia",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/cai-balao-cappadocia",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out",
+        "colored-ball-factors"
+      ],
+      "publicRulesSummary": [
+        "The page describes separate three-reel slot and crash modes. Matching balloons can start a flight bonus. Slot and crash maximums are 1000x and 25000x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-caibalaocappadocia-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1280000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "colored-ball-factors"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihotwheel",
+      "title": "Multi Hot Wheel",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-wheel",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [
+        "The wheel has 50 sectors. Bets select multiplier fields; only a matching field wins. A designated field starts the bonus with a possible 1000x award."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "wheel",
+        "mathVersion": "official72-multihotwheel-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 525400,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_jinglebellbonanza",
+      "title": "Jingle Bell Bonanza",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "extra-multiplier"
+      ],
+      "publicRulesSummary": [
+        "Wilds on reels two through four expand when contributing to a win. Scatters and an extra multiplier up to 5x are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-jinglebellbonanza-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 12810000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "extra-multiplier"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihot5superwilds",
+      "title": "Multi Hot 5 Super Wilds",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "The public page specifies five reels, three rows and five fixed lines, plus a wild, extra multiplier and X2."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihot5superwilds-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 11770000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "extra-multiplier",
+        "x2-gamble"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_balloon",
+      "title": "Balloon",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/balloon",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-balloon-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1320000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_plinkox",
+      "title": "Plinko X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/plinkox",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "plinko",
+        "mathVersion": "official72-plinkox-r2",
+        "rows": 10,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 525000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_helicopterx",
+      "title": "Helicopter X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/helicopter-x",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-helicopterx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1300000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_safarisimba",
+      "title": "Safari Simba",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/safari-simba-2",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "free-spins",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "The specifications state three reels, three rows and five lines. The description also advertises expanding wilds and free spins."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-safarisimba-r3",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "maximumMultiplierBps": 390000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "free-spins",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_mineisland",
+      "title": "Mine Island",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/mine-island",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [
+        "A grid-based pick game reveals multipliers while avoiding mines. The page does not specify exact dimensions or award probabilities."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "mines",
+        "mathVersion": "official72-mineisland-r2",
+        "rows": 5,
+        "columns": 5,
+        "paylines": null,
+        "maximumMultiplierBps": 25065,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_multihotways",
+      "title": "Multi Hot Ways",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        40
+      ],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [
+        "The page describes Burning Ice 40 and its specifications instead of the catalogued title."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-multihotways-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 11840000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_footballx",
+      "title": "Football X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/fotballx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-footballx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1100000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_burningice40",
+      "title": "Burning Ice 40",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/burning-ice-40",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        40
+      ],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-burningice40-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 40,
+        "maximumMultiplierBps": 16070000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_mariachicoins",
+      "title": "Mariachi Coins",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/mariachi-coins",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "bonus-purchase",
+        "respin"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-mariachicoins-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 15030000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "bonus-purchase",
+        "respin"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_habeshafortune5",
+      "title": "Habesha Fortune 5",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/hab",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [
+        "Three reels and a 3x3 board are explicitly described. The complete line chart and award schedule are not specified."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-habeshafortune5-r3",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "maximumMultiplierBps": 380000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_4bonusesbonanza",
+      "title": "4 Bonuses Bonanza",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/4-bonuses-bonanza",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "A pegboard ball-drop game includes variable volatility and bonus rounds; precise board dimensions and bonus rules are not supplied."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "plinko",
+        "mathVersion": "official72-4bonusesbonanza-r2",
+        "rows": 12,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 2063200,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_cricketx",
+      "title": "Cricket X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/cricket-x",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-cricketx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1100000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_burningice",
+      "title": "Burning Ice",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/burning-ice-41",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        5
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Five reels, three rows and five paylines are specified. Wild and scatter features are advertised."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-burningice-r3",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 10870000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_cricketerx",
+      "title": "CricketerX",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/cricketerx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-cricketerx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1500000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_wheelofdestiny",
+      "title": "Wheel Of Destiny",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "automatic-play"
+      ],
+      "publicRulesSummary": [
+        "A spinning-wheel game with a bonus feature advertises a maximum of 1200x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 1200,
+      "currentModel": {
+        "family": "wheel",
+        "mathVersion": "official72-wheelofdestiny-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 514800,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "automatic-play"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_wildmultistars",
+      "title": "Wild Multi Stars",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol"
+      ],
+      "publicRulesSummary": [
+        "Five reels, wild multipliers and stacked symbols are described; full mechanics are not supplied."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-wildmultistars-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 15100000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_crashduel",
+      "title": "Crash Duel",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/crash-duel",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [
+        "Players select a side in a short competitive round. The detailed outcome and settlement rules are not published on this page."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-crashduel-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 900000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_geniesbonanza",
+      "title": "Genie's Bonanza",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/genies-bonanza",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 6
+      },
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [
+        "The introduction calls this a six-reel game while its specifications state five reels and six rows."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-geniesbonanza-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "maximumMultiplierBps": 13020000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_bonustime",
+      "title": "Bonus Time",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/bonus-time",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "automatic-play",
+        "cash-out",
+        "multiplayer",
+        "boost"
+      ],
+      "publicRulesSummary": [
+        "The page lists a seven-segment wheel, selectable wager segments and three bonus types: Boost, Double and Chest."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "wheel",
+        "mathVersion": "official72-bonustime-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 510200,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "automatic-play",
+        "cash-out",
+        "multiplayer",
+        "boost"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_farmsfortune",
+      "title": "Farm's Fortune",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "scatter",
+        "bonus-purchase",
+        "extra-multiplier",
+        "x2-gamble",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "The farmer wild appears on reels two through four and expands when part of a win. Scatters, an extra multiplier up to 5x and gamble are listed."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-farmsfortune-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 13810000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "scatter",
+        "bonus-purchase",
+        "extra-multiplier",
+        "x2-gamble",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_madslot",
+      "title": "Mad Slot",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/mad-slot",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        20
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "free-spins",
+        "bonus-purchase",
+        "tumble-or-cascade",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Five reels, three rows and 20 lines are specified. Wilds, cascades, free spins and bonus purchase are advertised."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-madslot-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 12770000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "free-spins",
+        "bonus-purchase",
+        "tumble-or-cascade",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_aviastar",
+      "title": "AviaStar",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/aviastar",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out",
+        "multiple-bets"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [
+        "The page describes JetX3. The relationship to the catalogued AviaStar demo has not been independently verified."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-aviastar-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 700000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "multiple-bets"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_smashx",
+      "title": "Smash X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/smash-x",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "crash",
+        "mathVersion": "official72-smashx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 900000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_towerx",
+      "title": "Tower X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/tower-x",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "cash-out",
+        "multiplayer"
+      ],
+      "publicRulesSummary": [
+        "The multiplier increases as the tower adds levels. Collect before the tower collapses."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "ladder",
+        "mathVersion": "official72-towerx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 1570000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [
+        "cash-out"
+      ],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "multiplayer"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_hotsamba",
+      "title": "Hot Samba",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/hot-samba",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        5,
+        20
+      ],
+      "publicFeatures": [
+        "scatter",
+        "free-spins",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [
+        "The introduction specifies five reels and 20 lines; its specifications instead state three reels, three rows and five lines."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-hotsamba-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 13090000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "scatter",
+        "free-spins",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_wildsandgods",
+      "title": "Wilds and Gods",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/wilds-and-gods",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Five reels with expanding wilds, free spins and bonus purchase are described."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-wildsandgods-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "maximumMultiplierBps": 14920000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_baoslot5x",
+      "title": "Bao Slot 5X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/bao-slot-5",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 3,
+        "rows": 3
+      },
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "x2-gamble"
+      ],
+      "publicRulesSummary": [
+        "A 3x3 grid and a double-or-nothing gamble feature are described."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-baoslot5x-r3",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "maximumMultiplierBps": 390000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "x2-gamble"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    },
+    {
+      "id": "ind74_official_junglesisters",
+      "title": "Jungle Sisters",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Expanding wilds, scatter-triggered free spins and bonus purchase are described."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-junglesisters-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 12840000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_bokajamba10",
+      "title": "Boka Jamba 10",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/boca-jamba-10",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter"
+      ],
+      "publicRulesSummary": [
+        "Wild and scatter features are described, but exact geometry and the line chart are absent."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-bokajamba10-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 11800000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_junglesistersdeluxe",
+      "title": "Jungle Sisters Deluxe",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [
+        20
+      ],
+      "publicFeatures": [
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "extra-multiplier"
+      ],
+      "publicRulesSummary": [
+        "Twenty fixed lines and a random multiplier reel are specified. Seven or more scatters trigger free spins; the page does not give their count."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-junglesistersdeluxe-r3",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 10760000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "extra-multiplier"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_dragonscode",
+      "title": "Dragon's Code",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/dragons-code",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "bonus-purchase",
+        "respin"
+      ],
+      "publicRulesSummary": [
+        "Four matching symbols on the first reel plus a wild elsewhere can start the respin feature. A golden egg can instead fill the first reel with dragons.",
+        "The feature collects symbols until no additional symbols arrive, then totals the award."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-dragonscode-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "maximumMultiplierBps": 14200000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "bonus-purchase",
+        "respin"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_draculasfortune",
+      "title": "Dracula's Fortune",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "free-spins"
+      ],
+      "publicRulesSummary": [
+        "Five reels with wilds and scatter-triggered free spins are described."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-draculasfortune-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 16030000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "free-spins"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_bookoffuturia",
+      "title": "Book of Futuria",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/book-of-futuria",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Five reels and scatter-triggered free spins are described. A randomly chosen symbol expands in the bonus."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-bookoffuturia-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "maximumMultiplierBps": 14990000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_bookofbonanza",
+      "title": "Book of Bonanza",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [
+        "Books act as wilds and scatters; the bonus uses free spins and expanding symbols. The page omits the numeric trigger and spin count."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-bookofbonanza-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "maximumMultiplierBps": 13950000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_sugarfiesta",
+      "title": "Sugar Fiesta",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [
+        3
+      ],
+      "publicFeatures": [
+        "extra-multiplier",
+        "boost"
+      ],
+      "publicRulesSummary": [
+        "Three fixed paylines and a multiplier reel with a maximum factor of five are specified."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-sugarfiesta-r3",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 3,
+        "maximumMultiplierBps": 12910000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "extra-multiplier",
+        "boost"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_vampires",
+      "title": "Vampires",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/vampires",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "scatter",
+        "free-spins"
+      ],
+      "publicRulesSummary": [
+        "Five reels, expanding symbols and scatter-triggered free spins are described."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-vampires-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 11870000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "scatter",
+        "free-spins"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_burningice10",
+      "title": "Burning Ice 10",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/blazing-hot-10",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "wild-symbol",
+        "scatter"
+      ],
+      "publicRulesSummary": [
+        "Five reels and ten paylines with wild substitution and scatter awards are specified."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-burningice10-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 10830000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "scatter"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_rollx",
+      "title": "Roll X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/rollx",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [],
+      "publicRulesSummary": [
+        "Players choose a multiplier before spinning a wheel and win on its green area. The advertised maximum is 30x."
+      ],
+      "sourceConflicts": [],
+      "advertisedMaximumMultiplier": 30,
+      "currentModel": {
+        "family": "dice",
+        "mathVersion": "official72-rollx-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 96000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_doublex",
+      "title": "Double X",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/doublex",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": null,
+      "publicPaylineCounts": [],
+      "publicFeatures": [
+        "multiplayer"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [
+        "The paragraph switches from Double X to Slicer X; the exact demo rules still need confirmation."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "wheel",
+        "mathVersion": "official72-doublex-r2",
+        "rows": null,
+        "columns": null,
+        "paylines": null,
+        "maximumMultiplierBps": 502200,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "multiplayer"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": false
+    },
+    {
+      "id": "ind74_official_samurai",
+      "title": "Samurai",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+      "sourceAccess": "official-public-page",
+      "sourceReadDate": "2026-11-11",
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
+      "publicPaylineCounts": [
+        20
+      ],
+      "publicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "x2-gamble",
+        "risk-mode-choice"
+      ],
+      "publicRulesSummary": [],
+      "sourceConflicts": [
+        "The detailed specification names Samurai Delux and includes optional features; applicability to the catalogued Samurai demo needs confirmation."
+      ],
+      "advertisedMaximumMultiplier": null,
+      "currentModel": {
+        "family": "slots",
+        "mathVersion": "official72-samurai-r2",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "maximumMultiplierBps": 14350000,
+        "independentModel": true
+      },
+      "implementedPublicFeatureSubset": [],
+      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
+        "expanding-wild",
+        "scatter",
+        "free-spins",
+        "bonus-purchase",
+        "x2-gamble",
+        "risk-mode-choice"
+      ],
+      "providerProbabilitiesVerified": false,
+      "completeReferenceParityVerified": false,
+      "geometryMatchesCurrentModel": true
+    }
+  ]
+}

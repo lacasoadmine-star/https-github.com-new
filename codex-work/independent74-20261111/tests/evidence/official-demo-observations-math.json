@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "observations": [
+    {
+      "gameId": "ind74_official_fortunecatch",
+      "title": "Fortune Catch",
+      "verifiedCompletedRounds": 0,
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO",
+      "mode": "official-demo",
+      "currencyObserved": "DMO",
+      "status": "loading-screen-persisted-after-one-reload",
+      "countEvidence": "No Play action was taken; the visible canvas stayed on the SmartSoft loading screen before and after one reload. No completed round was visible.",
+      "publicUiObserved": [
+        "BALANCE DMO",
+        "BET COLLECT 0.10 DMO",
+        "eight additive target labels: +1000x,+300x,+100x,+50x,+0.1x,+0.5x,+1x,+5x"
+      ],
+      "concurrencyErrorObserved": false,
+      "productionFundsTouched": false
+    },
+    {
+      "gameId": "ind74_official_rollx",
+      "title": "Roll X",
+      "verifiedCompletedRounds": 1,
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "mode": "official-demo",
+      "currencyObserved": "DMO",
+      "status": "one-completed-round-confirmed",
+      "countEvidence": "One manual SPIN was followed by visible STOP during animation, then TRY AGAIN and ready SPIN; pointer finished in black sector. Balance changed from 20000.00 to 19999.80 DMO for one 0.20 DMO stake, with no payout. No autoplay was started. Last read-only checkpoint still showed ready SPIN and 19999.80 DMO.",
+      "rounds": [
+        {
+          "stake": "0.20",
+          "selectedMultiplier": "1.4",
+          "result": "loss",
+          "payout": "0.00",
+          "balanceBefore": "20000.00",
+          "balanceAfter": "19999.80",
+          "visibleGameClock": "08:24:29",
+          "visibleClockTimezone": "not-confirmed",
+          "observedDate": "2026-11-11"
+        }
+      ],
+      "publicUiObserved": [
+        "Green/black circular wheel with fixed top pointer",
+        "Multiplier adjustment and bet amount sliders",
+        "Displayed prospective WIN 0.28 DMO at 0.20 DMO bet and 1.4 X; this appears before the spin and is not counted as a paid win"
+      ],
+      "screenshot": "tests/evidence/rollx-first-round.png",
+      "productionFundsTouched": false
+    }
+  ],
+  "notStartedGameIds": [
+    "ind74_official_towerx",
+    "ind74_official_doublex"
+  ],
+  "freezeReason": "User requested a saved continuation checkpoint; no additional demos or features started.",
+  "updatedAt": "2026-11-11T05:41:58.704726+00:00"
+}

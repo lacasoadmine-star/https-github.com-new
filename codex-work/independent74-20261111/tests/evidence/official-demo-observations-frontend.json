@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "observer": "frontend_audit",
+  "method": "Visible official DEMO UI only; no internal game state or network outcome inspection",
+  "observations": [
+    {
+      "gameId": "ind74_official_multihot5wild",
+      "title": "Multi Hot 5 Wild",
+      "protected": false,
+      "observedOn": "2026-11-11",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "demoEvidence": {
+        "outerToken": "DEMO",
+        "displayCurrency": "DMO",
+        "initialBalance": "20000.00",
+        "finalBalance": "19999.50"
+      },
+      "verifiedCompletedRounds": 10,
+      "countConfidence": "high: ten current-date visible history rows and settled Spin ID suffix 10",
+      "countEvidence": {
+        "date": "11.11.2026",
+        "displayedTimes": [
+          "08:20:20",
+          "08:21:57",
+          "08:22:15",
+          "08:22:19",
+          "08:22:24",
+          "08:22:35",
+          "08:22:39",
+          "08:22:50",
+          "08:23:12",
+          "08:23:30"
+        ],
+        "betPerRound": "0.05",
+        "winPerRound": "0.00",
+        "currency": "DMO",
+        "firstSpinId": "1965839244.1",
+        "lastSpinId": "1965839244.10",
+        "excludedHistoryDate": "28.10.2026"
+      },
+      "autoplay": {
+        "visibleCounts": [
+          25,
+          50,
+          100,
+          500,
+          1000
+        ],
+        "selectedCount": 100,
+        "started": true,
+        "completed": 9,
+        "remainingAtManualStop": 91,
+        "stopped": true,
+        "stopThresholdsEnabled": false,
+        "note": "Stopped the slow batch to prioritize one observed round for each title."
+      },
+      "layout": {
+        "rows": 3,
+        "columns": 3,
+        "fixedLines": 5,
+        "multiplierPlacement": "left reel",
+        "publishedMultiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "publishedPaytable": {
+        "displayedTotalBet": "0.05",
+        "currency": "DMO",
+        "matchCount": 3,
+        "awards": [
+          {
+            "symbols": [
+              "Wild"
+            ],
+            "win": "1.00"
+          },
+          {
+            "symbols": [
+              "double seven"
+            ],
+            "win": "0.75"
+          },
+          {
+            "symbols": [
+              "double dollar"
+            ],
+            "win": "0.50"
+          },
+          {
+            "symbols": [
+              "bell"
+            ],
+            "win": "0.25"
+          },
+          {
+            "symbols": [
+              "watermelon",
+              "grapes"
+            ],
+            "win": "0.15"
+          },
+          {
+            "symbols": [
+              "plum",
+              "lemon",
+              "orange",
+              "cherry"
+            ],
+            "win": "0.05"
+          }
+        ]
+      },
+      "publishedHelp": {
+        "minimumBetDMO": "0.05",
+        "maximumBetDMO": "400.00",
+        "maximumWinMultiple": 375,
+        "rtpPercent": 95.77,
+        "version": "v1.0.1",
+        "wildSubstitution": true,
+        "redBlackX2": true
+      },
+      "limitations": [
+        "No three-Wild payout was observed; the value is a published paytable entry.",
+        "The published Wild award and 375× maximum require further clarification; no hidden coupling or probabilities inferred.",
+        "Demo stake limits are DMO reference facts, not ETB account configuration.",
+        "Turbo toggle was clicked but activation was not conclusively established."
+      ],
+      "evidence": [
+        "tests/evidence/official-demo-frontend/multihot5wild-round1.png",
+        "tests/evidence/official-demo-frontend/multihot5wild-rules.png",
+        "tests/evidence/official-demo-frontend/multihot5wild-history1.png",
+        "tests/evidence/official-demo-frontend/multihot5wild-autoplay100-config.png",
+        "tests/evidence/official-demo-frontend/multihot5wild-history-final.png"
+      ]
+    },
+    {
+      "gameId": "ind74_official_multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "protected": false,
+      "observedOn": "2026-11-11",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "demoEvidence": {
+        "outerToken": "DEMO",
+        "displayCurrency": "DMO",
+        "initialBalance": "20000.00",
+        "finalBalance": "19999.90"
+      },
+      "verifiedCompletedRounds": 1,
+      "countConfidence": "moderate: one manually initiated round settled, with surviving post-round screenshot and visible Spin ID suffix 1; history row was not captured",
+      "countEvidence": {
+        "manualActions": 1,
+        "displayedBet": "0.10",
+        "currency": "DMO",
+        "settledScreenshotClock": "08:25:29",
+        "spinIdScreenshotClock": "08:25:41",
+        "settledSpinId": "1965843039.1",
+        "historyVerified": false,
+        "settledState": "Static result board, ready HOLD & SPIN control, balance 19999.90 DMO and no win displayed"
+      },
+      "autoplay": {
+        "started": false,
+        "completed": 0,
+        "activeAtCheckpoint": false
+      },
+      "layout": {
+        "rows": 3,
+        "columns": 5,
+        "multiplierPlacement": "top semicircular arc",
+        "publishedMultiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "settledDisplayedMultiplier": 5
+      },
+      "publishedPaytable": {
+        "displayedTotalBet": "0.10",
+        "currency": "DMO",
+        "awards": [
+          {
+            "symbol": "single seven",
+            "byMatchCount": {
+              "5": "10.00",
+              "4": "1.00",
+              "3": "0.40",
+              "2": "0.05"
+            }
+          },
+          {
+            "symbol": "grapes",
+            "byMatchCount": {
+              "5": "2.00",
+              "4": "0.40",
+              "3": "0.20"
+            }
+          },
+          {
+            "symbol": "watermelon",
+            "byMatchCount": {
+              "5": "2.00",
+              "4": "0.40",
+              "3": "0.20"
+            }
+          },
+          {
+            "symbol": "bell",
+            "byMatchCount": {
+              "5": "1.00",
+              "4": "0.20",
+              "3": "0.10"
+            }
+          }
+        ]
+      },
+      "publishedHelp": {
+        "minimumBetDMO": "0.10",
+        "maximumBetDMO": "200.00",
+        "maximumWinMultiple": 1300,
+        "rtpPercent": 96.55,
+        "version": "v1.0.1",
+        "wildReels": [
+          2,
+          3,
+          4
+        ],
+        "wildExpansion": "Wild expands vertically when part of a winning line",
+        "redBlackX2": true,
+        "doubleUpLimitDMO": "500.00"
+      },
+      "limitations": [
+        "The visible Spin ID and settled screenshot support one completed round; no current-day history row was captured before the parent closed the demo tabs.",
+        "The main stage visibly places the multiplier above the reels, while help text refers to a left reel; the visual placement correction remains pending in local layout/rendering.",
+        "No actual winning Wild expansion or X2 gamble was observed.",
+        "Published DMO stake limits are not ETB account configuration.",
+        "Low-fruit paytable values were read in the visible rules but the surviving image crops that section; they are omitted from the structured confirmed paytable."
+      ],
+      "evidence": [
+        "tests/evidence/official-demo-frontend/multihot5burnwilds-round1.png",
+        "tests/evidence/official-demo-frontend/multihot5burnwilds-rules.png",
+        "tests/evidence/official-demo-frontend/multihot5burnwilds-rules-lower.png"
+      ]
+    }
+  ],
+  "status": "checkpoint_frozen",
+  "verifiedCompletedRoundsTotal": 11,
+  "sessionCleanup": {
+    "autoplayActive": false,
+    "officialDemoTabsClosedByParent": true,
+    "newRoundsStartedAfterFreeze": false
+  },
+  "blockers": [
+    {
+      "kind": "official_slot_session_limit",
+      "status": "respected",
+      "details": "The official demo allowed one slot table at a time. A second Burn Wilds tab was closed without a round before the observed serial session. No identity or session-limit bypass was used."
+    },
+    {
+      "kind": "automated_local_browser_qa",
+      "status": "unexecuted",
+      "details": "Chromium launch failed with socket Operation not permitted; the specific outside-sandbox test command was automatically rejected. No retry or bypass. The browser test script exists, but no passing browser report or 288-layout-check claim exists."
+    },
+    {
+      "kind": "checkpoint_freeze",
+      "status": "paused",
+      "details": "Further title audits and demo rounds paused at the user request for a continuation prompt. No new demo exploration or feature changes after freeze."
+    }
+  ],
+  "remainingAssignedTitlesNotObserved": [
+    "ind74_official_multihot100",
+    "ind74_official_multihotwildways",
+    "ind74_official_multihot5superwilds",
+    "ind74_official_multihot40"
+  ]
+}

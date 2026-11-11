@@ -1,0 +1,3605 @@
+{
+  "schemaVersion": 2,
+  "sourceDate": "2026-11-11",
+  "scope": "72 independent operator models; protected Multi Hot 5 and Foxy Hot 20 excluded",
+  "productionWalletVerification": false,
+  "providerPrivateMathVerified": false,
+  "completeReferenceParityVerified": false,
+  "counts": {
+    "models": 72,
+    "families": {
+      "crash": 13,
+      "ladder": 9,
+      "plinko": 3,
+      "slots": 40,
+      "wheel": 5,
+      "mines": 1,
+      "dice": 1
+    },
+    "observedGeometry": 16
+  },
+  "games": [
+    {
+      "id": "ind74_official_popx",
+      "title": "PopX",
+      "family": "crash",
+      "mathVersion": "official72-popx-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/popx",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies a 6-by-5 grid, eleven symbols, and matches of eight or more identical symbols anywhere. The official screenshot confirms six columns and five rows."
+        ],
+        "limitations": [
+          "Conditional board probabilities, cycle timing, multiplier schedule and 100x cap are independently authored.",
+          "Shared multiplayer sessions and any provider bonus mechanics are not implemented."
+        ],
+        "kind": "cascade",
+        "rows": 5,
+        "columns": 6,
+        "symbols": 11,
+        "minimumMatchingSymbols": 8,
+        "maximumMultiplierBps": 1000000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "description": "Independent survival schedule gives 96% expected return at each fixed successful-stage cashout before minor-unit rounding. This is not provider RTP."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "10000",
+          "maximumStakeMaximumPayoutMinor": "40000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_mineisland2",
+      "title": "Mine Island2",
+      "family": "ladder",
+      "mathVersion": "official72-mineisland2-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy",
+          "medium",
+          "hard"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "explanation": "Our original model returns exactly 96% in expectation at any listed collect step for permitted stakes. Integer payout division floors, but all permitted stakes and listed multipliers divide exactly in this version. This is not a SmartSoft RTP claim."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "10000",
+          "maximumStakeMaximumPayoutMinor": "40000000"
+        },
+        {
+          "options": {
+            "mode": "medium"
+          },
+          "minimumStakeMaximumPayoutMinor": "25000",
+          "maximumStakeMaximumPayoutMinor": "100000000"
+        },
+        {
+          "options": {
+            "mode": "hard"
+          },
+          "minimumStakeMaximumPayoutMinor": "50000",
+          "maximumStakeMaximumPayoutMinor": "200000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_neweraofjetx",
+      "title": "New Era of JetX",
+      "family": "crash",
+      "mathVersion": "official72-neweraofjetx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 900000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9480",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9480×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "9000",
+          "maximumStakeMaximumPayoutMinor": "36000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_balloonx",
+      "title": "BalloonX",
+      "family": "crash",
+      "mathVersion": "official72-balloonx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9520×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "11000",
+          "maximumStakeMaximumPayoutMinor": "44000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_plinkoxclassic",
+      "title": "Plinko X Classic",
+      "family": "plinko",
+      "mathVersion": "official72-plinkoxclassic-r3",
+      "layout": {
+        "source": "references/plinkoxclassic-observed-20261111.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Sixteen peg rows and seventeen buckets were observed in a completed official pink-ball demo round."
+        ],
+        "limitations": [
+          "Marketing describes selectable stake factors; the observed demo instead presents a static pink/orange/fire 1x/5x/10x legend and a 10000x maximum.",
+          "Server color selection, its 995/4/1 weights and fair paths are independent operator choices. Provider selection semantics and probabilities remain unverified."
+        ],
+        "kind": "pegboard",
+        "rows": 16,
+        "buckets": 17,
+        "implementedBallMultipliers": [
+          1,
+          5,
+          10
+        ],
+        "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
+        "completeBallMechanicsVerified": false
+      },
+      "independentReturn": {
+        "numerator": "162937075",
+        "denominator": "163840000",
+        "description": "Independent fair-path model and independent 995/4/1 color weights. This is not certified provider RTP."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "1000000",
+          "maximumStakeMaximumPayoutMinor": "4000000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_propelx",
+      "title": "Propel X",
+      "family": "crash",
+      "mathVersion": "official72-propelx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1500000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9600×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "15000",
+          "maximumStakeMaximumPayoutMinor": "60000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_worldchampionx",
+      "title": "World Champion X",
+      "family": "crash",
+      "mathVersion": "official72-worldchampionx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 500000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5000",
+          "maximumStakeMaximumPayoutMinor": "20000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_poweroftiger",
+      "title": "Power of Tiger",
+      "family": "slots",
+      "mathVersion": "official72-poweroftiger-r3",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31176",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "118100",
+          "maximumStakeMaximumPayoutMinor": "472400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multifruitschargingwilds",
+      "title": "Multi Fruits Charging Wilds",
+      "family": "slots",
+      "mathVersion": "official72-multifruitschargingwilds-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31184",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "152500",
+          "maximumStakeMaximumPayoutMinor": "610000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_gemscrownchargingwilds",
+      "title": "Gems Crown Charging Wilds",
+      "family": "slots",
+      "mathVersion": "official72-gemscrownchargingwilds-r3",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31192",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "142100",
+          "maximumStakeMaximumPayoutMinor": "568400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_gatesofmerlyn",
+      "title": "Gates of Merlyn",
+      "family": "slots",
+      "mathVersion": "official72-gatesofmerlyn-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31200",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "131700",
+          "maximumStakeMaximumPayoutMinor": "526800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_chickenways",
+      "title": "Chicken Ways",
+      "family": "ladder",
+      "mathVersion": "official72-chickenways-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "11100",
+          "maximumStakeMaximumPayoutMinor": "44400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_dicejungle",
+      "title": "Dice Jungle",
+      "family": "slots",
+      "mathVersion": "official72-dicejungle-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31216",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "139600",
+          "maximumStakeMaximumPayoutMinor": "558400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot5wild",
+      "title": "Multi Hot 5 Wild",
+      "family": "slots",
+      "mathVersion": "official72-multihot5wild-r4",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies a 3-by-3 grid, five fixed paylines, wild substitution, three matching symbols and a left-side 1x–5x multiplier reel."
+        ],
+        "limitations": [
+          "The observed own wild prize plus 5x permits a 500x independent bound, while help advertises 375x; provider award restrictions are unverified.",
+          "The provider payline chart and probabilities are unverified. X2 is not yet implemented for this title."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "107809500",
+        "denominator": "120687845",
+        "description": "Independent three-reel weighted model, including the observed own prize for an all-wild line.",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "50000",
+          "maximumStakeMaximumPayoutMinor": "200000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_cheesyroad",
+      "title": "Cheesy Road",
+      "family": "ladder",
+      "mathVersion": "official72-cheesyroad-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "11400",
+          "maximumStakeMaximumPayoutMinor": "45600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_fortunecatch",
+      "title": "Fortune Catch",
+      "family": "wheel",
+      "mathVersion": "official72-fortunecatch-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      },
+      "independentReturn": {
+        "numerator": "945000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5190",
+          "maximumStakeMaximumPayoutMinor": "20760000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot20",
+      "title": "Multi Hot 20",
+      "family": "slots",
+      "mathVersion": "official72-multihot20-r2",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-20",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31440",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "134000",
+          "maximumStakeMaximumPayoutMinor": "536000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_cheesyroadclassic",
+      "title": "Cheesy Road Classic",
+      "family": "ladder",
+      "mathVersion": "official72-cheesyroadclassic-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "11700",
+          "maximumStakeMaximumPayoutMinor": "46800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot10",
+      "title": "Multi Hot 10",
+      "family": "slots",
+      "mathVersion": "official72-multihot10-r2",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 10 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31264",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "150700",
+          "maximumStakeMaximumPayoutMinor": "602800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot40",
+      "title": "Multi Hot 40",
+      "family": "slots",
+      "mathVersion": "official72-multihot40-r2",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-40; official demo browser observation on 2026-11-11",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Five columns and four visible rows; multiplier arc above the reels. Visible labels include 5x, 2x and 4x."
+        ],
+        "limitations": [
+          "Full multiplier distribution and full label order are unverified.",
+          "The complete provider payline chart and reel strips are unverified."
+        ],
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 40,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "top-arc",
+          "observedValues": [
+            2,
+            4,
+            5
+          ],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31272",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "140280",
+          "maximumStakeMaximumPayoutMinor": "561200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_coinsofatlantis",
+      "title": "Coins Of Atlantis",
+      "family": "slots",
+      "mathVersion": "official72-coinsofatlantis-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31280",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "129900",
+          "maximumStakeMaximumPayoutMinor": "519600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot100",
+      "title": "Multi Hot 100",
+      "family": "slots",
+      "mathVersion": "official72-multihot100-r3",
+      "layout": {
+        "source": "references/multihot100-observed-20261111.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Five columns and four rows. The observed help explicitly places the 1x–5x multiplier on the left side reel."
+        ],
+        "limitations": [
+          "The provider multiplier probabilities and reel strips are unverified.",
+          "The full provider payline chart is unverified. X2 uses independent fair colors and an explicitly independent three-attempt limit."
+        ],
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "paylines": 100,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "125700",
+        "denominator": "163840",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMaximumPayoutMinor": "250000",
+          "maximumStakeMaximumPayoutMinor": "1000000000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMaximumPayoutMinor": "2000000",
+          "maximumStakeMaximumPayoutMinor": "8000000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihotwildways",
+      "title": "Multi Hot Wild Ways",
+      "family": "slots",
+      "mathVersion": "official72-multihotwildways-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31296",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "109100",
+          "maximumStakeMaximumPayoutMinor": "436400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_bottlemania",
+      "title": "Bottle Mania",
+      "family": "ladder",
+      "mathVersion": "official72-bottlemania-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "12300",
+          "maximumStakeMaximumPayoutMinor": "49200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "family": "slots",
+      "mathVersion": "official72-multihot5burnwilds-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies three rows, five reels and five paylines. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier."
+        ],
+        "limitations": [
+          "Full provider paytable, probabilities and repeated expansion order remain unverified.",
+          "The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 is not yet implemented for this title."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "independent-display",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "verified": false,
+        "description": "Independent expanding-wild model; aggregate return is not certified or inferred from the provider."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "250000",
+          "maximumStakeMaximumPayoutMinor": "1000000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_chickenhighway",
+      "title": "Chicken Highway",
+      "family": "ladder",
+      "mathVersion": "official72-chickenhighway-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9480",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "12500",
+          "maximumStakeMaximumPayoutMinor": "50000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot5deluxe",
+      "title": "Multi Hot 5 Deluxe",
+      "family": "slots",
+      "mathVersion": "official72-multihot5deluxe-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "240",
+        "denominator": "512",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "3700",
+          "maximumStakeMaximumPayoutMinor": "14800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_carx",
+      "title": "CarX",
+      "family": "crash",
+      "mathVersion": "official72-carx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "11000",
+          "maximumStakeMaximumPayoutMinor": "44000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_caibalaocappadocia",
+      "title": "Cai Balao Cappadocia",
+      "family": "ladder",
+      "mathVersion": "official72-caibalaocappadocia-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "12800",
+          "maximumStakeMaximumPayoutMinor": "51200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihotwheel",
+      "title": "Multi Hot Wheel",
+      "family": "wheel",
+      "mathVersion": "official72-multihotwheel-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      },
+      "independentReturn": {
+        "numerator": "957000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5254",
+          "maximumStakeMaximumPayoutMinor": "21016000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_jinglebellbonanza",
+      "title": "Jingle Bell Bonanza",
+      "family": "slots",
+      "mathVersion": "official72-jinglebellbonanza-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31360",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "128100",
+          "maximumStakeMaximumPayoutMinor": "512400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihot5superwilds",
+      "title": "Multi Hot 5 Super Wilds",
+      "family": "slots",
+      "mathVersion": "official72-multihot5superwilds-r2",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31368",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "117700",
+          "maximumStakeMaximumPayoutMinor": "470800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_balloon",
+      "title": "Balloon",
+      "family": "ladder",
+      "mathVersion": "official72-balloon-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "13200",
+          "maximumStakeMaximumPayoutMinor": "52800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_plinkox",
+      "title": "Plinko X",
+      "family": "plinko",
+      "mathVersion": "official72-plinkox-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "pegboard",
+        "rows": 10,
+        "buckets": 11,
+        "implementedBallMultipliers": [
+          1
+        ],
+        "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
+        "completeBallMechanicsVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9728000",
+        "denominator": "10240000",
+        "type": "before-integer-floor",
+        "proof": "Sum(C(rows,k)×bucketBps[k])/(2^rows×10000).Exactbetreturn uses integer flooredprizes."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5250",
+          "maximumStakeMaximumPayoutMinor": "21000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_helicopterx",
+      "title": "Helicopter X",
+      "family": "crash",
+      "mathVersion": "official72-helicopterx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1300000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "13000",
+          "maximumStakeMaximumPayoutMinor": "52000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_safarisimba",
+      "title": "Safari Simba",
+      "family": "slots",
+      "mathVersion": "official72-safarisimba-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/safari-simba-2",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "256",
+        "denominator": "512",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "3900",
+          "maximumStakeMaximumPayoutMinor": "15600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_mineisland",
+      "title": "Mine Island",
+      "family": "mines",
+      "mathVersion": "official72-mineisland-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "mine-board",
+        "rows": 5,
+        "columns": 5,
+        "cells": 25,
+        "mines": 4,
+        "maximumSafePicks": 5
+      },
+      "independentReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "type": "upper-bound-before-floor",
+        "proof": "Survival=C(21,k)/C(25,k).Multiplythisbyflooredpayouttocomputeexactbetreturn;nominalupperbound96%."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "250",
+          "maximumStakeMaximumPayoutMinor": "1002600"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_multihotways",
+      "title": "Multi Hot Ways",
+      "family": "slots",
+      "mathVersion": "official72-multihotways-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31424",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "118400",
+          "maximumStakeMaximumPayoutMinor": "473600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_footballx",
+      "title": "Football X",
+      "family": "crash",
+      "mathVersion": "official72-footballx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9560",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9560×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "11000",
+          "maximumStakeMaximumPayoutMinor": "44000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_burningice40",
+      "title": "Burning Ice 40",
+      "family": "slots",
+      "mathVersion": "official72-burningice40-r2",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/burning-ice-40",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 40 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 40,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31448",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "160680",
+          "maximumStakeMaximumPayoutMinor": "642800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_mariachicoins",
+      "title": "Mariachi Coins",
+      "family": "slots",
+      "mathVersion": "official72-mariachicoins-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31456",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "150300",
+          "maximumStakeMaximumPayoutMinor": "601200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_habeshafortune5",
+      "title": "Habesha Fortune 5",
+      "family": "slots",
+      "mathVersion": "official72-habeshafortune5-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/habesha-fortune-5",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "248",
+        "denominator": "512",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "3800",
+          "maximumStakeMaximumPayoutMinor": "15200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_4bonusesbonanza",
+      "title": "4 Bonuses Bonanza",
+      "family": "plinko",
+      "mathVersion": "official72-4bonusesbonanza-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "pegboard",
+        "rows": 12,
+        "buckets": 13,
+        "implementedBallMultipliers": [
+          1
+        ],
+        "ballMultiplierStakeMeaning": "one-stake-with-server-award-multiplier",
+        "completeBallMechanicsVerified": false
+      },
+      "independentReturn": {
+        "numerator": "39321600",
+        "denominator": "40960000",
+        "type": "before-integer-floor",
+        "proof": "Sum(C(rows,k)×bucketBps[k])/(2^rows×10000).Exactbetreturn uses integer flooredprizes."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "20632",
+          "maximumStakeMaximumPayoutMinor": "82528000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_cricketx",
+      "title": "Cricket X",
+      "family": "crash",
+      "mathVersion": "official72-cricketx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1100000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9520×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "11000",
+          "maximumStakeMaximumPayoutMinor": "44000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_burningice",
+      "title": "Burning Ice",
+      "family": "slots",
+      "mathVersion": "official72-burningice-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/burning-ice-41",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 5 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31488",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "108700",
+          "maximumStakeMaximumPayoutMinor": "434800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_cricketerx",
+      "title": "CricketerX",
+      "family": "crash",
+      "mathVersion": "official72-cricketerx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 1500000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9600×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "15000",
+          "maximumStakeMaximumPayoutMinor": "60000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_wheelofdestiny",
+      "title": "Wheel Of Destiny",
+      "family": "wheel",
+      "mathVersion": "official72-wheelofdestiny-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      },
+      "independentReturn": {
+        "numerator": "954000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5148",
+          "maximumStakeMaximumPayoutMinor": "20592000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_wildmultistars",
+      "title": "Wild Multi Stars",
+      "family": "slots",
+      "mathVersion": "official72-wildmultistars-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31512",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "151000",
+          "maximumStakeMaximumPayoutMinor": "604000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_crashduel",
+      "title": "Crash Duel",
+      "family": "crash",
+      "mathVersion": "official72-crashduel-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 900000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9440",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9440×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "9000",
+          "maximumStakeMaximumPayoutMinor": "36000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_geniesbonanza",
+      "title": "Genie's Bonanza",
+      "family": "slots",
+      "mathVersion": "official72-geniesbonanza-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31528",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "130200",
+          "maximumStakeMaximumPayoutMinor": "520800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_bonustime",
+      "title": "Bonus Time",
+      "family": "wheel",
+      "mathVersion": "official72-bonustime-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      },
+      "independentReturn": {
+        "numerator": "951000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5102",
+          "maximumStakeMaximumPayoutMinor": "20408000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_farmsfortune",
+      "title": "Farm's Fortune",
+      "family": "slots",
+      "mathVersion": "official72-farmsfortune-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31544",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "138100",
+          "maximumStakeMaximumPayoutMinor": "552400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_madslot",
+      "title": "Mad Slot",
+      "family": "slots",
+      "mathVersion": "official72-madslot-r2",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/mad-slot",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 5 reels and 3 rows with 20 fixed paylines."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31552",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "127700",
+          "maximumStakeMaximumPayoutMinor": "510800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_aviastar",
+      "title": "AviaStar",
+      "family": "crash",
+      "mathVersion": "official72-aviastar-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 700000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "7000",
+          "maximumStakeMaximumPayoutMinor": "28000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_smashx",
+      "title": "Smash X",
+      "family": "crash",
+      "mathVersion": "official72-smashx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "crash",
+        "maximumMultiplierBps": 900000,
+        "synchronizedMultiplayerVerified": false
+      },
+      "independentReturn": {
+        "numerator": "9400",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9400×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "9000",
+          "maximumStakeMaximumPayoutMinor": "36000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_towerx",
+      "title": "Tower X",
+      "family": "ladder",
+      "mathVersion": "official72-towerx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "ladder",
+        "steps": 10,
+        "modes": [
+          "easy"
+        ],
+        "visualChoicesAffectProbabilities": false
+      },
+      "independentReturn": {
+        "numerator": "9560",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "mode": "easy"
+          },
+          "minimumStakeMaximumPayoutMinor": "15700",
+          "maximumStakeMaximumPayoutMinor": "62800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_hotsamba",
+      "title": "Hot Samba",
+      "family": "slots",
+      "mathVersion": "official72-hotsamba-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31584",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "130900",
+          "maximumStakeMaximumPayoutMinor": "523600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_wildsandgods",
+      "title": "Wilds and Gods",
+      "family": "slots",
+      "mathVersion": "official72-wildsandgods-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31592",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "149200",
+          "maximumStakeMaximumPayoutMinor": "596800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_baoslot5x",
+      "title": "Bao Slot 5X",
+      "family": "slots",
+      "mathVersion": "official72-baoslot5x-r3",
+      "layout": {
+        "source": "https://www.smartsoftgaming.com/games/bao-slot-5x",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "The official public page specifies 3 reels and 3 rows."
+        ],
+        "limitations": [
+          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "256",
+        "denominator": "512",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "3900",
+          "maximumStakeMaximumPayoutMinor": "15600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_junglesisters",
+      "title": "Jungle Sisters",
+      "family": "slots",
+      "mathVersion": "official72-junglesisters-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31608",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "128400",
+          "maximumStakeMaximumPayoutMinor": "513600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_bokajamba10",
+      "title": "Boka Jamba 10",
+      "family": "slots",
+      "mathVersion": "official72-bokajamba10-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31616",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "118000",
+          "maximumStakeMaximumPayoutMinor": "472000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_junglesistersdeluxe",
+      "title": "Jungle Sisters Deluxe",
+      "family": "slots",
+      "mathVersion": "official72-junglesistersdeluxe-r3",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31624",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "107600",
+          "maximumStakeMaximumPayoutMinor": "430400000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_dragonscode",
+      "title": "Dragon's Code",
+      "family": "slots",
+      "mathVersion": "official72-dragonscode-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 5,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31632",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "142000",
+          "maximumStakeMaximumPayoutMinor": "568000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_draculasfortune",
+      "title": "Dracula's Fortune",
+      "family": "slots",
+      "mathVersion": "official72-draculasfortune-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31640",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "160300",
+          "maximumStakeMaximumPayoutMinor": "641200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_bookoffuturia",
+      "title": "Book of Futuria",
+      "family": "slots",
+      "mathVersion": "official72-bookoffuturia-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 20,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31648",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "149900",
+          "maximumStakeMaximumPayoutMinor": "599600000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_bookofbonanza",
+      "title": "Book of Bonanza",
+      "family": "slots",
+      "mathVersion": "official72-bookofbonanza-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 25,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31656",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "139500",
+          "maximumStakeMaximumPayoutMinor": "558000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_sugarfiesta",
+      "title": "Sugar Fiesta",
+      "family": "slots",
+      "mathVersion": "official72-sugarfiesta-r3",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 3,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31664",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "129099",
+          "maximumStakeMaximumPayoutMinor": "516399999"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_vampires",
+      "title": "Vampires",
+      "family": "slots",
+      "mathVersion": "official72-vampires-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31672",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "118700",
+          "maximumStakeMaximumPayoutMinor": "474800000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_burningice10",
+      "title": "Burning Ice 10",
+      "family": "slots",
+      "mathVersion": "official72-burningice10-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31680",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "108300",
+          "maximumStakeMaximumPayoutMinor": "433200000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_rollx",
+      "title": "Roll X",
+      "family": "dice",
+      "mathVersion": "official72-rollx-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "dice",
+        "outcomes": 100,
+        "minimumTarget": 10,
+        "maximumTarget": 90
+      },
+      "independentReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "type": "upper-bound-before-floor",
+        "proof": "Exactreturn=(target/100)×floor(bet×floor(960000/target)/10000)/bet;neverabove96%."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "target": 10
+          },
+          "minimumStakeMaximumPayoutMinor": "960",
+          "maximumStakeMaximumPayoutMinor": "3840000"
+        },
+        {
+          "options": {
+            "target": 11
+          },
+          "minimumStakeMaximumPayoutMinor": "872",
+          "maximumStakeMaximumPayoutMinor": "3490880"
+        },
+        {
+          "options": {
+            "target": 12
+          },
+          "minimumStakeMaximumPayoutMinor": "800",
+          "maximumStakeMaximumPayoutMinor": "3200000"
+        },
+        {
+          "options": {
+            "target": 13
+          },
+          "minimumStakeMaximumPayoutMinor": "738",
+          "maximumStakeMaximumPayoutMinor": "2953840"
+        },
+        {
+          "options": {
+            "target": 14
+          },
+          "minimumStakeMaximumPayoutMinor": "685",
+          "maximumStakeMaximumPayoutMinor": "2742840"
+        },
+        {
+          "options": {
+            "target": 15
+          },
+          "minimumStakeMaximumPayoutMinor": "640",
+          "maximumStakeMaximumPayoutMinor": "2560000"
+        },
+        {
+          "options": {
+            "target": 16
+          },
+          "minimumStakeMaximumPayoutMinor": "600",
+          "maximumStakeMaximumPayoutMinor": "2400000"
+        },
+        {
+          "options": {
+            "target": 17
+          },
+          "minimumStakeMaximumPayoutMinor": "564",
+          "maximumStakeMaximumPayoutMinor": "2258800"
+        },
+        {
+          "options": {
+            "target": 18
+          },
+          "minimumStakeMaximumPayoutMinor": "533",
+          "maximumStakeMaximumPayoutMinor": "2133320"
+        },
+        {
+          "options": {
+            "target": 19
+          },
+          "minimumStakeMaximumPayoutMinor": "505",
+          "maximumStakeMaximumPayoutMinor": "2021040"
+        },
+        {
+          "options": {
+            "target": 20
+          },
+          "minimumStakeMaximumPayoutMinor": "480",
+          "maximumStakeMaximumPayoutMinor": "1920000"
+        },
+        {
+          "options": {
+            "target": 21
+          },
+          "minimumStakeMaximumPayoutMinor": "457",
+          "maximumStakeMaximumPayoutMinor": "1828560"
+        },
+        {
+          "options": {
+            "target": 22
+          },
+          "minimumStakeMaximumPayoutMinor": "436",
+          "maximumStakeMaximumPayoutMinor": "1745440"
+        },
+        {
+          "options": {
+            "target": 23
+          },
+          "minimumStakeMaximumPayoutMinor": "417",
+          "maximumStakeMaximumPayoutMinor": "1669560"
+        },
+        {
+          "options": {
+            "target": 24
+          },
+          "minimumStakeMaximumPayoutMinor": "400",
+          "maximumStakeMaximumPayoutMinor": "1600000"
+        },
+        {
+          "options": {
+            "target": 25
+          },
+          "minimumStakeMaximumPayoutMinor": "384",
+          "maximumStakeMaximumPayoutMinor": "1536000"
+        },
+        {
+          "options": {
+            "target": 26
+          },
+          "minimumStakeMaximumPayoutMinor": "369",
+          "maximumStakeMaximumPayoutMinor": "1476920"
+        },
+        {
+          "options": {
+            "target": 27
+          },
+          "minimumStakeMaximumPayoutMinor": "355",
+          "maximumStakeMaximumPayoutMinor": "1422200"
+        },
+        {
+          "options": {
+            "target": 28
+          },
+          "minimumStakeMaximumPayoutMinor": "342",
+          "maximumStakeMaximumPayoutMinor": "1371400"
+        },
+        {
+          "options": {
+            "target": 29
+          },
+          "minimumStakeMaximumPayoutMinor": "331",
+          "maximumStakeMaximumPayoutMinor": "1324120"
+        },
+        {
+          "options": {
+            "target": 30
+          },
+          "minimumStakeMaximumPayoutMinor": "320",
+          "maximumStakeMaximumPayoutMinor": "1280000"
+        },
+        {
+          "options": {
+            "target": 31
+          },
+          "minimumStakeMaximumPayoutMinor": "309",
+          "maximumStakeMaximumPayoutMinor": "1238680"
+        },
+        {
+          "options": {
+            "target": 32
+          },
+          "minimumStakeMaximumPayoutMinor": "300",
+          "maximumStakeMaximumPayoutMinor": "1200000"
+        },
+        {
+          "options": {
+            "target": 33
+          },
+          "minimumStakeMaximumPayoutMinor": "290",
+          "maximumStakeMaximumPayoutMinor": "1163600"
+        },
+        {
+          "options": {
+            "target": 34
+          },
+          "minimumStakeMaximumPayoutMinor": "282",
+          "maximumStakeMaximumPayoutMinor": "1129400"
+        },
+        {
+          "options": {
+            "target": 35
+          },
+          "minimumStakeMaximumPayoutMinor": "274",
+          "maximumStakeMaximumPayoutMinor": "1097120"
+        },
+        {
+          "options": {
+            "target": 36
+          },
+          "minimumStakeMaximumPayoutMinor": "266",
+          "maximumStakeMaximumPayoutMinor": "1066640"
+        },
+        {
+          "options": {
+            "target": 37
+          },
+          "minimumStakeMaximumPayoutMinor": "259",
+          "maximumStakeMaximumPayoutMinor": "1037800"
+        },
+        {
+          "options": {
+            "target": 38
+          },
+          "minimumStakeMaximumPayoutMinor": "252",
+          "maximumStakeMaximumPayoutMinor": "1010520"
+        },
+        {
+          "options": {
+            "target": 39
+          },
+          "minimumStakeMaximumPayoutMinor": "246",
+          "maximumStakeMaximumPayoutMinor": "984600"
+        },
+        {
+          "options": {
+            "target": 40
+          },
+          "minimumStakeMaximumPayoutMinor": "240",
+          "maximumStakeMaximumPayoutMinor": "960000"
+        },
+        {
+          "options": {
+            "target": 41
+          },
+          "minimumStakeMaximumPayoutMinor": "234",
+          "maximumStakeMaximumPayoutMinor": "936560"
+        },
+        {
+          "options": {
+            "target": 42
+          },
+          "minimumStakeMaximumPayoutMinor": "228",
+          "maximumStakeMaximumPayoutMinor": "914280"
+        },
+        {
+          "options": {
+            "target": 43
+          },
+          "minimumStakeMaximumPayoutMinor": "223",
+          "maximumStakeMaximumPayoutMinor": "893000"
+        },
+        {
+          "options": {
+            "target": 44
+          },
+          "minimumStakeMaximumPayoutMinor": "218",
+          "maximumStakeMaximumPayoutMinor": "872720"
+        },
+        {
+          "options": {
+            "target": 45
+          },
+          "minimumStakeMaximumPayoutMinor": "213",
+          "maximumStakeMaximumPayoutMinor": "853320"
+        },
+        {
+          "options": {
+            "target": 46
+          },
+          "minimumStakeMaximumPayoutMinor": "208",
+          "maximumStakeMaximumPayoutMinor": "834760"
+        },
+        {
+          "options": {
+            "target": 47
+          },
+          "minimumStakeMaximumPayoutMinor": "204",
+          "maximumStakeMaximumPayoutMinor": "817000"
+        },
+        {
+          "options": {
+            "target": 48
+          },
+          "minimumStakeMaximumPayoutMinor": "200",
+          "maximumStakeMaximumPayoutMinor": "800000"
+        },
+        {
+          "options": {
+            "target": 49
+          },
+          "minimumStakeMaximumPayoutMinor": "195",
+          "maximumStakeMaximumPayoutMinor": "783640"
+        },
+        {
+          "options": {
+            "target": 50
+          },
+          "minimumStakeMaximumPayoutMinor": "192",
+          "maximumStakeMaximumPayoutMinor": "768000"
+        },
+        {
+          "options": {
+            "target": 51
+          },
+          "minimumStakeMaximumPayoutMinor": "188",
+          "maximumStakeMaximumPayoutMinor": "752920"
+        },
+        {
+          "options": {
+            "target": 52
+          },
+          "minimumStakeMaximumPayoutMinor": "184",
+          "maximumStakeMaximumPayoutMinor": "738440"
+        },
+        {
+          "options": {
+            "target": 53
+          },
+          "minimumStakeMaximumPayoutMinor": "181",
+          "maximumStakeMaximumPayoutMinor": "724520"
+        },
+        {
+          "options": {
+            "target": 54
+          },
+          "minimumStakeMaximumPayoutMinor": "177",
+          "maximumStakeMaximumPayoutMinor": "711080"
+        },
+        {
+          "options": {
+            "target": 55
+          },
+          "minimumStakeMaximumPayoutMinor": "174",
+          "maximumStakeMaximumPayoutMinor": "698160"
+        },
+        {
+          "options": {
+            "target": 56
+          },
+          "minimumStakeMaximumPayoutMinor": "171",
+          "maximumStakeMaximumPayoutMinor": "685680"
+        },
+        {
+          "options": {
+            "target": 57
+          },
+          "minimumStakeMaximumPayoutMinor": "168",
+          "maximumStakeMaximumPayoutMinor": "673680"
+        },
+        {
+          "options": {
+            "target": 58
+          },
+          "minimumStakeMaximumPayoutMinor": "165",
+          "maximumStakeMaximumPayoutMinor": "662040"
+        },
+        {
+          "options": {
+            "target": 59
+          },
+          "minimumStakeMaximumPayoutMinor": "162",
+          "maximumStakeMaximumPayoutMinor": "650840"
+        },
+        {
+          "options": {
+            "target": 60
+          },
+          "minimumStakeMaximumPayoutMinor": "160",
+          "maximumStakeMaximumPayoutMinor": "640000"
+        },
+        {
+          "options": {
+            "target": 61
+          },
+          "minimumStakeMaximumPayoutMinor": "157",
+          "maximumStakeMaximumPayoutMinor": "629480"
+        },
+        {
+          "options": {
+            "target": 62
+          },
+          "minimumStakeMaximumPayoutMinor": "154",
+          "maximumStakeMaximumPayoutMinor": "619320"
+        },
+        {
+          "options": {
+            "target": 63
+          },
+          "minimumStakeMaximumPayoutMinor": "152",
+          "maximumStakeMaximumPayoutMinor": "609520"
+        },
+        {
+          "options": {
+            "target": 64
+          },
+          "minimumStakeMaximumPayoutMinor": "150",
+          "maximumStakeMaximumPayoutMinor": "600000"
+        },
+        {
+          "options": {
+            "target": 65
+          },
+          "minimumStakeMaximumPayoutMinor": "147",
+          "maximumStakeMaximumPayoutMinor": "590760"
+        },
+        {
+          "options": {
+            "target": 66
+          },
+          "minimumStakeMaximumPayoutMinor": "145",
+          "maximumStakeMaximumPayoutMinor": "581800"
+        },
+        {
+          "options": {
+            "target": 67
+          },
+          "minimumStakeMaximumPayoutMinor": "143",
+          "maximumStakeMaximumPayoutMinor": "573120"
+        },
+        {
+          "options": {
+            "target": 68
+          },
+          "minimumStakeMaximumPayoutMinor": "141",
+          "maximumStakeMaximumPayoutMinor": "564680"
+        },
+        {
+          "options": {
+            "target": 69
+          },
+          "minimumStakeMaximumPayoutMinor": "139",
+          "maximumStakeMaximumPayoutMinor": "556520"
+        },
+        {
+          "options": {
+            "target": 70
+          },
+          "minimumStakeMaximumPayoutMinor": "137",
+          "maximumStakeMaximumPayoutMinor": "548560"
+        },
+        {
+          "options": {
+            "target": 71
+          },
+          "minimumStakeMaximumPayoutMinor": "135",
+          "maximumStakeMaximumPayoutMinor": "540840"
+        },
+        {
+          "options": {
+            "target": 72
+          },
+          "minimumStakeMaximumPayoutMinor": "133",
+          "maximumStakeMaximumPayoutMinor": "533320"
+        },
+        {
+          "options": {
+            "target": 73
+          },
+          "minimumStakeMaximumPayoutMinor": "131",
+          "maximumStakeMaximumPayoutMinor": "526000"
+        },
+        {
+          "options": {
+            "target": 74
+          },
+          "minimumStakeMaximumPayoutMinor": "129",
+          "maximumStakeMaximumPayoutMinor": "518880"
+        },
+        {
+          "options": {
+            "target": 75
+          },
+          "minimumStakeMaximumPayoutMinor": "128",
+          "maximumStakeMaximumPayoutMinor": "512000"
+        },
+        {
+          "options": {
+            "target": 76
+          },
+          "minimumStakeMaximumPayoutMinor": "126",
+          "maximumStakeMaximumPayoutMinor": "505240"
+        },
+        {
+          "options": {
+            "target": 77
+          },
+          "minimumStakeMaximumPayoutMinor": "124",
+          "maximumStakeMaximumPayoutMinor": "498680"
+        },
+        {
+          "options": {
+            "target": 78
+          },
+          "minimumStakeMaximumPayoutMinor": "123",
+          "maximumStakeMaximumPayoutMinor": "492280"
+        },
+        {
+          "options": {
+            "target": 79
+          },
+          "minimumStakeMaximumPayoutMinor": "121",
+          "maximumStakeMaximumPayoutMinor": "486040"
+        },
+        {
+          "options": {
+            "target": 80
+          },
+          "minimumStakeMaximumPayoutMinor": "120",
+          "maximumStakeMaximumPayoutMinor": "480000"
+        },
+        {
+          "options": {
+            "target": 81
+          },
+          "minimumStakeMaximumPayoutMinor": "118",
+          "maximumStakeMaximumPayoutMinor": "474040"
+        },
+        {
+          "options": {
+            "target": 82
+          },
+          "minimumStakeMaximumPayoutMinor": "117",
+          "maximumStakeMaximumPayoutMinor": "468280"
+        },
+        {
+          "options": {
+            "target": 83
+          },
+          "minimumStakeMaximumPayoutMinor": "115",
+          "maximumStakeMaximumPayoutMinor": "462640"
+        },
+        {
+          "options": {
+            "target": 84
+          },
+          "minimumStakeMaximumPayoutMinor": "114",
+          "maximumStakeMaximumPayoutMinor": "457120"
+        },
+        {
+          "options": {
+            "target": 85
+          },
+          "minimumStakeMaximumPayoutMinor": "112",
+          "maximumStakeMaximumPayoutMinor": "451760"
+        },
+        {
+          "options": {
+            "target": 86
+          },
+          "minimumStakeMaximumPayoutMinor": "111",
+          "maximumStakeMaximumPayoutMinor": "446480"
+        },
+        {
+          "options": {
+            "target": 87
+          },
+          "minimumStakeMaximumPayoutMinor": "110",
+          "maximumStakeMaximumPayoutMinor": "441360"
+        },
+        {
+          "options": {
+            "target": 88
+          },
+          "minimumStakeMaximumPayoutMinor": "109",
+          "maximumStakeMaximumPayoutMinor": "436360"
+        },
+        {
+          "options": {
+            "target": 89
+          },
+          "minimumStakeMaximumPayoutMinor": "107",
+          "maximumStakeMaximumPayoutMinor": "431440"
+        },
+        {
+          "options": {
+            "target": 90
+          },
+          "minimumStakeMaximumPayoutMinor": "106",
+          "maximumStakeMaximumPayoutMinor": "426640"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_doublex",
+      "title": "Double X",
+      "family": "wheel",
+      "mathVersion": "official72-doublex-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "wheel",
+        "sectors": 8
+      },
+      "independentReturn": {
+        "numerator": "951000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "5022",
+          "maximumStakeMaximumPayoutMinor": "20088000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_samurai",
+      "title": "Samurai",
+      "family": "slots",
+      "mathVersion": "official72-samurai-r2",
+      "layout": {
+        "source": "Independently authored model configuration; no complete official layout observation",
+        "geometryVerified": false,
+        "geometryStatus": "independent-layout-unverified-against-reference",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [],
+        "limitations": [
+          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "paylines": 10,
+        "paylinesVerified": false,
+        "paylineCountVerified": false,
+        "multiplier": {
+          "placement": "none",
+          "observedValues": [],
+          "implementedValues": [],
+          "calculationImplemented": false,
+          "completeLabelsVerified": false,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "31136",
+        "denominator": "32768",
+        "rounding": "Before per-line minor-unit flooring."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {},
+          "minimumStakeMaximumPayoutMinor": "143500",
+          "maximumStakeMaximumPayoutMinor": "574000000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    }
+  ],
+  "configuredStakeLimits": {
+    "currency": "ETB",
+    "minBetMinor": "100",
+    "maxBetMinor": "400000",
+    "betStepMinor": "100",
+    "source": "Latest explicit user instruction: 1–4000 ETB per stake; protected legacy defaults are outside this model audit."
+  }
+}

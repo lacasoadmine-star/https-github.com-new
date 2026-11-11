@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="so">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070e0a">
+  <title>ZPLAY · 74 ciyaarood</title>
+  <link rel="stylesheet" href="/independent74/machines74.css">
+  <link rel="stylesheet" href="/independent74/machine74-renderer.css">
+  <script type="module" src="/independent74/machine74-controller.mjs"></script>
+</head>
+<body>
+  <header class="machine-header">
+    <a class="brand" href="/" target="_top">ZPLAY</a>
+    <a class="compare-link" href="/independent74/compare74.html" target="_top">74 · Isbarbar dhig</a>
+    <div class="balance"><span>HADHAA</span><strong id="balance">—</strong><small>ETB</small></div>
+  </header>
+  <main>
+    <div class="selector"><label for="game-select">Ciyaarta</label><select id="game-select" disabled><option>Soo dejinaya…</option></select></div>
+    <section class="machine" aria-labelledby="game-title">
+      <div class="game-heading"><div><small id="family">ZPLAY</small><h1 id="game-title">Ciyaaraha</h1></div><button id="rules" aria-label="Xeerarka iyo abaalmarinta" disabled>ⓘ</button></div>
+      <div id="stage" class="machine-stage" aria-label="Mashiinka ciyaarta"></div>
+      <div class="win-bar"><span id="win-label">GUUL</span><strong id="win">—</strong><span id="round-status">Sugaya server-ka</span></div>
+      <section class="controls" aria-label="Xakamaynta ciyaarta">
+        <label class="bet-control" for="bet">SHARAD · ETB
+          <span class="bet-row"><button id="bet-less" type="button" aria-label="Yaree sharadka" disabled>−</button><input id="bet" type="text" inputmode="decimal" value="1.00" aria-label="Sharadka: 1 ilaa 4,000 ETB" autocomplete="off" disabled><button id="bet-more" type="button" aria-label="Kordhi sharadka" disabled>+</button></span>
+        </label>
+        <div id="options" class="game-options"></div>
+        <div class="actions"><button id="play" class="primary" disabled>SPIN</button><button id="next" hidden disabled>TALLAABADA XIGTA</button><button id="collect" hidden disabled>QAADO</button><button id="stop" hidden>STOP</button><button id="gamble-red" hidden disabled>♥ CASAAN · X2</button><button id="gamble-black" hidden disabled>♠ MADOW · X2</button></div>
+        <div class="extras"><button id="auto" disabled>AUTO · 5</button><button id="sound" aria-pressed="false">CODKA · DAMMAN</button><label class="volume-control">COD <input id="volume" type="range" min="0" max="100" value="65" aria-label="Heerka codka"></label><label><input id="turbo" type="checkbox"> TURBO</label></div>
+      </section>
+      <p id="message" class="status" role="status" aria-live="polite">Hubinaya xiriirka server-ka…</p>
+      <div class="recovery"><button id="refresh">Dib u hubi</button><button id="retry" hidden>Xaqiiji codsigii hore</button><a id="login" href="/" target="_top" hidden>Gal akoonkaaga</a></div>
+      <p class="build-note">Dhismaha ZPLAY · Natiijada iyo hadhaagu waxay ka yimaadaan server-ka. Isku ekaanshaha demo-ga weli waa la hubinayaa.</p>
+    </section>
+    <details class="history"><summary>Taariikhda wareegyada</summary><p id="history-status"></p><ol id="history"></ol></details>
+  </main>
+  <dialog id="rules-dialog" aria-labelledby="rules-title"><header><h2 id="rules-title">Xeerarka</h2><button id="close-rules" aria-label="Xidh">×</button></header><div id="rules-body"></div></dialog>
+</body>
+</html>

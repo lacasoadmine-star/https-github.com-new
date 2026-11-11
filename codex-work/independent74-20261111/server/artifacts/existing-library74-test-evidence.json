@@ -1,0 +1,38 @@
+{
+  "scope": "Offline independent74 backend and PopX cascade review",
+  "command": "node --test math/popx.test.mjs server/tests/existing-library74*.test.mjs",
+  "result": {
+    "tests": 116,
+    "pass": 116,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "artifactSha256": "ea440b50d971306b6e3f886cbc32ce1c01c233e63503a16652040a649c9b05c9",
+  "logSha256": "57477929e502b1ba6b83c67e1ea53d486fa42e9f89d6c53c0f71ed7075d35ef2",
+  "evidence": [
+    "All 72 official independent model IDs accepted and settled through exact retained LibraryService/shared-wallet SQL classes.",
+    "All 72 adapters accept 1 and 4000 ETB and reject out-of-range stakes before RNG; a broader injected model cannot bypass the range. Retained SQL and bundled signed HTTP reject excess stakes atomically.",
+    "Request replay and conflict, concurrent requests, stale versions and account ownership.",
+    "Account/house limits, reserved liability, injected post-reserve/post-payout failures and rollback.",
+    "Canonical history, two balanced ledger legs per transfer, dashboard revisions and zero settled reserves.",
+    "Original model/version recovery, existing cross-active guard and blocked-account expiry.",
+    "MH100 held award, X2 gamble, collection and timeout settlement.",
+    "Server-selected Plinko colors, exactly one stake debit and full 10000x liability.",
+    "PopX eight-or-more matches, gravity/refill, server-time cashout, terminal loss and cap, hidden future grids and JSONB recovery.",
+    "Backend artifact data-URL import, retained native signature verification, injected existing service and exactly-once ledger replay."
+  ],
+  "limits": [
+    "PGlite is an isolated in-memory single-connection PostgreSQL runtime; it does not establish production multi-process locking or performance.",
+    "All accounts, balances and wagers were fixture data; no production wager, balance change or deployment.",
+    "Provider private math and complete visual/gameplay parity remain unverified."
+  ],
+  "stakeRange": {
+    "currency": "ETB",
+    "minimum": "1.00",
+    "maximum": "4000.00",
+    "minMinor": "100",
+    "maxMinor": "400000"
+  }
+}

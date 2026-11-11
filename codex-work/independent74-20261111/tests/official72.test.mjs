@@ -9,15 +9,15 @@ test('fresh official selection has 74 publisher demo URLs, two protected titles 
  for(const e of scope.entries){const url=new URL(e.demoUrl);assert.equal(url.protocol,'https:');assert.equal(url.hostname,'eu-server.ssgportal.com');assert.equal(url.searchParams.get('GameName')!==null,true);}
  assert.equal(math.getGameDefinition('ind74_official_multihot5'),null);assert.equal(math.getGameDefinition('ind74_official_foxyhot20'),null);
 });
-for(const d of defs)test(d.catalogName+' official collection: 1, 2 and 40000-point limits, settlement and privacy',()=>{
- for(const betMinor of ['100','200','4000000']){
+for(const d of defs)test(d.catalogName+' official collection: 1, 2 and 4000 ETB limits, settlement and privacy',()=>{
+ for(const betMinor of ['100','200','400000']){
   let r=math.startRound({gameId:d.id,betMinor,rng:()=>0,now:100000});
   if(r.status==='active'&&d.family==='mines')r=math.advanceRound(r,{cell:d.cells-1},100000);
   if(r.status==='active')r=math.collectRound(r,{},101000);
   assert(['collected','lost'].includes(r.status));assert(BigInt(r.winMinor)<=BigInt(math.maximumPayoutMinor({gameId:d.id,betMinor})));
   assert.equal(math.publicRound(r,101000).private,undefined);assert.equal(r.betMinor,betMinor);
  }
- for(const betMinor of ['99','101','4000001'])assert.throws(()=>math.startRound({gameId:d.id,betMinor}));
+ for(const betMinor of ['99','101','400001'])assert.throws(()=>math.startRound({gameId:d.id,betMinor}));
 });
 test('72 official-catalogue models settle through transactional fixture service with exact wallet/house conservation',async()=>{
  for(const d of defs){const repo=new MemoryRepository({houseBalanceMinor:'10000000000000000'});repo.addAccount(session,{balanceMinor:'10000000'});let time=1794355200000;const service=createGameService({repository:repo,math,rng:()=>0,clock:()=>new Date(time)});
