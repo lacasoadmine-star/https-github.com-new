@@ -1,0 +1,20 @@
+{
+  "name": "zplay-existing-backend-connection",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test client-tests/account.test.mjs tools/multipart.test.mjs",
+    "test:backend": "node --test tests/fresh-release.test.mjs tests/fresh-default-disabled.test.mjs",
+    "prepare:worker": "node worker/prepare-local.mjs",
+    "build:worker": "node worker/compact/build.mjs",
+    "test:worker": "node --test worker/worker-integration.test.mjs worker/compact/ported-worker-integration.test.mjs worker/compact/compact.test.mjs worker/lobby-dom.test.mjs worker/readonly-ui.test.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.16",
+    "esbuild": "0.28.2",
+    "jsdom": "31.0.0"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "format": "existing-player-wallet-readonly-compact-r18-v1",
+  "tool": {
+    "name": "esbuild",
+    "version": "0.28.2",
+    "options": {
+      "format": "esm",
+      "target": "es2022",
+      "minify": true,
+      "legalComments": "none"
+    }
+  },
+  "gzip": {
+    "library": "node:zlib",
+    "level": 9,
+    "input": "JSON.stringify({...ACCOUNT_ASSET_OVERRIDES,...FRESH_ACCOUNT_ASSETS})"
+  },
+  "authoredInputs": [
+    {
+      "name": "independent74-account-assets-r18.mjs",
+      "bytes": 35102,
+      "sha256": "aa6c41dbd1b9ab9e7ce777723401da3657278ba74346816f0be706bb421880be"
+    },
+    {
+      "name": "independent74-connected-assets-r18.mjs",
+      "bytes": 39793,
+      "sha256": "cbde14cd3c7c9d6d075790d60d40b40c2ac601f3ed7f17603efddc02d8d1f62f"
+    },
+    {
+      "name": "independent74-entry-r18.mjs",
+      "bytes": 1639,
+      "sha256": "12a7d05bc20e060a9bc3c557560b8d313e6f3e84cbca603e564a4356a5a09beb"
+    },
+    {
+      "name": "independent74-gateway-r18.mjs",
+      "bytes": 24698,
+      "sha256": "eabebe4de283cf31cd56721e4b8481f4752b8e732cde48911b9e0f0f83e4dcdc"
+    }
+  ],
+  "compiledOutputs": [
+    {
+      "name": "independent74-connected-assets-r18.mjs",
+      "bytes": 30866,
+      "sha256": "d9540611c075e81241d76b787830caf17c8b75ed9185b25fe859b34045017dce"
+    },
+    {
+      "name": "independent74-entry-r18.mjs",
+      "bytes": 1238,
+      "sha256": "719b8d7f90494c455b4f774b0004812406a6b4073f96257b7f216383c8cef998"
+    },
+    {
+      "name": "independent74-gateway-r18.mjs",
+      "bytes": 1492,
+      "sha256": "3ddc86faf0deba0897a38cac14b248365da4b628af34eb1ddc29a9b7d1c8752b"
+    }
+  ],
+  "gatewayAdapterSha256": "8410193b4a8b2ccf095cd4b00e14c02990b1ca515f5a2f1ae5ae8e89120c7b5c",
+  "assetLoaderSha256": "eff82cdb3db6916378a0902fedf0e891b203b8e53fcb82abac5bd9724ec9bc10",
+  "originalGatewayTestSha256": "a1e98d7d06211d06aec888f6839a8b7057e6a5fa62df26b78c5b7b0981674a09",
+  "portedGatewayTestSha256": "d95d4b0059b667c64c4dfafc8e60663212ed580da1150e1bfbf3edf33fbb8a9c",
+  "testPorting": "Only imports and static file URL bases are relocated; assertion bodies are unchanged.",
+  "noRemoteOperations": true
+}

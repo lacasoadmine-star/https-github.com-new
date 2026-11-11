@@ -1,0 +1,65 @@
+{
+  "scope": "Fresh Multi Hot 10 additions inside retained nine-slot runtime",
+  "productionWrites": 0,
+  "productionWagers": 0,
+  "remoteConfigurationChanges": 0,
+  "inverselyRestoredOriginalSource": true,
+  "mathProbabilitiesChanged": false,
+  "newFinancialTables": false,
+  "newWalletImplementation": false,
+  "syntaxChecks": {
+    "runtime": "passed",
+    "carrier": "passed"
+  },
+  "tests": {
+    "passed": 27,
+    "failed": 0,
+    "skipped": 0
+  },
+  "closedDefaultVerification": {
+    "allPreexistingEnvironmentGateExpressionsUnchanged": true,
+    "compressedModelPayloadsUnchanged": true,
+    "migrationBytesUnchanged": true,
+    "financialAuthenticationAndTransactionHelpersUnchanged": true,
+    "newReleaseFlagIntroduced": false,
+    "missingFreshFlag": "All 74 fresh registrations remain disabled, including MH10",
+    "authenticatedState": "200, freshReleaseReady false, enabled false, draft, empty bets",
+    "unsignedStateSpinAndGamble": "401 PLAYER_LOGIN_REQUIRED",
+    "authenticatedNewSpinWithoutFlag": "503 FRESH_RELEASE_NOT_ENABLED, no writes",
+    "historicalMatchingReceiptWithoutFlag": "200 unchanged receipt, no new transfers"
+  },
+  "fixture": "Disposable in-memory PGlite 0.5.16 with existing runtime financial SQL, deterministic RNG tests and mocked Redis lock transport",
+  "baselineDefectsReproduced": [
+    "Fresh spin admitted while another native-library round remains active",
+    "Fresh gamble with a new token reuses stale expected attempt/stake and ignores replayOnly"
+  ],
+  "candidateChecks": [
+    "Active player cookie authentication, role, status and expiry",
+    "Canonical min/max bet and unsupported input rejection",
+    "Exact model stamps and authenticated session guard for new operations",
+    "Replay-only recovery cannot create new spin or gamble",
+    "Atomic debit, credit, transfer, double-entry ledger and canonical history",
+    "Idempotent replay, parameter conflict and session rotation",
+    "Injected failures after debit, credit and final insertion roll back all writes",
+    "House full-liability reserve, maximum 5000x payout and player funds",
+    "Cross-library active-round admission under existing wallet locks",
+    "Fresh gamble expected attempt/stake and canonical newer-round detection",
+    "Fresh winning and losing gamble canonical wallet receipts",
+    "Existing account maximum balance checked against full liability before RNG",
+    "Five gamble attempts, 500 ETB ceiling and ten-minute expiry",
+    "Concurrent duplicate token and distinct-token stale gamble rejection",
+    "Global disabled admission still permits immutable receipt replay",
+    "73 unfinished fresh registrations remain disabled; legacy identities retained"
+  ],
+  "limitations": [
+    "PGlite serializes a single PostgreSQL connection and does not prove distributed multi-process lock scheduling",
+    "Redis TTL and remote failover are not simulated",
+    "Production authentication and wager settlement are not executed",
+    "Independent preserved RTP is 4065/4096 (99.2431640625 percent), not a provider-certified probability model"
+  ],
+  "publication": {
+    "runtimeFingerprintsIncluded": false,
+    "privateRuntimeInputsIncluded": false,
+    "authoredSourceAndIsolatedTestsOnly": true
+  }
+}

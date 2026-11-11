@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="so">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>ZPLAY · Multi Hot 10 · Dhisme cusub</title>
+    <link rel="stylesheet" href="/independent74/fresh74.css?v=r18" />
+    <script type="module" src="/independent74/fresh74-ui.mjs?v=r18"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/">‹ ZPLAY</a><strong>DHISME CUSUB</strong
+      ><button id="sound" aria-pressed="false">♫ COD</button>
+    </header>
+    <main>
+      <div class="fresh-notice">
+        WALLET ETB · Hubinaya xidhiidhka backend-ka jira
+      </div>
+      <section class="fresh-machine" aria-label="Multi Hot 10 cusub">
+        <h1>MULTI HOT <b>10</b></h1>
+        <div class="fresh-arc" aria-label="Multiplier"></div>
+        <div
+          id="reels"
+          class="fresh-reels"
+          role="img"
+          aria-label="5 reels iyo 3 rows"
+        ></div>
+        <div id="win" class="fresh-win" role="status">Soo dejinaya…</div>
+      </section>
+      <section class="fresh-controls" aria-label="Xakamaynta">
+        <div class="fresh-values">
+          <label>ETB<strong id="balance">—</strong></label
+          ><label>BET<strong id="bet-label">0.10</strong></label>
+        </div>
+        <div class="fresh-actions">
+          <button id="less" aria-label="Yaree bet">−</button
+          ><button id="spin">SPIN</button><button id="stop" hidden>STOP</button
+          ><button id="more" aria-label="Kordhi bet">+</button>
+        </div>
+        <div class="fresh-tools">
+          <button id="auto">AUTO</button
+          ><label><input id="turbo" type="checkbox" /> TURBO</label
+          ><button id="collect" disabled>QAADO</button
+          ><button id="gamble" disabled>X2</button>
+        </div>
+      </section>
+      <p id="status" role="status">Hubinaya akoonka iyo backend-ka jira…</p>
+      <a id="login" href="/" target="_top" hidden>Gal akoonkaaga ZPLAY</a
+      ><button id="retry" hidden>Dib u xaqiiji</button>
+      <p class="fresh-provenance">
+        Qaabka iyo abaalmarinta waxaa laga qoray demo rasmi ah oo hadda la
+        furay. Fursadaha natiijooyinka waa kuwo ZPLAY u gaar ah; RTP-ga
+        provider-ka lama soo saarin. X2: ugu badnaan 5 jeer, guul la haysto ilaa
+        500 ETB; kuwani waa xuduudaha ZPLAY.
+      </p>
+    </main>
+    <nav aria-label="Menu-ga hoose">
+      <button id="menu-bet">BET</button><button id="menu-rules">XEERAR</button
+      ><button id="menu-history">HISTORY</button>
+    </nav>
+    <dialog id="rules">
+      <header>
+        <h2>Multi Hot 10 · Xeerar</h2>
+        <button data-close="rules" aria-label="Xidh xeerarka">×</button>
+      </header>
+      <p>
+        5 reels · 3 rows · 10 paylines. Isku mid ka bilow reel-ka bidix, saddex
+        ama ka badan. Khadka ugu dheer keliya ayaa bixiyaa. Bet-ka khadku waa
+        bet-ka guud / 10; wadarta guulaha waxaa lagu dhuftaa multiplier-ka.
+      </p>
+      <div id="paytable"></div>
+      <p>
+        X2: dooro casaan ama madow si guusha la hayo loo labanlaabo; doorasho
+        qaldan way luminaysaa. Guusha waxaa markiiba xareeya backend-ka jira.
+        QAADO waxay xidhaa doorashada X2; mar labaad lacag ma shubto.
+      </p>
+      <p>
+        Qiimayaashan iyo khadadkan waa kuwa Help-ka la arkay. Qaybinta fursadaha
+        iyo RTP-ga rasmiga ah lama xaqiijin. Bet-ka iyo guuluhu waxay maraan
+        wallet-kaaga iyo backend-kaaga jira. X2 wuxuu sharad ka dhigaa guusha
+        hore loogu shubay wallet-ka.
+      </p>
+    </dialog>
+    <dialog id="bet-menu">
+      <header>
+        <h2>BET · ETB</h2>
+        <button data-close="bet-menu" aria-label="Xidh bet">×</button>
+      </header>
+      <div id="bets"></div>
+    </dialog>
+    <dialog id="auto-menu">
+      <header>
+        <h2>AUTO</h2>
+        <button data-close="auto-menu" aria-label="Xidh auto">×</button>
+      </header>
+      <label
+        >WAREEGYO<select id="auto-count">
+          <option>25</option>
+          <option>50</option>
+          <option>100</option>
+          <option>500</option>
+          <option>1000</option>
+        </select></label
+      ><button id="start-auto">BILOW AUTO</button>
+    </dialog>
+    <dialog id="gamble-menu">
+      <header>
+        <h2>X2</h2>
+        <button data-close="gamble-menu" aria-label="Xidh X2">×</button>
+      </header>
+      <strong id="held">—</strong>
+      <div class="fresh-card" id="card">?</div>
+      <button id="red">CASAAN</button><button id="black">MADAW</button
+      ><button id="take">QAADO</button>
+    </dialog>
+    <dialog id="history-menu">
+      <header>
+        <h2>HISTORY</h2>
+        <button data-close="history-menu" aria-label="Xidh taariikhda">
+          ×
+        </button>
+      </header>
+      <ol id="history"></ol>
+    </dialog>
+  </body>
+</html>

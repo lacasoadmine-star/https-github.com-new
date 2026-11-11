@@ -1,0 +1,25 @@
+{
+  "format": "existing-player-wallet-readonly-change-v1",
+  "baseline": "Separately retained private independent74-gateway-r17.mjs",
+  "patches": [
+    [
+      "function createGateway(",
+      "// Public catalog capability only. A balance connection is confirmed only\n// after the unchanged authenticated /api/machine-session read succeeds.\nfunction readOnlyAccountDefinition(game) {\n  return {\n    ...game, accepting: false, launchable: false, readOnly: true,\n    modelInstalled: false, accountReadSupported: true,\n    historyAvailable: false, activeRecoveryVerified: false,\n    releaseStatus: 'pending', controls: { ...game.controls, actions: [] },\n  };\n}\n\nfunction createGateway("
+    ],
+    [
+      "w({ edition: \"ZPLAY independent operator build\", officialProviderMath: false, productionReleaseVerified: false, games: a });",
+      "w({ edition: \"ZPLAY independent operator build\", officialProviderMath: false, productionReleaseVerified: false,\n          games: b === \"protected-readonly\" ? a.map(readOnlyAccountDefinition) : a,\n          ...(b === \"protected-readonly\" ? { readOnly: true, accountReadSupported: true,\n            modelInstalled: false, new_rounds_enabled: false, historyAvailable: false,\n            activeRecoveryVerified: false, releaseStatus: 'pending' } : {}),\n        });"
+    ],
+    [
+      "return x(w({ authenticated: true, mode: \"account\", currency: \"ETB\", balance: l.balance, game: { ...Z, accepting: false, launchable: false }, accepting: false, round: null, activeRecoveryVerified: false, historyAvailable: false, existingWalletReadOnly: true, sessionGuard: l.sessionId }), y);",
+      "return x(w({ authenticated: true, mode: \"account\", currency: \"ETB\", balance: l.balance,\n            game_id: A, game: readOnlyAccountDefinition(Z), model_version: Z.version,\n            accepting: false, new_rounds_enabled: false, round: null,\n            readOnly: true, modelInstalled: false, accountServiceAvailable: true,\n            accountReadSupported: true, activeRecoveryVerified: false,\n            historyAvailable: false, existingWalletReadOnly: true,\n            releaseStatus: 'pending', sessionGuard: l.sessionId,\n          }), y);"
+    ],
+    [
+      "retryable: d.status >= 500 }, d.status)",
+      "retryable: d.status >= 500 && ![\"GAME_RELEASE_NOT_READY\", \"GAME_HISTORY_NOT_AVAILABLE\"].includes(d.code) }, d.status)"
+    ]
+  ],
+  "baselineReconstructionVerified": true,
+  "addedNativeEndpointDependencies": 0,
+  "addedFinancialPostForwarding": 0
+}
