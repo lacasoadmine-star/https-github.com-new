@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import config from './games/multihot20.mjs';
+import {calculateSlotReturn,evaluateSlotGrid,startSlot,publicSlot} from './engines/slots.mjs';
+test('MultiHot20exact eight-symbol paytable analytically yields its disclosed return',()=>{const r=calculateSlotReturn(config);assert.equal(BigInt(r.numerator)*4096n,3930n*BigInt(r.denominator));});
+test('MultiHot20has20distinctvalidpaylines',()=>{assert.equal(config.paylines.length,20);assert.equal(new Set(config.paylines.map(x=>x.join(','))).size,20);for(const l of config.paylines){assert.equal(l.length,5);assert.ok(l.every(r=>r>=0&&r<3&&Number.isInteger(r)));}});
+test('MultiHot20longestmatchispaidonceandlineawardsadd',()=>{const id=config.symbols[0].id;const grid=Array.from({length:3},()=>Array(5).fill(id));const r=evaluateSlotGrid(config,'20',grid);assert.equal(r.lineWins.length,20);assert.equal(r.winMinor,String(20*config.symbols[0].pays[5]));assert.ok(r.lineWins.every(w=>w.matches===5&&w.positions.length===5));});
+test('MultiHot20doesnotpayright-to-leftmatches',()=>{const symbols=config.symbols.map(x=>x.id);const grid=Array.from({length:3},(_,r)=>[symbols[r],symbols[r+1],symbols[7],symbols[7],symbols[7]]);assert.equal(evaluateSlotGrid(config,'20',grid).winMinor,'0');});
+test('MultiHot20maximumstakeandmostvaluablesymbolrespectpublishedcap',()=>{const r=startSlot(config,{betMinor:'100000',rng:()=>7});assert.equal(r.winMinor,config.limits.maxWinMinor);assert.equal(r.status,'collected');const v=publicSlot(r);v.outcome.grid[0][0]='modified';assert.notEqual(r.outcome.grid[0][0],'modified');assert.equal(v.private,undefined);});
+test('MultiHot20rejectsunsplitstakesandoutofboundsrandomness',()=>{assert.throws(()=>startSlot(config,{betMinor:'10',rng:()=>0}),{code:'INVALID_BET'});assert.throws(()=>startSlot(config,{betMinor:'20',rng:()=>8}),{code:'INVALID_RNG'});});

@@ -1,0 +1,37 @@
+{
+  "gameId": "ind74_mineisland2",
+  "mathVersion": "independent-mine-island2-v1",
+  "title": "Mine Island2 — independent rules and mathematics",
+  "authorship": "This implementation and its probabilities are independently authored. The catalog name and one observed 1.10× demo collection are reference observations. This implementation does not reproduce or claim SmartSoft's source code, complete mechanics, RNG, or certified mathematics.",
+  "implementedMechanics": ["Three original difficulty modes", "Ten sequential island attempts", "Collect after a successful attempt", "Loss on a failed attempt", "Automatic collection at the final successful island", "Integer minor-unit payouts"],
+  "excludedMechanics": ["Boosted steps", "Portal rescue", "Provider jackpots", "Provider promotions"],
+  "stake": {"minimumMinor": "10", "maximumMinor": "100000", "incrementMinor": "10"},
+  "maximumTotalPayoutMinor": "50000000",
+  "payoutLadders": {
+    "easy": ["1.10", "1.20", "1.50", "2.00", "3.00", "5.00", "10.00", "20.00", "50.00", "100.00"],
+    "medium": ["1.20", "1.50", "2.00", "3.00", "5.00", "10.00", "20.00", "50.00", "100.00", "250.00"],
+    "hard": ["1.50", "2.00", "3.00", "5.00", "10.00", "20.00", "50.00", "100.00", "250.00", "500.00"]
+  },
+  "roundRules": [
+    "Play debits the stake once and attempts the first island.",
+    "The first island can fail. A successful first Easy island pays 1.10× if collected.",
+    "Each later Jump attempts the next multiplier in the selected ladder.",
+    "After any successful attempt, Collect credits the total payout including the original stake and ends the round.",
+    "A failed attempt ends the round with zero payout, including previously available uncollected winnings.",
+    "The tenth successful attempt collects automatically.",
+    "Visual island choices do not influence probabilities or payouts.",
+    "The mode cannot change during an active round."
+  ],
+  "probabilityModel": {
+    "multiplierUnit": "Basis points: 10000 equals 1.00×.",
+    "firstStepSurvival": "9600 / firstMultiplierBps",
+    "laterStepConditionalSurvival": "previousMultiplierBps / nextMultiplierBps",
+    "cumulativeSurvivalAtStep": "9600 / multiplierBpsAtStep",
+    "proof": "Multiplying the first and later conditional probabilities cancels all intermediate multipliers. At collect step k, survival probability is 9600/Mk and payout is bet×Mk/10000, so expected payout is bet×9600/10000 = 0.96×bet.",
+    "easyFirstStep": {"survivalNumerator": "9600", "survivalDenominator": "11000", "payoutMultiplier": "1.10"},
+    "expectedReturn": "96% for permitted stakes and listed collect steps; this is a theoretical long-run expectation, not a guarantee for any round.",
+    "randomness": "Server-only cryptographic bounded integer draws. Each step's survival is independent; outcomes are not calculated from a client-supplied payout."
+  },
+  "rounding": "The server computes floor(betMinor×multiplierBps/10000) using integer arithmetic. Every v1 permitted stake and multiplier divides exactly, so v1 adds no rounding loss to the calculated 96% expectation.",
+  "disclosure": "The 96% figure describes this independent engine only. Boost and Portal are absent; the original provider's full game behavior and certified return are not claimed."
+}

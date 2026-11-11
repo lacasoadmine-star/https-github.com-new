@@ -1,0 +1,1753 @@
+{
+  "generatedAt": "2026-11-11T02:38:49.983Z",
+  "independentAuthorship": true,
+  "officialMathClaim": false,
+  "verifiedScope": "Pure math and generic contract tests only; financial ledger and live deployment require separate end-to-end verification.",
+  "gameCount": 74,
+  "families": {
+    "ladder": 9,
+    "crash": 13,
+    "slots": 42,
+    "plinko": 3,
+    "wheel": 5,
+    "mines": 1,
+    "dice": 1
+  },
+  "testCommand": "node --test work/independent74/math/*.test.mjs",
+  "games": [
+    {
+      "id": "ind74_mineisland2",
+      "title": "Mine Island2",
+      "family": "ladder",
+      "mathVersion": "independent-mine-island2-v1",
+      "status": "math-tested-awaiting-end-to-end-verification",
+      "nominalReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "explanation": "Our original model returns exactly 96% in expectation at any listed collect step for permitted stakes. Integer payout division floors, but all permitted stakes and listed multipliers divide exactly in this version. This is not a SmartSoft RTP claim."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "50000000"
+      },
+      "provenance": {
+        "catalog": "Name and category from https://www.smartsoftgaming.com/games",
+        "observed": "One public demo round: stake 0.10 DMO, first collected payout 0.11 DMO at 1.10x; island ladder, Play/Jump/Collect and help viewed.",
+        "designed": "Original authored survival probabilities, medium/hard ladders, limits, and state transitions. No SmartSoft backend, source code, RNG, assets or certified RTP is reproduced."
+      }
+    },
+    {
+      "id": "ind74_popx",
+      "title": "PopX",
+      "family": "crash",
+      "mathVersion": "independent-popx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "95",
+        "denominator": "100",
+        "type": "upper-bound-before-floor",
+        "proof": "For collection multiplier M in basis points, survival = floor(9500×1000000/(M+1))/1000000. Expected return = survival × floor(bet×M/10000)/bet, bounded above by 0.95."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "10000000"
+      },
+      "provenance": {
+        "catalog": "Official catalog name/category only.",
+        "observed": "Official demo showed two betting panels, multiplier history and a demo balance; no completed PopX round was verified.",
+        "designed": "Original clock curve, hidden distribution, limits, interface theme and all mathematics; no provider source or media reused."
+      }
+    },
+    {
+      "id": "ind74_multihot20",
+      "title": "Multi Hot 20",
+      "family": "slots",
+      "mathVersion": "independent-multihot20-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3930",
+        "denominator": "4096",
+        "percent": "95.947265625%",
+        "proof": "For each symbol with prizes A,B,C at3,4,5matches,the contribution is(56A+7B+C)/32768. Sum all8symbols. Every line has this expectation; equal stake splitting and summing preserve it."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "134000000"
+      },
+      "provenance": {
+        "catalog": "Official title/category only.",
+        "observed": "No completed official Multi Hot20demo round verified.",
+        "designed": "Original20paylines,8symbol labels/glyphs,uniform distributions,all prizes,limits and mathematical model. No provider source or media reused."
+      }
+    },
+    {
+      "id": "ind74_jetx",
+      "title": "New Era of JetX",
+      "family": "crash",
+      "mathVersion": "independent-jetx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9480",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9480×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "9000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/jetx",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_balloonx",
+      "title": "BalloonX",
+      "family": "crash",
+      "mathVersion": "independent-balloonx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9520×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/balloonx",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_plinkoxclassic",
+      "title": "Plinko X Classic",
+      "family": "plinko",
+      "mathVersion": "independent-plinkoxclassic-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "2406400",
+        "denominator": "2560000",
+        "type": "before-integer-floor",
+        "proof": "Sum(C(rows,k)×bucketBps[k])/(2^rows×10000).Exactbetreturn uses integer flooredprizes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "1392000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/plinko-x-classic",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_propelx",
+      "title": "Propel X",
+      "family": "crash",
+      "mathVersion": "independent-propelx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9600×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "15000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/propel-x",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_worldchampionx",
+      "title": "World Champion X",
+      "family": "crash",
+      "mathVersion": "independent-worldchampionx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/world-champion-x",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_poweroftiger",
+      "title": "Power of Tiger",
+      "family": "slots",
+      "mathVersion": "independent-poweroftiger-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3897",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "25",
+        "maxBetMinor": "100000",
+        "betStepMinor": "25",
+        "maxWinMinor": "118100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/power-of-tiger",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multifruitschargingwilds",
+      "title": "Multi Fruits Charging Wilds",
+      "family": "slots",
+      "mathVersion": "independent-multifruitschargingwilds-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3898",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "152500000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_gemscrownchargingwilds",
+      "title": "Gems Crown Charging Wilds",
+      "family": "slots",
+      "mathVersion": "independent-gemscrownchargingwilds-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3899",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "142100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_gatesofmerlyn",
+      "title": "Gates of Merlyn",
+      "family": "slots",
+      "mathVersion": "independent-gatesofmerlyn-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3900",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "131700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/gates-of-merlyn",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_chickenways",
+      "title": "Chicken Ways",
+      "family": "ladder",
+      "mathVersion": "independent-chickenways-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/chicken-ways",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_dicejungle",
+      "title": "Dice Jungle",
+      "family": "slots",
+      "mathVersion": "independent-dicejungle-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3902",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "139600000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/dice-jungle",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot5wild",
+      "title": "Multi Hot 5 Wild",
+      "family": "slots",
+      "mathVersion": "independent-multihot5wild-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3903",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "129200000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_cheesyroad",
+      "title": "Cheesy Road",
+      "family": "ladder",
+      "mathVersion": "independent-cheesyroad-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11400000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/cheesy-road",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_fortunecatch",
+      "title": "Fortune Catch",
+      "family": "wheel",
+      "mathVersion": "independent-fortunecatch-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "945000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5190000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/fortune-catch",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_cheesyroadclassic",
+      "title": "Cheesy Road Classic",
+      "family": "ladder",
+      "mathVersion": "independent-cheesyroadclassic-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/cheesy-road-classic",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot10",
+      "title": "Multi Hot 10",
+      "family": "slots",
+      "mathVersion": "independent-multihot10-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3908",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "150700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot40",
+      "title": "Multi Hot 40",
+      "family": "slots",
+      "mathVersion": "independent-multihot40-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3909",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "40",
+        "maxBetMinor": "100000",
+        "betStepMinor": "40",
+        "maxWinMinor": "140300000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-40",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_coinsofatlantis",
+      "title": "Coins Of Atlantis",
+      "family": "slots",
+      "mathVersion": "independent-coinsofatlantis-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3910",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "129900000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/coins-of-atlantis",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot100",
+      "title": "Multi Hot 100",
+      "family": "slots",
+      "mathVersion": "independent-multihot100-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3911",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "100",
+        "maxBetMinor": "100000",
+        "betStepMinor": "100",
+        "maxWinMinor": "119500000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-100",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihotwildways",
+      "title": "Multi Hot Wild Ways",
+      "family": "slots",
+      "mathVersion": "independent-multihotwildways-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3912",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "109100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_bottlemania",
+      "title": "Bottle Mania",
+      "family": "ladder",
+      "mathVersion": "independent-bottlemania-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "12300000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/bottle-mania",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "family": "slots",
+      "mathVersion": "independent-multihot5burnwilds-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3914",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "161800000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_chickenhighway",
+      "title": "Chicken Highway",
+      "family": "ladder",
+      "mathVersion": "independent-chickenhighway-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9480",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "12500000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/chicken-highway",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot5deluxe",
+      "title": "Multi Hot 5 Deluxe",
+      "family": "slots",
+      "mathVersion": "independent-multihot5deluxe-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3916",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "141000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_carx",
+      "title": "CarX",
+      "family": "crash",
+      "mathVersion": "independent-carx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/carx",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_caibalaocappadocia",
+      "title": "Cai Balao Cappadocia",
+      "family": "ladder",
+      "mathVersion": "independent-caibalaocappadocia-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "12800000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/cai-balao-cappadocia",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihotwheel",
+      "title": "Multi Hot Wheel",
+      "family": "wheel",
+      "mathVersion": "independent-multihotwheel-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "957000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5254000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-wheel",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_jinglebellbonanza",
+      "title": "Jingle Bell Bonanza",
+      "family": "slots",
+      "mathVersion": "independent-jinglebellbonanza-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3920",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "128100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot5superwilds",
+      "title": "Multi Hot 5 Super Wilds",
+      "family": "slots",
+      "mathVersion": "independent-multihot5superwilds-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3921",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "117700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_balloon",
+      "title": "Balloon",
+      "family": "ladder",
+      "mathVersion": "independent-balloon-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "13200000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/balloon",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_plinkox",
+      "title": "Plinko X",
+      "family": "plinko",
+      "mathVersion": "independent-plinkox-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9728000",
+        "denominator": "10240000",
+        "type": "before-integer-floor",
+        "proof": "Sum(C(rows,k)×bucketBps[k])/(2^rows×10000).Exactbetreturn uses integer flooredprizes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5250000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/plinkox",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_helicopterx",
+      "title": "Helicopter X",
+      "family": "crash",
+      "mathVersion": "independent-helicopterx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "13000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/helicopter-x",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihot5",
+      "title": "Multi Hot 5",
+      "family": "slots",
+      "mathVersion": "independent-multihot5-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3925",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "120900000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-5",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_safarisimba",
+      "title": "Safari Simba",
+      "family": "slots",
+      "mathVersion": "independent-safarisimba-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3926",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "139200000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/safari-simba-2",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_mineisland",
+      "title": "Mine Island",
+      "family": "mines",
+      "mathVersion": "independent-mineisland-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "type": "upper-bound-before-floor",
+        "proof": "Survival=C(21,k)/C(25,k).Multiplythisbyflooredpayouttocomputeexactbetreturn;nominalupperbound96%."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "250650"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/mine-island",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_multihotways",
+      "title": "Multi Hot Ways",
+      "family": "slots",
+      "mathVersion": "independent-multihotways-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3928",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "118400000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/multi-hot-ways",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_footballx",
+      "title": "Football X",
+      "family": "crash",
+      "mathVersion": "independent-footballx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9560",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9560×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/fotballx",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_foxyhot20",
+      "title": "Foxy Hot 20",
+      "family": "slots",
+      "mathVersion": "independent-foxyhot20-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3930",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "142400000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/foxy-hot-20",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_blazinghot40",
+      "title": "Burning Ice 40",
+      "family": "slots",
+      "mathVersion": "independent-blazinghot40-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3931",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "40",
+        "maxBetMinor": "100000",
+        "betStepMinor": "40",
+        "maxWinMinor": "160700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/burning-ice-40",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_mariachicoins",
+      "title": "Mariachi Coins",
+      "family": "slots",
+      "mathVersion": "independent-mariachicoins-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3932",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "150300000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/mariachi-coins",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_habeshafortune5",
+      "title": "Habesha Fortune 5",
+      "family": "slots",
+      "mathVersion": "independent-habeshafortune5-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3933",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "139900000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/hab",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_plinkojoker",
+      "title": "4 Bonuses Bonanza",
+      "family": "plinko",
+      "mathVersion": "independent-plinkojoker-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "39321600",
+        "denominator": "40960000",
+        "type": "before-integer-floor",
+        "proof": "Sum(C(rows,k)×bucketBps[k])/(2^rows×10000).Exactbetreturn uses integer flooredprizes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "20632000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/4-bonuses-bonanza",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_cricketx",
+      "title": "Cricket X",
+      "family": "crash",
+      "mathVersion": "independent-cricketx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9520×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "11000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/cricket-x",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_blazinghot",
+      "title": "Burning Ice",
+      "family": "slots",
+      "mathVersion": "independent-blazinghot-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3936",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "108700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/burning-ice-41",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_cricketerx",
+      "title": "CricketerX",
+      "family": "crash",
+      "mathVersion": "independent-cricketerx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9600×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "15000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/cricketerx",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_wheelofdestiny",
+      "title": "Wheel Of Destiny",
+      "family": "wheel",
+      "mathVersion": "independent-wheelofdestiny-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "954000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5148000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/wheel-of-destiny",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_wildmultistars",
+      "title": "Wild Multi Stars",
+      "family": "slots",
+      "mathVersion": "independent-wildmultistars-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3939",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "151000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/wild-multi-stars",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_tugofwar",
+      "title": "Crash Duel",
+      "family": "crash",
+      "mathVersion": "independent-tugofwar-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9440",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9440×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "9000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/crash-duel",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_geniesbonanza",
+      "title": "Genie's Bonanza",
+      "family": "slots",
+      "mathVersion": "independent-geniesbonanza-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3941",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "25",
+        "maxBetMinor": "100000",
+        "betStepMinor": "25",
+        "maxWinMinor": "130200000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/genies-bonanza",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_bonustime",
+      "title": "Bonus Time",
+      "family": "wheel",
+      "mathVersion": "independent-bonustime-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "951000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5102000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/bonus-time",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_farmsfortune",
+      "title": "Farm's Fortune",
+      "family": "slots",
+      "mathVersion": "independent-farmsfortune-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3943",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "138100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_madslot",
+      "title": "Mad Slot",
+      "family": "slots",
+      "mathVersion": "independent-madslot-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3944",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "127700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/mad-slot",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_jetx3",
+      "title": "AviaStar",
+      "family": "crash",
+      "mathVersion": "independent-jetx3-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9640×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "7000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/aviastar",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_smashx",
+      "title": "Smash X",
+      "family": "crash",
+      "mathVersion": "independent-smashx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9400",
+        "denominator": "10000",
+        "type": "upper-bound-before-floor",
+        "proof": "AtBPSmultiplierM,survival=floor(9400×1000000/(M+1))/1000000.Exactreturnequals survival×floor(bet×M/10000)/bet."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "9000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/smash-x",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_towerx",
+      "title": "Tower X",
+      "family": "ladder",
+      "mathVersion": "independent-towerx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "9560",
+        "denominator": "10000",
+        "type": "before-integer-floor",
+        "proof": "Conditionalsurvivalprobabilities telescope toreturnBps/Mk;expectedprize=bet×returnBps/10000beforeintegerfloor."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "15700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/tower-x",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_hotsamba",
+      "title": "Hot Samba",
+      "family": "slots",
+      "mathVersion": "independent-hotsamba-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3948",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "130900000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/hot-samba",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_wildsandgods",
+      "title": "Wilds and Gods",
+      "family": "slots",
+      "mathVersion": "independent-wildsandgods-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3949",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "25",
+        "maxBetMinor": "100000",
+        "betStepMinor": "25",
+        "maxWinMinor": "149200000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/wilds-and-gods",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_baoslot5x",
+      "title": "Bao Slot 5X",
+      "family": "slots",
+      "mathVersion": "independent-baoslot5x-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3950",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "138800000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/bao-slot-5",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_junglesisters",
+      "title": "Jungle Sisters",
+      "family": "slots",
+      "mathVersion": "independent-junglesisters-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3951",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "128400000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/jungle-sisters",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_bokajamba10",
+      "title": "Boka Jamba 10",
+      "family": "slots",
+      "mathVersion": "independent-bokajamba10-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3952",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "118000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/boca-jamba-10",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_junglesistersdeluxe",
+      "title": "Jungle Sisters Deluxe",
+      "family": "slots",
+      "mathVersion": "independent-junglesistersdeluxe-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3953",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "25",
+        "maxBetMinor": "100000",
+        "betStepMinor": "25",
+        "maxWinMinor": "107600000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_dragonscode",
+      "title": "Dragon's Code",
+      "family": "slots",
+      "mathVersion": "independent-dragonscode-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3954",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "142000000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/dragons-code",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_draculasfortune",
+      "title": "Dracula's Fortune",
+      "family": "slots",
+      "mathVersion": "independent-draculasfortune-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3955",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "160300000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/draculas-fortune-2",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_bookoffuturia",
+      "title": "Book of Futuria",
+      "family": "slots",
+      "mathVersion": "independent-bookoffuturia-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3956",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "20",
+        "maxBetMinor": "100000",
+        "betStepMinor": "20",
+        "maxWinMinor": "149900000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/book-of-futuria",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_bookofbonanza",
+      "title": "Book of Bonanza",
+      "family": "slots",
+      "mathVersion": "independent-bookofbonanza-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3957",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "25",
+        "maxBetMinor": "100000",
+        "betStepMinor": "25",
+        "maxWinMinor": "139500000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/book-of-bonanza",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_sugarfiesta",
+      "title": "Sugar Fiesta",
+      "family": "slots",
+      "mathVersion": "independent-sugarfiesta-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3958",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "5",
+        "maxBetMinor": "100000",
+        "betStepMinor": "5",
+        "maxWinMinor": "129100000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/sugar-fiesta",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_vampires",
+      "title": "Vampires",
+      "family": "slots",
+      "mathVersion": "independent-vampires-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3959",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "118700000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/vampires",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_blazinghot10",
+      "title": "Burning Ice 10",
+      "family": "slots",
+      "mathVersion": "independent-blazinghot10-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3960",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "108300000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/blazing-hot-10",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_rollx",
+      "title": "Roll X",
+      "family": "dice",
+      "mathVersion": "independent-rollx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "type": "upper-bound-before-floor",
+        "proof": "Exactreturn=(target/100)×floor(bet×floor(960000/target)/10000)/bet;neverabove96%."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "960000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/rollx",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_slicerx",
+      "title": "Double X",
+      "family": "wheel",
+      "mathVersion": "independent-slicerx-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "951000",
+        "denominator": "1000000",
+        "type": "before-integer-floor",
+        "proof": "Sum(weight×multiplierBps)/(100×10000).Exactbet-dependentreturn uses flooredsectorpayouts."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "5022000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/doublex",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    },
+    {
+      "id": "ind74_samurai",
+      "title": "Samurai",
+      "family": "slots",
+      "mathVersion": "independent-samurai-v1",
+      "status": "math-tested-not-financially-verified",
+      "nominalReturn": {
+        "numerator": "3892",
+        "denominator": "4096",
+        "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
+      },
+      "limits": {
+        "minBetMinor": "10",
+        "maxBetMinor": "100000",
+        "betStepMinor": "10",
+        "maxWinMinor": "143500000"
+      },
+      "provenance": {
+        "catalog": "Name/category from https://www.smartsoftgaming.com/games/samurai-deluxe",
+        "observed": "No completed official round was verified for this title.",
+        "designed": "Independently authored probabilities, prizes, limits, theme, state and rules. No provider source code or media assets were reused."
+      }
+    }
+  ]
+}

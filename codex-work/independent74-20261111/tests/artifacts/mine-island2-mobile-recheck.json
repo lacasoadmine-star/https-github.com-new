@@ -1,0 +1,78 @@
+{
+  "scope": "LOCAL-QA-ONLY",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "usesProductionWallet": false,
+  "checks": [
+    {
+      "name": "fixed mobile controls provide44px touch targets and no horizontal overflow",
+      "pass": false,
+      "error": "{\"id\":\"bet-more\",\"x\":311,\"width\":43,\"height\":45}"
+    },
+    {
+      "name": "paced bounded AUTO can stop after first debit and preserves open round",
+      "pass": true
+    },
+    {
+      "name": "active receipt is not displayed as a completed loss",
+      "pass": true
+    },
+    {
+      "name": "mobile recheck has no runtime errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "controlSizes": [
+    {
+      "id": "play-button",
+      "x": 35,
+      "width": 154,
+      "height": 49
+    },
+    {
+      "id": "collect-button",
+      "x": 201,
+      "width": 154,
+      "height": 49
+    },
+    {
+      "id": "bet-more",
+      "x": 311,
+      "width": 43,
+      "height": 45
+    },
+    {
+      "id": "bet-less",
+      "x": 36,
+      "width": 43,
+      "height": 45
+    },
+    {
+      "id": "sound-button",
+      "x": 331,
+      "width": 44,
+      "height": 44
+    },
+    {
+      "id": "rules-button",
+      "x": 282.234375,
+      "width": 92.765625,
+      "height": 44
+    },
+    {
+      "id": "auto-toggle",
+      "x": 35,
+      "width": 87,
+      "height": 44
+    },
+    {
+      "id": "refresh-state",
+      "x": 278.890625,
+      "width": 76.109375,
+      "height": 44
+    }
+  ]
+}

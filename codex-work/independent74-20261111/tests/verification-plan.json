@@ -1,0 +1,30 @@
+{
+  "scope": "independent74 local QA only",
+  "productionMutations": false,
+  "firstGameId": "ind74_mineisland2",
+  "browser": {"executable": "/usr/bin/chromium", "maxProcesses": 1, "maxContexts": 2, "mobileViewport": {"width": 390, "height": 844}},
+  "walletFixture": {"environment": "local-tests-only", "currency": "ETB", "minorDecimals": 2, "noProductionFallback": true},
+  "contract": {
+    "state": ["authenticated", "currency", "wallet.balance_minor", "game", "activeRound", "history"],
+    "action": ["request_id", "game_id", "type", "expected_version", "stake_minor (play only)", "round_id (reveal/collect)", "options.cell (reveal)"],
+    "clientGuard": "sessionGuard supplied by Worker; do not infer authentication from UI state"
+  },
+  "checks": [
+    "Exact decimal input parsing to integer minor units; invalid/negative/exponent/excess precision rejected",
+    "PLAY deducts stake exactly once through backend and returns server-confirmed state",
+    "Concurrent duplicate request_id replays one original result without another debit",
+    "Reusing request_id with changed payload is rejected",
+    "Active round survives refresh and client reconnect without automatic duplicate play",
+    "Reveal validates round owner, game, tile and expected_version; no client payout authority",
+    "Survived step changes multiplier and collectible amount according to engine result",
+    "Loss settles once without credit",
+    "COLLECT settles exactly once; repeat/late/concurrent calls cannot credit twice",
+    "Insufficient balance leaves wallet and round unchanged",
+    "Unknown POST result displays recovery state and blocks a new stake until reconciled",
+    "390x844 controls stay within viewport and have usable touch targets",
+    "Bet increment/decrement affects exact minor amounts and locks during active round",
+    "Rules, sound toggle, back navigation and reload behave correctly",
+    "STOP/AUTO verified only if implemented and otherwise explicitly marked unsupported",
+    "74-game matrix distinguishes catalog entries, implemented gameplay, engine tests, browser verification and deployment"
+  ]
+}

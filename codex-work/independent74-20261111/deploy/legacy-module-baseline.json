@@ -1,0 +1,1875 @@
+{
+  "dryRun": true,
+  "plan": {
+    "expectedVersion": "3ae79dd2-afba-4dcd-bd20-a071ada030a7",
+    "previousMain": "presentation-player-entry-r23.mjs",
+    "newMain": "independent74-entry-r1.mjs",
+    "originalModules": 304,
+    "originalBytes": 66478201,
+    "manifestSha256": "0ec80aed894a4ca777e96f2b7c2181aafd7ef6615bba06aa746a5ea30642e60b",
+    "addedModules": [
+      "independent74-assets-r1.mjs",
+      "independent74-catalog-r1.mjs",
+      "independent74-gateway-r1.mjs",
+      "independent74-entry-r1.mjs"
+    ],
+    "bindingNames": [
+      "API_ORIGIN",
+      "BRIDGE_ORIGIN",
+      "BRIDGE_SHARED_SECRET",
+      "CATALOG_ENABLED",
+      "ENGINE_EXTENSION",
+      "EXPANSION100",
+      "LEGACY_PLAYER",
+      "LOCAL_DEMO_WALLETS",
+      "NATIVE_ENGINE_ORIGIN",
+      "NATIVE_ENGINE_SECRET",
+      "NATIVE_LIBRARY_ASSETS",
+      "NATIVE_PRESENTATION",
+      "PLAYER_PRESENCE_KEY",
+      "PLAYER_PRESENCE_MIGRATION_UNTIL",
+      "PORTAL"
+    ],
+    "assetsConfig": {
+      "html_handling": "none",
+      "not_found_handling": "none",
+      "run_worker_first": true,
+      "base_path": "/"
+    },
+    "exports": {
+      "LocalDemoWallet": {
+        "type": "durable-object",
+        "storage": "sqlite"
+      },
+      "default": {
+        "type": "worker"
+      }
+    }
+  },
+  "originalManifest": [
+    {
+      "name": "machine-data/cabinet.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 3372,
+      "sha256": "d730f5084e2b9b32ab128ead691d3e7b5d697d6cc0ddc799d0cf32f0adbe2bc1"
+    },
+    {
+      "name": "game-repair-entry-v235.mjs",
+      "type": "application/javascript+module",
+      "size": 259,
+      "sha256": "9f537858c61f833afd8b1d178b3befb86e1a4b242ba7b47baf3921f5f1f7edd1"
+    },
+    {
+      "name": "remaining20-new-release-worker-r8.mjs",
+      "type": "application/javascript+module",
+      "size": 4738,
+      "sha256": "b59b2f47932f893b62f5744d6f6ada25bb8550bfb6923a861c4845d7bed6c78f"
+    },
+    {
+      "name": "remaining20-seven-review1-player-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 269,
+      "sha256": "f8713fc93f7c8157d6737147ff3bb9ea5e944f1e7f5191befd51bb6faa330745"
+    },
+    {
+      "name": "zplay-assets-v230.mjs",
+      "type": "application/javascript+module",
+      "size": 427812,
+      "sha256": "7b61a8c85831e2f775d26f87a8b8ac0ae9968022d20417dbbcbf19db3767eee3"
+    },
+    {
+      "name": "account-lobby-source-r13.mjs",
+      "type": "application/javascript+module",
+      "size": 118,
+      "sha256": "8c250ef790b6b499322a6def7dc446d2b66091f53a57c7c06db3cc126d19596a"
+    },
+    {
+      "name": "machine-data/audio-loop.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 1259,
+      "sha256": "f976f007c902dcfd191f78a9faa190154c86e4bdde643539046308dd4f03743f"
+    },
+    {
+      "name": "mh5-42726-entry-v233.mjs",
+      "type": "application/javascript+module",
+      "size": 193,
+      "sha256": "8e36de0ed6fda2dce08b0a0788cb16acc0585ee38460371c0aa3e780ca22276c"
+    },
+    {
+      "name": "native-machine-data/controller.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 36717,
+      "sha256": "b4eda2058e812ff44d149e3f77bc2373af12bc1854d94e85917bef6d546398ef"
+    },
+    {
+      "name": "native-machine-data/official-mh5-dialog-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 14377,
+      "sha256": "ab4718d24c0601f515cb05c2d8878d75950d4c71a4a45f4ae43dcd9e12324761"
+    },
+    {
+      "name": "native-machine-data/official-mh5-gamble-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 249183,
+      "sha256": "acbb8f86ee3aaa97b3b05980ca007a456d0de299afd523bdfefe6d60285b0327"
+    },
+    {
+      "name": "native-machine-data/official-startup-guard.js.bin",
+      "type": "application/octet-stream",
+      "size": 1370,
+      "sha256": "62cab04d161ab64b91e975ecc9251a998494d1834821fadab34acba7a75b3e3e"
+    },
+    {
+      "name": "new-game-zoom-worker-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 3734,
+      "sha256": "15db6544822baadc6272cc12b31345f25015d2ed4bb7c483ea3de438a7d5fab0"
+    },
+    {
+      "name": "ice-wallet-entry-r8.mjs",
+      "type": "application/javascript+module",
+      "size": 3717,
+      "sha256": "a86fd822149b960de6c61f5926c9ce554b99b924287fd73ad26816b7525a1747"
+    },
+    {
+      "name": "machine-data/spin-foxy.svg.bin",
+      "type": "application/octet-stream",
+      "size": 1833,
+      "sha256": "dfb0be64ca17ed3221b912977f693e415902ed34835d95e730ee2b9146814fcb"
+    },
+    {
+      "name": "native-catalog-assets.mjs",
+      "type": "application/javascript+module",
+      "size": 1186,
+      "sha256": "08c38432cef5b1887cb5b547aa6bc8ff3ba32877c3da09078e363e51fc317dde"
+    },
+    {
+      "name": "remaining20-accepted-controls-player-entry-r12.mjs",
+      "type": "application/javascript+module",
+      "size": 273,
+      "sha256": "28c60fae512c61f4e95d0b8dafaabe839104b9a0dde670e907857b35625c9ded"
+    },
+    {
+      "name": "remaining20-new-release-player-entry-r8.mjs",
+      "type": "application/javascript+module",
+      "size": 810,
+      "sha256": "25d41d461e433130d8693dbffa6c7b8d2cf770535fac1e81c0356ea0c5e4257f"
+    },
+    {
+      "name": "player-entry-v236.mjs",
+      "type": "application/javascript+module",
+      "size": 215,
+      "sha256": "3a14f02a9eddf2b52cc0cbc94c6f808dab1e8a3763b69596fe54deb5f0977030"
+    },
+    {
+      "name": "player-router-v236.mjs",
+      "type": "application/javascript+module",
+      "size": 4395,
+      "sha256": "f90320e530d4f38fe3e6a8ee7bb11cff288aeecc5fe8e3316ffbfa214a20527a"
+    },
+    {
+      "name": "zplaybet-assets-v216.mjs",
+      "type": "application/javascript+module",
+      "size": 209581,
+      "sha256": "f5c061fad29d535e73f57a03ef6e7b2ddc2eebdd109d14c032e9a241381eea50"
+    },
+    {
+      "name": "machine-data/motion.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2134,
+      "sha256": "c1661afbdd8bbef6d50677fef898e29cca053984094beaf352341c51696708a6"
+    },
+    {
+      "name": "native-catalog-data/foxy-hot-20.webp.bin",
+      "type": "application/octet-stream",
+      "size": 106668,
+      "sha256": "e6090f7302986df397fb99fb6f67b4fab63cd9bce1bdc577dd7064651de10e4e"
+    },
+    {
+      "name": "native-machine-data/official-mh5-collect-art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 104915,
+      "sha256": "5d6c22444e6838a6ee81eb272924f1aa22f3d8513858188ed8355198eb6229b5"
+    },
+    {
+      "name": "remaining20-accepted-controls-worker-r12.mjs",
+      "type": "application/javascript+module",
+      "size": 3591,
+      "sha256": "372a8a93e1da431234f6487e3ca6431f89afde2c5a58506185a93ff885cf6137"
+    },
+    {
+      "name": "deluxe-strip-player-entry-r2.mjs",
+      "type": "application/javascript+module",
+      "size": 253,
+      "sha256": "8d06a273dbd486c9475f9fae04dc0c0b03c6e01c00d873b1a7caa980d2722203"
+    },
+    {
+      "name": "expansion100-router-20261108.mjs",
+      "type": "application/javascript+module",
+      "size": 973,
+      "sha256": "9e5e908ae5eccad5d69c8a49c4c048c22361f787d8a9fd93cc8d9649646e95cc"
+    },
+    {
+      "name": "native-polish-v2166.mjs",
+      "type": "application/javascript+module",
+      "size": 10598,
+      "sha256": "8fc98fd818559159f10a02f39fbc7886a53d96239eac4567ef3aff1225069297"
+    },
+    {
+      "name": "zplay-assets-v229.mjs",
+      "type": "application/javascript+module",
+      "size": 670491,
+      "sha256": "4ff30f17597e613d12d738560f67570858a945ceeead1b81360dd0b46181e9d0"
+    },
+    {
+      "name": "zplay-interior-v207.mjs",
+      "type": "application/javascript+module",
+      "size": 72107,
+      "sha256": "b0a3167d0826453f490668c98a44dd8cfbbc7e5b21656e6378d3d5aa76020af5"
+    },
+    {
+      "name": "zplay-live-route-v211.mjs",
+      "type": "application/javascript+module",
+      "size": 2298,
+      "sha256": "14e54b80abe0424fe64b5d246f9a85c85d254b94c10f59748f12621b4de94b5d"
+    },
+    {
+      "name": "zplay-route-v223.mjs",
+      "type": "application/javascript+module",
+      "size": 4178,
+      "sha256": "378102391c0e6c42d7f22f2e409601ce2e5b49f26538f63c9ee40772751bff14"
+    },
+    {
+      "name": "zplaybet-catalogue-v222.mjs",
+      "type": "application/javascript+module",
+      "size": 2704,
+      "sha256": "d5426831befb980a38dae9d54c098686169a81335f9b798ad4c18bec0320c3af"
+    },
+    {
+      "name": "zplaybet-route-v216.mjs",
+      "type": "application/javascript+module",
+      "size": 1905,
+      "sha256": "b5dbadcc7be2ad60e099ad3afcfbd1d415c1c59bbba6dbedeac5ed44e3371558"
+    },
+    {
+      "name": "launch-recovery-entry-20261108-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 354,
+      "sha256": "6db9753fae0de0201d2e91fcd9a750e4cec6aa810ff7f584bffb6d60d4d90912"
+    },
+    {
+      "name": "native-machine-data/official-mh5-motion-art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 759515,
+      "sha256": "7187528c32067649180e910d54b2727d3b27d503cb6fe5496832e2d1b63d78ac"
+    },
+    {
+      "name": "player-assets-v236.mjs",
+      "type": "application/javascript+module",
+      "size": 11969,
+      "sha256": "149d3154911a27dc7ea1c3a4ddc4e014189d2fc18d5c388e1d2c825aee4524ba"
+    },
+    {
+      "name": "portal-router-r9.mjs",
+      "type": "application/javascript+module",
+      "size": 3593,
+      "sha256": "0bc65e3848f4eb88e92c96db983083918ab7360b37d37151792baaaba85bdc2a"
+    },
+    {
+      "name": "machine-data/controller.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 26782,
+      "sha256": "8bf4ebf57061dbbc96ee2fec8ba9f8a9ad89e94dd7b20f9bc95b7bd01fd91cf6"
+    },
+    {
+      "name": "machine-data/renderer.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 26260,
+      "sha256": "b80696d2f964fd3618de116348a8e79c92d0c5368bb06f3aefc197da68d9b3af"
+    },
+    {
+      "name": "portal-entry-r9.mjs",
+      "type": "application/javascript+module",
+      "size": 204,
+      "sha256": "a3c7c0cfb5951ad1b9082dfba983dce18aee74de245e1b7e94c20be833b38953"
+    },
+    {
+      "name": "zplay-route-v228.mjs",
+      "type": "application/javascript+module",
+      "size": 5154,
+      "sha256": "2badc6cab1e80b8b3566e272a52dbae76e562719668b76c8fdc94f68529beaeb"
+    },
+    {
+      "name": "zplay-route-v229.mjs",
+      "type": "application/javascript+module",
+      "size": 5926,
+      "sha256": "a7bcf455ae27f4285aebc53432339a4ba860fbd8257be684d65f11f75f232951"
+    },
+    {
+      "name": "game-repair-transforms-v235.mjs",
+      "type": "application/javascript+module",
+      "size": 7688,
+      "sha256": "fbd2182f5ff25c4477d46cbdbf007edc1fe43c5bdd2fa3966df5b8d2d35564eb"
+    },
+    {
+      "name": "machine-data/official-foxy-effects-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 1556801,
+      "sha256": "3db837d4541a0bb0b0913a636d9e53bddef346aa7b9a9ab8adb875913cc6c76c"
+    },
+    {
+      "name": "native-machine-data/official-foxy-gamble-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 163968,
+      "sha256": "b624f9d5213a25439a665dc57815eaa3243a2f9f5003786832a2cdab95c6a7fc"
+    },
+    {
+      "name": "remaining20-seven-review1-player.mjs",
+      "type": "application/javascript+module",
+      "size": 2208,
+      "sha256": "dfb3bdd969a839091278dc08a802576a5178ccd8522aa70b6bffa16e4d34037d"
+    },
+    {
+      "name": "zplay-entry-v214.mjs",
+      "type": "application/javascript+module",
+      "size": 208,
+      "sha256": "26c172ea53e0ed9abfdfb9f316ac431103ae29315dfd2ca338da1c9288dd07d5"
+    },
+    {
+      "name": "machine-assets-20261106.mjs",
+      "type": "application/javascript+module",
+      "size": 14904,
+      "sha256": "5ac7e3b31b2646f038a0155891282c83b51de0409b411dc6a526c8479cc9f59f"
+    },
+    {
+      "name": "machine-data/stars-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 71867,
+      "sha256": "af04bf085afe761b4b65d6dcc2d0ff28077c205ec1315c98283c6b0986501be4"
+    },
+    {
+      "name": "new-game-zoom-policy-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 670,
+      "sha256": "d70d163dde12c229f8cd63d1ba5e1639717688b5f308af74051ea4cf59e77bcf"
+    },
+    {
+      "name": "remaining20-credits-nine-player-entry-r5.mjs",
+      "type": "application/javascript+module",
+      "size": 264,
+      "sha256": "2f26ad54f72f7e10582ed952d38d47e1f58db8460751f08ec0e4c3d7cf2a53cb"
+    },
+    {
+      "name": "remaining20-ice-controls-player-entry-r5.mjs",
+      "type": "application/javascript+module",
+      "size": 261,
+      "sha256": "97047f6bdc005b2bbb794587f4ad6d3d354676b377557a47aa60b7ce8818a99d"
+    },
+    {
+      "name": "machine-data/audio-banks.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 55137,
+      "sha256": "a03a7b18bd749ea546adde1557e1eda0b669c6252f33be5234ff5233266a701c"
+    },
+    {
+      "name": "native-machine-data/official-startup.css.bin",
+      "type": "application/octet-stream",
+      "size": 3592,
+      "sha256": "c5f05917d8a58f53969d7c64474e0af5fea2b7d1b0893dfabb35928a2fedf63a"
+    },
+    {
+      "name": "native-machine-data/verified-models.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 133735,
+      "sha256": "73b8e84b3c349cbdb510b32302f72cbe9fdd3f81afffe6aaa3d8c64d6873aefe"
+    },
+    {
+      "name": "nine-assets-v2167.mjs",
+      "type": "application/javascript+module",
+      "size": 70616,
+      "sha256": "7adbbc27cb248c1b641ba24cafb66f22892fc44677dcb029216c8c0f6f9df514"
+    },
+    {
+      "name": "remaining20-ice-audio-demo-player-entry-r10.mjs",
+      "type": "application/javascript+module",
+      "size": 249,
+      "sha256": "135a07d60a53b3161d0c01c05f221de4d3f9b3528de180d8f4c87bb7b55548c4"
+    },
+    {
+      "name": "runtime-player-entry-r21.mjs",
+      "type": "application/javascript+module",
+      "size": 3837,
+      "sha256": "b41210d8f2455c62e4f7f599f1b61ce07b9edfee588c415e905bc1d19511a92a"
+    },
+    {
+      "name": "machine-data/audio-samples.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 88179,
+      "sha256": "cf83a2c4c6b5ee785a45a7f3ea8d397a3d8875597beebcc81518d1d97d3d0f8d"
+    },
+    {
+      "name": "game-repair-router-v234.mjs",
+      "type": "application/javascript+module",
+      "size": 1312,
+      "sha256": "8d4a9fc2e480443620d47362140e837fd77607e55cf8e4ed208293d9bb6f7c4b"
+    },
+    {
+      "name": "machine-data/hex-control.svg.bin",
+      "type": "application/octet-stream",
+      "size": 2359,
+      "sha256": "74a1514b4c06eabe2733756434b8798724ff2df42d77b10c1dd22b840f63345c"
+    },
+    {
+      "name": "native-machine-data/official-foxy-dialog-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 132930,
+      "sha256": "8974f2a83ab441606bd0ba823ccd68df4edae72a61270982ad06fcf383e8be35"
+    },
+    {
+      "name": "remaining20-ice-audio-demo-r10.mjs",
+      "type": "application/javascript+module",
+      "size": 2606,
+      "sha256": "60d77095bc8e702a02ff09e5db091aa0df3ef487d11b094673b5ec20d9e04e19"
+    },
+    {
+      "name": "zplay-route-v227.mjs",
+      "type": "application/javascript+module",
+      "size": 5150,
+      "sha256": "ea3f3141ab04126e1445adf84d864e8712ac8d547f181cb62209a02814695fd2"
+    },
+    {
+      "name": "machine-data/extra-games.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 155528,
+      "sha256": "5d82db80df66b699efafd38e07413ca6d276e0228ebc147d30cfac90b3070fa4"
+    },
+    {
+      "name": "remaining20-catalogue-worker-r3.mjs",
+      "type": "application/javascript+module",
+      "size": 3770,
+      "sha256": "7302bc2039dd3c598f2dcb733e2449fa3dec692b283b1eafb8c432704717cad2"
+    },
+    {
+      "name": "zplay-assets-v223.mjs",
+      "type": "application/javascript+module",
+      "size": 602862,
+      "sha256": "e2543f2b3fb0a440604403d93f7d90df1cd20c20d0a8da9e52b9e2413b5d9224"
+    },
+    {
+      "name": "zplay-entry-v225.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "4e42dd75447a992549cbf2d458b54a4db533be5350324348ba92731d340d144f"
+    },
+    {
+      "name": "zplaybet-route-v222.mjs",
+      "type": "application/javascript+module",
+      "size": 2816,
+      "sha256": "a0591e4c7c2131b5a265d5d045fcf1a380d9fb8e2d442898c3de379f036f86fa"
+    },
+    {
+      "name": "machine-data/official-mh5-art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 1705761,
+      "sha256": "768fd7636b5cc263660adcb39236f97870ec0e756bbde86b2f268106cdf4cd24"
+    },
+    {
+      "name": "player-assets-v2170.mjs",
+      "type": "application/javascript+module",
+      "size": 49690,
+      "sha256": "c90274509f99539017c8f52717ae3a3c98415cbd6b820313e73ba825d8ab6035"
+    },
+    {
+      "name": "zplay-entry-v224.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "f202445e1f1d7f8bdef11e6b61c24e9a4ba1ca398e5ed30b63e0a6c7d2818ec6"
+    },
+    {
+      "name": "existing-new-wager-client-index-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 1857,
+      "sha256": "5b5beb868722962722dbff6817e2cb1e57850c6797026362aabab1534aff7b2f"
+    },
+    {
+      "name": "game-repair-art235-multi-hot-5-video-2.mjs",
+      "type": "application/javascript+module",
+      "size": 49687,
+      "sha256": "8a34d4547a9f41e187acf78961cad503f0f1b94a89062f1e54737316994c39e5"
+    },
+    {
+      "name": "machine-data/native-animation-mh5-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 10430145,
+      "sha256": "20eadea96ff59e2c2d5626cd45bdd8e0139397522b61881f9dd6b41cac8e0a9e"
+    },
+    {
+      "name": "player-transforms-v236.mjs",
+      "type": "application/javascript+module",
+      "size": 4712,
+      "sha256": "48aa6a39dcb703789deac6bc94381d7476e6444bcb42a0d587bda8ecd45ee4a2"
+    },
+    {
+      "name": "zplay-route-v226.mjs",
+      "type": "application/javascript+module",
+      "size": 5146,
+      "sha256": "300ff7665113de1efed53b907c738b28f3c3166ed09e22084a32de1791493d00"
+    },
+    {
+      "name": "balloon-assets-20261108.mjs",
+      "type": "application/javascript+module",
+      "size": 58600,
+      "sha256": "83f5b55ca75c9c5af44692932716501c8825ac14e7072b9161bda1ea63574ff8"
+    },
+    {
+      "name": "native-machine-data/official-help.css.bin",
+      "type": "application/octet-stream",
+      "size": 16009,
+      "sha256": "b36594a1bbd2c0d072b88c1db9f02b7ab05ea9d949ef93bc66d98c52eaee85e5"
+    },
+    {
+      "name": "zplay-live-entry-v211.mjs",
+      "type": "application/javascript+module",
+      "size": 234,
+      "sha256": "747b023b2f48ae964d88a9346430e0b6ee0979a7ab09c72dcd48d3c4855548d6"
+    },
+    {
+      "name": "zplay-route-v225.mjs",
+      "type": "application/javascript+module",
+      "size": 5142,
+      "sha256": "7e9de77b9ec3f3209c7638535a001a2edccca6fa8f0401508b6c5ff98a90b758"
+    },
+    {
+      "name": "account-entry-r13.mjs",
+      "type": "application/javascript+module",
+      "size": 6463,
+      "sha256": "24797b20001b6942a9eb32746c8774dec6b2ff1fcf75025e9c465160618a94a4"
+    },
+    {
+      "name": "cabinet-assets-v2173.mjs",
+      "type": "application/javascript+module",
+      "size": 913289,
+      "sha256": "2e74c0352423d92aa9d0e4173a6d265d5c666b80766b90c4e6b506b38722196e"
+    },
+    {
+      "name": "jetx-entry-20261107.mjs",
+      "type": "application/javascript+module",
+      "size": 241,
+      "sha256": "247ea91a9ceb548b9b106ca86650df97e078f36e67689f5742a61b03af4293ed"
+    },
+    {
+      "name": "observed-assets.mjs",
+      "type": "application/javascript+module",
+      "size": 397923,
+      "sha256": "3f9fe0acf49eb729fb9cfd6cc3342580086cd613a157cd7835eb56ffee3e2428"
+    },
+    {
+      "name": "remaining20-new-release-index-r8.mjs",
+      "type": "application/javascript+module",
+      "size": 625,
+      "sha256": "9b478b29be7244b092c10013d4f9cd0515960b9472ddbbcc4dc1cc45bc57a0a9"
+    },
+    {
+      "name": "zplay-entry-v231.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "b9318b402e582bdb733b6fe07eb392110498101f2a3efe67d3d7b2ac963fad80"
+    },
+    {
+      "name": "zplay-fixes-v214.mjs",
+      "type": "application/javascript+module",
+      "size": 7175,
+      "sha256": "deebbfaa16195a81af4e5f652364e865e8c8d7318775d8a79c0ee5a343dca1e3"
+    },
+    {
+      "name": "zplaybet-assets-v218.mjs",
+      "type": "application/javascript+module",
+      "size": 974152,
+      "sha256": "028bf8a60fcd90a7438604a80464c1255bea87087fd581736471d6afa2738bcf"
+    },
+    {
+      "name": "account-player-entry-r13.mjs",
+      "type": "application/javascript+module",
+      "size": 457,
+      "sha256": "ef987e10354672d71be63e5d6625a0f8655f9282304fa6695964d8fd7f68f084"
+    },
+    {
+      "name": "restore-20261102.mjs",
+      "type": "application/javascript+module",
+      "size": 101,
+      "sha256": "31ba5bc7ddb82841ef682998157a2e550ff2b96862a5bb97ac06c95bc408af9f"
+    },
+    {
+      "name": "zplay-rebuild-entry-v197.mjs",
+      "type": "application/javascript+module",
+      "size": 125661,
+      "sha256": "8a7c6add961878306a23bf527edeb2fe7d25cff4e2a6b28c2b112e0ed64601a2"
+    },
+    {
+      "name": "zplay-route-v231.mjs",
+      "type": "application/javascript+module",
+      "size": 5934,
+      "sha256": "a78dcb4e1dfe2409d9fc40e89da0784761c3c8ddc43644dcc63be612a3a7057e"
+    },
+    {
+      "name": "zplaybet-assets-v221.mjs",
+      "type": "application/javascript+module",
+      "size": 856243,
+      "sha256": "d18801afc6d6cb20cf9bb03e4fa54334061ec00c0872808f2b45f05b75308988"
+    },
+    {
+      "name": "existing-new-wager-client-worker-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 4175,
+      "sha256": "63b06aede739955ab11d03ee5447383964719309a50b621b2f3c3d9ffb9158d3"
+    },
+    {
+      "name": "native-machine-data/contract.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 12418,
+      "sha256": "149b8f51c9a45a26e256b3dd8c0780680b03b32c67be42a4664909a83e250ed2"
+    },
+    {
+      "name": "native-machine-data/official-gamble-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 12945,
+      "sha256": "40c9b87ea3bead55e55f3c5295aab2a9be9d6625c4d0576579c1ee0f4d709f18"
+    },
+    {
+      "name": "machine-data/contract.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 7070,
+      "sha256": "57946bcc6d14b6f15b51c16a6eedefef11ea6ba9b931260af601da6ee4127e1b"
+    },
+    {
+      "name": "machine-data/official-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 6039,
+      "sha256": "7c61ad427d80b933680344c674cc69ca9c28db11c8e9cff119fcf98b7a348b01"
+    },
+    {
+      "name": "zplay-route-v224.mjs",
+      "type": "application/javascript+module",
+      "size": 5180,
+      "sha256": "1f3b3021012b71cfb165645e508049b5dffc71324e0d4b84755f1d10a1ff5d7b"
+    },
+    {
+      "name": "game-repair-router-v235.mjs",
+      "type": "application/javascript+module",
+      "size": 1374,
+      "sha256": "d86227f29f1ecc74273bd1752ece3cf77c8623b7fe8a02d933da6fbb3c9107d9"
+    },
+    {
+      "name": "native-machine-data/official-mh5-gamble-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 200900,
+      "sha256": "05a3db8d1e7315f843452809e20017c694c7924dd9f5399303779a6aebba2706"
+    },
+    {
+      "name": "official-new-covers-html-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 574,
+      "sha256": "19f3060e0e7aff28fe24be4d55a4bf50e70f64f01901a96f152bcd5ddbb24bdf"
+    },
+    {
+      "name": "presentation-player-entry-r23.mjs",
+      "type": "application/javascript+module",
+      "size": 3923,
+      "sha256": "f3fb8bf1db3854bd37880a62cc93c7fd9f7fb979766378a92d1759ce370a6d76"
+    },
+    {
+      "name": "sw-original-assets.mjs",
+      "type": "application/javascript+module",
+      "size": 3015025,
+      "sha256": "620235cad3d3a27c5aa906b44bdec4066d649e3d77793350f730013f943a267c"
+    },
+    {
+      "name": "zplay-route-v232.mjs",
+      "type": "application/javascript+module",
+      "size": 5938,
+      "sha256": "81a3f8cdef6594fa9c9630a308a0441be3d02e503e27f1a5f4259ff74e9b41c7"
+    },
+    {
+      "name": "native-machine-data/official-startup-logo.gif.bin",
+      "type": "application/octet-stream",
+      "size": 46937,
+      "sha256": "4d5662742ebb6a6c564a9c225040c034062c1fdc7d4e12e0b1f227350ad26c99"
+    },
+    {
+      "name": "remaining20-credits-lobby-entry-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 236,
+      "sha256": "16fe9483e00db11ab7dc1cb8900d1e994c901ccfa6cfb534790387bf36c1de7f"
+    },
+    {
+      "name": "remaining20-review4-player.mjs",
+      "type": "application/javascript+module",
+      "size": 2071,
+      "sha256": "22c371795c3f79579ff6e42bc9b25806133b714b08af13cb2cce9aa3beda5320"
+    },
+    {
+      "name": "video-layout-v2192.mjs",
+      "type": "application/javascript+module",
+      "size": 5969,
+      "sha256": "91302da5e15ec80d4e493aaab6f5dda3d4d945cdbc990efe4cd8c066f52783ea"
+    },
+    {
+      "name": "ice-startup-layout-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 894,
+      "sha256": "7fe9fafad3f76320dc7fe3f88554584b0bc60cb14312433f1d322b58c5ff4b4b"
+    },
+    {
+      "name": "machine-data/official-foxy-art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2461817,
+      "sha256": "a1c124cb89faac510562e120ecdc347caec4bfada3a265e415264907cbef0de0"
+    },
+    {
+      "name": "native-machine-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 527,
+      "sha256": "c03c8a8d9cc8da18ab6bf29bdf2b41f8e9179c467d4444014528a216e8b57b58"
+    },
+    {
+      "name": "remaining20-review3-player.mjs",
+      "type": "application/javascript+module",
+      "size": 2071,
+      "sha256": "f625586ecbb6c8050d792b8bd0b34425fca0b2044bfed1d255b66a502c6d81d1"
+    },
+    {
+      "name": "remaining20-review3-player-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 237,
+      "sha256": "cbc495d505ab750e20e1627207d327db606179b845630ac2d4926cad5849c265"
+    },
+    {
+      "name": "machine-data/official-foxy-background.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2050032,
+      "sha256": "6e011938570286778889ec88800dd1194b56b778f404d8e01d139a1bdbb46eca"
+    },
+    {
+      "name": "machine-data/official-foxy-foreground.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 595532,
+      "sha256": "eecb231cbf1fc91b95183ef2e676a9a1f6227eb9b3f6cdd7f3d7d75fa7e03add"
+    },
+    {
+      "name": "machine-routes.mjs",
+      "type": "application/javascript+module",
+      "size": 4365,
+      "sha256": "37b3f9c06752f7ecffccb2c3c77c00703ebd589ae1808012e952679741194bd9"
+    },
+    {
+      "name": "new-cabinet-assets-v2200.mjs",
+      "type": "application/javascript+module",
+      "size": 23657,
+      "sha256": "12a67521a17325dca008c3eb78e785bf9ba260d8696aaeed7cd4ffc801a8c183"
+    },
+    {
+      "name": "remaining20-ice-controls-worker-r4.mjs",
+      "type": "application/javascript+module",
+      "size": 3866,
+      "sha256": "b757b6cec02841e1e9dddb601a680d06c4f4f6fb3449782310c25ed769a115b3"
+    },
+    {
+      "name": "sw-original-engine.mjs",
+      "type": "application/javascript+module",
+      "size": 7927,
+      "sha256": "4f973afad8103ae619c184e5c3991619533f306af3ef7bc9ffb174e7858c1db5"
+    },
+    {
+      "name": "native-machine-data/style.css.bin",
+      "type": "application/octet-stream",
+      "size": 93000,
+      "sha256": "cf403fea54f580b80f94daee29725829f843026fed2d56b0cc185becefeb2e1f"
+    },
+    {
+      "name": "reference-player-entry-r14.mjs",
+      "type": "application/javascript+module",
+      "size": 304,
+      "sha256": "0113b845be95ed10abdd941e6ff9fbb0836885c3f0952af855bc6eeed9c4be10"
+    },
+    {
+      "name": "zplay-entry-v228.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "dbc054d84e5bf03de1d5926efbd4a5006ca0a8672ee8fb44c233f460eb53dac3"
+    },
+    {
+      "name": "machine-data/audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 18156,
+      "sha256": "bafe2d81b4f0cba7c024280f9060a3a71dc5e94527c8415d4873dba4a2a9e3d5"
+    },
+    {
+      "name": "older-new-zoom-policy-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 806,
+      "sha256": "711e95f15cd93542bd68edbaab7c28d03330996e58900028de546ccdb9a2a0f1"
+    },
+    {
+      "name": "zplay-entry-v226.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "4a14462c458d33974911a5335c735a5f7b00c16ecdfc7260283a516849f089bb"
+    },
+    {
+      "name": "native-machine-data/audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 18881,
+      "sha256": "b3fc2552178b1054c93a6fa4fc70a59151da526ccff0763a3da6b0a7d8c4264f"
+    },
+    {
+      "name": "expansion100-entry-20261108.mjs",
+      "type": "application/javascript+module",
+      "size": 233,
+      "sha256": "cd01b09ead0ca2022d18ce229d59b36c586a738feefacd8041044f33449e448a"
+    },
+    {
+      "name": "jetx-login-helper.mjs",
+      "type": "application/javascript+module",
+      "size": 2259,
+      "sha256": "8590ac8736ee65252fb9d395c79631366d39bb214935e0af9bef4ffbe1f25e82"
+    },
+    {
+      "name": "machine-data/foxy-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 12062,
+      "sha256": "868e1f8c82eca6417ae636473064733a09a3d0552bda201cc84f3668cd7c3c33"
+    },
+    {
+      "name": "game-repair-art235-hot-foxy-20-1.mjs",
+      "type": "application/javascript+module",
+      "size": 60019,
+      "sha256": "c4c7d4c9a05adb996e2c1ad60aebf47aabaa1998b39e0d111dac9a131d001e2f"
+    },
+    {
+      "name": "local-page.mjs",
+      "type": "application/javascript+module",
+      "size": 5135,
+      "sha256": "707cb715285b042870bb7d1c94d50695c1cf151f6d9860210d06275064fa8436"
+    },
+    {
+      "name": "machine-data/art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 20084,
+      "sha256": "347a2cbaf0f3a3703d337055ff25835057ade76f99c68d05e7aa9de275709715"
+    },
+    {
+      "name": "machine-data/registry.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 6507,
+      "sha256": "bb0581136467afad5c9e20a5e93ad62197deccc4af6797f1524c7777b6d93d32"
+    },
+    {
+      "name": "reference-resources-r14.mjs",
+      "type": "application/javascript+module",
+      "size": 2305,
+      "sha256": "5ab46fe36657f7e57e95a0374a017059a4a8ffc0486af5de7bab7ab6d970536f"
+    },
+    {
+      "name": "zplaybet-entry-v218.mjs",
+      "type": "application/javascript+module",
+      "size": 249,
+      "sha256": "c2bd1380c98aeb848f80aecfe30c74a019438c785ef8b746538bae6d6855336d"
+    },
+    {
+      "name": "construction-player-entry-r15.mjs",
+      "type": "application/javascript+module",
+      "size": 6094,
+      "sha256": "2fddd65e139125b1412e3af3dfba9c080dc649dffc4ad35087c64ca7810ad3df"
+    },
+    {
+      "name": "observed-entry-20261108-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 780,
+      "sha256": "aec7152592f05e577946c5d24b1c10a2153e1294e09c466d7ca52b5c14f938b3"
+    },
+    {
+      "name": "remaining20-new-controls-worker-r6.mjs",
+      "type": "application/javascript+module",
+      "size": 4460,
+      "sha256": "67d76997e5f73e78aeda2cbdb6f36b4ef39fdda2e9dc7903448fb125dbdd409e"
+    },
+    {
+      "name": "zplay-assets-v228.mjs",
+      "type": "application/javascript+module",
+      "size": 1252974,
+      "sha256": "a57c00718bdf6a687abb5e991419c7057c4432848c939df03ae0fa95fd3463a2"
+    },
+    {
+      "name": "machine-data/native-animation-runtime.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 983602,
+      "sha256": "f20b594716f883cd8dc0eeb2ece552d86ed3363962b3eec48bbf360504d8d7a5"
+    },
+    {
+      "name": "native-entry-20261107.mjs",
+      "type": "application/javascript+module",
+      "size": 357,
+      "sha256": "27e0867417817e38502a10fb1638d8f5679bf9d9fa781192c023e117a0d05f56"
+    },
+    {
+      "name": "remaining20-ice-controls-index-r4.mjs",
+      "type": "application/javascript+module",
+      "size": 735,
+      "sha256": "07e53adfa00ef7f86be8b4f42531c737bb8dfc699fd83cc49b61ae04866f8aae"
+    },
+    {
+      "name": "remaining20-ice-controls-player-entry-r4.mjs",
+      "type": "application/javascript+module",
+      "size": 237,
+      "sha256": "143de197015e08c1d903f1d05240999bc82e59b49be156e07bf17adc244f1156"
+    },
+    {
+      "name": "remaining20-r5-seven-player-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 250,
+      "sha256": "2b96692ad390a7a6ed6a6950cb1e1d58356f8e0dc498028387f81de674df5004"
+    },
+    {
+      "name": "game-repair-art235-multi-hot-5-video-1.mjs",
+      "type": "application/javascript+module",
+      "size": 60019,
+      "sha256": "a8ee065d93cdd446ab41d120c891fe270935b5ec0fcc30ae0296eedc96eed2e4"
+    },
+    {
+      "name": "visual-assets-v2169.mjs",
+      "type": "application/javascript+module",
+      "size": 56473,
+      "sha256": "e1e3afee0af38cd2d070eba0830359664a2dea0f1a1b88f831e91255078bd2ef"
+    },
+    {
+      "name": "zplay-motion-v205.mjs",
+      "type": "application/javascript+module",
+      "size": 18219,
+      "sha256": "78bae559e276986a282f57fdf4f29d3595a9baab292024350342de9f2aa74b0f"
+    },
+    {
+      "name": "zplay-rebuild-entry-v196.mjs",
+      "type": "application/javascript+module",
+      "size": 113798,
+      "sha256": "e71592eed2a7613ae3a921e6980967f513814d68fc9464e33b110271c736b133"
+    },
+    {
+      "name": "machine-data/native-animation-LICENSES.txt.bin",
+      "type": "application/octet-stream",
+      "size": 2640,
+      "sha256": "81f176122458976abd6e99c054e9df478126c827e0b272941f32afe4af36664d"
+    },
+    {
+      "name": "remaining20-ice-receipt-index-r11.mjs",
+      "type": "application/javascript+module",
+      "size": 236,
+      "sha256": "019d80e82ca3c24e44a41988a498bfd02ce6b4456ff9b84bfcd979b287f5050a"
+    },
+    {
+      "name": "remaining20-review4-player-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 237,
+      "sha256": "fd2715a2ddc9fe71879074ebe9d2315cda6cfdfb1cdd0b1814ec5cc2f92ce5e2"
+    },
+    {
+      "name": "sw-original-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 6147,
+      "sha256": "5fee76dcb69d45b79c0688d39bbf3ca883f7bf6b4974e1b4cf5035788cee9eca"
+    },
+    {
+      "name": "zplay-assets-v224.mjs",
+      "type": "application/javascript+module",
+      "size": 844481,
+      "sha256": "addad8f3afbf06059f9d7136071b5996ffe4affaa9882758975216327cc95c4c"
+    },
+    {
+      "name": "game-repair-art-v235.mjs",
+      "type": "application/javascript+module",
+      "size": 472,
+      "sha256": "3ad5079066850b06977e1a8cf91003fe6c7e6c73fc9dcd620ff6884b76ca13b2"
+    },
+    {
+      "name": "mh5-42726-assets-v233.mjs",
+      "type": "application/javascript+module",
+      "size": 1000397,
+      "sha256": "cfc9537e231509e7151be65ef958fe723351b3fa5bc951ee632dbf85d386f1c8"
+    },
+    {
+      "name": "native-catalog-data/portal.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 22356,
+      "sha256": "6b467ad8675eff897eac0688d82a8cee6787ac7b896044f9fe42d8f793b6feb2"
+    },
+    {
+      "name": "native-player-entry-r22.mjs",
+      "type": "application/javascript+module",
+      "size": 6766,
+      "sha256": "dfc9b087173837fee3890dfe28c66f5e1f61a77f9d85a4929173be575b247df7"
+    },
+    {
+      "name": "observed-jetx-gateway.mjs",
+      "type": "application/javascript+module",
+      "size": 13377,
+      "sha256": "8f227b1da0c2aaa916e1a2f6956718245e4801d5d0846521356e57299cddae9f"
+    },
+    {
+      "name": "remaining20-credits-lobby-worker-r2.mjs",
+      "type": "application/javascript+module",
+      "size": 3702,
+      "sha256": "d4e12f39e76a868979d0076bac1c44157e62ef92f34d2fbcde61c93abdf0a171"
+    },
+    {
+      "name": "zplaybet-assets-v217.mjs",
+      "type": "application/javascript+module",
+      "size": 493545,
+      "sha256": "4c0ff3ef9326db7795d2e1527a90aa9acb1717e728560b6167b258570f58f18f"
+    },
+    {
+      "name": "machine-data/official-mh5-effects-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 962239,
+      "sha256": "0fc1997f4c56636bc798bb5358a3cb48de67d8610f310b967e12acd4e25abd48"
+    },
+    {
+      "name": "release-assets-v2172.mjs",
+      "type": "application/javascript+module",
+      "size": 14978,
+      "sha256": "b86d4342c5b30018e65214eac25ac1abec31ac222b1ecf8f5431df5f443da96c"
+    },
+    {
+      "name": "remaining20-catalog-20261109.mjs",
+      "type": "application/javascript+module",
+      "size": 2684,
+      "sha256": "6f8877803a48c133449b2ff52ece5907fa2afdaf3be0fe2bf8d6907b184fbd38"
+    },
+    {
+      "name": "remaining20-ice-receipt-player-entry-r11.mjs",
+      "type": "application/javascript+module",
+      "size": 261,
+      "sha256": "4aa1a123386d92a090f6c6acbb986ef37dd1153d5e7bb2c9c7f40de189277e3c"
+    },
+    {
+      "name": "native-machine-data/native-motion-profile.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2752,
+      "sha256": "1345e0c1840d02f25d6bd5cc4032b4b05006f19227da44bf7d0256d0b9b6f54f"
+    },
+    {
+      "name": "player-session-v236.mjs",
+      "type": "application/javascript+module",
+      "size": 5693,
+      "sha256": "ba57645eafb2d5500dfefc81e2ae8170a1d3c35eb2c76e75ff73ddae6e615e3b"
+    },
+    {
+      "name": "remaining20-new-controls-player-entry-r6.mjs",
+      "type": "application/javascript+module",
+      "size": 359,
+      "sha256": "51675654c80c8602922571845dc31622d251529587dadbfb07ca00f109b80b01"
+    },
+    {
+      "name": "zplaybet-assets-v222.mjs",
+      "type": "application/javascript+module",
+      "size": 1010116,
+      "sha256": "132e2af3e81212c1241653d34704c711daafebfddc0f0693906cb68ba2bcf2a0"
+    },
+    {
+      "name": "jetx-worker.mjs",
+      "type": "application/javascript+module",
+      "size": 9040,
+      "sha256": "652482dc1d4ba2e8515a6cd9347f64771ab7fe464dabd47dad650655deb7a3a3"
+    },
+    {
+      "name": "native-machine-data/official-menu-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 119294,
+      "sha256": "f00d8986a71bb5305741ae6bfcbcf5a0e0c397721be3bab4b5a5114c2ea3d127"
+    },
+    {
+      "name": "native-machine-data/official-startup-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 140677,
+      "sha256": "4729e4e1c3e9f22867442dbd22069cdd5226d70596bfb3b8374e6c45a8674047"
+    },
+    {
+      "name": "native-machine-data/official-startup-critical.css.bin",
+      "type": "application/octet-stream",
+      "size": 658,
+      "sha256": "0ce69c2bf37d8fd48d35d8218f4a9f972b6c25d91a7b0a92f0878788cef8211a"
+    },
+    {
+      "name": "remaining20-ice-audio-index-r9.mjs",
+      "type": "application/javascript+module",
+      "size": 751,
+      "sha256": "3899f591f8702ff7a888fcfb9ae58fe178d56e63d9574b08eb2e508f4c0afac1"
+    },
+    {
+      "name": "worker.mjs",
+      "type": "application/javascript+module",
+      "size": 7265965,
+      "sha256": "fb2d2bed5c7d0b885037c71caacf8c6951724a52871ca61652027e87da2f5176"
+    },
+    {
+      "name": "remaining20-credits-lobby-assets-r2.mjs",
+      "type": "application/javascript+module",
+      "size": 9313,
+      "sha256": "99869858ae2afcb26028fc3b8cda7195e652b051be810fb3bc20a75fecb70158"
+    },
+    {
+      "name": "remaining20-credits-lobby-entry-r2.mjs",
+      "type": "application/javascript+module",
+      "size": 244,
+      "sha256": "f7dfa0322ef6ff6417b53953b63083f0a26a4b119b014e85882533c4fa8865f4"
+    },
+    {
+      "name": "zplay-reference-v206.mjs",
+      "type": "application/javascript+module",
+      "size": 7424,
+      "sha256": "4a8372982a075c55f8c39530dd07303d8e86d3f7f0a544b9e8733fe04d37c26a"
+    },
+    {
+      "name": "zplay-stop-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 39231,
+      "sha256": "a913506e7290b215ebf64ce4968e3c8ff1dd04b26c2fee7167597c83c8987c63"
+    },
+    {
+      "name": "native-catalog-data/multi-hot-5.webp.bin",
+      "type": "application/octet-stream",
+      "size": 69214,
+      "sha256": "f2ecb250a023aace9b8a0fd79bac054994d415237308bf1f1fdecba98f31f42d"
+    },
+    {
+      "name": "zplay-entry-v223.mjs",
+      "type": "application/javascript+module",
+      "size": 270,
+      "sha256": "9d2b7358a5347338ee488dd01460b3aef89ce925b62d2777b02f85fbe8093a07"
+    },
+    {
+      "name": "remaining20-ice-audio-player-entry-r9.mjs",
+      "type": "application/javascript+module",
+      "size": 246,
+      "sha256": "b0f6463622ea8f6abb12ee6994c8e61f4a450b54a26939a8983bac3e783d32c2"
+    },
+    {
+      "name": "machine-data/ambient.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 3546,
+      "sha256": "b61c6daaa978ee860abc488b33cb57ee0aeda202fde9bd251f15eadc939b1d74"
+    },
+    {
+      "name": "machine-data/native-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 8538,
+      "sha256": "07b5e9368cfeec2521e8ae7e8529065e151a7b8192971e16c77a73729eebf0f1"
+    },
+    {
+      "name": "native-machine-assets.mjs",
+      "type": "application/javascript+module",
+      "size": 20219,
+      "sha256": "ee1090a9d297dd4bfbbbc104f9c0c68ec1354ff22acfbf7466e9cd5601ec9b7f"
+    },
+    {
+      "name": "reference-entry-r14.mjs",
+      "type": "application/javascript+module",
+      "size": 7729,
+      "sha256": "1f0a03b6ba86752bf9d841837eab53fc73e53c5919d3a32f2d2794ccadddc59c"
+    },
+    {
+      "name": "reference-player-sources-r14.mjs",
+      "type": "application/javascript+module",
+      "size": 7684,
+      "sha256": "b5a533d58da8cc50a7254650f771f4a3db6e7df89c05a9d05a2f9981d4c13f1f"
+    },
+    {
+      "name": "remaining20-credits-coin-api-player-r6.mjs",
+      "type": "application/javascript+module",
+      "size": 6259,
+      "sha256": "59596603277f1e91bef8a19b4512e3050d53344fa0e81c17e84053c4c68c3770"
+    },
+    {
+      "name": "remaining20-credits-lobby-assets-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 8724,
+      "sha256": "1810fd68497a0db185a8624b59808df83f8f870fffd47a2d135fd4d82353112e"
+    },
+    {
+      "name": "deluxe-strip-player-entry-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 253,
+      "sha256": "8d06a273dbd486c9475f9fae04dc0c0b03c6e01c00d873b1a7caa980d2722203"
+    },
+    {
+      "name": "reference-assets-v2164.mjs",
+      "type": "application/javascript+module",
+      "size": 398860,
+      "sha256": "50462e1ac680e417c921e7a77454f57c5287eab5d5d6a857d1de0e10c8f1ec0e"
+    },
+    {
+      "name": "remaining20-review2-player.mjs",
+      "type": "application/javascript+module",
+      "size": 2071,
+      "sha256": "e1943ed717a19c9417366f1f22e773d49938c9a311c9dc9a181dbadc121dec6e"
+    },
+    {
+      "name": "zplay-dashboard-v208.mjs",
+      "type": "application/javascript+module",
+      "size": 9056,
+      "sha256": "93dca448e261c3051e2c0854802d0ef8a6e0f6436ef215668708eaf9f8867099"
+    },
+    {
+      "name": "zplay-presentation-v203.mjs",
+      "type": "application/javascript+module",
+      "size": 43824,
+      "sha256": "1f39a0e496d00ba2683ae6ca21e2cac2280c9128534034bb7f2aa4fa3d63dfb1"
+    },
+    {
+      "name": "zplaybet-entry-v216.mjs",
+      "type": "application/javascript+module",
+      "size": 208,
+      "sha256": "b71eca19641f00161fdd5214556d94972f4c9d021edeea8358c1f45b37d36257"
+    },
+    {
+      "name": "game-repair-art235-hot-foxy-20-2.mjs",
+      "type": "application/javascript+module",
+      "size": 55507,
+      "sha256": "4020aac6dec8da755a858cc8ac70e8298e8d4a2893783cadb6ce8849cf1ca665"
+    },
+    {
+      "name": "machine-data/official-mh5-background.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2796282,
+      "sha256": "05ebbe696f436ed9ebeb6061d5e63ce8938e51464c235b061802bc67e2497309"
+    },
+    {
+      "name": "machine-data/spin-multi.svg.bin",
+      "type": "application/octet-stream",
+      "size": 2936,
+      "sha256": "8922b8cdcd9f0a4cc9fc6e3a7d42ef9a6fdce932f2e3f5031c5bfc79f98f0de3"
+    },
+    {
+      "name": "native-machine-data/official-help-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 14752,
+      "sha256": "632c7511e51eb60185f93f2a832ca0d2db9cd04c9ef3d21d523613a608ba8b41"
+    },
+    {
+      "name": "zplay-live-assets-v211.mjs",
+      "type": "application/javascript+module",
+      "size": 10510,
+      "sha256": "44145a53b632f6c81aef4103dfe76d03f66496428dfe1ebbe08fa8b26c09e81b"
+    },
+    {
+      "name": "remaining20-ice-receipt-worker-r11.mjs",
+      "type": "application/javascript+module",
+      "size": 3553,
+      "sha256": "9ae92de2a5b886d54121b8a945780e5378410cf08f94e3c3069e8de47c794c0f"
+    },
+    {
+      "name": "expansion-worker-20261108-fetch-fix.mjs",
+      "type": "application/javascript+module",
+      "size": 9513,
+      "sha256": "d348ec638ddfae3a676a340c157eecc01971b5bb6a6e04b9b50a92e5148c1cec"
+    },
+    {
+      "name": "game-repair-art235-multi-hot-5-video-0.mjs",
+      "type": "application/javascript+module",
+      "size": 60019,
+      "sha256": "a24e5f5b5224549933bd51b138f03e92c267a4420dfc2771616619e4b28e2b54"
+    },
+    {
+      "name": "zplaybet-route-v218.mjs",
+      "type": "application/javascript+module",
+      "size": 2969,
+      "sha256": "0b13e8edd575a9626fce9453bd9b67a17d20de11b7b7ff9c9a1eb96023973f3f"
+    },
+    {
+      "name": "machine-data/foxy-effects.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 3332,
+      "sha256": "e24061ca4d95df853a208bc4e12995554aa2236f25e6e8ca58794b2336c00860"
+    },
+    {
+      "name": "native-machine-data/official-auto-bet.css.bin",
+      "type": "application/octet-stream",
+      "size": 10923,
+      "sha256": "ff06aa004a2be581e21ee8a3fe09d05babf0ab8720c8969b087b02b4edc1d6e2"
+    },
+    {
+      "name": "remaining20-worker-20261109.mjs",
+      "type": "application/javascript+module",
+      "size": 9838,
+      "sha256": "999ac7cd604990e94a97959f8d956246ae6ea8b01e371d0d5e035770b396d551"
+    },
+    {
+      "name": "zplay-assets-v226.mjs",
+      "type": "application/javascript+module",
+      "size": 1331621,
+      "sha256": "e134fb67dc13cc8292392b0655daf1c944cc04d72c19a10c4def7ec59c6cbd5e"
+    },
+    {
+      "name": "observed-gateway-core.mjs",
+      "type": "application/javascript+module",
+      "size": 21787,
+      "sha256": "0b340e3afcd4f54df7bae293b551c921e0dcc25f66545223a021a372b3726f8a"
+    },
+    {
+      "name": "remaining20-r6-coin-player.mjs",
+      "type": "application/javascript+module",
+      "size": 2043,
+      "sha256": "0a72b79c96b95c7e38026fe0c5399d3546a9c1582c98ebb30c3457a4c25220d8"
+    },
+    {
+      "name": "ice-wallet-assets-router-r8.mjs",
+      "type": "application/javascript+module",
+      "size": 3306,
+      "sha256": "b8ce52c67ac4149adfbc1254140666a9ebef10414587e03726b4d0692ff01e4e"
+    },
+    {
+      "name": "native-machine-data/native-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 9181,
+      "sha256": "98184ac994012405b6e69bc7970d3ebc87b455a3e1e7d69f5eedeeec24b7f71a"
+    },
+    {
+      "name": "native-machine-data/official-gamble-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2989,
+      "sha256": "5c1d00bb21600d283af95f0c4e09efd1fea08e0aab4d1a2b98d5adcc3af37e97"
+    },
+    {
+      "name": "remaining20-ice-controls-worker-r5.mjs",
+      "type": "application/javascript+module",
+      "size": 3680,
+      "sha256": "21909856972e0c5f4cc6e93913b3cc4bca4e2c4c94bfb088e5d9e7f2d3d97dda"
+    },
+    {
+      "name": "native-machine-data/native-win-layer.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2016,
+      "sha256": "6a8063ff47e800676ea98270075206aafd73b1bc9c1ef967718dcd6580d7ddf6"
+    },
+    {
+      "name": "native-machine-data/official-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 8884,
+      "sha256": "52b5bd592331484b619006658f6d565eb2a72f6ddbc15a51380fbd1f49ae2ebe"
+    },
+    {
+      "name": "remaining20-catalogue-entry-r3.mjs",
+      "type": "application/javascript+module",
+      "size": 244,
+      "sha256": "5bdd08fefa16981b1c95d25abda35f5b79d42878d59ec2ee1e37a85351e542a5"
+    },
+    {
+      "name": "zplay-assets-v225.mjs",
+      "type": "application/javascript+module",
+      "size": 1327062,
+      "sha256": "7615f8e71c6062846cc6aaf85add40825ead81238f059fbdbd2a6d1e45e63ce1"
+    },
+    {
+      "name": "game-repair-entry-v234.mjs",
+      "type": "application/javascript+module",
+      "size": 207,
+      "sha256": "a2553d7c75dd3d475917b92f5de410775f84338bdf38683740a249a385c839fe"
+    },
+    {
+      "name": "native-catalog.mjs",
+      "type": "application/javascript+module",
+      "size": 4277,
+      "sha256": "ef54c3dbaf841ef528ca107ad4325c6a0f9f1cfeb595df3ac7db9e53e7fe4fcb"
+    },
+    {
+      "name": "native-machine-data/official-foxy-gamble-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 180788,
+      "sha256": "a5e3ee6cb24d22cfde12e1bca40fe6344a751c9393fcb8da5507ec0f47f7b637"
+    },
+    {
+      "name": "remaining20-accepted-controls-index-r12.mjs",
+      "type": "application/javascript+module",
+      "size": 2182,
+      "sha256": "be0038f02cdd748d6ceaa2ba9addfed52154f0ba0a982df41f7a80b0765bde1e"
+    },
+    {
+      "name": "remaining20-credits-lobby-worker-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 3174,
+      "sha256": "a8a370ac8a214a4585ffd620aedda2cc820bb2c81ecbf76d32abf29f4519a0d2"
+    },
+    {
+      "name": "zplay-entry-v229.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "f189c6135d4c9a86062183e68cb3b9f28826acdc03ba7dc3d43fcea4ddbe7be3"
+    },
+    {
+      "name": "zplaybet-cache-v218p2.mjs",
+      "type": "application/javascript+module",
+      "size": 1818,
+      "sha256": "2e2e367db342e8c3b556cd31c09381f13dd42263ebc63f9e7d51961512e6d56a"
+    },
+    {
+      "name": "cabinet-assets-v2177.mjs",
+      "type": "application/javascript+module",
+      "size": 48841,
+      "sha256": "5108487f73e602a67e3210c8cf3c55c6b4effaa072ce8a5108ff2cc2366f2bdb"
+    },
+    {
+      "name": "game-repair-assets-v235.mjs",
+      "type": "application/javascript+module",
+      "size": 7121,
+      "sha256": "3d4b8f25451b72786370ed68bde5d28bea8aaf7d398ff0252cb103db5411de56"
+    },
+    {
+      "name": "local-demo.mjs",
+      "type": "application/javascript+module",
+      "size": 6688,
+      "sha256": "4b6e2bfa358a91c53b9906d40a5eab92665b10a41c4141dc63c6090abb2bda04"
+    },
+    {
+      "name": "zplay-route-v230.mjs",
+      "type": "application/javascript+module",
+      "size": 5930,
+      "sha256": "a8c416b0079dfe5e11ad62c57b7bf91b9be41fa1ed028c5a93dacd91efb54dc7"
+    },
+    {
+      "name": "machine-data/background-audio.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 34921,
+      "sha256": "4b86264fd0de8bd468c58e7f19cb9774b5f6aadcf8d074962d113837444e6fc9"
+    },
+    {
+      "name": "native-machine-data/native-audio-gains.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 558,
+      "sha256": "260447d17863731e449af319219c86d201004385e97121903b7afaaec3b57549"
+    },
+    {
+      "name": "remaining20-catalogue-assets-r3.mjs",
+      "type": "application/javascript+module",
+      "size": 957579,
+      "sha256": "c36ad578408f2bb218cefe3362664e2890f8933647142b2ccf2f37cac3bc27dc"
+    },
+    {
+      "name": "remaining20-ice-controls-index-r5.mjs",
+      "type": "application/javascript+module",
+      "size": 322,
+      "sha256": "51dc9e6c6392ca7432a7f69319f6593e0492f90bbfb4b5e0e693f55158f9d0a6"
+    },
+    {
+      "name": "remaining20-new-controls-index-r6.mjs",
+      "type": "application/javascript+module",
+      "size": 1368,
+      "sha256": "2edf60626f07010a06c764438bb6cccae8f315b23e8911b40ec63ccf9e940dfc"
+    },
+    {
+      "name": "zplay-assets-v231.mjs",
+      "type": "application/javascript+module",
+      "size": 160405,
+      "sha256": "1a6f42a5b66c420d8c3231a1702ec34b1669329bc234fbf07bc95aadf31d7b63"
+    },
+    {
+      "name": "launch-recovery-worker-20261108-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 1657,
+      "sha256": "e3298a4688b7440ecc30915861d83fe3868a1d7d96c56766c659edab0e3a9224"
+    },
+    {
+      "name": "existing-new-release-player-entry-r7.mjs",
+      "type": "application/javascript+module",
+      "size": 497,
+      "sha256": "43646dafbabd0e4b063512f16ef4f3864e0ee5e5262125d433ae142c6d480936"
+    },
+    {
+      "name": "launch-recovery-sources-20261108-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 47487,
+      "sha256": "2457954e5bc57ffdee1c87222ea9a73f9d4c957efd6279c27f55ef45782c7525"
+    },
+    {
+      "name": "machine-data/native-animation-foxy-assets.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 5020077,
+      "sha256": "8a5bc4cd56f97d7af6d19f12bdcb7a5e535422625dad522b75f61536efb97529"
+    },
+    {
+      "name": "mh5-42726-router-v233.mjs",
+      "type": "application/javascript+module",
+      "size": 1128,
+      "sha256": "16bec09558b3627fb6e6ffb6fd8ead75f6dbe511b5e84e03df538ddfe21aa8cf"
+    },
+    {
+      "name": "remaining20-credits-seven-api-player-r5.mjs",
+      "type": "application/javascript+module",
+      "size": 5998,
+      "sha256": "2413f12063b59dcc2b70fd2bcc81a85d56c0cecf6344ba59f93902636fecc8ae"
+    },
+    {
+      "name": "native-catalog-data/native-catalog.css.bin",
+      "type": "application/octet-stream",
+      "size": 487,
+      "sha256": "8112a1ca56f18662333ddbca6871aed4fbad5454eeed72a63cbe439e9da090f7"
+    },
+    {
+      "name": "zplay-artwork-v210.mjs",
+      "type": "application/javascript+module",
+      "size": 408716,
+      "sha256": "f6d05b3b666cd66dba060e6373757d8921182949ad51175e75433a0bb71ffe68"
+    },
+    {
+      "name": "machine-data/multi-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 135288,
+      "sha256": "5968bd90c3e23c6eb0641a7bce95b2659cc6229b424b2855a7428ed970d95dd1"
+    },
+    {
+      "name": "native-machine-data/official-auto-bet-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 9430,
+      "sha256": "c9dca55204b83f8efa1f9bc0ed618a403db55ea378dbce9fd91a7fb857fdc749"
+    },
+    {
+      "name": "remaining20-credits-transport-r4.mjs",
+      "type": "application/javascript+module",
+      "size": 5152,
+      "sha256": "26b26cecb69905cda9c979fbe2fdf70073e3d1b4ef89269420f94dde51a273aa"
+    },
+    {
+      "name": "video-collection-v2300.mjs",
+      "type": "application/javascript+module",
+      "size": 1964089,
+      "sha256": "0edfd79bfd29a7354703f26f1ec790360659aad8d3fa1df55d56e354c26da4dd"
+    },
+    {
+      "name": "zplaybet-entry-v221.mjs",
+      "type": "application/javascript+module",
+      "size": 215,
+      "sha256": "f6613fbb3129faf2c71e56c77a3874a5c596d53e6438bce143bfc608d03d38c5"
+    },
+    {
+      "name": "machine-data/cabinet-art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 297135,
+      "sha256": "ef3b3cf292f31df9101cc279433f327c0c6021641bbbbd6e9707321719e3e497"
+    },
+    {
+      "name": "machine-data/stake-bar.svg.bin",
+      "type": "application/octet-stream",
+      "size": 2007,
+      "sha256": "d2ac2ada360e0ebc6db8b77b5b2b82b93413ccef7cba5e44f3547a462cd7248d"
+    },
+    {
+      "name": "native-machine-data/native-animation-runtime.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 983617,
+      "sha256": "828a0fe7a0378cb76a119ec8c62daf264cdcb4f8ad4cf8f8a7ecd25cdc6ec096"
+    },
+    {
+      "name": "native-machine-data/official-foxy-motion-art.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 948870,
+      "sha256": "77647d353fbc5c2c7f741640089e9c8f9c4f02f2112b658356834d38ca02d5b0"
+    },
+    {
+      "name": "native-machine-data/official-startup.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 8295,
+      "sha256": "67311178edf3fbef43e0e3e072e92491af8d2fd0e3d0d7e5888c34bef1a2f991"
+    },
+    {
+      "name": "remaining20-credits-player-entry-r4.mjs",
+      "type": "application/javascript+module",
+      "size": 241,
+      "sha256": "ab711fb1b73ae50f1efefaa4d3a9b31c9af1ae9e33a1e37c6bc602c0711ddf04"
+    },
+    {
+      "name": "zplaybet-entry-v217.mjs",
+      "type": "application/javascript+module",
+      "size": 221,
+      "sha256": "77fac974ab4ec5374b25787833eebdd7fe22135feabd71954b30d618ddd3b14e"
+    },
+    {
+      "name": "expansion-player-entry-20261108-fetch-fix.mjs",
+      "type": "application/javascript+module",
+      "size": 244,
+      "sha256": "622933b617e0b61a8226659e8e51066035117c89d563e0dcd974079451fb614c"
+    },
+    {
+      "name": "native-catalog-data/native-catalog.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 1954,
+      "sha256": "6e36b9de5f2da6e0257ef7986de898503f9094e73bb14082c95f650dd50c8219"
+    },
+    {
+      "name": "new-game-fit-html-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 1162,
+      "sha256": "eb4b30a4cb780a7bd45257a11fa0920bd9effc8c10e9a801bd5ef05124cd72c7"
+    },
+    {
+      "name": "new-game-zoom-assets-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 4027,
+      "sha256": "88cb07807be7cda62a40ab15950d2e889374db6a3bbcd1270f7b3d5f1e066043"
+    },
+    {
+      "name": "sixty-family-v1.mjs",
+      "type": "application/javascript+module",
+      "size": 21511,
+      "sha256": "146ba18afc5b3c8de4f9fcb6e422ace4152c25dc42a35d767f1f4c1163239c5d"
+    },
+    {
+      "name": "zplaybet-entry-v222.mjs",
+      "type": "application/javascript+module",
+      "size": 209,
+      "sha256": "ec0f0622b7599070d3d057285db3c006c862a766fc0e09d375d7673b16f8aaf8"
+    },
+    {
+      "name": "balloon-worker-20261108.mjs",
+      "type": "application/javascript+module",
+      "size": 8105,
+      "sha256": "0a28ca4a593bc4925d11d18e468e44cf51dc2b4021677504da91bef9f5f02aca"
+    },
+    {
+      "name": "expansion-client-assets-20261108-fetch-fix.mjs",
+      "type": "application/javascript+module",
+      "size": 573930,
+      "sha256": "5a818240cf8ad2d051774ffbc2dbc22743d79bfc65c60258a79bdb649058032a"
+    },
+    {
+      "name": "machine-data/wallet.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 4156,
+      "sha256": "b7ff0188200a7e2fded92c9f1b9df7a7b41fcada13dfb98dd7faf26988dbddcb"
+    },
+    {
+      "name": "native-machine-data/official-gamble.css.bin",
+      "type": "application/octet-stream",
+      "size": 10141,
+      "sha256": "87eae7ace73aace9ec6c82461f3abdbd132704783ab6f92136d41fc530672aaa"
+    },
+    {
+      "name": "native-machine-data/registry.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 9787,
+      "sha256": "56c08540e20c0abf15de4d5bfff114e4b23d822fbf5474d7746dcf8f11fa462a"
+    },
+    {
+      "name": "remaining20-ice-audio-worker-r9.mjs",
+      "type": "application/javascript+module",
+      "size": 3576,
+      "sha256": "bc155f7ffa326bb9ce90220b22e46fbe9ee65a7731d1744470e486eb97659eb0"
+    },
+    {
+      "name": "balloon-entry-20261108.mjs",
+      "type": "application/javascript+module",
+      "size": 293,
+      "sha256": "1a21f6cf1f5bd4d35f4bcd7c61e6b489097c904babae9cce1ff69257f486ac92"
+    },
+    {
+      "name": "game-repair-assets-v234.mjs",
+      "type": "application/javascript+module",
+      "size": 12587,
+      "sha256": "a00b9d46ff8dec33520de35923298696f17c858e30bf4568bbf58fe95efbf8b8"
+    },
+    {
+      "name": "machine-data/style.css.bin",
+      "type": "application/octet-stream",
+      "size": 92761,
+      "sha256": "61135790147d1b651fdd7dcf46c91ce468e68c7e453588dc7ef2906640434d82"
+    },
+    {
+      "name": "official-new-covers-worker-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 3251,
+      "sha256": "69e065c94f7e068c2fad352a9b33f9922090fde28d5690e02cba8105753c0529"
+    },
+    {
+      "name": "remaining20-r6-coin-player-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 366,
+      "sha256": "2186ff5db79382a23bb4031b97191c07e9917abff9756f6da6bbab69424ee2ba"
+    },
+    {
+      "name": "sw-original-route.mjs",
+      "type": "application/javascript+module",
+      "size": 4301,
+      "sha256": "0688a0ed419527a767ef95ffa2ad837616909425b1368e194e83cd492b007c9b"
+    },
+    {
+      "name": "game-repair-transforms-v234.mjs",
+      "type": "application/javascript+module",
+      "size": 4900,
+      "sha256": "dd1f9436ce07993760f40b08905acb057310a41bcf5b782572896aca0f5b7e04"
+    },
+    {
+      "name": "older-new-zoom-worker-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 4442,
+      "sha256": "bdf41bd316ddcb60b5ec2c2c73e52d79273336fadb8c6f98b9720b929f8037fd"
+    },
+    {
+      "name": "zplay-entry-v232.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "74faadbe2cc875ee137d4ffd94a7432f341336715ea824e7c2b4d5a72c536639"
+    },
+    {
+      "name": "native-machine-data/official-audio-controls.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 2728,
+      "sha256": "c553cfccee541a5a4f439f602285e5593000068264a335610c329d417195ffeb"
+    },
+    {
+      "name": "native-machine-data/renderer.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 31279,
+      "sha256": "7950efd58f3f10a2d8cf3d781c56db9781fd9ee065509a7348d865d930ae69e0"
+    },
+    {
+      "name": "remaining20-r5-seven-player.mjs",
+      "type": "application/javascript+module",
+      "size": 2193,
+      "sha256": "c95688ba92d9948690f7dacd8ceffd5e4d65031a93421028876ce45b43ac4b43"
+    },
+    {
+      "name": "zplay-assets-v227.mjs",
+      "type": "application/javascript+module",
+      "size": 1247207,
+      "sha256": "86deb547df9657833c7289cda71d25f643ff491005ce9f56d0510f39636dbec3"
+    },
+    {
+      "name": "zplay-assets-v232.mjs",
+      "type": "application/javascript+module",
+      "size": 118530,
+      "sha256": "f1fef07bcd18372252e726f814f23de4a15da76beddf5aa1562c16a40be4d910"
+    },
+    {
+      "name": "zplay-symbols-v214.bin",
+      "type": "application/octet-stream",
+      "size": 468338,
+      "sha256": "0d9973b887c0ecf60ed8bf9e5a426def1eada6c111818f83904ca940cf6fe046"
+    },
+    {
+      "name": "zplaybet-template-v218.mjs",
+      "type": "application/javascript+module",
+      "size": 877,
+      "sha256": "61d5535f6b30b70a1999b7817d550986d6a400cf6a9ed3d766a1eb581c3820ee"
+    },
+    {
+      "name": "machine-data/foxy-atlas-cleanup.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 1784,
+      "sha256": "cc2b88da4a06dc19089f9e54198f8449eab7690b0e8214841515967d9f38b652"
+    },
+    {
+      "name": "native-machine-data/wallet.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 5077,
+      "sha256": "38aa2ac7997685e5da78b25a6b22881be031e30f49ea574d63041fa4d9837b15"
+    },
+    {
+      "name": "native-machine-routes.mjs",
+      "type": "application/javascript+module",
+      "size": 2175,
+      "sha256": "fcea5dae57dc3440d69408a422b37845f54c6ef76ff07de2032bbac86a5ec5f3"
+    },
+    {
+      "name": "older-new-zoom-assets-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 4635,
+      "sha256": "e887ba5ad5887729819b1f917f4eef0204725e26d0c1cdac29c64076425abc6e"
+    },
+    {
+      "name": "reference-worker-v2164.mjs",
+      "type": "application/javascript+module",
+      "size": 6026,
+      "sha256": "e1221852ea76ce4183a4604361ac941b2c623e33c26a9023320225b48492969f"
+    },
+    {
+      "name": "zplaybet-route-v221.mjs",
+      "type": "application/javascript+module",
+      "size": 2515,
+      "sha256": "6c031a5485210ab1bfb69fffbbedfd02f5e6536c54a1df7bd850030c14a3b097"
+    },
+    {
+      "name": "machine-data/hundred-presentation.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 319650,
+      "sha256": "440e4b1036d0ccbc92d8dbcee1ae1445d210247ea07e5b344d68370d504436dd"
+    },
+    {
+      "name": "machine-data/symbol-atlases.mjs.bin",
+      "type": "application/octet-stream",
+      "size": 345606,
+      "sha256": "d57bf34128d9a3c50ffae5918d422353d3226c0ba6aeebb8d72ff98e6c3d304b"
+    },
+    {
+      "name": "portal-assets-r9.mjs",
+      "type": "application/javascript+module",
+      "size": 782015,
+      "sha256": "ccda26d7006fac628e8d7b26b3c588a852cc593a40eefab97094ee016afb9c4b"
+    },
+    {
+      "name": "remaining20-entry-20261109.mjs",
+      "type": "application/javascript+module",
+      "size": 316,
+      "sha256": "ff046e1ab988b2a47add33cba988ea1590cf5e22162730a6c89ca84fdbc29070"
+    },
+    {
+      "name": "zplay-entry-v227.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "40fbe4b61748ae0795bf0c6c0c6dd76475241caec04a05010a00a4026f338cc7"
+    },
+    {
+      "name": "zplay-entry-v230.mjs",
+      "type": "application/javascript+module",
+      "size": 267,
+      "sha256": "bf78114043207ec0c902d426720c2a3114e4ba0e25f47d6a8161d35a26e07a75"
+    },
+    {
+      "name": "zplay-visual-entry-v213.mjs",
+      "type": "application/javascript+module",
+      "size": 4934,
+      "sha256": "0b5aba654ebab406762ce08d5c321e64c0b9c5410c90a68ddc6d32fc6da18778"
+    },
+    {
+      "name": "zplaybet-catalogue-v218.mjs",
+      "type": "application/javascript+module",
+      "size": 2267,
+      "sha256": "55ef503358d308910a5a8c7ee4ac14ace0f1104800defb1068cfa3916cd580d5"
+    },
+    {
+      "name": "deluxe-strip-player-r1.mjs",
+      "type": "application/javascript+module",
+      "size": 2064,
+      "sha256": "50ae19f664394220bb58dc143479f5f6177e09eed2a485009eabc58375e5edc5"
+    },
+    {
+      "name": "game-repair-art235-hot-foxy-20-0.mjs",
+      "type": "application/javascript+module",
+      "size": 60019,
+      "sha256": "1783ff59a5bc685ff33fd4bdafae80c6211388334fa9e318b165d35b3f9500cd"
+    },
+    {
+      "name": "remaining20-review2-player-entry.mjs",
+      "type": "application/javascript+module",
+      "size": 243,
+      "sha256": "dffed4662a2cbb218f73671ece286abce1e3a60ea57240b10def005f06aa5c14"
+    },
+    {
+      "name": "zplaybet-cache-v218p1.mjs",
+      "type": "application/javascript+module",
+      "size": 1243,
+      "sha256": "f225bbaf9c89b65d9429169599bab908a3643338b609780a1629c13b5c966b5d"
+    },
+    {
+      "name": "zplaybet-route-v217.mjs",
+      "type": "application/javascript+module",
+      "size": 3756,
+      "sha256": "8d2abdf4d8ef3dc68fd0f63cc31b1abe01f63442e1c0bd65f19fb46888950b1e"
+    }
+  ]
+}

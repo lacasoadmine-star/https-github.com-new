@@ -1,0 +1,46 @@
+# Deployment plan (read-only research)
+Verified main module: presentation-player-entry-r23.mjs
+Current and latest uploaded version: 3ae79dd2-afba-4dcd-bd20-a071ada030a7 (373).
+Account: 288bc182291438b87a68193627f36ca0
+Worker immutable ID: de2bde7dad5e46b8ace8b00c0daf5450
+
+Supported staging endpoint:
+POST /accounts/{account}/workers/scripts/superwin-player/versions?bindings_inherit=strict
+This uploads without changing deployed traffic.
+Do not use PUT /scripts/superwin-player (it deploys automatically).
+
+Download source from GET /scripts/superwin-player/content/v2, which retains per-part Content-Type.
+Prepend small multipart metadata/new-module parts to the original Uint8Array stream using its existing boundary. Then stream the complete original bytes untouched. Avoid a giant FormData reconstruction or base64 JSON.
+
+Metadata:
+- main_module: unique new top wrapper
+- compatibility_date: 2026-10-01 (preserve existing)
+- compatibility_flags: []
+- bindings: all15 existing names as type:inherit, version_id:latest plus explicitly new bindings
+- keep_assets: true
+- assets.config: preserve current metadata file's config (none/none/run_worker_first:true/base_path:/)
+- exports: existing LocalDemoWallet sqlite plus default worker; re-export class through new wrapper
+- usage_model: standard
+- annotations: explanatory message
+No migrations, logpush, tails, tags changes.
+
+Strict inheritance on the legacy endpoint supports only latest; a specific version UUID is rejected10057.
+Therefore compare latest uploaded and deployed IDs against the known source before upload, after download immediately before upload, and before deployment. Abort on concurrent changes.
+
+Beta GET /accounts/{account}/workers/workers/{worker_id}/versions/{version_id} (without include=modules) exposes main_module/config safely.
+Beta upload accepts JSON/base64 modules and exact-version inheritance, but is costly for66MB source and lacks the convenient keep_assets flag in its schema.
+
+After staging:
+- Read back new version metadata and compare binding names/types/resources, assets config, compatibility date/flags, LocalDemoWallet namespace/export.
+- Verify code-only DO export preservation (no migrations).
+- Confirm deployments still reference old373.
+- Test via available preview URL or configured preview alias before explicit deployment.
+- Deploy with POST /scripts/superwin-player/deployments strategy percentage with version_id new and percentage100 only after required tests.
+- Rollback is old373 at100; this does not roll back database writes.
+
+Sources:
+https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/
+https://developers.cloudflare.com/workers/static-assets/direct-upload/
+https://developers.cloudflare.com/workers/observability/errors/#inherit-binding-errors-10057
+https://developers.cloudflare.com/workers/versions-and-deployments/deployment-management/
+

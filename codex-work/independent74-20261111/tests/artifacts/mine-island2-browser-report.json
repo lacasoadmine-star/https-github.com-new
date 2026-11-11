@@ -1,0 +1,130 @@
+{
+  "gameId": "ind74_mineisland2",
+  "scope": "LOCAL-QA-ONLY",
+  "usesRealServerMath": true,
+  "usesProductionWallet": false,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "checks": [
+    {
+      "name": "initial mobile page loads authenticated local fixture state",
+      "pass": true
+    },
+    {
+      "name": "mobile document has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "bet plus and minus change exact 0.10 steps",
+      "pass": true
+    },
+    {
+      "name": "mobile actionable controls fit viewport and have touch targets",
+      "pass": false,
+      "error": "{\"id\":\"sound-button\",\"x\":341,\"width\":34,\"height\":34,\"hidden\":false}"
+    },
+    {
+      "name": "PLAY debits once and confirms first safe jump from real server math",
+      "pass": true
+    },
+    {
+      "name": "JUMP advances state and COLLECT settles exact amount once",
+      "pass": true
+    },
+    {
+      "name": "rules disclose ten authored step payouts and close on mobile",
+      "pass": true
+    },
+    {
+      "name": "sound toggle changes accessible state",
+      "pass": true
+    },
+    {
+      "name": "lost first jump ends round without credit",
+      "pass": true
+    },
+    {
+      "name": "unknown action response blocks new bet and recovers original request id",
+      "pass": true
+    },
+    {
+      "name": "reload resumes open server round without another stake",
+      "pass": true
+    },
+    {
+      "name": "bounded AUTO stops and leaves any open round under player control",
+      "pass": false,
+      "error": "Stopped auto should not complete all scheduled rounds"
+    },
+    {
+      "name": "no browser runtime errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "failedResponses": [
+    {
+      "path": "/independent74/api/action",
+      "status": 503
+    }
+  ],
+  "screenshots": [
+    "mine-island2-mobile-ready.png",
+    "mine-island2-mobile-collected.png",
+    "mine-island2-mobile-final.png"
+  ],
+  "finalFixtureBalance": "99993",
+  "fixtureLedger": [
+    {
+      "type": "debit",
+      "amount": "10",
+      "round_id": "65ec16f6-cf24-44d1-8f2d-42d5d8d0d5ff",
+      "request_id": "ff6b9781-2c4b-40a6-9438-347e91fbaac4",
+      "reference": "ind74:bet:65ec16f6-cf24-44d1-8f2d-42d5d8d0d5ff"
+    },
+    {
+      "type": "credit",
+      "amount": "11",
+      "round_id": "65ec16f6-cf24-44d1-8f2d-42d5d8d0d5ff",
+      "request_id": "531329d0-9f72-4e67-8eac-62ff14c274d5",
+      "reference": "ind74:win:65ec16f6-cf24-44d1-8f2d-42d5d8d0d5ff"
+    },
+    {
+      "type": "debit",
+      "amount": "10",
+      "round_id": "7ed8f8d6-84b9-4863-8d23-a8c2b1447ebd",
+      "request_id": "99f30aa4-c389-469f-bb85-80e5ffdcd6b1",
+      "reference": "ind74:bet:7ed8f8d6-84b9-4863-8d23-a8c2b1447ebd"
+    },
+    {
+      "type": "credit",
+      "amount": "11",
+      "round_id": "7ed8f8d6-84b9-4863-8d23-a8c2b1447ebd",
+      "request_id": "901a07ef-e714-4241-baf0-b5d278d0dfd3",
+      "reference": "ind74:win:7ed8f8d6-84b9-4863-8d23-a8c2b1447ebd"
+    },
+    {
+      "type": "debit",
+      "amount": "10",
+      "round_id": "dbf926b3-8fbd-4bc7-8b99-c2bf3f7f78e5",
+      "request_id": "433e32be-b42f-41f9-bd6d-a2b15e62c09f",
+      "reference": "ind74:bet:dbf926b3-8fbd-4bc7-8b99-c2bf3f7f78e5"
+    },
+    {
+      "type": "credit",
+      "amount": "11",
+      "round_id": "dbf926b3-8fbd-4bc7-8b99-c2bf3f7f78e5",
+      "request_id": "03a38c6f-f6b2-4d7a-9eb9-b619190b55ed",
+      "reference": "ind74:win:dbf926b3-8fbd-4bc7-8b99-c2bf3f7f78e5"
+    },
+    {
+      "type": "debit",
+      "amount": "10",
+      "round_id": "8a7782eb-2a78-427e-a594-336ac097fd9a",
+      "request_id": "43ee1ccd-99b8-4901-86a9-70695c31e020",
+      "reference": "ind74:bet:8a7782eb-2a78-427e-a594-336ac097fd9a"
+    }
+  ]
+}

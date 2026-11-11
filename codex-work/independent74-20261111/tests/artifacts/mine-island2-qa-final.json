@@ -1,0 +1,144 @@
+{
+  "gameId": "ind74_mineisland2",
+  "scope": "LOCAL-QA-ONLY",
+  "generatedAt": "2026-11-11T02:32:35.341756+00:00",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "initial mobile page loads authenticated local fixture state",
+      "pass": true
+    },
+    {
+      "name": "mobile document has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "bet plus and minus change exact 0.10 steps",
+      "pass": true
+    },
+    {
+      "name": "mobile actionable controls fit viewport and have touch targets",
+      "pass": true,
+      "evidence": "mine-island2-mobile-touch-final.json;9 visiblecontrols >=44px"
+    },
+    {
+      "name": "PLAY debits once and confirms first safe jump from real server math",
+      "pass": true
+    },
+    {
+      "name": "JUMP advances state and COLLECT settles exact amount once",
+      "pass": true
+    },
+    {
+      "name": "rules disclose ten authored step payouts and close on mobile",
+      "pass": true
+    },
+    {
+      "name": "sound toggle changes accessible state",
+      "pass": true
+    },
+    {
+      "name": "lost first jump ends round without credit",
+      "pass": true
+    },
+    {
+      "name": "unknown action response blocks new bet and recovers original request id",
+      "pass": true
+    },
+    {
+      "name": "reload resumes open server round without another stake",
+      "pass": true
+    },
+    {
+      "name": "bounded AUTO stops and leaves any open round under player control",
+      "pass": true,
+      "evidence": "mine-island2-mobile-recheck.json;stoppedafterfirstdebitwithopenround"
+    },
+    {
+      "name": "no browser runtime errors",
+      "pass": true
+    },
+    {
+      "name": "active receipt is not displayed as a completed loss",
+      "pass": true
+    }
+  ],
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "usedRealGameService": true,
+  "usedRealServerMath": true,
+  "usedIsolatedTestRepository": true,
+  "productionWalletTested": false,
+  "postgresRepositoryTested": false,
+  "productionMutationsByQA": false,
+  "limitations": [
+    "ActualbrowserroundsusedEasy;all3modeswerecoveredinpuremathQA",
+    "Thisverifiesindependentauthoredmath,notSmartSoftRNGorequivalence",
+    "Noauthenticatedproductionaccountorrealuserfundswereused",
+    "Remaining73gameswerenotimplementednorverified"
+  ],
+  "evidence": [
+    "mine-island2-browser-report.json",
+    "mine-island2-mobile-recheck.json",
+    "mine-island2-mobile-touch-final.json",
+    "mine-island2-first-viewport-report.json"
+  ],
+  "firstViewportRegression": {
+    "scope": "LOCAL-QA-ONLY",
+    "usesProductionWallet": false,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "checks": [
+      {
+        "name": "initial bet and START/COLLECT are visible in first844px with44px targets",
+        "pass": true
+      },
+      {
+        "name": "one mobile tap round uses server-confirmed debit, step and collection",
+        "pass": true
+      },
+      {
+        "name": "targeted mobile run has no runtime errors",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "initialBounds": {
+      "bet": {
+        "x": 60,
+        "y": 698,
+        "width": 270,
+        "height": 45
+      },
+      "start": {
+        "x": 15,
+        "y": 751,
+        "width": 174,
+        "height": 49
+      },
+      "collect": {
+        "x": 201,
+        "y": 751,
+        "width": 174,
+        "height": 49
+      },
+      "minus": {
+        "x": 16,
+        "y": 698,
+        "width": 44,
+        "height": 45
+      },
+      "plus": {
+        "x": 330,
+        "y": 698,
+        "width": 44,
+        "height": 45
+      }
+    }
+  },
+  "usedBackendTestRepositoryWithHouseReserve": true
+}

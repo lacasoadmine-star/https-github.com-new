@@ -1,0 +1,55 @@
+{
+  "scope": "LOCAL-QA-ONLY",
+  "usesProductionWallet": false,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "checks": [
+    {
+      "name": "initial bet and START/COLLECT are visible in first844px with44px targets",
+      "pass": true
+    },
+    {
+      "name": "one mobile tap round uses server-confirmed debit, step and collection",
+      "pass": true
+    },
+    {
+      "name": "targeted mobile run has no runtime errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "initialBounds": {
+    "bet": {
+      "x": 60,
+      "y": 698,
+      "width": 270,
+      "height": 45
+    },
+    "start": {
+      "x": 15,
+      "y": 751,
+      "width": 174,
+      "height": 49
+    },
+    "collect": {
+      "x": 201,
+      "y": 751,
+      "width": 174,
+      "height": 49
+    },
+    "minus": {
+      "x": 16,
+      "y": 698,
+      "width": 44,
+      "height": 45
+    },
+    "plus": {
+      "x": 330,
+      "y": 698,
+      "width": 44,
+      "height": 45
+    }
+  }
+}
