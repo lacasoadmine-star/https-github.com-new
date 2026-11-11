@@ -10,8 +10,8 @@ const ID = /^ind74_official_[a-z0-9_]{1,48}$/;
 const FAMILIES = new Set(['slots', 'crash', 'ladder', 'mines', 'wheel', 'plinko', 'dice']);
 // Match the retained LibraryService's 15-digit minor-unit contract.
 const MAX_MINOR = 999999999999999n;
-const PUBLIC_FIELDS = ['rows', 'cols', 'cells', 'mines', 'minMatch', 'cascadeMs', 'crashMechanic', 'cascadeRules', 'maxPicks', 'maxSteps', 'modes', 'defaultMode', 'minTarget', 'maxTarget', 'defaultTarget', 'maxMultiplierBps', 'maximumMultiplierBps', 'growthBpsPerSecond', 'multiplierValues', 'multipliersBps', 'bucketMultipliersBps', 'bucketTablesBps', 'observedPegboard', 'implementedBallMultiplier', 'wildSymbol', 'wildRule', 'ballMultipliers', 'ballSelectionModel', 'betFields', 'displayWheelSymbolIndexes', 'bonusDisplaySymbolIndexes', 'bonusPrizes', 'destinyBonus', 'defaultBetSymbolIndex', 'defaultRisk', 'riskLevels', 'ballAmounts', 'defaultBallAmount', 'minBallStakeMinor', 'ballStakeStepMinor', 'batchTotalStake', 'baseGameMultiplier', 'respinFeature', 'coinSymbol', 'plusRespinSymbol', 'coinFeature'];
-const ROUND_FIELDS = ['bets', 'gameId', 'mathVersion', 'family', 'betMinor', 'winMinor', 'step', 'multiplierBps', 'maxSteps', 'history', 'nextMultiplierBps', 'collectibleMinor', 'revealedCells', 'path', 'cells', 'rows', 'cols', 'mines', 'mode', 'startedAt', 'serverNow', 'growthBpsPerSecond', 'maxMultiplierBps', 'pendingResolution', 'pendingWinMinor', 'gambleHistory', 'gambleRounds', 'maxGambleRounds', 'holdWin', 'ballMultiplier', 'baseBetMinor', 'totalBetMinor', 'risk', 'ballAmount', 'perBallBetMinor', 'crashMechanic', 'cascadeIndex', 'nextCascadeAt', 'grid', 'matchedPositions', 'matchedSymbols'];
+const PUBLIC_FIELDS = ['rows', 'cols', 'cells', 'mines', 'minMatch', 'cascadeMs', 'crashMechanic', 'cascadeRules', 'maxPicks', 'maxSteps', 'modes', 'defaultMode', 'minTarget', 'maxTarget', 'defaultTarget', 'maxMultiplierBps', 'maximumMultiplierBps', 'growthBpsPerSecond', 'multiplierValues', 'multipliersBps', 'bucketMultipliersBps', 'bucketTablesBps', 'observedPegboard', 'implementedBallMultiplier', 'wildSymbol', 'wildRule', 'ballMultipliers', 'ballSelectionModel', 'betFields', 'displayWheelSymbolIndexes', 'bonusDisplaySymbolIndexes', 'bonusPrizes', 'destinyBonus', 'defaultBetSymbolIndex', 'defaultRisk', 'riskLevels', 'ballAmounts', 'defaultBallAmount', 'minBallStakeMinor', 'ballStakeStepMinor', 'batchTotalStake', 'baseGameMultiplier', 'respinFeature', 'coinSymbol', 'plusRespinSymbol', 'coinFeature', 'slotMechanic', 'tumbleFeature', 'scatterSymbol', 'magicSymbol', 'multiplierSymbol', 'chargingFeature', 'jungleFeature', 'bookFeature', 'bookSymbol', 'collectorSymbols', 'mariachiFeature', 'releaseReview', 'symbolPrizeDivisor'];
+const ROUND_FIELDS = ['bets', 'gameId', 'mathVersion', 'family', 'betMinor', 'winMinor', 'step', 'multiplierBps', 'maxSteps', 'history', 'nextMultiplierBps', 'collectibleMinor', 'revealedCells', 'path', 'cells', 'rows', 'cols', 'mines', 'mode', 'startedAt', 'serverNow', 'growthBpsPerSecond', 'maxMultiplierBps', 'pendingResolution', 'pendingWinMinor', 'gambleHistory', 'gambleRounds', 'maxGambleRounds', 'holdWin', 'ballMultiplier', 'baseBetMinor', 'totalBetMinor', 'costBps', 'ante', 'carryBucket', 'carryBefore', 'carryAfter', 'risk', 'ballAmount', 'perBallBetMinor', 'crashMechanic', 'cascadeIndex', 'nextCascadeAt', 'grid', 'matchedPositions', 'matchedSymbols'];
 const clone = value => structuredClone(value);
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 function fail(code, status = 422) { throw Object.assign(new Error(code), { code, status }); }
@@ -22,6 +22,13 @@ function integerMoney(value, code = 'INVALID_ENGINE_MONEY') {
 function clock(value) {
   if (!Number.isSafeInteger(value) || value < 0) fail('INVALID_SERVER_TIME', 500);
   return value;
+}
+function connectionLease(definition) {
+  const policy=definition.connectionPolicy;
+  if(policy===undefined)return null;
+  if(definition.id!=='ind74_official_chickenhighway'||definition.family!=='ladder'||policy.kind!=='authenticated-presence-lease'||
+      policy.heartbeatAction!=='sync'||policy.heartbeatIntervalMs!==2000||policy.disconnectAfterMs!==8000||policy.timeoutComparison!=='strictly-greater'||policy.stateReadsRenew!==false)fail('INVALID_SERVER_CONNECTION_POLICY',500);
+  return policy;
 }
 export function minorToMoney(value) {
   const n = integerMoney(value); return `${n / 100n}.${String(n % 100n).padStart(2, '0')}`;
@@ -68,8 +75,13 @@ function effectiveLimits(definition, policy) {
     if (BigInt(policy[key]) <= 0n) fail('INVALID_LIBRARY74_BET_POLICY', 500);
     if (BigInt(policy[key]) < BigInt(limits[key])) limits[key] = policy[key];
   }
-  const possible = BigInt(limits.maxBetMinor) * BigInt(definition.maximumMultiplierBps) / 10000n;
-  if (possible < BigInt(limits.maxWinMinor)) limits.maxWinMinor = possible.toString();
+  // Charging carry can increase its exact round liability beyond the fresh
+  // bucket multiplier. The configured money ceiling still applies, while the
+  // math module computes the actual reserve from the trusted persisted carry.
+  if (definition.chargingFeature?.dynamicPayoutBound !== true) {
+    const possible = BigInt(limits.maxBetMinor) * BigInt(definition.maximumMultiplierBps) / 10000n;
+    if (possible < BigInt(limits.maxWinMinor)) limits.maxWinMinor = possible.toString();
+  }
   if (BigInt(limits.minBetMinor) > BigInt(limits.maxBetMinor) || BigInt(limits.betStepMinor) === 0n) fail('INVALID_LIBRARY74_BET_POLICY', 500);
   return limits;
 }
@@ -87,6 +99,7 @@ export function publicLibrary74Definition(definition, { accepting = false, polic
   const version = `${BRIDGE_VERSION}:${definition.mathVersion}`;
   if (version.length > 100) fail('INVALID_LIBRARY74_VERSION', 500);
   const limits = effectiveLimits(definition, policy);
+  const lease=connectionLease(definition);
   const view = {
     id: definition.id, title: definition.title, name: definition.catalogName,
     catalogName: definition.catalogName, family: definition.family, sourceCategory: definition.sourceCategory,
@@ -98,6 +111,11 @@ export function publicLibrary74Definition(definition, { accepting = false, polic
     controls: { actions: ['crash', 'ladder', 'mines'].includes(definition.family) ? ['reveal', 'collect', ...(definition.family === 'crash' ? ['sync'] : [])] : definition.gamble?.enabled ? ['gamble', 'collect'] : [] },
     expiryPolicy: definition.family === 'crash' ? 'server_terminal_result' : 'collect_earned_award_or_return_unplayed_stake',
   };
+  if(lease){
+    view.connectionPolicy=publishedTable(lease);
+    view.controls.actions.push('sync');
+    view.expiryPolicy='collect_confirmed_award_after_presence_lease_timeout';
+  }
   for (const key of PUBLIC_FIELDS) if (definition[key] !== undefined) view[key] = publishedTable(definition[key]);
   if (definition.theme) view.theme = publishedTable(definition.theme);
   if (definition.layout) view.layout = publishedTable(definition.layout);
@@ -130,10 +148,11 @@ function mathOperation(operation) {
   }
 }
 
-export function createExistingLibrary74Adapter({ math = officialMath, reviewedGameIds = [], allowNewRounds = false, gameLimits = {}, activeTtlMs = 15 * 60 * 1000 } = {}) {
+export function createExistingLibrary74Adapter({ math = officialMath, reviewedGameIds = [], allowNewRounds = false, gameLimits = {}, activeTtlMs = 15 * 60 * 1000, getStartContext = null } = {}) {
   if (['listGameDefinitions', 'getGameDefinition', 'startRound', 'advanceRound', 'collectRound', 'publicRound', 'reconcileRound', 'maximumPayoutMinor'].some(key => typeof math[key] !== 'function')) throw new TypeError('The complete official72 server math contract is required.');
   if (!Number.isSafeInteger(activeTtlMs) || activeTtlMs < 1000 || activeTtlMs > 86400000) throw new TypeError('Use a reviewed active-round timeout from one second through one day.');
   if (typeof allowNewRounds !== 'boolean' && typeof allowNewRounds !== 'function') throw new TypeError('New-round readiness must be a boolean or a function.');
+  if (getStartContext !== null && typeof getStartContext !== 'function') throw new TypeError('Trusted start context must be a server function.');
   const source = math.listGameDefinitions();
   const originals = new Map(source.map(definition => {
     publicLibrary74Definition(definition); return [definition.id, clone(definition)];
@@ -150,6 +169,8 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
     const d = definition(state.gameId);
     if (state.mathState.gameId !== d.id || state.mathState.mathVersion !== d.mathVersion || state.modelVersion !== `${BRIDGE_VERSION}:${d.mathVersion}` || state.mathState.betMinor !== state.stakeMinor || state.family !== d.family) fail('INVALID_LIBRARY74_STATE', 500);
     integerMoney(state.stakeMinor); integerMoney(state.maximumPayoutMinor); clock(state.expiresAt); clock(state.lastActionAt);
+    const lease=connectionLease(d);
+    if(lease&&state.status==='active'&&state.expiresAt!==state.lastActionAt+lease.disconnectAfterMs+1)fail('INVALID_LIBRARY74_STATE',500);
     if (!['active', 'settled'].includes(state.status) || (state.status === 'active') !== (state.mathState.status === 'active')) fail('INVALID_LIBRARY74_STATE', 500);
     if (state.mathState.pendingWinMinor !== undefined && integerMoney(state.mathState.pendingWinMinor) > BigInt(state.maximumPayoutMinor)) fail('PAYOUT_EXCEEDS_RESERVED_LIABILITY', 500);
     if (state.status === 'settled' && (state.payoutMinor !== (state.mathState.status === 'collected' ? state.mathState.winMinor : '0') || integerMoney(state.payoutMinor) > BigInt(state.maximumPayoutMinor))) fail('INVALID_LIBRARY74_STATE', 500);
@@ -157,6 +178,8 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
   };
   function deadline(d, round, now) {
     if (round.status !== 'active') return now;
+    const lease=connectionLease(d);
+    if(lease)return clock(now+lease.disconnectAfterMs+1);
     if (d.family !== 'crash') {
       const heldSlot = d.family === 'slots' && d.gamble?.enabled === true && Number.isSafeInteger(d.gamble.maxRounds) && d.gamble.maxRounds > 0 && round.holdWin === true && integerMoney(round.pendingWinMinor) > 0n;
       if (!['ladder', 'mines'].includes(d.family) && !heldSlot) fail('UNREVIEWED_ACTIVE_FAMILY', 500);
@@ -180,7 +203,7 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
     const state = {
       bridgeVersion: BRIDGE_VERSION, gameId: d.id, modelVersion: `${BRIDGE_VERSION}:${d.mathVersion}`, family: d.family,
       stakeMinor: round.betMinor, maximumPayoutMinor: maximum, status: settled ? 'settled' : 'active',
-      expiresAt: settled ? now : previous?.expiresAt ?? deadline(d, round, now), lastActionAt: now,
+      expiresAt: settled ? now : connectionLease(d) ? deadline(d, round, now) : previous?.expiresAt ?? deadline(d, round, now), lastActionAt: now,
       mathState: clone(round), ...(settled ? { payoutMinor } : {}), ...(reason ? { settlementReason: reason } : {}),
     };
     if (!settled && state.expiresAt <= now) fail('INVALID_ACTIVE_ENGINE_STATE', 500);
@@ -197,7 +220,7 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
       reason = 'SERVER_CRASH_TERMINAL';
     } else if (d.family === 'slots' && d.gamble?.enabled === true && integerMoney(round.pendingWinMinor) > 0n || round.step > 0) {
       round = mathOperation(() => math.collectRound(round, {}, now));
-      reason = 'EXPIRED_EARNED_AWARD';
+      reason = connectionLease(d)?'CONNECTION_TIMEOUT_CASHOUT':'EXPIRED_EARNED_AWARD';
     } else {
       // No reveal or other risk action occurred; release the accepted stake.
       // This refund is a real, balanced settlement through LibraryService.
@@ -220,10 +243,14 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
       // service or injected math module's potentially broader stake allowance.
       // Accepted-round actions and recovery do not apply this new-stake gate.
       const limits = acceptedStartStake(d, stakeMinor, policyFor(gameId));
-      const maximum = mathOperation(() => math.maximumPayoutMinor({ gameId, betMinor: stakeMinor, options: gameOptions }));
+      // Context is supplied by the initialized service integration while its
+      // existing account transaction is held. It is never copied from options.
+      const serverContext = getStartContext ? getStartContext({ gameId, modelVersion: `${BRIDGE_VERSION}:${d.mathVersion}`, stakeMinor, options: clone(gameOptions) }) : undefined;
+      if (serverContext && typeof serverContext.then === 'function') fail('SYNCHRONOUS_TRUSTED_START_CONTEXT_REQUIRED', 500);
+      const maximum = mathOperation(() => math.maximumPayoutMinor({ gameId, betMinor: stakeMinor, options: gameOptions, context: serverContext }));
       integerMoney(maximum);
       if (BigInt(maximum) > BigInt(limits.maxWinMinor)) fail('PAYOUT_LIMIT_EXCEEDED', 422);
-      const round = mathOperation(() => math.startRound({ gameId, betMinor: stakeMinor, options: gameOptions, rng: integerRngFromLibrary(random), now }));
+      const round = mathOperation(() => math.startRound({ gameId, betMinor: stakeMinor, options: gameOptions, rng: integerRngFromLibrary(random), now, context: serverContext }));
       if (round.status === 'active' && d.family === 'mines' && BigInt(maximum) < BigInt(stakeMinor)) fail('UNPLAYED_REFUND_NOT_RESERVED', 500);
       return result(d, round, { maximum, debit: stakeMinor, now });
     },
@@ -235,7 +262,7 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
       if (!plain(input) || !['reveal', 'collect', 'sync', 'gamble'].includes(input.type)) fail('INVALID_LIBRARY_ACTION');
       const { type, ...options } = input;
       const allowed = type === 'reveal' && ['mines', 'ladder'].includes(d.family) ? ['cell'] : type === 'gamble' && d.family === 'slots' && d.gamble?.enabled === true ? ['color'] : [];
-      if (Object.keys(options).some(key => !allowed.includes(key)) || type === 'sync' && d.family !== 'crash' || type === 'gamble' && (d.family !== 'slots' || d.gamble?.enabled !== true) || type === 'reveal' && d.family === 'slots') fail('INVALID_LIBRARY_OPTIONS');
+      if (Object.keys(options).some(key => !allowed.includes(key)) || type === 'sync' && d.family !== 'crash' && !connectionLease(d) || type === 'gamble' && (d.family !== 'slots' || d.gamble?.enabled !== true) || type === 'reveal' && d.family === 'slots') fail('INVALID_LIBRARY_OPTIONS');
       const previousRound = clone(state.mathState);
       const round = mathOperation(() => type === 'collect' ? math.collectRound(previousRound, options, now) : type === 'sync' ? math.reconcileRound(previousRound, now) : math.advanceRound(previousRound, options, now, integerRngFromLibrary(random)));
       return result(d, round, { previous: state, maximum: state.maximumPayoutMinor, debit: '0', now });
@@ -248,6 +275,12 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
       view.stakeMinor = state.stakeMinor;
       const actions = state.status === 'active' ? publicRound.allowedActions || [] : [];
       view.allowedActions = actions.filter(action => ['reveal', 'collect', 'gamble'].includes(action));
+      if(state.status==='active'&&connectionLease(d)){
+        view.allowedActions.push('sync');
+        view.connectionDeadlineAt=state.expiresAt;
+        view.lastContactAt=state.lastActionAt;
+        view.serverNow=now;
+      }
       view.actions = [...view.allowedActions, ...(state.status === 'active' && d.family === 'crash' ? ['sync'] : [])];
       if (state.status === 'settled') {
         view.payoutMinor = state.payoutMinor;

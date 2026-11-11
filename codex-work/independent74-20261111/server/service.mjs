@@ -20,7 +20,9 @@ export function validateAction(input) {
   if (input.type === 'play') {
     if (typeof input.stake_minor !== 'string' || input.stake_minor.length > 18 || !MINOR.test(input.stake_minor)) fail('INVALID_BET', 'Stake must be a canonical integer minor-unit string.', 422);
     if (input.round_id !== undefined || input.expected_version !== undefined) fail('INVALID_ACTION', 'A new play cannot select an existing round.', 422);
-    const options = cleanOptions(input.options, ['mode', 'target', 'choice', 'number', 'numbers', 'targetBps', 'mineCount']);
+    const options = cleanOptions(input.options, ['mode', 'target', 'choice', 'number', 'numbers', 'targetBps', 'mineCount', 'ante', 'holdWin']);
+    if (options.ante !== undefined && ![1, 5, 10].includes(options.ante)) fail('INVALID_OPTIONS', 'Choose a published ANTE value.', 422);
+    if (options.holdWin !== undefined && typeof options.holdWin !== 'boolean') fail('INVALID_OPTIONS', 'Use a boolean hold-win option.', 422);
     if (options.mineCount !== undefined && (!Number.isInteger(options.mineCount) || options.mineCount < 1 || options.mineCount > 24)) fail('INVALID_OPTIONS', 'Choose from 1 through 24 mines.', 422);
     if (options.targetBps !== undefined && (!Number.isSafeInteger(options.targetBps) || options.targetBps < 10500 || options.targetBps > 100000000)) fail('INVALID_TARGET', 'Choose a supported target multiplier.', 422);
     if (options.mode !== undefined && !['easy', 'medium', 'hard'].includes(options.mode)) fail('INVALID_MODE', 'Choose easy, medium or hard.', 422);
@@ -60,7 +62,7 @@ export function createGameService({ repository, math = defaultMath, clock = () =
     const keys = Object.keys(input.options);
     if (input.type === 'play') {
       if (game.family === 'lobby') fail('GAME_DISABLED', 'The lobby does not accept bets.', 404);
-      const allowed = game.id === math.GAME_ID ? ['mode'] : game.configurableMines ? ['mineCount'] : game.family === 'dice' ? ['target'] : game.family === 'target-crash' ? ['targetBps'] : ['roulette', 'sicbo'].includes(game.family) ? ['choice', 'number'] : game.family === 'baccarat' ? ['choice'] : game.family === 'keno' ? ['numbers'] : [];
+      const allowed = game.chargingFeature ? ['ante', 'holdWin'] : game.id === math.GAME_ID ? ['mode'] : game.configurableMines ? ['mineCount'] : game.family === 'dice' ? ['target'] : game.family === 'target-crash' ? ['targetBps'] : ['roulette', 'sicbo'].includes(game.family) ? ['choice', 'number'] : game.family === 'baccarat' ? ['choice'] : game.family === 'keno' ? ['numbers'] : [];
       if (keys.some(key => !allowed.includes(key))) fail('INVALID_OPTIONS', 'These options do not belong to the selected game.', 422);
     } else if (input.type === 'reveal') {
       const allowed = ['ladder', 'mines'].includes(game.family) ? ['cell'] : game.family === 'blackjack' ? ['choice'] : [];
@@ -162,15 +164,22 @@ export function createGameService({ repository, math = defaultMath, clock = () =
           const stake = asMinor(input.stake_minor);
           if (stake < BigInt(game.limits.minBetMinor) || stake > BigInt(game.limits.maxBetMinor) || stake % BigInt(game.limits.betStepMinor) !== 0n) fail('INVALID_BET', 'The stake is outside this game’s limits or increments.', 422);
           if (asMinor(await tx.getBalanceMinor()) < stake) fail('INSUFFICIENT_FUNDS', 'Your account balance is too low for this bet.', 422);
+          let context;
+          if (game.chargingFeature) {
+            if (typeof tx.getChargingCarry !== 'function' || typeof math.chargingCarryBucket !== 'function' || typeof math.emptyChargingCarry !== 'function') fail('TRANSACTIONAL_CARRY_REQUIRED', 'The existing transaction must restore this stake bucket.', 503);
+            const bucket = runMath(() => math.chargingCarryBucket(game, input.stake_minor, input.options));
+            const priorCarry = await tx.getChargingCarry(input.game_id, game.mathVersion, bucket);
+            context = { bucket, priorCarry: priorCarry ?? math.emptyChargingCarry() };
+          }
           const state = runMath(() => {
-            if (typeof math.startRound === 'function') return math.startRound({ gameId: input.game_id, betMinor: input.stake_minor, options: input.options, ...(rng ? { rng } : {}), now: Date.parse(now) });
+            if (typeof math.startRound === 'function') return math.startRound({ gameId: input.game_id, betMinor: input.stake_minor, options: input.options, context, ...(rng ? { rng } : {}), now: Date.parse(now) });
             const started = math.startMineIslandRound({ betMinor: input.stake_minor, mode: input.options.mode || game.defaultMode, ...(rng ? { rng } : {}) });
             return math.advanceMineIslandRound(started, { cell: 0 });
           });
           record = { id: uuid(), request_id: input.request_id, game_id: input.game_id, state, status: state.status, version: 1, created_at: now, updated_at: now };
           if (typeof tx.reserveLiability !== 'function') fail('RESERVE_NOT_VERIFIED', 'The game reserve could not be verified.', 503);
           const liability = typeof math.maximumPayoutMinor === 'function'
-            ? math.maximumPayoutMinor({ gameId: input.game_id, betMinor: input.stake_minor, options: input.options })
+            ? math.maximumPayoutMinor({ gameId: input.game_id, betMinor: input.stake_minor, options: input.options, context })
             : game.limits.maxWinMinor;
           asMinor(liability);
           await tx.reserveLiability(liability, { round_id: record.id, game_id: record.game_id });

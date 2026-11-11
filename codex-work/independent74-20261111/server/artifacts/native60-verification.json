@@ -1,0 +1,124 @@
+{
+  "format": "native60-source-bound-verification-v1",
+  "verifiedAt": "2026-11-11T14:06:59.992622+00:00",
+  "installer": {
+    "path": "server/artifacts/native60-registration-installer.mjs",
+    "sha256": "fb3ac6dd1647c358c219c77fb3b15266133dd4f65f157db17b1fe2777dfcff3e",
+    "bytes": 796422,
+    "includedInPublicCheckpoint": false,
+    "rebuildCommand": "node server/build-native60-registration.mjs"
+  },
+  "sourceFilesVerified": 116,
+  "allSourceHashesMatch": true,
+  "modelCount": 60,
+  "preservedRouteCount": 14,
+  "privateDeploymentMetadataOmitted": true,
+  "deploymentArtifactIncluded": false,
+  "currentLiveWorkerSourceVerified": false,
+  "retainedBaselineOnly": true,
+  "production": {
+    "newRoundsEnabled": false,
+    "liveIntegrationVerified": false,
+    "productionWagers": 0,
+    "realPlayerFundsUsed": false,
+    "providerPrivateMathVerified": false,
+    "modelMathReviewBlockedIds": [
+      "ind74_official_dicejungle",
+      "ind74_official_multihot20",
+      "ind74_official_multihot5burnwilds",
+      "ind74_official_multihotways",
+      "ind74_official_farmsfortune",
+      "ind74_official_hotsamba",
+      "ind74_official_baoslot5x",
+      "ind74_official_junglesisters",
+      "ind74_official_junglesistersdeluxe",
+      "ind74_official_dragonscode",
+      "ind74_official_draculasfortune",
+      "ind74_official_bookoffuturia",
+      "ind74_official_bookofbonanza",
+      "ind74_official_vampires"
+    ]
+  },
+  "focusedTests": [
+    {
+      "path": "server/artifacts/native60-tests.txt",
+      "sha256": "f196d856ee33d44bc868d61d7304e9401dc4533f8557f41104df19ac3f99d80b",
+      "bytes": 4474,
+      "passed": 33,
+      "failed": 0,
+      "evidenceKind": "Exact successful case lines extracted from the shared complete npm test run; not a separate run",
+      "wholeSuiteLogSha256": "e210eb8d8a6606c7f4d731e173115d4c6416ac23c95c953f96b3beca22ccafe5"
+    },
+    {
+      "path": "server/artifacts/demo60-tests.txt",
+      "sha256": "87cb3ba003565ea1e100210df8c180af3e3b16f666e480d6253b05bfc649d5eb",
+      "bytes": 2198,
+      "passed": 16,
+      "failed": 0,
+      "evidenceKind": "Exact successful case lines extracted from the shared complete npm test run; not a separate run",
+      "wholeSuiteLogSha256": "e210eb8d8a6606c7f4d731e173115d4c6416ac23c95c953f96b3beca22ccafe5"
+    },
+    {
+      "path": "server/artifacts/chicken-connection-tests.txt",
+      "sha256": "5be2d2cca60a32a9a68577ff6fbd4fb359f2e8a37ad0b67529b2f81bf8804402",
+      "bytes": 1539,
+      "passed": 10,
+      "failed": 0,
+      "evidenceKind": "Exact successful case lines extracted from the shared complete npm test run; not a separate run",
+      "wholeSuiteLogSha256": "e210eb8d8a6606c7f4d731e173115d4c6416ac23c95c953f96b3beca22ccafe5"
+    }
+  ],
+  "wholeSuite": {
+    "source": "reports/current60-tests.txt",
+    "sha256": "e210eb8d8a6606c7f4d731e173115d4c6416ac23c95c953f96b3beca22ccafe5",
+    "passed": 1118,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "productionCodeInputsSha256": "87c6e63ae1cb9f03a9a163d29f92f205400679b46a4e74e4a3c0e5d0d0545d5a"
+  },
+  "roundReports": [
+    {
+      "path": "server/artifacts/native60-five-rounds.json",
+      "sha256": "7964e2281293c2488f91fe20eeebb451cd42e4e56eff126c87def71ce325b128",
+      "bytes": 111582,
+      "gameCount": 60,
+      "rounds": 300,
+      "arithmeticChecks": 300,
+      "modelVersionsMatch": true
+    },
+    {
+      "path": "server/artifacts/demo60-five-rounds.json",
+      "sha256": "3751b7a26738dca598f8e54bd7559be7ab6b4c7efb4445b073861bdd83b1ad7a",
+      "bytes": 86709,
+      "gameCount": 60,
+      "rounds": 300,
+      "arithmeticChecks": 300,
+      "modelVersionsMatch": true
+    }
+  ],
+  "chickenConnection": {
+    "version": "library74-v1:official72-chickenhighway-r4",
+    "disconnectAfterMs": 8000,
+    "strictlyGreaterThan": true,
+    "persistedDeadlineOffsetMs": 8001,
+    "heartbeatIntervalMs": 2000,
+    "readOrReplayRenews": false,
+    "serverOnlySettlement": true,
+    "atomicDemoAlarmAndCredit": true,
+    "legacyObjectAlarmDelegation": true,
+    "livePlatformAlarmVerified": false
+  },
+  "limitations": [
+    "PGlite verifies retained SQL/financial behavior on one connection; not multi-process PostgreSQL locking.",
+    "Models rejected by math review were tested only through separate disposable retained-ledger fixtures; production admission remains rejected.",
+    "All60 production starts remain closed pending existing integration and operator evidence.",
+    "Unknown old DEMO active models remain explicit recoverable pending; exact prior adapters are required to settle them.",
+    "Chicken uses a server-contact lease, not a claim to detect physical network state; platform alarm delivery can be delayed.",
+    "No provider probability, RTP certification, full artwork/sound parity or100% reference-parity claim.",
+    "The generated installer and private deployment metadata are intentionally absent from the public checkpoint; rebuild the installer from the published source.",
+    "The Worker build and smoke use retained baseline inputs; the current live Worker source has not been verified and is not claimed to match."
+  ],
+  "mathModelSourceSha256": "88ead5dda4a7495be9084517705b58b34c1a256441d9fa9b7dfcdd02b5730a28",
+  "retainedFixtureFinancialSourceHashesMatch": true
+}

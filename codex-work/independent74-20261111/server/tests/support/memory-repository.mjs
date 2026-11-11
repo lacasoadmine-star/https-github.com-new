@@ -50,6 +50,13 @@ export class MemoryRepository {
         getBalanceMinor: async () => copy.balanceMinor,
         findActiveRound: async () => [...copy.rounds.values()].find(round => round.status === 'active') || null,
         getRound: async id => record(id),
+        getChargingCarry: async (gameId, mathVersion, bucket) => {
+          // Map insertion order is the fixture's accepted transaction order;
+          // equal timestamps must not select an arbitrary UUID or older bucket.
+          const previous = [...copy.rounds.values()].reverse().find(round => round.game_id === gameId && round.state.mathVersion === mathVersion && round.state.carryBucket?.baseBetMinor === bucket.baseBetMinor && round.state.carryBucket?.ante === bucket.ante);
+          if (previous && !previous.state.carryAfter) fail('PERSISTED_CHARGING_CARRY_INVALID', 'The saved carry could not be verified.', 503);
+          return previous ? structuredClone(previous.state.carryAfter) : null;
+        },
         createRound: async value => {
           if (copy.rounds.has(value.id)) fail('ROUND_CONFLICT', 'The round already exists.', 409);
           if (value.status === 'active' && [...copy.rounds.values()].some(round => round.status === 'active')) fail('ACTIVE_ROUND_EXISTS', 'An active round already exists.', 409);

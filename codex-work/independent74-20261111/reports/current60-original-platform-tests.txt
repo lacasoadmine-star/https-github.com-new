@@ -1,0 +1,20 @@
+.........                                                                [100%]
+=============================== warnings summary ===============================
+../qa-venv/lib/python3.12/site-packages/starlette/testclient.py:41
+  /workspace/scratch/89e3b008317c/qa-venv/lib/python3.12/site-packages/starlette/testclient.py:41: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    [], typing.ContextManager[anyio.abc.BlockingPortal]
+
+tests/test_platform.py::PlatformTests::test_deposit_is_visible_to_agent_admin_and_socket
+tests/test_platform.py::PlatformTests::test_health_and_separate_pages
+tests/test_platform.py::PlatformTests::test_launch_game_and_signed_webhook_stay_on_the_ledger
+tests/test_platform.py::PlatformTests::test_login_is_portal_specific
+tests/test_platform.py::PlatformTests::test_loss_pays_agent_commission_and_hides_other_agents
+tests/test_platform.py::PlatformTests::test_sports_win_and_casino_keep_one_ledger
+tests/test_platform.py::PlatformTests::test_telebirr_deposit_credits_only_a_matching_receipt
+tests/test_platform.py::PlatformTests::test_tier_desks_limit_credit_finance_and_bans
+tests/test_platform.py::PlatformTests::test_withdrawal_approval_and_permission_gate
+  /workspace/scratch/89e3b008317c/qa-venv/lib/python3.12/site-packages/httpx/_client.py:680: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+9 passed, 10 warnings in 6.30s

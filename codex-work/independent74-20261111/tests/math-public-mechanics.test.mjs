@@ -186,8 +186,9 @@ test('additional public three-reel geometry and fixed line counts reach the actu
   for(const name of ['multihot5deluxe','safarisimba','habeshafortune5','baoslot5x']) {
     const d=definition(name);assert.equal(d.rows,3);assert.equal(d.cols,3);
     assert.equal(d.layout.geometryVerified,true);
-    let draws=0;const r=math.startRound({gameId:d.id,betMinor:'100',rng:bound=>{draws++;assert.equal(bound,8);return 0;}});
-    assert.equal(draws,9);assert.ok(r.outcome.grid.every(row=>row.length===3));
+    const bounds=[];const r=math.startRound({gameId:d.id,betMinor:'100',rng:bound=>{bounds.push(bound);return 0;}});
+    assert.deepEqual(bounds,d.multiplierSelectionTiming==='before-symbol-grid'?[d.multiplierValues.length,...Array(9).fill(8)]:Array(9).fill(8));
+    assert.ok(r.outcome.grid.every(row=>row.length===3));
     assert.ok(r.outcome.lineWins.every(line=>line.matches===3&&line.positions.length===3));
   }
   for(const [name,count] of [['poweroftiger',5],['gemscrownchargingwilds',5],['burningice',5],['junglesistersdeluxe',20],['sugarfiesta',3]]) {

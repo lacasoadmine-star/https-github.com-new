@@ -10,7 +10,7 @@ function trustedUser(userId) {
 // Call only after the retained signature verifier and resolveSessionUser have
 // authenticated the request. A browser must never choose the userId argument.
 // No database, wallet, migrations, timers, or replacement service are created.
-export function installExistingLibrary74({ service, ...adapterOptions } = {}) {
+export function installExistingLibrary74({ service, canonicalRoundOrder = false, ...adapterOptions } = {}) {
   if (typeof service?.state !== 'function' || typeof service?.action !== 'function' || typeof service?.snapshot !== 'function' || typeof service?.view !== 'function' || typeof service?.shared?.transaction !== 'function') throw new TypeError('An existing initialized LibraryService instance is required.');
   const adapter = createExistingLibrary74Adapter(adapterOptions);
   const registry = composeExistingLibrary74Registry(service.registry, adapter);
@@ -31,10 +31,24 @@ export function installExistingLibrary74({ service, ...adapterOptions } = {}) {
     }
     return { ...result, authenticated: true, currency: 'ETB', game: definition, model_version: definition.version, accepting: snapshot.accepting === true && definition.accepting === true };
   }
+  async function snapshotFor(tx, userId, id, now) {
+    const snapshot = await service.snapshot(tx, userId, id, now);
+    if (!canonicalRoundOrder) return publicSnapshot(snapshot);
+    // A timestamp may tie across accepted requests. Reuse the canonical
+    // immutable settlement order for the new namespace's read projection.
+    // The retained snapshot still owns reconciliation, balance and guards.
+    const rows = await tx.unsafe("SELECT l.* FROM sw_native_library.rounds l LEFT JOIN sw_rebuild.rounds r ON r.id='native-library:'||l.id::text WHERE l.user_id=$1 AND l.game_id=$2 ORDER BY (l.status='active') DESC,r.settled_order DESC NULLS LAST,l.created_at DESC,l.id DESC LIMIT 1", [userId, id]);
+    return publicSnapshot({ ...snapshot, round: rows.length ? service.view(rows[0], now) : null });
+  }
   return {
     service, adapter, registry,
     definitions,
-    state: async (userId, id) => publicSnapshot(await service.state(trustedUser(userId), gameId(id))),
+    state: async (userId, id) => {
+      trustedUser(userId); gameId(id);
+      if (!canonicalRoundOrder) return publicSnapshot(await service.state(userId, id));
+      if (!service.ready) fail('LIBRARY_UNAVAILABLE', 503);
+      return service.shared.transaction(userId, tx => snapshotFor(tx, userId, id, service.now()));
+    },
     action: async (userId, input) => {
       if (!plain(input)) fail('INVALID_LIBRARY_REQUEST');
       gameId(input.game_id);
@@ -46,8 +60,10 @@ export function installExistingLibrary74({ service, ...adapterOptions } = {}) {
       if (!service.ready) fail('LIBRARY_UNAVAILABLE', 503);
       return service.shared.transaction(userId, async tx => {
         const now = service.now();
-        const snapshot = publicSnapshot(await service.snapshot(tx, userId, id, now));
-        const rows = await tx.unsafe('SELECT * FROM sw_native_library.rounds WHERE user_id=$1 AND game_id=$2 ORDER BY created_at DESC,id DESC LIMIT $3', [userId, id, limit]);
+        const snapshot = await snapshotFor(tx, userId, id, now);
+        const rows = await tx.unsafe(canonicalRoundOrder
+          ? "SELECT l.* FROM sw_native_library.rounds l LEFT JOIN sw_rebuild.rounds r ON r.id='native-library:'||l.id::text WHERE l.user_id=$1 AND l.game_id=$2 ORDER BY (l.status='active') DESC,r.settled_order DESC NULLS LAST,l.created_at DESC,l.id DESC LIMIT $3"
+          : 'SELECT * FROM sw_native_library.rounds WHERE user_id=$1 AND game_id=$2 ORDER BY created_at DESC,id DESC LIMIT $3', [userId, id, limit]);
         const history = rows.map(row => {
           const { revealed_seed: _seed, ...round } = service.view(row, now);
           return { ...round, created_at: Number(row.created_at), settled_at: row.settled_at === null ? null : Number(row.settled_at) };

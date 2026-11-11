@@ -16,10 +16,12 @@ export function evaluateSlotGrid(config,betMinor,grid){
  return{winMinor:total.toString(),lineWins};
 }
 export function startSlot(config,{betMinor,rng}){
- const round=baseRound(config,betMinor);const grid=Array.from({length:config.rows||3},()=>Array.from({length:5},()=>config.symbols[draw(rng,8)].id));
+ const round=baseRound(config,betMinor);
+ const preSpinMultiplier=config.multiplierSelectionTiming==='before-symbol-grid'&&config.multiplierValues?config.multiplierValues[draw(rng,config.multiplierValues.length)]:undefined;
+ const grid=Array.from({length:config.rows||3},()=>Array.from({length:5},()=>config.symbols[draw(rng,8)].id));
  const result=evaluateSlotGrid(config,round.betMinor,grid);
  const wheel=config.multiplierValues;
- const reelMultiplier=wheel?wheel[draw(rng,wheel.length)]:1;
+ const reelMultiplier=preSpinMultiplier??(wheel?wheel[draw(rng,wheel.length)]:1);
  result.winMinor=(BigInt(result.winMinor)*BigInt(reelMultiplier)).toString();
  if(wheel)for(const line of result.lineWins)line.winMinor=(BigInt(line.winMinor)*BigInt(reelMultiplier)).toString();
  if(BigInt(result.winMinor)>BigInt(config.limits.maxWinMinor))error('PAYOUT_LIMIT_EXCEEDED','Configured slot prize exceeds its cap.');

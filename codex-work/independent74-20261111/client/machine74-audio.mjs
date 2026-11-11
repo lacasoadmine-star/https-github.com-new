@@ -71,7 +71,10 @@ export class MachineAudio {
     for (const [frequency, offset, duration] of CUES[key] || []) this.note(frequency, offset, duration, key === 'wheelTick' ? .09 : .2, key === 'reelStop' ? 'sine' : 'triangle');
   }
   startSpin() {
-    this.stopSpin(); this.cue('spin');
+    // The request phase and confirmed animation share one spin. Do not replay
+    // its lead-in or create another interval when the server response arrives.
+    if (this.loop !== null) return;
+    this.cue('spin');
     if (this.disposed || this.muted || this.context?.state !== 'running') return;
     this.pulse = 0;
     this.loop = setInterval(() => { this.note([112, 126, 141, 119][this.pulse++ % 4], 0, .065, .045, 'sawtooth'); }, 92);

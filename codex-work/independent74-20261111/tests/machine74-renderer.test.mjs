@@ -4,12 +4,14 @@ import * as math from '../math/official72.mjs';
 import {publicLibrary74Definition} from '../server/existing-library74-adapter.mjs';
 import {syntheticMinesDefinition} from '../server/tests/support/synthetic-mines-math.mjs';
 import {MACHINE_PROFILES, presentationProfile, machineGeometry, machineMarkup, renderMachine,
-  animateRound, minorText, presentationTier, plinkoGeometry, wheelRotation} from '../client/machine74-renderer.mjs';
+  animateRound, minorText, presentationTier, plinkoGeometry, wheelRotation, multiplierWheelRotation} from '../client/machine74-renderer.mjs';
 
 const definitions = math.listGameDefinitions();
 const definition = slug => publicLibrary74Definition(math.getGameDefinition('ind74_official_' + slug));
 const publicFixture = full => {
-  const stored = math.startRound({gameId:full.id,betMinor:full.limits.minBetMinor,rng:()=>0,now:1700000000000});
+  const betMinor=full.limits.minBetMinor;
+  const context=full.chargingFeature?{bucket:math.chargingCarryBucket(full,betMinor),priorCarry:math.emptyChargingCarry()}:undefined;
+  const stored = math.startRound({gameId:full.id,betMinor,context,rng:()=>0,now:1700000000000});
   return math.publicRound(stored,1700000000000);
 };
 const count = (text, pattern) => [...text.matchAll(pattern)].length;
@@ -42,25 +44,52 @@ for (const full of definitions) test(full.catalogName + ': ready and server publ
   assert.doesNotMatch(ready + result,/<(?:img|iframe|video|audio|script)\b|onclick=|balance|DO_NOT_DISPLAY/i);
   if (full.family === 'slots') {
     const {rows,columns} = machineGeometry(view);
-    assert.equal(count(result,/class="m74-symbol(?: is-winning)?"/g),rows*columns);
-    assert.equal(count(result,/class="m74-reel-window(?: is-expanded)?"/g),columns);
+    if(full.slotMechanic==='tumble'){
+      assert.equal(count(result,/data-tumble-cell="/g),rows*columns);
+      assert.equal(count(result,/class="m74-reel-window/g),0);
+    }else{
+      assert.equal(count(result,/class="m74-symbol(?: is-winning)?"/g),rows*columns);
+      assert.equal(count(result,/class="m74-reel-window(?: is-expanded)?"/g),columns);
+    }
   }
   if (full.family === 'plinko') assert.equal(count(result,/data-bucket="/g),view.rows+1);
   if (full.family === 'wheel') assert.equal(count(result,/data-sector="/g),view.sectors.length);
   if (full.family === 'mines') assert.equal(count(result,/data-m74-cell="/g),view.cells);
 });
 
-test('observed Multi Hot 40 and 100 use four rows; unfinished 40 multiplier remains visibly pending', () => {
+test('observed Multi Hot 40 and 100 use four rows and their published multiplier placement', () => {
   for (const slug of ['multihot40','multihot100']) {
     const view = definition(slug), markup = machineMarkup(view);
     assert.deepEqual(machineGeometry(view),{rows:4,columns:5});
     assert.equal(count(markup,/class="m74-symbol"/g),20);
   }
-  const pending = machineMarkup(definition('multihot40'));
+  assert.match(machineMarkup(definition('multihot40')),/m74-multiplier-arc/);
+  const unfinished=definition('multihot40');delete unfinished.multiplierValues;unfinished.layout.multiplier.calculationImplemented=false;
+  const pending = machineMarkup(unfinished);
   assert.match(pending,/m74-multiplier-pending/);
   assert.match(pending,/Weli la dhisayo/);
   assert.doesNotMatch(pending,/m74-multiplier-reel/);
   assert.match(machineMarkup(definition('multihot100')),/m74-multiplier-reel/);
+});
+
+test('top multiplier wheels use server factors across all published values without selecting a ready result',()=>{
+  for(const slug of ['multihot10','multihot20','multihot40','multihot5burnwilds']){
+    const view=definition(slug),ready=machineMarkup(view);
+    assert.match(ready,/m74-multiplier-arc/);
+    assert.match(ready,/data-selected-multiplier=""/);
+    assert.doesNotMatch(ready,/m74-multiplier-sector factor-\d is-selected/);
+    assert.doesNotMatch(ready,/m74-multiplier-reel/);
+    for(const [index,value]of view.multiplierValues.entries()){
+      const round=publicFixture(math.getGameDefinition(view.id));round.outcome.reelMultiplier=value;
+      const before=JSON.stringify(round),markup=machineMarkup(view,round);
+      assert.equal(multiplierWheelRotation(view,round),-index*360/view.multiplierValues.length);
+      assert.match(markup,new RegExp('data-selected-multiplier="'+value+'"'));
+      assert.equal(count(markup,/m74-multiplier-sector factor-\d is-selected/g),1);
+      assert.equal(JSON.stringify(round),before);
+    }
+    const invalid=publicFixture(math.getGameDefinition(view.id));invalid.outcome.reelMultiplier=999;
+    assert.throws(()=>machineMarkup(view,invalid),/server reel multiplier/);
+  }
 });
 
 test('geometry follows published columns and rejects a conflicting layout', () => {
@@ -246,6 +275,18 @@ test('STOP exposes the supplied outcome once, emits no wager/action, and cannot 
   assert.equal(actions.length,0);
   assert.equal(stage.classes.has('m74-animating'),false);
   assert.equal(stage.innerHTML,machineMarkup(view,round,{disabled:true}));
+});
+
+test('X2 reveals the supplied card without replaying reels or emitting another game action',async()=>{
+  const view=definition('multihot10'),stage=new FakeStage(),calls=[],actions=[];
+  const stored=math.startRound({gameId:view.id,betMinor:'100',options:{holdWin:true},rng:()=>0,now:1700000000000});
+  const previous=math.publicRound(stored),next=math.publicRound(math.advanceRound(stored,{color:'red'},1700000000000,()=>0));
+  const animation=animateRound(stage,view,previous,next,{action:'gamble',turbo:true,audio:{cue:name=>calls.push(name),startSpin:()=>calls.push('start'),stopSpin(){}},onAction:action=>actions.push(action)});
+  assert.deepEqual(await animation.promise,{cancelled:false});
+  assert.equal(calls.includes('start'),false);assert.equal(calls.includes('reelStop'),false);assert.equal(calls.includes('reveal'),true);
+  assert.deepEqual(actions,[]);assert.match(stage.innerHTML,/m74-card m74-card-red/);
+  assert.match(stage.innerHTML,/Unrevealed gamble card/,'only the next card stays facedown');
+  assert.equal(stage.classes.has('m74-gamble-animating'),false);
 });
 
 test('reduced motion finishes directly and stale animations cannot overwrite a new title', async () => {

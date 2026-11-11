@@ -1,0 +1,8 @@
+{
+  "sourceRepository": "lacasoadmine-star/https-github.com-new",
+  "sourceCommit": "a0dd6a5f842c9c0fbc92eaeb441a136f49a49d78",
+  "sourcePath": "game-expansion/continuation/backend-baseline/jetx-auth.mjs",
+  "sourceSha256": "878e77e1c6646053d85c4c5881c6454be2c69c3b9a198e76208580cfc5f91416",
+  "source": "import {fail} from './jetx-rules.mjs';\n\n// The Worker authenticates through the platform's actual machine-session route.\n// Only a digest of its HttpOnly session cookie crosses this signed server link.\n// Resolve the account again against the same canonical session table used by\n// the existing slot engine. Older sessions can store either raw or hashed keys.\nexport async function resolveSessionUser(shared,subject,now=Date.now()){\n const digest=typeof subject==='string'&&subject.match(/^@session:([a-f0-9]{64})$/)?.[1];\n if(!digest)fail('PLAYER_LOGIN_REQUIRED',401);\n const rows=await shared.sql.unsafe(`SELECT u.id,u.role,u.status\n  FROM sw_rebuild.sessions s JOIN sw_rebuild.users u ON u.id=s.user_id\n  WHERE s.expires>$2 AND (s.token=$1 OR encode(sha256(convert_to(s.token,'UTF8')),'hex')=$1)`,[digest,now]);\n if(rows.length!==1||rows[0].role!=='player'||rows[0].status!=='active')fail('ACTIVE_PLAYER_SESSION_REQUIRED',401);\n return rows[0].id;\n}\n",
+  "purpose": "Exact production source, executed only against isolated fixture; no credentials."
+}

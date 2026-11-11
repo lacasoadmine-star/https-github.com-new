@@ -42,7 +42,10 @@ test('fixed import-edge packing preserves all72definitions and216seededraw/publi
  const definitions=original.listGameDefinitions();assert.equal(definitions.length,72);assert.deepEqual(baseline.listGameDefinitions(),definitions);assert.deepEqual(optimized.listGameDefinitions(),definitions);
  assert.equal(digest(optimized.listGameDefinitions()),digest(definitions));
  for(const game of definitions)for(const seed of[1,42,0xffffffff]){
-  const args={gameId:game.id,betMinor:'100',now:1700000000000};
+  // Isolated first-spin transaction context, identical for both bundles. No
+  // live carry is reset, and the browser never supplies this trusted input.
+  const context=game.chargingFeature?{bucket:{baseBetMinor:'100',ante:1},priorCarry:{schemaVersion:1,initialized:false,paidSpins:'0',wilds:[]}}:undefined;
+  const args={gameId:game.id,betMinor:'100',now:1700000000000,context};
   const expected=original.startRound({...args,rng:rng(seed)}),actual=optimized.startRound({...args,rng:rng(seed)});
   assert.deepEqual(actual,expected,game.id+' raw round '+seed);assert.deepEqual(optimized.publicRound(actual,args.now),original.publicRound(expected,args.now),game.id+' public round '+seed);
  }

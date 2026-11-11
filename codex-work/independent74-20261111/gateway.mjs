@@ -95,14 +95,26 @@ export function validateNativeAction(input, ids) {
     const minor=BigInt(input.stake.replace('.',''));
     if(minor<100n||minor%100n!==0n)reject(400,'INVALID_STAKE','Choose a positive whole-ETB stake within the server account and game limits.');
     const options=input.options??{};
-    const plinkoX=input.game_id==='ind74_official_plinkox',destinyWheel=input.game_id==='ind74_official_wheelofdestiny';
-    const optionKeys=plinkoX?['risk','ballAmount']:destinyWheel?['bets']:['mode','target','holdWin'];
+    const plinkoX=input.game_id==='ind74_official_plinkox',destinyWheel=input.game_id==='ind74_official_wheelofdestiny',gatesMerlyn=input.game_id==='ind74_official_gatesofmerlyn';
+    const genieBonanza=input.game_id==='ind74_official_geniesbonanza',coinsAtlantis=input.game_id==='ind74_official_coinsofatlantis',mariachi=input.game_id==='ind74_official_mariachicoins';
+    const chargingFruits=input.game_id==='ind74_official_multifruitschargingwilds',chargingGems=input.game_id==='ind74_official_gemscrownchargingwilds';
+    const optionKeys=plinkoX?['risk','ballAmount']:destinyWheel?['bets']:gatesMerlyn||genieBonanza||coinsAtlantis?['mode']:chargingFruits||chargingGems?['ante','holdWin']:mariachi?['holdWin']:['mode','target','holdWin'];
     if(!options||Array.isArray(options)||typeof options!=='object'||Object.keys(options).some(k=>!optionKeys.includes(k)))reject(400,'INVALID_OPTIONS','Unsupported game option.');
     if(plinkoX){
       if(options.risk!==undefined&&!['low','medium','high'].includes(options.risk))reject(400,'INVALID_OPTIONS','Choose a verified risk board.');
       if(options.ballAmount!==undefined&&(!Number.isSafeInteger(options.ballAmount)||![1,5,10,25].includes(options.ballAmount)))reject(400,'INVALID_OPTIONS','Choose a supported ball amount.');
       const count=BigInt(options.ballAmount??1);
       if(minor%(count*100n)!==0n)reject(400,'INVALID_STAKE','The total stake must split into whole-ETB stakes per ball.');
+    }
+    if(gatesMerlyn||genieBonanza||coinsAtlantis){
+      const steps=gatesMerlyn?{base:100n,ante:300n,buy100:10000n,buy500:50000n}:genieBonanza?{base:100n,buy100:10000n}:{base:100n,ante:300n,buy60:6000n},mode=options.mode??'base';
+      if(typeof mode!=='string'||!Object.hasOwn(steps,mode))reject(400,'INVALID_OPTIONS','Choose a supported mode for this game.');
+      if(minor%steps[mode]!==0n)reject(400,'INVALID_STAKE','The total debit must match the selected base stake and mode cost.');
+    }
+    if(chargingFruits||chargingGems){
+      const ante=options.ante??1,choices=chargingFruits?[1,5,10]:[1];
+      if(!choices.includes(ante))reject(400,'INVALID_OPTIONS','Choose a supported Charging Wilds ANTE.');
+      if(minor%(100n*BigInt(ante))!==0n)reject(400,'INVALID_STAKE','The total debit must contain an exact whole-ETB base stake for the selected ANTE.');
     }
     if(destinyWheel&&options.bets!==undefined){
       if(!Array.isArray(options.bets)||options.bets.length<1||options.bets.length>9)reject(400,'INVALID_OPTIONS','Choose one to nine distinct wheel fields.');
@@ -130,10 +142,40 @@ export function validateNativeAction(input, ids) {
   return input;
 }
 
-export function createGateway({ previous, assets = {}, games = [], accountGames = [], demoHandler = null, homeEnhancement = false, accountTransport = 'protected-readonly', fetchImpl = (...args) => fetch(...args) }) {
+function existingNativeOrigin(env){
+  let origin;try{origin=new URL(env.NATIVE_ENGINE_ORIGIN);}catch{return null;}
+  return origin.protocol==='https:'&&!origin.username&&!origin.password&&origin.pathname==='/'&&!origin.search&&!origin.hash?origin:null;
+}
+
+async function runtimeAccountCatalog({env,accountGames,integratedIds,fetchImpl}){
+  const origin=existingNativeOrigin(env);
+  const fallback={games:accountGames,accountServiceAvailable:false};
+  if(!origin)return fallback;
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);
+  try{
+    const response=await fetchImpl(new URL('/v2/independent74/health',origin),{method:'GET',headers:{accept:'application/json'},redirect:'error',signal:controller.signal});
+    if(!response.ok){await response.body?.cancel();return fallback;}
+    const value=JSON.parse(await readBody(response.body,2*1024*1024));
+    if(!Array.isArray(value.games)||value.games.length!==60||new Set(value.games.map(game=>game?.id)).size!==60||value.games.some(game=>!integratedIds.has(game?.id)))return fallback;
+    if(value.new_rounds_enabled!==true)return {...fallback,accountServiceAvailable:true};
+    const deployed=new Map(value.games.map(game=>[game.id,game]));
+    return {accountServiceAvailable:true,games:accountGames.map(game=>{
+      const live=deployed.get(game.id);
+      if(!live||live.currency!=='ETB'||live.version!==game.version||live.accepting!==true||live.launchable!==true)return game;
+      const limits=live.limits;
+      if(!limits||!['minBetMinor','maxBetMinor','betStepMinor','maxWinMinor'].every(key=>typeof limits[key]==='string'&&/^[1-9][0-9]{0,14}$/.test(limits[key])))return game;
+      if(BigInt(limits.minBetMinor)>BigInt(limits.maxBetMinor)||BigInt(limits.betStepMinor)<100n)return game;
+      return {...game,accepting:true,launchable:true,limits:{...game.limits,...limits}};
+    })};
+  }catch{return fallback;}finally{clearTimeout(timer);}
+}
+
+export function createGateway({ previous, assets = {}, games = [], accountGames = [], demoHandler = null, homeEnhancement = false, accountTransport = 'protected-readonly', integratedAccountGameIds = [], fetchImpl = (...args) => fetch(...args) }) {
   if (typeof previous?.fetch !== 'function') throw new Error('Legacy handler required.');
   const ids = new Set(games.map(game => game.id));
   const accountIds = new Set(accountGames.map(game => game.id));
+  const integratedIds=new Set(integratedAccountGameIds);
+  if(accountTransport==='existing-library60'&&(integratedIds.size!==60||integratedAccountGameIds.length!==60||[...integratedIds].some(id=>!accountIds.has(id))))throw new TypeError('Exactly60 reviewed existing-wallet game identities are required.');
   return async function independent74(request, env, ctx) {
     const url = new URL(request.url), path = url.pathname;
     if(path===PREFIX+'/progress.html')return new Response(null,{status:302,headers:{location:'/', 'cache-control':'no-store'}});
@@ -146,7 +188,12 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
       const body=html.replace('</head>','<link rel="stylesheet" href="/independent74/lobby74.css'+revision('/lobby74.css')+'"></head>').replace('</body>','<script type="module" src="/independent74/lobby74.mjs'+revision('/lobby74.mjs')+'"></script></body>');
       const headers=new Headers(response.headers);headers.delete('etag');headers.delete('content-length');headers.set('cache-control','private, no-store');
       const policy=headers.get('content-security-policy');
-      if(policy&&!policy.includes('https://cdn.prod.website-files.com'))headers.set('content-security-policy',policy.replace(/img-src[^;]*/i,value=>value+' https://cdn.prod.website-files.com'));
+      if(policy){
+        let next=policy.includes('https://cdn.prod.website-files.com')?policy:policy.replace(/img-src[^;]*/i,value=>value+' https://cdn.prod.website-files.com');
+        if(/(?:^|;)\s*frame-src\s/i.test(next))next=next.replace(/frame-src[^;]*/i,value=>value.includes("'self'")?value:value.replace(/\s+'none'(?=\s|$)/g,'')+" 'self'");
+        else next+="; frame-src 'self'";
+        headers.set('content-security-policy',next);
+      }
       return new Response(body,{status:response.status,headers});
     }
     try {
@@ -158,7 +205,8 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
         if(request.method!==(action==='action'?'POST':'GET'))reject(405,'METHOD_NOT_ALLOWED','Unsupported method.');
         if(action==='catalog'){
           if(url.search)reject(400,'INVALID_QUERY','Unsupported catalog query.');
-          return json({edition:'ZPLAY independent operator build',officialProviderMath:false,productionReleaseVerified:false,games:accountGames});
+          const catalog=accountTransport==='existing-library60'?await runtimeAccountCatalog({env,accountGames,integratedIds,fetchImpl}):{games:accountGames,accountServiceAvailable:false};
+          return json({edition:'ZPLAY independent operator build',officialProviderMath:false,productionReleaseVerified:false,...catalog});
         }
         if(action==='action'&&(request.headers.get('origin')!==url.origin||!/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type')||'')))reject(403,'SAME_ORIGIN_REQUIRED','A same-origin JSON request is required.');
         const token=sessionToken(request);
@@ -167,14 +215,24 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
         let identityData;
         try{identityData=JSON.parse(await readBody(identity.body,16384));}catch{reject(502,'INVALID_ACCOUNT_RESPONSE','Unreadable identity response.');}
         if(identityData?.authenticated!==true)return carryIdentity(json({error:{code:'SIGN_IN_REQUIRED',message:'Sign in to your existing player account.'}},401),identity);
-        if(accountTransport==='protected-readonly'){
+        const existing60=accountTransport==='existing-library60';
+        let preparedAction=null;
+        if(existing60){
+          if(identityData.currency!=='ETB'||typeof identityData.balance!=='string'||!/^(?:0|[1-9][0-9]{0,12})\.[0-9]{2}$/.test(identityData.balance)||!/^[a-f0-9]{64}$/.test(identityData.sessionId||''))reject(502,'INVALID_ACCOUNT_RESPONSE','The existing account balance could not be verified.');
+          if(action==='action'){
+            if(url.search||!await constantEqual(request.headers.get('x-independent74-session')||'',identityData.sessionId))reject(403,'SESSION_REFRESH_REQUIRED','Refresh account state before playing.');
+            preparedAction=validateNativeAction(parse(await readBody(request.body,8192)),accountIds);
+          }
+        }
+        const requestedAccountId=preparedAction?.game_id??url.searchParams.get('game_id');
+        if(accountTransport==='protected-readonly'||existing60&&!integratedIds.has(requestedAccountId)){
           // The working protected games already use this exact authenticated
           // session balance. Do not route new machines to a different engine
           // or invent a financial action while their evaluator is uninstalled.
           if(identityData.currency!=='ETB'||typeof identityData.balance!=='string'||!/^(?:0|[1-9][0-9]{0,12})\.[0-9]{2}$/.test(identityData.balance)||!/^[a-f0-9]{64}$/.test(identityData.sessionId||''))reject(502,'INVALID_ACCOUNT_RESPONSE','The existing account balance could not be verified.');
           if(action==='action'){
             if(url.search||!await constantEqual(request.headers.get('x-independent74-session')||'',identityData.sessionId))reject(403,'SESSION_REFRESH_REQUIRED','Refresh account state before playing.');
-            validateNativeAction(parse(await readBody(request.body,8192)),accountIds);
+            if(!preparedAction)validateNativeAction(parse(await readBody(request.body,8192)),accountIds);
             reject(503,'GAME_RELEASE_NOT_READY','This game has not been enabled on the existing wallet.');
           }
           for(const key of url.searchParams.keys())if(key!=='game_id'||url.searchParams.getAll(key).length!==1)reject(400,'INVALID_QUERY','Unsupported query parameter.');
@@ -186,12 +244,12 @@ export function createGateway({ previous, assets = {}, games = [], accountGames 
             activeRecoveryVerified:false,historyAvailable:false,existingWalletReadOnly:true,
             sessionGuard:identityData.sessionId}),identity);
         }
-        if(accountTransport!=='library74')reject(503,'ACCOUNT_SERVICE_UNAVAILABLE','Unsupported account transport.');
-        const guard=await csrfGuard(token);
+        if(accountTransport!=='library74'&&!existing60)reject(503,'ACCOUNT_SERVICE_UNAVAILABLE','Unsupported account transport.');
+        const guard=existing60?identityData.sessionId:await csrfGuard(token);
         let body='',gameId,backendPath='/v2/independent74/'+action;
         if(action==='action'){
           if(url.search||!await constantEqual(request.headers.get('x-independent74-session')||'',guard))reject(403,'SESSION_REFRESH_REQUIRED','Refresh account state before playing.');
-          const input=validateNativeAction(parse(await readBody(request.body,8192)),accountIds);body=JSON.stringify(input);gameId=input.game_id;
+          const input=preparedAction??validateNativeAction(parse(await readBody(request.body,8192)),accountIds);body=JSON.stringify(input);gameId=input.game_id;
         }else{
           for(const key of url.searchParams.keys())if(key!=='game_id'||url.searchParams.getAll(key).length!==1)reject(400,'INVALID_QUERY','Unsupported query parameter.');
           gameId=url.searchParams.get('game_id');if(!accountIds.has(gameId))reject(400,'UNKNOWN_GAME','Unknown game.');backendPath+='?game_id='+encodeURIComponent(gameId);

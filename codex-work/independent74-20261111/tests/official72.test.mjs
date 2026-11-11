@@ -1,6 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import * as math from '../math/official72.mjs';
 import scope from '../scope/official74.json' with{type:'json'};
+import {freshChargingContext} from './support/charging-wilds-fixtures.mjs';
 import {createGameService} from '../server/service.mjs';import {MemoryRepository} from '../server/tests/support/memory-repository.mjs';
 const defs=math.listGameDefinitions(),session='b'.repeat(64);
 test('fresh official selection has 74 publisher demo URLs, two protected titles and 72 separate model identities',()=>{
@@ -11,10 +12,11 @@ test('fresh official selection has 74 publisher demo URLs, two protected titles 
 });
 for(const d of defs)test(d.catalogName+' official collection: 1–20 presets and arithmetic above 40000 ETB, settlement and privacy',()=>{
  for(const betMinor of ['100','200','2000','4000100']){
-  let r=math.startRound({gameId:d.id,betMinor,rng:()=>0,now:100000});
+  const context=freshChargingContext(d,betMinor);
+  let r=math.startRound({gameId:d.id,betMinor,context,rng:()=>0,now:100000});
   if(r.status==='active'&&d.family==='mines')r=math.advanceRound(r,{cell:d.cells-1},100000);
   if(r.status==='active')r=math.collectRound(r,{},101000);
-  assert(['collected','lost'].includes(r.status));assert(BigInt(r.winMinor)<=BigInt(math.maximumPayoutMinor({gameId:d.id,betMinor})));
+  assert(['collected','lost'].includes(r.status));assert(BigInt(r.winMinor)<=BigInt(math.maximumPayoutMinor({gameId:d.id,betMinor,context})));
   assert.equal(math.publicRound(r,101000).private,undefined);assert.equal(r.betMinor,betMinor);
  }
  for(const betMinor of ['99','101','400001'])assert.throws(()=>math.startRound({gameId:d.id,betMinor}));

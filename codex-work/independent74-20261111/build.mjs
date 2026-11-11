@@ -77,8 +77,9 @@ export function publicProgress74({scope,status,routes,sourceCommit=null,builtAt=
   return {updatedAt:status.createdAt,builtAt,sourceCommit,newReleasePublished:false,games,phase2:{target:1000,records:0,status:'not-started',gated:true,gate:'all74-complete-published-verified',baselineIds:scope.map(g=>g.gameId)},futureTotal:1074};
 }
 
-export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r1',expectedVersion='3ae79dd2-afba-4dcd-bd20-a071ada030a7',sourceCommit=process.env.IND74_SOURCE_COMMIT||null}={}) {
+export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r1',expectedVersion='3ae79dd2-afba-4dcd-bd20-a071ada030a7',sourceCommit=process.env.IND74_SOURCE_COMMIT||null,accountTransport=process.env.IND74_ACCOUNT_TRANSPORT||'protected-readonly'}={}) {
   if(!/^r[1-9][0-9]*$/.test(release))throw new Error('Use an explicit release identifier.');
+  if(!['protected-readonly','existing-library60'].includes(accountTransport))throw new Error('Use the existing protected balance or the reviewed existing60 wallet integration.');
   const MAIN='independent74-entry-'+release+'.mjs';
   const NAMES=Object.fromEntries(['assets','catalog','gateway','entry'].map(name=>[name,'independent74-'+name+'-'+release+'.mjs']));
   const requiredNames=['index.html','style.css','app.mjs','api.mjs','audio.mjs','machines74.html','machines74.css','machine74-controller.mjs','machine74-api.mjs','machine74-renderer.mjs','machine74-renderer.css','machine74-audio.mjs'];
@@ -134,6 +135,13 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
   if(!Array.isArray(accountGames)||accountGames.length!==72||new Set(accountGames.map(g=>g.id)).size!==72)throw new Error('All 72 independent account definitions are required.');
   if(accountGames.some(g=>!/^ind74_official_[a-z0-9_]+$/.test(g.id)||g.currency!=='ETB'||g.accepting!==false||g.launchable!==false))throw new Error('New account definitions must default to closed release gates.');
   const serializedAccountGames=js(accountGames);
+  let integratedAccountGameIds=[];
+  if(accountTransport==='existing-library60'){
+    const {EXISTING_WALLET_ROUTES}=await import(pathToFileURL(join(rootDir,'client','existing-wallet-routes.mjs')).href);
+    if(Object.keys(EXISTING_WALLET_ROUTES).length!==14)throw new Error('The14 existing wallet routes must remain unchanged.');
+    integratedAccountGameIds=accountGames.filter(game=>!Object.hasOwn(EXISTING_WALLET_ROUTES,game.id)).map(game=>game.id);
+    if(integratedAccountGameIds.length!==60)throw new Error('The existing-wallet integration must contain exactly60 new machines.');
+  }
   const demoSource=join(rootDir,'server','demo74-worker.mjs');
   const hasDemo=await access(demoSource).then(()=>true,()=>false);
   let demoEngine='',demoGateway='',gatewayOutput=gateway;
@@ -163,7 +171,7 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     [NAMES.assets]:hasDemo?`// Compressed independent assets only; inherited modules remain byte-exact.\nlet cached;\nexport async function loadAssets(){\n if(cached)return cached;\n const bytes=Uint8Array.from(atob(${js(gzipSync(JSON.stringify(assets),{level:9}).toString('base64'))}),c=>c.charCodeAt(0));\n const text=await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text();\n cached=Object.freeze(Object.assign(Object.create(null),JSON.parse(text)));return cached;\n}\n`:`// Generated from current independent client source. No legacy assets are included.\nexport const assets=Object.freeze(Object.assign(Object.create(null),${js(assets)}));\n`,
     [NAMES.catalog]:`// Public definitions only. Outcomes and wallet state stay on the existing account server.\n${hasDemo?`import {account74Catalog} from './${DEMO}';\n`:''}export const games=Object.freeze(${serializedGames});\nexport const accountGames=Object.freeze(${hasDemo?'account74Catalog()':serializedAccountGames});\n`,
     [NAMES.gateway]:gatewayOutput,
-    [NAMES.entry]:`import previous${hasDemo?", {LocalDemoWallet as PreviousDemoWallet}":''} from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {${hasDemo?'loadAssets':'assets'}} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\n${hasDemo?`import {handleDemo74Request} from './${DEMO}';\nimport {createDemoGateway} from './${DEMO_GATEWAY}';\nexport class LocalDemoWallet extends PreviousDemoWallet {\n constructor(ctx,env){super(ctx,env);this.__independent74Context=ctx;}\n fetch(request){return new URL(request.url).pathname.startsWith('/independent74-demo-internal/')?handleDemo74Request(this.__independent74Context,request):super.fetch(request);}\n}\nlet handler;\nexport default {...previous,async fetch(request,env,ctx){\n const path=new URL(request.url).pathname;\n if(path!=='/'&&path!=='/independent74'&&!path.startsWith('/independent74/'))return previous.fetch(request,env,ctx);\n try{if(!handler)handler=createGateway({previous,assets:await loadAssets(),games,accountGames,demoHandler:createDemoGateway({previous}),homeEnhancement:true,accountTransport:'protected-readonly'});return handler(request,env,ctx);}\n catch{if(path==='/')return previous.fetch(request,env,ctx);return new Response(JSON.stringify({error:{code:'GAME_UI_UNAVAILABLE'}}),{status:503,headers:{'content-type':'application/json','cache-control':'no-store'}});}\n}};\n`:`export default {...previous,fetch:createGateway({previous,assets,games,accountGames})};\n`}`,
+    [NAMES.entry]:`import previous${hasDemo?", {LocalDemoWallet as PreviousDemoWallet}":''} from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {${hasDemo?'loadAssets':'assets'}} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\n${hasDemo?`import {handleDemo74Request,handleDemo74Alarm} from './${DEMO}';\nimport {createDemoGateway} from './${DEMO_GATEWAY}';\nexport class LocalDemoWallet extends PreviousDemoWallet {\n constructor(ctx,env){super(ctx,env);this.__independent74Context=ctx;}\n fetch(request){return new URL(request.url).pathname.startsWith('/independent74-demo-internal/')?handleDemo74Request(this.__independent74Context,request):super.fetch(request);}\n async alarm(...args){if(await handleDemo74Alarm(this.__independent74Context))return;return typeof super.alarm==='function'?super.alarm(...args):undefined;}\n}\nlet handler;\nexport default {...previous,async fetch(request,env,ctx){\n const path=new URL(request.url).pathname;\n if(path!=='/'&&path!=='/independent74'&&!path.startsWith('/independent74/'))return previous.fetch(request,env,ctx);\n try{if(!handler)handler=createGateway({previous,assets:await loadAssets(),games,accountGames,demoHandler:createDemoGateway({previous}),homeEnhancement:true,accountTransport:${js(accountTransport)},integratedAccountGameIds:${js(integratedAccountGameIds)}});return handler(request,env,ctx);}\n catch{if(path==='/')return previous.fetch(request,env,ctx);return new Response(JSON.stringify({error:{code:'GAME_UI_UNAVAILABLE'}}),{status:503,headers:{'content-type':'application/json','cache-control':'no-store'}});}\n}};\n`:`export default {...previous,fetch:createGateway({previous,assets,games,accountGames})};\n`}`,
     ...(hasDemo?{[DEMO]:demoEngine,[DEMO_GATEWAY]:demoGateway}:{})
   };
   for(const [name,source]of Object.entries(files))checkModule(source,name);
@@ -187,8 +195,10 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     clientReleaseAllowlist:CLIENT_GAME_IDS,
     accountDefinitionCount:accountGames.length,
     browserOutcomeEngineServed:false,
-    accountWallet:hasDemo?'Existing protected account session, read-only ETB; new financial actions disabled':'Retained service fixture; no new wallet or database',
-    accountTransport:'protected-readonly',
+    accountWallet:accountTransport==='existing-library60'?'Existing authenticated Player session and initialized shared-wallet LibraryService; admission is decided by verified server policy':hasDemo?'Existing protected account session, read-only ETB; new financial actions disabled':'Retained service fixture; no new wallet or database',
+    accountTransport,
+    integratedAccountGameIds,
+    runtimeDecidesNewRoundAdmission:accountTransport==='existing-library60',
     gameIds:[...ids],
     legacyMain:'presentation-player-entry-r23.mjs',
     legacySourcesChanged:false,

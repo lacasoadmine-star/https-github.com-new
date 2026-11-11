@@ -1,5 +1,10 @@
 import {fruitArt} from './fruit-art.mjs';
 import {plinkoxTable,plinkoxRiskAvailable} from './plinkox-controls.mjs';
+import {isGatesTumble,gatesPublicFrames} from './gates74-presentation.mjs';
+import {isChargingWilds,chargingPublicView} from './charging74-presentation.mjs';
+import {isBookFeature,bookPublicFrames} from './book74-presentation.mjs';
+import {isMariachi,mariachiPublicView} from './mariachi74-presentation.mjs';
+import {isJungleFeature,junglePublicFrames} from './jungle74-presentation.mjs';
 
 // Explicit original presentation choices for every unprotected official title.
 // A profile does not assert that its artwork or mechanics match the provider.
@@ -14,7 +19,7 @@ const PROFILE_ROWS = [
   ['poweroftiger','#342615','#ffc44f','#f9de8b','jungle','tiger'],
   ['multifruitschargingwilds','#154228','#cbef68','#f6c458','orchard','fruit'],
   ['gemscrownchargingwilds','#291148','#bf79ff','#f0ce6f','palace','crown'],
-  ['gatesofmerlyn','#142346','#73cfff','#e7c17d','castle','star'],
+  ['gatesofmerlyn','#123c39','#8ff2d3','#efcf75','castle','star'],
   ['chickenways','#31441c','#ebcf78','#fff2c4','farm','chicken'],
   ['dicejungle','#19391f','#b4e67c','#dbb465','jungle','dice'],
   ['multihot5wild','#103f26','#caef67','#f3cd6a','orchard','star'],
@@ -69,7 +74,7 @@ const PROFILE_ROWS = [
   ['dragonscode','#322338','#e9a1c5','#dfcc8a','lantern','dragon'],
   ['draculasfortune','#2e1532','#d59adf','#e8bc80','crypt','bat'],
   ['bookoffuturia','#182a49','#98d9ff','#edce96','space','book'],
-  ['bookofbonanza','#3c2e26','#e0b989','#f2d490','temple','book'],
+  ['bookofbonanza','#152e4c','#9bcad7','#efc871','pagoda','book'],
   ['sugarfiesta','#482b4b','#ffa6d3','#c4eff5','candy','candy'],
   ['vampires','#301b3e','#bba1ec','#e7a9aa','crypt','bat'],
   ['burningice10','#1c3043','#93dfef','#ffbe86','ice','flame'],
@@ -89,7 +94,7 @@ const allowed = (round, action) => round?.status === 'active' && Array.isArray(r
 const isCascade = definition => definition?.family === 'crash' && definition.crashMechanic === 'cascade';
 const symbolsOf = definition => {
   const symbols = [...(definition.symbols || [])];
-  for(const symbol of [definition.wildSymbol,definition.coinSymbol,definition.plusRespinSymbol])if(symbol?.id&&!symbols.some(item=>item.id===symbol.id))symbols.push(symbol);
+  for(const symbol of [definition.wildSymbol,definition.coinSymbol,definition.plusRespinSymbol,definition.scatterSymbol,definition.magicSymbol,definition.multiplierSymbol,...(definition.collectorSymbols??[])])if(symbol?.id&&!symbols.some(item=>item.id===symbol.id))symbols.push(symbol);
   return symbols;
 };
 const coinKey=coin=>coin.row+':'+coin.col;
@@ -97,8 +102,8 @@ function publicCoins(definition,coins){
   const {rows,columns}=machineGeometry(definition),seen=new Map(),feature=definition.coinFeature;
   if(!Array.isArray(coins)||coins.length>rows*columns)throw new TypeError('Public coin positions are required.');
   for(const coin of coins){
-    const prizes=coin?.kind==='mini'?[feature.miniValue]:coin?.kind==='major'?[feature.majorValue]:feature.regularValues;
-    if(!coin||!integer(coin.row,0,rows-1)||!integer(coin.col,0,columns-1)||!['regular','mini','major','plus-one'].includes(coin.kind)||!prizes.includes(coin.multiplier)||seen.has(coinKey(coin)))throw new TypeError('A matching public coin value is required.');
+    const prizes=coin?.kind==='mini'?[feature.miniValue]:coin?.kind==='major'?[feature.majorValue]:coin?.kind==='mega'?feature.megaGroupValues:coin?.kind==='grand'?feature.grandGroupValues:feature.regularValues;
+    if(!coin||!integer(coin.row,0,rows-1)||!integer(coin.col,0,columns-1)||!['regular','mini','major','plus-one','mega','grand'].includes(coin.kind)||!prizes?.includes(coin.multiplier)||seen.has(coinKey(coin)))throw new TypeError('A matching public coin value is required.');
     seen.set(coinKey(coin),coin);
   }
   return seen;
@@ -152,6 +157,12 @@ function assertRound(definition, round) {
     const {rows,columns} = machineGeometry(definition), grid = round.outcome?.grid ?? round.grid;
     const ids = new Set(symbolsOf(definition).map(symbol => symbol.id));
     if (!Array.isArray(grid) || grid.length !== rows || grid.some(row => !Array.isArray(row) || row.length !== columns || row.some(id => !ids.has(id)))) throw new TypeError('A matching server reel grid is required.');
+    if(round.outcome?.reelMultiplier!==undefined&&definition.multiplierValues?.length&&!definition.multiplierValues.includes(round.outcome.reelMultiplier))throw new TypeError('A matching server reel multiplier is required.');
+    if(isGatesTumble(definition))gatesPublicFrames(definition,round);
+    if(isChargingWilds(definition))chargingPublicView(definition,round);
+    if(isBookFeature(definition))bookPublicFrames(definition,round);
+    if(isMariachi(definition))mariachiPublicView(definition,round);
+    if(isJungleFeature(definition))junglePublicFrames(definition,round);
     if(definition.respinFeature){
       const frames=round.outcome?.bonusFrames;
       if(!Array.isArray(frames)||frames.length>definition.respinFeature.maximumFrames)throw new TypeError('Completed server respin frames are required.');
@@ -172,9 +183,12 @@ function assertRound(definition, round) {
         if([...previous].some(([key,coin])=>coins.get(key)?.kind!==coin.kind||coins.get(key)?.multiplier!==coin.multiplier))throw new TypeError('A locked public coin changed.');
         if(added.some(coin=>coin.kind==='plus-one'))reset=feature.plusOneResetLimit;
         remaining=added.length?reset:remaining-1;
-        const full=coins.size===rows*columns;
+        const full=coins.size===rows*columns,capped=frame.capReached===true;
+        if(capped&&(outcome.capReached!==true||outcome.featureFinishedReason!=='maximum-award'||index!==frames.length-1))throw new TypeError('The public coin maximum must be the final confirmed frame.');
+        if(capped)remaining=0;
         if(!Array.isArray(frame.grid)||frame.grid.length!==rows||frame.grid.some((row,r)=>!Array.isArray(row)||row.length!==columns||row.some((id,c)=>{const coin=coins.get(r+':'+c);return id!==(coin?(coin.kind==='plus-one'?definition.plusRespinSymbol.id:definition.coinSymbol.id):null);})))throw new TypeError('A matching nullable coin grid is required.');
         if(frame.index!==index+1||frame.lockedCells!==coins.size||frame.newCoins!==added.length||frame.resetLimit!==reset||frame.respinsRemaining!==remaining||remaining<0||frame.terminal!==(full||remaining===0)||frame.multiplierApplied!==(full?feature.fullBoardMultiplier:1)||frame.terminal&&index!==frames.length-1)throw new TypeError('The public coin-respin counter is inconsistent.');
+        if(frame.uncappedAwardMinor!==undefined&&(!/^(0|[1-9][0-9]*)$/.test(frame.uncappedAwardMinor)||!/^(0|[1-9][0-9]*)$/.test(frame.displayedAwardMinor)||BigInt(frame.displayedAwardMinor)>BigInt(frame.uncappedAwardMinor)))throw new TypeError('The public coin prize labels are inconsistent.');
         previous=coins;
       }
       const final=publicCoins(definition,outcome.finalCoinValues);
@@ -240,6 +254,7 @@ function icon(kind) {
 }
 
 function symbolArt(symbol, profile) {
+  if(profile.id==='ind74_official_bookofbonanza')return bookSymbolArt(symbol);
   const name = (symbol?.art ?? symbol?.id ?? '') + ' ' + (symbol?.label ?? '');
   const lower = name.toLowerCase();
   if (/dollar|\$\$/.test(lower)) return svg('<text x="50" y="72" text-anchor="middle" font-size="62" font-weight="900" font-family="Georgia,serif" fill="#ffd66d" stroke="#a77825" stroke-width="2">$$</text>');
@@ -251,6 +266,26 @@ function symbolArt(symbol, profile) {
   if (/pearl|orb/.test(lower)) return icon('bubble');
   if (/lantern/.test(lower)) return svg('<path d="M32 17H68V27Q92 51 68 75V85H32V75Q8 51 32 27Z" fill="currentColor"/><path d="M32 28H68M32 74H68M50 27V75M42 87 39 97M58 87 61 97" stroke="#f5da92" stroke-width="4"/>');
   return icon('gem');
+}
+// Original vector drawings for the ten categories visible in the public Book
+// table. These are not provider image files or a claim of pixel parity.
+function bookSymbolArt(symbol){
+  const kind=symbol.id.replace('bookofbonanza-','');
+  const ranks={ace:['A','#edc56e'],king:['K','#bf87e1'],queen:['Q','#e5cd75'],jack:['J','#81c5e4'],ten:['10','#b4cf65']};
+  const rank=ranks[kind];
+  if(rank)return svg('<text x="50" y="78" text-anchor="middle" font-family="Georgia,serif" font-size="'+(kind==='ten'?62:83)+'" font-weight="900" fill="'+rank[1]+'" stroke="#273447" stroke-width="1.5">'+rank[0]+'</text><path d="M16 86Q50 93 84 86" fill="none" stroke="#dfc67b" stroke-opacity=".55" stroke-width="2"/>','m74-book-symbol m74-book-'+kind).replace('<svg ','<svg data-book-art="'+kind+'" ');
+  const art={
+    emperor:'<path d="M13 95 19 76 38 67H62L81 76 87 95Z" fill="#3d6f9b" stroke="#e8bc63" stroke-width="3"/><path d="M38 68 50 87 62 68M23 79 42 95M77 79 58 95" fill="none" stroke="#efce8c" stroke-width="3"/><path d="M31 30Q50 17 69 30V58Q65 77 50 81Q35 77 31 58Z" fill="#e9ba88" stroke="#3f2c30" stroke-width="2"/><path d="M25 33 32 10 68 10 75 33Z" fill="#1d2936" stroke="#dfbf68" stroke-width="3"/><path d="M21 29H79M40 12V26M60 12V26" stroke="#d5af52" stroke-width="4"/><path d="M35 44 43 42M57 42 65 44M35 56 43 61 50 56 57 61 65 56 61 80 50 91 39 80Z" fill="#1c222c" stroke="#1c222c" stroke-width="3"/><circle cx="40" cy="46" r="2" fill="#28272b"/><circle cx="60" cy="46" r="2" fill="#28272b"/><path d="M50 45 47 55 53 55" fill="none" stroke="#b8785c" stroke-width="2"/>',
+    dragon:'<path d="M20 79Q5 58 30 50Q69 40 73 67Q77 90 46 89Q27 88 29 74Q31 62 50 68" fill="none" stroke="#d99b43" stroke-width="15" stroke-linecap="round"/><path d="M20 76Q9 58 30 53Q68 44 69 67Q72 84 47 85" fill="none" stroke="#f6df96" stroke-width="5" stroke-linecap="round"/><path d="M41 52 37 27 49 17 70 22 85 38 73 48 61 43 53 55Z" fill="#e6bd68" stroke="#734631" stroke-width="3"/><path d="M45 25 40 10 54 19M65 23 75 9 76 28" fill="#f8e3ac" stroke="#845336" stroke-width="2"/><path d="M50 33 60 30 57 39Z" fill="#d94b3c"/><path d="M71 37 88 30M72 42 92 47M45 51 27 37M33 68 22 58M61 78 76 84" stroke="#efcf84" stroke-width="3" fill="none" stroke-linecap="round"/>',
+    lotus:'<ellipse cx="50" cy="82" rx="40" ry="10" fill="#327e77"/><path d="M50 81Q13 87 13 53Q34 50 50 72Q66 50 87 53Q87 87 50 81" fill="#cb7bbd" stroke="#e9b8e4" stroke-width="2"/><path d="M50 76Q22 70 24 34Q45 40 50 66Q55 40 76 34Q78 70 50 76" fill="#e1a5da" stroke="#f6d8f0" stroke-width="2"/><path d="M50 71Q29 47 50 16Q71 47 50 71" fill="#f2dfed" stroke="#b9e8f1" stroke-width="3"/><path d="M24 85 12 90M76 85 88 90" stroke="#69aea0" stroke-width="4"/>',
+    gong:'<path d="M13 18Q50 26 87 18M20 26H80M25 27V85M75 27V85M17 88H34M66 88H83" fill="none" stroke="#c85947" stroke-width="7" stroke-linecap="round"/><path d="M34 28V37M66 28V37" stroke="#e2c578" stroke-width="3"/><circle cx="50" cy="57" r="25" fill="#bd873c" stroke="#f5d98d" stroke-width="4"/><circle cx="50" cy="57" r="18" fill="#8c5d30" stroke="#d3a258" stroke-width="2"/><circle cx="50" cy="57" r="7" fill="#eed08a"/><path d="M70 69 85 84" stroke="#e8c38a" stroke-width="5" stroke-linecap="round"/>',
+    lantern:'<path d="M50 5V16M32 18H68M32 80H68M50 82V94M44 87 40 99M56 87 60 99" stroke="#ecc36a" stroke-width="4" fill="none"/><path d="M32 21Q6 50 32 77H68Q94 50 68 21Z" fill="#c84d40" stroke="#e9b66a" stroke-width="3"/><path d="M37 25Q25 50 37 73M50 23V76M63 25Q75 50 63 73" stroke="#f1b66f" stroke-width="3" fill="none"/><path d="M38 49 50 37 62 49 50 61Z" fill="#f7d57d"/>',
+    book:'<path d="M22 13 84 23 78 86 15 75Z" fill="#9d3844" stroke="#e9c36d" stroke-width="4"/><path d="M15 75 24 86 78 95 78 86Z" fill="#e7dab3" stroke="#bf954d" stroke-width="3"/><path d="M29 23 73 30 69 74 24 67Z" fill="#e1644c" stroke="#edcb72" stroke-width="3"/><path d="M32 30 66 36 62 65 29 60Z" fill="#863d47"/><path d="M48 31 64 47 47 65 32 46Z" fill="#74c9d7" stroke="#f5de91" stroke-width="3"/><path d="M47 36 57 47 47 59 38 47Z" fill="#baedf0"/><path d="M16 75 24 14" stroke="#612d3b" stroke-width="4"/>',
+  }[kind];
+  return svg(art??'<circle cx="50" cy="50" r="30" fill="#9ac8dc"/>','m74-book-symbol m74-book-'+kind).replace('<svg ','<svg data-book-art="'+escape(kind)+'" ');
+}
+function bookCabinetRoof(){
+  return '<div class="m74-book-roof" aria-hidden="true"><svg viewBox="0 0 600 75" preserveAspectRatio="none"><path d="M18 10Q53 34 300 16Q547 34 582 10L572 34Q525 60 300 40Q75 60 28 34Z" fill="#9c3c39" stroke="#edc675" stroke-width="3"/><path d="M45 31Q160 51 300 30Q440 51 555 31L532 59H68Z" fill="#398d92" stroke="#a2d4cb" stroke-width="2"/><path d="M88 41 77 59M136 44 126 60M184 43 176 61M232 39 226 61M280 33V61M328 34V61M376 40 382 61M424 44 434 60M472 44 482 59M520 40 531 59" fill="none" stroke="#153d50" stroke-width="4"/><path d="M30 62H570V74H30Z" fill="#b4483d" stroke="#f2ca72" stroke-width="3"/></svg></div>';
 }
 function scenery(profile) {
   const stars = [[45,38],[112,77],[190,22],[268,61],[355,26],[429,75],[515,39],[577,94]].map(([x,y],i) => '<circle cx="'+x+'" cy="'+y+'" r="'+(i%3+1)+'"/>').join('');
@@ -268,6 +303,7 @@ function scenery(profile) {
     road:'<path d="M169 210 258 0H342L431 210Z"/><path d="M300 0V210" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="5" stroke-dasharray="18 20"/>',
     stadium:'<ellipse cx="300" cy="135" rx="276" ry="90" fill="none" stroke="currentColor" stroke-width="5"/><path d="M25 130H575M300 48V210M20 0V80M580 0V80M0 20H68M532 20H600" fill="none" stroke="currentColor" stroke-width="5"/>',
     temple:'<path d="M12 20H70M20 32H62V210M530 20H588M538 32H580V210M80 30 300-10 520 30" fill="none" stroke="currentColor" stroke-width="9"/>',
+    pagoda:'<circle cx="505" cy="35" r="26"/><path d="M4 210V100H75V210M0 99Q39 94 80 99L67 79 39 69 13 79ZM10 76Q39 68 68 76L56 56 39 45 22 56ZM525 210V115H596V210M520 114Q561 109 600 114L587 94 559 84 533 94ZM532 91Q559 83 588 91L576 71 559 60 542 71Z"/><path d="M60 210 155 125 237 210M367 210 458 108 543 210" fill="none" stroke="currentColor" stroke-width="3"/>',
     fire:'<path d="M0 210Q-7 148 46 91Q23 172 67 180Q43 117 99 69Q95 142 127 210ZM600 210Q607 148 554 91Q577 172 533 180Q557 117 501 69Q505 142 473 210Z"/>',
     city:'<path d="M0 210V95H40V43H83V210M94 210V118H143V210M455 210V96H495V210M514 210V33H558V106H600V210"/>',
     canyon:'<path d="M0 210 24 110 47 161 81 46 112 148 145 210M455 210 488 148 519 46 553 161 576 110 600 210Z"/>',
@@ -312,20 +348,140 @@ function pendingMarkup(round) {
     return '<span class="m74-card m74-card-'+color+'" aria-label="Revealed '+color+' card">'+(color==='red'?'♥':'♠')+'</span>';
   }).join('');
   if (!pending && !cards) return '';
-  return '<div class="'+(pending?'m74-pending-win':'m74-gamble-history-panel')+'" role="status"><span>'+(pending?'WIN TO COLLECT':'GAMBLE RESULT')+'</span>'+(pending?'<strong>'+minorText(round.pendingWinMinor)+'</strong>':'')+(cards?'<div class="m74-card-history" aria-label="Revealed gamble history">'+cards+'</div>':'')+'</div>';
+  const faceDown=pending&&allowed(round,'gamble')?'<div class="m74-gamble-table"><span>RED<br>♥</span><div class="m74-card-back" aria-label="Unrevealed gamble card"><b>?</b></div><span>BLACK<br>♠</span></div>':'';
+  return '<div class="'+(pending?'m74-pending-win':'m74-gamble-history-panel')+'" role="status"><span>'+(pending?'WIN TO COLLECT':'GAMBLE RESULT')+'</span>'+(pending?'<strong>'+minorText(round.pendingWinMinor)+'</strong>':'')+faceDown+(cards?'<div class="m74-card-history" aria-label="Revealed gamble history">'+cards+'</div>':'')+'</div>';
+}
+
+// Angles are presentation coordinates, never outcome selection. The server
+// supplies the multiplier; the authored sector order is not a provider strip.
+export function multiplierWheelRotation(definition, round) {
+  const values=definition.multiplierValues;
+  if(!Array.isArray(values)||values.length<2||values.length>32||values.some(value=>!Number.isFinite(value)||value<=0)||new Set(values).size!==values.length)throw new TypeError('Published multiplier values are required.');
+  const value=round?.outcome?.reelMultiplier;
+  if(value===undefined)return 0;
+  const index=values.indexOf(value);
+  if(index<0)throw new TypeError('A matching server reel multiplier is required.');
+  return -index*360/values.length;
+}
+function multiplierArcPath(start,end,outer=270,inner=143) {
+  const point=(angle,radius)=>{const radians=angle*Math.PI/180;return (300+Math.cos(radians)*radius).toFixed(2)+' '+(300+Math.sin(radians)*radius).toFixed(2);};
+  return 'M'+point(start,outer)+' A'+outer+' '+outer+' 0 0 1 '+point(end,outer)+' L'+point(end,inner)+' A'+inner+' '+inner+' 0 0 0 '+point(start,inner)+'Z';
+}
+function multiplierArcMarkup(definition,round) {
+  const values=definition.multiplierValues,rotation=multiplierWheelRotation(definition,round),step=360/values.length;
+  const selected=round?.outcome?.reelMultiplier;
+  const sectors=values.map((value,index)=>{
+    const angle=-90+index*step,radians=angle*Math.PI/180,x=300+Math.cos(radians)*207,y=300+Math.sin(radians)*207;
+    return '<g class="m74-multiplier-sector factor-'+index%5+(selected===value?' is-selected':'')+'" data-multiplier="'+escape(value)+'"><path d="'+multiplierArcPath(angle-step/2+.6,angle+step/2-.6)+'"/><text x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" transform="rotate('+index*step+' '+x.toFixed(2)+' '+y.toFixed(2)+')">'+escape(value)+'×</text></g>';
+  }).join('');
+  const label=selected===undefined?'Awaiting server multiplier':'Server multiplier '+selected+'×';
+  return '<div class="m74-multiplier-arc'+(selected===undefined?' is-awaiting':'')+'" data-selected-multiplier="'+escape(selected??'')+'"><svg viewBox="0 0 600 302" role="img" aria-label="'+label+'"><title>Multiplier wheel: '+values.map(value=>escape(value)+'×').join(', ')+'</title><circle class="m74-multiplier-rim" cx="300" cy="300" r="275"/><g class="m74-multiplier-rotor" transform="rotate('+rotation+' 300 300)">'+sectors+'</g><path class="m74-multiplier-window" d="'+multiplierArcPath(-90-Math.min(34,step/2-2),-90+Math.min(34,step/2-2),274,137)+'"/><path class="m74-multiplier-pointer" d="M289 16H311L300 37Z"/><text class="m74-multiplier-caption" x="300" y="276">'+(selected===undefined?'MULTIPLIER':'CONFIRMED '+escape(selected)+'×')+'</text></svg></div>';
+}
+function gatesSymbolArt(definition,symbol,value) {
+  if(symbol.id===definition.multiplierSymbol?.id){
+    // These Gates value/color ranges are shown in the rendered public Help.
+    const tone=definition.id==='ind74_official_gatesofmerlyn'?(value<10?'blue':value<50?'purple':'red'):'authored';
+    const fill={blue:'#225fbb',purple:'#8650aa',red:'#b32948',authored:'#8d284b'}[tone];
+    return '<div class="m74-merlyn-badge" data-multiplier-tone="'+tone+'">'+svg('<path d="M19 13 50 6 81 13V60L50 93 19 60Z" fill="'+fill+'" stroke="#f5d684" stroke-width="5"/><path d="M27 20 50 14 73 20V56L50 81 27 56Z" fill="none" stroke="#ffdd83" stroke-width="2"/>')+'<b>'+escape(value)+'×</b></div>';
+  }
+  if(symbol.id===definition.magicSymbol?.id)return '<div class="m74-merlyn-special m74-merlyn-magic">'+svg('<circle cx="50" cy="47" r="34" fill="#74dfff" fill-opacity=".3" stroke="#c3ffff" stroke-width="3"/><path d="M50 14 57 38 82 46 57 54 50 79 42 54 18 46 42 38Z" fill="#d9fff2"/><circle cx="31" cy="27" r="5" fill="#fff"/>')+'<b>MAGIC</b></div>';
+  if(definition.id==='ind74_official_geniesbonanza')return genieSymbolArt(definition,symbol);
+  if(symbol.id===definition.scatterSymbol?.id)return '<div class="m74-merlyn-special m74-merlyn-scatter">'+svg('<path d="M18 42 49 6 74 40 87 46 70 55H24L10 48Z" fill="#9c64b4" stroke="#e5ce8b" stroke-width="3"/><path d="M28 54Q49 42 71 54L65 75 50 96 34 76Z" fill="#ddd8bc"/><path d="M37 54H62L58 68H42Z" fill="#c98768"/><path d="M49 18 52 28 63 29 54 35 57 44 48 39 40 44 42 34 35 29 45 28Z" fill="#f5d677"/>')+'<b>SCATTER</b></div>';
+  const id=symbol.id.replace('gatesofmerlyn-',''),colors={sapphire:'#e6e9df',emerald:'#90de62',amethyst:'#b499ec',quartz:'#f6c650',ruby:'#f27895'};
+  if(colors[id])return '<span class="m74-merlyn-crystal" style="color:'+colors[id]+'">'+svg('<path d="M13 75 10 40 26 23 36 39 41 16 57 5 72 27 68 41 82 23 93 42 77 83 49 96Z" fill="currentColor" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><path d="M26 23 28 69 49 96 41 16M57 5 58 67 49 96M72 27 58 67 77 83 82 23M10 40 28 69 13 75M36 39 28 69M68 41 58 67M93 42 77 83" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2"/><path d="M57 5 41 16 49 50Z" fill="#fff" fill-opacity=".35"/>')+'</span>';
+  if(id==='staff')return svg('<path d="M28 93 62 32" stroke="#b88c33" stroke-width="11"/><path d="M29 91 62 31" stroke="#ffe8a0" stroke-width="3"/><path d="M46 31Q36 14 55 8Q80 1 86 24Q88 46 64 49Z" fill="#87be63" stroke="#e8c65f" stroke-width="5"/><path d="M57 16 75 33M51 28 77 22" stroke="#e8f7a2" stroke-width="3"/>');
+  if(id==='key')return svg('<path d="M25 91 65 43M28 76 42 88M39 63 54 75" stroke="#eec96c" stroke-width="9" fill="none"/><path d="M55 11Q36 9 43 29Q34 46 54 49Q69 61 75 44Q97 43 86 26Q91 7 71 13Q62 2 55 11Z" fill="#795c9f" stroke="#f4d989" stroke-width="4"/><circle cx="64" cy="31" r="10" fill="#7ad7de" stroke="#efdb92" stroke-width="3"/>');
+  return '<span class="m74-merlyn-relic">'+icon(id==='book'?'book':'crown')+'</span>';
+}
+function genieSymbolArt(definition,symbol){
+  const id=symbol.id.replace('geniesbonanza-',''),colors={'blue-gem':'#70cef2','green-gem':'#86df83','pink-gem':'#e4a7ed','red-gem':'#f8887c','yellow-gem':'#f7dc6f'};
+  if(colors[id])return '<span class="m74-genie-gem" style="color:'+colors[id]+'">'+svg('<path d="M25 13H75L95 48 68 86H32L5 48Z" fill="currentColor" stroke="#f5df9f" stroke-width="3"/><path d="M25 13 34 38 5 48M75 13 66 38 95 48M32 86 34 61 68 86M34 38H66V61H34ZM25 13 75 13 66 38M66 61 95 48M5 48 34 61" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/><path d="M34 38 66 38 49 52Z" fill="#fff" fill-opacity=".35"/>')+'</span>';
+  if(id==='scatter')return '<div class="m74-merlyn-special m74-genie-scatter">'+svg('<path d="M18 37Q19 5 50 7Q83 7 82 37L68 47H30Z" fill="#dea5ea" stroke="#ecc969" stroke-width="3"/><path d="M25 35Q50 52 75 35V68Q50 98 25 68Z" fill="#76c6e9"/><path d="M34 61 46 65 51 77 57 64 68 61Q66 88 51 94Q36 87 34 61Z" fill="#303355"/><path d="M43 8 58 8 62 24 50 34 38 24Z" fill="#f0ce65"/><circle cx="50" cy="20" r="7" fill="#e5759d"/>')+'<b>SCATTER</b></div>';
+  if(id==='necklace')return svg('<path d="M18 14Q-4 72 50 84Q104 72 82 14" fill="none" stroke="#e5bd5c" stroke-width="9"/><path d="M19 15Q0 68 50 78Q99 68 81 15" fill="none" stroke="#fff0ac" stroke-width="3"/><path d="M34 70 50 59 66 70 61 91H39Z" fill="#b184da" stroke="#f5d77f" stroke-width="4"/>');
+  if(id==='ring')return svg('<ellipse cx="50" cy="65" rx="28" ry="26" fill="none" stroke="#e6bd5c" stroke-width="12"/><ellipse cx="50" cy="65" rx="26" ry="24" fill="none" stroke="#ffe8a0" stroke-width="3"/><path d="M27 32 36 11H64L73 32 50 52Z" fill="#d48ee8" stroke="#f7d683" stroke-width="4"/><path d="M36 11 42 32 50 52 58 32 64 11M27 32H73" fill="none" stroke="#fff0ff" stroke-width="2"/>');
+  if(id==='hourglass')return svg('<path d="M22 10H78M22 90H78M26 13Q25 39 45 49Q25 61 26 87H74Q75 61 55 49Q75 39 74 13Z" fill="#97dce9" fill-opacity=".3" stroke="#e9c671" stroke-width="6"/><path d="M34 24H66Q63 40 50 47Q37 40 34 24M50 56 33 81H67Z" fill="#f3d790"/><path d="M19 13V88M81 13V88" stroke="#be9141" stroke-width="5"/>');
+  if(id==='lamp')return svg('<path d="M12 53 33 42Q57 29 78 52L91 39 84 59 70 70H30Q18 67 12 53Z" fill="#d9aa4f" stroke="#ffe298" stroke-width="3"/><path d="M23 49Q4 24 3 48Q3 63 22 62M37 43Q40 32 59 32L66 43M45 30V23H54V30M35 74H66L73 86H27Z" fill="none" stroke="#eec77b" stroke-width="5"/>');
+  return '<span class="m74-merlyn-relic">'+icon('crown')+'</span>';
+}
+function gatesMarkup(definition,round,profile,options={}) {
+  const {rows,columns}=machineGeometry(definition),entries=gatesPublicFrames(definition,round);
+  const replay=Number.isInteger(options.tumbleFrameIndex),entry=entries[replay?Math.max(0,Math.min(entries.length-1,options.tumbleFrameIndex)):entries.length-1];
+  const board=entry?.frame.grid??Array.from({length:rows},(_,row)=>Array.from({length:columns},(_,col)=>definition.symbols[(row*columns+col)%definition.symbols.length].id));
+  const symbols=new Map(symbolsOf(definition).map(symbol=>[symbol.id,symbol]));
+  const factors=new Map((entry?.frame.multiplierSymbols??[]).map(item=>[item.row+':'+item.col,item.value]));
+  const wins=new Set((entry?.frame.winningGroups??[]).flatMap(group=>group.positions).map(p=>p.row+':'+p.col));
+  const removals=new Set((entry?.frame.removedPositions??[]).map(p=>p.row+':'+p.col));
+  const cells=board.map((row,r)=>row.map((id,c)=>{
+    const symbol=symbols.get(id),position=r+':'+c,magic=entry?.frame.magic?.target,carpet=entry?.frameIndex===0&&entry.spin.carpet?.positions?.some(p=>p.row===r&&p.col===c);
+    return '<div class="m74-tumble-cell'+(wins.has(position)?' is-winning':'')+(magic?.row===r&&magic?.col===c?' is-magic-target':'')+(carpet?' is-carpet-change':'')+'" data-tumble-cell="'+position+'" data-row="'+r+'" data-col="'+c+'" data-symbol="'+escape(id)+'"'+(removals.has(position)?' data-removing="true"':'')+' aria-label="'+escape(symbol.label)+(factors.has(position)?' '+factors.get(position)+'×':'')+'">'+gatesSymbolArt(definition,symbol,factors.get(position))+'</div>';
+  }).join('')).join('');
+  const phase=entry?entry.spin.phase==='free'?'FREE SPIN '+entry.spin.index:'BASE SPIN':'READY';
+  const groups=(entry?.frame.winningGroups??[]).map(group=>'<span>'+escape(symbols.get(group.symbolId)?.label)+' × '+group.count+'<b>'+minorText(group.awardMinor)+'</b></span>').join('');
+  const factor=entry?.spin.appliedMultiplier??1;
+  const status=entry?.frame.action==='magic'?'MAGIC':entry?.frameIndex===0&&entry.spin.carpet?'CARPET · '+entry.spin.carpet.cloudCount+' CLOUDS':entry?.frame.action==='tumble'?'TUMBLE '+(entry.frameIndex+1):round?.outcome?.capReached&&!replay?'MAXIMUM AWARD':'COUNT ANYWHERE';
+  const amount=entry?replay?entry.frame.sequenceRawAwardMinor:round.payoutMinor??round.winMinor??round.outcome.totalAwardMinor:null;
+  const feature=definition.tumbleFeature,range=Math.min(...feature.multiplierValues)+'×–'+Math.max(...feature.multiplierValues)+'× '+(feature.bonusOnlyMultipliers?'BONUS MULTIPLIERS':'MULTIPLIERS');
+  return '<div class="m74-tumble-header"><span>'+phase+'</span><b>'+status+'</b><span>'+(!round?range:'SPIN FACTOR '+escape(factor)+'×')+'</span></div><div class="m74-tumble-grid" data-rows="'+rows+'" data-columns="'+columns+'" aria-label="'+columns+' columns and '+rows+' rows, count-anywhere symbols">'+cells+'</div>'+(groups?'<div class="m74-tumble-awards" aria-label="Server winning groups">'+groups+'</div>':'')+'<div class="m74-tumble-meter"><span>'+(replay?'TUMBLE WIN':'ROUND WIN')+'<b>'+minorText(amount)+'</b></span><span>FREE SPINS<b>'+(round?replay?entry.spin.freeSpinsRemaining+' LEFT':round.outcome.freeSpinsPlayed+' / '+round.outcome.freeSpinsAwarded:feature.triggerScatters+' SCATTERS → '+feature.initialFreeSpins)+'</b></span></div><div class="m74-stage-strip"><span>'+columns+' × '+rows+' GRID</span><span>'+feature.minimumMatch+'+ MATCH · NO PAYLINES</span><span>'+(!round?'READY':replay?'SERVER FRAME '+(entry.index+1)+' / '+entries.length:round.outcome.processingLimitReached?'PROCESSING GUARANTEE':'FEATURE COMPLETE')+'</span></div>';
 }
 function symbolCell(symbol, profile, row, column, win) {
   return '<div class="m74-symbol'+(win?' is-winning':'')+'" data-symbol="'+escape(symbol.id)+'" data-row="'+row+'" data-col="'+column+'" aria-label="'+escape(symbol.label || symbol.id)+'">'+symbolArt(symbol,profile)+'</div>';
 }
+function mariachiCollectorArt(kind){
+  const female=kind==='female';
+  return '<svg class="m74-collector-art" viewBox="0 0 100 100" aria-hidden="true"><path d="M14 98Q15 70 37 68H63Q85 70 86 98" fill="'+(female?'#cf5576':'#284c67')+'" stroke="#f1c884" stroke-width="3"/><path d="M29 44Q24 20 50 18Q76 20 71 49L69 73H31Z" fill="#332123"/><ellipse cx="50" cy="46" rx="20" ry="26" fill="#dba270"/><path d="M29 40Q32 14 57 23L72 39Q50 27 29 40" fill="#37201d"/><circle cx="42" cy="46" r="2" fill="#222c32"/><circle cx="59" cy="46" r="2" fill="#222c32"/>'+(female?'<path d="M42 59Q50 65 58 59" fill="none" stroke="#9d3751" stroke-width="3"/><g fill="#f399b3" stroke="#ebc773" stroke-width="1"><circle cx="70" cy="28" r="9"/><circle cx="76" cy="36" r="8"/><circle cx="65" cy="38" r="8"/></g><circle cx="70" cy="34" r="4" fill="#ffda7c"/>':'<path d="M35 59Q41 49 50 56Q59 49 65 59Q56 64 50 59Q44 64 35 59" fill="#332123"/><ellipse cx="50" cy="27" rx="42" ry="10" fill="#bb843c" stroke="#f8d481" stroke-width="3"/><path d="M30 25L37 6Q50 0 63 6L70 25Z" fill="#a67436" stroke="#f8d481" stroke-width="3"/>')+'<path d="M39 72L50 82L61 72L60 91H40Z" fill="#f5c67a"/><path d="M20 90H80" stroke="#e3b972" stroke-width="3"/></svg>';
+}
+function mariachiMarkup(definition,round,profile,options={}){
+  const {rows,columns}=machineGeometry(definition),view=mariachiPublicView(definition,round),outcome=round?.outcome,frames=view?.frames??[];
+  const index=Number.isInteger(options.bonusFrameIndex)?options.bonusFrameIndex:frames.length-1,entry=index>=0?frames[index]:null;
+  const feature=!!outcome?.bonusTriggered&&options.bonusFrameIndex!==-1&&(!!entry||frames.length===0),state=feature?(entry??view.final):view?.initial;
+  const symbols=new Map(symbolsOf(definition).map(symbol=>[symbol.id,symbol]));
+  const grid=feature?(entry?.frame.grid??Array.from({length:rows},(_,row)=>Array.from({length:columns},(_,col)=>state.coins.has(row+':'+col)?definition.coinSymbol.id:state.collectors.has(row+':'+col)?definition.collectorSymbols.find(symbol=>symbol.kind===state.collectors.get(row+':'+col).kind).id:null))):outcome?.grid??Array.from({length:rows},(_,row)=>Array.from({length:columns},(_,col)=>definition.symbols[(row+col)%definition.symbols.length].id));
+  const lines=feature?[]:outcome?.lineWins??[],winning=new Set(lines.flatMap(line=>line.positions??[]).map(position=>position.row+':'+position.col));
+  const prior=index>0?frames[index-1]:view?.initial,expanded=new Set(feature?[]:outcome?.expandedColumns??[]);
+  const cell=(id,row,col)=>{
+    if(id===null)return '<div class="m74-symbol" data-blank="true" data-row="'+row+'" data-col="'+col+'" aria-label="Empty feature position"></div>';
+    const key=row+':'+col,collector=state?.collectors.get(key),coin=state?.coins.get(key),newLock=feature&&!prior?.coins.has(key)&&!prior?.collectors.has(key);
+    let markup=collector&&definition.collectorSymbols.some(symbol=>symbol.id===id&&symbol.kind===collector.kind)?'<div class="m74-symbol m74-mariachi-collector" data-symbol="'+id+'" data-row="'+row+'" data-col="'+col+'" data-collector="'+collector.kind+'" aria-label="'+collector.kind+' collector, saved '+minorText(collector.collectedMinor)+'">'+mariachiCollectorArt(collector.kind)+'<span class="m74-collector-value"><small>COLLECTED</small><b>'+minorText(collector.collectedMinor)+'</b></span></div>':symbolCell(symbols.get(id),profile,row,col,winning.has(key));
+    if(coin&&id===definition.coinSymbol.id)markup=markup.replace(/<\/div>$/,'<span class="m74-coin-value" data-coin-kind="'+coin.kind+'">'+(coin.kind!=='regular'?'<small>'+coin.kind.toUpperCase()+'</small>':'')+'<b>'+coin.multiplier+'×</b></span></div>');
+    return feature?markup.replace(' data-symbol=',' data-locked="true" data-new-lock="'+newLock+'" data-symbol='):markup;
+  };
+  const reels=Array.from({length:columns},(_,col)=>'<div class="m74-reel-window'+(expanded.has(col)?' is-expanded':'')+'" data-column="'+col+'"><div class="m74-reel-strip">'+grid.map((row,r)=>cell(row[col],r,col)).join('')+'</div></div>').join('');
+  const paths=lines.map((line,index)=>'<polyline class="m74-payline line'+index%5+'" points="'+line.positions.map(p=>((p.col+.5)/columns*1000).toFixed(2)+','+((p.row+.5)/rows*1000).toFixed(2)).join(' ')+'"/>').join('');
+  const frame=entry?.frame,full=feature&&state.locked===rows*columns;
+  const status=!round?'BOTH COLLECTORS + COIN':feature?frame?.terminal||!frame?'FEATURE COMPLETE':'HOLD & WIN':outcome.baseCollectorAwardMinor!=='0'?'COLLECTOR AWARD':'READY FOR NEXT SPIN';
+  const header='<div class="m74-mariachi-header"><span>'+mariachiCollectorArt('male')+'<b>MALE</b></span><div>'+status+'<strong>'+(full?'FULL BOARD · 2×':feature?'RESPINS '+(frame?.respinsRemaining??0)+' / 3':'3 RESPINS')+'</strong></div><span>'+mariachiCollectorArt('female')+'<b>FEMALE</b></span></div>';
+  const award=feature?frame?.displayedAwardMinor??outcome.bonusAwardMinor:outcome?.baseCollectorAwardMinor;
+  return header+'<div class="m74-slot-cabinet m74-mariachi-cabinet"><div class="m74-reels" data-rows="'+rows+'" data-columns="'+columns+'">'+reels+'<svg class="m74-paylines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">'+paths+'</svg></div></div>'+(round?'<div class="m74-respin-meter m74-mariachi-meter" data-mariachi-frame="'+(frame?.index??0)+'" data-locked="'+(state?.locked??0)+'"><span>'+(state?.coins.size??0)+' COINS · '+(state?.collectors.size??0)+' COLLECTORS</span><span>'+(feature?'FEATURE AWARD':'BASE COLLECTION')+' '+minorText(award)+'</span></div>':'')+((frame?.capReached??outcome?.capReached)?'<div class="m74-tumble-awards"><span data-maximum-award="true">MAXIMUM REACHED <b>'+minorText(outcome.maximumAwardMinor)+'</b></span></div>':'')+'<div class="m74-stage-strip"><span>5 × 3 REELS</span><span>COLLECTORS KEEP SAVED VALUES</span><span>'+(round?'SERVER RESULT':'READY')+'</span></div>';
+}
+function jungleMarkup(definition,round,profile,options={}) {
+  const frames=junglePublicFrames(definition,round),outcome=round?.outcome,feature=definition.jungleFeature;
+  const index=Number.isInteger(options.bonusFrameIndex)?options.bonusFrameIndex:frames.length-1;
+  const current=index>=0?frames[index]:null;
+  const shown=outcome?{...round,outcome:{...outcome,grid:current?.grid??outcome.initialGrid,lineWins:current?.lineWins??outcome.baseLineWins,expandedColumns:current?.expandedColumns??[]}}:null;
+  const pool=outcome?.selectedBonusMultipliers??[];
+  const selected=current?.spinMultiplier;
+  const remaining=current?.freeSpinsRemaining;
+  const headline=current?'FREE SPIN '+current.index:frames.length?'BONUS AWARDED':outcome?.bonusTriggered&&outcome.capReached?'FEATURE COMPLETE':feature.initialFreeSpins?feature.initialFreeSpins+' FREE SPINS':'FREE SPINS';
+  const state=current?(remaining===0?'FEATURE COMPLETE':remaining+' LEFT'):outcome?.capReached?'MAXIMUM REACHED':feature.triggerScatters?feature.triggerScatters+' SCATTERS':'SCATTER BONUS';
+  const header='<div class="m74-jungle-feature" data-jungle-frame="'+(current?.index??0)+'"><div class="m74-jungle-counter"><strong>'+headline+'</strong><span>'+state+'</span></div><div class="m74-jungle-pool" aria-label="Confirmed bonus multipliers">'+(pool.length?pool.map(value=>'<span data-jungle-multiplier="'+value+'"'+(selected===value?' class="is-selected" aria-current="true"':'')+'>'+value+'×</span>').join(''):'<span class="m74-jungle-pool-label">BONUS MULTIPLIERS</span>')+'</div></div>';
+  const award=current?'<div class="m74-jungle-awards" aria-label="Confirmed free-spin award"><span>SPIN FACTOR <b>'+selected+'×</b></span><span>LINES <b>'+minorText(current.regularAwardMinor)+'</b></span><span>SCATTER <b>'+minorText(current.scatterAwardMinor)+'</b></span><span>THIS SPIN <b>'+minorText(current.awardMinor)+'</b></span></div>':'';
+  const total=outcome?'<div class="m74-jungle-total"><span>'+(current?'TOTAL WON':'BASE WIN')+'</span><b>'+minorText(current?.totalAwardMinor??outcome.baseAwardMinor)+'</b>'+((current?(current.capReached||current.index===frames.length&&outcome.capReached):!frames.length&&outcome.capReached)?'<span data-maximum-award="true">MAXIMUM REACHED'+(outcome.freeSpinsCancelledAtMaximum?' · '+outcome.freeSpinsCancelledAtMaximum+' SPINS CANCELLED':'')+'</span>':'')+'</div>':'';
+  return header+slotMarkup(current?{...definition,multiplierValues:[]}:definition,shown,profile,{...options,jungleRendered:true})+award+total;
+}
 function slotMarkup(definition, round, profile,options={}) {
+  if(isGatesTumble(definition))return gatesMarkup(definition,round,profile,options);
+  if(isMariachi(definition))return mariachiMarkup(definition,round,profile,options);
+  if(isJungleFeature(definition)&&!options.jungleRendered)return jungleMarkup(definition,round,profile,options);
   const {rows,columns} = machineGeometry(definition),sourceOutcome=round?.outcome;
-  const coinFeature=definition.coinFeature,coinMode=coinFeature&&sourceOutcome?.featureType==='coin-respin';
-  const frames=definition.respinFeature||coinFeature?sourceOutcome?.bonusFrames??[]:[];
+  const charging=isChargingWilds(definition),carry=charging?chargingPublicView(definition,round):null;
+  const coinFeature=definition.coinFeature,coinMode=coinFeature&&sourceOutcome?.featureType==='coin-respin',bookMode=isBookFeature(definition);
+  const frames=bookMode?bookPublicFrames(definition,round):definition.respinFeature||coinFeature?sourceOutcome?.bonusFrames??[]:[];
   const frameIndex=Number.isInteger(options.bonusFrameIndex)?options.bonusFrameIndex:frames.length-1;
   const featureFrame=frameIndex>=0?frames[frameIndex]:null;
   const previousFrame=frameIndex>0?frames[frameIndex-1]:null;
   const displayFeature=!!featureFrame||coinMode&&sourceOutcome.bonusTriggered&&frames.length===0&&options.bonusFrameIndex!==-1;
-  const outcome=featureFrame?{...sourceOutcome,grid:featureFrame.grid,lineWins:featureFrame.lineWins,expandedColumns:[]}:sourceOutcome;
+  const bookExpanded=bookMode&&options.bookExpanded!==false;
+  const outcome=featureFrame?{...sourceOutcome,grid:bookExpanded?featureFrame.expandedGrid:featureFrame.grid,lineWins:bookExpanded&&featureFrame.expandedColumns.length?featureFrame.expandedLineWins:featureFrame.lineWins,expandedColumns:bookExpanded?featureFrame.expandedColumns:[]}:bookMode&&sourceOutcome?{...sourceOutcome,grid:sourceOutcome.initialGrid,lineWins:sourceOutcome.baseLineWins,expandedColumns:[]}:sourceOutcome;
   const coins=coinMode?publicCoins(definition,featureFrame?.coinValues??sourceOutcome.coinValues):new Map();
   const priorCoins=coinMode?publicCoins(definition,previousFrame?.coinValues??sourceOutcome.coinValues):null;
   const grid = outcome?.grid ?? round?.grid ?? Array.from({length:rows},(_,row) => Array.from({length:columns},(_,column) => definition.symbols[(row + column) % definition.symbols.length].id));
@@ -336,28 +492,41 @@ function slotMarkup(definition, round, profile,options={}) {
   const cell=(id,row,column)=>{
     if(id===null)return '<div class="m74-symbol" data-blank="true" data-row="'+row+'" data-col="'+column+'" aria-label="Blank"></div>';
     let markup=symbolCell(symbols.get(id),profile,row,column,winning.has(row+':'+column));
+    if(bookExpanded&&featureFrame?.expandedPositions.some(p=>p.row===row&&p.col===column))markup=markup.replace(' data-symbol=',' data-book-expanded="true" data-symbol=');
+    const charged=carry?.current.get(row+':'+column),saved=carry?.after.get(row+':'+column);
+    if(charged){
+      markup=markup.replace(' data-symbol=',' data-charging-wild="'+charged.multiplier+'"'+(saved?' data-retained-multiplier="'+saved.multiplier+'"':' data-used-wild="true"')+' data-symbol=');
+      markup=markup.replace(/<\/div>$/,'<span class="m74-charging-value"><b>'+charged.multiplier+'×</b><small>'+(saved?'NEXT '+saved.multiplier+'×':'USED')+'</small></span></div>');
+    }
     const coin=coins.get(row+':'+column);
     if(coin&&(id===definition.coinSymbol?.id||id===definition.plusRespinSymbol?.id)){
-      const label=coin.kind==='mini'?'MINI':coin.kind==='major'?'MAJOR':coin.kind==='plus-one'?'+1 RESPIN':'';
+      const label=['mini','major','mega','grand'].includes(coin.kind)?coin.kind.toUpperCase():coin.kind==='plus-one'?'+1 RESPIN':'';
       markup=markup.replace(/<\/div>$/,'<span class="m74-coin-value" data-coin-kind="'+coin.kind+'">'+(label?'<small>'+label+'</small>':'')+'<b>'+coin.multiplier+'×</b></span></div>');
     }
-    return displayFeature?markup.replace(' data-symbol=',' data-locked="true" data-new-lock="'+String(coinMode?!priorCoins.has(row+':'+column):previousFrame?.grid[row][column]===null||!previousFrame)+'" data-symbol='):markup;
+    return displayFeature&&!bookMode?markup.replace(' data-symbol=',' data-locked="true" data-new-lock="'+String(coinMode?!priorCoins.has(row+':'+column):previousFrame?.grid[row][column]===null||!previousFrame)+'" data-symbol='):markup;
   };
   const reels = Array.from({length:columns},(_,column) => '<div class="m74-reel-window'+(expanded.has(column)?' is-expanded':'')+'" data-column="'+column+'"'+(expanded.has(column)?' aria-label="Expanded wild reel '+(column+1)+'"':'')+'><div class="m74-reel-strip">'+grid.map((row,index) => cell(row[column],index,column)).join('')+'</div></div>').join('');
-  const paths = lines.slice(0,20).map((line,index) => {
+  const carryOverlay=options.chargingCarryOverlay&&carry?.before.size?'<div class="m74-carry-overlay" aria-label="Wilds retained from the prior accepted spin">'+[...carry.before.values()].map(wild=>'<div class="m74-carry-cell" data-saved-position="'+wild.row+':'+wild.col+'" style="grid-row:'+(wild.row+1)+';grid-column:'+(wild.col+1)+'"><span>WILD</span><b>'+wild.multiplier+'×</b><small>SAVED</small></div>').join('')+'</div>':'';
+  const paths = (bookMode?lines:lines.slice(0,20)).map((line,index) => {
     const positions = (line.positions || []).filter(p => integer(p.row,0,rows-1) && integer(p.col,0,columns-1));
     return positions.length > 1 ? '<polyline class="m74-payline line'+index%5+'" points="'+positions.map(p => ((p.col+.5)/columns*1000).toFixed(2)+','+((p.row+.5)/rows*1000).toFixed(2)).join(' ')+'"/>' : '';
   }).join('');
   const multipliers = Array.isArray(definition.multiplierValues) ? definition.multiplierValues : [];
-  const multi = multipliers.length ? '<div class="m74-multiplier-reel" aria-label="Reel multiplier">'+multipliers.map(value => '<span'+(outcome?.reelMultiplier===value?' class="is-selected"':'')+'>'+escape(value)+'×</span>').join('')+'</div>' : '';
-  const missingMultiplier = definition.layout?.multiplier?.placement === 'top-arc' && definition.layout.multiplier.calculationImplemented === false;
-  const pending = missingMultiplier ? '<div class="m74-multiplier-pending" role="note"><span>MULTIPLIER</span><b>Weli la dhisayo</b></div>' : '';
+  const topArc=multipliers.length>0&&definition.layout?.multiplier?.placement==='top-arc';
+  const multi = multipliers.length&&!topArc ? '<div class="m74-multiplier-reel" aria-label="Reel multiplier">'+multipliers.map(value => '<span'+(outcome?.reelMultiplier===value?' class="is-selected"':'')+'>'+escape(value)+'×</span>').join('')+'</div>' : '';
+  const arc=topArc?multiplierArcMarkup(definition,round):'';
+  const missingMultiplier = definition.layout?.multiplier?.calculationImplemented === false && (definition.layout.multiplier.placement === 'top-arc'||!!definition.layout.multiplier.documentationSource);
+  const pending = missingMultiplier ? '<div class="m74-multiplier-pending" role="note"><span>MULTIPLIER</span><b>'+(definition.layout.multiplier.documentationSource?'Qiimayaasha lama xaqiijin':'Weli la dhisayo')+'</b></div>' : '';
   const countLabel=definition.ways?definition.ways+' WAYS':(definition.paylines?.length??'—')+' LINES';
   const winsLabel=lines.length+' WINNING '+(definition.ways?'WAYS':'LINES');
-  const coinFull=coinMode&&(featureFrame?featureFrame.multiplierApplied===coinFeature.fullBoardMultiplier:frames.length===0&&sourceOutcome.featureFinishedReason==='full-board')&&options.bonusFrameIndex!==-1;
+  const coinFull=coinMode&&(featureFrame?featureFrame.multiplierApplied===coinFeature.fullBoardMultiplier:frames.length===0&&sourceOutcome.finalCoinValues?.length===rows*columns)&&options.bonusFrameIndex!==-1;
   const conditional=coinFeature?'<div class="m74-conditional-factor">'+(coinFull?'FULL COIN BOARD · '+coinFeature.fullBoardMultiplier+'× APPLIED':coinFeature.triggerCoins+' COINS · '+coinFeature.initialRespins+' RESPINS · FULL BOARD '+coinFeature.fullBoardMultiplier+'×')+'</div>':definition.baseGameMultiplier?'<div class="m74-conditional-factor">'+(featureFrame?'RESPIN FACTOR '+escape(sourceOutcome.featureMultiplier)+'× · APPLIED '+escape(featureFrame.multiplierApplied)+'×':sourceOutcome?'BASE MULTIPLIER '+escape(sourceOutcome.baseMultiplier)+'×':'FULL BOARD / ALL 5 LINES · '+definition.baseGameMultiplier.values.map(value=>escape(value)+'×').join(' / '))+'</div>':'';
-  const feature=featureFrame?'<div class="m74-respin-meter" data-frame="'+featureFrame.index+'" data-locked="'+featureFrame.lockedCells+'" data-new-locks="'+(coinMode?featureFrame.newCoins:featureFrame.newLocks)+'"'+(coinMode?' data-respins-remaining="'+featureFrame.respinsRemaining+'" data-reset-limit="'+featureFrame.resetLimit+'"':'')+'><span>'+(coinMode?'RESPINS '+featureFrame.respinsRemaining+' / '+featureFrame.resetLimit:'RESPIN '+featureFrame.index)+' · LOCKED '+featureFrame.lockedCells+' / '+rows*columns+'</span><span>'+escape(featureFrame.terminal?'FEATURE COMPLETE':'NEW '+(coinMode?'COINS '+featureFrame.newCoins:'LOCKS '+featureFrame.newLocks))+'</span></div>':displayFeature?'<div class="m74-respin-meter" data-frame="0" data-locked="'+coins.size+'"><span>LOCKED '+coins.size+' / '+rows*columns+'</span><span>FEATURE COMPLETE</span></div>':'';
-  return pending+conditional+'<div class="m74-slot-cabinet'+(multipliers.length?' has-multiplier':'')+'">'+multi+'<div class="m74-reels" data-rows="'+rows+'" data-columns="'+columns+'">'+reels+'<svg class="m74-paylines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">'+paths+'</svg></div></div>'+feature+'<div class="m74-stage-strip"><span>'+columns+' × '+rows+' REELS</span><span>'+escape(countLabel)+'</span><span>'+(round?.status==='active'&&round.pendingWinMinor?'WIN TO COLLECT':lines.length?winsLabel:round?'ROUND COMPLETE':'READY')+'</span></div>';
+  const selectedBookSymbol=bookMode&&sourceOutcome?.selectedSymbolId?symbols.get(sourceOutcome.selectedSymbolId):null;
+  const feature=bookMode?'<div class="m74-book-feature"'+(featureFrame?' data-free-spin="'+featureFrame.index+'"':'')+'><div class="m74-book-selected">'+(selectedBookSymbol?'<span>'+symbolArt(selectedBookSymbol,profile)+'</span><div>EXPANDING SYMBOL<b>'+escape(selectedBookSymbol.label)+'</b></div>':'<span>'+icon('book')+'</span><div>'+definition.bookFeature.triggerScatters+' BOOKS<b>'+definition.bookFeature.initialFreeSpins+' FREE SPINS</b></div>')+'</div><div class="m74-book-counter">'+(featureFrame?'FREE SPIN '+featureFrame.index+' / '+sourceOutcome.freeSpinsAwarded+'<b>'+featureFrame.freeSpinsRemaining+' LEFT'+(featureFrame.freeSpinsAwarded?' · +'+featureFrame.freeSpinsAwarded:'')+'</b>':round?'BASE WIN<b>'+minorText(sourceOutcome.baseAwardMinor)+'</b>':'BOOK WILD / SCATTER')+'</div></div>'+(featureFrame?'<div class="m74-book-awards"><span>LINES <b>'+minorText(featureFrame.regularAwardMinor)+'</b></span><span>SCATTER <b>'+minorText(featureFrame.scatterAwardMinor)+'</b></span><span>EXPANSION <b>'+minorText(featureFrame.expandingAwardMinor)+'</b></span></div>':''):featureFrame?'<div class="m74-respin-meter" data-frame="'+featureFrame.index+'" data-locked="'+featureFrame.lockedCells+'" data-new-locks="'+(coinMode?featureFrame.newCoins:featureFrame.newLocks)+'"'+(coinMode?' data-respins-remaining="'+featureFrame.respinsRemaining+'" data-reset-limit="'+featureFrame.resetLimit+'"':'')+'><span>'+(coinMode?'RESPINS '+featureFrame.respinsRemaining+' / '+featureFrame.resetLimit:'RESPIN '+featureFrame.index)+' · LOCKED '+featureFrame.lockedCells+' / '+rows*columns+'</span><span>'+escape(featureFrame.terminal?'FEATURE COMPLETE':'NEW '+(coinMode?'COINS '+featureFrame.newCoins:'LOCKS '+featureFrame.newLocks))+'</span></div>':displayFeature?'<div class="m74-respin-meter" data-frame="0" data-locked="'+coins.size+'"><span>LOCKED '+coins.size+' / '+rows*columns+'</span><span>FEATURE COMPLETE</span></div>':'';
+  const carryMeter=charging?'<div class="m74-charging-meter" role="status"><span>'+(carry?'SAVED FOR NEXT SPIN <b>'+carry.after.size+' WILDS</b>':'SAVED WILDS <b>SERVER CONFIRMS</b>')+'</span><span>ANTE <b>'+(carry?.ante??options.selectedOptions?.ante??definition.chargingFeature.defaultAnte)+'×</b></span></div>':'';
+  const coinAward=coinMode&&options.bonusFrameIndex!==-1?'<div class="m74-tumble-awards" aria-label="Confirmed coin feature award"><span>COIN AWARD <b>'+minorText(featureFrame?.displayedAwardMinor??sourceOutcome.bonusAwardMinor)+'</b></span>'+((featureFrame?.capReached??sourceOutcome.capReached)?'<span data-maximum-award="true">MAXIMUM REACHED <b>'+minorText(sourceOutcome.maximumAwardMinor)+'</b></span>':'')+'</div>':'';
+  const carryNote=charging?'<p class="m74-charging-note">'+(carry?'Current badges scored this spin. NEXT is the saved value for the same base bet and ANTE.':'Saved positions for this base bet and ANTE appear after the server confirms a spin.')+'</p>':'';
+  return pending+conditional+arc+(bookMode?bookCabinetRoof():'')+'<div class="m74-slot-cabinet'+(bookMode?' m74-book-cabinet':'')+(multi?' has-multiplier':topArc?' has-top-multiplier':'')+'">'+multi+'<div class="m74-reels" data-rows="'+rows+'" data-columns="'+columns+'">'+reels+'<svg class="m74-paylines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">'+paths+'</svg>'+carryOverlay+'</div></div>'+feature+coinAward+carryMeter+carryNote+'<div class="m74-stage-strip"><span>'+columns+' × '+rows+' REELS</span><span>'+escape(countLabel)+'</span><span>'+(round?.status==='active'&&round.pendingWinMinor?'WIN TO COLLECT':lines.length?winsLabel:round?'ROUND COMPLETE':'READY')+'</span></div>';
 }
 function crashMarkup(definition, round, profile) {
   if(isCascade(definition))return cascadeMarkup(definition,round,profile);
@@ -519,7 +688,7 @@ export function renderMachine(stage,definition,publicRound=null,options={}) {
   if (!stage || typeof stage.replaceChildren!=='function') throw new TypeError('A machine stage is required.');
   const markup=machineMarkup(definition,publicRound,options),profile=presentationProfile(definition),geometry=machineGeometry(definition);
   handles.get(stage)?.dispose();
-  stage.classList.add('m74-host'); stage.classList.remove('m74-animating'); stage.innerHTML=markup;
+  stage.classList.add('m74-host'); stage.classList.remove('m74-animating','m74-gamble-animating'); stage.innerHTML=markup;
   stage.style.setProperty('--m74-background',profile.background);
   stage.style.setProperty('--m74-accent',profile.accent);
   stage.style.setProperty('--m74-trim',profile.trim);
@@ -544,7 +713,8 @@ export function animateRound(stage,definition,previous,next,options={}) {
   assertRound(definition,next);
   const {turbo=false,reduced=false,audio}=options;
   const renderOptions={...options,disabled:options.disabled ?? true};
-  const mounted=renderMachine(stage,definition,next,definition.respinFeature||definition.coinFeature||definition.destinyBonus?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
+  const heldAction=['gamble','collect'].includes(options.action)&&previous?.pendingWinMinor!==undefined;
+  const mounted=renderMachine(stage,definition,next,heldAction?renderOptions:isGatesTumble(definition)?{...renderOptions,tumbleFrameIndex:0}:isChargingWilds(definition)?{...renderOptions,chargingCarryOverlay:true}:definition.respinFeature||definition.coinFeature||definition.bookFeature||definition.mariachiFeature||definition.jungleFeature||definition.destinyBonus?{...renderOptions,bonusFrameIndex:-1}:renderOptions);
   stage.classList.add('m74-animating');
   if(definition.family==='plinko'&&!reduced){
     // Mounting the confirmed state places the ball in its destination bucket.
@@ -576,7 +746,7 @@ export function animateRound(stage,definition,previous,next,options={}) {
     if(done)return;done=true;cleanup();
     const stillCurrent=handles.get(stage)===mounted;
     if(stillCurrent) {
-      stage.classList.remove('m74-animating');
+      stage.classList.remove('m74-animating','m74-gamble-animating');
       if(!cancelled){
         renderMachine(stage,definition,next,renderOptions);
         const tier=presentationTier(next);
@@ -609,13 +779,59 @@ export function animateRound(stage,definition,previous,next,options={}) {
   async function run() {
     if(done)return;
     if(reduced){finish();return;}
-    if(definition.family==='slots') {
+    if(heldAction){
+      if(options.action==='gamble'){
+        stage.classList.add('m74-gamble-animating');
+        const card=stage.querySelector('.m74-card-history .m74-card:last-child');
+        await animate(card,[{transform:'perspective(200px) rotateY(90deg)',opacity:.1},{transform:'perspective(200px) rotateY(0)',opacity:1}],turbo?100:420);
+        if(!done)cue('reveal');
+      }
+    } else if(isGatesTumble(definition)) {
+      spin();
+      const entries=gatesPublicFrames(definition,next),budget=turbo?2400:4500,deadline=performance.now()+budget;
+      const duration=Math.min(turbo?170:430,budget/entries.length);
+      for(const [index,entry]of entries.entries()){
+        if(done||handles.get(stage)!==mounted)return;
+        if(performance.now()>=deadline)break;
+        const area=stage.querySelector('.m74-game-area');if(!area)break;
+        area.innerHTML=gatesMarkup(definition,next,presentationProfile(definition),{...renderOptions,tumbleFrameIndex:index});
+        const previousEntry=entries[index-1],sameSpin=previousEntry?.spinIndex===entry.spinIndex;
+        const cells=[...area.querySelectorAll('.m74-tumble-cell')],height=cells[0]?.getBoundingClientRect().height||60;
+        const removed=new Set((sameSpin?previousEntry.frame.removedPositions:[]).map(p=>p.row+':'+p.col));
+        const refilled=new Set((sameSpin?previousEntry.frame.refills:[]).map(p=>p.row+':'+p.col));
+        if(!sameSpin&&entry.spin.phase==='free')cue('bonus');
+        await Promise.all(cells.map(cell=>{
+          const row=Number(cell.dataset.row),col=Number(cell.dataset.col);let offset=-height;
+          if(sameSpin&&!refilled.has(row+':'+col)){
+            const survivors=Array.from({length:definition.rows},(_,r)=>r).filter(r=>!removed.has(r+':'+col));
+            const oldRow=survivors[row-(definition.rows-survivors.length)];
+            offset=Number.isInteger(oldRow)?(oldRow-row)*height:0;
+          }
+          return animate(cell,[{transform:'translateY('+offset+'px)',opacity:offset ? .25 : 1},{transform:'translateY(0)',opacity:1}],Math.max(12,duration*.45));
+        }));
+        if(done||handles.get(stage)!==mounted)return;
+        if(entry.frame.action==='magic')cue('reveal');else if(entry.frame.winningGroups.length)cue('smallWin');
+        const removing=cells.filter(cell=>cell.hasAttribute('data-removing'));
+        await Promise.all(removing.map(cell=>animate(cell,[{transform:'scale(1)',opacity:1,filter:'brightness(1)'},{transform:'scale(1.12)',opacity:1,filter:'brightness(1.6)',offset:.4},{transform:'scale(.2)',opacity:0,filter:'brightness(1)'}],Math.max(12,duration*.35))));
+        await new Promise(res=>{pendingResolves.add(res);schedule(()=>{pendingResolves.delete(res);res();},Math.max(0,Math.min(duration*.2,deadline-performance.now())));});
+      }
+    } else if(definition.family==='slots') {
       spin();
       const {rows}=machineGeometry(definition),profile=presentationProfile(definition);
       const symbols=new Map(symbolsOf(definition).map(symbol=>[symbol.id,symbol]));
       const previousGrid=previous?.outcome?.grid ?? previous?.grid;
       const originalGrid=next?.outcome?.originalGrid;
       const expandedColumns=new Set(Array.isArray(next?.outcome?.expandedColumns)?next.outcome.expandedColumns:[]);
+      const multiplierRotor=stage.querySelector('.m74-multiplier-rotor');
+      let multiplierAnimation=Promise.resolve();
+      if(multiplierRotor&&next.outcome?.reelMultiplier!==undefined){
+        const from=multiplierWheelRotation(definition,previous),to=multiplierWheelRotation(definition,next);
+        multiplierRotor.setAttribute('transform','rotate('+from+' 300 300)');
+        multiplierRotor.style.transformOrigin='300px 300px';
+        multiplierAnimation=animate(multiplierRotor,[{transform:'rotate('+from+'deg)'},{transform:'rotate('+(to+720)+'deg)'}],turbo?310:1450).then(()=>{
+          if(!done&&handles.get(stage)===mounted)multiplierRotor.setAttribute('transform','rotate('+to+' 300 300)');
+        });
+      }
       const columns=[...stage.querySelectorAll('.m74-reel-window')];
       await Promise.all(columns.map(async(window,column)=>{
         const strip=window.querySelector('.m74-reel-strip');
@@ -646,28 +862,34 @@ export function animateRound(stage,definition,previous,next,options={}) {
           if(!done)cue('bonus');
         }
       }));
+      await multiplierAnimation;
       if(!done&&Array.isArray(definition.multiplierValues)&&definition.multiplierValues.length)cue('multiplier');
       if(!done&&definition.baseGameMultiplier&&next.outcome?.baseMultiplier>1)cue('multiplier');
-      const frames=definition.respinFeature||definition.coinFeature?next.outcome?.bonusFrames??[]:[];
+      const frames=definition.respinFeature||definition.coinFeature||definition.bookFeature||definition.mariachiFeature||definition.jungleFeature?next.outcome?.bonusFrames??[]:[];
       // Coin features can contain up to60 completed frames. Compress their
       // visual replay to3.5s normal/2.4s turbo, in addition to the base spin.
       // Slow displays fast-forward remaining past frames at that wall budget.
-      const frameBudget=definition.coinFeature?Math.min(turbo?145:540,(turbo?2400:3500)/Math.max(1,frames.length)):turbo?145:540;
-      const replayDeadline=definition.coinFeature?performance.now()+(turbo?2400:3500):Infinity;
+      const frameBudget=definition.coinFeature||definition.bookFeature||definition.mariachiFeature||definition.jungleFeature?Math.min(turbo?145:540,(turbo?2400:3500)/Math.max(1,frames.length)):turbo?145:540;
+      const replayDeadline=definition.coinFeature||definition.bookFeature||definition.mariachiFeature||definition.jungleFeature?performance.now()+(turbo?2400:3500):Infinity;
       for(const [index,feature]of frames.entries()){
         if(done||handles.get(stage)!==mounted)return;
         if(performance.now()>=replayDeadline)break;
         const area=stage.querySelector('.m74-game-area');
         if(!area)break;
-        area.innerHTML=slotMarkup(definition,next,presentationProfile(definition),{bonusFrameIndex:index});
+        area.innerHTML=slotMarkup(definition,next,presentationProfile(definition),{bonusFrameIndex:index,bookExpanded:false});
         cue('bonus');
         const previousFrame=frames[index-1];
-        const held=definition.coinFeature?new Set((previousFrame?.coinValues??next.outcome.coinValues).map(coinKey)):null;
-        const changing=[...area.querySelectorAll('.m74-symbol')].filter(cell=>held?!held.has(cell.dataset.row+':'+cell.dataset.col):previousFrame?.grid[Number(cell.dataset.row)][Number(cell.dataset.col)]==null);
+        const held=definition.coinFeature?new Set((previousFrame?.coinValues??next.outcome.coinValues).map(coinKey)):definition.mariachiFeature?new Set([...(previousFrame?.coinValues??next.outcome.coinValues),...(previousFrame?.collectors??next.outcome.collectors)].map(coinKey)):null;
+        const changing=[...area.querySelectorAll('.m74-symbol')].filter(cell=>definition.bookFeature||definition.jungleFeature|| (held?!held.has(cell.dataset.row+':'+cell.dataset.col):previousFrame?.grid[Number(cell.dataset.row)][Number(cell.dataset.col)]==null));
         const available=Math.min(frameBudget,replayDeadline-performance.now());
         await Promise.all(changing.map(cell=>animate(cell,[{opacity:.15,filter:'blur(3px)',transform:'translateY(-12px)'},{opacity:1,filter:'blur(0)',transform:'translateY(0)'}],Math.max(12,Math.round(available*.7)))));
         if(done||handles.get(stage)!==mounted)return;
-        if(feature.multiplierApplied>1)cue('multiplier');
+        if(definition.bookFeature&&feature.expandedPositions.length){
+          area.innerHTML=slotMarkup(definition,next,presentationProfile(definition),{bonusFrameIndex:index,bookExpanded:true});
+          await Promise.all([...area.querySelectorAll('[data-book-expanded]')].map(cell=>animate(cell,[{transform:'scale(.35)',opacity:.25},{transform:'scale(1)',opacity:1}],Math.max(12,Math.min(frameBudget*.2,replayDeadline-performance.now())))));
+          if(done||handles.get(stage)!==mounted)return;cue('multiplier');
+        }
+        if((feature.spinMultiplier??feature.multiplierApplied)>1)cue('multiplier');
         await new Promise(res=>{pendingResolves.add(res);schedule(()=>{pendingResolves.delete(res);res();},Math.max(0,Math.min(Math.floor(frameBudget*.3),replayDeadline-performance.now())));});
       }
     } else if(definition.family==='wheel') {

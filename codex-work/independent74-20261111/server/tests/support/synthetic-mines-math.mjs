@@ -2,6 +2,7 @@
 // grid. Preserve generic unplayed-mines refund/ledger coverage under a clearly
 // synthetic identity, never presented as a provider title or deployed model.
 import * as officialMath from '../../../math/official72.mjs';
+export {chargingCarryBucket,emptyChargingCarry} from '../../../math/official72.mjs';
 import {startMines,advanceMines,collectMines,publicMines,mineMultiplier} from '../../../math/engines/mines.mjs';
 import {stake,payout,error} from '../../../math/engines/shared.mjs';
 export const SYNTHETIC_MINES_ID='ind74_official_fixturemines';

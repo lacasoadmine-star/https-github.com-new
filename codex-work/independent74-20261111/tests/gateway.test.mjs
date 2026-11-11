@@ -103,7 +103,7 @@ test('homepage enhancement preserves account headers and restricts the added ima
   const response=await handler(new Request(ORIGIN+'/'),ENV,{}),body=await response.text();
   assert.ok(body.includes('Existing account and navigation'));assert.equal(body.split('/independent74/lobby74.mjs').length,2);assert.equal(body.split('/independent74/lobby74.css').length,2);
   assert.equal(response.headers.get('set-cookie'),'retained-account=test; HttpOnly; Secure');assert.equal(response.headers.get('etag'),null);
-  assert.equal(response.headers.get('content-security-policy'),policy.replace("img-src 'self' data:","img-src 'self' data: https://cdn.prod.website-files.com"));
+  assert.equal(response.headers.get('content-security-policy'),policy.replace("img-src 'self' data:","img-src 'self' data: https://cdn.prod.website-files.com").replace("frame-src 'none'","frame-src 'self'"));
   const other=await handler(new Request(ORIGIN+'/games/retained'),ENV,{});assert.equal(await other.text(),html);assert.equal(other.headers.get('content-security-policy'),policy);
 });
 

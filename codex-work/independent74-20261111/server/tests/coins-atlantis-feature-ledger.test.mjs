@@ -5,7 +5,7 @@ import * as math from '../../math/official72.mjs';
 import {coinsBaseTickets,coinsMaximumBase} from '../../tests/support/coins-atlantis-fixtures.mjs';
 import {createRetainedLibrary74Fixture} from './support/retained-library-fixture.mjs';
 
-test('Coins fully resolved feature is one20ETB debit and one large payout despite retries/reload', {timeout:90000},async t=>{
+test('Coins r5 feature uses one20ETB total debit and a2500x bounded award despite retries/reload', {timeout:90000},async t=>{
   const fixture=await createRetainedLibrary74Fixture({isolated:true});
   t.after(()=>fixture.close());
   const {facade,sql}=fixture,id='ind74_official_coinsofatlantis',d=math.getGameDefinition(id),user=fixture.fixtureUserId;
@@ -17,7 +17,7 @@ test('Coins fully resolved feature is one20ETB debit and one large payout despit
   const original=facade.adapter.start;
   facade.adapter.start=(gameId,options,random,now)=>{
     if(gameId!==id)return original(gameId,options,random,now);
-    const tickets=[...coinsBaseTickets(d,coinsMaximumBase(d)),...Array(15).fill(9)];let index=0;
+    const tickets=[...coinsBaseTickets(d,coinsMaximumBase(d)),...Array(15).fill(12)];let index=0;
     return original(gameId,options,()=>{assert.ok(index<tickets.length);return tickets[index++]/2**53;},now);
   };
   const before=await balance(user),allBefore=await total();
@@ -27,7 +27,9 @@ test('Coins fully resolved feature is one20ETB debit and one large payout despit
   const snapshot=results.find(r=>!r.replayed),round=snapshot.round;
   assert.equal(round.status,'settled');
   assert.equal(round.outcome.featureType,'coin-respin');
-  assert.equal(round.outcome.featureFinishedReason,'full-board');
+  assert.equal(round.outcome.featureFinishedReason,'maximum-award');
+  assert.equal(round.outcome.capReached,true);
+  assert.equal(round.baseBetMinor,'2000');assert.equal(round.totalBetMinor,'2000');assert.equal(round.mode,'base');
   assert.equal(round.outcome.finalCoinValues.length,20);
   assert.equal(round.payoutMinor,math.maximumPayoutMinor({gameId:id,betMinor:'2000'}));
   assert.ok(BigInt(round.payoutMinor)>4000000n,'The isolated payout exceeds40000ETB without a fixed legacy cap.');

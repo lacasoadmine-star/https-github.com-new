@@ -202,3 +202,9 @@ export default {
     "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
   }
 };
+
+import {configureJungleSisters,JUNGLE_SISTERS_ID} from '../jungle-sisters.mjs';
+export function configureOfficialGame(definition){
+ if(definition?.id!==JUNGLE_SISTERS_ID)throw new TypeError('The Jungle Sisters definition is required.');
+ return configureJungleSisters(definition);
+}

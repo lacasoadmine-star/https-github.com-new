@@ -1,0 +1,17 @@
+Derived case excerpt from the completed shared npm test run. This is not a separate focused test run.
+Source: reports/current60-tests.txt
+Source SHA-256: e210eb8d8a6606c7f4d731e173115d4c6416ac23c95c953f96b3beca22ccafe5
+Shared suite: 1118 passed, 0 failed, 0 cancelled, 0 skipped.
+Selected cases: 10 passed.
+No production database or real player funds were used.
+
+✔ Chicken lease has a strict8second boundary; empty sync changes no draw, stake, step or award (32.212307ms)
+✔ retained ledger does not renew Chicken on reads or receipt replay and pays timeout once (7610.602663ms)
+✔ retained concurrent duplicate heartbeats and a late new heartbeat cannot extend or resurrect an expired award (4574.648176ms)
+✔ the existing retained scheduler rechecks an old alarm after heartbeat and recovers the new deadline (4226.663478ms)
+✔ DEMO alarm commits with Chicken acceptance, respects8000ms exactly and credits an absent player once (194.242745ms)
+✔ DEMO read/replay cannot renew; accepted heartbeat renews and a stale alarm uses the persisted new deadline (504.556591ms)
+✔ DEMO concurrent heartbeat/collect/timeout delivery never duplicates a Chicken debit or payout (806.371929ms)
+✔ DEMO alarm failures roll back both credits and scheduling; retry uses the same stored earned award (235.828035ms)
+✔ independent alarm ownership never settles a held slot, legacy object or unrecognized prior model (210.685193ms)
+✔ missing transactional alarm capability refuses Chicken acceptance without changing DEMO credits (65.136795ms)

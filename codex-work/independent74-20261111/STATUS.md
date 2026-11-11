@@ -1,3 +1,49 @@
+# Current60 continuation — 2026-11-11 / r11 source checkpoint
+
+This section supersedes the older checkpoint text below. The public source work descends from the verified GitHub baseline `d8e2904e3fa6f0e824746a88578d52228ac4ab77` on `work/complete-existing60-20261111`. Never force-push the temporary local import history. This is a tested source checkpoint, not a completed60-title release or a new live deployment.
+
+## Current scope and evidence
+
+Finish the existing60 unfinished titles on the original ZPLAY site. `scope/current60-work-order.json` keeps six ordered batches of ten; `scope/current10-priority.json` is only the first batch. All60 bind distinct title modules; 19 have isolated feature configurators. Preserve the14 existing launch routes, original dashboard, accounts and database. The earlier inspected dashboard had69 cards:60 pending plus9 NewLIVE. Duplicate cards do not create additional catalogue identities.
+
+The current official-reference target is five completed rounds per title, preserving every older journal and original count. Canonical evidence satisfies that quota for **23/60 titles**, with **118/300 target credits and 182 remaining**. There are 551 actual retained official rounds across these60, including historical counts above five. The latest provider-play journal added27 official rounds across six titles; r11 construction added no further provider rounds. Fresh-only journal counts must never erase older verified observations or trigger unnecessary replay.
+
+## Implemented source changes
+
+- Fixed first/second-spin audio overlap, loading retry, original-dashboard sign-in/resume and confirmed wallet-refresh messages. Changing titles resets the selected stake to1.00; an active receipt retains its committed stake. STOP changes presentation of an already accepted result.
+- Added per-title configurations, transactional Charging Wilds carry, Gates/Genie count tumbles and free-spin transcripts, Book of Bonanza selected-symbol expansion, Mariachi collector/coin respins, and Coins of Atlantis jackpot/ANTE/purchase behavior. Corrected rendered MH10/MH20/Burn prizes, Burn half-line arithmetic, Gates/Genie count and Scatter prizes, Book's40 paylines/all observed2–6-symbol prizes, and Book/Genie/Sugar geometry.
+- Added documented multiplier/X2 subsets for Hot Samba, Bao Slot5X and Farm's Fortune; landed substitute-reel expansion and X2 for Dice Jungle/Dracula; exact active-Help X2 for Vampires and Book of Futuria. Their incomplete features and independently authored distributions remain explicit. Held-win validation now rejects inconsistent displayed multipliers before any action or draw.
+- Added Jungle Sisters/Deluxe ten-free-spin transcripts, distinct per-phase Scatter behavior, Deluxe's five selected bonus multipliers,1500/2500-base caps, held X2 and compact replay. Full prizes/chart and purchase semantics remain unresolved; provider probabilities are not claimed.
+- Added Chicken Highway's server-owned presence lease and once-only timeout cashout after more than eight seconds. Reads and request replay do not renew it. The existing native scheduler and existing isolated DEMO alarm handle recovery; no new financial service, namespace or migration is introduced.
+- Added documented Chicken selected-count/selected-step AUTO, serial confirmed actions, one debit per round, frozen stake/mode and explicit cancellation on STOP, Refresh, hidden page or uncertain response. Recovery never resumes AUTO automatically. The1–100 count range, default five, is a disclosed ZPLAY control limit; exact provider presets/presentation remain unverified.
+- Prepared additive native registration against the already initialized LibraryService/SQL pool, canonical session identity and shared wallet locks. No replacement account, wallet, database, dashboard or service was created. Promotional bonus funds are not attached.
+
+## Verification and remaining construction
+
+The final source gate passed **1118/1118 tests**, with zero failures, cancellations or skips. It includes300 retained-ledger fixture rounds and300 operator-DEMO fixture rounds, five of each for every exact current model. These600 technical rounds are neither official-provider play nor production-money proof. Canonical source fingerprint: `87c6e63ae1cb9f03a9a163d29f92f205400679b46a4e74e4a3c0e5d0d0545d5a`. The earlier530-test math-only checkpoint is explicitly historical and superseded by the full gate.
+
+The initial r11 full run found one stale grid-first audit fixture. The corrected audit preserves all32 titles and every symbol/match/stake case, checks the actual pre/post-grid multiplier phase, and separately verifies Jungle's raw line award, cap and credit. The final successful run, rather than that earlier failure or the old1,003-test r10 result, is current evidence.
+
+**All60 are still incomplete as a reference-matching set.** 17 titles have explicit missing public-feature lists; 10 of them are categorized under a higher-priority money-review block. The exclusive status categories are not completion counts. Remaining work includes PopX shared sessions, several B+/Risk/purchase flows, Dragon's Code features, Mad Slot/Wilds and Gods/Futuria bonuses, and unresolved Scatter/multiplier details. Samurai's exact title/source identity conflicts are recorded. Full provider artwork, sound, control presentation, rare-feature coverage and measured60FPS remain unverified.
+
+Explicit real-money admission blocks currently cover 14 titles: Dice Jungle, Multi Hot 20, Multi Hot 5 Burn Wilds, Multi Hot Ways, Farm's Fortune, Hot Samba, Bao Slot 5X, Jungle Sisters, Jungle Sisters Deluxe, Dragon's Code, Dracula's Fortune, Book of Futuria, Book of Bonanza, Vampires. These distinguish proven above-stake independent returns from unreviewed distributions or incomplete features. Do not clear them to create an enabled-game count. Every other production gate also remains subject to actual account/house capacity, matching pool proof and reviewed policy. See `reports/current60-engineering-feature-coverage.json` and the generated60-row `reports/current60-status.json` for each model's exact evidence and gaps.
+
+## Release boundary
+
+The r11 candidate targets the retained original Worker baseline, defaults to `protected-readonly`, and contains six own modules totaling656732 bytes. Generated Worker smoke uses isolated inherited-method stubs; it does not load the actual304 inherited modules or establish current live compatibility. Exact previous-version preflight pins must not be silently replaced with an unverified version.
+
+A read-only deployment metadata check at13:59:51UTC found that the live Worker had changed through another actor. This work did not upload or activate that deployment. Its current source has not been verified. No r11 candidate was uploaded or activated by this work; no new player wager or production-money enablement was performed.
+
+Automatic approval review rejected complete Worker source/settings reads needed to preserve inherited code, a Railway source-attachment mutation that could replace encoded configuration or affect broader environments, and private bundled renderer submission to cloud Browser Rendering. A previous protected-service redeployment exposed the old runtime rather than the proposed pool proof; its exact original start command was restored and verified at that checkpoint. Do not infer current infrastructure state from that historical attempt, retry equivalent denied actions through another route, or create a replacement site. `reports/current60-release-boundary.json` separates verified action outcomes, latest metadata observation and unresolved access/source boundaries.
+
+## Public evidence and private deployment inputs
+
+`reports/current60-publication-status.json` identifies46 approved image blobs and23 image files omitted from public publication after some exact payloads remained unapproved. No alternate upload route was used. The complete local evidence remains available in the authorized workspace, so a passing local test does not claim that every screenshot is publicly available.
+
+Private host/deployment identifiers, whole-runtime fingerprints and full bootstrap carriers stay outside this public checkpoint. Native and protected preparation require explicit previously verified private pins and reject missing, malformed or mismatched input; they never infer an expected deployment pin from the candidate being checked. Fixture-content hashes and financial/replay invariants remain intact. The generated native installer is also omitted from the public snapshot; reproduce it with `node server/build-native60-registration.mjs` from the authored source and sanitized manifest. Preparing a candidate does not authorize or prove a live rollout.
+
+## Earlier checkpoints — historical, not current release assertions
+
 # Superwin / ZPLAY continuation — 2026-11-11
 
 Work continues from the actual GitHub checkpoint `f636b93dd38f59173587e3e36979deeb7595a422`, fetched directly by SHA. The three advertised independent74 branches still pointed to its parent `ef0cf91`; `origin/main` was `88f5ec5`. The new feature branch is `work/independent74-20rounds-20261111`. Do not force-push or push to main.

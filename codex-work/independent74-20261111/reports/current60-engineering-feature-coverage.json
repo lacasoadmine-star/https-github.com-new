@@ -1,0 +1,4367 @@
+{
+  "format": "current60-engineering-feature-coverage-v1",
+  "generatedAt": "2026-11-11T14:04:36.994Z",
+  "modelSourceSha256": "88ead5dda4a7495be9084517705b58b34c1a256441d9fa9b7dfcdd02b5730a28",
+  "modelSourceFiles": [
+    "math/book-bonanza-paylines.mjs",
+    "math/book-of-bonanza.mjs",
+    "math/charging-wilds.mjs",
+    "math/chicken-highway.mjs",
+    "math/coins-of-atlantis.mjs",
+    "math/documented-basic-slots.mjs",
+    "math/engines/crash.mjs",
+    "math/engines/instant.mjs",
+    "math/engines/ladder.mjs",
+    "math/engines/mines.mjs",
+    "math/engines/shared.mjs",
+    "math/engines/slots.mjs",
+    "math/engines/table-games.mjs",
+    "math/engines/target-crash.mjs",
+    "math/fresh-plinkoxclassic.mjs",
+    "math/games/balloon.mjs",
+    "math/games/balloonx.mjs",
+    "math/games/baoslot5x.mjs",
+    "math/games/blazinghot.mjs",
+    "math/games/blazinghot10.mjs",
+    "math/games/blazinghot40.mjs",
+    "math/games/bokajamba10.mjs",
+    "math/games/bonustime.mjs",
+    "math/games/bookofbonanza.mjs",
+    "math/games/bookoffuturia.mjs",
+    "math/games/bottlemania.mjs",
+    "math/games/caibalaocappadocia.mjs",
+    "math/games/carx.mjs",
+    "math/games/cheesyroad.mjs",
+    "math/games/cheesyroadclassic.mjs",
+    "math/games/chickenhighway.mjs",
+    "math/games/chickenways.mjs",
+    "math/games/coinsofatlantis.mjs",
+    "math/games/cricketerx.mjs",
+    "math/games/cricketx.mjs",
+    "math/games/dicejungle.mjs",
+    "math/games/draculasfortune.mjs",
+    "math/games/dragonscode.mjs",
+    "math/games/farmsfortune.mjs",
+    "math/games/footballx.mjs",
+    "math/games/fortunecatch.mjs",
+    "math/games/foxyhot20.mjs",
+    "math/games/gatesofmerlyn.mjs",
+    "math/games/gemscrownchargingwilds.mjs",
+    "math/games/geniesbonanza.mjs",
+    "math/games/habeshafortune5.mjs",
+    "math/games/helicopterx.mjs",
+    "math/games/hotsamba.mjs",
+    "math/games/jetx.mjs",
+    "math/games/jetx3.mjs",
+    "math/games/jinglebellbonanza.mjs",
+    "math/games/junglesisters.mjs",
+    "math/games/junglesistersdeluxe.mjs",
+    "math/games/madslot.mjs",
+    "math/games/mariachicoins.mjs",
+    "math/games/mineisland.mjs",
+    "math/games/multifruitschargingwilds.mjs",
+    "math/games/multihot10.mjs",
+    "math/games/multihot100.mjs",
+    "math/games/multihot20.mjs",
+    "math/games/multihot40.mjs",
+    "math/games/multihot5.mjs",
+    "math/games/multihot5burnwilds.mjs",
+    "math/games/multihot5deluxe.mjs",
+    "math/games/multihot5superwilds.mjs",
+    "math/games/multihot5wild.mjs",
+    "math/games/multihotways.mjs",
+    "math/games/multihotwheel.mjs",
+    "math/games/multihotwildways.mjs",
+    "math/games/plinkojoker.mjs",
+    "math/games/plinkox.mjs",
+    "math/games/plinkoxclassic.mjs",
+    "math/games/popx.mjs",
+    "math/games/poweroftiger.mjs",
+    "math/games/propelx.mjs",
+    "math/games/rollx.mjs",
+    "math/games/safarisimba.mjs",
+    "math/games/samurai.mjs",
+    "math/games/slicerx.mjs",
+    "math/games/smashx.mjs",
+    "math/games/sugarfiesta.mjs",
+    "math/games/towerx.mjs",
+    "math/games/tugofwar.mjs",
+    "math/games/vampires.mjs",
+    "math/games/wheelofdestiny.mjs",
+    "math/games/wildmultistars.mjs",
+    "math/games/wildsandgods.mjs",
+    "math/games/worldchampionx.mjs",
+    "math/gates-of-merlyn.mjs",
+    "math/generated-registry.mjs",
+    "math/genies-bonanza.mjs",
+    "math/index.mjs",
+    "math/jungle-sisters.mjs",
+    "math/mariachi-coins.mjs",
+    "math/mine-island2.mjs",
+    "math/observed-plinkox.mjs",
+    "math/observed-three-reel.mjs",
+    "math/official-title-modules.mjs",
+    "math/official72-layouts.mjs",
+    "math/official72-mechanics.mjs",
+    "math/official72.mjs",
+    "math/popx.mjs",
+    "math/power-of-tiger.mjs",
+    "math/public-gamble.mjs",
+    "math/public-slot-features.mjs",
+    "math/requested72.mjs",
+    "math/title-configurators.mjs",
+    "math/ways-slot.mjs",
+    "math/wheel-of-destiny.mjs"
+  ],
+  "scope": "All60new titles within the existing74catalogue. The ten chosen titles are only the first batch; existing14wallet routes remain separately preserved.",
+  "latestOfficialReferenceTarget": 5,
+  "historicalEvidencePreserved": true,
+  "productionGateChanged": false,
+  "promotionalBonusWalletLinked": false,
+  "claimPolicy": "Public geometry/rules, independent numeric math, current official-demo observations, native-ledger proof and audiovisual parity are separate. A passing lifecycle fixture never implies provider probabilities, complete parity or release approval.",
+  "counts": {
+    "KNOWN_PUBLIC_FEATURES_MISSING": 7,
+    "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS": 14,
+    "REFERENCE_BEHAVIOR_NOT_VERIFIED": 25,
+    "BLOCKED_REAL_MONEY_REVIEW": 14
+  },
+  "knownMissingPublicFeaturesTitleCount": 17,
+  "knownMissingWithinMoneyBlockedCount": 10,
+  "canonicalOfficialFiveQuotaMetCount": 23,
+  "all60Complete": false,
+  "rows": [
+    {
+      "gameId": "ind74_official_popx",
+      "title": "PopX",
+      "mathVersion": "official72-popx-r3",
+      "family": "crash",
+      "model": "independent-single-player-cascade-crash-v1",
+      "module": "math/games/popx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "cascade",
+        "rows": 5,
+        "columns": 6,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "https://www.smartsoftgaming.com/games/popx"
+      },
+      "implemented": [
+        "Observed6×5/11-symbol count grid",
+        "8+ matches with successive server cycles and cashout"
+      ],
+      "knownMissingPublicFeatures": [
+        "Documented shared-session and multiplayer room lifecycle"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Independent cycle duration, multiplier schedule and survival distribution."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/popx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "math/popx.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_mineisland2",
+      "title": "Mine Island2",
+      "mathVersion": "official72-mineisland2-r2",
+      "family": "ladder",
+      "module": "math/mine-island2.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence/mineisland2-initial.png"
+      },
+      "implemented": [
+        "Observed ten-step EASY ladder and collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Medium/hard schedules and boost/portal mechanics remain independently authored or unverified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/mine-island2",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland2&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "math/mine-island2.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_neweraofjetx",
+      "title": "New Era of JetX",
+      "mathVersion": "official72-neweraofjetx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/jetx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9480",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/jetx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_balloonx",
+      "title": "BalloonX",
+      "mathVersion": "official72-balloonx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/balloonx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/balloonx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=BalloonX&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_plinkoxclassic",
+      "title": "Plinko X Classic",
+      "mathVersion": "official72-plinkoxclassic-r3",
+      "family": "plinko",
+      "model": "observed-board-independent-colored-ball-v2",
+      "module": "math/games/plinkoxclassic.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "pegboard",
+        "rows": 16,
+        "columns": null,
+        "steps": null,
+        "buckets": 17,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "references/plinkoxclassic-observed-20261111.json"
+      },
+      "implemented": [
+        "16rows/17buckets",
+        "Server-colored1×/5×/10× payout with one unchanged stake"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "995/4/1 color weights and fair path steps are independent; marketing/selectable-color wording conflicts with observed static legend."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "162937075",
+        "denominator": "163840000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 152,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/math-public-mechanics.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_propelx",
+      "title": "Propel X",
+      "mathVersion": "official72-propelx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/propelx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/propel-x",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PropelX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_worldchampionx",
+      "title": "World Champion X",
+      "mathVersion": "official72-worldchampionx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/worldchampionx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/world-champion-x",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WorldChampionX&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_poweroftiger",
+      "title": "Power of Tiger",
+      "mathVersion": "official72-poweroftiger-r4",
+      "family": "slots",
+      "model": "independent-tiger-wild-and-respin",
+      "module": "math/games/poweroftiger.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 9,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-journal.json"
+      },
+      "implemented": [
+        "3×3/five lines",
+        "Wilds; conditional5/10/15/20× base multiplier",
+        "Locked-symbol respins and finite9-frame bound"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Initial blank feature board, base-plus-final-feature aggregation and Wild eligibility for the full-board multiplier remain independent interpretations."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/power-of-tiger",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_poweroftiger-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/poweroftiger-features.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_multifruitschargingwilds",
+      "title": "Multi Fruits Charging Wilds",
+      "mathVersion": "official72-multifruitschargingwilds-r5",
+      "family": "slots",
+      "model": "independent-transactional-charging-wilds",
+      "module": "math/games/multifruitschargingwilds.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 4,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-journal.json"
+      },
+      "implemented": [
+        "3×3/five lines",
+        "Transactional persistent Wild cells/multipliers by player/game/version/base/ANTE",
+        "ANTE5/10 and initial bucket Wild guarantee",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "First-landing charge timing, ordinary multi-Wild addition, ANTE award basis and390×maximum coupling remain unverified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/charging-wilds.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_gemscrownchargingwilds",
+      "title": "Gems Crown Charging Wilds",
+      "mathVersion": "official72-gemscrownchargingwilds-r6",
+      "family": "slots",
+      "model": "independent-transactional-charging-wilds",
+      "module": "math/games/gemscrownchargingwilds.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 5,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-journal.json"
+      },
+      "implemented": [
+        "3×3/five lines",
+        "Transactional persistent Wild cells/multipliers by player/game/version/base",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "First-landing charge timing, ordinary multi-Wild addition and390×maximum coupling remain unverified. No ANTE is copied from Multi Fruits."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/charging-wilds.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_gatesofmerlyn",
+      "title": "Gates of Merlyn",
+      "mathVersion": "official72-gatesofmerlyn-r4",
+      "family": "slots",
+      "model": "independent-count-tumble-free-spins",
+      "module": "math/games/gatesofmerlyn.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 6,
+      "geometry": {
+        "kind": "cascade-grid",
+        "rows": 5,
+        "columns": 6,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-initial.png; reports/priority10-reference-20261111/gates-paytable-upper.jpg; reports/priority10-reference-20261111/gates-paytable-lower.jpg; references/official-slot-help-en-20261111.json:help.slots.gatesofmerlyn"
+      },
+      "implemented": [
+        "6×5 count-anywhere tumbles and gravity",
+        "Fresh rendered8/10/12count tiers and4/5/6Scatter awards",
+        "15free spins/+5retrigger",
+        "Persistent bonus multiplier and MAGIC",
+        "ANTE1.5×/Buy100/Buy500; explicit5000×base cap"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Symbol/multiplier probabilities, MAGIC one-cell target/one activation, ordering and256-board maximum-award guarantee remain independent interpretations."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          {
+            "lastSpinId": "1966374803.5",
+            "method": "Five current-session rendered history rows dated11.11.2026; older09.11history excluded."
+          }
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/gates-of-merlyn",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-journal.json",
+        "reports/priority10-reference-20261111/gates-paytable-upper.jpg"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/gates-of-merlyn.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_chickenways",
+      "title": "Chicken Ways",
+      "mathVersion": "official72-chickenways-r2",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/chickenways.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent ladder lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/chicken-ways",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=Chickenways&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_dicejungle",
+      "title": "Dice Jungle",
+      "mathVersion": "official72-dicejungle-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/dicejungle.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "https://www.smartsoftgaming.com/games/dice-jungle"
+      },
+      "implemented": [
+        "Observed5×3; documented same-reel substitute on reels2–4",
+        "Landed substitute columns replace regular cells before evaluating paylines; Scatter is excluded",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [
+        "Scatter awards and their title-specific numeric prizes",
+        "Pre-spin horizontal multiplier: exact numeric pool remains unverified and no factor is fabricated"
+      ],
+      "unverifiedRuleInterpretations": [
+        "The current line chart, prizes and32:1 regular/substitute tickets are independent.",
+        "The exact independent same-reel return exceeds the stake, so real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_PAYTABLE_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "22637734508545743854367",
+          "denominator": "19564020143589931623428",
+          "bound": "exact",
+          "scope": "independent regular/substitute model before line flooring; missing provider multiplier and Scatter excluded"
+        },
+        "requiredAction": "Review and version the independent distribution and verify the title paytable and remaining public mechanics before real-money admission. Do not replace unknown probabilities with a provider RTP claim."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "22637734508545743854367",
+        "denominator": "19564020143589931623428",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent regular/substitute model before line flooring; missing provider multiplier and Scatter excluded"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/dice-jungle",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_dicejungle-journal.json",
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/documented-basic-slots.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_cheesyroad",
+      "title": "Cheesy Road",
+      "mathVersion": "official72-cheesyroad-r2",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/cheesyroad.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent ladder lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/cheesy-road",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoad&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_fortunecatch",
+      "title": "Fortune Catch",
+      "mathVersion": "official72-fortunecatch-r2",
+      "family": "wheel",
+      "model": "weighted-wheel-v1",
+      "module": "math/games/fortunecatch.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "wheel",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": 8,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent wheel lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "945000",
+        "denominator": "1000000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/fortune-catch",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_multihot20",
+      "title": "Multi Hot 20",
+      "mathVersion": "official72-multihot20-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/multihot20.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 2,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots/ind74_official_multihot20-initial.png"
+      },
+      "implemented": [
+        "Observed5×3/twenty lines and top multiplier arc",
+        "Fresh0.20DMO public symbol prizes",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Twenty-line chart, uniform probabilities and published1000×maximum coupling are not provider-verified.",
+        "Independent analytic return198600/163840≈121.22% is above the stake: real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PROVIDER_MAXIMUM_COUPLING_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "198600",
+          "denominator": "163840",
+          "scope": "before-per-line-minor-unit-flooring"
+        },
+        "requiredAction": "Review and version the independent probability distribution before any real-money admission. Do not substitute a provider RTP claim or silently tune unobserved weights."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "198600",
+        "denominator": "163840",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          {
+            "lastSpinId": "1966346031.5",
+            "method": "Five rendered current-session history rows; final Spin ID .5."
+          }
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 25,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-20",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots/multihot20-observation.json",
+        "reports/priority10-reference-20261111/multihot20-paytable.jpg"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-multihot10-20.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_cheesyroadclassic",
+      "title": "Cheesy Road Classic",
+      "mathVersion": "official72-cheesyroadclassic-r2",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/cheesyroadclassic.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent ladder lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/cheesy-road-classic",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoadClassic&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_multihot10",
+      "title": "Multi Hot 10",
+      "mathVersion": "official72-multihot10-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/multihot10.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 1,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-initial.png"
+      },
+      "implemented": [
+        "Observed5×3/ten lines and top multiplier arc",
+        "Fresh0.10DMO public symbol prizes",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Ten-line chart, uniform probabilities and published1000×maximum coupling are not provider-verified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "162600",
+        "denominator": "163840",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          {
+            "lastSpinId": "1966333116.5",
+            "method": "Five rendered current-session history rows; final Spin ID .5."
+          }
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 25,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_multihot10-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_multihot10-journal.json",
+        "reports/priority10-reference-20261111/multihot10-paytable.jpg"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-multihot10-20.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_coinsofatlantis",
+      "title": "Coins Of Atlantis",
+      "mathVersion": "official72-coinsofatlantis-r5",
+      "family": "slots",
+      "model": "independent-atlantis-complete-coin-respin",
+      "module": "math/games/coinsofatlantis.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 7,
+      "geometry": {
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png"
+      },
+      "implemented": [
+        "5×4; winning Wild expansion",
+        "Five-coin trigger;3respins; persistent+1reset to4",
+        "Regular/MINI/MAJOR/MEGA pair/GRAND triple coins",
+        "Full-board×2; ANTE1.5×/Buy60; explicit2500×base cap"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Additional same-type jackpot groups beyond the documented pair/triple, pre-expansion coin trigger order and base-plus-feature aggregation are independently interpreted.",
+        "Purchase/ANTE award basis and published maximum coupling remain unverified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/coins-atlantis-features.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_bottlemania",
+      "title": "Bottle Mania",
+      "mathVersion": "official72-bottlemania-r2",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/bottlemania.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent ladder lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/bottle-mania",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "mathVersion": "official72-multihot5burnwilds-r5",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/multihot5burnwilds.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 3,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds; reports/current74-evidence-slots/ind74_official_multihot5burnwilds-initial.png"
+      },
+      "implemented": [
+        "5×3/five lines; top1–5multiplier arc",
+        "Fresh public paytable, two-seven win and exact2.5×line prizes",
+        "Winning Wilds expand reels2–4",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Line chart, uniform multiplier, independent Wild weights and one-pass expansion ordering remain unverified against provider math.",
+        "Real-money admission is blocked until the full expanding-Wild expectation and1300×provider maximum coupling are reviewed."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_EXPANDING_WILD_RETURN_UNREVIEWED",
+          "PROVIDER_MAXIMUM_COUPLING_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "verified": false,
+          "reason": "Exact expectation including winning-Wild expansion across shared paylines has not been established."
+        },
+        "requiredAction": "Review the full independent expanding-Wild probability model and maximum coupling before real-money admission; observed symbol prizes do not establish provider probabilities or RTP."
+      },
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          {
+            "lastSpinId": "1966364170.5",
+            "method": "Five current-session history rows dated11.11.2026, before older07.11 rows; exact stake0.10, payout0 each."
+          }
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 25,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots/multihot5burnwilds-observation.json",
+        "reports/priority10-reference-20261111/burnwilds-paytable.jpg"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-burnwilds-paytable.test.mjs",
+        "tests/math-public-mechanics.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_chickenhighway",
+      "title": "Chicken Highway",
+      "mathVersion": "official72-chickenhighway-r4",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/chickenhighway.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 25,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json"
+      },
+      "implemented": [
+        "Exact public EASY/MEDIUM/HARD lane counts25/23/19 and displayed coefficients",
+        "Server crossing/collect lifecycle",
+        "Authenticated server-owned presence lease: accepted START/GO/empty sync renew; reads and receipt replay do not",
+        "Strictly more than8seconds without accepted contact collects the last confirmed award once through the retained ledger or the existing isolated DEMO alarm",
+        "Client heartbeat uncertainty retains request identity, then requires a current-state read before another financial action",
+        "Documented selected-count/selected-cashout-step AUTO with serial confirmed actions, frozen stake/mode and one debit per round",
+        "AUTO stops on manual cancellation, hidden tab, Refresh, insufficient confirmed balance or unresolved response; recovery never resumes it automatically"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Survival probabilities remain independently authored.",
+        "AUTO uses an explicitly independent ZPLAY bound of1–100rounds, default5; provider count presets and exact native control presentation remain unverified.",
+        "Visible-tab presence measures accepted server contact, not the physical network connection; infrastructure recovery may delay credit after the stored deadline."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9480",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/chicken-highway",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/chicken-highway.test.mjs",
+        "server/tests/chicken-connection.test.mjs",
+        "tests/machine74-presence.test.mjs",
+        "tests/machine74-chicken-autoplay.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_carx",
+      "title": "CarX",
+      "mathVersion": "official72-carx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/carx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/carx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_caibalaocappadocia",
+      "title": "Cai Balao Cappadocia",
+      "mathVersion": "official72-caibalaocappadocia-r2",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/caibalaocappadocia.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent ladder lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/cai-balao-cappadocia",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CaiBalaoCappadocia&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_multihotwheel",
+      "title": "Multi Hot Wheel",
+      "mathVersion": "official72-multihotwheel-r2",
+      "family": "wheel",
+      "model": "weighted-wheel-v1",
+      "module": "math/games/multihotwheel.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "wheel",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": 8,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent wheel lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "957000",
+        "denominator": "1000000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-wheel",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_jinglebellbonanza",
+      "title": "Jingle Bell Bonanza",
+      "mathVersion": "official72-jinglebellbonanza-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/jinglebellbonanza.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png"
+      },
+      "implemented": [
+        "5×3 independent regular-symbol evaluator",
+        "Public Wild participation/expansion subset",
+        "Server win multiplier1/2/3/4/5",
+        "Held-win red/black X2 and collect"
+      ],
+      "knownMissingPublicFeatures": [
+        "Documented scatter awards"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Complete title-specific feature inventory, provider paytable and line chart remain unverified."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/public-slot-features.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_plinkox",
+      "title": "Plinko X",
+      "mathVersion": "official72-plinkox-r4",
+      "family": "plinko",
+      "model": "observed-three-risk-independent-batch-v2",
+      "module": "math/games/plinkox.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "pegboard",
+        "rows": 16,
+        "columns": null,
+        "steps": null,
+        "buckets": 17,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence/plinkox-low-ready-desktop-dpr1.png"
+      },
+      "implemented": [
+        "16rows/17exact public LOW/MEDIUM/HIGH bucket tables",
+        "1/5/10/25ball atomic total-stake batch",
+        "Server1×/5×/10× colors"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Paths, color weights and batch debit allocation are independent; actual Medium/High and multi-ball provider settlements remain unobserved."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "645477350000",
+        "denominator": "655360000000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/plinkox",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-plinkox.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_helicopterx",
+      "title": "Helicopter X",
+      "mathVersion": "official72-helicopterx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/helicopterx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/helicopter-x",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=HelicopterX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_safarisimba",
+      "title": "Safari Simba",
+      "mathVersion": "official72-safarisimba-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/safarisimba.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "https://www.smartsoftgaming.com/games/safari-simba-2"
+      },
+      "implemented": [
+        "Observed3×3/five-line regular game",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Complete provider prizes, line chart and bonus coverage remain unverified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "256",
+        "denominator": "512",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/safari-simba-2",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_safarisimba-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_safarisimba-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-three-reel.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_mineisland",
+      "title": "Mine Island",
+      "mathVersion": "official72-mineisland-r3",
+      "family": "ladder",
+      "model": "hidden-mines-v1",
+      "module": "math/games/mineisland.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-nonslots/ind74_official_mineisland-initial.png"
+      },
+      "implemented": [
+        "Observed ten-platform island ladder and collect"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Marketing describes a rectangular mine grid, conflicting with the linked demo. Later native controls, probabilities and rare features remain unverified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/mine-island",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_multihotways",
+      "title": "Multi Hot Ways",
+      "mathVersion": "official72-multihotways-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/multihotways.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-journal.json"
+      },
+      "implemented": [
+        "Observed3×3/27ways",
+        "Left1–5multiplier",
+        "Held-win red/black X2"
+      ],
+      "knownMissingPublicFeatures": [
+        "Separate same-symbol additional×2 condition in exact Help; its trigger wording still requires adjudication"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Complete title-specific feature inventory, provider paytable and line chart remain unverified."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_MECHANICS_INCOMPLETE"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "4080",
+          "denominator": "2560",
+          "scope": "before-per-line-minor-unit-flooring"
+        },
+        "requiredAction": "Review and version the independent probability distribution and complete documented public mechanics before real-money admission. Do not substitute provider RTP or silently tune unobserved weights."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "4080",
+        "denominator": "2560",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_multihotways-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_multihotways-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-three-reel.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_footballx",
+      "title": "Football X",
+      "mathVersion": "official72-footballx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/footballx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9560",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/fotballx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FootballX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_mariachicoins",
+      "title": "Mariachi Coins",
+      "mathVersion": "official72-mariachicoins-r3",
+      "family": "slots",
+      "model": "independent-mariachi-collector-respin",
+      "module": "math/games/mariachicoins.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 8,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png; references/official-slot-help-en-20261111.json:help.slots.mariachicoins"
+      },
+      "implemented": [
+        "Observed5×3; all-reel winning Wild expansion",
+        "Edge collectors and middle coin trigger",
+        "Three resettable Hold&Win respins; coins/jackpots/collectors",
+        "Full-board×2; explicit2500×cap; held-win X2"
+      ],
+      "knownMissingPublicFeatures": [
+        "Buy Respin control: a single observed price is insufficient to establish universal cost and enriched-spin lifecycle"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Collector collection timing, coin-plus-collector final aggregation and pre-expansion trigger order are independent interpretations."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/mariachi-coins",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/mariachi-coins.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_4bonusesbonanza",
+      "title": "4 Bonuses Bonanza",
+      "mathVersion": "official72-4bonusesbonanza-r2",
+      "family": "plinko",
+      "model": "binomial-plinko-v1",
+      "module": "math/games/plinkojoker.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "pegboard",
+        "rows": 12,
+        "columns": null,
+        "steps": null,
+        "buckets": 13,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent plinko lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "39321600",
+        "denominator": "40960000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/4-bonuses-bonanza",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoJoker&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_cricketx",
+      "title": "Cricket X",
+      "mathVersion": "official72-cricketx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/cricketx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9520",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/cricket-x",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_cricketerx",
+      "title": "CricketerX",
+      "mathVersion": "official72-cricketerx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/cricketerx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9600",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/cricketerx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CricketerX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_wheelofdestiny",
+      "title": "Wheel Of Destiny",
+      "mathVersion": "official72-wheelofdestiny-r4",
+      "family": "wheel",
+      "model": "observed-fifty-segment-independent-bonus-v2",
+      "module": "math/games/wheelofdestiny.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "wheel",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": 50,
+        "publicGeometryVerified": true,
+        "source": "references/wheel-of-destiny-display-20261111.json"
+      },
+      "implemented": [
+        "Exact public50segment layout/nine bet fields",
+        "Documented BONUS/DOUBLE transitions and allocation"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Outcome/bonus probabilities are independently uniform; BONUS was not triggered in the recorded regular20rounds."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/wheel-of-destiny.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_crashduel",
+      "title": "Crash Duel",
+      "mathVersion": "official72-crashduel-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/tugofwar.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9440",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/crash-duel",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TugOfWar&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_geniesbonanza",
+      "title": "Genie's Bonanza",
+      "mathVersion": "official72-geniesbonanza-r4",
+      "family": "slots",
+      "model": "independent-genie-count-tumble",
+      "module": "math/games/geniesbonanza.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": 10,
+      "geometry": {
+        "kind": "cascade-grid",
+        "rows": 5,
+        "columns": 6,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png; reports/priority10-reference-20261111/genie-paytable.jpg; tests/evidence/official-demo-observations-frontend-five20261111.json; references/official-slot-help-en-20261111.json:help.slots.geniesbonanza"
+      },
+      "implemented": [
+        "Observed6×5 count-anywhere tumbles",
+        "Fresh rendered8/10/12count prizes and flat4+Scatter5×award",
+        "10free spins/+5retrigger with no invented3-Scatter cash prize",
+        "Bonus-only sequence multipliers2–100; no persistent accumulation",
+        "Carpet cloud cells; Buy100; explicit3000×base cap"
+      ],
+      "knownMissingPublicFeatures": [
+        "B+25%surcharge and100-Scatter progress",
+        "Progress-dependent Risk, discount and related bonus sequencing"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Symbol probabilities and4–8cloud sampler remain independent. Scatter/multiplier ordering, purchase maximum basis and processing guarantee remain independently interpreted.",
+        "The exact Genie Help says100Scatters during the same round. The accumulation window and persistence are unresolved; Futuria's separate per-bet persistence rule is not imported."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 2,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          "Rendered Rules/History spin ID 1966390561.2 and two new 11.11.2026 history rows at16:04:59 and16:05:17; older02.11 rows excluded."
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/genies-bonanza",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-official-help.html",
+        "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-journal.json",
+        "reports/priority10-reference-20261111/genie-paytable.jpg"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/genies-bonanza.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_bonustime",
+      "title": "Bonus Time",
+      "mathVersion": "official72-bonustime-r2",
+      "family": "wheel",
+      "model": "weighted-wheel-v1",
+      "module": "math/games/bonustime.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "wheel",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": 8,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent wheel lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "951000",
+        "denominator": "1000000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/bonus-time",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=BonusTime&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_farmsfortune",
+      "title": "Farm's Fortune",
+      "mathVersion": "official72-farmsfortune-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/farmsfortune.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Retained reels2–4 winning-Wild expansion",
+        "Multiplier selected before symbol grid and applied once",
+        "Held-win X2/collect without another stake"
+      ],
+      "knownMissingPublicFeatures": [
+        "Scatter awards and their title-specific numeric prizes"
+      ],
+      "unverifiedRuleInterpretations": [
+        "The retained1–5 factor pool and uniform weights remain independent: exact title Help specifies pre-spin timing but omits the numeric pool.",
+        "The retained winning-only expansion is an independent interpretation; exact Help also describes same-reel substitution.",
+        "The no-Wild-board return lower bound alone exceeds the stake, so real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_PAYTABLE_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "13637908477994392879104",
+          "denominator": "4891005035897482905857",
+          "bound": "lower",
+          "scope": "no-Wild-board regular wins only; excludes every Wild-containing outcome"
+        },
+        "requiredAction": "Review and version the independent distribution and verify the title paytable and remaining public mechanics before real-money admission. Do not replace unknown probabilities with a provider RTP claim."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "13637908477994392879104",
+        "denominator": "4891005035897482905857",
+        "aboveStake": true,
+        "bound": "lower",
+        "scope": "no-Wild-board regular wins only; excludes every Wild-containing outcome"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FarmsFortune&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/documented-basic-slots.test.mjs",
+        "tests/public-slot-features.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_madslot",
+      "title": "Mad Slot",
+      "mathVersion": "official72-madslot-r2",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/madslot.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "https://www.smartsoftgaming.com/games/mad-slot"
+      },
+      "implemented": [
+        "5×3 independent regular-symbol evaluator"
+      ],
+      "knownMissingPublicFeatures": [
+        "Wild multiplier and expansion lifecycle",
+        "Truck/Mad bonus lifecycle",
+        "B+25%/100progress and paid Bonus Risk",
+        "Documented Mad150×/Truck100×bonus purchases"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Mad Slot Bonus Risk is a paid progress-dependent bonus wheel. No active title-specific red/black X2 caption has been established; that different feature is not inferred from the word Risk.",
+        "Full Truck symbol value pools, interaction order and added-reel geometry need additional specification."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "31552",
+        "denominator": "32768",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/mad-slot",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MadSlot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_aviastar",
+      "title": "AviaStar",
+      "mathVersion": "official72-aviastar-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/jetx3.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9640",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/aviastar",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=JetX3&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_smashx",
+      "title": "Smash X",
+      "mathVersion": "official72-smashx-r2",
+      "family": "crash",
+      "model": "clock-crash-v1",
+      "module": "math/games/smashx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "crash",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent crash lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9400",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/smash-x",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=SmashX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_towerx",
+      "title": "Tower X",
+      "mathVersion": "official72-towerx-r2",
+      "family": "ladder",
+      "model": "conditional-ladder-v1",
+      "module": "math/games/towerx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "ladder",
+        "rows": null,
+        "columns": null,
+        "steps": 10,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent ladder lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "9560",
+        "denominator": "10000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/tower-x",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TowerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_hotsamba",
+      "title": "Hot Samba",
+      "mathVersion": "official72-hotsamba-r3",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/hotsamba.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Exact Help left1–5win multiplier",
+        "Multiplier selected before symbol grid and applied once",
+        "Held-win X2/collect without another stake"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Public multiplier labels and X2 rules do not establish complete provider geometry, line chart, symbol prizes or probabilities.",
+        "Uniform1–5 applied to retained independent regular weights gives2961/1024 return; real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_PAYTABLE_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "2961",
+          "denominator": "1024",
+          "bound": "exact",
+          "scope": "independent uniform five-reel and1–5 model before line flooring"
+        },
+        "requiredAction": "Review and version the independent distribution and verify the title paytable and remaining public mechanics before real-money admission. Do not replace unknown probabilities with a provider RTP claim."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "473760",
+        "denominator": "163840",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/hot-samba",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/documented-basic-slots.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_wildsandgods",
+      "title": "Wilds and Gods",
+      "mathVersion": "official72-wildsandgods-r2",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/wildsandgods.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "5×3 independent regular-symbol evaluator"
+      ],
+      "knownMissingPublicFeatures": [
+        "Zeus/Poseidon locked Wild reel bonuses",
+        "Three initial free spins and extra-spin symbols",
+        "200×/150×bonus purchases"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "31592",
+        "denominator": "32768",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/wilds-and-gods",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildsAndGods&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_baoslot5x",
+      "title": "Bao Slot 5X",
+      "mathVersion": "official72-baoslot5x-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/baoslot5x.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "https://www.smartsoftgaming.com/games/bao-slot-5x"
+      },
+      "implemented": [
+        "Observed3×3 regular board",
+        "Exact Help left1–5win multiplier",
+        "Held-win X2/collect without another stake"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "The five-line chart, regular prizes and uniform symbol/factor probabilities are independently authored.",
+        "Uniform1–5 applied to retained regular weights gives3/2 return; real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_PAYTABLE_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "3",
+          "denominator": "2",
+          "bound": "exact",
+          "scope": "independent uniform three-reel and1–5 model before line flooring"
+        },
+        "requiredAction": "Review and version the independent distribution and verify the title paytable and remaining public mechanics before real-money admission. Do not replace unknown probabilities with a provider RTP claim."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "3840",
+        "denominator": "2560",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/bao-slot-5",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BaoSlot5X&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/documented-basic-slots.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_junglesisters",
+      "title": "Jungle Sisters",
+      "mathVersion": "official72-junglesisters-r3",
+      "family": "slots",
+      "model": "independent-jungle-sisters-free-spins",
+      "module": "math/games/junglesisters.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "All-reel Wild substitution; Scatter confined to reels2–4",
+        "Seven-or-more Scatter trigger and ten free spins; bonus Scatters may pay but never retrigger",
+        "Documented base1–5 and bonus1–5/10/20multiplier pools",
+        "Published1500×combined-round cap cancels remaining bonus spins",
+        "Single accepted stake; held-win X2/collect with full three-doubling reserve",
+        "Compact consumed-draw replay reconstructs the complete public feature transcript"
+      ],
+      "knownMissingPublicFeatures": [
+        "Bonus purchase lifecycle: scalable price is not verified"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Regular symbol prizes and twenty-line chart are independently authored; symbol/multiplier weights and Scatter award basis are not provider-verified.",
+        "Uniform bonus selection, Scatter cash during ordinary free spins and base-plus-feature cap/X2 coupling remain explicit independent interpretations.",
+        "The complete independent distribution and reference paytable require review; real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_BONUS_DISTRIBUTION_UNREVIEWED",
+          "REFERENCE_PAYTABLE_AND_CHART_UNVERIFIED"
+        ],
+        "requiredAction": "Review and version the independent complete feature distribution and verify the title-specific public prizes/chart before real-money admission."
+      },
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 1,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 4,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/jungle-sisters",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_junglesisters-journal.json",
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/jungle-sisters.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_bokajamba10",
+      "title": "Boka Jamba 10",
+      "mathVersion": "official72-bokajamba10-r2",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/bokajamba10.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "5×3 independent regular-symbol evaluator"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "31616",
+        "denominator": "32768",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/boca-jamba-10",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BokaJamba10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_junglesistersdeluxe",
+      "title": "Jungle Sisters Deluxe",
+      "mathVersion": "official72-junglesistersdeluxe-r4",
+      "family": "slots",
+      "model": "independent-jungle-sisters-free-spins",
+      "module": "math/games/junglesistersdeluxe.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "All-reel Wild substitution; base Scatter confined to reels2–4",
+        "Seven-or-more Scatter trigger and ten free spins; no bonus Scatters and no retrigger",
+        "Five distinct bonus multipliers selected once from1/2/3/4/5/10/20/30/40/50/100 and reused throughout the feature",
+        "Published2500×combined-round cap cancels remaining bonus spins",
+        "Single accepted stake; held-win X2/collect with full three-doubling reserve",
+        "Compact consumed-draw replay reconstructs the complete public feature transcript"
+      ],
+      "knownMissingPublicFeatures": [
+        "Bonus purchase lifecycle: scalable price is not verified"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Exact Help says five base multipliers but lists six1/2/3/4/5/10. The current six-value implementation is explicitly an unresolved independent interpretation.",
+        "Regular prizes/chart, Scatter award basis, symbol weights and uniform distinct-value selection are not provider-verified.",
+        "Base-plus-feature cap/X2 coupling and the complete independent distribution require review; real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_BONUS_DISTRIBUTION_UNREVIEWED",
+          "REFERENCE_PAYTABLE_AND_CHART_UNVERIFIED"
+        ],
+        "requiredAction": "Review and version the independent complete feature distribution and verify the title-specific public prizes/chart before real-money admission."
+      },
+      "independentAnalyticReturn": null,
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 6,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_junglesistersdeluxe-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_junglesistersdeluxe-journal.json",
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/jungle-sisters.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_dragonscode",
+      "title": "Dragon's Code",
+      "mathVersion": "official72-dragonscode-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/dragonscode.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 4,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png"
+      },
+      "implemented": [
+        "Observed5×4/fifty lines",
+        "1–5win multiplier",
+        "Held-win X2/collect"
+      ],
+      "knownMissingPublicFeatures": [
+        "Wild and Golden Egg mechanics",
+        "Respins and held-symbol lifecycle",
+        "25×random-symbol/40×top-four-symbol purchases"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Complete title-specific feature inventory, provider paytable and line chart remain unverified."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_MECHANICS_INCOMPLETE"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "474480",
+          "denominator": "163840",
+          "scope": "before-per-line-minor-unit-flooring"
+        },
+        "requiredAction": "Review and version the independent probability distribution and complete documented public mechanics before real-money admission. Do not substitute provider RTP or silently tune unobserved weights."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "474480",
+        "denominator": "163840",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 2,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 3,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/dragons-code",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-journal.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/observed-dragonscode.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_draculasfortune",
+      "title": "Dracula's Fortune",
+      "mathVersion": "official72-draculasfortune-r3",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/draculasfortune.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Documented same-reel substitute on reels2–4, including nonwinning landed substitutes",
+        "Regular cells on each landed substitute reel change before evaluating paylines; Scatter is excluded",
+        "Held-win X2/collect without another stake"
+      ],
+      "knownMissingPublicFeatures": [
+        "Pre-spin multiplier: exact numeric pool remains unverified and no factor is fabricated",
+        "Scatter awards and their title-specific numeric prizes"
+      ],
+      "unverifiedRuleInterpretations": [
+        "The current geometry, line chart, prizes and32:1 regular/substitute tickets are independently authored or unverified.",
+        "The exact independent same-reel return exceeds the stake, so real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_RETURN_ABOVE_STAKE",
+          "PUBLIC_PAYTABLE_UNVERIFIED"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "46090308613891210214427",
+          "denominator": "39128040287179863246856",
+          "bound": "exact",
+          "scope": "independent regular/substitute model before line flooring; missing provider multiplier and Scatter excluded"
+        },
+        "requiredAction": "Review and version the independent distribution and verify the title paytable and remaining public mechanics before real-money admission. Do not replace unknown probabilities with a provider RTP claim."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "46090308613891210214427",
+        "denominator": "39128040287179863246856",
+        "aboveStake": true,
+        "bound": "exact",
+        "scope": "independent regular/substitute model before line flooring; missing provider multiplier and Scatter excluded"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_draculasfortune-journal.json",
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/documented-basic-slots.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_bookoffuturia",
+      "title": "Book of Futuria",
+      "mathVersion": "official72-bookoffuturia-r3",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/bookoffuturia.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Active exact-title red/black held-win X2 and collection",
+        "One accepted stake; complete three-doubling reserve"
+      ],
+      "knownMissingPublicFeatures": [
+        "Book Wild/Scatter",
+        "Three-Book10free spins and+10retrigger",
+        "Selected expanding-symbol bonus",
+        "Bonus purchase",
+        "B+25%/100-Scatterprogress/paid Bonus Risk/discount"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Ordinary red/black X2 and the paid B+ Bonus Risk wheel are distinct active title Help sections; implementing X2 does not implement paid Risk.",
+        "Base geometry, regular prizes/chart, complete bonus geometry, numeric purchase price and persistent progress lifecycle remain unverified or unimplemented. Real-money admission is explicitly blocked."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "PUBLIC_MECHANICS_INCOMPLETE",
+          "REFERENCE_PAYTABLE_AND_CHART_UNVERIFIED"
+        ],
+        "requiredAction": "Complete and verify the title-specific Book bonus and B+ lifecycle, geometry, public prizes/chart and independent distribution before financial admission. Red/black X2 does not implement paid Bonus Risk."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "31648",
+        "denominator": "32768",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/book-of-futuria",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_bookoffuturia-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_bookoffuturia-journal.json",
+        "references/official-bookoffuturia-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/active-help-gamble.test.mjs",
+        "tests/held-slot-integrity.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_bookofbonanza",
+      "title": "Book of Bonanza",
+      "mathVersion": "official72-bookofbonanza-r4",
+      "family": "slots",
+      "model": "independent-book-expanding-free-spins",
+      "module": "math/games/bookofbonanza.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 4,
+        "columns": 6,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/priority10-reference-20261111/book-ready-geometry.jpg; reports/priority10-reference-20261111/book-forty-paylines.jpg; reports/priority10-reference-20261111/book-paytable-upper.jpg; reports/priority10-reference-20261111/book-paytable-lower.jpg; reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help-en.json"
+      },
+      "implemented": [
+        "Observed6×4base and exact40numbered paylines",
+        "Fresh public ten-symbol2–6match prizes",
+        "Book Wild/bonus trigger;4Book→10free/+10at3Books",
+        "Selected-symbol2/3-reel expansion trigger; explicit5000×cap"
+      ],
+      "knownMissingPublicFeatures": [
+        "B+25%/100-Scatterprogress/Risk/discount",
+        "Bonus purchase lifecycle and B+ price interactions;100×quote is observed"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Help describes3-cell expansion on an observed4-row base. The3-cell contiguous window, symbol probabilities and processing guarantee remain independently authored.",
+        "The rendered Book entry lists Wild substitution and bonus triggering without a separate cash prize; no unsupported Scatter cash award is added."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "INDEPENDENT_BASE_RETURN_LOWER_BOUND_ABOVE_STAKE"
+        ],
+        "independentAnalyticReturn": {
+          "numerator": "1686961645158400",
+          "denominator": "1094032426497921",
+          "bound": "lower",
+          "scope": "base-regular-prefix-awards-only; excludes-Book-substitution-and-all-bonus-value; exact-for-whole-ETB-grid"
+        },
+        "requiredAction": "Review and newly version the independently chosen probability distribution before real-money admission. Preserve the observed public prizes; do not infer or silently invent provider weights."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "1686961645158400",
+        "denominator": "1094032426497921",
+        "aboveStake": true,
+        "bound": "lower",
+        "scope": "base-regular-prefix-awards-only; excludes-Book-substitution-and-all-bonus-value; exact-for-whole-ETB-grid"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          "Initial Rules spin ID1966393817.0, final1966393817.5, five rendered11.11.2026 history rows only."
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 5,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-journal.json",
+        "references/book-bonanza-paylines-rendered-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/book-of-bonanza.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_sugarfiesta",
+      "title": "Sugar Fiesta",
+      "mathVersion": "official72-sugarfiesta-r4",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/sugarfiesta.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": true,
+        "source": "reports/priority10-reference-20261111/sugarfiesta-ready-geometry.jpg; reports/priority10-reference-20261111/sugarfiesta-paytable.jpg; reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-official-help-en.json"
+      },
+      "implemented": [
+        "Observed3×3/three lines and nine symbol categories",
+        "Fresh public paytable normalization",
+        "Left1–5multiplier; held-win X2"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "The displayed awards imply225×independent full-board bound, while Help states125×. Provider restrictions/coupling and line normalization remain unverified."
+      ],
+      "engineeringStatus": "IMPLEMENTED_WITH_UNVERIFIED_INTERPRETATIONS",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "2070",
+        "denominator": "3645",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": [
+          "Read-only board and Rules inspection; visible Spin ID suffix.0; no spin submitted."
+        ]
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-journal.json",
+        "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_vampires",
+      "title": "Vampires",
+      "mathVersion": "official72-vampires-r3",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/vampires.mjs",
+      "isolatedFeatureConfigurator": true,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Active title Help red/black X2 with an independent held-award collection option",
+        "One accepted stake; complete three-doubling reserve"
+      ],
+      "knownMissingPublicFeatures": [
+        "Active reel5SMARTSOFT-to-Wild transformation and reel2–5Wild substitution"
+      ],
+      "unverifiedRuleInterpretations": [
+        "The additional transformed cells are described only as random symbols; their count and selection are not established. Reference prizes/chart and complete geometry remain unverified; real-money admission is explicitly blocked.",
+        "The old3/4/5Bonus→3/5/7free-spin schedule came from an unrelated Dark caption inside a commented-out Help section. It is excluded from the verified Vampires specification.",
+        "Provider collect-control details are not specified by the active risk-game caption; collection is explicitly an independent lifecycle option."
+      ],
+      "engineeringStatus": "BLOCKED_REAL_MONEY_REVIEW",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": {
+        "realMoneyAdmissionBlocked": true,
+        "codes": [
+          "PUBLIC_MECHANICS_INCOMPLETE",
+          "REFERENCE_PAYTABLE_AND_CHART_UNVERIFIED"
+        ],
+        "requiredAction": "Complete and verify the active title Wild/SMARTSOFT behavior, regular prizes, line chart and independent distribution before financial admission. Commented unrelated captions are not a title specification."
+      },
+      "independentAnalyticReturn": {
+        "numerator": "31672",
+        "denominator": "32768",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/vampires",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "reports/current74-evidence-slots-secondary/ind74_official_vampires-official-help.html",
+        "reports/current74-evidence-slots-secondary/ind74_official_vampires-journal.json",
+        "reports/current74-evidence-slots-secondary/ind74_official_vampires-official-help-en.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs",
+        "tests/active-help-gamble.test.mjs",
+        "tests/held-slot-integrity.test.mjs",
+        "tests/public-gamble.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_rollx",
+      "title": "Roll X",
+      "mathVersion": "official72-rollx-r2",
+      "family": "dice",
+      "model": "uniform-dice-v1",
+      "module": "math/games/rollx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "dice",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent dice lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "96",
+        "denominator": "100",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 20,
+        "requirement": 5,
+        "satisfied": true,
+        "remaining": 0,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/rollx",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_doublex",
+      "title": "Double X",
+      "mathVersion": "official72-doublex-r2",
+      "family": "wheel",
+      "model": "weighted-wheel-v1",
+      "module": "math/games/slicerx.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "wheel",
+        "rows": null,
+        "columns": null,
+        "steps": null,
+        "buckets": null,
+        "sectors": 8,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "Independent wheel lifecycle"
+      ],
+      "knownMissingPublicFeatures": [],
+      "unverifiedRuleInterpretations": [
+        "Reference geometry and complete title-specific transitions have not been established; an independent family engine is not evidence of reference completion."
+      ],
+      "engineeringStatus": "REFERENCE_BEHAVIOR_NOT_VERIFIED",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "951000",
+        "denominator": "1000000",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/doublex",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    },
+    {
+      "gameId": "ind74_official_samurai",
+      "title": "Samurai",
+      "mathVersion": "official72-samurai-r2",
+      "family": "slots",
+      "model": "lines-slot-v1",
+      "module": "math/games/samurai.mjs",
+      "isolatedFeatureConfigurator": false,
+      "firstBatchPriority": null,
+      "geometry": {
+        "kind": "reels",
+        "rows": 3,
+        "columns": 5,
+        "steps": null,
+        "buckets": null,
+        "sectors": null,
+        "publicGeometryVerified": false,
+        "source": "Independently authored model configuration; no complete official layout observation"
+      },
+      "implemented": [
+        "5×3 independent regular-symbol evaluator"
+      ],
+      "knownMissingPublicFeatures": [
+        "Captured Samurai Help243adjacent ways evaluator and Rolling Reels behavior are not implemented by the current payline engine"
+      ],
+      "unverifiedRuleInterpretations": [
+        "Primary-source identity conflict: the exact captured Samurai Help specifies243ways and Rolling Reels, while https://www.smartsoftgaming.com/games/samurai-deluxe has page title Samurai but specifications identify Samurai Delux with5reels/3rows,20fixed lines and10/15/20free spins. The direct /games/samurai page was inaccessible in the latest read-only check.",
+        "Resolve the exact title/launcher identity before adopting any Deluxe marketing rules. The complete trigger/bonus schedule for the captured Samurai Help remains unverified; third-party summaries are not used."
+      ],
+      "engineeringStatus": "KNOWN_PUBLIC_FEATURES_MISSING",
+      "providerPrivateMathVerified": false,
+      "completeReferenceParityVerified": false,
+      "nativeRealMoneyAdmissionReviewed": false,
+      "releaseReview": null,
+      "independentAnalyticReturn": {
+        "numerator": "31136",
+        "denominator": "32768",
+        "aboveStake": false,
+        "bound": "exact",
+        "scope": "independent model before stated rounding; not provider RTP"
+      },
+      "currentFiveOfficialDemoRounds": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "source": "tests/evidence/official-demo-observations-frontend-five20261111.json",
+        "countEvidence": []
+      },
+      "canonicalOfficialReference": {
+        "verifiedCompletedRounds": 0,
+        "requirement": 5,
+        "satisfied": false,
+        "remaining": 5,
+        "historicalCountsPreserved": true,
+        "source": "tests/evidence/official-demo-progress.json"
+      },
+      "nativeAndOperatorDemoFiveRoundProof": "Separate source-pinned ledger/DEMO reports are owned by the wallet audit; no official-demo count is inferred from them.",
+      "officialPage": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "evidenceFiles": [
+        "references/official-slot-help-en-20261111.json"
+      ],
+      "proofTests": [
+        "tests/math-official72-audit.test.mjs",
+        "tests/title-module-isolation.test.mjs",
+        "tests/official72.test.mjs"
+      ],
+      "promotionalBonusWalletLinked": false
+    }
+  ]
+}

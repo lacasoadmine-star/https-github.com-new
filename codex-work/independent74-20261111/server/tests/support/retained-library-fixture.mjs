@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -47,7 +48,7 @@ CREATE TABLE sw_rebuild.users(id text PRIMARY KEY,parent_id text,role text NOT N
 CREATE TABLE sw_rebuild.wallets(id text PRIMARY KEY,balance bigint NOT NULL CHECK(balance>=0),credit_limit bigint NOT NULL);
 CREATE TABLE sw_rebuild.transfers(id text PRIMARY KEY,sender text REFERENCES sw_rebuild.wallets(id),recipient text REFERENCES sw_rebuild.wallets(id),amount bigint NOT NULL CHECK(amount>0),kind text,actor text,notes text);
 CREATE TABLE sw_rebuild.ledger(id bigserial PRIMARY KEY,transfer_id text REFERENCES sw_rebuild.transfers(id),wallet_id text REFERENCES sw_rebuild.wallets(id),delta bigint NOT NULL);
-CREATE TABLE sw_rebuild.rounds(id text PRIMARY KEY,user_id text,game text,bet bigint,payout bigint,outcome jsonb);
+CREATE TABLE sw_rebuild.rounds(id text PRIMARY KEY,user_id text,game text,bet bigint,payout bigint,outcome jsonb,settled_order bigint GENERATED ALWAYS AS IDENTITY);
 CREATE TABLE sw_rebuild.audit(id bigserial PRIMARY KEY,actor text,event text,target text,details jsonb);
 CREATE TABLE sw_rebuild.account_limits(user_id text PRIMARY KEY,max_balance bigint);
 CREATE TABLE sw_rebuild.live_revisions(user_id text PRIMARY KEY,revision bigint NOT NULL);
@@ -103,7 +104,26 @@ export async function createRetainedLibrary74Fixture({
   const service = new LibraryService(shared, { registry: createRegistry(legacyAdapters), now, accepting, autoTimers: false, ...(seed ? { seed } : {}), ...(id ? { id } : {}) });
   // Isolated schema creation is deliberately outside installExistingLibrary74.
   await service.migrate();
-  const facade = installExistingLibrary74({ service, math, reviewedGameIds, allowNewRounds, activeTtlMs, gameLimits: Object.fromEntries(math.listGameDefinitions().map(g=>[g.id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])) });
+  // Test fixture admission context mirrors the real namespace's transaction
+  // hook. It restores accepted carry; it never supplies a fresh context on
+  // every paid spin or modifies the retained financial source files.
+  const carryContext = new AsyncLocalStorage(), previousOtherActive = service.otherActive;
+  service.otherActive = async function(tx,user) {
+    const scope = carryContext.getStore(), definition = scope?.start ? math.getGameDefinition(scope.gameId) : null;
+    if (definition?.chargingFeature && !scope.loaded) {
+      await tx.unsafe('SELECT id FROM sw_rebuild.wallets WHERE id=ANY($1::text[]) ORDER BY id FOR UPDATE', [[user,'house']]);
+      const bucket = math.chargingCarryBucket(definition,scope.stakeMinor,scope.options);
+      const rows = await tx.unsafe("SELECT l.state FROM sw_native_library.rounds l JOIN sw_rebuild.rounds r ON r.id='native-library:'||l.id::text WHERE l.user_id=$1 AND l.game_id=$2 AND l.model_version=$3 AND l.status='settled' AND l.state->'mathState'->'carryBucket'=$4::jsonb ORDER BY r.settled_order DESC LIMIT 1", [user,scope.gameId,scope.modelVersion,JSON.stringify(bucket)]);
+      if(rows.length&&!rows[0].state?.mathState?.carryAfter)throw Error('PERSISTED_FIXTURE_CARRY_INVALID');
+      scope.mathContext={bucket,priorCarry:rows.length?structuredClone(rows[0].state.mathState.carryAfter):math.emptyChargingCarry()};scope.loaded=true;
+    }
+    return previousOtherActive.call(service,tx,user);
+  };
+  const installed = installExistingLibrary74({ service, math, reviewedGameIds, allowNewRounds, activeTtlMs,
+    getStartContext:()=>carryContext.getStore()?.mathContext,
+    gameLimits: Object.fromEntries(math.listGameDefinitions().map(g=>[g.id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])) });
+  const facade = {...installed,action:(user,body)=>carryContext.run({start:body?.type==='start',gameId:body?.game_id,modelVersion:body?.model_version,
+    stakeMinor:typeof body?.stake==='string'&&/^(0|[1-9]\d*)\.\d{2}$/.test(body.stake)?BigInt(body.stake.replace('.','')).toString():null,options:body?.options??{}},()=>installed.action(user,body))};
   installCrossActiveGuards(shared, service);
   return {
     db, pglite: db, sql, shared, service, facade, fixtureUserId, addPlayer, legacyNativeDefinitions: nativeDefinitions, verifyNative, readNativeBody,

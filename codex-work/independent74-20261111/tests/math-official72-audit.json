@@ -15,7 +15,7 @@
       "wheel": 5,
       "dice": 1
     },
-    "observedGeometry": 29
+    "observedGeometry": 35
   },
   "games": [
     {
@@ -51,6 +51,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9999999999900",
           "minimumStakeMaximumPayoutMinor": "10000",
           "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
@@ -106,6 +108,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1999999999900",
           "minimumStakeMaximumPayoutMinor": "10000",
           "maximumStakeMaximumPayoutMinor": "199999999990000"
         },
@@ -113,6 +117,8 @@
           "options": {
             "mode": "medium"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1999999999900",
           "minimumStakeMaximumPayoutMinor": "25000",
           "maximumStakeMaximumPayoutMinor": "499999999975000"
         },
@@ -120,6 +126,8 @@
           "options": {
             "mode": "hard"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1999999999900",
           "minimumStakeMaximumPayoutMinor": "50000",
           "maximumStakeMaximumPayoutMinor": "999999999950000"
         }
@@ -154,6 +162,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "11111111111100",
           "minimumStakeMaximumPayoutMinor": "9000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -188,6 +198,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9090909090900",
           "minimumStakeMaximumPayoutMinor": "11000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -231,6 +243,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "99999999900",
           "minimumStakeMaximumPayoutMinor": "1000000",
           "maximumStakeMaximumPayoutMinor": "999999999000000"
         }
@@ -265,6 +279,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "6666666666600",
           "minimumStakeMaximumPayoutMinor": "15000",
           "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
@@ -299,6 +315,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19999999999900",
           "minimumStakeMaximumPayoutMinor": "5000",
           "maximumStakeMaximumPayoutMinor": "999999999995000"
         }
@@ -353,6 +371,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "595238095200",
           "minimumStakeMaximumPayoutMinor": "168000",
           "maximumStakeMaximumPayoutMinor": "999999999936000"
         }
@@ -364,7 +384,7 @@
       "id": "ind74_official_multifruitschargingwilds",
       "title": "Multi Fruits Charging Wilds",
       "family": "slots",
-      "mathVersion": "official72-multifruitschargingwilds-r3",
+      "mathVersion": "official72-multifruitschargingwilds-r5",
       "layout": {
         "source": "reports/current74-evidence-slots-remaining/ind74_official_multifruitschargingwilds-journal.json",
         "geometryVerified": true,
@@ -374,9 +394,9 @@
           "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact MultiFruitsChargingWilds Help specifies five fixed active paylines."
         ],
         "limitations": [
-          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
-          "The retained financial transaction must atomically save and restore that feature state.",
-          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+          "Carry requires trusted atomic state from the retained wallet transaction; no browser or process-local carry is accepted.",
+          "Provider line chart, prizes, normal multi-Wild aggregation and first-landing charge timing remain unverified.",
+          "ANTE5/10 uses documented costs and initial Wild guarantees with independent symbol draws and a disclosed base-stake award basis."
         ],
         "kind": "reels",
         "rows": 3,
@@ -384,25 +404,95 @@
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": true,
+        "persistentWilds": true,
+        "carryScope": [
+          "player",
+          "game",
+          "mathVersion",
+          "baseBetMinor",
+          "ante"
+        ],
         "multiplier": {
-          "placement": "none",
+          "placement": "on-wild",
           "observedValues": [],
           "implementedValues": [],
-          "calculationImplemented": false,
+          "calculationImplemented": true,
+          "scope": "per-winning-line",
+          "dynamicPayoutBound": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "224",
-        "denominator": "512",
-        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+        "verified": false,
+        "description": "Independent symbol tickets, awards, line chart, carry timing and optional fair-color gamble. No provider RTP or390x coupling is inferred."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "3500",
-          "maximumStakeMaximumPayoutMinor": "999999999999000"
+          "options": {
+            "ante": 1,
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1190476190400",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "10500",
+          "maximumStakeMaximumPayoutMinor": "124999999992000"
+        },
+        {
+          "options": {
+            "ante": 1,
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1190476190400",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "84000",
+          "maximumStakeMaximumPayoutMinor": "999999999936000"
+        },
+        {
+          "options": {
+            "ante": 5,
+            "holdWin": false
+          },
+          "minimumStakeMinor": "500",
+          "maximumStakeMinor": "1190476190000",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "52500",
+          "maximumStakeMaximumPayoutMinor": "124999999950000"
+        },
+        {
+          "options": {
+            "ante": 5,
+            "holdWin": true
+          },
+          "minimumStakeMinor": "500",
+          "maximumStakeMinor": "1190476190000",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "420000",
+          "maximumStakeMaximumPayoutMinor": "999999999600000"
+        },
+        {
+          "options": {
+            "ante": 10,
+            "holdWin": false
+          },
+          "minimumStakeMinor": "1000",
+          "maximumStakeMinor": "1190476190000",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "105000",
+          "maximumStakeMaximumPayoutMinor": "124999999950000"
+        },
+        {
+          "options": {
+            "ante": 10,
+            "holdWin": true
+          },
+          "minimumStakeMinor": "1000",
+          "maximumStakeMinor": "1190476190000",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "840000",
+          "maximumStakeMaximumPayoutMinor": "999999999600000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -412,7 +502,7 @@
       "id": "ind74_official_gemscrownchargingwilds",
       "title": "Gems Crown Charging Wilds",
       "family": "slots",
-      "mathVersion": "official72-gemscrownchargingwilds-r4",
+      "mathVersion": "official72-gemscrownchargingwilds-r6",
       "layout": {
         "source": "reports/current74-evidence-slots-remaining/ind74_official_gemscrownchargingwilds-journal.json",
         "geometryVerified": true,
@@ -422,9 +512,9 @@
           "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact GemsCrownChargingWilds Help specifies five fixed active paylines."
         ],
         "limitations": [
-          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
-          "The retained financial transaction must atomically save and restore that feature state.",
-          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+          "Carry requires trusted atomic state from the retained wallet transaction; no browser or process-local carry is accepted.",
+          "Provider line chart, prizes, normal multi-Wild aggregation and first-landing charge timing remain unverified.",
+          "This title Help does not document ANTE5/10. Only ordinary saved charging Wilds are implemented; another title is not used as proof of its purchase controls."
         ],
         "kind": "reels",
         "rows": 3,
@@ -432,25 +522,51 @@
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": true,
+        "persistentWilds": true,
+        "carryScope": [
+          "player",
+          "game",
+          "mathVersion",
+          "baseBetMinor",
+          "ante"
+        ],
         "multiplier": {
-          "placement": "none",
+          "placement": "on-wild",
           "observedValues": [],
           "implementedValues": [],
-          "calculationImplemented": false,
+          "calculationImplemented": true,
+          "scope": "per-winning-line",
+          "dynamicPayoutBound": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "232",
-        "denominator": "512",
-        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+        "verified": false,
+        "description": "Independent symbol tickets, awards, line chart, carry timing and optional fair-color gamble. No provider RTP or390x coupling is inferred."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "3600",
-          "maximumStakeMaximumPayoutMinor": "999999999997200"
+          "options": {
+            "ante": 1,
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1157407407400",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "10800",
+          "maximumStakeMaximumPayoutMinor": "124999999999200"
+        },
+        {
+          "options": {
+            "ante": 1,
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "1157407407400",
+          "payoutBoundScope": "fresh-carry-only",
+          "minimumStakeMaximumPayoutMinor": "86400",
+          "maximumStakeMaximumPayoutMinor": "999999999993600"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -460,41 +576,115 @@
       "id": "ind74_official_gatesofmerlyn",
       "title": "Gates of Merlyn",
       "family": "slots",
-      "mathVersion": "official72-gatesofmerlyn-r2",
+      "mathVersion": "official72-gatesofmerlyn-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-initial.png; reports/priority10-reference-20261111/gates-paytable-upper.jpg; reports/priority10-reference-20261111/gates-paytable-lower.jpg; references/official-slot-help-en-20261111.json:help.slots.gatesofmerlyn",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        "observedFacts": [
+          "The saved official DEMO screenshot shows6columns and5rows. Exact title Help says equal symbols pay anywhere, with no paylines, tumbling wins, multiplier symbols, MAGIC and triggered or purchased free spins."
         ],
-        "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 20,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "limitations": [
+          "Fresh rendered paytables verify8–9/10–11/12+regular awards and4/5/6+Scatter awards. Provider probabilities remain unverified.",
+          "MAGIC targeting, scatter/multiplier ordering, cap settlement and processing guarantee are explicitly independent interpretations.",
+          "Rendered references do not establish complete artwork/audio or certified provider mathematics."
+        ],
+        "kind": "cascade-grid",
+        "rows": 5,
+        "columns": 6,
+        "paylines": 0,
+        "paylineCountVerified": true,
+        "paylinesVerified": true,
+        "minimumMatchingSymbols": 8,
+        "minimumMatchingSymbolsVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "on-grid",
+          "observedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            15,
+            20,
+            30,
+            40,
+            50,
+            100,
+            250,
+            500
+          ],
+          "implementedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            15,
+            20,
+            30,
+            40,
+            50,
+            100,
+            250,
+            500
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
-        }
+        },
+        "maximumMultiplierBps": 50000000,
+        "maximumBoards": 256
       },
       "independentReturn": {
-        "numerator": "31200",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Count/scatter prizes follow the rendered public paytable. Symbol tickets, multiplier frequencies and processing guarantee remain independently authored; provider RTP is not reproduced or claimed."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "131700",
-          "maximumStakeMaximumPayoutMinor": "999999999904200"
+          "options": {
+            "mode": "base"
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "199999999900",
+          "minimumStakeMaximumPayoutMinor": "500000",
+          "maximumStakeMaximumPayoutMinor": "999999999500000"
+        },
+        {
+          "options": {
+            "mode": "ante"
+          },
+          "minimumStakeMinor": "300",
+          "maximumStakeMinor": "199999999800",
+          "minimumStakeMaximumPayoutMinor": "1000000",
+          "maximumStakeMaximumPayoutMinor": "666666666000000"
+        },
+        {
+          "options": {
+            "mode": "buy100"
+          },
+          "minimumStakeMinor": "10000",
+          "maximumStakeMinor": "199999990000",
+          "minimumStakeMaximumPayoutMinor": "500000",
+          "maximumStakeMaximumPayoutMinor": "9999999500000"
+        },
+        {
+          "options": {
+            "mode": "buy500"
+          },
+          "minimumStakeMinor": "50000",
+          "maximumStakeMinor": "199999950000",
+          "minimumStakeMaximumPayoutMinor": "500000",
+          "maximumStakeMaximumPayoutMinor": "1999999500000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -534,6 +724,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9009009009000",
           "minimumStakeMaximumPayoutMinor": "11100",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -545,7 +737,7 @@
       "id": "ind74_official_dicejungle",
       "title": "Dice Jungle",
       "family": "slots",
-      "mathVersion": "official72-dicejungle-r2",
+      "mathVersion": "official72-dicejungle-r4",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/dice-jungle",
         "geometryVerified": true,
@@ -564,24 +756,39 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "top-horizontal",
           "observedValues": [],
           "implementedValues": [],
           "calculationImplemented": false,
           "completeLabelsVerified": false,
+          "documentedValues": [],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.dicejungle.multiplier.reel.description",
+          "selectionTiming": "before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31216",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "89541547200",
           "minimumStakeMaximumPayoutMinor": "139600",
-          "maximumStakeMaximumPayoutMinor": "999999999967200"
+          "maximumStakeMaximumPayoutMinor": "124999999891200"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "89541547200",
+          "minimumStakeMaximumPayoutMinor": "1116800",
+          "maximumStakeMaximumPayoutMinor": "999999999129600"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -642,6 +849,8 @@
           "options": {
             "holdWin": false
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "249999999900",
           "minimumStakeMaximumPayoutMinor": "50000",
           "maximumStakeMaximumPayoutMinor": "124999999950000"
         },
@@ -649,6 +858,8 @@
           "options": {
             "holdWin": true
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "249999999900",
           "minimumStakeMaximumPayoutMinor": "400000",
           "maximumStakeMaximumPayoutMinor": "999999999600000"
         }
@@ -690,6 +901,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "8771929824500",
           "minimumStakeMaximumPayoutMinor": "11400",
           "maximumStakeMaximumPayoutMinor": "999999999993000"
         }
@@ -724,6 +937,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19267822736000",
           "minimumStakeMaximumPayoutMinor": "5190",
           "maximumStakeMaximumPayoutMinor": "999999999998400"
         }
@@ -735,43 +950,67 @@
       "id": "ind74_official_multihot20",
       "title": "Multi Hot 20",
       "family": "slots",
-      "mathVersion": "official72-multihot20-r2",
+      "mathVersion": "official72-multihot20-r4",
       "layout": {
-        "source": "https://www.smartsoftgaming.com/games/multi-hot-20",
+        "source": "reports/current74-evidence-slots/ind74_official_multihot20-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official public page specifies 5 reels and 3 rows."
+          "The official DEMO screenshot shows5columns and3rows with a top semicircular multiplier arc: selected2x,5x to the left and4x to the right. Exact title Help separately documents values1x through5x."
         ],
         "limitations": [
-          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+          "Help describes a left-side reel, while the observed desktop display places the multiplier above the board.",
+          "The complete arc label order, provider probabilities and payline chart remain unverified."
         ],
         "kind": "reels",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
         "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "placement": "top-arc",
+          "observedValues": [
+            2,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31440",
-        "denominator": "32768",
+        "numerator": "198600",
+        "denominator": "163840",
         "rounding": "Before per-line minor-unit flooring."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "134000",
-          "maximumStakeMaximumPayoutMinor": "999999999978000"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "12499999900",
+          "minimumStakeMaximumPayoutMinor": "1000000",
+          "maximumStakeMaximumPayoutMinor": "124999999000000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "12499999900",
+          "minimumStakeMaximumPayoutMinor": "8000000",
+          "maximumStakeMaximumPayoutMinor": "999999992000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -811,6 +1050,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "8547008547000",
           "minimumStakeMaximumPayoutMinor": "11700",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -822,17 +1063,18 @@
       "id": "ind74_official_multihot10",
       "title": "Multi Hot 10",
       "family": "slots",
-      "mathVersion": "official72-multihot10-r2",
+      "mathVersion": "official72-multihot10-r4",
       "layout": {
-        "source": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official public page specifies 5 reels and 3 rows with 10 fixed paylines."
+          "The official DEMO screenshot shows5columns and3rows with a top semicircular multiplier arc: selected2x,5x to the left and4x to the right. Exact title Help separately documents values1x through5x."
         ],
         "limitations": [
-          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+          "Help describes a left-side reel, while the observed desktop display places the multiplier above the board.",
+          "The complete arc label order, provider probabilities and payline chart remain unverified."
         ],
         "kind": "reels",
         "rows": 3,
@@ -841,24 +1083,47 @@
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "placement": "top-arc",
+          "observedValues": [
+            2,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31264",
-        "denominator": "32768",
+        "numerator": "162600",
+        "denominator": "163840",
         "rounding": "Before per-line minor-unit flooring."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "150700",
-          "maximumStakeMaximumPayoutMinor": "999999999946200"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "24999999900",
+          "minimumStakeMaximumPayoutMinor": "500000",
+          "maximumStakeMaximumPayoutMinor": "124999999500000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "24999999900",
+          "minimumStakeMaximumPayoutMinor": "4000000",
+          "maximumStakeMaximumPayoutMinor": "999999996000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -868,7 +1133,7 @@
       "id": "ind74_official_multihot40",
       "title": "Multi Hot 40",
       "family": "slots",
-      "mathVersion": "official72-multihot40-r2",
+      "mathVersion": "official72-multihot40-r3",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/multi-hot-40; official demo browser observation on 2026-11-11",
         "geometryVerified": true,
@@ -894,22 +1159,41 @@
             4,
             5
           ],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31272",
-        "denominator": "32768",
+        "numerator": "469080",
+        "denominator": "163840",
         "rounding": "Before per-line minor-unit flooring."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "140280",
-          "maximumStakeMaximumPayoutMinor": "999999999984680"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "17818959300",
+          "minimumStakeMaximumPayoutMinor": "701400",
+          "maximumStakeMaximumPayoutMinor": "124999999489400"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "17818959300",
+          "minimumStakeMaximumPayoutMinor": "5611200",
+          "maximumStakeMaximumPayoutMinor": "999999995915200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -919,18 +1203,19 @@
       "id": "ind74_official_coinsofatlantis",
       "title": "Coins Of Atlantis",
       "family": "slots",
-      "mathVersion": "official72-coinsofatlantis-r4",
+      "mathVersion": "official72-coinsofatlantis-r5",
       "layout": {
         "source": "reports/current74-evidence-slots-remaining/ind74_official_coinsofatlantis-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official DEMO initial screen directly shows five columns and four rows, including coin and wild symbols. The regular/+1/MINI/MAJOR respin subset follows separate English Help documents."
+          "The official DEMO initial screen shows5columns and4rows. Exact Help documents regular/+1/MINI/MAJOR coins, MEGA pairs, GRAND triples, full-boardX2, ANTE+50% and60xBuy Respin."
         ],
         "limitations": [
           "The exact provider line chart and count remain unverified.",
-          "MEGA/GRAND jackpot grouping, buy/ANTE features, provider probabilities and base/feature ordering remain unimplemented or unverified."
+          "Additional jackpot groups beyond the first pair/triple, provider probabilities, base/feature ordering and purchase maximum coupling are independently interpreted and remain unverified.",
+          "The public2500x maximum is an explicit operator round cap; no provider reel restrictions are inferred."
         ],
         "kind": "reels",
         "rows": 4,
@@ -953,9 +1238,31 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "329900",
-          "maximumStakeMaximumPayoutMinor": "999999999901800"
+          "options": {
+            "mode": "base"
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "399999999900",
+          "minimumStakeMaximumPayoutMinor": "250000",
+          "maximumStakeMaximumPayoutMinor": "999999999750000"
+        },
+        {
+          "options": {
+            "mode": "ante"
+          },
+          "minimumStakeMinor": "300",
+          "maximumStakeMinor": "399999999900",
+          "minimumStakeMaximumPayoutMinor": "500000",
+          "maximumStakeMaximumPayoutMinor": "666666666500000"
+        },
+        {
+          "options": {
+            "mode": "buy60"
+          },
+          "minimumStakeMinor": "6000",
+          "maximumStakeMinor": "399999996000",
+          "minimumStakeMaximumPayoutMinor": "250000",
+          "maximumStakeMaximumPayoutMinor": "16666666500000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1015,6 +1322,8 @@
           "options": {
             "holdWin": false
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
           "minimumStakeMaximumPayoutMinor": "250000",
           "maximumStakeMaximumPayoutMinor": "124999999750000"
         },
@@ -1022,6 +1331,8 @@
           "options": {
             "holdWin": true
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
           "minimumStakeMaximumPayoutMinor": "2000000",
           "maximumStakeMaximumPayoutMinor": "999999998000000"
         }
@@ -1033,7 +1344,7 @@
       "id": "ind74_official_multihotwildways",
       "title": "Multi Hot Wild Ways",
       "family": "slots",
-      "mathVersion": "official72-multihotwildways-r3",
+      "mathVersion": "official72-multihotwildways-r4",
       "layout": {
         "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotwildways-journal.json",
         "geometryVerified": true,
@@ -1081,9 +1392,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "609756097500",
           "minimumStakeMaximumPayoutMinor": "20385",
-          "maximumStakeMaximumPayoutMinor": "999999999981990"
+          "maximumStakeMaximumPayoutMinor": "124999999987455"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "609756097500",
+          "minimumStakeMaximumPayoutMinor": "163080",
+          "maximumStakeMaximumPayoutMinor": "999999999899640"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1123,6 +1447,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "8130081300800",
           "minimumStakeMaximumPayoutMinor": "12300",
           "maximumStakeMaximumPayoutMinor": "999999999998400"
         }
@@ -1134,14 +1460,14 @@
       "id": "ind74_official_multihot5burnwilds",
       "title": "Multi Hot 5 Burn Wilds",
       "family": "slots",
-      "mathVersion": "official72-multihot5burnwilds-r4",
+      "mathVersion": "official72-multihot5burnwilds-r5",
       "layout": {
-        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds; reports/current74-evidence-slots/ind74_official_multihot5burnwilds-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official public page specifies three rows, five reels and five paylines. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier."
+          "The official public page specifies three rows, five reels and five paylines. The saved official DEMO screenshot confirms the multiplier on a top semicircular arc. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier."
         ],
         "limitations": [
           "Full provider paytable, probabilities and repeated expansion order remain unverified.",
@@ -1154,7 +1480,7 @@
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "independent-display",
+          "placement": "top-arc",
           "observedValues": [
             1,
             2,
@@ -1183,6 +1509,8 @@
           "options": {
             "holdWin": false
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
           "minimumStakeMaximumPayoutMinor": "250000",
           "maximumStakeMaximumPayoutMinor": "124999999750000"
         },
@@ -1190,6 +1518,8 @@
           "options": {
             "holdWin": true
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
           "minimumStakeMaximumPayoutMinor": "2000000",
           "maximumStakeMaximumPayoutMinor": "999999998000000"
         }
@@ -1201,7 +1531,7 @@
       "id": "ind74_official_chickenhighway",
       "title": "Chicken Highway",
       "family": "ladder",
-      "mathVersion": "official72-chickenhighway-r3",
+      "mathVersion": "official72-chickenhighway-r4",
       "layout": {
         "source": "reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json",
         "geometryVerified": true,
@@ -1212,7 +1542,8 @@
         ],
         "limitations": [
           "The directly played first EASY crossing does not prove all future lane outcomes or other difficulties.",
-          "Provider survival probabilities, full visual/audio parity, native autoplay and8second-disconnection cashout remain unverified or unimplemented."
+          "Provider survival probabilities, exact native autoplay presentation and full visual/audio parity remain unverified.",
+          "The authenticated server presence lease implements cashout after more than8seconds without accepted contact. This independent connection protocol and its recovery limits are described in connectionPolicy."
         ],
         "kind": "ladder",
         "steps": 25,
@@ -1245,6 +1576,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "99999999900",
           "minimumStakeMaximumPayoutMinor": "2000",
           "maximumStakeMaximumPayoutMinor": "1999999998000"
         },
@@ -1252,6 +1585,8 @@
           "options": {
             "mode": "medium"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "99999999900",
           "minimumStakeMaximumPayoutMinor": "100000",
           "maximumStakeMaximumPayoutMinor": "99999999900000"
         },
@@ -1259,6 +1594,8 @@
           "options": {
             "mode": "hard"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "99999999900",
           "minimumStakeMaximumPayoutMinor": "1000000",
           "maximumStakeMaximumPayoutMinor": "999999999000000"
         }
@@ -1270,7 +1607,7 @@
       "id": "ind74_official_multihot5deluxe",
       "title": "Multi Hot 5 Deluxe",
       "family": "slots",
-      "mathVersion": "official72-multihot5deluxe-r3",
+      "mathVersion": "official72-multihot5deluxe-r4",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
         "geometryVerified": true,
@@ -1304,9 +1641,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "3378378378300",
           "minimumStakeMaximumPayoutMinor": "3700",
-          "maximumStakeMaximumPayoutMinor": "999999999999000"
+          "maximumStakeMaximumPayoutMinor": "124999999997100"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "3378378378300",
+          "minimumStakeMaximumPayoutMinor": "29600",
+          "maximumStakeMaximumPayoutMinor": "999999999976800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1339,6 +1689,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9090909090900",
           "minimumStakeMaximumPayoutMinor": "11000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -1380,6 +1732,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "7812499999900",
           "minimumStakeMaximumPayoutMinor": "12800",
           "maximumStakeMaximumPayoutMinor": "999999999987200"
         }
@@ -1414,6 +1768,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19033117624600",
           "minimumStakeMaximumPayoutMinor": "5254",
           "maximumStakeMaximumPayoutMinor": "999999999996484"
         }
@@ -1425,15 +1781,18 @@
       "id": "ind74_official_jinglebellbonanza",
       "title": "Jingle Bell Bonanza",
       "family": "slots",
-      "mathVersion": "official72-jinglebellbonanza-r3",
+      "mathVersion": "official72-jinglebellbonanza-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official DEMO screenshot shows5columns and3rows with a multiplier arc above the board,5x selected at the center,1x on the left and2x on the right."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The complete arc label order, provider probabilities, scatter awards and full bonus behavior remain unverified.",
+          "The regular wild expansion,1x–5x multiplier and optional X2 lifecycle use independently authored probabilities."
         ],
         "kind": "reels",
         "rows": 3,
@@ -1442,8 +1801,12 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "independent-display",
-          "observedValues": [],
+          "placement": "top-arc",
+          "observedValues": [
+            1,
+            2,
+            5
+          ],
           "implementedValues": [
             1,
             2,
@@ -1462,9 +1825,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19516003100",
           "minimumStakeMaximumPayoutMinor": "640500",
-          "maximumStakeMaximumPayoutMinor": "999999999484500"
+          "maximumStakeMaximumPayoutMinor": "124999999855500"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19516003100",
+          "minimumStakeMaximumPayoutMinor": "5124000",
+          "maximumStakeMaximumPayoutMinor": "999999998844000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1474,7 +1850,7 @@
       "id": "ind74_official_multihot5superwilds",
       "title": "Multi Hot 5 Super Wilds",
       "family": "slots",
-      "mathVersion": "official72-multihot5superwilds-r2",
+      "mathVersion": "official72-multihot5superwilds-r3",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
         "geometryVerified": true,
@@ -1508,8 +1884,21 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "106202209000",
           "minimumStakeMaximumPayoutMinor": "117700",
+          "maximumStakeMaximumPayoutMinor": "124999999993000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "106202209000",
+          "minimumStakeMaximumPayoutMinor": "941600",
           "maximumStakeMaximumPayoutMinor": "999999999944000"
         }
       ],
@@ -1550,6 +1939,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "7575757575700",
           "minimumStakeMaximumPayoutMinor": "13200",
           "maximumStakeMaximumPayoutMinor": "999999999992400"
         }
@@ -1595,6 +1986,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "99999999900",
           "minimumStakeMaximumPayoutMinor": "20000",
           "maximumStakeMaximumPayoutMinor": "19999999980000"
         }
@@ -1629,6 +2022,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "7692307692300",
           "minimumStakeMaximumPayoutMinor": "13000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -1640,7 +2035,7 @@
       "id": "ind74_official_safarisimba",
       "title": "Safari Simba",
       "family": "slots",
-      "mathVersion": "official72-safarisimba-r3",
+      "mathVersion": "official72-safarisimba-r4",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/safari-simba-2",
         "geometryVerified": true,
@@ -1674,9 +2069,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "3205128205100",
           "minimumStakeMaximumPayoutMinor": "3900",
-          "maximumStakeMaximumPayoutMinor": "999999999999000"
+          "maximumStakeMaximumPayoutMinor": "124999999998900"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "3205128205100",
+          "minimumStakeMaximumPayoutMinor": "31200",
+          "maximumStakeMaximumPayoutMinor": "999999999991200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1729,6 +2137,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9999999999900",
           "minimumStakeMaximumPayoutMinor": "10000",
           "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
@@ -1740,7 +2150,7 @@
       "id": "ind74_official_multihotways",
       "title": "Multi Hot Ways",
       "family": "slots",
-      "mathVersion": "official72-multihotways-r3",
+      "mathVersion": "official72-multihotways-r4",
       "layout": {
         "source": "reports/current74-evidence-slots-remaining/ind74_official_multihotways-journal.json",
         "geometryVerified": true,
@@ -1751,7 +2161,7 @@
         ],
         "limitations": [
           "Provider LinePlay1 is a betting field, not a payline count.",
-          "Conditional same-symbol x2 and separate red/black X2 Gamble remain unimplemented.",
+          "Conditional same-symbol x2 remains unimplemented. Separate red/black X2 uses independent fair colors and a disclosed three-attempt limit.",
           "The provider award basis, symbol prizes and probabilities remain unverified; no Wild substitution is inferred from a different title."
         ],
         "kind": "reels",
@@ -1790,9 +2200,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "609756097500",
           "minimumStakeMaximumPayoutMinor": "20385",
-          "maximumStakeMaximumPayoutMinor": "999999999981990"
+          "maximumStakeMaximumPayoutMinor": "124999999987455"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "609756097500",
+          "minimumStakeMaximumPayoutMinor": "163080",
+          "maximumStakeMaximumPayoutMinor": "999999999899640"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1825,6 +2248,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9090909090900",
           "minimumStakeMaximumPayoutMinor": "11000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -1871,6 +2296,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "622277535700",
           "minimumStakeMaximumPayoutMinor": "160680",
           "maximumStakeMaximumPayoutMinor": "999999999869880"
         }
@@ -1882,15 +2309,19 @@
       "id": "ind74_official_mariachicoins",
       "title": "Mariachi Coins",
       "family": "slots",
-      "mathVersion": "official72-mariachicoins-r2",
+      "mathVersion": "official72-mariachicoins-r3",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png; references/official-slot-help-en-20261111.json:help.slots.mariachicoins",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The saved official DEMO screenshot shows5columns and3rows, collector/coin presentation and a four-jackpot panel. Exact Help documents edge collectors, middle coins and3resettable Hold&Win respins."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The complete provider line chart and regular-symbol prizes remain unverified.",
+          "Collector timing, final coin-plus-collector aggregation and pre-expansion trigger order are explicitly independent interpretations.",
+          "A rendered1.00DMO Buy Respin quote at0.05DMO is observed, but universal price scaling and enriched-spin behavior are not proven; purchase remains unavailable."
         ],
         "kind": "reels",
         "rows": 3,
@@ -1908,15 +2339,27 @@
         }
       },
       "independentReturn": {
-        "numerator": "31456",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "150300",
-          "maximumStakeMaximumPayoutMinor": "999999999883800"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
+          "minimumStakeMaximumPayoutMinor": "250000",
+          "maximumStakeMaximumPayoutMinor": "124999999750000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
+          "minimumStakeMaximumPayoutMinor": "2000000",
+          "maximumStakeMaximumPayoutMinor": "999999998000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1961,6 +2404,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "26315789473600",
           "minimumStakeMaximumPayoutMinor": "3800",
           "maximumStakeMaximumPayoutMinor": "999999999996800"
         }
@@ -2000,6 +2445,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "4846839860400",
           "minimumStakeMaximumPayoutMinor": "20632",
           "maximumStakeMaximumPayoutMinor": "999999999997728"
         }
@@ -2034,6 +2481,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "9090909090900",
           "minimumStakeMaximumPayoutMinor": "11000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -2080,6 +2529,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "919963201400",
           "minimumStakeMaximumPayoutMinor": "108700",
           "maximumStakeMaximumPayoutMinor": "999999999921800"
         }
@@ -2114,6 +2565,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "6666666666600",
           "minimumStakeMaximumPayoutMinor": "15000",
           "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
@@ -2159,6 +2612,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "833333333300",
           "minimumStakeMaximumPayoutMinor": "300",
           "maximumStakeMaximumPayoutMinor": "2499999999900"
         }
@@ -2203,6 +2658,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "662251655600",
           "minimumStakeMaximumPayoutMinor": "151000",
           "maximumStakeMaximumPayoutMinor": "999999999956000"
         }
@@ -2237,6 +2694,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "11111111111100",
           "minimumStakeMaximumPayoutMinor": "9000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -2248,41 +2707,104 @@
       "id": "ind74_official_geniesbonanza",
       "title": "Genie's Bonanza",
       "family": "slots",
-      "mathVersion": "official72-geniesbonanza-r2",
+      "mathVersion": "official72-geniesbonanza-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png; reports/priority10-reference-20261111/genie-paytable.jpg; tests/evidence/official-demo-observations-frontend-five20261111.json; references/official-slot-help-en-20261111.json:help.slots.geniesbonanza",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        "observedFacts": [
+          "The official screenshot shows6columns and5rows; completed result records cross-check30symbols. Exact Help specifies count-anywhere tumbles,10free spins,+5retrigger and bonus-only multipliers."
         ],
-        "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 25,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "limitations": [
+          "Fresh rendered Help verifies8–9/10–11/12+regular prizes and4+Scatter5x. Carpet frequencies, probabilities and scatter/multiplier ordering remain independent or unverified.",
+          "B+25%surcharge,100-Scatter progress and paid Risk mechanics remain unimplemented and their options are rejected."
+        ],
+        "kind": "cascade-grid",
+        "rows": 5,
+        "columns": 6,
+        "paylines": 0,
+        "paylineCountVerified": true,
+        "paylinesVerified": true,
+        "minimumMatchingSymbols": 8,
+        "minimumMatchingSymbolsVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "on-grid",
+          "observedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            12,
+            15,
+            18,
+            20,
+            25,
+            30,
+            40,
+            50,
+            60,
+            80,
+            90,
+            100
+          ],
+          "implementedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            12,
+            15,
+            18,
+            20,
+            25,
+            30,
+            40,
+            50,
+            60,
+            80,
+            90,
+            100
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
-        }
+        },
+        "maximumMultiplierBps": 30000000,
+        "maximumBoards": 256
       },
       "independentReturn": {
-        "numerator": "31528",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Count and Scatter prizes follow the fresh rendered public table. Cell tickets, Carpet draws, feature ordering and processing guarantee remain independent; not the provider RTP."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "130200",
-          "maximumStakeMaximumPayoutMinor": "999999999940200"
+          "options": {
+            "mode": "base"
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "333333333300",
+          "minimumStakeMaximumPayoutMinor": "300000",
+          "maximumStakeMaximumPayoutMinor": "999999999900000"
+        },
+        {
+          "options": {
+            "mode": "buy100"
+          },
+          "minimumStakeMinor": "10000",
+          "maximumStakeMinor": "333333330000",
+          "minimumStakeMaximumPayoutMinor": "300000",
+          "maximumStakeMaximumPayoutMinor": "9999999900000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2315,6 +2837,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19600156801200",
           "minimumStakeMaximumPayoutMinor": "5102",
           "maximumStakeMaximumPayoutMinor": "999999999997224"
         }
@@ -2326,7 +2850,7 @@
       "id": "ind74_official_farmsfortune",
       "title": "Farm's Fortune",
       "family": "slots",
-      "mathVersion": "official72-farmsfortune-r3",
+      "mathVersion": "official72-farmsfortune-r4",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2343,7 +2867,7 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "independent-display",
+          "placement": "unverified",
           "observedValues": [],
           "implementedValues": [
             1,
@@ -2354,6 +2878,9 @@
           ],
           "calculationImplemented": true,
           "completeLabelsVerified": false,
+          "documentedValues": [],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.farmsfortune.multiplier.reel.description",
+          "selectionTiming": "before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       },
@@ -2363,9 +2890,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "18102824000",
           "minimumStakeMaximumPayoutMinor": "690500",
-          "maximumStakeMaximumPayoutMinor": "999999999831500"
+          "maximumStakeMaximumPayoutMinor": "124999999720000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "18102824000",
+          "minimumStakeMaximumPayoutMinor": "5524000",
+          "maximumStakeMaximumPayoutMinor": "999999997760000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2410,6 +2950,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "783085356300",
           "minimumStakeMaximumPayoutMinor": "127700",
           "maximumStakeMaximumPayoutMinor": "999999999995100"
         }
@@ -2444,6 +2986,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "14285714285700",
           "minimumStakeMaximumPayoutMinor": "7000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -2478,6 +3022,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "11111111111100",
           "minimumStakeMaximumPayoutMinor": "9000",
           "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
@@ -2519,6 +3065,8 @@
           "options": {
             "mode": "easy"
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "6369426751500",
           "minimumStakeMaximumPayoutMinor": "15700",
           "maximumStakeMaximumPayoutMinor": "999999999985500"
         }
@@ -2530,7 +3078,7 @@
       "id": "ind74_official_hotsamba",
       "title": "Hot Samba",
       "family": "slots",
-      "mathVersion": "official72-hotsamba-r2",
+      "mathVersion": "official72-hotsamba-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2547,24 +3095,52 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "left-reel",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "documentedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.hotsamba.multiplier.reel.description",
+          "selectionTiming": "operator-before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31584",
-        "denominator": "32768",
+        "numerator": "473760",
+        "denominator": "163840",
         "rounding": "Before per-line minor-unit flooring."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "130900",
-          "maximumStakeMaximumPayoutMinor": "999999999983600"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19098548500",
+          "minimumStakeMaximumPayoutMinor": "654500",
+          "maximumStakeMaximumPayoutMinor": "124999999932500"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19098548500",
+          "minimumStakeMaximumPayoutMinor": "5236000",
+          "maximumStakeMaximumPayoutMinor": "999999999460000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2607,6 +3183,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "670241286800",
           "minimumStakeMaximumPayoutMinor": "149200",
           "maximumStakeMaximumPayoutMinor": "999999999905600"
         }
@@ -2618,7 +3196,7 @@
       "id": "ind74_official_baoslot5x",
       "title": "Bao Slot 5X",
       "family": "slots",
-      "mathVersion": "official72-baoslot5x-r3",
+      "mathVersion": "official72-baoslot5x-r4",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/bao-slot-5x",
         "geometryVerified": true,
@@ -2637,24 +3215,52 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "left-reel",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "documentedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.baoslot5x.multiplier.reel.description",
+          "selectionTiming": "operator-before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "256",
-        "denominator": "512",
+        "numerator": "3840",
+        "denominator": "2560",
         "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "3900",
-          "maximumStakeMaximumPayoutMinor": "999999999999000"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "641025641000",
+          "minimumStakeMaximumPayoutMinor": "19500",
+          "maximumStakeMaximumPayoutMinor": "124999999995000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "641025641000",
+          "minimumStakeMaximumPayoutMinor": "156000",
+          "maximumStakeMaximumPayoutMinor": "999999999960000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2664,7 +3270,7 @@
       "id": "ind74_official_junglesisters",
       "title": "Jungle Sisters",
       "family": "slots",
-      "mathVersion": "official72-junglesisters-r2",
+      "mathVersion": "official72-junglesisters-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2677,28 +3283,46 @@
         "kind": "reels",
         "rows": 3,
         "columns": 5,
-        "paylines": 10,
+        "paylines": 20,
         "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31608",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent regular prizes, tickets, multiplier selection and Scatter award basis; provider RTP is not reproduced."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "128400",
-          "maximumStakeMaximumPayoutMinor": "999999999901200"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "83333333300",
+          "minimumStakeMaximumPayoutMinor": "150000",
+          "maximumStakeMaximumPayoutMinor": "124999999950000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "83333333300",
+          "minimumStakeMaximumPayoutMinor": "1200000",
+          "maximumStakeMaximumPayoutMinor": "999999999600000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2741,6 +3365,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "847457627100",
           "minimumStakeMaximumPayoutMinor": "118000",
           "maximumStakeMaximumPayoutMinor": "999999999978000"
         }
@@ -2752,7 +3378,7 @@
       "id": "ind74_official_junglesistersdeluxe",
       "title": "Jungle Sisters Deluxe",
       "family": "slots",
-      "mathVersion": "official72-junglesistersdeluxe-r3",
+      "mathVersion": "official72-junglesistersdeluxe-r4",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2769,24 +3395,43 @@
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            10
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31624",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent regular prizes, tickets, multiplier selection and Scatter award basis; provider RTP is not reproduced."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "107600",
-          "maximumStakeMaximumPayoutMinor": "999999999957200"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
+          "minimumStakeMaximumPayoutMinor": "250000",
+          "maximumStakeMaximumPayoutMinor": "124999999750000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "49999999900",
+          "minimumStakeMaximumPayoutMinor": "2000000",
+          "maximumStakeMaximumPayoutMinor": "999999998000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2796,7 +3441,7 @@
       "id": "ind74_official_dragonscode",
       "title": "Dragon's Code",
       "family": "slots",
-      "mathVersion": "official72-dragonscode-r3",
+      "mathVersion": "official72-dragonscode-r4",
       "layout": {
         "source": "reports/current74-evidence-slots-secondary/ind74_official_dragonscode-initial.png",
         "geometryVerified": true,
@@ -2807,7 +3452,7 @@
         ],
         "limitations": [
           "The full provider payline chart and symbol prizes are not established.",
-          "Multiplier, Wild, Golden Egg, respin, buy feature and Gamble remain unimplemented by this regular-symbol fallback.",
+          "Wild, Golden Egg, respin and buy feature remain unimplemented. The1x–5x regular multiplier and X2 use independent probabilities and a disclosed three-attempt gamble limit.",
           "Geometry is observed; provider probabilities and complete audiovisual/feature equivalence are unverified."
         ],
         "kind": "reels",
@@ -2823,22 +3468,41 @@
             2,
             5
           ],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31632",
-        "denominator": "32768",
+        "numerator": "474480",
+        "denominator": "163840",
         "rounding": "Before per-line minor-unit flooring."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "142000",
-          "maximumStakeMaximumPayoutMinor": "999999999982000"
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "17605633800",
+          "minimumStakeMaximumPayoutMinor": "710000",
+          "maximumStakeMaximumPayoutMinor": "124999999980000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "17605633800",
+          "minimumStakeMaximumPayoutMinor": "5680000",
+          "maximumStakeMaximumPayoutMinor": "999999999840000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2848,7 +3512,7 @@
       "id": "ind74_official_draculasfortune",
       "title": "Dracula's Fortune",
       "family": "slots",
-      "mathVersion": "official72-draculasfortune-r2",
+      "mathVersion": "official72-draculasfortune-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2865,24 +3529,39 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "unverified",
           "observedValues": [],
           "implementedValues": [],
           "calculationImplemented": false,
           "completeLabelsVerified": false,
+          "documentedValues": [],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.draculasfortune.multiplier.reel.description",
+          "selectionTiming": "before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       },
       "independentReturn": {
-        "numerator": "31640",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Independent wild-bearing model; aggregate return is not certified or inferred from the provider."
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "77978789700",
           "minimumStakeMaximumPayoutMinor": "160300",
-          "maximumStakeMaximumPayoutMinor": "999999999914300"
+          "maximumStakeMaximumPayoutMinor": "124999999889100"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "77978789700",
+          "minimumStakeMaximumPayoutMinor": "1282400",
+          "maximumStakeMaximumPayoutMinor": "999999999112800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2892,7 +3571,7 @@
       "id": "ind74_official_bookoffuturia",
       "title": "Book of Futuria",
       "family": "slots",
-      "mathVersion": "official72-bookoffuturia-r2",
+      "mathVersion": "official72-bookoffuturia-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -2924,9 +3603,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "83388925900",
           "minimumStakeMaximumPayoutMinor": "149900",
-          "maximumStakeMaximumPayoutMinor": "999999999992400"
+          "maximumStakeMaximumPayoutMinor": "124999999924100"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "83388925900",
+          "minimumStakeMaximumPayoutMinor": "1199200",
+          "maximumStakeMaximumPayoutMinor": "999999999392800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2936,65 +3628,24 @@
       "id": "ind74_official_bookofbonanza",
       "title": "Book of Bonanza",
       "family": "slots",
-      "mathVersion": "official72-bookofbonanza-r2",
+      "mathVersion": "official72-bookofbonanza-r4",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/priority10-reference-20261111/book-ready-geometry.jpg; reports/priority10-reference-20261111/book-forty-paylines.jpg; reports/priority10-reference-20261111/book-paytable-upper.jpg; reports/priority10-reference-20261111/book-paytable-lower.jpg; reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help-en.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "Fresh official DEMO screenshots confirm6columns,4rows,40numbered paylines and ten regular categories with2-to6-match prizes. Exact title Help documents Book Wild/Scatter,10free spins,+10retrigger and selected-symbol expansion when its paying reel count is present."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Help describes expansion covering3positions while the observed base has4rows. The3-cell contiguous window remains an explicitly independent interpretation.",
+          "Provider probabilities and complete bonus geometry remain unverified. A100x Buy quote is observed, but purchase/B+ progress/Risk lifecycles are unimplemented."
         ],
         "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 25,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
-        "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
-          "providerProbabilitiesVerified": false
-        }
-      },
-      "independentReturn": {
-        "numerator": "31656",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
-      },
-      "optionPayoutBounds": [
-        {
-          "options": {},
-          "minimumStakeMaximumPayoutMinor": "139500",
-          "maximumStakeMaximumPayoutMinor": "999999999949500"
-        }
-      ],
-      "fullReferenceParityVerified": false,
-      "providerPrivateMathVerified": false
-    },
-    {
-      "id": "ind74_official_sugarfiesta",
-      "title": "Sugar Fiesta",
-      "family": "slots",
-      "mathVersion": "official72-sugarfiesta-r3",
-      "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
-        "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
-        ],
-        "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 3,
-        "paylinesVerified": false,
+        "rows": 4,
+        "columns": 6,
+        "paylines": 40,
+        "paylinesVerified": true,
         "paylineCountVerified": true,
         "multiplier": {
           "placement": "none",
@@ -3006,15 +3657,94 @@
         }
       },
       "independentReturn": {
-        "numerator": "31664",
-        "denominator": "32768",
-        "rounding": "Before per-line minor-unit flooring."
+        "verified": false,
+        "description": "Fresh rendered forty-line chart and symbol prizes; independently authored per-cell tickets, bonus selection, expansion window and processing guarantee. Provider RTP is not reproduced.",
+        "baseRegularOnlyLowerBound": {
+          "numerator": "1686961645158400",
+          "denominator": "1094032426497921",
+          "bound": "lower",
+          "scope": "base-regular-prefix-awards-only; excludes-Book-substitution-and-all-bonus-value; exact-for-whole-ETB-grid"
+        }
       },
       "optionPayoutBounds": [
         {
           "options": {},
-          "minimumStakeMaximumPayoutMinor": "129099",
-          "maximumStakeMaximumPayoutMinor": "999999999874398"
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "199999999900",
+          "minimumStakeMaximumPayoutMinor": "500000",
+          "maximumStakeMaximumPayoutMinor": "999999999500000"
+        }
+      ],
+      "fullReferenceParityVerified": false,
+      "providerPrivateMathVerified": false
+    },
+    {
+      "id": "ind74_official_sugarfiesta",
+      "title": "Sugar Fiesta",
+      "family": "slots",
+      "mathVersion": "official72-sugarfiesta-r4",
+      "layout": {
+        "source": "reports/priority10-reference-20261111/sugarfiesta-ready-geometry.jpg; reports/priority10-reference-20261111/sugarfiesta-paytable.jpg; reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-official-help-en.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
+        "fullReferenceParityVerified": false,
+        "observedFacts": [
+          "Fresh official DEMO screenshots confirm3columns and3rows, nine regular symbol categories and the left multiplier selector. The public page specifies3lines; exact case-sensitive SugarFiesta Help specifies1x–5x and X2."
+        ],
+        "limitations": [
+          "The displayed paytable is normalized into independent line prizes; provider125x maximum coupling with the displayed awards remains unresolved.",
+          "Provider probabilities, complete label ordering and full audiovisual behavior remain unverified."
+        ],
+        "kind": "reels",
+        "rows": 3,
+        "columns": 3,
+        "paylines": 3,
+        "paylinesVerified": false,
+        "paylineCountVerified": true,
+        "multiplier": {
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "providerProbabilitiesVerified": false
+        }
+      },
+      "independentReturn": {
+        "numerator": "2070",
+        "denominator": "3645",
+        "rounding": "Before per-line minor-unit flooring; independent uniform regular-symbol model."
+      },
+      "optionPayoutBounds": [
+        {
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "555555555500",
+          "minimumStakeMaximumPayoutMinor": "22500",
+          "maximumStakeMaximumPayoutMinor": "124999999987500"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "555555555500",
+          "minimumStakeMaximumPayoutMinor": "180000",
+          "maximumStakeMaximumPayoutMinor": "999999999900000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -3024,7 +3754,7 @@
       "id": "ind74_official_vampires",
       "title": "Vampires",
       "family": "slots",
-      "mathVersion": "official72-vampires-r2",
+      "mathVersion": "official72-vampires-r3",
       "layout": {
         "source": "Independently authored model configuration; no complete official layout observation",
         "geometryVerified": false,
@@ -3056,9 +3786,22 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "105307497800",
           "minimumStakeMaximumPayoutMinor": "118700",
-          "maximumStakeMaximumPayoutMinor": "999999999939700"
+          "maximumStakeMaximumPayoutMinor": "124999999888600"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "105307497800",
+          "minimumStakeMaximumPayoutMinor": "949600",
+          "maximumStakeMaximumPayoutMinor": "999999999108800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -3101,6 +3844,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "923361034100",
           "minimumStakeMaximumPayoutMinor": "108300",
           "maximumStakeMaximumPayoutMinor": "999999999930300"
         }
@@ -3138,6 +3883,8 @@
           "options": {
             "target": 10
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "960",
           "maximumStakeMaximumPayoutMinor": "999999999999360"
         },
@@ -3145,6 +3892,8 @@
           "options": {
             "target": 11
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "872",
           "maximumStakeMaximumPayoutMinor": "909083333332751"
         },
@@ -3152,6 +3901,8 @@
           "options": {
             "target": 12
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "800",
           "maximumStakeMaximumPayoutMinor": "833333333332800"
         },
@@ -3159,6 +3910,8 @@
           "options": {
             "target": 13
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "738",
           "maximumStakeMaximumPayoutMinor": "769229166666174"
         },
@@ -3166,6 +3919,8 @@
           "options": {
             "target": 14
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "685",
           "maximumStakeMaximumPayoutMinor": "714281249999542"
         },
@@ -3173,6 +3928,8 @@
           "options": {
             "target": 15
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "640",
           "maximumStakeMaximumPayoutMinor": "666666666666240"
         },
@@ -3180,6 +3937,8 @@
           "options": {
             "target": 16
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "600",
           "maximumStakeMaximumPayoutMinor": "624999999999600"
         },
@@ -3187,6 +3946,8 @@
           "options": {
             "target": 17
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "564",
           "maximumStakeMaximumPayoutMinor": "588229166666290"
         },
@@ -3194,6 +3955,8 @@
           "options": {
             "target": 18
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "533",
           "maximumStakeMaximumPayoutMinor": "555552083332977"
         },
@@ -3201,6 +3964,8 @@
           "options": {
             "target": 19
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "505",
           "maximumStakeMaximumPayoutMinor": "526312499999663"
         },
@@ -3208,6 +3973,8 @@
           "options": {
             "target": 20
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "480",
           "maximumStakeMaximumPayoutMinor": "499999999999680"
         },
@@ -3215,6 +3982,8 @@
           "options": {
             "target": 21
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "457",
           "maximumStakeMaximumPayoutMinor": "476187499999695"
         },
@@ -3222,6 +3991,8 @@
           "options": {
             "target": 22
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "436",
           "maximumStakeMaximumPayoutMinor": "454541666666375"
         },
@@ -3229,6 +4000,8 @@
           "options": {
             "target": 23
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "417",
           "maximumStakeMaximumPayoutMinor": "434781249999721"
         },
@@ -3236,6 +4009,8 @@
           "options": {
             "target": 24
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "400",
           "maximumStakeMaximumPayoutMinor": "416666666666400"
         },
@@ -3243,6 +4018,8 @@
           "options": {
             "target": 25
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "384",
           "maximumStakeMaximumPayoutMinor": "399999999999744"
         },
@@ -3250,6 +4027,8 @@
           "options": {
             "target": 26
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "369",
           "maximumStakeMaximumPayoutMinor": "384614583333087"
         },
@@ -3257,6 +4036,8 @@
           "options": {
             "target": 27
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "355",
           "maximumStakeMaximumPayoutMinor": "370364583333096"
         },
@@ -3264,6 +4045,8 @@
           "options": {
             "target": 28
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "342",
           "maximumStakeMaximumPayoutMinor": "357135416666438"
         },
@@ -3271,6 +4054,8 @@
           "options": {
             "target": 29
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "331",
           "maximumStakeMaximumPayoutMinor": "344822916666445"
         },
@@ -3278,6 +4063,8 @@
           "options": {
             "target": 30
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "320",
           "maximumStakeMaximumPayoutMinor": "333333333333120"
         },
@@ -3285,6 +4072,8 @@
           "options": {
             "target": 31
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "309",
           "maximumStakeMaximumPayoutMinor": "322572916666460"
         },
@@ -3292,6 +4081,8 @@
           "options": {
             "target": 32
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "300",
           "maximumStakeMaximumPayoutMinor": "312499999999800"
         },
@@ -3299,6 +4090,8 @@
           "options": {
             "target": 33
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "290",
           "maximumStakeMaximumPayoutMinor": "303020833333139"
         },
@@ -3306,6 +4099,8 @@
           "options": {
             "target": 34
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "282",
           "maximumStakeMaximumPayoutMinor": "294114583333145"
         },
@@ -3313,6 +4108,8 @@
           "options": {
             "target": 35
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "274",
           "maximumStakeMaximumPayoutMinor": "285708333333150"
         },
@@ -3320,6 +4117,8 @@
           "options": {
             "target": 36
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "266",
           "maximumStakeMaximumPayoutMinor": "277770833333155"
         },
@@ -3327,6 +4126,8 @@
           "options": {
             "target": 37
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "259",
           "maximumStakeMaximumPayoutMinor": "270260416666493"
         },
@@ -3334,6 +4135,8 @@
           "options": {
             "target": 38
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "252",
           "maximumStakeMaximumPayoutMinor": "263156249999831"
         },
@@ -3341,6 +4144,8 @@
           "options": {
             "target": 39
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "246",
           "maximumStakeMaximumPayoutMinor": "256406249999835"
         },
@@ -3348,6 +4153,8 @@
           "options": {
             "target": 40
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "240",
           "maximumStakeMaximumPayoutMinor": "249999999999840"
         },
@@ -3355,6 +4162,8 @@
           "options": {
             "target": 41
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "234",
           "maximumStakeMaximumPayoutMinor": "243895833333177"
         },
@@ -3362,6 +4171,8 @@
           "options": {
             "target": 42
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "228",
           "maximumStakeMaximumPayoutMinor": "238093749999847"
         },
@@ -3369,6 +4180,8 @@
           "options": {
             "target": 43
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "223",
           "maximumStakeMaximumPayoutMinor": "232552083333184"
         },
@@ -3376,6 +4189,8 @@
           "options": {
             "target": 44
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "218",
           "maximumStakeMaximumPayoutMinor": "227270833333187"
         },
@@ -3383,6 +4198,8 @@
           "options": {
             "target": 45
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "213",
           "maximumStakeMaximumPayoutMinor": "222218749999857"
         },
@@ -3390,6 +4207,8 @@
           "options": {
             "target": 46
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "208",
           "maximumStakeMaximumPayoutMinor": "217385416666527"
         },
@@ -3397,6 +4216,8 @@
           "options": {
             "target": 47
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "204",
           "maximumStakeMaximumPayoutMinor": "212760416666530"
         },
@@ -3404,6 +4225,8 @@
           "options": {
             "target": 48
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "200",
           "maximumStakeMaximumPayoutMinor": "208333333333200"
         },
@@ -3411,6 +4234,8 @@
           "options": {
             "target": 49
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "195",
           "maximumStakeMaximumPayoutMinor": "204072916666536"
         },
@@ -3418,6 +4243,8 @@
           "options": {
             "target": 50
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "192",
           "maximumStakeMaximumPayoutMinor": "199999999999872"
         },
@@ -3425,6 +4252,8 @@
           "options": {
             "target": 51
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "188",
           "maximumStakeMaximumPayoutMinor": "196072916666541"
         },
@@ -3432,6 +4261,8 @@
           "options": {
             "target": 52
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "184",
           "maximumStakeMaximumPayoutMinor": "192302083333210"
         },
@@ -3439,6 +4270,8 @@
           "options": {
             "target": 53
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "181",
           "maximumStakeMaximumPayoutMinor": "188677083333212"
         },
@@ -3446,6 +4279,8 @@
           "options": {
             "target": 54
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "177",
           "maximumStakeMaximumPayoutMinor": "185177083333214"
         },
@@ -3453,6 +4288,8 @@
           "options": {
             "target": 55
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "174",
           "maximumStakeMaximumPayoutMinor": "181812499999883"
         },
@@ -3460,6 +4297,8 @@
           "options": {
             "target": 56
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "171",
           "maximumStakeMaximumPayoutMinor": "178562499999885"
         },
@@ -3467,6 +4306,8 @@
           "options": {
             "target": 57
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "168",
           "maximumStakeMaximumPayoutMinor": "175437499999887"
         },
@@ -3474,6 +4315,8 @@
           "options": {
             "target": 58
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "165",
           "maximumStakeMaximumPayoutMinor": "172406249999889"
         },
@@ -3481,6 +4324,8 @@
           "options": {
             "target": 59
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "162",
           "maximumStakeMaximumPayoutMinor": "169489583333224"
         },
@@ -3488,6 +4333,8 @@
           "options": {
             "target": 60
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "160",
           "maximumStakeMaximumPayoutMinor": "166666666666560"
         },
@@ -3495,6 +4342,8 @@
           "options": {
             "target": 61
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "157",
           "maximumStakeMaximumPayoutMinor": "163927083333228"
         },
@@ -3502,6 +4351,8 @@
           "options": {
             "target": 62
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "154",
           "maximumStakeMaximumPayoutMinor": "161281249999896"
         },
@@ -3509,6 +4360,8 @@
           "options": {
             "target": 63
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "152",
           "maximumStakeMaximumPayoutMinor": "158729166666565"
         },
@@ -3516,6 +4369,8 @@
           "options": {
             "target": 64
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "150",
           "maximumStakeMaximumPayoutMinor": "156249999999900"
         },
@@ -3523,6 +4378,8 @@
           "options": {
             "target": 65
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "147",
           "maximumStakeMaximumPayoutMinor": "153843749999901"
         },
@@ -3530,6 +4387,8 @@
           "options": {
             "target": 66
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "145",
           "maximumStakeMaximumPayoutMinor": "151510416666569"
         },
@@ -3537,6 +4396,8 @@
           "options": {
             "target": 67
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "143",
           "maximumStakeMaximumPayoutMinor": "149249999999904"
         },
@@ -3544,6 +4405,8 @@
           "options": {
             "target": 68
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "141",
           "maximumStakeMaximumPayoutMinor": "147052083333239"
         },
@@ -3551,6 +4414,8 @@
           "options": {
             "target": 69
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "139",
           "maximumStakeMaximumPayoutMinor": "144927083333240"
         },
@@ -3558,6 +4423,8 @@
           "options": {
             "target": 70
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "137",
           "maximumStakeMaximumPayoutMinor": "142854166666575"
         },
@@ -3565,6 +4432,8 @@
           "options": {
             "target": 71
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "135",
           "maximumStakeMaximumPayoutMinor": "140843749999909"
         },
@@ -3572,6 +4441,8 @@
           "options": {
             "target": 72
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "133",
           "maximumStakeMaximumPayoutMinor": "138885416666577"
         },
@@ -3579,6 +4450,8 @@
           "options": {
             "target": 73
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "131",
           "maximumStakeMaximumPayoutMinor": "136979166666579"
         },
@@ -3586,6 +4459,8 @@
           "options": {
             "target": 74
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "129",
           "maximumStakeMaximumPayoutMinor": "135124999999913"
         },
@@ -3593,6 +4468,8 @@
           "options": {
             "target": 75
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "128",
           "maximumStakeMaximumPayoutMinor": "133333333333248"
         },
@@ -3600,6 +4477,8 @@
           "options": {
             "target": 76
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "126",
           "maximumStakeMaximumPayoutMinor": "131572916666582"
         },
@@ -3607,6 +4486,8 @@
           "options": {
             "target": 77
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "124",
           "maximumStakeMaximumPayoutMinor": "129864583333250"
         },
@@ -3614,6 +4495,8 @@
           "options": {
             "target": 78
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "123",
           "maximumStakeMaximumPayoutMinor": "128197916666584"
         },
@@ -3621,6 +4504,8 @@
           "options": {
             "target": 79
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "121",
           "maximumStakeMaximumPayoutMinor": "126572916666585"
         },
@@ -3628,6 +4513,8 @@
           "options": {
             "target": 80
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "120",
           "maximumStakeMaximumPayoutMinor": "124999999999920"
         },
@@ -3635,6 +4522,8 @@
           "options": {
             "target": 81
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "118",
           "maximumStakeMaximumPayoutMinor": "123447916666587"
         },
@@ -3642,6 +4531,8 @@
           "options": {
             "target": 82
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "117",
           "maximumStakeMaximumPayoutMinor": "121947916666588"
         },
@@ -3649,6 +4540,8 @@
           "options": {
             "target": 83
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "115",
           "maximumStakeMaximumPayoutMinor": "120479166666589"
         },
@@ -3656,6 +4549,8 @@
           "options": {
             "target": 84
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "114",
           "maximumStakeMaximumPayoutMinor": "119041666666590"
         },
@@ -3663,6 +4558,8 @@
           "options": {
             "target": 85
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "112",
           "maximumStakeMaximumPayoutMinor": "117645833333258"
         },
@@ -3670,6 +4567,8 @@
           "options": {
             "target": 86
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "111",
           "maximumStakeMaximumPayoutMinor": "116270833333258"
         },
@@ -3677,6 +4576,8 @@
           "options": {
             "target": 87
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "110",
           "maximumStakeMaximumPayoutMinor": "114937499999926"
         },
@@ -3684,6 +4585,8 @@
           "options": {
             "target": 88
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "109",
           "maximumStakeMaximumPayoutMinor": "113635416666593"
         },
@@ -3691,6 +4594,8 @@
           "options": {
             "target": 89
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "107",
           "maximumStakeMaximumPayoutMinor": "112354166666594"
         },
@@ -3698,6 +4603,8 @@
           "options": {
             "target": 90
           },
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "104166666666600",
           "minimumStakeMaximumPayoutMinor": "106",
           "maximumStakeMaximumPayoutMinor": "111104166666595"
         }
@@ -3732,6 +4639,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "19912385503700",
           "minimumStakeMaximumPayoutMinor": "5022",
           "maximumStakeMaximumPayoutMinor": "999999999995814"
         }
@@ -3776,6 +4685,8 @@
       "optionPayoutBounds": [
         {
           "options": {},
+          "minimumStakeMinor": "100",
+          "maximumStakeMinor": "696864111400",
           "minimumStakeMaximumPayoutMinor": "143500",
           "maximumStakeMaximumPayoutMinor": "999999999859000"
         }
@@ -3813,5 +4724,5 @@
     ],
     "source": "Revised user instruction: low initial/test presets 1–20 ETB; game max and payout policy must come from verified server configuration. Model maxima are derived from retained 15-digit storage and worst-case multiplier; retained account and funded house checks remain authoritative. Live policy is not verified."
   },
-  "generatedAt": "2026-11-11T10:06:24.555Z"
+  "generatedAt": "2026-11-11T14:04:38.211Z"
 }

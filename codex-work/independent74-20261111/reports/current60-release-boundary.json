@@ -1,0 +1,78 @@
+{
+  "format": "existing-zplay-release-boundary-v1",
+  "recordedAt": "2026-11-11T13:59:51.030Z",
+  "site": "https://superwin-player.apdiy61.workers.dev/",
+  "worker": {
+    "script": "superwin-player",
+    "activePercentage": 100,
+    "newCandidateUploaded": false,
+    "newCandidateActivated": false,
+    "baselineCommit": "d8e2904e3fa6f0e824746a88578d52228ac4ab77",
+    "existingDeploymentUnchanged": false,
+    "retainedBaselineLegacyModuleCount": 304,
+    "externalDeploymentObserved": true,
+    "metadataCheckedAt": "2026-11-11T13:59:51.030Z",
+    "currentLiveSourceVerified": false,
+    "currentLiveLegacyModuleCountVerified": false,
+    "candidateTargetsRetainedBaselineOnly": true,
+    "deploymentPerformedByThisWork": false,
+    "observation": "The newest deployment no longer matches the previously verified deployment and serves one version at100%. This work did not upload or activate that deployment. The current live source and compatibility with this offline candidate have not been verified."
+  },
+  "blocks": [
+    {
+      "system": "Cloudflare",
+      "action": "Read complete current Worker source/settings required to preserve all inherited modules",
+      "status": "automatic-approval-review-denied",
+      "reason": "The broad read could expose sensitive source/configuration. No equivalent read was retried after denial.",
+      "workaroundAttempted": false
+    },
+    {
+      "system": "Railway",
+      "action": "Reconnect the existing function image source to trigger a fresh configuration deployment",
+      "status": "automatic-approval-review-denied",
+      "reason": "Source attachment mutation could replace or discard the verified encoded function configuration and affect broader environments.",
+      "workaroundAttempted": false
+    },
+    {
+      "system": "Browser Rendering",
+      "action": "Submit a private bundled renderer/fixture HTML payload to Cloudflare Browser Rendering",
+      "status": "automatic-approval-review-denied",
+      "reason": "Private code/fixture egress to a third-party service was not approved. Remaining viewport requests were not attempted.",
+      "workaroundAttempted": false
+    },
+    {
+      "system": "GitHub",
+      "action": "Publish additional evidence images and private operational provenance to the public repository",
+      "status": "automatic-approval-review-denied",
+      "reason": "Some exact JPEG payloads remained unapproved after full-resolution inspection and byte-matching checks. Private deployment identifiers/fingerprints were removed from the public code/evidence variant; remaining blocked binary files are retained outside the public checkpoint.",
+      "workaroundAttempted": false
+    },
+    {
+      "system": "Existing live Worker",
+      "action": "Activate a candidate built against the retained baseline",
+      "status": "current-live-baseline-changed-and-unverified",
+      "reason": "Read-only metadata shows a newer deployment made outside this work. Its source has not been verified; the candidate remains pinned to its retained baseline rather than silently accepting the new live version.",
+      "workaroundAttempted": false
+    }
+  ],
+  "protectedBackend": {
+    "service": "superwin-nine-slot-engine",
+    "deploymentStatus": "SUCCESS",
+    "newObservationActuallyVisible": false,
+    "liveFinancialRuntimeChanged": false,
+    "originalStartCommandRestored": true,
+    "restoreReadbackVerified": true,
+    "serviceStagedChanges": 0,
+    "otherEnvironmentStagedChangesNotAccepted": true,
+    "lastVerifiedAt": "2026-11-11T12:59:11Z"
+  },
+  "admission": {
+    "newLivePlayerWagers": 0,
+    "newMoneyActionsEnabled": 0,
+    "actualInitializedLivePoolProof": false,
+    "promotionalWalletLinked": false,
+    "scope": "Actions performed by this work only; no claim is made about concurrent changes by other actors."
+  },
+  "newSiteCreated": false,
+  "privateOperationalMetadataOmitted": true
+}

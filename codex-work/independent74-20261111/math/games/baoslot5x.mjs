@@ -1,3 +1,6 @@
+import {configureDocumentedBasicSlot} from '../documented-basic-slots.mjs';
+export const configureOfficialGame=d=>configureDocumentedBasicSlot(d,'ind74_official_baoslot5x');
+
 export default {
   "id": "ind74_baoslot5x",
   "title": "Bao Slot 5X — Independent",

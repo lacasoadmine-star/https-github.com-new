@@ -4,9 +4,11 @@
 import {active, baseRound, draw, error, publicBase} from './engines/shared.mjs';
 
 export function startThreeReelSlot(d, {betMinor, rng}) {
-  if (d.cols !== 3 || d.symbols.length !== 8 || d.wildSymbol) error('INVALID_MODEL', 'This operator engine requires three reels and eight regular symbols.');
+  if (d.cols !== 3 || !Number.isSafeInteger(d.symbols.length) || d.symbols.length < 2 || d.wildSymbol) error('INVALID_MODEL', 'This operator engine requires three reels and a configured regular-symbol set.');
   const round=baseRound(d,betMinor);
-  const grid=Array.from({length:d.rows},()=>Array.from({length:3},()=>d.symbols[draw(rng,8)].id));
+  const preSpinMultiplier=d.multiplierSelectionTiming==='before-symbol-grid'&&d.multiplierValues
+    ?d.multiplierValues[draw(rng,d.multiplierValues.length)]:undefined;
+  const grid=Array.from({length:d.rows},()=>Array.from({length:3},()=>d.symbols[draw(rng,d.symbols.length)].id));
   const lineWins=[];let total=0n;
   for(const [lineIndex,line] of d.paylines.entries()) {
     const id=grid[line[0]][0];
@@ -15,7 +17,7 @@ export function startThreeReelSlot(d, {betMinor, rng}) {
     const win=BigInt(round.betMinor)*BigInt(prize)/BigInt(d.paylines.length);total+=win;
     lineWins.push({lineIndex,payline:[...line],symbolId:id,matches:3,multiplier:prize,winMinor:win.toString(),positions:line.map((row,col)=>({row,col}))});
   }
-  const reelMultiplier=d.multiplierValues?d.multiplierValues[draw(rng,d.multiplierValues.length)]:1;
+  const reelMultiplier=preSpinMultiplier??(d.multiplierValues?d.multiplierValues[draw(rng,d.multiplierValues.length)]:1);
   total*=BigInt(reelMultiplier);
   for(const line of lineWins)line.winMinor=(BigInt(line.winMinor)*BigInt(reelMultiplier)).toString();
   if(total>BigInt(d.limits.maxWinMinor))error('PAYOUT_LIMIT_EXCEEDED','The configured three-reel award exceeds its accepted bound.');
@@ -25,6 +27,8 @@ export function startThreeReelSlot(d, {betMinor, rng}) {
 
 export function evaluatePublicWildGrid(d, betMinor, suppliedGrid) {
   const wild = d.wildSymbol.id;
+  const divisor=d.symbolPrizeDivisor??1;
+  if(!Number.isSafeInteger(divisor)||divisor<1)error('INVALID_MODEL','A positive integer symbol-prize divisor is required.');
   if (!Array.isArray(suppliedGrid) || suppliedGrid.length !== d.rows || suppliedGrid.some(row =>
     !Array.isArray(row) || row.length !== d.cols || row.some((id, col) =>
       id === wild ? !d.wildRule.columns.includes(col) : !d.symbols.some(symbol => symbol.id === id) && !(d.blockerSymbols??[]).includes(id)))) {
@@ -41,19 +45,21 @@ export function evaluatePublicWildGrid(d, betMinor, suppliedGrid) {
       while (matches < d.cols && [symbol.id, wild].includes(grid[line[matches]][matches])) matches++;
       const prize = symbol.pays[matches];
       if (!Number.isSafeInteger(prize) || prize <= 0) continue;
-      const win = BigInt(betMinor) * BigInt(prize) / BigInt(d.paylines.length);
-      if (!best || win > best.win || (win === best.win && prize > best.multiplier)) {
+      const win = BigInt(betMinor) * BigInt(prize) / (BigInt(d.paylines.length)*BigInt(divisor));
+      if (!best || win > best.win || (win === best.win && prize > best.multiplier*divisor)) {
         const positions = line.slice(0, matches).map((row, col) => ({row, col}));
-        best = {win, lineIndex, payline: [...line], symbolId: symbol.id, matches, multiplier: prize,
+        best = {win, lineIndex, payline: [...line], symbolId: symbol.id, matches, multiplier: prize/divisor,
+          ...(divisor===1?{}:{prizeNumerator:prize,prizeDenominator:divisor}),
           winMinor: win.toString(), positions,
           wildPositions: positions.filter(({row, col}) => grid[row][col] === wild)};
       }
     }
     if(d.wildSymbol.pays?.[d.cols]&&line.every((row,col)=>grid[row][col]===wild)) {
-      const prize=d.wildSymbol.pays[d.cols],win=BigInt(betMinor)*BigInt(prize)/BigInt(d.paylines.length);
-      if(!best||win>best.win||(win===best.win&&prize>best.multiplier)) {
+      const prize=d.wildSymbol.pays[d.cols],win=BigInt(betMinor)*BigInt(prize)/(BigInt(d.paylines.length)*BigInt(divisor));
+      if(!best||win>best.win||(win===best.win&&prize>best.multiplier*divisor)) {
         const positions=line.map((row,col)=>({row,col}));
-        best={win,lineIndex,payline:[...line],symbolId:wild,matches:d.cols,multiplier:prize,
+        best={win,lineIndex,payline:[...line],symbolId:wild,matches:d.cols,multiplier:prize/divisor,
+          ...(divisor===1?{}:{prizeNumerator:prize,prizeDenominator:divisor}),
           winMinor:win.toString(),positions,wildPositions:positions};
       }
     }
@@ -64,6 +70,8 @@ export function evaluatePublicWildGrid(d, betMinor, suppliedGrid) {
 
 export function startPublicWildSlot(d, {betMinor, rng}) {
   const round = baseRound(d, betMinor);
+  const preSpinMultiplier=d.multiplierSelectionTiming==='before-symbol-grid'&&d.multiplierValues
+    ?d.multiplierValues[draw(rng,d.multiplierValues.length)]:undefined;
   // Each regular symbol receives 32 independent tickets; wild receives one.
   // These probabilities are operator choices, not the provider's reel strips.
   const regularCount=d.symbols.length,regularTickets=regularCount*32;
@@ -73,19 +81,31 @@ export function startPublicWildSlot(d, {betMinor, rng}) {
     return eligible && ticket === regularTickets ? d.wildSymbol.id : d.symbols[ticket % regularCount].id;
   }));
   let evaluated = evaluatePublicWildGrid(d, round.betMinor, originalGrid);
-  const expandedColumns = d.wildRule.expandWhenWinning
+  const expandedColumns = d.wildRule.expandOnLanding&&d.wildRule.substitutionScope==='same-reel'
+    ?d.wildRule.columns.filter(col=>originalGrid.some(row=>row[col]===d.wildSymbol.id))
+    :d.wildRule.expandWhenWinning
     ? [...new Set(evaluated.lineWins.flatMap(line => line.wildPositions.map(position => position.col)))].sort((a, b) => a - b)
     : [];
-  const grid = originalGrid.map(row => row.map((id, col) => expandedColumns.includes(col) ? d.wildSymbol.id : id));
+  const grid = substituteWildColumns(d,originalGrid,expandedColumns);
   if (expandedColumns.length) evaluated = evaluatePublicWildGrid(d, round.betMinor, grid);
-  const reelMultiplier = d.multiplierValues[draw(rng, d.multiplierValues.length)];
+  const reelMultiplier = preSpinMultiplier??(d.multiplierValues?d.multiplierValues[draw(rng,d.multiplierValues.length)]:1);
   const winMinor = (BigInt(evaluated.winMinor) * BigInt(reelMultiplier)).toString();
   const lineWins = evaluated.lineWins.map(line => ({...line,
     winMinor: (BigInt(line.winMinor) * BigInt(reelMultiplier)).toString()}));
   if (BigInt(winMinor) > BigInt(d.limits.maxWinMinor)) error('PAYOUT_LIMIT_EXCEEDED', 'The configured wild award exceeds its accepted bound.');
   return {...round, status: winMinor === '0' ? 'lost' : 'collected', step: 1, winMinor,
     multiplierBps: Number(BigInt(winMinor) * 10000n / BigInt(round.betMinor)),
-    outcome: {kind: 'slots', grid, originalGrid, expandedColumns, lineWins, reelMultiplier}};
+    outcome: {kind: 'slots', grid, originalGrid, expandedColumns, lineWins,...(d.multiplierValues?{reelMultiplier}:{})}};
+}
+
+// Preserve any separately configured Scatter/nonregular blocker. Substitution
+// does not supply a Scatter prize or silently turn an excluded cell into Wild.
+export function substituteWildColumns(d,suppliedGrid,columns){
+  evaluatePublicWildGrid(d,'0',suppliedGrid);
+  if(!Array.isArray(columns)||columns.some(col=>!d.wildRule.columns.includes(col)))
+    error('INVALID_GRID','Only permitted substitute reels may expand.');
+  const regular=new Set(d.symbols.map(symbol=>symbol.id));
+  return suppliedGrid.map(row=>row.map((id,col)=>columns.includes(col)&&(regular.has(id)||id===d.wildSymbol.id)?d.wildSymbol.id:id));
 }
 
 export function holdSlotWin(d, round, holdWin) {
@@ -153,6 +173,10 @@ export function validateHeldSlot(d, round, baseMaximumMinor) {
   } else if (round.pendingWinMinor !== '0' ||
     (round.status === 'collected' && (pending === '0' || round.winMinor !== pending)) ||
     (round.status === 'lost' && pending !== '0')) error('INVALID_ROUND', 'The settled held award is inconsistent.');
+  const visibleAward=round.status==='active'?round.pendingWinMinor:round.winMinor;
+  if(round.multiplierBps!==Number(BigInt(visibleAward)*10000n/BigInt(round.betMinor))) {
+    error('INVALID_ROUND','The held-win display multiplier disagrees with its accepted monetary award.');
+  }
 }
 
 export function publicHeldSlot(d, round) {

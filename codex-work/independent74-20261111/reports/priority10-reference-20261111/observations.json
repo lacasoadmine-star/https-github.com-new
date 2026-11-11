@@ -1,0 +1,1163 @@
+{
+  "observedAtUtc": "2026-11-11T13:12:47.634Z",
+  "observations": [
+    {
+      "gameId": "ind74_official_multihot10",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+      "startedAt": "2026-11-11T12:30:11.878Z",
+      "mode": "official-demo",
+      "currency": "DMO",
+      "initialBalance": "20000.00",
+      "stake": "0.10",
+      "verifiedCompletedRounds": 5,
+      "rounds": [
+        {
+          "ordinal": 1,
+          "balanceBefore": "20000.00",
+          "stake": "0.10",
+          "balanceAfter": "19999.90",
+          "displayedMultiplier": 4,
+          "observation": "Settled board and HOLD & SPIN restored after STOP; pending history confirmation.",
+          "stopUsed": true
+        },
+        {
+          "ordinal": 2,
+          "balanceBefore": "19999.90",
+          "stake": "0.10",
+          "balanceAfter": "19999.80",
+          "displayedMultiplier": 5,
+          "observation": "History timestamp15:30:33 indicates spin2 followed the prior near-boundary STOP click; lightning start inference withdrawn.",
+          "startControl": "Observed transition near prior STOP/quick-play input; exact trigger not resolved"
+        },
+        {
+          "ordinal": 3,
+          "balanceBefore": "19999.80",
+          "stake": "0.10",
+          "balanceAfter": "19999.70",
+          "displayedMultiplier": 4,
+          "startControl": "HOLD & SPIN",
+          "quickPlayEnabled": true,
+          "observation": "Settled board and yellow HOLD & SPIN restored."
+        },
+        {
+          "ordinal": 4,
+          "balanceBefore": "19999.70",
+          "stake": "0.10",
+          "balanceAfterStake": "19999.60",
+          "pendingWin": "0.20",
+          "displayedMultiplier": 4,
+          "startControl": "HOLD & SPIN",
+          "quickPlayEnabled": true,
+          "observation": "Three bottom-row plums, Line3 caption0.05\u00d74=0.20DMO; win held with separateX2/collect buttons.",
+          "balanceAfter": "19999.80",
+          "payout": "0.20",
+          "collectObserved": true
+        },
+        {
+          "ordinal": 5,
+          "balanceBefore": "19999.80",
+          "stake": "0.10",
+          "balanceAfterStake": "19999.70",
+          "pendingWin": "0.05",
+          "displayedMultiplier": 1,
+          "startControl": "HOLD & SPIN",
+          "quickPlayEnabled": true,
+          "observation": "Three lemons on middle Line2; visible caption0.05\u00d71=0.05DMO.",
+          "balanceAfter": "19999.75",
+          "payout": "0.05",
+          "collectObserved": true
+        }
+      ],
+      "notes": [
+        "5 columns \u00d7 3 rows; top multiplier arc; HOLD & SPIN button; separate AUTO, lightning, bet, menu and sound controls.",
+        "Audio output cannot be acoustically verified from screenshot capture.",
+        "Later direct lightning click opened QUICK PLAY enable dialog without changing balance. Earlier spin-two timing cannot establish that lightning itself starts a wager; treat it as a speed control, per visible dialog.",
+        "ENABLE QUICK PLAY turned lightning and main spin arrows yellow; balance stayed19999.80.",
+        "X2 opens modal with pending amount0.20, potential0.40, red/black choices, previous cards, TAKE WIN. No color guess was submitted.",
+        "Rendered Rules identifies current Spin ID1966333116.5; public Help statesmin0.10DMO,max200DMO,max1000x,RTP96.63%,v1.0.0. Those are provider DMO terms, not an ETB model claim."
+      ],
+      "countEvidence": {
+        "lastSpinId": "1966333116.5",
+        "method": "Five rendered current-session history rows; final Spin ID .5."
+      },
+      "completedAt": "2026-11-11T12:36:21.566Z",
+      "finalBalance": "19999.75",
+      "arithmetic": "20000.00 \u2212 (5 \u00d7 0.10) + 0.20 + 0.05 = 19999.75 DMO",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1966333116",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 5
+        }
+      ],
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-history-five.jpg",
+          "sha256": "1cc3f9135af4af99cdfeb451e6e6999a75d37a139b56e89658806c9026bfbc3f"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-paytable.jpg",
+          "sha256": "f3dd7a207b6ffd35fc351557da796579615bb410e0f364e0bdb8948a691b1edc"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-quick-play-dialog.jpg",
+          "sha256": "eb176657f0350cd83618cc39831a559eaaa4560648c9e4c503db005e3416c87b"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-ready.jpg",
+          "sha256": "a2b2110e0ded195e187873b400a8ca6884c5050b7d0a1a334bec435494f5c21b"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-round1-settled.jpg",
+          "sha256": "c6ce71f7dcb3a5cc26f12d46cad4c052cceca27a83c37c04971b60f7c4fc8d67"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-round2-settled.jpg",
+          "sha256": "4ae0acf4c13990685e82ccc3a889a53258b7b5e1b85c296a5811b45293b5d8a7"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-round3-settled.jpg",
+          "sha256": "05aa7615023ff69634afa815ab6a3b9e5def91c281f4d72f2fdec052dc46822b"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-round4-collected.jpg",
+          "sha256": "1bdb02593a0659edf93cd24bab1f2ca2f7c4c66417533a7fe66ad57ccc73e818"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-round4-observed.jpg",
+          "sha256": "dbf5965f0a83c6027d7e52a6a3d412dfd129e722d585fa16b8201383c6c63cb0"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-round5-settled.jpg",
+          "sha256": "98b66f7223e10f97a98a223992f98c067560a416d7e1d19ea4860980b5bda2f5"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-spin1-transition.jpg",
+          "sha256": "c61e7778fe85456008492b471a4a3ce0dcc6ebd8b991c1d2c2fac0b63afb08a8"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot10-x2-controls.jpg",
+          "sha256": "b744ec8155ce7e2146cdb1288d465b60815d0ea948b061de0445ce4da9128b1b"
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_sugarfiesta",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "observedAt": "2026-11-11T12:37:50.566Z",
+      "mode": "official-demo",
+      "currency": "DMO",
+      "verifiedCompletedRounds": 0,
+      "countEvidence": "Read-only board and Rules inspection; visible Spin ID suffix.0; no spin submitted.",
+      "geometry": {
+        "rows": 3,
+        "columns": 3,
+        "multiplierPlacement": "left"
+      },
+      "publicPaytableAtStake": "0.05",
+      "symbolAwards": {
+        "iceCream": "0.75",
+        "heartCandy": "0.50",
+        "candyCanes": "0.25",
+        "donut": "0.20",
+        "croissant": "0.20",
+        "A": "0.10",
+        "J": "0.10",
+        "Q": "0.10",
+        "K": "0.10"
+      },
+      "notes": [
+        "Saved screenshots verify9regular symbol categories and visible public paytable.",
+        "PublicDMO minimum0.05,maximum400,maximumwin125x,RTP97.05%; no provider RNG or ETB equivalence inferred."
+      ],
+      "followupAttempt": {
+        "observedAtUtc": "2026-11-11T13:12:47.634Z",
+        "requestedRounds": 5,
+        "verifiedCompletedRounds": 0,
+        "blocker": "Rendered UI said You can create up to 1 tables simultaneously; inventory contained only this official slot tab and existing Player/blank tabs. Recovery observation timed out before a usable game state could be verified.",
+        "status": "blocked",
+        "recovery": "One screenshot/reload recovery call attempted; Page.getLayoutMetrics timed out, then read-only AX observation also timed out. No Play/Buy or new credentials used."
+      },
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/sugarfiesta-paytable.jpg",
+          "sha256": "184a8f5020865ba8cfc293be92c4b8f64b6e91a302490d7d17530cb3dac6b28b"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/sugarfiesta-ready-geometry.jpg",
+          "sha256": "c9b9be3c003fa7191d178d16f998bb95345c105ff6ad6b933c7e215392b1ddc5"
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_multihot20",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
+      "startedAt": "2026-11-11T12:38:05.939Z",
+      "mode": "official-demo",
+      "currency": "DMO",
+      "initialBalance": "20000.00",
+      "stake": "0.20",
+      "verifiedCompletedRounds": 5,
+      "rounds": [
+        {
+          "ordinal": 1,
+          "balanceBefore": "20000.00",
+          "stake": "0.20",
+          "balanceAfter": "19999.80",
+          "payout": "0.00",
+          "displayedMultiplier": 4,
+          "observation": "Normal spin completed; main HOLD & SPIN restored."
+        },
+        {
+          "ordinal": 2,
+          "balanceBefore": "19999.80",
+          "stake": "0.20",
+          "balanceAfter": "19999.60",
+          "payout": "0.00",
+          "displayedMultiplier": 3,
+          "observation": "Second paid spin settled with new board; no held award."
+        },
+        {
+          "ordinal": 3,
+          "balanceBefore": "19999.60",
+          "stake": "0.20",
+          "balanceAfter": "19999.40",
+          "payout": "0.00",
+          "displayedMultiplier": 3,
+          "observation": "Third paid spin settled with new board and no held award."
+        },
+        {
+          "ordinal": 4,
+          "balanceBefore": "19999.40",
+          "stake": "0.20",
+          "balanceAfterStake": "19999.20",
+          "payout": "0.20",
+          "balanceAfter": "19999.40",
+          "displayedMultiplier": 2,
+          "observation": "Line 5 three grapes: 0.10 \u00d7 2 = 0.20 DMO; held prize collected with separate collect control. X2 appeared but no guess submitted."
+        },
+        {
+          "ordinal": 5,
+          "balanceBefore": "19999.40",
+          "stake": "0.20",
+          "balanceAfter": "19999.20",
+          "payout": "0.00",
+          "displayedMultiplier": 1,
+          "observation": "Fifth paid spin settled with new board; no held award."
+        }
+      ],
+      "notes": [
+        "Observed5columns\u00d73rows and upper multiplier arc. Audio acoustic output not verified.",
+        "AUTO choices are25,50,100,500,1000;5 is not offered, so no AUTO batch was started."
+      ],
+      "countConfidence": "Five current-session history rows and Spin ID suffix .5; all manually observed.",
+      "history": [
+        {
+          "time": "15:40:50",
+          "stake": "0.20",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:41:56",
+          "stake": "0.20",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:43:39",
+          "stake": "0.20",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:46:42",
+          "stake": "0.20",
+          "payout": "0.20"
+        },
+        {
+          "time": "15:47:09",
+          "stake": "0.20",
+          "payout": "0.00"
+        }
+      ],
+      "finalBalance": "19999.20",
+      "balanceEquation": "20000.00 - (5 \u00d7 0.20) + 0.20 = 19999.20 DMO",
+      "audioVerification": "Sound toggle visible; acoustic output not independently verified.",
+      "paytableAtStake020": {
+        "seven": {
+          "3": "0.50",
+          "4": "4.00",
+          "5": "20.00"
+        },
+        "bell": {
+          "3": "0.20",
+          "4": "1.00",
+          "5": "2.00"
+        },
+        "grape": {
+          "3": "0.10",
+          "4": "0.50",
+          "5": "1.00"
+        },
+        "watermelon": {
+          "3": "0.10",
+          "4": "0.50",
+          "5": "1.00"
+        },
+        "lemonPlumOrangeCherry": {
+          "3": "0.05",
+          "4": "0.10",
+          "5": "0.50"
+        }
+      },
+      "settingsObserved": {
+        "soundEffects": "enabled",
+        "backgroundMusic": "enabled",
+        "fullScreen": "disabled",
+        "changed": false
+      },
+      "safety": {
+        "currency": "DMO",
+        "publicToken": "DEMO",
+        "autoplayStarted": false,
+        "pendingAward": false,
+        "actualETBActivity": false
+      },
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1966346031",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 5
+        }
+      ],
+      "countEvidence": {
+        "lastSpinId": "1966346031.5",
+        "method": "Five rendered current-session history rows; final Spin ID .5."
+      },
+      "providerDisplayedCompletedClock": "15:48:22",
+      "lastEvidenceSavedAtUtc": "2026-11-11T12:51:41.215Z",
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-autoplay-menu.jpg",
+          "sha256": "b2c896df165eab5a87eb36c881240344cc0feb528d68e5c3c64a9e25267be360"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-history-five.jpg",
+          "sha256": "f14f3a2cb11906469af9e0f2f3f7bd6a857d941e5fc5abb8eaee6a641c3e66f3"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-paytable.jpg",
+          "sha256": "ed1c86691b0d40d9726716e78b1dd9e5381eea821911fd4925da3e535b7076ec"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-ready.jpg",
+          "sha256": "647e71e7126784c2935fe0da0eb9183cc45edeab693f42b46c85dab9857afb43"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-round1-observed.jpg",
+          "sha256": "92eb6796aa6e30c4f961d0eec5a99ceb93d372079663a8c6ad1ebbf4a42f61fe"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-round2-observed.jpg",
+          "sha256": "49ab66f163e206049fe05fc7678187d506015b73ddad00f5b5258cd2888aac90"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-round3-observed.jpg",
+          "sha256": "bd8df58954c26ea6c42c3f07cce28626bd2668a652e09b5cef6b75c680a9e572"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-round4-collected.jpg",
+          "sha256": "89e1ff8e493407fc7e2d18cfc759c6fb475fb30996341f73debb597ae9ad4a9d"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-round4-pending.jpg",
+          "sha256": "d33112f3651d001791258fbcdab251446f7ac4eff79e4960fd29316c87d1c2e9"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-round5-settled.jpg",
+          "sha256": "6cea9eb6a964a6e15d2faf06ae22711693bcceb3242bdbdb0dcdc5de589018a1"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/multihot20-settings.jpg",
+          "sha256": "18779ec071034fbb34b0d5f07a3d65489f742cdea359ec5586e73c04aefab333"
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "currency": "DMO",
+      "initialBalance": "20000.00",
+      "stake": "0.10",
+      "verifiedCompletedRounds": 5,
+      "rounds": [
+        {
+          "ordinal": 1,
+          "balanceBefore": "20000.00",
+          "stake": "0.10",
+          "balanceAfter": "19999.90",
+          "payout": "0.00",
+          "displayedMultiplier": 3
+        },
+        {
+          "ordinal": 2,
+          "balanceBefore": "19999.90",
+          "stake": "0.10",
+          "balanceAfter": "19999.80",
+          "payout": "0.00",
+          "displayedMultiplier": 5
+        },
+        {
+          "ordinal": 3,
+          "balanceBefore": "19999.80",
+          "stake": "0.10",
+          "balanceAfter": "19999.70",
+          "payout": "0.00",
+          "displayedMultiplier": 3
+        },
+        {
+          "ordinal": 4,
+          "balanceBefore": "19999.70",
+          "stake": "0.10",
+          "balanceAfter": "19999.60",
+          "payout": "0.00",
+          "displayedMultiplier": 5
+        },
+        {
+          "ordinal": 5,
+          "balanceBefore": "19999.60",
+          "stake": "0.10",
+          "balanceAfter": "19999.50",
+          "payout": "0.00",
+          "displayedMultiplier": 4
+        }
+      ],
+      "observedGeometry": {
+        "rows": 3,
+        "columns": 5,
+        "multiplierPlacement": "top-arc"
+      },
+      "turbo": {
+        "enabled": true,
+        "observation": "Quick Play dialog confirmed mode; yellow lightning/main arrows; balance remains20000.00 DMO, no automatic spin."
+      },
+      "mode": "official-demo",
+      "providerDisplayedStartClock": "15:49:28",
+      "lastObservedAtUtc": "2026-11-11T12:51:41.215Z",
+      "finalBalance": "19999.50",
+      "balanceEquation": "20000.00 - (5 \u00d7 0.10) + 0.00 = 19999.50 DMO",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1966364170",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 5
+        }
+      ],
+      "countEvidence": {
+        "lastSpinId": "1966364170.5",
+        "method": "Five current-session history rows dated11.11.2026, before older07.11 rows; exact stake0.10, payout0 each."
+      },
+      "history": [
+        {
+          "time": "15:50:20",
+          "stake": "0.10",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:50:46",
+          "stake": "0.10",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:51:22",
+          "stake": "0.10",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:51:50",
+          "stake": "0.10",
+          "payout": "0.00"
+        },
+        {
+          "time": "15:52:31",
+          "stake": "0.10",
+          "payout": "0.00"
+        }
+      ],
+      "paytableAtStake010": {
+        "seven": {
+          "2": "0.05",
+          "3": "0.40",
+          "4": "1.00",
+          "5": "10.00"
+        },
+        "grape": {
+          "3": "0.20",
+          "4": "0.40",
+          "5": "2.00"
+        },
+        "watermelon": {
+          "3": "0.20",
+          "4": "0.40",
+          "5": "2.00"
+        },
+        "bell": {
+          "3": "0.10",
+          "4": "0.20",
+          "5": "1.00"
+        },
+        "lemonPlumOrangeCherry": {
+          "3": "0.05",
+          "4": "0.10",
+          "5": "0.50"
+        }
+      },
+      "notes": [
+        "Five manual Turbo spins; no AUTO started.",
+        "No Wild expansion or win triggered in these five rounds; no claim those branches were play-observed here.",
+        "Public Rules says Wild reels2\u20134 expand when part of a win; same Help says left multiplier but current screen shows upper arc.",
+        "Double up limit500.00DMO, min0.10DMO,max200DMO,maximum1300\u00d7,RTP96.55%,v1.0.1 belong to provider demo only.",
+        "Audio icon visible; acoustic output not verified."
+      ],
+      "completedAtUtc": "2026-11-11T12:54:08.520Z",
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-history-five.jpg",
+          "sha256": "e391420b059b121fc434f9b8ab7a5b2211914561d5061116c3a06e35c4279f94"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-paytable.jpg",
+          "sha256": "81cf9987b551df199876be714ab5d04d077d98971ca59ad9b6fe084af2e6ca10"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-quickplay-dialog.jpg",
+          "sha256": "3b115667c4326fad9843797728f0e47146a6d92ecd7fb2b1c5002806677e3c02"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-ready.jpg",
+          "sha256": "07b7048e6d9db47bb12477caac2f8e530610cb1aa96ea4367c6fb9f16a472c70"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-round1.jpg",
+          "sha256": "3e1e49fcebf5a346c150587e58ebff8846b2eb6e8125f1c96fbc48a3213f09c8"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-round2.jpg",
+          "sha256": "72605414dbc415ac52b218e7d12e754de22a606d66ab4fe1670f0d029d648ea1"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-round3.jpg",
+          "sha256": "bf20b19aef6bbf84b62c9a4e862b5e259c172fe20add725a35d7e4ad66eaa642"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-round4.jpg",
+          "sha256": "1247c640b976fba936e0078012f3698a35bef039089aece1922b796ac640262c"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/burnwilds-round5.jpg",
+          "sha256": "53fb82fe9a09935e0f8e43813aaba0b7f5960b30e83f4ca741a760772d1e7d44"
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_gatesofmerlyn",
+      "title": "Gates of Merlyn",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "mode": "official-demo",
+      "currency": "DMO",
+      "startedAt": "2026-11-11T12:55:42.366Z",
+      "initialBalance": "20000.00",
+      "stake": "10.00",
+      "verifiedCompletedRounds": 5,
+      "rounds": [
+        {
+          "ordinal": 1,
+          "balanceBefore": "20000.00",
+          "stake": "10.00",
+          "balanceAfter": "19990.00",
+          "payout": "0.00",
+          "observation": "Normal spin settled; six columns by five rows, one scatter, no win."
+        },
+        {
+          "ordinal": 2,
+          "balanceBefore": "19990.00",
+          "stake": "10.00",
+          "balanceAfterStake": "19980.00",
+          "balanceAfter": "20016.00",
+          "payout": "36.00",
+          "observation": "Tumble sequence reached36.00DMO; total auto-credited once, no collect/X2 prompt."
+        },
+        {
+          "ordinal": 3,
+          "balanceBefore": "20016.00",
+          "stake": "10.00",
+          "balanceAfter": "20006.00",
+          "payout": "0.00",
+          "observation": "Turbo spin settled without a winning group."
+        },
+        {
+          "ordinal": 4,
+          "balanceBefore": "20006.00",
+          "stake": "10.00",
+          "balanceAfter": "19996.00",
+          "payout": "0.00",
+          "observation": "Turbo spin settled without a winning group."
+        },
+        {
+          "ordinal": 5,
+          "balanceBefore": "19996.00",
+          "stake": "10.00",
+          "balanceAfterStake": "19986.00",
+          "balanceAfter": "19990.00",
+          "payout": "4.00",
+          "observation": "Resolved total4.00DMO automatically credited; final board has two scatters, no free spins triggered."
+        }
+      ],
+      "observedGeometry": {
+        "rows": 5,
+        "columns": 6
+      },
+      "paytableAtStake1000": {
+        "crown": {
+          "8": "50.00",
+          "10": "100.00",
+          "12": "500.00"
+        },
+        "staff": {
+          "8": "30.00",
+          "10": "50.00",
+          "12": "200.00"
+        },
+        "key": {
+          "8": "20.00",
+          "10": "40.00",
+          "12": "150.00"
+        },
+        "book": {
+          "8": "15.00",
+          "10": "30.00",
+          "12": "120.00"
+        },
+        "redCrystal": {
+          "8": "10.00",
+          "10": "20.00",
+          "12": "100.00"
+        },
+        "purpleCrystal": {
+          "8": "8.00",
+          "10": "15.00",
+          "12": "80.00"
+        },
+        "yellowCrystal": {
+          "8": "5.00",
+          "10": "10.00",
+          "12": "50.00"
+        },
+        "greenCrystal": {
+          "8": "4.00",
+          "10": "8.00",
+          "12": "40.00"
+        },
+        "whiteCrystal": {
+          "8": "2.00",
+          "10": "6.00",
+          "12": "20.00"
+        },
+        "scatter": {
+          "4": "20.00",
+          "5": "50.00",
+          "6": "200.00"
+        }
+      },
+      "multiplierColors": {
+        "blue": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "purple": [
+          10,
+          15,
+          20,
+          30,
+          40
+        ],
+        "red": [
+          50,
+          100,
+          250,
+          500
+        ]
+      },
+      "quickPlay": {
+        "enabledAfterRound": 1,
+        "confirmed": "Yellow lightning and spin arrows; balance19990.00 unchanged"
+      },
+      "transitionObservations": [
+        {
+          "round": 2,
+          "observation": "Winning white crystals highlighted across nonadjacent cells; floating6.00DMO award and cumulative counter shown while balance remained19980.00. This is an intermediate tumble, not final settlement."
+        }
+      ],
+      "finalBalance": "19990.00",
+      "balanceEquation": "20000.00 - (5 \u00d7 10.00) + 36.00 + 4.00 = 19990.00 DMO",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1966374803",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 5
+        }
+      ],
+      "countEvidence": {
+        "lastSpinId": "1966374803.5",
+        "method": "Five current-session rendered history rows dated11.11.2026; older09.11history excluded."
+      },
+      "history": [
+        {
+          "time": "15:56:45",
+          "payout": "0.00",
+          "stake": "10.00"
+        },
+        {
+          "time": "15:58:25",
+          "payout": "36.00",
+          "stake": "10.00"
+        },
+        {
+          "time": "15:59:12",
+          "payout": "0.00",
+          "stake": "10.00"
+        },
+        {
+          "time": "15:59:50",
+          "payout": "0.00",
+          "stake": "10.00"
+        },
+        {
+          "time": "16:00:13",
+          "payout": "4.00",
+          "stake": "10.00"
+        }
+      ],
+      "featurePriceMenu": {
+        "baseBetDmo": "10.00",
+        "anteTotalDmo": "15.00",
+        "buyBonusDmo": "1000.00",
+        "buyMegaBonusDmo": "5000.00",
+        "anteCaption": "Up to 3X more chances to win a BONUS!",
+        "megaCaption": "ALL MULTIPLIER symbols start from 10X \u2013 GUARANTEED!",
+        "action": "Inspected only; no Activate or Buy clicked"
+      },
+      "completedAtUtc": "2026-11-11T13:03:39.785Z",
+      "notes": [
+        "Five manual official DEMO rounds; no real ETB wagers or AUTO batch.",
+        "History and final spin ID confirm counters 1\u20135; older dated rows excluded.",
+        "No free-spin or MAGIC feature triggered in these five rounds.",
+        "Sound controls observed; acoustic playback and frame rate not measured.",
+        "Current source corrections are local; this observation does not establish a new production deployment."
+      ],
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/gates-feature-prices.jpg",
+          "sha256": "1b9254ae87dc0aac24ffd3038e34debd849364d72c08417c4da1ee61ed94e00b"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-history-five.jpg",
+          "sha256": "35c8e88cf20190c8ed9ea355b660c417e1310bba3fe4a35d10f7f1f94425d00c"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-paytable-lower.jpg",
+          "sha256": "d99607d80c9b37e44dda0d7e85dc691d3e10ddccf179b822b57ffcde6c60c667"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-paytable-upper.jpg",
+          "sha256": "2ae8d3fcfce83b969875832e3b5713d050693271fd2103d7f05d096b0ee77e75"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-quickplay-dialog.jpg",
+          "sha256": "02cc78fb97f9fd8b62141ee846f886285442cdb65d92c3607317097ad7d3659b"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-ready.jpg",
+          "sha256": "c36cfeb2e1764b31b86641dd9da47d102ef6d26aede67263def905dc819edb41"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-round1.jpg",
+          "sha256": "0e0b80b69a95bfd0a56ae047f92961bbe7afe7451a75e56b2208805284413e2c"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-round2-settled.jpg",
+          "sha256": "6e5ff79f839798bfd88f9766900c23e61eff8d04564b11f3d1381b82e6011ad2"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-round2-tumble.jpg",
+          "sha256": "78860553d40dd7a5576f607c1cb5ab17183873cb65e028b381e9eb8292ea1bbc"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-round3.jpg",
+          "sha256": "ecb05d78efb24541c0db260c1de01ac12323703edf6cd4f52c9fbdb552fc9a13"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-round4.jpg",
+          "sha256": "0510cab06008f184c09cccc0c7f42399b7c908527c913c7978da888db8f32e53"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/gates-round5-settled.jpg",
+          "sha256": "c33dbd484f5a5b52bb278748f690bc827d7a795b39f284cec8eb2c0e2f771620"
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_geniesbonanza",
+      "title": "Genie's Bonanza",
+      "mode": "official-demo",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "observedAtUtc": "2026-11-11T13:04:58.796Z",
+      "initialBalanceDmo": "20000.00",
+      "stakeDmo": "0.20",
+      "verifiedCompletedRounds": 2,
+      "rounds": [
+        {
+          "counter": 1,
+          "stakeDmo": "0.20",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19999.80",
+          "observedAtUtc": "2026-11-11T13:05:16.224Z"
+        },
+        {
+          "counter": 2,
+          "stakeDmo": "0.20",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19999.60",
+          "observedAtUtc": "2026-11-11T13:05:36.419Z"
+        }
+      ],
+      "geometry": {
+        "columns": 6,
+        "rows": 5
+      },
+      "notes": [
+        "Two new rounds planned to supplement three previously recorded; no B+ activation or Buy.",
+        "Ready screen shows yellow lightning/spin arrows; previous Quick Play preference appears persisted.",
+        "No win, tumble, Carpet, free spins or Risk triggered in these two fresh rounds.",
+        "Acoustic sound and mobile frame rate not measured.",
+        "No real account, ETB wager, deposit or production wallet action."
+      ],
+      "paytableAtStakeDmo": "0.20",
+      "paytable": {
+        "thresholds": [
+          "8\u20139",
+          "10\u201311",
+          "12+"
+        ],
+        "crown": [
+          "1.00",
+          "2.00",
+          "10.00"
+        ],
+        "ring": [
+          "0.50",
+          "1.20",
+          "4.00"
+        ],
+        "lamp": [
+          "0.40",
+          "0.80",
+          "3.00"
+        ],
+        "hourglass": [
+          "0.30",
+          "0.50",
+          "2.40"
+        ],
+        "necklace": [
+          "0.24",
+          "0.40",
+          "2.00"
+        ],
+        "redGem": [
+          "0.20",
+          "0.30",
+          "1.60"
+        ],
+        "pinkGem": [
+          "0.16",
+          "0.24",
+          "1.40"
+        ],
+        "greenGem": [
+          "0.12",
+          "0.20",
+          "1.00"
+        ],
+        "blueGem": [
+          "0.08",
+          "0.16",
+          "0.80"
+        ],
+        "yellowGem": [
+          "0.04",
+          "0.12",
+          "0.40"
+        ],
+        "scatter4Plus": "1.00"
+      },
+      "finalBalanceDmo": "19999.60",
+      "balanceEquation": "20000.00 \u2212 2 \u00d7 0.20 + 0.00 = 19999.60 DMO",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1966390561",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 2
+        }
+      ],
+      "countEvidence": "Rendered Rules/History spin ID 1966390561.2 and two new 11.11.2026 history rows at16:04:59 and16:05:17; older02.11 rows excluded.",
+      "providerDisplayedHistory": [
+        {
+          "date": "11.11.2026",
+          "clock": "16:04:59",
+          "stakeDmo": "0.20",
+          "payoutDmo": "0.00"
+        },
+        {
+          "date": "11.11.2026",
+          "clock": "16:05:17",
+          "stakeDmo": "0.20",
+          "payoutDmo": "0.00"
+        }
+      ],
+      "completedAtUtc": "2026-11-11T13:06:13.093Z",
+      "scatterEvidence": {
+        "source": "Rendered Rules accessibility observation",
+        "providerDisplayedClock": "16:05:35",
+        "displayedStakeDmo": "0.20",
+        "literalText": "4+ 1.00",
+        "location": "Symbol block immediately preceding BONUS GAME RULES",
+        "screenshotScope": "Upper paytable screenshot does not include this lower block; text observed in the open Rules UI."
+      },
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/genie-history-two.jpg",
+          "sha256": "fc3b240b8674489fb5aa46a0f635aa9226c3a349417597e83494b5acee7b5f62"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/genie-paytable.jpg",
+          "sha256": "db3342df252671a1e27931496cd835c5bb4d4407ad7a721b583cb0d882005dd9"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/genie-ready.jpg",
+          "sha256": "1674481d44fddb6347958d47ef8d428f075b3aad5b711fe0a4bdf617344525b2"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/genie-round1.jpg",
+          "sha256": "4cdfa98773c742f01b244ba76be382d7e6798e6d88ae7f4fb8565c61aba2fae0"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/genie-round2.jpg",
+          "sha256": "ca424ed7df4d93508fd0c1b00768bf344a8839a518116346e0cca23667e74496"
+        }
+      ]
+    },
+    {
+      "gameId": "ind74_official_bookofbonanza",
+      "title": "Book of Bonanza",
+      "mode": "official-demo",
+      "sourceUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "observedAtUtc": "2026-11-11T13:06:54.887Z",
+      "initialBalanceDmo": "20000.00",
+      "stakeDmo": "0.40",
+      "verifiedCompletedRounds": 5,
+      "rounds": [
+        {
+          "counter": 1,
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19999.60",
+          "observedAtUtc": "2026-11-11T13:08:25.734Z"
+        },
+        {
+          "counter": 2,
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19999.20",
+          "observedAtUtc": "2026-11-11T13:09:11.842Z"
+        },
+        {
+          "counter": 3,
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19998.80",
+          "observedAtUtc": "2026-11-11T13:09:43.805Z"
+        },
+        {
+          "counter": 4,
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19998.40",
+          "observedAtUtc": "2026-11-11T13:10:04.169Z"
+        },
+        {
+          "counter": 5,
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00",
+          "balanceDmo": "19998.00",
+          "observedAtUtc": "2026-11-11T13:10:20.647Z"
+        }
+      ],
+      "geometry": {
+        "columns": 6,
+        "rows": 4
+      },
+      "visiblePurchase": {
+        "baseBetDmo": "0.40",
+        "buyBonusDmo": "40.00",
+        "clicked": false
+      },
+      "notes": [
+        "Fresh screenshot confirms six columns \u00d7 four rows; Chinese temple/dragon theme.",
+        "No Buy Bonus or B+ clicked.",
+        "All five fresh rounds lost; no Free Spins or expanding-symbol branch triggered.",
+        "Help states expansion covers3 positions while actual board has4 rows; unresolved interpretation retained.",
+        "Normal spin1 showed sequential column stops; Quick Play rounds2\u20135 shorter, no frame-rate measurement.",
+        "No real ETB wagers, B+, Buy Bonus, Risk or unattended AUTO.",
+        "Visible sound controls only; acoustic playback not independently verified."
+      ],
+      "paytableAtStakeDmo": "0.40",
+      "paytable": {
+        "emperor": {
+          "2": "0.40",
+          "3": "0.80",
+          "4": "4.00",
+          "5": "20.00",
+          "6": "50.00"
+        },
+        "dragon": {
+          "2": "0.20",
+          "3": "0.60",
+          "4": "2.00",
+          "5": "8.00",
+          "6": "20.00"
+        },
+        "lotusGongLantern": {
+          "2": "0.20",
+          "3": "0.40",
+          "4": "1.00",
+          "5": "4.00",
+          "6": "8.00"
+        },
+        "KA": {
+          "3": "0.20",
+          "4": "0.60",
+          "5": "1.50",
+          "6": "3.00"
+        },
+        "tenJQ": {
+          "3": "0.20",
+          "4": "0.40",
+          "5": "1.00",
+          "6": "2.00"
+        }
+      },
+      "paylineCount": 40,
+      "initialProviderSpinId": "1966393817.0",
+      "quickPlay": {
+        "enabledAfterRound": 1,
+        "balanceUnchangedDmo": "19999.60",
+        "method": "Lightning opened explicit Quick Play dialog; Enable Quick Play selected; arrows/lightning turned yellow."
+      },
+      "finalBalanceDmo": "19998.00",
+      "balanceEquation": "20000.00 \u2212 5 \u00d7 0.40 + 0.00 = 19998.00 DMO",
+      "providerRoundRanges": [
+        {
+          "nativeSessionId": "1966393817",
+          "firstCompletedCounter": 1,
+          "lastCompletedCounter": 5
+        }
+      ],
+      "countEvidence": "Initial Rules spin ID1966393817.0, final1966393817.5, five rendered11.11.2026 history rows only.",
+      "providerDisplayedHistory": [
+        {
+          "date": "11.11.2026",
+          "clock": "16:08:07",
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00"
+        },
+        {
+          "date": "11.11.2026",
+          "clock": "16:08:55",
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00"
+        },
+        {
+          "date": "11.11.2026",
+          "clock": "16:09:12",
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00"
+        },
+        {
+          "date": "11.11.2026",
+          "clock": "16:09:44",
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00"
+        },
+        {
+          "date": "11.11.2026",
+          "clock": "16:10:04",
+          "stakeDmo": "0.40",
+          "payoutDmo": "0.00"
+        }
+      ],
+      "completedAtUtc": "2026-11-11T13:10:45.866Z",
+      "screenshots": [
+        {
+          "path": "reports/priority10-reference-20261111/book-forty-paylines.jpg",
+          "sha256": "3ad52623d7a3256ed7f240c8af6eb1ead38f5c2445a034ad046aaa9b62664e34"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-history-five.jpg",
+          "sha256": "864b5f31d9659f3c4548dd163ff61e667029899279e0527b415e2d3241015609"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-paytable-lower.jpg",
+          "sha256": "c1987ae215bb7750df2b17c848eea9253f10f5822ce29f4456598ffa6412c7ac"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-paytable-upper.jpg",
+          "sha256": "b7f3ff49e48dfc5b617f266321503bcecfe4e04d7dc89179d8fc03b8596d0d8d"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-quickplay-dialog.jpg",
+          "sha256": "c5fa9c67af615c3b3556f0c4c7abfcc2c606218eaaa37f3f68c7050a28f88024"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-ready-geometry.jpg",
+          "sha256": "24cd486b8131d66b201c0c14522d40bb1b739f59e964b7187db0c5e7780220a7"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-round1.jpg",
+          "sha256": "360be5725c69dff9f0db337896c458d233a6e4d577e2f6825ec5337f1bd1ca35"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-round2.jpg",
+          "sha256": "d37c5db52311bd6bde61a1d1b2698d7c8d159bc9809edb8e44300407e38dc91e"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-round3.jpg",
+          "sha256": "58e9002183dbc4cd99bb49469be195e8d4d690e4e605b7fa5837860a3087096e"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-round4.jpg",
+          "sha256": "0bb6d24dde9484ce9b25cd4cfe7a04e4c4a3b8985ae5bdfc09badf25ba09a404"
+        },
+        {
+          "path": "reports/priority10-reference-20261111/book-round5.jpg",
+          "sha256": "d8be33fa64df012b36847e1cf3e676152fcb27f429b9d402ed45a13e57c074d8"
+        }
+      ]
+    }
+  ]
+}

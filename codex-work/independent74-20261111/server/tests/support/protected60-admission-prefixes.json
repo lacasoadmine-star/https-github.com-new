@@ -1,0 +1,26 @@
+{
+  "format": "exact-protected-source-prefix-fixture-v1",
+  "prefixes": [
+    {
+      "handler": "originals",
+      "source": "await authenticate(req,c,true);await lockWallets(c,uid);\n  const prior=await c.query('SELECT request_hash,result_json FROM sw_nine.game_rounds WHERE user_id=$1 AND request_key=$2',[uid,roundToken]);\n  if(prior.rowCount){if(prior.rows[0].request_hash!==fingerprint)fail(409,'IDEMPOTENCY_PARAMETER_CONFLICT');return prior.rows[0].result_json;}\n  if((await c.query('SELECT 1 FROM sw_nine.actions WHERE user_id=$1 AND request_key=$2',[uid,roundToken])).rowCount)fail(409,'IDEMPOTENCY_PARAMETER_CONFLICT');\n  if(!accepting)fail(503,'SLOT_RELEASE_NOT_ENABLED');",
+      "sha256": "3367a69e6212db0d66ed9a743bfd3f9b422f72b199c174c1e7da9de23f91307d"
+    },
+    {
+      "handler": "settle",
+      "source": "await authenticate(req,c,true);await lockWallets(c,uid);\n const old=await c.query('SELECT request_hash,result_json FROM sw_nine.game_rounds WHERE user_id=$1 AND request_key=$2',[uid,roundToken]);if(old.rowCount){if(old.rows[0].request_hash!==fingerprint)fail(409,'IDEMPOTENCY_PARAMETER_CONFLICT');return old.rows[0].result_json;}\n const collision=await c.query('SELECT 1 FROM sw_nine.actions WHERE user_id=$1 AND request_key=$2',[uid,roundToken]);if(collision.rowCount)fail(409,'IDEMPOTENCY_PARAMETER_CONFLICT');if(!accepting)fail(503,'SLOT_RELEASE_NOT_ENABLED');",
+      "sha256": "9dedf24ec4bb4f7b4572424c41ee905c39a42631f9ba302698617a7a12a1deff"
+    },
+    {
+      "handler": "action",
+      "source": "await authenticate(req,c,true);await lockWallets(c,uid);\n const old=await c.query('SELECT request_hash,result_json FROM sw_nine.actions WHERE user_id=$1 AND request_key=$2',[uid,roundToken]);if(old.rowCount){if(old.rows[0].request_hash!==fingerprint)fail(409,'IDEMPOTENCY_PARAMETER_CONFLICT');return old.rows[0].result_json;}\n if((await c.query('SELECT 1 FROM sw_nine.game_rounds WHERE user_id=$1 AND request_key=$2',[uid,roundToken])).rowCount)fail(409,'IDEMPOTENCY_PARAMETER_CONFLICT');\n if(!accepting)fail(503,'SLOT_RELEASE_NOT_ENABLED');",
+      "sha256": "05094abc44739e9a618683b3cd6c395c3d97bf898c939ca8f3c4da584946d56e"
+    }
+  ],
+  "lockWallets": {
+    "source": "async function lockWallets(c,uid){const r=await c.query(\"SELECT id,balance FROM sw_rebuild.wallets WHERE id=ANY($1::text[]) ORDER BY id FOR UPDATE\",[[uid,houseFor(uid)]]);if(r.rowCount!==2)fail(503,'PLAYER_OR_HOUSE_WALLET_MISSING');return r.rows;}",
+    "sha256": "de4281b1bc71f3e0dec236a8462e9bb535ebe4083408d7019d5df42d1bc696df"
+  },
+  "privateDeploymentMetadataPublished": false,
+  "privateDeploymentPinsRequired": true
+}

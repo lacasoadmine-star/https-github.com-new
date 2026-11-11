@@ -5,11 +5,12 @@ import scope from '../../scope/official74.json' with { type: 'json' };
 import * as fixtureMath from './support/synthetic-mines-math.mjs';
 import { createRegistry } from './support/retained-library/library-service.mjs';
 import { createExistingLibrary74Adapter, composeExistingLibrary74Registry, publicLibrary74Definitions, integerRngFromLibrary, minorToMoney } from '../existing-library74-adapter.mjs';
+import { freshChargingContext } from '../../tests/support/charging-wilds-fixtures.mjs';
 
 const definitions = math.listGameDefinitions();
 const ids = definitions.map(game => game.id);
 const definition = family => family === 'mines' ? fixtureMath.syntheticMinesDefinition() : definitions.find(game => game.family === family && (family !== 'crash' || game.crashMechanic !== 'cascade'));
-const openAdapter = options => createExistingLibrary74Adapter({ reviewedGameIds: ids, allowNewRounds: true, gameLimits: Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])), ...options });
+const openAdapter = options => createExistingLibrary74Adapter({ reviewedGameIds: ids, allowNewRounds: true, getStartContext:({gameId,stakeMinor,options})=>math.getGameDefinition(gameId)?.chargingFeature?freshChargingContext(math.getGameDefinition(gameId),stakeMinor,options):undefined, gameLimits: Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])), ...options });
 const openMinesAdapter=options=>{const ids=fixtureMath.listGameDefinitions().map(g=>g.id);return openAdapter({math:fixtureMath,reviewedGameIds:ids,gameLimits:Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])),...options});};
 const startedAt = 1794355200000;
 const zero = () => 0;
@@ -59,7 +60,7 @@ test('all 72 adapters accept configured stakes above 40,000 ETB, preserve test p
     for(const stakeMinor of ['100','2000','4000100','5000000']){
       const result=adapter.start(game.id,{stakeMinor},zero,startedAt);
       assert.equal(result.debitMinor,stakeMinor);
-      assert.equal(result.maxPayoutMinor,math.maximumPayoutMinor({gameId:game.id,betMinor:stakeMinor}));
+      assert.equal(result.maxPayoutMinor,math.maximumPayoutMinor({gameId:game.id,betMinor:stakeMinor,context:freshChargingContext(game,stakeMinor)}));
     }
     for(const stakeMinor of ['0','99','101','5000001','5000100']){
       let draws=0;
@@ -97,7 +98,7 @@ test('all 72 adapters start and settle inside their exact per-round reserve boun
   const adapter = openAdapter();
   for (const game of definitions) {
     let transition = adapter.start(game.id, { stakeMinor: game.limits.minBetMinor }, zero, startedAt);
-    const bound = math.maximumPayoutMinor({ gameId: game.id, betMinor: game.limits.minBetMinor });
+    const bound = math.maximumPayoutMinor({ gameId: game.id, betMinor: game.limits.minBetMinor, context:freshChargingContext(game,game.limits.minBetMinor) });
     assert.equal(transition.debitMinor, game.limits.minBetMinor, game.id);
     assert.equal(transition.maxPayoutMinor, bound, game.id);
     if (transition.state.status === 'active' && game.family === 'mines') {

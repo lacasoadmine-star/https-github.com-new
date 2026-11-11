@@ -1,3 +1,23 @@
+import {configurePublicColorGamble} from '../public-gamble.mjs';
+
+export function configureOfficialGame(d){
+  if(d?.id!=='ind74_official_bookoffuturia'||d.family!=='slots')throw new TypeError('The independent Book of Futuria definition is required.');
+  d.rules=[
+    'This partial independent Book of Futuria model retains its five-reel, three-row regular-symbol engine, authored twenty-line chart and authored symbol prizes. Provider geometry, the full line chart and prizes are not verified.',
+    'Each regular cell chooses uniformly among eight original symbols. Winning lines pay left to right; each award is floor(total accepted stake times the authored line prize divided by twenty). X2 and collection never debit another stake.',
+    'The exact active title Help documents a red/black X2 feature separately from its paid B+ Bonus Risk wheel. This implementation supports only the ordinary held-award X2/collection lifecycle.',
+    'Book Wild/Scatter, the three-Book trigger, ten free spins and retriggers, selected-symbol expansion, bonus purchase and B+ progress/paid Risk remain unimplemented. Their partial documentation does not establish complete bonus geometry, purchase price or persistent-state behavior; unsupported options are rejected.',
+  ];
+  configurePublicColorGamble(d);
+  d.provenance={...d.provenance,publicGambleSource:'references/official-bookoffuturia-help-en-20261111.json:help.slot.bookoffuturia.x2.description',
+    distinctUnimplementedBonusRiskSource:'references/official-bookoffuturia-help-en-20261111.json:help.slot.bookoffuturia.bonus.description'};
+  d.releaseReview={realMoneyAdmissionBlocked:true,codes:['PUBLIC_MECHANICS_INCOMPLETE','REFERENCE_PAYTABLE_AND_CHART_UNVERIFIED'],
+    requiredAction:'Complete and verify the title-specific Book bonus and B+ lifecycle, geometry, public prizes/chart and independent distribution before financial admission. Red/black X2 does not implement paid Bonus Risk.'};
+  d.implementationStatus='independent-partial-model; real-money-admission-blocked; Book-bonus-and-B+-features-missing';
+  d.rules.push('REAL-MONEY ADMISSION IS BLOCKED while the documented Book bonus and B+ features, reference geometry, regular prizes and chart remain incomplete or unverified. Passing X2 and ledger tests does not clear that restriction.');
+  return d;
+}
+
 export default {
   "id": "ind74_bookoffuturia",
   "title": "Book of Futuria — Independent",

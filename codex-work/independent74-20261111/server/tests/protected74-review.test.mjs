@@ -123,7 +123,7 @@ test('64newmodel fixture reserves and pays a large heldwin once; accountandhouse
  const {seededRandom}=await import('./support/retained-library/library-service.mjs');
  let time=1794355200000;const fixture=await createRetainedLibrary74Fixture({isolated:true,math:review.protected64Math,now:()=>time});
  try{
- const {service,facade,sql}=fixture;const game=review.protected64Math.listGameDefinitions().find(g=>g.family==='slots'&&g.gamble?.enabled);
+ const {service,facade,sql}=fixture;const game=review.protected64Math.listGameDefinitions().find(g=>g.family==='slots'&&g.gamble?.enabled&&!g.chargingFeature&&!g.releaseReview?.realMoneyAdmissionBlocked);
  assert(game);const roundId='370f0300-1234-4234-8234-123456789abc';let winningSeed;
  for(let i=0;i<4096;i++){const candidate=hash('protected64-large-fixture:'+i),r=facade.adapter.start(game.id,{stakeMinor:'4000100',holdWin:true},seededRandom(candidate,roundId+':0'),time);if(r.state.status==='active'&&BigInt(r.state.mathState.pendingWinMinor)>4000000n){winningSeed=candidate;break;}}
  assert(winningSeed);const oldId=service.id,oldSeed=service.seed;service.id=()=>roundId;service.seed=()=>winningSeed;

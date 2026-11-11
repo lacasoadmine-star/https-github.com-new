@@ -66,3 +66,29 @@ test('unavailable browser audio fails gracefully without outcome or timer side e
   assert.equal(await audio.unlock(),false);audio.setMuted(false);audio.startSpin();audio.cue('error');
   assert.equal(audio.loop,null);assert.equal(audio.voices.size,0);audio.dispose();
 });
+
+test('request-to-animation handoff keeps one spin loop and one lead-in', async () => {
+  const audio=new MachineAudio({AudioContext:Context,muted:false});await audio.unlock();
+  audio.startSpin();const firstLoop=audio.loop,firstVoices=[...audio.voices];
+  assert.equal(firstVoices.length,2);
+  audio.startSpin();audio.startSpin();
+  assert.equal(audio.loop,firstLoop);assert.deepEqual([...audio.voices],firstVoices);
+  assert.equal(audio.context.oscillators.length,2);
+  audio.stopSpin();assert.equal(audio.loop,null);audio.dispose();
+});
+
+test('five successive spins clear the preceding award tail and never stack loops', async () => {
+  const audio=new MachineAudio({AudioContext:Context,muted:false});await audio.unlock();
+  let previousAward=[];
+  for(let spin=1;spin<=5;spin++){
+    // Actual controller boundary: finish the previous award before a new start.
+    audio.stop();assert.equal(audio.voices.size,0);
+    assert(previousAward.every(voice=>voice.disconnected&&voice.stops.includes(undefined)));
+    audio.startSpin();const loop=audio.loop;assert.notEqual(loop,null);
+    audio.startSpin();assert.equal(audio.loop,loop);assert.equal(audio.voices.size,2);
+    audio.stopSpin();assert.equal(audio.loop,null);
+    audio.cue('reelStop');audio.cue('smallWin');
+    assert.equal(audio.voices.size,7);previousAward=[...audio.voices];
+  }
+  audio.dispose();assert.equal(audio.voices.size,0);assert.equal(audio.loop,null);
+});

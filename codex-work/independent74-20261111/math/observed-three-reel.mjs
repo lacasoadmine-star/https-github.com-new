@@ -21,7 +21,7 @@ export function configureObservedThreeReel(d) {
     d.rules=[
       'Twenty completed official DEMO results contain nine symbols, matching three reels and three rows. The title-specific official Help specifies 27 Reel Ways Pay and a left 1x, 2x, 3x, 4x or 5x multiplier reel.',
       'One matching symbol position from each consecutive reel, starting at the leftmost reel, forms a winning way. This independent model evaluates each of the 27 row combinations once; every matching way pays floor(total stake × authored symbol prize /27), then the left multiplier applies.',
-      'The official Help additionally describes a conditional x2 when the same symbols appear on all three reels. The precise condition is unresolved and this extra feature remains unimplemented. The separate red/black X2 Gamble is also documented but not implemented for this title.',
+      'The official Help additionally describes a conditional x2 when the same symbols appear on all three reels. The precise condition is unresolved and this extra feature remains unimplemented. The separately configured red/black X2 Gamble follows its documented public lifecycle with independent probabilities.',
       'The provider LinePlay value 1 is a betting field, not one fixed payline. No Wild substitution is inferred by copying Multi Hot Wild Ways. Symbol prizes, uniform regular-symbol tickets, stake/27 allocation and uniform multiplier probabilities are independent choices; provider math and complete parity are unverified.',
     ];
     d.provenance={...d.provenance,publicWaysSource:help+':help.slots.multihotways.doubleDIv.description',

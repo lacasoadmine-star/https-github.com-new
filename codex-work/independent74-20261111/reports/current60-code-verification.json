@@ -1,0 +1,781 @@
+{
+  "format": "current60-completed-code-verification-v1",
+  "capturedAt": "2026-11-11T14:06:59.992622+00:00",
+  "command": "npm test",
+  "testRuntime": "Node24.22.1",
+  "suite": {
+    "tests": 1118,
+    "pass": 1118,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "durationMs": 120750.163436,
+  "log": "reports/current60-tests.txt",
+  "logSha256": "e210eb8d8a6606c7f4d731e173115d4c6416ac23c95c953f96b3beca22ccafe5",
+  "codeInputsSha256": "87c6e63ae1cb9f03a9a163d29f92f205400679b46a4e74e4a3c0e5d0d0545d5a",
+  "codeInputs": [
+    {
+      "path": "build.mjs",
+      "sha256": "f1750c6705230afa75f4636a172d0c85015a95e8cf85519466931a578bf48497"
+    },
+    {
+      "path": "client/api.mjs",
+      "sha256": "b9160451cb92c423aea8f29e9ee8a46dbcbbd894dc5b190b33ab769bacee2e1f"
+    },
+    {
+      "path": "client/app.mjs",
+      "sha256": "5bb4b62131b72bae418142b2bfbb17c6a7771a684d14e64a3089a5d5d2dc5435"
+    },
+    {
+      "path": "client/audio.mjs",
+      "sha256": "0ecba5ae3b3ebdcede1a179bede5389c73f0352bbb70fd39d1bc6fb7d7ea03dd"
+    },
+    {
+      "path": "client/book74-presentation.mjs",
+      "sha256": "c4f1f2f06bab60df142ab5a26948623a407c37c01db1e61eae35c7fde713c09e"
+    },
+    {
+      "path": "client/charging74-presentation.mjs",
+      "sha256": "dc6039741f43c45f42a4340d8532c7361e4d734a1d1688d880792ff898e03b57"
+    },
+    {
+      "path": "client/chicken74-autoplay.mjs",
+      "sha256": "29747b9e7b542d5739c00cee8e14e3f9fff1ac809d4f7612c8a1ddc74d93e4e0"
+    },
+    {
+      "path": "client/chicken74-presence.mjs",
+      "sha256": "708f264ae5d3ee80ebd1d032179a18eb159c5613b834462c90da11f0b031c63f"
+    },
+    {
+      "path": "client/compare74.css",
+      "sha256": "27895b1283984367afd9938f0153b332921d8fc55098d2990454682c99eae743"
+    },
+    {
+      "path": "client/compare74.html",
+      "sha256": "6c4b130126cfab8254a95185965b4997630a198ccc1e9c3be076c56c7384c20a"
+    },
+    {
+      "path": "client/compare74.mjs",
+      "sha256": "e195d47394cfc6a7e8c88128c6b36618f8dea4a9d2157d39014a851e2769d913"
+    },
+    {
+      "path": "client/existing-wallet-routes.mjs",
+      "sha256": "77051487163e0b840d9701b39d98554529a7a64cd7dc89b140fbdbc708263e3c"
+    },
+    {
+      "path": "client/fruit-art.mjs",
+      "sha256": "d42714aeb6ef8c550d6144b3f41dae2ffcec2a28af45e756b0433a215e1a2519"
+    },
+    {
+      "path": "client/gates74-presentation.mjs",
+      "sha256": "13b5bd1a9336dc390a8d145265f8c52c070d5fd6d28641aaf324b2b528cb2247"
+    },
+    {
+      "path": "client/index.html",
+      "sha256": "209173b086fb1df41032ba7f1a2e5f8ee59ad6e8671329b564591d9ff83a085e"
+    },
+    {
+      "path": "client/jungle74-presentation.mjs",
+      "sha256": "c4d4ebd49e6bb50f7fea700691b60cde8fc4f6ee5a7049ecb8e57860a1840d61"
+    },
+    {
+      "path": "client/lobby74.css",
+      "sha256": "7152f0477d7843461602eb2d129892050f2097be0bdd350ca85cb71cb6b52d50"
+    },
+    {
+      "path": "client/lobby74.mjs",
+      "sha256": "5733cd5c74286645eaee16ce255a08a9796a37092fb6e93e4cd8fc98d7841890"
+    },
+    {
+      "path": "client/machine74-api.mjs",
+      "sha256": "9aeb808d5baef4b128ab4920c82d0ad183465e2f95a3f37ed4db354d0f531e3b"
+    },
+    {
+      "path": "client/machine74-audio.mjs",
+      "sha256": "cc1442c4a135f50ff79bc65d391b15077c3897dd952b155719dfeda2b482b67c"
+    },
+    {
+      "path": "client/machine74-controller.mjs",
+      "sha256": "47f477476a816d85d82563d040b517cc69aed0a4881b8c5664c26c68a429bee4"
+    },
+    {
+      "path": "client/machine74-controls.mjs",
+      "sha256": "52892d5ecc083be19b9426fdaecdbe4da74608de8af7f92cf48814cfbd8bb19a"
+    },
+    {
+      "path": "client/machine74-renderer.css",
+      "sha256": "c3fe4b907deebdf1b84580bf8b13a3cbc6019931062b33e34cc7b81931ce9781"
+    },
+    {
+      "path": "client/machine74-renderer.mjs",
+      "sha256": "05dddebfe08686752af97495fbed830c592032a7cf4e3676911b34c0433518fd"
+    },
+    {
+      "path": "client/machine74-resume.mjs",
+      "sha256": "a9709f7a642c6aeef7075d5d86ddcdf5a1c763ca65fbf19812b1bc80de7eca7f"
+    },
+    {
+      "path": "client/machines74.css",
+      "sha256": "98a41164444eedd750a8165a738035fb74725aaf4d0a90c612df92ca5ae16532"
+    },
+    {
+      "path": "client/machines74.html",
+      "sha256": "e761c0fcc36a61fcf5702ae6ea61ba18f86aef0418103ec3f17af30ce4d10627"
+    },
+    {
+      "path": "client/mariachi74-presentation.mjs",
+      "sha256": "61b1fd3b2dc2f469f87a6741412b06c528bbe9110217f4371d78dd0dbf3d9623"
+    },
+    {
+      "path": "client/official74-data.mjs",
+      "sha256": "571f234249be5a9643fbb918c9d2c81677d423cf8ff3513ffca407f3353b5995"
+    },
+    {
+      "path": "client/official74.html",
+      "sha256": "5512e63d206a9d3a4e6b7a2732ffffbf665c9476027aebd0260754714599be6c"
+    },
+    {
+      "path": "client/paid74-feature.mjs",
+      "sha256": "0a89937368bf24232a6b2eb752a4ebe319129750a2bc725215fe80764b87c11d"
+    },
+    {
+      "path": "client/pegboard.mjs",
+      "sha256": "15adaa0b348644646c469c2a64e0d2240be23d5f54929bf4ab48c6a78c1cd7ac"
+    },
+    {
+      "path": "client/plinkox-controls.mjs",
+      "sha256": "3e9274460ec6536d87e0a81fc344120e95c47d36d04470e85180274a8d5124a7"
+    },
+    {
+      "path": "client/presentation.mjs",
+      "sha256": "0c7ecf564efe590f7a774a2731873dc8ea4b2eae5807b121aaed68dd025d346a"
+    },
+    {
+      "path": "client/progress.css",
+      "sha256": "217c9b8748aaae4c12b7f9bd3c6d69b90a84df596a9c52675d8e3b26791abe77"
+    },
+    {
+      "path": "client/progress.html",
+      "sha256": "864372ac7122abe9bc7012a102d18797c2ac17c26902c3c1bd049cb0014b8446"
+    },
+    {
+      "path": "client/progress.mjs",
+      "sha256": "654aab976e3621f04b1927f6bdc24fa0ee4aa7bb5ec434aab309f37155753eae"
+    },
+    {
+      "path": "client/renderers/crash.css",
+      "sha256": "cbd578da64da448b3fd49c37890bd8532b8d8ec42f26c2c9ab4e7d3f2e29053b"
+    },
+    {
+      "path": "client/renderers/crash.mjs",
+      "sha256": "69ca42f157c3fb05565aff171160ba4748cfebe4a282b23c67e30532722c125f"
+    },
+    {
+      "path": "client/renderers/instant.css",
+      "sha256": "f0a810bf7049c12920c535df1d23068c43adc396f41b5acf7314acf8f29208d9"
+    },
+    {
+      "path": "client/renderers/instant.mjs",
+      "sha256": "b1aa9e41cb04d94ecc859809b06ca2670452029f4ad951dc68ac93fb2eba3358"
+    },
+    {
+      "path": "client/style.css",
+      "sha256": "4acf0d3e309f34ed72ad896123dc2fd47a46f1dec5053f664fa9788a4ff98c6a"
+    },
+    {
+      "path": "client/test72-bundle.mjs",
+      "sha256": "e5c93b235d82f6c294813595be3288febc1d365045596e3908c2eab1e0814373"
+    },
+    {
+      "path": "client/test72-entry.mjs",
+      "sha256": "36da4ab9df6e518627c917e8d76b8592470dc98b249726c7971b157bc4db1ab6"
+    },
+    {
+      "path": "client/test72-rng.mjs",
+      "sha256": "2a16896020d8c74bf5709f18be0c6f24c71a06bc5db5ee74b41ca76eac330be1"
+    },
+    {
+      "path": "client/test72.css",
+      "sha256": "6f5ca9047ada38d537edff098a586594417063c0c39a1ecc27efa053749c7e26"
+    },
+    {
+      "path": "client/test72.html",
+      "sha256": "7baeaa0d04019b718a7f5eb1d79cc57062b10166c538d83aa417c742f95d5c15"
+    },
+    {
+      "path": "demo-gateway.mjs",
+      "sha256": "45b92e40607a2f492f6afa46c8ee358a1cd21b155422f4be8b40a9fb1f3ec248"
+    },
+    {
+      "path": "gateway.mjs",
+      "sha256": "f9cdaccd604536b0903eb924e42c7af01f3658053e9625b9546f13b723355ab2"
+    },
+    {
+      "path": "math/book-bonanza-paylines.mjs",
+      "sha256": "436d8f2e63122fab0fb2ca29cd9be8b50e71d6f8e399cb814eeb54105f3e0ee9"
+    },
+    {
+      "path": "math/book-of-bonanza.mjs",
+      "sha256": "82158bc6716477762bb0bb25019156cf25f276560a6f9213dae5b1c452c80b16"
+    },
+    {
+      "path": "math/charging-wilds.mjs",
+      "sha256": "5d87ab188b06c389bbc9b1bdf931bb1166d17e2251c0e0427e8a1c45fc852a76"
+    },
+    {
+      "path": "math/chicken-highway.mjs",
+      "sha256": "46aeda5e0e8b58a5a0822382cd4ee3e31fea7332d7ffae8b12d89f5f01e03aba"
+    },
+    {
+      "path": "math/coins-of-atlantis.mjs",
+      "sha256": "f39f27070cc8d8328ab0530bf84080f73b00a13aecec49d41810c8495c83da91"
+    },
+    {
+      "path": "math/documented-basic-slots.mjs",
+      "sha256": "4048287027a8010b971f73a75808c39fb62fe46798166375ea6006166a07a8aa"
+    },
+    {
+      "path": "math/engines/crash.mjs",
+      "sha256": "04145266218b27fefb3f34fa363429d213138665804347ebf8fea2cd91aeb417"
+    },
+    {
+      "path": "math/engines/instant.mjs",
+      "sha256": "c716d964cb36ec729590e4e35b09ffa1fe00a8368f4a005be5b4a1e4b0d49b7c"
+    },
+    {
+      "path": "math/engines/ladder.mjs",
+      "sha256": "7b456df398e641e498d73684449f202adf4ed6643f9c50c3724f0cdaa6e463d4"
+    },
+    {
+      "path": "math/engines/mines.mjs",
+      "sha256": "70344014579e0e81ab09e08386a16da77de9e7c1d1ff1e249a6215e3590eeb90"
+    },
+    {
+      "path": "math/engines/shared.mjs",
+      "sha256": "5e94af7b87d8c218cce8fb88fc240c5927595aab21b6179edcc280f0edb6d1e1"
+    },
+    {
+      "path": "math/engines/slots.mjs",
+      "sha256": "e8caa6d0d6e0259c57363ef5e8b41f3e4a108f8dc984344cddd3920b1e20ab8a"
+    },
+    {
+      "path": "math/engines/table-games.mjs",
+      "sha256": "66da259c99130e95b958fa08a873fdb502722a493e4ffcb79729c9140cca2633"
+    },
+    {
+      "path": "math/engines/target-crash.mjs",
+      "sha256": "b487cef057f53db27032710751dcb8a7a7c4899b321bd339a4def209f8250c28"
+    },
+    {
+      "path": "math/fresh-plinkoxclassic.mjs",
+      "sha256": "2772bcf5095a7810ba6b6b67099cd3328b08859f9dbc1012f52714b5e75e1c3d"
+    },
+    {
+      "path": "math/games/balloon.mjs",
+      "sha256": "515d5a303841ef5b0172202658683119e64edb8ba83a285f82f385a64e5ea914"
+    },
+    {
+      "path": "math/games/balloonx.mjs",
+      "sha256": "f9f20cf2d4a7691b20f5ca424b98103fc1e21b3c8a875d31cd67df297b5c4a3b"
+    },
+    {
+      "path": "math/games/baoslot5x.mjs",
+      "sha256": "2a0af50fecdae34748521e4668e0be97b3074790771ccbed27212128109cf480"
+    },
+    {
+      "path": "math/games/blazinghot.mjs",
+      "sha256": "6cd749698662e4ff7af1e18dc256332b85c2aac124779d3e9d4ca639d61278f2"
+    },
+    {
+      "path": "math/games/blazinghot10.mjs",
+      "sha256": "98191b669e7c2aa49a0f17df7644540247eed84a0407f09d58093272289d0bb5"
+    },
+    {
+      "path": "math/games/blazinghot40.mjs",
+      "sha256": "0a1b4a11f0ab184f86d7c1ca886ab406dd49c820121d7a3c2c1cff8d991b545e"
+    },
+    {
+      "path": "math/games/bokajamba10.mjs",
+      "sha256": "e26fee1acff16febd9a0086ecc3d72baafc8323510f61357754015556b134942"
+    },
+    {
+      "path": "math/games/bonustime.mjs",
+      "sha256": "a2c59a090afd9f08ddb65feadbf06ada759a84420cbe020ae27d889bcb73b952"
+    },
+    {
+      "path": "math/games/bookofbonanza.mjs",
+      "sha256": "4a0a5e7e8fc757fbbe6bb57555a5eba9bdabde5c25bc08845907457f3ab281af"
+    },
+    {
+      "path": "math/games/bookoffuturia.mjs",
+      "sha256": "0c1c9091523855249ee720c2ecc89857884dfe01adcf0b31a9fd064944d233d8"
+    },
+    {
+      "path": "math/games/bottlemania.mjs",
+      "sha256": "d69d7ab6d0258d53b3c747c90d619034b66530f854b2e7102e7bb403695fdbaf"
+    },
+    {
+      "path": "math/games/caibalaocappadocia.mjs",
+      "sha256": "6f34bf51f2c056bca71f4c3af219108c77ec1002d197c8d49945251cee3a50bc"
+    },
+    {
+      "path": "math/games/carx.mjs",
+      "sha256": "399aa283f2e6d888ed1fe9155a732484503d80534b025a93ef6299e3a8bdd6b8"
+    },
+    {
+      "path": "math/games/cheesyroad.mjs",
+      "sha256": "12dce110c41eefa57d3e8a24df999b8604c531f18afe24fc5b6bf07107bac7a2"
+    },
+    {
+      "path": "math/games/cheesyroadclassic.mjs",
+      "sha256": "f2b0d0fc938da28181921d064656f828973eb9cc5adc7eaa3c1c672d2ea98021"
+    },
+    {
+      "path": "math/games/chickenhighway.mjs",
+      "sha256": "66b47293c905f86a3eececf2d4ed0a84793b1ab0be5a3398739e952de8511ed2"
+    },
+    {
+      "path": "math/games/chickenways.mjs",
+      "sha256": "45e6ab1288411063cfb91e460dfbf11039571344c898344447788e3629790f26"
+    },
+    {
+      "path": "math/games/coinsofatlantis.mjs",
+      "sha256": "eb4ca0adb148ec4cf0c7fd5d3636dd97e622988399399f2d005ea88855e84302"
+    },
+    {
+      "path": "math/games/cricketerx.mjs",
+      "sha256": "58cac483856d8f79e428d997f46752fa3e59416bcc9676a6b932ac3154170903"
+    },
+    {
+      "path": "math/games/cricketx.mjs",
+      "sha256": "d48519afa4f0d7fa80f614c520ffb5c01e36559f28827b13b705f02f7d8b7969"
+    },
+    {
+      "path": "math/games/dicejungle.mjs",
+      "sha256": "8f4b3536d33bf4434e3d511de84784fb52a25908622eae55aabcfb30529b7e3f"
+    },
+    {
+      "path": "math/games/draculasfortune.mjs",
+      "sha256": "653b4e44326428b3ef9e294a078e54bdd606ee36c3614ba1e359ed57be9bda2c"
+    },
+    {
+      "path": "math/games/dragonscode.mjs",
+      "sha256": "f17c85d4a6d2bc0c0fc12759fdba452615b61a2b81b9332f26cf27881d7f7c62"
+    },
+    {
+      "path": "math/games/farmsfortune.mjs",
+      "sha256": "61e6be2a16c24f80c71a35bae6090aea52950ba228a46cbb48bb60fda650f9a3"
+    },
+    {
+      "path": "math/games/footballx.mjs",
+      "sha256": "0a3f625ba545eec11375f6c9bfd4f3b25cd19bed395109f1e24f17d7ff996818"
+    },
+    {
+      "path": "math/games/fortunecatch.mjs",
+      "sha256": "530ad9c52faaf939ba7f8f5dfbd893c30416dd3fefaf06d3ae8b4a928d83bfcf"
+    },
+    {
+      "path": "math/games/foxyhot20.mjs",
+      "sha256": "04809b5f996cd6df00ab7e30400e63c8fe406a3f5c15cf5fe17982e3ff23713f"
+    },
+    {
+      "path": "math/games/gatesofmerlyn.mjs",
+      "sha256": "f77cbf27f1e488ae5b5caffa6a41fab500672652fb2ee9f428ad760f9c9d4627"
+    },
+    {
+      "path": "math/games/gemscrownchargingwilds.mjs",
+      "sha256": "c98527a9c572c3999f39fb63aeb17fc511f78e7a6f3c9873f3ae82c0cab778f3"
+    },
+    {
+      "path": "math/games/geniesbonanza.mjs",
+      "sha256": "b5acdfa9fb81ca294247c8f4bcd995ab30e4a9391c91f4bb216e3a0e98db1f90"
+    },
+    {
+      "path": "math/games/habeshafortune5.mjs",
+      "sha256": "b886402a95588154b2cb1e041c10c3069c3e5700d7671a151e56a8cf5f4cf65e"
+    },
+    {
+      "path": "math/games/helicopterx.mjs",
+      "sha256": "24d8b71576e2b841742d473013e322765e9878ec949d68fc329e14ba7d80f99e"
+    },
+    {
+      "path": "math/games/hotsamba.mjs",
+      "sha256": "37000d4f96c3d0ff328512b2520caa9adafb2864eec108e9dbebe6e4d0c0481e"
+    },
+    {
+      "path": "math/games/jetx.mjs",
+      "sha256": "48974d733d1bb5936af245c5626b4f8ffe775fb18f7148ed6d29a5bac43259ac"
+    },
+    {
+      "path": "math/games/jetx3.mjs",
+      "sha256": "b6ebf82e003d2d6637966f742a5b7616830f11afe4e902efe96d3adefb157712"
+    },
+    {
+      "path": "math/games/jinglebellbonanza.mjs",
+      "sha256": "9c8b7b29e3574f227c9ad7f3c670ee9bcd4890f365f9d0bc7c59dfdd2f0cd356"
+    },
+    {
+      "path": "math/games/junglesisters.mjs",
+      "sha256": "617f8a9943dbbd93c5e2a1d93fbdc71696fb1f5e4144476f68fb3c0df416574a"
+    },
+    {
+      "path": "math/games/junglesistersdeluxe.mjs",
+      "sha256": "62912eae51a2e92cb471f0c8dfc723cae983ca1062b86785abb83301d07254ee"
+    },
+    {
+      "path": "math/games/madslot.mjs",
+      "sha256": "e5182091895d5a0085c05c2fab2d385af926b1f357784498ddab7234f04cd7ea"
+    },
+    {
+      "path": "math/games/mariachicoins.mjs",
+      "sha256": "02de17f16fb136efc72906e338d702bbc6cb03b945ea863516f9b1254628ae14"
+    },
+    {
+      "path": "math/games/mineisland.mjs",
+      "sha256": "7d09d11860ea792e7173437821fc850a7f7b8678143a57d74659fa5a26023979"
+    },
+    {
+      "path": "math/games/multifruitschargingwilds.mjs",
+      "sha256": "877bc3348ced975342db6ab366eff8d1ae1c7eda13438a1b2d5c93349ae3d6cf"
+    },
+    {
+      "path": "math/games/multihot10.mjs",
+      "sha256": "e0836e90672f3cf640f4f134977995b15a416e7e1819e23a36e1cfdc15a26df3"
+    },
+    {
+      "path": "math/games/multihot100.mjs",
+      "sha256": "bc2954863eebe9426d04089c9abca4f36140e105a5f76dc51eb1597425631ffd"
+    },
+    {
+      "path": "math/games/multihot20.mjs",
+      "sha256": "19bdf3ec4bc152e2eb83490da3d79fab62c3959acf4b0410c57e134dd6970220"
+    },
+    {
+      "path": "math/games/multihot40.mjs",
+      "sha256": "339a147f83fb5448d0b42c4df6305548b2745a4b689a0449d562b4313049279f"
+    },
+    {
+      "path": "math/games/multihot5.mjs",
+      "sha256": "affefccf5d30be149f3a5d280eaac6a501084dca32a679cb48148d91833be443"
+    },
+    {
+      "path": "math/games/multihot5burnwilds.mjs",
+      "sha256": "efff195f7ab414bd9f78543a2e34ad6defd398dd4f30f84b79fdb25bb0feba05"
+    },
+    {
+      "path": "math/games/multihot5deluxe.mjs",
+      "sha256": "02912b5a36f772e23729802345b1bc3ffad1ea26eb4e0d69cdaea791e0347a17"
+    },
+    {
+      "path": "math/games/multihot5superwilds.mjs",
+      "sha256": "65ae772e2801b4db515e91f61e6b7a242d3925ee33f272e5f872ffe4b58d688c"
+    },
+    {
+      "path": "math/games/multihot5wild.mjs",
+      "sha256": "8b03e4efe84c9a725df85157f88bd725a084b4ab61aab9bfe00064635ee926ef"
+    },
+    {
+      "path": "math/games/multihotways.mjs",
+      "sha256": "b8f8cc6214c3f602acc18261d9f76485c5f8327857ed049460cbb9094b8d9bcf"
+    },
+    {
+      "path": "math/games/multihotwheel.mjs",
+      "sha256": "aa22c0f0455b944a65ee31d0847e3f6433fd5200051ee6be3d07fe298cd75f3b"
+    },
+    {
+      "path": "math/games/multihotwildways.mjs",
+      "sha256": "27b954bf3a7edec7a3936acd61cf4a250a951a10b40bb64a89a141dc540560d3"
+    },
+    {
+      "path": "math/games/plinkojoker.mjs",
+      "sha256": "8df11afa4cabd9530a0e308341e3ef3f9ad792b08ea39eed9ad1fb86e14a3c58"
+    },
+    {
+      "path": "math/games/plinkox.mjs",
+      "sha256": "b7d8611c7cde4d2ab0b30d42667dccb22378dddc2ea4ff467e88d35f5c50791e"
+    },
+    {
+      "path": "math/games/plinkoxclassic.mjs",
+      "sha256": "c7c72b7fb44ab22df5886d49f046e8a2a37d43f9c6e770084110827ddff78098"
+    },
+    {
+      "path": "math/games/popx.mjs",
+      "sha256": "7b5cf33fa00a458513724f3215a3e6240fc9a95c8097c15ac3294dfebb3ae02c"
+    },
+    {
+      "path": "math/games/poweroftiger.mjs",
+      "sha256": "d67d8e05bceaf69de125636a5e9d4ae0fab14b48d2ab7072dd30a4dd6c0319d3"
+    },
+    {
+      "path": "math/games/propelx.mjs",
+      "sha256": "2497c43a83db1df0ee8390a01b939fb52e7a8865ee203909543f9fe916d15798"
+    },
+    {
+      "path": "math/games/rollx.mjs",
+      "sha256": "4586a5e50bf1ecf16952ee5e12272240f33b1d620f67148eca2cd3e3414d7f66"
+    },
+    {
+      "path": "math/games/safarisimba.mjs",
+      "sha256": "834e3dfe3e475b98763b463f12aed46d12e4d28a53f5af8533d5e118c9f62fdd"
+    },
+    {
+      "path": "math/games/samurai.mjs",
+      "sha256": "d753f4ef7f1c9056e03ea6767521022a4ea88c73d391e4de71114af839749280"
+    },
+    {
+      "path": "math/games/slicerx.mjs",
+      "sha256": "2fdbbdcca42c34b59e89a856d7e025c2c1d336c0d0a11313d6d01eeaf2280d8f"
+    },
+    {
+      "path": "math/games/smashx.mjs",
+      "sha256": "5aa71cbd42a5a0e7072f2b06d3858b2fdbea3800093fd5f4680082666cd8ffc5"
+    },
+    {
+      "path": "math/games/sugarfiesta.mjs",
+      "sha256": "ffea143905597b3adc7e9ee28aee8e3a740e1dee8c9ee96d385abc9e413829ad"
+    },
+    {
+      "path": "math/games/towerx.mjs",
+      "sha256": "45edf95761c2c06a0a85c9cfc7c83948fab0de382aae01d9bdd86c3a6470625a"
+    },
+    {
+      "path": "math/games/tugofwar.mjs",
+      "sha256": "7e600026eaa33048b92f96db865830483a60c2862120411888ef29ef29fe3371"
+    },
+    {
+      "path": "math/games/vampires.mjs",
+      "sha256": "aa8c26487a6d40dafe6373b176c59da914e80709c0f24510a75cf5ae8d9ba1ff"
+    },
+    {
+      "path": "math/games/wheelofdestiny.mjs",
+      "sha256": "413f4943867066881cb5c42b2b759e97c47229eaec389771d7bea5261d2ba1df"
+    },
+    {
+      "path": "math/games/wildmultistars.mjs",
+      "sha256": "9d9303f69d67c8f659959aae1afbddd4c85402410ddf23900142cbc100853c59"
+    },
+    {
+      "path": "math/games/wildsandgods.mjs",
+      "sha256": "1952631d0d32550e2d8effebab9b666cbd7928987f7e324d34b601d063942f36"
+    },
+    {
+      "path": "math/games/worldchampionx.mjs",
+      "sha256": "72f20aab3acaca22d095d433748deb4fa2366e37d8756aebb4d01ab86370eee7"
+    },
+    {
+      "path": "math/gates-of-merlyn.mjs",
+      "sha256": "818719ebcfe5ba0662b35ee74298e7fb0daf2d452fef5fce30208643575b438b"
+    },
+    {
+      "path": "math/generated-registry.mjs",
+      "sha256": "cc9da9cd202fc01ae2717df137ccb682f5acd208f325595d988d5ea818007ac6"
+    },
+    {
+      "path": "math/genies-bonanza.mjs",
+      "sha256": "5dbc77056939747570601e03dd5980a07af91246e091a0d6e3aa79f90a6cf733"
+    },
+    {
+      "path": "math/index.mjs",
+      "sha256": "1575f89ce09ae2f4a640c710ed14593217956cc1abb3812b772ccfe6d8c5ec26"
+    },
+    {
+      "path": "math/jungle-sisters.mjs",
+      "sha256": "93425cb26b789744a18326300f5906cd5fe62c21307f305c132d2efb8364a038"
+    },
+    {
+      "path": "math/mariachi-coins.mjs",
+      "sha256": "918cf519d2aef2d2c49919a8b655829b799c4163b529bc5ccbbecf4ade893d9e"
+    },
+    {
+      "path": "math/mine-island2.mjs",
+      "sha256": "c341d9d206bb49c752c7e808f4ea005e33d38c815f4eb1e0b0279828745991bf"
+    },
+    {
+      "path": "math/observed-plinkox.mjs",
+      "sha256": "fd23b0d9d05cd9619c879ea17bf3e1bde4d7b3179d7a4b276bc7aa347fc6ee3c"
+    },
+    {
+      "path": "math/observed-three-reel.mjs",
+      "sha256": "5752f71da10d4d5d21abef8d07cd669f921c8f16c705699afab03f3c7cbf0baa"
+    },
+    {
+      "path": "math/official-title-modules.mjs",
+      "sha256": "2c7683382e00a37cae6125e12c84206eb045842f7cee16f0635d6a5980ed2645"
+    },
+    {
+      "path": "math/official72-layouts.mjs",
+      "sha256": "511bc4fd43c4d96def7c970f14625fc190d12984bbc55a859e326684b1680368"
+    },
+    {
+      "path": "math/official72-mechanics.mjs",
+      "sha256": "97d445195f37ebd78a6e442357228a7bf423459f4dfef7b2bbcf9d788f6603f6"
+    },
+    {
+      "path": "math/official72.mjs",
+      "sha256": "583c9088fea5255167de192c64a2720b377ea9f5964510d35f58e79739ddd6fa"
+    },
+    {
+      "path": "math/popx.mjs",
+      "sha256": "a14cbaec3baac143a66365fa38e8ce5a15573da1f8338c931fd4f5cfd53ba879"
+    },
+    {
+      "path": "math/power-of-tiger.mjs",
+      "sha256": "5dda83ccaddfff1926cc1f84f31ed703b150b9c87824d37e74e2c9cdbf780164"
+    },
+    {
+      "path": "math/public-gamble.mjs",
+      "sha256": "e880b188651b1c2faee255ea4053cd867bca8d7c8125e3774d001fbac60fa476"
+    },
+    {
+      "path": "math/public-slot-features.mjs",
+      "sha256": "5e438d46ea577c8046a242339791cfdb01262653c600aceac7650fc6a0ff0fd2"
+    },
+    {
+      "path": "math/requested72.mjs",
+      "sha256": "271f923586104c73ebb10c4093c4b78fae9334d2ba4b91be9c8c87a27dc7b923"
+    },
+    {
+      "path": "math/title-configurators.mjs",
+      "sha256": "c70b51a7d833f38cc18969aad96a4390bf084919729ae2ec0ca8ecda476eeaf7"
+    },
+    {
+      "path": "math/ways-slot.mjs",
+      "sha256": "8a5d8da0ceb03d033f11c64f0e541281eddedcb0f173e20a0df8cb781c985d81"
+    },
+    {
+      "path": "math/wheel-of-destiny.mjs",
+      "sha256": "ad5ebac2f8dce6a7283b03c0fbee1218a75c6f2d8ae53df512624dd67e52dc48"
+    },
+    {
+      "path": "server/auth.mjs",
+      "sha256": "c7af103d4a4771cebd6d6305384164f39defc529f1497f77dcc518d7d57644f2"
+    },
+    {
+      "path": "server/bootstrap-patch.mjs",
+      "sha256": "885d993b2293da31b69bd34a65eb18472484d7601c837b943e2e9db3b1095f55"
+    },
+    {
+      "path": "server/build-existing-library74.mjs",
+      "sha256": "37dcb644a648e131424f7c3a37ebf65b47f770b92634070ce3317d0d57600986"
+    },
+    {
+      "path": "server/build-native60-registration.mjs",
+      "sha256": "b1389453fe124d0f58f4891d3e72dd2495ac3a3b31bdd207489adfefcd97a1ce"
+    },
+    {
+      "path": "server/build-protected74-readonly.mjs",
+      "sha256": "853630a3f7461ccca64d8323aee9aa362040a59ab74d006efb08a0f3e306f6c8"
+    },
+    {
+      "path": "server/build-protected74-review.mjs",
+      "sha256": "301a551cf3d4544a046e1a1bdd33b752a092c1d2028a16981de5b361ad82e8e8"
+    },
+    {
+      "path": "server/build-readonly-postgres-job.mjs",
+      "sha256": "a061cf9779398c7882359598214bdc1bba49e96bdbf8c5318da075892ffa4d58"
+    },
+    {
+      "path": "server/demo74-rng.mjs",
+      "sha256": "92edea3f60fd952865187198b27d2becad22255c110a7eea34b17f407c2d0c00"
+    },
+    {
+      "path": "server/demo74-worker.mjs",
+      "sha256": "0997c4b328947c5eb5fdc12f352c09a430b0d622f0c7f475a3fb0c0b1d651b12"
+    },
+    {
+      "path": "server/errors.mjs",
+      "sha256": "62793e3cfb991bec5f7e3b4df5b4ac239c4bc3c33bdc3f07a1ee3a4dc2df9712"
+    },
+    {
+      "path": "server/existing-backend-extension.mjs",
+      "sha256": "09cbc35f27ffb85eab54ce7ef8b1b373a6b2cd9405126f1ef5db76b2c6ae03ec"
+    },
+    {
+      "path": "server/existing-library74-adapter.mjs",
+      "sha256": "6f8927805c6a950dd887699610a52b96f7324731bb08a8629291cbfb3b1dd5b7"
+    },
+    {
+      "path": "server/existing-library74-http.mjs",
+      "sha256": "b5b0bf1baa31874ec24c35629c4c11dd2264701c2ada72ee924d7098532f1509"
+    },
+    {
+      "path": "server/existing-library74-install.mjs",
+      "sha256": "af379384ed1814c2170fe0b1720c141a6eca550dae6d51c070aaca5fdd692a23"
+    },
+    {
+      "path": "server/existing-library74-service.mjs",
+      "sha256": "8d763b7d2a66abc93faee3aaa6354b3c5d31efc60aed7eb5c7fd402466d473ce"
+    },
+    {
+      "path": "server/existing-schema-audit-prelude.mjs",
+      "sha256": "563ebe9f487d1d519eeabc07a87b3302ce10c606303e12b61559a3050e821cb8"
+    },
+    {
+      "path": "server/http.mjs",
+      "sha256": "00579cbbe0a5f9cbf43946b069bf02bfa4d5ce555590cae417ef6b28f43013a9"
+    },
+    {
+      "path": "server/index.mjs",
+      "sha256": "36aaeb9d582fcb8c8ca7d0cb0a2b1f0d831d76803f0f81a0d37299880bf862a0"
+    },
+    {
+      "path": "server/native60-registration.mjs",
+      "sha256": "9e9be221ca913b5a8cf19c3d933ce7c159708cc05e80b37e5b0d6a56914fa72b"
+    },
+    {
+      "path": "server/postgres-repository.mjs",
+      "sha256": "8aa9094550a5719f417b098d9fce666ee9271c48cf52e4a84b16cf50447324c8"
+    },
+    {
+      "path": "server/prepare-native60-registration.mjs",
+      "sha256": "fb3d30a016744c31aa277c994cf8384c3106a069c3c0381334d8dcacb3220ca2"
+    },
+    {
+      "path": "server/prepare-protected60-admission.mjs",
+      "sha256": "a65f175ff41fd1578093e15a72df32580c51b6efe3bece80fbf58cda4800cf40"
+    },
+    {
+      "path": "server/prepare-protected74-audit-splice.mjs",
+      "sha256": "58ef2af94354d248e130bd0090490dce5eb4e2a8a7fb896657c27d49aedd240d"
+    },
+    {
+      "path": "server/prepare-protected74-loader-review.mjs",
+      "sha256": "9981119c3944af64a9690b08a925dc36eb5b1ed1cf5fc56630721e23fbfd519b"
+    },
+    {
+      "path": "server/prepare-protected74-splice.mjs",
+      "sha256": "28aaac270289b2a16d32df37fdade33d00e50b5192b9255c868b1d5b568a584b"
+    },
+    {
+      "path": "server/protected60-admission.mjs",
+      "sha256": "10f244a70a7270e71916d9221d19325b003d8db53c026b621a9ddeb268e941c5"
+    },
+    {
+      "path": "server/protected74-review.mjs",
+      "sha256": "4d6df8b72538f0bb5af6243312ccc67297a4337dcac50023ffafc894370e7832"
+    },
+    {
+      "path": "server/protected74-startup-readonly-audit.mjs",
+      "sha256": "299ecd2fc4c735f204089eb1df07ce975e7341d189e9caf315b2d4140de6b0d5"
+    },
+    {
+      "path": "server/requested-service.mjs",
+      "sha256": "e5b8541c717acfcefaef81a8cd32ceba89a4bdb461dcd70703473d6c7b7dcc53"
+    },
+    {
+      "path": "server/schema.mjs",
+      "sha256": "d397b145280631bf7ce4d3c254ddb023fa5f1e5d0c79aef1bed5164a795514d5"
+    },
+    {
+      "path": "server/service.mjs",
+      "sha256": "1a2f58936ba4c1517a47485cc6f1104047c09f0cfe9864ca1a97af5891564c66"
+    }
+  ],
+  "liveWalletVerified": false,
+  "candidateDeployed": false,
+  "browser60fpsVerified": false,
+  "officialProviderParityVerified": false,
+  "currentLiveWorkerSourceVerified": false,
+  "retainedBaselineOnly": true
+}

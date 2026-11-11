@@ -1,3 +1,23 @@
+import {configurePublicColorGamble} from '../public-gamble.mjs';
+
+export function configureOfficialGame(d){
+  if(d?.id!=='ind74_official_vampires'||d.family!=='slots')throw new TypeError('The independent Vampires definition is required.');
+  d.rules=[
+    'This partial independent Vampires model retains its five-reel, three-row regular-symbol engine, authored ten-line chart and authored symbol prizes. Provider geometry, the full line chart and prizes are not verified.',
+    'Each regular cell chooses uniformly among eight original symbols. Winning lines pay left to right; each award is floor(total accepted stake times the authored line prize divided by ten). No X2 or collection action adds another stake.',
+    'The active title Help documents Wild on reels2–5 and a SMARTSOFT symbol on reel5 that changes itself and some other symbols into Wild. Those transformation mechanics remain unimplemented; the number and selection of other cells are not specified.',
+    'The 3/4/5bonus-symbol to3/5/7free-spin text belongs to a Dark caption inside a commented-out HTML section. It is excluded from the active Vampires specification, and this implementation does not add that unverified feature.',
+  ];
+  configurePublicColorGamble(d);
+  d.provenance={...d.provenance,publicGambleSource:'reports/current74-evidence-slots-secondary/ind74_official_vampires-official-help-en.json:help.slots.vampires.riskGame.description',
+    excludedCommentedFeature:'reports/current74-evidence-slots-secondary/ind74_official_vampires-official-help.html:commented help.slots.dark.bonusSymbol.description'};
+  d.releaseReview={realMoneyAdmissionBlocked:true,codes:['PUBLIC_MECHANICS_INCOMPLETE','REFERENCE_PAYTABLE_AND_CHART_UNVERIFIED'],
+    requiredAction:'Complete and verify the active title Wild/SMARTSOFT behavior, regular prizes, line chart and independent distribution before financial admission. Commented unrelated captions are not a title specification.'};
+  d.implementationStatus='independent-partial-model; real-money-admission-blocked; public-transforming-Wild-feature-missing';
+  d.rules.push('REAL-MONEY ADMISSION IS BLOCKED while the documented Wild/SMARTSOFT feature and reference regular prizes/chart remain incomplete or unverified. Passing X2 and ledger tests does not clear that restriction.');
+  return d;
+}
+
 export default {
   "id": "ind74_vampires",
   "title": "Vampires — Independent",

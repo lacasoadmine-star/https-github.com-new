@@ -5,6 +5,7 @@ import * as math from '../math/official72.mjs';
 import {MULTI_HOT_WAYS_ID,CHARGING_THREE_IDS} from '../math/observed-three-reel.mjs';
 import {publicLibrary74Definition} from '../server/existing-library74-adapter.mjs';
 import {machineGeometry,machineMarkup} from '../client/machine74-renderer.mjs';
+import {freshChargingContext,chargingGridRng} from './support/charging-wilds-fixtures.mjs';
 
 const observations=JSON.parse(fs.readFileSync(new URL('./evidence/official-demo-observations-slots20-remaining.json',import.meta.url))).observations;
 const help=JSON.parse(fs.readFileSync(new URL('../references/official-slot-help-en-20261111.json',import.meta.url))).captions;
@@ -27,9 +28,9 @@ test('three corrected geometries follow completed result records and exact title
       assert.match(help['help.slots.'+ns+'.payline.chart'],/5 fixed active paylines/);
       assert.equal(d.layout.paylineCountVerified,true);
       assert.equal(view.paylines.length,5);assert.match(machineMarkup(view),/5 LINES/);
-      assert.equal(d.wildSymbol,undefined,'Do not pretend a regular fallback carries paid-spin Wild state.');
-      assert.match(d.rules.join(' '),/Documented but NOT implemented/);
-      assert.match(d.rules.join(' '),/atomically/);
+      assert.equal(d.wildSymbol.label,'Charging Wild');
+      assert.equal(d.chargingFeature.transactionContextRequired,true);
+      assert.match(d.rules.join(' '),/existing wallet transaction/);
     }
   }
 });
@@ -50,10 +51,11 @@ test('regular Multi Hot Ways pays six positional combinations and applies the se
 test('3×3 high awards remain bounded exactly at normal, large and storage-derived stakes',()=>{
   for(const id of [MULTI_HOT_WAYS_ID,...CHARGING_THREE_IDS]) {
     const d=math.getGameDefinition(id),best=d.symbols.reduce((idx,s,i)=>s.pays[3]>d.symbols[idx].pays[3]?i:idx,0);
-    const grid=Array.from({length:3},()=>Array(3).fill(best));
+    const grid=Array.from({length:3},()=>Array(3).fill(d.chargingFeature?d.wildSymbol.id:best));
     for(const betMinor of ['100','2000','5000000',d.limits.maxBetMinor]) {
-      const round=math.startRound({gameId:id,betMinor,rng:rngFor(grid,id===MULTI_HOT_WAYS_ID?4:0)});
-      assert.equal(round.winMinor,math.maximumPayoutMinor({gameId:id,betMinor}));
+      const context=freshChargingContext(d,betMinor);
+      const round=math.startRound({gameId:id,betMinor,context,rng:d.chargingFeature?chargingGridRng(d,grid):rngFor(grid,4)});
+      assert.equal(round.winMinor,math.maximumPayoutMinor({gameId:id,betMinor,context}));
       assert(BigInt(round.winMinor)<=999999999999999n);
       assert.equal(round.outcome.grid.length,3);assert(round.outcome.grid.every(row=>row.length===3));
       assert.throws(()=>math.collectRound(round),{code:'ROUND_FINISHED'});

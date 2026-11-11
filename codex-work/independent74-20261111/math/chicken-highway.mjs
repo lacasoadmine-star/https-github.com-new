@@ -79,7 +79,7 @@ export const CHICKEN_HIGHWAY_TABLES=Object.freeze({
 for(const values of Object.values(CHICKEN_HIGHWAY_TABLES))Object.freeze(values);
 export function configureChickenHighway(d) {
   if(d?.id!==CHICKEN_HIGHWAY_ID||d.family!=='ladder')throw new TypeError('Chicken Highway ladder definition required.');
-  d.mathVersion='official72-chickenhighway-r3';
+  d.mathVersion='official72-chickenhighway-r4';
   d.modes=['easy','medium','hard'];d.defaultMode='easy';
   d.multipliersBps=[...CHICKEN_HIGHWAY_TABLES.easy];d.maxSteps=d.multipliersBps.length;
   // This retained independent telescoping survival rule is operator math.
@@ -88,12 +88,18 @@ export function configureChickenHighway(d) {
   d.paytable=d.modes.map(mode=>({mode,rows:CHICKEN_HIGHWAY_TABLES[mode].map((multiplierBps,index)=>({step:index+1,label:'Lane '+(index+1),multiplierBps}))}));
   d.nominalReturn={numerator:'9480',denominator:'10000',type:'independent-before-integer-floor',verified:false,
     description:'Independent survival model:9480/first multiplier, then previous/next multiplier. This is not the documented provider97% RTP.'};
+  d.connectionPolicy={kind:'authenticated-presence-lease',heartbeatAction:'sync',heartbeatIntervalMs:2000,
+    disconnectAfterMs:8000,timeoutComparison:'strictly-greater',stateReadsRenew:false,includesAutoplay:true,
+    renewedBy:['start','reveal','sync'],settlement:'collect-confirmed-earned-award',
+    source:'reports/current74-evidence-nonslots/ind74_official_chickenhighway-rendered-rules.json',
+    implementation:'The server timestamps accepted actions. More than8000ms without an accepted authenticated contact ends the lease; missing heartbeat acknowledgements and hidden/closed tabs can therefore cash out. No browser-reported disconnection time is accepted.'};
   d.rules=[
     'Chicken Highway is a horizontal road-crossing game. The official public presentation source supplies25 EASY lanes ending20x,23 MEDIUM lanes ending1000x and19 HARD lanes ending10000x. These are documented display values, not observed wins at every lane.',
     'START accepts one stake and attempts the first crossing. A safe first EASY crossing offers CASHOUT at1.02x. GO attempts the next lane without another debit; CASHOUT collects the confirmed current multiplier. A collision loses the uncollected stake and award. The final successful lane automatically collects in this independent implementation.',
     'Choose difficulty before starting. Mode and accepted stake remain fixed while the server round is active. Payouts use integer minor units and floor after multiplication; the browser cannot choose the outcome or supply a balance.',
     'Independent operator probabilities use9480/first-multiplier survival, then previous-multiplier/next-multiplier conditional survival. Those authored probabilities are not recovered provider probabilities and do not reproduce the official Help97% RTP claim.',
-    'The official Help describes automatic runs with a selected cashout step and cashout after a disconnection longer than8seconds. These provider-specific autoplay and connection policies are not implemented; the retained server expiry/recovery policy still applies.',
+    'The official Help requires cashout after a disconnection longer than8seconds, including AUTO. This implementation uses a server-owned presence lease: accepted START, GO or an authenticated heartbeat renews contact; reads and duplicate request replays do not. After more than8000ms without renewal, the server collects the last confirmed earned award once. A late heartbeat cannot revive the round.',
+    'The client sends empty authenticated heartbeats approximately every2seconds while the active game is visible. Hiding or closing the game stops those heartbeats and may therefore cash out after the same timeout. This lease measures accepted contact with this server; it does not claim access to the provider connection protocol or an exact measurement of the device network state. Settlement may be delayed by server recovery, but cannot add another debit.',
     'The earlier visual reading of EASY lane8 as1.54 was inaccurate; the public presentation source specifies1.55. Full artwork, sound, probability and provider equivalence remain unverified.',
   ];
   d.provenance={...d.provenance,

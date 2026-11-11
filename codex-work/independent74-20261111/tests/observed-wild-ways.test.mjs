@@ -17,7 +17,7 @@ function gridRng(d,grid,wheelIndex=0) {
 
 test('observed Wild Ways exposes3×3 and27ways without a fabricated fixed-payline chart',()=>{
   const d=math.getGameDefinition(id),view=publicLibrary74Definition(d);
-  assert.equal(d.mathVersion,'official72-multihotwildways-r3');
+  assert.equal(d.mathVersion,'official72-multihotwildways-r4');
   assert.equal(d.rows,3);assert.equal(d.cols,3);assert.equal(d.ways,27);
   assert.equal(d.paylines.length,27,'Internal paths enumerate every row combination.');
   assert.equal(new Set(d.paylines.map(path=>path.join(','))).size,27);

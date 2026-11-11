@@ -5,8 +5,9 @@ import {evaluatePublicWildGrid} from '../math/official72-mechanics.mjs';
 import {PUBLIC_EXPANDING_WILD_IDS, configurePublicSlotFeatures} from '../math/public-slot-features.mjs';
 
 function gridRng(definition, grid, wheelIndex = 0) {
-  let cell = 0;
+  let cell = 0,preSpin=definition.multiplierSelectionTiming==='before-symbol-grid';
   return bound => {
+    if(preSpin){preSpin=false;assert.equal(bound,definition.multiplierValues.length);return wheelIndex;}
     if (cell === definition.rows * definition.cols) {
       cell++;
       assert.equal(bound, definition.multiplierValues.length);
@@ -21,12 +22,12 @@ function gridRng(definition, grid, wheelIndex = 0) {
 for (const gameId of PUBLIC_EXPANDING_WILD_IDS) {
   test(gameId + ' expands only participating wild columns and retains independent-source disclosures', () => {
     const d = math.getGameDefinition(gameId), symbol = d.symbols[0].id, wild = d.wildSymbol.id;
-    assert.equal(d.mathVersion.endsWith(gameId==='ind74_official_coinsofatlantis'?'-r4':'-r3'), true);
+    assert.equal(d.mathVersion.endsWith(gameId==='ind74_official_coinsofatlantis'?'-r5':'-r4'), true);
     assert.deepEqual(d.wildRule.columns, [1,2,3]);
     assert.equal(d.wildRule.providerProbabilitiesVerified, false);
     assert.equal(d.nominalReturn.verified, false);
     assert.equal(d.nominalReturn.numerator, undefined, 'A regular-only return must not survive the new wild model.');
-    assert.match(d.rules.join(' '), /operator choices/);
+    assert.match(d.rules.join(' '), /independent|operator choices/i);
     for (const column of [1,2,3]) {
       const grid = Array.from({length:d.rows}, () => Array(d.cols).fill(symbol));
       grid[d.paylines[0][column]][column] = wild;
@@ -66,7 +67,7 @@ for (const gameId of PUBLIC_EXPANDING_WILD_IDS) {
       assert.deepEqual(math.publicRound(round).allowedActions,[]);
       assert.ok(expected<=BigInt(d.limits.maxWinMinor));
       assert.throws(()=>math.collectRound(round),{code:'ROUND_FINISHED'});
-      assert.throws(()=>math.advanceRound(round),{code:'ROUND_FINISHED'});
+      assert.throws(()=>math.advanceRound(round,d.gamble?.enabled?{color:'red'}:{}),{code:'ROUND_FINISHED'});
     }
     assert.ok(BigInt(math.maximumPayoutMinor({gameId,betMinor:d.limits.maxBetMinor}))<=999999999999999n);
   });

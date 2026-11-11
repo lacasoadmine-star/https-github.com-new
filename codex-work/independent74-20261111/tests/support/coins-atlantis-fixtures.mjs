@@ -12,6 +12,8 @@ export function coinsBaseTickets(d,grid){
       const offset=regular+(eligible?1:0);
       if(cell.kind==='major')values.push(offset+18);
       else if(cell.kind==='mini')values.push(offset+16);
+      else if(cell.kind==='mega')values.push(offset+19);
+      else if(cell.kind==='grand')values.push(offset+20);
       else if(cell.kind==='regular')values.push(offset,d.coinFeature.regularValues.indexOf(cell.multiplier));
       else throw Error('Unknown base fixture coin.');
     }

@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import {handleDemo74Request,demo74Catalog} from '../demo74-worker.mjs';
 import * as math from '../../math/official72.mjs';
 import {randomInt,secureUnitRandom} from '../demo74-rng.mjs';
+import {EXISTING_WALLET_ROUTES} from '../../client/existing-wallet-routes.mjs';
+import {chargingGridRng,chargingLoseThenWinFixtures} from '../../tests/support/charging-wilds-fixtures.mjs';
+import {writeNative60Evidence} from './support/write-native60-evidence.mjs';
+import {createDemoStorageFixture} from './support/demo-storage-fixture.mjs';
 const guard='a'.repeat(64),base='https://demo.internal/independent74-demo-internal/';
-function context(){
- const data=new Map();let pending=Promise.resolve();
- return {data,storage:{transaction:operation=>{const run=pending.then(async()=>{const next=structuredClone(data);const tx={get:async key=>structuredClone(next.get(key)),put:async(key,value)=>next.set(key,structuredClone(value))};const result=await operation(tx);data.clear();for(const [k,v]of next)data.set(k,v);return result;});pending=run.catch(()=>{});return run;}}};
-}
+const context=()=>createDemoStorageFixture();
 function harness({random=()=>0}={}){
  const ctx=context();let time=1794355200000;
  const request=async(route,body,selected=math.listGameDefinitions()[0].id)=>{
@@ -128,4 +129,59 @@ test('all3PlinkoXrisks acceptTOTAL20DEMO with serverbound and wrongrisk remains4
   assert.equal(response.data.round.payoutMinor,sum.toString());assert.equal(BigInt(response.data.balance.replace('.','')),1000000n-2000n+sum);
   const wrong=await h.request('action',action(game,{stake:'1.00',options:{risk:'unknown'}}));assert.equal(wrong.status,422);assert.equal((await h.request('state',null,game.id)).data.balance,response.data.balance);
  }
+});
+
+test('five successive settled rounds per exact60 preserve DEMO arithmetic, receipts, carry and reload state',async()=>{
+ const games=demo74Catalog().games.filter(game=>!Object.hasOwn(EXISTING_WALLET_ROUTES,game.id));assert.equal(games.length,60);
+ const evidence=[];
+ for(const game of games){
+  const h=harness();let expected=1000000n,carry=null;const rounds=[];
+  for(let spin=1;spin<=5;spin++){
+   const before=expected,body=action(game);let r=await h.request('action',body);assert.equal(r.status,200,game.id+' spin '+spin+JSON.stringify(r.data));
+   const first=r.data.round;
+   const replay=await h.request('action',body);assert.equal(replay.status,200);assert.equal(replay.data.replayed,true);assert.equal(replay.data.round.round_id,first.round_id);
+   if(first.status==='active'){
+    assert.equal(BigInt(r.data.balance.replace('.','')),before-100n,game.id+' debit '+spin);
+    r=await h.request('action',commands(first,'collect'));assert.equal(r.status,200,JSON.stringify(r.data));
+   }
+   assert.equal(r.data.round.status,'settled');expected=before-100n+BigInt(r.data.round.payoutMinor);assert.equal(BigInt(r.data.balance.replace('.','')),expected,game.id+' spin '+spin);
+   const state=await h.request('state',null,game.id);assert.equal(state.data.balance,r.data.balance);assert.equal(state.data.round.round_id,r.data.round.round_id);
+   const history=await h.request('history',null,game.id);assert.equal(history.data.history.length,spin,game.id);
+   if(game.chargingFeature){assert.equal(r.data.round.carryAfter.paidSpins,String(spin));if(carry)assert.deepEqual(r.data.round.carryBefore,carry);carry=structuredClone(r.data.round.carryAfter);}
+   rounds.push({spin,beforeMinor:String(before),debitMinor:'100',payoutMinor:r.data.round.payoutMinor,afterMinor:String(expected),status:r.data.round.status,replayDebitedAgain:false,...(carry?{paidSpins:carry.paidSpins}: {})});
+  }
+  evidence.push({id:game.id,title:game.title,modelVersion:game.version,rounds});
+ }
+ await writeNative60Evidence('demo60-five-rounds.json',{engine:'Worker DEMO handler with serialized transactional LocalDemoWallet storage fixture',currency:'DEMO',gameCount:60,acceptedRounds:300,settledRounds:300,roundsPerGame:5,games:evidence});
+});
+
+test('DEMO Charging retains exact stake/ANTE buckets, consumes carry once on replay and rolls back rejected starts',async()=>{
+ for(const id of ['ind74_official_multifruitschargingwilds','ind74_official_gemscrownchargingwilds']){
+  const d=math.getGameDefinition(id),game=demo74Catalog().games.find(g=>g.id===id),grids=chargingLoseThenWinFixtures(d);
+  let draws=chargingGridRng(d,grids.firstGrid);const h=harness({random:()=>draws(Number.MAX_SAFE_INTEGER)/(2**53)});
+  const firstBody=action(game),first=await h.request('action',firstBody);assert.equal(first.status,200,JSON.stringify(first.data));assert.equal(first.data.round.carryAfter.wilds.length,1);const retained=first.data.round.carryAfter;
+  const replay=await h.request('action',firstBody);assert.equal(replay.status,200);assert.equal(replay.data.replayed,true);assert.equal(replay.data.round.carryAfter.paidSpins,'1');
+  draws=chargingGridRng(d,grids.firstGrid);const other=await h.request('action',action(game,{stake:'2.00'}));assert.equal(other.status,200);assert.equal(other.data.round.carryAfter.paidSpins,'1');
+  const snapshot=structuredClone(h.ctx.data),invalid=await h.request('action',action(game,{options:{priorCarry:retained}}));assert.equal(invalid.status,422);assert.deepEqual(h.ctx.data,snapshot);
+  draws=chargingGridRng(d,grids.secondGrid,retained.wilds);const second=await h.request('action',action(game));assert.equal(second.status,200,JSON.stringify(second.data));assert.deepEqual(second.data.round.carryBefore,retained);assert.equal(second.data.round.carryAfter.paidSpins,'2');assert.equal(second.data.round.carryAfter.wilds.length,0);assert(BigInt(second.data.round.payoutMinor)>0n);
+  const expected=BigInt(other.data.balance.replace('.',''))-100n+BigInt(second.data.round.payoutMinor);assert.equal(BigInt(second.data.balance.replace('.','')),expected);
+ }
+});
+
+test('DEMO prior-version settled history stays readable and new Play works without re-evaluating old math',async()=>{
+ const h=harness(),game=demo74Catalog().games.find(g=>g.family==='slots'&&!g.chargingFeature),first=await h.request('action',action(game));assert.equal(first.status,200);
+ const key='independent74:demo:round:'+first.data.round.round_id,row=h.ctx.data.get(key);
+ row.modelVersion='library74-v1:previous-deployed-model';row.state.modelVersion=row.modelVersion;row.state.mathState.mathVersion='previous-deployed-model';delete row.publicSnapshot;h.ctx.data.set(key,row);
+ const before=first.data.balance,state=await h.request('state',null,game.id);assert.equal(state.status,200);assert.equal(state.data.balance,before);assert.equal(state.data.round.previous_model,true);assert.equal(state.data.round.status,'settled');assert.equal(state.data.round.recovery_required,false);
+ const history=await h.request('history',null,game.id);assert.equal(history.status,200);assert.equal(history.data.history[0].model_version,row.modelVersion);
+ const next=await h.request('action',action(game));assert.equal(next.status,200);assert.equal(next.data.round.model_version,game.version);
+});
+
+test('DEMO unknown prior active model keeps held award pending and blocks fresh debit instead of discarding it',async()=>{
+ const h=harness(),game=demo74Catalog().games.find(g=>g.family==='slots'&&g.gamble?.enabled),body=action(game,{options:{holdWin:true}}),first=await h.request('action',body);assert.equal(first.status,200);assert.equal(first.data.round.status,'active');
+ const key='independent74:demo:round:'+first.data.round.round_id,row=h.ctx.data.get(key);row.modelVersion='library74-v1:previous-held-model';row.state.modelVersion=row.modelVersion;row.state.mathState.mathVersion='previous-held-model';h.ctx.data.set(key,row);
+ const saved=structuredClone(h.ctx.data);h.advance(86400000);const state=await h.request('state',null,game.id);assert.equal(state.status,200);assert.equal(state.data.accepting,false);assert.equal(state.data.recovery_required,true);assert.equal(state.data.round.status,'active');assert.deepEqual(state.data.round.allowedActions,[]);assert.equal(state.data.balance,first.data.balance);
+ const blocked=await h.request('action',action(game));assert.equal(blocked.status,409);assert.equal(blocked.data.error.code,'PREVIOUS_MODEL_RECOVERY_REQUIRED');
+ const replay=await h.request('action',body);assert.equal(replay.status,200);assert.equal(replay.data.replayed,true);assert.equal(replay.data.accepting,false);assert.equal(replay.data.round.recovery_required,true);
+ assert.deepEqual(h.ctx.data.get(key),saved.get(key));assert.equal(h.ctx.data.get('independent74:demo:ledger:v1').active,row.id);
 });

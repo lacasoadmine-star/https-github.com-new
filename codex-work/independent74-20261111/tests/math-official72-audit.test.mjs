@@ -2,10 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as math from '../math/official72.mjs';
 import {OBSERVED_LAYOUTS, independentPaylines} from '../math/official72-layouts.mjs';
+import {freshChargingContext} from './support/charging-wilds-fixtures.mjs';
 
 const definitions = math.listGameDefinitions();
 const family = name => definitions.filter(d => d.family === name);
-const optionsFor = d => d.family === 'ladder' ? d.modes.map(mode => ({mode}))
+const optionsFor = d => d.chargingFeature?d.chargingFeature.anteValues.flatMap(ante=>[{ante,holdWin:false},{ante,holdWin:true}]):(d.tumbleFeature??d.coinFeature)?(d.tumbleFeature??d.coinFeature).modes.map(mode=>({mode})):d.family === 'ladder' ? d.modes.map(mode => ({mode}))
   : d.family === 'dice' ? Array.from({length: d.maxTarget - d.minTarget + 1}, (_, i) => ({target: d.minTarget + i}))
   : d.gamble?.enabled ? [{holdWin: false}, {holdWin: true}] : [{}];
 const money = (bet, bps) => (BigInt(bet) * BigInt(bps) / 10000n).toString();
@@ -57,13 +58,13 @@ test('all 72 models have consistent geometry, public evidence boundaries and ind
     assert.equal(d.limits.betStepMinor, '100', d.id);
     assert.ok(BigInt(d.limits.maxWinMinor) > 0n);
     if (d.family === 'slots') {
-      assert.equal(d.cols, ['Multi Hot 5 Wild','Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X','Multi Hot Wild Ways','Power of Tiger','Multi Hot Ways','Multi Fruits Charging Wilds','Gems Crown Charging Wilds'].includes(d.catalogName) ? 3 : 5);
+      assert.equal(d.cols, d.slotMechanic==='tumble'||d.bookFeature?6:['Multi Hot 5 Wild','Multi Hot 5 Deluxe','Safari Simba','Habesha Fortune 5','Bao Slot 5X','Multi Hot Wild Ways','Power of Tiger','Multi Hot Ways','Multi Fruits Charging Wilds','Gems Crown Charging Wilds','Sugar Fiesta'].includes(d.catalogName) ? 3 : 5);
       assert.equal(d.layout.rows, d.rows);
       assert.equal(d.layout.columns, d.cols);
       assert.equal(d.layout.paylines, d.ways ? null : d.paylines.length);
       assert.equal(new Set(d.paylines.map(line => line.join(','))).size, d.paylines.length);
       assert.ok(d.paylines.every(line => line.length === d.cols && line.every(row => Number.isInteger(row) && row >= 0 && row < d.rows)));
-      assert.equal(d.symbols.length, d.id==='ind74_official_multihot5wild'?9:8);
+      assert.equal(d.symbols.length, ['ind74_official_geniesbonanza','ind74_official_bookofbonanza'].includes(d.id)?10:['ind74_official_multihot5wild','ind74_official_sugarfiesta','ind74_official_gatesofmerlyn'].includes(d.id)?9:8);
       assert.equal(new Set(d.symbols.map(symbol => symbol.id)).size, d.symbols.length);
       assert.ok(d.symbols.every(symbol => symbol.weight === 1 && Object.entries(symbol.pays).every(([count, prize]) => Number(count) <= d.cols && Number.isSafeInteger(prize) && prize > 0)));
     }
@@ -79,7 +80,8 @@ test('Multi Hot 40 uses all four rows, Multi Hot 100 places its observed multipl
   assert.equal(forty.paylines.length, 40);
   assert.ok(forty.paylines.some(line => line.every(row => row === 3)), 'The new bottom row needs an actual winning line.');
   assert.equal(forty.layout.multiplier.placement, 'top-arc');
-  assert.equal(forty.layout.multiplier.calculationImplemented, false);
+  assert.equal(forty.layout.multiplier.calculationImplemented, true);
+  assert.deepEqual(forty.layout.multiplier.implementedValues, [1,2,3,4,5]);
   const hundred = byId('multihot100');
   assert.equal(hundred.layout.multiplier.placement, 'left-reel');
   assert.deepEqual(hundred.layout.multiplier.implementedValues, [1, 2, 3, 4, 5]);
@@ -95,16 +97,18 @@ test('Multi Hot 40 uses all four rows, Multi Hot 100 places its observed multipl
 
 test('every model and valid start option is reproducible with injected integer draws and completes within its accepted payout bound', () => {
   for (const d of definitions) for (const options of optionsFor(d)) for (const base of ['100', '300', '1900', '400000']) {
-    const betMinor = base === '400000' ? base : String(Number(base) * (options.ballMultiplier ?? 1));
+    const betMinor=d.chargingFeature?(BigInt(base)*BigInt(options.ante)).toString():d.tumbleFeature||d.coinFeature?(BigInt(base)*BigInt({base:1,ante:3,buy60:60,buy100:100,buy500:500}[options.mode])).toString()
+      :base === '400000' ? base : String(Number(base) * (options.ballMultiplier ?? 1));
     const seed = d.id.length * 97 + Number(betMinor) + (options.target ?? 0);
-    const first = math.startRound({gameId: d.id, betMinor, options, now: NOW, rng: fixtureIntegerRng(seed)});
-    const second = math.startRound({gameId: d.id, betMinor, options, now: NOW, rng: fixtureIntegerRng(seed)});
+    const context=freshChargingContext(d,betMinor,options);
+    const first = math.startRound({gameId: d.id, betMinor, options,context,now: NOW, rng: fixtureIntegerRng(seed)});
+    const second = math.startRound({gameId: d.id, betMinor, options,context,now: NOW, rng: fixtureIntegerRng(seed)});
     assert.deepEqual(second, first, d.id);
     assert.doesNotThrow(() => JSON.stringify(first), d.id);
     if (first.status === 'active') assert.equal(first.winMinor, '0', d.id);
     const final = finish(d, first);
     assert.ok(['collected', 'lost'].includes(final.status), d.id);
-    const bound = BigInt(math.maximumPayoutMinor({gameId: d.id, betMinor, options}));
+    const bound = BigInt(math.maximumPayoutMinor({gameId: d.id, betMinor, options,context}));
     assert.ok(BigInt(final.winMinor) <= bound, d.id + ' ' + JSON.stringify(options));
     assert.ok(bound <= BigInt(d.limits.maxWinMinor), d.id);
     assert.equal(math.publicRound(final, d.family === 'crash' ? final.lastObservedAt : NOW).allowedActions.length, 0, d.id);
@@ -112,30 +116,59 @@ test('every model and valid start option is reproducible with injected integer d
   }
 });
 
-test('regular slot evaluators pay their symbol awards without a hidden clamp; Tiger and Coins have separate conditional-feature coverage', () => {
-  const simple=family('slots').filter(d=>!['ind74_official_poweroftiger','ind74_official_coinsofatlantis'].includes(d.id));
-  assert.equal(simple.length,38);
+test('regular slot evaluators preserve per-line awards and explicit Jungle caps across pre/post-grid multiplier phases', () => {
+  const simple=family('slots').filter(d=>!d.chargingFeature&&!d.bookFeature&&!d.mariachiFeature&&d.slotMechanic!=='tumble'&&!['ind74_official_poweroftiger','ind74_official_coinsofatlantis'].includes(d.id));
+  assert.equal(simple.length,32);
   for (const d of simple) for (const betMinor of ['100', '300', '400000']) {
     let greatest = 0n;
     const wheelIndex = (d.multiplierValues ?? [1]).indexOf(Math.max(...(d.multiplierValues ?? [1])));
     const wheel = (d.multiplierValues ?? [1])[wheelIndex];
-    for (let symbolIndex = 0; symbolIndex < d.symbols.length; symbolIndex++) for (const matches of Object.keys(d.symbols[symbolIndex].pays).map(Number)) {
-      let calls = 0;
-      const rng = () => {
-        const i = calls++;
-        if (i >= d.rows * d.cols) return wheelIndex;
-        return i % d.cols < matches ? symbolIndex : (symbolIndex + 1) % d.symbols.length;
+    const gridFixture = cellValue => {
+      let cells=0,multiplierDraws=0,calls=0;
+      const preSpin=d.jungleFeature||d.multiplierSelectionTiming==='before-symbol-grid';
+      const rng=bound=>{
+        if(d.multiplierValues&&(preSpin?calls===0:cells===d.rows*d.cols)){
+          assert.equal(multiplierDraws++,0,d.id+' multiplier drawn exactly once');
+          assert.equal(bound,d.multiplierValues.length,d.id+' multiplier draw bound');
+          calls++;return wheelIndex;
+        }
+        assert.ok(cells<d.rows*d.cols,d.id+' no unplanned feature draw in a regular-only fixture');
+        calls++;return cellValue(cells++);
       };
+      rng.verify=()=>{
+        assert.equal(cells,d.rows*d.cols,d.id+' complete grid fixture');
+        assert.equal(multiplierDraws,d.multiplierValues?1:0,d.id+' complete multiplier fixture');
+      };
+      return rng;
+    };
+    for (let symbolIndex = 0; symbolIndex < d.symbols.length; symbolIndex++) for (const matches of Object.keys(d.symbols[symbolIndex].pays).map(Number)) {
+      const rng = gridFixture(i=>i%d.cols<matches?symbolIndex:(symbolIndex+1)%d.symbols.length);
       const round = math.startRound({gameId: d.id, betMinor, rng});
-      const expected = BigInt(d.paylines.length) * (BigInt(betMinor) * BigInt(d.symbols[symbolIndex].pays[matches]) / BigInt(d.paylines.length)) * BigInt(wheel);
-      assert.equal(BigInt(round.winMinor), expected, d.id + ' matches=' + matches);
+      rng.verify();
+      const expected = BigInt(d.paylines.length) * (BigInt(betMinor) * BigInt(d.symbols[symbolIndex].pays[matches]) / (BigInt(d.paylines.length)*BigInt(d.symbolPrizeDivisor??1))) * BigInt(wheel);
+      let credited=expected;
+      if(d.jungleFeature){
+        const cap=BigInt(betMinor)*BigInt(d.jungleFeature.maximumAwardMultiplier);
+        credited=expected<cap?expected:cap;
+        assert.equal(round.outcome.baseRegularAwardMinor,expected.toString(),d.id+' raw regular award');
+        assert.equal(round.outcome.baseRawAwardMinor,expected.toString(),d.id+' raw total before public cap');
+        assert.equal(round.outcome.baseScatterAwardMinor,'0',d.id+' no invented Scatter award');
+        assert.equal(round.outcome.baseAwardMinor,credited.toString(),d.id+' explicit cap allocation');
+        assert.equal(round.outcome.maximumAwardMinor,cap.toString(),d.id+' published cap');
+        assert.equal(round.outcome.capReached,expected>=cap,d.id+' cap disclosure');
+        assert.equal(round.outcome.bonusTriggered,false,d.id+' regular grid does not trigger a bonus');
+        assert.equal(round.outcome.bonusFrameCount,0,d.id+' no concealed free-spin award');
+      }
+      assert.equal(BigInt(round.winMinor), credited, d.id + ' matches=' + matches);
+      assert.equal(round.outcome.lineWins.reduce((sum,line)=>sum+BigInt(line.winMinor),0n),expected,d.id+' unchanged line prizes before any declared cap');
       assert.equal(round.outcome.lineWins.length, d.paylines.length);
       assert.equal(round.outcome.grid.length, d.rows);
       assert.ok(round.outcome.lineWins.every(line => line.matches === matches));
-      greatest = expected > greatest ? expected : greatest;
+      greatest = credited > greatest ? credited : greatest;
     }
     if(d.wildSymbol?.pays) {
-      let i=0;const r=math.startRound({gameId:d.id,betMinor,rng:()=>i++<d.rows*d.cols?d.symbols.length*32:wheelIndex});
+      const rng=gridFixture(()=>d.symbols.length*32);
+      const r=math.startRound({gameId:d.id,betMinor,rng});rng.verify();
       greatest=BigInt(r.winMinor)>greatest?BigInt(r.winMinor):greatest;
     }
     assert.equal(BigInt(math.maximumPayoutMinor({gameId: d.id, betMinor})), greatest, d.id);
@@ -225,7 +258,7 @@ test('Mine Island follows its observed ascending ladder, rejects duplicate steps
 
 test('crash views never credit a future result before reconciliation and maximum surviving rounds settle exactly once', () => {
   for (const d of family('crash')) {
-    const round = math.startRound({gameId: d.id, betMinor: '100', rng: () => 0, now: NOW});
+    const round = math.startRound({gameId: d.id, betMinor: '100',context:freshChargingContext(d,'100'),rng: () => 0, now: NOW});
     const at = NOW + (d.crashMechanic==='cascade'?(d.maxSteps-1)*d.cascadeMs:Math.ceil((d.maxMultiplierBps - 10000) * 1000 / d.growthBpsPerSecond));
     const view = math.publicRound(round, at);
     assert.equal(view.status, 'active', d.id);
@@ -258,7 +291,7 @@ test('reserve and start reject the same invalid options and post-start requests 
         assert.throws(() => action({gameId: d.id, betMinor, rng: () => 0, now: NOW}), d.id + ' ' + betMinor);
       }
     }
-    const round = math.startRound({gameId: d.id, betMinor: '100', rng: () => 0, now: NOW});
+    const round = math.startRound({gameId: d.id, betMinor: '100',context:freshChargingContext(d,'100'),rng: () => 0, now: NOW});
     for (const options of [null, [], {stakeMinor: '1'}, {mode: 'hard'}, {payoutMinor: '1000'}, {seed: 'client'}, {win: true}]) {
       assert.throws(() => math.advanceRound(round, options, NOW), {code: 'INVALID_OPTIONS'}, d.id);
       assert.throws(() => math.collectRound(round, options, NOW), {code: 'INVALID_OPTIONS'}, d.id);
@@ -269,9 +302,9 @@ test('reserve and start reject the same invalid options and post-start requests 
 test('all families reject invalid bounded RNG output and public snapshots cannot mutate stored state', () => {
   for (const d of definitions) {
     for (const rng of [() => -1, bound => bound, () => 0.5, () => NaN]) {
-      assert.throws(() => math.startRound({gameId: d.id, betMinor: '100', rng, now: NOW}), {code: 'INVALID_RNG'}, d.id);
+      assert.throws(() => math.startRound({gameId: d.id, betMinor: '100',context:freshChargingContext(d,'100'),rng, now: NOW}), {code: 'INVALID_RNG'}, d.id);
     }
-    const round = math.startRound({gameId: d.id, betMinor: '100', rng: () => 0, now: NOW});
+    const round = math.startRound({gameId: d.id, betMinor: '100',context:freshChargingContext(d,'100'),rng: () => 0, now: NOW});
     const before = JSON.stringify(round), view = math.publicRound(round, NOW);
     assert.equal(Object.hasOwn(view, 'private'), false, d.id);
     assert.equal(Object.hasOwn(view, 'survival'), false, d.id);

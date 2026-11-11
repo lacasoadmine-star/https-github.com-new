@@ -167,3 +167,12 @@ export default {
     "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
   }
 };
+
+// Current catalogue configuration stays in this title module. The default
+// export above remains the retained independent fixture definition.
+import {configurePublicSlotFeatures} from '../public-slot-features.mjs';
+import {configureCoinsOfAtlantis} from '../coins-of-atlantis.mjs';
+export function configureOfficialGame(d){
+  if(d?.id!=='ind74_official_coinsofatlantis')throw new TypeError('The Coins Of Atlantis definition is required.');
+  configurePublicSlotFeatures(d);return configureCoinsOfAtlantis(d);
+}

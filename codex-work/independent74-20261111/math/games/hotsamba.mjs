@@ -1,3 +1,6 @@
+import {configureDocumentedBasicSlot} from '../documented-basic-slots.mjs';
+export const configureOfficialGame=d=>configureDocumentedBasicSlot(d,'ind74_official_hotsamba');
+
 export default {
   "id": "ind74_hotsamba",
   "title": "Hot Samba — Independent",

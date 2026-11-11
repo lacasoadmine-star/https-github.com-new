@@ -20,13 +20,14 @@
     <div class="selector"><label for="game-select">Ciyaarta</label><select id="game-select" disabled><option>Soo dejinaya…</option></select></div>
     <section class="machine" aria-labelledby="game-title">
       <div class="game-heading"><div><small id="family">ZPLAY</small><h1 id="game-title">Ciyaaraha</h1></div><button id="rules" aria-label="Xeerarka iyo abaalmarinta" disabled>ⓘ</button></div>
-      <div id="stage" class="machine-stage" aria-label="Mashiinka ciyaarta"></div>
+      <div id="stage" class="machine-stage" aria-label="Mashiinka ciyaarta" aria-busy="true"><div class="m74-loading" role="status"><span class="m74-loading-ring" aria-hidden="true"></span><span id="loading-label">Soo dejinaya ciyaarta…</span></div></div>
       <div class="win-bar"><span id="win-label">GUUL</span><strong id="win">—</strong><span id="round-status">Sugaya server-ka</span></div>
       <section class="controls" aria-label="Xakamaynta ciyaarta">
         <label class="bet-control" for="bet"><span id="bet-caption">SHARAD</span> · <span data-currency>ETB</span>
           <span class="bet-row"><button id="bet-less" type="button" aria-label="Yaree sharadka" disabled>−</button><input id="bet" type="text" inputmode="decimal" value="1.00" aria-label="Sharadka ETB; qiimayaasha bilowga 1 ilaa 20" autocomplete="off" disabled><button id="bet-more" type="button" aria-label="Kordhi sharadka" disabled>+</button></span>
         </label>
         <div id="options" class="game-options"></div>
+        <p id="gamble-status" class="gamble-status" role="status" hidden></p>
         <div class="actions"><button id="play" class="primary" disabled>SPIN</button><button id="next" hidden disabled>TALLAABADA XIGTA</button><button id="collect" hidden disabled>QAADO</button><button id="stop" hidden>STOP</button><button id="gamble-red" hidden disabled>♥ CASAAN · X2</button><button id="gamble-black" hidden disabled>♠ MADOW · X2</button></div>
         <div class="extras"><button id="auto" disabled>AUTO · 5</button><button id="sound" aria-pressed="false">CODKA · DAMMAN</button><label class="volume-control">COD <input id="volume" type="range" min="0" max="100" value="65" aria-label="Heerka codka"></label><label><input id="turbo" type="checkbox"> TURBO</label></div>
       </section>

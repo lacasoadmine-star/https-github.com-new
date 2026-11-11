@@ -545,11 +545,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multifruitschargingwilds-r3",
+        "mathVersion": "official72-multifruitschargingwilds-r5",
         "rows": 3,
         "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 350000,
+        "maximumMultiplierBps": 8400000,
         "independentModel": true,
         "ways": null
       },
@@ -571,9 +571,9 @@
           "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact MultiFruitsChargingWilds Help specifies five fixed active paylines."
         ],
         "limitations": [
-          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
-          "The retained financial transaction must atomically save and restore that feature state.",
-          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+          "Carry requires trusted atomic state from the retained wallet transaction; no browser or process-local carry is accepted.",
+          "Provider line chart, prizes, normal multi-Wild aggregation and first-landing charge timing remain unverified.",
+          "ANTE5/10 uses documented costs and initial Wild guarantees with independent symbol draws and a disclosed base-stake award basis."
         ],
         "kind": "reels",
         "rows": 3,
@@ -581,11 +581,21 @@
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": true,
+        "persistentWilds": true,
+        "carryScope": [
+          "player",
+          "game",
+          "mathVersion",
+          "baseBetMinor",
+          "ante"
+        ],
         "multiplier": {
-          "placement": "none",
+          "placement": "on-wild",
           "observedValues": [],
           "implementedValues": [],
-          "calculationImplemented": false,
+          "calculationImplemented": true,
+          "scope": "per-winning-line",
+          "dynamicPayoutBound": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -613,11 +623,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-gemscrownchargingwilds-r4",
+        "mathVersion": "official72-gemscrownchargingwilds-r6",
         "rows": 3,
         "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 360000,
+        "maximumMultiplierBps": 8640000,
         "independentModel": true,
         "ways": null
       },
@@ -639,9 +649,9 @@
           "Twenty completed official DEMO result grids contain nine symbols and rendered positions show3×3. Exact GemsCrownChargingWilds Help specifies five fixed active paylines."
         ],
         "limitations": [
-          "Persistent charging Wilds across paid spins and saved state per bet are documented but not implemented.",
-          "The retained financial transaction must atomically save and restore that feature state.",
-          "Provider line chart, prizes, probabilities, ante bet and feature purchase remain unverified or unimplemented."
+          "Carry requires trusted atomic state from the retained wallet transaction; no browser or process-local carry is accepted.",
+          "Provider line chart, prizes, normal multi-Wild aggregation and first-landing charge timing remain unverified.",
+          "This title Help does not document ANTE5/10. Only ordinary saved charging Wilds are implemented; another title is not used as proof of its purchase controls."
         ],
         "kind": "reels",
         "rows": 3,
@@ -649,11 +659,21 @@
         "paylines": 5,
         "paylinesVerified": false,
         "paylineCountVerified": true,
+        "persistentWilds": true,
+        "carryScope": [
+          "player",
+          "game",
+          "mathVersion",
+          "baseBetMinor",
+          "ante"
+        ],
         "multiplier": {
-          "placement": "none",
+          "placement": "on-wild",
           "observedValues": [],
           "implementedValues": [],
-          "calculationImplemented": false,
+          "calculationImplemented": true,
+          "scope": "per-winning-line",
+          "dynamicPayoutBound": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -681,11 +701,11 @@
       "advertisedMaximumMultiplier": 5000,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-gatesofmerlyn-r2",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 20,
-        "maximumMultiplierBps": 13170000,
+        "mathVersion": "official72-gatesofmerlyn-r4",
+        "rows": 5,
+        "columns": 6,
+        "paylines": 0,
+        "maximumMultiplierBps": 50000000,
         "independentModel": true,
         "ways": null
       },
@@ -700,28 +720,72 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": null,
       "observedLayout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_gatesofmerlyn-initial.png; reports/priority10-reference-20261111/gates-paytable-upper.jpg; reports/priority10-reference-20261111/gates-paytable-lower.jpg; references/official-slot-help-en-20261111.json:help.slots.gatesofmerlyn",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        "observedFacts": [
+          "The saved official DEMO screenshot shows6columns and5rows. Exact title Help says equal symbols pay anywhere, with no paylines, tumbling wins, multiplier symbols, MAGIC and triggered or purchased free spins."
         ],
-        "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 20,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "limitations": [
+          "Fresh rendered paytables verify8–9/10–11/12+regular awards and4/5/6+Scatter awards. Provider probabilities remain unverified.",
+          "MAGIC targeting, scatter/multiplier ordering, cap settlement and processing guarantee are explicitly independent interpretations.",
+          "Rendered references do not establish complete artwork/audio or certified provider mathematics."
+        ],
+        "kind": "cascade-grid",
+        "rows": 5,
+        "columns": 6,
+        "paylines": 0,
+        "paylineCountVerified": true,
+        "paylinesVerified": true,
+        "minimumMatchingSymbols": 8,
+        "minimumMatchingSymbolsVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "on-grid",
+          "observedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            15,
+            20,
+            30,
+            40,
+            50,
+            100,
+            250,
+            500
+          ],
+          "implementedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            15,
+            20,
+            30,
+            40,
+            50,
+            100,
+            250,
+            500
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
-        }
+        },
+        "maximumMultiplierBps": 50000000,
+        "maximumBoards": 256
       }
     },
     {
@@ -802,11 +866,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-dicejungle-r2",
+        "mathVersion": "official72-dicejungle-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 5,
-        "maximumMultiplierBps": 13960000,
+        "maximumMultiplierBps": 111680000,
         "independentModel": true,
         "ways": null
       },
@@ -840,11 +904,14 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "top-horizontal",
           "observedValues": [],
           "implementedValues": [],
           "calculationImplemented": false,
           "completeLabelsVerified": false,
+          "documentedValues": [],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.dicejungle.multiplier.reel.description",
+          "selectionTiming": "before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       }
@@ -1063,11 +1130,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot20-r2",
+        "mathVersion": "official72-multihot20-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 13400000,
+        "maximumMultiplierBps": 800000000,
         "independentModel": true,
         "ways": null
       },
@@ -1080,27 +1147,38 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": true,
       "observedLayout": {
-        "source": "https://www.smartsoftgaming.com/games/multi-hot-20",
+        "source": "reports/current74-evidence-slots/ind74_official_multihot20-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official public page specifies 5 reels and 3 rows."
+          "The official DEMO screenshot shows5columns and3rows with a top semicircular multiplier arc: selected2x,5x to the left and4x to the right. Exact title Help separately documents values1x through5x."
         ],
         "limitations": [
-          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+          "Help describes a left-side reel, while the observed desktop display places the multiplier above the board.",
+          "The complete arc label order, provider probabilities and payline chart remain unverified."
         ],
         "kind": "reels",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
         "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "placement": "top-arc",
+          "observedValues": [
+            2,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -1187,11 +1265,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot10-r2",
+        "mathVersion": "official72-multihot10-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 10,
-        "maximumMultiplierBps": 15070000,
+        "maximumMultiplierBps": 400000000,
         "independentModel": true,
         "ways": null
       },
@@ -1204,15 +1282,16 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": true,
       "observedLayout": {
-        "source": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_multihot10-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official public page specifies 5 reels and 3 rows with 10 fixed paylines."
+          "The official DEMO screenshot shows5columns and3rows with a top semicircular multiplier arc: selected2x,5x to the left and4x to the right. Exact title Help separately documents values1x through5x."
         ],
         "limitations": [
-          "The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."
+          "Help describes a left-side reel, while the observed desktop display places the multiplier above the board.",
+          "The complete arc label order, provider probabilities and payline chart remain unverified."
         ],
         "kind": "reels",
         "rows": 3,
@@ -1221,10 +1300,20 @@
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "placement": "top-arc",
+          "observedValues": [
+            2,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -1254,11 +1343,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot40-r2",
+        "mathVersion": "official72-multihot40-r3",
         "rows": 4,
         "columns": 5,
         "paylines": 40,
-        "maximumMultiplierBps": 14030000,
+        "maximumMultiplierBps": 561200000,
         "independentModel": true,
         "ways": null
       },
@@ -1295,8 +1384,14 @@
             4,
             5
           ],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -1329,11 +1424,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-coinsofatlantis-r4",
+        "mathVersion": "official72-coinsofatlantis-r5",
         "rows": 4,
         "columns": 5,
         "paylines": 5,
-        "maximumMultiplierBps": 32990000,
+        "maximumMultiplierBps": 25000000,
         "independentModel": true,
         "ways": null
       },
@@ -1367,11 +1462,12 @@
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official DEMO initial screen directly shows five columns and four rows, including coin and wild symbols. The regular/+1/MINI/MAJOR respin subset follows separate English Help documents."
+          "The official DEMO initial screen shows5columns and4rows. Exact Help documents regular/+1/MINI/MAJOR coins, MEGA pairs, GRAND triples, full-boardX2, ANTE+50% and60xBuy Respin."
         ],
         "limitations": [
           "The exact provider line chart and count remain unverified.",
-          "MEGA/GRAND jackpot grouping, buy/ANTE features, provider probabilities and base/feature ordering remain unimplemented or unverified."
+          "Additional jackpot groups beyond the first pair/triple, provider probabilities, base/feature ordering and purchase maximum coupling are independently interpreted and remain unverified.",
+          "The public2500x maximum is an explicit operator round cap; no provider reel restrictions are inferred."
         ],
         "kind": "reels",
         "rows": 4,
@@ -1495,12 +1591,12 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihotwildways-r3",
+        "mathVersion": "official72-multihotwildways-r4",
         "rows": 3,
         "columns": 3,
         "paylines": null,
         "ways": 27,
-        "maximumMultiplierBps": 2050000,
+        "maximumMultiplierBps": 16400000,
         "independentModel": true
       },
       "implementedPublicFeatureSubset": [
@@ -1647,7 +1743,7 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot5burnwilds-r4",
+        "mathVersion": "official72-multihot5burnwilds-r5",
         "rows": 3,
         "columns": 5,
         "paylines": 5,
@@ -1671,12 +1767,12 @@
         "X2 card probabilities, three-attempt limit and pre-spin holdWin control are operator choices. Provider probabilities, limits, complete mechanics and parity remain unverified."
       ],
       "observedLayout": {
-        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+        "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds; reports/current74-evidence-slots/ind74_official_multihot5burnwilds-initial.png",
         "geometryVerified": true,
         "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
         "observedFacts": [
-          "The official public page specifies three rows, five reels and five paylines. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier."
+          "The official public page specifies three rows, five reels and five paylines. The saved official DEMO screenshot confirms the multiplier on a top semicircular arc. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier."
         ],
         "limitations": [
           "Full provider paytable, probabilities and repeated expansion order remain unverified.",
@@ -1689,7 +1785,7 @@
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "independent-display",
+          "placement": "top-arc",
           "observedValues": [
             1,
             2,
@@ -1728,7 +1824,7 @@
       "advertisedMaximumMultiplier": 10000,
       "currentModel": {
         "family": "ladder",
-        "mathVersion": "official72-chickenhighway-r3",
+        "mathVersion": "official72-chickenhighway-r4",
         "rows": null,
         "columns": null,
         "paylines": null,
@@ -1753,7 +1849,8 @@
         ],
         "limitations": [
           "The directly played first EASY crossing does not prove all future lane outcomes or other difficulties.",
-          "Provider survival probabilities, full visual/audio parity, native autoplay and8second-disconnection cashout remain unverified or unimplemented."
+          "Provider survival probabilities, exact native autoplay presentation and full visual/audio parity remain unverified.",
+          "The authenticated server presence lease implements cashout after more than8seconds without accepted contact. This independent connection protocol and its recovery limits are described in connectionPolicy."
         ],
         "kind": "ladder",
         "steps": 25,
@@ -1798,11 +1895,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot5deluxe-r3",
+        "mathVersion": "official72-multihot5deluxe-r4",
         "rows": 3,
         "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 370000,
+        "maximumMultiplierBps": 2960000,
         "independentModel": true,
         "ways": null
       },
@@ -2008,11 +2105,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-jinglebellbonanza-r3",
+        "mathVersion": "official72-jinglebellbonanza-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 64050000,
+        "maximumMultiplierBps": 512400000,
         "independentModel": true,
         "ways": null
       },
@@ -2032,13 +2129,16 @@
         "The public maximum wheel factor is5x; this independent implementation uses equally likely1x through5x. Exact provider labels and distribution remain unverified."
       ],
       "observedLayout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_jinglebellbonanza-initial.png",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official DEMO screenshot shows5columns and3rows with a multiplier arc above the board,5x selected at the center,1x on the left and2x on the right."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The complete arc label order, provider probabilities, scatter awards and full bonus behavior remain unverified.",
+          "The regular wild expansion,1x–5x multiplier and optional X2 lifecycle use independently authored probabilities."
         ],
         "kind": "reels",
         "rows": 3,
@@ -2047,8 +2147,12 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "independent-display",
-          "observedValues": [],
+          "placement": "top-arc",
+          "observedValues": [
+            1,
+            2,
+            5
+          ],
           "implementedValues": [
             1,
             2,
@@ -2087,11 +2191,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot5superwilds-r2",
+        "mathVersion": "official72-multihot5superwilds-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 5,
-        "maximumMultiplierBps": 11770000,
+        "maximumMultiplierBps": 94160000,
         "independentModel": true,
         "ways": null
       },
@@ -2308,11 +2412,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-safarisimba-r3",
+        "mathVersion": "official72-safarisimba-r4",
         "rows": 3,
         "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 390000,
+        "maximumMultiplierBps": 3120000,
         "independentModel": true,
         "ways": null
       },
@@ -2469,11 +2573,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihotways-r3",
+        "mathVersion": "official72-multihotways-r4",
         "rows": 3,
         "columns": 3,
         "paylines": null,
-        "maximumMultiplierBps": 2050000,
+        "maximumMultiplierBps": 16400000,
         "independentModel": true,
         "ways": 27
       },
@@ -2494,7 +2598,7 @@
         ],
         "limitations": [
           "Provider LinePlay1 is a betting field, not a payline count.",
-          "Conditional same-symbol x2 and separate red/black X2 Gamble remain unimplemented.",
+          "Conditional same-symbol x2 remains unimplemented. Separate red/black X2 uses independent fair colors and a disclosed three-attempt limit.",
           "The provider award basis, symbol prizes and probabilities remain unverified; no Wild substitution is inferred from a different title."
         ],
         "kind": "reels",
@@ -2652,11 +2756,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-mariachicoins-r2",
+        "mathVersion": "official72-mariachicoins-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 15030000,
+        "maximumMultiplierBps": 200000000,
         "independentModel": true,
         "ways": null
       },
@@ -2669,13 +2773,17 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": null,
       "observedLayout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_mariachicoins-initial.png; references/official-slot-help-en-20261111.json:help.slots.mariachicoins",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The saved official DEMO screenshot shows5columns and3rows, collector/coin presentation and a four-jackpot panel. Exact Help documents edge collectors, middle coins and3resettable Hold&Win respins."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The complete provider line chart and regular-symbol prizes remain unverified.",
+          "Collector timing, final coin-plus-collector aggregation and pre-expansion trigger order are explicitly independent interpretations.",
+          "A rendered1.00DMO Buy Respin quote at0.05DMO is observed, but universal price scaling and enriched-spin behavior are not proven; purchase remains unavailable."
         ],
         "kind": "reels",
         "rows": 3,
@@ -3134,11 +3242,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-geniesbonanza-r2",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 25,
-        "maximumMultiplierBps": 13020000,
+        "mathVersion": "official72-geniesbonanza-r4",
+        "rows": 5,
+        "columns": 6,
+        "paylines": 0,
+        "maximumMultiplierBps": 30000000,
         "independentModel": true,
         "ways": null
       },
@@ -3152,28 +3260,79 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": false,
       "observedLayout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/current74-evidence-slots-remaining/ind74_official_geniesbonanza-initial.png; reports/priority10-reference-20261111/genie-paytable.jpg; tests/evidence/official-demo-observations-frontend-five20261111.json; references/official-slot-help-en-20261111.json:help.slots.geniesbonanza",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
-        "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+        "observedFacts": [
+          "The official screenshot shows6columns and5rows; completed result records cross-check30symbols. Exact Help specifies count-anywhere tumbles,10free spins,+5retrigger and bonus-only multipliers."
         ],
-        "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 25,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "limitations": [
+          "Fresh rendered Help verifies8–9/10–11/12+regular prizes and4+Scatter5x. Carpet frequencies, probabilities and scatter/multiplier ordering remain independent or unverified.",
+          "B+25%surcharge,100-Scatter progress and paid Risk mechanics remain unimplemented and their options are rejected."
+        ],
+        "kind": "cascade-grid",
+        "rows": 5,
+        "columns": 6,
+        "paylines": 0,
+        "paylineCountVerified": true,
+        "paylinesVerified": true,
+        "minimumMatchingSymbols": 8,
+        "minimumMatchingSymbolsVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "on-grid",
+          "observedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            12,
+            15,
+            18,
+            20,
+            25,
+            30,
+            40,
+            50,
+            60,
+            80,
+            90,
+            100
+          ],
+          "implementedValues": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            12,
+            15,
+            18,
+            20,
+            25,
+            30,
+            40,
+            50,
+            60,
+            80,
+            90,
+            100
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
-        }
+        },
+        "maximumMultiplierBps": 30000000,
+        "maximumBoards": 256
       }
     },
     {
@@ -3253,11 +3412,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-farmsfortune-r3",
+        "mathVersion": "official72-farmsfortune-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 10,
-        "maximumMultiplierBps": 69050000,
+        "maximumMultiplierBps": 552400000,
         "independentModel": true,
         "ways": null
       },
@@ -3295,7 +3454,7 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "independent-display",
+          "placement": "unverified",
           "observedValues": [],
           "implementedValues": [
             1,
@@ -3306,6 +3465,9 @@
           ],
           "calculationImplemented": true,
           "completeLabelsVerified": false,
+          "documentedValues": [],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.farmsfortune.multiplier.reel.description",
+          "selectionTiming": "before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       }
@@ -3559,11 +3721,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-hotsamba-r2",
+        "mathVersion": "official72-hotsamba-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 13090000,
+        "maximumMultiplierBps": 523600000,
         "independentModel": true,
         "ways": null
       },
@@ -3592,11 +3754,26 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "left-reel",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "documentedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.hotsamba.multiplier.reel.description",
+          "selectionTiming": "operator-before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       }
@@ -3688,11 +3865,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-baoslot5x-r3",
+        "mathVersion": "official72-baoslot5x-r4",
         "rows": 3,
         "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 390000,
+        "maximumMultiplierBps": 15600000,
         "independentModel": true,
         "ways": null
       },
@@ -3721,11 +3898,26 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "left-reel",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
+          "documentedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.baoslot5x.multiplier.reel.description",
+          "selectionTiming": "operator-before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       }
@@ -3753,11 +3945,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-junglesisters-r2",
+        "mathVersion": "official72-junglesisters-r3",
         "rows": 3,
         "columns": 5,
-        "paylines": 10,
-        "maximumMultiplierBps": 12840000,
+        "paylines": 20,
+        "maximumMultiplierBps": 120000000,
         "independentModel": true,
         "ways": null
       },
@@ -3785,14 +3977,20 @@
         "kind": "reels",
         "rows": 3,
         "columns": 5,
-        "paylines": 10,
+        "paylines": 20,
         "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -3881,11 +4079,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-junglesistersdeluxe-r3",
+        "mathVersion": "official72-junglesistersdeluxe-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 10760000,
+        "maximumMultiplierBps": 200000000,
         "independentModel": true,
         "ways": null
       },
@@ -3915,10 +4113,17 @@
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
+          "placement": "independent-display",
           "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            10
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -3945,11 +4150,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-dragonscode-r3",
+        "mathVersion": "official72-dragonscode-r4",
         "rows": 4,
         "columns": 5,
         "paylines": 50,
-        "maximumMultiplierBps": 14200000,
+        "maximumMultiplierBps": 568000000,
         "independentModel": true,
         "ways": null
       },
@@ -3972,7 +4177,7 @@
         ],
         "limitations": [
           "The full provider payline chart and symbol prizes are not established.",
-          "Multiplier, Wild, Golden Egg, respin, buy feature and Gamble remain unimplemented by this regular-symbol fallback.",
+          "Wild, Golden Egg, respin and buy feature remain unimplemented. The1x–5x regular multiplier and X2 use independent probabilities and a disclosed three-attempt gamble limit.",
           "Geometry is observed; provider probabilities and complete audiovisual/feature equivalence are unverified."
         ],
         "kind": "reels",
@@ -3988,8 +4193,14 @@
             2,
             5
           ],
-          "implementedValues": [],
-          "calculationImplemented": false,
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
           "completeLabelsVerified": false,
           "providerProbabilitiesVerified": false
         }
@@ -4015,11 +4226,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-draculasfortune-r2",
+        "mathVersion": "official72-draculasfortune-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 10,
-        "maximumMultiplierBps": 16030000,
+        "maximumMultiplierBps": 128240000,
         "independentModel": true,
         "ways": null
       },
@@ -4048,11 +4259,14 @@
         "paylinesVerified": false,
         "paylineCountVerified": false,
         "multiplier": {
-          "placement": "none",
+          "placement": "unverified",
           "observedValues": [],
           "implementedValues": [],
           "calculationImplemented": false,
           "completeLabelsVerified": false,
+          "documentedValues": [],
+          "documentationSource": "references/official-slot-help-en-20261111.json:help.slots.draculasfortune.multiplier.reel.description",
+          "selectionTiming": "before-symbol-grid",
           "providerProbabilitiesVerified": false
         }
       }
@@ -4078,11 +4292,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-bookoffuturia-r2",
+        "mathVersion": "official72-bookoffuturia-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 20,
-        "maximumMultiplierBps": 14990000,
+        "maximumMultiplierBps": 119920000,
         "independentModel": true,
         "ways": null
       },
@@ -4143,11 +4357,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-bookofbonanza-r2",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 25,
-        "maximumMultiplierBps": 13950000,
+        "mathVersion": "official72-bookofbonanza-r4",
+        "rows": 4,
+        "columns": 6,
+        "paylines": 40,
+        "maximumMultiplierBps": 50000000,
         "independentModel": true,
         "ways": null
       },
@@ -4163,20 +4377,23 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": null,
       "observedLayout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/priority10-reference-20261111/book-ready-geometry.jpg; reports/priority10-reference-20261111/book-forty-paylines.jpg; reports/priority10-reference-20261111/book-paytable-upper.jpg; reports/priority10-reference-20261111/book-paytable-lower.jpg; reports/current74-evidence-slots-secondary/ind74_official_bookofbonanza-official-help-en.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "Fresh official DEMO screenshots confirm6columns,4rows,40numbered paylines and ten regular categories with2-to6-match prizes. Exact title Help documents Book Wild/Scatter,10free spins,+10retrigger and selected-symbol expansion when its paying reel count is present."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "Help describes expansion covering3positions while the observed base has4rows. The3-cell contiguous window remains an explicitly independent interpretation.",
+          "Provider probabilities and complete bonus geometry remain unverified. A100x Buy quote is observed, but purchase/B+ progress/Risk lifecycles are unimplemented."
         ],
         "kind": "reels",
-        "rows": 3,
-        "columns": 5,
-        "paylines": 25,
-        "paylinesVerified": false,
-        "paylineCountVerified": false,
+        "rows": 4,
+        "columns": 6,
+        "paylines": 40,
+        "paylinesVerified": true,
+        "paylineCountVerified": true,
         "multiplier": {
           "placement": "none",
           "observedValues": [],
@@ -4208,11 +4425,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-sugarfiesta-r3",
+        "mathVersion": "official72-sugarfiesta-r4",
         "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 3,
-        "maximumMultiplierBps": 12910000,
+        "maximumMultiplierBps": 18000000,
         "independentModel": true,
         "ways": null
       },
@@ -4225,26 +4442,41 @@
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": null,
       "observedLayout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "reports/priority10-reference-20261111/sugarfiesta-ready-geometry.jpg; reports/priority10-reference-20261111/sugarfiesta-paytable.jpg; reports/current74-evidence-slots-secondary/ind74_official_sugarfiesta-official-help-en.json",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "Fresh official DEMO screenshots confirm3columns and3rows, nine regular symbol categories and the left multiplier selector. The public page specifies3lines; exact case-sensitive SugarFiesta Help specifies1x–5x and X2."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The displayed paytable is normalized into independent line prizes; provider125x maximum coupling with the displayed awards remains unresolved.",
+          "Provider probabilities, complete label ordering and full audiovisual behavior remain unverified."
         ],
         "kind": "reels",
         "rows": 3,
-        "columns": 5,
+        "columns": 3,
         "paylines": 3,
         "paylinesVerified": false,
         "paylineCountVerified": true,
         "multiplier": {
-          "placement": "none",
-          "observedValues": [],
-          "implementedValues": [],
-          "calculationImplemented": false,
-          "completeLabelsVerified": false,
+          "placement": "left-reel",
+          "observedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "implementedValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "calculationImplemented": true,
+          "completeLabelsVerified": true,
           "providerProbabilitiesVerified": false
         }
       }
@@ -4268,11 +4500,11 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-vampires-r2",
+        "mathVersion": "official72-vampires-r3",
         "rows": 3,
         "columns": 5,
         "paylines": 10,
-        "maximumMultiplierBps": 11870000,
+        "maximumMultiplierBps": 94960000,
         "independentModel": true,
         "ways": null
       },
@@ -4536,5 +4768,5 @@
       }
     }
   ],
-  "generatedModelFactsAt": "2026-11-11T10:06:24.570Z"
+  "generatedModelFactsAt": "2026-11-11T14:04:38.228Z"
 }

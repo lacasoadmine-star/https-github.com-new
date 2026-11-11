@@ -167,3 +167,13 @@ export default {
     "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
   }
 };
+
+// Current catalogue configuration stays in this title module. The default
+// export above remains the retained independent fixture definition.
+import {configureObservedThreeReel} from '../observed-three-reel.mjs';
+import {configurePublicColorGamble} from '../public-gamble.mjs';
+import {configureChargingWilds} from '../charging-wilds.mjs';
+export function configureOfficialGame(d){
+  if(d?.id!=='ind74_official_multifruitschargingwilds')throw new TypeError('The Multi Fruits Charging Wilds definition is required.');
+  configureObservedThreeReel(d);configurePublicColorGamble(d);return configureChargingWilds(d);
+}

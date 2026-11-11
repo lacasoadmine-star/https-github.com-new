@@ -272,3 +272,10 @@ export default {
     "proof": "For eachsymbol payout A,B,C,the contribution is(56A+7B+C)/32768.Sum8symbols.Equal stake splitting preserves the return with integer line stakes."
   }
 };
+
+// Current catalogue configuration is isolated from the retained default above.
+import {configureMariachiCoins} from '../mariachi-coins.mjs';
+export function configureOfficialGame(d){
+  if(d?.id!=='ind74_official_mariachicoins')throw new TypeError('The Mariachi Coins definition is required.');
+  return configureMariachiCoins(d);
+}

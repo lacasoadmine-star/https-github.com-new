@@ -106,7 +106,7 @@ test('official72 uses the retained SQL financial classes in an isolated PostgreS
         noPrivateState(response.round);
         let stored = await rowFor(response.round.round_id);
         assert.equal(String(stored.total_stake), '100');
-        assert.equal(String(stored.liability), math.maximumPayoutMinor({ gameId: game.id, betMinor: '100' }));
+        assert.equal(String(stored.liability), math.maximumPayoutMinor({ gameId: game.id, betMinor: '100', context:game.chargingFeature?{bucket:stored.state.mathState.carryBucket,priorCarry:stored.state.mathState.carryBefore}:undefined }));
         if (response.round.status === 'active') {
           assert.equal(await wallet(user), initial - 100n);
           assert.equal(await wallet(stored.reserve_wallet), BigInt(stored.liability));

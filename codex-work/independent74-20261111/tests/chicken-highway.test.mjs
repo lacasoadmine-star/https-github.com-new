@@ -8,7 +8,7 @@ import {machineMarkup} from '../client/machine74-renderer.mjs';
 const source=JSON.parse(fs.readFileSync(new URL('../reports/current74-evidence-nonslots/ind74_official_chickenhighway-display-tables.json',import.meta.url)));
 const d=math.getGameDefinition(id);
 test('Chicken Highway uses the exact public three-mode road display tables, not an invented ten-lane route',()=>{
-  assert.equal(d.mathVersion,'official72-chickenhighway-r3');
+  assert.equal(d.mathVersion,'official72-chickenhighway-r4');
   assert.deepEqual(d.modes,['easy','medium','hard']);
   for(const table of d.paytable) {
     const expected=source.sourceBackedDisplayTables[table.mode].map(v=>{const[w,f]=v.split('.');return Number(BigInt(w)*10000n+BigInt(f)*100n);});
