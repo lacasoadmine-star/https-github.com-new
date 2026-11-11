@@ -57,12 +57,23 @@ async () => {
       const type=/Content-Type:\s*([^\r\n]+)/i.exec(header)?.[1];
       if (end<0 || !name || !type) throw Error('PART_HEADERS_INCOMPLETE');
       const body=bytes.subarray(p+end+4,marks[k+1]-2);
-      parts.push({name,type,size:body.byteLength,sha256:await sha(body)});
+      parts.push({name,type,size:body.byteLength,sha256:await sha(body),start:p,end:marks[k+1]});
     }
     return parts;
   };
-  const original = await scan(raw,boundary);
+  const scanned = await scan(raw,boundary);
+  const original = scanned.map(({start,end,...part})=>part);
   if (!original.some(p=>p.name === current.main_module) || original.some(p=>p.name === 'metadata')) throw Error('SOURCE_MAIN_MODULE_MISSING_OR_UNEXPECTED_METADATA');
+  // Only our own previously deployed namespace can be replaced. Exact hashes
+  // bind the operation to the inspected release; legacy modules cannot enter it.
+  const removed=new Set();
+  for(const part of cfg.replaceModules||[]) {
+    if(!/^independent74-(assets|catalog|gateway|entry)-r[1-9][0-9]*\.mjs$/.test(part.name)||removed.has(part.name))throw Error('REPLACEMENT_OUTSIDE_OWN_NAMESPACE');
+    const previous=original.find(p=>p.name===part.name);
+    if(!previous||previous.sha256!==part.sha256)throw Error('REPLACEMENT_HASH_MISMATCH');
+    removed.add(part.name);
+  }
+  const preserved=original.filter(p=>!removed.has(p.name));
   const existing = new Set(original.map(p=>p.name));
   const added = cfg.modules || [];
   const moduleNames = new Set();
@@ -93,15 +104,17 @@ async () => {
   };
   for (const key of ['cache_options','placement','limits']) if (current[key]) metadata[key]=current[key];
   const manifestSha256=await sha(enc.encode(JSON.stringify(original)));
-  const plan={expectedVersion:expected,previousMain:current.main_module,newMain:main,originalModules:original.length,originalBytes:raw.byteLength,manifestSha256,addedModules:added.map(m=>m.name),bindingNames:[...names],assetsConfig:metadata.assets.config,exports:metadata.exports};
-  if (cfg.dryRun !== false) return {dryRun:true,plan,originalManifest:original};
+  const plan={expectedVersion:expected,previousMain:current.main_module,newMain:main,originalModules:preserved.length,replacedOwnModules:[...removed],originalBytes:raw.byteLength,manifestSha256,addedModules:added.map(m=>m.name),bindingNames:[...names],assetsConfig:metadata.assets.config,exports:metadata.exports};
+  if (cfg.dryRun !== false) return {dryRun:true,plan,originalManifest:preserved};
   let prefix=`--${boundary}\r\nContent-Disposition: form-data; name="metadata"\r\nContent-Type: application/json\r\n\r\n${JSON.stringify(metadata)}\r\n`;
   for (const m of added) prefix+=`--${boundary}\r\nContent-Disposition: form-data; name="${m.name}"; filename="${m.name}"\r\nContent-Type: ${m.type}\r\n\r\n${m.source}\r\n`;
   const intro=enc.encode(prefix);
-  let phase=0,offset=0;
+  const chunks=removed.size?[...scanned.filter(p=>!removed.has(p.name)).map(p=>raw.subarray(p.start,p.end)),raw.subarray(scanned.at(-1).end)]:[raw];
+  let phase=0,offset=0,chunk=0;
   const body=new ReadableStream({pull(controller){
     if (phase===0) {controller.enqueue(intro);phase=1;return;}
-    if (offset < raw.length) {const end=Math.min(offset+65536,raw.length);controller.enqueue(raw.subarray(offset,end));offset=end;return;}
+    while(chunk<chunks.length&&offset>=chunks[chunk].length){chunk++;offset=0;}
+    if (chunk<chunks.length) {const bytes=chunks[chunk],end=Math.min(offset+65536,bytes.length);controller.enqueue(bytes.subarray(offset,end));offset=end;return;}
     controller.close();
   }});
   // Recheck after downloading/hashing the large source to avoid staging over a concurrent upload.
@@ -119,5 +132,5 @@ async () => {
   for (const b of current.bindings) if (canonical((after.bindings || []).find(a=>a.name===b.name)) !== canonical(b)) throw Error('INHERITED_BINDING_CONFIGURATION_MISMATCH:'+b.name);
   if (canonical(after.assets?.config) !== canonical(current.assets?.config)) throw Error('UPLOADED_ASSETS_CONFIGURATION_MISMATCH');
   if (canonical(after.exports) !== canonical(current.exports)) throw Error('UPLOADED_EXPORTS_MISMATCH');
-  return {uploaded:true,deployed:false,id,number:after.number,plan,originalManifest:original};
+  return {uploaded:true,deployed:false,id,number:after.number,plan,originalManifest:preserved};
 }

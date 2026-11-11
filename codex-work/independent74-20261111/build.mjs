@@ -6,11 +6,9 @@ import {fileURLToPath, pathToFileURL} from 'node:url';
 
 const ROOT=dirname(fileURLToPath(import.meta.url));
 const PRESENCE='/player-v236/presence.63ed199a80b6c700.mjs';
-const MAIN='independent74-entry-r1.mjs';
 // The client currently has a complete implementation for this game only.
 // Registering additional server math never silently exposes an unfinished client.
 export const CLIENT_GAME_IDS=Object.freeze(['ind74_mineisland2']);
-const NAMES={assets:'independent74-assets-r1.mjs',catalog:'independent74-catalog-r1.mjs',gateway:'independent74-gateway-r1.mjs',entry:MAIN};
 const MIME={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'application/javascript; charset=utf-8'};
 const sha=value=>createHash('sha256').update(value).digest('hex');
 const js=value=>JSON.stringify(value).replaceAll('\u2028','\\u2028').replaceAll('\u2029','\\u2029');
@@ -32,7 +30,10 @@ async function writeAtomic(path,content) {
   await rename(temporary,path);
 }
 
-export async function build({rootDir=ROOT,outDir=join(rootDir,'dist')}={}) {
+export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r1',expectedVersion='3ae79dd2-afba-4dcd-bd20-a071ada030a7'}={}) {
+  if(!/^r[1-9][0-9]*$/.test(release))throw new Error('Use an explicit release identifier.');
+  const MAIN='independent74-entry-'+release+'.mjs';
+  const NAMES=Object.fromEntries(['assets','catalog','gateway','entry'].map(name=>[name,'independent74-'+name+'-'+release+'.mjs']));
   const requiredNames=['index.html','style.css','app.mjs','api.mjs','audio.mjs'];
   async function webFiles(directory,prefix='') {
     const entries=await readdir(directory,{withFileTypes:true});
@@ -44,7 +45,10 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist')}={}) {
     }
     return result.sort();
   }
-  const names=await webFiles(join(rootDir,'client'));
+  // These sources are already included in test72-bundle.mjs. Keeping a second
+  // served copy wastes the existing Worker's limited uncompressed module size.
+  const bundledOnly=new Set(['test72-entry.mjs','test72-rng.mjs','presentation.mjs','fruit-art.mjs','pegboard.mjs']);
+  const names=(await webFiles(join(rootDir,'client'))).filter(name=>!bundledOnly.has(name));
   for(const name of requiredNames)if(!names.includes(name))throw new Error('Required build input is unavailable: client/'+name);
   const sources=Object.fromEntries(await Promise.all(names.map(async name=>[name,await required(join(rootDir,'client',name))])));
   for(const name of names.filter(n=>n.endsWith('.mjs')))checkModule(sources[name],'client/'+name);
@@ -86,7 +90,7 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist')}={}) {
     dryRun:true,
     scriptName:'superwin-player',
     workerId:'de2bde7dad5e46b8ace8b00c0daf5450',
-    expectedVersion:'3ae79dd2-afba-4dcd-bd20-a071ada030a7',
+    expectedVersion,
     mainModule:MAIN,
     message:`Add isolated independent game namespace (${games.length} authored game${games.length===1?'':'s'}); preserve legacy modules, exports, assets and wallet routes`,
     additionalBindings:[],
@@ -114,6 +118,6 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist')}={}) {
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  try {const report=await build();console.log(JSON.stringify({built:true,namespace:report.namespace,games:report.playableDefinitionCount,modules:Object.keys(report.modules),deploymentPerformed:false},null,2));}
+  try {const report=await build({...(process.env.IND74_RELEASE?{release:process.env.IND74_RELEASE}:{}),...(process.env.IND74_EXPECTED_VERSION?{expectedVersion:process.env.IND74_EXPECTED_VERSION}:{})});console.log(JSON.stringify({built:true,namespace:report.namespace,games:report.playableDefinitionCount,modules:Object.keys(report.modules),deploymentPerformed:false},null,2));}
   catch(error){console.error(error.message);process.exitCode=1;}
 }

@@ -20,15 +20,21 @@ export function validateAction(input) {
   if (input.type === 'play') {
     if (typeof input.stake_minor !== 'string' || input.stake_minor.length > 18 || !MINOR.test(input.stake_minor)) fail('INVALID_BET', 'Stake must be a canonical integer minor-unit string.', 422);
     if (input.round_id !== undefined || input.expected_version !== undefined) fail('INVALID_ACTION', 'A new play cannot select an existing round.', 422);
-    const options = cleanOptions(input.options, ['mode', 'target']);
+    const options = cleanOptions(input.options, ['mode', 'target', 'choice', 'number', 'numbers', 'targetBps', 'mineCount']);
+    if (options.mineCount !== undefined && (!Number.isInteger(options.mineCount) || options.mineCount < 1 || options.mineCount > 24)) fail('INVALID_OPTIONS', 'Choose from 1 through 24 mines.', 422);
+    if (options.targetBps !== undefined && (!Number.isSafeInteger(options.targetBps) || options.targetBps < 10500 || options.targetBps > 100000000)) fail('INVALID_TARGET', 'Choose a supported target multiplier.', 422);
     if (options.mode !== undefined && !['easy', 'medium', 'hard'].includes(options.mode)) fail('INVALID_MODE', 'Choose easy, medium or hard.', 422);
     if (options.target !== undefined && (!Number.isInteger(options.target) || options.target < 1 || options.target > 99)) fail('INVALID_TARGET', 'Choose a supported integer target.', 422);
+    if (options.choice !== undefined && (typeof options.choice !== 'string' || !/^[a-z0-9]{1,24}$/.test(options.choice))) fail('INVALID_OPTIONS', 'Choose a published bet type.', 422);
+    if (options.number !== undefined && (!Number.isInteger(options.number) || options.number < 0 || options.number > 40)) fail('INVALID_OPTIONS', 'Choose a published number.', 422);
+    if (options.numbers !== undefined && (!Array.isArray(options.numbers) || options.numbers.length < 1 || options.numbers.length > 5 || new Set(options.numbers).size !== options.numbers.length || options.numbers.some(n => !Number.isInteger(n) || n < 1 || n > 40))) fail('INVALID_OPTIONS', 'Choose one to five distinct numbers from 1 to 40.', 422);
     return { ...input, request_id: input.request_id.toLowerCase(), options };
   }
   if (input.stake_minor !== undefined) fail('INVALID_ACTION', 'Only play accepts a stake.', 422);
   if (!validId(input.round_id) || !Number.isSafeInteger(input.expected_version) || input.expected_version < 1) fail('INVALID_ROUND', 'Provide the round identifier and current version.', 422);
-  const options = cleanOptions(input.options, input.type === 'reveal' ? ['cell'] : []);
+  const options = cleanOptions(input.options, input.type === 'reveal' ? ['cell', 'choice'] : []);
   if (input.type === 'reveal' && options.cell !== undefined && (!Number.isInteger(options.cell) || options.cell < 0 || options.cell > 24)) fail('INVALID_CELL', 'Choose a valid board cell.', 422);
+  if (options.choice !== undefined && options.choice !== 'hit') fail('INVALID_OPTIONS', 'Use Hit or the Collect/Stand action.', 422);
   return { ...input, request_id: input.request_id.toLowerCase(), round_id: input.round_id.toLowerCase(), options };
 }
 
@@ -53,9 +59,12 @@ export function createGameService({ repository, math = defaultMath, clock = () =
   function validateForGame(input, game) {
     const keys = Object.keys(input.options);
     if (input.type === 'play') {
-      const allowed = game.id === math.GAME_ID ? ['mode'] : game.family === 'dice' ? ['target'] : [];
+      if (game.family === 'lobby') fail('GAME_DISABLED', 'The lobby does not accept bets.', 404);
+      const allowed = game.id === math.GAME_ID ? ['mode'] : game.configurableMines ? ['mineCount'] : game.family === 'dice' ? ['target'] : game.family === 'target-crash' ? ['targetBps'] : ['roulette', 'sicbo'].includes(game.family) ? ['choice', 'number'] : game.family === 'baccarat' ? ['choice'] : game.family === 'keno' ? ['numbers'] : [];
       if (keys.some(key => !allowed.includes(key))) fail('INVALID_OPTIONS', 'These options do not belong to the selected game.', 422);
     } else if (input.type === 'reveal') {
+      const allowed = ['ladder', 'mines'].includes(game.family) ? ['cell'] : game.family === 'blackjack' ? ['choice'] : [];
+      if (keys.some(key => !allowed.includes(key))) fail('INVALID_OPTIONS', 'These actions do not belong to the selected game.', 422);
       if (game.family === 'crash' && keys.length) fail('INVALID_OPTIONS', 'This game does not accept board cells.', 422);
       if (['ladder', 'mines'].includes(game.family)) {
         const maximum = game.family === 'mines' ? game.cells : (game.maxSteps || 10);
@@ -171,8 +180,8 @@ export function createGameService({ repository, math = defaultMath, clock = () =
         } else {
           const current = await currentRound(tx, input);
           const state = runMath(() => input.type === 'reveal'
-            ? (typeof math.advanceRound === 'function' ? math.advanceRound(current.state, input.options, Date.parse(now)) : math.advanceMineIslandRound(current.state, input.options))
-            : (typeof math.collectRound === 'function' ? math.collectRound(current.state, input.options, Date.parse(now)) : math.collectMineIslandRound(current.state)));
+            ? (typeof math.advanceRound === 'function' ? math.advanceRound(current.state, input.options, Date.parse(now), rng) : math.advanceMineIslandRound(current.state, input.options))
+            : (typeof math.collectRound === 'function' ? math.collectRound(current.state, input.options, Date.parse(now), rng) : math.collectMineIslandRound(current.state)));
           record = { ...current, state, status: state.status, version: current.version + 1, updated_at: now };
           await tx.updateRound(record, current.version);
           await settleIfNeeded(tx, record, input.request_id);

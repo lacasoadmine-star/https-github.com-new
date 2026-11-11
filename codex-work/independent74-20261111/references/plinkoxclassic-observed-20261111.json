@@ -1,0 +1,63 @@
+{
+  "source": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+  "demo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo",
+  "observedOn": "2026-11-11",
+  "officialDemoRoundPlayed": true,
+  "screenshots": "/workspace/work/demo-observations/04-plinko-x-classic/gameplay-00.png through gameplay-05.png",
+  "before": "20000.00 DMO",
+  "stake": "50.00 DMO",
+  "afterDebit": "19950.00 DMO",
+  "resultMultiplier": "2x",
+  "return": "100.00 DMO",
+  "finalBalance": "20050.00 DMO",
+  "visibleBoard": {
+    "rows": 16,
+    "buckets": 17,
+    "bucketMultipliers": [
+      "1000",
+      "100",
+      "20",
+      "10",
+      "4",
+      "2",
+      "0.2",
+      "0.2",
+      "0.2",
+      "0.2",
+      "0.2",
+      "2",
+      "4",
+      "10",
+      "20",
+      "100",
+      "1000"
+    ],
+    "ballMultipliers": [
+      1,
+      5,
+      10
+    ],
+    "publishedMaxMultiplier": 10000
+  },
+  "controlsObserved": [
+    "Place Bet / Hold & Drop",
+    "bet minus/plus and selector",
+    "Autoplay",
+    "Turbo",
+    "My Wins",
+    "Top Wins",
+    "Chat",
+    "How to Play"
+  ],
+  "notVerified": [
+    "Provider probability distribution and ball-type probabilities",
+    "All 5x/10x-ball outcomes",
+    "Audio playback and exact animation timing",
+    "Full official parity in the independent build"
+  ],
+  "newCodeRequired": [
+    "Replace the old generic 8-row, 9-bucket prototype configuration",
+    "Implement the observed 16-row board, 17 buckets and ball motion",
+    "Keep server probability and real-money gates disabled until audited"
+  ]
+}

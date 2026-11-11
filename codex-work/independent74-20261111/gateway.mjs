@@ -64,10 +64,11 @@ function validateAction(input, ids) {
   if (input.type === 'play' && (typeof input.stake_minor !== 'string' || !/^[1-9][0-9]{0,8}$/.test(input.stake_minor))) reject(400, 'INVALID_STAKE', 'Stake must be a positive minor-unit integer.');
   if (input.options !== undefined) {
     if (!input.options || Array.isArray(input.options) || typeof input.options !== 'object') reject(400, 'INVALID_OPTIONS', 'Invalid options.');
-    const options = new Set(['cell', 'target', 'targetBps', 'risk', 'rows', 'choice', 'steps', 'mode']);
+    const options = new Set(['cell', 'target', 'targetBps', 'risk', 'rows', 'choice', 'steps', 'mode', 'number', 'numbers', 'mineCount']);
     if (Object.keys(input.options).some(key => !options.has(key))) reject(400, 'INVALID_OPTIONS', 'Unsupported game option.');
     for (const [key, value] of Object.entries(input.options)) {
-      if (['cell', 'target', 'targetBps', 'rows', 'steps'].includes(key) && (!Number.isSafeInteger(value) || value < 0 || value > 100000000)) reject(400, 'INVALID_OPTIONS', 'Invalid numeric game option.');
+      if (['cell', 'target', 'targetBps', 'rows', 'steps', 'number', 'mineCount'].includes(key) && (!Number.isSafeInteger(value) || value < 0 || value > 100000000)) reject(400, 'INVALID_OPTIONS', 'Invalid numeric game option.');
+      if (key === 'numbers' && (!Array.isArray(value) || value.length < 1 || value.length > 5 || new Set(value).size !== value.length || value.some(n => !Number.isInteger(n) || n < 1 || n > 40))) reject(400, 'INVALID_OPTIONS', 'Choose one to five distinct numbers from 1 to 40.');
       if (['risk', 'choice', 'mode'].includes(key) && (typeof value !== 'string' || !/^[a-z0-9_-]{1,24}$/i.test(value))) reject(400, 'INVALID_OPTIONS', 'Invalid game option.');
     }
   }
@@ -147,7 +148,10 @@ export function createGateway({ previous, assets = {}, games = [], fetchImpl = (
       if (!asset) reject(404, 'NOT_FOUND', 'Asset not found.');
       if (request.headers.get('if-none-match') === asset.etag) return new Response(null, { status: 304, headers: { etag: asset.etag } });
       const headers = { 'content-type': asset.type, etag: asset.etag, 'cache-control': asset.type.includes('html') ? 'no-store' : 'public, max-age=300', 'x-content-type-options': 'nosniff', 'referrer-policy': 'same-origin' };
-      if (asset.type.includes('html')) headers['content-security-policy'] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'self'; form-action 'self'";
+      if (asset.type.includes('html')) {
+        const referencePage=path===PREFIX+'/compare74.html';
+        headers['content-security-policy'] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:"+(referencePage?' https://cdn.prod.website-files.com':'')+"; connect-src 'self'; media-src 'self' blob:; "+(referencePage?"frame-src 'self' https://*.ssgportal.com https://*.smartsoftgaming.com; ":'')+"object-src 'none'; base-uri 'none'; frame-ancestors 'self'; form-action 'self'";
+      }
       return new Response(request.method === 'HEAD' ? null : asset.body, { headers });
     } catch (error) {
       if (error instanceof GatewayError) return json({ error: { code: error.code, message: error.message }, retryable: error.status >= 500 }, error.status);

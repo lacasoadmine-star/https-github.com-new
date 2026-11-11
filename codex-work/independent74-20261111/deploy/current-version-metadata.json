@@ -1,0 +1,175 @@
+{
+  "id": "3ae79dd2-afba-4dcd-bd20-a071ada030a7",
+  "number": 373,
+  "startup_time_ms": 10,
+  "compatibility_date": "2026-10-01",
+  "main_module": "presentation-player-entry-r23.mjs",
+  "annotations": {
+    "workers/triggered_by": "upload"
+  },
+  "exports": {
+    "LocalDemoWallet": {
+      "type": "durable-object",
+      "storage": "sqlite"
+    },
+    "default": {
+      "type": "worker"
+    }
+  },
+  "usage_model": "standard",
+  "migration_tag": "local-demo-v1",
+  "urls": [],
+  "source": "api",
+  "created_on": "2026-11-10T23:16:55.904124Z",
+  "bindings": [
+    {
+      "name": "API_ORIGIN",
+      "text": "https://zplay-rebuild-api-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_ORIGIN",
+      "text": "https://superwin-catalog-bridge-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_SHARED_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "CATALOG_ENABLED",
+      "text": "true",
+      "type": "plain_text"
+    },
+    {
+      "environment": "production",
+      "name": "ENGINE_EXTENSION",
+      "service": "superwin-engine-extension",
+      "type": "service"
+    },
+    {
+      "environment": "production",
+      "name": "EXPANSION100",
+      "service": "superwin-library-100",
+      "type": "service"
+    },
+    {
+      "environment": "production",
+      "name": "LEGACY_PLAYER",
+      "service": "superwin-player",
+      "type": "service"
+    },
+    {
+      "class_name": "LocalDemoWallet",
+      "name": "LOCAL_DEMO_WALLETS",
+      "namespace_id": "35b5522424774086b506e28e8ea3990b",
+      "type": "durable_object_namespace"
+    },
+    {
+      "name": "NATIVE_ENGINE_ORIGIN",
+      "text": "https://superwin-native-family-engine-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    {
+      "name": "NATIVE_ENGINE_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "NATIVE_LIBRARY_ASSETS",
+      "type": "assets"
+    },
+    {
+      "environment": "production",
+      "name": "NATIVE_PRESENTATION",
+      "service": "superwin-native-presentation",
+      "type": "service"
+    },
+    {
+      "name": "PLAYER_PRESENCE_KEY",
+      "type": "secret_text"
+    },
+    {
+      "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+      "text": "1793663451276",
+      "type": "plain_text"
+    },
+    {
+      "name": "PORTAL",
+      "text": "player",
+      "type": "plain_text"
+    }
+  ],
+  "env": {
+    "API_ORIGIN": {
+      "text": "https://zplay-rebuild-api-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    "BRIDGE_ORIGIN": {
+      "text": "https://superwin-catalog-bridge-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    "BRIDGE_SHARED_SECRET": {
+      "type": "secret_text"
+    },
+    "CATALOG_ENABLED": {
+      "text": "true",
+      "type": "plain_text"
+    },
+    "ENGINE_EXTENSION": {
+      "environment": "production",
+      "service": "superwin-engine-extension",
+      "type": "service"
+    },
+    "EXPANSION100": {
+      "environment": "production",
+      "service": "superwin-library-100",
+      "type": "service"
+    },
+    "LEGACY_PLAYER": {
+      "environment": "production",
+      "service": "superwin-player",
+      "type": "service"
+    },
+    "LOCAL_DEMO_WALLETS": {
+      "class_name": "LocalDemoWallet",
+      "namespace_id": "35b5522424774086b506e28e8ea3990b",
+      "type": "durable_object_namespace"
+    },
+    "NATIVE_ENGINE_ORIGIN": {
+      "text": "https://superwin-native-family-engine-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    "NATIVE_ENGINE_SECRET": {
+      "type": "secret_text"
+    },
+    "NATIVE_LIBRARY_ASSETS": {
+      "type": "assets"
+    },
+    "NATIVE_PRESENTATION": {
+      "environment": "production",
+      "service": "superwin-native-presentation",
+      "type": "service"
+    },
+    "PLAYER_PRESENCE_KEY": {
+      "type": "secret_text"
+    },
+    "PLAYER_PRESENCE_MIGRATION_UNTIL": {
+      "text": "1793663451276",
+      "type": "plain_text"
+    },
+    "PORTAL": {
+      "text": "player",
+      "type": "plain_text"
+    }
+  },
+  "assets": {
+    "config": {
+      "html_handling": "none",
+      "not_found_handling": "none",
+      "run_worker_first": true,
+      "base_path": "/"
+    }
+  },
+  "author_id": "7d2ed33f97bdb03bfce63cc8824ded4a",
+  "author_email": "apdiy61@gmail.com"
+}
