@@ -1,85 +1,74 @@
 {
-  "requestedScope": "scope/requested74.json",
-  "totalRequestedEntries": 74,
-  "protectedEntries": [
-    "MultiHot 5",
+  "updatedAt": "2026-11-11T06:55:14.535974+00:00",
+  "referenceCommit": "f636b93dd38f59173587e3e36979deeb7595a422",
+  "branch": "work/independent74-20rounds-20261111",
+  "website": "https://superwin-player.apdiy61.workers.dev/",
+  "scope": "scope/official74.json",
+  "totalGames": 74,
+  "independentMachines": 72,
+  "protectedGames": [
+    "Multi Hot 5",
     "Foxy Hot 20"
   ],
-  "newRequestedEntries": 72,
-  "independentWagerModels": 71,
-  "nonWagerLobbies": 1,
-  "testBenchUrl": "https://superwin-player.apdiy61.workers.dev/independent74/",
-  "testBenchDeployed": true,
-  "realWalletConnected": false,
-  "fullOfficialClientGraphicsAudioRuleParityVerified": false,
+  "officialReferencePlan": {
+    "targetPerGame": 20,
+    "targetCredits": 1480,
+    "actualCompleted": 312,
+    "credited": 180,
+    "remaining": 1300,
+    "gamesMeeting20": 9
+  },
+  "initialTestPresetsEtb": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "productionBetMaximum": "server configured; retained account capacity and funded house reserve required",
+  "obsolete4000EtbCapRemoved": true,
+  "largeAwardAndStakeFixtureVerified": true,
+  "currencyMinorUnits": "integer strings",
   "tests": {
-    "pass": 408,
-    "fail": 0
+    "passed": 681,
+    "failed": 0,
+    "browserGames": 72,
+    "browserLayouts": 288,
+    "viewports": [
+      360,
+      390,
+      430,
+      1280
+    ]
   },
-  "deployedTestPointBrowserRounds": 71,
-  "browserPageErrors": 0,
-  "browserAccountApiRequests": 0,
-  "modelBetRangeMinor": {
-    "min": "100",
-    "max": "4000000",
-    "step": "100",
-    "currency": "ETB-equivalent test points"
+  "publicDemoButton": false,
+  "separateFreeQaDemo": {
+    "serverOwned": true,
+    "currency": "DEMO",
+    "existingStorageNamespace": "LOCAL_DEMO_WALLETS",
+    "usesPlayerFunds": false
   },
-  "playerWalletMutationsPerformed": 0,
-  "legacyGameSourceModulesPreservedByteForByte": 304,
-  "legacyPublicRegressionRoutesPassed": 8,
-  "existingBackendChanged": false,
-  "worker": "superwin-player",
-  "activeVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
-  "deploymentId": "597ca5e8-a2fe-4e96-aaf0-360a62c87035",
-  "agentsNotRestartedAfterCreditQuota": true,
-  "remainingWork": [
-    "Complete per-title official artwork, fonts, controls, audio and bonus-round behaviour against fresh official gameplay. A launcher canvas does not establish a completed round or parity.",
-    "Plinko X Classic has a newly authored 16-row/17-bucket pink-ball model and path animation; provider 5x/10x ball types, their probabilities and complete game behaviour remain unverified.",
-    "Provider probability distributions and complete bonus math have not been established from public demos.",
-    "Deploy and verify the additive backend adapter against the actual existing PostgreSQL wallet schema, constraints and funded house reservations; current new backend routes and production financial gates remain unverified."
-  ],
-  "cleanupStatus": "Two earlier empty Railway service records have no environment instance/deployment. Automatic approval rejected deletion of one; neither was deleted. No more services were created after the latest existing-backend-only instruction.",
-  "updatedAt": "2026-11-11T04:31:14.898459+00:00",
-  "currentScope": "scope/official74.json",
-  "scopeNote": "Latest instruction chooses the actual current 74 SmartSoft catalogue names; the earlier requested 74 remain in their own clearly labelled prototype collection.",
-  "totalOfficialCatalogEntries": 74,
-  "newOfficialCatalogPrototypeModels": 72,
-  "officialReferenceUrl": "https://superwin-player.apdiy61.workers.dev/independent74/compare74.html",
-  "officialPrototypeUrl": "https://superwin-player.apdiy61.workers.dev/independent74/official74.html",
-  "deployedCurrentCatalogTestPointBrowserRounds": 72,
-  "freshPlayedOfficialDemoEvidence": [
-    "references/multihot100-observed-20261111.json",
-    "references/plinkoxclassic-observed-20261111.json"
-  ],
-  "freshPlayedOtherPublisherEvidence": [
-    "references/coin-miner-world-observation.json"
-  ],
-  "officialLaunchAudit": {
-    "entries": 74,
-    "http200": 74,
-    "visibleCanvas": 67,
-    "separatelyPlayedOfficialRounds": 2,
-    "fullOfficialParityVerified": false,
-    "notes": "Launch/render observations and completed wagers are distinct. Screenshot timeout does not imply launcher failure."
-  },
-  "backendReadOnlyAudit": {
-    "attempted": true,
-    "toolReportedChanged": true,
-    "sourceReadbackStillExactOriginal": true,
-    "newDeploymentCreated": false,
-    "accountRowsRead": 0,
-    "databaseWrites": 0,
-    "status": "prepared-source-not-applied; live readback did not contain the audit prelude"
-  },
-  "backendFinancialHandlersChanged": false,
-  "freshPlinkoCoreImplemented": {
-    "rows": 16,
-    "buckets": 17,
-    "ballType": "pink 1x only",
-    "fairPathModelIndependentlyAuthored": true,
-    "provider5x10xBallTypesImplemented": false,
-    "publicReferenceStake50Returns100Verified": true,
+  "productionState": {
+    "lastVerifiedVersion": "00a0e443-b3ce-4554-81d3-46304bea2b85",
+    "newCandidateDeployed": false,
+    "all74RealEtbEnabled": false,
+    "actualAccountAndHouseLimitsVerified": false,
     "fullProviderParityVerified": false
-  }
+  },
+  "nextStep": "Verify source-preserving r6 upload and existing-backend installer, deploy to same existing domain, run free-credit live QA and reconcile evidence."
 }

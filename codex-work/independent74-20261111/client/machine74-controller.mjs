@@ -3,22 +3,31 @@ import {renderMachine,animateRound} from './machine74-renderer.mjs';
 import {MachineAudio} from './machine74-audio.mjs';
 
 const $=id=>document.getElementById(id);
-const api=new MachineAccountClient();
+const demo=new URLSearchParams(location.search).get('mode')==='demo';
+const currency=demo?'DEMO':'ETB';
+const api=new MachineAccountClient({mode:demo?'demo':'account'});
+document.body.dataset.mode=demo?'demo':'account';
+for(const label of document.querySelectorAll('[data-currency]'))label.textContent=currency;
+$('bet').setAttribute('aria-label','Sharadka '+currency+'; qiimayaasha bilowga 1 ilaa 20');
+$('mode-status').textContent=demo?'DEMO · Lacag bilaash ah oo tijaabo ah. Wallet-ka ETB lama isticmaalo.':'ETB · Wallet-ka Player-ka. Server-ku waa inuu xaqiijiyaa akoonka iyo oggolaanshaha ciyaarta.';
+$(demo?'play-demo-link':'play-now-link').setAttribute('aria-current','page');
+$('play-demo-link').hidden=!demo&&new URLSearchParams(location.search).get('qa')!=='1';
+const displayText=text=>demo?String(text).replace(/\bETB\b/g,'DEMO'):String(text);
 const audio=new MachineAudio();
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
-const PRESETS=['1.00','2.00','5.00','10.00','20.00','50.00','100.00','200.00','500.00','1000.00','2000.00','3000.00','4000.00'];
+const PRESETS=Array.from({length:20},(_,i)=>(i+1)+'.00');
 let definitions=[],game=null,snapshot=null,visual=null,animation=null,working=false,refreshing=false,autoplay=false,disposed=false,historyLoaded=false;
 const listeners=new AbortController();
 const on=(id,event,handler)=>$(id)?.addEventListener(event,handler,{signal:listeners.signal});
 function message(text,error=false){$('message').textContent=text;$('message').classList.toggle('error',error);}
 const decimal=minor=>{const n=BigInt(minor??'0');return String(n/100n)+'.'+String(n%100n).padStart(2,'0');};
-function parsedStake(){const value=$('bet').value.trim();if(!/^\d{1,8}(?:\.\d{1,2})?$/.test(value))throw Error('Geli sharad sax ah.');const [whole,fraction='']=value.split('.');return String(BigInt(whole))+'.'+fraction.padEnd(2,'0');}
+function parsedStake(){const value=$('bet').value.trim();if(!/^\d{1,11}(?:\.\d{1,2})?$/.test(value))throw Error('Geli sharad sax ah.');const [whole,fraction='']=value.split('.');return String(BigInt(whole))+'.'+fraction.padEnd(2,'0');}
 function options(){const out={};for(const el of $('options').querySelectorAll('[data-option]'))out[el.dataset.option]=el.type==='checkbox'?el.checked:el.dataset.option==='mode'?el.value:Number(el.value);return out;}
 function collectAllowed(){const r=snapshot?.round;if(r?.status!=='active')return false;if(game?.family==='slots')return r.allowedActions?.includes('collect')===true;if(['ladder','mines'].includes(game?.family))return Number(r.step??r.history?.filter(x=>x.survived)?.length??0)>0;return game?.family==='crash';}
 function updateControls(){
   const active=snapshot?.round?.status==='active',busy=working||refreshing,waiting=!!api.pending;
   const playable=!!snapshot&&snapshot.accepting===true&&snapshot.game?.launchable!==false&&!snapshot.other_active_game;
-  $('play').disabled=busy||waiting||active||!playable;$('play').textContent=working&&!animation?'SUGAYA…':game?.family==='slots'?'SPIN':'BILOW';
+  $('play').disabled=busy||waiting||active||!playable;$('play').textContent=working&&!animation?'SUGAYA…':game?.family==='slots'||game?.id==='ind74_official_rollx'?'SPIN':'BILOW';
   $('play').hidden=!!animation;$('stop').hidden=!animation;
   $('next').hidden=game?.family!=='ladder';$('next').disabled=busy||waiting||!active;
   $('collect').hidden=!['crash','ladder','mines'].includes(game?.family)&&!game?.gamble?.enabled;$('collect').disabled=busy||waiting||!collectAllowed();
@@ -31,7 +40,7 @@ function updateControls(){
   $('retry').hidden=!waiting;$('retry').disabled=busy||api.pending?.body.game_id!==game?.id;
   $('balance').textContent=snapshot?.balance??'—';
   const r=snapshot?.round;$('win').textContent=r?.status==='settled'?decimal(r.payoutMinor??r.winMinor):r?.pendingWinMinor?decimal(r.pendingWinMinor):'—';
-  $('win-label').textContent=r?.status==='active'&&r?.pendingWinMinor?'GUUL SUGAYSA':'GUUL';
+  $('win-label').textContent=(r?.status==='active'&&r?.pendingWinMinor?'GUUL SUGAYSA':'GUUL')+' · '+currency;
   $('round-status').textContent=animation?'Mashiinku wuu socda':r?.status==='active'?'Wareeg furan':r?.status==='settled'?'Server-ku wuu xaqiijiyey':'Sugaya wareeg';
 }
 function draw(){
@@ -47,7 +56,7 @@ function createOptions(){
 }
 function failure(error){
   autoplay=false;audio.stopSpin();audio.cue('error');
-  if(error?.status===401){snapshot=null;$('login').hidden=false;message('Gal akoonka Player-ka si aad u hesho hadhaaga ETB.',true);}
+  if(error?.status===401){snapshot=null;$('login').hidden=demo;message(demo?'Fadhiga DEMO lama xaqiijin. Dib u hubi.':'Gal akoonka Player-ka si aad u hesho hadhaaga ETB.',true);}
   else message(error?.message||'Codsiga lama xaqiijin. Dib u hubi.',true);
 }
 async function refresh({silent=false}={}){
@@ -59,7 +68,7 @@ async function refresh({silent=false}={}){
     if(api.pending&&!silent)message(api.pending.body.game_id===game.id?'Codsigii hore lama xaqiijin. Isticmaal “Xaqiiji codsigii hore”.':'Codsi hore ayaa sugaya ciyaar kale. Dib ugu noqo ciyaartaas.',true);
     else if(next.other_active_game&&!silent)message('Wareeg kale ayaa furan: '+next.other_active_game+'. Marka hore dhammaystir.',true);
     else if(!next.accepting||next.game?.launchable===false){if(!silent)message('Mashiinka waa la dhisay; wareegyada cusub waxay sugayaan xaqiijinta server-ka.');}
-    else if(!silent)message(next.round?.status==='active'?'Wareeggaagii furan ayaa dib loo helay.':'Akoonka ETB waa la xaqiijiyey.');
+    else if(!silent)message(next.round?.status==='active'?'Wareeggaagii furan ayaa dib loo helay.':demo?'DEMO waa diyaar. Isticmaal credits-ka bilaashka ah.':'Akoonka ETB waa la xaqiijiyey.');
   }catch(error){if(error?.code!=='STALE_RESPONSE'){snapshot=null;failure(error);}}
   finally{refreshing=false;if(!animation)draw();}
 }
@@ -68,6 +77,8 @@ async function select(id){
   autoplay=false;game=definitions.find(g=>g.id===id)||definitions[0];if(!game)return;
   snapshot=null;historyLoaded=false;$('history').replaceChildren();$('history-status').textContent='';
   $('game-title').textContent=game.catalogName||game.title;$('family').textContent=game.family.toUpperCase();$('game-select').value=game.id;
+  $('play-now-link').href='/independent74/machines74.html#'+encodeURIComponent(game.id);
+  $('play-demo-link').href='/independent74/machines74.html?mode=demo#'+encodeURIComponent(game.id);
   history.replaceState(null,'','#'+game.id);createOptions();draw();await refresh();
 }
 async function present(next,previous){
@@ -102,9 +113,9 @@ async function auto(){
 }
 function showRules(){
   if(!game)return;$('rules-title').textContent=(game.catalogName||game.title)+' · Xeerarka';$('rules-body').replaceChildren();
-  const paragraph=text=>{const p=document.createElement('p');p.textContent=text;$('rules-body').append(p);};
+  const paragraph=text=>{const p=document.createElement('p');p.textContent=displayText(text);$('rules-body').append(p);};
   for(const rule of game.rules||[])paragraph(rule);
-  if(game.limits)paragraph('Sharadka: '+decimal(game.limits.minBetMinor)+'–'+decimal(game.limits.maxBetMinor)+' ETB.');
+  if(game.limits?.maxBetMinor)paragraph('Sharadka: '+decimal(game.limits.minBetMinor)+'–'+decimal(game.limits.maxBetMinor)+' '+currency+'.');
   if(game.symbols?.length){const table=document.createElement('table'),head=document.createElement('tr');for(const text of ['Calaamad','3','4','5']){const th=document.createElement('th');th.textContent=text;head.append(th);}table.append(head);for(const s of game.symbols){const tr=document.createElement('tr');for(const text of [s.label||s.id,...[3,4,5].map(n=>s.pays?.[n]??'—')]){const td=document.createElement('td');td.textContent=text;tr.append(td);}table.append(tr);}$('rules-body').append(table);}
   else if(game.paytable?.length){const pre=document.createElement('pre');pre.textContent=JSON.stringify(game.paytable,null,2);$('rules-body').append(pre);}
   paragraph('Xisaabta waa nooca ZPLAY ee server-ka. Isku ekaanshaha xisaabta gaarka ah iyo dhammaan astaamaha demo-ga weli lama xaqiijin.');
@@ -113,9 +124,9 @@ function showRules(){
 async function loadHistory(){
   if(!game||!snapshot||historyLoaded)return;
   const id=game.id;$('history-status').textContent='Soo dejinaya…';
-  try{const records=await api.history(id);if(game.id!==id)return;$('history').replaceChildren();for(const item of records){const li=document.createElement('li');const r=item.round||item;li.textContent=(r.round_id||r.id||'Wareeg')+' · Sharad '+decimal(r.stakeMinor??r.total_stake??r.betMinor??'0')+' ETB · Guul '+decimal(r.payoutMinor??r.winMinor??'0')+' ETB';$('history').append(li);}$('history-status').textContent=records.length?'':'Wareeg hore lama helin.';historyLoaded=true;}catch(error){$('history-status').textContent=error.message;}
+  try{const records=await api.history(id);if(game.id!==id)return;$('history').replaceChildren();for(const item of records){const li=document.createElement('li');const r=item.round||item;li.textContent=(r.round_id||r.id||'Wareeg')+' · Sharad '+decimal(r.stakeMinor??r.total_stake??r.betMinor??'0')+' '+currency+' · Guul '+decimal(r.payoutMinor??r.winMinor??'0')+' '+currency;$('history').append(li);}$('history-status').textContent=records.length?'':'Wareeg hore lama helin.';historyLoaded=true;}catch(error){$('history-status').textContent=error.message;}
 }
-function stepBet(direction){try{const current=BigInt(parsedStake().replace('.',''));const steps=(game?.stakeValues||PRESETS).filter(x=>{const n=BigInt(x.replace('.',''));return n>=100n&&n<=400000n&&n%100n===0n;});const next=direction>0?steps.find(x=>BigInt(x.replace('.',''))>current):[...steps].reverse().find(x=>BigInt(x.replace('.',''))<current);if(next)$('bet').value=next;}catch{$('bet').value='1.00';}}
+function stepBet(direction){try{const current=BigInt(parsedStake().replace('.',''));const steps=(game?.stakeValues||PRESETS).filter(x=>{const n=BigInt(x.replace('.',''));return n>=100n&&n<=2000n&&n%100n===0n;});const next=direction>0?steps.find(x=>BigInt(x.replace('.',''))>current):[...steps].reverse().find(x=>BigInt(x.replace('.',''))<current);if(next)$('bet').value=next;}catch{$('bet').value='1.00';}}
 on('play','click',play);on('next','click',()=>act('reveal',{}));on('collect','click',()=>act('collect',{}));
 on('gamble-red','click',()=>act('gamble',{color:'red'}));on('gamble-black','click',()=>act('gamble',{color:'black'}));
 on('options','change',()=>{if(!working&&!refreshing&&snapshot?.round?.status!=='active')draw();});

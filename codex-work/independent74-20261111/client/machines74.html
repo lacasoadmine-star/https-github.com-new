@@ -13,17 +13,18 @@
   <header class="machine-header">
     <a class="brand" href="/" target="_top">ZPLAY</a>
     <a class="compare-link" href="/independent74/compare74.html" target="_top">74 · Isbarbar dhig</a>
-    <div class="balance"><span>HADHAA</span><strong id="balance">—</strong><small>ETB</small></div>
+    <div class="balance"><span>HADHAA</span><strong id="balance">—</strong><small data-currency>ETB</small></div>
   </header>
   <main>
+    <nav class="play-modes" aria-label="Qaabka ciyaarta"><a id="play-now-link" class="play-now" href="/independent74/machines74.html" target="_top">Play Now · ETB</a><a id="play-demo-link" class="play-demo" href="/independent74/machines74.html?mode=demo" target="_top">Play Demo · Free credits</a><p id="mode-status" role="status"></p></nav>
     <div class="selector"><label for="game-select">Ciyaarta</label><select id="game-select" disabled><option>Soo dejinaya…</option></select></div>
     <section class="machine" aria-labelledby="game-title">
       <div class="game-heading"><div><small id="family">ZPLAY</small><h1 id="game-title">Ciyaaraha</h1></div><button id="rules" aria-label="Xeerarka iyo abaalmarinta" disabled>ⓘ</button></div>
       <div id="stage" class="machine-stage" aria-label="Mashiinka ciyaarta"></div>
       <div class="win-bar"><span id="win-label">GUUL</span><strong id="win">—</strong><span id="round-status">Sugaya server-ka</span></div>
       <section class="controls" aria-label="Xakamaynta ciyaarta">
-        <label class="bet-control" for="bet">SHARAD · ETB
-          <span class="bet-row"><button id="bet-less" type="button" aria-label="Yaree sharadka" disabled>−</button><input id="bet" type="text" inputmode="decimal" value="1.00" aria-label="Sharadka: 1 ilaa 4,000 ETB" autocomplete="off" disabled><button id="bet-more" type="button" aria-label="Kordhi sharadka" disabled>+</button></span>
+        <label class="bet-control" for="bet">SHARAD · <span data-currency>ETB</span>
+          <span class="bet-row"><button id="bet-less" type="button" aria-label="Yaree sharadka" disabled>−</button><input id="bet" type="text" inputmode="decimal" value="1.00" aria-label="Sharadka ETB; qiimayaasha bilowga 1 ilaa 20" autocomplete="off" disabled><button id="bet-more" type="button" aria-label="Kordhi sharadka" disabled>+</button></span>
         </label>
         <div id="options" class="game-options"></div>
         <div class="actions"><button id="play" class="primary" disabled>SPIN</button><button id="next" hidden disabled>TALLAABADA XIGTA</button><button id="collect" hidden disabled>QAADO</button><button id="stop" hidden>STOP</button><button id="gamble-red" hidden disabled>♥ CASAAN · X2</button><button id="gamble-black" hidden disabled>♠ MADOW · X2</button></div>

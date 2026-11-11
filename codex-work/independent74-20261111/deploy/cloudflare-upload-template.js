@@ -68,7 +68,7 @@ async () => {
   // bind the operation to the inspected release; legacy modules cannot enter it.
   const removed=new Set();
   for(const part of cfg.replaceModules||[]) {
-    if(!/^independent74-(assets|catalog|gateway|entry)-r[1-9][0-9]*\.mjs$/.test(part.name)||removed.has(part.name))throw Error('REPLACEMENT_OUTSIDE_OWN_NAMESPACE');
+    if(!/^independent74-(assets|catalog|gateway|entry|demo|demo-gateway)-r[1-9][0-9]*\.mjs$/.test(part.name)||removed.has(part.name))throw Error('REPLACEMENT_OUTSIDE_OWN_NAMESPACE');
     const previous=original.find(p=>p.name===part.name);
     if(!previous||previous.sha256!==part.sha256)throw Error('REPLACEMENT_HASH_MISMATCH');
     removed.add(part.name);

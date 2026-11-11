@@ -16,7 +16,7 @@ test('the backend artifact loads from a data URL and uses injected native auth a
     assert.equal(manifest.containsFinancialServiceImplementation, false);
     assert.equal(manifest.createsDatabase, false); assert.equal(manifest.deploysAnything, false);
     assert.equal(manifest.independentModelCount, 72); assert.equal(manifest.defaultNewRoundsEnabled, false);
-    assert.deepEqual(manifest.stakeRange, { currency: 'ETB', minimum: '1.00', maximum: '4000.00', minMinor: '100', maxMinor: '400000' });
+    assert.deepEqual(manifest.stakeRange, { currency: 'ETB', minimum: '1.00', maximum: null, minMinor: '100', maxMinor: null, policy: 'server-game-policy-and-retained-account-house-reserve', testPresetsMinor: Array.from({length:20}, (_,i)=>String((i+1)*100)) });
     assert.deepEqual(manifest.runtimeImports, ['node:crypto']);
     const code = await readFile(artifactPath);
     assert.equal(createHash('sha256').update(code).digest('hex'), manifest.sha256);
@@ -27,7 +27,7 @@ test('the backend artifact loads from a data URL and uses injected native auth a
     fixture.service.registry = createRegistry([]);
     const ids = bundle.publicLibrary74Definitions().map(game => game.id);
     let enabled = false;
-    const facade = bundle.installExistingLibrary74({ service: fixture.service, reviewedGameIds: ids, allowNewRounds: () => enabled });
+    const facade = bundle.installExistingLibrary74({ service: fixture.service, reviewedGameIds: ids, allowNewRounds: () => enabled, gameLimits: Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])) });
     assert.equal(facade.service, fixture.service); assert.equal(facade.service.shared, fixture.shared);
     const secret = 'isolated-bundle-fixture-secret-never-production-' + '0'.repeat(16);
     const subject = '@session:' + 'a'.repeat(64);
@@ -45,7 +45,7 @@ test('the backend artifact loads from a data URL and uses injected native auth a
     };
     const health = await (await app.fetch(new Request('http://isolated.fixture/v2/independent74/health'))).json();
     assert.equal(health.ready, true); assert.equal(health.accepting, false); assert.equal(health.games.length, 72);
-    assert.ok(health.games.every(game => game.minStake === '1.00' && game.maxStake === '4000.00'));
+    assert.ok(health.games.every(game => game.minStake === '1.00' && game.maxStake === '50000.00'));
     const game = facade.definitions().find(game => game.family === 'slots');
     assert.equal((await app.fetch(new Request('http://isolated.fixture/v2/independent74/state?game_id=' + game.id))).status, 401);
     assert.equal((await app.fetch(signed('/v2/independent74/state?game_id=' + game.id, undefined, '@system'))).status, 401);

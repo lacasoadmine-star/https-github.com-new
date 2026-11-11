@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "sourceDate": "2026-11-11",
   "scope": "72 independent operator models; protected Multi Hot 5 and Foxy Hot 20 excluded",
   "productionWalletVerification": false,
@@ -16,7 +16,7 @@
       "mines": 1,
       "dice": 1
     },
-    "observedGeometry": 16
+    "observedGeometry": 17
   },
   "games": [
     {
@@ -53,7 +53,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "10000",
-          "maximumStakeMaximumPayoutMinor": "40000000"
+          "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -93,21 +93,21 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "10000",
-          "maximumStakeMaximumPayoutMinor": "40000000"
+          "maximumStakeMaximumPayoutMinor": "199999999990000"
         },
         {
           "options": {
             "mode": "medium"
           },
           "minimumStakeMaximumPayoutMinor": "25000",
-          "maximumStakeMaximumPayoutMinor": "100000000"
+          "maximumStakeMaximumPayoutMinor": "499999999975000"
         },
         {
           "options": {
             "mode": "hard"
           },
           "minimumStakeMaximumPayoutMinor": "50000",
-          "maximumStakeMaximumPayoutMinor": "200000000"
+          "maximumStakeMaximumPayoutMinor": "999999999950000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -141,7 +141,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "9000",
-          "maximumStakeMaximumPayoutMinor": "36000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -175,7 +175,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "11000",
-          "maximumStakeMaximumPayoutMinor": "44000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -218,7 +218,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "1000000",
-          "maximumStakeMaximumPayoutMinor": "4000000000"
+          "maximumStakeMaximumPayoutMinor": "999999999000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -252,7 +252,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "15000",
-          "maximumStakeMaximumPayoutMinor": "60000000"
+          "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -286,7 +286,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5000",
-          "maximumStakeMaximumPayoutMinor": "20000000"
+          "maximumStakeMaximumPayoutMinor": "999999999995000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -330,7 +330,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "118100",
-          "maximumStakeMaximumPayoutMinor": "472400000"
+          "maximumStakeMaximumPayoutMinor": "999999999994800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -374,7 +374,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "152500",
-          "maximumStakeMaximumPayoutMinor": "610000000"
+          "maximumStakeMaximumPayoutMinor": "999999999972500"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -418,7 +418,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "142100",
-          "maximumStakeMaximumPayoutMinor": "568400000"
+          "maximumStakeMaximumPayoutMinor": "999999999901700"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -462,7 +462,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "131700",
-          "maximumStakeMaximumPayoutMinor": "526800000"
+          "maximumStakeMaximumPayoutMinor": "999999999904200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -501,7 +501,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "11100",
-          "maximumStakeMaximumPayoutMinor": "44400000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -513,13 +513,15 @@
       "family": "slots",
       "mathVersion": "official72-dicejungle-r2",
       "layout": {
-        "source": "Independently authored model configuration; no complete official layout observation",
-        "geometryVerified": false,
-        "geometryStatus": "independent-layout-unverified-against-reference",
+        "source": "https://www.smartsoftgaming.com/games/dice-jungle",
+        "geometryVerified": true,
+        "geometryStatus": "observed-public-layout",
         "fullReferenceParityVerified": false,
-        "observedFacts": [],
+        "observedFacts": [
+          "The official public page describes a 5x3 dice grid and a synchronized horizontal multiplier reel above it, with awards boosted by up to 5x."
+        ],
         "limitations": [
-          "Official geometry, visual behaviour, audio and complete game mechanics remain unverified."
+          "The complete provider hold-and-spin rules, paytable, multiplier labels and probabilities remain unverified."
         ],
         "kind": "reels",
         "rows": 3,
@@ -545,7 +547,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "139600",
-          "maximumStakeMaximumPayoutMinor": "558400000"
+          "maximumStakeMaximumPayoutMinor": "999999999967200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -555,7 +557,7 @@
       "id": "ind74_official_multihot5wild",
       "title": "Multi Hot 5 Wild",
       "family": "slots",
-      "mathVersion": "official72-multihot5wild-r4",
+      "mathVersion": "official72-multihot5wild-r5",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
         "geometryVerified": true,
@@ -565,8 +567,8 @@
           "The official public page specifies a 3-by-3 grid, five fixed paylines, wild substitution, three matching symbols and a left-side 1x–5x multiplier reel."
         ],
         "limitations": [
-          "The observed own wild prize plus 5x permits a 500x independent bound, while help advertises 375x; provider award restrictions are unverified.",
-          "The provider payline chart and probabilities are unverified. X2 is not yet implemented for this title."
+          "The observed own wild prize plus 5x permits a 500x independent base bound, while help advertises 375x; provider award restrictions are unverified.",
+          "The provider payline chart and probabilities are unverified. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit."
         ],
         "kind": "reels",
         "rows": 3,
@@ -603,9 +605,18 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
           "minimumStakeMaximumPayoutMinor": "50000",
-          "maximumStakeMaximumPayoutMinor": "200000000"
+          "maximumStakeMaximumPayoutMinor": "124999999950000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMaximumPayoutMinor": "400000",
+          "maximumStakeMaximumPayoutMinor": "999999999600000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -644,7 +655,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "11400",
-          "maximumStakeMaximumPayoutMinor": "45600000"
+          "maximumStakeMaximumPayoutMinor": "999999999993000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -677,7 +688,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5190",
-          "maximumStakeMaximumPayoutMinor": "20760000"
+          "maximumStakeMaximumPayoutMinor": "999999999998400"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -723,7 +734,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "134000",
-          "maximumStakeMaximumPayoutMinor": "536000000"
+          "maximumStakeMaximumPayoutMinor": "999999999978000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -762,7 +773,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "11700",
-          "maximumStakeMaximumPayoutMinor": "46800000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -808,7 +819,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "150700",
-          "maximumStakeMaximumPayoutMinor": "602800000"
+          "maximumStakeMaximumPayoutMinor": "999999999946200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -859,7 +870,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "140280",
-          "maximumStakeMaximumPayoutMinor": "561200000"
+          "maximumStakeMaximumPayoutMinor": "999999999984680"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -903,7 +914,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "129900",
-          "maximumStakeMaximumPayoutMinor": "519600000"
+          "maximumStakeMaximumPayoutMinor": "999999999969300"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -964,14 +975,14 @@
             "holdWin": false
           },
           "minimumStakeMaximumPayoutMinor": "250000",
-          "maximumStakeMaximumPayoutMinor": "1000000000"
+          "maximumStakeMaximumPayoutMinor": "124999999750000"
         },
         {
           "options": {
             "holdWin": true
           },
           "minimumStakeMaximumPayoutMinor": "2000000",
-          "maximumStakeMaximumPayoutMinor": "8000000000"
+          "maximumStakeMaximumPayoutMinor": "999999998000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1015,7 +1026,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "109100",
-          "maximumStakeMaximumPayoutMinor": "436400000"
+          "maximumStakeMaximumPayoutMinor": "999999999953100"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1054,7 +1065,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "12300",
-          "maximumStakeMaximumPayoutMinor": "49200000"
+          "maximumStakeMaximumPayoutMinor": "999999999998400"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1064,7 +1075,7 @@
       "id": "ind74_official_multihot5burnwilds",
       "title": "Multi Hot 5 Burn Wilds",
       "family": "slots",
-      "mathVersion": "official72-multihot5burnwilds-r3",
+      "mathVersion": "official72-multihot5burnwilds-r4",
       "layout": {
         "source": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
         "geometryVerified": true,
@@ -1075,7 +1086,7 @@
         ],
         "limitations": [
           "Full provider paytable, probabilities and repeated expansion order remain unverified.",
-          "The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 is not yet implemented for this title."
+          "The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit."
         ],
         "kind": "reels",
         "rows": 3,
@@ -1110,9 +1121,18 @@
       },
       "optionPayoutBounds": [
         {
-          "options": {},
+          "options": {
+            "holdWin": false
+          },
           "minimumStakeMaximumPayoutMinor": "250000",
-          "maximumStakeMaximumPayoutMinor": "1000000000"
+          "maximumStakeMaximumPayoutMinor": "124999999750000"
+        },
+        {
+          "options": {
+            "holdWin": true
+          },
+          "minimumStakeMaximumPayoutMinor": "2000000",
+          "maximumStakeMaximumPayoutMinor": "999999998000000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1151,7 +1171,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "12500",
-          "maximumStakeMaximumPayoutMinor": "50000000"
+          "maximumStakeMaximumPayoutMinor": "999999999987500"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1197,7 +1217,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "3700",
-          "maximumStakeMaximumPayoutMinor": "14800000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1231,7 +1251,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "11000",
-          "maximumStakeMaximumPayoutMinor": "44000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1270,7 +1290,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "12800",
-          "maximumStakeMaximumPayoutMinor": "51200000"
+          "maximumStakeMaximumPayoutMinor": "999999999987200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1303,7 +1323,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5254",
-          "maximumStakeMaximumPayoutMinor": "21016000"
+          "maximumStakeMaximumPayoutMinor": "999999999996484"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1347,7 +1367,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "128100",
-          "maximumStakeMaximumPayoutMinor": "512400000"
+          "maximumStakeMaximumPayoutMinor": "999999999996900"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1393,7 +1413,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "117700",
-          "maximumStakeMaximumPayoutMinor": "470800000"
+          "maximumStakeMaximumPayoutMinor": "999999999944000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1432,7 +1452,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "13200",
-          "maximumStakeMaximumPayoutMinor": "52800000"
+          "maximumStakeMaximumPayoutMinor": "999999999992400"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1471,7 +1491,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5250",
-          "maximumStakeMaximumPayoutMinor": "21000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1505,7 +1525,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "13000",
-          "maximumStakeMaximumPayoutMinor": "52000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1551,7 +1571,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "3900",
-          "maximumStakeMaximumPayoutMinor": "15600000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1588,7 +1608,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "250",
-          "maximumStakeMaximumPayoutMinor": "1002600"
+          "maximumStakeMaximumPayoutMinor": "999999999999920"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1632,7 +1652,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "118400",
-          "maximumStakeMaximumPayoutMinor": "473600000"
+          "maximumStakeMaximumPayoutMinor": "999999999888000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1666,7 +1686,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "11000",
-          "maximumStakeMaximumPayoutMinor": "44000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1712,7 +1732,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "160680",
-          "maximumStakeMaximumPayoutMinor": "642800000"
+          "maximumStakeMaximumPayoutMinor": "999999999869880"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1756,7 +1776,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "150300",
-          "maximumStakeMaximumPayoutMinor": "601200000"
+          "maximumStakeMaximumPayoutMinor": "999999999883800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1802,7 +1822,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "3800",
-          "maximumStakeMaximumPayoutMinor": "15200000"
+          "maximumStakeMaximumPayoutMinor": "999999999996800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1841,7 +1861,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "20632",
-          "maximumStakeMaximumPayoutMinor": "82528000"
+          "maximumStakeMaximumPayoutMinor": "999999999997728"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1875,7 +1895,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "11000",
-          "maximumStakeMaximumPayoutMinor": "44000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1921,7 +1941,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "108700",
-          "maximumStakeMaximumPayoutMinor": "434800000"
+          "maximumStakeMaximumPayoutMinor": "999999999921800"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1955,7 +1975,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "15000",
-          "maximumStakeMaximumPayoutMinor": "60000000"
+          "maximumStakeMaximumPayoutMinor": "999999999990000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -1988,7 +2008,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5148",
-          "maximumStakeMaximumPayoutMinor": "20592000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2032,7 +2052,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "151000",
-          "maximumStakeMaximumPayoutMinor": "604000000"
+          "maximumStakeMaximumPayoutMinor": "999999999956000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2066,7 +2086,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "9000",
-          "maximumStakeMaximumPayoutMinor": "36000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2110,7 +2130,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "130200",
-          "maximumStakeMaximumPayoutMinor": "520800000"
+          "maximumStakeMaximumPayoutMinor": "999999999940200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2143,7 +2163,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5102",
-          "maximumStakeMaximumPayoutMinor": "20408000"
+          "maximumStakeMaximumPayoutMinor": "999999999997224"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2187,7 +2207,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "138100",
-          "maximumStakeMaximumPayoutMinor": "552400000"
+          "maximumStakeMaximumPayoutMinor": "999999999969600"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2233,7 +2253,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "127700",
-          "maximumStakeMaximumPayoutMinor": "510800000"
+          "maximumStakeMaximumPayoutMinor": "999999999995100"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2267,7 +2287,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "7000",
-          "maximumStakeMaximumPayoutMinor": "28000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2301,7 +2321,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "9000",
-          "maximumStakeMaximumPayoutMinor": "36000000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2340,7 +2360,7 @@
             "mode": "easy"
           },
           "minimumStakeMaximumPayoutMinor": "15700",
-          "maximumStakeMaximumPayoutMinor": "62800000"
+          "maximumStakeMaximumPayoutMinor": "999999999985500"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2384,7 +2404,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "130900",
-          "maximumStakeMaximumPayoutMinor": "523600000"
+          "maximumStakeMaximumPayoutMinor": "999999999983600"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2428,7 +2448,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "149200",
-          "maximumStakeMaximumPayoutMinor": "596800000"
+          "maximumStakeMaximumPayoutMinor": "999999999905600"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2474,7 +2494,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "3900",
-          "maximumStakeMaximumPayoutMinor": "15600000"
+          "maximumStakeMaximumPayoutMinor": "999999999999000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2518,7 +2538,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "128400",
-          "maximumStakeMaximumPayoutMinor": "513600000"
+          "maximumStakeMaximumPayoutMinor": "999999999901200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2562,7 +2582,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "118000",
-          "maximumStakeMaximumPayoutMinor": "472000000"
+          "maximumStakeMaximumPayoutMinor": "999999999978000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2606,7 +2626,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "107600",
-          "maximumStakeMaximumPayoutMinor": "430400000"
+          "maximumStakeMaximumPayoutMinor": "999999999957200"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2650,7 +2670,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "142000",
-          "maximumStakeMaximumPayoutMinor": "568000000"
+          "maximumStakeMaximumPayoutMinor": "999999999982000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2694,7 +2714,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "160300",
-          "maximumStakeMaximumPayoutMinor": "641200000"
+          "maximumStakeMaximumPayoutMinor": "999999999914300"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2738,7 +2758,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "149900",
-          "maximumStakeMaximumPayoutMinor": "599600000"
+          "maximumStakeMaximumPayoutMinor": "999999999992400"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2782,7 +2802,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "139500",
-          "maximumStakeMaximumPayoutMinor": "558000000"
+          "maximumStakeMaximumPayoutMinor": "999999999949500"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2826,7 +2846,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "129099",
-          "maximumStakeMaximumPayoutMinor": "516399999"
+          "maximumStakeMaximumPayoutMinor": "999999999874398"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2870,7 +2890,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "118700",
-          "maximumStakeMaximumPayoutMinor": "474800000"
+          "maximumStakeMaximumPayoutMinor": "999999999939700"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2914,7 +2934,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "108300",
-          "maximumStakeMaximumPayoutMinor": "433200000"
+          "maximumStakeMaximumPayoutMinor": "999999999930300"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -2951,567 +2971,567 @@
             "target": 10
           },
           "minimumStakeMaximumPayoutMinor": "960",
-          "maximumStakeMaximumPayoutMinor": "3840000"
+          "maximumStakeMaximumPayoutMinor": "999999999999360"
         },
         {
           "options": {
             "target": 11
           },
           "minimumStakeMaximumPayoutMinor": "872",
-          "maximumStakeMaximumPayoutMinor": "3490880"
+          "maximumStakeMaximumPayoutMinor": "909083333332751"
         },
         {
           "options": {
             "target": 12
           },
           "minimumStakeMaximumPayoutMinor": "800",
-          "maximumStakeMaximumPayoutMinor": "3200000"
+          "maximumStakeMaximumPayoutMinor": "833333333332800"
         },
         {
           "options": {
             "target": 13
           },
           "minimumStakeMaximumPayoutMinor": "738",
-          "maximumStakeMaximumPayoutMinor": "2953840"
+          "maximumStakeMaximumPayoutMinor": "769229166666174"
         },
         {
           "options": {
             "target": 14
           },
           "minimumStakeMaximumPayoutMinor": "685",
-          "maximumStakeMaximumPayoutMinor": "2742840"
+          "maximumStakeMaximumPayoutMinor": "714281249999542"
         },
         {
           "options": {
             "target": 15
           },
           "minimumStakeMaximumPayoutMinor": "640",
-          "maximumStakeMaximumPayoutMinor": "2560000"
+          "maximumStakeMaximumPayoutMinor": "666666666666240"
         },
         {
           "options": {
             "target": 16
           },
           "minimumStakeMaximumPayoutMinor": "600",
-          "maximumStakeMaximumPayoutMinor": "2400000"
+          "maximumStakeMaximumPayoutMinor": "624999999999600"
         },
         {
           "options": {
             "target": 17
           },
           "minimumStakeMaximumPayoutMinor": "564",
-          "maximumStakeMaximumPayoutMinor": "2258800"
+          "maximumStakeMaximumPayoutMinor": "588229166666290"
         },
         {
           "options": {
             "target": 18
           },
           "minimumStakeMaximumPayoutMinor": "533",
-          "maximumStakeMaximumPayoutMinor": "2133320"
+          "maximumStakeMaximumPayoutMinor": "555552083332977"
         },
         {
           "options": {
             "target": 19
           },
           "minimumStakeMaximumPayoutMinor": "505",
-          "maximumStakeMaximumPayoutMinor": "2021040"
+          "maximumStakeMaximumPayoutMinor": "526312499999663"
         },
         {
           "options": {
             "target": 20
           },
           "minimumStakeMaximumPayoutMinor": "480",
-          "maximumStakeMaximumPayoutMinor": "1920000"
+          "maximumStakeMaximumPayoutMinor": "499999999999680"
         },
         {
           "options": {
             "target": 21
           },
           "minimumStakeMaximumPayoutMinor": "457",
-          "maximumStakeMaximumPayoutMinor": "1828560"
+          "maximumStakeMaximumPayoutMinor": "476187499999695"
         },
         {
           "options": {
             "target": 22
           },
           "minimumStakeMaximumPayoutMinor": "436",
-          "maximumStakeMaximumPayoutMinor": "1745440"
+          "maximumStakeMaximumPayoutMinor": "454541666666375"
         },
         {
           "options": {
             "target": 23
           },
           "minimumStakeMaximumPayoutMinor": "417",
-          "maximumStakeMaximumPayoutMinor": "1669560"
+          "maximumStakeMaximumPayoutMinor": "434781249999721"
         },
         {
           "options": {
             "target": 24
           },
           "minimumStakeMaximumPayoutMinor": "400",
-          "maximumStakeMaximumPayoutMinor": "1600000"
+          "maximumStakeMaximumPayoutMinor": "416666666666400"
         },
         {
           "options": {
             "target": 25
           },
           "minimumStakeMaximumPayoutMinor": "384",
-          "maximumStakeMaximumPayoutMinor": "1536000"
+          "maximumStakeMaximumPayoutMinor": "399999999999744"
         },
         {
           "options": {
             "target": 26
           },
           "minimumStakeMaximumPayoutMinor": "369",
-          "maximumStakeMaximumPayoutMinor": "1476920"
+          "maximumStakeMaximumPayoutMinor": "384614583333087"
         },
         {
           "options": {
             "target": 27
           },
           "minimumStakeMaximumPayoutMinor": "355",
-          "maximumStakeMaximumPayoutMinor": "1422200"
+          "maximumStakeMaximumPayoutMinor": "370364583333096"
         },
         {
           "options": {
             "target": 28
           },
           "minimumStakeMaximumPayoutMinor": "342",
-          "maximumStakeMaximumPayoutMinor": "1371400"
+          "maximumStakeMaximumPayoutMinor": "357135416666438"
         },
         {
           "options": {
             "target": 29
           },
           "minimumStakeMaximumPayoutMinor": "331",
-          "maximumStakeMaximumPayoutMinor": "1324120"
+          "maximumStakeMaximumPayoutMinor": "344822916666445"
         },
         {
           "options": {
             "target": 30
           },
           "minimumStakeMaximumPayoutMinor": "320",
-          "maximumStakeMaximumPayoutMinor": "1280000"
+          "maximumStakeMaximumPayoutMinor": "333333333333120"
         },
         {
           "options": {
             "target": 31
           },
           "minimumStakeMaximumPayoutMinor": "309",
-          "maximumStakeMaximumPayoutMinor": "1238680"
+          "maximumStakeMaximumPayoutMinor": "322572916666460"
         },
         {
           "options": {
             "target": 32
           },
           "minimumStakeMaximumPayoutMinor": "300",
-          "maximumStakeMaximumPayoutMinor": "1200000"
+          "maximumStakeMaximumPayoutMinor": "312499999999800"
         },
         {
           "options": {
             "target": 33
           },
           "minimumStakeMaximumPayoutMinor": "290",
-          "maximumStakeMaximumPayoutMinor": "1163600"
+          "maximumStakeMaximumPayoutMinor": "303020833333139"
         },
         {
           "options": {
             "target": 34
           },
           "minimumStakeMaximumPayoutMinor": "282",
-          "maximumStakeMaximumPayoutMinor": "1129400"
+          "maximumStakeMaximumPayoutMinor": "294114583333145"
         },
         {
           "options": {
             "target": 35
           },
           "minimumStakeMaximumPayoutMinor": "274",
-          "maximumStakeMaximumPayoutMinor": "1097120"
+          "maximumStakeMaximumPayoutMinor": "285708333333150"
         },
         {
           "options": {
             "target": 36
           },
           "minimumStakeMaximumPayoutMinor": "266",
-          "maximumStakeMaximumPayoutMinor": "1066640"
+          "maximumStakeMaximumPayoutMinor": "277770833333155"
         },
         {
           "options": {
             "target": 37
           },
           "minimumStakeMaximumPayoutMinor": "259",
-          "maximumStakeMaximumPayoutMinor": "1037800"
+          "maximumStakeMaximumPayoutMinor": "270260416666493"
         },
         {
           "options": {
             "target": 38
           },
           "minimumStakeMaximumPayoutMinor": "252",
-          "maximumStakeMaximumPayoutMinor": "1010520"
+          "maximumStakeMaximumPayoutMinor": "263156249999831"
         },
         {
           "options": {
             "target": 39
           },
           "minimumStakeMaximumPayoutMinor": "246",
-          "maximumStakeMaximumPayoutMinor": "984600"
+          "maximumStakeMaximumPayoutMinor": "256406249999835"
         },
         {
           "options": {
             "target": 40
           },
           "minimumStakeMaximumPayoutMinor": "240",
-          "maximumStakeMaximumPayoutMinor": "960000"
+          "maximumStakeMaximumPayoutMinor": "249999999999840"
         },
         {
           "options": {
             "target": 41
           },
           "minimumStakeMaximumPayoutMinor": "234",
-          "maximumStakeMaximumPayoutMinor": "936560"
+          "maximumStakeMaximumPayoutMinor": "243895833333177"
         },
         {
           "options": {
             "target": 42
           },
           "minimumStakeMaximumPayoutMinor": "228",
-          "maximumStakeMaximumPayoutMinor": "914280"
+          "maximumStakeMaximumPayoutMinor": "238093749999847"
         },
         {
           "options": {
             "target": 43
           },
           "minimumStakeMaximumPayoutMinor": "223",
-          "maximumStakeMaximumPayoutMinor": "893000"
+          "maximumStakeMaximumPayoutMinor": "232552083333184"
         },
         {
           "options": {
             "target": 44
           },
           "minimumStakeMaximumPayoutMinor": "218",
-          "maximumStakeMaximumPayoutMinor": "872720"
+          "maximumStakeMaximumPayoutMinor": "227270833333187"
         },
         {
           "options": {
             "target": 45
           },
           "minimumStakeMaximumPayoutMinor": "213",
-          "maximumStakeMaximumPayoutMinor": "853320"
+          "maximumStakeMaximumPayoutMinor": "222218749999857"
         },
         {
           "options": {
             "target": 46
           },
           "minimumStakeMaximumPayoutMinor": "208",
-          "maximumStakeMaximumPayoutMinor": "834760"
+          "maximumStakeMaximumPayoutMinor": "217385416666527"
         },
         {
           "options": {
             "target": 47
           },
           "minimumStakeMaximumPayoutMinor": "204",
-          "maximumStakeMaximumPayoutMinor": "817000"
+          "maximumStakeMaximumPayoutMinor": "212760416666530"
         },
         {
           "options": {
             "target": 48
           },
           "minimumStakeMaximumPayoutMinor": "200",
-          "maximumStakeMaximumPayoutMinor": "800000"
+          "maximumStakeMaximumPayoutMinor": "208333333333200"
         },
         {
           "options": {
             "target": 49
           },
           "minimumStakeMaximumPayoutMinor": "195",
-          "maximumStakeMaximumPayoutMinor": "783640"
+          "maximumStakeMaximumPayoutMinor": "204072916666536"
         },
         {
           "options": {
             "target": 50
           },
           "minimumStakeMaximumPayoutMinor": "192",
-          "maximumStakeMaximumPayoutMinor": "768000"
+          "maximumStakeMaximumPayoutMinor": "199999999999872"
         },
         {
           "options": {
             "target": 51
           },
           "minimumStakeMaximumPayoutMinor": "188",
-          "maximumStakeMaximumPayoutMinor": "752920"
+          "maximumStakeMaximumPayoutMinor": "196072916666541"
         },
         {
           "options": {
             "target": 52
           },
           "minimumStakeMaximumPayoutMinor": "184",
-          "maximumStakeMaximumPayoutMinor": "738440"
+          "maximumStakeMaximumPayoutMinor": "192302083333210"
         },
         {
           "options": {
             "target": 53
           },
           "minimumStakeMaximumPayoutMinor": "181",
-          "maximumStakeMaximumPayoutMinor": "724520"
+          "maximumStakeMaximumPayoutMinor": "188677083333212"
         },
         {
           "options": {
             "target": 54
           },
           "minimumStakeMaximumPayoutMinor": "177",
-          "maximumStakeMaximumPayoutMinor": "711080"
+          "maximumStakeMaximumPayoutMinor": "185177083333214"
         },
         {
           "options": {
             "target": 55
           },
           "minimumStakeMaximumPayoutMinor": "174",
-          "maximumStakeMaximumPayoutMinor": "698160"
+          "maximumStakeMaximumPayoutMinor": "181812499999883"
         },
         {
           "options": {
             "target": 56
           },
           "minimumStakeMaximumPayoutMinor": "171",
-          "maximumStakeMaximumPayoutMinor": "685680"
+          "maximumStakeMaximumPayoutMinor": "178562499999885"
         },
         {
           "options": {
             "target": 57
           },
           "minimumStakeMaximumPayoutMinor": "168",
-          "maximumStakeMaximumPayoutMinor": "673680"
+          "maximumStakeMaximumPayoutMinor": "175437499999887"
         },
         {
           "options": {
             "target": 58
           },
           "minimumStakeMaximumPayoutMinor": "165",
-          "maximumStakeMaximumPayoutMinor": "662040"
+          "maximumStakeMaximumPayoutMinor": "172406249999889"
         },
         {
           "options": {
             "target": 59
           },
           "minimumStakeMaximumPayoutMinor": "162",
-          "maximumStakeMaximumPayoutMinor": "650840"
+          "maximumStakeMaximumPayoutMinor": "169489583333224"
         },
         {
           "options": {
             "target": 60
           },
           "minimumStakeMaximumPayoutMinor": "160",
-          "maximumStakeMaximumPayoutMinor": "640000"
+          "maximumStakeMaximumPayoutMinor": "166666666666560"
         },
         {
           "options": {
             "target": 61
           },
           "minimumStakeMaximumPayoutMinor": "157",
-          "maximumStakeMaximumPayoutMinor": "629480"
+          "maximumStakeMaximumPayoutMinor": "163927083333228"
         },
         {
           "options": {
             "target": 62
           },
           "minimumStakeMaximumPayoutMinor": "154",
-          "maximumStakeMaximumPayoutMinor": "619320"
+          "maximumStakeMaximumPayoutMinor": "161281249999896"
         },
         {
           "options": {
             "target": 63
           },
           "minimumStakeMaximumPayoutMinor": "152",
-          "maximumStakeMaximumPayoutMinor": "609520"
+          "maximumStakeMaximumPayoutMinor": "158729166666565"
         },
         {
           "options": {
             "target": 64
           },
           "minimumStakeMaximumPayoutMinor": "150",
-          "maximumStakeMaximumPayoutMinor": "600000"
+          "maximumStakeMaximumPayoutMinor": "156249999999900"
         },
         {
           "options": {
             "target": 65
           },
           "minimumStakeMaximumPayoutMinor": "147",
-          "maximumStakeMaximumPayoutMinor": "590760"
+          "maximumStakeMaximumPayoutMinor": "153843749999901"
         },
         {
           "options": {
             "target": 66
           },
           "minimumStakeMaximumPayoutMinor": "145",
-          "maximumStakeMaximumPayoutMinor": "581800"
+          "maximumStakeMaximumPayoutMinor": "151510416666569"
         },
         {
           "options": {
             "target": 67
           },
           "minimumStakeMaximumPayoutMinor": "143",
-          "maximumStakeMaximumPayoutMinor": "573120"
+          "maximumStakeMaximumPayoutMinor": "149249999999904"
         },
         {
           "options": {
             "target": 68
           },
           "minimumStakeMaximumPayoutMinor": "141",
-          "maximumStakeMaximumPayoutMinor": "564680"
+          "maximumStakeMaximumPayoutMinor": "147052083333239"
         },
         {
           "options": {
             "target": 69
           },
           "minimumStakeMaximumPayoutMinor": "139",
-          "maximumStakeMaximumPayoutMinor": "556520"
+          "maximumStakeMaximumPayoutMinor": "144927083333240"
         },
         {
           "options": {
             "target": 70
           },
           "minimumStakeMaximumPayoutMinor": "137",
-          "maximumStakeMaximumPayoutMinor": "548560"
+          "maximumStakeMaximumPayoutMinor": "142854166666575"
         },
         {
           "options": {
             "target": 71
           },
           "minimumStakeMaximumPayoutMinor": "135",
-          "maximumStakeMaximumPayoutMinor": "540840"
+          "maximumStakeMaximumPayoutMinor": "140843749999909"
         },
         {
           "options": {
             "target": 72
           },
           "minimumStakeMaximumPayoutMinor": "133",
-          "maximumStakeMaximumPayoutMinor": "533320"
+          "maximumStakeMaximumPayoutMinor": "138885416666577"
         },
         {
           "options": {
             "target": 73
           },
           "minimumStakeMaximumPayoutMinor": "131",
-          "maximumStakeMaximumPayoutMinor": "526000"
+          "maximumStakeMaximumPayoutMinor": "136979166666579"
         },
         {
           "options": {
             "target": 74
           },
           "minimumStakeMaximumPayoutMinor": "129",
-          "maximumStakeMaximumPayoutMinor": "518880"
+          "maximumStakeMaximumPayoutMinor": "135124999999913"
         },
         {
           "options": {
             "target": 75
           },
           "minimumStakeMaximumPayoutMinor": "128",
-          "maximumStakeMaximumPayoutMinor": "512000"
+          "maximumStakeMaximumPayoutMinor": "133333333333248"
         },
         {
           "options": {
             "target": 76
           },
           "minimumStakeMaximumPayoutMinor": "126",
-          "maximumStakeMaximumPayoutMinor": "505240"
+          "maximumStakeMaximumPayoutMinor": "131572916666582"
         },
         {
           "options": {
             "target": 77
           },
           "minimumStakeMaximumPayoutMinor": "124",
-          "maximumStakeMaximumPayoutMinor": "498680"
+          "maximumStakeMaximumPayoutMinor": "129864583333250"
         },
         {
           "options": {
             "target": 78
           },
           "minimumStakeMaximumPayoutMinor": "123",
-          "maximumStakeMaximumPayoutMinor": "492280"
+          "maximumStakeMaximumPayoutMinor": "128197916666584"
         },
         {
           "options": {
             "target": 79
           },
           "minimumStakeMaximumPayoutMinor": "121",
-          "maximumStakeMaximumPayoutMinor": "486040"
+          "maximumStakeMaximumPayoutMinor": "126572916666585"
         },
         {
           "options": {
             "target": 80
           },
           "minimumStakeMaximumPayoutMinor": "120",
-          "maximumStakeMaximumPayoutMinor": "480000"
+          "maximumStakeMaximumPayoutMinor": "124999999999920"
         },
         {
           "options": {
             "target": 81
           },
           "minimumStakeMaximumPayoutMinor": "118",
-          "maximumStakeMaximumPayoutMinor": "474040"
+          "maximumStakeMaximumPayoutMinor": "123447916666587"
         },
         {
           "options": {
             "target": 82
           },
           "minimumStakeMaximumPayoutMinor": "117",
-          "maximumStakeMaximumPayoutMinor": "468280"
+          "maximumStakeMaximumPayoutMinor": "121947916666588"
         },
         {
           "options": {
             "target": 83
           },
           "minimumStakeMaximumPayoutMinor": "115",
-          "maximumStakeMaximumPayoutMinor": "462640"
+          "maximumStakeMaximumPayoutMinor": "120479166666589"
         },
         {
           "options": {
             "target": 84
           },
           "minimumStakeMaximumPayoutMinor": "114",
-          "maximumStakeMaximumPayoutMinor": "457120"
+          "maximumStakeMaximumPayoutMinor": "119041666666590"
         },
         {
           "options": {
             "target": 85
           },
           "minimumStakeMaximumPayoutMinor": "112",
-          "maximumStakeMaximumPayoutMinor": "451760"
+          "maximumStakeMaximumPayoutMinor": "117645833333258"
         },
         {
           "options": {
             "target": 86
           },
           "minimumStakeMaximumPayoutMinor": "111",
-          "maximumStakeMaximumPayoutMinor": "446480"
+          "maximumStakeMaximumPayoutMinor": "116270833333258"
         },
         {
           "options": {
             "target": 87
           },
           "minimumStakeMaximumPayoutMinor": "110",
-          "maximumStakeMaximumPayoutMinor": "441360"
+          "maximumStakeMaximumPayoutMinor": "114937499999926"
         },
         {
           "options": {
             "target": 88
           },
           "minimumStakeMaximumPayoutMinor": "109",
-          "maximumStakeMaximumPayoutMinor": "436360"
+          "maximumStakeMaximumPayoutMinor": "113635416666593"
         },
         {
           "options": {
             "target": 89
           },
           "minimumStakeMaximumPayoutMinor": "107",
-          "maximumStakeMaximumPayoutMinor": "431440"
+          "maximumStakeMaximumPayoutMinor": "112354166666594"
         },
         {
           "options": {
             "target": 90
           },
           "minimumStakeMaximumPayoutMinor": "106",
-          "maximumStakeMaximumPayoutMinor": "426640"
+          "maximumStakeMaximumPayoutMinor": "111104166666595"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -3544,7 +3564,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "5022",
-          "maximumStakeMaximumPayoutMinor": "20088000"
+          "maximumStakeMaximumPayoutMinor": "999999999995814"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -3588,7 +3608,7 @@
         {
           "options": {},
           "minimumStakeMaximumPayoutMinor": "143500",
-          "maximumStakeMaximumPayoutMinor": "574000000"
+          "maximumStakeMaximumPayoutMinor": "999999999859000"
         }
       ],
       "fullReferenceParityVerified": false,
@@ -3598,8 +3618,31 @@
   "configuredStakeLimits": {
     "currency": "ETB",
     "minBetMinor": "100",
-    "maxBetMinor": "400000",
+    "maxBetMinor": null,
     "betStepMinor": "100",
-    "source": "Latest explicit user instruction: 1–4000 ETB per stake; protected legacy defaults are outside this model audit."
-  }
+    "testPresetsMinor": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900",
+      "1000",
+      "1100",
+      "1200",
+      "1300",
+      "1400",
+      "1500",
+      "1600",
+      "1700",
+      "1800",
+      "1900",
+      "2000"
+    ],
+    "source": "Revised user instruction: low initial/test presets 1–20 ETB; game max and payout policy must come from verified server configuration. Model maxima are derived from retained 15-digit storage and worst-case multiplier; retained account and funded house checks remain authoritative. Live policy is not verified."
+  },
+  "generatedAt": "2026-11-11T06:11:33.415Z"
 }

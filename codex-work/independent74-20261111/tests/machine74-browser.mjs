@@ -5,6 +5,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import {createLocalMachine74Harness} from './support/machine74-local-harness.mjs';
+import {seededRandom} from '../server/tests/support/retained-library/library-service.mjs';
 
 if (!process.argv.includes('--isolated') || process.env.DATABASE_URL) throw Error('EXPLICIT_ISOLATED_BROWSER_QA_REQUIRED');
 const directory=fileURLToPath(new URL('../',import.meta.url));
@@ -15,11 +16,12 @@ const {chromium}=runtime?await import(pathToFileURL(join(runtime,'playwright','i
 const widths=[360,390,430,1280];
 const report={pass:false,environment:'isolated local PGlite + retained LibraryService + actual Chromium UI',
   productionRequests:0,createdAt:new Date().toISOString(),games:[],checks:[],screenshots:[],blockedRequests:[],pageErrors:[]};
-let harness,browser,context,page,currentGame='startup',sequence=0;
+let harness,browser,context,page,currentGame='startup',sequence=0,clockOffset=0;
 const snapshots=new Map();
 
 try {
   harness=await createLocalMachine74Harness({isolated:true,
+    now:()=>Date.now()+clockOffset,
     seed:()=> '42'.repeat(32),
     id:()=> '00000000-0000-4000-8000-'+(++sequence).toString(16).padStart(12,'0'),
   });
@@ -79,6 +81,16 @@ try {
     for(let step=0;step<8;step++) {
       await idle();
       if(await page.locator('#play').isEnabled())break;
+      // Exercise the retained expiry path with the fixture server's clock.
+      // Waiting for an independently sampled high crash point would make
+      // responsive QA unbounded; a public UI click must never change it.
+      if(game.family==='crash') {
+        const rows=await harness.fixture.sql.unsafe('SELECT expires_at,status FROM sw_native_library.rounds WHERE game_id=$1 ORDER BY created_at DESC,id DESC LIMIT 1',[game.id]);
+        if(rows[0]?.status==='active')clockOffset=Math.max(clockOffset,Number(rows[0].expires_at)-Date.now()+1);
+        await page.locator('#refresh').click();await idle();
+        assert.equal(await page.locator('#play').isEnabled(),true,game.id+' fixture deadline must settle through account refresh');
+        break;
+      }
       if(await page.locator('#collect').isVisible()&&await page.locator('#collect').isEnabled())await perform('#collect');
       else if(game.family==='mines'&&await page.locator('.m74-mine-cell:enabled').count())await perform('.m74-mine-cell:enabled >> nth=0');
       else if(await page.locator('#next').isVisible()&&await page.locator('#next').isEnabled())await perform('#next');
@@ -193,12 +205,20 @@ try {
   for(const game of heldGames) {
     await select(game);
     const hold=page.locator('[data-option="holdWin"]');assert.equal(await hold.count(),1);await hold.check();
-    let held=null;
-    for(let attempt=0;attempt<12;attempt++) {
-      const value=await perform('#play');
-      if(value.round.status==='active'){held=value;break;}
+    // Select a deterministic winning fixture seed before the UI start. This
+    // covers the held-win controls without making their verification depend
+    // on an arbitrary number of random losing wagers. No production input
+    // accepts this seed and no simulation is counted as an official round.
+    const nextId='00000000-0000-4000-8000-'+(sequence+1).toString(16).padStart(12,'0');
+    const model=harness.fixture.service.registry.get(game.id);let chosenSeed=null;
+    for(let index=1;index<=2000;index++) {
+      const seed=index.toString(16).padStart(64,'0');
+      const result=model.adapter.start(game.id,{stakeMinor:'100',holdWin:true},seededRandom(seed,nextId+':0'),Date.now()+clockOffset);
+      if(result.state.status==='active'){chosenSeed=seed;break;}
     }
-    assert.ok(held,game.id+' fixture did not exercise a held award within bounded attempts');
+    assert.ok(chosenSeed,game.id+' deterministic held-win fixture is unavailable');
+    harness.fixture.service.seed=()=>chosenSeed;
+    const held=await perform('#play');assert.equal(held.round.status,'active');
     assert.match(await page.locator('.m74-pending-win').innerText(),/WIN TO COLLECT/);
     const debitsBefore=(await harness.fixture.sql.unsafe("SELECT COUNT(*)::int AS count FROM sw_rebuild.transfers WHERE sender=$1 AND kind='casino_bet'",[harness.fixture.fixtureUserId]))[0].count;
     const gambled=await perform('#gamble-red');

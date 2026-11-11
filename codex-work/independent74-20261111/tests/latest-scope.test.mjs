@@ -11,7 +11,7 @@ test('latest brief has exactly two protected entries and 72 new entries without 
  assert.equal(scope.newInfrastructureCreationAllowed,false);
  assert.equal(scope.useExistingBackendOnly,true);
  assert(scope.entries.every(x=>x.deployed===false&&x.productionWalletVerified===false));
- for(const entry of scope.entries.filter(x=>!x.protected))assert.deepEqual(entry.requestedBetLimits,{currency:'ETB',minMinor:'100',maxMinor:'4000000'});
+ for(const entry of scope.entries.filter(x=>!x.protected))assert.deepEqual(entry.requestedBetLimits,{currency:'ETB',minMinor:'100',maxMinor:null,testPresetsMinor:Array.from({length:20},(_,i)=>String((i+1)*100)),policy:'server-game-policy-and-retained-account-house-reserve'});
 });
 
 test('existing backend extension forwards old requests and context without starting or replacing servers',async()=>{

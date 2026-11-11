@@ -72,7 +72,7 @@ const PROFILE_ROWS = [
   ['sugarfiesta','#482b4b','#ffa6d3','#c4eff5','candy','candy'],
   ['vampires','#301b3e','#bba1ec','#e7a9aa','crypt','bat'],
   ['burningice10','#1c3043','#93dfef','#ffbe86','ice','flame'],
-  ['rollx','#173345','#83def0','#ebcc8a','neon','dice'],
+  ['rollx','#242727','#58ba4b','#d8e1d4','neon','dice'],
   ['doublex','#342641','#d3a8f2','#f4cd86','neon','gem'],
   ['samurai','#3a222b','#efa0a2','#efd18c','lantern','blade'],
 ];
@@ -378,7 +378,24 @@ function wheelMarkup(definition, round, profile) {
   }).join('');
   return '<div class="m74-wheel-wrap"><svg class="m74-wheel" viewBox="0 0 600 600" role="img" aria-label="'+count+'-sector wheel"><circle class="m74-wheel-rim" cx="300" cy="300" r="274"/><g class="m74-wheel-rotor" transform="rotate('+wheelRotation(definition,round)+' 300 300)">'+sectors+'</g><circle class="m74-wheel-hub" cx="300" cy="300" r="80"/><path class="m74-wheel-pointer" d="M276 8H324L300 62Z"/></svg><div class="m74-wheel-center">'+icon(profile.motif)+'</div></div><div class="m74-stage-strip"><span>'+count+' SECTORS</span><strong>'+multiplier(round?.outcome?.multiplierBps)+'</strong><span>'+escape(round?.outcome?.label ?? 'READY')+'</span></div>';
 }
+export function rollXRotation(round) {
+  const roll=round?.outcome?.roll;
+  return integer(roll,0,99)?-(roll+.5)*3.6:0;
+}
+function rollXMarkup(definition,round,options) {
+  const target=round?.outcome?.target??options.selectedOptions?.target??definition.defaultTarget;
+  if(!integer(target,definition.minTarget,definition.maxTarget))throw new TypeError('A published Roll X target is required.');
+  // The observed provider dial has a continuous green sector and fixed pointer.
+  // This original presentation maps our existing public 00–99 roll/target to
+  // that form; it does not claim the provider's multiplier-selection semantics.
+  const end=-90+target*3.6;
+  const won=round?.outcome?.success===true;
+  const label=!round?'READY':won?'WON':'TRY AGAIN';
+  const amount=won?minorText(round.winMinor??round.payoutMinor):null;
+  return '<div class="m74-rollx-dial"><svg class="m74-rollx-wheel" viewBox="0 0 600 600" role="img" aria-label="Continuous green and black dial with fixed top pointer"><g class="m74-rollx-rotor" transform="rotate('+rollXRotation(round)+' 300 300)"><circle cx="300" cy="300" r="255" class="m74-rollx-dark"/><path class="m74-rollx-green" d="'+wedge(-90,end)+'"/></g><path class="m74-rollx-pointer" d="M273 46H327L300 91Z"/></svg><div class="m74-rollx-readout" role="status"><span>'+label+'</span>'+(amount?'<strong>'+amount+'</strong>':'')+'</div><div class="m74-rollx-pending" aria-hidden="true">SPINNING</div></div><div class="m74-stage-strip"><span>TARGET '+target+' / 100</span><strong>'+multiplier(round?.outcome?.offeredMultiplierBps)+'</strong><span>'+(round?'ROUND COMPLETE':'READY')+'</span></div>';
+}
 function diceMarkup(definition,round,profile,options) {
+  if(definition.id==='ind74_official_rollx')return rollXMarkup(definition,round,options);
   const target=round?.outcome?.target ?? options.selectedOptions?.target ?? definition.defaultTarget;
   return '<div class="m74-dice-scene"><div class="m74-dice-decoration">'+icon(profile.motif)+'</div><div class="m74-roll-result" aria-label="Server roll"><span>ROLL</span><strong>'+(round?escape(String(round.outcome.roll).padStart(2,'0')):'—')+'</strong></div><div class="m74-dice-track"><span>0</span><div class="m74-roll-marker" data-roll="'+(round?.outcome?.roll ?? 0)+'"></div><span>99</span></div></div><div class="m74-stage-strip"><span>ROLL UNDER '+escape(target)+'</span><strong>'+(round?round.outcome.success?'WIN':'ROUND ENDED':'READY')+'</strong><span>'+multiplier(round?.outcome?.offeredMultiplierBps)+'</span></div>';
 }
@@ -419,6 +436,18 @@ export function animateRound(stage,definition,previous,next,options={}) {
   const renderOptions={...options,disabled:options.disabled ?? true};
   const mounted=renderMachine(stage,definition,next,renderOptions);
   stage.classList.add('m74-animating');
+  if(definition.family==='plinko'&&!reduced){
+    // Mounting the confirmed state places the ball in its destination bucket.
+    // Reset before yielding to the browser so the first painted frame begins
+    // at release, including successive rounds and a delayed animation frame.
+    const ball=stage.querySelector('.m74-plinko-ball');
+    const release=plinkoGeometry(definition,next.outcome.path).points[0];
+    ball?.setAttribute('cx',String(release.x));
+    ball?.setAttribute('cy',String(release.y));
+  }
+  if(definition.id==='ind74_official_rollx'&&!reduced){
+    stage.querySelector('.m74-rollx-rotor')?.setAttribute('transform','rotate('+rollXRotation(previous)+' 300 300)');
+  }
   let done=false,resolve,frame=0;
   const timers=new Set(),animations=new Set(),pendingResolves=new Set();
   const promise=new Promise(value=>{resolve=value;});
@@ -531,7 +560,11 @@ export function animateRound(stage,definition,previous,next,options={}) {
       if(cell)await animate(cell,[{transform:'scale(.92) rotateY(75deg)',opacity:.3},{transform:'scale(1.08) rotateY(0deg)',opacity:1,offset:.72},{transform:'scale(1) rotateY(0deg)',opacity:1}],turbo?100:430);
     } else if(definition.family==='dice') {
       cue('spin');
-      await animate(stage.querySelector('.m74-roll-result'),[{transform:'rotateX(0deg)',filter:'blur(4px)'},{transform:'rotateX(720deg)',filter:'blur(0)'}],turbo?160:720);
+      if(definition.id==='ind74_official_rollx'){
+        const rotor=stage.querySelector('.m74-rollx-rotor');
+        if(rotor)rotor.style.transformOrigin='300px 300px';
+        await animate(rotor,[{transform:'rotate('+rollXRotation(previous)+'deg)'},{transform:'rotate('+(rollXRotation(next)+1080)+'deg)'}],turbo?220:1600);
+      }else await animate(stage.querySelector('.m74-roll-result'),[{transform:'rotateX(0deg)',filter:'blur(4px)'},{transform:'rotateX(720deg)',filter:'blur(0)'}],turbo?160:720);
       if(!done)cue('reelStop');
     } else if(isCascade(definition)) {
       const previousGrid=previous?.outcome?.grid??previous?.grid;

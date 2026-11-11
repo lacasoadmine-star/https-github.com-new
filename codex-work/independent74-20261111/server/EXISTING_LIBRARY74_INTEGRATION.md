@@ -4,7 +4,7 @@
 
 `existing-library74-adapter.mjs` connects all 72 non-protected official-catalogue IDs to the retained `LibraryService`. `existing-library74-service.mjs` installs that adapter into an **already initialized service instance** and exports an authenticated-user facade. `existing-library74-http.mjs` supplies the native signed HTTP transport. Nothing here initializes a production database, creates a separate house wallet, runs a migration, changes an account, replaces a financial class or deploys a worker.
 
-The default adapter has no reviewed IDs and rejects every new stake. An integration must explicitly supply both a list of reviewed IDs and an enabled release gate. The retained service's own `accepting` gate must also be enabled. Recovery and replay of already accepted rounds do not depend on the new-round gate.
+The default adapter has no reviewed IDs or configured betting policy and rejects every new stake. An integration must explicitly supply reviewed IDs, an enabled release gate, and `gameLimits` (an ID map or synchronous server resolver). The retained service's own `accepting` gate must also be enabled. Recovery and replay of already accepted rounds do not depend on the new-round gate or newly lowered betting limits.
 
 The 72 probability models are independently authored. Matching catalogue identity, public layout or a published feature does not establish the provider's private probability model, return distribution or complete visual/gameplay parity. Those verification flags remain false in the public definitions.
 
@@ -48,7 +48,11 @@ This example intentionally keeps new rounds disabled. It does not call `migrate`
 
 The native request field `stake` is a canonical decimal ETB string, for example `"5.00"`. The native service converts it to integer minor units. Every adapter debit, payout and liability is a canonical integer string; no client-provided balance, multiplier, outcome, seed or payout is accepted. The retained service verifies that the first debit exactly equals the requested stake. Later round actions debit `"0"`.
 
-New independent74 stakes are limited to **1.00–4,000.00 ETB inclusive** (`100`–`400000` minor units), with the existing one-ETB increment. The adapter enforces this boundary before evaluating a round, independently of a broader allowance in the retained service or an injected model. Its public definitions advertise the same limits and a consistent maximum award. Existing retained adapters, protected games and financial classes are unchanged; this start-only policy does not alter the settlement of accepted obligations.
+Initial/test presets are 1–20 ETB. The obsolete 4,000 ETB cap is removed. Each enabled game now requires a server-supplied `gameLimits` map (or synchronous resolver) with canonical integer `maxBetMinor` and `maxWinMinor`. No policy is supplied by default: public maxima are `null` and new stakes remain disabled, even if the release gate and review IDs are supplied. A model's internal maximum is derived from the retained service's 15-digit integer-money storage contract and its worst-case multiplier, including the entire bounded gamble chain. That technical representation limit is not an account betting policy.
+
+The configured game policy is enforced before RNG; a selected stake's maximum liability must fit its configured payout limit. Stakes and wins above 40,000 ETB are supported when that policy permits them. The retained LibraryService then checks the existing account `max_balance` against potential post-round balance and atomically funds the per-round reserve from the actual house. Those checks remain authoritative. The current production game policies, account caps and available house balance have not been verified, so no new live stakes are enabled. Fixture policy values are test data and must never be copied into production as verified limits.
+
+Example shape, using values obtained from audited existing configuration rather than constants: `gameLimits: {[gameId]: {maxBetMinor: verifiedGameMaximumMinor, maxWinMinor: verifiedGamePayoutMaximumMinor}}`. Accepted-round actions retain their pinned liability and evaluator regardless of later policy changes.
 
 `maximumPayoutMinor` computes the reserve for the accepted stake and options. The adapter pins that bound for the entire round and rejects a credited or pending award above it. The native service reserves it before accepting the round. This also covers the full bounded Multi Hot 100 gamble chain when `holdWin` is selected.
 
@@ -67,7 +71,7 @@ The inactivity deadline is fixed when the round is accepted. Actions do not exte
 
 ## Authentication and facade contract
 
-`installExistingLibrary74({service, reviewedGameIds, allowNewRounds, activeTtlMs})` returns:
+`installExistingLibrary74({service, reviewedGameIds, allowNewRounds, gameLimits, activeTtlMs})` returns:
 
 - `definitions()` — safe public game definitions, including exact limits, controls, geometry, paytables, public rules and model disclosures.
 - `state(resolvedPlayerId, gameId)` — canonical account balance and current or latest round.
@@ -103,7 +107,7 @@ The HTTP paths are `GET /v2/independent74/state?game_id=…`, `GET /v2/independe
 }
 ```
 
-Supported options/actions follow each public definition. Ladder starts may select `mode`; dice starts may select `target`; mines and ladder reveal an unused `cell`; crash uses server-time `sync` or `collect`. Multi Hot 100 may start with `holdWin: true` and then `gamble` with `color: "red"` or `"black"`, or `collect` the pending award. The independent gamble limit is three successful rounds, with automatic collection at the cap.
+Supported options/actions follow each public definition. Ladder starts may select `mode`; dice starts may select `target`; mines and ladder reveal an unused `cell`; crash uses server-time `sync` or `collect`. Multi Hot 100, Multi Hot 5 Wild and Multi Hot 5 Burn Wilds may start with `holdWin: true` and then `gamble` with `color: "red"` or `"black"`, or `collect` the pending award. The optional feature is documented by their official public pages. The independent fair-card probabilities, pre-spin hold choice and three-successful-round cap are authored choices, not verified provider probabilities or limits. Maximum reservation includes the full 8× gamble chain.
 
 For Plinko X Classic, the server selects a pink 1×, orange 5× or fire 10× ball. **The request stake is the one total debit, and the client cannot select the color or multiplier.** The final payout is the stake times the bucket multiplier times the server-selected ball multiplier. The bridge reserves the full 10000× maximum before acceptance. `ballMultiplier`, `ballType` and the bucket/total multipliers become public only with the immediately settled result. The independent color weights and path probabilities are operator choices; complete provider color semantics remain unverified because the observed demo and marketing description differ.
 

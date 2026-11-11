@@ -61,7 +61,7 @@ function validateAction(input, ids) {
     if (!UUID.test(input.round_id) || !Number.isSafeInteger(input.expected_version) || input.expected_version < 0) reject(400, 'INVALID_ROUND', 'A current round version is required.');
   } else reject(400, 'INVALID_ACTION', 'Unsupported action.');
   if (Object.keys(input).some(key => !allowed.has(key))) reject(400, 'INVALID_ACTION', 'Unsupported action fields.');
-  if (input.type === 'play' && (typeof input.stake_minor !== 'string' || !/^[1-9][0-9]{0,8}$/.test(input.stake_minor))) reject(400, 'INVALID_STAKE', 'Stake must be a positive minor-unit integer.');
+  if (input.type === 'play' && (typeof input.stake_minor !== 'string' || !/^[1-9][0-9]{0,18}$/.test(input.stake_minor) || BigInt(input.stake_minor) > 9223372036854775807n)) reject(400, 'INVALID_STAKE', 'Stake must be a positive minor-unit integer within ledger storage.');
   if (input.options !== undefined) {
     if (!input.options || Array.isArray(input.options) || typeof input.options !== 'object') reject(400, 'INVALID_OPTIONS', 'Invalid options.');
     const options = new Set(['cell', 'target', 'targetBps', 'risk', 'rows', 'choice', 'steps', 'mode', 'number', 'numbers', 'mineCount']);
@@ -89,9 +89,11 @@ export function validateNativeAction(input, ids) {
   const allowed=new Set(['request_id','game_id','model_version','type']);
   if(input.type==='start'){
     allowed.add('stake');allowed.add('options');
-    if(typeof input.stake!=='string'||!/^(?:0|[1-9][0-9]{0,7})\.[0-9]{2}$/.test(input.stake))reject(400,'INVALID_STAKE','An exact ETB amount is required.');
+    // Match the retained LibraryService decimal transport. This is a storage
+    // boundary; account/game limits and funded liability belong to the server.
+    if(typeof input.stake!=='string'||!/^(?:0|[1-9][0-9]{0,10})\.[0-9]{2}$/.test(input.stake))reject(400,'INVALID_STAKE','An exact ETB amount is required.');
     const minor=BigInt(input.stake.replace('.',''));
-    if(minor<100n||minor>400000n||minor%100n!==0n)reject(400,'INVALID_STAKE','Choose a whole-ETB stake from 1 through 4000.');
+    if(minor<100n||minor%100n!==0n)reject(400,'INVALID_STAKE','Choose a positive whole-ETB stake within the server account and game limits.');
     const options=input.options??{};
     if(!options||Array.isArray(options)||typeof options!=='object'||Object.keys(options).some(k=>!['mode','target','holdWin'].includes(k)))reject(400,'INVALID_OPTIONS','Unsupported game option.');
     if(options.mode!==undefined&&(typeof options.mode!=='string'||!/^[a-z0-9_-]{1,24}$/.test(options.mode)))reject(400,'INVALID_OPTIONS','Invalid game mode.');
@@ -110,15 +112,24 @@ export function validateNativeAction(input, ids) {
   return input;
 }
 
-export function createGateway({ previous, assets = {}, games = [], accountGames = [], fetchImpl = (...args) => fetch(...args) }) {
+export function createGateway({ previous, assets = {}, games = [], accountGames = [], demoHandler = null, homeEnhancement = false, fetchImpl = (...args) => fetch(...args) }) {
   if (typeof previous?.fetch !== 'function') throw new Error('Legacy handler required.');
   const ids = new Set(games.map(game => game.id));
   const accountIds = new Set(accountGames.map(game => game.id));
   return async function independent74(request, env, ctx) {
     const url = new URL(request.url), path = url.pathname;
-    if (path !== PREFIX && !path.startsWith(PREFIX + '/')) return previous.fetch(request, env, ctx);
+    if (path !== PREFIX && !path.startsWith(PREFIX + '/')) {
+      const response=await previous.fetch(request,env,ctx);
+      if(!homeEnhancement||path!=='/'||request.method!=='GET'||response.status!==200||!response.headers.get('content-type')?.includes('text/html')||response.headers.has('content-encoding'))return response;
+      const html=await response.text();
+      if(html.includes('/independent74/lobby74.mjs'))return new Response(html,response);
+      const body=html.replace('</head>','<link rel="stylesheet" href="/independent74/lobby74.css"></head>').replace('</body>','<script type="module" src="/independent74/lobby74.mjs"></script></body>');
+      const headers=new Headers(response.headers);headers.delete('etag');headers.delete('content-length');headers.set('cache-control','private, no-store');
+      return new Response(body,{status:response.status,headers});
+    }
     try {
       if (path === PREFIX) return new Response(null, { status: 308, headers: { location: PREFIX + '/', 'cache-control': 'no-store' } });
+      if(path.startsWith(PREFIX+'/demo-api/'))return demoHandler?demoHandler(request,env,ctx):json({error:{code:'DEMO_SERVICE_UNAVAILABLE',message:'Free demo is temporarily unavailable.'}},503);
       if (path.startsWith(PREFIX+'/account-api/')) {
         const action=path.slice((PREFIX+'/account-api/').length);
         if(!['catalog','state','action','history'].includes(action))reject(404,'NOT_FOUND','Endpoint not found.');

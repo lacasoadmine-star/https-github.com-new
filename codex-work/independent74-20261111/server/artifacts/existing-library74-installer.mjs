@@ -14806,7 +14806,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_multihot100",
@@ -14826,7 +14849,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_habeshafortune5",
@@ -14846,7 +14892,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice10",
@@ -14866,7 +14935,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice40",
@@ -14886,7 +14978,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_coinminer",
@@ -14906,7 +15021,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_towerrush",
@@ -14926,7 +15064,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_towerx",
@@ -14946,7 +15107,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_plinkox",
@@ -14966,7 +15150,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_jetx",
@@ -14986,7 +15193,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_balloon",
@@ -15006,7 +15236,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_multihot40",
@@ -15026,7 +15279,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_multihot20",
@@ -15046,7 +15322,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_safarisimba",
@@ -15066,7 +15365,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_foxyhot40",
@@ -15086,7 +15408,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_magicgarden",
@@ -15106,7 +15451,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_magicgarden10",
@@ -15126,7 +15494,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_magicgarden20",
@@ -15146,7 +15537,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_magicgarden40",
@@ -15166,7 +15580,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_bookofmagic",
@@ -15186,7 +15623,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_captaincandy",
@@ -15206,7 +15666,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_moonstone",
@@ -15226,7 +15709,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_samurai",
@@ -15246,7 +15752,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice",
@@ -15266,7 +15795,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice30",
@@ -15286,7 +15838,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice50",
@@ -15306,7 +15881,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_vegashot40",
@@ -15326,7 +15924,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_vegashot81",
@@ -15346,7 +15967,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_vegashot20",
@@ -15366,7 +16010,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_vegashot10",
@@ -15386,7 +16053,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_crazyhunt",
@@ -15406,7 +16096,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_footballx",
@@ -15426,7 +16139,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_cricketx",
@@ -15446,7 +16182,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_jetx3",
@@ -15466,7 +16225,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_armada",
@@ -15486,7 +16268,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice2",
@@ -15506,7 +16311,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_spinx",
@@ -15526,7 +16354,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_luckracing",
@@ -15546,7 +16397,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_luckydrink",
@@ -15566,7 +16440,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_luckydrinkinegypt",
@@ -15586,7 +16483,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningicedeluxe",
@@ -15606,7 +16526,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_jasmine",
@@ -15626,7 +16569,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_darkhonesty",
@@ -15646,7 +16612,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_burningice40deluxe",
@@ -15666,7 +16655,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_mines",
@@ -15686,7 +16698,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_tower",
@@ -15706,7 +16741,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_keno",
@@ -15726,7 +16784,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_baccarat",
@@ -15746,7 +16827,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_blackjack",
@@ -15766,7 +16870,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_europeanroulette",
@@ -15786,7 +16913,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_americanroulette",
@@ -15806,7 +16956,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_classicroulette",
@@ -15826,7 +16999,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_viproulette",
@@ -15846,7 +17042,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_sicbo",
@@ -15866,7 +17085,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_hotfruits",
@@ -15886,7 +17128,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_fruitsandstars",
@@ -15906,7 +17171,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_starcash",
@@ -15926,7 +17214,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_juicyfruits",
@@ -15946,7 +17257,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_megaburningwins",
@@ -15966,7 +17300,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_superseven",
@@ -15986,7 +17343,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_diamond777",
@@ -16006,7 +17386,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_wildfruits",
@@ -16026,7 +17429,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_tripleseven",
@@ -16046,7 +17472,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_luckyseven",
@@ -16066,7 +17515,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_goldenclover",
@@ -16086,7 +17558,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_bookofwin",
@@ -16106,7 +17601,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_cloverparty",
@@ -16126,7 +17644,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_megajoker",
@@ -16146,7 +17687,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_sunnyfarm",
@@ -16166,7 +17730,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_crazytimecasinoseries",
@@ -16186,7 +17773,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_turboplinko",
@@ -16206,7 +17816,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: true,
       requestedPrototypeModelId: "ind74_speedcrash",
@@ -16226,7 +17859,30 @@ var requested74_default = {
       requestedBetLimits: {
         currency: "ETB",
         minMinor: "100",
-        maxMinor: "4000000"
+        maxMinor: null,
+        testPresetsMinor: [
+          "100",
+          "200",
+          "300",
+          "400",
+          "500",
+          "600",
+          "700",
+          "800",
+          "900",
+          "1000",
+          "1100",
+          "1200",
+          "1300",
+          "1400",
+          "1500",
+          "1600",
+          "1700",
+          "1800",
+          "1900",
+          "2000"
+        ],
+        policy: "server-game-policy-and-retained-account-house-reserve"
       },
       requestedLimitsImplementedAndTested: false,
       requestedPrototypeModelId: "ind74_smartsoftspecialeditionlobby",
@@ -16284,7 +17940,7 @@ function definition(entry) {
   Object.assign(d, { id, title: name + " \u2014 Independent", catalogName: name, family: f, mathVersion: "requested72-" + normalize(name) + "-r1", implementationStatus: "independent-math-prototype; client-and-live-ledger-unverified" });
   d.theme = { name: name + " original edition", colors: ["#102432", "#" + (hash(name) & 16777215).toString(16).padStart(6, "0"), "#f5cd79"] };
   d.provenance = { requestedBy: "Latest user list", officialDemoFullyVerified: false, designed: "Original independent rules, probabilities and artwork parameters; no certified provider equivalence is claimed." };
-  d.limits = { minBetMinor: "100", maxBetMinor: "4000000", betStepMinor: "100", maxWinMinor: "0" };
+  d.limits = { minBetMinor: "100", maxBetMinor: "0", betStepMinor: "100", maxWinMinor: "0" };
   if (f === "slots") {
     const count = Number(/(?:^|\s)(10|20|30|40|50|81|100)$/.exec(name)?.[1] ?? 20);
     const rows = name === "Multi Hot 100" ? 4 : 3;
@@ -16358,7 +18014,12 @@ function definition(entry) {
   let bps = f === "target-crash" ? d.maxTargetBps : f === "slots" ? Math.max(...d.symbols.flatMap((s) => Object.values(s.pays))) * Math.max(...d.multiplierValues || [1]) * 1e4 : f === "crash" ? d.maxMultiplierBps : f === "ladder" ? d.multipliersBps.at(-1) : f === "mines" ? mineMultiplier(d, d.maxPicks) : f === "plinko" ? Math.max(...d.bucketMultipliersBps) : f === "wheel" ? Math.max(...d.sectors.map((s) => s.multiplierBps)) : f === "roulette" ? 36e4 : f === "blackjack" ? 25e3 : f === "baccarat" ? 9e4 : f === "sicbo" ? 181e4 : kenoMultiplier(5);
   if (d.configurableMines) bps = Math.max(...Array.from({ length: 24 }, (_, i) => mineMultiplier({ ...d, mines: i + 1 }, 24 - i)));
   d.maximumMultiplierBps = bps;
+  const storageMax = 999999999999999n, prizeBound = storageMax * 10000n / BigInt(bps);
+  d.limits.maxBetMinor = ((prizeBound < storageMax ? prizeBound : storageMax) / 100n * 100n).toString();
   d.limits.maxWinMinor = payout(d.limits.maxBetMinor, bps);
+  d.limits.storageDerived = true;
+  d.limits.policy = "server-game-policy-and-retained-account-house-reserve";
+  d.limits.testPresetsMinor = Array.from({ length: 20 }, (_, i) => String((i + 1) * 100));
   return d;
 }
 var definitions2 = requested74_default.entries.filter((e) => !e.protected).map(definition);
@@ -16366,6 +18027,7 @@ var getGameDefinition = (id) => structuredClone(definitions2.find((d) => d.id ==
 
 // math/fresh-plinkoxclassic.mjs
 var bucketMultipliersBps = [1e7, 1e6, 2e5, 1e5, 4e4, 2e4, 2e3, 2e3, 2e3, 2e3, 2e3, 2e4, 4e4, 1e5, 2e5, 1e6, 1e7];
+var maximumStakeMinor = (999999999999999n * 10000n / BigInt(Math.max(...bucketMultipliersBps)) / 100n * 100n).toString();
 function choose2(n, k) {
   let a = 1;
   for (let i = 1; i <= k; i++) a = a * (n - i + 1) / i;
@@ -16385,7 +18047,7 @@ var fresh_plinkoxclassic_default = {
   implementedBallMultiplier: 1,
   providerBallMultipliers: [1, 5, 10],
   completeProviderBallTypesImplemented: false,
-  limits: { minBetMinor: "100", maxBetMinor: "4000000", betStepMinor: "100", maxWinMinor: "4000000000" },
+  limits: { minBetMinor: "100", maxBetMinor: maximumStakeMinor, betStepMinor: "100", maxWinMinor: (BigInt(maximumStakeMinor) * BigInt(Math.max(...bucketMultipliersBps)) / 10000n).toString(), storageDerived: true },
   provenance: { catalog: "https://www.smartsoftgaming.com/games/plinko-x-classic", observed: "2026-11-11: official 16-row/17-bucket board; a pink ball at 50 DMO returned 100 DMO on 2x; balance 20000 \u2192 19950 \u2192 20050 DMO.", designed: "Fresh independent 1x pink-ball model. Each peg independently chooses left/right with equal probability; provider probabilities and 5x/10x ball selection are unknown. This is not the complete official game." },
   rules: ["The visible 16-row board and 17 bucket prizes follow the fresh official demo observation.", "Only the pink 1x ball is implemented. The official 5x/10x ball types and their probabilities are not implemented.", "This independent model takes 16 fair left/right turns. It is not a reproduction of the provider probability distribution.", "Payout equals stake times the visible bucket multiplier, floored to minor units."],
   nominalReturn: { numerator: "158963", denominator: "163840", description: "Independent fair-path pink-ball model only; not provider game RTP." },
@@ -16402,6 +18064,13 @@ var publishedReelLayout = (rows, columns, source2, paylines) => Object.freeze({
   limitations: Object.freeze(["The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified."])
 });
 var OBSERVED_LAYOUTS = Object.freeze({
+  ind74_official_dicejungle: Object.freeze({
+    rows: 3,
+    columns: 5,
+    source: "https://www.smartsoftgaming.com/games/dice-jungle",
+    evidence: "The official public page describes a 5x3 dice grid and a synchronized horizontal multiplier reel above it, with awards boosted by up to 5x.",
+    limitations: Object.freeze(["The complete provider hold-and-spin rules, paytable, multiplier labels and probabilities remain unverified."])
+  }),
   ind74_official_popx: Object.freeze({
     rows: 5,
     columns: 6,
@@ -16450,7 +18119,7 @@ var OBSERVED_LAYOUTS = Object.freeze({
     completeMultiplierLabelsVerified: true,
     source: "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
     evidence: "The official public page specifies a 3-by-3 grid, five fixed paylines, wild substitution, three matching symbols and a left-side 1x\u20135x multiplier reel.",
-    limitations: Object.freeze(["The observed own wild prize plus 5x permits a 500x independent bound, while help advertises 375x; provider award restrictions are unverified.", "The provider payline chart and probabilities are unverified. X2 is not yet implemented for this title."])
+    limitations: Object.freeze(["The observed own wild prize plus 5x permits a 500x independent base bound, while help advertises 375x; provider award restrictions are unverified.", "The provider payline chart and probabilities are unverified. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit."])
   }),
   ind74_official_multihot5burnwilds: Object.freeze({
     rows: 3,
@@ -16461,7 +18130,7 @@ var OBSERVED_LAYOUTS = Object.freeze({
     completeMultiplierLabelsVerified: true,
     source: "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
     evidence: "The official public page specifies three rows, five reels and five paylines. Wilds appear on reels 2\u20134, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x\u20135x multiplier.",
-    limitations: Object.freeze(["Full provider paytable, probabilities and repeated expansion order remain unverified.", "The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 is not yet implemented for this title."])
+    limitations: Object.freeze(["Full provider paytable, probabilities and repeated expansion order remain unverified.", "The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit."])
   }),
   ind74_official_plinkoxclassic: Object.freeze({
     rows: 16,
@@ -17040,6 +18709,47 @@ function publicPopxCascade(d, round, now) {
   };
 }
 
+// math/public-gamble.mjs
+var SOURCES = Object.freeze({
+  ind74_official_multihot5wild: Object.freeze({
+    url: "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+    mathVersion: "official72-multihot5wild-r5"
+  }),
+  ind74_official_multihot5burnwilds: Object.freeze({
+    url: "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+    mathVersion: "official72-multihot5burnwilds-r4"
+  })
+});
+function configurePublicColorGamble(definition2) {
+  const source2 = SOURCES[definition2?.id];
+  if (!source2 || definition2.family !== "slots" || !Array.isArray(definition2.rules)) {
+    throw new TypeError("A documented independent wild-slot definition is required.");
+  }
+  definition2.mathVersion = source2.mathVersion;
+  definition2.gamble = {
+    enabled: true,
+    maxRounds: 3,
+    choices: ["red", "black"],
+    startOption: "holdWin",
+    probabilityModel: "independent-fair-color",
+    providerLimitVerified: false,
+    source: source2.url,
+    evidenceKind: "official-public-document",
+    rule: "Correct color doubles the held award; incorrect color loses it. Collect is available before each attempt. The independently selected three-attempt limit automatically collects the final success."
+  };
+  definition2.rules.push(
+    "The official public page advertises X2: guess the color of a flashing card to double a winning award, or collect it.",
+    "Choose holdWin before the spin to retain a winning award for red/black X2 or immediate collection. No additional stake is debited.",
+    "This independent implementation uses equally likely red/black cards and at most three attempts. The final success collects automatically. These probabilities, attempt limit and pre-spin hold control are operator choices; provider equivalence is not established."
+  );
+  definition2.provenance = {
+    ...definition2.provenance,
+    publicGambleSource: source2.url,
+    gambleProbabilitySource: "Independent fair-color draws; provider probabilities and limits unverified."
+  };
+  return definition2;
+}
+
 // math/official72.mjs
 var norm = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 var models = listGameDefinitions();
@@ -17080,7 +18790,7 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
     fullGameplayVerified: false
   };
   d.implementationStatus = "independent-model; full-reference-parity-and-production-ledger-unverified";
-  d.limits = { minBetMinor: "100", maxBetMinor: "400000", betStepMinor: "100", maxWinMinor: "0" };
+  d.limits = { minBetMinor: "100", maxBetMinor: "0", betStepMinor: "100", maxWinMinor: "0" };
   if (THREE_REEL_TITLES.has(entry.name)) {
     d.rows = 3;
     d.cols = 3;
@@ -17185,6 +18895,7 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
       designed: three ? "Observed nine regular-symbol awards and the Wild award; independently authored five-line chart and probabilities. The provider maximum-win coupling remains unresolved." : "Independent symbol awards, five-line chart and probabilities; public geometry and wild rules implemented separately from those operator choices."
     };
   }
+  if ([WILD_THREE, BURN_WILDS].includes(d.id)) configurePublicColorGamble(d);
   if (d.id === GAMBLE_HUNDRED) {
     d.mathVersion = "official72-" + norm(entry.name) + "-r3";
     d.gamble = {
@@ -17263,7 +18974,13 @@ var definitions3 = official74_default.entries.filter((entry) => !entry.protected
     d.returnBps = 9600;
   }
   d.maximumMultiplierBps = maximumMultiplier(d);
+  const storageMax = 999999999999999n;
+  const prizeBound = storageMax * 10000n / BigInt(d.maximumMultiplierBps);
+  d.limits.maxBetMinor = ((prizeBound < storageMax ? prizeBound : storageMax) / 100n * 100n).toString();
   d.limits.maxWinMinor = payout(d.limits.maxBetMinor, d.maximumMultiplierBps);
+  d.limits.policy = "server-game-policy-and-retained-account-house-reserve";
+  d.limits.storageDerived = true;
+  d.limits.testPresetsMinor = Array.from({ length: 20 }, (_, i) => String((i + 1) * 100));
   d.layout = officialLayout(d);
   d.modelDisclosure = {
     providerPrivateMathVerified: false,
@@ -17461,7 +19178,7 @@ function modelAuditMatrix() {
 // server/existing-library74-adapter.mjs
 var BRIDGE_VERSION = "library74-v1";
 var LIBRARY74_MIN_STAKE_MINOR = "100";
-var LIBRARY74_MAX_STAKE_MINOR = "400000";
+var LIBRARY74_TEST_PRESETS_MINOR = Array.from({ length: 20 }, (_, i) => String((i + 1) * 100));
 var MINOR = /^(0|[1-9][0-9]*)$/;
 var ID = /^ind74_official_[a-z0-9_]{1,48}$/;
 var FAMILIES = /* @__PURE__ */ new Set(["slots", "crash", "ladder", "mines", "wheel", "plinko", "dice"]);
@@ -17505,32 +19222,38 @@ function publishedTable(value) {
   if (!plain(value)) return clone(value);
   return Object.fromEntries(Object.entries(value).filter(([key]) => !/weight|probability|survival|private|secret|seed|ticket|returnBps/i.test(key)).map(([key, item]) => [key, publishedTable(item)]));
 }
-function effectiveLimits(definition2) {
+function effectiveLimits(definition2, policy) {
   const limits = Object.fromEntries(["minBetMinor", "maxBetMinor", "betStepMinor", "maxWinMinor"].map((key) => {
     integerMoney(definition2.limits?.[key]);
     return [key, definition2.limits[key]];
   }));
-  const modelMaximum = BigInt(limits.maxBetMinor);
-  if (BigInt(limits.minBetMinor) < BigInt(LIBRARY74_MIN_STAKE_MINOR)) limits.minBetMinor = LIBRARY74_MIN_STAKE_MINOR;
-  if (modelMaximum > BigInt(LIBRARY74_MAX_STAKE_MINOR)) {
-    limits.maxBetMinor = LIBRARY74_MAX_STAKE_MINOR;
-    if (!Number.isSafeInteger(definition2.maximumMultiplierBps) || definition2.maximumMultiplierBps < 0) fail("INVALID_LIBRARY74_DEFINITION", 500);
-    const cappedAward = BigInt(limits.maxBetMinor) * BigInt(definition2.maximumMultiplierBps) / 10000n;
-    if (cappedAward < BigInt(limits.maxWinMinor)) limits.maxWinMinor = String(cappedAward);
+  limits.minBetMinor = LIBRARY74_MIN_STAKE_MINOR;
+  limits.testPresetsMinor = [...LIBRARY74_TEST_PRESETS_MINOR];
+  limits.policy = "server-game-policy-and-retained-account-house-reserve";
+  if (!policy) return { ...limits, maxBetMinor: null, maxWinMinor: null };
+  if (!plain(policy)) fail("INVALID_LIBRARY74_BET_POLICY", 500);
+  for (const key of ["maxBetMinor", "maxWinMinor"]) {
+    integerMoney(policy[key], "INVALID_LIBRARY74_BET_POLICY");
+    if (BigInt(policy[key]) <= 0n) fail("INVALID_LIBRARY74_BET_POLICY", 500);
+    if (BigInt(policy[key]) < BigInt(limits[key])) limits[key] = policy[key];
   }
-  if (BigInt(limits.minBetMinor) > BigInt(limits.maxBetMinor) || BigInt(limits.betStepMinor) === 0n) fail("INVALID_LIBRARY74_DEFINITION", 500);
+  const possible = BigInt(limits.maxBetMinor) * BigInt(definition2.maximumMultiplierBps) / 10000n;
+  if (possible < BigInt(limits.maxWinMinor)) limits.maxWinMinor = possible.toString();
+  if (BigInt(limits.minBetMinor) > BigInt(limits.maxBetMinor) || BigInt(limits.betStepMinor) === 0n) fail("INVALID_LIBRARY74_BET_POLICY", 500);
   return limits;
 }
-function acceptedStartStake(definition2, value) {
+function acceptedStartStake(definition2, value, policy) {
   if (typeof value !== "string" || value.length > 15 || !MINOR.test(value)) fail("INVALID_BET");
-  const amount = BigInt(value), limits = effectiveLimits(definition2);
+  if (!policy) fail("BET_LIMITS_UNVERIFIED", 503);
+  const amount = BigInt(value), limits = effectiveLimits(definition2, policy);
   if (amount < BigInt(limits.minBetMinor) || amount > BigInt(limits.maxBetMinor) || amount % BigInt(limits.betStepMinor) !== 0n) fail("INVALID_BET");
+  return limits;
 }
-function publicLibrary74Definition(definition2, { accepting = false } = {}) {
+function publicLibrary74Definition(definition2, { accepting = false, policy = null } = {}) {
   if (!definition2 || !ID.test(definition2.id) || !FAMILIES.has(definition2.family) || typeof definition2.mathVersion !== "string") fail("INVALID_LIBRARY74_DEFINITION", 500);
   const version = `${BRIDGE_VERSION}:${definition2.mathVersion}`;
   if (version.length > 100) fail("INVALID_LIBRARY74_VERSION", 500);
-  const limits = effectiveLimits(definition2);
+  const limits = effectiveLimits(definition2, policy);
   const view = {
     id: definition2.id,
     title: definition2.title,
@@ -17543,14 +19266,14 @@ function publicLibrary74Definition(definition2, { accepting = false } = {}) {
     currency: "ETB",
     limits,
     minStake: minorToMoney(limits.minBetMinor),
-    maxStake: minorToMoney(limits.maxBetMinor),
+    maxStake: limits.maxBetMinor === null ? null : minorToMoney(limits.maxBetMinor),
     betStep: minorToMoney(limits.betStepMinor),
     independentModel: true,
     providerPrivateMathVerified: false,
     completeReferenceParityVerified: false,
     modelDisclosure: { providerPrivateMathVerified: false, completeReferenceParityVerified: false, outcomeAuthority: "server-owned round state and bounded integer RNG", clientPayoutAccepted: false, returnIsIndependent: true },
-    launchable: accepting === true,
-    accepting: accepting === true,
+    launchable: accepting === true && policy !== null,
+    accepting: accepting === true && policy !== null,
     controls: { actions: ["crash", "ladder", "mines"].includes(definition2.family) ? ["reveal", "collect", ...definition2.family === "crash" ? ["sync"] : []] : definition2.gamble?.enabled ? ["gamble", "collect"] : [] },
     expiryPolicy: definition2.family === "crash" ? "server_terminal_result" : "collect_earned_award_or_return_unplayed_stake"
   };
@@ -17580,7 +19303,7 @@ function mathOperation(operation) {
     fail(code, 500);
   }
 }
-function createExistingLibrary74Adapter({ math = official72_exports, reviewedGameIds = [], allowNewRounds = false, activeTtlMs = 15 * 60 * 1e3 } = {}) {
+function createExistingLibrary74Adapter({ math = official72_exports, reviewedGameIds = [], allowNewRounds = false, gameLimits = {}, activeTtlMs = 15 * 60 * 1e3 } = {}) {
   if (["listGameDefinitions", "getGameDefinition", "startRound", "advanceRound", "collectRound", "publicRound", "reconcileRound", "maximumPayoutMinor"].some((key) => typeof math[key] !== "function")) throw new TypeError("The complete official72 server math contract is required.");
   if (!Number.isSafeInteger(activeTtlMs) || activeTtlMs < 1e3 || activeTtlMs > 864e5) throw new TypeError("Use a reviewed active-round timeout from one second through one day.");
   if (typeof allowNewRounds !== "boolean" && typeof allowNewRounds !== "function") throw new TypeError("New-round readiness must be a boolean or a function.");
@@ -17592,7 +19315,9 @@ function createExistingLibrary74Adapter({ math = official72_exports, reviewedGam
   if (originals.size !== source2.length) throw new TypeError("Duplicate official catalogue game IDs.");
   if (!Array.isArray(reviewedGameIds) || new Set(reviewedGameIds).size !== reviewedGameIds.length || reviewedGameIds.some((id) => !originals.has(id))) throw new TypeError("Reviewed game IDs must be distinct members of this adapter.");
   const reviewed = new Set(reviewedGameIds);
-  const enabled = (id) => reviewed.has(id) && (typeof allowNewRounds === "function" ? allowNewRounds(id) === true : allowNewRounds === true);
+  if (!plain(gameLimits) && typeof gameLimits !== "function") throw new TypeError("Server game limits must be an ID map or a server resolver.");
+  const policyFor = (id) => typeof gameLimits === "function" ? gameLimits(id) : gameLimits[id];
+  const enabled = (id) => Boolean(policyFor(id)) && reviewed.has(id) && (typeof allowNewRounds === "function" ? allowNewRounds(id) === true : allowNewRounds === true);
   const definition2 = (id) => {
     const result3 = originals.get(id);
     if (!result3) fail("GAME_MODEL_UNAVAILABLE", 409);
@@ -17673,7 +19398,7 @@ function createExistingLibrary74Adapter({ math = official72_exports, reviewedGam
   }
   const adapter = {
     get definitions() {
-      return Object.fromEntries([...originals].map(([id, d]) => [id, publicLibrary74Definition(d, { accepting: enabled(id) })]));
+      return Object.fromEntries([...originals].map(([id, d]) => [id, publicLibrary74Definition(d, { accepting: enabled(id), policy: policyFor(id) })]));
     },
     has: (id) => originals.has(id),
     start(gameId, options, random, at) {
@@ -17681,9 +19406,10 @@ function createExistingLibrary74Adapter({ math = official72_exports, reviewedGam
       if (!enabled(gameId)) fail("INDEPENDENT74_NEW_ROUNDS_DISABLED", 503);
       if (!plain(options) || typeof options.stakeMinor !== "string") fail("INVALID_LIBRARY_OPTIONS");
       const { stakeMinor, ...gameOptions } = options;
-      acceptedStartStake(d, stakeMinor);
+      const limits = acceptedStartStake(d, stakeMinor, policyFor(gameId));
       const maximum = mathOperation(() => math.maximumPayoutMinor({ gameId, betMinor: stakeMinor, options: gameOptions }));
       integerMoney(maximum);
+      if (BigInt(maximum) > BigInt(limits.maxWinMinor)) fail("PAYOUT_LIMIT_EXCEEDED", 422);
       const round = mathOperation(() => math.startRound({ gameId, betMinor: stakeMinor, options: gameOptions, rng: integerRngFromLibrary(random), now }));
       if (round.status === "active" && d.family === "mines" && BigInt(maximum) < BigInt(stakeMinor)) fail("UNPLAYED_REFUND_NOT_RESERVED", 500);
       return result2(d, round, { maximum, debit: stakeMinor, now });
@@ -17874,8 +19600,8 @@ function installExistingLibrary74Http(previous, { service, facade: providedFacad
 }
 export {
   BRIDGE_VERSION,
-  LIBRARY74_MAX_STAKE_MINOR,
   LIBRARY74_MIN_STAKE_MINOR,
+  LIBRARY74_TEST_PRESETS_MINOR,
   composeExistingLibrary74Registry,
   createExistingLibrary74Adapter,
   installExistingLibrary74,

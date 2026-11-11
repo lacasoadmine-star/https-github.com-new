@@ -39,7 +39,7 @@ function definition(entry){
  Object.assign(d,{id,title:name+' — Independent',catalogName:name,family:f,mathVersion:'requested72-'+normalize(name)+'-r1',implementationStatus:'independent-math-prototype; client-and-live-ledger-unverified'});
  d.theme={name:name+' original edition',colors:['#102432','#'+(hash(name)&0xffffff).toString(16).padStart(6,'0'),'#f5cd79']};
  d.provenance={requestedBy:'Latest user list',officialDemoFullyVerified:false,designed:'Original independent rules, probabilities and artwork parameters; no certified provider equivalence is claimed.'};
- d.limits={minBetMinor:'100',maxBetMinor:'4000000',betStepMinor:'100',maxWinMinor:'0'};
+ d.limits={minBetMinor:'100',maxBetMinor:'0',betStepMinor:'100',maxWinMinor:'0'};
  if(f==='slots'){
   const count=Number(/(?:^|\s)(10|20|30|40|50|81|100)$/.exec(name)?.[1]??20);
   const rows=name==='Multi Hot 100'?4:3;d.rows=rows;
@@ -77,7 +77,7 @@ function definition(entry){
  }
  let bps=f==='target-crash'?d.maxTargetBps:f==='slots'?Math.max(...d.symbols.flatMap(s=>Object.values(s.pays)))*Math.max(...(d.multiplierValues||[1]))*10000:f==='crash'?d.maxMultiplierBps:f==='ladder'?d.multipliersBps.at(-1):f==='mines'?mineMultiplier(d,d.maxPicks):f==='plinko'?Math.max(...d.bucketMultipliersBps):f==='wheel'?Math.max(...d.sectors.map(s=>s.multiplierBps)):f==='roulette'?360000:f==='blackjack'?25000:f==='baccarat'?90000:f==='sicbo'?1810000:kenoMultiplier(5);
  if(d.configurableMines)bps=Math.max(...Array.from({length:24},(_,i)=>mineMultiplier({...d,mines:i+1},24-i)));
- d.maximumMultiplierBps=bps;d.limits.maxWinMinor=payout(d.limits.maxBetMinor,bps);
+ d.maximumMultiplierBps=bps;const storageMax=999999999999999n,prizeBound=storageMax*10000n/BigInt(bps);d.limits.maxBetMinor=((prizeBound<storageMax?prizeBound:storageMax)/100n*100n).toString();d.limits.maxWinMinor=payout(d.limits.maxBetMinor,bps);d.limits.storageDerived=true;d.limits.policy='server-game-policy-and-retained-account-house-reserve';d.limits.testPresetsMinor=Array.from({length:20},(_,i)=>String((i+1)*100));
  return d;
 }
 const definitions=scope.entries.filter(e=>!e.protected).map(definition);

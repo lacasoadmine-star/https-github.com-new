@@ -487,7 +487,10 @@
       "sourceUrl": "https://www.smartsoftgaming.com/games/dice-jungle",
       "sourceAccess": "official-public-page",
       "sourceReadDate": "2026-11-11",
-      "publicGeometry": null,
+      "publicGeometry": {
+        "columns": 5,
+        "rows": 3
+      },
       "publicPaylineCounts": [],
       "publicFeatures": [
         "wild-symbol",
@@ -522,7 +525,7 @@
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": false
+      "geometryMatchesCurrentModel": true
     },
     {
       "id": "ind74_official_multihot5wild",
@@ -550,26 +553,28 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot5wild-r4",
+        "mathVersion": "official72-multihot5wild-r5",
         "rows": 3,
         "columns": 3,
         "paylines": 5,
-        "maximumMultiplierBps": 5000000,
+        "maximumMultiplierBps": 40000000,
         "independentModel": true
       },
       "implementedPublicFeatureSubset": [
         "extra-multiplier",
-        "wild-symbol"
-      ],
-      "unimplementedOrUnverifiedPublicFeatures": [
+        "wild-symbol",
         "x2-gamble"
       ],
+      "unimplementedOrUnverifiedPublicFeatures": [],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
       "geometryMatchesCurrentModel": true,
       "additionalEvidence": [
         "tests/evidence/official-demo-observations-frontend.json",
         "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
+      ],
+      "independentImplementationLimits": [
+        "X2 card probabilities, three-attempt limit and pre-spin holdWin control are operator choices. Provider probabilities, limits, complete mechanics and parity remain unverified."
       ]
     },
     {
@@ -980,25 +985,28 @@
       "advertisedMaximumMultiplier": null,
       "currentModel": {
         "family": "slots",
-        "mathVersion": "official72-multihot5burnwilds-r3",
+        "mathVersion": "official72-multihot5burnwilds-r4",
         "rows": 3,
         "columns": 5,
         "paylines": 5,
-        "maximumMultiplierBps": 25000000,
+        "maximumMultiplierBps": 200000000,
         "independentModel": true
       },
       "implementedPublicFeatureSubset": [
         "expanding-wild",
         "extra-multiplier",
-        "wild-symbol"
+        "wild-symbol",
+        "x2-gamble"
       ],
       "unimplementedOrUnverifiedPublicFeatures": [
-        "x2-gamble",
         "boost"
       ],
       "providerProbabilitiesVerified": false,
       "completeReferenceParityVerified": false,
-      "geometryMatchesCurrentModel": true
+      "geometryMatchesCurrentModel": true,
+      "independentImplementationLimits": [
+        "X2 card probabilities, three-attempt limit and pre-spin holdWin control are operator choices. Provider probabilities, limits, complete mechanics and parity remain unverified."
+      ]
     },
     {
       "id": "ind74_official_chickenhighway",

@@ -36,7 +36,7 @@ export async function buildExistingLibrary74({ outdir = resolve(project, 'server
   const loaded = await import('data:text/javascript;base64,' + Buffer.from(artifact).toString('base64'));
   const definitions = loaded.publicLibrary74Definitions();
   if (definitions.length !== 72 || definitions.some(game => game.accepting || game.launchable)) throw new Error('BACKEND_DEFAULT_READINESS_CHANGED');
-  if (definitions.some(game => game.minStake !== '1.00' || game.maxStake !== '4000.00' || game.limits.minBetMinor !== '100' || game.limits.maxBetMinor !== '400000')) throw new Error('BACKEND_STAKE_RANGE_CHANGED');
+  if (definitions.some(game => game.minStake !== '1.00' || game.maxStake !== null || game.limits.minBetMinor !== '100' || game.limits.maxBetMinor !== null)) throw new Error('BACKEND_STAKE_RANGE_CHANGED');
   const disabled = loaded.createExistingLibrary74Adapter();
   try {
     disabled.start(definitions[0].id, { stakeMinor: '100' }, () => 0, 1794355200000);
@@ -53,7 +53,7 @@ export async function buildExistingLibrary74({ outdir = resolve(project, 'server
     artifact: 'existing-library74-installer.mjs', bytes: artifact.length, sha256: checksum(artifact),
     buildTool: `esbuild@${esbuildVersion}`, moduleFormat: 'ESM', runtimeImports: imports,
     defaultNewRoundsEnabled: false, independentModelCount: definitions.length,
-    stakeRange: { currency: 'ETB', minimum: '1.00', maximum: '4000.00', minMinor: '100', maxMinor: '400000' },
+    stakeRange: { currency: 'ETB', minimum: '1.00', maximum: null, minMinor: '100', maxMinor: null, policy: 'server-game-policy-and-retained-account-house-reserve', testPresetsMinor: Array.from({length:20}, (_,i)=>String((i+1)*100)) },
     containsFinancialServiceImplementation: false, createsDatabase: false, deploysAnything: false,
     dependencyInjection: ['initialized existing LibraryService', 'retained verifyNative', 'retained readNativeBody', 'existing engine secret', 'existing resolveSessionUser', 'previous app fetch handler'],
     models: definitions.map(game => ({ id: game.id, version: game.version, family: game.family })),

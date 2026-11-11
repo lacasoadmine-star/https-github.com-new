@@ -53,7 +53,7 @@ test('all 72 models have consistent geometry, public evidence boundaries and ind
     assert.ok(d.layout.source.length > 0);
     assert.ok(d.layout.limitations.length > 0);
     assert.equal(d.limits.minBetMinor, '100', d.id);
-    assert.equal(d.limits.maxBetMinor, '400000', d.id);
+    assert(BigInt(d.limits.maxBetMinor)>4000000n,d.id); assert.equal(d.limits.storageDerived,true);
     assert.equal(d.limits.betStepMinor, '100', d.id);
     assert.ok(BigInt(d.limits.maxWinMinor) > 0n);
     if (d.family === 'slots') {
@@ -249,8 +249,8 @@ test('reserve and start reject the same invalid options and post-start requests 
       }
     }
     // The first over-limit minor unit and an aligned over-limit stake must
-    // both fail; otherwise a step check could hide a stale 40000 ETB cap.
-    for (const betMinor of ['0', '99', '101', '400001', '400100', '4000000', '-1', '1e2', '0100', '100.0']) {
+    // both fail at the derived integer storage boundary.
+    for (const betMinor of ['0', '99', '101', String(BigInt(d.limits.maxBetMinor)+1n), String(BigInt(d.limits.maxBetMinor)+100n), '-1', '1e2', '0100', '100.0']) {
       for (const action of [math.startRound, math.maximumPayoutMinor]) {
         assert.throws(() => action({gameId: d.id, betMinor, rng: () => 0, now: NOW}), d.id + ' ' + betMinor);
       }

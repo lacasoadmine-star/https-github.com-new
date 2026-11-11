@@ -1,4 +1,4 @@
-import {readFile, writeFile, mkdir, rename, readdir} from 'node:fs/promises';
+import {readFile, writeFile, mkdir, rename, readdir, access} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {dirname, resolve, join} from 'node:path';
@@ -80,6 +80,22 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
   if(!Array.isArray(accountGames)||accountGames.length!==72||new Set(accountGames.map(g=>g.id)).size!==72)throw new Error('All 72 independent account definitions are required.');
   if(accountGames.some(g=>!/^ind74_official_[a-z0-9_]+$/.test(g.id)||g.currency!=='ETB'||g.accepting!==false||g.launchable!==false))throw new Error('New account definitions must default to closed release gates.');
   const serializedAccountGames=js(accountGames);
+  const demoSource=join(rootDir,'server','demo74-worker.mjs');
+  const hasDemo=await access(demoSource).then(()=>true,()=>false);
+  let demoEngine='',demoGateway='',gatewayOutput=gateway;
+  const DEMO='independent74-demo-'+release+'.mjs',DEMO_GATEWAY='independent74-demo-gateway-'+release+'.mjs';
+  if(hasDemo){
+    const {build:bundle,transform}=await import('esbuild');
+    const bundled=await bundle({stdin:{contents:`export * from ${js(demoSource)}; export {publicLibrary74Definitions as account74Catalog} from ${js(join(rootDir,'server','existing-library74-adapter.mjs'))};`,resolveDir:rootDir,sourcefile:'independent74-demo-entry.mjs'},bundle:true,write:false,format:'esm',platform:'browser',target:'es2022',minify:true,alias:{'node:crypto':join(rootDir,'server','demo74-rng.mjs')}});
+    demoEngine=bundled.outputFiles[0].text;
+    demoGateway=(await required(join(rootDir,'demo-gateway.mjs'))).replaceAll("'./gateway.mjs'",js('./'+NAMES.gateway));
+    checkModule(demoEngine,DEMO);checkModule(demoGateway,DEMO_GATEWAY);
+    gatewayOutput=(await transform(gateway,{loader:'js',minify:true,target:'es2022'})).code;
+    demoGateway=(await transform(demoGateway,{loader:'js',minify:true,target:'es2022'})).code;
+    // The existing Worker is close to its module-size limit. Compact only
+    // this release's client assets; every inherited module stays byte-exact.
+    for(const name of names.filter(name=>/\.(mjs|css)$/.test(name)))sources[name]=(await transform(sources[name],{loader:name.endsWith('.css')?'css':'js',minify:true,target:'es2022'})).code;
+  }
   const assets=Object.fromEntries(names.map(name=>{
     const extension=name.slice(name.lastIndexOf('.'));
     const body=sources[name],digest=sha(body);
@@ -87,9 +103,10 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
   }));
   const files={
     [NAMES.assets]:`// Generated from current independent client source. No legacy assets are included.\nexport const assets=Object.freeze(Object.assign(Object.create(null),${js(assets)}));\n`,
-    [NAMES.catalog]:`// Public definitions only. Outcomes and wallet state stay on the existing account server.\nexport const games=Object.freeze(${serializedGames});\nexport const accountGames=Object.freeze(${serializedAccountGames});\n`,
-    [NAMES.gateway]:gateway,
-    [NAMES.entry]:`import previous from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {assets} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\nexport default {...previous,fetch:createGateway({previous,assets,games,accountGames})};\n`
+    [NAMES.catalog]:`// Public definitions only. Outcomes and wallet state stay on the existing account server.\n${hasDemo?`import {account74Catalog} from './${DEMO}';\n`:''}export const games=Object.freeze(${serializedGames});\nexport const accountGames=Object.freeze(${hasDemo?'account74Catalog()':serializedAccountGames});\n`,
+    [NAMES.gateway]:gatewayOutput,
+    [NAMES.entry]:`import previous${hasDemo?", {LocalDemoWallet as PreviousDemoWallet}":''} from './presentation-player-entry-r23.mjs';\nexport * from './presentation-player-entry-r23.mjs';\nimport {assets} from './${NAMES.assets}';\nimport {games,accountGames} from './${NAMES.catalog}';\nimport {createGateway} from './${NAMES.gateway}';\n${hasDemo?`import {handleDemo74Request} from './${DEMO}';\nimport {createDemoGateway} from './${DEMO_GATEWAY}';\nexport class LocalDemoWallet extends PreviousDemoWallet {\n constructor(ctx,env){super(ctx,env);this.__independent74Context=ctx;}\n fetch(request){return new URL(request.url).pathname.startsWith('/independent74-demo-internal/')?handleDemo74Request(this.__independent74Context,request):super.fetch(request);}\n}\n`:''}export default {...previous,fetch:createGateway({previous,assets,games,accountGames${hasDemo?',demoHandler:createDemoGateway({previous}),homeEnhancement:true':''}})};\n`,
+    ...(hasDemo?{[DEMO]:demoEngine,[DEMO_GATEWAY]:demoGateway}:{})
   };
   for(const [name,source]of Object.entries(files))checkModule(source,name);
   const modules=Object.entries(files).map(([name,source])=>({name,type:'application/javascript+module',source}));
@@ -118,6 +135,9 @@ export async function build({rootDir=ROOT,outDir=join(rootDir,'dist'),release='r
     legacySourcesChanged:false,
     presenceModule:PRESENCE,
     deploymentPerformed:false,
+    freeDemoServerEnabled:hasDemo,
+    freeDemoCurrency:hasDemo?'DEMO':null,
+    freeDemoStorage:hasDemo?'existing LOCAL_DEMO_WALLETS; independent74-demo object IDs and KV keys; no financial ledger':null,
     gatewaySha256:sha(gateway),
     assets:Object.fromEntries(Object.entries(assets).map(([name,asset])=>[name,{type:asset.type,bytes:Buffer.byteLength(asset.body),etag:asset.etag}])),
     modules:Object.fromEntries(Object.entries(files).map(([name,source])=>[name,{bytes:Buffer.byteLength(source),sha256:sha(source)}]))

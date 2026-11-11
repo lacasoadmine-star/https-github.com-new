@@ -102,7 +102,7 @@ export async function createRetainedLibrary74Fixture({
   const service = new LibraryService(shared, { registry: createRegistry(legacyAdapters), now, accepting, autoTimers: false, ...(seed ? { seed } : {}), ...(id ? { id } : {}) });
   // Isolated schema creation is deliberately outside installExistingLibrary74.
   await service.migrate();
-  const facade = installExistingLibrary74({ service, reviewedGameIds, allowNewRounds, activeTtlMs });
+  const facade = installExistingLibrary74({ service, reviewedGameIds, allowNewRounds, activeTtlMs, gameLimits: Object.fromEntries(listGameDefinitions().map(g=>[g.id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])) });
   installCrossActiveGuards(shared, service);
   return {
     db, pglite: db, sql, shared, service, facade, fixtureUserId, addPlayer, legacyNativeDefinitions: nativeDefinitions, verifyNative, readNativeBody,

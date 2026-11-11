@@ -10,8 +10,8 @@ test('latest scope contains 71 independent wager models and one non-wager lobby,
  assert.equal(math.getGameDefinition('ind74_multihot5'),null);assert.equal(math.getGameDefinition('ind74_foxyhot20'),null);
  assert.throws(()=>math.startRound({gameId:definitions.find(d=>d.family==='lobby').id,betMinor:'100'}));
 });
-for(const d of definitions.filter(d=>d.family!=='lobby'))test(d.catalogName+': 1–40000 ETB boundaries, serializable server outcomes and bounded exact payouts',()=>{
- for(const stake of ['100','200','4000000']){
+for(const d of definitions.filter(d=>d.family!=='lobby'))test(d.catalogName+': 1–20 presets and amounts above 40000 ETB, serializable server outcomes and bounded exact payouts',()=>{
+ for(const stake of ['100','200','2000','4000100']){
   let round=math.startRound({gameId:d.id,betMinor:stake,rng:()=>0,now:100000});
   assert.equal(round.betMinor,stake);assert.equal(round.mathVersion,d.mathVersion);
   assert.doesNotThrow(()=>JSON.stringify(round));

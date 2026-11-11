@@ -4,7 +4,7 @@ import * as officialMath from '../math/official72.mjs';
 // operation, its request receipts, model-version dispatch and reserve wallets.
 export const BRIDGE_VERSION = 'library74-v1';
 export const LIBRARY74_MIN_STAKE_MINOR = '100';
-export const LIBRARY74_MAX_STAKE_MINOR = '400000';
+export const LIBRARY74_TEST_PRESETS_MINOR = Array.from({length:20}, (_,i) => String((i+1)*100));
 const MINOR = /^(0|[1-9][0-9]*)$/;
 const ID = /^ind74_official_[a-z0-9_]{1,48}$/;
 const FAMILIES = new Set(['slots', 'crash', 'ladder', 'mines', 'wheel', 'plinko', 'dice']);
@@ -54,43 +54,47 @@ function publishedTable(value) {
     .map(([key, item]) => [key, publishedTable(item)]));
 }
 
-function effectiveLimits(definition) {
+function effectiveLimits(definition, policy) {
   const limits = Object.fromEntries(['minBetMinor', 'maxBetMinor', 'betStepMinor', 'maxWinMinor'].map(key => {
     integerMoney(definition.limits?.[key]); return [key, definition.limits[key]];
   }));
-  const modelMaximum = BigInt(limits.maxBetMinor);
-  if (BigInt(limits.minBetMinor) < BigInt(LIBRARY74_MIN_STAKE_MINOR)) limits.minBetMinor = LIBRARY74_MIN_STAKE_MINOR;
-  if (modelMaximum > BigInt(LIBRARY74_MAX_STAKE_MINOR)) {
-    limits.maxBetMinor = LIBRARY74_MAX_STAKE_MINOR;
-    // Keep the advertised maximum award consistent even if an injected model
-    // still advertises the older, broader stake range.
-    if (!Number.isSafeInteger(definition.maximumMultiplierBps) || definition.maximumMultiplierBps < 0) fail('INVALID_LIBRARY74_DEFINITION', 500);
-    const cappedAward = BigInt(limits.maxBetMinor) * BigInt(definition.maximumMultiplierBps) / 10000n;
-    if (cappedAward < BigInt(limits.maxWinMinor)) limits.maxWinMinor = String(cappedAward);
+  limits.minBetMinor = LIBRARY74_MIN_STAKE_MINOR;
+  limits.testPresetsMinor = [...LIBRARY74_TEST_PRESETS_MINOR];
+  limits.policy = 'server-game-policy-and-retained-account-house-reserve';
+  if (!policy) return {...limits, maxBetMinor:null, maxWinMinor:null};
+  if (!plain(policy)) fail('INVALID_LIBRARY74_BET_POLICY', 500);
+  for (const key of ['maxBetMinor','maxWinMinor']) {
+    integerMoney(policy[key], 'INVALID_LIBRARY74_BET_POLICY');
+    if (BigInt(policy[key]) <= 0n) fail('INVALID_LIBRARY74_BET_POLICY', 500);
+    if (BigInt(policy[key]) < BigInt(limits[key])) limits[key] = policy[key];
   }
-  if (BigInt(limits.minBetMinor) > BigInt(limits.maxBetMinor) || BigInt(limits.betStepMinor) === 0n) fail('INVALID_LIBRARY74_DEFINITION', 500);
+  const possible = BigInt(limits.maxBetMinor) * BigInt(definition.maximumMultiplierBps) / 10000n;
+  if (possible < BigInt(limits.maxWinMinor)) limits.maxWinMinor = possible.toString();
+  if (BigInt(limits.minBetMinor) > BigInt(limits.maxBetMinor) || BigInt(limits.betStepMinor) === 0n) fail('INVALID_LIBRARY74_BET_POLICY', 500);
   return limits;
 }
 
-function acceptedStartStake(definition, value) {
+function acceptedStartStake(definition, value, policy) {
   if (typeof value !== 'string' || value.length > 15 || !MINOR.test(value)) fail('INVALID_BET');
-  const amount = BigInt(value), limits = effectiveLimits(definition);
+  if (!policy) fail('BET_LIMITS_UNVERIFIED', 503);
+  const amount = BigInt(value), limits = effectiveLimits(definition, policy);
   if (amount < BigInt(limits.minBetMinor) || amount > BigInt(limits.maxBetMinor) || amount % BigInt(limits.betStepMinor) !== 0n) fail('INVALID_BET');
+  return limits;
 }
 
-export function publicLibrary74Definition(definition, { accepting = false } = {}) {
+export function publicLibrary74Definition(definition, { accepting = false, policy = null } = {}) {
   if (!definition || !ID.test(definition.id) || !FAMILIES.has(definition.family) || typeof definition.mathVersion !== 'string') fail('INVALID_LIBRARY74_DEFINITION', 500);
   const version = `${BRIDGE_VERSION}:${definition.mathVersion}`;
   if (version.length > 100) fail('INVALID_LIBRARY74_VERSION', 500);
-  const limits = effectiveLimits(definition);
+  const limits = effectiveLimits(definition, policy);
   const view = {
     id: definition.id, title: definition.title, name: definition.catalogName,
     catalogName: definition.catalogName, family: definition.family, sourceCategory: definition.sourceCategory,
     version, mathVersion: definition.mathVersion, currency: 'ETB', limits,
-    minStake: minorToMoney(limits.minBetMinor), maxStake: minorToMoney(limits.maxBetMinor), betStep: minorToMoney(limits.betStepMinor),
+    minStake: minorToMoney(limits.minBetMinor), maxStake: limits.maxBetMinor === null ? null : minorToMoney(limits.maxBetMinor), betStep: minorToMoney(limits.betStepMinor),
     independentModel: true, providerPrivateMathVerified: false, completeReferenceParityVerified: false,
     modelDisclosure: { providerPrivateMathVerified: false, completeReferenceParityVerified: false, outcomeAuthority: 'server-owned round state and bounded integer RNG', clientPayoutAccepted: false, returnIsIndependent: true },
-    launchable: accepting === true, accepting: accepting === true,
+    launchable: accepting === true && policy !== null, accepting: accepting === true && policy !== null,
     controls: { actions: ['crash', 'ladder', 'mines'].includes(definition.family) ? ['reveal', 'collect', ...(definition.family === 'crash' ? ['sync'] : [])] : definition.gamble?.enabled ? ['gamble', 'collect'] : [] },
     expiryPolicy: definition.family === 'crash' ? 'server_terminal_result' : 'collect_earned_award_or_return_unplayed_stake',
   };
@@ -122,7 +126,7 @@ function mathOperation(operation) {
   }
 }
 
-export function createExistingLibrary74Adapter({ math = officialMath, reviewedGameIds = [], allowNewRounds = false, activeTtlMs = 15 * 60 * 1000 } = {}) {
+export function createExistingLibrary74Adapter({ math = officialMath, reviewedGameIds = [], allowNewRounds = false, gameLimits = {}, activeTtlMs = 15 * 60 * 1000 } = {}) {
   if (['listGameDefinitions', 'getGameDefinition', 'startRound', 'advanceRound', 'collectRound', 'publicRound', 'reconcileRound', 'maximumPayoutMinor'].some(key => typeof math[key] !== 'function')) throw new TypeError('The complete official72 server math contract is required.');
   if (!Number.isSafeInteger(activeTtlMs) || activeTtlMs < 1000 || activeTtlMs > 86400000) throw new TypeError('Use a reviewed active-round timeout from one second through one day.');
   if (typeof allowNewRounds !== 'boolean' && typeof allowNewRounds !== 'function') throw new TypeError('New-round readiness must be a boolean or a function.');
@@ -133,7 +137,9 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
   if (originals.size !== source.length) throw new TypeError('Duplicate official catalogue game IDs.');
   if (!Array.isArray(reviewedGameIds) || new Set(reviewedGameIds).size !== reviewedGameIds.length || reviewedGameIds.some(id => !originals.has(id))) throw new TypeError('Reviewed game IDs must be distinct members of this adapter.');
   const reviewed = new Set(reviewedGameIds);
-  const enabled = id => reviewed.has(id) && (typeof allowNewRounds === 'function' ? allowNewRounds(id) === true : allowNewRounds === true);
+  if (!plain(gameLimits) && typeof gameLimits !== 'function') throw new TypeError('Server game limits must be an ID map or a server resolver.');
+  const policyFor = id => typeof gameLimits === 'function' ? gameLimits(id) : gameLimits[id];
+  const enabled = id => Boolean(policyFor(id)) && reviewed.has(id) && (typeof allowNewRounds === 'function' ? allowNewRounds(id) === true : allowNewRounds === true);
   const definition = id => { const result = originals.get(id); if (!result) fail('GAME_MODEL_UNAVAILABLE', 409); return result; };
   const checked = state => {
     if (!plain(state) || state.bridgeVersion !== BRIDGE_VERSION || !plain(state.mathState)) fail('INVALID_LIBRARY74_STATE', 500);
@@ -199,7 +205,7 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
     return result(d, round, { previous: state, maximum: state.maximumPayoutMinor, debit: '0', now, reason });
   }
   const adapter = {
-    get definitions() { return Object.fromEntries([...originals].map(([id, d]) => [id, publicLibrary74Definition(d, { accepting: enabled(id) })])); },
+    get definitions() { return Object.fromEntries([...originals].map(([id, d]) => [id, publicLibrary74Definition(d, { accepting: enabled(id), policy: policyFor(id) })])); },
     has: id => originals.has(id),
     start(gameId, options, random, at) {
       const d = definition(gameId), now = clock(at);
@@ -209,9 +215,10 @@ export function createExistingLibrary74Adapter({ math = officialMath, reviewedGa
       // This admission boundary is independent of the retained financial
       // service or injected math module's potentially broader stake allowance.
       // Accepted-round actions and recovery do not apply this new-stake gate.
-      acceptedStartStake(d, stakeMinor);
+      const limits = acceptedStartStake(d, stakeMinor, policyFor(gameId));
       const maximum = mathOperation(() => math.maximumPayoutMinor({ gameId, betMinor: stakeMinor, options: gameOptions }));
       integerMoney(maximum);
+      if (BigInt(maximum) > BigInt(limits.maxWinMinor)) fail('PAYOUT_LIMIT_EXCEEDED', 422);
       const round = mathOperation(() => math.startRound({ gameId, betMinor: stakeMinor, options: gameOptions, rng: integerRngFromLibrary(random), now }));
       if (round.status === 'active' && d.family === 'mines' && BigInt(maximum) < BigInt(stakeMinor)) fail('UNPLAYED_REFUND_NOT_RESERVED', 500);
       return result(d, round, { maximum, debit: stakeMinor, now });

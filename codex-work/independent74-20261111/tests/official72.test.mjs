@@ -9,8 +9,8 @@ test('fresh official selection has 74 publisher demo URLs, two protected titles 
  for(const e of scope.entries){const url=new URL(e.demoUrl);assert.equal(url.protocol,'https:');assert.equal(url.hostname,'eu-server.ssgportal.com');assert.equal(url.searchParams.get('GameName')!==null,true);}
  assert.equal(math.getGameDefinition('ind74_official_multihot5'),null);assert.equal(math.getGameDefinition('ind74_official_foxyhot20'),null);
 });
-for(const d of defs)test(d.catalogName+' official collection: 1, 2 and 4000 ETB limits, settlement and privacy',()=>{
- for(const betMinor of ['100','200','400000']){
+for(const d of defs)test(d.catalogName+' official collection: 1–20 presets and arithmetic above 40000 ETB, settlement and privacy',()=>{
+ for(const betMinor of ['100','200','2000','4000100']){
   let r=math.startRound({gameId:d.id,betMinor,rng:()=>0,now:100000});
   if(r.status==='active'&&d.family==='mines')r=math.advanceRound(r,{cell:d.cells-1},100000);
   if(r.status==='active')r=math.collectRound(r,{},101000);

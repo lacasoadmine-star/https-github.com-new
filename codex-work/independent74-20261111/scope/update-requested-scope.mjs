@@ -88,7 +88,7 @@ const entries = names.map((name, i) => {
     providerEquivalenceVerified: false,
     productionWalletVerified: false,
     deployed: false,
-    requestedBetLimits: protectedEntry ? null : { currency: 'ETB', minMinor: '100', maxMinor: '4000000' },
+    requestedBetLimits: protectedEntry ? null : { currency: 'ETB', minMinor: '100', maxMinor: null, testPresetsMinor: Array.from({length:20}, (_,i)=>String((i+1)*100)), policy: 'server-game-policy-and-retained-account-house-reserve' },
     requestedLimitsImplementedAndTested: false
   };
 });

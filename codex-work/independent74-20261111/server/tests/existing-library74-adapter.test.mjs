@@ -8,7 +8,7 @@ import { createExistingLibrary74Adapter, composeExistingLibrary74Registry, publi
 const definitions = math.listGameDefinitions();
 const ids = definitions.map(game => game.id);
 const definition = family => definitions.find(game => game.family === family && (family !== 'crash' || game.crashMechanic !== 'cascade'));
-const openAdapter = options => createExistingLibrary74Adapter({ reviewedGameIds: ids, allowNewRounds: true, ...options });
+const openAdapter = options => createExistingLibrary74Adapter({ reviewedGameIds: ids, allowNewRounds: true, gameLimits: Object.fromEntries(ids.map(id=>[id,{maxBetMinor:'5000000',maxWinMinor:'999999999999999'}])), ...options });
 const startedAt = 1794355200000;
 const zero = () => 0;
 
@@ -49,47 +49,33 @@ test('new rounds need both explicit model review and an enabled release gate', (
   assert.throws(() => createExistingLibrary74Adapter({ reviewedGameIds: ['multihot5_native'] }), /Reviewed game IDs/);
 });
 
-test('every new model accepts 1 and 4000 ETB and rejects stakes outside the server range', () => {
-  const adapter = openAdapter(), published = adapter.definitions;
-  for (const game of definitions) {
-    assert.equal(published[game.id].minStake, '1.00', game.id);
-    assert.equal(published[game.id].maxStake, '4000.00', game.id);
-    assert.equal(published[game.id].limits.minBetMinor, '100', game.id);
-    assert.equal(published[game.id].limits.maxBetMinor, '400000', game.id);
-    for (const stakeMinor of ['100', '400000']) {
-      const result = adapter.start(game.id, { stakeMinor }, zero, startedAt);
-      assert.equal(result.debitMinor, stakeMinor, game.id);
-      assert.equal(result.maxPayoutMinor, math.maximumPayoutMinor({ gameId: game.id, betMinor: stakeMinor }), game.id);
+test('all 72 adapters accept configured stakes above 40,000 ETB, preserve test presets and reject unconfigured exposure', () => {
+  const adapter=openAdapter(), published=adapter.definitions;
+  for(const game of definitions){
+    assert.equal(published[game.id].maxStake,'50000.00');
+    assert.deepEqual(published[game.id].limits.testPresetsMinor,Array.from({length:20},(_,i)=>String((i+1)*100)));
+    for(const stakeMinor of ['100','2000','4000100','5000000']){
+      const result=adapter.start(game.id,{stakeMinor},zero,startedAt);
+      assert.equal(result.debitMinor,stakeMinor);
+      assert.equal(result.maxPayoutMinor,math.maximumPayoutMinor({gameId:game.id,betMinor:stakeMinor}));
     }
-    for (const stakeMinor of ['0', '99', '400001', '400100', '4000000']) {
-      let draws = 0;
-      assert.throws(() => adapter.start(game.id, { stakeMinor }, () => { draws++; return 0; }, startedAt), error => error.message === 'INVALID_BET' && error.status === 422, game.id);
-      assert.equal(draws, 0, game.id);
+    for(const stakeMinor of ['0','99','101','5000001','5000100']){
+      let draws=0;
+      assert.throws(()=>adapter.start(game.id,{stakeMinor},()=>{draws++;return 0;},startedAt),/INVALID_BET/);
+      assert.equal(draws,0);
     }
   }
 });
-
-test('the adapter enforces 4000 ETB even when an injected model advertises a broader stake range', () => {
-  const broader = definitions.map(game => ({ ...structuredClone(game), limits: {
-    ...game.limits, minBetMinor: '1', maxBetMinor: '4000000',
-    maxWinMinor: String(4000000n * BigInt(game.maximumMultiplierBps) / 10000n),
-  } }));
-  let engineCalls = 0;
-  const broadMath = {
-    ...math,
-    listGameDefinitions: () => structuredClone(broader),
-    getGameDefinition: id => structuredClone(broader.find(game => game.id === id)),
-    maximumPayoutMinor: args => { engineCalls++; return math.maximumPayoutMinor(args); },
-    startRound: args => { engineCalls++; return math.startRound(args); },
-  };
-  const adapter = openAdapter({ math: broadMath }), game = definition('slots');
-  const published = adapter.definitions[game.id];
-  assert.equal(published.minStake, '1.00'); assert.equal(published.maxStake, '4000.00');
-  assert.equal(published.limits.maxWinMinor, String(400000n * BigInt(game.maximumMultiplierBps) / 10000n));
-  for (const stakeMinor of ['99', '400001', '400100', '4000000']) assert.throws(() => adapter.start(game.id, { stakeMinor }, zero, startedAt), error => error.message === 'INVALID_BET' && error.status === 422);
-  assert.equal(engineCalls, 0, 'Out-of-range stakes must not reach the engine or its outcome RNG.');
-  assert.equal(adapter.start(game.id, { stakeMinor: '400000' }, zero, startedAt).debitMinor, '400000');
-  assert.equal(engineCalls, 2);
+test('policy must be supplied by the server and maximum liability is checked before RNG',()=>{
+  const game=definition('slots');
+  const disabled=createExistingLibrary74Adapter({reviewedGameIds:ids,allowNewRounds:true});
+  assert.equal(disabled.definitions[game.id].maxStake,null);
+  assert.equal(disabled.definitions[game.id].accepting,false);
+  assert.throws(()=>disabled.start(game.id,{stakeMinor:'100'},zero,startedAt),/INDEPENDENT74_NEW_ROUNDS_DISABLED/);
+  const narrow=openAdapter({gameLimits:{[game.id]:{maxBetMinor:'5000000',maxWinMinor:'100'}}});
+  let draws=0;
+  assert.throws(()=>narrow.start(game.id,{stakeMinor:'4000100'},()=>{draws++;return 0;},startedAt),/PAYOUT_LIMIT_EXCEEDED/);
+  assert.equal(draws,0);
 });
 
 test('bounded RNG conversion rejects the biased tail and rejects invalid entropy', () => {

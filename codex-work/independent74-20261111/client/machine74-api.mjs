@@ -8,8 +8,9 @@ const OBJECT = value => value !== null && typeof value === 'object' && !Array.is
 export class AccountError extends Error {
   constructor(code, message, {status=0, ambiguous=false}={}) {super(message);this.name='AccountError';this.code=code;this.status=status;this.ambiguous=ambiguous;}
 }
-export function validateSnapshot(value, gameId) {
-  if (!OBJECT(value) || value.authenticated !== true || value.currency !== 'ETB' || typeof value.balance!=='string' || !MONEY.test(value.balance) ||
+export function validateSnapshot(value, gameId, {mode='account'}={}) {
+  if (!['account','demo'].includes(mode)) throw new TypeError('An explicit account or demo mode is required.');
+  if (!OBJECT(value) || value.authenticated !== true || value.currency !== (mode==='demo'?'DEMO':'ETB') || (mode==='demo'?value.mode!=='demo':value.mode==='demo') || typeof value.balance!=='string' || !MONEY.test(value.balance) ||
       !OBJECT(value.game) || value.game.id !== gameId || typeof value.game.version !== 'string' || !value.game.version ||
       typeof value.sessionGuard !== 'string' || !/^[a-f0-9]{64}$/.test(value.sessionGuard) || typeof value.accepting !== 'boolean') {
     throw new AccountError('INVALID_ACCOUNT_RESPONSE','Jawaabta server-ka lama xaqiijin.');
@@ -28,10 +29,12 @@ export function validateSnapshot(value, gameId) {
 }
 
 export class MachineAccountClient {
-  constructor({fetchImpl=globalThis.fetch,storage=globalThis.sessionStorage,base='/independent74/account-api',newId=()=>crypto.randomUUID(),timeoutMs=15000}={}) {
-    this.fetchImpl=fetchImpl;this.storage=storage;this.base=base;this.newId=newId;this.timeoutMs=timeoutMs;
+  constructor({fetchImpl=(...args)=>globalThis.fetch(...args),storage=globalThis.sessionStorage,base,mode='account',newId=()=>crypto.randomUUID(),timeoutMs=15000}={}) {
+    if(!['account','demo'].includes(mode))throw new TypeError('An explicit account or demo mode is required.');
+    Object.defineProperties(this,{mode:{value:mode,enumerable:true},currency:{value:mode==='demo'?'DEMO':'ETB',enumerable:true},base:{value:base??(mode==='demo'?'/independent74/demo-api':'/independent74/account-api'),enumerable:true}});
+    this.fetchImpl=fetchImpl;this.storage=storage;this.newId=newId;this.timeoutMs=timeoutMs;
     this.snapshot=null;this.gameId=null;this.pending=null;this.busy=false;this.sequence=0;
-    this.storageKey='zplay.independent74.pending.v1';
+    this.storageKey=mode==='demo'?'zplay.independent74.demo.pending.v1':'zplay.independent74.pending.v1';
   }
   async request(path,{method='GET',body,guard,signal}={}) {
     const controller=new AbortController();
@@ -40,7 +43,7 @@ export class MachineAccountClient {
     const timer=setTimeout(abort,this.timeoutMs);
     try {
       const response=await this.fetchImpl(this.base+path,{method,credentials:'same-origin',cache:'no-store',redirect:'error',signal:controller.signal,
-        headers:{accept:'application/json',...(body?{'content-type':'application/json','x-independent74-session':guard}:{})},
+        headers:{accept:'application/json',...(body?{'content-type':'application/json',[this.mode==='demo'?'x-demo-session-guard':'x-independent74-session']:guard}:{})},
         ...(body?{body:JSON.stringify(body)}:{})});
       const text=await response.text();
       if(text.length>1024*1024)throw new Error('RESPONSE_TOO_LARGE');
@@ -62,14 +65,14 @@ export class MachineAccountClient {
   }
   restore(guard){
     let stored;try{stored=JSON.parse(this.storage?.getItem(this.storageKey)||'null');}catch{}
-    if(stored?.guard===guard&&OBJECT(stored.body)&&UUID.test(stored.body.request_id)&&ID.test(stored.body.game_id)&&['start','action'].includes(stored.body.type))this.pending=stored;
+    if(stored?.guard===guard&&(this.mode==='demo'?stored.mode==='demo':stored.mode!=='demo')&&OBJECT(stored.body)&&UUID.test(stored.body.request_id)&&ID.test(stored.body.game_id)&&['start','action'].includes(stored.body.type))this.pending=stored;
     else{this.pending=null;this.remember();}
   }
   async state(gameId,{signal}={}){
     if(this.busy)throw new AccountError('ACTION_IN_PROGRESS','Sug xaqiijinta codsiga socda.');
     if(!ID.test(gameId))throw new AccountError('UNKNOWN_GAME','Aqoonsiga ciyaarta lama aqoon.');
     const sequence=++this.sequence;
-    const next=validateSnapshot(await this.request('/state?game_id='+encodeURIComponent(gameId),{signal}),gameId);
+    const next=validateSnapshot(await this.request('/state?game_id='+encodeURIComponent(gameId),{signal}),gameId,{mode:this.mode});
     if(sequence!==this.sequence)throw new AccountError('STALE_RESPONSE','Codsigii hore waa la dhaafay.');
     if(this.snapshot?.sessionGuard!==next.sessionGuard){this.pending=null;this.restore(next.sessionGuard);}
     else if(!this.pending)this.restore(next.sessionGuard);
@@ -78,7 +81,7 @@ export class MachineAccountClient {
   async history(gameId){
     if(!ID.test(gameId))throw new AccountError('UNKNOWN_GAME','Aqoonsiga ciyaarta lama aqoon.');
     const value=await this.request('/history?game_id='+encodeURIComponent(gameId));
-    if(!OBJECT(value)||value.authenticated!==true||value.currency!=='ETB'||value.game_id!==gameId||!Array.isArray(value.history)||value.history.length>100)throw new AccountError('INVALID_HISTORY','Taariikhda lama xaqiijin.');
+    if(!OBJECT(value)||value.authenticated!==true||value.currency!==this.currency||(this.mode==='demo'?value.mode!=='demo':value.mode==='demo')||value.game_id!==gameId||!Array.isArray(value.history)||value.history.length>100)throw new AccountError('INVALID_HISTORY','Taariikhda lama xaqiijin.');
     return value.history;
   }
   async submit(body){
@@ -87,10 +90,10 @@ export class MachineAccountClient {
     this.busy=true;
     ++this.sequence;
     const guard=this.snapshot.sessionGuard;
-    this.pending={guard,body:structuredClone(body)};this.remember();
+    this.pending={mode:this.mode,guard,body:structuredClone(body)};this.remember();
     try{
       let next;
-      try{next=validateSnapshot(await this.request('/action',{method:'POST',body,guard}),body.game_id);}
+      try{next=validateSnapshot(await this.request('/action',{method:'POST',body,guard}),body.game_id,{mode:this.mode});}
       catch(error){if(error instanceof AccountError&&['INVALID_ACCOUNT_RESPONSE','INVALID_ROUND_RESPONSE'].includes(error.code))error.ambiguous=true;throw error;}
       if(next.sessionGuard!==guard)throw new AccountError('SESSION_CHANGED','Fadhiga akoonka wuu isbeddelay; hubi wareeggii hore.',{ambiguous:true});
       this.snapshot=next;this.pending=null;this.remember();return next;
@@ -101,9 +104,11 @@ export class MachineAccountClient {
   }
   async start(stake,options={}){
     if(this.pending)throw new AccountError('PENDING_ACTION','Marka hore xaqiiji codsigii hore.');
-    if(!MONEY.test(stake))throw new AccountError('INVALID_STAKE','Geli sharad dhan 1 ilaa 4,000 ETB.');
+    if(!MONEY.test(stake))throw new AccountError('INVALID_STAKE','Geli sharad waafaqsan xadka akoonka iyo ciyaarta.');
     const minor=BigInt(stake.replace('.',''));
-    if(minor<100n||minor>400000n||minor%100n!==0n)throw new AccountError('INVALID_STAKE','Geli sharad dhan 1 ilaa 4,000 ETB.');
+    const limits=this.snapshot?.game?.limits;
+    if(!limits||!(/^[1-9][0-9]*$/.test(limits.maxBetMinor??'')))throw new AccountError('BET_LIMITS_UNVERIFIED','Xadka sharadka server-ku weli ma xaqiijin.');
+    if(minor<BigInt(limits.minBetMinor)||minor>BigInt(limits.maxBetMinor)||minor%BigInt(limits.betStepMinor)!==0n)throw new AccountError('INVALID_STAKE','Geli sharad waafaqsan xadka akoonka iyo ciyaarta.');
     if(!this.snapshot?.accepting||this.snapshot.round?.status==='active'||this.snapshot.other_active_game)throw new AccountError('NEW_ROUND_UNAVAILABLE','Wareeg cusub hadda lama bilaabi karo.');
     return this.submit({request_id:this.newId(),type:'start',game_id:this.gameId,model_version:this.snapshot.game.version,stake,options});
   }

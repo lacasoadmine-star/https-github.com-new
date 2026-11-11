@@ -31,8 +31,8 @@ test('72-machine transport uses retained signature verifier, session gate and le
 test('action boundary rejects client money/identity/outcome injection and validates X2 inputs',()=>{
   const id='ind74_official_multihot100',ids=new Set([id]),base={request_id:randomUUID(),game_id:id,model_version:'library74-v1:official72-r3',type:'start',stake:'1.00',options:{holdWin:true}};
   assert.equal(validateNativeAction(base,ids),base);
-  assert.equal(validateNativeAction({...base,stake:'4000.00'},ids).stake,'4000.00');
-  for(const stake of ['0.99','4000.01','4001.00','40000.00'])assert.throws(()=>validateNativeAction({...base,stake},ids),/whole-ETB stake from 1 through 4000/);
+  for(const stake of ['1.00','20.00','4001.00','40000.00','50000.00','99999999999.00'])assert.equal(validateNativeAction({...base,stake},ids).stake,stake);
+  for(const stake of ['0.99','4000.01','0.00','01.00','100000000000.00','1e6','1','NaN'])assert.throws(()=>validateNativeAction({...base,stake},ids));
   for(const changed of [{user_id:'attacker'},{payoutMinor:'900000'},{balance:'999.00'},{seed:'chosen'},{stake:'1.01'},{options:{holdWin:'true'}},{options:{ballMultiplier:10}},{game_id:'ind74_official_multihot5'}])assert.throws(()=>validateNativeAction({...base,...changed},ids));
   const action={request_id:randomUUID(),game_id:id,model_version:base.model_version,type:'action',round_id:randomUUID(),expected_version:1,action:'gamble',input:{color:'red'}};
   assert.equal(validateNativeAction(action,ids),action);

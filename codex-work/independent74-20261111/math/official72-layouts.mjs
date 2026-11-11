@@ -4,6 +4,10 @@ const publishedReelLayout=(rows,columns,source,paylines)=>Object.freeze({rows,co
   evidence:`The official public page specifies ${columns} reels and ${rows} rows${paylines?` with ${paylines} fixed paylines`:''}.`,
   limitations:Object.freeze(['The complete provider payline chart, symbol probabilities, bonus mechanics, artwork and certified RTP remain unverified.'])});
 export const OBSERVED_LAYOUTS = Object.freeze({
+  ind74_official_dicejungle:Object.freeze({rows:3,columns:5,
+    source:'https://www.smartsoftgaming.com/games/dice-jungle',
+    evidence:'The official public page describes a 5x3 dice grid and a synchronized horizontal multiplier reel above it, with awards boosted by up to 5x.',
+    limitations:Object.freeze(['The complete provider hold-and-spin rules, paytable, multiplier labels and probabilities remain unverified.'])}),
   ind74_official_popx:Object.freeze({rows:5,columns:6,
     source:'https://www.smartsoftgaming.com/games/popx',
     evidence:'The official public page specifies a 6-by-5 grid, eleven symbols, and matches of eight or more identical symbols anywhere. The official screenshot confirms six columns and five rows.',
@@ -39,14 +43,14 @@ export const OBSERVED_LAYOUTS = Object.freeze({
     observedMultiplierValues: Object.freeze([1,2,3,4,5]), completeMultiplierLabelsVerified: true,
     source: 'https://www.smartsoftgaming.com/games/multi-hot-5-wild',
     evidence: 'The official public page specifies a 3-by-3 grid, five fixed paylines, wild substitution, three matching symbols and a left-side 1x–5x multiplier reel.',
-    limitations: Object.freeze(['The observed own wild prize plus 5x permits a 500x independent bound, while help advertises 375x; provider award restrictions are unverified.', 'The provider payline chart and probabilities are unverified. X2 is not yet implemented for this title.']),
+    limitations: Object.freeze(['The observed own wild prize plus 5x permits a 500x independent base bound, while help advertises 375x; provider award restrictions are unverified.', 'The provider payline chart and probabilities are unverified. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit.']),
   }),
   ind74_official_multihot5burnwilds: Object.freeze({
     rows: 3, columns: 5, paylines:5,multiplierPlacement: 'independent-display',
     observedMultiplierValues: Object.freeze([1,2,3,4,5]), completeMultiplierLabelsVerified: true,
     source: 'https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds',
     evidence: 'The official public page specifies three rows, five reels and five paylines. Wilds appear on reels 2–4, substitute in left-to-right wins, and expand vertically when used by a winning combination. The total win receives a 1x–5x multiplier.',
-    limitations: Object.freeze(['Full provider paytable, probabilities and repeated expansion order remain unverified.', 'The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 is not yet implemented for this title.']),
+    limitations: Object.freeze(['Full provider paytable, probabilities and repeated expansion order remain unverified.', 'The independent model expands the wild columns used by initial winning lines, then evaluates again. X2 uses independently fair colors, a pre-spin hold control and an independent three-attempt limit.']),
   }),
   ind74_official_plinkoxclassic: Object.freeze({
     rows: 16, buckets: 17,

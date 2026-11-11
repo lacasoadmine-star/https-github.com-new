@@ -1,8 +1,8 @@
 {
   "format": "existing-library74-backend-installation-v1",
   "artifact": "existing-library74-installer.mjs",
-  "bytes": 484752,
-  "sha256": "ea440b50d971306b6e3f886cbc32ce1c01c233e63503a16652040a649c9b05c9",
+  "bytes": 522194,
+  "sha256": "ece4e4ff8f3fc640f16c1fa3dca466f41a29261b67b1ca9418ccd229123e52b0",
   "buildTool": "esbuild@0.25.12",
   "moduleFormat": "ESM",
   "runtimeImports": [
@@ -13,9 +13,32 @@
   "stakeRange": {
     "currency": "ETB",
     "minimum": "1.00",
-    "maximum": "4000.00",
+    "maximum": null,
     "minMinor": "100",
-    "maxMinor": "400000"
+    "maxMinor": null,
+    "policy": "server-game-policy-and-retained-account-house-reserve",
+    "testPresetsMinor": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900",
+      "1000",
+      "1100",
+      "1200",
+      "1300",
+      "1400",
+      "1500",
+      "1600",
+      "1700",
+      "1800",
+      "1900",
+      "2000"
+    ]
   },
   "containsFinancialServiceImplementation": false,
   "createsDatabase": false,
@@ -96,7 +119,7 @@
     },
     {
       "id": "ind74_official_multihot5wild",
-      "version": "library74-v1:official72-multihot5wild-r4",
+      "version": "library74-v1:official72-multihot5wild-r5",
       "family": "slots"
     },
     {
@@ -151,7 +174,7 @@
     },
     {
       "id": "ind74_official_multihot5burnwilds",
-      "version": "library74-v1:official72-multihot5burnwilds-r3",
+      "version": "library74-v1:official72-multihot5burnwilds-r4",
       "family": "slots"
     },
     {
@@ -392,7 +415,7 @@
   ],
   "smoke": {
     "import": "data-url",
-    "node": "24.22.1",
+    "node": "24.19.0",
     "all72Definitions": true,
     "startsDisabledByDefault": true,
     "stakeRangeVerified": true
@@ -440,8 +463,8 @@
     },
     {
       "path": "math/fresh-plinkoxclassic.mjs",
-      "bytes": 2168,
-      "sha256": "85f082d731af2ab83352bcdab137f87661ea93a718de6661f49a397e4d0f8cc8"
+      "bytes": 2385,
+      "sha256": "2772bcf5095a7810ba6b6b67099cd3328b08859f9dbc1012f52714b5e75e1c3d"
     },
     {
       "path": "math/games/balloon.mjs",
@@ -825,8 +848,8 @@
     },
     {
       "path": "math/official72-layouts.mjs",
-      "bytes": 9340,
-      "sha256": "756cf118032cd0e124839a366c2e27de31fc157e1ee78431f6def5dea29f4b8e"
+      "bytes": 9886,
+      "sha256": "59819188bfd9dea926295a68bc192b4f7f346d46007eaa277ec82fe24358ff2d"
     },
     {
       "path": "math/official72-mechanics.mjs",
@@ -835,8 +858,8 @@
     },
     {
       "path": "math/official72.mjs",
-      "bytes": 26758,
-      "sha256": "17f55eaa2642e0b747696078951c11955c978207fcae0b11a3796b4a29daabb4"
+      "bytes": 27537,
+      "sha256": "474c1a387d3207de49ee1293644d369b6d71523bf4a9cd11409d2c4f20936a99"
     },
     {
       "path": "math/popx.mjs",
@@ -844,9 +867,14 @@
       "sha256": "a14cbaec3baac143a66365fa38e8ce5a15573da1f8338c931fd4f5cfd53ba879"
     },
     {
+      "path": "math/public-gamble.mjs",
+      "bytes": 2193,
+      "sha256": "923019b294904bed1649a622739316df227be3921ac23fc0c37ddcf71e28eb14"
+    },
+    {
       "path": "math/requested72.mjs",
-      "bytes": 14143,
-      "sha256": "90593a543a6a2003e56d0190c14b7f76e695a3a87864d0ce6b04daf588c73a3f"
+      "bytes": 14478,
+      "sha256": "271f923586104c73ebb10c4093c4b78fae9334d2ba4b91be9c8c87a27dc7b923"
     },
     {
       "path": "scope/official74.json",
@@ -855,13 +883,13 @@
     },
     {
       "path": "scope/requested74.json",
-      "bytes": 52217,
-      "sha256": "02b937027ff3bbd30fbd4c7b2914fb2dd5b9143e09c4f8ba91a195f3ed4ab29c"
+      "bytes": 85409,
+      "sha256": "12d37c7047d20a234484e0de572cdabf2a5b039b7c1874334c2c4671bf115070"
     },
     {
       "path": "server/existing-library74-adapter.mjs",
-      "bytes": 20981,
-      "sha256": "480ebb83636009e339c470f74b843ce92246a96be4d91d8e3e410fa09bd7a5dc"
+      "bytes": 21675,
+      "sha256": "37f7a8afcecca926e5f6ac8dc0da730e589e0d98d480317e563c6889cf3276eb"
     },
     {
       "path": "server/existing-library74-http.mjs",
@@ -870,8 +898,8 @@
     },
     {
       "path": "server/existing-library74-install.mjs",
-      "bytes": 575,
-      "sha256": "1a4e607f5399a36b32534ca14e05e3e6d1122d7afe11b271b93d189bd84153f2"
+      "bytes": 578,
+      "sha256": "af379384ed1814c2170fe0b1720c141a6eca550dae6d51c070aaca5fdd692a23"
     },
     {
       "path": "server/existing-library74-service.mjs",

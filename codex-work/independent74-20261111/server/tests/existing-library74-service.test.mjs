@@ -43,7 +43,7 @@ test('official72 uses the retained SQL financial classes in an isolated PostgreS
     return facade.action(user, actBody(snapshot.round, 'reveal', { cell }));
   };
   let forcedRoundSerial = 0;
-  const startHeldWin = async user => {
+  const startHeldWin = async (user, stake = '1.00') => {
     const game = games.find(game => game.id === 'ind74_official_multihot100');
     const roundId = '90000000-0000-4000-8000-' + String(++forcedRoundSerial).padStart(12, '0');
     let selectedSeed;
@@ -51,13 +51,13 @@ test('official72 uses the retained SQL financial classes in an isolated PostgreS
     // No production account, request or seed is read or selected here.
     for (let attempt = 0; attempt < 4096; attempt++) {
       const candidate = createHash('sha256').update('held-slot-fixture:' + attempt).digest('hex');
-      const result = facade.adapter.start(game.id, { stakeMinor: '100', holdWin: true }, seededRandom(candidate, roundId + ':0'), now);
-      if (result.state.status === 'active') { selectedSeed = candidate; break; }
+      const result = facade.adapter.start(game.id, { stakeMinor: String(moneyMinor(stake)), holdWin: true }, seededRandom(candidate, roundId + ':0'), now);
+      if (result.state.status === 'active' && (stake === '1.00' || BigInt(result.state.mathState.pendingWinMinor) > 4000000n)) { selectedSeed = candidate; break; }
     }
     assert.ok(selectedSeed, 'The isolated entropy search should reach a held win.');
     const originalId = service.id, originalSeed = service.seed;
     service.id = () => roundId; service.seed = () => selectedSeed;
-    try { return await facade.action(user, bodyFor(game, { options: { holdWin: true } })); }
+    try { return await facade.action(user, bodyFor(game, { stake, options: { holdWin: true } })); }
     finally { service.id = originalId; service.seed = originalSeed; }
   };
   const nextGambleColor = stored => ['red', 'black'][integerRngFromLibrary(seededRandom(stored.secret_seed, stored.id + ':' + (Number(stored.version) + 1)))(2)];
@@ -233,21 +233,21 @@ test('official72 uses the retained SQL financial classes in an isolated PostgreS
       } finally { await sql.unsafe('UPDATE sw_rebuild.wallets SET balance=$1 WHERE id=$2', [String(house), 'house']); }
     });
 
-    await t.test('the retained wallet path accepts exactly 1–4000 ETB and rejects broader native amounts atomically', async () => {
+    await t.test('the retained wallet path accepts configured amounts above 40000 ETB and rejects excess atomically', async () => {
       const user = await fixture.addPlayer(), game = gameFor('slots');
       const original = await footprint();
-      for (const stake of ['0.99', '4000.01', '4001.00', '40000.00']) {
+      for (const stake of ['0.99', '50000.01', '50001.00']) {
         await assert.rejects(facade.action(user, bodyFor(game, { stake })), rejected('INVALID_BET'));
         assert.equal(await footprint(), original);
       }
-      for (const stake of ['1.00', '4000.00']) {
+      for (const stake of ['1.00', '40001.00']) {
         now += 1;
         const before = await wallet(user), total = await allMoney(), request = bodyFor(game, { stake });
         const result = await facade.action(user, request);
         const amount = moneyMinor(stake), award = BigInt(result.round.payoutMinor);
         assert.equal(result.round.stakeMinor, String(amount));
-        assert.equal(result.game.minStake, '1.00'); assert.equal(result.game.maxStake, '4000.00');
-        assert.equal(result.game.limits.maxBetMinor, '400000');
+        assert.equal(result.game.minStake, '1.00'); assert.equal(result.game.maxStake, '50000.00');
+        assert.equal(result.game.limits.maxBetMinor, '5000000');
         assert.equal(await wallet(user), before - amount + award); assert.equal(await allMoney(), total);
         const row = await rowFor(result.round.round_id);
         assert.equal(String(row.total_stake), String(amount)); assert.equal(await wallet(row.reserve_wallet), 0n);
@@ -255,6 +255,22 @@ test('official72 uses the retained SQL financial classes in an isolated PostgreS
         await assert.rejects(facade.action(user, { ...request, stake: '4000.01' }), rejected('REQUEST_ID_CONFLICT'));
       }
       assert.equal((await sql.unsafe("SELECT id FROM sw_rebuild.transfers WHERE actor=$1 AND kind='casino_bet'", [user])).length, 2);
+    });
+
+    await t.test('funded held award above 40000 ETB settles exactly once with integer ledger conservation', async () => {
+      const user = await fixture.addPlayer(), before = await wallet(user), total = await allMoney();
+      const started = await startHeldWin(user, '40001.00');
+      const row = await rowFor(started.round.round_id);
+      assert(BigInt(started.round.pendingWinMinor) > 4000000n);
+      assert.equal(await wallet(row.reserve_wallet), BigInt(row.liability));
+      const request = actBody(started.round, 'collect');
+      const result = await facade.action(user, request), award = BigInt(result.round.payoutMinor);
+      assert(award > 4000000n);
+      assert.equal(await wallet(user), before - 4000100n + award);
+      assert.equal(await allMoney(), total); assert.equal(await wallet(row.reserve_wallet), 0n);
+      assert.equal((await facade.action(user, request)).replayed, true);
+      assert.equal(await wallet(user), before - 4000100n + award);
+      assert.equal((await sql.unsafe("SELECT id FROM sw_rebuild.transfers WHERE actor=$1 AND kind='casino_win'", [user])).length, 1);
     });
 
     await t.test('a database failure after reserve moves rolls back; the same request may safely retry', async () => {

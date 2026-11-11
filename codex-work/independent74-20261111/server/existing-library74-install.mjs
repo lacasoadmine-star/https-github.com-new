@@ -5,7 +5,7 @@ export { installExistingLibrary74 } from './existing-library74-service.mjs';
 export {
   BRIDGE_VERSION,
   LIBRARY74_MIN_STAKE_MINOR,
-  LIBRARY74_MAX_STAKE_MINOR,
+  LIBRARY74_TEST_PRESETS_MINOR,
   createExistingLibrary74Adapter,
   composeExistingLibrary74Registry,
   publicLibrary74Definition,

@@ -16,6 +16,7 @@ import {startThreeReelSlot, startPublicWildSlot, holdSlotWin, gambleSlotWin, col
   validateHeldSlot, publicHeldSlot} from './official72-mechanics.mjs';
 import {configurePopxCascade,startPopxCascade,syncPopxCascade,collectPopxCascade,
   publicPopxCascade,validatePopxCascade} from './popx.mjs';
+import {configurePublicColorGamble} from './public-gamble.mjs';
 
 const norm = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
 const models = originalModels();
@@ -55,7 +56,7 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
   d.officialReference = {publisher: 'SmartSoft Gaming', page: entry.officialUrl, demo: entry.demoUrl,
     catalogVerifiedOn: scope.fetchedOn, fullGameplayVerified: false};
   d.implementationStatus = 'independent-model; full-reference-parity-and-production-ledger-unverified';
-  d.limits = {minBetMinor: '100', maxBetMinor: '400000', betStepMinor: '100', maxWinMinor: '0'};
+  d.limits = {minBetMinor: '100', maxBetMinor: '0', betStepMinor: '100', maxWinMinor: '0'};
 
   if(THREE_REEL_TITLES.has(entry.name)) {
     d.rows=3;d.cols=3;d.mathVersion='official72-'+norm(entry.name)+'-r3';
@@ -135,6 +136,7 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
       designed: three?'Observed nine regular-symbol awards and the Wild award; independently authored five-line chart and probabilities. The provider maximum-win coupling remains unresolved.'
         :'Independent symbol awards, five-line chart and probabilities; public geometry and wild rules implemented separately from those operator choices.'};
   }
+  if ([WILD_THREE, BURN_WILDS].includes(d.id)) configurePublicColorGamble(d);
   if (d.id === GAMBLE_HUNDRED) {
     d.mathVersion = 'official72-' + norm(entry.name) + '-r3';
     d.gamble = {enabled: true, maxRounds: 3, choices: ['red', 'black'],
@@ -186,7 +188,16 @@ const definitions = scope.entries.filter(entry => !entry.protected).map(entry =>
     d.returnBps = 9600;
   }
   d.maximumMultiplierBps = maximumMultiplier(d);
+  // Retained LibraryService amounts have a 15-digit integer contract.
+  // This derived ceiling prevents storage overflow, including all gamble steps;
+  // it is NOT a financial betting policy. Admission requires server policy.
+  const storageMax = 999999999999999n;
+  const prizeBound = storageMax * 10000n / BigInt(d.maximumMultiplierBps);
+  d.limits.maxBetMinor = ((prizeBound < storageMax ? prizeBound : storageMax) / 100n * 100n).toString();
   d.limits.maxWinMinor = payout(d.limits.maxBetMinor, d.maximumMultiplierBps);
+  d.limits.policy = 'server-game-policy-and-retained-account-house-reserve';
+  d.limits.storageDerived = true;
+  d.limits.testPresetsMinor = Array.from({length:20}, (_,i) => String((i+1)*100));
   d.layout = officialLayout(d);
   d.modelDisclosure = {
     providerPrivateMathVerified: false,
