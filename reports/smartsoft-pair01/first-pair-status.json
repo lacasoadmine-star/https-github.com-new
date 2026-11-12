@@ -1,0 +1,82 @@
+{
+  "status": "local-draft-not-deployed",
+  "target": "https://superwin-player.apdiy61.workers.dev",
+  "workspaceRoot": "/workspace/superwin-pair01",
+  "sourceDirectory": "workers/superwin-player/new74",
+  "sourcePersistence": "Local filesystem only when runtime failed; this report does not contain or claim a committed implementation.",
+  "games": [
+    {
+      "requestedPosition": 1,
+      "name": "Multi Hot 5",
+      "newRoute": "/new74/001-multi-hot-5",
+      "apiModelId": "multi_hot_5_video",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO",
+      "confirmedDemoSpins": 15,
+      "firstObservedDeal": "1969959126.1",
+      "lastObservedDeal": "1969959126.15",
+      "localEvidence": "reports/smartsoft-pair01/multi-hot-5-demo-rounds.json",
+      "presentation": "Three reels, vertical multiplier, original fruit and seven artwork, hexagonal spin/auto/double/take controls, adjacent bet steps, official sprite win frames and sound."
+    },
+    {
+      "requestedPosition": 2,
+      "name": "Multi Hot 10",
+      "newRoute": "/new74/002-multi-hot-10",
+      "apiModelId": "fresh_multihot10",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=DEMO",
+      "confirmedDemoSpins": 15,
+      "lastObservedDeal": "1969945327.15",
+      "localEvidence": "reports/smartsoft-pair01/multi-hot-10-demo-rounds.json",
+      "evidenceLimitation": "Response logger records rounds 2–15; round 1 was observed separately before listener setup and captured in a local screenshot.",
+      "presentation": "Five reels, multiplier wheel, circular SPIN and autoplay controls, turbo, bet selection panel, original fruit/seven artwork, sprite win frames and sound."
+    }
+  ],
+  "validation": {
+    "newUnitTests": {
+      "passed": 16,
+      "tests": [
+        "pending request replay and duplicate suppression",
+        "account change isolation",
+        "receipt/model/grid validation",
+        "amount arithmetic",
+        "signed-off insufficient funds rejection",
+        "fresh gamble receipt arithmetic on local fixture",
+        "new route isolation and audio range serving"
+      ]
+    },
+    "newBrowserTests": {
+      "passed": true,
+      "games": 2,
+      "checks": [
+        "portrait and landscape rendering",
+        "double tap submits one wager",
+        "hold release cancels repeats",
+        "autoplay cancellation",
+        "no third-party runtime requests",
+        "signed-out spin disabled and no invented balance"
+      ],
+      "liveFinancialRequests": 0
+    },
+    "baselineBuild": "Player, Agent and Admin workspace builds passed before addition; these files were not changed.",
+    "baselineTests": "9 isolated SQLite tests passed before addition; no production database used.",
+    "lastEdits": "After browser suite passed, only sprite metadata pruning, stop-message cleanup, landscape bet access and documentation were added; final rerun was interrupted."
+  },
+  "blockers": [
+    "Execution environment unavailable; local files, binaries and browser sessions cannot currently be accessed.",
+    "Fresh model/state/gamble/replay API fields require final source verification; see account-contract-status.json.",
+    "Remaining titles require individual confirmed demos and compatible existing financial models."
+  ],
+  "deployment": {
+    "performed": false,
+    "uploadedKVKeys": 0,
+    "railwayChanges": 0,
+    "existingWorkerVersion": "a8a7033f-74cb-49b8-8c17-24b226879d68",
+    "nextSteps": [
+      "Restore workspace and preserve untracked implementation files on feature branch.",
+      "Resolve account contract unknowns and rerun new-page checks after any fix.",
+      "Build manifest; recorded local manifest held 44 files / 23,381,575 bytes before outage.",
+      "Upload only new74/20261113-pair01-r1 keys.",
+      "Append new wrapper modules with content-only API, preserving old module bytes and existing metadata.",
+      "Verify only new routes and the additive home link; do not test or repair old games."
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "entries": [
+    {
+      "position": 7,
+      "requestedName": "Burning Ice 10",
+      "officialProvider": "SmartSoft",
+      "officialPage": "https://www.smartsoftgaming.com/games/blazing-hot-10",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO",
+      "reels": 5,
+      "paylines": 10,
+      "confirmedDemoSpins": 0,
+      "observation": "Reached sound prompt; workspace failed before game observation.",
+      "existingFinancialModelProbe": {
+        "modelId": "burningice10_native",
+        "method": "GET",
+        "route": "/api/slots/games/burningice10_native",
+        "status": 404,
+        "detail": "GAME_NOT_FOUND"
+      },
+      "status": "reference-verified-model-unavailable-not-built"
+    },
+    {
+      "position": 8,
+      "requestedName": "Burning Ice 40",
+      "officialProvider": "SmartSoft",
+      "officialPage": "https://www.smartsoftgaming.com/games/burning-ice-40",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO",
+      "reels": 5,
+      "rows": 3,
+      "paylines": 40,
+      "confirmedDemoSpins": 0,
+      "existingFinancialModelProbe": {
+        "modelId": "burningice40_native",
+        "method": "GET",
+        "route": "/api/slots/games/burningice40_native",
+        "status": 404,
+        "detail": "GAME_NOT_FOUND"
+      },
+      "status": "reference-verified-model-unavailable-not-built"
+    }
+  ],
+  "scope": "Only official references and read-only API contract probes. No existing frontend inspected or reused, no financial request, no backend change or deployment."
+}

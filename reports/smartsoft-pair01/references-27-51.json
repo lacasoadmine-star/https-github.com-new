@@ -1,0 +1,448 @@
+{
+  "scope": "Requested entries 27 through 51 only",
+  "researchDateUTC": "2026-11-12",
+  "intendedPath": "reports/smartsoft-pair01/references-27-51.json",
+  "target": "https://superwin-player.apdiy61.workers.dev",
+  "summary": {
+    "requestedRows": 25,
+    "exactSmartSoftTitles": 2,
+    "exactTitlesAttributedToOtherProviders": 7,
+    "ambiguousOrUnverifiedTitles": 16,
+    "completedDemoRounds": 0,
+    "existingUserGamesInspected": false,
+    "existingFrontendReused": false,
+    "backendChanged": false,
+    "deployed": false
+  },
+  "method": "Searched all requested titles and checked primary provider or operator pages where available. Similar titles remain candidates, never substitutions. Provider-demo references do not prove which ZPLAY storefront version was intended.",
+  "observationBlocker": "Execution environment became unavailable after the CoinsOfAtlantis mobile demo displayed its sound prompt. No game in this batch has 15 confirmed observations. Browser screenshots were attempted under references-27-51/, but their final availability cannot be verified while the workspace is unavailable.",
+  "rows": [
+    {
+      "number": 27,
+      "name": "Coin Miner",
+      "status": "exact-title-other-provider",
+      "provider": "Gaming Corps",
+      "officialTitle": "Coin Miner",
+      "sources": [
+        {
+          "url": "https://www.gamingcorps.com/game/coin-miner/",
+          "type": "provider",
+          "evidence": "The provider identifies Coin Miner as a mine game; its original product page describes a 5 by 5 tile grid."
+        }
+      ],
+      "demoPage": "https://www.gamingcorps.com/game/coin-miner/",
+      "demoUrl": null,
+      "notes": "Not a reel slot. The public page contains a DEMO section, but a direct runnable launcher was not extracted.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 28,
+      "name": "Coins of Atlantis",
+      "status": "exact-smartsoft-title",
+      "provider": "SmartSoft Gaming",
+      "officialTitle": "Coins Of Atlantis",
+      "sources": [
+        {
+          "url": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+          "type": "provider",
+          "evidence": "Official title page links the public DEMO launcher and describes underwater artwork, expanding wilds and a coin respin feature."
+        }
+      ],
+      "demoPage": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
+      "observed": "Public launcher loaded the mobile CoinsOfAtlantis iframe and sound prompt using Pixel 7 emulation. No spin was submitted. Sound-prompt interaction stalled before the execution environment became unavailable.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 29,
+      "name": "Bottle Mania",
+      "status": "exact-smartsoft-title",
+      "provider": "SmartSoft Gaming",
+      "officialTitle": "Bottle Mania",
+      "sources": [
+        {
+          "url": "https://www.smartsoftgaming.com/games/bottle-mania",
+          "type": "provider",
+          "evidence": "Official page describes a single-player crash game with three selectable bottles and a Cash Out control."
+        }
+      ],
+      "demoPage": "https://www.smartsoftgaming.com/games/bottle-mania",
+      "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "notes": "This title has bottle/crash rounds, not reels or slot spins. Reference observation should count completed demo rounds.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 30,
+      "name": "Stars",
+      "status": "exact-title-other-provider",
+      "provider": "Kajot Games",
+      "officialTitle": "Stars",
+      "sources": [
+        {
+          "url": "https://kajotgames.com/games/stars/",
+          "type": "provider",
+          "evidence": "Official title page identifies a 3-reel, 3-row, 27-way game, with wilds and a wheel bonus, and links Play Demo."
+        }
+      ],
+      "demoPage": "https://kajotgames.com/games/stars/",
+      "demoUrl": "https://wegas.stage.kajotgames.dev/api/dispatcher/launcher?casino_id=250&currency=EUR&game_id=stars&home=https%3A%2F%2Fkajotgames.com%2Fgames%2F&language=en&mode=free",
+      "notes": "Official demo link was resolved by web lookup; browser play was not performed. The launcher redirects to games.stage.kajotgames.dev/stars/ with mode=free.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 31,
+      "name": "Lucky Clover",
+      "status": "exact-title-other-provider",
+      "provider": "CT Gaming",
+      "officialTitle": "Lucky Clover",
+      "sources": [
+        {
+          "url": "https://ctgaming.com/products/games/lucky-clover/",
+          "type": "provider",
+          "evidence": "Official title page lists five reels, five winning lines, expanding wilds and a Play Online link."
+        }
+      ],
+      "demoPage": "https://ctgaming.com/products/games/lucky-clover/",
+      "demoUrl": null,
+      "notes": "Play Online resolved to the provider's LuckyClover HTML client with a temporary demo token and FUN currency. The ephemeral token is intentionally omitted. No browser play was performed.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 32,
+      "name": "Lucky Clover 40",
+      "status": "ambiguous-title",
+      "candidates": [
+        {
+          "title": "All Lucky Clover 40",
+          "provider": "BGaming",
+          "url": "https://bgaming.com/wp-content/uploads/2026/03/Top-Games-by-GEO-Sales-5.pdf"
+        },
+        {
+          "title": "40 Lucky Clover",
+          "provider": "AGT Software",
+          "url": "https://slotcatalog.com/en/slots/40-Lucky-Clover"
+        }
+      ],
+      "notes": "Both candidate titles differ from the requested title. No alias relationship to Lucky Clover 40 or a SmartSoft title was verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 33,
+      "name": "Ancient Fortunes",
+      "status": "ambiguous-series",
+      "candidates": [
+        {
+          "title": "Ancient Fortunes: Zeus",
+          "provider": "Games Global / Microgaming",
+          "url": "https://stake.com/casino/games/games-global-ancient-fortunes-zeus"
+        },
+        {
+          "title": "Ancient Fortunes: Poseidon Megaways",
+          "provider": "Triple Edge Studios / Games Global",
+          "url": "https://www.betfred.com/casino/slots/ancientfortunesposeidonmegaways"
+        }
+      ],
+      "notes": "Searches located named entries in an Ancient Fortunes series. A standalone exact-title Ancient Fortunes game and the intended variant were not verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 34,
+      "name": "Ancient Fortunes 40",
+      "status": "exact-reference-not-found",
+      "notes": "Exact-name searches returned Ancient Fortunes series games and bet-limit text, without a verified title ending in 40.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 35,
+      "name": "Magic Apple",
+      "status": "exact-title-other-provider",
+      "provider": "3 Oaks Gaming",
+      "officialTitle": "Magic Apple",
+      "sources": [
+        {
+          "url": "https://3oaks.com/game/magic_apple",
+          "type": "provider",
+          "evidence": "Official product listing identifies Magic Apple as a 5 by 4 game with 30 lines, apple hold-and-win imagery and free spins."
+        }
+      ],
+      "demoPage": "https://3oaks.com/game/magic_apple",
+      "demoUrl": null,
+      "notes": "The current product page requires JavaScript. A direct provider demo launcher was not extracted. Secondary sites also list the related Booongo/BNG release; no SmartSoft attribution was verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 36,
+      "name": "Magic Apple 40",
+      "status": "exact-reference-not-found",
+      "notes": "Exact-name searches did not verify this title. Magic Apple and Magic Apple 2 are separately published titles; neither was substituted.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 37,
+      "name": "Fruits 40",
+      "status": "ambiguous-title",
+      "candidates": [
+        {
+          "title": "Hot Fruits 40",
+          "provider": "Amatic Industries",
+          "url": "https://www.grandx.com/games/hot-fruits-40-play-online/"
+        },
+        {
+          "title": "Fruit 40",
+          "provider": "PSMtec / Swintt",
+          "url": "https://www.psmtec.de/en/online-slot-games/fruit-40-131"
+        }
+      ],
+      "notes": "Neither the added word Hot nor the singular Fruit was assumed to be an authorized alias for Fruits 40. The list separately requests Fruit 40 at number 44.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 38,
+      "name": "Cherry 40",
+      "status": "exact-reference-not-found",
+      "notes": "Quoted-title searches returned symbol paytable values and differently named cherry games, without a verified exact game title or demo.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 39,
+      "name": "Sevens 40",
+      "status": "exact-reference-not-found",
+      "candidates": [
+        {
+          "title": "40 Sevens",
+          "provider": "not independently confirmed",
+          "url": "https://gamblingresearch.org/el/slots/40-sevens"
+        }
+      ],
+      "notes": "A secondary listing uses the reversed word order 40 Sevens. No provider-confirmed alias for Sevens 40 was established.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 40,
+      "name": "Diamond 40",
+      "status": "exact-reference-not-found",
+      "notes": "Quoted-title searches returned unrelated diamond game names or payout values. No exact provider title and demo were verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 41,
+      "name": "Wild 40",
+      "status": "ambiguous-title",
+      "candidates": [
+        {
+          "title": "Wild Wild 40",
+          "provider": "Evona",
+          "url": "https://www.evona.sk/news/evona-wild-wild-40-slot/"
+        },
+        {
+          "title": "Red Hot Sevens Wild 40",
+          "provider": "Promatic Games",
+          "url": "https://promaticgames.com/games/red-hot-sevens-wild-40/"
+        }
+      ],
+      "notes": "Candidate names contain additional words. Neither was substituted for Wild 40.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 42,
+      "name": "Hot 40",
+      "status": "exact-title-other-provider",
+      "provider": "Amatic Industries",
+      "officialTitle": "Hot 40",
+      "sources": [
+        {
+          "url": "https://www.grandx.com/fileadmin/grandx/pdf/games/en/Hot_40_-_GrandX_-_2018.pdf",
+          "type": "provider-authored-game-rules-hosted-by-operator",
+          "evidence": "The game rules identify Hot 40 and AMATIC Industries."
+        },
+        {
+          "url": "https://www.grandx.com/games/hot-40-play-online/",
+          "type": "operator",
+          "evidence": "Operator title page offers Play for fun and describes five reels, four rows and 40 lines."
+        }
+      ],
+      "demoPage": "https://www.grandx.com/games/hot-40-play-online/",
+      "demoUrl": null,
+      "notes": "The request repeats Hot 40 at number 67. This research does not establish two distinct games under that same name. No browser demo rounds were performed.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 43,
+      "name": "Lucky 40",
+      "status": "exact-title-other-provider",
+      "provider": "Holland Power Gaming",
+      "officialTitle": "Lucky 40",
+      "sources": [
+        {
+          "url": "https://www.oranjepalace.nl/nl/spellen/lucky-40-nl",
+          "type": "operator",
+          "evidence": "Operator identifies Lucky 40 by Holland Power Gaming and describes five reels, four rows and 40 fixed lines."
+        },
+        {
+          "url": "https://www.oranjepalace.nl/nl/casino/klassieke-slots",
+          "type": "operator",
+          "evidence": "Operator states that its Holland Power Gaming titles include Lucky 40."
+        }
+      ],
+      "demoPage": null,
+      "demoUrl": null,
+      "notes": "The provider's public games page is dynamic and no public free launcher was extracted. The request repeats Lucky 40 at number 69; no second distinct version was established.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 44,
+      "name": "Fruit 40",
+      "status": "exact-title-other-provider",
+      "provider": "PSMtec / Swintt",
+      "officialTitle": "Fruit 40",
+      "sources": [
+        {
+          "url": "https://www.psmtec.de/en/online-slot-games/fruit-40-131",
+          "type": "provider",
+          "evidence": "Provider lists Fruit40 / Fruit 40 as a five-reel, three-row video slot with 40 fixed paylines."
+        },
+        {
+          "url": "https://swintt.com/uploads/assets/games/gameSheets/Fruit%2040%20Feature%20Sheet.pdf",
+          "type": "provider",
+          "evidence": "Swintt publishes the Fruit 40 feature sheet."
+        }
+      ],
+      "demoPage": "https://www.psmtec.de/en/online-slot-games/fruit-40-131/play",
+      "demoUrl": null,
+      "notes": "Official Play page was resolved. Its language, currency and jurisdiction controls need a browser before gameplay can be observed.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 45,
+      "name": "Super Fruits 40",
+      "status": "ambiguous-title",
+      "candidates": [
+        {
+          "title": "40 Super Fruits",
+          "provider": "EGT Digital",
+          "url": "https://egt-digital.com/game/40-super-fruits-2/"
+        }
+      ],
+      "notes": "The provider uses 40 Super Fruits, not Super Fruits 40. Word-order equivalence and the requested SmartSoft attribution were not verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 46,
+      "name": "Golden Fruits 40",
+      "status": "exact-reference-not-found",
+      "candidates": [
+        {
+          "title": "Golden Fruits",
+          "provider": "LIONLINE",
+          "url": "https://www.vegasslotsonline.com/lionline/golden-fruits/"
+        }
+      ],
+      "notes": "Only differently named Golden Fruits references were located; the 40 suffix was not verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 47,
+      "name": "Royal 40",
+      "status": "ambiguous-title",
+      "candidates": [
+        {
+          "title": "Shining Royal 40",
+          "provider": "GameArt",
+          "url": "https://gameart.net/single-news/gamearts-new-shining-royal-40-classic-fruit-slot/"
+        },
+        {
+          "title": "Royal 40 Fruits",
+          "provider": "Netgame",
+          "url": "https://casino.guru/free-casino-games/slots/royal-40-fruits-slot-play-free"
+        }
+      ],
+      "notes": "Both candidate names differ. No exact Royal 40 provider game or alias relationship was established.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 48,
+      "name": "Princess 40",
+      "status": "exact-reference-not-found",
+      "notes": "Quoted-name searches returned unrelated princess titles and paytable amounts; no exact provider title or demo was verified.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 49,
+      "name": "Star 40",
+      "status": "exact-reference-not-found",
+      "notes": "Quoted-name searches returned symbol values and longer game names, without an exact verified provider title or demo.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 50,
+      "name": "Lucky Star 40",
+      "status": "exact-reference-not-found",
+      "notes": "Quoted-name results included non-game radio equipment; no verified casino game provider title or demo was found.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    },
+    {
+      "number": 51,
+      "name": "Fortune 40",
+      "status": "exact-reference-not-found",
+      "candidates": [
+        {
+          "title": "CaiShen's Fortune XL",
+          "provider": "not independently confirmed",
+          "url": "https://lasatlantis.com/game/caishens-fortune-40/"
+        }
+      ],
+      "notes": "A secondary page uses caishens-fortune-40 in its URL but identifies a longer different game title. Irrelevant search spam was not treated as a legitimate provider reference.",
+      "confirmedDemoRounds": 0,
+      "frontendBuilt": false,
+      "backendMappingVerified": false
+    }
+  ]
+}
