@@ -18,10 +18,16 @@ for(const entry of selected){
  const page=pages.find(p=>p.id===entry.id),model=models.find(m=>m.id===entry.id);
  let screenshot=null;
  if(observation?.screenshot){const file=resolve(root,observation.screenshot);if((await stat(file)).isFile())screenshot={path:observation.screenshot,sha256:createHash('sha256').update(await readFile(file)).digest('hex')};}
- const rounds=observation?.confirmedRoundIds??[];
+ let interactive=null,ui=null,visual=null;
+ for(const [name,set]of [['interactive-rounds.json',value=>interactive=value],['interactive-observation.json',value=>ui=value],['visual-review.json',value=>visual=value]]){
+  try{const value=await json(resolve(folder,'fresh-observations',entry.id,name));if(value.id!==entry.id||value.selectedName!==entry.selectedName)throw Error('Interactive identity mismatch');set(value);}catch(error){if(error.code!=='ENOENT')throw error;}
+ }
+ const rounds=[...new Set([...(observation?.confirmedRoundIds??[]),...(interactive?.confirmedRoundIds??[])])];
  entries.push({id:entry.id,displayOrder:entry.displayOrder,requestedName:entry.requestedName,selectedName:entry.selectedName,provider:entry.selectedProvider,category:entry.selectedCategory,replacement:entry.replacement,
   officialPage:entry.officialIdentity.url,providerPageArchived:page?.status==='archived',
   launchStatus:observation?.status??'queued',freshConfirmedRoundIds:rounds,
+  completedRoundsObservedInUI:ui?.completedRoundsObservedInUI??0,
+  idleLayoutVisuallyReviewed:visual?.idlePresentationVisible===true,loaderOnlyVisuallyReviewed:visual?.idlePresentationVisible===false,
   sufficientBehaviorCoverage:false,visualParityVerified:false,screenshot,
   backendCandidates:model?.candidates??[],providerProbabilityModelVerified:false,
   presentation:manifest.entries.find(e=>e.id===entry.id)?.presentation??'not-built-v2',ready:false});
@@ -30,6 +36,7 @@ const totals={selected:entries.length,officialPagesArchived:entries.filter(e=>e.
  launchAttempts:entries.filter(e=>e.launchStatus!=='queued').length,
  canvasesObserved:entries.filter(e=>e.launchStatus==='canvas-loaded-needs-visual-and-gameplay-review').length,
  freshGamesWithConfirmedRounds:entries.filter(e=>e.freshConfirmedRoundIds.length).length,
+ gamesWithCompletedRoundObservedInUI:entries.filter(e=>e.completedRoundsObservedInUI>0).length,
  sufficientBehaviorCoverage:0,verifiedProviderProbabilityModels:0,releaseReady:0};
 const report={updatedAt:new Date().toISOString(),scope:'Add 74 new SmartSoft titles alongside existing games; no production change',totals,entries};
 await writeFile(resolve(folder,'current-status.json'),JSON.stringify(report,null,2)+'\n');

@@ -7,3 +7,4 @@
 - Retain the existing accounts, wallet, server and database. Provider demo funds, accounts and financial runtime are never production dependencies.
 - A launch, canvas, screenshot, registered name or test fixture is not a completed playable implementation or a proof of exact probabilities.
 - Do not launch additional AI agents or paid AI services.
+- Use official game artwork, reel symbols and button assets; do not substitute emoji illustrations.

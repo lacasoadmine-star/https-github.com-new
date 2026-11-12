@@ -6,6 +6,10 @@ const root=path.resolve(__dirname,'../../../..'),report=path.join(root,'reports/
 fs.mkdirSync(out,{recursive:true});
 const input=JSON.parse(fs.readFileSync(path.join(report,'selected-games.json'),'utf8')).entries;
 const limit=Number(process.env.OBSERVATION_LIMIT||74),offset=Number(process.env.OBSERVATION_OFFSET||0);
+const filter=(process.env.OBSERVATION_IDS||'').split(',').filter(Boolean);
+const selected=(filter.length?input.filter(e=>filter.includes(e.id)):input).slice(offset,offset+limit);
+const run=process.env.OBSERVATION_RUN||(filter.length?'retry-'+Date.now():String(offset));
+if(!/^[a-zA-Z0-9-]+$/.test(run))throw Error('Invalid observation run name');
 const rows=[];
 function demoURL(raw){let u=new URL(/^https?:/.test(raw)?raw:'https://'+raw);if(u.hostname==='www.google.com'&&u.pathname==='/url')u=new URL(u.searchParams.get('q'));if(!u.hostname.endsWith('.ssgportal.com')||!/^DEMO(?:_EXH)?$/i.test(u.searchParams.get('Token')||''))throw Error('Not a provider-published explicit demo URL');return u.href;}
 (async()=>{
@@ -13,12 +17,12 @@ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless
 process.on('SIGINT',async()=>{await browser.close();process.exit(130)});
 const context=await browser.newContext({...devices['Pixel 7']});context.setDefaultTimeout(2000);const page=await context.newPage();
 await context.addInitScript(()=>performance.setResourceTimingBufferSize(5000));
-for(const entry of input.slice(offset,offset+limit)){
+for(const entry of selected){
  const row={id:entry.id,requestedName:entry.requestedName,selectedName:entry.selectedName,officialPage:entry.officialIdentity.url,startedAt:new Date().toISOString(),status:'loading',confirmedRoundIds:[]};const gameDir=path.join(out,entry.id);fs.mkdirSync(gameDir,{recursive:true});
  const onResponse=async response=>{if(!response.url().includes('/api/GenericSlotApi/Event/'))return;try{const body=await response.json();const id=body.Board?.GameInfo?.DealNumber;if(typeof id==='string'&&!id.endsWith('.0')&&!row.confirmedRoundIds.includes(id))row.confirmedRoundIds.push(id);}catch{}};
  page.on('response',onResponse);
  try{
-  row.demoUrl=demoURL(entry.officialIdentity.demoUrl);await page.goto(row.demoUrl,{waitUntil:'domcontentloaded',timeout:30000});await page.waitForTimeout(6500);
+  row.demoUrl=demoURL(entry.officialIdentity.demoUrl);await page.goto(row.demoUrl,{waitUntil:'domcontentloaded',timeout:30000});await page.waitForTimeout(Number(process.env.DEMO_SETTLE_MS||6500));
   row.dialogActions=[];
   for(const frame of page.frames()){
    const text=await frame.evaluate(()=>document.body?.innerText||'').catch(()=>'');
@@ -36,10 +40,13 @@ for(const entry of input.slice(offset,offset+limit)){
    try{const data=await frame.evaluate(()=>({url:location.origin+location.pathname,text:document.body.innerText.slice(0,2400),canvases:[...document.querySelectorAll('canvas')].map(c=>({width:c.width,height:c.height,displayWidth:c.getBoundingClientRect().width})),media:performance.getEntriesByType('resource').map(r=>r.name).filter(u=>/\.(?:png|webp|jpg|mp3|ogg|json|atlas\.txt)(?:\?|$)/.test(u))}));row.frames.push(data);}catch{}
   }
   const allText=row.frames.filter(x=>x.url.startsWith('https://')&&new URL(x.url).hostname.endsWith('.ssgportal.com')).map(x=>x.text).join('\n');row.status=/up to 1 tables|simultaneously|table limit/i.test(allText)?'provider-table-limit':/error|unavailable|not found|failed/i.test(allText)?'visible-error-needs-review':row.frames.some(f=>f.canvases.some(c=>c.width>100&&c.height>100&&c.displayWidth>0))?'canvas-loaded-needs-visual-and-gameplay-review':'no-game-canvas-yet';
-  await page.screenshot({path:path.join(gameDir,'launch.png'),scale:'css',timeout:5000});
+  // Capture the currently visible pixels even when a provider font host is unavailable.
+  // The result still requires visual review and does not establish readiness.
+  const session=await context.newCDPSession(page);
+  try{const shot=await session.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});fs.writeFileSync(path.join(gameDir,'launch.png'),Buffer.from(shot.data,'base64'));}finally{await session.detach();}
   row.screenshot=path.relative(root,path.join(gameDir,'launch.png'));
  }catch(error){row.status='launch-failed';row.error=String(error.message).slice(0,400);await page.screenshot({path:path.join(gameDir,'launch.png'),scale:'css',timeout:5000}).catch(()=>{});}
- finally{page.off('response',onResponse);row.completedAt=new Date().toISOString();fs.writeFileSync(path.join(gameDir,'observation.json'),JSON.stringify(row,null,2)+'\n');rows.push(row);fs.writeFileSync(path.join(out,`batch-${offset}.json`),JSON.stringify(rows.map(({frames,...r})=>r),null,2)+'\n');console.log(JSON.stringify({index:offset+rows.length,total:input.length,name:row.selectedName,status:row.status,confirmedRounds:row.confirmedRoundIds.length}));}
+ finally{page.off('response',onResponse);row.completedAt=new Date().toISOString();fs.writeFileSync(path.join(gameDir,'observation.json'),JSON.stringify(row,null,2)+'\n');rows.push(row);fs.writeFileSync(path.join(out,`batch-${run}.json`),JSON.stringify(rows.map(({frames,...r})=>r),null,2)+'\n');console.log(JSON.stringify({index:offset+rows.length,total:selected.length,name:row.selectedName,status:row.status,confirmedRounds:row.confirmedRoundIds.length}));}
  }
 await browser.close();console.log(JSON.stringify({finished:rows.length,played:rows.filter(r=>r.confirmedRoundIds.length).length}));
 })().catch(e=>{console.error(e.message);process.exit(1)});

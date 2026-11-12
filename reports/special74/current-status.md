@@ -2,7 +2,7 @@
 
 Existing games remain unchanged. This catalogue has not been deployed. A loaded canvas or screenshot is not gameplay verification or a completed game.
 
-74/74 official provider pages archived; 41/74 demo launches attempted; 0/74 games with confirmed rounds in the current fresh pass.
+74/74 official provider pages archived; 74/74 demo launches attempted; 0/74 games with confirmed rounds in the current fresh pass.
 
 The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. Private reel distributions and exact provider probabilities have not been established.
 
@@ -44,41 +44,41 @@ The earlier independent Burning Ice 10 draft and its 20 observed rounds are reta
 | [Genie's Bonanza](https://www.smartsoftgaming.com/games/genies-bonanza) | Fever Slots | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Habesha Fortune 5](https://www.smartsoftgaming.com/games/hab) | Reel Rush | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Helicopter X](https://www.smartsoftgaming.com/games/helicopter-x) | Sea Treasures | launch-failed | 0 | not-built-v2 |
-| [Hot Samba](https://www.smartsoftgaming.com/games/hot-samba) | Coin Miner | launch-failed | 0 | not-built-v2 |
-| [Jingle Bell Bonanza](https://www.smartsoftgaming.com/games/jingle-bell-bonanza) | Stars | launch-failed | 0 | not-built-v2 |
-| [Jungle Sisters](https://www.smartsoftgaming.com/games/jungle-sisters) | Lucky Clover | launch-failed | 0 | not-built-v2 |
+| [Hot Samba](https://www.smartsoftgaming.com/games/hot-samba) | Coin Miner | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Jingle Bell Bonanza](https://www.smartsoftgaming.com/games/jingle-bell-bonanza) | Stars | provider-table-limit | 0 | not-built-v2 |
+| [Jungle Sisters](https://www.smartsoftgaming.com/games/jungle-sisters) | Lucky Clover | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Jungle Sisters Deluxe](https://www.smartsoftgaming.com/games/jungle-sisters-deluxe) | Lucky Clover 40 | launch-failed | 0 | not-built-v2 |
-| [Mad Slot](https://www.smartsoftgaming.com/games/mad-slot) | Ancient Fortunes | launch-failed | 0 | not-built-v2 |
-| [Mariachi Coins](https://www.smartsoftgaming.com/games/mariachi-coins) | Ancient Fortunes 40 | queued | 0 | not-built-v2 |
-| [Mine Island](https://www.smartsoftgaming.com/games/mine-island) | Great 27 | queued | 0 | not-built-v2 |
-| [Mine Island2](https://www.smartsoftgaming.com/games/mine-island2) | Great 40 | queued | 0 | not-built-v2 |
-| [Multi Fruits Charging Wilds](https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds) | Magic Apple | queued | 0 | not-built-v2 |
-| [Multi Hot 10](https://www.smartsoftgaming.com/games/multi-hot-10-2) | Multi Hot 10 | queued | 0 | not-built-v2 |
-| [Multi Hot 100](https://www.smartsoftgaming.com/games/multi-hot-100) | Sizzling Hot | queued | 0 | not-built-v2 |
-| [Multi Hot 20](https://www.smartsoftgaming.com/games/multi-hot-20) | Magic Apple 40 | queued | 0 | not-built-v2 |
-| [Multi Hot 40](https://www.smartsoftgaming.com/games/multi-hot-40) | Multi Hot 40 | queued | 0 | not-built-v2 |
-| [Multi Hot 5](https://www.smartsoftgaming.com/games/multi-hot-5) | Multi Hot 5 | queued | 0 | not-built-v2 |
-| [Multi Hot 5 Burn Wilds](https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds) | Fruits 40 | queued | 0 | not-built-v2 |
-| [Multi Hot 5 Deluxe](https://www.smartsoftgaming.com/games/multi-hot-5-deluxe) | Multi Hot Deluxe | queued | 0 | not-built-v2 |
-| [Multi Hot 5 Super Wilds](https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds) | Ultra Hot | queued | 0 | not-built-v2 |
-| [Multi Hot 5 Wild](https://www.smartsoftgaming.com/games/multi-hot-5-wild) | Fruit Slot | queued | 0 | not-built-v2 |
-| [Multi Hot Ways](https://www.smartsoftgaming.com/games/multi-hot-ways) | Fruits'n Sevens | queued | 0 | not-built-v2 |
-| [Multi Hot Wheel](https://www.smartsoftgaming.com/games/multi-hot-wheel) | Magic 7 | queued | 0 | not-built-v2 |
-| [Multi Hot Wild Ways](https://www.smartsoftgaming.com/games/multi-hot-wild-ways) | Sevens & Fruits | queued | 0 | not-built-v2 |
-| [New Era of JetX](https://www.smartsoftgaming.com/games/jetx) | Magic 27 | queued | 0 | not-built-v2 |
-| [Plinko X](https://www.smartsoftgaming.com/games/plinkox) | Hot 27 | queued | 0 | not-built-v2 |
-| [Plinko X Classic](https://www.smartsoftgaming.com/games/plinko-x-classic) | Hot 40 | queued | 0 | not-built-v2 |
-| [PopX](https://www.smartsoftgaming.com/games/popx) | Lucky 27 | queued | 0 | not-built-v2 |
-| [Power of Tiger](https://www.smartsoftgaming.com/games/power-of-tiger) | Cherry 40 | queued | 0 | not-built-v2 |
-| [Propel X](https://www.smartsoftgaming.com/games/propel-x) | Lucky 40 | queued | 0 | not-built-v2 |
-| [Roll X](https://www.smartsoftgaming.com/games/rollx) | Fruit 27 | queued | 0 | not-built-v2 |
-| [Safari Simba](https://www.smartsoftgaming.com/games/safari-simba-2) | Sevens 40 | queued | 0 | not-built-v2 |
-| [Samurai](https://www.smartsoftgaming.com/games/samurai-deluxe) | Diamond 40 | queued | 0 | not-built-v2 |
-| [Smash X](https://www.smartsoftgaming.com/games/smash-x) | Treasure 27 | queued | 0 | not-built-v2 |
-| [Sugar Fiesta](https://www.smartsoftgaming.com/games/sugar-fiesta) | Wild 40 | queued | 0 | not-built-v2 |
-| [Tower X](https://www.smartsoftgaming.com/games/tower-x) | Ocean 27 | queued | 0 | not-built-v2 |
-| [Vampires](https://www.smartsoftgaming.com/games/vampires) | Hot 40 | queued | 0 | not-built-v2 |
-| [Wheel Of Destiny](https://www.smartsoftgaming.com/games/wheel-of-destiny) | Joker 27 | queued | 0 | not-built-v2 |
-| [Wild Multi Stars](https://www.smartsoftgaming.com/games/wild-multi-stars) | Three Sevens | queued | 0 | not-built-v2 |
-| [Wilds and Gods](https://www.smartsoftgaming.com/games/wilds-and-gods) | Lucky 40 | queued | 0 | not-built-v2 |
-| [World Champion X](https://www.smartsoftgaming.com/games/world-champion-x) | Super Joker | queued | 0 | not-built-v2 |
+| [Mad Slot](https://www.smartsoftgaming.com/games/mad-slot) | Ancient Fortunes | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Mariachi Coins](https://www.smartsoftgaming.com/games/mariachi-coins) | Ancient Fortunes 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Mine Island](https://www.smartsoftgaming.com/games/mine-island) | Great 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Mine Island2](https://www.smartsoftgaming.com/games/mine-island2) | Great 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Fruits Charging Wilds](https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds) | Magic Apple | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 10](https://www.smartsoftgaming.com/games/multi-hot-10-2) | Multi Hot 10 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 100](https://www.smartsoftgaming.com/games/multi-hot-100) | Sizzling Hot | provider-table-limit | 0 | not-built-v2 |
+| [Multi Hot 20](https://www.smartsoftgaming.com/games/multi-hot-20) | Magic Apple 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 40](https://www.smartsoftgaming.com/games/multi-hot-40) | Multi Hot 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 5](https://www.smartsoftgaming.com/games/multi-hot-5) | Multi Hot 5 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 5 Burn Wilds](https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds) | Fruits 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 5 Deluxe](https://www.smartsoftgaming.com/games/multi-hot-5-deluxe) | Multi Hot Deluxe | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 5 Super Wilds](https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds) | Ultra Hot | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 5 Wild](https://www.smartsoftgaming.com/games/multi-hot-5-wild) | Fruit Slot | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot Ways](https://www.smartsoftgaming.com/games/multi-hot-ways) | Fruits'n Sevens | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot Wheel](https://www.smartsoftgaming.com/games/multi-hot-wheel) | Magic 7 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot Wild Ways](https://www.smartsoftgaming.com/games/multi-hot-wild-ways) | Sevens & Fruits | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [New Era of JetX](https://www.smartsoftgaming.com/games/jetx) | Magic 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Plinko X](https://www.smartsoftgaming.com/games/plinkox) | Hot 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Plinko X Classic](https://www.smartsoftgaming.com/games/plinko-x-classic) | Hot 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [PopX](https://www.smartsoftgaming.com/games/popx) | Lucky 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Power of Tiger](https://www.smartsoftgaming.com/games/power-of-tiger) | Cherry 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Propel X](https://www.smartsoftgaming.com/games/propel-x) | Lucky 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Roll X](https://www.smartsoftgaming.com/games/rollx) | Fruit 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Safari Simba](https://www.smartsoftgaming.com/games/safari-simba-2) | Sevens 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Samurai](https://www.smartsoftgaming.com/games/samurai-deluxe) | Diamond 40 | visible-error-needs-review | 0 | not-built-v2 |
+| [Smash X](https://www.smartsoftgaming.com/games/smash-x) | Treasure 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Sugar Fiesta](https://www.smartsoftgaming.com/games/sugar-fiesta) | Wild 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Tower X](https://www.smartsoftgaming.com/games/tower-x) | Ocean 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Vampires](https://www.smartsoftgaming.com/games/vampires) | Hot 40 | no-game-canvas-yet | 0 | not-built-v2 |
+| [Wheel Of Destiny](https://www.smartsoftgaming.com/games/wheel-of-destiny) | Joker 27 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Wild Multi Stars](https://www.smartsoftgaming.com/games/wild-multi-stars) | Three Sevens | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Wilds and Gods](https://www.smartsoftgaming.com/games/wilds-and-gods) | Lucky 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [World Champion X](https://www.smartsoftgaming.com/games/world-champion-x) | Super Joker | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
