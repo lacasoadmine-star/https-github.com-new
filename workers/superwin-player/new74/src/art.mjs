@@ -8,7 +8,8 @@ export class Art {
   context.save();context.globalAlpha*=alpha;
   context.translate(x,y);context.scale(width/(tight?t.w:source.w),height/(tight?t.h:source.h));
   const tx=tight?0:t.x,ty=tight?0:t.y;
-  if(item.rotated){context.translate(tx,ty+t.h);context.rotate(-Math.PI/2);context.drawImage(image,f.x,f.y,f.h,f.w,0,0,t.h,t.w);}
+  if(item.spineRotated){context.translate(tx+t.w,ty);context.rotate(Math.PI/2);context.drawImage(image,f.x,f.y,f.h,f.w,0,0,t.h,t.w);}
+  else if(item.rotated){context.translate(tx,ty+t.h);context.rotate(-Math.PI/2);context.drawImage(image,f.x,f.y,f.h,f.w,0,0,t.h,t.w);}
   else context.drawImage(image,f.x,f.y,f.w,f.h,tx,ty,t.w,t.h);
   context.restore();
  }

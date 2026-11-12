@@ -1,9 +1,9 @@
 {
-  "status": "local-draft-not-deployed",
+  "status": "deployed-new-independent-frontends",
   "target": "https://superwin-player.apdiy61.workers.dev",
   "workspaceRoot": "/workspace/superwin-pair01",
   "sourceDirectory": "workers/superwin-player/new74",
-  "sourcePersistence": "Local filesystem only when runtime failed; this report does not contain or claim a committed implementation.",
+  "sourcePersistence": "GitHub feature branch checkpoint2786a369b7469c578d8cee8326c7c789e910fbd1; subsequent corrections are in the same PR.",
   "games": [
     {
       "requestedPosition": 1,
@@ -26,13 +26,13 @@
       "confirmedDemoSpins": 15,
       "lastObservedDeal": "1969945327.15",
       "localEvidence": "reports/smartsoft-pair01/multi-hot-10-demo-rounds.json",
-      "evidenceLimitation": "Response logger records rounds 2–15; round 1 was observed separately before listener setup and captured in a local screenshot.",
+      "evidenceLimitation": "Response logger records rounds 2\u201315; round 1 was observed separately before listener setup and captured in a local screenshot.",
       "presentation": "Five reels, multiplier wheel, circular SPIN and autoplay controls, turbo, bet selection panel, original fruit/seven artwork, sprite win frames and sound."
     }
   ],
   "validation": {
     "newUnitTests": {
-      "passed": 16,
+      "passed": 18,
       "tests": [
         "pending request replay and duplicate suppression",
         "account change isolation",
@@ -58,25 +58,33 @@
     },
     "baselineBuild": "Player, Agent and Admin workspace builds passed before addition; these files were not changed.",
     "baselineTests": "9 isolated SQLite tests passed before addition; no production database used.",
-    "lastEdits": "After browser suite passed, only sprite metadata pruning, stop-message cleanup, landscape bet access and documentation were added; final rerun was interrupted."
+    "lastEdits": "Final unit tests18/18 and local browser checks passed. Live signed-out checks passed after gallery loading fix.",
+    "newLiveReadOnlySmoke": {
+      "bothNewPagesHTTP200": true,
+      "assetErrors": 0,
+      "pageErrors": 0,
+      "signedOutSpinDisabled": true,
+      "inventedBalance": false,
+      "liveFinancialRequests": 0,
+      "galleryCards": 2,
+      "homeEntryPresent": true
+    }
   },
   "blockers": [
-    "Execution environment unavailable; local files, binaries and browser sessions cannot currently be accessed.",
-    "Fresh model/state/gamble/replay API fields require final source verification; see account-contract-status.json.",
-    "Remaining titles require individual confirmed demos and compatible existing financial models."
+    "Remaining74-game package not completed: exact references and financial contracts remain unresolved for some titles."
   ],
   "deployment": {
-    "performed": false,
-    "uploadedKVKeys": 0,
+    "performed": true,
+    "deployedVersion": "b286069d-6c8e-427a-be61-9a26b515206b",
+    "previousVersion": "a8a7033f-74cb-49b8-8c17-24b226879d68",
+    "uploadedKVFiles": 44,
+    "KVPrefix": "new74/20261113-pair01-r1/",
+    "oldModuleCount": 316,
+    "totalModuleCount": 318,
+    "existingBindingsUnchanged": true,
+    "scriptRuntimeAssetsExportsMigrationUnchanged": true,
+    "existingHandlersUnchanged": true,
     "railwayChanges": 0,
-    "existingWorkerVersion": "a8a7033f-74cb-49b8-8c17-24b226879d68",
-    "nextSteps": [
-      "Restore workspace and preserve untracked implementation files on feature branch.",
-      "Resolve account contract unknowns and rerun new-page checks after any fix.",
-      "Build manifest; recorded local manifest held 44 files / 23,381,575 bytes before outage.",
-      "Upload only new74/20261113-pair01-r1 keys.",
-      "Append new wrapper modules with content-only API, preserving old module bytes and existing metadata.",
-      "Verify only new routes and the additive home link; do not test or repair old games."
-    ]
+    "metadataNote": "Cloudflare updated its automatic upload annotations; configuration and bindings compared equal."
   }
 }

@@ -102,5 +102,15 @@
     "No alternate host, service, or resource was created to bypass the workspace outage."
   ],
   "localTests": "Root previously ran fixture-based transport tests and browser checks. Those validate new UI behavior against synthetic local response fixtures, not the unknown deployed contract.",
-  "releaseRecommendation": "Do not deploy the new games until the unknown deployed account/settlement fields are verified and corresponding new-transport fixtures/tests are aligned. Existing backend remains unchanged."
+  "releaseRecommendation": "Do not deploy the new games until the unknown deployed account/settlement fields are verified and corresponding new-transport fixtures/tests are aligned. Existing backend remains unchanged.",
+  "resumption": {
+    "workspaceRestored": true,
+    "nineBackendDecoded": true,
+    "classicSession": "currency ETB, two-decimal balance and64hex session guard confirmed",
+    "freshState": "authenticated/currency/sessionGuard/balance/game/round.gamble/blockedByActiveGame confirmed in deployed backend source",
+    "freshGamble": "maxAttempts emitted from game.features.gambleRounds; model allows5 attempts, maxStake500.00 ETB; walletReceipt arithmetic confirmed",
+    "replay": "Stored results checked before replayOnly rejection; ROUND_NOT_CONFIRMED proves no stored spin",
+    "changes": "New transport now uses actual model round count and stake cap, with explicit non-settlement recovery; backend unchanged",
+    "liveAuthenticatedWagersPerformed": 0
+  }
 }

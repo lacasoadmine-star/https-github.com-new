@@ -39,5 +39,11 @@
       "status": "reference-verified-model-unavailable-not-built"
     }
   ],
-  "scope": "Only official references and read-only API contract probes. No existing frontend inspected or reused, no financial request, no backend change or deployment."
+  "scope": "Only official references and read-only API contract probes. No existing frontend inspected or reused, no financial request, no backend change or deployment.",
+  "correction": {
+    "meaningOfEarlier404": "Wrong transport was probed: *_native is not served by /api/slots/games. The existing /api/config advertises both Burning Ice native IDs as enabled/available.",
+    "correctStateRoute": "/api/remaining20/state?game_id=<id>",
+    "stateAuthentication": "Existing player login required (401 without cookie).",
+    "frontendStatus": "Neither Burning Ice frontend completed or deployed; demo observations still0."
+  }
 }

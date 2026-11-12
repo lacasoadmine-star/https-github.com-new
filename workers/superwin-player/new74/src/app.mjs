@@ -1,10 +1,11 @@
 import {games} from './games.mjs';
 import {Account,cents,amount} from './account.mjs';
+import {LibraryAccount} from './library-account.mjs';
 import {Art} from './art.mjs';
 const $=id=>document.getElementById(id),id=location.pathname.split('/').filter(Boolean).at(-1),game=games.find(g=>g.id===id);
 if(!game)throw Error('UNKNOWN_NEW_GAME');
 document.title=game.name+' · New 74 · ZPLAY';$('game').dataset.art=game.art;$('game-name').textContent=$('menu-title').textContent=game.name;
-const account=new Account(game),spriteData=await fetch('/new74/sprites.json').then(r=>r.json()),art=new Art(spriteData[game.art]);
+const account=game.transport==='library'?new LibraryAccount(game):new Account(game),rows=game.rows||3,spriteData=await fetch('/new74/sprites.json').then(r=>r.json()),art=new Art(spriteData[game.art]);
 let state=null,bet=null,busy=false,phase='loading',audioEnabled=false,musicEnabled=false,volume=.6,turbo=false,autoLeft=0,runEpoch=0,holdTimer=null,holding=false,suppressClick=false,shownWin='0.00',lastWin='0.00',taken=false;
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
@@ -24,7 +25,7 @@ class Scene {
  constructor(){this.canvas=$('scene');this.context=this.canvas.getContext('2d');this.grid=game.preview.map(r=>[...r]);this.multiplier=game.columns===3?5:2;this.spinning=false;this.started=0;this.fastStop=false;this.win=null;this.winUntil=0;this.logoUntil=0;this.settled=0;this.frame=0;}
  resize(){const b=$('game').getBoundingClientRect(),d=Math.min(devicePixelRatio,2);this.width=b.width;this.height=b.height;this.canvas.width=Math.round(b.width*d);this.canvas.height=Math.round(b.height*d);this.context.setTransform(d,0,0,d,0,0);this.draw();}
  layout(){const w=this.width,h=this.height,land=w>h;
-  return game.columns===3?{land,x:land?w*.28:w*.185,y:land?h*.15:h*.146,w:land?w*.47:w*.81,h:land?h*.64:h*.30,title:[land?w*.32:w*.185,land?0:h*.05,land?w*.39:w*.68,land?h*.17:h*.09]}:{land,x:land?w*.245:0,y:land?h*.32:h*.302,w:land?w*.51:w,h:land?h*.49:w*.605,title:[land?w*.01:w*.18,land?h*.18:h*.045,land?w*.22:w*.64,land?h*.17:h*.085]};
+  return game.columns===3?{land,x:land?w*.28:w*.185,y:land?h*.15:h*.146,w:land?w*.47:w*.81,h:land?h*.64:h*.30,title:[land?w*.32:w*.185,land?0:h*.05,land?w*.39:w*.68,land?h*.17:h*.09]}:{land,x:land?w*.245:0,y:land?h*(rows===4?.22:.32):h*(rows===4?.259:.302),w:land?w*.51:w,h:land?h*(rows===4?.62:.49):w*(rows===4?.8:.605),title:[land?w*.01:w*.18,land?h*.18:h*.045,land?w*.22:w*.64,land?h*.17:h*.085]};
  }
  draw(){
   const c=this.context,w=this.width,h=this.height;if(!w)return;c.clearRect(0,0,w,h);const l=this.layout();
@@ -49,11 +50,11 @@ class Scene {
    art.draw(c,'Multiplier/Numbers',-size/2,-size/2,size,size);c.restore();
    art.draw(c,'Box/Background',l.x,l.y,l.w,l.h,{tight:true});
   }
-  const inset=game.columns===3?2:4,cw=(l.w-inset*2)/game.columns,ch=(l.h-inset*2)/3,keys=Object.keys(game.symbols),step=Math.floor((performance.now()-this.started)/65);
+  const inset=game.columns===3?2:4,cw=(l.w-inset*2)/game.columns,ch=(l.h-inset*2)/rows,keys=Object.keys(game.symbols),step=Math.floor((performance.now()-this.started)/65);
   c.save();c.beginPath();c.rect(l.x+inset,l.y+inset,l.w-inset*2,l.h-inset*2);c.clip();
   for(let col=0;col<game.columns;col++){
-   if(game.columns===5){const gradient=c.createLinearGradient(l.x+col*cw,0,l.x+(col+1)*cw,0);gradient.addColorStop(0,'#031f17');gradient.addColorStop(.5,'#03492e');gradient.addColorStop(1,'#031f17');c.fillStyle=gradient;c.fillRect(l.x+inset+col*cw,l.y+inset,cw-1,ch*3);}
-   for(let row=0;row<3;row++){
+   if(game.columns===5){const gradient=c.createLinearGradient(l.x+col*cw,0,l.x+(col+1)*cw,0);gradient.addColorStop(0,'#031f17');gradient.addColorStop(.5,'#03492e');gradient.addColorStop(1,'#031f17');c.fillStyle=gradient;c.fillRect(l.x+inset+col*cw,l.y+inset,cw-1,ch*rows);}
+   for(let row=0;row<rows;row++){
     const animated=this.spinning&&col>=this.settled&&!this.fastStop&&!reduced(),symbol=animated?keys[(step+col*3+row)%keys.length]:this.grid[row][col],sprite=`${animated&&game.columns===3?'BlurBox':'Box'}/${game.symbols[symbol]}`,meta=art.frames[sprite],f=meta?.spriteSourceSize;
     if(!f)continue;
     const scale=Math.min(cw*.98/f.w,ch*.97/f.h),sw=f.w*scale,sh=f.h*scale;
@@ -96,8 +97,9 @@ function update(){
  $('auto').disabled=!ready||busy&&!autoLeft||holding||!!account.pending;
  $('auto-count').hidden=!autoLeft;$('auto-count').textContent=String(autoLeft);
  const gamble=ready&&!busy&&!account.pending&&!taken&&state?.gamble?.available;
- $('double').disabled=!gamble;$('take').disabled=!gamble;
- if(game.columns===5){$('double').hidden=!gamble;$('take').hidden=!gamble;}
+ const collect=ready&&!busy&&!account.pending&&!taken&&(game.transport==='library'?state?.nativeRound?.actions.includes('collect'):gamble);
+ $('double').disabled=!gamble;$('take').disabled=!collect;
+ if(game.columns===5){$('double').hidden=!gamble;$('take').hidden=!collect;}
  $('recover').hidden=!account.pending;$('recover').disabled=busy;
  $('free-spins').textContent=state?.round?.freeSpinsRemaining?'FREE SPINS '+state.round.freeSpinsRemaining:'';
  $('login').hidden=!!state?.authenticated;
@@ -146,12 +148,12 @@ $('auto-start').onclick=async()=>{
  while(autoLeft>0&&epoch===runEpoch&&!document.hidden){autoLeft--;const result=await spin();if(!result||$('stop-win').checked&&cents(result.finalWin)>0n||start-cents(state.balance)>=loss)break;if(autoLeft)await wait(turbo?250:850);}
  if(epoch===runEpoch){autoLeft=0;update();}
 };
-function collect(){stopRepeats();taken=true;scene.win=null;scene.draw();$('gamble-dialog').close();message('Guusha waxaa lagu qoray wallet-ka ETB.');sound('take');update();}
+async function collect(){if(busy||account.pending)return;stopRepeats();busy=true;update();try{if(game.transport==='library'){await account.collect();state=account.state;}taken=true;scene.win=null;scene.draw();$('gamble-dialog').close();message('Guusha waxaa lagu qoray wallet-ka ETB.');sound('take');}catch(error){message(explain(error));}finally{busy=false;update();}}
 $('take').onclick=$('collect').onclick=collect;
 $('double').onclick=()=>{if(!state?.gamble?.available||busy||account.pending)return;$('gamble-amount').textContent=state.gamble.stake+' ETB';$('card').textContent='';$('gamble-message').textContent='';modal('gamble-dialog');};
 async function gamble(choice){
  if(busy||!state?.gamble?.available||account.pending)return;stopRepeats();busy=true;phase='gambling';$('red').disabled=$('black').disabled=true;update();
- try{const {result}=await account.gamble(choice);state=account.state;shownWin=result.payout;$('gamble-amount').textContent=result.payout+' ETB';const colour=result.revealed||result.cardColor;$('card').textContent=colour==='RED'?'♥':'♠';$('card').style.color=colour==='RED'?'#fa335d':'#fff';$('gamble-message').textContent=result.won?'WIN · ×2':'0.00 ETB';sound(result.won?'win':'click');}
+ try{const {kind,result}=await account.gamble(choice);state=account.state;if(kind==='collect'){shownWin=result.finalWin;taken=true;$('gamble-dialog').close();message('Guusha waxaa lagu qoray wallet-ka ETB.');return;}shownWin=result.payout;$('gamble-amount').textContent=result.payout+' ETB';const colour=result.revealed||result.cardColor;$('card').textContent=colour==='RED'?'♥':'♠';$('card').style.color=colour==='RED'?'#fa335d':'#fff';$('gamble-message').textContent=result.won?'WIN · ×2':'0.00 ETB';sound(result.won?'win':'click');}
  catch(error){$('gamble-message').textContent=explain(error);}
  finally{busy=false;phase='idle';$('red').disabled=$('black').disabled=!state?.gamble?.available||!!account.pending;update();}
 }
@@ -161,7 +163,8 @@ function rules(){
  $('rules').textContent=`${game.lines} lines fixed · ${game.columns} reels. Guuluhu waxay ka bilaabmaan reel-ka bidix. STOP wuxuu dedejiyaa muuqaalka wareegga. Hay SPIN si wareegyo loogu celiyo sharadka la doortay; sii daa si ay u joogsadaan.`;
  const root=$('paytable');root.replaceChildren();const pays=state?.model.paytable;
  if(!pays){const p=document.createElement('p');p.textContent='Jadwalka guulaha ayaa la heli karaa marka akoonku xirmo.';root.append(p);return;}
- for(const[symbol,pay]of Object.entries(pays)){if(!Object.hasOwn(game.symbols,symbol))continue;const a=document.createElement('article'),canvas=document.createElement('canvas'),p=document.createElement('p');a.className='pay';p.textContent=Object.entries(pay).map(([count,m])=>`${count} · ×${m}`).join('\n');a.append(canvas,p);root.append(a);art.canvas(canvas,`Box/${game.symbols[symbol]}`);}
+ const records=Array.isArray(pays)?pays.map(record=>[record.symbol,Object.fromEntries(Object.entries(record.counts).map(([count,value])=>[count,value.value]))]):Object.entries(pays);
+ for(const[symbol,pay]of records){if(!Object.hasOwn(game.symbols,symbol))continue;const a=document.createElement('article'),canvas=document.createElement('canvas'),p=document.createElement('p');a.className='pay';p.textContent=Object.entries(pay).map(([count,m])=>`${count} · ×${m}`).join('\n');a.append(canvas,p);root.append(a);art.canvas(canvas,`Box/${game.symbols[symbol]}`);}
 }
 function tab(name){for(const n of ['rules','audio','history'])$(n+'-panel').hidden=n!==name;if(name==='history')void history();if(name==='rules')rules();}
 for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>tab(b.dataset.tab);
@@ -170,7 +173,7 @@ for(const [id,enabled]of [['sound-yes',true],['sound-no',false]])$(id).onclick=(
 $('sound').onclick=()=>{audioEnabled=!audioEnabled;musicEnabled=audioEnabled;consent=true;audioSettings();};
 $('volume').oninput=()=>{volume=Number($('volume').value)/100;audioSettings();};$('music-toggle').onclick=()=>{musicEnabled=!musicEnabled;audioSettings();};
 $('fullscreen').disabled=!document.fullscreenEnabled;$('fullscreen').onclick=async()=>{try{document.fullscreenElement?await document.exitFullscreen():await $('game').requestFullscreen();}catch{message('Fullscreen lama heli karo qalabkan.');}};
-$('recover').onclick=async()=>{if(busy||!account.pending)return;stopRepeats();busy=true;update();try{const response=await account.retry();state=account.state;if(response.kind==='spin')await scene.present(response.result);shownWin=response.kind==='spin'?response.result.finalWin:response.result.payout;message('Wareeggii hore waa la xaqiijiyey.');}catch(error){message(explain(error));}finally{busy=false;update();}};
+$('recover').onclick=async()=>{if(busy||!account.pending)return;stopRepeats();busy=true;update();try{const response=await account.retry();state=account.state;if(response.kind==='spin')await scene.present(response.result);shownWin=response.kind==='gamble'?response.result.payout:response.result.finalWin;message('Wareeggii hore waa la xaqiijiyey.');}catch(error){message(explain(error));}finally{busy=false;update();}};
 window.addEventListener('blur',()=>{stopRepeats();update();});window.addEventListener('pagehide',()=>{stopRepeats();music.pause();});
 document.addEventListener('visibilitychange',()=>{stopRepeats();if(document.hidden)music.pause();else{audioSettings();if(!busy&&!account.pending)void connect();}update();});
 document.addEventListener('keydown',event=>{if(event.code==='Space'&&!event.repeat&&!document.querySelector('dialog[open]')&&!/BUTTON|INPUT|SELECT|A/.test(event.target.tagName)){event.preventDefault();void spin();}});

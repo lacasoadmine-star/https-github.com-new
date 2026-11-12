@@ -77,22 +77,28 @@ export class Account {
     receipt(result,this.game,p,this.state.model);
     this.state.round=result;
     this.state.balance=result.walletReceipt.balanceAfter;
-    this.state.gamble={available:cents(result.finalWin)>0n&&!result.freeSpinsRemaining,attempt:0,maxAttempts:this.state.model.features?.gambleRounds??3,stake:result.finalWin};
+    const features=this.state.model.features,limit=features?.gambleRounds;
+    if(!Number.isInteger(limit)||limit<0)throw Error('INVALID_GAMBLE_LIMIT');
+    this.state.gamble={available:limit>0&&cents(result.finalWin)>0n&&!result.freeSpinsRemaining&&(!features.gambleMaxStake||cents(result.finalWin)<=cents(features.gambleMaxStake)),attempt:0,maxAttempts:limit,stake:result.finalWin};
    }else{
     const colour=result.revealed||result.cardColor;
     if(result.roundId!==p.body.roundId||result.choice!==p.body.choice||result.attempt!==p.attempt||!['RED','BLACK'].includes(colour)||result.won!==(colour===p.body.choice)||cents(result.payout)!==(result.won?cents(p.stake)*2n:0n))throw Error('INVALID_GAMBLE_RECEIPT');
-    if(!Number.isInteger(result.maxAttempts)||result.maxAttempts<result.attempt)throw Error('INVALID_GAMBLE_LIMIT');
+    if(!Number.isInteger(result.maxAttempts)||result.maxAttempts!==this.state.model.features?.gambleRounds||result.maxAttempts<result.attempt)throw Error('INVALID_GAMBLE_LIMIT');
     if(this.game.transport==='fresh'){
      const r=result.walletReceipt;
      if(!r||r.currency!=='ETB'||cents(r.chargedStake)!==cents(p.stake)||cents(r.finalWin)!==cents(result.payout)||r.balanceAfter!==result.balanceAfter||cents(r.balanceBefore)-cents(p.stake)+cents(result.payout)!==cents(r.balanceAfter))throw Error('INVALID_GAMBLE_RECEIPT');
     }
     cents(result.balanceAfter);this.state.balance=result.balanceAfter;
-    this.state.gamble={available:result.won&&result.attempt<result.maxAttempts,attempt:result.attempt,maxAttempts:result.maxAttempts,stake:result.payout};
+    const cap=this.state.model.features?.gambleMaxStake;
+    this.state.gamble={available:result.won&&result.attempt<result.maxAttempts&&(!cap||cents(result.payout)<=cents(cap)),attempt:result.attempt,maxAttempts:result.maxAttempts,stake:result.payout};
    }
    this.save(null);
    return {kind:p.kind,result};
   }catch(error){
    if(error instanceof AccountError&&[400,402,422].includes(error.status)&&['INSUFFICIENT_FUNDS','INVALID_BET','INVALID_AMOUNT','GAME_BET_OR_TOKEN_INVALID','INVALID_CHOICE'].includes(error.code))this.save(null);
+   // The existing engine checks saved results before these explicit rejections.
+   // In particular, replayOnly + ROUND_NOT_CONFIRMED proves no spin was stored.
+   if(error instanceof AccountError&&error.status===409&&['ROUND_NOT_CONFIRMED','GAMBLE_STATE_CHANGED','GAMBLE_EXPIRED','GAMBLE_LIMIT','NO_GAMBLE_WINNINGS','GAMBLE_STAKE_LIMIT','GAMBLE_NOT_AVAILABLE','FREE_SPIN_BET_LOCKED','ACCOUNT_BALANCE_LIMIT','PLAYER_SESSION_CHANGED','GAME_RULES_UPDATED_RELOAD'].includes(error.code))this.save(null);
    throw error instanceof AccountError?error:new AccountError(error.message,0,true);
   }finally{this.busy=false;}
  }
