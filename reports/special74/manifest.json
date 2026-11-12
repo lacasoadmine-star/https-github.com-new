@@ -4,7 +4,6 @@
   "target": "https://superwin-player.apdiy61.workers.dev",
   "section": "Special Games",
   "releaseMode": "one-complete-74-game-release",
-  "requiredConfirmedDemoRounds": 20,
   "legacyDisposition": "replace-player-game-catalogue-at-verified-cutover-with-rollback",
   "financialPolicy": "same existing backend, wallet, ledger, accounts, currency; no demo financial runtime; no inferred payout math",
   "previousPresentationStatus": "rejected-by-user; archived, not approved as a v2 implementation",
@@ -40,7 +39,8 @@
           "enabled": false,
           "source": "GET /api/slots/games"
         }
-      ]
+      ],
+      "displayOrder": 51
     },
     {
       "position": 2,
@@ -61,7 +61,8 @@
           "enabled": true,
           "source": "GET /api/slots/games"
         }
-      ]
+      ],
+      "displayOrder": 49
     },
     {
       "position": 3,
@@ -104,7 +105,8 @@
           "source": "GET /api/config",
           "stateRequiresExistingLogin": true
         }
-      ]
+      ],
+      "displayOrder": 50
     },
     {
       "position": 4,
@@ -134,7 +136,8 @@
           "source": "GET /api/config",
           "stateRequiresExistingLogin": true
         }
-      ]
+      ],
+      "displayOrder": 52
     },
     {
       "position": 5,
@@ -157,7 +160,8 @@
         "demoPage": "https://wazdan.com/games/super-hot",
         "note": "Exact title on official Wazdan page; ZeusPlay also has this title and Amusnet has numbered Super Hot titles. ZPLAY-specific provider not established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 65
     },
     {
       "position": 6,
@@ -179,7 +183,8 @@
         ],
         "demoPage": "https://amusnet.com/games/online-casino/burning-hot"
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 6
     },
     {
       "position": 7,
@@ -193,8 +198,29 @@
         "match": "verified"
       },
       "referenceCandidatesReport": "../smartsoft-pair01/references-07-08.json",
-      "confirmedDemoRoundIds": [],
-      "presentation": "not-built-v2",
+      "confirmedDemoRoundIds": [
+        "1970123740.1",
+        "1970123740.2",
+        "1970123740.3",
+        "1970123740.4",
+        "1970123740.5",
+        "1970123740.6",
+        "1970123740.7",
+        "1970123740.8",
+        "1970123740.9",
+        "1970123740.10",
+        "1970123740.11",
+        "1970123740.12",
+        "1970123740.13",
+        "1970123740.14",
+        "1970123740.15",
+        "1970123740.16",
+        "1970123740.17",
+        "1970123740.18",
+        "1970123740.19",
+        "1970123740.20"
+      ],
+      "presentation": "playable-v2-draft",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
@@ -217,6 +243,37 @@
           "source": "GET /api/config",
           "stateRequiresExistingLogin": true
         }
+      ],
+      "coverage": {
+        "required": [
+          "base-spin",
+          "bet-changes",
+          "win",
+          "collect",
+          "freeze-respin",
+          "gamble",
+          "responsive",
+          "audio"
+        ],
+        "verified": [
+          "base-spin"
+        ],
+        "complete": false
+      },
+      "displayOrder": 7,
+      "runtime": {
+        "thirdPartyRequests": 0,
+        "unresolvedFinancialRequests": 0,
+        "localWagerCollectChecksPassed": true,
+        "productionAuthenticatedWagersTested": false
+      },
+      "remainingPresentationWork": [
+        "landscape layout",
+        "official timed Spine and win animations",
+        "freeze/respin state-to-frame mapping",
+        "complete paytable/settings/history and gamble surfaces",
+        "audio timing/volume comparison",
+        "initial authenticated server-grid loading"
       ]
     },
     {
@@ -249,7 +306,8 @@
           "source": "GET /api/config",
           "stateRequiresExistingLogin": true
         }
-      ]
+      ],
+      "displayOrder": 8
     },
     {
       "position": 9,
@@ -272,7 +330,8 @@
         ],
         "note": "Provider confirms original title in official releases. Sizzling Hot deluxe is a distinct version; runtime and exact ZPLAY build not established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 61
     },
     {
       "position": 10,
@@ -294,7 +353,8 @@
         ],
         "note": "Original Ultra Hot appears in the historical official catalogue; accessible current product page is Ultra Hot deluxe. Do not substitute deluxe silently."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 70
     },
     {
       "position": 11,
@@ -321,7 +381,8 @@
         ],
         "note": "Multiple exact-title/candidate publishers; SmartSoft-specific title unverified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 21
     },
     {
       "position": 12,
@@ -343,7 +404,8 @@
         ],
         "note": "Official catalogue pages 100\u2013101 identify the exact non-deluxe title. Separate Fruits'n Sevens deluxe also exists; no direct official runtime verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 23
     },
     {
       "position": 13,
@@ -365,7 +427,8 @@
         ],
         "demoPage": "https://playson.com/game/sevensfruits"
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 59
     },
     {
       "position": 14,
@@ -389,7 +452,8 @@
         ],
         "note": "Independent catalogues agree on InBet/ABXplay. Casino Guru says its demo is temporarily unavailable. No official primary runtime established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 68
     },
     {
       "position": 15,
@@ -412,7 +476,8 @@
         ],
         "note": "Secondary listings identify 3 reels/5 lines and GTECH/IGT; primary current demo not found."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 16
     },
     {
       "position": 16,
@@ -442,7 +507,8 @@
         "demoPage": "https://free-slot.belatragames.com/play/super-sevens",
         "note": "Belatra is an exact-title candidate, but requested ZPLAY variant is not established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 67
     },
     {
       "position": 17,
@@ -465,7 +531,8 @@
         ],
         "note": "SlotCatalog and Chipy identify a SmartSoft scratch-card game; SlotCatalog specifies 6\u00d74 board. Stakers instead describes a 3-reel, 1-line slot. Primary official demo required to resolve conflicting descriptions."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 42
     },
     {
       "position": 18,
@@ -483,7 +550,8 @@
         "sources": [],
         "note": "Search returned unrelated card apps, casino entities and Lucky 8 by RTG. Lucky 8 is separately requested as #58; do not treat as confirmed alias."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 39
     },
     {
       "position": 19,
@@ -501,7 +569,8 @@
         "sources": [],
         "note": "Targeted searches returned unrelated matches, with no identified official casino game or demo. This is not a claim that no such game exists."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 40
     },
     {
       "position": 20,
@@ -524,7 +593,8 @@
         ],
         "note": "Official provider announcements name the original title. Current product pages also include deluxe and other variants; original ZPLAY runtime not verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 41
     },
     {
       "position": 21,
@@ -544,7 +614,8 @@
         ],
         "note": "Found Diamond 7\u2019s by Microgaming as a nearby title, unrelated mobile apps, and operator lists without reliable identity. None proves exact requested SmartSoft title; do not substitute."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 13
     },
     {
       "position": 22,
@@ -567,7 +638,8 @@
         ],
         "note": "Provider identity supported by several secondary sources; direct official demo/runtime not verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 72
     },
     {
       "position": 23,
@@ -589,7 +661,8 @@
         ],
         "note": "IGT also has a historical Wild Cherry machine; requested ZPLAY variant has not been established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 73
     },
     {
       "position": 24,
@@ -612,7 +685,8 @@
         "demoPage": "https://netent.com/games/jackpot-6000",
         "note": "Public page verified; demo runtime and 15 rounds not observed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 30
     },
     {
       "position": 25,
@@ -634,7 +708,8 @@
         ],
         "note": "Official sources identify Fever Slots as an online casino/site containing many suppliers' games, not a single verified SmartSoft game. No exact standalone game found."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 17
     },
     {
       "position": 26,
@@ -657,7 +732,8 @@
         "demoPage": "https://netent.com/games/reel-rush",
         "note": "Original Reel Rush identified separately from Reel Rush 2 and Reel Rush XXXtreme; runtime inspection interrupted by workspace loss."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 55
     },
     {
       "position": 27,
@@ -685,7 +761,8 @@
         "demoUrl": null,
         "notes": "Not a reel slot. The public page contains a DEMO section, but a direct runnable launcher was not extracted."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 10
     },
     {
       "position": 28,
@@ -719,7 +796,8 @@
           "enabled": false,
           "source": "GET /api/slots/games"
         }
-      ]
+      ],
+      "displayOrder": 11
     },
     {
       "position": 29,
@@ -754,7 +832,8 @@
           "enabled": false,
           "source": "GET /api/slots/games"
         }
-      ]
+      ],
+      "displayOrder": 5
     },
     {
       "position": 30,
@@ -782,7 +861,8 @@
         "demoUrl": "https://wegas.stage.kajotgames.dev/api/dispatcher/launcher?casino_id=250&currency=EUR&game_id=stars&home=https%3A%2F%2Fkajotgames.com%2Fgames%2F&language=en&mode=free",
         "notes": "Official demo link was resolved by web lookup; browser play was not performed. The launcher redirects to games.stage.kajotgames.dev/stars/ with mode=free."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 63
     },
     {
       "position": 31,
@@ -810,7 +890,8 @@
         "demoUrl": null,
         "notes": "Play Online resolved to the provider's LuckyClover HTML client with a temporary demo token and FUN currency. The ephemeral token is intentionally omitted. No browser play was performed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 37
     },
     {
       "position": 32,
@@ -839,7 +920,8 @@
         ],
         "notes": "Both candidate titles differ from the requested title. No alias relationship to Lucky Clover 40 or a SmartSoft title was verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 38
     },
     {
       "position": 33,
@@ -868,7 +950,8 @@
         ],
         "notes": "Searches located named entries in an Ancient Fortunes series. A standalone exact-title Ancient Fortunes game and the intended variant were not verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 1
     },
     {
       "position": 34,
@@ -885,7 +968,8 @@
         "status": "exact-reference-not-found",
         "notes": "Exact-name searches returned Ancient Fortunes series games and bet-limit text, without a verified title ending in 40."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 2
     },
     {
       "position": 35,
@@ -913,7 +997,8 @@
         "demoUrl": null,
         "notes": "The current product page requires JavaScript. A direct provider demo launcher was not extracted. Secondary sites also list the related Booongo/BNG release; no SmartSoft attribution was verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 46
     },
     {
       "position": 36,
@@ -930,7 +1015,8 @@
         "status": "exact-reference-not-found",
         "notes": "Exact-name searches did not verify this title. Magic Apple and Magic Apple 2 are separately published titles; neither was substituted."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 47
     },
     {
       "position": 37,
@@ -959,7 +1045,8 @@
         ],
         "notes": "Neither the added word Hot nor the singular Fruit was assumed to be an authorized alias for Fruits 40. The list separately requests Fruit 40 at number 44."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 22
     },
     {
       "position": 38,
@@ -976,7 +1063,8 @@
         "status": "exact-reference-not-found",
         "notes": "Quoted-title searches returned symbol paytable values and differently named cherry games, without a verified exact game title or demo."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 9
     },
     {
       "position": 39,
@@ -1000,7 +1088,8 @@
         ],
         "notes": "A secondary listing uses the reversed word order 40 Sevens. No provider-confirmed alias for Sevens 40 was established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 60
     },
     {
       "position": 40,
@@ -1017,7 +1106,8 @@
         "status": "exact-reference-not-found",
         "notes": "Quoted-title searches returned unrelated diamond game names or payout values. No exact provider title and demo were verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 12
     },
     {
       "position": 41,
@@ -1046,7 +1136,8 @@
         ],
         "notes": "Candidate names contain additional words. Neither was substituted for Wild 40."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 71
     },
     {
       "position": 42,
@@ -1079,7 +1170,8 @@
         "demoUrl": null,
         "notes": "The request repeats Hot 40 at number 67. This research does not establish two distinct games under that same name. No browser demo rounds were performed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 28
     },
     {
       "position": 43,
@@ -1112,7 +1204,8 @@
         "demoUrl": null,
         "notes": "The provider's public games page is dynamic and no public free launcher was extracted. The request repeats Lucky 40 at number 69; no second distinct version was established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 33
     },
     {
       "position": 44,
@@ -1145,7 +1238,8 @@
         "demoUrl": null,
         "notes": "Official Play page was resolved. Its language, currency and jurisdiction controls need a browser before gameplay can be observed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 20
     },
     {
       "position": 45,
@@ -1169,7 +1263,8 @@
         ],
         "notes": "The provider uses 40 Super Fruits, not Super Fruits 40. Word-order equivalence and the requested SmartSoft attribution were not verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 64
     },
     {
       "position": 46,
@@ -1193,7 +1288,8 @@
         ],
         "notes": "Only differently named Golden Fruits references were located; the 40 suffix was not verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 24
     },
     {
       "position": 47,
@@ -1222,7 +1318,8 @@
         ],
         "notes": "Both candidate names differ. No exact Royal 40 provider game or alias relationship was established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 56
     },
     {
       "position": 48,
@@ -1239,7 +1336,8 @@
         "status": "exact-reference-not-found",
         "notes": "Quoted-name searches returned unrelated princess titles and paytable amounts; no exact provider title or demo was verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 54
     },
     {
       "position": 49,
@@ -1256,7 +1354,8 @@
         "status": "exact-reference-not-found",
         "notes": "Quoted-name searches returned symbol values and longer game names, without an exact verified provider title or demo."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 62
     },
     {
       "position": 50,
@@ -1273,7 +1372,8 @@
         "status": "exact-reference-not-found",
         "notes": "Quoted-name results included non-game radio equipment; no verified casino game provider title or demo was found."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 43
     },
     {
       "position": 51,
@@ -1297,7 +1397,8 @@
         ],
         "notes": "A secondary page uses caishens-fortune-40 in its URL but identifies a longer different game title. Irrelevant search spam was not treated as a legitimate provider reference."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 18
     },
     {
       "position": 52,
@@ -1326,7 +1427,8 @@
         ],
         "notes": "The official page names Lucky7 and captions its screenshots Lucky 7. This establishes a Betsoft candidate, not a SmartSoft/ZPLAY match. The demo landing page was reached through the provider's link; the running game was not observed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 35
     },
     {
       "position": 53,
@@ -1351,7 +1453,8 @@
         ],
         "notes": "The provider's official catalogue distinguishes the classic Book of Ra title from Deluxe. No classic demo was played."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 3
     },
     {
       "position": 54,
@@ -1381,7 +1484,8 @@
         ],
         "notes": "Official page exposes Play Demo controls, but a working anonymous launch URL has not been verified. Do not substitute the Buy Bonus, Magic, or six-reel variants."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 4
     },
     {
       "position": 55,
@@ -1407,7 +1511,8 @@
         ],
         "notes": "Official catalogue verifies the classic title. A classic demo landing page was found, but no gameplay observation was completed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 14
     },
     {
       "position": 56,
@@ -1437,7 +1542,8 @@
         ],
         "notes": "Provider page explicitly says login required for its demo. No account created and no access control bypass attempted."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 15
     },
     {
       "position": 57,
@@ -1454,7 +1560,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "Searches returned Maui Millions and unrelated Maui Millionaire trademarks. Neither proves that the requested title is an alias. No substitution made."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 48
     },
     {
       "position": 58,
@@ -1483,7 +1590,8 @@
         ],
         "notes": "Multiple independent and operator pages identify an RTG slot with this exact title. Provider-hosted source and functioning free demo remain unverified. Lucky 8 Line/Reactors/Keno are distinct titles."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 36
     },
     {
       "position": 59,
@@ -1500,7 +1608,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "No exact slot with a verified provider/demo identified in this search."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 58
     },
     {
       "position": 60,
@@ -1539,7 +1648,8 @@
         ],
         "notes": "Manna's official demo link redirected to its game host, which the web tool could not render. The timestamp parameter is from the official page and may expire; relaunch through the official page. A different older game uses the same name, so there is no verified SmartSoft/ZPLAY identity."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 74
     },
     {
       "position": 61,
@@ -1570,7 +1680,8 @@
         ],
         "notes": "An exact-name secondary listing exists, but the official game found is a scratchcard variant. They are not treated as interchangeable."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 57
     },
     {
       "position": 62,
@@ -1608,7 +1719,8 @@
         ],
         "notes": "Official provider page includes Play Demo. Game is Amusnet, not SmartSoft. No demo spins or touch observations completed."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 25
     },
     {
       "position": 63,
@@ -1625,7 +1737,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "Results used the phrase great 40 in descriptions of unrelated 40-line games. No exact-title provider or demo was verified. Great 27 is not treated as a substitute."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 26
     },
     {
       "position": 64,
@@ -1642,7 +1755,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "Search results do not establish the requested stand-alone Magic 7 game."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 45
     },
     {
       "position": 65,
@@ -1672,7 +1786,8 @@
         ],
         "notes": "Official Novomatic title verified. GameTwist public page describes free play but authentication and running demo were not tested. IMPERA LINK Magic 27 is a separate variant."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 44
     },
     {
       "position": 66,
@@ -1699,7 +1814,8 @@
         ],
         "notes": "Provider confirmed from AMATIC's official catalogue. No playable anonymous provider-hosted demo was verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 27
     },
     {
       "position": 67,
@@ -1729,7 +1845,8 @@
         ],
         "notes": "NOVOLINE is the operator of the evidence page; the page does not identify this game's developer. Do not infer Novomatic or Gamomat from the operator branding. No public demo verified and no distinct second variant established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 29
     },
     {
       "position": 68,
@@ -1746,7 +1863,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "No exact-title provider/demo established. Very Lucky 27 and its Hold and Win variant were not substituted."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 32
     },
     {
       "position": 69,
@@ -1777,7 +1895,8 @@
         ],
         "notes": "Operator explicitly names Holland Power Gaming. Direct provider site could not be opened by the web tool. No distinct second Lucky 40 variant or playable public demo verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 34
     },
     {
       "position": 70,
@@ -1794,7 +1913,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "Search surfaced related titles, not an independently verified Fruit 27 title."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 19
     },
     {
       "position": 71,
@@ -1811,7 +1931,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "No exact-title official provider page or demo verified in the returned search results."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 69
     },
     {
       "position": 72,
@@ -1828,7 +1949,8 @@
         "status": "no-exact-slot-reference-verified",
         "notes": "A generic aggregator filter mentions Ocean 27. It does not establish a provider, actual game page, demo, artwork or rules, so it is insufficient for reconstruction."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 53
     },
     {
       "position": 73,
@@ -1879,7 +2001,8 @@
         ],
         "notes": "Both official providers publish this name. Kajot's public free-mode launcher was followed and redirected to the game host, which the web tool could not render. No demo gameplay or ZPLAY-specific identity verified."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 31
     },
     {
       "position": 74,
@@ -1915,13 +2038,26 @@
         ],
         "notes": "Pragmatic's official demo page establishes an exact name candidate. A different five-reel Super Joker is described by other operators, so the user-intended ZPLAY variant is not established."
       },
-      "backendCandidates": []
+      "backendCandidates": [],
+      "displayOrder": 66
     }
   ],
   "observationPolicy": {
-    "minimumRounds": 20,
-    "selectedByEngineer": true,
-    "userAuthorizesAdditionalRounds": true,
-    "roundCountIsNotMathCertification": true
-  }
+    "mode": "coverage-driven",
+    "fixedRoundTarget": null,
+    "engineerChoosesRoundsUntilRequiredBehaviorVerified": true,
+    "roundCountIsNotMathCertification": true,
+    "requiredAreas": [
+      "base spin and stop",
+      "bet changes",
+      "winning presentation",
+      "collect",
+      "applicable feature rounds",
+      "gamble if available",
+      "touch and resize",
+      "audio and motion"
+    ]
+  },
+  "catalogueOrdering": "A\u2013Z by display title; stable position tie-break preserves repeated names",
+  "deploymentPerformed": false
 }

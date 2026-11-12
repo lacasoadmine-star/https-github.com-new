@@ -20,7 +20,8 @@ export async function inspectRelease(manifest,root){
   ids.add(id);positions.add(e.position);
   if(!e.officialIdentity?.provider||!e.officialIdentity?.title||!e.officialIdentity?.url||e.officialIdentity?.match!=='verified')fail(id,'Exact official title/provider/demo not verified');
   const rounds=new Set(e.confirmedDemoRoundIds||[]);
-  if(rounds.size<(manifest.observationPolicy?.minimumRounds??20)||rounds.has('')||[...rounds].some(x=>typeof x!=='string'))fail(id,'Insufficient confirmed unique demo round receipts');
+  if(rounds.size===0||rounds.has('')||[...rounds].some(x=>typeof x!=='string'))fail(id,'No confirmed unique demo round receipts');
+  if(e.coverage?.complete!==true||!Array.isArray(e.coverage?.required)||!e.coverage.required.length||e.coverage.required.some(x=>!e.coverage.verified?.includes(x)))fail(id,'Required game behavior remains unverified; spin count alone is not acceptance');
   if(e.presentation!=='built-v2'||e.parityVerified!==true)fail(id,'New playable presentation and visual/motion/audio comparison not approved');
   if(e.backendContractVerified!==true||!e.backend?.modelId||!e.backend?.modelVersion||e.backend?.source!=='existing-superwin-server'||e.backend?.frontendDeterminesPayout!==false)fail(id,'Matching existing server financial model not verified');
   if(e.runtime?.thirdPartyRequests!==0||e.runtime?.unresolvedFinancialRequests!==0||e.runtime?.localWagerCollectChecksPassed!==true)fail(id,'Same-origin runtime and financial recovery checks not verified');

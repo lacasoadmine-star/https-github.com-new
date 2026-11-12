@@ -1,0 +1,24 @@
+const {chromium,devices}=require('playwright');
+const assert=require('node:assert/strict'),fs=require('node:fs');
+(async()=>{
+ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const context=await browser.newContext({...devices['Pixel 7']});const page=await context.newPage();const errors=[],external=[];
+ page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(new URL(r.url()).origin!=='http://127.0.0.1:4181')external.push(r.url());});
+ await page.request.get('http://127.0.0.1:4181/__fixture/reset');
+ await page.goto('http://127.0.0.1:4181/special-games/007-burning-ice-10');await page.locator('#sound-no').click();
+ await page.waitForFunction(()=>!document.querySelector('#spin').disabled);
+ await page.locator('#plus').click();
+ await page.locator('#spin').click();await page.locator('#spin').click();
+ await page.waitForFunction(()=>!document.querySelector('#collect').disabled);
+ let stats=await(await page.request.get('http://127.0.0.1:4181/__fixture/stats')).json();assert.equal(stats.starts,1);assert.equal(stats.balance,9980);
+ await page.locator('#collect').click();await page.waitForTimeout(200);
+ stats=await(await page.request.get('http://127.0.0.1:4181/__fixture/stats')).json();assert.equal(stats.balance,10080);
+ await page.request.get('http://127.0.0.1:4181/__fixture/drop-next');await page.locator('#spin').click();
+ await page.locator('#retry').waitFor({state:'visible'});stats=await(await page.request.get('http://127.0.0.1:4181/__fixture/stats')).json();assert.equal(stats.starts,2);
+ const ids=stats.requests.slice();await page.locator('#retry').click();await page.waitForFunction(()=>!document.querySelector('#collect').disabled);
+ stats=await(await page.request.get('http://127.0.0.1:4181/__fixture/stats')).json();assert.equal(stats.starts,2);assert.deepEqual(stats.requests,ids);
+ fs.mkdirSync('workers/superwin-player/special74/test-results',{recursive:true});await page.screenshot({path:'workers/superwin-player/special74/test-results/ice10-portrait.png',scale:'css'});
+ assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+ const result={passed:true,scope:'local synthetic fixture, not production wagers or visual parity',checks:['double tap makes one start','selected stake sent to existing contract','collect updates canonical balance','lost response replays same request ID without a second debit','same-origin runtime'],productionFinancialRequests:0};
+ fs.writeFileSync('workers/superwin-player/special74/test-results/browser.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
