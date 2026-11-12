@@ -11,7 +11,7 @@ function demoURL(raw){let u=new URL(/^https?:/.test(raw)?raw:'https://'+raw);if(
 (async()=>{
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--remote-debugging-port=9227'],proxy:{server:process.env.HTTPS_PROXY}});
 process.on('SIGINT',async()=>{await browser.close();process.exit(130)});
-const context=await browser.newContext({...devices['Pixel 7']});const page=await context.newPage();
+const context=await browser.newContext({...devices['Pixel 7']});context.setDefaultTimeout(2000);const page=await context.newPage();
 await context.addInitScript(()=>performance.setResourceTimingBufferSize(5000));
 for(const entry of input.slice(offset,offset+limit)){
  const row={id:entry.id,requestedName:entry.requestedName,selectedName:entry.selectedName,officialPage:entry.officialIdentity.url,startedAt:new Date().toISOString(),status:'loading',confirmedRoundIds:[]};const gameDir=path.join(out,entry.id);fs.mkdirSync(gameDir,{recursive:true});
@@ -21,12 +21,12 @@ for(const entry of input.slice(offset,offset+limit)){
   row.demoUrl=demoURL(entry.officialIdentity.demoUrl);await page.goto(row.demoUrl,{waitUntil:'domcontentloaded',timeout:30000});await page.waitForTimeout(6500);
   row.dialogActions=[];
   for(const frame of page.frames()){
-   const text=await frame.locator('body').innerText().catch(()=>'');
+   const text=await frame.evaluate(()=>document.body?.innerText||'').catch(()=>'');
    if(!/would you like sound|play with sounds/i.test(text))continue;
    const yes=frame.getByText(/^yes$/i,{exact:true});
    for(let i=0;i<await yes.count();i++){
     const item=yes.nth(i);if(!await item.isVisible().catch(()=>false))continue;
-    try{await item.click({timeout:4000});row.dialogActions.push('sound-enabled-through-visible-yes-control');break;}
+    try{const box=await item.boundingBox();const viewport=page.viewportSize();if(!box||box.x<0||box.y<0||box.x+box.width>viewport.width||box.y+box.height>viewport.height)continue;await page.touchscreen.tap(box.x+box.width/2,box.y+box.height/2);row.dialogActions.push('visible-sound-yes-control-tapped');break;}
     catch(error){row.dialogActions.push('sound-control-not-actionable: '+error.message.split('\n')[0]);}
    }
   }

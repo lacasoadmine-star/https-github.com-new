@@ -31,6 +31,7 @@ function updateControls(){
 }
 function draw(now=performance.now()){
  if(!ready)return;
+ const elapsed=Math.max(0,now-started);
  ctx.clearRect(0,0,566,1117);ctx.drawImage(background,0,-17.5558,566,background.height*566/background.width);
  ctx.drawImage(logo,99,66.4442,375,159);
  sprite('Start/WildHeader',151,152.4442,265,42);
@@ -38,8 +39,8 @@ function draw(now=performance.now()){
  for(let c=0;c<5;c++)sprite('Start/Column',1+c*113,200.4442,110,334);
  ctx.save();ctx.beginPath();ctx.rect(0,200.4442,566,334);ctx.clip();
  for(let c=0;c<5;c++)for(let row=0;row<3;row++){
-  const moving=spinning&&!freeze.includes(c),offset=moving?((now-started)*(fast?1.4:.65)+c*34)%112:0;
-  const symbol=moving?String((Math.floor((now-started)/75)+row+c*3)%12):grid?.[row]?.[c];
+  const moving=spinning&&!freeze.includes(c),offset=moving?(elapsed*(fast?1.4:.65)+c*34)%112:0;
+  const symbol=moving?String((Math.floor(elapsed/75)+row+c*3)%12):grid?.[row]?.[c];
   if(symbol===undefined)continue;
   const type=moving?'BlurBox/':'Box/',x=-45+c*113,y=153.4442+row*112+offset;
   sprite(type+symbol,x,y,202,202);
@@ -75,7 +76,7 @@ async function present(result){
  const native=result.native;const frames=native.frames.length?native.frames:[{grid:native.grid,wins:native.wins}];
  for(let index=0;index<frames.length;index++){
   const frame=frames[index];
-  if(index){spinning=true;started=performance.now();freeze=Array.isArray(frame.feature?.frozenColumns)?frame.feature.frozenColumns:[];sound('Start/Ice1');render();await sleep(fast?250:700);}
+  if(index){spinning=true;started=performance.now();freeze=Array.isArray(frames[index-1].feature?.frozenReels)?frames[index-1].feature.frozenReels:[];sound('Start/Ice1');render();await sleep(fast?250:700);}
   grid=Array.from({length:3},(_,r)=>frame.grid.map(col=>col[r]));spinning=false;freeze=[];
   winCells=(frame.wins||[]).flatMap(w=>w.cells.map(([c,r])=>[r,c]));render();sound('Start/ObjectMoveStop');
   if(index<frames.length-1)await sleep(fast?150:650);

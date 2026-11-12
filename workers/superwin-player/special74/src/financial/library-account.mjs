@@ -11,8 +11,9 @@ export function libraryRound(raw,game){
  if(raw.status==='settled'&&minor(raw.payoutMinor)!==minor(raw.currentCashoutMinor))throw Error('INVALID_NATIVE_PAYOUT');
  if(!Array.isArray(raw.actions)||raw.actions.some(x=>!['collect','gamble'].includes(x))||raw.status==='settled'&&raw.actions.length)throw Error('INVALID_NATIVE_ACTIONS');
  if(!Array.isArray(raw.wins)||!Array.isArray(raw.frames))throw Error('INVALID_NATIVE_FRAMES');
- for(const frame of raw.frames){if(!Array.isArray(frame.grid)||frame.grid.length!==game.columns||frame.grid.some(col=>!Array.isArray(col)||col.length!==rows||col.some(symbol=>!Object.hasOwn(game.symbols,symbol))))throw Error('INVALID_NATIVE_GRID');}
- const positions=raw.wins.map(win=>{minor(win.payoutMinor);if(!Array.isArray(win.cells)||win.cells.some(p=>!Array.isArray(p)||p.length!==2||!Number.isInteger(p[0])||p[0]<0||p[0]>=game.columns||!Number.isInteger(p[1])||p[1]<0||p[1]>=rows))throw Error('INVALID_NATIVE_WIN');return {positions:win.cells.map(([col,row])=>[row,col])};});
+ const wins=value=>{if(!Array.isArray(value))throw Error('INVALID_NATIVE_WIN');return value.map(win=>{if(!win)throw Error('INVALID_NATIVE_WIN');minor(win.payoutMinor);if(!Array.isArray(win.cells)||win.cells.some(p=>!Array.isArray(p)||p.length!==2||!Number.isInteger(p[0])||p[0]<0||p[0]>=game.columns||!Number.isInteger(p[1])||p[1]<0||p[1]>=rows))throw Error('INVALID_NATIVE_WIN');return {positions:win.cells.map(([col,row])=>[row,col])};});};
+ for(const frame of raw.frames){if(!frame||!Array.isArray(frame.grid)||frame.grid.length!==game.columns||frame.grid.some(col=>!Array.isArray(col)||col.length!==rows||col.some(symbol=>!Object.hasOwn(game.symbols,symbol))))throw Error('INVALID_NATIVE_GRID');wins(frame.wins);}
+ const positions=wins(raw.wins);
  const multiplier=raw.feature?.multiplier;
  if(game.multiplier!==false&&![1,2,3,4,5].includes(multiplier))throw Error('INVALID_NATIVE_MULTIPLIER');
  return {roundId:raw.round_id,gameId:raw.game_id,grid:Array.from({length:rows},(_,row)=>raw.grid.map(col=>col[row])),winLines:positions,wheelMultiplier:multiplier??1,finalWin:amount(minor(raw.currentCashoutMinor)),bet:amount(minor(raw.stakeMinor)),freeSpinsRemaining:0,native:raw,awaitingCollection:raw.status==='active'};
