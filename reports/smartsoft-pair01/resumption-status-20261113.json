@@ -1,0 +1,66 @@
+{
+  "targetCount": 74,
+  "releasePlan": "One complete74-game package, per the owner's latest instruction. No placeholder registration is treated as a completed game.",
+  "deployedFrontends": [
+    {
+      "id": "001-multi-hot-5",
+      "url": "https://superwin-player.apdiy61.workers.dev/new74/001-multi-hot-5",
+      "confirmedDemoSpins": 15
+    },
+    {
+      "id": "002-multi-hot-10",
+      "url": "https://superwin-player.apdiy61.workers.dev/new74/002-multi-hot-10",
+      "confirmedDemoSpins": 15
+    }
+  ],
+  "stagedAndPersisted": {
+    "id": "003-multi-hot-40",
+    "commit": "5794e8610ffa4eba936b4cf63505f0b05774daee",
+    "confirmedDemoSpins": 15,
+    "backend": "Existing /api/remaining20; multihot40_native",
+    "validation": "24 unit tests across new accounts/router passed; native start/collect browser fixture passed in portrait and landscape; no live wagers"
+  },
+  "localWorkAwaitingRecovery": {
+    "id": "004-multi-hot-deluxe",
+    "officialTitle": "Multi Hot 5 Deluxe",
+    "confirmedDemoSpins": 15,
+    "worktree": "/workspace/superwin-pair01",
+    "frontendFiles": [
+      "workers/superwin-player/new74/src/app.mjs",
+      "workers/superwin-player/new74/src/art.mjs",
+      "workers/superwin-player/new74/src/games.mjs",
+      "workers/superwin-player/new74/src/sprites.json",
+      "workers/superwin-player/new74/src/style.css",
+      "workers/superwin-player/new74/src/deluxe-logo.json",
+      "workers/superwin-player/new74/tools/compile-logo.py"
+    ],
+    "validation": "Native start/collect browser fixture passed. A later visual alpha-bounds/triangle refinement was in progress when runtime disconnected; final verification and persistence are pending.",
+    "mediaSource": "Official SmartSoft MultiHot5Deluxe public demo, independent renderer; no provider game logic or demo financial code."
+  },
+  "inProgress": {
+    "id": "007-burning-ice-10",
+    "demoName": "BlazingHot10",
+    "lastConfirmedDemoSpinsObserved": 3,
+    "session": "41449",
+    "note": "Demo observation loop was active when runtime disconnected. Do not assume additional rounds completed without reading its saved output."
+  },
+  "remainingStatus": "Not completed. All original74 positions remain in the construction inventory. Existing models, source identities and frontend parity require per-game verification; generic substitute games are not authorized.",
+  "executionFailure": {
+    "environmentId": "ccarenv_b64_Y2NhcmVudl9mNTdmNjY2NDBkNzQ4MTkxODhjZTc3ZjRhMDQ1ZjFiZg",
+    "state": "unavailable",
+    "providerConnectivity": "offline",
+    "observedError": "exec-server transport disconnected; recovery timed out after45s",
+    "localFileDurability": "Files may remain in the same workspace; access and durability cannot presently be verified."
+  },
+  "financialChanges": 0,
+  "additionalAIAgentsStartedSinceOwnerCreditRestriction": 0,
+  "restorationNotes": [
+    "Resume original worktree; do not restart completed research.",
+    "Preserve local Deluxe code/assets and observations before other edits.",
+    "The latest source is staged for20261113-all74-r2. The live first-pair Worker still serves20261113-pair01-r1; do not overwrite live KV keys with incomplete staged source.",
+    "Native IDs use /api/remaining20, not /api/slots/games. GET /api/config advertised native Multi Hot40/Deluxe and Burning Ice10/40 as enabled.",
+    "Local fixture server's reset endpoint is test-only and never included in runtime manifest.",
+    "A full rebuild must preserve old Worker modules as raw bytes and keep existing bindings/runtime/assets/DO exports.",
+    "Do not spawn more AI agents or use paid external AI services."
+  ]
+}
