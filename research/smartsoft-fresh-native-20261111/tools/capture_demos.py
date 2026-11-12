@@ -69,6 +69,7 @@ class Session:
     def __init__(self, browser, game):
         self.browser = browser
         self.game = game
+        self.capture_tag=str(int(time.time()*1000))
         self.directory = ROOT / "games" / game["id"]
         self.context = None
         self.page = None
@@ -97,7 +98,7 @@ class Session:
         async def inspect(index,frame):
             if not self.is_game_frame(frame):return None
             try:
-                snapshot=await asyncio.wait_for(frame.evaluate(SNAPSHOT),timeout=3)
+                snapshot=await asyncio.wait_for(frame.evaluate(SNAPSHOT),timeout=1)
                 snapshot['frame_index']=index
                 return snapshot
             except Exception as exc:
@@ -164,7 +165,7 @@ class Session:
 
     async def capture(self, label):
         number = len(self.captures) + 1
-        destination = self.directory / "02-screenshots" / f"{number:02d}-{label}.png"
+        destination = self.directory / "02-screenshots" / f"{self.capture_tag}-{number:02d}-{label}.png"
         destination.parent.mkdir(parents=True, exist_ok=True)
         # Capture the screen actually rendered by Chromium. Its fonts loader can
         # remain pending on an unrelated provider help frame; CDP avoids waiting
@@ -179,22 +180,22 @@ class Session:
         record = {"number": number, "label": label, "captured_at": now(),
                   "elapsed": round(time.monotonic() - self.origin, 3),
                   "path": str(destination.relative_to(ROOT)), "frames": states}
-        if label.startswith(('mobile-','phone-landscape','desktop-')):
+        if True:
             scenes=[]
             for frame in self.page.frames:
                 if self.is_game_frame(frame):
-                    try:scenes.append(await asyncio.wait_for(frame.evaluate((ROOT/'tools/scene_snapshot.js').read_text()),timeout=4))
+                    try:scenes.append(await asyncio.wait_for(frame.evaluate((ROOT/'tools/scene_snapshot.js').read_text()),timeout=2))
                     except Exception:pass
             save_json(self.directory/'05-reels-system'/('scene-'+label+'.json'),{'label':label,'scenes':scenes})
         self.captures.append(record)
-        save_json(self.directory / "09-network" / f"state-{number:02d}-{label}.json", record)
+        save_json(self.directory / "09-network" / f"state-{self.capture_tag}-{number:02d}-{label}.json", record)
         return states
 
     async def find(self, selectors, skip_intro=False):
         for frame in self.page.frames:
             if not self.is_game_frame(frame):continue
             try:
-                point=await asyncio.wait_for(frame.evaluate(NATIVE_CONTROL_FINDER,{'selectors':selectors,'skipIntro':skip_intro}),timeout=3)
+                point=await asyncio.wait_for(frame.evaluate(NATIVE_CONTROL_FINDER,{'selectors':selectors,'skipIntro':skip_intro}),timeout=1)
                 if point:
                     point['control']={k:point.get(k) for k in ['tag','id','classes','text','aria','box','shadow']}
                     return frame,point
@@ -241,7 +242,7 @@ class Session:
                     if(x<0||y<0||x>innerWidth||y>innerHeight)return null;
                     if(document.elementFromPoint(x,y)!==c)return null;
                     return {x,y,status:button.option??button.mode??button.status,bounds:{x:b.x,y:b.y,width:b.width,height:b.height},canvas:{width:c.width,height:c.height,cssWidth:r.width,cssHeight:r.height}};
-                }""", name), timeout=3)
+                }""", name), timeout=1)
                 if not point:
                     continue
                 if required_status and str(point.get('status','')).lower() != required_status.lower():
@@ -269,7 +270,7 @@ class Session:
         before = await self.states()
         for frame in self.page.frames:
             if self.is_game_frame(frame):
-                try:await asyncio.wait_for(frame.evaluate((ROOT/'tools/motion_probe.js').read_text()),timeout=3)
+                try:await asyncio.wait_for(frame.evaluate((ROOT/'tools/motion_probe.js').read_text()),timeout=1)
                 except Exception:pass
         clicked = False
         for attempt in range(3):
@@ -312,7 +313,7 @@ class Session:
             for frame in self.page.frames:
                 if self.is_game_frame(frame):
                     try:
-                        trace=await asyncio.wait_for(frame.evaluate('()=>window.__freshNativeMotionProbe||null'),timeout=3)
+                        trace=await asyncio.wait_for(frame.evaluate('()=>window.__freshNativeMotionProbe||null'),timeout=1)
                         if trace:traces.append(trace)
                     except Exception:pass
             if traces:save_json(self.directory/'05-reels-system/native-motion-trace.json',{'observations':traces,'note':'Measured native state changes through the first observed round, before closing the provider session.'})
@@ -374,6 +375,7 @@ class Session:
         self.page.on("response", self.queue_response)
         self.page.on("requestfailed", lambda req: self.failures.append({"elapsed": round(time.monotonic()-self.origin, 3), "url": req.url, "error": req.failure}))
         self.page.on("dialog", lambda dialog: asyncio.create_task(dialog.dismiss()))
+        capture_deadline=asyncio.get_running_loop().call_later(40,asyncio.current_task().cancel)
         try:
             self.status = "loading"
             await self.page.goto(self.game["demo_url"], wait_until="domcontentloaded", timeout=45000)
@@ -417,7 +419,7 @@ class Session:
                      try{if(typeof slot!=='undefined')out.slot={info:clean(slot.info),canvas:clean(slot.canvas?.config),buttons:clean(slot.buttons?.config),boxes:clean(slot.boxes?.config||slot.box?.config),lines:clean(slot.lines?.config||slot.line?.config)}}catch{}
                      try{if(typeof gameClass!=='undefined')out.instantConfig=clean(gameClass.config)}catch{}
                      return out;
-                    }"""),timeout=4)
+                    }"""),timeout=2)
                     if len(value)>1:configurations.append(value)
                 except Exception:pass
             save_json(self.directory/'05-reels-system/public-client-configuration.json',{'source':'Official public browser client configuration; no server code or proprietary RNG recovered','frames':configurations})
@@ -428,6 +430,15 @@ class Session:
                     except Exception:pass
             save_json(self.directory/'05-reels-system/fresh-native-scene.json',{'source':'Read-only official browser scene; renderer timing unmodified','scenes':scenes})
             initial = await self.capture("initial-demo")
+            # Capture responsive geometry while the native scene is settled,
+            # before menus or actions can replace its runtime children.
+            for width,height,label in [(320,568,'phone-short-320x568'),(844,390,'phone-landscape-844x390')]:
+                await self.page.set_viewport_size({'width':width,'height':height})
+                await asyncio.sleep(.25)
+                await self.capture(label)
+            await self.page.set_viewport_size({'width':390,'height':844})
+            await asyncio.sleep(.25)
+            await self.capture('mobile-390x844')
             text = " ".join(frame.get("text", "") for frame in initial)
             blocked = any(s in text.lower() for s in ["you can create up to", "not available in your", "access denied", "game is not available", "your session has expired"])
             if blocked:
@@ -482,16 +493,6 @@ class Session:
                 while len(self.captures)<8:
                     await asyncio.sleep(0.8)
                     await self.capture(f"live-animation-{len(self.captures)+1:02d}")
-                await asyncio.wait_for(self.page.set_viewport_size({"width": 390, "height": 844}),timeout=8)
-                await asyncio.sleep(1)
-                await self.capture("mobile-390x844")
-                await asyncio.wait_for(self.page.set_viewport_size({"width":844,"height":390}),timeout=8)
-                await asyncio.sleep(.6)
-                await self.capture("phone-landscape-844x390")
-                await asyncio.wait_for(self.page.set_viewport_size({"width": 1280, "height": 720}),timeout=8)
-                await asyncio.sleep(0.6)
-                if len(self.captures) < 10:
-                    await self.capture("desktop-1280x720")
                 # Close a demo through its own native Exit when available, releasing its table.
                 if not await self.dom_click('session-exit-menu',['.menu-icon-bt','.menu-icon','.Menu','.menu-icon-without-line.open-menu'],capture=False):
                     await self.pixi_click('Menu',capture=False)
@@ -509,6 +510,7 @@ class Session:
                     pass
             self.status = "failed" if self.status == "loading" else self.status
         finally:
+            capture_deadline.cancel()
             if self.page:
                 for i, frame in enumerate(self.page.frames):
                     if "ssgportal.com" not in frame.url:
@@ -518,27 +520,27 @@ class Session:
                     except Exception:
                         pass
             if self.tasks:
-                done, pending = await asyncio.wait(list(self.tasks), timeout=30)
+                done, pending = await asyncio.wait(list(self.tasks), timeout=2)
                 for task in pending:
                     task.cancel()
             traces=[]
             for frame in self.page.frames if self.page else []:
                 if self.is_game_frame(frame):
                     try:
-                        trace=await asyncio.wait_for(frame.evaluate('()=>window.__freshNativeMotionProbe||null'),timeout=3)
+                        trace=await asyncio.wait_for(frame.evaluate('()=>window.__freshNativeMotionProbe||null'),timeout=1)
                         if trace:traces.append(trace)
                     except Exception:pass
             if traces or not (self.directory/'05-reels-system/native-motion-trace.json').exists():
                 save_json(self.directory/'05-reels-system/native-motion-trace.json',{'observations':traces,'note':'Measured public demo phase changes on this browser; no ticker changes or private action calls.'})
             video = self.page.video if self.page else None
             try:
-                await asyncio.wait_for(self.context.close(), timeout=12)
+                await asyncio.wait_for(self.context.close(), timeout=4)
             except Exception as exc:
                 self.errors.append({"operation":"close-context","error":type(exc).__name__})
             if video:
                 try:
-                    await asyncio.wait_for(video.save_as(str(self.directory / "04-video-animation/demo-session.webm")),timeout=12)
-                    await asyncio.wait_for(video.delete(),timeout=3)
+                    await asyncio.wait_for(video.save_as(str(self.directory / "04-video-animation/demo-session.webm")),timeout=2)
+                    await asyncio.wait_for(video.delete(),timeout=1)
                 except Exception as exc:
                     self.errors.append({"operation": "video", "error": str(exc)})
             result = {"provider": "SmartSoft Gaming", "game": self.game, "started_at": self.started,
@@ -570,7 +572,7 @@ class Session:
                               "play_clicked":self.play_attempted,"state_change":self.play_observed,
                               "audio_files":result["audio_files"],"assets":len(self.assets),"errors":len(self.errors)}), flush=True)
             if self.owns_browser:
-                try:await asyncio.wait_for(self.browser.close(),timeout=10)
+                try:await asyncio.wait_for(self.browser.close(),timeout=1)
                 except Exception:pass
             return result
 
