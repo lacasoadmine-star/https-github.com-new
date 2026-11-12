@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-12T23:32:04.422734+00:00",
+  "updatedAt": "2026-11-12T23:41:30.554769+00:00",
   "target": "https://superwin-player.apdiy61.workers.dev",
   "section": "Special Games",
   "releaseMode": "one-complete-74-game-addition",
@@ -20,31 +20,34 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/first-pair-status.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {},
       "backendCandidates": [
         {
-          "modelId": "multi_hot_5_video",
-          "transport": "slots",
-          "enabled": true,
-          "source": "GET /api/slots/games"
-        },
-        {
-          "modelId": "multi_hot_5_native",
-          "transport": "slots",
-          "enabled": true,
-          "source": "GET /api/slots/games"
-        },
-        {
-          "modelId": "fresh_multihot5",
-          "transport": "slots",
+          "id": "hot-777",
+          "name": "Multi Hot 5",
           "enabled": false,
-          "source": "GET /api/slots/games"
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "multi_hot_5_video",
+          "name": "Multi Hot 5",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "multi_hot_5_native",
+          "name": "Multi Hot 5",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
         }
       ],
       "displayOrder": 50,
@@ -54,7 +57,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/001-multi-hot-5",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/001-multi-hot-5.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 2,
@@ -68,21 +78,11 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://www.google.com/url?q=https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory%3DSlots%26GameName%3DMultiHot10%26Token%3DDEMO%26PortalName%3Ddemo&sa=D&source=editors&ust=1783957511223679&usg=AOvVaw1-yr2tGhZ9XQ5Wd4UaaSS6"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/first-pair-status.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {},
-      "backendCandidates": [
-        {
-          "modelId": "fresh_multihot10",
-          "transport": "slots",
-          "enabled": true,
-          "source": "GET /api/slots/games"
-        }
-      ],
+      "backendCandidates": [],
       "displayOrder": 46,
       "selectedName": "Multi Hot 10",
       "selectedProvider": "SmartSoft",
@@ -90,7 +90,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "official-demo-link-needs-resolution",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/002-multi-hot-10",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/002-multi-hot-10.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 3,
@@ -104,41 +111,26 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-smartsoft-reference",
-        "provider": "SmartSoft Gaming",
-        "officialTitle": "Multi Hot 40",
-        "sources": [
-          "https://www.smartsoftgaming.com/games",
-          "https://www.smartsoftgaming.com/games/multi-hot-40"
-        ],
-        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo"
-      },
       "backendCandidates": [
         {
-          "modelId": "multi_hot_40",
-          "transport": "slots",
-          "enabled": true,
-          "source": "GET /api/slots/games"
-        },
-        {
-          "modelId": "fresh_multihot40",
-          "transport": "slots",
-          "enabled": false,
-          "source": "GET /api/slots/games"
-        },
-        {
-          "modelId": "multihot40_native",
-          "transport": "remaining20",
+          "id": "multihot40_native",
+          "name": "Multi Hot 40",
           "enabled": true,
           "source": "GET /api/config",
-          "stateRequiresExistingLogin": true
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "multi_hot_40",
+          "name": "Multi Hot 40",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
         }
       ],
       "displayOrder": 49,
@@ -148,7 +140,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/003-multi-hot-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/003-multi-hot-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 4,
@@ -162,28 +161,18 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "alias-unconfirmed",
-        "provider": "SmartSoft Gaming",
-        "sources": [
-          "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe"
-        ],
-        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Lang=en&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Token=DEMO",
-        "note": "Official page title is Multi Hot 5 Deluxe. Requested title omits 5. Do not silently label it an exact match."
-      },
       "backendCandidates": [
         {
-          "modelId": "multihotdeluxe_native",
-          "transport": "remaining20",
+          "id": "multihotdeluxe_native",
+          "name": "Multi Hot Deluxe",
           "enabled": true,
           "source": "GET /api/config",
-          "stateRequiresExistingLogin": true
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
         }
       ],
       "displayOrder": 52,
@@ -193,7 +182,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/004-multi-hot-deluxe",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/004-multi-hot-deluxe.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 5,
@@ -207,23 +203,28 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Wazdan",
-        "officialTitle": "Super Hot",
-        "sources": [
-          "https://wazdan.com/games/super-hot"
-        ],
-        "demoPage": "https://wazdan.com/games/super-hot",
-        "note": "Exact title on official Wazdan page; ZeusPlay also has this title and Amusnet has numbered Super Hot titles. ZPLAY-specific provider not established."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "burningice_native",
+          "name": "Burning Ice",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "burning_ice",
+          "name": "Burning Ice",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 11,
       "selectedName": "Burning Ice",
       "selectedProvider": "SmartSoft",
@@ -231,7 +232,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/005-super-hot",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/005-super-hot.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 6,
@@ -245,22 +253,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FoxyHot20&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Amusnet (formerly EGT Interactive)",
-        "officialTitle": "Burning Hot",
-        "sources": [
-          "https://amusnet.com/games/online-casino/burning-hot"
-        ],
-        "demoPage": "https://amusnet.com/games/online-casino/burning-hot"
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "foxy_hot_20_native",
+          "name": "Foxy Hot 20",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 31,
       "selectedName": "Foxy Hot 20",
       "selectedProvider": "SmartSoft",
@@ -268,7 +274,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/006-burning-hot",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/006-burning-hot.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 7,
@@ -282,51 +295,18 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-07-08.json",
-      "confirmedDemoRoundIds": [
-        "1970123740.1",
-        "1970123740.2",
-        "1970123740.3",
-        "1970123740.4",
-        "1970123740.5",
-        "1970123740.6",
-        "1970123740.7",
-        "1970123740.8",
-        "1970123740.9",
-        "1970123740.10",
-        "1970123740.11",
-        "1970123740.12",
-        "1970123740.13",
-        "1970123740.14",
-        "1970123740.15",
-        "1970123740.16",
-        "1970123740.17",
-        "1970123740.18",
-        "1970123740.19",
-        "1970123740.20"
-      ],
       "presentation": "playable-v2-draft",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "officialPage": "https://www.smartsoftgaming.com/games/blazing-hot-10",
-        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO",
-        "status": "reference-verified-model-unavailable-not-built"
-      },
       "backendCandidates": [
         {
-          "modelId": "fresh_burningice10",
-          "transport": "slots",
-          "enabled": false,
-          "source": "GET /api/slots/games"
-        },
-        {
-          "modelId": "burningice10_native",
-          "transport": "remaining20",
+          "id": "burningice10_native",
+          "name": "Burning Ice 10",
           "enabled": true,
           "source": "GET /api/config",
-          "stateRequiresExistingLogin": true
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
         }
       ],
       "coverage": {
@@ -340,9 +320,7 @@
           "responsive",
           "audio"
         ],
-        "verified": [
-          "base-spin"
-        ],
+        "verified": [],
         "complete": false
       },
       "displayOrder": 12,
@@ -366,7 +344,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/007-burning-ice-10",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/007-burning-ice-10.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 8,
@@ -380,30 +365,18 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-07-08.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "officialPage": "https://www.smartsoftgaming.com/games/burning-ice-40",
-        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO",
-        "status": "reference-verified-model-unavailable-not-built"
-      },
       "backendCandidates": [
         {
-          "modelId": "fresh_burningice40",
-          "transport": "slots",
-          "enabled": false,
-          "source": "GET /api/slots/games"
-        },
-        {
-          "modelId": "burningice40_native",
-          "transport": "remaining20",
+          "id": "burningice40_native",
+          "name": "Burning Ice 40",
           "enabled": true,
           "source": "GET /api/config",
-          "stateRequiresExistingLogin": true
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
         }
       ],
       "displayOrder": 13,
@@ -413,7 +386,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/008-burning-ice-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/008-burning-ice-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 9,
@@ -427,23 +407,28 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "NOVOMATIC / Greentube",
-        "officialTitle": "Sizzling Hot",
-        "sources": [
-          "https://www.greentube.com/greentube-strengthens-south-african-presence-through-world-sports-betting-partnership/",
-          "https://www.greentube.com/greentube-signs-content-deal-with-gvc-2/"
-        ],
-        "note": "Provider confirms original title in official releases. Sizzling Hot deluxe is a distinct version; runtime and exact ZPLAY build not established."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "multihot100_native",
+          "name": "Multi Hot 100",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "multi_hot_100",
+          "name": "Multi Hot 100",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 47,
       "selectedName": "Multi Hot 100",
       "selectedProvider": "SmartSoft",
@@ -451,7 +436,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/009-sizzling-hot",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/009-sizzling-hot.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 10,
@@ -465,22 +457,28 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "original-title-version-unresolved",
-        "provider": "NOVOMATIC",
-        "sources": [
-          "https://www.novomatic.com/sites/default/files/2016-11/Magazin_issue19_spanish_single_page_72dpi.pdf",
-          "https://www.novomatic.com/en/products/gaming/games/ultra-hot-deluxe-1"
-        ],
-        "note": "Original Ultra Hot appears in the historical official catalogue; accessible current product page is Ultra Hot deluxe. Do not substitute deluxe silently."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "multihot5superwilds_native",
+          "name": "Multi Hot 5 Super Wilds",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "multi_hot_5_super_wilds",
+          "name": "Multi Hot 5 Super Wilds",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 53,
       "selectedName": "Multi Hot 5 Super Wilds",
       "selectedProvider": "SmartSoft",
@@ -488,7 +486,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/010-ultra-hot",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/010-ultra-hot.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 11,
@@ -502,27 +507,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "providers": [
-          "Spearhead Studios",
-          "Openbox Gaming",
-          "PAF"
-        ],
-        "sources": [
-          "https://slotmatrix.com/wp-content/uploads/2021/10/fruit-slot_game-sheet-1.pdf",
-          "https://slotcatalog.com/en/slots/Fruit-Slot-PAF",
-          "https://slotcatalog.com/en/slots/Fruit-Slot-KX"
-        ],
-        "note": "Multiple exact-title/candidate publishers; SmartSoft-specific title unverified."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "multihot5wild_native",
+          "name": "Multi Hot 5 Wild",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 54,
       "selectedName": "Multi Hot 5 Wild",
       "selectedProvider": "SmartSoft",
@@ -530,7 +528,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/011-fruit-slot",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/011-fruit-slot.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 12,
@@ -544,21 +549,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "NOVOMATIC / Greentube",
-        "officialTitle": "Fruits\u2019n Sevens",
-        "sources": [
-          "https://www.greentube.com/wp-content/uploads/Greentube-Games-Catalogue-Q1_2018.pdf"
-        ],
-        "note": "Official catalogue pages 100\u2013101 identify the exact non-deluxe title. Separate Fruits'n Sevens deluxe also exists; no direct official runtime verified."
-      },
       "backendCandidates": [],
       "displayOrder": 55,
       "selectedName": "Multi Hot Ways",
@@ -567,7 +561,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/012-fruitsn-sevens",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/012-fruitsn-sevens.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 13,
@@ -581,22 +582,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Playson",
-        "officialTitle": "Sevens&Fruits",
-        "sources": [
-          "https://playson.com/game/sevensfruits"
-        ],
-        "demoPage": "https://playson.com/game/sevensfruits"
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "multihotwildways_native",
+          "name": "Multi Hot Wild Ways",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 57,
       "selectedName": "Multi Hot Wild Ways",
       "selectedProvider": "SmartSoft",
@@ -604,7 +603,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/013-sevens-fruits",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/013-sevens-fruits.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 14,
@@ -618,24 +624,28 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "secondary-provider-match",
-        "provider": "InBet Games / ABXplay",
-        "officialTitle": "Three Sevens",
-        "sources": [
-          "https://slotcatalog.com/en/slots/Three-Sevens",
-          "https://casino.guru/free-casino-games/slots/three-sevens-slot-play-free",
-          "https://www.livebet.com/casino/slots/abxplay/three-sevens"
-        ],
-        "note": "Independent catalogues agree on InBet/ABXplay. Casino Guru says its demo is temporarily unavailable. No official primary runtime established."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "stars",
+          "name": "Wild Multi Stars",
+          "enabled": false,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "wild_multi_stars",
+          "name": "Wild Multi Stars",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 72,
       "selectedName": "Wild Multi Stars",
       "selectedProvider": "SmartSoft",
@@ -643,7 +653,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/014-three-sevens",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/014-three-sevens.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 15,
@@ -657,23 +674,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BaoSlot5X&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "secondary-provider-match",
-        "provider": "GTECH / IGT",
-        "officialTitle": "Double Sevens",
-        "sources": [
-          "https://online.worldcasinodirectory.com/igt/double-sevens",
-          "https://slotswiki.com/games/double-sevens-gtech"
-        ],
-        "note": "Secondary listings identify 3 reels/5 lines and GTECH/IGT; primary current demo not found."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "bao_slot_5x",
+          "name": "Bao Slot 5X",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 5,
       "selectedName": "Bao Slot 5X",
       "selectedProvider": "SmartSoft",
@@ -681,7 +695,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/015-double-sevens",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/015-double-sevens.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 16,
@@ -695,29 +716,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BokaJamba10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "providers": [
-          "Belatra",
-          "Oryx",
-          "Slotland Entertainment",
-          "Boss Media"
-        ],
-        "sources": [
-          "https://free-slot.belatragames.com/play/super-sevens",
-          "https://www.askgamblers.com/casino-games/online-slots/reviews/super-sevens-slotland-entertainment",
-          "https://www.askgamblers.com/casino-games/online-slots/reviews/super-sevens-boss-media",
-          "https://casino-howto.com/slots/super-sevens/"
-        ],
-        "demoPage": "https://free-slot.belatragames.com/play/super-sevens",
-        "note": "Belatra is an exact-title candidate, but requested ZPLAY variant is not established."
-      },
       "backendCandidates": [],
       "displayOrder": 6,
       "selectedName": "Boka Jamba 10",
@@ -726,7 +728,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/016-super-sevens",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/016-super-sevens.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 17,
@@ -740,22 +749,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "smartsoft-secondary-match-runtime-unverified",
-        "provider": "SmartSoft Gaming (secondary sources)",
-        "sources": [
-          "https://slotcatalog.com/en/slots/Lucky-Seven",
-          "https://chipy.com/games/smartsoft-gaming/lucky-seven",
-          "https://www.stakers.com/en/casino/lucky_seven/"
-        ],
-        "note": "SlotCatalog and Chipy identify a SmartSoft scratch-card game; SlotCatalog specifies 6\u00d74 board. Stakers instead describes a 3-reel, 1-line slot. Primary official demo required to resolve conflicting descriptions."
-      },
       "backendCandidates": [],
       "displayOrder": 8,
       "selectedName": "Book of Bonanza",
@@ -764,7 +761,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/017-lucky-seven",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/017-lucky-seven.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 18,
@@ -778,17 +782,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-slot-reference-not-found",
-        "sources": [],
-        "note": "Search returned unrelated card apps, casino entities and Lucky 8 by RTG. Lucky 8 is separately requested as #58; do not treat as confirmed alias."
-      },
       "backendCandidates": [],
       "displayOrder": 9,
       "selectedName": "Book of Futuria",
@@ -797,7 +794,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/018-lucky-eight",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/018-lucky-eight.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 19,
@@ -811,17 +815,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-game-reference-not-found",
-        "sources": [],
-        "note": "Targeted searches returned unrelated matches, with no identified official casino game or demo. This is not a claim that no such game exists."
-      },
       "backendCandidates": [],
       "displayOrder": 24,
       "selectedName": "Dice Jungle",
@@ -830,7 +827,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/019-lucky-eight-win",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/019-lucky-eight-win.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 20,
@@ -844,22 +848,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "NOVOMATIC / Greentube",
-        "officialTitle": "Lucky Lady\u2019s Charm",
-        "sources": [
-          "https://www.greentube.com/greentube-strengthens-south-african-presence-through-world-sports-betting-partnership/",
-          "https://www.greentube.com/greentube-signs-content-deal-with-gvc-2/"
-        ],
-        "note": "Official provider announcements name the original title. Current product pages also include deluxe and other variants; original ZPLAY runtime not verified."
-      },
       "backendCandidates": [],
       "displayOrder": 26,
       "selectedName": "Dracula's Fortune",
@@ -868,7 +860,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/020-lucky-ladys-charm",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/020-lucky-ladys-charm.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 21,
@@ -882,19 +881,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-game-reference-not-found",
-        "sources": [
-          "https://lcb.org/games/diamond-7s"
-        ],
-        "note": "Found Diamond 7\u2019s by Microgaming as a nearby title, unrelated mobile apps, and operator lists without reliable identity. None proves exact requested SmartSoft title; do not substitute."
-      },
       "backendCandidates": [],
       "displayOrder": 27,
       "selectedName": "Dragon's Code",
@@ -903,7 +893,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/021-diamond-seven",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/021-diamond-seven.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 22,
@@ -917,22 +914,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FarmsFortune&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "secondary-provider-match",
-        "provider": "Booming Games",
-        "officialTitle": "Wild Cherries",
-        "sources": [
-          "https://slotcatalog.com/en/slots/Wild-Cherries",
-          "https://www.askgamblers.com/casino-games/online-slots/reviews/wild-cherries-booming-games"
-        ],
-        "note": "Provider identity supported by several secondary sources; direct official demo/runtime not verified."
-      },
       "backendCandidates": [],
       "displayOrder": 28,
       "selectedName": "Farm's Fortune",
@@ -941,7 +926,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/022-wild-cherries",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/022-wild-cherries.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 23,
@@ -955,21 +947,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Wizard Games / Pariplay",
-        "officialTitle": "Wild Cherry",
-        "sources": [
-          "https://wizard.games/project/wild-cherry/"
-        ],
-        "note": "IGT also has a historical Wild Cherry machine; requested ZPLAY variant has not been established."
-      },
       "backendCandidates": [],
       "displayOrder": 32,
       "selectedName": "Gates of Merlyn",
@@ -978,7 +959,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/023-wild-cherry",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/023-wild-cherry.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 24,
@@ -992,22 +980,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "NetEnt",
-        "officialTitle": "Jackpot 6000",
-        "sources": [
-          "https://netent.com/games/jackpot-6000"
-        ],
-        "demoPage": "https://netent.com/games/jackpot-6000",
-        "note": "Public page verified; demo runtime and 15 rounds not observed."
-      },
       "backendCandidates": [],
       "displayOrder": 33,
       "selectedName": "Gems Crown Charging Wilds",
@@ -1016,7 +992,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/024-jackpot-6000",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/024-jackpot-6000.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 25,
@@ -1030,21 +1013,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "different-entity-found",
-        "provider": "Jumpman Gaming (casino operator)",
-        "sources": [
-          "https://www.feverslots.com/",
-          "https://www.jumpmangaming.com/new-slots-sites/fever-slots"
-        ],
-        "note": "Official sources identify Fever Slots as an online casino/site containing many suppliers' games, not a single verified SmartSoft game. No exact standalone game found."
-      },
       "backendCandidates": [],
       "displayOrder": 34,
       "selectedName": "Genie's Bonanza",
@@ -1053,7 +1025,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/025-fever-slots",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/025-fever-slots.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 26,
@@ -1067,23 +1046,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-03-26.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "NetEnt",
-        "officialTitle": "Reel Rush",
-        "sources": [
-          "https://netent.com/games/reel-rush"
-        ],
-        "demoPage": "https://netent.com/games/reel-rush",
-        "note": "Original Reel Rush identified separately from Reel Rush 2 and Reel Rush XXXtreme; runtime inspection interrupted by workspace loss."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "habeshafortune5_native",
+          "name": "Habesha Fortune 5",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 35,
       "selectedName": "Habesha Fortune 5",
       "selectedProvider": "SmartSoft",
@@ -1091,7 +1067,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/026-reel-rush",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/026-reel-rush.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 27,
@@ -1105,28 +1088,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Gaming Corps",
-        "officialTitle": "Coin Miner",
-        "sources": [
-          {
-            "url": "https://www.gamingcorps.com/game/coin-miner/",
-            "type": "provider",
-            "evidence": "The provider identifies Coin Miner as a mine game; its original product page describes a 5 by 5 tile grid."
-          }
-        ],
-        "demoPage": "https://www.gamingcorps.com/game/coin-miner/",
-        "demoUrl": null,
-        "notes": "Not a reel slot. The public page contains a DEMO section, but a direct runnable launcher was not extracted."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "hot-samba",
+          "name": "Hot Samba",
+          "enabled": false,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 37,
       "selectedName": "Hot Samba",
       "selectedProvider": "SmartSoft",
@@ -1134,7 +1109,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/027-coin-miner",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/027-coin-miner.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 28,
@@ -1148,34 +1130,11 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-smartsoft-title",
-        "provider": "SmartSoft Gaming",
-        "officialTitle": "Coins Of Atlantis",
-        "sources": [
-          {
-            "url": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
-            "type": "provider",
-            "evidence": "Official title page links the public DEMO launcher and describes underwater artwork, expanding wilds and a coin respin feature."
-          }
-        ],
-        "demoPage": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
-        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo"
-      },
-      "backendCandidates": [
-        {
-          "modelId": "fresh_coinsofatlantis",
-          "transport": "slots",
-          "enabled": false,
-          "source": "GET /api/slots/games"
-        }
-      ],
+      "backendCandidates": [],
       "displayOrder": 20,
       "selectedName": "Coins Of Atlantis",
       "selectedProvider": "SmartSoft",
@@ -1183,7 +1142,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/028-coins-of-atlantis",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/028-coins-of-atlantis.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 29,
@@ -1197,35 +1163,11 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-smartsoft-title",
-        "provider": "SmartSoft Gaming",
-        "officialTitle": "Bottle Mania",
-        "sources": [
-          {
-            "url": "https://www.smartsoftgaming.com/games/bottle-mania",
-            "type": "provider",
-            "evidence": "Official page describes a single-player crash game with three selectable bottles and a Cash Out control."
-          }
-        ],
-        "demoPage": "https://www.smartsoftgaming.com/games/bottle-mania",
-        "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
-        "notes": "This title has bottle/crash rounds, not reels or slot spins. Reference observation should count completed demo rounds."
-      },
-      "backendCandidates": [
-        {
-          "modelId": "fresh_bottlemania",
-          "transport": "slots",
-          "enabled": false,
-          "source": "GET /api/slots/games"
-        }
-      ],
+      "backendCandidates": [],
       "displayOrder": 10,
       "selectedName": "Bottle Mania",
       "selectedProvider": "SmartSoft",
@@ -1233,7 +1175,14 @@
       "replacement": false,
       "replacementReason": null,
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/029-bottle-mania",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/029-bottle-mania.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 30,
@@ -1247,27 +1196,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Kajot Games",
-        "officialTitle": "Stars",
-        "sources": [
-          {
-            "url": "https://kajotgames.com/games/stars/",
-            "type": "provider",
-            "evidence": "Official title page identifies a 3-reel, 3-row, 27-way game, with wilds and a wheel bonus, and links Play Demo."
-          }
-        ],
-        "demoPage": "https://kajotgames.com/games/stars/",
-        "demoUrl": "https://wegas.stage.kajotgames.dev/api/dispatcher/launcher?casino_id=250&currency=EUR&game_id=stars&home=https%3A%2F%2Fkajotgames.com%2Fgames%2F&language=en&mode=free",
-        "notes": "Official demo link was resolved by web lookup; browser play was not performed. The launcher redirects to games.stage.kajotgames.dev/stars/ with mode=free."
-      },
       "backendCandidates": [],
       "displayOrder": 38,
       "selectedName": "Jingle Bell Bonanza",
@@ -1276,7 +1208,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/030-stars",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/030-stars.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 31,
@@ -1290,28 +1229,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "CT Gaming",
-        "officialTitle": "Lucky Clover",
-        "sources": [
-          {
-            "url": "https://ctgaming.com/products/games/lucky-clover/",
-            "type": "provider",
-            "evidence": "Official title page lists five reels, five winning lines, expanding wilds and a Play Online link."
-          }
-        ],
-        "demoPage": "https://ctgaming.com/products/games/lucky-clover/",
-        "demoUrl": null,
-        "notes": "Play Online resolved to the provider's LuckyClover HTML client with a temporary demo token and FUN currency. The ephemeral token is intentionally omitted. No browser play was performed."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "jungle_sisters",
+          "name": "Jungle Sisters",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 39,
       "selectedName": "Jungle Sisters",
       "selectedProvider": "SmartSoft",
@@ -1319,7 +1250,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/031-lucky-clover",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/031-lucky-clover.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 32,
@@ -1333,28 +1271,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "candidates": [
-          {
-            "title": "All Lucky Clover 40",
-            "provider": "BGaming",
-            "url": "https://bgaming.com/wp-content/uploads/2026/03/Top-Games-by-GEO-Sales-5.pdf"
-          },
-          {
-            "title": "40 Lucky Clover",
-            "provider": "AGT Software",
-            "url": "https://slotcatalog.com/en/slots/40-Lucky-Clover"
-          }
-        ],
-        "notes": "Both candidate titles differ from the requested title. No alias relationship to Lucky Clover 40 or a SmartSoft title was verified."
-      },
       "backendCandidates": [],
       "displayOrder": 40,
       "selectedName": "Jungle Sisters Deluxe",
@@ -1363,7 +1283,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/032-lucky-clover-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/032-lucky-clover-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 33,
@@ -1377,28 +1304,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MadSlot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-series",
-        "candidates": [
-          {
-            "title": "Ancient Fortunes: Zeus",
-            "provider": "Games Global / Microgaming",
-            "url": "https://stake.com/casino/games/games-global-ancient-fortunes-zeus"
-          },
-          {
-            "title": "Ancient Fortunes: Poseidon Megaways",
-            "provider": "Triple Edge Studios / Games Global",
-            "url": "https://www.betfred.com/casino/slots/ancientfortunesposeidonmegaways"
-          }
-        ],
-        "notes": "Searches located named entries in an Ancient Fortunes series. A standalone exact-title Ancient Fortunes game and the intended variant were not verified."
-      },
       "backendCandidates": [],
       "displayOrder": 41,
       "selectedName": "Mad Slot",
@@ -1407,7 +1316,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/033-ancient-fortunes",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/033-ancient-fortunes.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 34,
@@ -1421,16 +1337,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Exact-name searches returned Ancient Fortunes series games and bet-limit text, without a verified title ending in 40."
-      },
       "backendCandidates": [],
       "displayOrder": 42,
       "selectedName": "Mariachi Coins",
@@ -1439,7 +1349,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/034-ancient-fortunes-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/034-ancient-fortunes-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 35,
@@ -1453,27 +1370,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "3 Oaks Gaming",
-        "officialTitle": "Magic Apple",
-        "sources": [
-          {
-            "url": "https://3oaks.com/game/magic_apple",
-            "type": "provider",
-            "evidence": "Official product listing identifies Magic Apple as a 5 by 4 game with 30 lines, apple hold-and-win imagery and free spins."
-          }
-        ],
-        "demoPage": "https://3oaks.com/game/magic_apple",
-        "demoUrl": null,
-        "notes": "The current product page requires JavaScript. A direct provider demo launcher was not extracted. Secondary sites also list the related Booongo/BNG release; no SmartSoft attribution was verified."
-      },
       "backendCandidates": [],
       "displayOrder": 45,
       "selectedName": "Multi Fruits Charging Wilds",
@@ -1482,7 +1382,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/035-magic-apple",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/035-magic-apple.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 36,
@@ -1496,16 +1403,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Exact-name searches did not verify this title. Magic Apple and Magic Apple 2 are separately published titles; neither was substituted."
-      },
       "backendCandidates": [],
       "displayOrder": 48,
       "selectedName": "Multi Hot 20",
@@ -1514,7 +1415,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/036-magic-apple-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/036-magic-apple-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 37,
@@ -1528,28 +1436,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "candidates": [
-          {
-            "title": "Hot Fruits 40",
-            "provider": "Amatic Industries",
-            "url": "https://www.grandx.com/games/hot-fruits-40-play-online/"
-          },
-          {
-            "title": "Fruit 40",
-            "provider": "PSMtec / Swintt",
-            "url": "https://www.psmtec.de/en/online-slot-games/fruit-40-131"
-          }
-        ],
-        "notes": "Neither the added word Hot nor the singular Fruit was assumed to be an authorized alias for Fruits 40. The list separately requests Fruit 40 at number 44."
-      },
       "backendCandidates": [],
       "displayOrder": 51,
       "selectedName": "Multi Hot 5 Burn Wilds",
@@ -1558,7 +1448,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/037-fruits-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/037-fruits-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 38,
@@ -1572,16 +1469,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Quoted-title searches returned symbol paytable values and differently named cherry games, without a verified exact game title or demo."
-      },
       "backendCandidates": [],
       "displayOrder": 62,
       "selectedName": "Power of Tiger",
@@ -1590,7 +1481,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/038-cherry-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/038-cherry-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 39,
@@ -1604,24 +1502,36 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "candidates": [
-          {
-            "title": "40 Sevens",
-            "provider": "not independently confirmed",
-            "url": "https://gamblingresearch.org/el/slots/40-sevens"
-          }
-        ],
-        "notes": "A secondary listing uses the reversed word order 40 Sevens. No provider-confirmed alias for Sevens 40 was established."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "safari-simba",
+          "name": "Safari Simba",
+          "enabled": false,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "safari_simba",
+          "name": "Safari Simba",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        },
+        {
+          "id": "fresh_safarisimba",
+          "name": "Safari Simba",
+          "enabled": true,
+          "source": "GET /api/slots/games",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 65,
       "selectedName": "Safari Simba",
       "selectedProvider": "SmartSoft",
@@ -1629,7 +1539,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/039-sevens-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/039-sevens-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 40,
@@ -1643,16 +1560,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Quoted-title searches returned unrelated diamond game names or payout values. No exact provider title and demo were verified."
-      },
       "backendCandidates": [],
       "displayOrder": 66,
       "selectedName": "Samurai",
@@ -1661,7 +1572,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/040-diamond-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/040-diamond-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 41,
@@ -1675,28 +1593,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "candidates": [
-          {
-            "title": "Wild Wild 40",
-            "provider": "Evona",
-            "url": "https://www.evona.sk/news/evona-wild-wild-40-slot/"
-          },
-          {
-            "title": "Red Hot Sevens Wild 40",
-            "provider": "Promatic Games",
-            "url": "https://promaticgames.com/games/red-hot-sevens-wild-40/"
-          }
-        ],
-        "notes": "Candidate names contain additional words. Neither was substituted for Wild 40."
-      },
       "backendCandidates": [],
       "displayOrder": 68,
       "selectedName": "Sugar Fiesta",
@@ -1705,7 +1605,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/041-wild-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/041-wild-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 42,
@@ -1719,32 +1626,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Amatic Industries",
-        "officialTitle": "Hot 40",
-        "sources": [
-          {
-            "url": "https://www.grandx.com/fileadmin/grandx/pdf/games/en/Hot_40_-_GrandX_-_2018.pdf",
-            "type": "provider-authored-game-rules-hosted-by-operator",
-            "evidence": "The game rules identify Hot 40 and AMATIC Industries."
-          },
-          {
-            "url": "https://www.grandx.com/games/hot-40-play-online/",
-            "type": "operator",
-            "evidence": "Operator title page offers Play for fun and describes five reels, four rows and 40 lines."
-          }
-        ],
-        "demoPage": "https://www.grandx.com/games/hot-40-play-online/",
-        "demoUrl": null,
-        "notes": "The request repeats Hot 40 at number 67. This research does not establish two distinct games under that same name. No browser demo rounds were performed."
-      },
       "backendCandidates": [],
       "displayOrder": 70,
       "selectedName": "Vampires",
@@ -1753,7 +1638,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/042-hot-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/042-hot-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 43,
@@ -1767,32 +1659,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildsAndGods&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "Holland Power Gaming",
-        "officialTitle": "Lucky 40",
-        "sources": [
-          {
-            "url": "https://www.oranjepalace.nl/nl/spellen/lucky-40-nl",
-            "type": "operator",
-            "evidence": "Operator identifies Lucky 40 by Holland Power Gaming and describes five reels, four rows and 40 fixed lines."
-          },
-          {
-            "url": "https://www.oranjepalace.nl/nl/casino/klassieke-slots",
-            "type": "operator",
-            "evidence": "Operator states that its Holland Power Gaming titles include Lucky 40."
-          }
-        ],
-        "demoPage": null,
-        "demoUrl": null,
-        "notes": "The provider's public games page is dynamic and no public free launcher was extracted. The request repeats Lucky 40 at number 69; no second distinct version was established."
-      },
       "backendCandidates": [],
       "displayOrder": 73,
       "selectedName": "Wilds and Gods",
@@ -1801,7 +1671,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/043-lucky-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/043-lucky-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 44,
@@ -1815,32 +1692,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoJoker&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-other-provider",
-        "provider": "PSMtec / Swintt",
-        "officialTitle": "Fruit 40",
-        "sources": [
-          {
-            "url": "https://www.psmtec.de/en/online-slot-games/fruit-40-131",
-            "type": "provider",
-            "evidence": "Provider lists Fruit40 / Fruit 40 as a five-reel, three-row video slot with 40 fixed paylines."
-          },
-          {
-            "url": "https://swintt.com/uploads/assets/games/gameSheets/Fruit%2040%20Feature%20Sheet.pdf",
-            "type": "provider",
-            "evidence": "Swintt publishes the Fruit 40 feature sheet."
-          }
-        ],
-        "demoPage": "https://www.psmtec.de/en/online-slot-games/fruit-40-131/play",
-        "demoUrl": null,
-        "notes": "Official Play page was resolved. Its language, currency and jurisdiction controls need a browser before gameplay can be observed."
-      },
       "backendCandidates": [],
       "displayOrder": 1,
       "selectedName": "4 Bonuses Bonanza",
@@ -1849,7 +1704,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/044-fruit-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/044-fruit-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 45,
@@ -1863,23 +1725,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=JetX3&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "candidates": [
-          {
-            "title": "40 Super Fruits",
-            "provider": "EGT Digital",
-            "url": "https://egt-digital.com/game/40-super-fruits-2/"
-          }
-        ],
-        "notes": "The provider uses 40 Super Fruits, not Super Fruits 40. Word-order equivalence and the requested SmartSoft attribution were not verified."
-      },
       "backendCandidates": [],
       "displayOrder": 2,
       "selectedName": "AviaStar",
@@ -1888,7 +1737,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/045-super-fruits-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/045-super-fruits-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 46,
@@ -1902,24 +1758,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=Balloon&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "candidates": [
-          {
-            "title": "Golden Fruits",
-            "provider": "LIONLINE",
-            "url": "https://www.vegasslotsonline.com/lionline/golden-fruits/"
-          }
-        ],
-        "notes": "Only differently named Golden Fruits references were located; the 40 suffix was not verified."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "balloon_native",
+          "name": "Balloon",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 3,
       "selectedName": "Balloon",
       "selectedProvider": "SmartSoft",
@@ -1927,7 +1779,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/046-golden-fruits-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/046-golden-fruits-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 47,
@@ -1941,28 +1800,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=BalloonX&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "ambiguous-title",
-        "candidates": [
-          {
-            "title": "Shining Royal 40",
-            "provider": "GameArt",
-            "url": "https://gameart.net/single-news/gamearts-new-shining-royal-40-classic-fruit-slot/"
-          },
-          {
-            "title": "Royal 40 Fruits",
-            "provider": "Netgame",
-            "url": "https://casino.guru/free-casino-games/slots/royal-40-fruits-slot-play-free"
-          }
-        ],
-        "notes": "Both candidate names differ. No exact Royal 40 provider game or alias relationship was established."
-      },
       "backendCandidates": [],
       "displayOrder": 4,
       "selectedName": "BalloonX",
@@ -1971,7 +1812,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/047-royal-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/047-royal-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 48,
@@ -1985,16 +1833,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=BonusTime&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Quoted-name searches returned unrelated princess titles and paytable amounts; no exact provider title or demo was verified."
-      },
       "backendCandidates": [],
       "displayOrder": 7,
       "selectedName": "Bonus Time",
@@ -2003,7 +1845,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/048-princess-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/048-princess-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 49,
@@ -2017,16 +1866,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CaiBalaoCappadocia&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Quoted-name searches returned symbol values and longer game names, without an exact verified provider title or demo."
-      },
       "backendCandidates": [],
       "displayOrder": 14,
       "selectedName": "Cai Balao Cappadocia",
@@ -2035,7 +1878,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/049-star-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/049-star-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 50,
@@ -2049,16 +1899,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "notes": "Quoted-name results included non-game radio equipment; no verified casino game provider title or demo was found."
-      },
       "backendCandidates": [],
       "displayOrder": 15,
       "selectedName": "CarX",
@@ -2067,7 +1911,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/050-lucky-star-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/050-lucky-star-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 51,
@@ -2081,23 +1932,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoad&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-27-51.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-reference-not-found",
-        "candidates": [
-          {
-            "title": "CaiShen's Fortune XL",
-            "provider": "not independently confirmed",
-            "url": "https://lasatlantis.com/game/caishens-fortune-40/"
-          }
-        ],
-        "notes": "A secondary page uses caishens-fortune-40 in its URL but identifies a longer different game title. Irrelevant search spam was not treated as a legitimate provider reference."
-      },
       "backendCandidates": [],
       "displayOrder": 16,
       "selectedName": "Cheesy Road",
@@ -2106,7 +1944,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/051-fortune-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/051-fortune-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 52,
@@ -2120,28 +1965,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoadClassic&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-name-candidate-other-provider",
-        "candidates": [
-          {
-            "title": "Lucky7",
-            "provider": "Betsoft",
-            "officialUrl": "https://betsoft.com/games/lucky7/",
-            "demoUrl": "https://betsoft.com/play-demo/?id=1232",
-            "documentation": {
-              "reels": 3,
-              "paylines": 1
-            }
-          }
-        ],
-        "notes": "The official page names Lucky7 and captions its screenshots Lucky 7. This establishes a Betsoft candidate, not a SmartSoft/ZPLAY match. The demo landing page was reached through the provider's link; the running game was not observed."
-      },
       "backendCandidates": [],
       "displayOrder": 17,
       "selectedName": "Cheesy Road Classic",
@@ -2150,7 +1977,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/052-lucky-7",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/052-lucky-7.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 53,
@@ -2164,24 +1998,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Book of Ra",
-            "provider": "Greentube / Novomatic",
-            "officialUrl": "https://www.greentube.com/wp-content/uploads/Greentube-Games-Catalogue-Q1_2018.pdf",
-            "officialCatalogueId": "Book of Ra Classic 95"
-          }
-        ],
-        "notes": "The provider's official catalogue distinguishes the classic Book of Ra title from Deluxe. No classic demo was played."
-      },
       "backendCandidates": [],
       "displayOrder": 18,
       "selectedName": "Chicken Highway",
@@ -2190,7 +2010,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/053-book-of-ra",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/053-book-of-ra.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 54,
@@ -2204,29 +2031,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=Chickenways&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Book of Ra deluxe",
-            "provider": "Greentube / Novomatic",
-            "officialUrl": "https://www.greentube.com/game/book-of-ra-deluxe/",
-            "demoLandingUrl": "https://www.greentube.com/game/book-of-ra-deluxe/",
-            "documentation": {
-              "reels": 5,
-              "paylines": 10,
-              "theme": "Egyptian explorer; book and card symbols; expanding symbol free games"
-            }
-          }
-        ],
-        "notes": "Official page exposes Play Demo controls, but a working anonymous launch URL has not been verified. Do not substitute the Buy Bonus, Magic, or six-reel variants."
-      },
       "backendCandidates": [],
       "displayOrder": 19,
       "selectedName": "Chicken Ways",
@@ -2235,7 +2043,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/054-book-of-ra-deluxe",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/054-book-of-ra-deluxe.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 55,
@@ -2249,25 +2064,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TugOfWar&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Dolphin's Pearl",
-            "provider": "Greentube / Novomatic",
-            "officialUrl": "https://www.greentube.com/wp-content/uploads/Greentube-Games-Catalogue-Q1_2018.pdf",
-            "officialCatalogueId": "Dolphins Pearl Classic 95",
-            "secondaryDemoLandingUrl": "https://www.slotstemple.com/free-slots/dolphins-pearl/"
-          }
-        ],
-        "notes": "Official catalogue verifies the classic title. A classic demo landing page was found, but no gameplay observation was completed."
-      },
       "backendCandidates": [],
       "displayOrder": 21,
       "selectedName": "Crash Duel",
@@ -2276,7 +2076,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/055-dolphins-pearl",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/055-dolphins-pearl.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 56,
@@ -2290,29 +2097,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Dolphin's Pearl deluxe",
-            "provider": "Greentube / Novomatic",
-            "officialUrl": "https://www.greentube.com/game/dolphins-pearl-deluxe/",
-            "demoLandingUrl": "https://www.greentube.com/game/dolphins-pearl-deluxe/",
-            "documentation": {
-              "reels": 5,
-              "paylines": 10,
-              "theme": "Underwater; dolphin wild and pearl scatter"
-            }
-          }
-        ],
-        "notes": "Provider page explicitly says login required for its demo. No account created and no access control bypass attempted."
-      },
       "backendCandidates": [],
       "displayOrder": 22,
       "selectedName": "Cricket X",
@@ -2321,7 +2109,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/056-dolphins-pearl-deluxe",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/056-dolphins-pearl-deluxe.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 57,
@@ -2335,16 +2130,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CricketerX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "Searches returned Maui Millions and unrelated Maui Millionaire trademarks. Neither proves that the requested title is an alias. No substitution made."
-      },
       "backendCandidates": [],
       "displayOrder": 23,
       "selectedName": "CricketerX",
@@ -2353,7 +2142,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/057-maui-millionaire",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/057-maui-millionaire.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 58,
@@ -2367,29 +2163,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-name-candidate-secondary-sources",
-        "candidates": [
-          {
-            "title": "Lucky 8",
-            "provider": "Realtime Gaming (RTG)",
-            "sourceUrls": [
-              "https://www.slotozilla.com/free-slots/lucky-8",
-              "https://www.livebet.com/casino/slots/rtg/lucky-8",
-              "https://lasatlantis.com/archive/lucky-8/"
-            ],
-            "demoLandingUrl": "https://www.livebet.com/casino/slots/rtg/lucky-8"
-          }
-        ],
-        "notes": "Multiple independent and operator pages identify an RTG slot with this exact title. Provider-hosted source and functioning free demo remain unverified. Lucky 8 Line/Reactors/Keno are distinct titles."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "double",
+          "name": "Double X",
+          "enabled": false,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 25,
       "selectedName": "Double X",
       "selectedProvider": "SmartSoft",
@@ -2397,7 +2184,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/058-lucky-8",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/058-lucky-8.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 59,
@@ -2411,16 +2205,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FootballX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "No exact slot with a verified provider/demo identified in this search."
-      },
       "backendCandidates": [],
       "displayOrder": 29,
       "selectedName": "Football X",
@@ -2429,7 +2217,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/059-seven-pirates",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/059-seven-pirates.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 60,
@@ -2443,38 +2238,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "multiple-exact-title-candidates",
-        "candidates": [
-          {
-            "title": "WILD Pirates",
-            "provider": "Manna Play",
-            "officialUrl": "https://mannaplay.games/single-games.php?code=63bbeaf27af2a",
-            "officialCatalogueUrl": "https://mannaplay.games/top.php",
-            "officialGameId": "SLOT_2302",
-            "demoUrl": "https://api.manna-play.com/agent/specify/mannaplay/demo/login2?d=1783260955&game_id=SLOT_2302&lan=en-US",
-            "documentation": {
-              "paylines": 20,
-              "releaseDate": "2023-01-10"
-            }
-          },
-          {
-            "title": "Wild Pirates",
-            "provider": "IGT / GTECH / Boss Media",
-            "sourceUrls": [
-              "https://online.worldcasinodirectory.com/igt/wild_pirates",
-              "https://www.askgamblers.com/casino-games/online-slots/reviews/wild-pirates-gtech-g2"
-            ]
-          }
-        ],
-        "notes": "Manna's official demo link redirected to its game host, which the web tool could not render. The timestamp parameter is from the official page and may expire; relaunch through the official page. A different older game uses the same name, so there is no verified SmartSoft/ZPLAY identity."
-      },
       "backendCandidates": [],
       "displayOrder": 30,
       "selectedName": "Fortune Catch",
@@ -2483,7 +2250,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/060-wild-pirates",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/060-wild-pirates.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 61,
@@ -2497,30 +2271,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=HelicopterX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "provider-and-variant-unresolved",
-        "candidates": [
-          {
-            "title": "Sea Treasures",
-            "provider": "Dragoon (secondary attribution)",
-            "sourceUrl": "https://search-casino.com/games/slots/sea-treasures/"
-          },
-          {
-            "title": "Sea Treasures SCRATCHCARD",
-            "provider": "Dragon Gaming",
-            "officialUrl": "https://dragongaming.com/games/sea-treasures-scratchcard/",
-            "selected": false,
-            "reason": "Official title contains SCRATCHCARD and describes a different 3x3 presentation."
-          }
-        ],
-        "notes": "An exact-name secondary listing exists, but the official game found is a scratchcard variant. They are not treated as interchangeable."
-      },
       "backendCandidates": [],
       "displayOrder": 36,
       "selectedName": "Helicopter X",
@@ -2529,7 +2283,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/061-sea-treasures",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/061-sea-treasures.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 62,
@@ -2543,37 +2304,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Great 27",
-            "provider": "Amusnet (formerly EGT Interactive)",
-            "officialUrl": "https://amusnet.com/games/online-casino/great-27",
-            "demoLandingUrl": "https://demo.amusnet.com/online-casino",
-            "officialGameId": "555",
-            "documentation": {
-              "reels": 3,
-              "rows": 3,
-              "ways": 27,
-              "symbolCount": 9,
-              "features": [
-                "autoplay",
-                "gamble",
-                "bonus/free spins",
-                "multiplier"
-              ]
-            }
-          }
-        ],
-        "notes": "Official provider page includes Play Demo. Game is Amusnet, not SmartSoft. No demo spins or touch observations completed."
-      },
       "backendCandidates": [],
       "displayOrder": 43,
       "selectedName": "Mine Island",
@@ -2582,7 +2316,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/062-great-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/062-great-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 63,
@@ -2596,16 +2337,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland2&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "Results used the phrase great 40 in descriptions of unrelated 40-line games. No exact-title provider or demo was verified. Great 27 is not treated as a substitute."
-      },
       "backendCandidates": [],
       "displayOrder": 44,
       "selectedName": "Mine Island2",
@@ -2614,7 +2349,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/063-great-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/063-great-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 64,
@@ -2628,16 +2370,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "Search results do not establish the requested stand-alone Magic 7 game."
-      },
       "backendCandidates": [],
       "displayOrder": 56,
       "selectedName": "Multi Hot Wheel",
@@ -2646,7 +2382,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/064-magic-7",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/064-magic-7.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 65,
@@ -2660,30 +2403,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Magic 27",
-            "provider": "Novomatic / Greentube",
-            "officialUrl": "https://www.novomatic.com/en/products/gaming/games/magic-27",
-            "demoLandingUrl": "https://www.gametwist.com/en/slots/magic27/",
-            "documentation": {
-              "reels": 3,
-              "paylines": 27,
-              "theme": "Fruit"
-            }
-          }
-        ],
-        "notes": "Official Novomatic title verified. GameTwist public page describes free play but authentication and running demo were not tested. IMPERA LINK Magic 27 is a separate variant."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "jetx_native",
+          "name": "JetX",
+          "enabled": true,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 58,
       "selectedName": "New Era of JetX",
       "selectedProvider": "SmartSoft",
@@ -2691,7 +2424,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "official-demo-link-needs-resolution",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/065-magic-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/065-magic-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 66,
@@ -2705,27 +2445,20 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-confirmed-other-provider",
-        "candidates": [
-          {
-            "title": "Hot 27",
-            "provider": "AMATIC Industries",
-            "officialUrl": "https://www.amatic.com/products/slot-games",
-            "officialCatalogueEvidence": "Hot 27 image listed in the AMATIC slot catalogue.",
-            "demoLandingUrl": "https://www.slotstemple.com/free-slots/hot-27/",
-            "secondaryRulesUrl": "https://www.senator.hr/media/2022-02/hot-27-game-rules-cro.pdf"
-          }
-        ],
-        "notes": "Provider confirmed from AMATIC's official catalogue. No playable anonymous provider-hosted demo was verified."
-      },
-      "backendCandidates": [],
+      "backendCandidates": [
+        {
+          "id": "plinko",
+          "name": "Plinko X",
+          "enabled": false,
+          "source": "GET /api/config",
+          "providerMathVerified": false,
+          "note": "Name match only; not a verified compatible implementation."
+        }
+      ],
       "displayOrder": 59,
       "selectedName": "Plinko X",
       "selectedProvider": "SmartSoft",
@@ -2733,7 +2466,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/066-hot-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/066-hot-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 67,
@@ -2747,29 +2487,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-operator-listing-provider-unverified",
-        "candidates": [
-          {
-            "title": "Hot 40",
-            "provider": null,
-            "operatorUrl": "https://www.novoline.de/de/slots/hot-40",
-            "documentation": {
-              "reels": 5,
-              "rows": 4,
-              "paylines": 40,
-              "theme": "Fruit, seven wild and star scatter"
-            }
-          }
-        ],
-        "notes": "NOVOLINE is the operator of the evidence page; the page does not identify this game's developer. Do not infer Novomatic or Gamomat from the operator branding. No public demo verified and no distinct second variant established."
-      },
       "backendCandidates": [],
       "displayOrder": 60,
       "selectedName": "Plinko X Classic",
@@ -2778,7 +2499,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/067-hot-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/067-hot-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 68,
@@ -2792,16 +2520,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "No exact-title provider/demo established. Very Lucky 27 and its Hold and Win variant were not substituted."
-      },
       "backendCandidates": [],
       "displayOrder": 61,
       "selectedName": "PopX",
@@ -2810,7 +2532,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/068-lucky-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/068-lucky-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 69,
@@ -2824,30 +2553,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PropelX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-title-operator-listing-other-provider",
-        "candidates": [
-          {
-            "title": "Lucky 40",
-            "provider": "Holland Power Gaming",
-            "operatorUrl": "https://www.oranjepalace.nl/nl/spellen/lucky-40-nl",
-            "secondaryCatalogueUrl": "https://igamingcpo.com/en/catalog/game-providers/holland-power-gaming",
-            "documentation": {
-              "reels": 5,
-              "rows": 4,
-              "paylines": 40,
-              "theme": "Dark red and gold fruit presentation"
-            }
-          }
-        ],
-        "notes": "Operator explicitly names Holland Power Gaming. Direct provider site could not be opened by the web tool. No distinct second Lucky 40 variant or playable public demo verified."
-      },
       "backendCandidates": [],
       "displayOrder": 63,
       "selectedName": "Propel X",
@@ -2856,7 +2565,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/069-lucky-40",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/069-lucky-40.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 70,
@@ -2870,16 +2586,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "Search surfaced related titles, not an independently verified Fruit 27 title."
-      },
       "backendCandidates": [],
       "displayOrder": 64,
       "selectedName": "Roll X",
@@ -2888,7 +2598,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/070-fruit-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/070-fruit-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 71,
@@ -2902,16 +2619,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=SmashX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "No exact-title official provider page or demo verified in the returned search results."
-      },
       "backendCandidates": [],
       "displayOrder": 67,
       "selectedName": "Smash X",
@@ -2920,7 +2631,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/071-treasure-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/071-treasure-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 72,
@@ -2934,16 +2652,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TowerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "no-exact-slot-reference-verified",
-        "notes": "A generic aggregator filter mentions Ocean 27. It does not establish a provider, actual game page, demo, artwork or rules, so it is insufficient for reconstruction."
-      },
       "backendCandidates": [],
       "displayOrder": 69,
       "selectedName": "Tower X",
@@ -2952,7 +2664,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/072-ocean-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/072-ocean-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 73,
@@ -2966,50 +2685,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "multiple-official-exact-title-candidates",
-        "candidates": [
-          {
-            "title": "Joker 27",
-            "provider": "Kajot",
-            "officialUrl": "https://kajotgames.com/games/joker-27/",
-            "officialRulesUrl": "https://kajotgames.com/wp-content/uploads/Joker27.pdf",
-            "demoUrl": "https://wegas.stage.kajotgames.dev/api/dispatcher/launcher?casino_id=250&currency=EUR&game_id=joker_27&home=https%3A%2F%2Fkajotgames.com%2Fgames%2F&language=en&mode=free",
-            "documentation": {
-              "reels": 3,
-              "rows": 3,
-              "ways": 27,
-              "features": [
-                "joker wild",
-                "double win",
-                "free spins"
-              ]
-            }
-          },
-          {
-            "title": "Joker 27",
-            "provider": "SIXTRONIC / SYNOT Games",
-            "officialUrl": "https://www.synotgames.com/games/joker-27/",
-            "documentation": {
-              "reels": 3,
-              "rows": 3,
-              "symbolCount": 9,
-              "features": [
-                "free spins",
-                "multiplier",
-                "wild"
-              ]
-            }
-          }
-        ],
-        "notes": "Both official providers publish this name. Kajot's public free-mode launcher was followed and redirected to the game host, which the web tool could not render. No demo gameplay or ZPLAY-specific identity verified."
-      },
       "backendCandidates": [],
       "displayOrder": 71,
       "selectedName": "Wheel Of Destiny",
@@ -3018,7 +2697,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/073-joker-27",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/073-joker-27.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     },
     {
       "position": 74,
@@ -3032,35 +2718,10 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WorldChampionX&Token=DEMO&PortalName=demo"
       },
-      "referenceCandidatesReport": "../smartsoft-pair01/references-52-74.json",
-      "confirmedDemoRoundIds": [],
       "presentation": "not-built-v2",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
-      "referenceResearch": {
-        "status": "exact-primary-candidate-other-provider",
-        "candidates": [
-          {
-            "title": "Super Joker",
-            "provider": "Pragmatic Play",
-            "officialUrl": "https://www.pragmaticplay.com/en/games/super-joker-slot/",
-            "officialAnnouncementUrl": "https://www.pragmaticplay.com/en/news/pragmatic-play-adds-super-joker-to-slot-portfolio/",
-            "demoLandingUrl": "https://www.pragmaticplay.com/en/games/super-joker-slot/",
-            "documentation": {
-              "reels": 3,
-              "rows": 3,
-              "paylines": 5,
-              "features": [
-                "stacked symbols",
-                "respins",
-                "multiplier wheel"
-              ]
-            }
-          }
-        ],
-        "notes": "Pragmatic's official demo page establishes an exact name candidate. A different five-reel Super Joker is described by other operators, so the user-intended ZPLAY variant is not established."
-      },
       "backendCandidates": [],
       "displayOrder": 74,
       "selectedName": "World Champion X",
@@ -3069,7 +2730,14 @@
       "replacement": true,
       "replacementReason": "No distinct verified SmartSoft title in the fresh provider catalogue; user authorized selecting a replacement.",
       "freshDemoStatus": "queued",
-      "demoTokenVerified": true
+      "demoTokenVerified": true,
+      "confirmedDemoRoundIds": [],
+      "freshReferenceDirectory": "reports/special74/fresh-observations/074-super-joker",
+      "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/074-super-joker.txt",
+      "probabilityEvidence": {
+        "verified": false,
+        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+      }
     }
   ],
   "observationPolicy": {

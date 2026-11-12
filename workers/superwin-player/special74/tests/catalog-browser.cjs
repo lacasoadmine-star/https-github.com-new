@@ -1,0 +1,34 @@
+// Loopback-only additive catalogue test; these fixture entries are never a release.
+const {chromium,devices}=require('playwright');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const packageRoot=path.resolve(__dirname,'..');
+(async()=>{
+ const selected=JSON.parse(fs.readFileSync(path.resolve(packageRoot,'../../../reports/special74/selected-games.json'),'utf8')).entries;
+ const covers=JSON.parse(fs.readFileSync(path.join(packageRoot,'cover-manifest.json'),'utf8')).assets;
+ const entries=selected.map(e=>({id:e.id,title:e.selectedName,ready:true,gamePath:'/special-games/play/'+e.id,cover:covers.find(c=>c.id===e.id).runtimePath}));
+ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const page=await browser.newPage({...devices['Pixel 7']}),external=[],errors=[];
+ page.on('request',r=>{if(new URL(r.url()).origin!=='http://127.0.0.1:4181')external.push(r.url());});page.on('pageerror',e=>errors.push(e.message));
+ await page.route('**/__catalog-test',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/special-games/catalog.css"></head><body style="background:#0c192a"><main class="player-main"><article id="legacy-game" data-existing="preserve"><button id="legacy-play">Existing game fixture</button></article></main><script type="module" src="/special-games/catalog.mjs"></script></body></html>'}));
+ await page.route('**/special-games/catalog.json',r=>r.fulfill({json:{ready:true,version:'synthetic-catalogue-only',entries}}));
+ await page.goto('http://127.0.0.1:4181/__catalog-test');
+ await page.locator('#superwin-special74 .special74-card').last().waitFor();
+ const before=await page.locator('#legacy-game').evaluate(el=>el.outerHTML);
+ await page.evaluate(()=>{window.fixtureClicks=0;document.querySelector('#legacy-play').addEventListener('click',()=>window.fixtureClicks++);});
+ await page.locator('#legacy-play').click();
+ assert.equal(await page.evaluate(()=>window.fixtureClicks),1);
+ assert.equal(await page.locator('#superwin-special74 .special74-card').count(),74);
+ assert.equal(await page.locator('#legacy-game').evaluate(el=>el.outerHTML),before);
+ const names=await page.locator('.special74-card span').allTextContents();
+ assert.deepEqual(names,[...names].sort((a,b)=>a.localeCompare(b,'en',{numeric:true,sensitivity:'base'})));
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.evaluate(()=>{const main=document.querySelector('main'),replacement=document.createElement('main');replacement.className='player-main';replacement.append(document.querySelector('#legacy-game'));main.replaceWith(replacement);});
+ await page.locator('#superwin-special74').waitFor();
+ assert.equal(await page.locator('#superwin-special74').count(),1);
+ assert.equal(await page.locator('#legacy-game').evaluate(el=>el.outerHTML),before);
+ await page.locator('#legacy-play').click();assert.equal(await page.evaluate(()=>window.fixtureClicks),2);
+ assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
+ fs.mkdirSync(path.join(packageRoot,'test-results'),{recursive:true});
+ const report={passed:true,scope:'Synthetic catalogue integration only; not 74 completed games',cards:74,existingMarkupUnchanged:true,existingEventHandlerRetained:true,remountWithoutDuplicates:true,alphabetical:true,mobileOverflow:false,externalRequests:0};
+ fs.writeFileSync(path.join(packageRoot,'test-results/catalog-browser.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
