@@ -14,4 +14,8 @@ export class Art {
   context.restore();
  }
  canvas(element,name){const box=element.getBoundingClientRect(),ratio=Math.min(devicePixelRatio,2);element.width=Math.max(1,Math.round(box.width*ratio));element.height=Math.max(1,Math.round(box.height*ratio));this.draw(element.getContext('2d'),name,0,0,element.width,element.height);}
+ composition(context,motion,x,y,width,height,frame=0){
+  const [left,bottom,right,top]=motion.bounds,scale=Math.min(width/(right-left),height/(top-bottom));context.save();context.translate(x+(width-(right-left)*scale)/2,y+(height-(top-bottom)*scale)/2);context.scale(scale,-scale);context.translate(-left,-top);
+  for(const command of motion.frames[frame%motion.frames.length]){const[rx,ry,rw,rh]=command.rect;context.save();context.transform(...command.matrix);context.globalAlpha*=command.alpha;if(command.additive)context.globalCompositeOperation='lighter';context.translate(rx,ry+rh);context.scale(1,-1);this.draw(context,command.sprite,0,0,rw,rh);context.restore();}context.restore();
+ }
 }

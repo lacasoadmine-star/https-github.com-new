@@ -2,7 +2,8 @@
 export const games = Object.freeze([
   {id:'001-multi-hot-5',name:'Multi Hot 5',art:'multihot5',columns:3,lines:5,transport:'classic',modelId:'multi_hot_5_video',symbols:{orange:0,cherry:1,plum:2,lemon:3,watermelon:4,grapes:5,golden_bell:6,dollar:7,'777':8},preview:[['lemon','plum','dollar'],['orange','777','cherry'],['watermelon','golden_bell','grapes']]},
   {id:'002-multi-hot-10',name:'Multi Hot 10',art:'multihot10',columns:5,lines:10,transport:'fresh',modelId:'fresh_multihot10',symbols:{seven:0,bell:1,grape:2,watermelon:3,cherry:4,orange:5,plum:6,lemon:7},preview:[['watermelon','grape','plum','cherry','cherry'],['grape','cherry','orange','bell','bell'],['watermelon','cherry','lemon','grape','cherry']]},
-  {id:'003-multi-hot-40',name:'Multi Hot 40',art:'multihot40',columns:5,rows:4,lines:40,transport:'library',modelId:'multihot40_native',symbols:{'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7},preview:[['4','7','2','5','6'],['7','2','7','5','6'],['7','2','7','3','6'],['7','2','6','3','5']]}
+  {id:'003-multi-hot-40',name:'Multi Hot 40',art:'multihot40',columns:5,rows:4,lines:40,transport:'library',modelId:'multihot40_native',symbols:{'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7},preview:[['4','7','2','5','6'],['7','2','7','5','6'],['7','2','7','3','6'],['7','2','6','3','5']]},
+ {id:'004-multi-hot-deluxe',name:'Multi Hot Deluxe',officialTitle:'Multi Hot 5 Deluxe',art:'multihotdeluxe',columns:3,rows:3,lines:5,transport:'library',modelId:'multihotdeluxe_native',layout:'deluxe',controls:'round',logoMotion:'/new74/deluxe-logo.json',symbols:{'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8},preview:[['2','1','3'],['4','0','6'],['7','5','8']]}
 ]);
 
 // The complete new registration is kept separate from executable, verified frontends.

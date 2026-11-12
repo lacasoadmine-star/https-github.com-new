@@ -1,6 +1,6 @@
-const REVISION='20261113-pair01-r1';
-const FILES=new Map(['index.html','game.html','style.css','app.mjs','account.mjs','library-account.mjs','art.mjs','games.mjs','catalog.json','sprites.json','lobby.css','lobby.mjs','entry-link.mjs'].map(name=>[name,name]));
-const GAMES=new Set(['001-multi-hot-5','002-multi-hot-10','003-multi-hot-40']);
+const REVISION='20261113-all74-r2';
+const FILES=new Map(['index.html','game.html','style.css','app.mjs','account.mjs','library-account.mjs','art.mjs','games.mjs','catalog.json','deluxe-logo.json','sprites.json','lobby.css','lobby.mjs','entry-link.mjs'].map(name=>[name,name]));
+const GAMES=new Set(['001-multi-hot-5','002-multi-hot-10','003-multi-hot-40','004-multi-hot-deluxe']);
 const TYPES={html:'text/html; charset=utf-8',mjs:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8',json:'application/json',png:'image/png',jpg:'image/jpeg',mp3:'audio/mpeg',otf:'font/otf'};
 const CSP="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'self'; form-action 'self'";
 export async function new74(request,env){
