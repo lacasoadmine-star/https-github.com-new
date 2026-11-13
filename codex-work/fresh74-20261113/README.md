@@ -16,10 +16,22 @@ Explicit timing is required; the unit-test timing is not a measured provider tim
 double taps, preserves an uncertain round's token across recovery, and queues STOP
 until its result arrives. Recovery is a lookup of the same round, never an
 automatic new wager. A failed presentation can replay an already settled result.
-This module does not yet implement the production adapter or persist unresolved
-rounds across a page reload; both are required before live integration.
+An optional account-scoped `round-journal.mjs` stores only pending request
+identity in IndexedDB. Initialize the controller before enabling SPIN. An
+unresolved intent survives reload and is recovered by the existing server
+adapter; a claim from another tab blocks a second request. No stored value is
+used as a wallet balance. Network requests have a configurable 20-second
+deadline, after which recovery uses the same token and does not create a wager.
+This module still requires the production adapter and browser integration.
 
-Run: `node --test codex-work/fresh74-20261113/*.test.mjs` (16 passing tests).
+Run: `node --test codex-work/fresh74-20261113/*.test.mjs` (27 passing tests).
+
+The local `build-browser-checks.mjs` script produces a disposable browser test
+page from the fresh 74-name observation manifest. Its catalogue checks cover
+shared round recovery, not 74 finished engines. Those browser checks are NOT
+reported as passing: local Chromium failed at process-singleton startup, and
+the shared browser rejected the local file URL under its protocol policy.
+No alternate browser surface was used to work around that rejection.
 
 ## Fresh evidence
 

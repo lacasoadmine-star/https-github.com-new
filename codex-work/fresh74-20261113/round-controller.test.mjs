@@ -19,7 +19,7 @@ test('double tap and STOP during request issue one wager and retain the authorit
   const f=fixture(), task=f.controller.spin(100);
   await assert.rejects(f.controller.spin(100),/resolved/);
   assert.equal(f.controller.stop(),true);assert.equal(f.controller.stop(),false);
-  f.request.resolve(f.result());await Promise.resolve();assert.equal(f.stops,1);
+  f.request.resolve(f.result());await new Promise(setImmediate);assert.equal(f.stops,1);
   assert.equal(f.controller.state,'presenting');f.animation.resolve({cancelled:false});
   const result=await task;assert.equal(f.starts.length,1);assert.equal(result.balanceMinor,9900);assert.equal(f.controller.state,'idle');
 });
@@ -59,7 +59,7 @@ test('dispose prevents late responses from mounting another canvas or issuing an
   assert.equal(f.controller.state,'disposed');assert.equal(presentations,0);assert.equal(f.controller.pending.roundId,'round-1');
 });
 test('result is immutable and detached from a mutable server response',async()=>{
-  const f=fixture(),task=f.controller.spin(100),result=f.result();f.request.resolve(result);await Promise.resolve();
+  const f=fixture(),task=f.controller.spin(100),result=f.result();f.request.resolve(result);await new Promise(setImmediate);
   result.grid[0][0]='changed';assert.equal(f.controller.result.grid[0][0],'a');assert.ok(Object.isFrozen(f.controller.result.grid[0]));
   f.animation.resolve({cancelled:false});await task;
 });
