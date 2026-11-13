@@ -67,9 +67,9 @@ async function touchObservedDOM(control,frame){
  const target=control.exactText
   ? frame.locator(control.selector).filter({hasText:new RegExp('^\\s*'+control.text.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\s*$','i')}).filter({visible:true})
   : frame.locator(control.selector).nth(control.index);
- const identity=await target.evaluate(el=>({tag:el.tagName,text:(el.innerText||el.value||'').trim().slice(0,100)}));
+ const identity=await target.evaluate(el=>({tag:el.tagName,text:(el.innerText||el.value||'').trim().slice(0,100)}),undefined,{timeout:7000});
  if(control.tag&&identity.tag!==control.tag||identity.text.toLowerCase()!==control.text.toLowerCase())throw Error('Observed DOM control changed before touch');
- await target.tap({timeout:3000});
+ await target.tap({timeout:7500});
  return {mode:'touch',source:'observed-dom-locator',selector:control.selector,index:control.index};
 }
 module.exports={sceneControls,allowedDemo,publicURL,betChangedInDirection,touchObservedDOM};
