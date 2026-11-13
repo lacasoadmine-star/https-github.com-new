@@ -19,3 +19,26 @@ test('presentation evidence strips query, fragment and credentials from texture 
   assert.equal(readPresentation().canvases[0].scene.texture.source,null);
  }finally{for(const [key,descriptor]of prior){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}}
 });
+
+test('destroyed or detached loader views cannot hide an active game snapshot',()=>{
+ const keys=['window','location','innerWidth','innerHeight','devicePixelRatio'];
+ const prior=new Map(keys.map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)]));
+ try{
+  const bounds=()=>({x:0,y:0,width:10,height:10});
+  const stage={visible:true,worldAlpha:1,x:0,y:0,scale:{x:1,y:1},rotation:0,alpha:1,getBounds:bounds,children:[]};
+  const view={isConnected:true,getBoundingClientRect:bounds};
+  const renderer={view,width:10,height:10,resolution:1};
+  Object.assign(globalThis,{location:{href:'https://eu-server.ssgportal.com/Game/'},innerWidth:100,innerHeight:200,devicePixelRatio:1,window:{__special74Views:[
+   {renderer:{...renderer,view:null},stage},
+   {renderer:{...renderer,view:{...view,isConnected:false}},stage},
+   {renderer,stage:{...stage,destroyed:true}},
+   {renderer,stage:{...stage,getBounds(){throw Error('stale loader');}}},
+   {renderer,stage:{...stage,children:[{...stage,_destroyed:true}]}}
+  ]}});
+  const result=readPresentation();
+  assert.equal(result.canvases.length,1);
+  assert.equal(result.canvases[0].scene.path,'4');
+  assert.deepEqual(result.canvases[0].scene.children,[]);
+  assert.deepEqual(result.snapshotErrors,[{viewIndex:3,reason:'presentation-view-unreadable'}]);
+ }finally{for(const [key,descriptor]of prior){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}}
+});

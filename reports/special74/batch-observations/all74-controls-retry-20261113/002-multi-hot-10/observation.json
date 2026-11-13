@@ -1,0 +1,872 @@
+{
+  "id": "002-multi-hot-10",
+  "selectedName": "Multi Hot 10",
+  "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+  "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+  "attempt": 1,
+  "startedAt": "2026-11-13T02:01:29.325Z",
+  "status": "round-receipt-confirmed-needs-feature-review",
+  "actions": [
+    {
+      "name": "sound-yes",
+      "target": {
+        "source": "visible-dom",
+        "text": "Yes",
+        "bounds": {
+          "x": 61.984375,
+          "y": 442.5,
+          "w": 135,
+          "h": 63
+        },
+        "hittable": false
+      },
+      "attempted": true,
+      "effectVerified": false,
+      "input": {
+        "mode": "mouse",
+        "x": 129.484375,
+        "y": 474
+      }
+    },
+    {
+      "name": "sound-yes",
+      "target": {
+        "source": "visible-dom",
+        "text": "Yes",
+        "bounds": {
+          "x": 61.984375,
+          "y": 442.5,
+          "w": 135,
+          "h": 63
+        },
+        "hittable": true
+      },
+      "attempted": true,
+      "effectVerified": true,
+      "input": {
+        "mode": "mouse",
+        "x": 129.484375,
+        "y": 474
+      }
+    },
+    {
+      "name": "bet-plus",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    },
+    {
+      "name": "bet-minus",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    },
+    {
+      "name": "spin-1",
+      "startedAt": "2026-11-13T02:01:53.918Z",
+      "target": {
+        "kind": "spin",
+        "source": "pixi",
+        "path": "0.0.20.0.0",
+        "interactivePath": "0.0.20",
+        "labels": [
+          "Buttons/Spin"
+        ],
+        "bounds": {
+          "x": 136.10714285714286,
+          "y": 635.8987697963801,
+          "w": 137.57857142857145,
+          "h": 137.5766826923077
+        },
+        "x": 204.8964285714286,
+        "y": 704.6871111425339
+      },
+      "attempted": true,
+      "effectVerified": true,
+      "confirmedRoundIds": [
+        "1970358831.1"
+      ],
+      "canvasHitTest": true,
+      "input": {
+        "mode": "mouse",
+        "x": 204.8964285714286,
+        "y": 704.6871111425339
+      },
+      "beforeBet": null,
+      "afterBet": null,
+      "visibleTextChanged": true,
+      "completedAt": "2026-11-13T02:01:59.363Z"
+    },
+    {
+      "name": "take",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    },
+    {
+      "name": "menu",
+      "startedAt": "2026-11-13T02:02:01.540Z",
+      "target": {
+        "kind": "menu",
+        "source": "pixi",
+        "path": "0.0.7.0.0",
+        "interactivePath": "0.0.7",
+        "labels": [
+          "Buttons/Menu"
+        ],
+        "bounds": {
+          "x": 14.714285714285715,
+          "y": 790.3966487556561,
+          "w": 24.719998877389095,
+          "h": 16.994748723992416
+        },
+        "x": 27.074285152980263,
+        "y": 798.8940231176523
+      },
+      "attempted": true,
+      "effectVerified": false,
+      "confirmedRoundIds": [],
+      "canvasHitTest": true,
+      "input": {
+        "mode": "mouse",
+        "x": 27.074285152980263,
+        "y": 798.8940231176523
+      },
+      "beforeBet": null,
+      "afterBet": null,
+      "visibleTextChanged": true,
+      "effectEvidence": "visible-text-changed-needs-semantic-review",
+      "completedAt": "2026-11-13T02:02:05.135Z"
+    },
+    {
+      "name": "rules",
+      "startedAt": "2026-11-13T02:02:06.700Z",
+      "target": {
+        "source": "dom",
+        "index": 190,
+        "bounds": {
+          "x": 0,
+          "y": 794,
+          "w": 137.34375,
+          "h": 45
+        },
+        "hittable": true,
+        "tag": "A",
+        "text": "Rules",
+        "aria": null,
+        "title": null,
+        "id": "",
+        "src": null,
+        "background": "none",
+        "clickable": true,
+        "disabled": false
+      },
+      "attempted": true,
+      "effectVerified": false,
+      "confirmedRoundIds": [],
+      "input": {
+        "mode": "mouse",
+        "x": 68.671875,
+        "y": 816.5
+      },
+      "beforeBet": null,
+      "afterBet": null,
+      "visibleTextChanged": true,
+      "effectEvidence": "visible-text-changed-needs-semantic-review",
+      "completedAt": "2026-11-13T02:02:10.367Z"
+    },
+    {
+      "name": "close-rules",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    },
+    {
+      "name": "reopen-menu-rules",
+      "startedAt": "2026-11-13T02:02:18.833Z",
+      "target": {
+        "kind": "menu",
+        "source": "pixi",
+        "path": "0.0.7.0.0",
+        "interactivePath": "0.0.7",
+        "labels": [
+          "Buttons/Menu"
+        ],
+        "bounds": {
+          "x": 14.714285714285715,
+          "y": 790.3966487556561,
+          "w": 24.719998877389095,
+          "h": 16.994748723992416
+        },
+        "x": 27.074285152980263,
+        "y": 798.8940231176523
+      },
+      "attempted": true,
+      "effectVerified": false,
+      "confirmedRoundIds": [],
+      "canvasHitTest": true,
+      "input": {
+        "mode": "mouse",
+        "x": 27.074285152980263,
+        "y": 798.8940231176523
+      },
+      "beforeBet": null,
+      "afterBet": null,
+      "visibleTextChanged": true,
+      "effectEvidence": "visible-text-changed-needs-semantic-review",
+      "completedAt": "2026-11-13T02:02:23.835Z"
+    },
+    {
+      "name": "settings",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    },
+    {
+      "name": "history",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    },
+    {
+      "name": "exit",
+      "attempted": false,
+      "effectVerified": false,
+      "reason": "No unambiguous visible named control"
+    }
+  ],
+  "confirmedRoundIds": [
+    "1970358831.1"
+  ],
+  "rounds": [
+    {
+      "deal": "1970358831.1",
+      "action": "spin-1",
+      "at": "2026-11-13T02:01:55.064Z"
+    }
+  ],
+  "media": [
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/universal-loader.gif",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/connection-lost.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/othergames-mobile-yes.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-background.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-logo.gif",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/loader-icon.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/othergames-mobile-no.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/bpggel/bpggel.woff",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/font1/fontmt1-regular-webfont.woff2",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/Intro/Intro-Black-Caps.otf",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/Intro/Intro-Regular.otf",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/background-vertical.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Images/Buttons/Lobby.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Images/Buttons/Delay.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Images/Buttons/DelayFull.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Images/Buttons/LobbyActive.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Images/Buttons/LobbyDisabled.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Images/Buttons/LobbyHover.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/BetBackground.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/Close.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/CloseHover.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/AmountBackground.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/Plus.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/Minus.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/PlusHover.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/BuyFeature/MinusHover.png",
+      "status": 404,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Sprite/BoxWin/BoxWin-1.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Sprite/BoxWin/BoxWin-0.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Sprite/BoxWin/BoxWin-2.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Win/Multi%20hot%205%20Wilde%20wins.atlas.txt",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Spine/WinCoins/coins.atlas.txt",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi%20hot%20100%20logo.atlas.txt",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Wild/Multi%20hot%20Wild.atlas.txt",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/WinBox/skeleton.atlas.txt",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Start/multiplayer.atlas.txt",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Win/Multi%20hot%205%20Wilde%20wins.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Spine/WinCoins/coins.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi%20hot%20100%20logo.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Wild/Multi%20hot%20Wild.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/WinBox/skeleton.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Start/multiplayer.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Win/Multi%20hot%205%20Wilde%20wins2.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/Common/Mobile/Spine/WinCoins/coins2.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/Background.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/hood/new-hood-logo.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Fonts/Intro-Regular.woff2",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Spin.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ObjectMoveFast.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop1.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop2.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop3.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop4.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop5.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/Menu/mobile-menu-close-icon-mobile.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/GeniesBonanza/newchange.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Button.mp3",
+      "status": 200,
+      "type": "xhr",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Fonts/Intro/Intro-Black-Caps.otf",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Fonts/Intro/Intro-Book-Alt.otf",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Fonts/Intro/Intro-Regular.otf",
+      "status": 200,
+      "type": "font",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/Menu/mobile-menu-game-history-icon.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/Menu/mobile-menu-help-active-icon.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Images/Menu/mobile-menu-setting-icon.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Minus.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Symbol3.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Plus.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Symbol1.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Symbol4.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/MultiHot-Multiplier.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Symbol-Others.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Symbol2.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/2X.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/MultiHot-RiskGame.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Spin.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Turbo.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Collect.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/AutoPlay.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Balance.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Bet.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Menu.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/MultiHot-PayLine.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/ChooseAmount.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/Sound.png",
+      "status": 200,
+      "type": "image",
+      "source": "response"
+    }
+  ],
+  "networkFailures": [
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Help/Styles/MultiHot10.css",
+      "error": "net::ERR_BLOCKED_BY_ORB"
+    },
+    {
+      "url": "https://static.static-ssgmrr17.xyz/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+      "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+    },
+    {
+      "url": "https://static.static-ssgmrr17.xyz/cache/b5/Themes/Default/JetX/Styles/fonts.css",
+      "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "blockedRequests": [],
+  "productionRequests": 0,
+  "featureCoverageComplete": false,
+  "parityVerified": false,
+  "ready": false,
+  "artifacts": [
+    {
+      "kind": "initial",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/initial.json",
+      "sha256": "f455974f94c3b543767ebba81f16e8450ef37226e35d138cebb05dac128e099d"
+    },
+    {
+      "kind": "initial-screenshot",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/initial.png",
+      "sha256": "d9b01e647413b35cd5a66a2f0a8a318e6b151a02c98340f221741a461955593b"
+    },
+    {
+      "kind": "spin-1",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/spin-1.json",
+      "sha256": "2f27cee4663d8793c6299006b5429258e63f95d9a1f44dd219644deb5bbb54fb"
+    },
+    {
+      "kind": "spin-1-screenshot",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/spin-1.png",
+      "sha256": "ffcfafe3e4cf140848729e634689b1d40f460279ca597f521e55c27ccf3e58be"
+    },
+    {
+      "kind": "menu",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/menu.json",
+      "sha256": "f2b4ad97c3a314192f3117e60eff2ff4af9e057798861f7aea1e88a0a88a18e6"
+    },
+    {
+      "kind": "menu-screenshot",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/menu.png",
+      "sha256": "cf249941c7dbf2007156c461bbff79d7bae7e360c39dcecb1e27a35ee79b946a"
+    },
+    {
+      "kind": "rules",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/rules.json",
+      "sha256": "1e8aa9cf6070d5067298c05245390c0df06fbc944d13bd0226786f6b284e89ab"
+    },
+    {
+      "kind": "rules-screenshot",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/rules.png",
+      "sha256": "cf249941c7dbf2007156c461bbff79d7bae7e360c39dcecb1e27a35ee79b946a"
+    },
+    {
+      "kind": "reopen-menu-rules",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/reopen-menu-rules.json",
+      "sha256": "daebe7ed0eb9d9f18b46c0359319a2a754a3c1d9589a429473a532252bb14da7"
+    },
+    {
+      "kind": "reopen-menu-rules-screenshot",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/reopen-menu-rules.png",
+      "sha256": "cf249941c7dbf2007156c461bbff79d7bae7e360c39dcecb1e27a35ee79b946a"
+    },
+    {
+      "kind": "final",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/final.json",
+      "sha256": "d7ce140c09bf4a4bb3f0be0042b9f06f4840bf0ffe54f312206b06b695fcb5fe"
+    },
+    {
+      "kind": "final-screenshot",
+      "path": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/final.png",
+      "sha256": "cf249941c7dbf2007156c461bbff79d7bae7e360c39dcecb1e27a35ee79b946a"
+    }
+  ],
+  "browserConfiguration": {
+    "device": "Pixel 7",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "deviceScaleFactor": 1,
+    "observationOnly": true
+  },
+  "completedAt": "2026-11-13T02:02:31.698Z",
+  "supervisor": {
+    "exitCode": 0,
+    "timedOut": false,
+    "deadlineMs": 120000,
+    "completedAt": "2026-11-13T02:02:31.698Z"
+  }
+}

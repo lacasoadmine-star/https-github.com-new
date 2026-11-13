@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-13T01:50:07.703298+00:00",
+  "updatedAt": "2026-11-13T01:54:35.207022+00:00",
   "target": "https://superwin-player.apdiy61.workers.dev",
   "section": "Special Games",
   "releaseMode": "one-complete-74-game-replacement",
@@ -76,8 +76,8 @@
         "verified": true,
         "sourceType": "operator-authored-math-specification",
         "claimsProviderMath": false,
-        "disclosuresVerified": false,
-        "reason": "Independent 96% model proved; local presentation and retained-handler/PostgreSQL fixtures pass. Production gateway and visual/motion/feature parity remain unverified.",
+        "disclosuresVerified": true,
+        "reason": "Independent 96% model and declared limits proved; in-game operator rules verified. Local retained handlers and PostgreSQL pass. Production gateway and complete visual/motion/feature parity remain unverified.",
         "modelId": "special74_multi_hot_5_v1",
         "modelVersion": "operator-mh5-v1"
       },
@@ -92,7 +92,10 @@
         "modelVersion": "operator-mh5-v1",
         "source": "existing-superwin-server",
         "frontendDeterminesPayout": false,
-        "integrationStatus": "verified-local-retained-handler-and-postgresql-fixtures; production-not-installed-or-verified"
+        "integrationStatus": "verified-local-retained-handler-and-postgresql-fixtures; production-not-installed-or-verified",
+        "localRetainedHandlerChecksPassed": 9,
+        "localPostgresChecksPassed": 8,
+        "productionAuthenticatedWagersVerified": false
       },
       "implementation": {
         "entryHtml": "workers/superwin-player/special74/src/game-multihot5.html",

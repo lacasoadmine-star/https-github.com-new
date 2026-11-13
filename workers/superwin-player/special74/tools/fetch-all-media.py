@@ -36,7 +36,7 @@ def extension(url):
 
 def encoded_url(source):
     url = urlsplit(source)
-    return url._replace(path=quote(unquote(url.path), safe="/:@!$&'()*+,;=-._~")).geturl()
+    return url._replace(path=quote(url.path, safe="/%:@!$&'()*+,;=-._~")).geturl()
 
 
 def validate_source(source):
@@ -222,10 +222,6 @@ def acquire(record, previous=None, package=PACKAGE, attempts=3):
         if temporary:
             temporary.unlink(missing_ok=True)
     return {"source": source, "path": target.relative_to(package).as_posix(), "sha256": digest, "bytes": len(data), "mime": mime, "reused": not restored}, texture_references(source, data)
-
-
-def serial(record):
-    return {key: sorted(value) if isinstance(value, set) else value for key, value in record.items()}
 
 
 def shared_media(source):

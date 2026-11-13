@@ -12,7 +12,10 @@ const selected=(await json(resolve(folder,'selected-games.json'))).entries;
 const pages=await json(resolve(folder,'fresh-official-pages/index.json'));
 const models=(await json(resolve(folder,'selected-backend-candidates.json'))).entries;
 const manifest=await json(resolve(folder,'manifest.json'));
+let media=null;
+try{media=await json(resolve(folder,'all74-media-status.json'));}catch(error){if(error.code!=='ENOENT')throw error;}
 const controlRecords=[];
+const launchSetupFailures=[];
 let runs=[];
 try{runs=await readdir(resolve(folder,'ci-observations'),{withFileTypes:true});}catch(error){if(error.code!=='ENOENT')throw error;}
 for(const run of runs.filter(item=>item.isDirectory()&&/^\d+$/.test(item.name)).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))){
@@ -38,7 +41,15 @@ for(const batch of batches.filter(item=>item.isDirectory())){
   for(const attempt of await readdir(resolve(folder,'batch-observations',batch.name,game.name),{withFileTypes:true})){
    if(!attempt.isDirectory()||!/^attempt-\d+$/.test(attempt.name))continue;
    const source=`reports/special74/batch-observations/${batch.name}/${game.name}/${attempt.name}/observation.json`;
-   try{const record=await json(resolve(root,source));if(record.completedAt)controlRecords.push({...record,source});}catch(error){if(error.code!=='ENOENT')throw error;}
+   try{
+    const record=await json(resolve(root,source));
+    if(record.completedAt){
+     // Rejected launch URLs have no opened demo to authenticate as control
+     // evidence. Retain that failure separately; never assign them receipts.
+     if(record.status==='setup-error'&&!record.demoUrl&&!record.officialPage&&!record.confirmedRoundIds?.length&&!record.actions?.length)launchSetupFailures.push({id:record.id,selectedName:record.selectedName,source,status:record.status,error:record.error,completedAt:record.completedAt});
+     else controlRecords.push({...record,source});
+    }
+   }catch(error){if(error.code!=='ENOENT')throw error;}
   }
  }
 }
@@ -55,11 +66,15 @@ for(const entry of selected){
   try{const value=await json(resolve(folder,'fresh-observations',entry.id,name));if(value.id!==entry.id||value.selectedName!==entry.selectedName)throw Error('Interactive identity mismatch');set(value);}catch(error){if(error.code!=='ENOENT')throw error;}
  }
  const controls=controlEvidence(entry,controlRecords),implementation=manifest.entries.find(e=>e.id===entry.id);
+ let recovery=null;
+ const recoverySource=`reports/special74/missing-media-recovery/${entry.id}/interactive/interaction-verification.json`;
+ try{const value=await json(resolve(root,recoverySource));if(value.id!==entry.id||value.selectedName!==entry.selectedName)throw Error('Recovery identity mismatch');recovery={source:recoverySource,...value.verified};}catch(error){if(error.code!=='ENOENT')throw error;}
  const rounds=[...new Set([...(observation?.confirmedRoundIds??[]),...(interactive?.confirmedRoundIds??[]),...controls.confirmedRoundIds])];
  entries.push({id:entry.id,displayOrder:entry.displayOrder,requestedName:entry.requestedName,selectedName:entry.selectedName,provider:entry.selectedProvider,category:entry.selectedCategory,replacement:entry.replacement,
   officialPage:entry.officialIdentity.url,providerPageArchived:page?.status==='archived',
-  launchStatus:observation?.status??'queued',freshConfirmedRoundIds:rounds,
+  launchStatus:recovery?.fullScene?'game-scene-observed-needs-settlement-and-feature-review':observation?.status??'queued',freshConfirmedRoundIds:rounds,
   controlObservations:controls.observations,
+  recoveryObservations:recovery,
   completedRoundsObservedInUI:ui?.completedRoundsObservedInUI??0,
   ...reviewState(visual,screenshot),
   sufficientBehaviorCoverage:false,visualParityVerified:false,screenshot,
@@ -70,19 +85,22 @@ for(const entry of selected){
 }
 const totals={selected:entries.length,officialPagesArchived:entries.filter(e=>e.providerPageArchived).length,
  launchAttempts:entries.filter(e=>e.launchStatus!=='queued').length,
- canvasesObserved:entries.filter(e=>e.launchStatus==='canvas-loaded-needs-visual-and-gameplay-review').length,
+ canvasesObserved:entries.filter(e=>e.launchStatus==='canvas-loaded-needs-visual-and-gameplay-review'||e.recoveryObservations?.fullScene).length,
  freshGamesWithConfirmedRounds:entries.filter(e=>e.freshConfirmedRoundIds.length).length,
  gamesWithCompletedRoundObservedInUI:entries.filter(e=>e.completedRoundsObservedInUI>0).length,
  sufficientBehaviorCoverage:0,verifiedProviderProbabilityModels:0,
  verifiedOperatorMathProofs:entries.filter(e=>e.operatorMathProofVerified).length,
- integratedOperatorMathModels:entries.filter(e=>e.operatorMathBackendIntegrated).length,releaseReady:0};
-const report={updatedAt:new Date().toISOString(),scope:'Replace existing game presentations with all 74 new Special Games after the complete release passes; no production change yet',totals,entries};
+ integratedOperatorMathModels:entries.filter(e=>e.operatorMathBackendIntegrated).length,
+ playableDrafts:entries.filter(e=>e.presentation==='playable-v2-draft').length,releaseReady:0};
+const mediaAcquisition=media?Object.fromEntries(['updatedAt','verifiedMedia','verifiedBytes','failedMedia','pendingMedia','gamesWithVerifiedMedia','gamesWithAllObservedMedia','scope'].map(key=>[key,media[key]])):null;
+const report={updatedAt:new Date().toISOString(),scope:'Replace existing game presentations with all 74 new Special Games after the complete release passes; no production change yet',totals,mediaAcquisition,launchSetupFailures,entries};
 await writeFile(resolve(folder,'current-status.json'),JSON.stringify(report,null,2)+'\n');
 const lines=['# Special Games — actual evidence status','',
  'Existing games remain unchanged until all 74 new games pass the replacement release checks. This catalogue has not been deployed. A loaded canvas or screenshot is not gameplay verification or a completed game.','',
  `${totals.officialPagesArchived}/74 official provider pages archived; ${totals.launchAttempts}/74 demo launches attempted; ${totals.freshGamesWithConfirmedRounds}/74 games with confirmed rounds in the current fresh pass.`,
  '', 'The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. On 2026-11-13 the user authorized independently authored operator math. Private provider probabilities are no longer a release requirement; exact operator math proofs, correct disclosures and verified existing-ledger integration are required.',
- '', `${totals.verifiedOperatorMathProofs}/74 independent operator math proofs; ${totals.integratedOperatorMathModels}/74 new operator models verified against the retained ledger. No provider-equivalence claim.`, '',
+ '', `${totals.playableDrafts}/74 playable drafts; none accepted as a complete release. ${totals.verifiedOperatorMathProofs}/74 independent operator math proofs; ${totals.integratedOperatorMathModels}/74 new operator models verified in production through the retained gateway. Disposable PostgreSQL and recovered-handler tests are recorded separately; they do not establish production deployment. No provider-equivalence claim.`,
+ ...(media?['',`${media.verifiedMedia} hash-verified media files (${media.verifiedBytes} bytes); ${media.gamesWithVerifiedMedia}/74 titles have game-specific media, and ${media.gamesWithAllObservedMedia}/74 have all currently observed media. ${media.failedMedia} observed sources remain unavailable. Media acquisition is not complete feature coverage or implementation.`]:[]), '',
  '| Official selected title | Requested name | Demo observation | Confirmed rounds in fresh pass | New implementation |',
  '| --- | --- | --- | ---: | --- |',
  ...entries.map(e=>`| [${e.selectedName}](${e.officialPage}) | ${e.requestedName} | ${e.launchStatus} | ${e.freshConfirmedRoundIds.length} | ${e.presentation} |`),''];

@@ -10,12 +10,12 @@ const selected=JSON.parse(fs.readFileSync(path.join(root,'reports/special74/sele
 const ids=(process.env.SPECIAL74_BATCH_IDS||'').split(',').filter(Boolean),defer=(process.env.SPECIAL74_BATCH_DEFER||'').split(',');
 const entries=selected.filter(e=>!ids.length||ids.includes(e.id)).sort((a,b)=>Number(defer.includes(a.id))-Number(defer.includes(b.id)));
 const concurrency=Math.max(1,Math.min(4,Number(process.env.SPECIAL74_BATCH_CONCURRENCY||4)));
-const deadlineMs=Math.max(20000,Math.min(90000,Number(process.env.SPECIAL74_GAME_DEADLINE_MS||45000)));
+const deadlineMs=Math.max(20000,Math.min(180000,Number(process.env.SPECIAL74_GAME_DEADLINE_MS||45000)));
 const results=new Map(),running=new Set();let cursor=0,stopping=false;
 const write=(file,data)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file+'.tmp',JSON.stringify(data,null,2)+'\n');fs.renameSync(file+'.tmp',file);};
 function read(entry){try{return JSON.parse(fs.readFileSync(path.join(base,entry.id,'observation.json')));}catch{return null;}}
 function checkpoint(){write(path.join(base,'index.json'),{schemaVersion:2,run,updatedAt:new Date().toISOString(),scope:'Official free demo browser observations, not complete game acceptance',requested:entries.length,concurrency,perGameDeadlineMs:deadlineMs,totals:{finished:results.size,withConfirmedRound:[...results.values()].filter(r=>r.confirmedRoundIds?.length).length,withMedia:[...results.values()].filter(r=>r.media?.length).length,releaseReady:0},entries:entries.map(e=>results.get(e.id)||{id:e.id,selectedName:e.selectedName,status:running.has(e.id)?'running':'pending'})});}
-const retryStatuses=new Set(['interrupted','setup-error','observation-error','sound-dialog-blocks-controls','provider-table-limit','no-game-canvas','loading','deadline-reached']);
+const retryStatuses=new Set(['interrupted','setup-error','observation-error','sound-dialog-blocks-controls','provider-table-limit','no-game-canvas','loading','deadline-reached','deferred-active-reference-session']);
 for(const entry of entries){const row=read(entry);if(row?.completedAt&&!retryStatuses.has(row.status)&&process.env.SPECIAL74_BATCH_RETRY!=='1')results.set(entry.id,row);}
 checkpoint();
 function killGroup(child,signal){try{process.kill(-child.pid,signal);}catch{}}

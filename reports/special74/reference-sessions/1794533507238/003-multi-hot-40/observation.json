@@ -1,0 +1,371 @@
+{
+  "id": "003-multi-hot-40",
+  "selectedName": "Multi Hot 40",
+  "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-40",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo",
+  "startedAt": "2026-11-13T01:31:47.240Z",
+  "productionRequests": 0,
+  "completedAt": "2026-11-13T01:41:44.692173+00:00",
+  "status": "confirmed-rounds-bet-rules-settings-history-autoplay-partial",
+  "confirmedRoundIds": [
+    "1970330373.1",
+    "1970330373.2",
+    "1970330373.3",
+    "1970330373.4"
+  ],
+  "actions": [
+    {
+      "name": "sound-dialog",
+      "verified": true,
+      "evidence": "sound-accepted.png"
+    },
+    {
+      "name": "bet-menu-increase",
+      "verified": true,
+      "from": "0.40 DMO",
+      "to": "0.80 DMO",
+      "evidence": "spin-1.png"
+    },
+    {
+      "name": "rules-bet-increase",
+      "verified": true,
+      "from": "0.80 DMO",
+      "to": "1.20 DMO",
+      "evidence": "rules-bet-increase-text.json"
+    },
+    {
+      "name": "rules-bet-decrease",
+      "verified": true,
+      "from": "1.20 DMO",
+      "to": "0.80 DMO",
+      "evidence": "rules-bet-decrease-text.json"
+    },
+    {
+      "name": "rules-paytable",
+      "verified": true,
+      "evidence": "rules-bet-decrease-text.json",
+      "providerDisplayedRtp": "96.58%",
+      "providerDisplayedMaxWin": "2500x",
+      "note": "Provider display only, not a verified private model."
+    },
+    {
+      "name": "settings",
+      "verified": true,
+      "evidence": "settings.png"
+    },
+    {
+      "name": "sound-effects-off",
+      "verified": false,
+      "attempted": true,
+      "evidence": "settings-sound-off.png"
+    },
+    {
+      "name": "history",
+      "verified": true,
+      "evidence": "history-open-text.json",
+      "displayedRound": "1970330373.1",
+      "bet": "0.80 DMO",
+      "win": "0.00 DMO"
+    },
+    {
+      "name": "autoplay-settings",
+      "verified": true,
+      "evidence": "autoplay-open.png",
+      "counts": [
+        25,
+        50,
+        100,
+        500,
+        1000
+      ],
+      "stopConditions": [
+        "win reaches amount",
+        "balance decreases",
+        "balance increases"
+      ]
+    },
+    {
+      "name": "autoplay-start-stop",
+      "verified": true,
+      "evidence": "autoplay-stop.png",
+      "confirmedRound": "1970330373.2",
+      "note": "One autoplay round confirmed; stopped via visible autoplay control. Threshold behavior not verified."
+    },
+    {
+      "name": "base-rounds",
+      "verified": true,
+      "count": 4,
+      "roundIds": [
+        "1970330373.1",
+        "1970330373.2",
+        "1970330373.3",
+        "1970330373.4"
+      ],
+      "evidence": "session.json"
+    },
+    {
+      "name": "final-settled",
+      "verified": true,
+      "evidence": "final-settled.png",
+      "balance": "19996.80 DMO",
+      "bet": "0.80 DMO"
+    }
+  ],
+  "featureCoverageComplete": false,
+  "parityVerified": false,
+  "ready": false,
+  "unresolved": [
+    "winning presentation and Gamble settlement",
+    "autoplay threshold conditions",
+    "landscape/touch resize",
+    "complete audio/motion comparison",
+    "independent MH40 implementation and operator math"
+  ],
+  "artifacts": [
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/autoplay-open-scene-1.json",
+      "sha256": "28aac4d85528f34e2e94ff583ee7553f6aaf7bc21a02b8673e4efdc5ac401395",
+      "bytes": 342747
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/autoplay-open-text.json",
+      "sha256": "5b7dff2f9961518827ad092241ceed6142318ae439a4693f161634c4d9af018c",
+      "bytes": 7302
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/autoplay-open.png",
+      "sha256": "29fa92814359f05d71e558a7677b7c1358dd9581993fe287fdc4241f26bc50b2",
+      "bytes": 220581
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/autoplay-start.png",
+      "sha256": "f80ad6de876d5db2d97817ab32dbb02694ff9c64e5f7525e64899cd562a56fac",
+      "bytes": 450805
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/autoplay-stop.png",
+      "sha256": "1ec5f18205b453f7a8ef8c6a80586bde871b58b5740179ef2811d8ca469fda86",
+      "bytes": 461080
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-dialog-scene-1.json",
+      "sha256": "cc1ed5febc09efe03d681fb6cad9fb014729e5abd6d399e7511c800314c76249",
+      "bytes": 369417
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-dialog-text.json",
+      "sha256": "99646c5f0c0159519ff5a5e586c79ebb7858d55ad679c63539f1ec958a9a03ea",
+      "bytes": 7393
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-dialog.png",
+      "sha256": "0e1c21b29459fc78c4d0cc7f80454dd5b8d2f16ec415b9d58ac0e4eeb470a903",
+      "bytes": 246859
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-increased-scene-1.json",
+      "sha256": "c562835a9b045bc482e71438d789bbc7b8cc5cbd22c36a939cad2e30d1fb6a4e",
+      "bytes": 440414
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-increased-text.json",
+      "sha256": "d3fd8f776f1283c4f68dc4f3efec3f50f3b42cc7985eb86c57dfcc250c7aa963",
+      "bytes": 7393
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-increased.png",
+      "sha256": "8cd069b169939c51c39f3513326832a9f76b71323fc3ce23ccbc45f894e9c00e",
+      "bytes": 437665
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-open-scene-1.json",
+      "sha256": "37447ee9892e93e4f1234b5648dbb183926b0ef03416f3ab4372fa8899555d05",
+      "bytes": 369417
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-open-text.json",
+      "sha256": "956f90df3507b583bd7091cafd95f676fb0919dddd878142e3f596fa558a2e0f",
+      "bytes": 7393
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/bet-open.png",
+      "sha256": "947115b6e6429e872c4a22b49e5a88870fb5bfeeb9e9659e816cc37ffdb108ff",
+      "bytes": 246792
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/final-settled-scene-1.json",
+      "sha256": "c69dfcc6849c65b2ceb6d62ab5ab24343938aa1458fbdf23cb5e747f9986c825",
+      "bytes": 230331
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/final-settled-text.json",
+      "sha256": "0b615fe6e7c49149379c4d1f67383adc75aa2b67669f179e4b1269c0d098c8ac",
+      "bytes": 7302
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/final-settled.png",
+      "sha256": "94a3e1d0da3a3f6f15ec562e94271363ea6224807a85a098e75a7a236cca49c2",
+      "bytes": 457073
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/history-open-scene-1.json",
+      "sha256": "8f4f2f7230c7bed061f652baa7be7afc9f7ae627af0b149b15738854eca95867",
+      "bytes": 230325
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/history-open-text.json",
+      "sha256": "18cc7d8788d27c29d4df3eb00d2e469f08ea057cd322df887737690438108976",
+      "bytes": 7450
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/history-open.png",
+      "sha256": "4978885d9ed8e95bdb029b2d4c50d79ef4226bd9f065ebfdc446515292d4611f",
+      "bytes": 20429
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/initial-scene-1.json",
+      "sha256": "0491264d774706a2eb735642c20eb1ca24d8a99ab1e5d6070eda047783d087c8",
+      "bytes": 230043
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/initial-text-0.json",
+      "sha256": "bf538b1bc04b2f453f7447860f8b789e398498cbf685fc62f5894c187401e610",
+      "bytes": 107
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/initial-text-1.json",
+      "sha256": "23d3fd06be9399f27fa5791f8ffa778a9d6c56eb66ccb9228a62a80cc1c3319c",
+      "bytes": 178
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/initial.png",
+      "sha256": "293efea8042c78e2607d6050223d06964b9926e85435397c04ec2a6be4412881",
+      "bytes": 270410
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/menu-close-scene-1.json",
+      "sha256": "4807bcf981483563e0ce5a3888131efe57bea43c1538265fb4b6721aee032bc8",
+      "bytes": 230327
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/menu-close-text.json",
+      "sha256": "575c2c0fd2d0cce58e098e00f71ba55c51afc598765017fd00832dfd381428f8",
+      "bytes": 7302
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/menu-close.png",
+      "sha256": "72a6281117d46b2aaa1def79f327af399931eef9f439fde2d3827ceecadf4551",
+      "bytes": 464773
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/menu-open-scene-1.json",
+      "sha256": "a93816b01d6f651be257f03cabc039cce6f39af54f2af9e0503c28b03a869844",
+      "bytes": 230489
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/menu-open-text.json",
+      "sha256": "5e7af085d416cd3c1b4122a448d9412e595eae2824d035d18c0c1cf5e39b4bbe",
+      "bytes": 10231
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/menu-open.png",
+      "sha256": "783b0e7fb7ed8e1535e5a7082a6b15739ab29e4faa2b05beb51902cd7fa275a7",
+      "bytes": 99045
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-decrease-scene-1.json",
+      "sha256": "74b924dd7bdd6fde7d0587f22e8a9e34ecdb5b956ccd7f38e4a3b59429b85c5f",
+      "bytes": 230508
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-decrease-text.json",
+      "sha256": "28be85fb6b95b2818be909a8f017ccf2b0ebebcea87eba03d5bdcc6b929e8b8f",
+      "bytes": 10406
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-decrease.png",
+      "sha256": "63903fada157fdf7a12d4ae8c70312ae3f9d136d957ca8339d5bc5e5cac63199",
+      "bytes": 93797
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-increase-scene-1.json",
+      "sha256": "a29d8ac9ab686071dccfb6b61ada40e2a41041b363bd941c54f7647182add3a2",
+      "bytes": 230488
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-increase-text.json",
+      "sha256": "d550bf4b70a4a55b8e51a58999da5a95be6b0d7d2f41b7aa350c2388527d1e79",
+      "bytes": 10406
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-increase.png",
+      "sha256": "470e232f3b264d0c5a700e8464d4bb0f1bd13a038f3d8ae97260efa88814e0f6",
+      "bytes": 94386
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/settings-scene-1.json",
+      "sha256": "4c260e7b05dd289591be2f257cfeb6dd791a6905934a4d11a4fca31671b50ee9",
+      "bytes": 230489
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/settings-sound-off-scene-1.json",
+      "sha256": "0db0594e511aae3a1869233eace2719a699c5f485581a6a26ade4d54fa3356de",
+      "bytes": 230325
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/settings-sound-off-text.json",
+      "sha256": "50c97ffa0de8ae252424a6a466017445a0144a654d6bb64abed49077122adc81",
+      "bytes": 7281
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/settings-sound-off.png",
+      "sha256": "2b6f535919dad6c5389d5b7652dda881c50fee777b637e2a6b719f1b78fc7924",
+      "bytes": 18314
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/settings-text.json",
+      "sha256": "f2183f1fb485fe41750c12f617357cd88f5857ec4084d08061823f483f19cff2",
+      "bytes": 7479
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/settings.png",
+      "sha256": "bcc94f0ec1aee3a63a0b3b10d4dec97cf5267be5ee2a52b4522a20024f06ce9e",
+      "bytes": 18584
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/sound-accepted.png",
+      "sha256": "1b7f166c5a68eb21fc4607884238b33a888c2dca59e5560991767b63266a5405",
+      "bytes": 467458
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/spin-1-scene-1.json",
+      "sha256": "51eda54b3c70fd034d8c8196df761fe24a4ee2925852d6a874d2f77dd05ddd9a",
+      "bytes": 440007
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/spin-1-text.json",
+      "sha256": "b7922c6d594945bc4c2d272ddc30b6305df311c840cfb73fb562da7e19a3961e",
+      "bytes": 7393
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/spin-1.png",
+      "sha256": "080ffcdad723a8fa38354eb357eca55968e33f1c7f35ba7f72a57778b1c9fabb",
+      "bytes": 464609
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/spin-3.png",
+      "sha256": "e1dacfe0a7fb8536f5c3028f08d6496334d601db718c6eabc3fb6ce25933d97d",
+      "bytes": 435440
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/spin-4.png",
+      "sha256": "857bc21b4fca586b51c0f1798237a62b928293b10de8a523c608f14c200ea86a",
+      "bytes": 463509
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/spin-5.png",
+      "sha256": "b750efa20bee7e2e86616d3e309eae32fdaabed1881bdd1e5404ff9dbb1c5772",
+      "bytes": 439205
+    }
+  ]
+}

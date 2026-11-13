@@ -30,7 +30,7 @@ export function readPresentation(){
     return /^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(raw)?mediaURL(raw):raw.split(/[?#]/,1)[0];
   }
   function node(n,path){
-    if(!n.visible||n.worldAlpha===0)return null;
+    if(!n||n.destroyed||n._destroyed||!n.visible||n.worldAlpha===0||!n.scale||typeof n.getBounds!=='function')return null;
     const t=n.texture;
     const data={path,type:n.constructor.name,name:n.name||null,x:n.x,y:n.y,scale:{x:n.scale.x,y:n.scale.y},rotation:n.rotation,alpha:n.alpha,world: n.worldTransform?{a:n.worldTransform.a,b:n.worldTransform.b,c:n.worldTransform.c,d:n.worldTransform.d,tx:n.worldTransform.tx,ty:n.worldTransform.ty}:null,bounds:rect(n.getBounds()),interactive:Boolean(n.interactive),blendMode:n.blendMode};
     if(n.anchor)data.anchor={x:n.anchor.x,y:n.anchor.y};
@@ -40,5 +40,14 @@ export function readPresentation(){
     data.children=(n.children||[]).map((child,index)=>node(child,path+'.'+index)).filter(Boolean);
     return data;
   }
-  return {viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},canvases:(window.__special74Views||[]).map(({renderer,stage},index)=>({canvas:rect(renderer.view.getBoundingClientRect()),width:renderer.width,height:renderer.height,resolution:renderer.resolution,scene:node(stage,String(index))}))};
+  const canvases=[],snapshotErrors=[];
+  for(const [index,{renderer,stage}]of(window.__special74Views||[]).entries()){
+    // Provider loaders may destroy their renderer after the game starts. One
+    // stale loader must not discard presentation evidence from the active game.
+    const view=renderer?.view;
+    if(!view||view.isConnected===false||typeof view.getBoundingClientRect!=='function'||!stage||stage.destroyed||stage._destroyed)continue;
+    try{const scene=node(stage,String(index));if(scene)canvases.push({canvas:rect(view.getBoundingClientRect()),width:renderer.width,height:renderer.height,resolution:renderer.resolution,scene});}
+    catch{snapshotErrors.push({viewIndex:index,reason:'presentation-view-unreadable'});}
+  }
+  return {viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},canvases,snapshotErrors};
 }

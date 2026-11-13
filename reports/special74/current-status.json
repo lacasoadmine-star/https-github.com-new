@@ -1,19 +1,40 @@
 {
-  "updatedAt": "2026-11-13T00:58:12.773Z",
-  "scope": "Add 74 new SmartSoft titles alongside existing games; no production change",
+  "updatedAt": "2026-11-13T02:11:16.015Z",
+  "scope": "Replace existing game presentations with all 74 new Special Games after the complete release passes; no production change yet",
   "totals": {
     "selected": 74,
     "officialPagesArchived": 74,
     "launchAttempts": 74,
-    "canvasesObserved": 66,
-    "freshGamesWithConfirmedRounds": 3,
+    "canvasesObserved": 67,
+    "freshGamesWithConfirmedRounds": 6,
     "gamesWithCompletedRoundObservedInUI": 1,
     "sufficientBehaviorCoverage": 0,
     "verifiedProviderProbabilityModels": 0,
     "verifiedOperatorMathProofs": 1,
     "integratedOperatorMathModels": 0,
+    "playableDrafts": 3,
     "releaseReady": 0
   },
+  "mediaAcquisition": {
+    "updatedAt": "2026-11-13T02:05:32.754665+00:00",
+    "verifiedMedia": 5502,
+    "verifiedBytes": 958630870,
+    "failedMedia": 268,
+    "pendingMedia": 0,
+    "gamesWithVerifiedMedia": 73,
+    "gamesWithAllObservedMedia": 35,
+    "scope": "Public media observed in archived demo sessions and explicitly declared atlas textures. Shared fonts and launcher images are excluded from game-specific coverage. Acquisition does not prove all game features were observed, gameplay parity, or release readiness."
+  },
+  "launchSetupFailures": [
+    {
+      "id": "056-dolphins-pearl-deluxe",
+      "selectedName": "Cricket X",
+      "source": "reports/special74/batch-observations/all74-20261113/056-dolphins-pearl-deluxe/attempt-1/observation.json",
+      "status": "setup-error",
+      "error": "An official explicit free-demo URL is required",
+      "completedAt": "2026-11-13T01:47:09.393Z"
+    }
+  ],
   "entries": [
     {
       "id": "044-fruit-40",
@@ -27,7 +48,42 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/044-fruit-40/attempt-1/observation.json",
+          "status": "no-game-canvas",
+          "completedAt": "2026-11-13T01:36:57.450Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/044-fruit-40/attempt-2/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:42:38.801Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/044-fruit-40/attempt-3/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:45:08.244Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -58,7 +114,29 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/045-super-fruits-40/attempt-1/observation.json",
+          "status": "no-game-canvas",
+          "completedAt": "2026-11-13T01:38:11.699Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/045-super-fruits-40/attempt-2/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:42:38.948Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -89,7 +167,41 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/046-golden-fruits-40/attempt-1/observation.json",
+          "status": "observation-error",
+          "completedAt": "2026-11-13T01:37:55.796Z",
+          "confirmedRoundIds": [],
+          "actions": []
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/046-golden-fruits-40/attempt-2/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:42:35.977Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/046-golden-fruits-40/attempt-3/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:45:33.679Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -129,7 +241,36 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/047-royal-40/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:43:25.808Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/047-royal-40/attempt-2/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:45:34.591Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -160,7 +301,20 @@
       "providerPageArchived": true,
       "launchStatus": "launch-failed",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/015-double-sevens/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:42:53.866Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -197,7 +351,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/016-super-sevens/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:43:00.618Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -228,7 +395,24 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/048-princess-40/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:45:08.271Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -259,7 +443,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/017-lucky-seven/attempt-2/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:45:32.827Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": true,
       "visualReviewNeedsRefresh": false,
@@ -290,7 +487,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/018-lucky-eight/attempt-2/observation.json",
+          "status": "provider-table-limit",
+          "completedAt": "2026-11-13T01:45:27.584Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -321,7 +530,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/029-bottle-mania/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:45:59.538Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -352,7 +574,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/005-super-hot/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:45:51.352Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -400,7 +634,8 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [
-        "1970242475.1"
+        "1970242475.1",
+        "1970356014.1"
       ],
       "controlObservations": [
         {
@@ -434,8 +669,51 @@
             "menu-open",
             "visible-provider-exit-clicked"
           ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/007-burning-ice-10/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:45:55.315Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/007-burning-ice-10/attempt-1/observation.json",
+          "status": "round-receipt-confirmed-needs-feature-review",
+          "completedAt": "2026-11-13T01:59:45.326Z",
+          "confirmedRoundIds": [
+            "1970356014.1"
+          ],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "rules",
+            "settings",
+            "history",
+            "exit"
+          ]
         }
       ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": true,
       "visualReviewNeedsRefresh": false,
@@ -476,7 +754,8 @@
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [
         "1970243044.1",
-        "1970262769.1"
+        "1970262769.1",
+        "1970356015.1"
       ],
       "controlObservations": [
         {
@@ -524,8 +803,50 @@
             "gamble-take",
             "normal-exit"
           ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/008-burning-ice-40/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:45:55.218Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/008-burning-ice-40/attempt-1/observation.json",
+          "status": "round-receipt-confirmed-needs-feature-review",
+          "completedAt": "2026-11-13T01:59:44.552Z",
+          "confirmedRoundIds": [
+            "1970356015.1"
+          ],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "rules",
+            "settings",
+            "history",
+            "exit"
+          ]
         }
       ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": true,
       "visualReviewNeedsRefresh": false,
@@ -565,7 +886,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/049-star-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:46:37.194Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -596,7 +929,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/050-lucky-star-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:46:41.793Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -627,7 +972,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/051-fortune-40/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:46:16.634Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -658,7 +1015,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/052-lucky-7/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:46:33.937Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 1,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -689,7 +1060,22 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/053-book-of-ra/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:47:03.635Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -720,7 +1106,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/054-book-of-ra-deluxe/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:47:08.588Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -751,7 +1149,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/028-coins-of-atlantis/attempt-1/observation.json",
+          "status": "provider-table-limit",
+          "completedAt": "2026-11-13T01:47:04.335Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -782,7 +1193,25 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/055-dolphins-pearl/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:47:27.919Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -813,7 +1242,28 @@
       "providerPageArchived": true,
       "launchStatus": "no-game-canvas-yet",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/056-dolphins-pearl-deluxe/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T02:01:44.904Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "rules",
+            "close-rules",
+            "reopen-menu-rules",
+            "settings",
+            "history",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -844,7 +1294,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/057-maui-millionaire/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:47:51.250Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -875,7 +1339,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/019-lucky-eight-win/attempt-1/observation.json",
+          "status": "provider-table-limit",
+          "completedAt": "2026-11-13T01:47:32.693Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -906,7 +1383,18 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/058-lucky-8/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:47:56.738Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -946,7 +1434,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/020-lucky-ladys-charm/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:48:14.228Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -977,7 +1478,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/021-diamond-seven/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:48:18.300Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1008,7 +1522,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/022-wild-cherries/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:48:37.558Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1039,7 +1567,22 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/059-seven-pirates/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:48:43.043Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1070,7 +1613,22 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/060-wild-pirates/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:48:54.914Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1100,8 +1658,47 @@
       "officialPage": "https://www.smartsoftgaming.com/games/foxy-hot-20",
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
-      "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "freshConfirmedRoundIds": [
+        "1970357250.1"
+      ],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/006-burning-hot/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:49:05.048Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/006-burning-hot/attempt-1/observation.json",
+          "status": "round-receipt-confirmed-needs-feature-review",
+          "completedAt": "2026-11-13T02:01:26.924Z",
+          "confirmedRoundIds": [
+            "1970357250.1"
+          ],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "rules",
+            "close-rules",
+            "reopen-menu-rules",
+            "settings",
+            "history",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1141,7 +1738,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/023-wild-cherry/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:49:10.090Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1172,7 +1783,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/024-jackpot-6000/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:49:16.426Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1203,7 +1828,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/025-fever-slots/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:49:26.854Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1234,7 +1872,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/026-reel-rush/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:49:33.100Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1274,7 +1926,23 @@
       "providerPageArchived": true,
       "launchStatus": "launch-failed",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/061-sea-treasures/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:49:56.985Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1302,7 +1970,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/027-coin-miner/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:49:42.285Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1342,7 +2024,21 @@
       "providerPageArchived": true,
       "launchStatus": "provider-table-limit",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/030-stars/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:50:00.031Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1373,7 +2069,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/031-lucky-clover/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:49:56.926Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1413,7 +2122,21 @@
       "providerPageArchived": true,
       "launchStatus": "launch-failed",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/032-lucky-clover-40/attempt-1/observation.json",
+          "status": "canvas-observed-needs-controls-review",
+          "completedAt": "2026-11-13T01:50:09.100Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1441,7 +2164,18 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/033-ancient-fortunes/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:50:43.619Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1472,7 +2206,18 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/034-ancient-fortunes-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:50:43.717Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1503,7 +2248,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/062-great-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:50:46.698Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1534,7 +2291,16 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/063-great-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:51:00.429Z",
+          "confirmedRoundIds": [],
+          "actions": []
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1565,7 +2331,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/035-magic-apple/attempt-1/observation.json",
+          "status": "provider-table-limit",
+          "completedAt": "2026-11-13T01:51:22.040Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1595,8 +2374,44 @@
       "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
-      "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "freshConfirmedRoundIds": [
+        "1970358831.1"
+      ],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/002-multi-hot-10/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:51:30.295Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/observation.json",
+          "status": "round-receipt-confirmed-needs-feature-review",
+          "completedAt": "2026-11-13T02:02:31.698Z",
+          "confirmedRoundIds": [
+            "1970358831.1"
+          ],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "rules",
+            "close-rules",
+            "reopen-menu-rules",
+            "settings",
+            "history",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": true,
       "visualReviewNeedsRefresh": false,
@@ -1627,7 +2442,18 @@
       "providerPageArchived": true,
       "launchStatus": "provider-table-limit",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/009-sizzling-hot/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:51:33.478Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1675,7 +2501,31 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/036-magic-apple-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:51:47.497Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/036-magic-apple-40/attempt-1/observation.json",
+          "status": "provider-table-limit",
+          "completedAt": "2026-11-13T02:01:58.854Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1705,8 +2555,80 @@
       "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-40",
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
-      "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "freshConfirmedRoundIds": [
+        "1970330373.1",
+        "1970330373.2",
+        "1970330373.3",
+        "1970330373.4",
+        "1970359296.1"
+      ],
+      "controlObservations": [
+        {
+          "source": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/observation.json",
+          "status": "confirmed-rounds-bet-rules-settings-history-autoplay-partial",
+          "completedAt": "2026-11-13T01:41:44.692173+00:00",
+          "confirmedRoundIds": [
+            "1970330373.1",
+            "1970330373.2",
+            "1970330373.3",
+            "1970330373.4"
+          ],
+          "actions": [
+            "sound-dialog",
+            "bet-menu-increase",
+            "rules-bet-increase",
+            "rules-bet-decrease",
+            "rules-paytable",
+            "settings",
+            "sound-effects-off",
+            "history",
+            "autoplay-settings",
+            "autoplay-start-stop",
+            "base-rounds",
+            "final-settled"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/003-multi-hot-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:56:47.725Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "exit"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/003-multi-hot-40/attempt-1/observation.json",
+          "status": "round-receipt-confirmed-needs-feature-review",
+          "completedAt": "2026-11-13T02:03:00.195Z",
+          "confirmedRoundIds": [
+            "1970359296.1"
+          ],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "rules",
+            "close-rules",
+            "reopen-menu-rules",
+            "settings",
+            "history",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": true,
@@ -1763,7 +2685,8 @@
         "1970274633.7",
         "1970274633.8",
         "1970274633.9",
-        "1970274633.10"
+        "1970274633.10",
+        "1970359778.1"
       ],
       "controlObservations": [
         {
@@ -1796,8 +2719,62 @@
             "reload-recovery",
             "normal-exit"
           ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/001-multi-hot-5/attempt-1/observation.json",
+          "status": "sound-dialog-blocks-controls",
+          "completedAt": "2026-11-13T01:36:15.643Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render",
+            "sound-yes-after-render"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/001-multi-hot-5/attempt-2/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:52:08.252Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "exit"
+          ]
+        },
+        {
+          "source": "reports/special74/batch-observations/all74-controls-retry-20261113/001-multi-hot-5/attempt-1/observation.json",
+          "status": "round-receipt-confirmed-needs-feature-review",
+          "completedAt": "2026-11-13T02:03:24.195Z",
+          "confirmedRoundIds": [
+            "1970359778.1"
+          ],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "rules",
+            "settings",
+            "history",
+            "exit"
+          ]
         }
       ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": true,
       "visualReviewNeedsRefresh": false,
@@ -1838,7 +2815,7 @@
       "providerProbabilityModelVerified": false,
       "operatorMathProofVerified": true,
       "operatorMathBackendIntegrated": false,
-      "presentation": "not-built-v2",
+      "presentation": "playable-v2-draft",
       "ready": false
     },
     {
@@ -1853,7 +2830,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/037-fruits-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:52:16.886Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1884,7 +2873,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/004-multi-hot-deluxe/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:52:20.088Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1924,7 +2925,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/010-ultra-hot/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:52:34.159Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -1972,7 +2985,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/011-fruit-slot/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:52:54.995Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2012,7 +3037,25 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/012-fruitsn-sevens/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:53:02.908Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2043,7 +3086,18 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/064-magic-7/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:53:06.755Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2074,7 +3128,25 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/013-sevens-fruits/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:53:20.292Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "bet-plus",
+            "bet-minus",
+            "spin-1",
+            "take",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2114,7 +3186,16 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/065-magic-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:53:41.693Z",
+          "confirmedRoundIds": [],
+          "actions": []
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2154,7 +3235,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/066-hot-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:53:49.554Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2194,7 +3288,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/067-hot-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:53:53.402Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2225,7 +3333,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/068-lucky-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:54:06.921Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2256,7 +3378,19 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/038-cherry-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:54:28.439Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2287,7 +3421,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/069-lucky-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:54:36.292Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2318,7 +3465,18 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/070-fruit-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:54:40.586Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2349,7 +3507,18 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/039-sevens-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:54:53.700Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2405,7 +3574,19 @@
       "providerPageArchived": true,
       "launchStatus": "visible-error-needs-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/040-diamond-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:55:14.264Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2436,7 +3617,24 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/071-treasure-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:55:22.925Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2467,7 +3665,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/041-wild-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:55:29.455Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2498,7 +3709,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/072-ocean-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:55:40.410Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2527,9 +3752,56 @@
       "replacement": true,
       "officialPage": "https://www.smartsoftgaming.com/games/vampires",
       "providerPageArchived": true,
-      "launchStatus": "no-game-canvas-yet",
+      "launchStatus": "game-scene-observed-needs-settlement-and-feature-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/042-hot-40/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:56:01.536Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": {
+        "source": "reports/special74/missing-media-recovery/042-hot-40/interactive/interaction-verification.json",
+        "fullScene": true,
+        "reels": {
+          "columns": 5,
+          "rows": 3
+        },
+        "betChangeObserved": true,
+        "autoplayOpen": true,
+        "autoplayClose": true,
+        "spinStarted": true,
+        "spinDebit": {
+          "currencyLabel": "DMO",
+          "before": "20000.00",
+          "bet": "0.30",
+          "after": "19999.70",
+          "source": "visible demo UI only"
+        },
+        "spinSettled": false,
+        "menuOpened": false,
+        "betDecrease": false
+      },
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2560,7 +3832,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/073-joker-27/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:56:09.098Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2591,7 +3876,21 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/014-three-sevens/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:56:15.306Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2639,7 +3938,20 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/043-lucky-40/attempt-1/observation.json",
+          "status": "provider-table-limit",
+          "completedAt": "2026-11-13T01:56:02.150Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,
@@ -2670,7 +3982,23 @@
       "providerPageArchived": true,
       "launchStatus": "canvas-loaded-needs-visual-and-gameplay-review",
       "freshConfirmedRoundIds": [],
-      "controlObservations": [],
+      "controlObservations": [
+        {
+          "source": "reports/special74/batch-observations/all74-20261113/074-super-joker/attempt-1/observation.json",
+          "status": "deadline-reached",
+          "completedAt": "2026-11-13T01:56:47.702Z",
+          "confirmedRoundIds": [],
+          "actions": [
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "sound-yes",
+            "menu",
+            "exit"
+          ]
+        }
+      ],
+      "recoveryObservations": null,
       "completedRoundsObservedInUI": 0,
       "visualReviewMatchesScreenshot": false,
       "visualReviewNeedsRefresh": false,

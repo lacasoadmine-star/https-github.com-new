@@ -35,6 +35,7 @@ class MediaAcquisitionTests(unittest.TestCase):
     def test_texture_names_with_spaces_are_encoded_once(self):
         data = json.dumps({"meta": {"image": "folder%20name/smartsoft symbol.png"}}).encode()
         self.assertEqual(media.texture_references(URL, data), [URL.replace("sprite.json", "folder%20name/smartsoft%20symbol.png")])
+        self.assertEqual(media.encoded_url(URL.replace("sprite.json", "literal%2Fname.png")), URL.replace("sprite.json", "literal%2Fname.png"))
 
     def test_verified_cache_avoids_network_but_corruption_requires_restore(self):
         data = b'{"meta":{"image":"sheet.png"}}'
