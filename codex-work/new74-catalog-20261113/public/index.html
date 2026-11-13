@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="so">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1929">
+  <meta name="color-scheme" content="dark">
+  <title>74-ka ciyaarood · ZPLAY</title>
+  <link rel="stylesheet" href="/new74/lobby.css">
+  <script type="module" src="/new74/lobby.mjs"></script>
+</head>
+<body class="new74-lobby">
+  <a class="n74-skip" href="#catalogue">U gudub ciyaaraha</a>
+  <header class="n74-header">
+    <a class="n74-brand" href="/" aria-label="ZPLAY · Bogga hore">ZPLAY<span>CIYAARAHA</span></a>
+    <a class="n74-back" href="/"><span aria-hidden="true">←</span> Bogga hore</a>
+  </header>
+  <main class="n74-main">
+    <section class="n74-intro" aria-labelledby="page-title">
+      <div class="n74-intro-copy">
+        <p class="n74-eyebrow"><span aria-hidden="true"></span> 74-KA CINWAAN</p>
+        <h1 id="page-title">Ciyaaraha oo dhan.<br><span>Hal meel.</span></h1>
+        <p class="n74-lead">Bogagga ciyaaraha ee jira halkan ka fur. Cinwaannada kale weli diyaar ma aha.</p>
+      </div>
+      <div class="n74-summary" aria-label="Tirada cinwaannada">
+        <div><strong>74</strong><span>cinwaan</span></div>
+        <div><strong id="open-count">—</strong><span>bog oo jira</span></div>
+        <div><strong id="pending-count">—</strong><span>weli sugaya</span></div>
+      </div>
+    </section>
+    <section id="catalogue" class="n74-catalogue" aria-labelledby="catalogue-title">
+      <div class="n74-section-heading"><h2 id="catalogue-title">Dooro ciyaartaada</h2><p id="result-count" aria-live="polite">74 cinwaan</p></div>
+      <div class="n74-toolbar">
+        <label class="n74-search"><span class="n74-sr-only">Raadi ciyaar</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 4.5 4.5"></path></svg><input id="search" type="search" placeholder="Raadi magaca ama lambarka…" autocomplete="off" spellcheck="false"></label>
+        <label class="n74-sort"><span>Kala saar</span><select id="sort"><option value="catalogue">Liiska 74-ka</option><option value="name">Magaca A–Z</option></select></label>
+      </div>
+      <div class="n74-filters" role="group" aria-label="Shaandhee ciyaaraha">
+        <button type="button" data-filter="all" aria-pressed="true">Dhammaan <span id="filter-all">74</span></button>
+        <button type="button" data-filter="open" aria-pressed="false">Bogag jira <span id="filter-open">—</span></button>
+        <button type="button" data-filter="pending" aria-pressed="false">Weli sugaya <span id="filter-pending">—</span></button>
+      </div>
+      <div id="cards" class="n74-cards"></div>
+      <div id="empty" class="n74-empty" hidden><span aria-hidden="true">⌕</span><h3>Magacaas lama helin</h3><p>Isku day magac kale ama eeg dhammaan cinwaannada.</p><button id="reset" type="button">Eeg dhammaan 74-ka</button></div>
+      <noscript><p class="n74-noscript">Daar JavaScript si aad u aragto liiska 74-ka. <a href="/">Ku laabo bogga hore.</a></p></noscript>
+    </section>
+    <p class="n74-scope-note">74-ka cinwaan dhammaantood waa la taxay. “Fur ciyaarta” wuxuu kuu gudbiyaa bog ciyaareed jira; tirada cinwaannadu ma tilmaamayso 74 ciyaarood oo dhamaystiran.</p>
+  </main>
+  <footer class="n74-footer"><a href="/">ZPLAY <span>← Bogga hore</span></a><span>Dooro. Fur. Ciyaar.</span></footer>
+</body>
+</html>
