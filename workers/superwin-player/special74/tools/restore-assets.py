@@ -18,6 +18,8 @@ def restore(record):
         (url.hostname=="static.ssg-public.com" and (
             url.path.startswith("/cache/b1/SlotsDemo/Content/Images/BlazingHot/") or
             url.path.startswith("/cache/b1/SlotsDemo/Content/Sound/BlazingHot/") or
+            url.path.startswith("/cache/b1/SlotsDemo/Content/Images/MultiHot5/") or
+            url.path.startswith("/cache/b1/SlotsDemo/Content/Sound/MultiHot5/") or
             url.path.startswith("/cache/b1/SlotsDemo/Content/Fonts/") or
             url.path=="/cache/b16/GameLauncher/Content/Images/Menu/mobile-menu-open-icon.png")) or
         url.hostname=="cdn.prod.website-files.com"))
