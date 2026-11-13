@@ -17,7 +17,6 @@ jobs:
     timeout-minutes: 15
     env:
       SPECIAL74_FIXTURES: '1'
-      NODE_PATH: ${{ runner.temp }}/special74-tooling/node_modules
     steps:
       - uses: actions/checkout@v5
         with:
@@ -29,7 +28,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install isolated build and browser tooling
-        run: npm install --prefix "$RUNNER_TEMP/special74-tooling" --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1 esbuild@0.25.12
+        run: |
+          npm install --prefix "$RUNNER_TEMP/special74-tooling" --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1 esbuild@0.25.12
+          printf 'NODE_PATH=%s/special74-tooling/node_modules\\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
       - name: Install test browser
         run: |
           node "$RUNNER_TEMP/special74-tooling/node_modules/playwright/cli.js" install --with-deps chromium
