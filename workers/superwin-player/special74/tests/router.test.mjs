@@ -43,3 +43,15 @@ test('game documents restrict network access to the retained same origin and rev
  const cached=await routeSpecial74(new Request('https://player.test/special-games/play/fixture-0',{headers:{'if-none-match':response.headers.get('etag')}}),env,r);
  assert.equal(cached.status,304);assert.equal(reads,1);
 });
+
+test('media byte ranges support seeking, suffixes and open ends with exact lengths',async()=>{
+ const r=release(),path='/special-games/assets/movie.mp4';r.assets[path]={key:'movie.mp4',contentType:'video/mp4',sha256:'a'.repeat(64)};
+ const bytes=Uint8Array.from({length:10},(_,i)=>i),env={SSG_OFFICIAL_REFERENCES:{async get(){return bytes.buffer;}}};
+ for(const [range,expected,span]of [['bytes=2-4',[2,3,4],'2-4'],['bytes=8-',[8,9],'8-9'],['bytes=-3',[7,8,9],'7-9'],['bytes=8-99',[8,9],'8-9']]){
+  const response=await routeSpecial74(new Request('https://player.test'+path,{headers:{range}}),env,r);
+  assert.equal(response.status,206);assert.equal(response.headers.get('content-range'),`bytes ${span}/10`);assert.equal(response.headers.get('content-length'),String(expected.length));assert.deepEqual([...new Uint8Array(await response.arrayBuffer())],expected);
+ }
+ for(const range of ['bytes=10-','bytes=4-2','bytes=-0','bytes=0-1,3-4','bytes=-','bytes=9007199254740993-'])assert.equal((await routeSpecial74(new Request('https://player.test'+path,{headers:{range}}),env,r)).status,416);
+ const head=await routeSpecial74(new Request('https://player.test'+path,{method:'HEAD',headers:{range:'bytes=2-4'}}),env,r);assert.equal(head.status,200);assert.equal(head.headers.get('content-length'),'10');assert.equal(await head.text(),'');
+ const stale=await routeSpecial74(new Request('https://player.test'+path,{headers:{range:'bytes=2-4','if-range':'"old"'}}),env,r);assert.equal(stale.status,200);assert.equal((await stale.arrayBuffer()).byteLength,10);
+});

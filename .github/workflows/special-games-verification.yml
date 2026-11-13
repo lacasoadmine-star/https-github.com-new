@@ -39,6 +39,10 @@ jobs:
         run: |
           python3 workers/superwin-player/special74/tools/restore-assets.py
           python3 workers/superwin-player/special74/tools/fetch-launcher-media.py
+      - name: Compile captured Multi Hot 10 logo data
+        run: |
+          python3 workers/superwin-player/special74/tools/compile-mh10-logo.py
+          git diff --exit-code -- workers/superwin-player/special74/src/multihot10-logo.json
       - name: Verify financial contract, routes and retry evidence
         run: |
           node workers/superwin-player/special74/tools/prove-operator-math.mjs
@@ -57,7 +61,9 @@ jobs:
           fixture_pid=$!
           node workers/superwin-player/special74/tests/multihot5-serve.mjs > "$RUNNER_TEMP/special74-mh5-fixture.log" 2>&1 &
           multihot_fixture_pid=$!
-          trap 'kill "$fixture_pid" "$multihot_fixture_pid" 2>/dev/null || true' EXIT
+          node workers/superwin-player/special74/tests/multihot10-serve.mjs > "$RUNNER_TEMP/special74-mh10-fixture.log" 2>&1 &
+          mh10_fixture_pid=$!
+          trap 'kill "$fixture_pid" "$multihot_fixture_pid" "$mh10_fixture_pid" 2>/dev/null || true' EXIT
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:4181/__fixture/stats > /dev/null; then break; fi
             sleep 1
@@ -70,6 +76,7 @@ jobs:
             sleep 1
           done
           node workers/superwin-player/special74/tests/multihot5-browser.cjs
+          node workers/superwin-player/special74/tests/multihot10-browser.cjs
       - name: Preserve verification artifacts
         if: always()
         uses: actions/upload-artifact@v4

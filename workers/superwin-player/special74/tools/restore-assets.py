@@ -19,6 +19,8 @@ def restore(record):
             url.path.startswith("/cache/b1/SlotsDemo/Content/Images/BlazingHot/") or
             url.path.startswith("/cache/b1/SlotsDemo/Content/Sound/BlazingHot/") or
             url.path.startswith("/cache/b1/SlotsDemo/Content/Images/MultiHot5/") or
+            url.path.startswith("/cache/b1/SlotsDemo/Content/Images/MultiHot10/") or
+            url.path.startswith("/cache/b1/SlotsDemo/Content/Sound/MultiHot10/") or
             url.path.startswith("/cache/b1/SlotsDemo/Content/Sound/MultiHot5/") or
             url.path.startswith("/cache/b1/SlotsDemo/Content/Fonts/") or
             url.path=="/cache/b16/GameLauncher/Content/Images/Menu/mobile-menu-open-icon.png")) or
@@ -49,7 +51,7 @@ def restore(record):
 
 def main():
     records={}
-    for name in ("media-manifest.json","cover-manifest.json","launcher-media-manifest.json"):
+    for name in ("media-manifest.json","cover-manifest.json","launcher-media-manifest.json","mh10-media-manifest.json"):
         manifest=json.loads((ROOT/name).read_text())
         if manifest.get("failures"):
             raise ValueError("Unresolved original-media download failures in "+name)

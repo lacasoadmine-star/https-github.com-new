@@ -308,7 +308,7 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://www.google.com/url?q=https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory%3DSlots%26GameName%3DMultiHot10%26Token%3DDEMO%26PortalName%3Ddemo&sa=D&source=editors&ust=1783957511223679&usg=AOvVaw1-yr2tGhZ9XQ5Wd4UaaSS6"
       },
-      "presentation": "not-built-v2",
+      "presentation": "playable-v2-draft",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
@@ -348,7 +348,221 @@
         "productionAuthenticatedWagersVerified": false,
         "composedLocalRetainedHandlerChecksPassed": 9,
         "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh10-settlement-proof.json"
-      }
+      },
+      "implementation": {
+        "entryHtml": "workers/superwin-player/special74/src/game-multihot10.html",
+        "entrySha256": "5a61685f41500a7b5cef9f0eb7617e8d58d76d0417505ea19bc8f2dbfceff55b",
+        "assets": [
+          {
+            "path": "workers/superwin-player/special74/src/multihot10.mjs",
+            "sha256": "0d85464bde0a8203446c71ff0f23a52429155a14271bc14abc0801f8a078c05b",
+            "bytes": 20426,
+            "runtimePath": "/special-games/multihot10.mjs"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/multihot40.css",
+            "sha256": "592571f6c3c4202c047ffcc067cda227394041eed8c047073eb62c5548e2607f",
+            "bytes": 3523,
+            "runtimePath": "/special-games/multihot40.css"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/textures.mjs",
+            "sha256": "2770c947866ac059f490e13daa097608888b968a9a5d403a610cd73a1b648223",
+            "bytes": 1698,
+            "runtimePath": "/special-games/textures.mjs"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/fonts.mjs",
+            "sha256": "892ef176274b7742d209edd40c04cbfaca7d8e66a1ab8b3dded6a5f9fb3e7fae",
+            "bytes": 495,
+            "runtimePath": "/special-games/fonts.mjs"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/financial/account.mjs",
+            "sha256": "ab9e0a3acfc2d5a071fa8a5d05e5f76788f216674152bab8a6735053b7481152",
+            "bytes": 12654,
+            "runtimePath": "/special-games/financial/account.mjs"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/region-timeline.mjs",
+            "sha256": "b4a58e69f8a702fd64167da00afe8c6e759bb3710807f2aa83342aa7688f3c32",
+            "bytes": 2187,
+            "runtimePath": "/special-games/region-timeline.mjs"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/multihot10-logo.json",
+            "sha256": "d009b0f0ff30f0b2530b02a96a80d2bff5168eb12e0fb7213eaff970fb48e4c4",
+            "bytes": 29823,
+            "runtimePath": "/special-games/multihot10-logo.json"
+          },
+          {
+            "path": "workers/superwin-player/special74/src/reference-multihot10.png",
+            "sha256": "d9b01e647413b35cd5a66a2f0a8a318e6b151a02c98340f221741a461955593b",
+            "bytes": 446167,
+            "runtimePath": "/special-games/reference-multihot10.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.json",
+            "sha256": "43b2150f4004603cec3a88df280dc949785620193dc8c0c6ca0e81ef9f107755",
+            "bytes": 33058,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.json",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.json"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.png",
+            "sha256": "75141c27551e88e7fa99f903a63e15fca8b11019cb9ad76c2da43d5d5be50403",
+            "bytes": 1373911,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.png",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-0.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.json",
+            "sha256": "8b5fd561e4e916c275c24ecb838c0e806327cc6b20ff21420467a18919764fff",
+            "bytes": 8948,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.json",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.json"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.png",
+            "sha256": "bba50dc178ecdd8f9f368711c20410bf1c480050059273d6e97249e005f731a8",
+            "bytes": 1603879,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.png",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-1.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.json",
+            "sha256": "50d3c2a6daf08fe41bf7eee20cfa3ca1200a55653d899cb7a147255268ea8682",
+            "bytes": 14077,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.json",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.json"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.png",
+            "sha256": "f6a76378115e6eb522d28de578e81e19d971c21e88d1e8f65def39a10fba619c",
+            "bytes": 1896579,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.png",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-2.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.json",
+            "sha256": "2a4c669982d0e8d101b3602d031bccd28637009be1f66a0ef0c05319e50f39be",
+            "bytes": 637,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.json",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.json"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.png",
+            "sha256": "973525941b6fe5cd9181411e2685f1ef232a72fd2cd13902e00c851717c750c8",
+            "bytes": 503364,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.png",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/Sprites/Images-3.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/background-vertical.png",
+            "sha256": "515fd361bcf6671ea44010300b3849536a9bedc780eafadd5ab41e2d4d306dfe",
+            "bytes": 719507,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/background-vertical.png",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Images/background-vertical.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi hot 100 logo.atlas.txt",
+            "sha256": "49c6cf935a05696c2068e34cda5ccee3a96cccd3da05b9a60f9035dfd31ac843",
+            "bytes": 16586,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi hot 100 logo.atlas.txt",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi%20hot%20100%20logo.atlas.txt"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi hot 100 logo.json",
+            "sha256": "0cb5f05ebbdd8ea7e7bd4a22e26f1c974926aa9ebd076175555f3087c0d06b16",
+            "bytes": 14798,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi hot 100 logo.json",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi%20hot%20100%20logo.json"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi hot 100 logo.png",
+            "sha256": "e166afe417f96d5882b47622c28f1dbd4b7841c1f7ddb54f3860f5df586b866e",
+            "bytes": 345874,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi hot 100 logo.png",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot10/Mobile/Spine/Logo/multi%20hot%20100%20logo.png"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Button.mp3",
+            "sha256": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003",
+            "bytes": 10493,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Button.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Button.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Spin.mp3",
+            "sha256": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87",
+            "bytes": 28322,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Spin.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Buttons/Spin.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/Background.mp3",
+            "sha256": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5",
+            "bytes": 2096626,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/Background.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/Background.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ObjectMoveFast.mp3",
+            "sha256": "63a970209db2dfd356c2f8ed596a1a5e8d2b9256526e8194ace0dad0c7c56cbc",
+            "bytes": 17180,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ObjectMoveFast.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ObjectMoveFast.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop1.mp3",
+            "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+            "bytes": 22080,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop1.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop1.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop2.mp3",
+            "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+            "bytes": 22080,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop2.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop2.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop3.mp3",
+            "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+            "bytes": 22080,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop3.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop3.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop4.mp3",
+            "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+            "bytes": 22080,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop4.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop4.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop5.mp3",
+            "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+            "bytes": 22080,
+            "runtimePath": "/special-games/assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop5.mp3",
+            "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot10/Start/ReelStop5.mp3"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/Fonts/Intro/Intro-Black-Caps.otf",
+            "sha256": "33e4ace2ca2b16d6e9d2dece292e599e0afdc10196a13987a47a11d9c0dc69d9",
+            "bytes": 48796,
+            "runtimePath": "/special-games/assets/Fonts/Intro/Intro-Black-Caps.otf"
+          },
+          {
+            "path": "workers/superwin-player/special74/assets/Fonts/Intro/Intro-Regular.otf",
+            "sha256": "8b0279e2a3b54cbd3b30f3bdf369d2abe5c0369c7fc554add136e6d4edff5390",
+            "bytes": 90504,
+            "runtimePath": "/special-games/assets/Fonts/Intro/Intro-Regular.otf"
+          }
+        ]
+      },
+      "implementationReport": "reports/special74/multihot10-implementation-20261113.json"
     },
     {
       "position": 3,

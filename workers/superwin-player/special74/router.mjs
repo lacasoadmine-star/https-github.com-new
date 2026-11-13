@@ -22,6 +22,26 @@ export async function routeSpecial74(request,env,release){
  if(request.headers.get('if-none-match')===responseHeaders.etag)return new Response(null,{status:304,headers:responseHeaders});
  const data=await env.SSG_OFFICIAL_REFERENCES.get(release.storagePrefix+asset.key,{type:'arrayBuffer'});
  if(data===null)return new Response('Asset unavailable',{status:503,headers:{...headers,'cache-control':'no-store'}});
+ responseHeaders['accept-ranges']='bytes';
+ responseHeaders['content-length']=String(data.byteLength);
+ // Original audio/video can be sought without proxying the provider. If-Range
+ // accepts only the current strong ETag; stale validators receive the full file.
+ const range=request.headers.get('range'),ifRange=request.headers.get('if-range');
+ if(request.method==='GET'&&range&&(!ifRange||ifRange===responseHeaders.etag)){
+  const match=/^bytes=(\d*)-(\d*)$/.exec(range);
+  let start,end;
+  if(match&&(match[1]||match[2])){
+   if(!match[1]){const suffix=Number(match[2]);if(Number.isSafeInteger(suffix)&&suffix>0){start=Math.max(0,data.byteLength-suffix);end=data.byteLength-1;}}
+   else{start=Number(match[1]);end=match[2]?Number(match[2]):data.byteLength-1;}
+  }
+  if(!Number.isSafeInteger(start)||!Number.isSafeInteger(end)||start<0||start>=data.byteLength||end<start){
+   return new Response(null,{status:416,headers:{...headers,'accept-ranges':'bytes','content-range':`bytes */${data.byteLength}`,'content-length':'0'}});
+  }
+  end=Math.min(end,data.byteLength-1);
+  responseHeaders['content-range']=`bytes ${start}-${end}/${data.byteLength}`;
+  responseHeaders['content-length']=String(end-start+1);
+  return new Response(data.slice(start,end+1),{status:206,headers:responseHeaders});
+ }
  return new Response(request.method==='HEAD'?null:data,{headers:responseHeaders});
 }
 export function addSpecial74ToPage(request,response,release){
