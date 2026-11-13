@@ -3,10 +3,10 @@
   "updatedAt": "2026-11-13T02:38:02.105369+00:00",
   "target": "https://superwin-player.apdiy61.workers.dev",
   "section": "Special Games",
-  "releaseMode": "one-complete-74-game-replacement",
-  "legacyDisposition": "replace-existing-game-presentations-after-complete-74-release",
+  "releaseMode": "one-complete-74-game-addition",
+  "legacyDisposition": "retain-selected-four-dashboard-games-and-add-independent-special-games",
   "financialPolicy": "Retain existing backend, database, wallet, ledger, accounts and ETB. Add separately versioned operator-authored math; never use demo money, accounts or financial runtime.",
-  "previousPresentationStatus": "rejected-by-user; archived, not approved as a v2 implementation",
+  "previousPresentationStatus": "four-selected-dashboard-entries-retained; not counted as new Special Games implementations",
   "entries": [
     {
       "position": 1,
@@ -95,7 +95,9 @@
         "integrationStatus": "verified-local-retained-handler-and-postgresql-fixtures; production-not-installed-or-verified",
         "localRetainedHandlerChecksPassed": 9,
         "localPostgresChecksPassed": 8,
-        "productionAuthenticatedWagersVerified": false
+        "productionAuthenticatedWagersVerified": false,
+        "composedLocalRetainedHandlerChecksPassed": 9,
+        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh5-composed-settlement-proof.json"
       },
       "implementation": {
         "entryHtml": "workers/superwin-player/special74/src/game-multihot5.html",
@@ -342,8 +344,10 @@
         "modelVersion": "operator-mh10-v1",
         "source": "existing-superwin-server",
         "frontendDeterminesPayout": false,
-        "integrationStatus": "additive-adapter-unit-tested; retained-production-handler-not-installed-or-verified",
-        "productionAuthenticatedWagersVerified": false
+        "integrationStatus": "composed-three-model-adapter-and-actual-retained-handler-fixture-verified; production-not-installed-or-verified",
+        "productionAuthenticatedWagersVerified": false,
+        "composedLocalRetainedHandlerChecksPassed": 9,
+        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh10-settlement-proof.json"
       }
     },
     {
@@ -562,8 +566,10 @@
         "modelVersion": "operator-mh40-v1",
         "source": "existing-superwin-server",
         "frontendDeterminesPayout": false,
-        "integrationStatus": "additive-adapter-unit-tested; retained-production-handler-not-installed-or-verified",
-        "productionAuthenticatedWagersVerified": false
+        "integrationStatus": "composed-three-model-adapter-and-actual-retained-handler-fixture-verified; production-not-installed-or-verified",
+        "productionAuthenticatedWagersVerified": false,
+        "composedLocalRetainedHandlerChecksPassed": 9,
+        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh40-settlement-proof.json"
       }
     },
     {

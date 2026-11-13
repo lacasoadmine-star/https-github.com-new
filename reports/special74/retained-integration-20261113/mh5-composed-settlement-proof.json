@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "retainedRuntimeSha256": "04958b621f95b817ed63c608163c6cc6e92a258afd49d265c4cd2993fb4013fc",
+  "candidateRuntimeSha256": "51f1c712c07c00eed9e221e7f06fc671d2a0cc3d3d5ad04be824a22efe6efd58",
+  "modelSha256": "ac71bda352d058883ac414757e03e22daedacc94855cb36c34c0bc2c8a59f34c",
+  "modelId": "special74_multi_hot_5_v1",
+  "passed": 9,
+  "checks": [
+    {
+      "name": "all existing deployed game definitions and identities stay unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual retained handler requires exact model identity before touching funds",
+      "passed": true
+    },
+    {
+      "name": "actual retained spin transaction replays one canonical receipt after reply loss",
+      "passed": true
+    },
+    {
+      "name": "actual retained replay-only spin never creates an unreceived wager",
+      "passed": true
+    },
+    {
+      "name": "actual retained debit/credit/commit fault paths roll back the entire wager",
+      "passed": true
+    },
+    {
+      "name": "actual retained restrictions reject session, active game, house capacity and account cap",
+      "passed": true
+    },
+    {
+      "name": "actual retained gamble requires expected state and replays without another stake",
+      "passed": true
+    },
+    {
+      "name": "actual retained state supplies the new model version and latest authoritative gamble amount",
+      "passed": true
+    },
+    {
+      "name": "actual retained receipt binds its math model and prevents cross-action token reuse",
+      "passed": true
+    }
+  ],
+  "scope": "Actual retrieved core, fresh-release hooks, settlement, action and transaction source executed against a disposable in-memory SQL fixture.",
+  "realDatabaseConnected": false,
+  "productionRequests": 0,
+  "productionWalletMutations": 0,
+  "financialActivationVerified": false,
+  "limitation": "The fixture validates source control flow and rollback intent. It does not verify PostgreSQL row-lock concurrency, schema constraints, triggers or authenticated gateway integration."
+}

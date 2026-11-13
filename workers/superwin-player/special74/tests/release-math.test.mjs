@@ -5,14 +5,14 @@ import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {inspectRelease} from '../tools/release.mjs';
-import {REPLACEMENT_DISPOSITION} from '../router.mjs';
+import {ADDITIVE_DISPOSITION} from '../router.mjs';
 const hash=data=>createHash('sha256').update(data).digest('hex');
 
-test('release evidence cannot activate a stale additive disposition',async()=>{
- const stale=await inspectRelease({legacyDisposition:'retain-existing-games-and-add-independent-special-games',entries:[]},resolve('.'));
- assert.ok(stale.issues.some(e=>/replacement disposition/.test(e.message)));
- const replacement=await inspectRelease({legacyDisposition:REPLACEMENT_DISPOSITION,entries:[]},resolve('.'));
- assert.ok(!replacement.issues.some(e=>/replacement disposition/.test(e.message)));
+test('release evidence cannot activate a stale replacement disposition',async()=>{
+ const stale=await inspectRelease({legacyDisposition:'replace-existing-game-presentations-after-complete-74-release',entries:[]},resolve('.'));
+ assert.ok(stale.issues.some(e=>/additive disposition/.test(e.message)));
+ const replacement=await inspectRelease({legacyDisposition:ADDITIVE_DISPOSITION,entries:[]},resolve('.'));
+ assert.ok(!replacement.issues.some(e=>/additive disposition/.test(e.message)));
  assert.equal(replacement.ready,false);assert.ok(replacement.issues.some(e=>/74/.test(e.message)));
 });
 

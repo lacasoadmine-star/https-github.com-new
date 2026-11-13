@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {readFile,writeFile} from 'node:fs/promises';
 import {createHash,randomUUID} from 'node:crypto';
 import {createOperatorSlotCore,operatorGambleDraw,OPERATOR_ID} from '../operator-math/retained-core-adapter.mjs';
+import {createOperatorSlotCore as createReleaseCore,releaseGambleDraw,RELEASE_MODEL_IDS} from '../operator-math/release-core-adapter.mjs';
 import {prepareOperatorRuntime,RETAINED_RUNTIME_SHA256} from './prepare-operator-runtime.mjs';
 
 const [runtimePath,bundlePath,reportPath]=process.argv.slice(2);
@@ -11,7 +12,14 @@ if(!runtimePath||!bundlePath||!reportPath)throw Error('Usage: verify-retained-ad
 const hash=value=>createHash('sha256').update(value).digest('hex');
 const runtime=await readFile(runtimePath,'utf8'),bundle=await readFile(bundlePath,'utf8');
 const modelHash=hash(await readFile(new URL('../operator-math/multi-hot-5.mjs',import.meta.url)));
-const candidate=prepareOperatorRuntime({runtime,adapterBundle:bundle,modelSha256:modelHash});
+const selected=process.env.SPECIAL74_TEST_MODEL;
+if(selected&&!['5','10','40'].includes(selected))throw Error('INVALID_TEST_MODEL');
+const selectedId=selected?`special74_multi_hot_${selected}_v1`:OPERATOR_ID;
+const modelSources=selected?Object.fromEntries(await Promise.all(['5','10','40'].map(async n=>[`special74_multi_hot_${n}_v1`,hash(await readFile(new URL(`../operator-math/multi-hot-${n}.mjs`,import.meta.url)))]))):undefined;
+const candidate=prepareOperatorRuntime({runtime,adapterBundle:bundle,modelSha256:modelHash,modelSources});
+// Independent fixture expectations: all cells choose the first symbol and 1x.
+const expected={5:{bet:'0.05',win:'0.50',double:'1.00',after:10045n,afterGamble:10095n},10:{bet:'0.10',win:'100.00',double:'200.00',after:19990n,afterGamble:29990n},40:{bet:'0.40',win:'200.00',double:'400.00',after:29960n,afterGamble:49960n}}[selected||'5'];
+const cashExpected=n=>`${n/100n}.${String(n%100n).padStart(2,'0')}`;
 const cut=(text,start,end)=>{const a=text.indexOf(start),b=text.indexOf(end,a);if(a<0||b<0)throw Error('EXPECTED_SOURCE_MISSING');return text.slice(a,b);};
 const checks=[];
 const check=async(name,fn)=>{await fn();checks.push({name,passed:true});};
@@ -19,10 +27,10 @@ const check=async(name,fn)=>{await fn();checks.push({name,passed:true});};
 // Load only the actual versioned math core. Service startup is excluded.
 const prefix=cut(runtime,'import { randomUUID, createHash, randomInt }','const Originals =');
 const retained=await import('data:text/javascript;base64,'+Buffer.from(prefix+'\nexport {versioned};').toString('base64'));
-const core=createOperatorSlotCore(retained.versioned,{sha256:modelHash,enabled:true,nextUint32:()=>0});
+const core=(selected?createReleaseCore:createOperatorSlotCore)(retained.versioned,{sha256:modelHash,sources:modelSources,enabled:true,nextUint32:()=>0});
 await check('all existing deployed game definitions and identities stay unchanged',()=>{
  const old=retained.versioned.publicGames(),current=core.publicGames();
- assert.equal(current.length,old.length+1);
+ assert.equal(current.length,old.length+(selected?3:1));
  for(const game of old){assert.deepEqual(current.find(g=>g.id===game.id),game);assert.deepEqual(core.modelIdentity(game.id),retained.versioned.modelIdentity(game.id));}
 });
 
@@ -71,23 +79,23 @@ const client={release(){},async query(sql,args=[]){
 const pool={query:client.query.bind(client),async connect(){return client;}};
 const redis={async set(){return 'OK';},async eval(){return 1;}};
 const fault=stage=>{if(stage===forcedFault)throw Error('INJECTED_FAILURE');};
-const special74Operator={operatorGambleDraw:(...args)=>operatorGambleDraw(...args,()=>0)};
+const special74Operator={operatorGambleDraw:(...args)=>operatorGambleDraw(...args,()=>0),releaseGambleDraw:(...args)=>releaseGambleDraw(...args,()=>0)};
 const context={pool,redis,qa:false,randomUUID,fault,createHash,versioned:core,special74Operator};
 const harness=new Function(...Object.keys(context),`
  ${constants}
  const {MATH,getGame,modelIdentity,receiptGame,toUnits,publicGames,gambleDraw,bonusRewards}=versioned;
  const spin=(...args)=>versioned.spin(...args);
- const isFreshBuilt=id=>id==="special74_multi_hot_5_v1";
+ const isFreshBuilt=id=>${JSON.stringify(selected?RELEASE_MODEL_IDS:[OPERATOR_ID])}.includes(id);
  const accepting=true,houseFor=()=>"house";
  ${freshHooks}
  ${availability}
  ${dbMethods}
  const freshReleaseFor=gameId=>createFreshReleaseHooks({hash,authenticate,balance,lockWallets,transaction,cash,publicGames,modelIdentity,fail,isAccepting:()=>accepting,gameId});
  ${settlement}
- return {settle,action,hooks:freshReleaseFor("special74_multi_hot_5_v1")};
+ return {settle,action,hooks:freshReleaseFor(${JSON.stringify(selectedId)})};
 `)(...Object.values(context));
 const guard=harness.hooks.sessionGuard(request,userId);
-const spinBody=()=>({gameId:OPERATOR_ID,bet:'0.05',roundToken:randomUUID(),sessionGuard:guard,...core.modelIdentity(OPERATOR_ID)});
+const spinBody=()=>({gameId:selectedId,bet:expected.bet,roundToken:randomUUID(),sessionGuard:guard,...core.modelIdentity(selectedId)});
 
 await check('actual retained handler requires exact model identity before touching funds',async()=>{
  reset();for(const key of ['mathVersion','engineVersion','mathSha256']){const body=spinBody();delete body[key];await assert.rejects(harness.settle(request,body),/GAME_RULES_UPDATED_RELOAD/);}
@@ -95,8 +103,8 @@ await check('actual retained handler requires exact model identity before touchi
 });
 await check('actual retained spin transaction replays one canonical receipt after reply loss',async()=>{
  reset();const body=spinBody(),first=await harness.settle(request,body),second=await harness.settle(request,{...body,replayOnly:true});
- assert.deepEqual(second,first);assert.equal(db.rounds.length,1);assert.equal(db.balances[userId],10045n);assert.equal(transfers,2);assert.equal(first.walletReceipt.balanceAfter,'100.45');
- await assert.rejects(harness.settle(request,{...body,bet:'0.10'}),/IDEMPOTENCY_PARAMETER_CONFLICT/);
+ assert.deepEqual(second,first);assert.equal(db.rounds.length,1);assert.equal(db.balances[userId],expected.after);assert.equal(transfers,2);assert.equal(first.walletReceipt.balanceAfter,cashExpected(expected.after));
+ await assert.rejects(harness.settle(request,{...body,bet:expected.bet==='0.10'?'0.20':'0.10'}),/IDEMPOTENCY_PARAMETER_CONFLICT/);
 });
 await check('actual retained replay-only spin never creates an unreceived wager',async()=>{
  reset();await assert.rejects(harness.settle(request,{...spinBody(),replayOnly:true}),/ROUND_NOT_CONFIRMED/);assert.equal(transfers,0);assert.equal(db.rounds.length,0);
@@ -105,7 +113,7 @@ await check('actual retained debit/credit/commit fault paths roll back the entir
  for(const stage of ['after_debit','after_credit','before_commit']){
   reset();forcedFault=stage;const body=spinBody();await assert.rejects(harness.settle(request,body),/INJECTED_FAILURE/);
   assert.equal(rollbacks,1);assert.equal(db.rounds.length,0);assert.equal(db.balances[userId],10000n);assert.equal(db.balances.house,1000000000n);
-  forcedFault=null;await harness.settle(request,body);assert.equal(db.rounds.length,1);assert.equal(db.balances[userId],10045n);
+  forcedFault=null;await harness.settle(request,body);assert.equal(db.rounds.length,1);assert.equal(db.balances[userId],expected.after);
  }
 });
 await check('actual retained restrictions reject session, active game, house capacity and account cap',async()=>{
@@ -116,28 +124,28 @@ await check('actual retained restrictions reject session, active game, house cap
  assert.equal(transfers,0);assert.equal(db.rounds.length,0);
 });
 await check('actual retained gamble requires expected state and replays without another stake',async()=>{
- reset();const round=await harness.settle(request,spinBody()),body={roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'};
+ reset();const round=await harness.settle(request,spinBody()),body={roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win};
  await assert.rejects(harness.action(request,{...body,expectedStake:'99.00'},'GAMBLE'),/GAMBLE_STATE_CHANGED/);
- const result=await harness.action(request,body,'GAMBLE');assert.equal(result.payout,'1.00');assert.equal(db.balances[userId],10095n);
+ const result=await harness.action(request,body,'GAMBLE');assert.equal(result.payout,expected.double);assert.equal(db.balances[userId],expected.afterGamble);
  const replay=await harness.action(request,{...body,replayOnly:true},'GAMBLE');assert.deepEqual(replay,result);assert.equal(db.actions.length,1);assert.equal(transfers,4);
  await assert.rejects(harness.action(request,{...body,roundToken:randomUUID(),replayOnly:true},'GAMBLE'),/GAMBLE_STATE_CHANGED/);assert.equal(db.actions.length,1);
 });
 await check('actual retained state supplies the new model version and latest authoritative gamble amount',async()=>{
- reset();const state=await harness.hooks.state(request,userId);assert.equal(state.game.id,OPERATOR_ID);assert.equal(state.currency,'ETB');assert.equal(state.sessionGuard,guard);
- for(const [key,value]of Object.entries(core.modelIdentity(OPERATOR_ID)))assert.equal(state.game[key],value);
+ reset();const state=await harness.hooks.state(request,userId);assert.equal(state.game.id,selectedId);assert.equal(state.currency,'ETB');assert.equal(state.sessionGuard,guard);
+ for(const [key,value]of Object.entries(core.modelIdentity(selectedId)))assert.equal(state.game[key],value);
  assert.equal(state.round,null);assert.equal(state.game.enabled,true);
  const result=await harness.settle(request,spinBody());
- await harness.action(request,{roundId:result.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'},'GAMBLE');
- const restored=await harness.hooks.state(request,userId);assert.equal(restored.balance,'100.95');assert.equal(restored.round.result.finalWin,'0.50');assert.equal(restored.round.gamble.stake,'1.00');assert.equal(restored.round.gamble.lastResult.payout,'1.00');assert.equal(restored.round.gamble.attempt,1);
+ await harness.action(request,{roundId:result.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win},'GAMBLE');
+ const restored=await harness.hooks.state(request,userId);assert.equal(restored.balance,cashExpected(expected.afterGamble));assert.equal(restored.round.result.finalWin,expected.win);assert.equal(restored.round.gamble.stake,expected.double);assert.equal(restored.round.gamble.lastResult.payout,expected.double);assert.equal(restored.round.gamble.attempt,1);
 });
 await check('actual retained receipt binds its math model and prevents cross-action token reuse',async()=>{
  reset();const spin=spinBody(),round=await harness.settle(request,spin);
- await assert.rejects(harness.action(request,{roundId:round.roundId,roundToken:spin.roundToken,choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'},'GAMBLE'),/IDEMPOTENCY_PARAMETER_CONFLICT/);
+ await assert.rejects(harness.action(request,{roundId:round.roundId,roundToken:spin.roundToken,choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win},'GAMBLE'),/IDEMPOTENCY_PARAMETER_CONFLICT/);
  db.rounds[0].result_json.mathSha256='b'.repeat(64);
- await assert.rejects(harness.action(request,{roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'},'GAMBLE'),/ROUND_MODEL_NOT_SUPPORTED/);
+ await assert.rejects(harness.action(request,{roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win},'GAMBLE'),/ROUND_MODEL_NOT_SUPPORTED/);
 });
 const report={schemaVersion:1,retainedRuntimeSha256:RETAINED_RUNTIME_SHA256,candidateRuntimeSha256:candidate.report.candidateRuntimeSha256,
- modelSha256:modelHash,passed:checks.length,checks,scope:'Actual retrieved core, fresh-release hooks, settlement, action and transaction source executed against a disposable in-memory SQL fixture.',
+ modelSha256:modelSources?.[selectedId]||modelHash,modelId:selectedId,passed:checks.length,checks,scope:'Actual retrieved core, fresh-release hooks, settlement, action and transaction source executed against a disposable in-memory SQL fixture.',
  realDatabaseConnected:false,productionRequests:0,productionWalletMutations:0,financialActivationVerified:false,
  limitation:'The fixture validates source control flow and rollback intent. It does not verify PostgreSQL row-lock concurrency, schema constraints, triggers or authenticated gateway integration.'};
 await writeFile(reportPath,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({passed:checks.length,report:reportPath,productionRequests:0}));

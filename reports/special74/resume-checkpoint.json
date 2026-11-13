@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-11-13T06:15:09.454794+00:00",
-  "scope": "Finish fresh official-media downloads first; preserve every existing live game and subsequently add 74 new games using the existing backend, wallet and APIs",
-  "productionChanged": false,
-  "deploymentPerformed": false,
+  "scope": "Keep only four selected old dashboard entries, continue all74 acquisition/build/math/integration, deploy verified work",
+  "productionChanged": true,
+  "deploymentPerformed": true,
   "sourceBaseCommit": "cd977e0e7089b033d9ef2f71432e12c2d1843962",
   "verification": {
     "nodeTests": {
@@ -134,5 +134,7 @@
     "sourceApplicationChangedThisPass": false,
     "downloadSummary": "reports/special74/fresh-download-summary-20261113.json",
     "requiresLaterScopeFix": "Current router/catalogue still implements the superseded replacement policy; do not deploy that behavior"
-  }
+  },
+  "dashboardDeployment": "reports/special74/dashboard-selection-deployment-20261113.json",
+  "new74DeploymentPerformed": false
 }
