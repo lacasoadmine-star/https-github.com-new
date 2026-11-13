@@ -67,7 +67,9 @@ def number(value, positive=False):
     return isinstance(value, (float, int)) and not isinstance(value, bool) and math.isfinite(value) and (value > 0 if positive else value >= 0)
 
 
-def validate_frame(frame, image_size):
+def validate_frame(frame, image_size, transparent_padding=False):
+    if transparent_padding and not empty_padding_candidate(frame):
+        raise ValueError("Unsupported transparent padding geometry")
     rect = frame.get("frame")
     if not isinstance(rect, dict) or not all(number(rect.get(k), k in ("w", "h")) for k in ("x", "y", "w", "h")):
         raise ValueError("Invalid atlas frame rectangle")
@@ -84,9 +86,24 @@ def validate_frame(frame, image_size):
     if trim is not None:
         if not isinstance(trim, dict) or not all(number(trim.get(k), k in ("w", "h")) for k in ("x", "y", "w", "h")):
             raise ValueError("Invalid sprite trim metadata")
-        if source_size and (trim["x"] + trim["w"] > source_size["w"] or trim["y"] + trim["h"] > source_size["h"]):
+        if source_size and (trim["x"] + trim["w"] > source_size["w"] or trim["y"] + trim["h"] > source_size["h"]) and not transparent_padding:
             raise ValueError("Sprite trim extends outside the declared source size")
-    return {**{key: frame[key] for key in ("frame", "rotated", "trimmed", "spriteSourceSize", "sourceSize", "pivot") if key in frame}, "packedFrame": packed}
+    return {**{key: frame[key] for key in ("frame", "rotated", "trimmed", "spriteSourceSize", "sourceSize", "pivot") if key in frame}, "packedFrame": packed,
+            **({"transparentProviderPaddingVerified": True} if transparent_padding else {})}
+
+
+def empty_padding_candidate(frame):
+    return (frame.get("sourceSize") == {"w": 1, "h": 1}
+            and frame.get("spriteSourceSize") == {"x": 0, "y": 0, "w": 3, "h": 3}
+            and frame.get("frame", {}).get("w") == 3 and frame.get("frame", {}).get("h") == 3)
+
+
+def verified_empty_padding(frame, alpha):
+    if not empty_padding_candidate(frame):
+        return False
+    r = frame["frame"]
+    return (r["x"] >= 0 and r["y"] >= 0 and r["x"] + 3 <= alpha.width and r["y"] + 3 <= alpha.height
+            and alpha.crop((r["x"], r["y"], r["x"] + 3, r["y"] + 3)).getbbox() is None)
 
 
 def classify_role(name, mime):
@@ -309,12 +326,24 @@ def build_profiles():
                 if isinstance(declared, dict) and [declared.get("w"), declared.get("h")] != size:
                     atlas["issues"].append("Declared atlas dimensions differ from verified image dimensions.")
                 atlas["imageSize"] = size
+                alpha = None
                 for name, frame in descriptor["frames"].items():
                     try:
                         if not isinstance(frame, dict):
                             raise ValueError("Atlas frame is not an object")
                         atlas["frames"][name] = validate_frame(frame, size)
                     except ValueError as error:
+                        # TexturePacker pads an intentionally empty 1x1 sprite
+                        # to transparent 3x3 pixels. Preserve that original frame
+                        # only after checking the actual verified image pixels.
+                        if str(error) == "Sprite trim extends outside the declared source size" and empty_padding_candidate(frame):
+                            if alpha is None:
+                                from PIL import Image
+                                with Image.open(image["resolvedPath"]) as original:
+                                    alpha = original.convert("RGBA").getchannel("A")
+                            if verified_empty_padding(frame, alpha):
+                                atlas["frames"][name] = validate_frame(frame, size, transparent_padding=True)
+                                continue
                         frame_issues.append({"atlasId": atlas_id, "frame": name, "error": str(error)})
                 atlas["usable"] = not atlas["issues"] and len(atlas["frames"]) == len(descriptor["frames"])
             atlases[atlas_id] = atlas
@@ -403,6 +432,18 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(validate_frame(rotated, [651, 255])["packedFrame"], {"x": 588, "y": 163, "w": 56, "h": 79})
         with self.assertRaisesRegex(ValueError, "outside"):
             validate_frame({**rotated, "rotated": False}, [651, 255])
+
+    def test_empty_provider_padding_requires_transparent_original_pixels(self):
+        from PIL import Image
+        frame = {"frame": {"x": 1, "y": 2, "w": 3, "h": 3}, "sourceSize": {"w": 1, "h": 1},
+                 "spriteSourceSize": {"x": 0, "y": 0, "w": 3, "h": 3}}
+        alpha = Image.new("L", (8, 8), 0)
+        self.assertTrue(verified_empty_padding(frame, alpha))
+        self.assertTrue(validate_frame(frame, [8, 8], transparent_padding=True)["transparentProviderPaddingVerified"])
+        alpha.putpixel((2, 3), 255)
+        self.assertFalse(verified_empty_padding(frame, alpha))
+        with self.assertRaisesRegex(ValueError, "trim"):
+            validate_frame(frame, [8, 8])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

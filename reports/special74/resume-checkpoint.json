@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13T02:11:16.308085+00:00",
+  "updatedAt": "2026-11-13T04:45:39.935541+00:00",
   "scope": "Resume existing all74 replacement work; save verified draft implementations and evidence without activating an incomplete release",
   "productionChanged": false,
   "deploymentPerformed": false,
-  "sourceBaseCommit": "b3fd89cdd543027ddc56a441a88cd8e29efbb6a0",
+  "sourceBaseCommit": "9a87dfffea41ced9692aa039eb27288371c9a3c0",
   "verification": {
     "nodeTests": {
-      "passed": 45,
+      "passed": 61,
       "failed": 0
     },
     "mediaTests": {
-      "passed": 8,
+      "passed": 11,
       "failed": 0
     },
     "mh5BrowserChecks": {
@@ -31,15 +31,34 @@
       "mismatches": []
     },
     "mediaIntegrity": {
-      "manifestSha256": "fe73eb1e58b1043bc3f842a69f0bea256e75700d65d288929c2dd2cb1b4a1e33",
-      "checkedFiles": 4106,
-      "verifiedFiles": 4106,
+      "manifestSha256": "6248c4ea3f89036a3be0525433f52a69178841577aaf47a9607f94d3e4e87bbb",
+      "checkedFiles": 7437,
+      "verifiedFiles": 7437,
       "failedFiles": 0
     },
     "previousCodeCI": {
-      "commit": "b3fd89cdd543027ddc56a441a88cd8e29efbb6a0",
-      "url": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/43347879998",
+      "commit": "9a87dfffea41ced9692aa039eb27288371c9a3c0",
+      "url": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/43366479542",
       "conclusion": "success"
+    },
+    "mh40BrowserChecks": {
+      "passed": 15,
+      "productionRequests": 0
+    },
+    "demoTouchBrowserChecks": {
+      "passed": 4,
+      "productionRequests": 0
+    },
+    "svgDecoderChecks": {
+      "passed": 56,
+      "failed": 0,
+      "networkRequests": 0
+    },
+    "profileValidation": {
+      "passed": 5,
+      "failed": 0,
+      "invalidLocalAssets": 0,
+      "invalidFrames": 0
     }
   },
   "catalogue": {
@@ -47,21 +66,21 @@
     "officialPagesArchived": 74,
     "launchAttempts": 74,
     "canvasesObserved": 67,
-    "freshGamesWithConfirmedRounds": 6,
+    "freshGamesWithConfirmedRounds": 28,
     "gamesWithCompletedRoundObservedInUI": 1,
     "sufficientBehaviorCoverage": 0,
     "verifiedProviderProbabilityModels": 0,
-    "verifiedOperatorMathProofs": 1,
+    "verifiedOperatorMathProofs": 3,
     "integratedOperatorMathModels": 0,
-    "playableDrafts": 3,
+    "playableDrafts": 4,
     "releaseReady": 0
   },
   "media": {
-    "verifiedMedia": 5502,
-    "verifiedBytes": 958630870,
-    "gamesWithVerifiedMedia": 73,
-    "gamesWithAllObservedMedia": 35,
-    "failedMedia": 268,
+    "verifiedMedia": 10293,
+    "verifiedBytes": 1253366574,
+    "gamesWithVerifiedMedia": 74,
+    "gamesWithAllObservedMedia": 1,
+    "failedMedia": 444,
     "pendingMedia": 0
   },
   "releasePackage": {
@@ -69,12 +88,11 @@
     "unresolvedChecks": 1174
   },
   "blockers": [
-    "71 of74 independent presentations are not built;3 existing drafts still need complete feature and reference parity review",
-    "Only one independent operator probability model has an exact math proof; production gateway integration has not been activated or verified",
-    "Samurai official launcher returns a provider error; published alternative provider launcher returns404",
-    "268 observed provider media sources remain404; no safe exact replacement was evidenced",
-    "Multi Hot20 demo table limit and Cricket X loading deadline remain unresolved",
-    "Vampires spin start/debit was observed but no completed settlement was verified"
+    "70 distinct presentations remain unbuilt; all four drafts need complete feature and reference parity acceptance",
+    "Three independent operator models proved; production retained-gateway integration is unverified",
+    "444 observed public media URLs return provider 404 responses",
+    "Only part of each demo feature set has been confirmed; provider loading and simultaneous-table limits remain",
+    "The expanded all74 controls/media pass is still running; do not restart it or erase earlier receipts"
   ],
   "persistence": {
     "sourceAndEvidence": "Existing repository and PR29; same working branch, no new repository or ZIP deliverable",
@@ -86,9 +104,25 @@
     "node workers/superwin-player/special74/tools/summarize-evidence.mjs"
   ],
   "nextWork": [
-    "Complete distinct game presentations from verified references and obtain missing public demo behavior",
-    "Add independently authored, disclosed models and test retained-ledger/gateway contracts for every game",
-    "Resolve required feature/media/animation/mobile/desktop evidence before accepting any game",
-    "Package and deploy only a complete74-game release to the existing player Worker"
-  ]
+    "Let the expanded official-demo pass and its media/decoder/profile follow-up finish",
+    "Use the existing pinned cache and completed interaction evidence; repair unresolved controls and provider media without guessed substitutes",
+    "Complete distinct presentations and retained-ledger integration before the single all74 release"
+  ],
+  "activeWork": {
+    "run": "all74-expanded-features-20261113",
+    "log": "/workspace/scratch/all74-expanded-features.log",
+    "completionPipelineLog": "/workspace/scratch/expanded-reference-pipeline.log",
+    "pipeline": "workers/superwin-player/special74/tools/finish-reference-pass.py",
+    "scope": "Local deterministic browser/acquisition/validation only; no other AI agents and no automatic production deployment",
+    "completedBeforeExpandedPass": {
+      "titles": 68,
+      "withConfirmedRound": 22
+    },
+    "progressAtCheckpoint": {
+      "finished": 30,
+      "withConfirmedRound": 5,
+      "withMedia": 30,
+      "releaseReady": 0
+    }
+  }
 }

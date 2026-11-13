@@ -43,7 +43,7 @@ function domSnapshot(){
 const domPatterns={
  'bet-plus':/^(?:increase bet|bet increase|bet plus|plus bet|bet\+|bet-plus)$/i,
  'bet-minus':/^(?:decrease bet|bet decrease|bet minus|minus bet|bet-|bet-minus)$/i,
- spin:/^spin$/i,menu:/^(?:menu|open menu|menu-open)$/i,
+ spin:/^spin$/i,play:/^(?:play|play now|start game|continue)$/i,'bet-submit':/^(?:place bet|bet|bet now)$/i,cashout:/^(?:cashout|cash out|take win)$/i,menu:/^(?:menu|open menu|menu-open)$/i,
  take:/^(?:take win|collect|collect win)$/i,exit:/^exit$/i,
  close:/^(?:close|close menu|back to game)$/i,
  autoplay:/^(?:autoplay|auto play)$/i,settings:/^settings$/i,history:/^(?:history|bet history)$/i,
@@ -75,7 +75,22 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
   function addMedia(raw,status,type,source){const clean=publicURL(raw);if(!clean||!resourceHost(new URL(clean).hostname))return;if(!row.media.some(m=>m.url===clean)){row.media.push({url:clean,status,type,source});if(row.media.length%20===0){write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}}
   page.on('response',response=>{const job=(async()=>{try{const u=new URL(response.url()),type=response.request().resourceType();if(['image','media','font'].includes(type)||/\.(?:png|jpe?g|webp|gif|svg|mp3|ogg|m4a|aac|wav|mp4|webm|woff2?|ttf|otf|atlas\.txt)(?:\?|$)/i.test(u.href))addMedia(u.href,response.status(),type,'response');if(activeAction?.startsWith('spin')&&provider(u.hostname)&&u.pathname.includes('/api/GenericSlotApi/Event/')){const info=(await response.json()).Board?.GameInfo,deal=info?.DealNumber;if(typeof deal==='string'&&!deal.endsWith('.0')&&!row.confirmedRoundIds.includes(deal)){row.confirmedRoundIds.push(deal);row.rounds.push({deal,win:info.Win,multiplier:info.Multiplier,action:activeAction,at:new Date().toISOString()});write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}}catch{}})();responseJobs.add(job);job.finally(()=>responseJobs.delete(job));});
   page.on('requestfailed',request=>{if(row.networkFailures.length<150)row.networkFailures.push({url:publicURL(request.url()),error:request.failure()?.errorText});});
-  async function state(){const frames=[];for(const frame of page.frames()){try{if(!provider(new URL(frame.url()).hostname))continue;const dom=await bounded(frame.evaluate(domSnapshot),'DOM snapshot'),scene=await bounded(frame.evaluate(readPresentation),'presentation snapshot').catch(()=>null),offset=await bounded(frameOffset(frame),'iframe geometry'),observed=sceneControls(scene,offset,page.viewportSize());for(const media of dom.backgrounds)addMedia(media.url,null,'image','computed-background');for(const url of dom.images)addMedia(url,null,'image','visible-image');frames.push({frame,dom,scene,observed,offset});}catch{}}return frames;}
+  async function state(){
+   const frames=[];
+   for(const frame of page.frames()){
+    try{if(!provider(new URL(frame.url()).hostname))continue;}catch{continue;}
+    const errors=[];
+    const dom=await bounded(frame.evaluate(domSnapshot),'DOM snapshot',8000).catch(error=>{errors.push(errorText(error));return {location:publicURL(frame.url()),text:'',controls:[],backgrounds:[],images:[],canvases:[],resources:[]};});
+    const scene=await bounded(frame.evaluate(readPresentation),'presentation snapshot',8000).catch(error=>{errors.push(errorText(error));return null;});
+    const offset=await bounded(frameOffset(frame),'iframe geometry',5000).catch(error=>{errors.push(errorText(error));return null;});
+    const observed=offset?sceneControls(scene,offset,page.viewportSize()):{controls:[],texts:[],bet:null};
+    for(const media of dom.backgrounds)addMedia(media.url,null,'image','computed-background');
+    for(const url of dom.images)addMedia(url,null,'image','visible-image');
+    if(errors.length){row.snapshotErrors??=[];if(row.snapshotErrors.length<40)row.snapshotErrors.push({frame:publicURL(frame.url()),errors,at:new Date().toISOString()});}
+    frames.push({frame,dom,scene,observed,offset,snapshotErrors:errors});
+   }
+   return frames;
+  }
   async function capture(name,frames=undefined){frames=frames||await state();const snapshot=frames.map(({frame,...r})=>r);const file=path.join(folder,name+'.json');write(file,{at:new Date().toISOString(),frames:snapshot});row.artifacts.push({kind:name,path:path.relative(root,file),sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')});try{const cdp=await context.newCDPSession(page);let png;try{png=await bounded(cdp.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false}),'screenshot');}finally{await bounded(cdp.detach(),'screenshot detach',1000).catch(()=>{});}const image=path.join(folder,name+'.png');fs.writeFileSync(image,Buffer.from(png.data,'base64'));row.artifacts.push({kind:name+'-screenshot',path:path.relative(root,image),sha256:crypto.createHash('sha256').update(fs.readFileSync(image)).digest('hex')});}catch(error){row.captureError=errorText(error);}write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);return frames;}
   async function dismissSound(){
    if(soundConfirmed)return false;
@@ -99,6 +114,7 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
    return attempted;
   }
   async function sampleStableBet(item){
+   if(!item.offset)return{value:null,stable:false,samples:[],reason:'iframe-geometry-unavailable'};
    const samples=[];
    for(let i=0;i<4;i++){
     if(i)await sleep(500);
@@ -108,7 +124,7 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
    }
    return{value:samples.at(-1)||null,stable:false,samples};
   }
-  async function tap(kind,actionName=kind){const before=await state();for(const item of before){const dom=item.dom.controls.find(c=>domMatches(c,kind));const pixi=item.observed.controls.find(c=>c.kind===kind);if(!dom&&!pixi)continue;const action={name:actionName,startedAt:new Date().toISOString(),target:dom?{source:'dom',...dom}:pixi,attempted:false,effectVerified:false,confirmedRoundIds:[]};row.actions.push(action);activeAction=actionName;const oldRounds=new Set(row.confirmedRoundIds);try{if(kind==='bet-plus'||kind==='bet-minus')action.beforeBetSample=await sampleStableBet(item);if(dom)action.input=await touchObservedDOM(dom,item.frame);else{const offset=await frameOffset(item.frame),localX=pixi.x-offset.x,localY=pixi.y-offset.y;const unblocked=await item.frame.evaluate(({x,y})=>document.elementFromPoint(x,y)?.tagName==='CANVAS',{x:localX,y:localY});action.canvasHitTest=unblocked;await page.mouse.click(pixi.x,pixi.y);action.input={mode:'mouse',x:pixi.x,y:pixi.y};}action.attempted=true;if(kind==='spin'){for(let i=0;i<24&&!row.confirmedRoundIds.some(id=>!oldRounds.has(id));i++)await sleep(500);await sleep(1500);}else await sleep(kind==='bet-plus'||kind==='bet-minus'?2200:900);const after=await capture(actionName);action.confirmedRoundIds=row.confirmedRoundIds.filter(id=>!oldRounds.has(id));action.beforeBet=item.observed.bet;action.afterBet=after.find(x=>x.dom.location===item.dom.location)?.observed.bet||null;if(kind==='bet-plus'||kind==='bet-minus'){action.afterBetSample=await sampleStableBet(item);action.beforeBet=action.beforeBetSample.value;action.afterBet=action.afterBetSample.value;}action.visibleTextChanged=JSON.stringify(before.map(x=>x.dom.text))!==JSON.stringify(after.map(x=>x.dom.text));if(kind==='spin')action.effectVerified=action.confirmedRoundIds.length>0;else if(kind==='bet-plus'||kind==='bet-minus')action.effectVerified=Boolean(action.beforeBetSample?.stable&&action.afterBetSample?.stable&&betChangedInDirection(kind,action.beforeBet,action.afterBet));else{action.effectVerified=false;action.effectEvidence=action.visibleTextChanged?'visible-text-changed-needs-semantic-review':'no-visible-text-change';}return true;}catch(error){action.error=errorText(error);return false;}finally{activeAction=null;action.completedAt=new Date().toISOString();write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}row.actions.push({name:actionName,attempted:false,effectVerified:false,reason:'No unambiguous visible named control'});return false;}
+  async function tap(kind,actionName=kind){const before=await state();for(const item of before){const dom=item.dom.controls.find(c=>domMatches(c,kind));const pixi=item.observed.controls.find(c=>c.kind===kind);if(!dom&&!pixi)continue;const action={name:actionName,startedAt:new Date().toISOString(),target:dom?{source:'dom',...dom}:pixi,attempted:false,effectVerified:false,confirmedRoundIds:[]};row.actions.push(action);activeAction=actionName;const oldRounds=new Set(row.confirmedRoundIds);try{if(kind==='bet-plus'||kind==='bet-minus')action.beforeBetSample=await sampleStableBet(item);if(dom)action.input=await touchObservedDOM(dom,item.frame);else{const offset=await frameOffset(item.frame),localX=pixi.x-offset.x,localY=pixi.y-offset.y;const unblocked=await item.frame.evaluate(({x,y})=>document.elementFromPoint(x,y)?.tagName==='CANVAS',{x:localX,y:localY});action.canvasHitTest=unblocked;if(!unblocked)throw Error('Observed canvas target is covered');await page.mouse.click(pixi.x,pixi.y);action.input={mode:'mouse',x:pixi.x,y:pixi.y};}action.attempted=true;if(kind==='spin'){for(let i=0;i<24&&!row.confirmedRoundIds.some(id=>!oldRounds.has(id));i++)await sleep(500);await sleep(1500);}else await sleep(kind==='bet-plus'||kind==='bet-minus'?2200:900);const after=await capture(actionName);action.confirmedRoundIds=row.confirmedRoundIds.filter(id=>!oldRounds.has(id));action.beforeBet=item.observed.bet;action.afterBet=after.find(x=>x.dom.location===item.dom.location)?.observed.bet||null;if(kind==='bet-plus'||kind==='bet-minus'){action.afterBetSample=await sampleStableBet(item);action.beforeBet=action.beforeBetSample.value;action.afterBet=action.afterBetSample.value;}action.visibleTextChanged=JSON.stringify(before.map(x=>x.dom.text))!==JSON.stringify(after.map(x=>x.dom.text));if(kind==='spin')action.effectVerified=action.confirmedRoundIds.length>0;else if(kind==='bet-plus'||kind==='bet-minus')action.effectVerified=Boolean(action.beforeBetSample?.stable&&action.afterBetSample?.stable&&betChangedInDirection(kind,action.beforeBet,action.afterBet));else{action.effectVerified=false;action.effectEvidence=action.visibleTextChanged?'visible-text-changed-needs-semantic-review':'no-visible-text-change';}return true;}catch(error){action.error=errorText(error);return false;}finally{activeAction=null;action.completedAt=new Date().toISOString();write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}row.actions.push({name:actionName,attempted:false,effectVerified:false,reason:'No unambiguous visible named control'});return false;}
   try{
    const launchResponse=await page.goto(row.demoUrl,{waitUntil:'domcontentloaded',timeout:35000});console.log(JSON.stringify({navigated:entry.id,url:publicURL(page.url())}));
    if(launchResponse&&launchResponse.status()>=400){row.status='provider-launch-unavailable';row.providerStatus=launchResponse.status();await capture('provider-error');return row;}
@@ -134,6 +150,7 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
    await sleep(2500);
    let soundBlocked=false;
    for(let pass=0;pass<3;pass++){if(!await dismissSound())break;await sleep(1000);}
+   await tap('play','enter-game');
    const initial=await capture('initial');
    soundBlocked=initial.some(x=>x.dom.controls.some(c=>/^yes$/i.test(c.text))&&/would you like sound|play with sounds/i.test(x.dom.text));
    if(row.status==='provider-table-limit')return row;
@@ -142,7 +159,7 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
    row.status=ready?'named-controls-observed':canvas?'canvas-observed-needs-controls-review':'no-game-canvas';
    if(ready){
     await tap('bet-plus');await tap('bet-minus');
-    await tap('spin','spin-1');
+    if(!await tap('spin','spin-1')){if(await tap('bet-submit','place-demo-bet')){await sleep(2000);await capture('demo-bet-state');await tap('cashout','demo-cashout');}}
     if(row.confirmedRoundIds.length)row.status='round-receipt-confirmed-needs-feature-review';
     await tap('take');
     for(const kind of ['sound-on','sound-off'])await tap(kind);

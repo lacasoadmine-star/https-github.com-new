@@ -14,6 +14,7 @@ const kinds={
  information: /^(?:Buttons\/?|Button\/)?(?:Info|Information|About)(?:Vertical|Horizontal|Normal)?$/i,
  close: /^(?:Buttons\/?|Button\/)?(?:Close|CloseMenu|MenuClose|Back)(?:Vertical|Horizontal|Normal)?$/i,
  gamble: /^(?:Buttons\/?|Button\/)?(?:Gamble|Double)(?:Vertical|Horizontal|Normal)?$/i
+ ,play: /^(?:Buttons\/?|Button\/)?(?:Play|PlayNow|StartGame|Continue)(?:Vertical|Horizontal|Normal)?$/i
 };
 function intersect(a,b){
  const x=Math.max(a.x,b.x),y=Math.max(a.y,b.y),right=Math.min(a.x+a.w,b.x+b.w),bottom=Math.min(a.y+a.h,b.y+b.h);
@@ -61,15 +62,30 @@ function betChangedInDirection(kind,before,after){
  return Number.isFinite(a)&&Number.isFinite(b)&&(kind==='bet-plus'?b>a:b<a);
 }
 async function touchObservedDOM(control,frame){
- // Native locators remeasure nested iframe geometry and wait for moving loaders.
- // Preserve the exact observed element; never force a click through an overlay.
+ // Resolve the observed element afresh. Measure in page coordinates so nested
+ // frames and a header offset cannot redirect the touch to another control.
  if(!Number.isInteger(control.index)||!control.selector)throw Error('Observed DOM identity is missing');
  const target=control.exactText
   ? frame.locator(control.selector).filter({hasText:new RegExp('^\\s*'+control.text.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\s*$','i')}).filter({visible:true})
   : frame.locator(control.selector).nth(control.index);
  const identity=await target.evaluate(el=>({tag:el.tagName,text:(el.innerText||el.value||'').trim().slice(0,100)}),undefined,{timeout:7000});
  if(control.tag&&identity.tag!==control.tag||identity.text.toLowerCase()!==control.text.toLowerCase())throw Error('Observed DOM control changed before touch');
- await target.tap({timeout:7500});
- return {mode:'touch',source:'observed-dom-locator',selector:control.selector,index:control.index};
+ let box=null;
+ for(let pass=0;pass<4;pass++){
+  const first=await target.boundingBox();
+  await frame.page().waitForTimeout(75);
+  const second=await target.boundingBox();
+  if(first&&second&&['x','y','width','height'].every(k=>Math.abs(first[k]-second[k])<0.5)){box=second;break;}
+ }
+ const view=frame.page().viewportSize();
+ if(!box||box.width<4||box.height<4)throw Error('Observed DOM target is moving or hidden');
+ const x=box.x+box.width/2,y=box.y+box.height/2;
+ if(x<0||y<0||x>=view.width||y>=view.height)throw Error('Observed DOM target is outside the viewport');
+ const hittable=await target.evaluate(el=>{const r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return hit===el||el.contains(hit);});
+ if(!hittable)throw Error('Observed DOM target is covered by another element');
+ // A direct native touchscreen input avoids waiting for unrelated provider
+ // navigation after the tap. Its visible effect is verified by the caller.
+ await frame.page().touchscreen.tap(x,y);
+ return {mode:'touch',source:'observed-dom-locator',selector:control.selector,index:control.index,x,y};
 }
 module.exports={sceneControls,allowedDemo,publicURL,betChangedInDirection,touchObservedDOM};
