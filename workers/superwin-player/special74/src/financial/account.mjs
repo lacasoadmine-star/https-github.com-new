@@ -26,8 +26,10 @@ export function receipt(result,game,pending,model){
  const r=result.walletReceipt;
  if(!r||r.currency!=='ETB'||cents(r.balanceBefore)-cents(r.chargedStake)+cents(r.finalWin)!==cents(r.balanceAfter))throw Error('INVALID_RECEIPT');
  if(cents(r.chargedStake)!==(result.isFree?0n:cents(pending.body.bet))||cents(r.finalWin)!==cents(result.finalWin))throw Error('INVALID_RECEIPT');
- if(!Array.isArray(result.grid)||result.grid.length!==3||result.grid.some(row=>!Array.isArray(row)||row.length!==game.columns||row.some(s=>!Object.hasOwn(game.symbols,s))))throw Error('INVALID_REELS');
- if(![1,2,3,4,5].includes(result.wheelMultiplier)||!Array.isArray(result.winLines)||result.winLines.some(line=>!Array.isArray(line.positions)||line.positions.some(p=>{const row=Array.isArray(p)?p[0]:p.row,col=Array.isArray(p)?p[1]:p.col;return !Number.isInteger(row)||row<0||row>2||!Number.isInteger(col)||col<0||col>=game.columns;})))throw Error('INVALID_ROUND');
+ const rows=game.rows??3;
+ if(!Number.isInteger(rows)||rows<1||rows>16||!Number.isInteger(game.columns)||game.columns<1||game.columns>16)throw Error('INVALID_REEL_PROFILE');
+ if(!Array.isArray(result.grid)||result.grid.length!==rows||Array.from({length:rows},(_,row)=>result.grid[row]).some(row=>!Array.isArray(row)||row.length!==game.columns||Array.from({length:game.columns},(_,col)=>row[col]).some(s=>!Object.hasOwn(game.symbols,s))))throw Error('INVALID_REELS');
+ if(![1,2,3,4,5].includes(result.wheelMultiplier)||!Array.isArray(result.winLines)||result.winLines.some(line=>!Array.isArray(line.positions)||line.positions.some(p=>{const row=Array.isArray(p)?p[0]:p.row,col=Array.isArray(p)?p[1]:p.col;return !Number.isInteger(row)||row<0||row>=rows||!Number.isInteger(col)||col<0||col>=game.columns;})))throw Error('INVALID_ROUND');
  if(result.balanceAfter!==undefined&&result.balanceAfter!==r.balanceAfter)throw Error('INVALID_RECEIPT');
  return {...result,balanceAfter:r.balanceAfter};
 }

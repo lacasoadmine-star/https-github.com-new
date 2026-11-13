@@ -45,3 +45,11 @@ test('bet verification requires a numeric change in the requested direction',()=
  assert.equal(betChangedInDirection('bet-minus','0,20','0,10'),true);
  for(const [kind,before,after] of [['bet-minus','0.30','0.40'],['bet-plus','0.40','0.40'],['bet-plus','0.40','0.30'],['bet-plus',null,'0.40'],['bet-minus','0.30','NaN']])assert.equal(betChangedInDirection(kind,before,after),false);
 });
+test('observed sound, autoplay and information images remain distinct named targets',()=>{
+ for(const [name,kind] of [['Buttons/SoundOn','sound-on'],['Buttons/SoundOff','sound-off'],['Buttons/AutoPlay','autoplay'],['Vertical/Buttons/AutoPlay','autoplay'],['Buttons/Help','rules'],['Buttons/Info','information'],['Buttons/Close','close']]){
+  const result=sceneControls(scene([button('0.0.0',name,{x:20,y:30,w:20,h:20})]));
+  assert.equal(result.controls.length,1,name);
+  assert.equal(result.controls[0].kind,kind,name);
+ }
+ assert.deepEqual(sceneControls(scene([button('0.0.0','Decorations/AutoPlay',{x:20,y:30,w:20,h:20})])).controls,[]);
+});

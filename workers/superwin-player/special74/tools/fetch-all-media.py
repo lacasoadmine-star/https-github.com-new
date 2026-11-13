@@ -15,12 +15,15 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
+import math
+import struct
+import xml.etree.ElementTree as ET
 from urllib.parse import parse_qsl, quote, unquote, urljoin, urlsplit
 
 PACKAGE = Path(__file__).resolve().parents[1]
 REPO = PACKAGE.parents[2]
 REPORT = REPO / "reports/special74"
-EXTENSIONS = (".atlas.txt", ".png", ".webp", ".jpg", ".jpeg", ".gif", ".mp3", ".ogg", ".wav", ".mp4", ".webm", ".otf", ".ttf", ".woff", ".woff2", ".json")
+EXTENSIONS = (".atlas.txt", ".atlas", ".skel", ".svg", ".css", ".png", ".webp", ".jpg", ".jpeg", ".gif", ".mp3", ".ogg", ".wav", ".mp4", ".webm", ".otf", ".ttf", ".woff", ".woff2", ".json")
 HOSTS = {"static.ssg-public.com"}
 MAX_BYTES = 64 * 1024 * 1024
 
@@ -89,11 +92,84 @@ def validate_content(source, data):
         if not isinstance(json.loads(data.decode("utf-8-sig")), (dict, list)):
             raise ValueError("Presentation JSON is not structured data")
         return "application/json"
-    elif kind == ".atlas.txt":
+    elif kind in (".atlas.txt", ".atlas"):
         text = data.decode("utf-8-sig")
         if not re.search(r"(?m)^\S[^\r\n]*\.(?:png|webp|jpe?g)\s*$", text) or not re.search(r"(?m)^\s*(?:size|filter|format):", text):
             raise ValueError("Invalid texture atlas")
         return "text/plain"
+    elif kind == ".css":
+        text = data.decode("utf-8-sig")
+        clean = re.sub(r"/\*[\s\S]*?\*/", "", text).strip()
+        if not clean:
+            return "text/css"  # Some official per-title stylesheets are BOM-only.
+        if ("\x00" in clean or re.search(r"<\s*(?:!doctype|html|script)|javascript\s*:|expression\s*\(|(?:^|[;{])\s*(?:behavior|-moz-binding)\s*:", clean, re.I)
+                or not re.match(r"[.#:@a-zA-Z*\[]", clean) or not re.search(r"\{[^{}]*:[^{}]*\}", clean)):
+            raise ValueError("Invalid passive presentation stylesheet")
+        # Preserved for reference only. Runtime packages must explicitly select
+        # styles and remap every dependency to local verified media.
+        return "text/css"
+    elif kind == ".svg":
+        text = data.decode("utf-8-sig")
+        if re.search(r"<!\s*(?:DOCTYPE|ENTITY)", text, re.I):
+            raise ValueError("SVG document declarations are not passive artwork")
+        try:
+            root = ET.fromstring(text)
+        except ET.ParseError as error:
+            raise ValueError("Invalid SVG artwork") from error
+        if root.tag not in ("svg", "{http://www.w3.org/2000/svg}svg"):
+            raise ValueError("Not an SVG document")
+        for node in root.iter():
+            tag = node.tag.rsplit("}", 1)[-1].lower()
+            if tag in {"script", "foreignobject", "iframe", "object", "embed", "handler", "a"}:
+                raise ValueError("SVG contains active content")
+            for key, value in node.attrib.items():
+                key = key.rsplit("}", 1)[-1].lower()
+                if key.startswith("on") or key == "href" and not value.startswith("#"):
+                    raise ValueError("SVG contains active or external attributes")
+            css = " ".join(node.attrib.values()) + " " + (node.text or "")
+            if re.search(r"@import|javascript\s*:|expression\s*\(|\\[0-9a-f]{1,6}", css, re.I):
+                raise ValueError("SVG contains active styling")
+            for target in re.findall(r"url\s*\(\s*([^)]*)\)", css, re.I):
+                if not target.strip(" \t\r\n\"'").startswith("#"):
+                    raise ValueError("SVG references external resources")
+        return "image/svg+xml"
+    elif kind == ".skel":
+        # Spine animation data has no universal magic bytes. Validate the
+        # documented version/header structure; this is not a full pose decode.
+        def string_at(offset):
+            length, shift = 0, 0
+            for _ in range(5):
+                if offset >= len(data):
+                    raise ValueError("Truncated Spine header")
+                byte = data[offset]
+                offset += 1
+                length |= (byte & 127) << shift
+                if not byte & 128:
+                    break
+                shift += 7
+            else:
+                raise ValueError("Invalid Spine string length")
+            if length < 1 or length > 512 or offset + length - 1 > len(data):
+                raise ValueError("Invalid Spine header string")
+            return data[offset:offset + length - 1].decode("utf-8"), offset + length - 1
+        valid = False
+        # 4.x stores an eight-byte hash; older versions store a string hash.
+        for offset, modern in ((8, True), (0, False)):
+            try:
+                if not modern:
+                    _, offset = string_at(offset)
+                version, end = string_at(offset)
+                if not re.fullmatch(r"(?:3\.[6-9]|4\.[0-3])\.\d{1,3}", version):
+                    continue
+                values = struct.unpack(">ffff", data[end:end + 16])
+                valid = all(math.isfinite(v) for v in values) and values[2] >= 0 and values[3] >= 0 and len(data) > end + 16
+                if valid:
+                    break
+            except (ValueError, UnicodeError, struct.error):
+                continue
+        if not valid:
+            raise ValueError("Invalid Spine binary animation header")
+        return "application/octet-stream"
     else:
         # Some original provider .webp URLs contain PNG bytes. Preserve the exact
         # bytes and record their detected MIME instead of discarding valid artwork.
@@ -171,7 +247,7 @@ def collect_sources(report=REPORT, package=PACKAGE):
 
 def texture_references(source, data):
     refs = []
-    if extension(source) == ".atlas.txt":
+    if extension(source) in (".atlas.txt", ".atlas"):
         refs = re.findall(r"(?m)^(\S[^\r\n]*\.(?:png|webp|jpe?g))\s*$", data.decode("utf-8-sig"))
     elif extension(source) == ".json":
         parsed = json.loads(data.decode("utf-8-sig"))
@@ -182,6 +258,10 @@ def texture_references(source, data):
                     refs.append(meta["image"])
                 if isinstance(meta.get("related_multi_packs"), list):
                     refs.extend(x for x in meta["related_multi_packs"] if isinstance(x, str))
+    elif extension(source) == ".css":
+        text = re.sub(r"/\*[\s\S]*?\*/", "", data.decode("utf-8-sig"))
+        refs = [value.strip(" \t\r\n\"'") for value in re.findall(r"url\s*\(\s*([^)]*)\)", text, re.I)]
+        refs.extend(re.findall(r"@import\s+[\"']([^\"']+)[\"']", text, re.I))
     return [encoded_url(urljoin(source, ref)) for ref in refs]
 
 
@@ -257,9 +337,11 @@ def main():
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--inventory-only", action="store_true")
+    parser.add_argument("--checkpoint-every", type=int, default=250,
+                        help="Full manifest checkpoint interval; every successful file is still journaled immediately")
     args = parser.parse_args()
-    if not 1 <= args.workers <= 16 or (args.limit is not None and args.limit < 1):
-        parser.error("workers must be 1..16 and limit must be positive")
+    if not 1 <= args.workers <= 16 or (args.limit is not None and args.limit < 1) or not 25 <= args.checkpoint_every <= 2000:
+        parser.error("workers must be 1..16, limit must be positive, checkpoint-every must be 25..2000")
     entries, sources = collect_sources()
     manifest_file = REPORT / "all74-media-manifest.json"
     journal = PACKAGE / "test-results/all74-media-journal.jsonl"
@@ -271,7 +353,7 @@ def main():
         for line in journal.read_text().splitlines():
             try:
                 asset = json.loads(line)
-                previous[asset["source"]] = asset
+                previous[asset["source"]] = {**previous.get(asset["source"], {}), **asset}
             except ValueError:
                 continue  # Only a partially written final journal line can be incomplete.
     recovery_file = REPORT / "archive-media-recovery.json"
@@ -295,6 +377,10 @@ def main():
             for parent in asset["declaredBy"]:
                 if parent in sources:
                     add_source(sources, source, sources[parent]["gameIds"], "declared-texture-reference", parent)
+        if source not in sources:
+            # A later snapshot may omit a previously visible resource. Keep and
+            # reverify its original pin rather than orphaning its downloaded bytes.
+            add_source(sources, source, set(asset.get("gameIds", [])), "previously-verified-original-media-pin")
     if args.inventory_only:
         print(json.dumps({"selectedGames": len(entries), "observedMedia": len(sources), "gamesWithObservedGameMedia": sum(any(e["id"] in s["gameIds"] and not shared_media(u) for u, s in sources.items()) for e in entries)}))
         return
@@ -336,7 +422,7 @@ def main():
                         add_source(sources, reference, record["gameIds"], "declared-texture-reference", source)
                 except Exception as error:
                     failures[source] = str(error)[:400]
-                if len(finished) % 50 == 0:
+                if len(finished) % args.checkpoint_every == 0:
                     print(json.dumps(checkpoint()), flush=True)
         checkpoint()
     print(json.dumps(checkpoint()), flush=True)

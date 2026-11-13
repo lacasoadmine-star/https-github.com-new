@@ -2,7 +2,7 @@
 // A launch/attempt/receipt is evidence, not full feature or parity acceptance.
 const {chromium,devices}=require('playwright');
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const {sceneControls,allowedDemo,publicURL,betChangedInDirection}=require('./batch-controls.cjs');
+const {sceneControls,allowedDemo,publicURL,betChangedInDirection,touchObservedDOM}=require('./batch-controls.cjs');
 if(process.env.SPECIAL74_OBSERVE_DEMOS!=='1')throw Error('Set SPECIAL74_OBSERVE_DEMOS=1 for public free-demo observation');
 const root=path.resolve(__dirname,'../../../..');
 const catalogue=JSON.parse(fs.readFileSync(path.join(root,'reports/special74/selected-games.json'),'utf8')).entries;
@@ -29,22 +29,16 @@ async function frameOffset(frame){
  const element=await frame.frameElement(),box=await element.evaluate(el=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y};});
  const parent=await frameOffset(frame.parentFrame());return{x:parent.x+box.x,y:parent.y+box.y};
 }
-async function clickObservedDOM(control,offset,page){
- const b=control.bounds,view=page.viewportSize();
- if(!b||b.w<4||b.h<4)throw Error('Named DOM control is not visibly measurable');
- const x=offset.x+b.x+b.w/2,y=offset.y+b.y+b.h/2;
- if(x<0||y<0||x>=view.width||y>=view.height)throw Error('Named DOM control is outside the viewport');
- await page.mouse.click(x,y);return{mode:'mouse',x,y};
-}
 // This only reads visible presentation/DOM; it exports no script, cookie or storage.
 function domSnapshot(){
  const isVisible=el=>{const r=el.getBoundingClientRect(),s=getComputedStyle(el);return r.width>3&&r.height>3&&r.right>0&&r.bottom>0&&r.left<innerWidth&&r.top<innerHeight&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)!==0;};
  const safe=raw=>{try{const u=new URL(raw,location.href);return /^https?:$/.test(u.protocol)?u.origin+u.pathname:null;}catch{return null;}};
  const selector='button,[role="button"],input[type="button"],input[type="submit"],a,img,div';
- const controls=[...document.querySelectorAll(selector)].map((el,index)=>({el,index})).filter(x=>isVisible(x.el)).map(({el,index})=>({index,bounds:(()=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height};})(),hittable:(()=>{const r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return hit===el||el.contains(hit);})(),tag:el.tagName,text:(el.innerText||el.value||'').trim().slice(0,100),aria:el.getAttribute('aria-label'),title:el.getAttribute('title'),id:el.id,src:el.tagName==='IMG'?safe(el.currentSrc||el.src):null,background:getComputedStyle(el).backgroundImage.replace(/url\(["']?([^"')]+)["']?\)/g,(_,url)=>'url('+safe(url)+')'),clickable:el.tagName!=='DIV'||el.getAttribute('role')==='button'||el.hasAttribute('onclick'),disabled:Boolean(el.disabled)||el.getAttribute('aria-disabled')==='true'}));
+ const controls=[...document.querySelectorAll(selector)].map((el,index)=>({el,index})).filter(x=>isVisible(x.el)).map(({el,index})=>({index,selector,bounds:(()=>{const r=el.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height};})(),hittable:(()=>{const r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return hit===el||el.contains(hit);})(),tag:el.tagName,text:(el.innerText||el.value||'').trim().slice(0,100),aria:el.getAttribute('aria-label'),title:el.getAttribute('title'),id:el.id,src:el.tagName==='IMG'?safe(el.currentSrc||el.src):null,background:getComputedStyle(el).backgroundImage.replace(/url\(["']?([^"')]+)["']?\)/g,(_,url)=>'url('+safe(url)+')'),clickable:el.tagName!=='DIV'||el.getAttribute('role')==='button'||el.hasAttribute('onclick'),disabled:Boolean(el.disabled)||el.getAttribute('aria-disabled')==='true'}));
  const backgrounds=[];
  for(const el of document.querySelectorAll('*')){if(backgrounds.length>=80)break;if(!isVisible(el))continue;const bg=getComputedStyle(el).backgroundImage;for(const match of bg.matchAll(/url\(["']?([^"')]+)["']?\)/g)){const url=safe(match[1]);if(url&&!backgrounds.some(x=>x.url===url))backgrounds.push({url,tag:el.tagName,id:el.id});}}
- return{location:location.origin+location.pathname,text:(document.body?.innerText||'').slice(0,16000),controls,backgrounds,images:[...document.images].filter(isVisible).map(el=>safe(el.currentSrc||el.src)).filter(Boolean),fonts:[...document.fonts].map(f=>({family:f.family,status:f.status})),canvases:[...document.querySelectorAll('canvas')].map(c=>{const s=getComputedStyle(c);return{width:c.width,height:c.height,visible:isVisible(c),cssWidth:s.width,cssHeight:s.height,backgroundSize:s.backgroundSize,backgroundPosition:s.backgroundPosition}}),resources:performance.getEntriesByType('resource').map(r=>safe(r.name)).filter(Boolean)};
+ const mediaElements=[...document.querySelectorAll('audio,video')].map(el=>({type:el.tagName.toLowerCase(),source:safe(el.currentSrc||el.src),volume:el.volume,muted:el.muted,loop:el.loop,paused:el.paused,currentTime:el.currentTime,duration:Number.isFinite(el.duration)?el.duration:null,playbackRate:el.playbackRate}));
+ return{location:location.origin+location.pathname,text:(document.body?.innerText||'').slice(0,16000),controls,backgrounds,mediaElements,mediaEvents:window.__special74MediaEvents||[],images:[...document.images].filter(isVisible).map(el=>safe(el.currentSrc||el.src)).filter(Boolean),fonts:[...document.fonts].map(f=>({family:f.family,status:f.status})),canvases:[...document.querySelectorAll('canvas')].map(c=>{const s=getComputedStyle(c);return{width:c.width,height:c.height,visible:isVisible(c),cssWidth:s.width,cssHeight:s.height,backgroundSize:s.backgroundSize,backgroundPosition:s.backgroundPosition}}),resources:performance.getEntriesByType('resource').map(r=>safe(r.name)).filter(Boolean)};
 }
 const domPatterns={
  'bet-plus':/^(?:increase bet|bet increase|bet plus|plus bet|bet\+|bet-plus)$/i,
@@ -53,7 +47,7 @@ const domPatterns={
  take:/^(?:take win|collect|collect win)$/i,exit:/^exit$/i,
  close:/^(?:close|close menu|back to game)$/i,
  autoplay:/^(?:autoplay|auto play)$/i,settings:/^settings$/i,history:/^(?:history|bet history)$/i,
- rules:/^(?:rules|paytable|pay table|game rules|help)$/i
+ rules:/^(?:rules|paytable|pay table|game rules|help)$/i,information:/^(?:about|about game|game info|game information|information|info)$/i,'sound-on':/^(?:sound on|enable sound|unmute)$/i,'sound-off':/^(?:sound off|disable sound|mute)$/i
 };
 function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile-menu-open-icon\.(png|webp)/i.test(c.background||''))return true;if(!c.clickable)return false;const labels=[c.text,c.aria,c.title,c.id].filter(Boolean);return labels.some(x=>domPatterns[kind]?.test(x))||(kind==='menu'&&/\/mobile-menu-open-icon\.(png|webp)$/i.test(c.src||''));}
 (async()=>{
@@ -68,7 +62,15 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
   const dpr=Math.max(1,Math.min(3,Number(process.env.SPECIAL74_DEVICE_SCALE_FACTOR||1)));row.browserConfiguration={device:'Pixel 7',viewport:devices['Pixel 7'].viewport,deviceScaleFactor:dpr,observationOnly:true};const context=await browser.newContext({...devices['Pixel 7'],deviceScaleFactor:dpr,serviceWorkers:'block'});context.setDefaultTimeout(1800);const deadline=setTimeout(()=>{row.deadlineExceeded=true;context.close().catch(()=>{});},Math.max(30000,Number(process.env.SPECIAL74_GAME_DEADLINE_MS||90000)-2000));
   await context.route('**/*',route=>{const u=new URL(route.request().url());if(/^https?:$/.test(u.protocol)&&blockedProductionHost(u.hostname)){row.blockedRequests.push({url:publicURL(u.href),reason:'production-platform-isolation'});return route.abort();}return route.continue();});
   if(context.routeWebSocket)await context.routeWebSocket('**/*',route=>{const u=new URL(route.url());if(!blockedProductionHost(u.hostname))route.connectToServer();else{row.blockedRequests.push({url:u.origin+u.pathname,reason:'production-platform-isolation-websocket'});route.close();}});
-  await context.addInitScript(()=>performance.setResourceTimingBufferSize(10000));
+  await context.addInitScript(()=>{
+   performance.setResourceTimingBufferSize(10000);
+   window.__special74MediaEvents=[];
+   for(const event of ['play','pause','volumechange','ratechange','loadedmetadata','ended'])addEventListener(event,({target})=>{
+    if(!(target instanceof HTMLMediaElement)||window.__special74MediaEvents.length>=200)return;
+    let source=null;try{const u=new URL(target.currentSrc||target.src,location.href);if(/^https?:$/.test(u.protocol))source=u.origin+u.pathname;}catch{}
+    window.__special74MediaEvents.push({event,at:performance.now(),type:target.tagName.toLowerCase(),source,volume:target.volume,muted:target.muted,loop:target.loop,paused:target.paused,playbackRate:target.playbackRate});
+   },true);
+  });
   const page=await context.newPage();let activeAction=null,soundConfirmed=false;const hookedFrames=new Set();const responseJobs=new Set();
   function addMedia(raw,status,type,source){const clean=publicURL(raw);if(!clean||!resourceHost(new URL(clean).hostname))return;if(!row.media.some(m=>m.url===clean)){row.media.push({url:clean,status,type,source});if(row.media.length%20===0){write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}}
   page.on('response',response=>{const job=(async()=>{try{const u=new URL(response.url()),type=response.request().resourceType();if(['image','media','font'].includes(type)||/\.(?:png|jpe?g|webp|gif|svg|mp3|ogg|m4a|aac|wav|mp4|webm|woff2?|ttf|otf|atlas\.txt)(?:\?|$)/i.test(u.href))addMedia(u.href,response.status(),type,'response');if(activeAction?.startsWith('spin')&&provider(u.hostname)&&u.pathname.includes('/api/GenericSlotApi/Event/')){const info=(await response.json()).Board?.GameInfo,deal=info?.DealNumber;if(typeof deal==='string'&&!deal.endsWith('.0')&&!row.confirmedRoundIds.includes(deal)){row.confirmedRoundIds.push(deal);row.rounds.push({deal,win:info.Win,multiplier:info.Multiplier,action:activeAction,at:new Date().toISOString()});write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}}catch{}})();responseJobs.add(job);job.finally(()=>responseJobs.delete(job));});
@@ -82,16 +84,17 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
     try{if(!provider(new URL(frame.url()).hostname))continue;}catch{continue;}
     const control=await bounded(frame.evaluate(()=>{
      if(!/would you like sound|play with sounds/i.test(document.body?.innerText||''))return null;
-     for(const el of document.querySelectorAll('a,button,[role="button"]')){
+     const selector='a,button,[role="button"]';
+     for(const [index,el] of [...document.querySelectorAll(selector)].entries()){
       if(!/^yes$/i.test(el.textContent.trim()))continue;
       const r=el.getBoundingClientRect(),s=getComputedStyle(el),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
-      if(r.width<4||r.height<4||s.visibility==='hidden'||s.display==='none')continue;
-      return{text:el.textContent.trim(),bounds:{x:r.x,y:r.y,w:r.width,h:r.height},hittable:hit===el||el.contains(hit)};
+      if(r.width<4||r.height<4||s.visibility==='hidden'||s.display==='none'||!(hit===el||el.contains(hit)))continue;
+      return{index,selector,exactText:true,tag:el.tagName,text:el.textContent.trim(),bounds:{x:r.x,y:r.y,w:r.width,h:r.height},hittable:hit===el||el.contains(hit)};
      }return null;
     }),'sound control',3000).catch(()=>null);
     if(!control)continue;
     const action={name:'sound-yes',target:{source:'visible-dom',...control},attempted:false,effectVerified:false};row.actions.push(action);
-    try{action.input=await clickObservedDOM(control,await bounded(frameOffset(frame),'sound iframe',3000),page);action.attempted=true;attempted=true;await sleep(250);action.effectVerified=await bounded(frame.evaluate(()=>!/would you like sound|play with sounds/i.test(document.body?.innerText||'')),'sound effect',2000).catch(()=>false);soundConfirmed=action.effectVerified;}catch(error){action.error=errorText(error);}
+    try{action.input=await touchObservedDOM(control,frame);action.attempted=true;attempted=true;await sleep(250);action.effectVerified=await bounded(frame.evaluate(()=>!/would you like sound|play with sounds/i.test(document.body?.innerText||'')),'sound effect',2000).catch(()=>false);soundConfirmed=action.effectVerified;}catch(error){action.error=errorText(error);}
    }
    return attempted;
   }
@@ -105,9 +108,10 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
    }
    return{value:samples.at(-1)||null,stable:false,samples};
   }
-  async function tap(kind,actionName=kind){const before=await state();for(const item of before){const dom=item.dom.controls.find(c=>domMatches(c,kind));const pixi=item.observed.controls.find(c=>c.kind===kind);if(!dom&&!pixi)continue;const action={name:actionName,startedAt:new Date().toISOString(),target:dom?{source:'dom',...dom}:pixi,attempted:false,effectVerified:false,confirmedRoundIds:[]};row.actions.push(action);activeAction=actionName;const oldRounds=new Set(row.confirmedRoundIds);try{if(kind==='bet-plus'||kind==='bet-minus')action.beforeBetSample=await sampleStableBet(item);if(dom)action.input=await clickObservedDOM(dom,item.offset,page);else{const offset=await frameOffset(item.frame),localX=pixi.x-offset.x,localY=pixi.y-offset.y;const unblocked=await item.frame.evaluate(({x,y})=>document.elementFromPoint(x,y)?.tagName==='CANVAS',{x:localX,y:localY});action.canvasHitTest=unblocked;await page.mouse.click(pixi.x,pixi.y);action.input={mode:'mouse',x:pixi.x,y:pixi.y};}action.attempted=true;if(kind==='spin'){for(let i=0;i<24&&!row.confirmedRoundIds.some(id=>!oldRounds.has(id));i++)await sleep(500);await sleep(1500);}else await sleep(kind==='bet-plus'||kind==='bet-minus'?2200:900);const after=await capture(actionName);action.confirmedRoundIds=row.confirmedRoundIds.filter(id=>!oldRounds.has(id));action.beforeBet=item.observed.bet;action.afterBet=after.find(x=>x.dom.location===item.dom.location)?.observed.bet||null;if(kind==='bet-plus'||kind==='bet-minus'){action.afterBetSample=await sampleStableBet(item);action.beforeBet=action.beforeBetSample.value;action.afterBet=action.afterBetSample.value;}action.visibleTextChanged=JSON.stringify(before.map(x=>x.dom.text))!==JSON.stringify(after.map(x=>x.dom.text));if(kind==='spin')action.effectVerified=action.confirmedRoundIds.length>0;else if(kind==='bet-plus'||kind==='bet-minus')action.effectVerified=Boolean(action.beforeBetSample?.stable&&action.afterBetSample?.stable&&betChangedInDirection(kind,action.beforeBet,action.afterBet));else{action.effectVerified=false;action.effectEvidence=action.visibleTextChanged?'visible-text-changed-needs-semantic-review':'no-visible-text-change';}return true;}catch(error){action.error=errorText(error);return false;}finally{activeAction=null;action.completedAt=new Date().toISOString();write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}row.actions.push({name:actionName,attempted:false,effectVerified:false,reason:'No unambiguous visible named control'});return false;}
+  async function tap(kind,actionName=kind){const before=await state();for(const item of before){const dom=item.dom.controls.find(c=>domMatches(c,kind));const pixi=item.observed.controls.find(c=>c.kind===kind);if(!dom&&!pixi)continue;const action={name:actionName,startedAt:new Date().toISOString(),target:dom?{source:'dom',...dom}:pixi,attempted:false,effectVerified:false,confirmedRoundIds:[]};row.actions.push(action);activeAction=actionName;const oldRounds=new Set(row.confirmedRoundIds);try{if(kind==='bet-plus'||kind==='bet-minus')action.beforeBetSample=await sampleStableBet(item);if(dom)action.input=await touchObservedDOM(dom,item.frame);else{const offset=await frameOffset(item.frame),localX=pixi.x-offset.x,localY=pixi.y-offset.y;const unblocked=await item.frame.evaluate(({x,y})=>document.elementFromPoint(x,y)?.tagName==='CANVAS',{x:localX,y:localY});action.canvasHitTest=unblocked;await page.mouse.click(pixi.x,pixi.y);action.input={mode:'mouse',x:pixi.x,y:pixi.y};}action.attempted=true;if(kind==='spin'){for(let i=0;i<24&&!row.confirmedRoundIds.some(id=>!oldRounds.has(id));i++)await sleep(500);await sleep(1500);}else await sleep(kind==='bet-plus'||kind==='bet-minus'?2200:900);const after=await capture(actionName);action.confirmedRoundIds=row.confirmedRoundIds.filter(id=>!oldRounds.has(id));action.beforeBet=item.observed.bet;action.afterBet=after.find(x=>x.dom.location===item.dom.location)?.observed.bet||null;if(kind==='bet-plus'||kind==='bet-minus'){action.afterBetSample=await sampleStableBet(item);action.beforeBet=action.beforeBetSample.value;action.afterBet=action.afterBetSample.value;}action.visibleTextChanged=JSON.stringify(before.map(x=>x.dom.text))!==JSON.stringify(after.map(x=>x.dom.text));if(kind==='spin')action.effectVerified=action.confirmedRoundIds.length>0;else if(kind==='bet-plus'||kind==='bet-minus')action.effectVerified=Boolean(action.beforeBetSample?.stable&&action.afterBetSample?.stable&&betChangedInDirection(kind,action.beforeBet,action.afterBet));else{action.effectVerified=false;action.effectEvidence=action.visibleTextChanged?'visible-text-changed-needs-semantic-review':'no-visible-text-change';}return true;}catch(error){action.error=errorText(error);return false;}finally{activeAction=null;action.completedAt=new Date().toISOString();write(path.join(folder,'observation.json'),row);write(path.join(base,entry.id,'observation.json'),row);}}row.actions.push({name:actionName,attempted:false,effectVerified:false,reason:'No unambiguous visible named control'});return false;}
   try{
-   await page.goto(row.demoUrl,{waitUntil:'domcontentloaded',timeout:35000});console.log(JSON.stringify({navigated:entry.id,url:publicURL(page.url())}));
+   const launchResponse=await page.goto(row.demoUrl,{waitUntil:'domcontentloaded',timeout:35000});console.log(JSON.stringify({navigated:entry.id,url:publicURL(page.url())}));
+   if(launchResponse&&launchResponse.status()>=400){row.status='provider-launch-unavailable';row.providerStatus=launchResponse.status();await capture('provider-error');return row;}
    let ready=false;
    const loadDeadline=Date.now()+Math.min(45000,Number(process.env.SPECIAL74_GAME_DEADLINE_MS||45000)/2);
    for(let pass=0;pass<50&&Date.now()<loadDeadline;pass++){
@@ -122,6 +126,7 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
      current.push(await frame.evaluate(()=>({text:(document.body?.innerText||'').slice(0,5000),canvas:[...document.querySelectorAll('canvas')].some(c=>c.width>100&&c.getBoundingClientRect().width>100),pixi:Boolean(window.PIXI),stage:Boolean(window.__special74Views?.length),named:(()=>{const nodes=(window.__special74Views||[]).map(v=>({node:v.stage,distance:Infinity}));let count=0;while(nodes.length&&count++<12000){const item=nodes.pop(),n=item.node;if(!n||n.visible===false||n.worldAlpha===0)continue;const distance=n.interactive?0:item.distance;if(distance<=3&&[n.name,...(n.texture?.textureCacheIds||[])].some(x=>x&&/(?:^|\/)(?:Spin|Plus|Minus|Bet)(?:Vertical|Horizontal|Normal)?$/i.test(x)))return true;nodes.push(...(n.children||[]).map(node=>({node,distance:distance+1})));}return false;})(),spin:[...document.querySelectorAll('button,[role="button"]')].some(el=>/^spin$/i.test(el.innerText?.trim()||'')&&el.getBoundingClientRect().width>0)})).catch(()=>({})));
     }
     if(current.some(x=>/up to 1 tables|table limit|simultaneously/i.test(x.text||''))){row.status='provider-table-limit';break;}
+    if(current.some(x=>/Server Error in ['\"/].*Application|Runtime Error[\s\S]*customErrors|HTTP Error 404/i.test(x.text||''))){row.status='provider-launch-unavailable';await capture('provider-error');return row;}
     if(current.some(x=>x.named||x.spin||(pass>=10&&x.canvas&&!x.pixi))){ready=true;break;}
    }
    // Renderers can become interactive before the asynchronous sound dialog appears.
@@ -140,9 +145,11 @@ function domMatches(c,kind){if(c.disabled)return false;if(kind==='menu'&&/mobile
     await tap('spin','spin-1');
     if(row.confirmedRoundIds.length)row.status='round-receipt-confirmed-needs-feature-review';
     await tap('take');
+    for(const kind of ['sound-on','sound-off'])await tap(kind);
+    if(await tap('autoplay','autoplay-settings'))await tap('close','close-autoplay-settings');
    }
    const opened=await tap('menu');
-   if(opened){for(const kind of ['rules','settings','history']){const success=await tap(kind);if(success){await tap('close','close-'+kind);await tap('menu','reopen-menu-'+kind);}}}
+   if(opened){for(const kind of ['rules','information','settings','history']){const success=await tap(kind);if(success){await tap('close','close-'+kind);await tap('menu','reopen-menu-'+kind);}}}
    await capture('final');
    await tap('exit');
   }catch(error){row.status='observation-error';row.error=errorText(error);await capture('failure').catch(()=>{});}

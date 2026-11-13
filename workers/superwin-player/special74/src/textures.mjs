@@ -13,7 +13,8 @@ export async function atlas(path){
   const frame=entry.frame,origin=entry.sourceSize,trim=entry.spriteSourceSize;
   const canvas=document.createElement('canvas');canvas.width=origin.w;canvas.height=origin.h;
   const context=canvas.getContext('2d');
-  if(entry.rotated){context.translate(trim.x,trim.y+trim.h);context.rotate(-Math.PI/2);context.drawImage(sheet,frame.x,frame.y,frame.w,frame.h,0,0,trim.h,trim.w);}
+  // Provider TexturePacker JSON stores logical extents; packed extents swap.
+  if(entry.rotated){context.translate(trim.x,trim.y+trim.h);context.rotate(-Math.PI/2);context.drawImage(sheet,frame.x,frame.y,frame.h,frame.w,0,0,trim.h,trim.w);}
   else context.drawImage(sheet,frame.x,frame.y,frame.w,frame.h,trim.x,trim.y,trim.w,trim.h);
   textures.set(name,canvas);
  }

@@ -21,6 +21,9 @@ def main():
     manifest = json.loads(manifest_bytes)
     assets = [a for a in manifest["assets"] if a.get("mime", "").startswith(("image/", "audio/", "video/"))]
     previous = json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {}
+    svg_file = REPORT / "svg-decoder-checks.json"
+    svg_report = json.loads(svg_file.read_text()) if svg_file.exists() else {}
+    svg_checks = {(a["source"], a["sha256"]): a for a in svg_report.get("files", []) if a.get("verified") and svg_report.get("networkRequests") == 0}
     reusable_method = previous.get("rasterMethod") == "Pillow Image.verify" and previous.get("audioVideoMethod") == "ffprobe stream/format metadata"
     cache = {(a["source"], a["sha256"]): a for a in previous.get("files", []) if reusable_method and a.get("verified")}
     started = time.monotonic()
@@ -36,7 +39,12 @@ def main():
             cached = cache.get((asset["source"], asset["sha256"]))
             if cached:
                 return cached, True
-            if asset["mime"].startswith("image/"):
+            if asset["mime"] == "image/svg+xml":
+                decoded = svg_checks.get((asset["source"], asset["sha256"]))
+                if not decoded:
+                    raise ValueError("Run verify-svg.cjs for this SVG content hash")
+                result.update(width=decoded["width"], height=decoded["height"], format="SVG", visiblePixels=decoded["visiblePixels"])
+            elif asset["mime"].startswith("image/"):
                 with Image.open(path) as image:
                     result.update(width=image.width, height=image.height, format=image.format)
                     image.verify()
@@ -63,6 +71,7 @@ def main():
         "manifestSha256": hashlib.sha256(manifest_bytes).hexdigest(),
         "rasterMethod": "Pillow Image.verify", "pillowVersion": pillow_version,
         "audioVideoMethod": "ffprobe stream/format metadata",
+        "svgMethod": "Chromium Image.decode and nonempty Canvas raster",
         "checkedFiles": len(records), "verifiedFiles": sum(r["verified"] for r in records),
         "failedFiles": sum(not r["verified"] for r in records),
         "reusedDecoderChecks": sum(reused for _, reused in results),

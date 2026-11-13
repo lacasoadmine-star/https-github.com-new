@@ -31,8 +31,8 @@
       },
       {
         "path": "workers/superwin-player/special74/src/textures.mjs",
-        "sha256": "443f4b90731927242892fc7df4496e5e39070ec70b6c8bc1dee3ca66e14b39dd",
-        "bytes": 1620,
+        "sha256": "2770c947866ac059f490e13daa097608888b968a9a5d403a610cd73a1b648223",
+        "bytes": 1698,
         "runtimePath": "/special-games/textures.mjs"
       },
       {
@@ -43,8 +43,8 @@
       },
       {
         "path": "workers/superwin-player/special74/src/financial/account.mjs",
-        "sha256": "5dcee4cc339f362d31d0e412f1ff9fe6ce7243f358c618993bb0889cb681ef79",
-        "bytes": 12385,
+        "sha256": "ab9e0a3acfc2d5a071fa8a5d05e5f76788f216674152bab8a6735053b7481152",
+        "bytes": 12654,
         "runtimePath": "/special-games/financial/account.mjs"
       },
       {
@@ -238,7 +238,31 @@
     "referenceParityVerified": false,
     "sourceSha256": "c8f29768d253fc705d68818ea3388f0db1ec970a8bb43cd4b04f1facdbdac69f",
     "fixtureSha256": "c8fb0bd8bc780488e5487219804a761f2b433fe39c8cab8bae17325d77bd49dc",
-    "resultSha256": "f77f0bb5be2bcbce758125db6af79efbc7283fcafc0ea6a738ab32c800540ed1"
+    "resultSha256": "f77f0bb5be2bcbce758125db6af79efbc7283fcafc0ea6a738ab32c800540ed1",
+    "afterSharedAtlasAndGeometryFix": {
+      "passed": true,
+      "checks": [
+        "original media loads",
+        "bet limits and changes",
+        "server outcome and ledger receipt",
+        "color gamble receipt and reload recovery",
+        "idempotent recovery after lost response and reload",
+        "autoplay stop during animation",
+        "autoplay stop between rounds invalidates queued wager",
+        "bet controls locked during autoplay",
+        "autoplay restart has no obsolete scheduled loop",
+        "operator math rules",
+        "account history",
+        "bundled official reference",
+        "responsive fit",
+        "corrupt pending evidence blocks wagers and is preserved",
+        "no external runtime requests"
+      ],
+      "productionRequests": 0,
+      "starts": 5,
+      "balanceMinor": 10095,
+      "referenceParityVerified": false
+    }
   },
   "financialContract": {
     "transport": "fresh",
