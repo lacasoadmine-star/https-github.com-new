@@ -44,15 +44,20 @@ jobs:
           node workers/superwin-player/special74/tools/prove-operator-math.mjs
           git diff --exit-code -- reports/special74/operator-math
           node --test workers/superwin-player/special74/tests/*.test.mjs
+          python3 -m unittest discover -s workers/superwin-player/special74/tests -p 'test_all_media.py'
       - name: Bundle the independent game presentation
         run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/ice.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/ice.bundle.mjs
       - name: Bundle the independent four-row presentation
         run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/ice40.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/ice40.bundle.mjs
+      - name: Bundle the independent Multi Hot 5 presentation
+        run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/multihot5.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/multihot5.bundle.mjs
       - name: Browser checks against explicit loopback fixtures
         run: |
           node workers/superwin-player/special74/tests/serve.mjs > "$RUNNER_TEMP/special74-fixture.log" 2>&1 &
           fixture_pid=$!
-          trap 'kill "$fixture_pid" 2>/dev/null || true' EXIT
+          node workers/superwin-player/special74/tests/multihot5-serve.mjs > "$RUNNER_TEMP/special74-mh5-fixture.log" 2>&1 &
+          multihot_fixture_pid=$!
+          trap 'kill "$fixture_pid" "$multihot_fixture_pid" 2>/dev/null || true' EXIT
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:4181/__fixture/stats > /dev/null; then break; fi
             sleep 1
@@ -60,6 +65,11 @@ jobs:
           node workers/superwin-player/special74/tests/browser.cjs
           SPECIAL74_TEST_GAME=burningice40_native node workers/superwin-player/special74/tests/browser.cjs
           node workers/superwin-player/special74/tests/catalog-browser.cjs
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4182/__fixture/stats > /dev/null; then break; fi
+            sleep 1
+          done
+          node workers/superwin-player/special74/tests/multihot5-browser.cjs
       - name: Preserve verification artifacts
         if: always()
         uses: actions/upload-artifact@v4

@@ -5,7 +5,16 @@ import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {inspectRelease} from '../tools/release.mjs';
+import {REPLACEMENT_DISPOSITION} from '../router.mjs';
 const hash=data=>createHash('sha256').update(data).digest('hex');
+
+test('release evidence cannot activate a stale additive disposition',async()=>{
+ const stale=await inspectRelease({legacyDisposition:'retain-existing-games-and-add-independent-special-games',entries:[]},resolve('.'));
+ assert.ok(stale.issues.some(e=>/replacement disposition/.test(e.message)));
+ const replacement=await inspectRelease({legacyDisposition:REPLACEMENT_DISPOSITION,entries:[]},resolve('.'));
+ assert.ok(!replacement.issues.some(e=>/replacement disposition/.test(e.message)));
+ assert.equal(replacement.ready,false);assert.ok(replacement.issues.some(e=>/74/.test(e.message)));
+});
 
 test('operator math replaces private-provider-math requirement without bypassing release checks',async()=>{
  const root=resolve('.'),path='reports/special74/operator-math/multi-hot-5-proof.json';

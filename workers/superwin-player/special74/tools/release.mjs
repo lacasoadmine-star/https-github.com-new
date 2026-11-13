@@ -2,10 +2,12 @@ import {readFile,stat} from 'node:fs/promises';
 import {resolve,relative,sep} from 'node:path';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
+import {REPLACEMENT_DISPOSITION} from '../router.mjs';
 
 export async function inspectRelease(manifest,root){
  const issues=[];
  const fail=(id,message)=>issues.push({id,message});
+ if(manifest.legacyDisposition!==REPLACEMENT_DISPOSITION)fail('package','Explicit complete-74 replacement disposition is required');
  if(manifest.entries?.length!==74)fail('package','Exactly 74 requested positions are required');
  const ids=new Set(),positions=new Set();
  const asset=async(id,file)=>{

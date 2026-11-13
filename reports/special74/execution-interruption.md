@@ -1,6 +1,6 @@
 # Execution interruption and continuation
 
-The latest instruction remains additive: all 74 new Special Games, existing games untouched, same Worker/backend/accounts/wallet. No v2 package has been deployed.
+Historical checkpoint: the scope at this interruption was additive. The resumed 2026-11-13 instruction supersedes that scope: replace old game presentations only after all 74 new Special Games pass, keeping the same Worker/backend/accounts/wallet and the old source/version for rollback. No v2 package has been deployed.
 
 ## Durable checkpoint
 

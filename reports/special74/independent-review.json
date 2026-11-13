@@ -1,0 +1,69 @@
+{
+  "reviewedAt": "2026-11-13T01:49:40.968314+00:00",
+  "scope": "Independent review of local draft wallet recovery, autoplay, all74 presentation/media evidence durability and gated catalogue replacement. No production mutation.",
+  "findings": [
+    {
+      "id": "autoplay-gap-wager",
+      "status": "fixed-and-verified",
+      "result": "User stop invalidates autoplay generation during animation and between rounds; 14-check browser fixture includes no-extra-wager gap and restart regressions."
+    },
+    {
+      "id": "saved-request-quarantine",
+      "status": "fixed-and-verified",
+      "result": "Unreadable or mismatched stored requests preserve raw bytes and block Spin, Gamble, Retry and submit until validated reconnect; exact-token replay remains supported."
+    },
+    {
+      "id": "media-pin-resume",
+      "status": "fixed-and-verified",
+      "result": "Schema2 durable unverifiedPins retains previous hashes across interrupted runs even after local journal loss."
+    },
+    {
+      "id": "batch-attempt-preservation",
+      "status": "fixed-code-reviewed",
+      "result": "Attempt numbers include existing directories and supervisor finalization writes both current row and matching attempt row; active batch historical backfill owned by repo_state."
+    },
+    {
+      "id": "unproven-control-effects",
+      "status": "fixed-code-reviewed",
+      "result": "Generic changed text remains unverified until semantic review; Bet and Spin require observed value/receipt evidence."
+    },
+    {
+      "id": "texture-resource-query-redaction",
+      "status": "fixed-and-verified",
+      "result": "133 prior batch JSON files had no query/fragment-bearing texture source/cache alias or control-background URL; new presentation captures strip URL credentials/query/fragment and opaque data/blob sources."
+    }
+  ],
+  "checks": {
+    "focusedNodeSuite": {
+      "passed": 25,
+      "failed": 0,
+      "files": [
+        "capture-scene.test.mjs",
+        "batch-reference.test.mjs",
+        "router.test.mjs",
+        "release-math.test.mjs",
+        "operator-adapter.test.mjs"
+      ]
+    },
+    "mediaPythonSuite": {
+      "passed": 8,
+      "failed": 0
+    },
+    "mh5BrowserFixtureReviewed": {
+      "passed": true,
+      "checks": 14,
+      "productionRequests": 0
+    }
+  },
+  "releaseReady": false,
+  "referenceParityVerified": false,
+  "sourceSha256": {
+    "workers/superwin-player/special74/src/financial/account.mjs": "5dcee4cc339f362d31d0e412f1ff9fe6ce7243f358c618993bb0889cb681ef79",
+    "workers/superwin-player/special74/src/multihot5.mjs": "208d5afa323b18f09c6446e00c4dfd80479ec5dfb78f875ad2dc524838f2c43a",
+    "workers/superwin-player/special74/router.mjs": "ed147ec26047767be3a47d591745b1c9e312357cf74b4f7b536d7d819bc3fedb",
+    "workers/superwin-player/special74/tools/fetch-all-media.py": "63a12304c12e5dbd75b051ea230b181e46cbdc1e729a944d2d715cdf1dc96c2a",
+    "workers/superwin-player/special74/tools/batch-reference.cjs": "27a0be91ec896c6013ac6d7e709a4c2b2aa163397e6fe77d0ac0602732e80b96",
+    "workers/superwin-player/special74/tools/batch-reference-all.cjs": "ef3e3f48d4b09d6d7d9675d0ae346efaef38ec21aad6dfd2db905da97ef95d8b",
+    "workers/superwin-player/special74/tools/capture-scene.mjs": "1242d6c8aaa67c6e47bc531677092e10cd08ff726f86468455689c6d2500930a"
+  }
+}

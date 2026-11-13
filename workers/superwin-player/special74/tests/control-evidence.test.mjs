@@ -15,3 +15,11 @@ test('control receipts cannot silently cross official identities',()=>{
  assert.throws(()=>controlEvidence(entry,[{...base,demoUrl:'https://example.test/other-demo',confirmedRoundIds:['10.1']}]),/identity mismatch/);
  assert.deepEqual(controlEvidence(entry,[{...base,id:'other-game',confirmedRoundIds:['10.1']}]).confirmedRoundIds,[]);
 });
+test('the exact published public demo may upgrade HTTP to HTTPS without changing identity',()=>{
+ const published='http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=Vampires&Token=DEMO';
+ const game={...entry,officialIdentity:{...entry.officialIdentity,demoUrl:published}};
+ const observed={...base,demoUrl:published.replace('http:','https:'),confirmedRoundIds:['12.1']};
+ assert.deepEqual(controlEvidence(game,[observed]).confirmedRoundIds,['12.1']);
+ assert.throws(()=>controlEvidence(game,[{...observed,demoUrl:observed.demoUrl.replace('Vampires','DifferentGame')}]),/identity mismatch/);
+ assert.throws(()=>controlEvidence(game,[{...observed,demoUrl:observed.demoUrl.replace('Token=DEMO','Token=not-a-demo')}]),/identity mismatch/);
+});

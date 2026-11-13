@@ -5,6 +5,21 @@ const NATIVE_CLASSIC=new Set(['multi_hot_5_native','foxy_hot_20_native']);
 export function cents(value){if(typeof value!=='string'||!/^\d{1,13}\.\d{2}$/.test(value))throw Error('INVALID_AMOUNT');return BigInt(value.replace('.',''));}
 export function amount(value){const n=BigInt(value);if(n<0n)throw Error('INVALID_AMOUNT');return `${n/100n}.${String(n%100n).padStart(2,'0')}`;}
 export class AccountError extends Error{constructor(code,status=0,uncertain=false){super(code);Object.assign(this,{code,status,uncertain});}}
+function storedPending(value,game,state){
+ const object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
+ if(!object(value)||value.guard!==state.guard||value.game!==game.id||!['spin','gamble'].includes(value.kind)||!object(value.body)||typeof value.body.roundToken!=='string'||!UUID.test(value.body.roundToken))throw Error('INVALID_SAVED_ROUND');
+ const body=value.body,versioned=game.transport==='fresh'||NATIVE_CLASSIC.has(game.modelId);
+ if(game.transport==='fresh'&&body.sessionGuard!==state.guard)throw Error('INVALID_SAVED_SESSION');
+ if(value.kind==='spin'){
+  if(body.gameId!==game.modelId||cents(body.bet)<=0n)throw Error('INVALID_SAVED_SPIN');
+  if(versioned&&(typeof body.mathVersion!=='string'||!body.mathVersion||typeof body.engineVersion!=='string'||!body.engineVersion))throw Error('INVALID_SAVED_VERSION');
+  if((game.transport==='fresh'||body.mathSha256!==undefined)&&(typeof body.mathSha256!=='string'||!HASH.test(body.mathSha256)))throw Error('INVALID_SAVED_VERSION');
+ }else{
+  if(typeof body.roundId!=='string'||!UUID.test(body.roundId)||!['RED','BLACK'].includes(body.choice)||cents(value.stake)<=0n||!Number.isSafeInteger(value.attempt)||value.attempt<1||!Number.isSafeInteger(state.model.features?.gambleRounds)||value.attempt>state.model.features.gambleRounds)throw Error('INVALID_SAVED_GAMBLE');
+  if(versioned&&(body.expectedAttempt!==value.attempt||body.expectedStake!==value.stake))throw Error('INVALID_SAVED_GAMBLE');
+ }
+ return value;
+}
 export function receipt(result,game,pending,model){
  if(!result||result.gameId!==game.modelId||result.currency!=='ETB'||!UUID.test(result.roundId)||result.bet!==pending.body.bet||result.mathVersion!==model.mathVersion||result.engineVersion!==model.engineVersion)throw Error('INVALID_ROUND');
  if(model.mathSha256&&result.mathSha256!==model.mathSha256)throw Error('INVALID_ROUND_VERSION');
@@ -17,7 +32,7 @@ export function receipt(result,game,pending,model){
  return {...result,balanceAfter:r.balanceAfter};
 }
 export class Account {
- constructor(game,{fetcher=globalThis.fetch.bind(globalThis),storage=globalThis.localStorage}={}){this.game=game;this.fetcher=fetcher;this.storage=storage;this.pending=null;this.state=null;this.busy=false;this.key=`superwin.special74.${game.id}.pending.v1`;}
+ constructor(game,{fetcher=globalThis.fetch.bind(globalThis),storage=globalThis.localStorage}={}){this.game=game;this.fetcher=fetcher;this.storage=storage;this.pending=null;this.state=null;this.busy=false;this.recoveryBlocked=false;this.key=`superwin.special74.${game.id}.pending.v1`;}
  async request(path,body){
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
   try{
@@ -29,9 +44,12 @@ export class Account {
   finally{clearTimeout(timer);}
  }
  async connect(){
+  // Until both the server state and any persisted request are readable, no
+  // financial action may use a previous successful connection's state.
+  this.recoveryBlocked=true;if(this.state)this.state.accepting=false;
   let s;
   if(this.game.transport==='fresh'){
-   const r=await this.request('/api/slots/fresh-state');
+   const r=await this.request('/api/slots/fresh-state'+(this.game.modelId==='fresh_multihot10'?'':'?gameId='+encodeURIComponent(this.game.modelId)));
    if(r.authenticated!==true)throw new AccountError('SIGN_IN',401);
    s={authenticated:r.authenticated,currency:r.currency,guard:r.sessionGuard,balance:r.balance,model:r.game,round:r.round?.result||null,gamble:r.round?.gamble||null,blocked:r.blockedByActiveGame,accepting:r.game?.enabled&&r.game?.freshReleaseReady&&r.game?.wagerAvailability!=='house_capacity'&&!r.blockedByActiveGame};
   }else{
@@ -44,15 +62,21 @@ export class Account {
   if(new Set(s.model.betLevels).size!==s.model.betLevels.length)throw new AccountError('INVALID_BET_LEVELS');
   if(this.game.transport==='fresh'&&!HASH.test(s.model.mathSha256))throw new AccountError('INVALID_ACCOUNT_STATE');
   if(s.round)receipt(s.round,this.game,{body:{bet:s.round.bet}},s.model);
-  if(this.state&&this.state.guard!==s.guard){this.pending=null;this.storage.removeItem(this.key);}
   if(this.game.transport==='classic'&&this.state?.guard===s.guard){s.round=this.state.round;s.gamble=this.state.gamble;}
-  this.state=s;
-  const saved=this.storage.getItem(this.key);
-  if(saved){try{const p=JSON.parse(saved);if(p.guard===s.guard&&p.game===this.game.id&&['spin','gamble'].includes(p.kind)&&UUID.test(p.body?.roundToken))this.pending=p;else this.storage.removeItem(this.key);}catch{throw new AccountError('SAVED_ROUND_UNREADABLE');}}
+  try{
+   const saved=this.storage.getItem(this.key);
+   this.pending=saved!==null&&saved!==undefined?storedPending(JSON.parse(saved),this.game,s):this.pending?storedPending(this.pending,this.game,s):null;
+  }catch{
+   // Preserve the original storage bytes for recovery. An invalid record or an
+   // account/profile mismatch does not prove that its earlier wager settled.
+   this.state={...s,accepting:false};throw new AccountError('SAVED_ROUND_UNREADABLE',0,true);
+  }
+  this.state=s;this.recoveryBlocked=false;
   return s;
  }
  save(p){this.pending=p;p?this.storage.setItem(this.key,JSON.stringify(p)):this.storage.removeItem(this.key);}
  async spin(bet){
+  if(this.recoveryBlocked)throw new AccountError('SAVED_ROUND_UNREADABLE',0,true);
   if(this.busy||this.pending)throw new AccountError('PENDING_ROUND');
   if(!this.state?.accepting)throw new AccountError('GAME_UNAVAILABLE');
   if(!this.state.model.betLevels.includes(bet))throw new AccountError('INVALID_BET');
@@ -62,6 +86,7 @@ export class Account {
   return this.submit({kind:'spin',game:this.game.id,guard:s.guard,body});
  }
  async gamble(choice){
+  if(this.recoveryBlocked)throw new AccountError('SAVED_ROUND_UNREADABLE',0,true);
   const r=this.state?.round,g=this.state?.gamble;
   if(this.busy||this.pending||!r||!g?.available||!['RED','BLACK'].includes(choice))throw new AccountError('GAMBLE_UNAVAILABLE');
   const body={roundId:r.roundId,choice,roundToken:crypto.randomUUID()};
@@ -70,6 +95,7 @@ export class Account {
   return this.submit({kind:'gamble',game:this.game.id,guard:this.state.guard,body,stake:g.stake,attempt:g.attempt+1});
  }
  async submit(p,{replay=false}={}){
+  if(this.recoveryBlocked)throw new AccountError('SAVED_ROUND_UNREADABLE',0,true);
   if(this.busy||p.guard!==this.state?.guard)throw new AccountError('PENDING_SESSION');
   this.busy=true;
   try{
@@ -106,6 +132,6 @@ export class Account {
    throw error instanceof AccountError?error:new AccountError(error.message,0,true);
   }finally{this.busy=false;}
  }
- retry(){if(!this.pending)throw new AccountError('NO_PENDING_ROUND');return this.submit(this.pending,{replay:true});}
+ retry(){if(this.recoveryBlocked)throw new AccountError('SAVED_ROUND_UNREADABLE',0,true);if(!this.pending)throw new AccountError('NO_PENDING_ROUND');return this.submit(this.pending,{replay:true});}
  history(){return this.request('/api/slots/rounds');}
 }

@@ -3,12 +3,13 @@ import {resolve,dirname,relative,extname,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {inspectRelease} from './release.mjs';
+import {REPLACEMENT_DISPOSITION} from '../router.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../../..'),folder=resolve(root,'workers/superwin-player/special74');
 const manifest=JSON.parse(await readFile(resolve(root,'reports/special74/manifest.json'),'utf8'));
 const checks=await inspectRelease(manifest,root);
 if(!checks.ready){console.error(JSON.stringify({packaged:false,reason:'All 74 implementations and evidence are required',unresolvedChecks:checks.issues.length}));process.exit(1);}
-if(manifest.legacyDisposition!=='retain-existing-games-and-add-independent-special-games')throw Error('Additive release scope required');
+if(manifest.legacyDisposition!==REPLACEMENT_DISPOSITION)throw Error('Complete replacement release scope required');
 const covers=JSON.parse(await readFile(resolve(folder,'cover-manifest.json'),'utf8')).assets;
 const assets={},entries=[];
 const mime={'.mjs':'text/javascript','.js':'text/javascript','.html':'text/html; charset=utf-8','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2','.woff':'font/woff','.otf':'font/otf'};
@@ -35,7 +36,8 @@ for(const e of manifest.entries){
 await add('/special-games/catalog.mjs','workers/superwin-player/special74/src/catalog.mjs');
 await add('/special-games/catalog.css','workers/superwin-player/special74/src/catalog.css');
 entries.sort((a,b)=>a.title.localeCompare(b.title,'en',{numeric:true,sensitivity:'base'}));
-const version=createHash('sha256').update(JSON.stringify({entries,assets})).digest('hex').slice(0,16);
-const release={ready:true,version,storagePrefix:'special74/'+version+'/',entries,assets};
+const legacyDisposition=REPLACEMENT_DISPOSITION;
+const version=createHash('sha256').update(JSON.stringify({legacyDisposition,entries,assets})).digest('hex').slice(0,16);
+const release={ready:true,version,legacyDisposition,storagePrefix:'special74/'+version+'/',entries,assets};
 await mkdir(resolve(folder,'dist'),{recursive:true});await writeFile(resolve(folder,'dist/release.json'),JSON.stringify(release,null,2)+'\n');
 console.log(JSON.stringify({packaged:true,games:entries.length,assets:Object.keys(assets).length,version,productionChanged:false}));

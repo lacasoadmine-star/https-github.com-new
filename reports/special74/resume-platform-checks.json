@@ -1,0 +1,114 @@
+{
+  "checkedAt": "2026-11-13T01:33:08.840739+00:00",
+  "source": {
+    "baseCommit": "089d902a770606af2746d76014b09dd4322c3039",
+    "branch": "codex/superwin-special74-resume",
+    "scope": "Baseline source repository checks, not deployed Worker parity or 74 game completion"
+  },
+  "productionMutated": false,
+  "startupScriptExecuted": false,
+  "dependencyInstall": {
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "success": true,
+    "lockfileChanged": false,
+    "vite": "6.4.5"
+  },
+  "backend": {
+    "command": "python -m pytest tests/test_platform.py -q",
+    "pythonExecutable": "/workspace/superwin/.venv/bin/python",
+    "database": "Disposable tempfile SQLite selected by test module before imports",
+    "externalServiceCredentialsRemovedFromTestProcess": true,
+    "passed": 9,
+    "failed": 0,
+    "warnings": 10,
+    "warningSummary": [
+      "Starlette anyio BlockingPortal alias deprecation",
+      "httpx app shortcut deprecation"
+    ],
+    "seedScope": "Existing test fixtures only in disposable SQLite; no production seed/reset"
+  },
+  "frontendBuilds": [
+    {
+      "workspace": "@superwin/player",
+      "command": "tsc --noEmit && vite build",
+      "passed": true
+    },
+    {
+      "workspace": "@superwin/agent",
+      "command": "tsc --noEmit && vite build",
+      "passed": true
+    },
+    {
+      "workspace": "@superwin/admin",
+      "command": "tsc --noEmit && vite build",
+      "passed": true
+    }
+  ],
+  "frontendRegression": {
+    "command": "node --test tests/frontend-regression.test.mjs",
+    "passed": 10,
+    "failed": 0
+  },
+  "routerRegression": {
+    "command": "node --test workers/superwin-player/special74/tests/router.test.mjs",
+    "passed": 5,
+    "failed": 0
+  },
+  "releaseInspection": {
+    "ready": false,
+    "catalogueEntries": 74,
+    "unresolvedChecks": 1175,
+    "meaning": "Catalogue has 74 positions, but complete game, presentation, math/disclosure, integration and coverage evidence remains missing. Existing gate remains closed."
+  },
+  "scopeReview": {
+    "currentMode": "additive",
+    "userRequestedMode": "replace old games after all 74 new games pass",
+    "needsImplementation": [
+      "Update manifest legacyDisposition and release package disposition atomically",
+      "Replace only observed old games catalogue DOM after verified complete release",
+      "Retire known old game launch routes only after activation; preserve account, wallet and API routes",
+      "Retain current release rollback version and verify SPA navigation away/back"
+    ],
+    "notChanged": "No release, catalogue or routing source was edited in this QA task"
+  },
+  "replacementVerification": {
+    "checkedAt": "2026-11-13T01:39:09.911478+00:00",
+    "disposition": "replace-existing-game-presentations-after-complete-74-release",
+    "focusedUnitTests": {
+      "commands": [
+        "node --test workers/superwin-player/special74/tests/router.test.mjs workers/superwin-player/special74/tests/release-math.test.mjs"
+      ],
+      "passed": 10,
+      "failed": 0
+    },
+    "browser": {
+      "passed": true,
+      "scope": "Synthetic complete-release replacement only; not 74 completed games",
+      "cards": 74,
+      "incompleteReleasePreservesExistingGames": true,
+      "staleAdditiveReleaseRejected": true,
+      "oldCatalogueReplaced": true,
+      "rejectedNew74ShortcutRemoved": true,
+      "remountWithoutDuplicates": true,
+      "walletViewUnchanged": true,
+      "walletEventHandlersRetained": true,
+      "absentFromNonGameViews": true,
+      "alphabetical": true,
+      "mobileOverflow": false,
+      "externalRequests": 0
+    },
+    "packaging": {
+      "packaged": false,
+      "expectedRefusal": true,
+      "unresolvedChecks": 1175
+    },
+    "routeInventory": "reports/special74/retired-launch-inventory.json",
+    "routeInventoryComplete": false,
+    "productionChanged": false,
+    "sourceSha256": {
+      "workers/superwin-player/special74/router.mjs": "ed147ec26047767be3a47d591745b1c9e312357cf74b4f7b536d7d819bc3fedb",
+      "workers/superwin-player/special74/src/catalog.mjs": "07d4b7460891d5c6eafb2e924e16c64a3240e1c8fd13ac87895ddf62419d964e",
+      "workers/superwin-player/special74/tools/package-release.mjs": "7961ce6878620972cf9db83a3ce4db25af47249164dc784fb4bf117c065422d3"
+    }
+  }
+}
