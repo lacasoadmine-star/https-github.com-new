@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="so">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; img-src 'self' file: data:; style-src 'self' file:; script-src 'self' file:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <meta name="color-scheme" content="dark">
+  <title>Fresh 74 · Reels maxalli ah</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="page-header">
+    <a class="brand" href="../reference-preview/index.html"><span class="brand-mark">74</span><span>FRESH CAPTURE <small>13 NOVEMBER 2026</small></span></a>
+    <a class="back" href="../reference-preview/index.html">← Caddeynta 74-ka</a>
+  </header>
+  <main>
+    <div class="intro"><p class="eyebrow">Tijaabo maxalli ah · Local visual study</p><h1>Reels aad adigu dhaqaajin karto.</h1><p>Sawirradii cusub ayaa siinaya muuqaalka. SPIN, STOP iyo autoplay waxay maamulaan reels-ka gudaha qalabkaaga.</p></div>
+    <nav class="game-tabs" aria-label="Dooro muuqaalka ciyaarta">
+      <button data-game="multihot10" aria-pressed="true">MultiHot <strong>10</strong><span>5 × 3</span></button>
+      <button data-game="multihot20" aria-pressed="false">MultiHot <strong>20</strong><span>5 × 3</span></button>
+      <button data-game="multihot40" aria-pressed="false">MultiHot <strong>40</strong><span>5 × 4</span></button>
+    </nav>
+    <section class="player" aria-label="Tijaabada reels">
+      <div class="stage-wrap">
+        <div class="stage-top"><span class="live-dot"></span><span id="view-label">REELS MAXALLI AH</span><span id="grid-label">5 × 3</span></div>
+        <canvas id="stage" width="1070" height="660" aria-label="Shan reel oo laga dhisay sawirro cusub">Browser-kaagu ma taageero canvas.</canvas>
+        <div id="load-error" class="load-error" hidden><h2>Sawirka lama helin</h2><p>Fur ZIP-ka oo dhan, kuna hay galka assets isla meesha uu ku jiro index.html.</p><button id="retry">Mar kale fur</button></div>
+        <div class="stage-bottom"><span id="state" role="status" aria-live="polite">Sawirrada ayaa furmaya…</span><span id="count">0 wareeg oo muuqaal ah</span></div>
+      </div>
+      <aside class="controls">
+        <div><p class="eyebrow">CONTROLS</p><h2 id="title">MultiHot 10</h2></div>
+        <button id="spin" class="spin" disabled><span class="spin-icon">↻</span><strong>SPIN</strong><small>Space / taabo</small></button>
+        <button id="stop" class="stop" disabled>■ STOP</button>
+        <label class="auto-label" for="auto-count">Autoplay · tirada wareegyada</label>
+        <div class="auto-row"><select id="auto-count" aria-label="Tirada autoplay"><option value="5">5</option><option value="10" selected>10</option><option value="25">25</option></select><button id="auto" disabled>↻ AUTOPLAY</button></div>
+        <button id="reference" class="reference" aria-pressed="false" disabled>Eeg sawirka tixraaca</button>
+        <div class="sound-note"><span aria-hidden="true">♫</span><div><strong>Cod lama qaban</strong><small>Audio-ga asalka ah kuma jiro.</small></div></div>
+      </aside>
+    </section>
+    <section class="notes" aria-label="Xadka tijaabada">
+      <article><span class="note-number">01</span><h3>Tixraac cusub oo keliya</h3><p>Asalka iyo calaamadaha reels-ka waxaa laga soo bandhigay sawirradii demo-ga ee maanta la qabtay. Sawirrada tixraaca waxay leeyihiin hash iyo raadraac il.</p></article>
+      <article><span class="note-number">02</span><h3>Dhaqdhaqaaq la dhisay</h3><p>Reel kastaa gooni ayuu u wareegaa una joogsadaa. Xawaaraha iyo taxanaha calaamadaha waa tijaabo muuqaal ah; lama xaqiijin inay la mid yihiin xeerarka ciyaarta asalka ah.</p></article>
+      <article><span class="note-number">03</span><h3>Wax walba gudaha</h3><p>Tijaabadani waxay shaqaysaa internet la'aan. Lacag, akoon, natiijo lacag bixin iyo xiriir server-ka demo-ga laguma darin.</p></article>
+    </section>
+    <details class="provenance"><summary>Faahfaahinta ilaha cusub iyo xadka shaqada</summary><div id="provenance"></div><p>Tani waa prototype muuqaal ah oo saddex ciyaarood ah. Ma aha 74 ciyaarood oo dhamaystiran. Sawirka wheel-ka waa tixraac taagan; cod, mobile-touch capture, bonus mechanics iyo payout math lama hirgelin.</p><a href="sources.json">Fur diiwaanka ilaha (JSON)</a></details>
+  </main>
+  <footer>Fresh 74 · Muuqaal la diiwaangeliyey, xaalad si cad loo muujiyey.</footer>
+  <script src="sources.js"></script><script src="engine.js"></script><script src="app.js"></script>
+</body>
+</html>

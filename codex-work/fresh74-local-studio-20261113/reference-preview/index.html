@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; img-src 'self' file: data:; media-src 'self' file: blob:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Fresh 74 · Local reference studio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="catalogue-data.js"></script>
+  <script defer src="viewer-core.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#catalogue">Skip to catalogue</a>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">74</span><span>FRESH<span class="brand-soft"> / LOCAL STUDIO</span></span></a>
+    <div class="header-actions"><span id="connection" class="connection"><i aria-hidden="true"></i>Offline snapshot</span><button id="refresh" class="quiet-button" type="button">Check progress</button><button id="download" class="quiet-button" type="button">Save checkpoint ↗</button></div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy">
+        <div class="eyebrow"><span class="accent-dot"></span> FRESH CAPTURE RUN <span id="run-date">13 NOV 2026</span></div>
+        <h1 id="page-title">74 demos.<br><span>One local studio.</span></h1>
+        <p class="lead">Explore the fresh scenes, recorded controls and sampled motion. Your reference collection stays available offline.</p>
+        <div class="intro-tags"><span>Original captured pixels</span><span>No provider connection</span><span>Sound unavailable</span></div>
+        <a id="study-link" class="study-link" hidden>Open local reel study <span>↗</span></a>
+      </div>
+      <button id="featured" class="featured" type="button" aria-label="Open featured reference" hidden>
+        <img id="featured-image" alt="Fresh captured game scene">
+        <span class="featured-caption"><span><small>FRESHLY OBSERVED</small><strong id="featured-name"></strong></span><span class="circle-arrow" aria-hidden="true">↗</span></span>
+      </button>
+    </section>
+    <section class="metrics" aria-label="Capture progress">
+      <div><strong id="count-titles">74</strong><span>Catalogue titles</span></div>
+      <div><strong id="count-attempted">—</strong><span>Titles attempted</span></div>
+      <div><strong id="count-scenes">—</strong><span>Scenes observed</span></div>
+      <div><strong id="count-clips">—</strong><span>Silent sample clips</span></div>
+      <div><strong id="count-complete">0</strong><span>Complete AV captures</span></div>
+    </section>
+    <div class="scope-note"><span class="note-icon" aria-hidden="true">i</span><p><strong>Reference collection in progress.</strong> Clips replay sampled screenshots. Gaps are recorded; sound and continuous video are unavailable. Sampled duration does not verify a full minute of active play.</p><span id="source-updated"></span></div>
+    <section id="catalogue" class="catalogue" aria-labelledby="catalogue-title">
+      <div class="section-heading"><div><div class="eyebrow">YOUR COLLECTION</div><h2 id="catalogue-title">Explore the 74</h2></div><p id="result-count" aria-live="polite"></p></div>
+      <div class="toolbar">
+        <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search a game or catalogue number" autocomplete="off" aria-label="Search games"></label>
+        <label class="sort">Sort <select id="sort" aria-label="Sort games"><option value="index">Catalogue order</option><option value="name">Name A–Z</option></select></label>
+      </div>
+      <div id="filters" class="filters" aria-label="Filter collection">
+        <button type="button" data-filter="all" aria-pressed="true">All titles <span id="filter-all"></span></button>
+        <button type="button" data-filter="scene" aria-pressed="false">Scene observed <span id="filter-scenes"></span></button>
+        <button type="button" data-filter="motion" aria-pressed="false">Sampled motion <span id="filter-motion"></span></button>
+        <button type="button" data-filter="retry" aria-pressed="false">Needs fresh retry <span id="filter-retry"></span></button>
+      </div>
+      <div id="cards" class="cards"></div>
+      <div id="empty" class="empty" hidden><h3>No matching titles</h3><p>Try another name or choose All titles.</p><button id="reset" class="primary-button" type="button">Reset filters</button></div>
+      <div id="fatal" class="empty" hidden><h3>Catalogue snapshot is missing</h3><p>Keep catalogue-data.js beside index.html, or rebuild this local bundle. The source evidence remains unchanged.</p></div>
+    </section>
+  </main>
+  <footer><span>FRESH 74 · Tixraac cusub, gudaha deegaankaaga.</span><span id="footer-build">Read-only local evidence</span></footer>
+  <dialog id="detail" aria-labelledby="detail-title">
+    <div class="detail-header"><div><span id="detail-index" class="eyebrow"></span><h2 id="detail-title"></h2></div><div class="detail-header-right"><span id="detail-status" class="status"></span><button id="close-detail" class="icon-button" type="button" aria-label="Close game reference">×</button></div></div>
+    <div class="detail-body">
+      <div class="detail-main">
+        <div class="view-tabs" aria-label="Reference view"><button id="view-stills" type="button" aria-pressed="true">Captured stills</button><button id="view-motion" type="button" aria-pressed="false">Silent sample clip</button><button id="show-points" type="button" aria-pressed="false">Recorded touch points</button></div>
+        <div class="stage" id="stage"><div class="stage-surface" id="stage-surface"><img id="stage-image" alt=""><div id="hotspots" class="hotspots"></div></div><video id="stage-video" controls playsinline preload="none" muted hidden></video><p id="stage-empty" hidden>No visual evidence is available for this title yet.</p></div>
+        <div class="stage-caption"><p id="frame-label"></p><span id="frame-time"></span></div>
+        <p id="playback-note" class="playback-note" hidden>Silent sampled playback · source gaps are cut, not filled · no interpolation or generated frames.</p>
+        <div id="gallery" class="gallery" aria-label="Captured image gallery"></div>
+        <section class="controls-section"><div class="subheading"><h3>Observed controls</h3><span id="control-count"></span></div><p class="muted">Select an observation to show its closest later saved frame, when one exists within 30 seconds. This replays recorded evidence; it does not run the original game.</p><div id="observed-controls" class="observed-controls"></div></section>
+      </div>
+      <aside class="detail-aside">
+        <div class="aside-block"><div class="eyebrow">CAPTURE COVERAGE</div><dl id="coverage" class="coverage"></dl></div>
+        <div class="aside-block"><h3>Scene review</h3><p id="scene-review"></p></div>
+        <div class="aside-block"><h3>Observed notes</h3><ul id="observations" class="notes"></ul></div>
+        <details id="timing-details" class="aside-block"><summary>Segments & gaps</summary><div id="segments"></div></details>
+        <details class="aside-block"><summary>Source integrity</summary><div id="integrity" class="integrity"></div></details>
+      </aside>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript><div class="noscript">JavaScript is required to search this local reference collection. All images and clips remain in the media folder.</div></noscript>
+</body>
+</html>
