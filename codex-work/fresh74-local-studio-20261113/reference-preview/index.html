@@ -78,8 +78,11 @@
         <section class="controls-section"><div class="subheading"><h3>Observed controls</h3><span id="control-count"></span></div><p class="muted">Select an observation to show its closest later saved frame, when one exists within 30 seconds. This replays recorded evidence; it does not run the original game.</p><div id="observed-controls" class="observed-controls"></div></section>
       </div>
       <aside class="detail-aside">
+        <div class="aside-block"><h3>Selected attempt</h3><dl id="attempt-identity" class="coverage attempt-identity"></dl><p>Coverage and playback below belong only to this attempt.</p></div>
         <div class="aside-block"><div class="eyebrow">CAPTURE COVERAGE</div><dl id="coverage" class="coverage"></dl></div>
         <div class="aside-block"><h3>Scene review</h3><p id="scene-review"></p></div>
+        <details id="console-details" class="aside-block"><summary>Scoped console diagnosis</summary><p id="console-summary"></p><dl id="console-coverage" class="coverage"></dl><ul id="console-limits" class="notes"></ul><div id="console-rows" class="console-rows"></div></details>
+        <details id="alternate-details" class="aside-block" hidden><summary id="alternate-heading">Other attempts</summary><p>Each attempt has its own timeline. These durations are not added to the selected attempt and do not prove active play.</p><div id="alternate-attempts"></div></details>
         <div class="aside-block"><h3>Observed notes</h3><ul id="observations" class="notes"></ul></div>
         <details id="timing-details" class="aside-block"><summary>Segments & gaps</summary><div id="segments"></div></details>
         <details class="aside-block"><summary>Source integrity</summary><div id="integrity" class="integrity"></div></details>

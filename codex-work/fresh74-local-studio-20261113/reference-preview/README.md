@@ -55,6 +55,10 @@ Activating a position, recording a network observation, or advancing the cursor 
 ## How to interpret the evidence
 
 - Card posters prefer the separately reviewed original poster; they do not automatically treat a loading screen as successful gameplay.
+- A failed attempt remains failed even when its poster contains partial game art. The selected attempt's outcome takes precedence over poster appearance.
+- Each title shows its recorded pass, attempt number or ID, and start/end time. Missing identity fields stay explicitly unrecorded. Coverage and playback belong to that selected attempt only.
+- Alternate attempts appear as separate summaries with their own sample spans and console availability. Their durations are never added to the selected attempt, and their media is not silently mixed into its gallery or clip.
+- Scoped console diagnosis distinguishes inspected rows, a source summary without detailed rows, and unavailable evidence. Original-tab and end-inspection gaps remain visible. Renderer and audio runtime issues remain separate from observed transport errors; no console category establishes a network root cause or captured audio.
 - A saved image count includes real loaders, menus, errors, and selected motion frames. It is not a count of verified gameplay views.
 - Silent MP4s hold actual screenshot samples at their recorded timestamps. Unknown pixels between samples are not generated. Inter-segment gaps are cut and listed; no sample is stretched to meet a 60-second target.
 - The viewer shows the sum of actual sampled segment spans, not recorder wall-clock duration. A full minute of active play remains unverified.
@@ -70,6 +74,6 @@ node --test reference-preview/core.test.cjs reference-preview/retry-queue.test.c
 node --check reference-preview/app.js
 ```
 
-Tests cover fresh-run containment and relocation, the exact parsed manifest snapshot identity, changed bytes during copying, lost files, duplicate inventory, false audio flags, read-only progress, parent-directory routing, byte-range playback, path traversal, wrong Host/Origin, ambiguous event timing and safe media URLs. The retry regression includes 59 clear scenes plus two partial renders plus 13 failed scenes: all 74 remain in the ordered queue. Additional checks exercise next through title 74, interrupted resume, bounded network observations, access-block pause, malformed checkpoints and false live-capture claims. Test images are disposable fixtures, never part of the official reference bundle.
+Tests cover fresh-run containment and relocation, the exact parsed manifest snapshot identity, changed bytes during copying, lost files, duplicate inventory, false audio flags, read-only progress, parent-directory routing, byte-range playback, path traversal, wrong Host/Origin, ambiguous event timing and safe media URLs. Attempt regressions preserve independent recovery/interruption durations, scoped console availability, replacement-tab limits, and failure precedence over visible poster art. The retry regression includes 59 clear scenes plus two partial renders plus 13 failed scenes: all 74 remain in the ordered queue. Additional checks exercise next through title 74, interrupted resume, bounded network observations, access-block pause, malformed checkpoints and false live-capture claims. Test images and metadata are disposable fixtures, never part of the official reference bundle.
 
 The browser UI should additionally be checked in both HTTP mode and direct file mode, including search, a successful scene, a failed title, recorded controls, and silent playback. No public deployment is required.

@@ -229,6 +229,75 @@ class PreviewTests(unittest.TestCase):
         self.assertEqual(data["verifiedNewCaptureAttemptsFromQueue"], 0)
         self.assertFalse(data["providerRequests"])
 
+    def test_selected_attempt_identity_console_scope_and_alternate_duration_are_independent(self):
+        entry = self.manifest["entries"][12]
+        console = {"available": True, "availability": "rows-inspected", "entryCount": 0,
+                   "categoryCounts": {}, "scope": {"declaredScope": "This launch only", "originalTabConsoleAvailable": False},
+                   "completeHistoryVerified": False, "networkTransportIssueObserved": False, "entries": [],
+                   "privatePayload": {"token": "DO-NOT-COPY"}}
+        entry.update({"pass": 2, "attemptNumber": 3, "attemptId": "recovery-fixture",
+                      "startedAt": "2030-01-01T13:00:00Z", "endedAt": "2030-01-01T13:02:00Z",
+                      "status": "partial-capture", "sampledDurationSeconds": 62.25, "sampledFrameCount": 260,
+                      "consoleEvidence": console,
+                      "alternateAttempts": [{"pass": 2, "attemptId": "interrupted-fixture", "status": "partial-capture-interrupted",
+                          "attempted": True, "finishedAttempt": True, "sampledDurationSeconds": 47.5, "sampledFrameCount": 190,
+                          "completeReferenceCapture": False, "fullMinuteGameplayVerified": False,
+                          "directory": "/private/earlier-attempt", "screenshots": [{"path": "/private/old.png"}],
+                          "consoleEvidence": {"available": False, "availability": "not-recorded", "endInspectionAvailable": False}}]})
+        result = self.build()
+        data = json.loads((self.output / "catalogue.json").read_text())
+        current = data["entries"][12]
+        self.assertEqual([current[k] for k in ("pass", "attemptNumber", "attemptId")], [2, 3, "recovery-fixture"])
+        self.assertEqual(current["startedAt"], entry["startedAt"])
+        self.assertEqual(current["consoleEvidence"]["scope"]["declaredScope"], "This launch only")
+        self.assertFalse(current["consoleEvidence"]["scope"]["originalTabConsoleAvailable"])
+        self.assertEqual(current["consoleEvidence"]["entryCount"], 0)
+        self.assertNotIn("privatePayload", current["consoleEvidence"])
+        alternate = current["alternateAttempts"][0]
+        self.assertEqual(current["sampledDurationSeconds"], 62.25)
+        self.assertEqual(alternate["sampledDurationSeconds"], 47.5)
+        self.assertEqual(result["counts"]["indexedSceneSampleSeconds"], 62.25)
+        self.assertEqual(result["counts"]["alternateAttempts"], 1)
+        self.assertFalse(alternate["fullMinuteGameplayVerified"])
+        self.assertFalse(alternate["consoleEvidence"]["available"])
+        self.assertFalse(alternate["consoleEvidence"]["endInspectionAvailable"])
+        self.assertNotIn("screenshots", alternate)
+        self.assertNotIn("/private/", json.dumps(current))
+        self.assertEqual(result["mediaFiles"], 1)
+        self.assertEqual(result["counts"]["needsRetry"], 74)
+
+    def test_failed_outcome_takes_precedence_over_visible_poster_art(self):
+        entry = self.manifest["entries"][73]
+        entry["status"] = "failed-scene"
+        entry["posterVerification"]["visualType"] = "partial-gameplay-render"
+        self.assertEqual(builder.display_status(entry), ("retry", "Attempt failed"))
+        entry["status"] = "partial-capture"
+        entry["failureClassification"] = "provider-runtime-error"
+        self.assertEqual(builder.display_status(entry), ("retry", "Provider error"))
+        entry["failureClassification"] = "failed-session"
+        entry["posterVerification"]["visualType"] = "gameplay-scene"
+        self.assertEqual(builder.display_status(entry), ("retry", "Attempt failed"))
+        entry.pop("failureClassification")
+        entry["status"] = "capture-interrupted"
+        self.assertEqual(builder.display_status(entry), ("partial", "Interrupted reference"))
+
+    def test_console_snapshot_redacts_messages_without_turning_unavailable_into_empty(self):
+        first, second = self.manifest["entries"][:2]
+        first["consoleEvidence"] = {"available": False, "availability": "not-recorded"}
+        second["consoleEvidence"] = {"available": True, "availability": "rows-inspected", "entryCount": 1,
+            "scope": {"declaredScope": "Replacement tab only; https://fixture.test/?token=PRIVATE"},
+            "entries": [{"category": "audio-decode-error", "message": "Unable to decode audio https://fixture.test/file token=SECRET"}]}
+        self.build()
+        data = json.loads((self.output / "catalogue.json").read_text())
+        self.assertFalse(data["entries"][0]["consoleEvidence"]["available"])
+        self.assertIsNone(data["entries"][0]["consoleEvidence"]["entryCount"])
+        evidence = data["entries"][1]["consoleEvidence"]
+        self.assertEqual(evidence["entryCount"], 1)
+        self.assertFalse(evidence["completeHistoryVerified"])
+        self.assertIn("[URL omitted]", evidence["entries"][0]["message"])
+        self.assertNotIn("PRIVATE", json.dumps(evidence))
+        self.assertNotIn("SECRET", json.dumps(evidence))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

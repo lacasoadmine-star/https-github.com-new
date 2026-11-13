@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import struct
 import tempfile
@@ -95,14 +96,20 @@ def source_file(root, raw, original_root=None):
 def display_status(entry):
     kind = (entry.get("posterVerification") or {}).get("visualType", "")
     status = str(entry.get("status", "not-attempted")).lower()
+    classification = str(entry.get("failureClassification") or "").lower()
+    failure = status + " " + classification
     if not entry.get("attempted"):
         return "missing", "Awaiting capture"
-    if "provider-runtime" in kind or "provider-runtime" in status:
+    if "provider-runtime" in kind or "provider-runtime" in failure:
         return "retry", "Provider error"
-    if "page-not-found" in kind or "official-link" in status:
+    if "page-not-found" in kind or "page-not-found" in failure or "official-link" in failure:
         return "retry", "Official link failed"
-    if "loader" in kind or "renderer-error" in status or "renderer-failure" in status:
+    if "loader" in kind or "loader" in failure or "renderer" in failure:
         return "retry", "Loader / renderer issue"
+    # Poster art describes visible pixels. It cannot override the selected
+    # attempt's failed outcome (for example, art behind a blocking dialog).
+    if status.startswith(("failed", "failure")) or classification:
+        return "retry", "Attempt failed"
     if "interrupted" in status:
         return "partial", "Interrupted reference"
     if kind == "partial-gameplay-render":
@@ -110,6 +117,64 @@ def display_status(entry):
     if kind == "gameplay-scene":
         return "scene", "Scene observed"
     return "partial", "Partial reference"
+
+
+def safe_console_text(value):
+    text = str(value or "")
+    text = re.sub(r'''(?i)\b(?:https?|wss?)://[^\s<>"']+''', "[URL omitted]", text)
+    return re.sub(
+        r"(?i)\b(access[_-]?token|refresh[_-]?token|token|api[_-]?key|authorization|cookie|password|secret|connectionid)"
+        r"\s*[:=]\s*(?:bearer\s+)?[^\s,;]+",
+        lambda match: match.group(1) + "=[redacted]", text)[:2000]
+
+
+def console_snapshot(raw):
+    """Keep only normalized diagnostic fields, never arbitrary source payloads."""
+    raw = raw if isinstance(raw, dict) else {}
+    result = {key: raw.get(key) for key in (
+        "available", "availability", "entryCount", "categoryCounts", "sourceReportedIssueCount",
+        "inspectedAt", "endInspectionAvailable", "requestedLimit", "sourceReturnedRows",
+        "networkTransportIssueObserved", "rendererIssueObserved", "audioRuntimeIssueObserved"
+    )}
+    result["available"] = raw.get("available") is True
+    result["availability"] = raw.get("availability") if raw.get("availability") in ("rows-inspected", "summary-only") else "not-recorded"
+    result["completeHistoryVerified"] = False
+    result["interpretation"] = safe_console_text(raw.get("interpretation"))
+    result["warnings"] = [safe_console_text(value) for value in raw.get("warnings") or []]
+    scope = raw.get("scope") if isinstance(raw.get("scope"), dict) else {}
+    result["scope"] = {key: scope.get(key) for key in (
+        "startedAt", "endedAt", "startBoundaryAvailable", "priorAttemptRowsExcluded", "laterRowsExcluded",
+        "extensionRowsExcluded", "malformedRowsExcluded", "unknownTimestampSourceRowsRetained",
+        "originalTabConsoleAvailable"
+    )}
+    result["scope"]["declaredScope"] = safe_console_text(scope.get("declaredScope")) or None
+    result["entries"] = []
+    for row in raw.get("entries") or []:
+        if not isinstance(row, dict):
+            continue
+        item = {key: safe_console_text(row.get(key)) or None for key in (
+            "at", "category", "level", "timestampScope", "sourceCategory", "message"
+        )}
+        item["additionalSanitizedMessages"] = [safe_console_text(value) for value in row.get("additionalSanitizedMessages") or []]
+        result["entries"].append(item)
+    return result
+
+
+def alternate_summary(attempt):
+    """Summarize an independent attempt without importing its media or duration."""
+    result = {key: attempt.get(key) for key in (
+        "pass", "attemptNumber", "attemptId", "startedAt", "endedAt", "status", "attempted", "finishedAttempt",
+        "sampledDurationSeconds", "sampledFrameCount", "verifiedPlayedSeconds", "fullMinuteGameplayVerified",
+        "completeReferenceCapture", "failureClassification"
+    )}
+    result["group"], result["statusLabel"] = display_status(attempt)
+    result["audioCaptured"] = False
+    result["nativeContinuousVideoCaptured"] = False
+    result["retryable"] = attempt.get("completeReferenceCapture") is not True
+    result["observations"] = [safe_console_text(value) for value in attempt.get("observations") or []]
+    result["errors"] = [safe_console_text(value) for value in attempt.get("errors") or []]
+    result["consoleEvidence"] = console_snapshot(attempt.get("consoleEvidence"))
+    return result
 
 
 def build(manifest_path, evidence_root, output, link_media=False, study_link=None):
@@ -177,6 +242,7 @@ def build(manifest_path, evidence_root, output, link_media=False, study_link=Non
         group, label = display_status(entry)
         record = {key: entry.get(key) for key in (
             "index", "name", "status", "attempted", "finishedAttempt", "sampledDurationSeconds",
+            "pass", "attemptNumber", "attemptId", "startedAt", "endedAt",
             "sampledFrameCount", "verifiedPlayedSeconds", "fullMinuteGameplayVerified",
             "completeReferenceCapture", "observations", "errors", "rendererIssues", "actionNotes",
             "failureClassification", "meaningfulGameplayScreenshotCountVerified", "curatorialCorrections"
@@ -185,6 +251,9 @@ def build(manifest_path, evidence_root, output, link_media=False, study_link=Non
                       nativeContinuousVideoCaptured=False, mobileTouchCaptured=False,
                       screenshots=[], actions=entry.get("actions") or [],
                       poster=None, clip=None, missingMedia=[], supplementalAttempts=[])
+        record["consoleEvidence"] = console_snapshot(entry.get("consoleEvidence"))
+        record["alternateAttempts"] = [alternate_summary(attempt) for attempt in entry.get("alternateAttempts") or []]
+        record["alternateAttemptCount"] = len(record["alternateAttempts"])
         before_missing = len(missing)
         for shot in entry.get("screenshots") or []:
             item = add_media(shot.get("path"), shot.get("sha256"))
@@ -258,6 +327,8 @@ def build(manifest_path, evidence_root, output, link_media=False, study_link=Non
         "sampledSeconds": round(sum((e.get("sampledDurationSeconds") or 0) for e in records if e["clip"]), 3),
         "indexedSceneSampleSeconds": round(sum(e.get("sampledDurationSeconds") or 0 for e in records), 3)
     }
+    counts["alternateAttempts"] = sum(e["alternateAttemptCount"] for e in records)
+    counts["consoleEvidenceAvailableTitles"] = sum(e["consoleEvidence"]["available"] for e in records)
     data = {"schemaVersion": 1, "buildId": manifest_sha256,
             "builtAt": datetime.now(timezone.utc).isoformat(), "sourceUpdatedAt": manifest.get("updatedAt"),
             "catalogueSource": manifest.get("catalogueSource"),

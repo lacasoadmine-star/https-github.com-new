@@ -88,6 +88,55 @@
     row.append(element("dt", "", label), element("dd", unavailable ? "unavailable" : "", value));
     return row;
   }
+  function renderAttempt(e) {
+    $("attempt-identity").replaceChildren(
+      coverageRow("Pass", e.pass ?? "Unrecorded", e.pass == null),
+      coverageRow("Attempt number", e.attemptNumber ?? "Unrecorded", e.attemptNumber == null),
+      coverageRow("Attempt ID", e.attemptId || "Unrecorded", !e.attemptId),
+      coverageRow("Started", e.startedAt || "Unrecorded", !e.startedAt),
+      coverageRow("Ended", e.endedAt || "Unrecorded", !e.endedAt)
+    );
+    const evidence = e.consoleEvidence || {};
+    const consoleView = core.consoleSummary(evidence);
+    $("console-summary").textContent = consoleView.summary;
+    $("console-coverage").replaceChildren(
+      coverageRow("Transport error", consoleView.network),
+      coverageRow("Renderer issue", consoleView.renderer),
+      coverageRow("Audio runtime issue", consoleView.audio),
+      ...consoleView.categories.map(row => coverageRow(row.category, row.count))
+    );
+    $("console-limits").replaceChildren(...consoleView.limits.map(note => element("li", "", note)));
+    $("console-rows").replaceChildren(...(evidence.entries || []).map(row => {
+      const item = element("div", "console-row");
+      item.append(element("strong", "", `${row.level || "Console"} · ${row.category || "Unclassified"}`),
+        element("small", "", `${core.clock(row.at)} · ${row.timestampScope || "Scope unverified"}`));
+      if (row.sourceCategory && row.sourceCategory !== row.category) item.append(element("small", "", `Source label: ${row.sourceCategory}`));
+      if (row.message) item.append(element("p", "", row.message));
+      for (const message of row.additionalSanitizedMessages || []) item.append(element("p", "", message));
+      return item;
+    }));
+    $("console-details").open = false;
+    const alternatives = e.alternateAttempts || [];
+    $("alternate-details").hidden = alternatives.length === 0;
+    $("alternate-details").open = false;
+    $("alternate-heading").textContent = `Other attempts (${alternatives.length})`;
+    $("alternate-attempts").replaceChildren(...alternatives.map(attempt => {
+      const item = element("div", "alternate-attempt");
+      item.append(element("h4", "", core.attemptLabel(attempt)), status(attempt));
+      const identity = element("dl", "coverage attempt-identity");
+      identity.append(coverageRow("Attempt ID", attempt.attemptId || "Unrecorded"),
+        coverageRow("Started", attempt.startedAt || "Unrecorded"), coverageRow("Ended", attempt.endedAt || "Unrecorded"),
+        coverageRow("Own sample span", core.seconds(attempt.sampledDurationSeconds)), coverageRow("Own indexed samples", attempt.sampledFrameCount ?? "Unavailable"),
+        coverageRow("Verified active play", attempt.verifiedPlayedSeconds ? core.seconds(attempt.verifiedPlayedSeconds) : "Not verified", true));
+      const consoleView = core.consoleSummary(attempt.consoleEvidence);
+      item.append(identity, element("p", "", consoleView.summary));
+      const notes = [...(attempt.observations || []), ...(attempt.errors || []), ...consoleView.limits];
+      const list = element("ul", "notes");
+      list.append(...notes.map(note => element("li", "", note)));
+      item.append(list);
+      return item;
+    }));
+  }
   function renderCoverage(e) {
     $("coverage").replaceChildren(
       coverageRow("Saved images", e.screenshots.length),
@@ -210,7 +259,7 @@
     if (!selected) return;
     points = false;
     $("detail-title").textContent = selected.name;
-    $("detail-index").textContent = `CATALOGUE ${String(selected.index).padStart(2, "0")} / 74 · RECORDED REFERENCE`;
+    $("detail-index").textContent = `CATALOGUE ${String(selected.index).padStart(2, "0")} / 74 · ${core.attemptLabel(selected)}`;
     $("detail-status").replaceWith(Object.assign(status(selected), {id: "detail-status"}));
     $("view-motion").disabled = !selected.clip;
     $("stage-video").removeAttribute("src");
@@ -222,6 +271,7 @@
       button.addEventListener("click", () => selectShot(i));
       return button;
     }));
+    renderAttempt(selected);
     renderCoverage(selected);
     renderControls(selected);
     const initial = selected.screenshots.findIndex(shot => shot.url === selected.poster?.url);

@@ -53,3 +53,43 @@ test("checkpoint keeps all partial captures retryable regardless of sample durat
   assert.equal(checkpoint.entries[0].completeReferenceCapture, false);
   assert.equal(core.seconds(null), "Unavailable");
 });
+
+test("attempt checkpoint preserves a recovery and an interrupted attempt without combining duration", () => {
+  const current = {index: 13, name: "Fixture", pass: 2, attemptNumber: 3, attemptId: "recovery",
+    status: "partial", sampledDurationSeconds: 62.25, completeReferenceCapture: false,
+    consoleEvidence: {available: true, availability: "rows-inspected", entryCount: 0},
+    alternateAttempts: [{pass: 2, attemptId: "interrupted", status: "capture-interrupted",
+      sampledDurationSeconds: 47.5, completeReferenceCapture: false, fullMinuteGameplayVerified: false}]};
+  const exported = core.checkpoint({entries: [current]}).entries[0];
+  assert.equal(core.attemptLabel(current), "Pass 2 · attempt 3");
+  assert.equal(core.attemptLabel({}), "Pass unrecorded · attempt number unrecorded");
+  assert.equal(exported.attemptId, "recovery");
+  assert.equal(exported.sampledDurationSeconds, 62.25);
+  assert.equal(exported.alternateAttempts[0].sampledDurationSeconds, 47.5);
+  assert.equal(exported.alternateAttempts[0].attemptNumber, null);
+  assert.equal(exported.alternateAttempts[0].fullMinuteGameplayVerified, false);
+  assert.equal(exported.durationsCombinedAcrossAttempts, false);
+  assert.equal(exported.retryable, true);
+  assert.equal(exported.consoleEvidence.entryCount, 0);
+});
+
+test("console display distinguishes unavailable, empty scoped rows and replacement-tab-only summaries", () => {
+  const missing = core.consoleSummary();
+  assert.match(missing.summary, /unavailable/);
+  assert.equal(missing.network, "Unavailable");
+  const empty = core.consoleSummary({available: true, availability: "rows-inspected", entryCount: 0,
+    networkTransportIssueObserved: false, categoryCounts: {}, endInspectionAvailable: false});
+  assert.match(empty.summary, /No warn\/error rows retained in the inspected scope/);
+  assert.equal(empty.network, "Not in retained rows");
+  const audio = core.consoleSummary({available: true, availability: "rows-inspected", entryCount: 1,
+    networkTransportIssueObserved: false, audioRuntimeIssueObserved: true, categoryCounts: {"audio-decode-error": 1}});
+  assert.equal(audio.audio, "Observed");
+  assert.equal(audio.network, "Not in retained rows");
+  assert.ok(empty.limits.some(note => /End-of-attempt.*unavailable/.test(note)));
+  const replacement = core.consoleSummary({available: true, availability: "summary-only", sourceReportedIssueCount: 58,
+    scope: {originalTabConsoleAvailable: false, declaredScope: "Replacement tab only"}});
+  assert.match(replacement.summary, /58 reported rows/);
+  assert.match(replacement.summary, /detailed console rows are unavailable/);
+  assert.ok(replacement.limits.some(note => /cannot establish its history/.test(note)));
+  assert.ok(replacement.limits.some(note => /Complete console history is not verified/.test(note)));
+});
