@@ -1,0 +1,63 @@
+name: Special Games isolated verification
+on:
+  push:
+    branches: [codex/superwin-smartsoft-pair-01]
+    paths:
+      - 'workers/superwin-player/special74/**'
+      - 'reports/special74/**'
+      - '.github/workflows/special-games-verification.yml'
+permissions:
+  contents: read
+concurrency:
+  group: special-games-verification-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify-new-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SPECIAL74_FIXTURES: '1'
+      NODE_PATH: ${{ runner.temp }}/special74-tooling/node_modules
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install isolated build and browser tooling
+        run: npm install --prefix "$RUNNER_TEMP/special74-tooling" --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1 esbuild@0.25.12
+      - name: Install test browser
+        run: |
+          node "$RUNNER_TEMP/special74-tooling/node_modules/playwright/cli.js" install --with-deps chromium
+          node -e 'process.stdout.write("SPECIAL74_CHROMIUM="+require("playwright").chromium.executablePath()+"\n")' >> "$GITHUB_ENV"
+      - name: Restore hash-pinned original art and sound
+        run: |
+          python3 workers/superwin-player/special74/tools/restore-assets.py
+          python3 workers/superwin-player/special74/tools/fetch-launcher-media.py
+      - name: Verify financial contract, routes and retry evidence
+        run: node --test workers/superwin-player/special74/tests/*.test.mjs
+      - name: Bundle the independent game presentation
+        run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/ice.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/ice.bundle.mjs
+      - name: Browser checks against explicit loopback fixtures
+        run: |
+          node workers/superwin-player/special74/tests/serve.mjs > "$RUNNER_TEMP/special74-fixture.log" 2>&1 &
+          fixture_pid=$!
+          trap 'kill "$fixture_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4181/__fixture/stats > /dev/null; then break; fi
+            sleep 1
+          done
+          node workers/superwin-player/special74/tests/browser.cjs
+          node workers/superwin-player/special74/tests/catalog-browser.cjs
+      - name: Preserve verification artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: special-games-verification
+          path: workers/superwin-player/special74/test-results/
+          if-no-files-found: warn
+          retention-days: 14

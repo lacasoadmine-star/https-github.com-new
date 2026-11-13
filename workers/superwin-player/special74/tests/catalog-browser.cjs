@@ -6,7 +6,7 @@ const packageRoot=path.resolve(__dirname,'..');
  const selected=JSON.parse(fs.readFileSync(path.resolve(packageRoot,'../../../reports/special74/selected-games.json'),'utf8')).entries;
  const covers=JSON.parse(fs.readFileSync(path.join(packageRoot,'cover-manifest.json'),'utf8')).assets;
  const entries=selected.map(e=>({id:e.id,title:e.selectedName,ready:true,gamePath:'/special-games/play/'+e.id,cover:covers.find(c=>c.id===e.id).runtimePath}));
- const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const browser=await chromium.launch({executablePath:process.env.SPECIAL74_CHROMIUM||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  const page=await browser.newPage({...devices['Pixel 7']}),external=[],errors=[];
  page.on('request',r=>{if(new URL(r.url()).origin!=='http://127.0.0.1:4181')external.push(r.url());});page.on('pageerror',e=>errors.push(e.message));
  await page.route('**/__catalog-test',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/special-games/catalog.css"></head><body style="background:#0c192a"><main class="player-main"><section id="sw-v116-games"><article id="legacy-game" data-existing="preserve"><button id="legacy-play">Existing game fixture</button></article></section></main><script type="module" src="/special-games/catalog.mjs"></script></body></html>'}));
