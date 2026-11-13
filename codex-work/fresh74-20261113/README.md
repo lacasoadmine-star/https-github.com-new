@@ -2,7 +2,9 @@
 
 This directory contains newly written presentation primitives, not completed games.
 It does not import recovered game engines, old media, cached reference atlases, or
-production wallet code. No production route or account has been changed.
+production wallet code. Existing launchers, accounts, balances and backend
+behavior have not been changed. The presentation modules are published as inert
+versioned assets through the existing Player Worker's existing asset route.
 
 `reel-motion.mjs` animates a caller-supplied result, locks overlapping presentations,
 accelerates the remaining animation on STOP, and cancels frames on disposal.
@@ -10,7 +12,14 @@ accelerates the remaining animation on STOP, and cancels frames on disposal.
 with device pixel ratio capped at 2. It cannot load or replay a board screenshot.
 Explicit timing is required; the unit-test timing is not a measured provider timing.
 
-Run: `node --test codex-work/fresh74-20261113/reel-motion.test.mjs`.
+`round-controller.mjs` accepts an injected existing-server adapter. It locks
+double taps, preserves an uncertain round's token across recovery, and queues STOP
+until its result arrives. Recovery is a lookup of the same round, never an
+automatic new wager. A failed presentation can replay an already settled result.
+This module does not yet implement the production adapter or persist unresolved
+rounds across a page reload; both are required before live integration.
+
+Run: `node --test codex-work/fresh74-20261113/*.test.mjs` (16 passing tests).
 
 ## Fresh evidence
 
@@ -42,6 +51,12 @@ review then rejected further demo-browser access. No alternate route, fingerprin
 proxy, or client was used to work around that rejection. Screenshots and sampled
 frame recordings already captured are retained separately. Sampled clips are
 silent, use their actual capture timing, and are not 60fps motion/audio evidence.
+
+Cloudflare KV readback confirms the first two published presentation modules
+match their source exactly. Public HTTP verification from this environment
+returned Cloudflare 1010 for both an asset URL and the Player root; therefore
+public availability has not been independently confirmed. No alternate client
+or proxy is being used to evade that restriction.
 
 The existing Railway pending change is a deletion of zplay-observed-machines.
 It was not applied. Existing player, database, wallet and legacy games were preserved.
