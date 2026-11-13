@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "retainedRuntimeSha256": "04958b621f95b817ed63c608163c6cc6e92a258afd49d265c4cd2993fb4013fc",
+  "candidateRuntimeSha256": "51f1c712c07c00eed9e221e7f06fc671d2a0cc3d3d5ad04be824a22efe6efd58",
+  "modelSha256": "1fc2c991d92ef8df290b6e5d2205bbf11001e075b85ce01f8efd1695adb843e2",
+  "modelId": "special74_multi_hot_10_v1",
+  "database": "Disposable local PostgreSQL",
+  "postgresVersion": "17.12",
+  "retainedNineMigrationSha256": "fdf31c9bdf9ae3f4c20ac33c19267488b01e8f6c0d1dfb1ed21f8836cd066fd4",
+  "passed": 8,
+  "checks": [
+    {
+      "name": "twelve simultaneous same-token starts settle exactly one PostgreSQL wager",
+      "passed": true
+    },
+    {
+      "name": "simultaneous different tokens cannot spend the same last balance twice",
+      "passed": true
+    },
+    {
+      "name": "actual PostgreSQL rolls back failures after debit, after credit and before commit",
+      "passed": true
+    },
+    {
+      "name": "same-token changed parameters reject after canonical PostgreSQL settlement",
+      "passed": true
+    },
+    {
+      "name": "concurrent Gamble request retries debit once and return the same durable receipt",
+      "passed": true
+    },
+    {
+      "name": "two different Gamble tokens race safely against the same expected attempt",
+      "passed": true
+    },
+    {
+      "name": "replay-only requests without a stored result never originate a PostgreSQL stake",
+      "passed": true
+    },
+    {
+      "name": "fresh-state reload returns exact live PostgreSQL receipt and latest Gamble amount",
+      "passed": true
+    }
+  ],
+  "redisLock": "Bypassed intentionally to test PostgreSQL safety independently",
+  "concurrentRequests": 12,
+  "productionRequests": 0,
+  "productionWalletMutations": 0,
+  "financialActivationVerified": false,
+  "limitation": "Uses the exact retained sw_nine migration and settlement functions with a minimal local sw_rebuild fixture. Live triggers, full live schema and authenticated gateway integration remain unverified."
+}

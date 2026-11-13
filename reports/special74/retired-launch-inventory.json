@@ -1,0 +1,59 @@
+{
+  "observedAt": "2026-11-13T01:38:04.417414+00:00",
+  "worker": "superwin-player",
+  "observedVersionId": "b286069d-6c8e-427a-be61-9a26b515206b",
+  "activation": "Only after the complete 74-entry replacement release is valid",
+  "inventoryComplete": false,
+  "sourceModules": [
+    {
+      "module": "new74-router-r1.mjs",
+      "source": "connected Cloudflare deployed player read",
+      "verifiedNamespace": "/new74",
+      "trackedEquivalent": "workers/superwin-player/new74/router.mjs"
+    },
+    {
+      "module": "native-game-entry-r23.mjs",
+      "source": "connected Cloudflare deployed player partial source read",
+      "verifiedAliasExcerptSha256": "f137b9c6821da35afb7c41ca44336ff4aa37fdb71ad356c716bdbea4ce872db3",
+      "exactLaunchAliases": [
+        "/games/safari-simba",
+        "/games/safari-simba/",
+        "/games/safarisimba_fresh",
+        "/games/safarisimba_fresh/",
+        "/games/fresh_safarisimba",
+        "/games/fresh_safarisimba/",
+        "/games/multihotwildways_native",
+        "/games/multihotwildways_native/",
+        "/games/multihot5wild_native",
+        "/games/multihot5wild_native/",
+        "/games/multihot5superwilds_native",
+        "/games/multihot5superwilds_native/",
+        "/games/multihot100_native",
+        "/games/multihot100_native/",
+        "/games/burningice_native",
+        "/games/burningice_native/",
+        "/games/burningice10_native",
+        "/games/burningice10_native/",
+        "/games/burningice40_native",
+        "/games/burningice40_native/",
+        "/games/habeshafortune5_native",
+        "/games/habeshafortune5_native/",
+        "/games/multihotdeluxe_native",
+        "/games/multihotdeluxe_native/",
+        "/independent74/fresh74.html"
+      ]
+    }
+  ],
+  "retirement": "Redirect GET/HEAD of the verified NEW74 namespace and listed native launch aliases to the existing /games index; reject other methods on those presentation paths",
+  "preserved": [
+    "/games index",
+    "wallet views",
+    "authentication views",
+    "all /api routes",
+    "unverified historical paths",
+    "previous Worker version/source",
+    "previous KV assets"
+  ],
+  "productionChanged": false,
+  "limitation": "The retained player includes additional historical modules. Their uninspected routes are not inferred or broadly blocked."
+}

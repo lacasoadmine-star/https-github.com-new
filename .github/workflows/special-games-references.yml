@@ -1,0 +1,73 @@
+name: Official demo control observations
+on:
+  push:
+    branches: [codex/superwin-smartsoft-pair-01]
+    paths:
+      - 'reports/special74/reference-run.json'
+      - 'workers/superwin-player/special74/tools/record-reference-controls.cjs'
+      - '.github/workflows/special-games-references.yml'
+permissions:
+  contents: read
+concurrency:
+  group: special-games-official-references
+  cancel-in-progress: false
+jobs:
+  observe-public-demo:
+    # Owner paused later expansion on 2026-11-14.
+    # Future development starts from work/pair-baseline-20261114.
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    env:
+      RECORD_REFERENCE_CONTROLS: '1'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Install isolated browser tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/special74-tooling" --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          echo "NODE_PATH=$RUNNER_TEMP/special74-tooling/node_modules" >> "$GITHUB_ENV"
+          node "$RUNNER_TEMP/special74-tooling/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Select browser executable
+        run: node -e 'process.stdout.write("SPECIAL74_CHROMIUM="+require("playwright").chromium.executablePath()+"\n")' >> "$GITHUB_ENV"
+      - name: Operate measured public-demo controls and record responses
+        run: node workers/superwin-player/special74/tools/record-reference-controls.cjs
+      - name: Preserve reference artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-control-observations
+          path: reports/special74/ci-observations/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Save only observed evidence to the existing work branch
+        if: always()
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs=require('node:fs'),path=require('node:path');
+            const prefix='reports/special74/ci-observations/'+process.env.GITHUB_RUN_ID+'/';
+            if(!fs.existsSync(prefix)){core.info('No reference evidence was produced');return;}
+            const files=[];
+            function walk(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,item.name);if(item.isDirectory())walk(file);else if(item.isFile()&&/\.(png|json)$/.test(file))files.push(file);}}
+            walk(prefix);
+            const tree=[];
+            for(const file of files){
+              if(!file.startsWith(prefix))throw Error('Evidence path escaped its run');
+              const bytes=fs.readFileSync(file);if(bytes.length>5*1024*1024)throw Error('Evidence file exceeds expected size');
+              const {data:blob}=await github.rest.git.createBlob({...context.repo,content:bytes.toString('base64'),encoding:'base64'});
+              tree.push({path:file,mode:'100644',type:'blob',sha:blob.sha});
+            }
+            const branch='codex/superwin-smartsoft-pair-01';
+            const {data:ref}=await github.rest.git.getRef({...context.repo,ref:'heads/'+branch});
+            const {data:parent}=await github.rest.git.getCommit({...context.repo,commit_sha:ref.object.sha});
+            const {data:createdTree}=await github.rest.git.createTree({...context.repo,base_tree:parent.tree.sha,tree});
+            const {data:commit}=await github.rest.git.createCommit({...context.repo,message:'Record actual public-demo controls for run '+process.env.GITHUB_RUN_ID,tree:createdTree.sha,parents:[parent.sha]});
+            await github.rest.git.updateRef({...context.repo,ref:'heads/'+branch,sha:commit.sha,force:false});
+            core.info('Evidence saved in '+commit.sha);

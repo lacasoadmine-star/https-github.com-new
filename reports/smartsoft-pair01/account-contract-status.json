@@ -1,0 +1,116 @@
+{
+  "checkedAt": "2026-11-12",
+  "scope": "New /new74 transport only. No old game frontends were tested or reused. No live wagers, account creation, deployments, backend mutations, or wallet mutations.",
+  "status": "blocked: full settlement contract is not verified",
+  "filesChanged": [],
+  "verified": [
+    {
+      "contract": "GET /api/machine-session",
+      "source": "Cloudflare superwin-player module machine-routes.mjs, machineAPI handler",
+      "result": {
+        "signedOut": {
+          "authenticated": false
+        },
+        "signedIn": {
+          "authenticated": true,
+          "currency": "ETB",
+          "balance": "decimal string with exactly two fractional digits",
+          "sessionId": "64-character SHA-256 hex"
+        }
+      },
+      "details": [
+        "sessionId is SHA-256 of zplay-machine-session: plus the current sw_session token.",
+        "Handler obtains authentication from /api/slots/session and balance from /api/slots/balance.",
+        "Classic spin/gamble POSTs bearing X-Zplay-Machine-Session require a same-origin Origin header and an identity hash matching the current session; otherwise MACHINE_SESSION_CHANGED 403."
+      ],
+      "newTransportCompatibility": "The new classic currency and sessionId checks match this handler. Browser same-origin fetch supplies Origin for POST."
+    }
+  ],
+  "unverified": [
+    {
+      "contract": "GET /api/slots/games/multi_hot_5_video",
+      "requiredByNewCode": [
+        "id",
+        "enabled",
+        "betLevels",
+        "mathVersion",
+        "engineVersion",
+        "optional mathSha256",
+        "features.gambleRounds"
+      ],
+      "issue": "Exact deployed backend model shape and betLevels were not readable in this review."
+    },
+    {
+      "contract": "GET /api/slots/fresh-state",
+      "requiredByNewCode": [
+        "authenticated",
+        "currency",
+        "sessionGuard",
+        "balance",
+        "game.id",
+        "game.enabled",
+        "game.freshReleaseReady",
+        "game.wagerAvailability",
+        "game.betLevels",
+        "game.mathVersion",
+        "game.mathSha256",
+        "game.engineVersion",
+        "round.result",
+        "round.gamble",
+        "blockedByActiveGame"
+      ],
+      "issue": "Exact deployed backend response shape remains unverified."
+    },
+    {
+      "contract": "POST /api/slots/gamble response",
+      "issue": "New code requires result.maxAttempts on both transports. Whether the fresh response includes maxAttempts is unverified.",
+      "additionalIssue": "New code derives initial gamble availability from finalWin/freeSpinsRemaining and defaults maxAttempts to three when model.features.gambleRounds is absent. This must be checked against authoritative backend state before deployment."
+    },
+    {
+      "contract": "POST /api/slots/spin and /api/slots/gamble replay",
+      "issue": "The fresh replayOnly response semantics and exact model version/receipt fields remain unverified against deployed backend source."
+    }
+  ],
+  "backendSourceAccess": [
+    {
+      "service": "superwin-nine-slot-engine",
+      "serviceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+      "sourceAccess": "Railway get-function-source-code read succeeded",
+      "format": "Brotli-compressed runtime embedded in function source",
+      "runtimeBytes": 1728154,
+      "declaredRuntimeSha256": "04958b621f95b817ed63c608163c6cc6e92a258afd49d265c4cd2993fb4013fc",
+      "inspection": "Packed source retrieved, underlying handler logic not decoded."
+    },
+    {
+      "service": "superwin-native-family-engine",
+      "serviceId": "f617aec9-d705-4dd3-b68b-dc058f9a0781",
+      "sourceAccess": "Railway get-function-source-code read succeeded",
+      "format": "Brotli archive and patch reconstruction",
+      "inspection": "Packed source retrieved, underlying handler logic not decoded."
+    },
+    {
+      "service": "zplay-rebuild-api",
+      "serviceId": "8ff24aed-50d6-4aa8-8deb-186d086b3436",
+      "sourceAccess": "Service configuration read succeeded; service is node:22-alpine rather than Railway Function",
+      "format": "Gzip-compressed runtime in SW_INTERNAL_RUNTIME_1 through SW_INTERNAL_RUNTIME_4 and catalogue in SW_CATALOG_1 through SW_CATALOG_4",
+      "inspection": "Connected OAuth client returns variable names only, valuesRedacted=true. No secret values were retrieved or printed."
+    }
+  ],
+  "blockers": [
+    "Selected workspace became unavailable during static backend source decoding: exec-server transport disconnected; recovery timed out after 45 seconds.",
+    "Cloudflare execution sandbox supports deflate/deflate-raw/gzip DecompressionStream, but does not support Brotli or node:zlib, so it could not decode the already-retrieved function source.",
+    "No alternate host, service, or resource was created to bypass the workspace outage."
+  ],
+  "localTests": "Root previously ran fixture-based transport tests and browser checks. Those validate new UI behavior against synthetic local response fixtures, not the unknown deployed contract.",
+  "releaseRecommendation": "Do not deploy the new games until the unknown deployed account/settlement fields are verified and corresponding new-transport fixtures/tests are aligned. Existing backend remains unchanged.",
+  "resumption": {
+    "workspaceRestored": true,
+    "nineBackendDecoded": true,
+    "classicSession": "currency ETB, two-decimal balance and64hex session guard confirmed",
+    "freshState": "authenticated/currency/sessionGuard/balance/game/round.gamble/blockedByActiveGame confirmed in deployed backend source",
+    "freshGamble": "maxAttempts emitted from game.features.gambleRounds; model allows5 attempts, maxStake500.00 ETB; walletReceipt arithmetic confirmed",
+    "replay": "Stored results checked before replayOnly rejection; ROUND_NOT_CONFIRMED proves no stored spin",
+    "changes": "New transport now uses actual model round count and stake cap, with explicit non-settlement recovery; backend unchanged",
+    "liveAuthenticatedWagersPerformed": 0
+  }
+}

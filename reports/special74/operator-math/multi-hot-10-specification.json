@@ -1,0 +1,197 @@
+{
+  "id": "special74_multi_hot_10_v1",
+  "version": "operator-mh10-v1",
+  "rows": 3,
+  "paytable": {
+    "seven": {
+      "3": 50,
+      "4": 200,
+      "5": 1000
+    },
+    "bell": {
+      "3": 20,
+      "4": 100,
+      "5": 200
+    },
+    "grape": {
+      "3": 10,
+      "4": 50,
+      "5": 100
+    },
+    "watermelon": {
+      "3": 10,
+      "4": 50,
+      "5": 100
+    },
+    "cherry": {
+      "3": 5,
+      "4": 10,
+      "5": 50
+    },
+    "orange": {
+      "3": 5,
+      "4": 10,
+      "5": 50
+    },
+    "plum": {
+      "3": 5,
+      "4": 10,
+      "5": 50
+    },
+    "lemon": {
+      "3": 5,
+      "4": 10,
+      "5": 50
+    }
+  },
+  "paylines": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      1,
+      0
+    ],
+    [
+      2,
+      1,
+      0,
+      1,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    [
+      2,
+      2,
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      2,
+      2,
+      2,
+      1
+    ],
+    [
+      0,
+      1,
+      1,
+      1,
+      0
+    ]
+  ],
+  "multiplierWeights": [
+    6775,
+    10096,
+    3454,
+    6775,
+    6775
+  ],
+  "betMinor": {
+    "min": 10,
+    "max": 20000,
+    "step": 10
+  },
+  "maxBaseWinTimesStake": 5000,
+  "reference": {
+    "gameId": "002-multi-hot-10",
+    "page": "https://www.smartsoftgaming.com/games/multi-hot-10",
+    "rules": "reports/special74/batch-observations/all74-controls-retry-20261113/002-multi-hot-10/attempt-1/rules.json",
+    "lineChart": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot10/MultiHot-PayLine.png",
+    "lineChartSha256": "20b4e031596ed14df46b976bca8cdf4d83103bf35697834c1b4310d98b01077a",
+    "scope": "Observed public symbol pays and line paths only; no provider probability or maximum-win reproduction. Provider help displayed 1000x; independent model maximum is 5000x."
+  },
+  "author": "Superwin operator",
+  "claimsProviderMath": false,
+  "currency": "ETB",
+  "minorUnitsPerMajor": 100,
+  "columns": 5,
+  "symbols": [
+    "seven",
+    "bell",
+    "grape",
+    "watermelon",
+    "cherry",
+    "orange",
+    "plum",
+    "lemon"
+  ],
+  "symbolDistribution": "independent-uniform-per-cell",
+  "multipliers": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "theoreticalRtp": {
+    "numerator": 24,
+    "denominator": 25
+  },
+  "gamble": {
+    "colors": [
+      "red",
+      "black"
+    ],
+    "probability": {
+      "numerator": 1,
+      "denominator": 2
+    },
+    "payoutTimesAmount": 2,
+    "maxAttempts": 5,
+    "maxAmountMinor": 50000
+  },
+  "disclosure": "Independent Superwin probabilities: base RTP 96%, maximum base win 5000x total stake. Uniform independent cells; longest left-to-right match pays once per line. Optional color gamble wins 2x with probability 1/2. RTP is a long-run expectation, not a promised session return. Not SmartSoft probability math.",
+  "sourceType": "operator-authored-math-specification",
+  "mathSha256": "e188da39bce372068bf429b5403b9648965ef571bbf96de13fe87b79d99a7b2f",
+  "provenance": {
+    "observed": "Public symbol pays, left-to-right longest-match rule, reel geometry, symbol artwork mapping and fixed line chart.",
+    "independentlyAuthored": "Independent uniform cells, multiplier ticket weights, 96% RTP, uncapped base liability and fair optional color gamble. No provider probabilities inferred."
+  },
+  "ledgerIntegration": {
+    "verified": false,
+    "requirements": [
+      "Retained server locks wallet and reserves worst-case liability before debit.",
+      "Persist game/model identity, request token, wager and canonical result in the existing transaction.",
+      "Replay returns existing receipt with no second debit.",
+      "Optional gamble must match latest eligible round, attempt and stake.",
+      "Show independent probabilities and actual operator maximum in rules."
+    ]
+  }
+}
