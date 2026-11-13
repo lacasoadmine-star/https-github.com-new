@@ -10,6 +10,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
  await page.request.get('http://127.0.0.1:4181/__fixture/reset?game='+model);
  await page.goto('http://127.0.0.1:4181/special-games/'+entry);await page.locator('#sound-no').click();
  await page.waitForFunction(()=>!document.querySelector('#spin').disabled);
+ assert.equal(await page.evaluate(()=>document.fonts.check('22px IntroBlackCaps')&&document.fonts.check('18px IntroRegular')&&[...document.fonts].filter(f=>f.status==='loaded').length===2),true);
  await page.locator('#plus').click();
  await page.locator('#spin').click();await page.locator('#spin').click();
  await page.waitForFunction(()=>!document.querySelector('#collect').disabled);

@@ -1,5 +1,6 @@
 import {TextureBank,image} from './textures.mjs';
 import {LibraryAccount} from './financial/library-account.mjs';
+import {loadReferenceFonts} from './fonts.mjs';
 
 // Geometry measured from the official BlazingHot10 portrait renderer, 566 logical px.
 // This presentation does not generate outcomes, calculate prizes or own a balance.
@@ -8,7 +9,7 @@ const base='Images/BlazingHot/Mobile/';
 const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),controls=document.querySelector('#controls'),status=document.querySelector('#status');
 const bank=new TextureBank(),account=new LibraryAccount(profile),buttons=new Map();
 let grid=null,shownWin='—',lastWin='—',betIndex=0,spinning=false,presenting=false,started=0,fast=false,auto=0,held=false,holdTimer,raf=0,muted=true,winCells=[],freeze=[],ready=false,closed=false;
-let logo,lineIcons,takeIcon,background,menuSheet;
+let logo,lineIcons,takeIcon,takeDisabledIcon,background,menuSheet;
 const sounds=new Map();
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const bet=()=>account.state?.model.betLevels[betIndex]??'—';
@@ -16,7 +17,7 @@ const setStatus=(text='')=>{status.textContent=text;status.hidden=!text;};
 function sound(name,loop=false){if(muted)return;let a=sounds.get(name);if(!a){a=new Audio('/special-games/assets/Sound/BlazingHot/'+name+'.mp3');sounds.set(name,a);}a.loop=loop;a.currentTime=0;a.play().catch(()=>{});}
 function stopSounds(){for(const a of sounds.values())a.pause();}
 function sprite(name,x,y,w,h){bank.draw(ctx,name,x,y,w,h);}
-function text(value,x,y,size=22,color='#fff',align='center'){ctx.fillStyle=color;ctx.font=`700 ${size}px Arial`;ctx.textAlign=align;ctx.textBaseline='top';ctx.fillText(String(value),x,y);}
+function text(value,x,y,size=22,color='#fff',align='center',font='IntroBlackCaps'){ctx.fillStyle=color;ctx.font=`${size}px ${font}`;ctx.textAlign=align;ctx.textBaseline='top';ctx.fillText(String(value),x,y);}
 function layout(){const w=Math.min(innerWidth,(innerHeight-26)*566/1117),h=w*1117/566;document.querySelector('#machine').style.cssText=`width:${w}px;height:${h}px`;const dpr=Math.min(devicePixelRatio,3);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(canvas.width/566,0,0,canvas.width/566,0,0);draw();}
 function button(id,label,x,y,w,h,handler){const b=document.createElement('button');b.id=id;b.ariaLabel=label;b.title=label;b.style.cssText=`left:${100*x/566}%;top:${100*y/1117}%;width:${100*w/566}%;height:${100*h/1117}%`;b.addEventListener('click',handler);controls.append(b);buttons.set(id,b);return b;}
 function updateControls(){
@@ -50,22 +51,22 @@ function draw(now=performance.now()){
  for(const c of freeze)sprite('Start/Ice',1+c*113,200.4442,110,334);
  if(!spinning&&winCells.length){ctx.save();ctx.strokeStyle='#fff05d';ctx.lineWidth=3;ctx.globalAlpha=.6+.4*Math.sin(now/200)**2;for(const [r,c]of winCells)ctx.strokeRect(c*113+3,200.4442+r*112,106,110);ctx.restore();}
  sprite('Start/FooterVertical',2,536.4442,562,63);
- text(account.state?.balance??'—',104,551.4442);text('ETB',104,577.4442,12,'#d4d9ce');
- text(shownWin,284,551.4442);text('ETB',284,577.4442,12,'#d4d9ce');
- text(lastWin,468,551.4442);text('ETB',468,577.4442,12,'#d4d9ce');
+ text(account.state?.balance??'—',104,551.4442);text('ETB',104,577.4442,12,'#fff');
+ text(shownWin,284,551.4442);text('ETB',284,577.4442,12,'#fff');
+ text(lastWin,468,551.4442);text('ETB',468,577.4442,12,'#fff');
  sprite('Buttons/AutoPlayVertical',59,627.1663,130,143);
  sprite(account.state?.gamble?.available?'Buttons/DoubleVertical':'Buttons/DoubleVerticalDisabled',223,628.1663,130,143);
- ctx.drawImage(takeIcon,387,628.1663,130,143);
+ ctx.drawImage(!spinning&&!presenting&&account.state?.nativeRound?.actions.includes('collect')?takeIcon:takeDisabledIcon,387,628.1663,130,143);
  sprite('Buttons/BackgroundVertical',61,862.8884,440,148);
- sprite(betIndex===0?'Buttons/MinusVerticalDisabled':'Buttons/MinusVertical',-2,892.8884,112,110);
- sprite('Buttons/PlusVertical',459,892.8884,104,110);
- const next=account.state?.model.betLevels[betIndex+1];if(next){text(next,430,909.8884,23,'#ffe451');text('ETB',430,939.8884,22,'#ffe451');}
+ sprite(betIndex===0||spinning||presenting||account.pending?'Buttons/MinusVerticalDisabled':'Buttons/MinusVertical',-2,892.8884,112,110);
+ sprite(spinning||presenting||account.pending||betIndex>=((account.state?.model.betLevels.length??1)-1)?'Buttons/PlusVerticalDisabled':'Buttons/PlusVertical',459,892.8884,104,110);
+ const next=account.state?.model.betLevels[betIndex+1];if(next){text(next,430,909.8884,22,'#fdff5b');text('ETB',430,939.8884,18,'#fdff5b','center','IntroRegular');}
  sprite(spinning?'Buttons/SpinVerticalStop':'Buttons/SpinVertical',151,794.8884,265,242);
- text(bet(),283,850.8884,35,'#ffe451');text('ETB',283,895.8884,23,'#ffe451');
+ text(bet(),283,850.8884,34,'#fdff5b');text('ETB',283,895.8884,22,'#fdff5b');
  // Original menu atlas regions, measured on the reference mesh. Spine motion is reviewed separately.
  if(spinning)ctx.drawImage(menuSheet,406,39,150,136,227,920,113,103);
  else ctx.drawImage(menuSheet,204,8,200,130,209.1203,904.3654,151.053,97.8834);
- if(auto)text(auto,125,679,25,'#ffe451');
+ if(auto)text(auto,125,679,25,'#fdff5b');
  if(spinning||winCells.length)raf=requestAnimationFrame(draw);else raf=0;
 }
 function render(){if(!raf)draw();updateControls();}
@@ -111,8 +112,9 @@ addEventListener('resize',layout);addEventListener('blur',()=>{cancel();stopSoun
 addEventListener('pagehide',()=>{closed=true;cancel();stopSounds();cancelAnimationFrame(raf);});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){cancel();stopSounds();}});
 try{
+ await loadReferenceFonts();
  await bank.add(base+'Images/Sprites/Images-0.webp.json');
- [logo,lineIcons,takeIcon,background,menuSheet]=await Promise.all(['Images/Start/Logo-10.webp','Images/Start/LineIcons-10.webp','Images/Buttons/DoubleTakeVertical.webp','background-vertical.jpg','Spine/Start/Menu/meniu.webp'].map(p=>image('/special-games/assets/'+base+p)));
+ [logo,lineIcons,takeIcon,takeDisabledIcon,background,menuSheet]=await Promise.all(['Images/Start/Logo-10.webp','Images/Start/LineIcons-10.webp','Images/Buttons/DoubleTakeVertical.webp','Images/Buttons/DoubleTakeVerticalDisabled.webp','background-vertical.jpg','Spine/Start/Menu/meniu.webp'].map(p=>image('/special-games/assets/'+base+p)));
  ready=true;layout();setStatus('Connecting…');
  await account.connect();grid=account.state.round?.grid??null;shownWin=account.state.round?.finalWin??'0.00';setStatus();render();
 }catch(e){handleError(e);}

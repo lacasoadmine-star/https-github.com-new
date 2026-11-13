@@ -11,7 +11,7 @@ if(!checks.ready){console.error(JSON.stringify({packaged:false,reason:'All 74 im
 if(manifest.legacyDisposition!=='retain-existing-games-and-add-independent-special-games')throw Error('Additive release scope required');
 const covers=JSON.parse(await readFile(resolve(folder,'cover-manifest.json'),'utf8')).assets;
 const assets={},entries=[];
-const mime={'.mjs':'text/javascript','.js':'text/javascript','.html':'text/html; charset=utf-8','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2'};
+const mime={'.mjs':'text/javascript','.js':'text/javascript','.html':'text/html; charset=utf-8','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2','.woff':'font/woff','.otf':'font/otf'};
 async function add(runtimePath,sourcePath,expectedHash){
  if(!runtimePath.startsWith('/special-games/')||new URL(runtimePath,'https://player.invalid').pathname!==runtimePath)throw Error('Invalid packaged route');
  const source=resolve(root,sourcePath),rel=relative(folder,source);

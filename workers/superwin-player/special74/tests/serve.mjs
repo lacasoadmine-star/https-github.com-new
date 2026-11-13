@@ -39,6 +39,6 @@ const server=createServer(async(req,res)=>{try{
  const suffix=decodeURIComponent(url.pathname.replace(/^\/special-games\/?/,''));
  const path=resolve(root,suffix.startsWith('assets/')?suffix:'src/'+(suffix===''||suffix==='007-burning-ice-10'?'game.html':suffix==='008-burning-ice-40'?'game40.html':suffix));
  if(!path.startsWith(root+'/'))return send({error:'NOT_FOUND'},404);
- const data=await readFile(path);res.writeHead(200,{'content-type':({'.mjs':'text/javascript','.html':'text/html','.css':'text/css','.json':'application/json','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg'})[extname(path)]||'application/octet-stream'});res.end(data);
+ const data=await readFile(path);res.writeHead(200,{'content-type':({'.mjs':'text/javascript','.html':'text/html','.css':'text/css','.json':'application/json','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.otf':'font/otf'})[extname(path)]||'application/octet-stream'});res.end(data);
  }catch(error){res.writeHead(404);res.end('Not found');}});
 server.listen(4181,'127.0.0.1',()=>console.log('Explicit synthetic Special Games fixtures on http://127.0.0.1:4181'));

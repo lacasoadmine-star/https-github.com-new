@@ -20,7 +20,7 @@ The earlier independent Burning Ice 10 draft and its 20 observed rounds are reta
 | [Bottle Mania](https://www.smartsoftgaming.com/games/bottle-mania) | Bottle Mania | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Burning Ice](https://www.smartsoftgaming.com/games/burning-ice-41) | Super Hot | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Burning Ice 10](https://www.smartsoftgaming.com/games/blazing-hot-10) | Burning Ice 10 | canvas-loaded-needs-visual-and-gameplay-review | 1 | playable-v2-draft |
-| [Burning Ice 40](https://www.smartsoftgaming.com/games/burning-ice-40) | Burning Ice 40 | canvas-loaded-needs-visual-and-gameplay-review | 1 | playable-v2-draft |
+| [Burning Ice 40](https://www.smartsoftgaming.com/games/burning-ice-40) | Burning Ice 40 | canvas-loaded-needs-visual-and-gameplay-review | 2 | playable-v2-draft |
 | [Cai Balao Cappadocia](https://www.smartsoftgaming.com/games/cai-balao-cappadocia) | Star 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [CarX](https://www.smartsoftgaming.com/games/carx) | Lucky Star 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Cheesy Road](https://www.smartsoftgaming.com/games/cheesy-road) | Fortune 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |

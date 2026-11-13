@@ -19,6 +19,15 @@ for(const run of runs.filter(item=>item.isDirectory()&&/^\d+$/.test(item.name)).
  const source=`reports/special74/ci-observations/${run.name}/index.json`;
  for(const record of await json(resolve(root,source)))controlRecords.push({...record,source});
 }
+let sessions=[];
+try{sessions=await readdir(resolve(folder,'reference-sessions'),{withFileTypes:true});}catch(error){if(error.code!=='ENOENT')throw error;}
+for(const session of sessions.filter(item=>item.isDirectory()&&/^\d+$/.test(item.name)).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))){
+ for(const game of await readdir(resolve(folder,'reference-sessions',session.name),{withFileTypes:true})){
+  if(!game.isDirectory())continue;
+  const source=`reports/special74/reference-sessions/${session.name}/${game.name}/observation.json`;
+  try{controlRecords.push({...await json(resolve(root,source)),source});}catch(error){if(error.code!=='ENOENT')throw error;}
+ }
+}
 const entries=[];
 for(const entry of selected){
  let observation=null;
