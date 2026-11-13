@@ -92,3 +92,7 @@ body.new74-lobby :focus-visible{outline:3px solid #eed179;outline-offset:4px}
 @media(max-width:390px){.new74-lobby .n74-main{padding-left:13px;padding-right:13px}.new74-lobby .n74-cards{gap:10px}.new74-lobby .n74-card h3{font-size:12px;min-height:34px}.new74-lobby .n74-card-body{padding:12px 10px 10px;gap:9px}.new74-lobby .n74-card-action{font-size:10px}.new74-lobby .n74-pending-button{font-size:9px;padding:9px 7px}.new74-lobby .n74-filters button{font-size:9px;padding:8px 6px;gap:5px}.new74-lobby .n74-filters button span{min-width:19px}.new74-lobby .n74-brand span{display:none}}
 @media(max-width:520px){#superwin-new74-entry .n74-home-link{padding:14px;gap:11px}#superwin-new74-entry .n74-home-title{font-size:13px}#superwin-new74-entry .n74-home-description{font-size:10px}#superwin-new74-entry .n74-home-cta-label{display:none}#superwin-new74-entry .n74-home-mark{flex-basis:38px;height:38px;font-size:17px}}
 @media(prefers-reduced-motion:reduce){.new74-lobby .n74-card,.new74-lobby .n74-card-art img{transition:none}.new74-lobby a.n74-card:hover{transform:none}}
+
+@layer superwinNew74EntryVisibility {
+  #superwin-new74-entry { display: block !important; }
+}
