@@ -1,15 +1,15 @@
 {
   "scope": "Offline raster integrity and audio/video metadata validation; this does not establish gameplay or presentation parity.",
-  "manifestSha256": "e7af3870373cf0ae83f5f0f5f9951896ad80b84609c0547697e36b9d44341de6",
+  "manifestSha256": "eb4f1a54c7822d0214662455a2d5292ee9be98ed66eacab2dcd25a993fcde6a2",
   "rasterMethod": "Pillow Image.verify",
   "pillowVersion": "12.3.0",
   "audioVideoMethod": "ffprobe stream/format metadata",
   "svgMethod": "Chromium Image.decode and nonempty Canvas raster",
-  "checkedFiles": 7930,
-  "verifiedFiles": 7930,
+  "checkedFiles": 7938,
+  "verifiedFiles": 7938,
   "failedFiles": 0,
-  "reusedDecoderChecks": 7773,
-  "elapsedSeconds": 2.68,
+  "reusedDecoderChecks": 7938,
+  "elapsedSeconds": 3.07,
   "files": [
     {
       "source": "https://eu-server-w6.ssgportal.com/PlinkoX2//Content/PlinkoX/Images/0boardWinBg.png",
@@ -29527,6 +29527,27 @@
       "verified": true
     },
     {
+      "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MariachiCoins/Drop/Coin.mp3",
+      "path": "assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MariachiCoins/Drop/Coin.mp3",
+      "sha256": "91f433bce83641f16c41835744e2845842b1026ce8a9fd95f843f341093a6097",
+      "mime": "audio/mpeg",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "48000"
+          }
+        ],
+        "format": {
+          "duration": "0.504000"
+        }
+      },
+      "verified": true
+    },
+    {
       "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MariachiCoins/Start/Background.mp3",
       "path": "assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MariachiCoins/Start/Background.mp3",
       "sha256": "0d6f6404539894ea9ab63eee9aefec901b06293072e2ad0a6d50adfa9d4c8b68",
@@ -29543,6 +29564,27 @@
         ],
         "format": {
           "duration": "75.048000"
+        }
+      },
+      "verified": true
+    },
+    {
+      "source": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MariachiCoins/Start/BoxWaiting.mp3",
+      "path": "assets/observed/static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MariachiCoins/Start/BoxWaiting.mp3",
+      "sha256": "a169b4cd58095bd6555082cd517553fc1f1a1228931687d896584c4ab771e07a",
+      "mime": "audio/mpeg",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "48000"
+          }
+        ],
+        "format": {
+          "duration": "3.144000"
         }
       },
       "verified": true
@@ -46816,6 +46858,27 @@
       "verified": true
     },
     {
+      "source": "https://static.ssg-public.com/cache/b1/XGames/Content/Sound/PopX/loader/1.mp3",
+      "path": "assets/observed/static.ssg-public.com/cache/b1/XGames/Content/Sound/PopX/loader/1.mp3",
+      "sha256": "47aeec330829d835c24dd034f3148265aa6e4c56dd322038c86e4a7adbd02902",
+      "mime": "audio/mpeg",
+      "metadata": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "sample_rate": "44100"
+          }
+        ],
+        "format": {
+          "duration": "0.888163"
+        }
+      },
+      "verified": true
+    },
+    {
       "source": "https://static.ssg-public.com/cache/b1/XGames/Content/Sound/PopX/loader/4.mp3",
       "path": "assets/observed/static.ssg-public.com/cache/b1/XGames/Content/Sound/PopX/loader/4.mp3",
       "sha256": "dd9ded91c0d218eacc3177ef2fbe5cbf5bb6ea8d7ec9d546516e761f603ac9d4",
@@ -52018,6 +52081,16 @@
       "verified": true
     },
     {
+      "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Bets.png",
+      "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Bets.png",
+      "sha256": "fd9ff747f8457f4b44737273226a30b2e950243c16f963be6fb35fb184116b50",
+      "mime": "image/png",
+      "width": 706,
+      "height": 416,
+      "format": "PNG",
+      "verified": true
+    },
+    {
       "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Cashout.png",
       "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Cashout.png",
       "sha256": "08bba0c65197cea4da1fb6c685dda6c837aa18bfde7aac41f8266cb03df92140",
@@ -52038,12 +52111,42 @@
       "verified": true
     },
     {
+      "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Helicopter.png",
+      "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Helicopter.png",
+      "sha256": "a08bb183b5c5eeca6cb224a368d1c56069bceaace3978f9c603cc7a2744c5a72",
+      "mime": "image/png",
+      "width": 404,
+      "height": 293,
+      "format": "PNG",
+      "verified": true
+    },
+    {
       "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Menu.png",
       "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Menu.png",
       "sha256": "48d3b5bf6b79b0bf139480fc17e1ea410f652db9a0f5563fc43f482c10b29d54",
       "mime": "image/png",
       "width": 251,
       "height": 123,
+      "format": "PNG",
+      "verified": true
+    },
+    {
+      "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Reskin/Helicopter.png",
+      "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Reskin/Helicopter.png",
+      "sha256": "f4bbc623c9bf2771eb66c2005afd595e3bfb8c6ef17171af513f614a387cfdd8",
+      "mime": "image/png",
+      "width": 404,
+      "height": 293,
+      "format": "PNG",
+      "verified": true
+    },
+    {
+      "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Reskin/dimond.png",
+      "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/Reskin/dimond.png",
+      "sha256": "d13a86d9a825a6dc73eb1c3d0b56e9656d3ebd59f1122b09ac061d620003d9f9",
+      "mime": "image/png",
+      "width": 228,
+      "height": 164,
       "format": "PNG",
       "verified": true
     },
@@ -52084,6 +52187,16 @@
       "mime": "image/png",
       "width": 321,
       "height": 49,
+      "format": "PNG",
+      "verified": true
+    },
+    {
+      "source": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/dimond.png",
+      "path": "assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/HelicopterX/dimond.png",
+      "sha256": "41ccbd169a3a77281c6c2bac13fad544d207fab916515abd96c981783f5e8d27",
+      "mime": "image/png",
+      "width": 228,
+      "height": 164,
       "format": "PNG",
       "verified": true
     },
