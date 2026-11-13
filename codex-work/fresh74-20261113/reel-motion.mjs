@@ -24,7 +24,12 @@ export class ReelMotion {
     this.timing = Object.freeze({...timing});
     this.requestFrame = requestFrame; this.cancelFrame = cancelFrame;
     this.now = now; this.render = render;
-    this.running = null; this.disposed = false;
+    this.running = null; this.disposed = false; this.previousGrid = null;
+  }
+
+  seed(grid) {
+    if (this.running || this.disposed) throw new Error('Initial reel state cannot change during presentation');
+    this.previousGrid = validateGrid(grid, this.columns, this.rows, this.symbols);
   }
 
   play(grid) {
@@ -32,7 +37,7 @@ export class ReelMotion {
     if (this.running) throw new Error('A presentation is already running');
     const result = validateGrid(grid, this.columns, this.rows, this.symbols);
     const started = this.now();
-    const run = {result, started, stopAt: null, handle: null, resolve: null, reject: null};
+    const run = {result, initial: this.previousGrid, started, stopAt: null, handle: null, resolve: null, reject: null};
     const finished = new Promise((resolve, reject) => {run.resolve = resolve; run.reject = reject;});
     this.running = run;
     const tick = timestamp => {
@@ -46,14 +51,14 @@ export class ReelMotion {
         const reels = this.strips.map((strip, column) => {
           const duration = this.timing.durationMs + column * this.timing.staggerMs;
           const progress = Math.min(1, virtualTime / duration);
-          const eased = 1 - Math.pow(1 - progress, 3);
+          const eased = progress < 0.5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2;
           const travel = strip.length * this.timing.turns + this.rows;
-          return {column, strip, result: result[column], offset: eased * travel,
+          return {column, strip, initial: run.initial?.[column], result: result[column], offset: eased * travel,
             travel, progress, settled: progress === 1};
         });
         const settled = reels.every(reel => reel.settled);
         this.render({reels, result, settled});
-        if (settled) {this.running = null; run.resolve({cancelled: false, result});}
+        if (settled) {this.running = null; this.previousGrid = result; run.resolve({cancelled: false, result});}
         else run.handle = this.requestFrame(tick);
       } catch (error) {this.running = null; run.reject(error);}
     };

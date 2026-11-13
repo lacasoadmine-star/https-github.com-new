@@ -48,7 +48,9 @@ export function createReelPainter({canvas, columns, rows, atlas, maxDpr = 2}) {
           for (let row = -1; row <= rows; row++) {
             const position = base + row;
             const finalRow = position - reel.travel;
-            const symbol = finalRow >= 0 && finalRow < rows ? reel.result[finalRow] : reel.strip[((position % reel.strip.length) + reel.strip.length) % reel.strip.length];
+            const symbol = finalRow >= 0 && finalRow < rows ? reel.result[finalRow] :
+              position >= 0 && position < rows && reel.initial ? reel.initial[position] :
+              reel.strip[((position % reel.strip.length) + reel.strip.length) % reel.strip.length];
             draw(symbol, x, (row - fraction) * cellH, cellW, cellH);
           }
         }

@@ -40,6 +40,22 @@ test('dispose cancels pending frames and prohibits new presentations', async () 
   assert.equal((await run.finished).cancelled, true); assert.equal(f.callbacks.size, 0);
   assert.throws(() => f.motion.play(result), /disposed/);
 });
+test('new rounds start from the last supplied grid and accelerate without a first-frame jump',async()=>{
+  const f=fixture(),initial=[['c','b'],['b','a']];f.motion.seed(initial);
+  const run=f.motion.play(result);f.step(0);assert.deepEqual(f.frames[0].reels.map(r=>r.initial),initial);
+  assert.equal(f.frames[0].reels[0].offset,0);f.step(100);const a=f.frames.at(-1).reels[0].offset;
+  f.step(200);const b=f.frames.at(-1).reels[0].offset;assert.ok(b-a>a);
+  assert.throws(()=>f.motion.seed(initial),/cannot change/);f.step(1200);await run.finished;
+  f.motion.play(initial);f.step(1200);assert.deepEqual(f.frames.at(-1).reels.map(r=>r.initial),result);f.motion.cancel();
+});
+test('canvas uses the previous visible symbols at the first frame of a new spin',()=>{
+  const calls=[];const context=Object.fromEntries(['setTransform','clearRect','save','beginPath','rect','clip','restore','drawImage'].map(k=>[k,(...args)=>calls.push([k,...args])]));
+  const image={width:30,height:10},canvas={style:{},getContext:()=>context};
+  const atlas=Object.fromEntries(['a','b','c'].map((s,i)=>[s,{image,x:i*10,y:0,width:10,height:10}]));
+  const painter=createReelPainter({canvas,columns:1,rows:2,atlas});painter.resize(100,200,1);
+  painter.render({reels:[{column:0,strip:['a','a','a'],initial:['c','b'],result:['a','a'],offset:0,travel:11,settled:false}]});
+  const draws=calls.filter(c=>c[0]==='drawImage');assert.deepEqual(draws.slice(1,3).map(c=>c[2]),[20,10]);
+});
 test('atlas rejects unloaded and out-of-bounds assets', () => {
   assert.throws(() => validateAtlas({a:{image:{width:10,height:10},x:9,y:0,width:2,height:3}}), /Invalid/);
   assert.throws(() => validateAtlas({a:{image:{width:0,height:0},x:0,y:0,width:2,height:3}}), /Invalid/);
