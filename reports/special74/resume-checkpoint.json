@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13T05:16:13.011342+00:00",
-  "scope": "Resume existing all74 replacement work; save verified draft implementations and evidence without activating an incomplete release",
+  "updatedAt": "2026-11-13T06:15:09.454794+00:00",
+  "scope": "Finish fresh official-media downloads first; preserve every existing live game and subsequently add 74 new games using the existing backend, wallet and APIs",
   "productionChanged": false,
   "deploymentPerformed": false,
   "sourceBaseCommit": "cd977e0e7089b033d9ef2f71432e12c2d1843962",
@@ -59,7 +59,15 @@
       "failed": 0,
       "invalidLocalAssets": 0,
       "invalidFrames": 0
-    }
+    },
+    "freshMediaIntegrity": {
+      "checkedFiles": 7930,
+      "verifiedFiles": 7930,
+      "failedFiles": 0,
+      "manifestSha256": "e7af3870373cf0ae83f5f0f5f9951896ad80b84609c0547697e36b9d44341de6"
+    },
+    "freshOfficialPages": 74,
+    "freshCovers": 74
   },
   "catalogue": {
     "selected": 74,
@@ -76,13 +84,13 @@
     "releaseReady": 0
   },
   "media": {
-    "updatedAt": "2026-11-13T05:13:54.171479+00:00",
-    "verifiedMedia": 10763,
-    "verifiedBytes": 1279257841,
+    "updatedAt": "2026-11-13T06:14:23.771229+00:00",
+    "verifiedMedia": 10926,
+    "verifiedBytes": 1284655483,
     "failedMedia": 468,
     "pendingMedia": 0,
     "gamesWithVerifiedMedia": 74,
-    "gamesWithAllObservedMedia": 1,
+    "gamesWithAllObservedMedia": 0,
     "scope": "Public media observed in archived demo sessions and explicitly declared atlas textures. Shared fonts and launcher images are excluded from game-specific coverage. Acquisition does not prove all game features were observed, gameplay parity, or release readiness."
   },
   "releasePackage": {
@@ -111,11 +119,20 @@
     "Activate the existing player Worker only after all74 independent entries pass their acceptance checks"
   ],
   "activeWork": {
-    "state": "expanded-demo-pass-and-media-validation-completed",
-    "run": "all74-expanded-features-20261113",
-    "completionReport": "reports/special74/reference-pass-completion.json",
-    "completed": 74,
-    "currentPassConfirmedRoundTitles": 26,
+    "state": "fresh-reference-download-pass-finished-with-provider-404-gaps",
+    "completionReport": "reports/special74/fresh-download-summary-20261113.json",
+    "freshDemoAttempts": 74,
+    "freshTitlesWithMedia": 74,
+    "newVerifiedAssets": 163,
     "allFeaturesVerified": false
+  },
+  "latestUserSteering": {
+    "date": "2026-11-13",
+    "priority": "Finish fresh official reference downloads for all 74 before application changes",
+    "legacyGames": "Retain all existing live games and add the new games alongside them",
+    "backend": "Reuse existing backend, wallet and APIs with independent operator-authored server math",
+    "sourceApplicationChangedThisPass": false,
+    "downloadSummary": "reports/special74/fresh-download-summary-20261113.json",
+    "requiresLaterScopeFix": "Current router/catalogue still implements the superseded replacement policy; do not deploy that behavior"
   }
 }
