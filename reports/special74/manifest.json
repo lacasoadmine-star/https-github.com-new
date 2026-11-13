@@ -343,15 +343,18 @@
       "selectedCategory": "Slots",
       "replacement": false,
       "replacementReason": null,
-      "freshDemoStatus": "queued",
+      "freshDemoStatus": "observed-controls",
       "demoTokenVerified": true,
-      "confirmedDemoRoundIds": [],
+      "confirmedDemoRoundIds": [
+        "1970242475.1"
+      ],
       "freshReferenceDirectory": "reports/special74/fresh-observations/007-burning-ice-10",
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/007-burning-ice-10.txt",
       "probabilityEvidence": {
         "verified": false,
         "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
-      }
+      },
+      "controlEvidence": "reports/special74/ci-observations/43334926859/007-burning-ice-10/observation.json"
     },
     {
       "position": 8,
@@ -365,7 +368,7 @@
         "match": "official-catalogue; runtime verification pending",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
-      "presentation": "not-built-v2",
+      "presentation": "playable-v2-draft",
       "parityVerified": false,
       "backendContractVerified": false,
       "ready": false,
@@ -385,15 +388,46 @@
       "selectedCategory": "Slots",
       "replacement": false,
       "replacementReason": null,
-      "freshDemoStatus": "queued",
+      "freshDemoStatus": "observed-controls",
       "demoTokenVerified": true,
-      "confirmedDemoRoundIds": [],
+      "confirmedDemoRoundIds": [
+        "1970243044.1"
+      ],
       "freshReferenceDirectory": "reports/special74/fresh-observations/008-burning-ice-40",
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/008-burning-ice-40.txt",
       "probabilityEvidence": {
         "verified": false,
         "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
-      }
+      },
+      "controlEvidence": "reports/special74/ci-observations/43334926859/008-burning-ice-40/observation.json",
+      "coverage": {
+        "required": [
+          "base-spin",
+          "bet-changes",
+          "win",
+          "collect",
+          "freeze-respin",
+          "gamble",
+          "responsive",
+          "audio"
+        ],
+        "verified": [],
+        "complete": false
+      },
+      "runtime": {
+        "thirdPartyRequests": 0,
+        "unresolvedFinancialRequests": 0,
+        "localWagerCollectChecksPassed": true,
+        "productionAuthenticatedWagersTested": false
+      },
+      "remainingPresentationWork": [
+        "original fonts",
+        "landscape layout",
+        "official motion and freeze animations",
+        "complete paytable/settings/history and gamble surfaces",
+        "audio timing/volume comparison",
+        "live model compatibility verification"
+      ]
     },
     {
       "position": 9,

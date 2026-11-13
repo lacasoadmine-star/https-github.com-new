@@ -1,8 +1,9 @@
-import {readFile,writeFile,stat} from 'node:fs/promises';
+import {readFile,writeFile,stat,readdir} from 'node:fs/promises';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {reviewState} from './review-state.mjs';
+import {controlEvidence} from './control-evidence.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../../..');
 const folder=resolve(root,'reports/special74');
@@ -11,6 +12,13 @@ const selected=(await json(resolve(folder,'selected-games.json'))).entries;
 const pages=await json(resolve(folder,'fresh-official-pages/index.json'));
 const models=(await json(resolve(folder,'selected-backend-candidates.json'))).entries;
 const manifest=await json(resolve(folder,'manifest.json'));
+const controlRecords=[];
+let runs=[];
+try{runs=await readdir(resolve(folder,'ci-observations'),{withFileTypes:true});}catch(error){if(error.code!=='ENOENT')throw error;}
+for(const run of runs.filter(item=>item.isDirectory()&&/^\d+$/.test(item.name)).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))){
+ const source=`reports/special74/ci-observations/${run.name}/index.json`;
+ for(const record of await json(resolve(root,source)))controlRecords.push({...record,source});
+}
 const entries=[];
 for(const entry of selected){
  let observation=null;
@@ -23,10 +31,12 @@ for(const entry of selected){
  for(const [name,set]of [['interactive-rounds.json',value=>interactive=value],['interactive-observation.json',value=>ui=value],['visual-review.json',value=>visual=value]]){
   try{const value=await json(resolve(folder,'fresh-observations',entry.id,name));if(value.id!==entry.id||value.selectedName!==entry.selectedName)throw Error('Interactive identity mismatch');set(value);}catch(error){if(error.code!=='ENOENT')throw error;}
  }
- const rounds=[...new Set([...(observation?.confirmedRoundIds??[]),...(interactive?.confirmedRoundIds??[])])];
+ const controls=controlEvidence(entry,controlRecords);
+ const rounds=[...new Set([...(observation?.confirmedRoundIds??[]),...(interactive?.confirmedRoundIds??[]),...controls.confirmedRoundIds])];
  entries.push({id:entry.id,displayOrder:entry.displayOrder,requestedName:entry.requestedName,selectedName:entry.selectedName,provider:entry.selectedProvider,category:entry.selectedCategory,replacement:entry.replacement,
   officialPage:entry.officialIdentity.url,providerPageArchived:page?.status==='archived',
   launchStatus:observation?.status??'queued',freshConfirmedRoundIds:rounds,
+  controlObservations:controls.observations,
   completedRoundsObservedInUI:ui?.completedRoundsObservedInUI??0,
   ...reviewState(visual,screenshot),
   sufficientBehaviorCoverage:false,visualParityVerified:false,screenshot,

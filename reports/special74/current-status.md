@@ -2,7 +2,7 @@
 
 Existing games remain unchanged. This catalogue has not been deployed. A loaded canvas or screenshot is not gameplay verification or a completed game.
 
-74/74 official provider pages archived; 74/74 demo launches attempted; 0/74 games with confirmed rounds in the current fresh pass.
+74/74 official provider pages archived; 74/74 demo launches attempted; 2/74 games with confirmed rounds in the current fresh pass.
 
 The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. Private reel distributions and exact provider probabilities have not been established.
 
@@ -19,8 +19,8 @@ The earlier independent Burning Ice 10 draft and its 20 observed rounds are reta
 | [Book of Futuria](https://www.smartsoftgaming.com/games/book-of-futuria) | Lucky Eight | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Bottle Mania](https://www.smartsoftgaming.com/games/bottle-mania) | Bottle Mania | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Burning Ice](https://www.smartsoftgaming.com/games/burning-ice-41) | Super Hot | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
-| [Burning Ice 10](https://www.smartsoftgaming.com/games/blazing-hot-10) | Burning Ice 10 | canvas-loaded-needs-visual-and-gameplay-review | 0 | playable-v2-draft |
-| [Burning Ice 40](https://www.smartsoftgaming.com/games/burning-ice-40) | Burning Ice 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Burning Ice 10](https://www.smartsoftgaming.com/games/blazing-hot-10) | Burning Ice 10 | canvas-loaded-needs-visual-and-gameplay-review | 1 | playable-v2-draft |
+| [Burning Ice 40](https://www.smartsoftgaming.com/games/burning-ice-40) | Burning Ice 40 | canvas-loaded-needs-visual-and-gameplay-review | 1 | playable-v2-draft |
 | [Cai Balao Cappadocia](https://www.smartsoftgaming.com/games/cai-balao-cappadocia) | Star 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [CarX](https://www.smartsoftgaming.com/games/carx) | Lucky Star 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Cheesy Road](https://www.smartsoftgaming.com/games/cheesy-road) | Fortune 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
