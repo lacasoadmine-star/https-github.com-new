@@ -19,8 +19,9 @@ function button(id,label,x,y,w,h,action,parent=controls){const b=document.create
 function layout(){const w=Math.min(innerWidth,(innerHeight-26)*W/H),h=w*H/W;document.querySelector('#machine').style.cssText=`width:${w}px;height:${h}px`;const d=Math.min(devicePixelRatio,3);canvas.width=Math.round(w*d);canvas.height=Math.round(h*d);ctx.setTransform(canvas.width/W,0,0,canvas.height/H,0,0);overlay.style.fontSize=w/W*22+'px';render();}
 function update(){const blocked=!ready||!account.state?.accepting||account.pending||account.busy||account.recoveryBlocked,locked=blocked||spinning||auto>0||held||popup!==null;
  for(const [id,b]of buttons)b.disabled=Boolean(locked);
- buttons.get('spin').disabled=Boolean(!ready||!account.state?.accepting||account.pending||account.recoveryBlocked||popup);
- buttons.get('auto').disabled=Boolean(blocked||popup||spinning&&auto===0);
+ buttons.get('spin').disabled=Boolean(auto===0&&!held&&(!ready||!account.state?.accepting||account.pending||account.recoveryBlocked||popup));
+ // Cancellation stays available while the already-submitted wager is pending.
+ buttons.get('auto').disabled=Boolean(auto===0&&(blocked||popup||spinning));
  buttons.get('menu').disabled=!ready||spinning||!!popup;
  buttons.get('mute').disabled=!ready||!!popup;
  buttons.get('gamble').hidden=!canGamble()||spinning||auto>0||held;

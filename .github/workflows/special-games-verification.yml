@@ -77,6 +77,7 @@ jobs:
           done
           node workers/superwin-player/special74/tests/multihot5-browser.cjs
           node workers/superwin-player/special74/tests/multihot10-browser.cjs
+          node workers/superwin-player/special74/tests/textures-browser.cjs
       - name: Preserve verification artifacts
         if: always()
         uses: actions/upload-artifact@v4

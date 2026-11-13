@@ -5,6 +5,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {createHash,randomUUID} from 'node:crypto';
 import {createOperatorSlotCore,operatorGambleDraw,OPERATOR_ID} from '../operator-math/retained-core-adapter.mjs';
+import {createOperatorSlotCore as createReleaseCore,releaseGambleDraw,RELEASE_MODEL_IDS} from '../operator-math/release-core-adapter.mjs';
 import {prepareOperatorRuntime,RETAINED_RUNTIME_SHA256} from './prepare-operator-runtime.mjs';
 const require=createRequire(import.meta.url),{Pool}=require('pg');
 const [runtimePath,bundlePath,reportPath]=process.argv.slice(2);
@@ -14,7 +15,14 @@ if(connection.protocol!=='postgresql:'||connection.hostname!=='127.0.0.1'||conne
 const hash=value=>createHash('sha256').update(value).digest('hex');
 const runtime=await readFile(runtimePath,'utf8'),bundle=await readFile(bundlePath,'utf8');
 const modelHash=hash(await readFile(new URL('../operator-math/multi-hot-5.mjs',import.meta.url)));
-const candidate=prepareOperatorRuntime({runtime,adapterBundle:bundle,modelSha256:modelHash});
+const selected=process.env.SPECIAL74_TEST_MODEL;
+if(selected&&!['5','10','40'].includes(selected))throw Error('INVALID_TEST_MODEL');
+const selectedId=selected?`special74_multi_hot_${selected}_v1`:OPERATOR_ID;
+const modelSources=selected?Object.fromEntries(await Promise.all(['5','10','40'].map(async n=>[`special74_multi_hot_${n}_v1`,hash(await readFile(new URL(`../operator-math/multi-hot-${n}.mjs`,import.meta.url)))]))):undefined;
+const candidate=prepareOperatorRuntime({runtime,adapterBundle:bundle,modelSha256:modelHash,modelSources});
+// Independent fixture expectations: all cells choose the first symbol and 1x.
+const expected={5:{bet:'0.05',win:'0.50',double:'1.00',after:10045n,afterGamble:10095n},10:{bet:'0.10',win:'100.00',double:'200.00',after:19990n,afterGamble:29990n},40:{bet:'0.40',win:'200.00',double:'400.00',after:29960n,afterGamble:49960n}}[selected||'5'];
+const cashExpected=n=>`${n/100n}.${String(n%100n).padStart(2,'0')}`;
 const cut=(text,start,end)=>{const a=text.indexOf(start),b=text.indexOf(end,a);if(a<0||b<0)throw Error('EXPECTED_SOURCE_MISSING');return text.slice(a,b);};
 const pool=new Pool({connectionString:connection.href,max:12,connectionTimeoutMillis:3000});
 const checks=[];const check=async(name,fn)=>{await fn();checks.push({name,passed:true});};
@@ -36,8 +44,8 @@ try{
  const prefix=cut(runtime,'import { randomUUID, createHash, randomInt }','const Originals =');
  const retained=await import('data:text/javascript;base64,'+Buffer.from(prefix+'\nexport {versioned};').toString('base64'));
  let randomMode='win',word=0,forcedFault=null,draws=0;
- const nextUint32=()=>randomMode==='win'?0:word++%9;
- const wrapped=createOperatorSlotCore(retained.versioned,{sha256:modelHash,enabled:true,nextUint32});
+ const nextUint32=()=>randomMode==='win'?0:word++%(selected&&selected!=='5'?8:9);
+ const wrapped=(selected?createReleaseCore:createOperatorSlotCore)(retained.versioned,{sha256:modelHash,sources:modelSources,enabled:true,nextUint32});
  const core={...wrapped,spin(...args){draws++;return wrapped.spin(...args);}};
  const token='a'.repeat(64),uid='disposable-pg-user';
  const request=new Request('https://fixture.invalid/api/slots/spin',{method:'POST',headers:{cookie:'sw_session='+token,origin:'https://fixture.invalid','content-type':'application/json'}});
@@ -45,7 +53,7 @@ try{
  // uniqueness must remain sufficient when the volatile lock is unavailable.
  const redis={async set(){return 'OK';},async eval(){return 1;}};
  const fault=stage=>{if(stage===forcedFault)throw Error('INJECTED_FAILURE');};
- const special74Operator={operatorGambleDraw:(...args)=>operatorGambleDraw(...args,()=>0)};
+ const special74Operator={operatorGambleDraw:(...args)=>operatorGambleDraw(...args,()=>0),releaseGambleDraw:(...args)=>releaseGambleDraw(...args,()=>0)};
  const context={pool,redis,qa:false,randomUUID,fault,createHash,versioned:core,special74Operator};
  const constants=cut(runtime,'class ServiceError extends Error','async function createSlotService(');
  const freshHooks=cut(runtime,'function createFreshReleaseHooks(','class ServiceError extends Error');
@@ -54,13 +62,13 @@ try{
  const settlement=cut(candidate.runtime,'  async function settle(req, body)','  async function reconcile()');
  const harness=new Function(...Object.keys(context),`${constants}
  const {MATH,getGame,modelIdentity,receiptGame,toUnits,publicGames,gambleDraw,bonusRewards}=versioned;
- const spin=(...args)=>versioned.spin(...args);const isFreshBuilt=id=>id==="special74_multi_hot_5_v1";const accepting=true,houseFor=()=>"house";
+ const spin=(...args)=>versioned.spin(...args);const isFreshBuilt=id=>${JSON.stringify(selected?RELEASE_MODEL_IDS:[OPERATOR_ID])}.includes(id);const accepting=true,houseFor=()=>"house";
  ${freshHooks}\n${availability}\n${dbMethods}
  const freshReleaseFor=gameId=>createFreshReleaseHooks({hash,authenticate,balance,lockWallets,transaction,cash,publicGames,modelIdentity,fail,isAccepting:()=>accepting,gameId});
  ${settlement}
- return {settle,action,hooks:freshReleaseFor("special74_multi_hot_5_v1")};`)(...Object.values(context));
+ return {settle,action,hooks:freshReleaseFor(${JSON.stringify(selectedId)})};`)(...Object.values(context));
  const guard=harness.hooks.sessionGuard(request,uid);
- const body=()=>({gameId:OPERATOR_ID,bet:'0.05',roundToken:randomUUID(),sessionGuard:guard,...core.modelIdentity(OPERATOR_ID)});
+ const body=()=>({gameId:selectedId,bet:expected.bet,roundToken:randomUUID(),sessionGuard:guard,...core.modelIdentity(selectedId)});
  async function reset(balance=10000n){
   await pool.query('TRUNCATE sw_nine.actions,sw_nine.free_spins,sw_nine.wallet_transactions,sw_nine.game_rounds,sw_nine.reconciliation_flags,sw_rebuild.ledger,sw_rebuild.transfers,sw_rebuild.rounds,sw_rebuild.sessions,sw_rebuild.users,sw_rebuild.wallets,sw_rebuild.account_limits,sw_native_library.rounds RESTART IDENTITY');
   await pool.query("INSERT INTO sw_rebuild.users VALUES($1,'player','active')",[uid]);
@@ -74,41 +82,41 @@ try{
 
  await check('twelve simultaneous same-token starts settle exactly one PostgreSQL wager',async()=>{
   await reset();const input=body(),results=await Promise.all(Array.from({length:12},()=>harness.settle(request,input)));
-  results.forEach(result=>assert.deepEqual(result,results[0]));assert.equal(draws,1);assert.equal(await count('sw_nine.game_rounds'),1);assert.equal(await count('sw_rebuild.transfers'),2);assert.equal(await balance(),10045n);await conserved();
+  results.forEach(result=>assert.deepEqual(result,results[0]));assert.equal(draws,1);assert.equal(await count('sw_nine.game_rounds'),1);assert.equal(await count('sw_rebuild.transfers'),2);assert.equal(await balance(),expected.after);await conserved();
  });
  await check('simultaneous different tokens cannot spend the same last balance twice',async()=>{
-  await reset(5n);randomMode='loss';const results=await Promise.allSettled([harness.settle(request,body()),harness.settle(request,body())]);
+  await reset(BigInt(expected.bet.replace('.','')));randomMode='loss';const results=await Promise.allSettled([harness.settle(request,body()),harness.settle(request,body())]);
   assert.equal(results.filter(r=>r.status==='fulfilled').length,1);const failed=results.find(r=>r.status==='rejected');assert.match(failed.reason.message,/INSUFFICIENT_FUNDS/);
   assert.equal(draws,1);assert.equal(await balance(),0n);assert.equal(await count('sw_nine.game_rounds'),1);assert.equal(await count('sw_rebuild.transfers'),1);await conserved();
  });
  await check('actual PostgreSQL rolls back failures after debit, after credit and before commit',async()=>{
   for(const stage of ['after_debit','after_credit','before_commit']){await reset();forcedFault=stage;const input=body();await assert.rejects(harness.settle(request,input),/INJECTED_FAILURE/);
    assert.equal(await balance(),10000n);for(const table of ['sw_nine.game_rounds','sw_nine.wallet_transactions','sw_rebuild.transfers','sw_rebuild.ledger'])assert.equal(await count(table),0);
-   forcedFault=null;await harness.settle(request,input);assert.equal(await balance(),10045n);assert.equal(await count('sw_nine.game_rounds'),1);await conserved();}
+   forcedFault=null;await harness.settle(request,input);assert.equal(await balance(),expected.after);assert.equal(await count('sw_nine.game_rounds'),1);await conserved();}
  });
  await check('same-token changed parameters reject after canonical PostgreSQL settlement',async()=>{
-  await reset();const input=body();await harness.settle(request,input);await assert.rejects(harness.settle(request,{...input,bet:'0.10'}),/IDEMPOTENCY_PARAMETER_CONFLICT/);assert.equal(await count('sw_nine.game_rounds'),1);assert.equal(await balance(),10045n);
+  await reset();const input=body();await harness.settle(request,input);await assert.rejects(harness.settle(request,{...input,bet:expected.bet==='0.10'?'0.20':'0.10'}),/IDEMPOTENCY_PARAMETER_CONFLICT/);assert.equal(await count('sw_nine.game_rounds'),1);assert.equal(await balance(),expected.after);
  });
  await check('concurrent Gamble request retries debit once and return the same durable receipt',async()=>{
-  await reset();const round=await harness.settle(request,body());const input={roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'};
+  await reset();const round=await harness.settle(request,body());const input={roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win};
   const results=await Promise.all(Array.from({length:12},()=>harness.action(request,input,'GAMBLE')));results.forEach(r=>assert.deepEqual(r,results[0]));
-  assert.equal(await count('sw_nine.actions'),1);assert.equal(await balance(),10095n);assert.equal(await count('sw_rebuild.transfers'),4);await conserved();
+  assert.equal(await count('sw_nine.actions'),1);assert.equal(await balance(),expected.afterGamble);assert.equal(await count('sw_rebuild.transfers'),4);await conserved();
  });
  await check('two different Gamble tokens race safely against the same expected attempt',async()=>{
-  await reset();const round=await harness.settle(request,body()),input={roundId:round.roundId,choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'};
+  await reset();const round=await harness.settle(request,body()),input={roundId:round.roundId,choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win};
   const results=await Promise.allSettled([harness.action(request,{...input,roundToken:randomUUID()},'GAMBLE'),harness.action(request,{...input,roundToken:randomUUID()},'GAMBLE')]);
-  assert.equal(results.filter(r=>r.status==='fulfilled').length,1);assert.match(results.find(r=>r.status==='rejected').reason.message,/GAMBLE_STATE_CHANGED/);assert.equal(await count('sw_nine.actions'),1);assert.equal(await balance(),10095n);await conserved();
+  assert.equal(results.filter(r=>r.status==='fulfilled').length,1);assert.match(results.find(r=>r.status==='rejected').reason.message,/GAMBLE_STATE_CHANGED/);assert.equal(await count('sw_nine.actions'),1);assert.equal(await balance(),expected.afterGamble);await conserved();
  });
  await check('replay-only requests without a stored result never originate a PostgreSQL stake',async()=>{
   await reset();await assert.rejects(harness.settle(request,{...body(),replayOnly:true}),/ROUND_NOT_CONFIRMED/);assert.equal(await count('sw_rebuild.transfers'),0);
-  const round=await harness.settle(request,body());await assert.rejects(harness.action(request,{roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50',replayOnly:true},'GAMBLE'),/GAMBLE_STATE_CHANGED/);
-  assert.equal(await count('sw_nine.actions'),0);assert.equal(await balance(),10045n);
+  const round=await harness.settle(request,body());await assert.rejects(harness.action(request,{roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win,replayOnly:true},'GAMBLE'),/GAMBLE_STATE_CHANGED/);
+  assert.equal(await count('sw_nine.actions'),0);assert.equal(await balance(),expected.after);
  });
  await check('fresh-state reload returns exact live PostgreSQL receipt and latest Gamble amount',async()=>{
-  await reset();const round=await harness.settle(request,body());await harness.action(request,{roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:'0.50'},'GAMBLE');
-  const state=await harness.hooks.state(request,uid);assert.equal(state.balance,'100.95');assert.equal(state.round.result.finalWin,'0.50');assert.equal(state.round.gamble.stake,'1.00');assert.equal(state.game.mathSha256,modelHash);
+  await reset();const round=await harness.settle(request,body());await harness.action(request,{roundId:round.roundId,roundToken:randomUUID(),choice:'RED',sessionGuard:guard,expectedAttempt:1,expectedStake:expected.win},'GAMBLE');
+  const state=await harness.hooks.state(request,uid);assert.equal(state.balance,cashExpected(expected.afterGamble));assert.equal(state.round.result.finalWin,expected.win);assert.equal(state.round.gamble.stake,expected.double);assert.equal(state.game.mathSha256,modelSources?.[selectedId]||modelHash);
  });
- const report={schemaVersion:1,retainedRuntimeSha256:RETAINED_RUNTIME_SHA256,candidateRuntimeSha256:candidate.report.candidateRuntimeSha256,modelSha256:modelHash,
+ const report={schemaVersion:1,retainedRuntimeSha256:RETAINED_RUNTIME_SHA256,candidateRuntimeSha256:candidate.report.candidateRuntimeSha256,modelSha256:modelSources?.[selectedId]||modelHash,modelId:selectedId,
   database:'Disposable local PostgreSQL',postgresVersion:version,retainedNineMigrationSha256:hash(migration),passed:checks.length,checks,
   redisLock:'Bypassed intentionally to test PostgreSQL safety independently',concurrentRequests:12,productionRequests:0,productionWalletMutations:0,financialActivationVerified:false,
   limitation:'Uses the exact retained sw_nine migration and settlement functions with a minimal local sw_rebuild fixture. Live triggers, full live schema and authenticated gateway integration remain unverified.'};

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-13T02:38:02.105369+00:00",
+  "updatedAt": "2026-11-13T07:14:48.429158+00:00",
   "target": "https://superwin-player.apdiy61.workers.dev",
   "section": "Special Games",
   "releaseMode": "one-complete-74-game-addition",
@@ -92,12 +92,14 @@
         "modelVersion": "operator-mh5-v1",
         "source": "existing-superwin-server",
         "frontendDeterminesPayout": false,
-        "integrationStatus": "verified-local-retained-handler-and-postgresql-fixtures; production-not-installed-or-verified",
+        "integrationStatus": "composed-three-model-adapter-and-retained-handler-with-local-postgresql-verified; production-not-installed-or-verified",
         "localRetainedHandlerChecksPassed": 9,
         "localPostgresChecksPassed": 8,
         "productionAuthenticatedWagersVerified": false,
         "composedLocalRetainedHandlerChecksPassed": 9,
-        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh5-composed-settlement-proof.json"
+        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh5-composed-settlement-proof.json",
+        "composedLocalPostgresChecksPassed": 8,
+        "composedPostgresReport": "reports/special74/retained-integration-20261113/mh5-composed-postgres-proof.json"
       },
       "implementation": {
         "entryHtml": "workers/superwin-player/special74/src/game-multihot5.html",
@@ -105,8 +107,8 @@
         "assets": [
           {
             "path": "workers/superwin-player/special74/src/multihot5.mjs",
-            "sha256": "208d5afa323b18f09c6446e00c4dfd80479ec5dfb78f875ad2dc524838f2c43a",
-            "bytes": 19424,
+            "sha256": "cd8e1f1129c935deb9783c61f32138f44ed293b44df62ed7c77e7db5c7d21d36",
+            "bytes": 19507,
             "runtimePath": "/special-games/multihot5.mjs"
           },
           {
@@ -123,8 +125,8 @@
           },
           {
             "path": "workers/superwin-player/special74/src/textures.mjs",
-            "sha256": "2770c947866ac059f490e13daa097608888b968a9a5d403a610cd73a1b648223",
-            "bytes": 1620,
+            "sha256": "265f2bf0b8e62243e5603ba54373a19fbb2e34dba73d1bbaa8c0d2fc7e57c857",
+            "bytes": 1931,
             "runtimePath": "/special-games/textures.mjs"
           },
           {
@@ -344,10 +346,13 @@
         "modelVersion": "operator-mh10-v1",
         "source": "existing-superwin-server",
         "frontendDeterminesPayout": false,
-        "integrationStatus": "composed-three-model-adapter-and-actual-retained-handler-fixture-verified; production-not-installed-or-verified",
+        "integrationStatus": "composed-three-model-adapter-and-retained-handler-with-local-postgresql-verified; production-not-installed-or-verified",
         "productionAuthenticatedWagersVerified": false,
         "composedLocalRetainedHandlerChecksPassed": 9,
-        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh10-settlement-proof.json"
+        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh10-settlement-proof.json",
+        "localPostgresChecksPassed": 8,
+        "composedLocalPostgresChecksPassed": 8,
+        "composedPostgresReport": "reports/special74/retained-integration-20261113/mh10-composed-postgres-proof.json"
       },
       "implementation": {
         "entryHtml": "workers/superwin-player/special74/src/game-multihot10.html",
@@ -355,8 +360,8 @@
         "assets": [
           {
             "path": "workers/superwin-player/special74/src/multihot10.mjs",
-            "sha256": "0d85464bde0a8203446c71ff0f23a52429155a14271bc14abc0801f8a078c05b",
-            "bytes": 20426,
+            "sha256": "02d88870ce595a1fdca8e530295e5557819f6e85d8eb6086a2e036e1745385df",
+            "bytes": 20526,
             "runtimePath": "/special-games/multihot10.mjs"
           },
           {
@@ -367,8 +372,8 @@
           },
           {
             "path": "workers/superwin-player/special74/src/textures.mjs",
-            "sha256": "2770c947866ac059f490e13daa097608888b968a9a5d403a610cd73a1b648223",
-            "bytes": 1698,
+            "sha256": "265f2bf0b8e62243e5603ba54373a19fbb2e34dba73d1bbaa8c0d2fc7e57c857",
+            "bytes": 1931,
             "runtimePath": "/special-games/textures.mjs"
           },
           {
@@ -625,7 +630,8 @@
           {
             "path": "workers/superwin-player/special74/src/multihot40.mjs",
             "runtimePath": "/special-games/multihot40.mjs",
-            "sha256": "0526b4dc33582cbb1b144469f3526fbeda66573054095c38ae933a69d33f64a5"
+            "sha256": "7248c4ee8e505f7d9fdff494bb01421070953eed272be7e60137d390c78bfcd6",
+            "bytes": 20579
           },
           {
             "path": "workers/superwin-player/special74/src/multihot40.css",
@@ -635,7 +641,8 @@
           {
             "path": "workers/superwin-player/special74/src/textures.mjs",
             "runtimePath": "/special-games/textures.mjs",
-            "sha256": "2770c947866ac059f490e13daa097608888b968a9a5d403a610cd73a1b648223"
+            "sha256": "265f2bf0b8e62243e5603ba54373a19fbb2e34dba73d1bbaa8c0d2fc7e57c857",
+            "bytes": 1931
           },
           {
             "path": "workers/superwin-player/special74/src/fonts.mjs",
@@ -780,10 +787,13 @@
         "modelVersion": "operator-mh40-v1",
         "source": "existing-superwin-server",
         "frontendDeterminesPayout": false,
-        "integrationStatus": "composed-three-model-adapter-and-actual-retained-handler-fixture-verified; production-not-installed-or-verified",
+        "integrationStatus": "composed-three-model-adapter-and-retained-handler-with-local-postgresql-verified; production-not-installed-or-verified",
         "productionAuthenticatedWagersVerified": false,
         "composedLocalRetainedHandlerChecksPassed": 9,
-        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh40-settlement-proof.json"
+        "composedRetainedHandlerReport": "reports/special74/retained-integration-20261113/mh40-settlement-proof.json",
+        "localPostgresChecksPassed": 8,
+        "composedLocalPostgresChecksPassed": 8,
+        "composedPostgresReport": "reports/special74/retained-integration-20261113/mh40-composed-postgres-proof.json"
       }
     },
     {

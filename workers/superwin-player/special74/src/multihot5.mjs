@@ -26,8 +26,9 @@ function layout(){const w=Math.min(innerWidth,(innerHeight-26)*width/height),h=w
 function button(id,label,x,y,w,h,fn,gamble=false){const b=document.createElement('button');b.id=id;b.ariaLabel=label;b.title=label;b.style.cssText=`left:${100*x/width}%;top:${100*y/height}%;width:${100*w/width}%;height:${100*h/height}%`;if(gamble)b.className='gamble-control';b.addEventListener('click',fn);controls.append(b);buttons.set(id,b);return b;}
 function updateControls(){const enabled=ready&&account.state?.accepting&&!account.pending&&!account.busy&&!spinning&&auto===0;
  for(const [id,b]of buttons)b.disabled=!enabled||gambleOpen;
- buttons.get('spin').disabled=!ready||!account.state?.accepting||!!account.pending||gambleOpen;
- buttons.get('auto').disabled=!ready||!account.state?.accepting||!!account.pending||gambleOpen||spinning&&auto===0;
+ buttons.get('spin').disabled=auto===0&&(!ready||!account.state?.accepting||!!account.pending||gambleOpen);
+ // Stopping autoplay never waits for the in-flight wallet response.
+ buttons.get('auto').disabled=auto===0&&(!ready||!account.state?.accepting||!!account.pending||gambleOpen||spinning);
  controls.dataset.phase=spinning?'spinning':auto>0?'autoplay-gap':'idle';
  buttons.get('spin').ariaLabel=auto>0?'Stop autoplay':spinning?'Stop animation':'Spin';
  buttons.get('minus').disabled=!enabled||gambleOpen||betIndex===0;
