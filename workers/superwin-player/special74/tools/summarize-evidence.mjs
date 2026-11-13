@@ -2,6 +2,7 @@ import {readFile,writeFile,stat} from 'node:fs/promises';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
+import {reviewState} from './review-state.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../../..');
 const folder=resolve(root,'reports/special74');
@@ -27,7 +28,7 @@ for(const entry of selected){
   officialPage:entry.officialIdentity.url,providerPageArchived:page?.status==='archived',
   launchStatus:observation?.status??'queued',freshConfirmedRoundIds:rounds,
   completedRoundsObservedInUI:ui?.completedRoundsObservedInUI??0,
-  idleLayoutVisuallyReviewed:visual?.idlePresentationVisible===true,loaderOnlyVisuallyReviewed:visual?.idlePresentationVisible===false,
+  ...reviewState(visual,screenshot),
   sufficientBehaviorCoverage:false,visualParityVerified:false,screenshot,
   backendCandidates:model?.candidates??[],providerProbabilityModelVerified:false,
   presentation:manifest.entries.find(e=>e.id===entry.id)?.presentation??'not-built-v2',ready:false});

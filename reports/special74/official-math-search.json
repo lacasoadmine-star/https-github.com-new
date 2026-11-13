@@ -1,0 +1,63 @@
+{
+  "scope": "Fresh public-source search for official game rules and exact mathematical specifications",
+  "fullProbabilityModelLocated": false,
+  "claimBoundary": "This records the sources inspected; it does not establish that no provider specification exists elsewhere.",
+  "findings": [
+    {
+      "game": "Burning Ice 40",
+      "officialPage": "https://www.smartsoftgaming.com/games/burning-ice-40",
+      "publicPageClaims": {
+        "columns": 5,
+        "rows": 3,
+        "paylines": 40,
+        "rtpPercent": 97
+      },
+      "observedDemoEvidence": "reports/special74/fresh-observations/008-burning-ice-40/visual-review.json",
+      "observedDemoGrid": {
+        "columns": 5,
+        "rows": 4
+      },
+      "status": "Unresolved public-page versus visible-demo discrepancy. Revisit this exact demo and its rules; do not infer a three-row implementation from marketing text.",
+      "probabilityModelVerified": false
+    },
+    {
+      "game": "Multi Hot 5",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5",
+      "publicPageClaims": {
+        "columns": 3,
+        "rows": 3,
+        "paylines": 5,
+        "rtpPercent": 97.05
+      },
+      "status": "The page title is Multi Hot 5 while descriptive text also mentions Deluxe. Keep the observed GameName and live rules as version evidence; do not merge variants.",
+      "probabilityModelVerified": false
+    },
+    {
+      "officialPage": "https://www.smartsoftgaming.com/contact",
+      "status": "The provider publishes a commercial contact route. No contact form or message was sent; no private documentation or account access was obtained."
+    }
+  ],
+  "searchedQueries": [
+    "site:smartsoftgaming.com game mathematics reel strips RTP integration documentation",
+    "site:smartsoftgaming.com RNG probabilities math documentation",
+    "SmartSoft Gaming integration API documentation mathematics game specification reel strips",
+    "site:smartsoftgaming.com filetype:pdf mathematics probability",
+    "Smartsoft BlazingHot10 BlazingHot40 game rules RTP mathematical model",
+    "\"SmartSoft\" \"Game Rules\" pdf",
+    "site:smartsoftgaming.com \"documentation\" \"integration\"",
+    "site:ssg-public.com \"RTP\" \"BlazingHot40\""
+  ],
+  "excludedAsProof": [
+    "Third-party rule mirrors with unverified version/provenance",
+    "Promotional RTP alone",
+    "Observed outcomes alone",
+    "A similarly named title from another provider"
+  ],
+  "remainingEvidence": [
+    "Versioned paytable and payout evaluation rules for each exact demo",
+    "Official reel strips or equivalent symbol/outcome weights and feature probabilities",
+    "Rounding, limits and feature transitions",
+    "Matching existing Superwin model and complete account recovery tests"
+  ],
+  "productionChanges": false
+}
