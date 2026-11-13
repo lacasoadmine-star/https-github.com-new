@@ -17,7 +17,7 @@ import struct
 import tempfile
 
 SOURCE = Path(__file__).resolve().parent
-ASSETS = ("index.html", "style.css", "viewer-core.js", "app.js")
+ASSETS = ("index.html", "style.css", "viewer-core.js", "retry-queue.js", "app.js")
 MEDIA_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".mp4"}
 
 
@@ -249,7 +249,8 @@ def build(manifest_path, evidence_root, output, link_media=False, study_link=Non
         "finishedAttempts": sum(bool(e["finishedAttempt"]) for e in records),
         "sceneObserved": sum(e["sceneObserved"] for e in records),
         "silentClips": sum(bool(e["clip"]) for e in records),
-        "needsRetry": sum(e["group"] in ("retry", "missing") for e in records),
+        "needsRetry": sum(e["completeReferenceCapture"] is not True for e in records),
+        "failedScenes": sum(e["group"] == "retry" for e in records),
         "retryableIncompleteTitles": sum(e["completeReferenceCapture"] is not True for e in records),
         "completeReferenceCaptures": sum(e["completeReferenceCapture"] is True for e in records),
         "audioCaptures": 0,

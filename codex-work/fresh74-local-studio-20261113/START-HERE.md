@@ -8,6 +8,14 @@ Fur **`reference-preview/index.html`** si aad u hesho 74-ka cinwaan, sawirrada c
 
 Fur **`reel-study/index.html`** si aad u isticmaasho SPIN, STOP iyo autoplay-ka tijaabada saddexda ciyaarood.
 
+## Ku celi dhammaan kuwa aan dhammaystirnayn
+
+Daawadaha qaybtiisa **Retry every incomplete title** waxay haynaysaa dhammaan 74-ka capture ee aan weli dhammaystirnayn. Tirada 13-ka failed scenes waa qayb gaar ah; kama saarayso ciyaaraha muuqaalka qayb ahaan laga helay.
+
+Queue-ku wuxuu raacaa kala horreynta 1 ilaa 74, wuxuuna xafidaa booska iyo cinwaanka hakaday. **Save checkpoint** ayaa soo dejinaya booskaas; **Restore checkpoint** ayaa dib u soo celinaya. Saddex transient network retry oo xaddidan kadib, cilad kale waxay cinwaanka u dhigtaa deferred oo u gudbisaa kan xiga. Cinwaankaas weli incomplete ayuu ahaanayaa.
+
+Badhamada queue-ku waa diiwaangelin oo keliya: demo dibadda ah ma furaan, mana caddaynayaan in capture cusub la sameeyey.
+
 ## Server maxalli ah
 
 Python 3.10+ ayaa ku filan; package kale lama rakibayo. Terminal-ka ka dhex fur folder-kan:

@@ -3,14 +3,15 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const core = require("./viewer-core.js");
 
-test("failed and missing titles stay searchable and in the retry filter", () => {
+test("all incomplete titles stay searchable and failed scenes remain a separate filter", () => {
   const titles = [
     {index: 68, name: "Book of Bonanza", group: "retry", clip: null},
     {index: 61, name: "Bao Slot 5X", group: "scene", clip: {url: "local"}},
     {index: 74, name: "Samurai", group: "missing", clip: null},
     {index: 62, name: "Jungle Sisters", group: "partial", sceneObserved: true, clip: null}
   ];
-  assert.deepEqual(core.filterEntries(titles, "", "retry").map(e => e.index), [68, 74]);
+  assert.deepEqual(core.filterEntries(titles, "", "retry").map(e => e.index), [61, 62, 68, 74]);
+  assert.deepEqual(core.filterEntries(titles, "", "failed").map(e => e.index), [68]);
   assert.equal(core.filterEntries(titles, "BONANZA")[0].index, 68);
   assert.equal(core.filterEntries(titles, "74")[0].name, "Samurai");
   assert.deepEqual(core.filterEntries(titles, "", "motion").map(e => e.index), [61]);

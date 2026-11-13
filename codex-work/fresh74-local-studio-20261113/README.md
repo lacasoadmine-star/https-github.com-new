@@ -8,6 +8,8 @@ The viewer accepts a separately supplied 74-entry evidence manifest. It packages
 
 See `reference-preview/README.md` for build commands, interpretation rules and regression checks. The optional Python server binds only to loopback, supports ranged video reads and read-only catalogue/progress endpoints, and performs no provider requests.
 
+The sequential retry queue includes every incomplete title, keeps failed scenes as a separate count, persists its current position, resumes an interrupted title and bounds transient retry observations. Queue controls are bookkeeping only: they never claim a new live capture or change source completion flags.
+
 ## Independent reel study
 
 `reel-study/` contains local SPIN/STOP/autoplay interaction code and a tested state engine. Source images, symbol regions and original-source hashes are supplied separately in the private local distribution. It does not implement provider payout mathematics or claim equivalent original game mechanics. No accounts, wallet, financial state or audio are imported.
@@ -24,7 +26,7 @@ Generic utilities included here are `assemble-sampled-clips.py`, `export-final-c
 
 ```sh
 python3 reference-preview/test_preview.py
-node --test reference-preview/core.test.cjs
+node --test reference-preview/core.test.cjs reference-preview/retry-queue.test.cjs
 node --test reel-study/engine.test.cjs
 ```
 

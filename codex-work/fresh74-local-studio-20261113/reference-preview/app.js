@@ -2,8 +2,11 @@
   "use strict";
   const $ = id => document.getElementById(id);
   const core = window.Fresh74;
+  const retryApi = window.Fresh74RetryQueue;
   let data = window.FRESH74_DATA;
   let filter = "all", selected = null, selectedShot = -1, showingMotion = false, points = false, toastTimer;
+  let retryQueue = null, retryStorageAvailable = true, queueRecoveryRequired = false, invalidCheckpoint = null;
+  const queueStorageKey = () => "fresh74.retry-queue.v1:" + data.catalogueCapturedAt;
   const element = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -60,7 +63,8 @@
     const c = data.counts;
     [["count-titles", c.titles], ["count-attempted", c.attempted], ["count-scenes", c.sceneObserved], ["count-clips", c.silentClips],
       ["count-complete", c.completeReferenceCaptures], ["filter-all", c.titles], ["filter-scenes", c.sceneObserved],
-      ["filter-motion", c.silentClips], ["filter-retry", c.needsRetry]].forEach(([id, value]) => { $(id).textContent = value; });
+      ["filter-motion", c.silentClips], ["filter-retry", data.entries.filter(e => e.completeReferenceCapture !== true).length],
+      ["filter-failed", data.entries.filter(e => e.group === "retry").length]].forEach(([id, value]) => { $(id).textContent = value; });
     const captured = new Date(data.catalogueCapturedAt);
     $("run-date").textContent = Number.isFinite(captured.getTime()) ? captured.toISOString().slice(0, 10) : "Fresh run";
     $("source-updated").textContent = "Checkpoint " + core.clock(data.sourceUpdatedAt);
@@ -254,12 +258,55 @@
       if (manual) toast("The local server could not be reached. Your current catalogue and already loaded evidence remain open. Open index.html directly for full file mode.");
     } finally { clearTimeout(timeout); }
   }
-  if (!data?.entries || data.entries.length !== 74 || !core) {
+  function saveRetryQueue() {
+    if (queueRecoveryRequired) return;
+    try {
+      localStorage.setItem(queueStorageKey(), retryApi.serialize(retryQueue));
+      retryStorageAvailable = true;
+    } catch { retryStorageAvailable = false; }
+  }
+  function renderRetryQueue() {
+    const item = retryApi.current(retryQueue), summary = retryApi.summary(retryQueue);
+    $("queue-count").textContent = `${summary.incompleteAtQueueStart} incomplete · ${data.entries.filter(e => e.group === "retry").length} failed scenes`;
+    $("queue-position").textContent = item ? `PASS ${retryQueue.pass} · CATALOGUE ${String(item.index).padStart(2, "0")} / 74` : `PASS ${retryQueue.pass} · ALL POSITIONS ADVANCED`;
+    $("queue-name").textContent = item ? item.name : "The queue pass has reached title 74";
+    $("queue-progress").textContent = `${summary.positionsAdvanced} positions advanced · ${summary.deferredAtNetworkLimit} deferred at retry limit`;
+    $("queue-source").textContent = "0 new captures verified by this queue";
+    const wait = item?.waitMs > 0 ? ` · retry eligible in ${Math.ceil(item.waitMs / 1000)} s` : "";
+    $("queue-state").textContent = item ? `${item.state.replaceAll("-", " ")}${wait} · ${item.networkFailures} recorded transient failures · source: ${item.sourceStatus}` : `${summary.incompleteAtQueueStart} source captures remain incomplete. A new pass keeps every incomplete title.`;
+    $("queue-activate").disabled = queueRecoveryRequired || !item?.canActivate;
+    $("queue-activate").textContent = item?.state === "interrupted" || item?.state === "retry-pending" ? "Resume current position" : "Activate current position";
+    $("queue-next").disabled = queueRecoveryRequired || !item || item.state === "paused";
+    $("queue-network").disabled = queueRecoveryRequired || item?.state !== "active";
+    $("queue-pause").disabled = queueRecoveryRequired || item?.state !== "active";
+    $("queue-review").hidden = item?.state !== "paused" || queueRecoveryRequired;
+    $("queue-new").hidden = Boolean(item) && !queueRecoveryRequired;
+    $("queue-new").textContent = queueRecoveryRequired ? "Preserve old checkpoint and start new" : "Start another pass";
+    $("queue-storage").textContent = queueRecoveryRequired ? "The saved checkpoint could not be restored. It has not been overwritten. Restore a valid checkpoint or explicitly start a new queue." : retryStorageAvailable ? "Position saved in this browser. Save checkpoint downloads the queue; Restore checkpoint resumes it. No demo request is sent by these controls." : "Browser storage is unavailable. The queue works in memory; use Save checkpoint and Restore checkpoint to resume after closing this page.";
+  }
+  function initializeRetryQueue() {
+    retryQueue = retryApi.create(data.entries, {sourceBuildId: data.buildId, catalogueCapturedAt: data.catalogueCapturedAt});
+    let saved = null;
+    try { saved = localStorage.getItem(queueStorageKey()); }
+    catch { retryStorageAvailable = false; }
+    if (saved) {
+      try { retryQueue = retryApi.restore(saved, data.entries, Date.now(), data.catalogueCapturedAt); saveRetryQueue(); }
+      catch { queueRecoveryRequired = true; invalidCheckpoint = saved; }
+    } else if (retryStorageAvailable) saveRetryQueue();
+    renderRetryQueue();
+  }
+  function queueAction(action) {
+    if (queueRecoveryRequired) { toast("Restore a valid checkpoint or explicitly start a new queue first."); return; }
+    try { action(); saveRetryQueue(); renderRetryQueue(); }
+    catch (error) { toast(error.message); }
+  }
+  if (!data?.entries || data.entries.length !== 74 || !core || !retryApi) {
     $("fatal").hidden = false;
     return;
   }
   renderHeader();
   renderCards();
+  initializeRetryQueue();
   $("search").addEventListener("input", renderCards);
   $("sort").addEventListener("change", renderCards);
   $("filters").addEventListener("click", event => {
@@ -279,7 +326,7 @@
   });
   $("refresh").addEventListener("click", () => checkProgress(true));
   $("download").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify(core.checkpoint(data), null, 2) + "\n"], {type: "application/json"});
+    const blob = new Blob([JSON.stringify(core.checkpoint(data, retryQueue), null, 2) + "\n"], {type: "application/json"});
     const url = URL.createObjectURL(blob), link = element("a");
     link.href = url; link.download = "fresh74-checkpoint.json"; link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -288,5 +335,34 @@
   $("stage-image").addEventListener("error", () => { $("stage-empty").textContent = "This image file could not be opened. Select another saved frame."; $("stage-empty").hidden = false; });
   const deepLink = location.hash.match(/^#game=(\d+)$/);
   if (deepLink) openGame(Number(deepLink[1]), false);
+  $("queue-activate").addEventListener("click", () => queueAction(() => retryApi.activate(retryQueue)));
+  $("queue-next").addEventListener("click", () => queueAction(() => retryApi.advance(retryQueue)));
+  $("queue-network").addEventListener("click", () => queueAction(() => retryApi.networkFailure(retryQueue)));
+  $("queue-pause").addEventListener("click", () => queueAction(() => retryApi.interrupt(retryQueue, Date.now(), "manual-pause")));
+  $("queue-review").addEventListener("click", () => queueAction(() => retryApi.acknowledgeReview(retryQueue)));
+  $("queue-new").addEventListener("click", () => {
+    try { localStorage.setItem(queueStorageKey() + ":previous:" + retryQueue.runId, invalidCheckpoint || retryApi.serialize(retryQueue)); }
+    catch { toast("The previous queue could not be archived in browser storage. Download a checkpoint if you need to retain it."); }
+    retryQueue = retryApi.create(data.entries, {sourceBuildId: data.buildId, catalogueCapturedAt: data.catalogueCapturedAt, pass: retryQueue.pass + 1});
+    queueRecoveryRequired = false; invalidCheckpoint = null;
+    saveRetryQueue(); renderRetryQueue();
+  });
+  $("queue-import").addEventListener("change", async event => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    try {
+      if (file.size > 1000000) throw new Error("Checkpoint is too large");
+      const parsed = JSON.parse(await file.text());
+      const restored = retryApi.restore(JSON.stringify(parsed.retryQueue || parsed), data.entries, Date.now(), data.catalogueCapturedAt);
+      retryQueue = restored; queueRecoveryRequired = false; invalidCheckpoint = null;
+      saveRetryQueue(); renderRetryQueue();
+      toast("Retry checkpoint restored. The interrupted title remains current; no new demo visit has been claimed.");
+    } catch (error) { toast("Checkpoint was not imported: " + error.message); }
+    event.target.value = "";
+  });
+  window.addEventListener("pagehide", () => {
+    if (!queueRecoveryRequired) { retryApi.interrupt(retryQueue); saveRetryQueue(); }
+  });
+  setInterval(() => { if (retryQueue && !document.hidden) renderRetryQueue(); }, 1000);
   checkProgress();
 })();

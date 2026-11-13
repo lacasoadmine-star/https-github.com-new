@@ -211,6 +211,24 @@ class PreviewTests(unittest.TestCase):
         for route in ("/reference-preview/index.html", "/reference-preview/style.css", "/reference-preview/catalogue-data.js"):
             self.assertEqual(self.request(service, "GET", route)[0], 200)
 
+    def test_all_incomplete_categories_remain_in_api_retry_order(self):
+        for entry in self.manifest["entries"]:
+            index = entry["index"]
+            entry["posterVerification"]["visualType"] = "gameplay-scene" if index <= 59 else "partial-gameplay-render" if index <= 61 else "failure-loader"
+            entry["status"] = "partial-visual-capture" if index <= 59 else "partial-render" if index <= 61 else "renderer-error"
+        service = self.start_server()
+        status, _, body = self.request(service, "GET", "/api/retry-queue")
+        self.assertEqual(status, 200)
+        data = json.loads(body)
+        self.assertEqual(data["counts"]["needsRetry"], 74)
+        self.assertEqual(data["counts"]["failedScenes"], 13)
+        self.assertEqual(data["counts"]["sceneObserved"], 59)
+        self.assertEqual(data["retryOrder"], list(range(1, 75)))
+        self.assertEqual(data["nextInitialCatalogueIndex"], 1)
+        self.assertEqual(len(data["retryableTitles"]), 74)
+        self.assertEqual(data["verifiedNewCaptureAttemptsFromQueue"], 0)
+        self.assertFalse(data["providerRequests"])
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

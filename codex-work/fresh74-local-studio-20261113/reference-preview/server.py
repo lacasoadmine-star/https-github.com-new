@@ -74,7 +74,7 @@ def make_server(root, port=0):
                 self.send_error(400, "Absolute request targets are not accepted")
                 return
             path = unquote(parsed.path)
-            if path in ("/api/catalogue", "/api/progress", "/api/checkpoint", "/api/health"):
+            if path in ("/api/catalogue", "/api/progress", "/api/checkpoint", "/api/retry-queue", "/api/health"):
                 try:
                     data = json.loads(catalogue.read_text())
                 except (OSError, json.JSONDecodeError):
@@ -83,10 +83,15 @@ def make_server(root, port=0):
                 if path == "/api/catalogue":
                     value = data
                 else:
+                    retryable = sorted((e for e in data["entries"] if e.get("completeReferenceCapture") is not True), key=lambda e: e["index"])
                     value = {"status": "local-read-only", "buildId": data["buildId"], "sourceUpdatedAt": data.get("sourceUpdatedAt"),
                              "counts": data["counts"], "providerRequests": False,
+                             "retryOrder": [e["index"] for e in retryable],
+                             "nextInitialCatalogueIndex": retryable[0]["index"] if retryable else None,
+                             "retryQueueStorage": "browser-local-checkpoint",
+                             "verifiedNewCaptureAttemptsFromQueue": 0,
                              "retryableTitles": [{"index": e["index"], "name": e["name"], "status": e["status"]}
-                                                 for e in data["entries"] if e.get("completeReferenceCapture") is not True]}
+                                                 for e in retryable]}
                 self.json_response(value, head)
                 return
             if "\x00" in path or "\\" in path or ".." in path.split("/"):

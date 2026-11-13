@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="catalogue-data.js"></script>
   <script defer src="viewer-core.js"></script>
+  <script defer src="retry-queue.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -39,6 +40,13 @@
       <div><strong id="count-complete">0</strong><span>Complete AV captures</span></div>
     </section>
     <div class="scope-note"><span class="note-icon" aria-hidden="true">i</span><p><strong>Reference collection in progress.</strong> Clips replay sampled screenshots. Gaps are recorded; sound and continuous video are unavailable. Sampled duration does not verify a full minute of active play.</p><span id="source-updated"></span></div>
+    <section class="retry-panel" aria-labelledby="retry-title">
+      <div class="retry-heading"><div><div class="eyebrow">CONTINUE THROUGH THE CATALOGUE</div><h2 id="retry-title">Retry every incomplete title</h2></div><span id="queue-count" class="queue-count">74 in sequence</span></div>
+      <p class="muted">The queue includes scenes, partial renders and failed loads. It preserves source statuses and resumes the interrupted title. These controls record your place; they do not open demos or verify a new capture.</p>
+      <div class="queue-current"><div><span id="queue-position" class="eyebrow"></span><strong id="queue-name"></strong><p id="queue-state"></p></div><div class="queue-totals"><span id="queue-progress"></span><span id="queue-source"></span></div></div>
+      <div class="queue-buttons"><button id="queue-activate" class="primary-button" type="button">Activate current position</button><button id="queue-next" class="queue-button" type="button">Next title →</button><button id="queue-network" class="queue-button" type="button">Record network failure</button><button id="queue-pause" class="queue-button" type="button">Pause this position</button><button id="queue-review" class="queue-button" type="button" hidden>Acknowledge manual review</button><button id="queue-new" class="queue-button" type="button" hidden>Start another pass</button><label class="queue-button queue-import-label">Restore checkpoint<input id="queue-import" type="file" accept="application/json,.json"></label></div>
+      <p id="queue-storage" class="queue-storage" role="status"></p>
+    </section>
     <section id="catalogue" class="catalogue" aria-labelledby="catalogue-title">
       <div class="section-heading"><div><div class="eyebrow">YOUR COLLECTION</div><h2 id="catalogue-title">Explore the 74</h2></div><p id="result-count" aria-live="polite"></p></div>
       <div class="toolbar">
@@ -50,6 +58,7 @@
         <button type="button" data-filter="scene" aria-pressed="false">Scene observed <span id="filter-scenes"></span></button>
         <button type="button" data-filter="motion" aria-pressed="false">Sampled motion <span id="filter-motion"></span></button>
         <button type="button" data-filter="retry" aria-pressed="false">Needs fresh retry <span id="filter-retry"></span></button>
+        <button type="button" data-filter="failed" aria-pressed="false">Failed scenes <span id="filter-failed"></span></button>
       </div>
       <div id="cards" class="cards"></div>
       <div id="empty" class="empty" hidden><h3>No matching titles</h3><p>Try another name or choose All titles.</p><button id="reset" class="primary-button" type="button">Reset filters</button></div>

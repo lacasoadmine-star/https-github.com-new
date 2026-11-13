@@ -37,9 +37,20 @@ Open `http://127.0.0.1:8740/`. The server binds only to loopback. It serves the 
 | `GET /api/catalogue` | The packaged 74-title snapshot |
 | `GET /api/progress` | Counts, snapshot identity, and incomplete titles that remain retryable |
 | `GET /api/checkpoint` | The same read-only checkpoint view |
+| `GET /api/retry-queue` | All incomplete titles in catalogue order; browser-local queue storage is identified explicitly |
 | `GET /api/health` | Local read-only readiness with snapshot identity |
 
 POST/PUT/PATCH/DELETE are rejected. Byte ranges support seeking in local MP4 files. Traversal, outside symlinks, non-loopback Host headers and foreign Origin headers are rejected. The server is for local use and has no provider client. Stop it with Ctrl+C. If the progress endpoint fails, the already loaded catalogue stays on screen; opening `index.html` directly provides file mode without depending on the server for media.
+
+## Sequential retry queue
+
+**Every incomplete reference remains retryable.** Clear scenes, partial scenes and failed loads are all included. `needsRetry` counts all incomplete entries; `failedScenes` counts the separate subset whose scene failed. A prior attempt or an available one-minute sample clip never removes a title from the retry list.
+
+`retry-queue.js` keeps the exact catalogue sequence, source statuses, current cursor and queue-control events. The browser saves a checkpoint locally after each queue action. If a saved entry was active when the page closed, restore marks that same entry interrupted and resumes it rather than moving past it. Save checkpoint downloads the current queue; Restore checkpoint accepts either that download or a standalone queue checkpoint. If browser storage is unavailable, file export/import still provides a resume path.
+
+The default permits three transient network retry slots after the initial recorded failure, with 1 s, 3 s and 10 s eligibility delays. The fourth recorded failure defers the title and advances to the next catalogue position. The deferred title remains incomplete and is included in a later pass. Access-block observations pause for manual review; they cannot automatically advance or authorize provider access.
+
+Activating a position, recording a network observation, or advancing the cursor is **bookkeeping only**. These operations make no provider request, verify no live retry, and never change source completion flags. The interface always reports zero new captures verified by the queue. A finished queue pass does not imply that any capture became complete. The initial server retry order is read-only; the user's active queue checkpoint remains in their browser or downloaded file.
 
 ## How to interpret the evidence
 
@@ -55,10 +66,10 @@ POST/PUT/PATCH/DELETE are rejected. Byte ranges support seeking in local MP4 fil
 
 ```sh
 python reference-preview/test_preview.py
-node --test reference-preview/core.test.cjs
+node --test reference-preview/core.test.cjs reference-preview/retry-queue.test.cjs
 node --check reference-preview/app.js
 ```
 
-Tests cover fresh-run containment and relocation, the exact parsed manifest snapshot identity, changed bytes during copying, lost files, duplicate inventory, false audio flags, read-only progress, parent-directory routing, byte-range playback, path traversal, wrong Host/Origin, failed-title search/retry, ambiguous event timing, and safe media URLs. Test images are disposable fixtures, never part of the official reference bundle.
+Tests cover fresh-run containment and relocation, the exact parsed manifest snapshot identity, changed bytes during copying, lost files, duplicate inventory, false audio flags, read-only progress, parent-directory routing, byte-range playback, path traversal, wrong Host/Origin, ambiguous event timing and safe media URLs. The retry regression includes 59 clear scenes plus two partial renders plus 13 failed scenes: all 74 remain in the ordered queue. Additional checks exercise next through title 74, interrupted resume, bounded network observations, access-block pause, malformed checkpoints and false live-capture claims. Test images are disposable fixtures, never part of the official reference bundle.
 
 The browser UI should additionally be checked in both HTTP mode and direct file mode, including search, a successful scene, a failed title, recorded controls, and silent playback. No public deployment is required.

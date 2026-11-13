@@ -8,7 +8,7 @@
   function filterEntries(entries, query = "", group = "all", sort = "index") {
     const needle = query.trim().toLocaleLowerCase();
     const filtered = entries.filter(e => (!needle || `${e.name} ${e.index}`.toLocaleLowerCase().includes(needle)) &&
-      (group === "all" || (group === "motion" ? Boolean(e.clip) : group === "retry" ? ["retry", "missing"].includes(e.group) : group === "scene" ? Boolean(e.sceneObserved || e.group === "scene") : e.group === group)));
+      (group === "all" || (group === "motion" ? Boolean(e.clip) : group === "retry" ? e.completeReferenceCapture !== true : group === "failed" ? e.group === "retry" : group === "scene" ? Boolean(e.sceneObserved || e.group === "scene") : e.group === group)));
     return filtered.sort(sort === "name" ? (a, b) => a.name.localeCompare(b.name) : (a, b) => a.index - b.index);
   }
   function position(action) {
@@ -26,9 +26,10 @@
   function safeMedia(url) {
     return typeof url === "string" && /^media\/[a-f0-9]{64}\.(?:jpg|jpeg|png|webp|mp4)$/.test(url) ? url : "";
   }
-  function checkpoint(data) {
+  function checkpoint(data, retryQueue = null) {
     return {schemaVersion: 1, buildId: data.buildId, catalogueCapturedAt: data.catalogueCapturedAt,
       sourceUpdatedAt: data.sourceUpdatedAt, counts: data.counts, audioCaptured: false,
+      retryQueue, queueDoesNotVerifyNewCaptureAttempts: true,
       entries: data.entries.map(e => ({index: e.index, name: e.name, status: e.status, attempted: e.attempted,
         finishedAttempt: e.finishedAttempt, sampledDurationSeconds: e.sampledDurationSeconds,
         completeReferenceCapture: e.completeReferenceCapture, fullMinuteGameplayVerified: e.fullMinuteGameplayVerified,
