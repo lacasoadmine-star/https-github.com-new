@@ -38,6 +38,15 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    const texts=[];
    for(const frame of page.frames()){try{const u=new URL(frame.url());if(u.hostname.endsWith('.ssgportal.com'))texts.push({url:u.origin+u.pathname,text:(await frame.evaluate(()=>document.body?.innerText||'')).slice(0,14000)});}catch{}}
    fs.writeFileSync(path.join(gameOut,name+'-text.json'),JSON.stringify(texts,null,2)+'\n');
+   const resources=[];
+   for(const frame of page.frames()){
+    try{resources.push(await frame.evaluate(()=>({
+     location:location.origin+location.pathname,
+     fonts:[...document.fonts].map(f=>({family:f.family,status:f.status,style:f.style,weight:f.weight})),
+     fontResources:performance.getEntriesByType('resource').map(r=>r.name).filter(u=>/\.(woff2?|ttf|otf)(?:\?|$)/i.test(u))
+    })));}catch{}
+   }
+   fs.writeFileSync(path.join(gameOut,name+'-fonts.json'),JSON.stringify(resources,null,2)+'\n');
    report.actions.push({name,at:new Date().toISOString(),screenshot:path.relative(root,path.join(gameOut,name+'.png')),confirmedRounds:report.confirmedRoundIds.length});
    return {scene,texts};
   }
@@ -55,7 +64,36 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    }
    if(gameFrame)await gameFrame.evaluate(hookPresentation);
    await sleep(6000);
+   // A visible initial prompt can appear before its click listener is ready.
+   // Verify the real control's effect; never hide the dialog with DOM mutation.
+   let promptStillVisible=false;
+   for(let attempt=0;attempt<3;attempt++){
+    promptStillVisible=false;
+    for(const frame of page.frames()){
+     const prompt=frame.getByText(/^would you like sound\??$|^play with sounds\??$/i,{exact:true});
+     let visible=false;
+     for(let i=0;i<await prompt.count();i++)if(await prompt.nth(i).isVisible().catch(()=>false))visible=true;
+     if(!visible)continue;
+     promptStillVisible=true;
+     const yes=frame.getByText(/^yes$/i,{exact:true});
+     for(let i=0;i<await yes.count();i++){
+      const target=yes.nth(i);if(!await target.isVisible().catch(()=>false))continue;
+      if(attempt===0){const b=await target.boundingBox();if(b)await page.touchscreen.tap(b.x+b.width/2,b.y+b.height/2);}
+      else await target.click({timeout:2500});
+      report.actions.push({name:attempt===0?'sound-yes-touch-after-load':'sound-yes-click-after-load',at:new Date().toISOString()});
+      break;
+     }
+    }
+    if(!promptStillVisible)break;
+    await sleep(1500);
+   }
+   promptStillVisible=false;
+   for(const frame of page.frames()){
+    const prompts=frame.getByText(/^would you like sound\??$|^play with sounds\??$/i,{exact:true});
+    for(let i=0;i<await prompts.count();i++)if(await prompts.nth(i).isVisible().catch(()=>false))promptStillVisible=true;
+   }
    const initial=await capture('initial');
+   if(promptStillVisible){report.status='start-dialog-still-blocks-controls';continue;}
    const visible=initial.texts.map(x=>x.text).join('\n');
    if(/up to 1 tables|simultaneously|table limit/i.test(visible)){report.status='provider-table-limit';continue;}
    if(!initial.scene||!/spinvertical/i.test(JSON.stringify(initial.scene))){report.status='loading-or-unrecognized-presentation';continue;}
@@ -67,6 +105,20 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
     if(action.name==='spin'){for(let i=0;i<60&&!report.confirmedRoundIds.length;i++)await sleep(500);await sleep(8000);}
     else await sleep(1200);
     await capture(action.name);
+   }
+   // Use the observed provider Exit control to release this table normally.
+   for(const frame of page.frames()){
+    const exits=frame.getByText(/^Exit$/i,{exact:true});
+    let done=false;
+    for(let i=0;i<await exits.count();i++){
+     const target=exits.nth(i);
+     if(await target.isVisible().catch(()=>false)){
+      await target.click({timeout:2500});
+      report.actions.push({name:'visible-provider-exit-clicked',at:new Date().toISOString()});
+      await sleep(2000);done=true;break;
+     }
+    }
+    if(done)break;
    }
    report.completedAt=new Date().toISOString();
   }catch(error){report.status='observation-error';report.error=error.message.slice(0,400);await capture('failure').catch(()=>{});}
