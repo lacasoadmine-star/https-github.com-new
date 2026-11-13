@@ -61,6 +61,15 @@ function betChangedInDirection(kind,before,after){
  const a=Number(before.replace(',','.')),b=Number(after.replace(',','.'));
  return Number.isFinite(a)&&Number.isFinite(b)&&(kind==='bet-plus'?b>a:b<a);
 }
+function newPanelHeading(kind,before,after){
+ const patterns={rules:/\b(?:game rules|pay\s?table|how to play|payouts)\b/i,
+  information:/\b(?:game information|about (?:this )?game|return to player|RTP)\b/i,
+  history:/\b(?:bet history|my bets|transaction history)\b/i,
+  settings:/\b(?:settings|music volume|sound volume)\b/i,
+  autoplay:/\b(?:autoplay settings|number of spins|stop on (?:win|loss)|loss limit)\b/i};
+ const pattern=patterns[kind];
+ return Boolean(pattern&&typeof before==='string'&&typeof after==='string'&&!pattern.test(before)&&pattern.test(after));
+}
 async function touchObservedDOM(control,frame){
  // Resolve the observed element afresh. Measure in page coordinates so nested
  // frames and a header offset cannot redirect the touch to another control.
@@ -88,4 +97,4 @@ async function touchObservedDOM(control,frame){
  await frame.page().touchscreen.tap(x,y);
  return {mode:'touch',source:'observed-dom-locator',selector:control.selector,index:control.index,x,y};
 }
-module.exports={sceneControls,allowedDemo,publicURL,betChangedInDirection,touchObservedDOM};
+module.exports={sceneControls,allowedDemo,publicURL,betChangedInDirection,touchObservedDOM,newPanelHeading};

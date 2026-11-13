@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
-const {sceneControls,allowedDemo,publicURL,betChangedInDirection}=createRequire(import.meta.url)('../tools/batch-controls.cjs');
+const {sceneControls,allowedDemo,publicURL,betChangedInDirection,newPanelHeading}=createRequire(import.meta.url)('../tools/batch-controls.cjs');
 const button=(path,label,bounds)=>({path,alpha:1,interactive:true,bounds,texture:{names:[label]},children:[]});
 const scene=children=>({canvases:[{canvas:{x:0,y:0,w:200,h:200},width:200,height:200,resolution:2,scene:{path:'0.0',alpha:1,bounds:{x:0,y:0,w:100,h:100},children}}]});
 test('observed controls map renderer resolution and iframe offset to real viewport coordinates',()=>{
@@ -52,4 +52,13 @@ test('observed sound, autoplay and information images remain distinct named targ
   assert.equal(result.controls[0].kind,kind,name);
  }
  assert.deepEqual(sceneControls(scene([button('0.0.0','Decorations/AutoPlay',{x:20,y:30,w:20,h:20})])).controls,[]);
+});
+
+test('panel evidence requires a newly visible specific heading, not an arbitrary text change',()=>{
+ assert.equal(newPanelHeading('rules','BALANCE 100.00','GAME RULES\nPAYTABLE'),true);
+ assert.equal(newPanelHeading('information','BALANCE 100.00','GAME INFORMATION\nRTP 96%'),true);
+ assert.equal(newPanelHeading('history','SPIN','MY BETS'),true);
+ assert.equal(newPanelHeading('rules','GAME RULES 100','GAME RULES 101'),false);
+ assert.equal(newPanelHeading('rules','BALANCE 100','Loading error 404'),false);
+ assert.equal(newPanelHeading('menu','BALANCE','SETTINGS'),false);
 });

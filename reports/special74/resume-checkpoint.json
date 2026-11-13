@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13T04:45:39.935541+00:00",
+  "updatedAt": "2026-11-13T05:16:13.011342+00:00",
   "scope": "Resume existing all74 replacement work; save verified draft implementations and evidence without activating an incomplete release",
   "productionChanged": false,
   "deploymentPerformed": false,
-  "sourceBaseCommit": "9a87dfffea41ced9692aa039eb27288371c9a3c0",
+  "sourceBaseCommit": "cd977e0e7089b033d9ef2f71432e12c2d1843962",
   "verification": {
     "nodeTests": {
-      "passed": 61,
+      "passed": 62,
       "failed": 0
     },
     "mediaTests": {
@@ -31,9 +31,9 @@
       "mismatches": []
     },
     "mediaIntegrity": {
-      "manifestSha256": "6248c4ea3f89036a3be0525433f52a69178841577aaf47a9607f94d3e4e87bbb",
-      "checkedFiles": 7437,
-      "verifiedFiles": 7437,
+      "manifestSha256": "daea3bccd5cd7498f266923ba45f44f9e3c6f3d5ce471da21ed8d28590b973a7",
+      "checkedFiles": 7773,
+      "verifiedFiles": 7773,
       "failedFiles": 0
     },
     "previousCodeCI": {
@@ -66,7 +66,7 @@
     "officialPagesArchived": 74,
     "launchAttempts": 74,
     "canvasesObserved": 67,
-    "freshGamesWithConfirmedRounds": 28,
+    "freshGamesWithConfirmedRounds": 32,
     "gamesWithCompletedRoundObservedInUI": 1,
     "sufficientBehaviorCoverage": 0,
     "verifiedProviderProbabilityModels": 0,
@@ -76,23 +76,25 @@
     "releaseReady": 0
   },
   "media": {
-    "verifiedMedia": 10293,
-    "verifiedBytes": 1253366574,
+    "updatedAt": "2026-11-13T05:13:54.171479+00:00",
+    "verifiedMedia": 10763,
+    "verifiedBytes": 1279257841,
+    "failedMedia": 468,
+    "pendingMedia": 0,
     "gamesWithVerifiedMedia": 74,
     "gamesWithAllObservedMedia": 1,
-    "failedMedia": 444,
-    "pendingMedia": 0
+    "scope": "Public media observed in archived demo sessions and explicitly declared atlas textures. Shared fonts and launcher images are excluded from game-specific coverage. Acquisition does not prove all game features were observed, gameplay parity, or release readiness."
   },
   "releasePackage": {
     "packaged": false,
     "unresolvedChecks": 1174
   },
   "blockers": [
-    "70 distinct presentations remain unbuilt; all four drafts need complete feature and reference parity acceptance",
+    "70 distinct game presentations remain unbuilt; all four drafts need complete feature and reference parity acceptance",
     "Three independent operator models proved; production retained-gateway integration is unverified",
-    "444 observed public media URLs return provider 404 responses",
-    "Only part of each demo feature set has been confirmed; provider loading and simultaneous-table limits remain",
-    "The expanded all74 controls/media pass is still running; do not restart it or erase earlier receipts"
+    "468 observed public media URLs return provider 404 responses",
+    "32 distinct titles have confirmed rounds across captured passes; all74 feature coverage is not verified",
+    "Current pass includes provider-launch failure, table limits, sound prompt/input and loading deadlines; retain and repair those gaps before full acceptance"
   ],
   "persistence": {
     "sourceAndEvidence": "Existing repository and PR29; same working branch, no new repository or ZIP deliverable",
@@ -104,25 +106,16 @@
     "node workers/superwin-player/special74/tools/summarize-evidence.mjs"
   ],
   "nextWork": [
-    "Let the expanded official-demo pass and its media/decoder/profile follow-up finish",
-    "Use the existing pinned cache and completed interaction evidence; repair unresolved controls and provider media without guessed substitutes",
-    "Complete distinct presentations and retained-ledger integration before the single all74 release"
+    "Repair remaining demo interaction gaps and acquire unavailable exact media where a working original source is evidenced",
+    "Build distinct game presentations and retained-ledger integration from pinned public references",
+    "Activate the existing player Worker only after all74 independent entries pass their acceptance checks"
   ],
   "activeWork": {
+    "state": "expanded-demo-pass-and-media-validation-completed",
     "run": "all74-expanded-features-20261113",
-    "log": "/workspace/scratch/all74-expanded-features.log",
-    "completionPipelineLog": "/workspace/scratch/expanded-reference-pipeline.log",
-    "pipeline": "workers/superwin-player/special74/tools/finish-reference-pass.py",
-    "scope": "Local deterministic browser/acquisition/validation only; no other AI agents and no automatic production deployment",
-    "completedBeforeExpandedPass": {
-      "titles": 68,
-      "withConfirmedRound": 22
-    },
-    "progressAtCheckpoint": {
-      "finished": 30,
-      "withConfirmedRound": 5,
-      "withMedia": 30,
-      "releaseReady": 0
-    }
+    "completionReport": "reports/special74/reference-pass-completion.json",
+    "completed": 74,
+    "currentPassConfirmedRoundTitles": 26,
+    "allFeaturesVerified": false
   }
 }
