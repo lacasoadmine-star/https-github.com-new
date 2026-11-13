@@ -43,6 +43,8 @@ jobs:
         run: node --test workers/superwin-player/special74/tests/*.test.mjs
       - name: Bundle the independent game presentation
         run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/ice.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/ice.bundle.mjs
+      - name: Bundle the independent four-row presentation
+        run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/ice40.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/ice40.bundle.mjs
       - name: Browser checks against explicit loopback fixtures
         run: |
           node workers/superwin-player/special74/tests/serve.mjs > "$RUNNER_TEMP/special74-fixture.log" 2>&1 &
@@ -53,6 +55,7 @@ jobs:
             sleep 1
           done
           node workers/superwin-player/special74/tests/browser.cjs
+          SPECIAL74_TEST_GAME=burningice40_native node workers/superwin-player/special74/tests/browser.cjs
           node workers/superwin-player/special74/tests/catalog-browser.cjs
       - name: Preserve verification artifacts
         if: always()
