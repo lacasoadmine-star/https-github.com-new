@@ -2,9 +2,11 @@
 
 Existing games remain unchanged. This catalogue has not been deployed. A loaded canvas or screenshot is not gameplay verification or a completed game.
 
-74/74 official provider pages archived; 74/74 demo launches attempted; 2/74 games with confirmed rounds in the current fresh pass.
+74/74 official provider pages archived; 74/74 demo launches attempted; 3/74 games with confirmed rounds in the current fresh pass.
 
-The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. Private reel distributions and exact provider probabilities have not been established.
+The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. On 2026-11-13 the user authorized independently authored operator math. Private provider probabilities are no longer a release requirement; exact operator math proofs, correct disclosures and verified existing-ledger integration are required.
+
+1/74 independent operator math proofs; 0/74 new operator models verified against the retained ledger. No provider-equivalence claim.
 
 | Official selected title | Requested name | Demo observation | Confirmed rounds in fresh pass | New implementation |
 | --- | --- | --- | ---: | --- |
@@ -57,7 +59,7 @@ The earlier independent Burning Ice 10 draft and its 20 observed rounds are reta
 | [Multi Hot 100](https://www.smartsoftgaming.com/games/multi-hot-100) | Sizzling Hot | provider-table-limit | 0 | not-built-v2 |
 | [Multi Hot 20](https://www.smartsoftgaming.com/games/multi-hot-20) | Magic Apple 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Multi Hot 40](https://www.smartsoftgaming.com/games/multi-hot-40) | Multi Hot 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
-| [Multi Hot 5](https://www.smartsoftgaming.com/games/multi-hot-5) | Multi Hot 5 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
+| [Multi Hot 5](https://www.smartsoftgaming.com/games/multi-hot-5) | Multi Hot 5 | canvas-loaded-needs-visual-and-gameplay-review | 10 | not-built-v2 |
 | [Multi Hot 5 Burn Wilds](https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds) | Fruits 40 | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Multi Hot 5 Deluxe](https://www.smartsoftgaming.com/games/multi-hot-5-deluxe) | Multi Hot Deluxe | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |
 | [Multi Hot 5 Super Wilds](https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds) | Ultra Hot | canvas-loaded-needs-visual-and-gameplay-review | 0 | not-built-v2 |

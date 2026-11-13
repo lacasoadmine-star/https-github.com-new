@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-13T00:37:31.009887+00:00",
+  "updatedAt": "2026-11-13T00:55:02.892009+00:00",
   "target": "https://superwin-player.apdiy61.workers.dev",
   "section": "Special Games",
   "releaseMode": "one-complete-74-game-addition",
   "legacyDisposition": "retain-existing-games-and-add-independent-special-games",
-  "financialPolicy": "same existing backend, wallet, ledger, accounts, currency; no demo financial runtime; no inferred payout math",
+  "financialPolicy": "Retain existing backend, database, wallet, ledger, accounts and ETB. Add separately versioned operator-authored math; never use demo money, accounts or financial runtime.",
   "previousPresentationStatus": "rejected-by-user; archived, not approved as a v2 implementation",
   "entries": [
     {
@@ -17,7 +17,7 @@
         "title": "Multi Hot 5",
         "url": "https://www.smartsoftgaming.com/games/multi-hot-5",
         "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
-        "match": "official-catalogue; runtime verification pending",
+        "match": "verified",
         "publishedDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
       },
       "presentation": "not-built-v2",
@@ -56,14 +56,43 @@
       "selectedCategory": "Slots",
       "replacement": false,
       "replacementReason": null,
-      "freshDemoStatus": "queued",
+      "freshDemoStatus": "observed-ten-rounds-controls-gamble-pending",
       "demoTokenVerified": true,
-      "confirmedDemoRoundIds": [],
+      "confirmedDemoRoundIds": [
+        "1970274633.1",
+        "1970274633.2",
+        "1970274633.3",
+        "1970274633.4",
+        "1970274633.5",
+        "1970274633.6",
+        "1970274633.7",
+        "1970274633.8",
+        "1970274633.9",
+        "1970274633.10"
+      ],
       "freshReferenceDirectory": "reports/special74/fresh-observations/001-multi-hot-5",
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/001-multi-hot-5.txt",
       "probabilityEvidence": {
-        "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "verified": true,
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "Exact independent operator RTP and maximum base payout proved; production ledger integration and playable disclosures remain unverified.",
+        "modelId": "special74_multi_hot_5_v1",
+        "modelVersion": "operator-mh5-v1"
+      },
+      "evidence": {
+        "math": {
+          "path": "reports/special74/operator-math/multi-hot-5-proof.json",
+          "sha256": "4976878159679cfaf323431bfd9ebaada196d02060e1feff1a842bb7220ceb83"
+        }
+      },
+      "backend": {
+        "modelId": "special74_multi_hot_5_v1",
+        "modelVersion": "operator-mh5-v1",
+        "source": "existing-superwin-server",
+        "frontendDeterminesPayout": false,
+        "integrationStatus": "not-installed-or-verified"
       }
     },
     {
@@ -96,7 +125,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/002-multi-hot-10.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -146,7 +178,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/003-multi-hot-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -188,7 +223,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/004-multi-hot-deluxe.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -238,7 +276,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/005-super-hot.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -280,7 +321,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/006-burning-hot.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -352,7 +396,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/007-burning-ice-10.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       },
       "controlEvidence": "reports/special74/ci-observations/43334926859/007-burning-ice-10/observation.json"
     },
@@ -398,7 +445,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/008-burning-ice-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       },
       "controlEvidence": "reports/special74/ci-observations/43334926859/008-burning-ice-40/observation.json",
       "coverage": {
@@ -479,7 +529,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/009-sizzling-hot.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -529,7 +582,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/010-ultra-hot.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -571,7 +627,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/011-fruit-slot.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -604,7 +663,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/012-fruitsn-sevens.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -646,7 +708,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/013-sevens-fruits.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -696,7 +761,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/014-three-sevens.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -738,7 +806,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/015-double-sevens.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -771,7 +842,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/016-super-sevens.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -804,7 +878,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/017-lucky-seven.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -837,7 +914,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/018-lucky-eight.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -870,7 +950,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/019-lucky-eight-win.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -903,7 +986,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/020-lucky-ladys-charm.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -936,7 +1022,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/021-diamond-seven.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -969,7 +1058,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/022-wild-cherries.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1002,7 +1094,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/023-wild-cherry.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1035,7 +1130,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/024-jackpot-6000.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1068,7 +1166,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/025-fever-slots.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1110,7 +1211,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/026-reel-rush.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1152,7 +1256,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/027-coin-miner.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1185,7 +1292,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/028-coins-of-atlantis.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1218,7 +1328,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/029-bottle-mania.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1251,7 +1364,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/030-stars.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1293,7 +1409,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/031-lucky-clover.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1326,7 +1445,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/032-lucky-clover-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1359,7 +1481,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/033-ancient-fortunes.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1392,7 +1517,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/034-ancient-fortunes-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1425,7 +1553,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/035-magic-apple.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1458,7 +1589,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/036-magic-apple-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1491,7 +1625,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/037-fruits-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1524,7 +1661,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/038-cherry-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1582,7 +1722,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/039-sevens-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1615,7 +1758,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/040-diamond-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1648,7 +1794,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/041-wild-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1681,7 +1830,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/042-hot-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1714,7 +1866,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/043-lucky-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1747,7 +1902,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/044-fruit-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1780,7 +1938,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/045-super-fruits-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1822,7 +1983,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/046-golden-fruits-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1855,7 +2019,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/047-royal-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1888,7 +2055,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/048-princess-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1921,7 +2091,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/049-star-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1954,7 +2127,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/050-lucky-star-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -1987,7 +2163,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/051-fortune-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2020,7 +2199,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/052-lucky-7.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2053,7 +2235,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/053-book-of-ra.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2086,7 +2271,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/054-book-of-ra-deluxe.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2119,7 +2307,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/055-dolphins-pearl.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2152,7 +2343,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/056-dolphins-pearl-deluxe.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2185,7 +2379,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/057-maui-millionaire.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2227,7 +2424,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/058-lucky-8.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2260,7 +2460,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/059-seven-pirates.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2293,7 +2496,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/060-wild-pirates.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2326,7 +2532,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/061-sea-treasures.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2359,7 +2568,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/062-great-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2392,7 +2604,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/063-great-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2425,7 +2640,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/064-magic-7.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2467,7 +2685,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/065-magic-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2509,7 +2730,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/066-hot-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2542,7 +2766,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/067-hot-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2575,7 +2802,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/068-lucky-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2608,7 +2838,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/069-lucky-40.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2641,7 +2874,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/070-fruit-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2674,7 +2910,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/071-treasure-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2707,7 +2946,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/072-ocean-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2740,7 +2982,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/073-joker-27.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     },
     {
@@ -2773,7 +3018,10 @@
       "freshOfficialPageEvidence": "reports/special74/fresh-official-pages/074-super-joker.txt",
       "probabilityEvidence": {
         "verified": false,
-        "reason": "Public demo rounds and advertised RTP do not establish private provider outcome probabilities."
+        "sourceType": "operator-authored-math-specification",
+        "claimsProviderMath": false,
+        "disclosuresVerified": false,
+        "reason": "User now authorizes independent operator math. A model proof and retained-ledger integration are still required for this title."
       }
     }
   ],
@@ -2797,5 +3045,21 @@
   },
   "catalogueOrdering": "A\u2013Z by display title; stable position tie-break preserves repeated names",
   "deploymentPerformed": false,
-  "substitutionPolicy": "User authorizes choosing verified replacement game/type without asking"
+  "substitutionPolicy": "User authorizes choosing verified replacement game/type without asking",
+  "mathPolicy": {
+    "mode": "operator-authored",
+    "authorizedByUser": true,
+    "authorizationDate": "2026-11-13",
+    "authorizationQuote": "Xisaab aniga ii gaar ah oo macquula adigu samee qorshee",
+    "providerPrivateMathRequired": false,
+    "claimsProviderMath": false,
+    "requirements": [
+      "versioned server-only outcomes",
+      "exact theoretical RTP proof per model",
+      "integer minor-unit settlement",
+      "existing atomic ledger and idempotent replay",
+      "disclose actual operator paytable, RTP, maximum win and gamble limits"
+    ],
+    "releaseRequiresVerifiedIntegration": true
+  }
 }

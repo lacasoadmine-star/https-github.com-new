@@ -1,6 +1,7 @@
 // Transport for the existing account API. There is no outcome generator here.
 const UUID=/^[a-f\d]{8}-[a-f\d]{4}-4[a-f\d]{3}-[89ab][a-f\d]{3}-[a-f\d]{12}$/i;
 const HASH=/^[a-f\d]{64}$/i;
+const NATIVE_CLASSIC=new Set(['multi_hot_5_native','foxy_hot_20_native']);
 export function cents(value){if(typeof value!=='string'||!/^\d{1,13}\.\d{2}$/.test(value))throw Error('INVALID_AMOUNT');return BigInt(value.replace('.',''));}
 export function amount(value){const n=BigInt(value);if(n<0n)throw Error('INVALID_AMOUNT');return `${n/100n}.${String(n%100n).padStart(2,'0')}`;}
 export class AccountError extends Error{constructor(code,status=0,uncertain=false){super(code);Object.assign(this,{code,status,uncertain});}}
@@ -56,14 +57,16 @@ export class Account {
   if(!this.state?.accepting)throw new AccountError('GAME_UNAVAILABLE');
   if(!this.state.model.betLevels.includes(bet))throw new AccountError('INVALID_BET');
   const s=this.state,body={gameId:this.game.modelId,bet,roundToken:crypto.randomUUID()};
-  if(this.game.transport==='fresh')Object.assign(body,{sessionGuard:s.guard,mathVersion:s.model.mathVersion,mathSha256:s.model.mathSha256,engineVersion:s.model.engineVersion});
+  if(this.game.transport==='fresh'||NATIVE_CLASSIC.has(this.game.modelId))Object.assign(body,{mathVersion:s.model.mathVersion,engineVersion:s.model.engineVersion,...(s.model.mathSha256?{mathSha256:s.model.mathSha256}:{})});
+  if(this.game.transport==='fresh')body.sessionGuard=s.guard;
   return this.submit({kind:'spin',game:this.game.id,guard:s.guard,body});
  }
  async gamble(choice){
   const r=this.state?.round,g=this.state?.gamble;
   if(this.busy||this.pending||!r||!g?.available||!['RED','BLACK'].includes(choice))throw new AccountError('GAMBLE_UNAVAILABLE');
   const body={roundId:r.roundId,choice,roundToken:crypto.randomUUID()};
-  if(this.game.transport==='fresh')Object.assign(body,{sessionGuard:this.state.guard,expectedAttempt:g.attempt+1,expectedStake:g.stake});
+  if(this.game.transport==='fresh'||NATIVE_CLASSIC.has(this.game.modelId))Object.assign(body,{expectedAttempt:g.attempt+1,expectedStake:g.stake});
+  if(this.game.transport==='fresh')body.sessionGuard=this.state.guard;
   return this.submit({kind:'gamble',game:this.game.id,guard:this.state.guard,body,stake:g.stake,attempt:g.attempt+1});
  }
  async submit(p,{replay=false}={}){
@@ -72,7 +75,8 @@ export class Account {
   try{
    // Persist before sending: network errors may happen after the server settles.
    this.save(p);
-   const result=await this.request('/api/slots/'+p.kind,replay&&this.game.transport==='fresh'?{...p.body,replayOnly:true}:p.body);
+   const replayOnly=replay&&(this.game.transport==='fresh'||p.kind==='gamble'&&NATIVE_CLASSIC.has(this.game.modelId));
+   const result=await this.request('/api/slots/'+p.kind,replayOnly?{...p.body,replayOnly:true}:p.body);
    if(p.kind==='spin'){
     receipt(result,this.game,p,this.state.model);
     this.state.round=result;

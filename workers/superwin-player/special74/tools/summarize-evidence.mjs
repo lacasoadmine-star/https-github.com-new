@@ -40,7 +40,7 @@ for(const entry of selected){
  for(const [name,set]of [['interactive-rounds.json',value=>interactive=value],['interactive-observation.json',value=>ui=value],['visual-review.json',value=>visual=value]]){
   try{const value=await json(resolve(folder,'fresh-observations',entry.id,name));if(value.id!==entry.id||value.selectedName!==entry.selectedName)throw Error('Interactive identity mismatch');set(value);}catch(error){if(error.code!=='ENOENT')throw error;}
  }
- const controls=controlEvidence(entry,controlRecords);
+ const controls=controlEvidence(entry,controlRecords),implementation=manifest.entries.find(e=>e.id===entry.id);
  const rounds=[...new Set([...(observation?.confirmedRoundIds??[]),...(interactive?.confirmedRoundIds??[]),...controls.confirmedRoundIds])];
  entries.push({id:entry.id,displayOrder:entry.displayOrder,requestedName:entry.requestedName,selectedName:entry.selectedName,provider:entry.selectedProvider,category:entry.selectedCategory,replacement:entry.replacement,
   officialPage:entry.officialIdentity.url,providerPageArchived:page?.status==='archived',
@@ -50,20 +50,25 @@ for(const entry of selected){
   ...reviewState(visual,screenshot),
   sufficientBehaviorCoverage:false,visualParityVerified:false,screenshot,
   backendCandidates:model?.candidates??[],providerProbabilityModelVerified:false,
-  presentation:manifest.entries.find(e=>e.id===entry.id)?.presentation??'not-built-v2',ready:false});
+  operatorMathProofVerified:implementation?.probabilityEvidence?.sourceType==='operator-authored-math-specification'&&implementation.probabilityEvidence.verified===true,
+  operatorMathBackendIntegrated:implementation?.backendContractVerified===true&&implementation?.probabilityEvidence?.sourceType==='operator-authored-math-specification',
+  presentation:implementation?.presentation??'not-built-v2',ready:false});
 }
 const totals={selected:entries.length,officialPagesArchived:entries.filter(e=>e.providerPageArchived).length,
  launchAttempts:entries.filter(e=>e.launchStatus!=='queued').length,
  canvasesObserved:entries.filter(e=>e.launchStatus==='canvas-loaded-needs-visual-and-gameplay-review').length,
  freshGamesWithConfirmedRounds:entries.filter(e=>e.freshConfirmedRoundIds.length).length,
  gamesWithCompletedRoundObservedInUI:entries.filter(e=>e.completedRoundsObservedInUI>0).length,
- sufficientBehaviorCoverage:0,verifiedProviderProbabilityModels:0,releaseReady:0};
+ sufficientBehaviorCoverage:0,verifiedProviderProbabilityModels:0,
+ verifiedOperatorMathProofs:entries.filter(e=>e.operatorMathProofVerified).length,
+ integratedOperatorMathModels:entries.filter(e=>e.operatorMathBackendIntegrated).length,releaseReady:0};
 const report={updatedAt:new Date().toISOString(),scope:'Add 74 new SmartSoft titles alongside existing games; no production change',totals,entries};
 await writeFile(resolve(folder,'current-status.json'),JSON.stringify(report,null,2)+'\n');
 const lines=['# Special Games — actual evidence status','',
  'Existing games remain unchanged. This catalogue has not been deployed. A loaded canvas or screenshot is not gameplay verification or a completed game.','',
  `${totals.officialPagesArchived}/74 official provider pages archived; ${totals.launchAttempts}/74 demo launches attempted; ${totals.freshGamesWithConfirmedRounds}/74 games with confirmed rounds in the current fresh pass.`,
- '', 'The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. Private reel distributions and exact provider probabilities have not been established.','',
+ '', 'The earlier independent Burning Ice 10 draft and its 20 observed rounds are retained as separately dated work; they do not automatically satisfy the new all-title pass. On 2026-11-13 the user authorized independently authored operator math. Private provider probabilities are no longer a release requirement; exact operator math proofs, correct disclosures and verified existing-ledger integration are required.',
+ '', `${totals.verifiedOperatorMathProofs}/74 independent operator math proofs; ${totals.integratedOperatorMathModels}/74 new operator models verified against the retained ledger. No provider-equivalence claim.`, '',
  '| Official selected title | Requested name | Demo observation | Confirmed rounds in fresh pass | New implementation |',
  '| --- | --- | --- | ---: | --- |',
  ...entries.map(e=>`| [${e.selectedName}](${e.officialPage}) | ${e.requestedName} | ${e.launchStatus} | ${e.freshConfirmedRoundIds.length} | ${e.presentation} |`),''];

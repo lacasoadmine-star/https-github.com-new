@@ -16,6 +16,7 @@ async function add(runtimePath,sourcePath,expectedHash){
  if(!runtimePath.startsWith('/special-games/')||new URL(runtimePath,'https://player.invalid').pathname!==runtimePath)throw Error('Invalid packaged route');
  const source=resolve(root,sourcePath),rel=relative(folder,source);
  if(rel==='..'||rel.startsWith('..'+sep)||!(await stat(source)).isFile())throw Error('Only new package files may be published');
+ if(rel==='operator-math'||rel.startsWith('operator-math'+sep))throw Error('Server outcome models cannot be included in the frontend package');
  const data=await readFile(source),sha256=createHash('sha256').update(data).digest('hex');
  if(expectedHash&&sha256!==expectedHash)throw Error('Asset changed after verification: '+sourcePath);
  if(assets[runtimePath]&&assets[runtimePath].sha256!==sha256)throw Error('Conflicting packaged asset');

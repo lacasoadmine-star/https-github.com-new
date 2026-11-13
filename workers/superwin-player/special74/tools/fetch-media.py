@@ -11,12 +11,13 @@ from urllib.parse import urlsplit, unquote
 ROOT = Path(__file__).resolve().parents[1]
 PREFIX = 'https://static.ssg-public.com/cache/b1/SlotsDemo/Content/'
 EXTENSIONS = ('.png', '.webp', '.jpg', '.mp3', '.ogg', '.otf', '.woff', '.woff2', '.json', '.atlas.txt')
+GAME_PREFIXES = ('Images/BlazingHot/', 'Sound/BlazingHot/', 'Images/MultiHot5/', 'Sound/MultiHot5/', 'Fonts/')
 
 def download(url):
     if not url.startswith(PREFIX) or not urlsplit(url).path.endswith(EXTENSIONS):
         raise ValueError('Non-media source: ' + url)
     rel = unquote(url[len(PREFIX):]).split('?')[0]
-    if '..' in Path(rel).parts or not rel.startswith(('Images/BlazingHot/', 'Sound/BlazingHot/', 'Fonts/')):
+    if '..' in Path(rel).parts or not rel.startswith(GAME_PREFIXES):
         raise ValueError('Outside this game presentation: ' + rel)
     out = ROOT / 'assets' / rel
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -31,7 +32,7 @@ def download(url):
 
 if __name__ == '__main__':
     urls = json.loads(Path(sys.argv[1]).read_text())
-    urls = list(dict.fromkeys(u for u in urls if u.startswith(PREFIX) and urlsplit(u).path.endswith(EXTENSIONS) and u[len(PREFIX):].startswith(('Images/BlazingHot/', 'Sound/BlazingHot/', 'Fonts/'))))
+    urls = list(dict.fromkeys(u for u in urls if u.startswith(PREFIX) and urlsplit(u).path.endswith(EXTENSIONS) and u[len(PREFIX):].startswith(GAME_PREFIXES)))
     results, failures = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         tasks = {pool.submit(download, u): u for u in urls}
@@ -40,7 +41,13 @@ if __name__ == '__main__':
                 results.append(task.result())
             except Exception as error:
                 failures.append({'url': tasks[task], 'error': str(error)})
-    manifest = {'assets': sorted(results, key=lambda x: x['path']), 'failures': failures}
+    previous = ROOT / 'media-manifest.json'
+    retained = {a['path']:a for a in json.loads(previous.read_text()).get('assets', [])} if previous.exists() else {}
+    for asset in results:
+        if asset['path'] in retained and retained[asset['path']]['sha256'] != asset['sha256']:
+            raise ValueError('Previously pinned media changed: ' + asset['path'])
+        retained[asset['path']] = asset
+    manifest = {'assets': sorted(retained.values(), key=lambda x: x['path']), 'failures': failures}
     (ROOT / 'media-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     print(json.dumps({'downloaded': len(results), 'bytes': sum(x['bytes'] for x in results), 'failures': failures}))
     if failures:

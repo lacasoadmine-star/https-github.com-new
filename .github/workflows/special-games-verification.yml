@@ -40,7 +40,10 @@ jobs:
           python3 workers/superwin-player/special74/tools/restore-assets.py
           python3 workers/superwin-player/special74/tools/fetch-launcher-media.py
       - name: Verify financial contract, routes and retry evidence
-        run: node --test workers/superwin-player/special74/tests/*.test.mjs
+        run: |
+          node workers/superwin-player/special74/tools/prove-operator-math.mjs
+          git diff --exit-code -- reports/special74/operator-math
+          node --test workers/superwin-player/special74/tests/*.test.mjs
       - name: Bundle the independent game presentation
         run: node "$RUNNER_TEMP/special74-tooling/node_modules/esbuild/bin/esbuild" workers/superwin-player/special74/src/ice.mjs --bundle --format=esm --platform=browser --outfile=workers/superwin-player/special74/test-results/ice.bundle.mjs
       - name: Bundle the independent four-row presentation

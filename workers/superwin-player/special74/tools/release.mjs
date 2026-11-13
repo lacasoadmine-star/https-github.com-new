@@ -12,7 +12,11 @@ export async function inspectRelease(manifest,root){
   if(!file?.path||!/^[a-f0-9]{64}$/.test(file.sha256||'')){fail(id,'Missing file and SHA-256 evidence');return;}
   const path=resolve(root,file.path),rel=relative(resolve(root),path);
   if(rel==='..'||rel.startsWith('..'+sep)||path===resolve(root)){fail(id,'Evidence path escapes package');return;}
-  try{if(!(await stat(path)).isFile()||createHash('sha256').update(await readFile(path)).digest('hex')!==file.sha256)fail(id,'Evidence file is missing or changed: '+file.path);}catch{fail(id,'Evidence unavailable: '+file.path);}
+  try{
+   const data=await readFile(path);
+   if(!(await stat(path)).isFile()||createHash('sha256').update(data).digest('hex')!==file.sha256){fail(id,'Evidence file is missing or changed: '+file.path);return;}
+   return data;
+  }catch{fail(id,'Evidence unavailable: '+file.path);}
  };
  for(const e of manifest.entries||[]){
   const id=e.id;
@@ -24,9 +28,17 @@ export async function inspectRelease(manifest,root){
   if(e.coverage?.complete!==true||!Array.isArray(e.coverage?.required)||!e.coverage.required.length||e.coverage.required.some(x=>!e.coverage.verified?.includes(x)))fail(id,'Required game behavior remains unverified; spin count alone is not acceptance');
   if(e.presentation!=='built-v2'||e.parityVerified!==true)fail(id,'New playable presentation and visual/motion/audio comparison not approved');
   if(e.backendContractVerified!==true||!e.backend?.modelId||!e.backend?.modelVersion||e.backend?.source!=='existing-superwin-server'||e.backend?.frontendDeterminesPayout!==false)fail(id,'Matching existing server financial model not verified');
-  if(e.probabilityEvidence?.verified!==true||e.probabilityEvidence?.sourceType!=='official-math-specification')fail(id,'Exact provider probabilities require official mathematical evidence; demo samples and advertised RTP are insufficient');
+  const probability=e.probabilityEvidence;
+  if(probability?.sourceType==='operator-authored-math-specification'){
+   if(manifest.mathPolicy?.mode!=='operator-authored'||manifest.mathPolicy?.authorizedByUser!==true||probability.verified!==true||probability.claimsProviderMath!==false)fail(id,'Operator math requires explicit scope, verification and independent attribution');
+   const data=await asset(id,e.evidence?.math);
+   let proof;try{proof=data&&JSON.parse(data.toString());}catch{}
+   if(!proof||proof.gameId!==id||proof.modelId!==e.backend?.modelId||proof.modelVersion!==e.backend?.modelVersion||proof.sourceType!=='operator-authored-math-specification'||proof.exactProofVerified!==true||proof.claimsProviderMath!==false||proof.evidence?.length<2||!Array.isArray(proof.evidence))fail(id,'Operator math proof identity, model or specification is not verified');
+   else for(const file of proof.evidence)await asset(id,file);
+   if(probability.disclosuresVerified!==true)fail(id,'Operator RTP, paytable and maximum win must be disclosed in the playable game');
+  }else if(probability?.verified!==true||probability?.sourceType!=='official-math-specification')fail(id,'Verified operator math or an official mathematical specification is required; demo samples alone are insufficient');
   if(e.runtime?.thirdPartyRequests!==0||e.runtime?.unresolvedFinancialRequests!==0||e.runtime?.localWagerCollectChecksPassed!==true)fail(id,'Same-origin runtime and financial recovery checks not verified');
-  for(const kind of ['portrait','landscape','motion','sound','controls','financial','math'])await asset(id,e.evidence?.[kind]);
+  for(const kind of ['portrait','landscape','motion','sound','controls','financial',...(probability?.sourceType==='operator-authored-math-specification'?[]:['math'])])await asset(id,e.evidence?.[kind]);
  }
  return {ready:issues.length===0,requested:74,entries:manifest.entries?.length??0,issues};
 }
