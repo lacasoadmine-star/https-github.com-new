@@ -1,1 +1,10 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><title>ZPLAY — 26 Engine QA Lab</title><link rel="stylesheet" href="./preview.css"></head>
+<body>
+<header class="top"><div class="brand"><span class="mark">Z</span><div><strong>ZPLAY</strong><small>26 ENGINE QA LAB</small></div></div><span class="qa-tag">QA ONLY · NO WALLET</span></header>
+<main>
+<section class="setup" aria-label="Game selection"><label for="game">Select engine</label><select id="game"></select><div id="family" class="family"></div><p class="reference">Official public page: <a id="official" target="_blank" rel="noopener noreferrer">Open SmartSoft reference</a>. In-game demo equivalence has not been verified.</p></section>
+<section class="machine" aria-label="Game engine preview"><div class="machine-head"><span id="game-title">Loading</span><span id="state" role="status" aria-live="polite">READY</span></div><canvas id="scene" width="720" height="820" aria-label="Realtime game scene, rendered from test-only results"></canvas><div class="readouts"><div><small>ROUND</small><strong id="round">—</strong></div><div><small>VALUE</small><strong id="value">—</strong></div><div><small>PROGRESS</small><strong id="progress">0</strong></div></div><div class="inputs"><button id="start" class="primary">START TEST ROUND</button><button id="stop" disabled>STOP</button><button id="collect" disabled>COLLECT</button><button id="auto">AUTO 10</button><button id="sound" aria-pressed="false">SOUND OFF</button><button id="help" aria-expanded="false">HELP</button></div><div id="choices" class="choices" aria-label="Game-specific controls"></div><div class="extra" id="extra"></div><div id="help-panel" hidden></div></section>
+<footer>Local, non-monetary development fixture. This is not a SmartSoft demo, provider-certified game or production deployment. No wagers, ETB, accounts or wallet requests.</footer>
+</main><script type="module" src="./preview.mjs"></script>
+</body></html>
