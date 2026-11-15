@@ -17,7 +17,7 @@ export const NATIVE_TOUCH_HOTFIX_CSS = `
 #account-status a, #account-status button { pointer-events: auto; touch-action: manipulation; }
 /* Multi Hot 10: expand small landscape targets and clear the SPIN hit area. */
 @media (orientation: landscape) {
-  #controls button.speed { left: 93%; top: 24%; width: 7%; height: 11%; min-width: 44px; min-height: 44px; }
+  #controls button.speed { left: 93%; top: 29%; width: 7%; height: 11%; min-width: 44px; min-height: 44px; }
   #controls button.info { min-width: 44px; min-height: 44px; }
   #controls button.sound { left: 92%; width: 7%; min-width: 44px; min-height: 44px; }
 }
