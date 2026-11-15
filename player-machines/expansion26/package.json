@@ -1,0 +1,11 @@
+{
+  "name": "zplay-expansion26-qa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test engine.test.mjs",
+    "qa:browser": "node browser-qa.mjs",
+    "check": "npm test && npm run qa:browser"
+  },
+  "engines": {"node": ">=22"}
+}

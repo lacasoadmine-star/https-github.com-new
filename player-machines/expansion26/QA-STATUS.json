@@ -1,0 +1,28 @@
+{
+  "checkpointDate": "2026-11-16",
+  "purpose": "Original non-monetary source checkpoint; NOT an official SmartSoft game rebuild or production release",
+  "scope": {"games": 26, "uniqueFamilyEngines": 10, "originalProtectedGamesUnchanged": ["multi_hot_5_native", "foxy_hot_20_native"]},
+  "tests": {
+    "node": {"passed": 35, "failed": 0, "fixtureRoundsPerGame": 20, "totalSyntheticRounds": 520},
+    "browser": {"passed": 33, "failed": 0, "widths": [360, 390, 430, 1280], "uncaughtJavaScriptErrors": 0,
+      "actualLocalInteractions": ["PopX COLLECT", "Samurai START and STOP", "Mine Island tile", "Chicken Ways choice", "Cai Balao mode switch", "AUTO start/stop"]}
+  },
+  "officialEvidence": {
+    "productDirectory": "https://www.smartsoftgaming.com/games",
+    "officialPageLinks": 26,
+    "inGamePlaySpinProven": 0,
+    "countryBlockedDemo": ["balloonx"],
+    "additionalBrowserRenderingBlocker": "HTTP 429",
+    "visualAudioParity": "not-established",
+    "officialPayoutMath": "unverified"
+  },
+  "production": {
+    "worker": "superwin-player",
+    "observedVersion": 421,
+    "versionId": "cd27fd55-3e84-4113-8a29-e85ae67b20a1",
+    "observedDeployment": "ee090b47-ff5f-4201-b3f7-2eb684306449",
+    "newGameRoutesLive": 0,
+    "etbIntegrationEnabled": false,
+    "paymentsOrBalancesTouched": false
+  }
+}
