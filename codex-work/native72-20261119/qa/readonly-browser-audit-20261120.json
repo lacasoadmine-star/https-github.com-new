@@ -1,0 +1,48 @@
+{
+  "schema": "zplay-readonly-browser-qa-v1",
+  "checkedAt": "2026-11-20",
+  "method": "Cloudflare Browser Rendering HTML retrieval, no login credentials, spin, deposits, financial writes or backend mutations",
+  "pages": [
+    {
+      "route": "/games/habesha_fortune_5_native",
+      "htmlTitle": "Habesha Fortune 5 · ZPLAY",
+      "visibleScript": "/zplay-native-machines-20261119-habesha-r7/controller.mjs",
+      "status": "HTML retrieved; client render/gameplay and authentication not verified"
+    },
+    {
+      "route": "/games/multihot40_native",
+      "htmlTitle": "retrieved in repeated check",
+      "status": "HTML retrieved; initial render attempt had transient HTTP 422, next retrieval succeeded, gameplay unverified"
+    },
+    {
+      "route": "/new74/037-safari-simba/",
+      "htmlTitle": "Safari Simba — ZPLAY",
+      "visibleScript": "/zplay-fixes/safari-20261117/startup.mjs",
+      "status": "HTML retrieved, gameplay not verified"
+    },
+    {
+      "route": "/zplay74/multi-hot-10/",
+      "htmlTitle": "Multi Hot 10 · ZPLAY",
+      "visibleScript": "app.mjs",
+      "status": "HTML retrieved, gameplay not verified"
+    },
+    {
+      "route": "/games/multi_hot_5_deluxe_native",
+      "htmlTitle": "Multi Hot 5 Deluxe · ZPLAY",
+      "visibleScript": "/zplay-native-machines-20261119-mh5deluxe-r1/controller.mjs",
+      "status": "HTML retrieved; r2 candidate NOT confirmed live"
+    },
+    {
+      "route": "/games/multihot100_native",
+      "htmlTitle": "Multi Hot 100 — ZPLAY",
+      "visibleScript": "./startup.audio-r2.mjs",
+      "status": "HTML retrieved, gameplay not verified"
+    }
+  ],
+  "officialDemo": {
+    "name": "Multi Hot 40",
+    "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo",
+    "observation": "Browser Rendering retrieved official loader HTML and GameName=MultiHot40. The interactive canvas, Play click, SPIN, animation, audio and output were not verified."
+  },
+  "conclusion": "Do not mark any of these routes LIVE_ACCEPTED or launch 57 unexposed routes until per-game interactive QA is completed."
+}
