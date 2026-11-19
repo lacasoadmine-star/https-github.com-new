@@ -14,12 +14,13 @@ export function mountMultiHot40({root,canvas,assets,audioClips={},api,signInHref
  const bet=element('button',{type:'button','data-action':'bet'},'BET');
  const auto=element('button',{type:'button','data-action':'auto'},'AUTO');
  const start=element('button',{type:'button','data-action':'start-play'},'START PLAY');
+ const stopAuto=element('button',{type:'button','data-action':'stop-auto'},'STOP AUTO');
  const sound=element('button',{type:'button','data-action':'sound','aria-pressed':'false'},'SOUND OFF');
  const settings=element('button',{type:'button','data-action':'settings'},'SETTINGS');
  const home=element('a',{href:signInHref},'ZPLAY');
  const fields=element('div',{className:'mh40-readouts'});
  fields.append(element('span',{},'BALANCE ETB'),balance,element('span',{},'BET ETB'),betValue,element('span',{},'WIN ETB'),win);
- toolbar.append(fields,spin,bet,auto,start,sound,settings,home,status);
+ toolbar.append(fields,spin,bet,auto,start,stopAuto,sound,settings,home,status);
  root.append(toolbar);
  let dialog=null;const close=()=>{dialog?.remove();dialog=null;};
  function panel(title){close();dialog=element('div',{className:'mh40-panel',role:'dialog','aria-modal':'true','aria-label':title});
@@ -29,10 +30,12 @@ export function mountMultiHot40({root,canvas,assets,audioClips={},api,signInHref
   balance.value=s.balance??'—';balance.textContent=s.balance??'—';betValue.textContent=s.stake??'—';
   win.textContent=s.lastReceipt?.finalWin??'0.00';
   spin.textContent=s.phase==='confirm'?'CONFIRM':s.phase==='revealing'?'STOP':'SPIN';
-  const busy=['loading','requesting','revealing','error'].includes(s.phase);
-  spin.disabled=busy||!['ready','confirm','revealing'].includes(s.phase);
+  spin.disabled=!['ready','confirm','revealing'].includes(s.phase);
+  // While reels are presenting an accepted result, STOP must remain reachable.
+  // It accelerates the local presentation; it never changes the server receipt.
   bet.disabled=s.phase!=='ready'||!!s.autoArmed||!!s.autoLeft;auto.disabled=s.phase!=='ready';
   start.hidden=!s.autoArmed;start.disabled=s.phase!=='ready';
+  stopAuto.hidden=!(s.autoArmed||s.autoLeft);
   status.textContent=s.error||s.phase.toUpperCase();
  }
  spin.addEventListener('click',()=>{if(controller.phase==='revealing')controller.stop();else if(controller.phase==='confirm')void controller.retry();else void controller.spin();});
@@ -41,10 +44,12 @@ export function mountMultiHot40({root,canvas,assets,audioClips={},api,signInHref
  });
  auto.addEventListener('click',()=>{const p=panel('AUTO');for(const count of [5,10,25,50,100]){const b=element('button',{type:'button'},String(count));b.addEventListener('click',()=>{if(controller.armAuto(count))close();});p.append(b);}});
  start.addEventListener('click',()=>void controller.startPlay());
+ stopAuto.addEventListener('click',()=>controller.stopAuto());
  sound.addEventListener('click',()=>{audio.setEnabled(!audio.enabled);sound.textContent=audio.enabled?'SOUND ON':'SOUND OFF';sound.setAttribute('aria-pressed',String(audio.enabled));});
  settings.addEventListener('click',()=>{const p=panel('SETTINGS');const music=element('button',{type:'button'},'MUSIC '+(audio.music?'ON':'OFF'));music.addEventListener('click',()=>{audio.setMusic(!audio.music);music.textContent='MUSIC '+(audio.music?'ON':'OFF');});p.append(music);});
  const onVisibility=()=>controller.visibility(document.hidden),onBlur=()=>controller.focus(false),onFocus=()=>controller.focus(true),onPageHide=()=>controller.visibility(true);
  document.addEventListener('visibilitychange',onVisibility);window.addEventListener('blur',onBlur);window.addEventListener('focus',onFocus);window.addEventListener('pagehide',onPageHide);
+ render();
  void controller.boot();
  return {controller,scene,audio,dispose(){if(installed)return;installed=true;controller.dispose();audio.dispose();close();toolbar.remove();document.removeEventListener('visibilitychange',onVisibility);window.removeEventListener('blur',onBlur);window.removeEventListener('focus',onFocus);window.removeEventListener('pagehide',onPageHide);}};
 }
