@@ -1,0 +1,14 @@
+/* Game-only controls; the existing Player dashboard/lobby is unchanged. */
+.mh40-controls{position:absolute;inset:auto 0 0;z-index:3;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:12px max(12px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(0,12,9,.98),rgba(0,24,17,.75));color:#fff;font:600 14px/1.25 system-ui,sans-serif;touch-action:manipulation}
+.mh40-controls button,.mh40-controls a,.mh40-panel button{border:1px solid #c29b3b;border-radius:12px;color:#fff;background:#124335;min-width:48px;min-height:48px;padding:10px 13px;cursor:pointer;touch-action:manipulation}
+.mh40-controls button[data-action=spin]{background:#156d47;font-weight:900;font-size:17px;min-width:100px;min-height:62px}
+.mh40-controls button[data-action=start-play]{background:#a16207}
+.mh40-controls button:disabled{opacity:.5;cursor:not-allowed}
+.mh40-controls button:focus-visible,.mh40-panel button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.mh40-readouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 12px;flex:1 0 100%;align-items:center;text-align:center;font-size:12px}
+.mh40-readouts output{font-variant-numeric:tabular-nums;font-size:16px;color:#ffe38e;overflow-wrap:anywhere}
+.mh40-controls [role=status]{flex:1 0 100%;min-height:18px;text-align:center;font-size:12px}
+.mh40-panel{position:absolute;z-index:5;inset:auto 12px 138px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:16px;background:#061b16;border:2px solid #c29b3b;border-radius:12px;color:white;box-shadow:0 8px 36px #000b}
+.mh40-panel h2{width:100%;margin:0;text-align:center;font-size:18px}
+@media (max-width:520px){.mh40-controls{gap:4px;padding:8px 5px max(9px,env(safe-area-inset-bottom))}.mh40-controls button{flex:1 1 18%;padding:8px 4px;font-size:12px}.mh40-panel{bottom:142px}}
+@media(prefers-reduced-motion:reduce){.mh40-controls *, .mh40-panel *{scroll-behavior:auto!important;transition:none!important}}
