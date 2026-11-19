@@ -43,10 +43,13 @@ export class MultiHot40Scene {
  pause(){this.paused=true;if(this.handle)this.caf(this.handle);this.handle=0;}
  resume(){if(this.disposed||!this.paused)return;this.paused=false;this.last=this.now();this.handle=this.raf(this.render);}
  drawImage(image,x,y,w,h){this.ctx.drawImage(image,x,y,w,h);}
- drawSymbol(image,x,y,w,h,shift=0,next=null){
+ drawSymbol(image,x,y,w,h,shift=0,next=null,previous=null){
+  // A continuous strip needs the incoming symbol above AND the outgoing one
+  // below. Drawing only the upper neighbor left empty transparent bands.
   this.ctx.save();this.ctx.beginPath();this.ctx.rect(x,y,w,h);this.ctx.clip();
-  this.drawImage(image,x,y+shift,w,h);
   if(next)this.drawImage(next,x,y+shift-h,w,h);
+  this.drawImage(image,x,y+shift,w,h);
+  if(previous)this.drawImage(previous,x,y+shift+h,w,h);
   this.ctx.restore();
  }
  draw(width,height){
@@ -71,8 +74,10 @@ export class MultiHot40Scene {
    const image=rolling?(this.assets.blur?.[symbol]||this.assets.symbols[symbol]):this.assets.symbols[symbol];
    if(!image)throw Error('MH40_SYMBOL_ASSET_MISSING');
    const next=rolling?(this.assets.blur?.[(symbol+1)%8]||this.assets.symbols[(symbol+1)%8]):null;
-   const shift=rolling?((this.elapsed*(1.3+col*.13))%sh):0;
-   this.drawSymbol(image,x,y,sw-3,sh-3,shift,next);
+   // Fractional offset is in cell-height units; using the full sh while
+   // drawing sh-3 artwork previously exposed a seam at each reel boundary.
+   const cellH=sh-3,shift=rolling?((this.elapsed*(1.3+col*.13))%cellH):0;
+   this.drawSymbol(image,x,y,sw-3,cellH,shift,next);
   }
   ctx.textAlign='center';ctx.font='bold 28px sans-serif';ctx.fillStyle='#ffe49a';
   ctx.fillText(String(settled?this.lastReceipt.wheelMultiplier:this.wheel)+'×',280,180);
