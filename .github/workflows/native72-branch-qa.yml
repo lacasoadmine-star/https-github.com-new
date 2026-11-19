@@ -59,5 +59,13 @@ jobs:
           node --check codex-work/native72-20261119/changes/multihot40-r1/mount.mjs
           node --test codex-work/native72-20261119/changes/multihot40-r1/title-assets.test.mjs
           node --check codex-work/native72-20261119/changes/multihot40-r1/title-assets.mjs
+      - name: Verify corrected Multi Hot 40 live renderer and reference timing
+        run: |
+          node --test codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-live-r2.test.mjs
+          node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-motion.mjs
+          node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-presentation.mjs
+      - name: Verify Safari Simba immutable r4 package
+        run: |
+          node --test codex-work/native72-20261119/changes/safari-r4/release.test.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
