@@ -2,6 +2,7 @@ import {MultiHot100Machine} from './multihot100-machine.mjs';
 import {mountMultiHot100View} from './multihot100-view.mjs';
 import {createReelPainter, validateAtlas} from './canvas-reels.mjs';
 import {ReelMotion, validateGrid} from './reel-motion.mjs';
+import {createForegroundAudio} from './foreground-audio.mjs';
 
 const mounted = new WeakMap();
 
@@ -16,18 +17,19 @@ export function mountMultiHot100({host, gameId, atlas, strips, timing, initialSt
   const symbols = new Set(Object.keys(atlas));
   const initialGrid = validateGrid(initialState.grid, 5, 4, symbols);
   if (initialState.currency === 'ETB' && !journal) throw new TypeError('A durable account-scoped journal is required for ETB integration');
-  let view, painter, motion, lastFrame, stoppedReels = new Set(), disposed = false;
+  let view, painter, motion, audioGate, lastFrame, stoppedReels = new Set(), disposed = false;
   const machine = new MultiHot100Machine({gameId, allowedBets, balanceMinor: initialState.balanceMinor,
     currency: initialState.currency, initialBetMinor: initialState.betMinor, symbols,
-    startRound, recoverRound, journal, nextToken, onAudio,
+    startRound, recoverRound, journal, nextToken,
+    onAudio: () => audioGate?.settingsChanged(),
     present: result => {
       stoppedReels = new Set(); view.showWinPaths([]);
       const run = motion.play(result.grid);
-      if (machine.settings.effects) cue('spin', {});
+      cue('spin', {});
       return {...run, finished: run.finished.then(outcome => {
         if (!outcome.cancelled && !disposed) {
           view.showWinPaths(result.winningPaths || []);
-          if (machine.settings.effects && result.winMinor > 0) cue('win', {winMinor: result.winMinor});
+          if (result.winMinor > 0) cue('win', {winMinor: result.winMinor});
         }
         return outcome;
       })};
@@ -39,17 +41,18 @@ export function mountMultiHot100({host, gameId, atlas, strips, timing, initialSt
       lastFrame = frame; painter.render(frame);
       for (const reel of frame.reels) if (reel.settled && !stoppedReels.has(reel.column)) {
         stoppedReels.add(reel.column);
-        if (machine.settings.effects) cue('reel-stop', {column:reel.column});
+        cue('reel-stop', {column:reel.column});
       }
     }});
-  function cue(name, detail) {try {onSoundCue(name, detail);} catch (error) {machine.lastAudioError=error;}}
+  function cue(name, detail) {try {audioGate?.cue(name, detail);} catch (error) {machine.lastAudioError=error;}}
+  audioGate = createForegroundAudio({win:browser, doc:host.ownerDocument, settings:()=>machine.settings, onAudio, onSoundCue});
   motion.seed(initialGrid);
   // Replacement tears down only the previous instance owned by this module.
   mounted.get(host)?.dispose();
   try {
     view = mountMultiHot100View({host, machine, loadHistory, aboutText, requestFullscreen});
     painter = createReelPainter({canvas:view.canvas, columns:5, rows:4, atlas});
-  } catch (error) {machine.dispose(); motion.dispose(); view?.dispose(); throw error;}
+  } catch (error) {audioGate.dispose();machine.dispose(); motion.dispose(); view?.dispose(); throw error;}
   lastFrame = {reels:initialGrid.map((result,column)=>({column,result,settled:true})), result:initialGrid, settled:true};
   const resize = () => {
     if (disposed) return;
@@ -59,8 +62,8 @@ export function mountMultiHot100({host, gameId, atlas, strips, timing, initialSt
   };
   let observer;
   try {observer=new browser.ResizeObserver(resize);observer.observe(view.canvas.parentElement);resize();}
-  catch(error){observer?.disconnect();machine.dispose();motion.dispose();painter.dispose();view.dispose();throw error;}
+  catch(error){observer?.disconnect();audioGate.dispose();machine.dispose();motion.dispose();painter.dispose();view.dispose();throw error;}
   const api = {machine, ready:machine.initialize(),
-    dispose() {if(disposed)return;disposed=true;observer.disconnect();machine.dispose();motion.dispose();painter.dispose();view.dispose();if(mounted.get(host)===api)mounted.delete(host);}};
+    dispose() {if(disposed)return;disposed=true;observer.disconnect();audioGate.dispose();machine.dispose();motion.dispose();painter.dispose();view.dispose();if(mounted.get(host)===api)mounted.delete(host);}};
   mounted.set(host,api);return api;
 }
