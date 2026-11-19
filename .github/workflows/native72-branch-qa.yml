@@ -26,7 +26,8 @@ jobs:
         run: |
           node --test \
             codex-work/native72-20261119/changes/dedicated-resume/tests/multi-game-routing.test.mjs \
-            codex-work/native72-20261119/changes/dedicated-resume/tests/deployment.test.mjs
+            codex-work/native72-20261119/changes/dedicated-resume/tests/deployment.test.mjs \
+            codex-work/native72-20261119/changes/dedicated-resume/tests/wild-multi-stars-presentation.test.mjs
       - name: Verify shared wallet/request ownership and lifecycle
         run: |
           node --test \
