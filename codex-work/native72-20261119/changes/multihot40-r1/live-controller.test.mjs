@@ -4,7 +4,7 @@ import {MultiHot40Live,GAME_ID,validateRound} from './live-controller.mjs';
 import {WalletAdapter} from '../dedicated-resume/shared/wallet.mjs';
 const model={id:GAME_ID,enabled:true,mathVersion:'mh40.v1',engineVersion:'existing.v1',mathSha256:'a'.repeat(64),betLevels:['1.00','2.00']};
 const session={authenticated:true,currency:'ETB',balance:'100.00',sessionId:'f'.repeat(64)};
-const receipt={gameId:GAME_ID,roundId:'round-1',mathVersion:model.mathVersion,engineVersion:model.engineVersion,mathSha256:model.mathSha256,bet:'1.00',finalWin:'0.00',balance:'99.00',grid:Array.from({length:4},()=>[1,2,3,4,5]),wheelMultiplier:3};
+const receipt={gameId:GAME_ID,roundId:'round-1',mathVersion:model.mathVersion,engineVersion:model.engineVersion,mathSha256:model.mathSha256,bet:'1.00',finalWin:'0.00',balance:'99.00',grid:Array.from({length:5},()=>[1,2,3,4]),wheelMultiplier:3};
 const make=({error=null,requests}={})=>{
  const storage=new Map(),calls=[],flags={};
  const memory={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
@@ -37,7 +37,7 @@ test('balanceAfter is authoritative; the renderer never calculates a local ETB d
    calls.push(path);
    const data=path==='/api/machine-session'?session:
     path==='/api/slots/games/'+GAME_ID?{...model,reels:5,rows:4,paylines:40,symbolNames:['a','b','c','d','e','f','g','h']}:
-    path==='/api/slots/spin'?{...receipt,grid:Array.from({length:4},()=>['a','b','c','d','e']),balance:undefined,balanceAfter:'102.00',finalWin:'3.00'}:
+    path==='/api/slots/spin'?{...receipt,grid:Array.from({length:5},()=>['a','b','c','d']),balance:undefined,balanceAfter:'102.00',finalWin:'3.00'}:
     null;
    assert.ok(data,'unknown endpoint '+path);
    return {ok:true,status:200,json:async()=>data};
@@ -65,5 +65,11 @@ test('settled receipt with failed client presentation never triggers CONFIRM or 
 });
 test('rejects foreign payline and 5x3 layouts before any wager',()=>{
  assert.throws(()=>validateRound({...receipt,grid:[[0,1,2,3,4]]},{model,bet:'1.00'}),/MH40_GRID_INVALID/);
- assert.throws(()=>validateRound({...receipt,grid:Array.from({length:4},()=>[0,1,2,3,8])},{model,bet:'1.00'}),/MH40_SYMBOL_INVALID/);
+ assert.throws(()=>validateRound({...receipt,grid:Array.from({length:5},()=>[0,1,2,8])},{model,bet:'1.00'}),/MH40_SYMBOL_INVALID/);
+});
+
+test('accepts the existing engine column-major receipt and refuses a transposed one',()=>{
+ assert.equal(validateRound(receipt,{model,bet:'1.00'}).grid.length,5);
+ const transposed=Array.from({length:4},(_,row)=>Array.from({length:5},(_,col)=>receipt.grid[col][row]));
+ assert.throws(()=>validateRound({...receipt,grid:transposed},{model,bet:'1.00'}),/MH40_GRID_INVALID/);
 });
