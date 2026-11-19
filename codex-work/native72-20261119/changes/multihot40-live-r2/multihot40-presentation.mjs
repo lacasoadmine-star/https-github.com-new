@@ -97,11 +97,14 @@ export class MultiHot40Presentation {
     this.winCycleStart = 0; this.latestTime = clock(); this.frameCount = 0; this.fonts = [];
     // Both document visibility and window focus must mute live clips instantly.
     // A blurred tab is not guaranteed to fire visibilitychange (desktop/task switch).
-    this.audioHidden = () => globalThis.document?.hidden === true || globalThis.document?.hasFocus?.() === false;
+    this.audioFocused = true;
+    this.audioHidden = () => globalThis.document?.hidden === true || !this.audioFocused || globalThis.document?.hasFocus?.() === false;
     this.visibilityHandler = () => this.audio?.preferences(this.state.soundEnabled, this.state.musicEnabled, this.audioHidden());
     globalThis.document?.addEventListener('visibilitychange', this.visibilityHandler);
-    globalThis.window?.addEventListener('blur', this.visibilityHandler);
-    globalThis.window?.addEventListener('focus', this.visibilityHandler);
+    this.blurHandler = () => { this.audioFocused = false; this.visibilityHandler(); };
+    this.focusHandler = () => { this.audioFocused = true; this.visibilityHandler(); };
+    globalThis.window?.addEventListener('blur', this.blurHandler);
+    globalThis.window?.addEventListener('focus', this.focusHandler);
     if (options.manifest || options.manifestURL) this.configure(options);
   }
   event(event) {
@@ -416,8 +419,8 @@ export class MultiHot40Presentation {
     this.store?.dispose(); this.images.clear();
     for (const face of this.fonts) globalThis.document?.fonts?.delete(face); this.fonts = [];
     globalThis.document?.removeEventListener('visibilitychange', this.visibilityHandler);
-    globalThis.window?.removeEventListener('blur', this.visibilityHandler);
-    globalThis.window?.removeEventListener('focus', this.visibilityHandler);
+    globalThis.window?.removeEventListener('blur', this.blurHandler);
+    globalThis.window?.removeEventListener('focus', this.focusHandler);
   }
 }
 
