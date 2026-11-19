@@ -75,8 +75,10 @@ export function validateReleasePin(pin, { game = false } = {}) {
       || !manifest.htmlTemplate.includes('{{GAME}}')
       || !manifest.htmlTemplate.includes('{{PRESENTATION_GAME}}')
       || !manifest.htmlTemplate.includes('</body>')) fail('INVALID_GAME_MANIFEST');
-    if (pin.accountPath !== manifest.accountPath) fail('INVALID_GAME_ROUTE_PIN');
-    canonicalLaunchPath(pin.gameId, pin.accountPath);
+    // Catalog account URLs may contain an optional terminal slash. Compare
+    // the canonical route, not the serialized spelling of that same route.
+    if (canonicalLaunchPath(pin.gameId, pin.accountPath)
+      !== canonicalLaunchPath(pin.gameId, manifest.accountPath)) fail('INVALID_GAME_ROUTE_PIN');
   } else if (pin.accountPath !== undefined || manifest.accountPath !== undefined
     || pin.gameId !== undefined || manifest.gameId !== undefined
     || manifest.htmlTemplate !== undefined) {
