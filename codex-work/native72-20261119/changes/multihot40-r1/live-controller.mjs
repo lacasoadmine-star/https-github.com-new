@@ -84,11 +84,12 @@ export class MultiHot40Live {
    return true;
   }catch(e){
    if(generation!==this.generation||this.disposed)return false;
-   const rejected=definitelyRejected(e)||['GAME_RULES_UPDATED_RELOAD','PLAYER_SESSION_CHANGED'].includes(e.code);
+   const authRejected=e.status===401||e.status===403||['MACHINE_SESSION_CHANGED','PLAYER_NOT_AUTHENTICATED'].includes(e.code);
+   const rejected=authRejected||definitelyRejected(e)||['GAME_RULES_UPDATED_RELOAD','PLAYER_SESSION_CHANGED'].includes(e.code);
    // Ambiguous failure retains the *same* saved request token for CONFIRM replay.
    if(rejected){const pending=this.api.pending();if(pending)this.api.complete(pending);}
    this.stopAuto();this.scene.reset();
-   this.change(rejected?'ready':'confirm',e.code||e.message);
+   this.change(authRejected?'error':rejected?'ready':'confirm',e.code||e.message);
    return false;
   }finally {if(generation===this.generation&&!this.disposed){this.active=false;if(this.phase==='requesting')this.change('confirm','ROUND_CONFIRM_REQUIRED');}}
  }
