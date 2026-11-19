@@ -1,0 +1,85 @@
+/* Keep the existing Player shell. This rule replaces only catalogue surfaces. */
+#portal-r9-gallery > :not(#zplay-live-catalog),
+#sw-v116-games,.native-lobby,.construction-queue,.n74-home-link,
+.collection-grid,.native-game-grid,.i74-lobby-link,.i74-home-link,
+#i74-lobby-dialog,.i74-sheet{display:none!important}
+#zplay-live-catalog.restored-catalog{display:block!important;box-sizing:border-box;max-width:1180px;margin:0 auto;padding:18px 12px 36px;color:#f0f6fb}
+#zplay-live-catalog.restored-catalog *{box-sizing:border-box}
+#zplay-live-catalog.restored-catalog [hidden]{display:none!important}
+#zplay-live-catalog.restored-catalog header{display:block;margin:0 0 16px}
+#zplay-live-catalog.restored-catalog h1{font-size:21px;letter-spacing:.04em;color:#36d96c;margin:0 0 7px}
+#zplay-live-catalog .restored-catalog-count{font-size:13px;line-height:1.5;color:#b3c6d4;margin:0}
+#zplay-live-catalog .restored-catalog-search{display:block;font-size:13px;color:#cfdae2}
+#zplay-live-catalog .restored-catalog-search span{display:block;margin:0 0 7px}
+#zplay-live-catalog .restored-catalog-search input{width:100%;height:46px;margin:0;padding:11px 13px;background:#142b3d;border:1px solid #486475;border-radius:8px;font:inherit;color:#fff}
+#zplay-live-catalog .restored-catalog-filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px}
+#zplay-live-catalog .restored-catalog-filters button{min-height:44px;padding:10px 13px;border:1px solid #446174;border-radius:8px;background:#132b3d;color:#e4edf4;font:inherit;font-size:14px;cursor:pointer}
+#zplay-live-catalog .restored-catalog-filters button[aria-pressed=true]{background:#1e633d;border-color:#35d16b;color:#fff}
+#zplay-live-catalog .restored-catalog-group{margin:0 0 28px}
+#zplay-live-catalog .restored-catalog-group h2{font-size:16px;line-height:1.4;margin:0 0 13px;color:#dce8f1}
+#zplay-live-catalog .restored-catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#zplay-live-catalog .restored-game-card{min-width:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid #2d4659;border-radius:12px;background:#11283a;box-shadow:0 4px 14px #0002}
+#zplay-live-catalog .restored-game-cover-link{display:block;width:100%;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:inherit;text-decoration:none;font:inherit;text-align:inherit;cursor:pointer}
+#zplay-live-catalog .restored-game-art{position:relative;aspect-ratio:1.35;background:#112b36;overflow:hidden}
+#zplay-live-catalog .restored-game-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#zplay-live-catalog .restored-game-fallback{width:100%;height:100%;min-height:118px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:13px;padding:12px;background:linear-gradient(145deg,hsl(var(--game-hue) 36% 23%),#102035);text-align:center}
+#zplay-live-catalog .restored-game-fallback-name{font-size:15px;line-height:1.3;font-weight:700}
+#zplay-live-catalog .restored-game-symbols{display:flex;justify-content:center;gap:4px;max-width:100%}
+#zplay-live-catalog .restored-game-symbols img{width:30%;max-width:40px;aspect-ratio:1;object-fit:contain}
+#zplay-live-catalog .restored-game-details{display:flex;flex-direction:column;flex:1;padding:11px 9px 10px;min-width:0}
+#zplay-live-catalog .restored-game-details h3{margin:0 0 8px;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+#zplay-live-catalog .restored-game-edition{margin:0 0 10px;font-size:12px;color:#a7c8db}
+#zplay-live-catalog .restored-game-actions{display:flex;flex-direction:column;gap:7px;margin-top:auto;padding-top:5px}
+#zplay-live-catalog .restored-game-actions :is(a,button){display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;padding:10px 5px;border-radius:7px;text-decoration:none;font:inherit;font-size:13px;font-weight:700;text-align:center;line-height:1.3;cursor:pointer}
+#zplay-live-catalog .restored-game-demo{background:#234760;border:1px solid #50768e;color:#f1f8ff}
+#zplay-live-catalog .restored-game-account{background:#28c75d;border:1px solid #33d66b;color:#052a14}
+#zplay-live-catalog .restored-game-information{background:#253846;border:1px solid #587080;color:#e1e9ee}
+#zplay-live-catalog .restored-game-status{margin:4px 0 5px;color:#f3d39c;font-size:13px;font-weight:700}
+#zplay-live-catalog .restored-game-note{margin:0;font-size:12px;color:#bdc8cf;line-height:1.45}
+#zplay-live-catalog .restored-game-saved{margin:0 0 8px;font-size:12px;color:#f8d164}
+#zplay-live-catalog .restored-game-card[data-status=preparing]{border-color:#3f4b52}
+#zplay-live-catalog .restored-catalog-empty{color:#c2d0dc;padding:20px 0}
+#zplay-live-catalog :is(button,a,input):focus-visible{outline:3px solid #fff;outline-offset:3px}
+#zplay-live-shortcut[data-catalog-release]{width:calc(100% - 24px);margin:18px 12px;padding:18px 16px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;border:1px solid #267043;border-radius:12px;background:linear-gradient(115deg,#143a29,#142c3d);color:#e9fff0;cursor:pointer;text-align:left;font:inherit}
+#zplay-live-shortcut[data-catalog-release] span{font-size:13px;color:#afd1bf}
+body[data-portal-view=games] #zplay-live-shortcut[data-catalog-release]{display:none}
+@media(min-width:620px){#zplay-live-catalog .restored-catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}#zplay-live-catalog .restored-game-details{padding:13px}#zplay-live-catalog .restored-game-details h3{font-size:16px}}
+@media(min-width:1000px){#zplay-live-catalog .restored-catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr))}#zplay-live-catalog.restored-catalog{padding:24px}}
+
+/* Native modal top layer keeps the Player shell inert while a detail sheet is open. */
+#zplay-game-detail-sheet{box-sizing:border-box;width:100%;max-width:100%;max-height:92vh;max-height:92dvh;margin:auto auto 0;padding:0;border:1px solid #263747;border-bottom:0;border-radius:26px 26px 0 0;background:#0c1b2c;color:#f1f6fb;box-shadow:0 -12px 60px #0006;overflow:auto;overscroll-behavior:contain;font-family:inherit;color-scheme:dark}
+#zplay-game-detail-sheet:not([open]){display:none}
+#zplay-game-detail-sheet[open]{display:block;animation:restored-sheet-in .18s ease-out}
+#zplay-game-detail-sheet::backdrop{background:#000b}
+#zplay-game-detail-sheet *{box-sizing:border-box}
+#zplay-game-detail-sheet [hidden]{display:none!important}
+#zplay-game-detail-sheet .restored-sheet-panel{width:100%;min-width:0}
+#zplay-game-detail-sheet .restored-sheet-header{position:sticky;top:0;z-index:2;min-height:66px;padding:24px 62px 16px 20px;border-bottom:1px solid #293748;background:#0c1b2c}
+#zplay-game-detail-sheet .restored-sheet-handle{position:absolute;top:11px;left:50%;width:48px;height:4px;transform:translateX(-50%);border-radius:4px;background:#506171}
+#zplay-game-detail-sheet .restored-sheet-title{margin:0;font-size:16px;font-weight:600;line-height:1.5;color:#e1e9f2;overflow-wrap:anywhere}
+#zplay-game-detail-sheet .restored-sheet-close{position:absolute;right:12px;top:16px;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;border-radius:10px;background:transparent;color:#d4dde6;font:inherit;font-size:34px;line-height:1;cursor:pointer}
+#zplay-game-detail-sheet .restored-sheet-close:hover{background:#1b3043}
+#zplay-game-detail-sheet .restored-sheet-content{padding:20px 16px max(22px,env(safe-area-inset-bottom));max-width:680px;margin:0 auto}
+#zplay-game-detail-sheet .restored-sheet-art{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:180px;overflow:hidden;border-radius:10px;background:#0b1928}
+#zplay-game-detail-sheet .restored-game-cover{position:relative;display:block;width:auto;height:auto;max-width:100%;max-height:47vh;max-height:47dvh;object-fit:contain;border-radius:10px}
+#zplay-game-detail-sheet .restored-game-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:16px;background:linear-gradient(145deg,hsl(var(--game-hue) 36% 23%),#102035);text-align:center}
+#zplay-game-detail-sheet .restored-game-fallback-name{font-size:22px;font-weight:700;line-height:1.3}
+#zplay-game-detail-sheet .restored-game-symbols{display:flex;justify-content:center;gap:8px}
+#zplay-game-detail-sheet .restored-game-symbols img{width:52px;height:52px;object-fit:contain}
+#zplay-game-detail-sheet .restored-sheet-preferences{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 24px}
+#zplay-game-detail-sheet :is(.restored-sheet-category,.restored-sheet-favorite){display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;min-height:48px;padding:10px 12px;border:1px solid #213448;border-radius:8px;background:#1b2c3e;color:#edf3f8;font:inherit;font-size:14px;text-align:center;line-height:1.3}
+#zplay-game-detail-sheet .restored-sheet-favorite{cursor:pointer}
+#zplay-game-detail-sheet .restored-sheet-favorite[aria-pressed=true]{border-color:#c49a32;background:#302d25;color:#ffdf82}
+#zplay-game-detail-sheet .restored-sheet-star{font-size:26px;line-height:1}
+#zplay-game-detail-sheet .restored-sheet-actions{display:flex;flex-direction:column;gap:12px}
+#zplay-game-detail-sheet :is(.restored-sheet-play,.restored-sheet-demo,.restored-sheet-unavailable){display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;padding:14px 18px;border:1px solid transparent;border-radius:7px;font:inherit;font-size:18px;font-weight:700;line-height:1.3;text-align:center;text-decoration:none}
+#zplay-game-detail-sheet .restored-sheet-play{background:#27c65a;border-color:#2ed46a;color:#072d15;cursor:pointer}
+#zplay-game-detail-sheet .restored-sheet-play:hover{background:#36d969}
+#zplay-game-detail-sheet .restored-sheet-demo{min-height:44px;background:#1b3247;border-color:#3b5872;color:#edf6ff;font-size:15px}
+#zplay-game-detail-sheet .restored-sheet-unavailable{background:#263546;border-color:#405268;color:#aebdca;cursor:default}
+#zplay-game-detail-sheet .restored-sheet-status{margin:0;color:#efd19a;text-align:center;font-size:17px;font-weight:700}
+#zplay-game-detail-sheet .restored-sheet-note{margin:0 0 3px;color:#bdcbd8;text-align:center;font-size:14px;line-height:1.5}
+#zplay-game-detail-sheet :is(a,button):focus-visible{outline:3px solid #fff;outline-offset:3px}
+@keyframes restored-sheet-in{from{transform:translateY(24px);opacity:.65}to{transform:translateY(0);opacity:1}}
+@media(min-width:700px){#zplay-game-detail-sheet{width:min(620px,calc(100% - 48px));max-height:90vh;max-height:90dvh;margin:auto;border-bottom:1px solid #263747;border-radius:22px}#zplay-game-detail-sheet .restored-sheet-content{padding:24px}#zplay-game-detail-sheet .restored-game-cover{max-height:48vh;max-height:48dvh}}
+@media(prefers-reduced-motion:reduce){#zplay-game-detail-sheet[open]{animation:none}}
