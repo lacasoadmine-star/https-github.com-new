@@ -44,5 +44,9 @@ jobs:
         run: |
           node --test codex-work/fresh74-20261113/*.test.mjs
           node --check codex-work/fresh74-20261113/multihot100-entry.mjs
+      - name: Verify 71-game readiness inventory and no-fake-live evidence gate
+        run: |
+          node --test codex-work/native72-20261119/qa/verify-remaining71.test.mjs
+          node --check codex-work/native72-20261119/qa/verify-remaining71.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
