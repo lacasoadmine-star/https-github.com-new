@@ -51,6 +51,15 @@ test('no duplicate route, release or model ownership can bypass isolation', () =
   assert.throws(() => makeWorker([createPin('protected-foxy','foxy_hot_20_native')]), /PROTECTED_GAME/);
   assert.throws(() => makeWorker(Array.from({length:73}, (_,i)=>createPin('release'+i, 'game'+i))), /INVALID_INSTALLATION/);
 });
+test('optional trailing slash does not invalidate a verified catalog launch', async () => {
+  const pin = createPin('route-canonical-r1', 'fresh_safarisimba', '/new74/037-safari-simba/');
+  const withoutSlash = { ...pin, accountPath: '/new74/037-safari-simba' };
+  assert.equal(validateReleasePin(withoutSlash, { game: true }).accountPath, '/new74/037-safari-simba');
+  const f = makeWorker([withoutSlash]);
+  const response = await f.worker.fetch(request('/new74/037-safari-simba/'), f.env, {});
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get('x-zplay-release'), 'route-canonical-r1');
+});
 test('reject forged launch route metadata and disallowed page redirects', () => {
   const a = createPin('game-c','c','/new74/037-safari-simba/');
   assert.equal(validateReleasePin(a,{game:true}).accountPath,'/new74/037-safari-simba');
