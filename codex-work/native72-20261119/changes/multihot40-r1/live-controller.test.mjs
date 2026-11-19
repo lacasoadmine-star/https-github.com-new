@@ -28,3 +28,42 @@ test('hidden and blur suspend animation/audio and stop autoplay',async()=>{const
 test('reject swapped receipts, grid, and broken multiplier',()=>{assert.throws(()=>validateRound({...receipt,gameId:'foxy_hot_20_native'},{model,bet:'1.00'}),/WRONG_GAME_RECEIPT/);assert.throws(()=>validateRound({...receipt,grid:[[1]]},{model,bet:'1.00'}),/MH40_GRID_INVALID/);assert.throws(()=>validateRound({...receipt,wheelMultiplier:99},{model,bet:'1.00'}),/MH40_MULTIPLIER_INVALID/);});
 
 test('401/403 session rejection fails closed and clears CONFIRM without replay',async()=>{const h=make({error:{status:403,code:'MACHINE_SESSION_CHANGED'}});await h.game.boot();assert.equal(await h.game.spin(),false);assert.equal(h.game.phase,'error');assert.equal(h.game.active,false);assert.equal(h.storage.size,0);h.game.dispose();});
+
+test('balanceAfter is authoritative; the renderer never calculates a local ETB debit',async()=>{
+ const storage=new Map(),calls=[];
+ const api=new WalletAdapter({
+  storage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
+  fetcher:async (path,options={})=>{
+   calls.push(path);
+   const data=path==='/api/machine-session'?session:
+    path==='/api/slots/games/'+GAME_ID?{...model,reels:5,rows:4,paylines:40,symbolNames:['a','b','c','d','e','f','g','h']}:
+    path==='/api/slots/spin'?{...receipt,grid:Array.from({length:4},()=>['a','b','c','d','e']),balance:undefined,balanceAfter:'102.00',finalWin:'3.00'}:
+    null;
+   assert.ok(data,'unknown endpoint '+path);
+   return {ok:true,status:200,json:async()=>data};
+  }
+ });
+ const scene={start(){},stop(){},reset(){},pause(){},resume(){},dispose(){},setSymbolNames(names){assert.equal(names.length,8);},async reveal(r){assert.equal(r.balance,'102.00');}};
+ const game=new MultiHot40Live({api,scene});
+ assert.equal(await game.boot(),true);
+ assert.equal(await game.spin(),true);
+ assert.equal(game.snapshot().balance,'102.00');
+ assert.equal(game.snapshot().lastReceipt.finalWin,'3.00');
+ assert.equal(calls.filter(x=>x==='/api/slots/spin').length,1);
+ game.dispose();
+});
+test('settled receipt with failed client presentation never triggers CONFIRM or another debit',async()=>{
+ const h=make();await h.game.boot();
+ h.game.scene.reveal=async()=>{throw Error('CANVAS_PRESENTATION_FAILED');};
+ assert.equal(await h.game.spin(),true);
+ assert.equal(h.game.phase,'ready');
+ assert.equal(h.game.snapshot().error,'ROUND_SETTLED_PRESENTATION_ERROR');
+ assert.equal(h.storage.size,0);
+ assert.equal(h.spins,1);
+ assert.ok(h.calls.includes('reset'));
+ h.game.dispose();
+});
+test('rejects foreign payline and 5x3 layouts before any wager',()=>{
+ assert.throws(()=>validateRound({...receipt,grid:[[0,1,2,3,4]]},{model,bet:'1.00'}),/MH40_GRID_INVALID/);
+ assert.throws(()=>validateRound({...receipt,grid:Array.from({length:4},()=>[0,1,2,3,8])},{model,bet:'1.00'}),/MH40_SYMBOL_INVALID/);
+});
