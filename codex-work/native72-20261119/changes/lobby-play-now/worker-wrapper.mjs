@@ -3,7 +3,13 @@ import {RELEASE, transformRoot} from './root-transform.mjs';
 
 // Installation composes around the existing live Worker; no API, engine or
 // account route is replaced. New content is stored under immutable KV hashes.
-export function installPlayerPresentation(previous) {
+async function matchesAsset(body, asset) {
+  if (!body || body.byteLength !== asset.bytes) return false;
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', body));
+  return Array.from(digest, n => n.toString(16).padStart(2, '0')).join('') === asset.sha256;
+}
+
+export function installPlayerPresentation(previous, bundled = {}) {
   return {...previous, async fetch(request, env, ctx) {
     const path = new URL(request.url).pathname;
     if (env.PORTAL !== 'player' || !['GET', 'HEAD'].includes(request.method)) {
@@ -12,10 +18,19 @@ export function installPlayerPresentation(previous) {
     const asset = assets[path];
     if (asset) {
       const headers = {'Content-Type': asset.contentType, 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff', 'X-Zplay-Release': RELEASE};
-      const body = await env.SSG_OFFICIAL_REFERENCES.get(asset.key, 'arrayBuffer');
-      if (!body) return new Response('Player asset temporarily unavailable', {status: 503, headers: {...headers, 'Cache-Control': 'no-store'}});
-      const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', body)), n => n.toString(16).padStart(2, '0')).join('');
-      if (hash !== asset.sha256) return new Response('Player asset integrity check failed', {status: 503, headers: {...headers, 'Cache-Control': 'no-store'}});
+      let body;
+      try {
+        body = await env.SSG_OFFICIAL_REFERENCES.get(asset.key, 'arrayBuffer');
+      } catch {
+        // The release carries its own copy for KV outages and cold reads.
+      }
+      if (!await matchesAsset(body, asset)) {
+        const source = bundled[path.slice(path.lastIndexOf('/') + 1)];
+        body = typeof source === 'string' ? new TextEncoder().encode(source) : null;
+        if (!await matchesAsset(body, asset)) {
+          return new Response('Invalid Player release', {status: 500, headers: {'Cache-Control': 'no-store'}});
+        }
+      }
       return new Response(request.method === 'HEAD' ? null : body, {headers});
     }
     const response = await previous.fetch.call(previous, request, env, ctx);
