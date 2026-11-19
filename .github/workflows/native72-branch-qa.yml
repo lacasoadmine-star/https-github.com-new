@@ -48,5 +48,9 @@ jobs:
         run: |
           node --test codex-work/native72-20261119/qa/verify-remaining71.test.mjs
           node --check codex-work/native72-20261119/qa/verify-remaining71.mjs
+      - name: Test Multi Hot 40 existing-session gameplay controller
+        run: |
+          node --test codex-work/native72-20261119/changes/multihot40-r1/live-controller.test.mjs
+          node --check codex-work/native72-20261119/changes/multihot40-r1/live-controller.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
