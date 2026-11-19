@@ -60,6 +60,19 @@ for(const [label,definition,pin] of cases){
    const draws=[a,b,c,wheel],result=engine.spin(definition.id,'1.00',{draw:()=>draws.shift()}),evaluation=contract.evaluate(model,contract.gridFromStops(model,[a,b,c]),'1.00',model.wheel.values[wheel]);assert.equal(contract.units(result.finalWin),evaluation.final);assert.equal(result.mathSha256,pin);
   }
  });
+ test(label+': a verified settled spin survives a failed client renderer without CONFIRM or a second debit',async()=>{
+  const h=harness(definition),receipt=receiptFor(definition);
+  try{
+   h.renderer.start=()=>{h.rendererEvents.push('start');return Promise.reject(Error('RENDERER_CRASH_AFTER_SETTLEMENT'));};
+   assert.equal(await h.context.oneRound(),false);
+   assert.equal(h.state.value,'ready');
+   assert.equal(h.context.balance,receipt.balanceAfter);
+   assert.equal(h.api.pending(),null,'a settled receipt must not stay pending');
+   assert.equal(h.calls.filter(c=>c.path==='/api/slots/spin').length,1);
+   assert.equal(h.context.lastRound.roundId,receipt.roundId);
+   assert.ok(h.notices.some(n=>/round settled/i.test(n.text)));
+  }finally{h.close();}
+ });
  test(label+': settled balance precedes animation and Collect sends no request',async()=>{
   const h=harness(definition),receipt=receiptFor(definition);try{const round=h.context.oneRound();await until(()=>h.rendererEvents.includes('start'));assert.equal(h.context.balance,receipt.balanceAfter);h.animation.resolve();assert.equal(await round,true);assert.equal(h.api.pending(),null);assert.equal(h.state.value,'ready');const calls=h.calls.length;h.context.collectWin();assert.equal(h.context.balance,receipt.balanceAfter);assert.equal(h.context.gambleValue,'0.00');assert.equal(h.calls.length,calls);}finally{h.close();}
  });
