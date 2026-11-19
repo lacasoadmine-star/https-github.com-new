@@ -27,14 +27,14 @@ export async function frontendSnapshot(name='qa-frontend-snapshot'){
  const target=path.join(root,'railway-recovery',name);await mkdir(target,{recursive:true});
  const directories=['railway-recovery/fixture-assets','live-frontend/zplay-native-machines-20261119-habesha-r4','changes/habesha-r5','changes/habesha-r5/assets'];
  const provenance={};
- const manifest=JSON.parse(await readFile(path.join(root,'native-manifest-r4.json'),'utf8'));
  // A source checkpoint omits recovered provider runtimes. Explicit contract
  // dependencies are copied below; full recovery may additionally use its index.
  const assetIndexPath=path.join(root,'current-worker/modules/native72/native-machine-assets.mjs');
  const assetIndex=existsSync(assetIndexPath)?await readFile(assetIndexPath,'utf8'):'';
  const imports=Object.fromEntries([...assetIndex.matchAll(/import (\w+) from ['"]([^'"]+)['"]/g)].map(m=>[m[1],path.resolve(root,'current-worker/modules/native72',m[2])]));
  const baseline=Object.fromEntries([...assetIndex.matchAll(/"([^"\n]+)":\{type:"[^"]+",size:\d+,body:(\w+)\}/g)].map(m=>[m[1],imports[m[2]]]));
- for(const [name,metadata]of Object.entries(manifest.assets))if(/[.](?:mjs|js|json|css)$/.test(name)&&metadata.baselineName&&baseline[metadata.baselineName]){
+ const baselineAssets=assetIndex?JSON.parse(await readFile(path.join(root,'native-manifest-r4.json'),'utf8')).assets:{};
+ for(const [name,metadata]of Object.entries(baselineAssets))if(/[.](?:mjs|js|json|css)$/.test(name)&&metadata.baselineName&&baseline[metadata.baselineName]){
   const source=baseline[metadata.baselineName];await copyFile(source,path.join(target,name));provenance[name]={source,sha256:sha(await readFile(source))};
  }
  for(const directory of directories){const full=path.join(root,directory);if(!existsSync(full))continue;
