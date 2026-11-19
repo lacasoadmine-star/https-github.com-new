@@ -13,7 +13,7 @@ function setup(){
  return {scene,tick,calls,canvas};
 }
 test('reel scene renders images, never a video/screenshot overlay',()=>{const h=setup();h.tick(16);assert.ok(h.calls.length>20);assert.ok(h.canvas.width>0);h.scene.dispose();});
-test('only a server receipt determines final grid and multiplier',async()=>{const h=setup();h.scene.start();const receipt={roundId:'r',grid:[[0,1,2,3,4],[1,2,3,4,5],[2,3,4,5,6],[3,4,5,6,7]],wheelMultiplier:5,finalWin:'4.00'};const p=h.scene.reveal(receipt);for(let i=0;i<8;i++)h.tick(80);assert.equal((await p).roundId,'r');assert.deepEqual(h.scene.grid,receipt.grid);assert.equal(h.scene.wheel,5);assert.equal(h.scene.busy,false);h.scene.dispose();});
+test('only a server receipt determines final grid and multiplier',async()=>{const h=setup();h.scene.start();const receipt={roundId:'r',grid:[[0,1,2,3],[1,2,3,4],[2,3,4,5],[3,4,5,6],[4,5,6,7]],wheelMultiplier:5,finalWin:'4.00'};const p=h.scene.reveal(receipt);for(let i=0;i<8;i++)h.tick(80);assert.equal((await p).roundId,'r');assert.deepEqual(h.scene.grid,receipt.grid);assert.equal(h.scene.wheel,5);assert.equal(h.scene.busy,false);h.scene.dispose();});
 test('hidden/blur stops frame scheduling and resumes cleanly',()=>{const h=setup();h.tick(16);h.scene.pause();assert.equal(h.scene.paused,true);h.scene.resume();h.tick(16);assert.equal(h.scene.paused,false);h.scene.dispose();});
 test('audio can be stopped on visibility loss and muted',()=>{let paused=0,played=0;const clip={cloneNode(){return {pause(){paused++;},play(){played++;return Promise.resolve();}};}};const audio=new MultiHot40Audio({clips:{spin:clip}});audio.setEnabled(true);audio.play('spin');assert.equal(played,1);audio.pause();assert.equal(paused,1);audio.setEnabled(false);assert.equal(audio.play('spin'),null);audio.dispose();});
 
@@ -25,5 +25,18 @@ test('rolling strip clips to the reel and keeps incoming symbol contiguous',()=>
  assert.deepEqual(draws.map(d=>d.y),[154,262]);
  assert.ok(draws[0].y+draws[0].height>=225);
  assert.ok(draws[1].y<=225+108);
+ h.scene.dispose();
+});
+
+test('STOP requested during network wait shortens visual reel landing only',async()=>{
+ const h=setup();h.scene.start();h.tick(80);h.scene.stop();
+ const receipt={roundId:'stop-demo',grid:[[0,1,2,3],[1,2,3,4],[2,3,4,5],[3,4,5,6],[4,5,6,7]],wheelMultiplier:4,finalWin:'0.00'};
+ const landed=h.scene.reveal(receipt);
+ assert.equal(h.scene.stopRequested,true);
+ assert.equal(h.scene.stopAt,240);
+ for(let i=0;i<5;i++)h.tick(80);
+ assert.equal((await landed).roundId,'stop-demo');
+ assert.equal(h.scene.wheel,4);
+ assert.deepEqual(h.scene.grid,receipt.grid);
  h.scene.dispose();
 });
