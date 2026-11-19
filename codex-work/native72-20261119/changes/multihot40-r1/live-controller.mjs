@@ -33,7 +33,8 @@ export function validateRound(receipt,{model,bet}) {
  // Never compute a balance locally and never infer a win from reel graphics.
  const authoritativeBalance=receipt.balanceAfter ?? receipt.balance;
  req(receipt.bet===bet && cents(receipt.finalWin) && cents(authoritativeBalance),'ROUND_ACCOUNTING_INVALID');
- req(Array.isArray(receipt.grid) && receipt.grid.length===4 && receipt.grid.every(row=>Array.isArray(row) && row.length===5),'MH40_GRID_INVALID');
+ // Existing Multi Hot 40 engine receipts are column-major: five reels, four symbols each.
+ req(Array.isArray(receipt.grid) && receipt.grid.length===5 && receipt.grid.every(column=>Array.isArray(column) && column.length===4),'MH40_GRID_INVALID');
  req(receipt.grid.every(row=>row.every(v=>(typeof v==='string'&&v.length>0)||(Number.isInteger(v)&&v>=0&&v<8))),'MH40_SYMBOL_INVALID');
  if(model.symbolNames)req(receipt.grid.every(row=>row.every(v=>typeof v==='number'||model.symbolNames.includes(v))),'MH40_SYMBOL_OUTSIDE_MODEL');
  req(Number.isInteger(receipt.wheelMultiplier) && receipt.wheelMultiplier>=1 && receipt.wheelMultiplier<=5,'MH40_MULTIPLIER_INVALID');
