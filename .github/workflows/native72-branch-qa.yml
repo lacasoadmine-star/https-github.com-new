@@ -52,5 +52,8 @@ jobs:
         run: |
           node --test codex-work/native72-20261119/changes/multihot40-r1/live-controller.test.mjs
           node --check codex-work/native72-20261119/changes/multihot40-r1/live-controller.mjs
+          node --test codex-work/native72-20261119/changes/multihot40-r1/scene.test.mjs
+          node --check codex-work/native72-20261119/changes/multihot40-r1/scene.mjs
+          node --check codex-work/native72-20261119/changes/multihot40-r1/mount.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
