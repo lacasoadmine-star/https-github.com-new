@@ -1,0 +1,132 @@
+TAP version 13
+# Subtest: a cell crossing preserves symbol identity and physical position in the moving strip
+ok 1 - a cell crossing preserves symbol identity and physical position in the moving strip
+  ---
+  duration_ms: 3.935101
+  type: 'test'
+  ...
+# Subtest: late targets enter from outside the mask without changing any already visible symbol
+ok 2 - late targets enter from outside the mask without changing any already visible symbol
+  ---
+  duration_ms: 2.407403
+  type: 'test'
+  ...
+# Subtest: STOP preserves current phase, velocity, target queue and endpoint, then moves monotonically
+ok 3 - STOP preserves current phase, velocity, target queue and endpoint, then moves monotonically
+  ---
+  duration_ms: 0.964174
+  type: 'test'
+  ...
+# Subtest: Multi Hot 10 STOP no longer jumps any of the five reels at the same timestamp
+ok 4 - Multi Hot 10 STOP no longer jumps any of the five reels at the same timestamp
+  ---
+  duration_ms: 1.226625
+  type: 'test'
+  ...
+# Subtest: Multi Hot 10 pending-to-landing preserves its current motion and rejects invalid layouts
+ok 5 - Multi Hot 10 pending-to-landing preserves its current motion and rejects invalid layouts
+  ---
+  duration_ms: 1.869557
+  type: 'test'
+  ...
+# Subtest: STOP before a result preserves each reel requested duration and stagger after arrival
+ok 6 - STOP before a result preserves each reel requested duration and stagger after arrival
+  ---
+  duration_ms: 0.905894
+  type: 'test'
+  ...
+# Subtest: captured real atlas metadata gives sharp and blur layers one scale and source origin including rotated sprites
+ok 7 - captured real atlas metadata gives sharp and blur layers one scale and source origin including rotated sprites
+  ---
+  duration_ms: 16.76419
+  type: 'test'
+  ...
+# Subtest: the actual copied Multi Hot 10 draw method starts from existing icons and lands on supplied icons
+ok 8 - the actual copied Multi Hot 10 draw method starts from existing icons and lands on supplied icons
+  ---
+  duration_ms: 5.56992
+  type: 'test'
+  ...
+# Subtest: the actual copied Safari draw method no longer replaces icons at 80 ms
+ok 9 - the actual copied Safari draw method no longer replaces icons at 80 ms
+  ---
+  duration_ms: 4.752741
+  type: 'test'
+  ...
+# Subtest: copied draw methods use the real atlas source origin across sharp and blur layers
+ok 10 - copied draw methods use the real atlas source origin across sharp and blur layers
+  ---
+  duration_ms: 1.811057
+  type: 'test'
+  ...
+# Subtest: Safari STOP before the fixture arrives keeps staggered 200, 260 and 320 ms landings
+ok 11 - Safari STOP before the fixture arrives keeps staggered 200, 260 and 320 ms landings
+  ---
+  duration_ms: 35.844616
+  type: 'test'
+  ...
+# Subtest: Safari late arrival and STOP land through the same visible symbol queue with exactly three stop events
+ok 12 - Safari late arrival and STOP land through the same visible symbol queue with exactly three stop events
+  ---
+  duration_ms: 19.975036
+  type: 'test'
+  ...
+# Subtest: staged renderer excludes the account application and settlement transport
+ok 13 - staged renderer excludes the account application and settlement transport
+  ---
+  duration_ms: 8.81698
+  type: 'test'
+  ...
+# Subtest: all 18 native symbol frames preserve the stationary alpha footprint and anchor
+ok 14 - all 18 native symbol frames preserve the stationary alpha footprint and anchor
+  ---
+  duration_ms: 3.405931
+  type: 'test'
+  ...
+# Subtest: blur and sharp layers retain one source transform at every deceleration sample
+ok 15 - blur and sharp layers retain one source transform at every deceleration sample
+  ---
+  duration_ms: 12.404447
+  type: 'test'
+  ...
+# Subtest: identical Deluxe atlas entries draw once without fading at intermediate clarity
+ok 16 - identical Deluxe atlas entries draw once without fading at intermediate clarity
+  ---
+  duration_ms: 1.388757
+  type: 'test'
+  ...
+# Subtest: desktop full-source geometry and enclosing canvas alpha remain intact
+ok 17 - desktop full-source geometry and enclosing canvas alpha remain intact
+  ---
+  duration_ms: 10.671814
+  type: 'test'
+  ...
+# Subtest: invalid native bounds fail visibly instead of creating a distorted sprite
+ok 18 - invalid native bounds fail visibly instead of creating a distorted sprite
+  ---
+  duration_ms: 2.052139
+  type: 'test'
+  ...
+# (node:14) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: actual copied Deluxe renderer uses identical geometry during movement and after landing
+ok 19 - actual copied Deluxe renderer uses identical geometry during movement and after landing
+  ---
+  duration_ms: 26.975099
+  type: 'test'
+  ...
+# Subtest: actual copied Habesha draw loop keeps symbol footprints stable when motion begins
+ok 20 - actual copied Habesha draw loop keeps symbol footprints stable when motion begins
+  ---
+  duration_ms: 19.241714
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 603.304882

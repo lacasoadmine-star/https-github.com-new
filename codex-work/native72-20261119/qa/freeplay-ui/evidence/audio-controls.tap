@@ -1,0 +1,42 @@
+(node:13) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Deluxe keeps its own music preference and default gains instead of another game settings (8.926169ms)
+✔ Music OFF stops only background while effects and the current spin continue (2.684622ms)
+✔ Effects OFF clears music and Effects ON restores both without replaying the spin from zero (2.026752ms)
+✔ Music ON never unmutes an Effects-OFF master (5.08872ms)
+✔ setting changes while blurred or hidden cannot bypass the lifecycle mute gate (8.77719ms)
+✔ music and volume persist for Deluxe without changing another game music setting (0.995793ms)
+✔ invalid saved volume and unavailable storage cannot break the controls (1.803744ms)
+✔ cancelled spin stops the Deluxe one-shot and discards its paused continuation (1.022082ms)
+✔ Deluxe win resumes the remaining clip without duplicating a win cue (3.404867ms)
+(node:14) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Habesha keeps its own music preference and default gains instead of another game settings (4.234422ms)
+✔ Music OFF stops only background while effects and the current spin continue (1.873625ms)
+✔ Effects OFF clears music and Effects ON restores both without replaying the spin from zero (1.580136ms)
+✔ Music ON never unmutes an Effects-OFF master (0.567753ms)
+✔ setting changes while blurred or hidden cannot bypass the lifecycle mute gate (1.423463ms)
+✔ music and volume persist for Habesha without changing another game music setting (0.949867ms)
+✔ invalid saved volume and unavailable storage cannot break the controls (0.847966ms)
+✔ Habesha bank references its own existing clips with no alternate game bank (20.18978ms)
+✔ window blur pauses before AUTO cleanup and focus never restarts AUTO (7.330793ms)
+✔ blur then hidden then focus cannot resume until visibility returns (3.81653ms)
+✔ hidden then blur then visible cannot resume until focus returns (0.717632ms)
+✔ page-cache suspension survives premature focus and visible events (0.418814ms)
+✔ restoring an unfocused or hidden page waits for every pause condition to clear (0.390471ms)
+✔ initial hidden/unfocused pages suspend immediately and duplicate events are idempotent (0.275946ms)
+✔ disposed lifecycle cannot resume through focus, visibility or pageshow (0.310561ms)
+✔ MH10 audio uses only its own existing asset prefix and starts silent (14.406571ms)
+✔ suspension resumes the same music and effect at their retained offsets (19.807875ms)
+✔ a receipt arriving while hidden queues its sound without playback and mute discards it (1.677869ms)
+✔ late play completions cannot restart suspended, muted or disposed media (14.070901ms)
+✔ stopping the spin sample leaves music and unrelated effects intact (7.464424ms)
+✔ a blocked autoplay promise can retry on the next gesture without duplicating media (14.552824ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 688.894768

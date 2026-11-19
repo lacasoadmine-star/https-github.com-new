@@ -1,0 +1,51 @@
+{
+  "scope": "Pure graphics reproduction only; no network, player session, wallet or round settlement used.",
+  "provenance": [
+    {
+      "path": "/workspace/scratch/9a8b0ddfa7e7/recovery-source/codex-work/native72-20261119/changes/next-pair-20261119/mh10/reels.mjs",
+      "sha256": "51b50a0b8af0fc7c1d57039b072f28c7b7a638f5ba7fd0e92ad773a5c889bcf2"
+    },
+    {
+      "path": "/workspace/scratch/9a8b0ddfa7e7/recovery-source/codex-work/native72-20261119/changes/next-pair-20261119/mh10/presentation.mjs",
+      "sha256": "4fa2b3757bbeb98763bf2a1bb7a8a3eba668a82cd033d75ecc578ec9b8d8dae5"
+    },
+    {
+      "path": "/workspace/scratch/9a8b0ddfa7e7/recovery-source/codex-work/native72-20261119/changes/next-pair-20261119/safari/game.mjs",
+      "sha256": "861efd197b471ac6a9ee27e152e50e6fd91a3153c5b5975da0f515f970af9171"
+    }
+  ],
+  "cases": [
+    {
+      "name": "Multi Hot 10 phase-wrap identity substitution",
+      "confirmed": true,
+      "visibleSymbolsChanged": 15,
+      "example": {
+        "before": "Box/Blur/7",
+        "after": "Box/Blur/1",
+        "pixelDelta": 0.0002499999999940883,
+        "x": 311
+      }
+    },
+    {
+      "name": "Multi Hot 10 STOP discontinuity at the same timestamp",
+      "confirmed": true,
+      "cellJumps": [
+        6.877455924745869,
+        7.055720560498585,
+        7.100038323071441,
+        7.052226181477881,
+        6.94386936871264
+      ]
+    },
+    {
+      "name": "Safari 80 ms mid-cell identity substitution",
+      "confirmed": true,
+      "visibleSymbolsChanged": 9,
+      "example": {
+        "before": "Box/Blur/0",
+        "after": "Box/Blur/1",
+        "pixelDelta": 0.0000017999999784024112
+      }
+    }
+  ]
+}

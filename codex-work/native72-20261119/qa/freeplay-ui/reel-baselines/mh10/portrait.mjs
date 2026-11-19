@@ -1,0 +1,3 @@
+// Measured from Android-UA mobile-390-sound-yes.png, DPR2.
+// Dedicated portrait composition; it is not a shrunken desktop cabinet.
+export function portraitGeometry(width,height){const scale=width/390;const designHeight=height/scale;return{width:390,height:designHeight,scale,reelScale:390/644,reelOrigin:{x:-309*390/644,y:designHeight*.5-153.3-197*390/644},title:{x:81,y:designHeight*.5-328.77,w:234,h:36},controls:{spin:[136,designHeight-186,118,118],auto:[68,designHeight-152,58,58],bet:[266,designHeight-152,58,58],turbo:[248,designHeight-194,28,32],menu:[13,designHeight-46,25,20],sound:[354,designHeight-46,25,25]},balance:[53,designHeight-56,136,41],bet:[200,designHeight-56,136,41]}}
