@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {loadMultiHot40Art} from './title-assets.mjs';
+const ROOT='https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot40/';
+const frames=Object.fromEntries(Array.from({length:8},(_,i)=>[['Box/'+i,{}],['Box/Blur/'+i,{}]]).flat());
+const manifest={titleId:'multi-hot-40',bundleId:'verified-sha',spriteAtlases:[{id:'main-atlas',sourceURL:ROOT+'Mobile/Images/Sprites/Images-0.json'}],assets:[{id:'bg',kind:'image',sources:[{url:ROOT+'Images/background.png'}]}]};
+const store={manifest,loadSpriteGroup:async()=>({frameAtlases:frames}),loadImage:async()=>({width:560,height:1006})};
+const document={createElement:()=>({width:0,height:0,getContext:()=>({})})};
+test('use 8 official reel symbols and blur frames from the existing hash-verified title store',async()=>{let draws=0;const bank=await loadMultiHot40Art({store,document,drawSprite:()=>draws++});assert.equal(bank.symbols.length,8);assert.equal(bank.blur.length,8);assert.equal(draws,16);assert.equal(bank.manifestBundleId,'verified-sha');});
+test('never draw missing or foreign title art',async()=>{await assert.rejects(loadMultiHot40Art({store:{...store,manifest:{...manifest,titleId:'safari-simba'}},document,drawSprite:()=>{}}),/WRONG_OFFICIAL_MANIFEST/);await assert.rejects(loadMultiHot40Art({store:{...store,loadSpriteGroup:async()=>({frameAtlases:{}})},document,drawSprite:()=>{}}),/MISSING_FRAME/);});
