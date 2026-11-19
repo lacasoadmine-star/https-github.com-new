@@ -1,0 +1,35 @@
+# Isolated verification of Native72 presentation/launcher code.
+# Does not deploy, authenticate customers, or call wallet endpoints.
+name: Native72 dedicated games QA
+on:
+  push:
+    branches:
+      - work/native72-session-presentation-20261119
+    paths:
+      - 'codex-work/native72-20261119/**'
+      - '.github/workflows/native72-branch-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native72-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify isolated per-game routing and release authentication boundary
+        run: |
+          node --test \
+            codex-work/native72-20261119/changes/dedicated-resume/tests/multi-game-routing.test.mjs \
+            codex-work/native72-20261119/changes/dedicated-resume/tests/deployment.test.mjs
+      - name: Verify shared wallet/request ownership and lifecycle
+        run: |
+          node --test \
+            codex-work/native72-20261119/changes/dedicated-resume/tests/foundation.test.mjs
+      - name: Check patch formatting
+        run: git diff --check HEAD~1 HEAD
