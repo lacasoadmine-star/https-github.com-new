@@ -133,7 +133,7 @@ async function oneRound(){
   if(acceptedReceipt){
    const {result,receiptModel}=acceptedReceipt;
    if(requestToken)api.complete(requestToken);
-   stopAuto();audio.stop('reels');audio.stop('win');
+   auto=0;autoEpoch++;audio.stop('reels');audio.stop('win');
    try{renderer.cancelPresentation();renderer.restore?.(result);}catch{}
    if(!saved)setBalance(result.balanceAfter);
    else{
