@@ -100,7 +100,7 @@ async function refreshBalance(){const run=epoch,revision=walletDisplayRevision,s
 async function oneRound(){
  if(disposed||!signedIn||legacy||actionBusy||api.pending(api.actionKey)||!['ready','presenting','pending'].includes(state.value))return false;
  const run=epoch,session=api.sessionId,saved=pending(),shown={...modelIdentity(g),bet:bet(),freeSpinsRemaining:free};setState('requesting');notice('Confirming round…');
- let pendingVisual=null,requestToken=null;
+ let pendingVisual=null,requestToken=null,acceptedReceipt=null;
  try{
   await audio.unlock();if(disposed||run!==epoch||session!==api.sessionId||!await sameSession())return false;
   if(!saved&&versionedGame){await nextSpinModel({refresh:true});if(disposed||run!==epoch||session!==api.sessionId)return false;if(spinSelectionChanged(shown,{...modelIdentity(g),bet:bet(),freeSpinsRemaining:free})){setState('ready');notice('Your game rules or free spins changed. Review the displayed bet, then press SPIN again.');return false;}}if(disposed||run!==epoch||session!==api.sessionId)return false;
@@ -108,7 +108,11 @@ async function oneRound(){
   displayPendingWin=false;canGamble=false;if(!saved)pendingVisual=renderer.beginPendingSpin?.();const request=api.spin(stake,saved?g:pin);requestToken=api.pending();const raw=await request;if(disposed||run!==epoch||session!==api.sessionId)return false;if(!api.ownsPending(requestToken)){setState(pending()?'pending':'ready');notice('A newer saved round is waiting for confirmation.');return false;}
   const receiptModel=gameConfigForReceipt(raw);if(receiptModel.id!==machineId)throw Error('ROUND_IDENTITY_MISMATCH');
   if(pin&&Object.keys(pin).some(key=>raw[key]!==pin[key]))throw Error('ROUND_REQUEST_MODEL_MISMATCH');
-  const result=validateRound(raw,receiptModel,stake);renderer.setGameModel(receiptModel);
+  const result=validateRound(raw,receiptModel,stake);
+  // The backend has already committed this verified receipt. Keep this evidence
+  // even if the client renderer fails while landing the reels.
+  acceptedReceipt={result,receiptModel};
+  renderer.setGameModel(receiptModel);
   // A new receipt has already settled the ledger. Never subtract credited wins
   // for presentation, or show a historical replay as the current wallet.
   if(authoritativeBalanceDisplay&&!saved)setBalance(result.balanceAfter);
@@ -116,7 +120,39 @@ async function oneRound(){
   if(disposed||run!==epoch||session!==api.sessionId)return false;if(!api.ownsPending(requestToken)){setState(pending()?'pending':'ready');notice('A newer saved round is waiting for confirmation.');return false;}if(saved){if(!await sameSession())return false;const snapshot=await api.balance();if(disposed||run!==epoch||session!==api.sessionId)return false;if(!api.ownsPending(requestToken)){setState(pending()?'pending':'ready');return false;}if(snapshot.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');setBalance(snapshot.balance);}else setBalance(result.balanceAfter);lastRound=result;lastRoundModel=receiptModel;latestKnown={result,model:receiptModel};free=result.freeSpinsRemaining;gambleValue=result.finalWin;if(Number(result.finalWin)>0)lastWin=result.finalWin;gambleAttempt=0;canGamble=gambleStakeAllowed(receiptModel,gambleValue)&&receiptModel.features.gambleRounds>0&&!free;displayPendingWin=versionedGame&&!authoritativeBalanceDisplay&&!saved&&!auto&&Number(gambleValue)>0&&!free;
   selectNextModel(free?receiptModel:currentModel,free?result.bet:null);if(saved){await nextSpinModel({refresh:versionedGame});if(disposed||run!==epoch||session!==api.sessionId)return false;canGamble=canGamble&&!free;}if(receiptModel.rules.gamble.maxStake!==undefined&&!gambleStakeAllowed(receiptModel,gambleValue)){gambleValue='0.00';displayPendingWin=false;}
   if(!api.ownsPending(requestToken)){setState(pending()?'pending':'ready');notice('A newer saved round is waiting for confirmation.');return false;}$('win').textContent=result.finalWin;api.complete(requestToken);setState('presenting');setState('ready');if(balance==='0.00'&&!free)notice('Your ETB balance is empty. Deposit funds from your account.');return true;
- }catch(e){if(disposed||run!==epoch||session!==api.sessionId)return false;if(requestToken&&!api.ownsPending(requestToken)){setState(pending()?'pending':'ready');notice('A newer saved round is waiting for confirmation.');return false;}auto=0;autoEpoch++;audio.event('error');
+ }catch(e){
+  if(disposed||run!==epoch||session!==api.sessionId)return false;
+  if(requestToken&&!api.ownsPending(requestToken)){
+   setState(pending()?'pending':'ready');
+   notice('A newer saved round is waiting for confirmation.');
+   return false;
+  }
+  // Failure AFTER a validated server receipt is a presentation/reconciliation
+  // failure, never an unconfirmed wager. Replaying the token must not be
+  // required and must not leave CONFIRM stuck. Do not touch a newer token.
+  if(acceptedReceipt){
+   const {result,receiptModel}=acceptedReceipt;
+   if(requestToken)api.complete(requestToken);
+   stopAuto();audio.stop('reels');audio.stop('win');
+   try{renderer.cancelPresentation();renderer.restore?.(result);}catch{}
+   if(!saved)setBalance(result.balanceAfter);
+   else{
+    // Replays may be historical: trust the current wallet, not an old receipt.
+    try{
+     const current=await api.balance();
+     if(disposed||run!==epoch||session!==api.sessionId)return false;
+     if(current.currency==='ETB')setBalance(current.balance);
+    }catch{}
+   }
+   lastRound=result;lastRoundModel=receiptModel;latestKnown={result,model:receiptModel};
+   free=result.freeSpinsRemaining;gambleValue='0.00';canGamble=false;
+   displayPendingWin=false;gambleAttempt=0;
+   $('win').textContent=result.finalWin;
+   if(state.value==='animating'||state.value==='requesting')setState('ready');
+   notice('The round settled, but the reels could not finish displaying it. Check History or reload before wagering again.',true);
+   update();return false;
+  }
+  auto=0;autoEpoch++;audio.event('error');
   if(e.status===401||e.status===403){signOut('Your session expired. Sign in to recover any saved round.');return false;}
   if(definitelyRejected(e)){api.complete(requestToken);setState('ready');if(e.code==='GAME_RULES_UPDATED_RELOAD'){notice('The game rules were updated. Refreshing before your next spin.');await boot();}else notice(e.code==='INSUFFICIENT_FUNDS'?'Your ETB balance is too low for this bet.':e.status===503?'This game is temporarily unavailable. No stake was charged. Try again later.':e.message,true);}
   else {const saved=pending();if(state.value!=='signedout')setState(saved?'pending':'ready');renderer.enableNativePresentation?.();notice(saved?e.message+' No new round will be created. Press CONFIRM to check this request.':e.message,true);}update();return false;
