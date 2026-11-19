@@ -40,6 +40,8 @@ jobs:
             codex-work/native72-20261119/changes/safari-r3/resume-sync.test.mjs
           node --check codex-work/native72-20261119/changes/safari-r3/game.mjs
           node --check codex-work/native72-20261119/changes/safari-r3/resume-sync.mjs
+          node --test codex-work/native72-20261119/changes/safari-r3/auto-start-policy.test.mjs
+          node --check codex-work/native72-20261119/changes/safari-r3/auto-start-policy.mjs
       - name: Verify Multi Hot 100 engine and sound lifecycle
         run: |
           node --test codex-work/fresh74-20261113/*.test.mjs
