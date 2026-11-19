@@ -4,6 +4,20 @@ const encoder = new TextEncoder();
 const SHA256 = /^[0-9a-f]{64}$/;
 const IDENTIFIER = /^[a-z0-9][a-z0-9_-]{0,127}$/;
 const MAX_VALUE_BYTES = 25 * 1024 * 1024;
+const MAX_DEDICATED_GAMES = 72;
+const PROTECTED_GAME_IDS = new Set(['multi_hot_5_native', 'foxy_hot_20_native']);
+const SAFE_LAUNCH_PATH = /^\/(?:games\/[a-z0-9][a-z0-9_-]*|zplay74\/[a-z0-9][a-z0-9_-]*|new74\/[0-9]{3}-[a-z0-9][a-z0-9_-]*|zplay-restored\/[0-9]{8}\/[a-z0-9][a-z0-9_-]*)\/?$/;
+function canonicalLaunchPath(gameId, path = '/games/' + gameId) {
+  if (PROTECTED_GAME_IDS.has(gameId)) fail('PROTECTED_GAME');
+  if (typeof path !== 'string' || path.length > 180 || !SAFE_LAUNCH_PATH.test(path)
+    || /[%\\?#]/.test(path)) fail('INVALID_GAME_ROUTE');
+  const normalized = path.endsWith('/') ? path.slice(0, -1) : path;
+  if (normalized === '/games/multi_hot_5_native' || normalized === '/games/foxy_hot_20_native') {
+    fail('PROTECTED_GAME_ROUTE');
+  }
+  return normalized;
+}
+
 const MIME = Object.freeze({
   mjs: 'application/javascript; charset=utf-8',
   js: 'application/javascript; charset=utf-8',
@@ -61,7 +75,10 @@ export function validateReleasePin(pin, { game = false } = {}) {
       || !manifest.htmlTemplate.includes('{{GAME}}')
       || !manifest.htmlTemplate.includes('{{PRESENTATION_GAME}}')
       || !manifest.htmlTemplate.includes('</body>')) fail('INVALID_GAME_MANIFEST');
-  } else if (pin.gameId !== undefined || manifest.gameId !== undefined
+    if (pin.accountPath !== manifest.accountPath) fail('INVALID_GAME_ROUTE_PIN');
+    canonicalLaunchPath(pin.gameId, pin.accountPath);
+  } else if (pin.accountPath !== undefined || manifest.accountPath !== undefined
+    || pin.gameId !== undefined || manifest.gameId !== undefined
     || manifest.htmlTemplate !== undefined) {
     fail('INVALID_SHARED_MANIFEST');
   }
@@ -81,6 +98,7 @@ export function validateReleasePin(pin, { game = false } = {}) {
   return Object.freeze({
     release: pin.release,
     gameId: game ? pin.gameId : undefined,
+    accountPath: game ? canonicalLaunchPath(pin.gameId, pin.accountPath) : undefined,
     prefix: `/${pin.release}/`,
     manifestSha256: pin.manifestSha256,
     manifestBytes,
@@ -164,10 +182,15 @@ function retainedHandlers(previous, fetch) {
 
 export function installDedicatedReleases(previous, { shared, games, presencePath, createProductionHandler }) {
   if (typeof previous?.fetch !== 'function' || typeof createProductionHandler !== 'function'
-    || !Array.isArray(games) || games.length !== 2) fail('INVALID_INSTALLATION');
+    || !Array.isArray(games) || games.length < 1 || games.length > MAX_DEDICATED_GAMES) fail('INVALID_INSTALLATION');
   const releases = [validateReleasePin(shared), ...games.map(pin => validateReleasePin(pin, { game: true }))];
+  const gameReleases = releases.filter(item => item.gameId);
   if (new Set(releases.map(item => item.release)).size !== releases.length
-    || new Set(games.map(item => item.gameId)).size !== games.length) fail('DUPLICATE_RELEASE');
+    || new Set(gameReleases.map(item => item.gameId)).size !== gameReleases.length
+    || new Set(gameReleases.map(item => item.accountPath)).size !== gameReleases.length) {
+    fail('DUPLICATE_RELEASE');
+  }
+  const launchRoutes = new Map(gameReleases.map(item => [item.accountPath, item]));
   const pages = new Map(releases.filter(item => item.gameId).map(item => [item.gameId,
     createProductionHandler({
       // Assets are handled above the retained HTML handler so every GET and HEAD
@@ -185,18 +208,21 @@ export function installDedicatedReleases(previous, { shared, games, presencePath
       return previous.fetch.call(previous, request, env, ctx);
     }
     const path = new URL(request.url).pathname;
-    const release = releases.find(item => path.startsWith(item.prefix)
-      || path === item.prefix.slice(0, -1)
-      || (item.gameId && (path === `/games/${item.gameId}` || path === `/games/${item.gameId}/`)));
+    const routePath = path.endsWith('/') ? path.slice(0, -1) : path;
+    const release = launchRoutes.get(routePath) || releases.find(item =>
+      path.startsWith(item.prefix) || path === item.prefix.slice(0, -1));
     if (!release) return previous.fetch.call(previous, request, env, ctx);
     try {
       if (await sha256(release.manifestBytes) !== release.manifestSha256) {
         return unavailable(request, release.release, 'Release verification failed');
       }
-      if (release.gameId && (path === `/games/${release.gameId}` || path === `/games/${release.gameId}/`)) {
-        // Preserve the production HTML/session bootstrap, presence injection,
-        // security policy, cache behavior and placeholders without a new auth path.
-        return await pages.get(release.gameId)(request, env)
+      if (release.gameId && launchRoutes.get(routePath) === release) {
+        // For catalog paths outside /games/{id}, rewrite only this internal
+        // presentation dispatch; the browser URL and API/wallet stay intact.
+        const canonicalPagePath = '/games/' + release.gameId;
+        const pageRequest = routePath === canonicalPagePath ? request
+          : new Request(new URL(canonicalPagePath, request.url), request);
+        return await pages.get(release.gameId)(pageRequest, env)
           ?? unavailable(request, release.release, 'Release unavailable');
       }
       const raw = path.slice(release.prefix.length);
