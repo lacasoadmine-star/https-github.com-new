@@ -6,7 +6,7 @@ export class MultiHot40Scene {
   if(!canvas?.getContext)throw Error('MH40_CANVAS_REQUIRED');
   if(!assets?.background||!Array.isArray(assets.symbols)||assets.symbols.length!==8||!assets.symbols.every(Boolean))throw Error('MH40_OFFICIAL_ASSETS_REQUIRED');
   this.canvas=canvas;this.ctx=canvas.getContext('2d');this.assets=assets;this.raf=raf;this.caf=caf;this.now=now;this.onFrame=onFrame;
-  this.grid=Array.from({length:4},()=>[3,2,6,4,4]);this.wheel=2;this.win=0;this.busy=false;this.stopping=false;this.paused=false;this.disposed=false;this.handle=0;this.elapsed=0;this.last=now();this.revealPromise=null;this.lastReceipt=null;this.stopAt=0;this.symbolNames=assets.symbolNames||null;
+  this.grid=[[3,2,3,3],[2,4,4,4],[6,5,7,7],[4,1,2,2],[4,1,4,4]];this.wheel=2;this.win=0;this.busy=false;this.stopping=false;this.paused=false;this.disposed=false;this.handle=0;this.elapsed=0;this.last=now();this.revealPromise=null;this.lastReceipt=null;this.stopAt=0;this.stopRequested=false;this.symbolNames=assets.symbolNames||null;
   this.render=this.render.bind(this);this.handle=this.raf(this.render);
  }
  setSymbolNames(names){
@@ -24,20 +24,20 @@ export class MultiHot40Scene {
   }
   throw Error('MH40_UNKNOWN_RECEIPT_SYMBOL');
  }
- start(){if(this.disposed||this.busy)throw Error('MH40_SCENE_BUSY');this.busy=true;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;this.lastReceipt=null;}
- stop(){if(this.busy)this.stopping=true;}
- reset(){this.busy=false;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;this.lastReceipt=null;if(this.revealPromise){const end=this.revealPromise;this.revealPromise=null;end.reject(Error('MH40_PRESENTATION_RESET'));}}
+ start(){if(this.disposed||this.busy)throw Error('MH40_SCENE_BUSY');this.busy=true;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;this.stopRequested=false;this.lastReceipt=null;}
+ stop(){if(!this.busy)return;this.stopRequested=true;if(this.lastReceipt)this.stopAt=Math.min(this.stopAt,this.elapsed+120);}
+ reset(){this.busy=false;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;this.stopRequested=false;this.lastReceipt=null;if(this.revealPromise){const end=this.revealPromise;this.revealPromise=null;end.reject(Error('MH40_PRESENTATION_RESET'));}}
  reveal(receipt){
   if(!this.busy)throw Error('MH40_SCENE_NOT_SPINNING');
   if(this.revealPromise)throw Error('MH40_REVEAL_ALREADY_PENDING');
   // Normalize authoritative symbols BEFORE drawing so an invalid receipt can be
   // handled in the controller without stranding requestAnimationFrame or CONFIRM.
-  if(!Array.isArray(receipt?.grid)||receipt.grid.length!==4
-    ||receipt.grid.some(row=>!Array.isArray(row)||row.length!==5))throw Error('MH40_SCENE_GRID_INVALID');
+  if(!Array.isArray(receipt?.grid)||receipt.grid.length!==5
+    ||receipt.grid.some(column=>!Array.isArray(column)||column.length!==4))throw Error('MH40_SCENE_GRID_INVALID');
   const grid=receipt.grid.map(row=>row.map(symbol=>this.symbolIndex(symbol)));
   this.lastReceipt={...receipt,grid};
   this.stopping=true;
-  this.stopAt=this.elapsed+560;
+  this.stopAt=this.elapsed+(this.stopRequested?160:560);
   return new Promise((resolve,reject)=>{this.revealPromise={resolve,reject};});
  }
  pause(){this.paused=true;if(this.handle)this.caf(this.handle);this.handle=0;}
@@ -69,8 +69,8 @@ export class MultiHot40Scene {
    const x=left+col*sw,y=top+row*sh;
    const columnStopped=!!this.lastReceipt&&this.elapsed>=this.stopAt-(4-col)*85;
    const rolling=this.busy&&!columnStopped;
-   const symbol=columnStopped?this.lastReceipt.grid[row][col]:rolling?
-    (Math.floor(this.elapsed/88)+col*3+row*2)%8:this.grid[row][col];
+   const symbol=columnStopped?this.lastReceipt.grid[col][row]:rolling?
+    (Math.floor(this.elapsed/88)+col*3+row*2)%8:this.grid[col][row];
    const image=rolling?(this.assets.blur?.[symbol]||this.assets.symbols[symbol]):this.assets.symbols[symbol];
    if(!image)throw Error('MH40_SYMBOL_ASSET_MISSING');
    const next=rolling?(this.assets.blur?.[(symbol+1)%8]||this.assets.symbols[(symbol+1)%8]):null;
