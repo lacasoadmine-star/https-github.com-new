@@ -1,0 +1,12 @@
+import {startMachine} from '/zplay-native-shared-20261119-r1/controller-core.mjs';
+import * as registry from './registry.mjs';
+import * as contract from './contract.mjs';
+import {MultiHot5DeluxeRenderer as Renderer} from './mh5deluxe-renderer.mjs';
+import {MultiHot5DeluxeAudio as Audio} from './mh5deluxe-audio.mjs';
+import {createOfficialHelpPresentation} from './deluxe-help.mjs';
+import {createOfficialAudioControls} from './deluxe-audio-controls.mjs';
+import {createOfficialStartup} from './deluxe-startup.mjs';
+const createOfficialGamblePresentation=()=>null;
+import {installOfficialAutoBetPresentation} from './deluxe-controls.mjs';
+const machine=startMachine({registry,contract,Renderer,Audio,createOfficialHelpPresentation,createOfficialAudioControls,createOfficialStartup,createOfficialGamblePresentation,installOfficialAutoBetPresentation});
+export const diagnostics=machine.diagnostics;

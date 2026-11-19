@@ -1,0 +1,12 @@
+import {startMachine} from '/zplay-native-shared-20261119-r1/controller-core.mjs';
+import * as registry from './registry.mjs';
+import * as contract from './contract.mjs';
+import {HabeshaRenderer as Renderer} from './habesha-renderer.mjs';
+import {HabeshaAudio as Audio} from './habesha-audio.mjs';
+import {createOfficialHelpPresentation} from './official-help-presentation.mjs';
+import {createOfficialAudioControls} from './official-audio-controls.mjs';
+import {createOfficialStartup} from './official-startup.mjs';
+import {createOfficialGamblePresentation} from './official-gamble-presentation.mjs';
+import {installOfficialAutoBetPresentation} from './official-auto-bet-presentation.mjs';
+const machine=startMachine({registry,contract,Renderer,Audio,createOfficialHelpPresentation,createOfficialAudioControls,createOfficialStartup,createOfficialGamblePresentation,installOfficialAutoBetPresentation});
+export const diagnostics=machine.diagnostics;

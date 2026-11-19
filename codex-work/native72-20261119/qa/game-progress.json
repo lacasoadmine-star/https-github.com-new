@@ -1,0 +1,3835 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-11-19T05:08:54.178Z",
+  "checkpoint": "before_dedicated_pair_live_verification",
+  "scope": {
+    "catalogEntries": 74,
+    "protectedExcluded": 2,
+    "targetGames": 72,
+    "protectedGames": [
+      {
+        "catalogId": "ind74_official_multihot5",
+        "sourceKey": "multihot5",
+        "title": "Multi Hot 5",
+        "route": "/games/multi_hot_5_native",
+        "reason": "Existing protected original game; excluded from72-game rebuild scope."
+      },
+      {
+        "catalogId": "ind74_official_foxyhot20",
+        "sourceKey": "foxyhot20",
+        "title": "Foxy Hot 20",
+        "route": "/games/foxy_hot_20_native",
+        "reason": "Existing protected original game; excluded from72-game rebuild scope."
+      }
+    ]
+  },
+  "summary": {
+    "catalogPlayNow": 15,
+    "catalogUnavailable": 57,
+    "candidatesAwaitingLiveVerification": 2,
+    "baselineDefectsIdentified": 2,
+    "blockedRulesMismatch": 1,
+    "retainedAvailableUnreviewed": 10,
+    "done": 0,
+    "officialDemoUrls": 71,
+    "officialDemoNames": 71,
+    "missingOfficialDemoUrls": [
+      "jetx"
+    ]
+  },
+  "interpretation": {
+    "available": "The pinned lobby exposes Play Now at its exact accountPath; this does not certify gameplay, presentation, audio, settlement or current HTTP availability.",
+    "unavailable": "No eligible accountPath exists in the pinned lobby. Details/page routes are retained catalog metadata, not evidence of a working game.",
+    "fallback": "Tracked independently of unavailable. Only Wild Multi Stars has a specifically documented nonmatching generic definition; other fallback behavior is not inferred.",
+    "done": "Reserved for accepted per-game evidence and verified publication. No entry receives DONE in this predeployment snapshot.",
+    "references": "Official URLs and GameName values are copied exactly from existing catalog data. Links have not all been opened or tested in this inventory.",
+    "transactions": "No live wagers, gambling actions, customer balances or financial rows were read or written."
+  },
+  "provenance": {
+    "catalog": {
+      "path": "changes/lobby-play-now/assets/catalog-data.mjs",
+      "bytes": 61593,
+      "sha256": "f63f386eda81b2eb28b67df15d84d3f619334f9e286460178cd9cbd259414a01",
+      "release": "zplay-player-20261119-play-now-r1",
+      "assetPath": "/zplay-player-20261119-play-now-r1/catalog-data.mjs",
+      "kvKey": "native72/player/zplay-player-20261119-play-now-r1/f63f386eda81b2eb28b67df15d84d3f619334f9e286460178cd9cbd259414a01",
+      "liveWorkerModule": "native72player1/worker-assets.mjs"
+    },
+    "baselineWorker": {
+      "name": "superwin-player",
+      "version": "11ec5499-9697-4063-bf3f-92252c32f89d",
+      "number": 457,
+      "interpretation": "Recovered baseline at inspection; this snapshot is not an assertion about a later deployment."
+    },
+    "proof": [
+      {
+        "path": "changes/lobby-play-now/worker-assets.mjs",
+        "bytes": 1390,
+        "sha256": "5e8a66cd92eb0974d76989b3cb1dcdf14cb3de784db226ad4e3f32763de0a728"
+      },
+      {
+        "path": "changes/lobby-play-now/assets/lobby.mjs",
+        "bytes": 14912,
+        "sha256": "b8c3d475173f7f86038922f99700fda1b9a05fc49839d688d4e0aff0a73592b1"
+      },
+      {
+        "path": "changes/dedicated-resume/tests/foundation.test.mjs",
+        "bytes": 21173,
+        "sha256": "8762b49952788e0416bfb2db3a293c05472db45defe824006d55e6192572ddf0"
+      },
+      {
+        "path": "qa/next-games-audit.md",
+        "bytes": 8791,
+        "sha256": "57f1473fd0e4767f0ee23645a0d2218eda63959206ae8f9894c024da06f9c2e4"
+      },
+      {
+        "path": "qa/wild-multi-stars-observed.md",
+        "bytes": 1354,
+        "sha256": "b84efe9a045e8d46fc5a5d6826b925d4ac7cd7ec9fe835e3c20b59ff56e717eb"
+      }
+    ]
+  },
+  "referenceIdentityNotes": {
+    "catalogNameAliases": [
+      {
+        "title": "Burning Ice",
+        "sourceKey": "burningice",
+        "officialDemoGameName": "BlazingHot",
+        "officialDemoCategory": "Slots"
+      },
+      {
+        "title": "Burning Ice 10",
+        "sourceKey": "burningice10",
+        "officialDemoGameName": "BlazingHot10",
+        "officialDemoCategory": "Slots"
+      },
+      {
+        "title": "Burning Ice 40",
+        "sourceKey": "burningice40",
+        "officialDemoGameName": "BlazingHot40",
+        "officialDemoCategory": "Slots"
+      },
+      {
+        "title": "New Era of JetX",
+        "sourceKey": "neweraofjetx",
+        "officialDemoGameName": "JetX",
+        "officialDemoCategory": "JetXNew"
+      },
+      {
+        "title": "AviaStar",
+        "sourceKey": "aviastar",
+        "officialDemoGameName": "JetX3",
+        "officialDemoCategory": "XGames"
+      },
+      {
+        "title": "Crash Duel",
+        "sourceKey": "crashduel",
+        "officialDemoGameName": "TugOfWar",
+        "officialDemoCategory": "XGames"
+      },
+      {
+        "title": "4 Bonuses Bonanza",
+        "sourceKey": "4bonusesbonanza",
+        "officialDemoGameName": "PlinkoJoker",
+        "officialDemoCategory": "Games"
+      }
+    ],
+    "sharedOfficialPageUrls": [
+      {
+        "value": "https://www.smartsoftgaming.com/games/jetx",
+        "sourceKeys": [
+          "jetx",
+          "neweraofjetx"
+        ]
+      }
+    ],
+    "duplicateOfficialDemoUrls": [],
+    "duplicateAccountRoutes": []
+  },
+  "games": [
+    {
+      "targetIndex": 1,
+      "lobbyPosition": 1,
+      "catalogId": "ind74_official_habeshafortune5",
+      "sourceKey": "habeshafortune5",
+      "sourceIndex": 1,
+      "title": "Habesha Fortune 5",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/habesha_fortune_5_native",
+        "page": "/games/habesha_fortune_5_native",
+        "details": "/games/habesha_fortune_5_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/hab",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "HabeshaFortune5",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "candidate_pending_live_verification",
+        "done": false,
+        "baselineReleaseId": "zplay-native-machines-20261119-habesha-r7",
+        "baselineScript": "/zplay-native-machines-20261119-habesha-r7/controller.mjs",
+        "backendGameId": "habesha_fortune_5_native",
+        "candidateReleaseId": "zplay-native-machines-20261119-habesha-r8",
+        "candidateSharedReleaseId": "zplay-native-shared-20261119-r1",
+        "mathSha256": "9b9ce28d00e73c55df5bfc6c36fb856c7c9f0e754480c64be16bb96a43c02881",
+        "mathAssessment": "exact_existing_engine_identity_and_3645_outcomes_checked_per_game",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/dedicated-resume/games/habesha",
+          "changes/dedicated-resume/tests/foundation.test.mjs"
+        ],
+        "notes": [
+          "Dedicated candidate uses own model, renderer, audio and UI with a separate shared foundation.",
+          "Candidate validation is local; live publication and visual acceptance are not marked complete by this inventory."
+        ]
+      }
+    },
+    {
+      "targetIndex": 2,
+      "lobbyPosition": 3,
+      "catalogId": "ind74_official_multihot40",
+      "sourceKey": "multihot40",
+      "sourceIndex": 5,
+      "title": "Multi Hot 40",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/multihot40_native",
+        "page": "/games/multihot40_native",
+        "details": "/games/multihot40_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-40",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "MultiHot40",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": "presentation-20261117-r3",
+        "baselineScript": "/zplay-fixes/mh40-20261117/multihot40-app.mjs",
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "qa/next-games-source/promotion-router.mjs"
+        ],
+        "notes": [
+          "Existing catalog route and script rewrite are preserved. This continuation has not completed a game-specific fidelity review."
+        ]
+      }
+    },
+    {
+      "targetIndex": 3,
+      "lobbyPosition": 4,
+      "catalogId": "ind74_official_safarisimba",
+      "sourceKey": "safarisimba",
+      "sourceIndex": 17,
+      "title": "Safari Simba",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/new74/037-safari-simba/",
+        "page": "/new74/037-safari-simba/",
+        "details": "/new74/037-safari-simba/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/safari-simba-2",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "SafariSimba",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "baseline_defects_identified",
+        "done": false,
+        "baselineReleaseId": "presentation-20261117-r3",
+        "baselineScript": "/zplay-fixes/safari-20261117/startup.mjs",
+        "backendGameId": "fresh_safarisimba",
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "qa/next-games-audit.md",
+          "qa/next-games-source/promotion-router.mjs"
+        ],
+        "notes": [
+          "Use the catalog route /new74/037-safari-simba/; guessed /games routes are not substitutes.",
+          "Recovered baseline needs saved-token/session ownership, minimum-stake filtering, lifecycle fixes and left-consecutive expansion presentation.",
+          "This inventory makes no completion or deployment claim for subsequent corrections."
+        ]
+      }
+    },
+    {
+      "targetIndex": 4,
+      "lobbyPosition": 6,
+      "catalogId": "ind74_official_multihot10",
+      "sourceKey": "multihot10",
+      "sourceIndex": 3,
+      "title": "Multi Hot 10",
+      "edition": "Cusub",
+      "category": "Slots",
+      "routes": {
+        "account": "/zplay74/multi-hot-10/",
+        "page": "/zplay74/multi-hot-10/",
+        "details": "/zplay74/multi-hot-10/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "MultiHot10",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "baseline_defects_identified",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": "/zplay74/multi-hot-10/src/app.mjs",
+        "backendGameId": "fresh_multihot10",
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "qa/next-games-audit.md",
+          "qa/next-games-source/observed-mh10/src/session.mjs"
+        ],
+        "notes": [
+          "Use the catalog route /zplay74/multi-hot-10/; guessed /games routes are not substitutes.",
+          "Recovered baseline needs client minimum-stake filtering, exact saved-token ownership and presentation/audio lifecycle fixes.",
+          "This inventory makes no completion or deployment claim for subsequent corrections."
+        ]
+      }
+    },
+    {
+      "targetIndex": 5,
+      "lobbyPosition": 7,
+      "catalogId": "ind74_official_multihot20",
+      "sourceKey": "multihot20",
+      "sourceIndex": 4,
+      "title": "Multi Hot 20",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/multihot20/",
+        "details": "/zplay-restored/20261117/multihot20/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-20",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "MultiHot20",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 6,
+      "lobbyPosition": 8,
+      "catalogId": "ind74_official_multihot100",
+      "sourceKey": "multihot100",
+      "sourceIndex": 6,
+      "title": "Multi Hot 100",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/multihot100_native",
+        "page": "/games/multihot100_native",
+        "details": "/games/multihot100_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-100",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "MultiHot100",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 7,
+      "lobbyPosition": 9,
+      "catalogId": "ind74_official_multihot5wild",
+      "sourceKey": "multihot5wild",
+      "sourceIndex": 7,
+      "title": "Multi Hot 5 Wild",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/multihot5wild_native",
+        "page": "/games/multihot5wild_native",
+        "details": "/games/multihot5wild_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "MultiHot5Wild",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 8,
+      "lobbyPosition": 10,
+      "catalogId": "ind74_official_multihot5deluxe",
+      "sourceKey": "multihot5deluxe",
+      "sourceIndex": 8,
+      "title": "Multi Hot 5 Deluxe",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/multi_hot_5_deluxe_native",
+        "page": "/games/multi_hot_5_deluxe_native",
+        "details": "/games/multi_hot_5_deluxe_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "MultiHot5Deluxe",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "candidate_pending_live_verification",
+        "done": false,
+        "baselineReleaseId": "zplay-native-machines-20261119-mh5deluxe-r1",
+        "baselineScript": "/zplay-native-machines-20261119-mh5deluxe-r1/controller.mjs",
+        "backendGameId": "multi_hot_5_deluxe_native",
+        "candidateReleaseId": "zplay-native-machines-20261119-mh5deluxe-r2",
+        "candidateSharedReleaseId": "zplay-native-shared-20261119-r1",
+        "mathSha256": "340c951e96195158bc437b63f6e292ca2e8598040d57889feeaefb95161f4abb",
+        "mathAssessment": "exact_existing_engine_identity_and_3645_outcomes_checked_per_game",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/dedicated-resume/games/deluxe",
+          "changes/dedicated-resume/tests/foundation.test.mjs"
+        ],
+        "notes": [
+          "Dedicated candidate uses own model, renderer, audio and UI with a separate shared foundation.",
+          "Candidate validation is local; live publication and visual acceptance are not marked complete by this inventory."
+        ]
+      }
+    },
+    {
+      "targetIndex": 9,
+      "lobbyPosition": 11,
+      "catalogId": "ind74_official_multihot5burnwilds",
+      "sourceKey": "multihot5burnwilds",
+      "sourceIndex": 9,
+      "title": "Multi Hot 5 Burn Wilds",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/multihot5burnwilds/",
+        "details": "/zplay-restored/20261117/multihot5burnwilds/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "MultiHot5BurnWilds",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 10,
+      "lobbyPosition": 12,
+      "catalogId": "ind74_official_multihot5superwilds",
+      "sourceKey": "multihot5superwilds",
+      "sourceIndex": 10,
+      "title": "Multi Hot 5 Super Wilds",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/multihot5superwilds_native",
+        "page": "/games/multihot5superwilds_native",
+        "details": "/games/multihot5superwilds_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "MultiHot5SuperWilds",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 11,
+      "lobbyPosition": 13,
+      "catalogId": "ind74_official_multihotwildways",
+      "sourceKey": "multihotwildways",
+      "sourceIndex": 11,
+      "title": "Multi Hot Wild Ways",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/multihotwildways_native",
+        "page": "/games/multihotwildways_native",
+        "details": "/games/multihotwildways_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "MultiHotWildWays",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 12,
+      "lobbyPosition": 14,
+      "catalogId": "ind74_official_multihotways",
+      "sourceKey": "multihotways",
+      "sourceIndex": 12,
+      "title": "Multi Hot Ways",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/multihotways/",
+        "details": "/zplay-restored/20261117/multihotways/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "MultiHotWays",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 13,
+      "lobbyPosition": 15,
+      "catalogId": "ind74_official_multihotwheel",
+      "sourceKey": "multihotwheel",
+      "sourceIndex": 13,
+      "title": "Multi Hot Wheel",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/multihotwheel/",
+        "details": "/zplay-restored/20261117/multihotwheel/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-hot-wheel",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "MultiHotWheel",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 14,
+      "lobbyPosition": 16,
+      "catalogId": "ind74_official_multifruitschargingwilds",
+      "sourceKey": "multifruitschargingwilds",
+      "sourceIndex": 14,
+      "title": "Multi Fruits Charging Wilds",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/multifruitschargingwilds/",
+        "details": "/zplay-restored/20261117/multifruitschargingwilds/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "MultiFruitsChargingWilds",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 15,
+      "lobbyPosition": 17,
+      "catalogId": "ind74_official_gemscrownchargingwilds",
+      "sourceKey": "gemscrownchargingwilds",
+      "sourceIndex": 15,
+      "title": "Gems Crown Charging Wilds",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/gemscrownchargingwilds/",
+        "details": "/zplay-restored/20261117/gemscrownchargingwilds/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "GemsCrownChargingWilds",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 16,
+      "lobbyPosition": 18,
+      "catalogId": "ind74_official_burningice",
+      "sourceKey": "burningice",
+      "sourceIndex": 18,
+      "title": "Burning Ice",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/burningice_native",
+        "page": "/games/burningice_native",
+        "details": "/games/burningice_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/burning-ice-41",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BlazingHot",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 17,
+      "lobbyPosition": 19,
+      "catalogId": "ind74_official_burningice10",
+      "sourceKey": "burningice10",
+      "sourceIndex": 19,
+      "title": "Burning Ice 10",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/burningice10_native",
+        "page": "/games/burningice10_native",
+        "details": "/games/burningice10_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/blazing-hot-10",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BlazingHot10",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 18,
+      "lobbyPosition": 20,
+      "catalogId": "ind74_official_burningice40",
+      "sourceKey": "burningice40",
+      "sourceIndex": 20,
+      "title": "Burning Ice 40",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/burningice40_native",
+        "page": "/games/burningice40_native",
+        "details": "/games/burningice40_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/burning-ice-40",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BlazingHot40",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 19,
+      "lobbyPosition": 21,
+      "catalogId": "ind74_official_wildmultistars",
+      "sourceKey": "wildmultistars",
+      "sourceIndex": 21,
+      "title": "Wild Multi Stars",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": "/games/wild_multi_stars",
+        "page": "/games/wild_multi_stars",
+        "details": "/games/wild_multi_stars",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "WildMultiStars",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "blocked_rules_mismatch",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "known_nonmatching_generic_definition",
+        "evidence": [
+          "qa/wild-multi-stars-observed.md"
+        ],
+        "notes": [
+          "Retained generic frontend model differs from observed official rules: direction/payline count and locked-Wild re-spins do not match.",
+          "Its available catalog route is not evidence that reconstructed gameplay is complete.",
+          "Full authoritative source and missing feature behavior must be established before model changes."
+        ]
+      }
+    },
+    {
+      "targetIndex": 20,
+      "lobbyPosition": 22,
+      "catalogId": "ind74_official_mariachicoins",
+      "sourceKey": "mariachicoins",
+      "sourceIndex": 22,
+      "title": "Mariachi Coins",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/mariachicoins/",
+        "details": "/zplay-restored/20261117/mariachicoins/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/mariachi-coins",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "MariachiCoins",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 21,
+      "lobbyPosition": 23,
+      "catalogId": "ind74_official_hotsamba",
+      "sourceKey": "hotsamba",
+      "sourceIndex": 23,
+      "title": "Hot Samba",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/hotsamba/",
+        "details": "/zplay-restored/20261117/hotsamba/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/hot-samba",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "HotSamba",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 22,
+      "lobbyPosition": 24,
+      "catalogId": "ind74_official_poweroftiger",
+      "sourceKey": "poweroftiger",
+      "sourceIndex": 24,
+      "title": "Power of Tiger",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/poweroftiger/",
+        "details": "/zplay-restored/20261117/poweroftiger/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/power-of-tiger",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "PowerOfTiger",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 23,
+      "lobbyPosition": 25,
+      "catalogId": "ind74_official_gatesofmerlyn",
+      "sourceKey": "gatesofmerlyn",
+      "sourceIndex": 25,
+      "title": "Gates of Merlyn",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/gatesofmerlyn/",
+        "details": "/zplay-restored/20261117/gatesofmerlyn/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/gates-of-merlyn",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "GatesOfMerlyn",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 24,
+      "lobbyPosition": 26,
+      "catalogId": "ind74_official_dicejungle",
+      "sourceKey": "dicejungle",
+      "sourceIndex": 26,
+      "title": "Dice Jungle",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/dicejungle/",
+        "details": "/zplay-restored/20261117/dicejungle/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/dice-jungle",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "DiceJungle",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 25,
+      "lobbyPosition": 27,
+      "catalogId": "ind74_official_coinsofatlantis",
+      "sourceKey": "coinsofatlantis",
+      "sourceIndex": 27,
+      "title": "Coins Of Atlantis",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/coinsofatlantis/",
+        "details": "/zplay-restored/20261117/coinsofatlantis/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "CoinsOfAtlantis",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 26,
+      "lobbyPosition": 28,
+      "catalogId": "ind74_official_jinglebellbonanza",
+      "sourceKey": "jinglebellbonanza",
+      "sourceIndex": 28,
+      "title": "Jingle Bell Bonanza",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/jinglebellbonanza/",
+        "details": "/zplay-restored/20261117/jinglebellbonanza/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "JingleBellBonanza",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 27,
+      "lobbyPosition": 29,
+      "catalogId": "ind74_official_bookofbonanza",
+      "sourceKey": "bookofbonanza",
+      "sourceIndex": 29,
+      "title": "Book of Bonanza",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/bookofbonanza/",
+        "details": "/zplay-restored/20261117/bookofbonanza/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BookOfBonanza",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 28,
+      "lobbyPosition": 30,
+      "catalogId": "ind74_official_bookoffuturia",
+      "sourceKey": "bookoffuturia",
+      "sourceIndex": 30,
+      "title": "Book of Futuria",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/bookoffuturia/",
+        "details": "/zplay-restored/20261117/bookoffuturia/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/book-of-futuria",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "BookOfFuturia",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 29,
+      "lobbyPosition": 31,
+      "catalogId": "ind74_official_geniesbonanza",
+      "sourceKey": "geniesbonanza",
+      "sourceIndex": 31,
+      "title": "Genie's Bonanza",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/geniesbonanza/",
+        "details": "/zplay-restored/20261117/geniesbonanza/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/genies-bonanza",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "GeniesBonanza",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 30,
+      "lobbyPosition": 32,
+      "catalogId": "ind74_official_farmsfortune",
+      "sourceKey": "farmsfortune",
+      "sourceIndex": 32,
+      "title": "Farm's Fortune",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/farmsfortune/",
+        "details": "/zplay-restored/20261117/farmsfortune/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FarmsFortune&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "FarmsFortune",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 31,
+      "lobbyPosition": 33,
+      "catalogId": "ind74_official_madslot",
+      "sourceKey": "madslot",
+      "sourceIndex": 33,
+      "title": "Mad Slot",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/madslot/",
+        "details": "/zplay-restored/20261117/madslot/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/mad-slot",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MadSlot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "MadSlot",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 32,
+      "lobbyPosition": 34,
+      "catalogId": "ind74_official_wildsandgods",
+      "sourceKey": "wildsandgods",
+      "sourceIndex": 34,
+      "title": "Wilds and Gods",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/wildsandgods/",
+        "details": "/zplay-restored/20261117/wildsandgods/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/wilds-and-gods",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildsAndGods&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "WildsAndGods",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 33,
+      "lobbyPosition": 35,
+      "catalogId": "ind74_official_baoslot5x",
+      "sourceKey": "baoslot5x",
+      "sourceIndex": 35,
+      "title": "Bao Slot 5X",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/baoslot5x/",
+        "details": "/zplay-restored/20261117/baoslot5x/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/bao-slot-5",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BaoSlot5X&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BaoSlot5X",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 34,
+      "lobbyPosition": 36,
+      "catalogId": "ind74_official_junglesisters",
+      "sourceKey": "junglesisters",
+      "sourceIndex": 36,
+      "title": "Jungle Sisters",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/junglesisters/",
+        "details": "/zplay-restored/20261117/junglesisters/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/jungle-sisters",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "JungleSisters",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 35,
+      "lobbyPosition": 37,
+      "catalogId": "ind74_official_junglesistersdeluxe",
+      "sourceKey": "junglesistersdeluxe",
+      "sourceIndex": 37,
+      "title": "Jungle Sisters Deluxe",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/junglesistersdeluxe/",
+        "details": "/zplay-restored/20261117/junglesistersdeluxe/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "JungleSistersDeluxe",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 36,
+      "lobbyPosition": 38,
+      "catalogId": "ind74_official_bokajamba10",
+      "sourceKey": "bokajamba10",
+      "sourceIndex": 38,
+      "title": "Boka Jamba 10",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/bokajamba10/",
+        "details": "/zplay-restored/20261117/bokajamba10/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/boca-jamba-10",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BokaJamba10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BokaJamba10",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 37,
+      "lobbyPosition": 39,
+      "catalogId": "ind74_official_dragonscode",
+      "sourceKey": "dragonscode",
+      "sourceIndex": 39,
+      "title": "Dragon's Code",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/dragonscode/",
+        "details": "/zplay-restored/20261117/dragonscode/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/dragons-code",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "DragonsCode",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 38,
+      "lobbyPosition": 40,
+      "catalogId": "ind74_official_draculasfortune",
+      "sourceKey": "draculasfortune",
+      "sourceIndex": 40,
+      "title": "Dracula's Fortune",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/draculasfortune/",
+        "details": "/zplay-restored/20261117/draculasfortune/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "DraculasFortune",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 39,
+      "lobbyPosition": 41,
+      "catalogId": "ind74_official_sugarfiesta",
+      "sourceKey": "sugarfiesta",
+      "sourceIndex": 41,
+      "title": "Sugar Fiesta",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/sugarfiesta/",
+        "details": "/zplay-restored/20261117/sugarfiesta/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "SugarFiesta",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 40,
+      "lobbyPosition": 42,
+      "catalogId": "ind74_official_vampires",
+      "sourceKey": "vampires",
+      "sourceIndex": 42,
+      "title": "Vampires",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/vampires/",
+        "details": "/zplay-restored/20261117/vampires/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/vampires",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "Vampires",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 41,
+      "lobbyPosition": 43,
+      "catalogId": "ind74_official_samurai",
+      "sourceKey": "samurai",
+      "sourceIndex": 43,
+      "title": "Samurai",
+      "edition": "",
+      "category": "Slots",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/samurai/",
+        "details": "/zplay-restored/20261117/samurai/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "Samurai",
+        "officialDemoCategory": "Slots",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 42,
+      "lobbyPosition": 44,
+      "catalogId": "ind74_official_jetx",
+      "sourceKey": "jetx",
+      "sourceIndex": 44,
+      "title": "JetX",
+      "edition": "Original",
+      "category": "Crash Games",
+      "routes": {
+        "account": "/games/jetx_native",
+        "page": "/games/jetx_native",
+        "details": "/games/jetx_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/jetx",
+        "officialDemoUrl": null,
+        "officialDemoGameName": null,
+        "officialDemoCategory": null,
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": "No official demo URL is present in the pinned catalog; none has been invented."
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 43,
+      "lobbyPosition": 45,
+      "catalogId": "ind74_official_neweraofjetx",
+      "sourceKey": "neweraofjetx",
+      "sourceIndex": 45,
+      "title": "New Era of JetX",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/neweraofjetx/",
+        "details": "/zplay-restored/20261117/neweraofjetx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/jetx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO",
+        "officialDemoGameName": "JetX",
+        "officialDemoCategory": "JetXNew",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 44,
+      "lobbyPosition": 46,
+      "catalogId": "ind74_official_balloonx",
+      "sourceKey": "balloonx",
+      "sourceIndex": 46,
+      "title": "BalloonX",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/balloonx/",
+        "details": "/zplay-restored/20261117/balloonx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/balloonx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=BalloonX&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "BalloonX",
+        "officialDemoCategory": null,
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 45,
+      "lobbyPosition": 47,
+      "catalogId": "ind74_official_balloon",
+      "sourceKey": "balloon",
+      "sourceIndex": 47,
+      "title": "Balloon",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": "/games/balloon_native",
+        "page": "/games/balloon_native",
+        "details": "/games/balloon_native",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "available",
+        "playNowExposed": true,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": null
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/balloon",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=Balloon&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "Balloon",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "retained_route_unreviewed",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "The route is exposed by the existing lobby. Per-game implementation, presentation and official-rule fidelity remain unreviewed in this continuation."
+        ]
+      }
+    },
+    {
+      "targetIndex": 46,
+      "lobbyPosition": 48,
+      "catalogId": "ind74_official_plinkox",
+      "sourceKey": "plinkox",
+      "sourceIndex": 48,
+      "title": "Plinko X",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/plinkox/",
+        "details": "/zplay-restored/20261117/plinkox/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/plinkox",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "PlinkoX",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 47,
+      "lobbyPosition": 49,
+      "catalogId": "ind74_official_plinkoxclassic",
+      "sourceKey": "plinkoxclassic",
+      "sourceIndex": 49,
+      "title": "Plinko X Classic",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/plinkoxclassic/",
+        "details": "/zplay-restored/20261117/plinkoxclassic/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "PlinkoXClassic",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 48,
+      "lobbyPosition": 50,
+      "catalogId": "ind74_official_helicopterx",
+      "sourceKey": "helicopterx",
+      "sourceIndex": 50,
+      "title": "Helicopter X",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/helicopterx/",
+        "details": "/zplay-restored/20261117/helicopterx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/helicopter-x",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=HelicopterX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "HelicopterX",
+        "officialDemoCategory": "XGames",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 49,
+      "lobbyPosition": 51,
+      "catalogId": "ind74_official_footballx",
+      "sourceKey": "footballx",
+      "sourceIndex": 51,
+      "title": "Football X",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/footballx/",
+        "details": "/zplay-restored/20261117/footballx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/fotballx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FootballX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "FootballX",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 50,
+      "lobbyPosition": 52,
+      "catalogId": "ind74_official_cricketx",
+      "sourceKey": "cricketx",
+      "sourceIndex": 52,
+      "title": "Cricket X",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/cricketx/",
+        "details": "/zplay-restored/20261117/cricketx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/cricket-x",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "CricketX",
+        "officialDemoCategory": "XGames",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 51,
+      "lobbyPosition": 53,
+      "catalogId": "ind74_official_cricketerx",
+      "sourceKey": "cricketerx",
+      "sourceIndex": 53,
+      "title": "CricketerX",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/cricketerx/",
+        "details": "/zplay-restored/20261117/cricketerx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/cricketerx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CricketerX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "CricketerX",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 52,
+      "lobbyPosition": 54,
+      "catalogId": "ind74_official_carx",
+      "sourceKey": "carx",
+      "sourceIndex": 54,
+      "title": "CarX",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/carx/",
+        "details": "/zplay-restored/20261117/carx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/carx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "CarX",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 53,
+      "lobbyPosition": 55,
+      "catalogId": "ind74_official_aviastar",
+      "sourceKey": "aviastar",
+      "sourceIndex": 55,
+      "title": "AviaStar",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/aviastar/",
+        "details": "/zplay-restored/20261117/aviastar/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/aviastar",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=JetX3&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "JetX3",
+        "officialDemoCategory": "XGames",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 54,
+      "lobbyPosition": 56,
+      "catalogId": "ind74_official_smashx",
+      "sourceKey": "smashx",
+      "sourceIndex": 56,
+      "title": "Smash X",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/smashx/",
+        "details": "/zplay-restored/20261117/smashx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/smash-x",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=SmashX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "SmashX",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 55,
+      "lobbyPosition": 57,
+      "catalogId": "ind74_official_crashduel",
+      "sourceKey": "crashduel",
+      "sourceIndex": 57,
+      "title": "Crash Duel",
+      "edition": "",
+      "category": "Ciyaar",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/crashduel/",
+        "details": "/zplay-restored/20261117/crashduel/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/crash-duel",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TugOfWar&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "TugOfWar",
+        "officialDemoCategory": "XGames",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 56,
+      "lobbyPosition": 58,
+      "catalogId": "ind74_official_popx",
+      "sourceKey": "popx",
+      "sourceIndex": 58,
+      "title": "PopX",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/popx/",
+        "details": "/zplay-restored/20261117/popx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/popx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "PopX",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 57,
+      "lobbyPosition": 59,
+      "catalogId": "ind74_official_propelx",
+      "sourceKey": "propelx",
+      "sourceIndex": 59,
+      "title": "Propel X",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/propelx/",
+        "details": "/zplay-restored/20261117/propelx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/propel-x",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PropelX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "PropelX",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 58,
+      "lobbyPosition": 60,
+      "catalogId": "ind74_official_worldchampionx",
+      "sourceKey": "worldchampionx",
+      "sourceIndex": 60,
+      "title": "World Champion X",
+      "edition": "",
+      "category": "Crash Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/worldchampionx/",
+        "details": "/zplay-restored/20261117/worldchampionx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/world-champion-x",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WorldChampionX&Token=DEMO&PortalName=demo",
+        "officialDemoGameName": "WorldChampionX",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 59,
+      "lobbyPosition": 61,
+      "catalogId": "ind74_official_mineisland",
+      "sourceKey": "mineisland",
+      "sourceIndex": 61,
+      "title": "Mine Island",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/mineisland/",
+        "details": "/zplay-restored/20261117/mineisland/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/mine-island",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "MineIsland",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 60,
+      "lobbyPosition": 62,
+      "catalogId": "ind74_official_mineisland2",
+      "sourceKey": "mineisland2",
+      "sourceIndex": 62,
+      "title": "Mine Island2",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/mineisland2/",
+        "details": "/zplay-restored/20261117/mineisland2/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/mine-island2",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland2&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "MineIsland2",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 61,
+      "lobbyPosition": 63,
+      "catalogId": "ind74_official_chickenways",
+      "sourceKey": "chickenways",
+      "sourceIndex": 63,
+      "title": "Chicken Ways",
+      "edition": "",
+      "category": "Mine Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/chickenways/",
+        "details": "/zplay-restored/20261117/chickenways/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/chicken-ways",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=Chickenways&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "Chickenways",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 62,
+      "lobbyPosition": 64,
+      "catalogId": "ind74_official_chickenhighway",
+      "sourceKey": "chickenhighway",
+      "sourceIndex": 64,
+      "title": "Chicken Highway",
+      "edition": "",
+      "category": "Mine Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/chickenhighway/",
+        "details": "/zplay-restored/20261117/chickenhighway/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/chicken-highway",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "ChickenHighway",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 63,
+      "lobbyPosition": 65,
+      "catalogId": "ind74_official_cheesyroad",
+      "sourceKey": "cheesyroad",
+      "sourceIndex": 65,
+      "title": "Cheesy Road",
+      "edition": "",
+      "category": "Mine Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/cheesyroad/",
+        "details": "/zplay-restored/20261117/cheesyroad/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/cheesy-road",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoad&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "CheesyRoad",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 64,
+      "lobbyPosition": 66,
+      "catalogId": "ind74_official_cheesyroadclassic",
+      "sourceKey": "cheesyroadclassic",
+      "sourceIndex": 66,
+      "title": "Cheesy Road Classic",
+      "edition": "",
+      "category": "Mine Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/cheesyroadclassic/",
+        "details": "/zplay-restored/20261117/cheesyroadclassic/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/cheesy-road-classic",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoadClassic&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "CheesyRoadClassic",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 65,
+      "lobbyPosition": 67,
+      "catalogId": "ind74_official_fortunecatch",
+      "sourceKey": "fortunecatch",
+      "sourceIndex": 67,
+      "title": "Fortune Catch",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/fortunecatch/",
+        "details": "/zplay-restored/20261117/fortunecatch/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/fortune-catch",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO",
+        "officialDemoGameName": "FortuneCatch",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 66,
+      "lobbyPosition": 68,
+      "catalogId": "ind74_official_bottlemania",
+      "sourceKey": "bottlemania",
+      "sourceIndex": 68,
+      "title": "Bottle Mania",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/bottlemania/",
+        "details": "/zplay-restored/20261117/bottlemania/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/bottle-mania",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "BottleMania",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 67,
+      "lobbyPosition": 69,
+      "catalogId": "ind74_official_caibalaocappadocia",
+      "sourceKey": "caibalaocappadocia",
+      "sourceIndex": 69,
+      "title": "Cai Balao Cappadocia",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/caibalaocappadocia/",
+        "details": "/zplay-restored/20261117/caibalaocappadocia/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/cai-balao-cappadocia",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CaiBalaoCappadocia&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "CaiBalaoCappadocia",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 68,
+      "lobbyPosition": 70,
+      "catalogId": "ind74_official_4bonusesbonanza",
+      "sourceKey": "4bonusesbonanza",
+      "sourceIndex": 70,
+      "title": "4 Bonuses Bonanza",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/4bonusesbonanza/",
+        "details": "/zplay-restored/20261117/4bonusesbonanza/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/4-bonuses-bonanza",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoJoker&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "PlinkoJoker",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": true,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 69,
+      "lobbyPosition": 71,
+      "catalogId": "ind74_official_wheelofdestiny",
+      "sourceKey": "wheelofdestiny",
+      "sourceIndex": 71,
+      "title": "Wheel Of Destiny",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/wheelofdestiny/",
+        "details": "/zplay-restored/20261117/wheelofdestiny/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5",
+        "officialDemoGameName": "WheelofDestiny",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 70,
+      "lobbyPosition": 72,
+      "catalogId": "ind74_official_bonustime",
+      "sourceKey": "bonustime",
+      "sourceIndex": 72,
+      "title": "Bonus Time",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/bonustime/",
+        "details": "/zplay-restored/20261117/bonustime/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/bonus-time",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=BonusTime&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+        "officialDemoGameName": "BonusTime",
+        "officialDemoCategory": "",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 71,
+      "lobbyPosition": 73,
+      "catalogId": "ind74_official_towerx",
+      "sourceKey": "towerx",
+      "sourceIndex": 73,
+      "title": "Tower X",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/towerx/",
+        "details": "/zplay-restored/20261117/towerx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/tower-x",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TowerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "TowerX",
+        "officialDemoCategory": "XGames",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    },
+    {
+      "targetIndex": 72,
+      "lobbyPosition": 74,
+      "catalogId": "ind74_official_rollx",
+      "sourceKey": "rollx",
+      "sourceIndex": 74,
+      "title": "Roll X",
+      "edition": "",
+      "category": "Instant Games",
+      "routes": {
+        "account": null,
+        "page": "/zplay-restored/20261117/rollx/",
+        "details": "/zplay-restored/20261117/rollx/",
+        "localDemo": null
+      },
+      "availability": {
+        "catalogStatus": "preparing",
+        "playNowExposed": false,
+        "assessment": "verified_catalog_mapping_only",
+        "runtimeAvailability": "not_retested_by_this_inventory",
+        "unavailableReason": "The current lobby has no eligible account launch and displays preparing/unavailable controls."
+      },
+      "reference": {
+        "officialPageUrl": "https://www.smartsoftgaming.com/games/rollx",
+        "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+        "officialDemoGameName": "RollX",
+        "officialDemoCategory": "Games",
+        "nameDiffersFromCatalogKey": false,
+        "evidence": "exact_existing_catalog_entry",
+        "launchVerification": "not_performed_by_this_inventory",
+        "missingDemoReason": null
+      },
+      "progress": {
+        "state": "unavailable_in_lobby",
+        "done": false,
+        "baselineReleaseId": null,
+        "baselineScript": null,
+        "backendGameId": null,
+        "candidateReleaseId": null,
+        "candidateSharedReleaseId": null,
+        "mathSha256": null,
+        "mathAssessment": "not_certified_by_this_inventory",
+        "fallbackAssessment": "not_assessed",
+        "evidence": [
+          "changes/lobby-play-now/assets/catalog-data.mjs"
+        ],
+        "notes": [
+          "This is a catalog entry with no Play Now account route. Its details/page URL is not a playable route or completed fallback game."
+        ]
+      }
+    }
+  ]
+}

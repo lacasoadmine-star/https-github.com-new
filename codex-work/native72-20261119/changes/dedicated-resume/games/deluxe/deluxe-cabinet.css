@@ -1,0 +1,35 @@
+/* Cabinet positions only. Game-specific control artwork and dialogs remain
+   in their dedicated Deluxe modules. Coordinates use a 1366 × 768 stage. */
+body[data-machine="multi_hot_5_deluxe_native"] .machine{flex:none}
+@media (orientation:landscape){
+ body[data-machine="multi_hot_5_deluxe_native"]{--deluxe-cabinet-width:min(calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)),calc((100svh - 26px - env(safe-area-inset-top) - env(safe-area-inset-bottom))*1366/768))}
+ body[data-machine="multi_hot_5_deluxe_native"] .brandbar{height:26px;min-height:26px;width:var(--deluxe-cabinet-width)}
+ body[data-machine="multi_hot_5_deluxe_native"] .machine{width:var(--deluxe-cabinet-width);aspect-ratio:1366/768;max-width:none}
+ body[data-machine="multi_hot_5_deluxe_native"] .spin-controls,
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary,
+ body[data-machine="multi_hot_5_deluxe_native"] .footer{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+ body[data-machine="multi_hot_5_deluxe_native"] #spin{position:absolute;left:87.26208%;top:52.08333%;width:11.56662%;height:auto;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:auto}
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary #auto,
+ body[data-machine="multi_hot_5_deluxe_native"] #bet-quick{position:absolute;left:87.26208%;right:auto;width:6.44217%;height:auto;min-height:0;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:auto}
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary #auto{top:34.375%}
+ body[data-machine="multi_hot_5_deluxe_native"] #bet-quick{top:69.27083%}
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary #gamble:not([hidden]),
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary #collect:not([hidden]){top:79.16667%;width:5.85652%;height:auto;min-height:0;aspect-ratio:1;transform:translate(-50%,-50%)}
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary #gamble{left:81.40556%;right:auto}
+ body[data-machine="multi_hot_5_deluxe_native"] .secondary #collect{left:93.11859%;right:auto}
+ body[data-machine="multi_hot_5_deluxe_native"] #turbo{left:92.24012%;top:46.09375%;width:2.85505%;height:6.25%;min-height:0}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters{left:37.55490%;right:auto;top:86.84896%;width:25.18302%;height:6.25%;gap:3.19767%;font-variant-numeric:tabular-nums}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters>div:first-child{flex:165}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters>#bet-open{flex:168}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters>div,
+ body[data-machine="multi_hot_5_deluxe_native"] .meters>button{padding:.22cqw .36cqw;border-radius:.5cqw}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters .meter-name{font-size:.87848cqw;line-height:1.15}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters .reading{font-size:1.46413cqw;line-height:1.1}
+ body[data-machine="multi_hot_5_deluxe_native"] .meters .unit{font-size:.73206cqw}
+ body[data-machine="multi_hot_5_deluxe_native"] .footer :is(#menu,#sound){position:absolute;top:92.44792%;width:3.22108%;height:5.72917%;min-width:0;min-height:0;margin:0;padding:.3cqw;transform:translate(-50%,-50%);pointer-events:auto}
+ body[data-machine="multi_hot_5_deluxe_native"] .footer #menu{left:12.07906%}
+ body[data-machine="multi_hot_5_deluxe_native"] .footer #sound{left:87.48170%}
+ body[data-machine="multi_hot_5_deluxe_native"] .footer output{left:35%;right:35%;bottom:16%;font-size:1.1cqw}
+ body[data-machine="multi_hot_5_deluxe_native"] #notice{left:33%;right:29%;top:75%;font-size:1.17130cqw;line-height:1.4}
+ body[data-machine="multi_hot_5_deluxe_native"] #notice :is(button,a){font-size:1.17130cqw;padding:.5cqw 1cqw}
+}

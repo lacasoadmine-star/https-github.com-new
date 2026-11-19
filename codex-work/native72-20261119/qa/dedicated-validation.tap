@@ -1,0 +1,910 @@
+TAP version 13
+# (node:12) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Deluxe keeps its own music preference and default gains instead of another game settings
+ok 1 - Deluxe keeps its own music preference and default gains instead of another game settings
+  ---
+  duration_ms: 6.170386
+  type: 'test'
+  ...
+# Subtest: Music OFF stops only background while effects and the current spin continue
+ok 2 - Music OFF stops only background while effects and the current spin continue
+  ---
+  duration_ms: 1.899013
+  type: 'test'
+  ...
+# Subtest: Effects OFF clears music and Effects ON restores both without replaying the spin from zero
+ok 3 - Effects OFF clears music and Effects ON restores both without replaying the spin from zero
+  ---
+  duration_ms: 1.877824
+  type: 'test'
+  ...
+# Subtest: Music ON never unmutes an Effects-OFF master
+ok 4 - Music ON never unmutes an Effects-OFF master
+  ---
+  duration_ms: 0.830384
+  type: 'test'
+  ...
+# Subtest: setting changes while blurred or hidden cannot bypass the lifecycle mute gate
+ok 5 - setting changes while blurred or hidden cannot bypass the lifecycle mute gate
+  ---
+  duration_ms: 2.195287
+  type: 'test'
+  ...
+# Subtest: music and volume persist for Deluxe without changing another game music setting
+ok 6 - music and volume persist for Deluxe without changing another game music setting
+  ---
+  duration_ms: 1.300673
+  type: 'test'
+  ...
+# Subtest: invalid saved volume and unavailable storage cannot break the controls
+ok 7 - invalid saved volume and unavailable storage cannot break the controls
+  ---
+  duration_ms: 1.725369
+  type: 'test'
+  ...
+# Subtest: cancelled spin stops the Deluxe one-shot and discards its paused continuation
+ok 8 - cancelled spin stops the Deluxe one-shot and discards its paused continuation
+  ---
+  duration_ms: 3.220587
+  type: 'test'
+  ...
+# Subtest: Deluxe win resumes the remaining clip without duplicating a win cue
+ok 9 - Deluxe win resumes the remaining clip without duplicating a win cue
+  ---
+  duration_ms: 1.197802
+  type: 'test'
+  ...
+# Subtest: Deluxe count selection waits for START PLAY and retains all stop thresholds
+ok 10 - Deluxe count selection waits for START PLAY and retains all stop thresholds
+  ---
+  duration_ms: 8.938756
+  type: 'test'
+  ...
+# Subtest: enabled stop thresholds reject zero, invalid decimals and blank input
+ok 11 - enabled stop thresholds reject zero, invalid decimals and blank input
+  ---
+  duration_ms: 2.451928
+  type: 'test'
+  ...
+# Subtest: right-side bet list displays five actual allowed levels, scrolls and closes on selection
+ok 12 - right-side bet list displays five actual allowed levels, scrolls and closes on selection
+  ---
+  duration_ms: 2.524644
+  type: 'test'
+  ...
+# (node:14) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Deluxe groups descending original symbols and calculates actual local payouts at0.05 ETB
+ok 13 - Deluxe groups descending original symbols and calculates actual local payouts at0.05 ETB
+  ---
+  duration_ms: 17.09498
+  type: 'test'
+  ...
+# Subtest: payout amounts scale from the current model rather than fixed reference numbers
+ok 14 - payout amounts scale from the current model rather than fixed reference numbers
+  ---
+  duration_ms: 2.01457
+  type: 'test'
+  ...
+# Subtest: equal payout grouping separates a symbol when its current model payout changes
+ok 15 - equal payout grouping separates a symbol when its current model payout changes
+  ---
+  duration_ms: 1.151895
+  type: 'test'
+  ...
+# Subtest: preview stepping never mutates the supplied actual wager or frozen model
+ok 16 - preview stepping never mutates the supplied actual wager or frozen model
+  ---
+  duration_ms: 2.286408
+  type: 'test'
+  ...
+# Subtest: preview bounds are local and reopening resets to the actual selected wager
+ok 17 - preview bounds are local and reopening resets to the actual selected wager
+  ---
+  duration_ms: 2.408427
+  type: 'test'
+  ...
+# Subtest: invalid or zero line-bet amounts are rejected by the actual money contract
+ok 18 - invalid or zero line-bet amounts are rejected by the actual money contract
+  ---
+  duration_ms: 0.97761
+  type: 'test'
+  ...
+# (node:20) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Deluxe loading holds controls until all assets are ready, then offers sound without a round
+ok 19 - Deluxe loading holds controls until all assets are ready, then offers sound without a round
+  ---
+  duration_ms: 258.296323
+  type: 'test'
+  ...
+# Subtest: double tapping sound Yes invokes the choice once and does not trigger gameplay
+ok 20 - double tapping sound Yes invokes the choice once and does not trigger gameplay
+  ---
+  duration_ms: 221.73373
+  type: 'test'
+  ...
+# Subtest: a saved sound choice is honored and signed-out failure releases the loader
+ok 21 - a saved sound choice is honored and signed-out failure releases the loader
+  ---
+  duration_ms: 210.168583
+  type: 'test'
+  ...
+# Subtest: asset failure removes the cover and retains a retryable failure instead of hiding the sign-in/error state
+ok 22 - asset failure removes the cover and retains a retryable failure instead of hiding the sign-in/error state
+  ---
+  duration_ms: 22.099304
+  type: 'test'
+  ...
+# Subtest: dismissing the sound dialog chooses No once and never starts a round
+ok 23 - dismissing the sound dialog chooses No once and never starts a round
+  ---
+  duration_ms: 252.252305
+  type: 'test'
+  ...
+# Subtest: retains all event handlers, property descriptors and original method receiver
+ok 24 - retains all event handlers, property descriptors and original method receiver
+  ---
+  duration_ms: 16.292517
+  type: 'test'
+  ...
+# Subtest: entry reexports the exact previous named exports and adds no baseline asset import
+ok 25 - entry reexports the exact previous named exports and adds no baseline asset import
+  ---
+  duration_ms: 17.708015
+  type: 'test'
+  ...
+# Subtest: habesha HTML preserves production bootstrap, presence and security policy exactly
+ok 26 - habesha HTML preserves production bootstrap, presence and security policy exactly
+  ---
+  duration_ms: 22.661956
+  type: 'test'
+  ...
+# Subtest: habesha HEAD has the production headers and no body
+ok 27 - habesha HEAD has the production headers and no body
+  ---
+  duration_ms: 6.48045
+  type: 'test'
+  ...
+# Subtest: deluxe HTML preserves production bootstrap, presence and security policy exactly
+ok 28 - deluxe HTML preserves production bootstrap, presence and security policy exactly
+  ---
+  duration_ms: 10.894447
+  type: 'test'
+  ...
+# Subtest: deluxe HEAD has the production headers and no body
+ok 29 - deluxe HEAD has the production headers and no body
+  ---
+  duration_ms: 36.005328
+  type: 'test'
+  ...
+# Subtest: shared immutable asset verifies exact bytes, MIME, length and hash before serving
+ok 30 - shared immutable asset verifies exact bytes, MIME, length and hash before serving
+  ---
+  duration_ms: 3.728256
+  type: 'test'
+  ...
+# Subtest: game and shared namespaces cannot read another package file
+ok 31 - game and shared namespaces cannot read another package file
+  ---
+  duration_ms: 5.906843
+  type: 'test'
+  ...
+# Subtest: HEAD validates an asset but never returns a body
+ok 32 - HEAD validates an asset but never returns a body
+  ---
+  duration_ms: 9.621837
+  type: 'test'
+  ...
+# Subtest: rejects encoded separators, traversal, double decoding and malformed asset names
+ok 33 - rejects encoded separators, traversal, double decoding and malformed asset names
+  ---
+  duration_ms: 23.208137
+  type: 'test'
+  ...
+# Subtest: old asset releases, protected games, API calls and non-player portal delegate unchanged
+ok 34 - old asset releases, protected games, API calls and non-player portal delegate unchanged
+  ---
+  duration_ms: 1.574176
+  type: 'test'
+  ...
+# Subtest: POST to a new presentation route forwards the untouched request and body
+ok 35 - POST to a new presentation route forwards the untouched request and body
+  ---
+  duration_ms: 3.115951
+  type: 'test'
+  ...
+# Subtest: manifest hash mismatch fails closed without using KV or the previous game
+ok 36 - manifest hash mismatch fails closed without using KV or the previous game
+  ---
+  duration_ms: 11.416877
+  type: 'test'
+  ...
+# Subtest: manifest validator rejects mismatched release, game, byte count, MIME and content key
+ok 37 - manifest validator rejects mismatched release, game, byte count, MIME and content key
+  ---
+  duration_ms: 5.442013
+  type: 'test'
+  ...
+# Subtest: one bounded retry recovers a missing KV read
+ok 38 - one bounded retry recovers a missing KV read
+  ---
+  duration_ms: 5.784044
+  type: 'test'
+  ...
+# Subtest: one bounded retry recovers a throw KV read
+ok 39 - one bounded retry recovers a throw KV read
+  ---
+  duration_ms: 15.403873
+  type: 'test'
+  ...
+# Subtest: missing asset failures are not cached and HEAD errors have no body
+ok 40 - missing asset failures are not cached and HEAD errors have no body
+  ---
+  duration_ms: 3.286529
+  type: 'test'
+  ...
+# Subtest: corrupt asset length fails closed without immutable caching or content leak
+ok 41 - corrupt asset length fails closed without immutable caching or content leak
+  ---
+  duration_ms: 1.966079
+  type: 'test'
+  ...
+# Subtest: corrupt asset hash fails closed without immutable caching or content leak
+ok 42 - corrupt asset hash fails closed without immutable caching or content leak
+  ---
+  duration_ms: 2.970468
+  type: 'test'
+  ...
+# Subtest: offline builder pins exact UTF-8 manifest bytes and only three additive modules
+ok 43 - offline builder pins exact UTF-8 manifest bytes and only three additive modules
+  ---
+  duration_ms: 18.289462
+  type: 'test'
+  ...
+# Subtest: habesha: isolated registry retains exact math and rejects foreign identity
+ok 44 - habesha: isolated registry retains exact math and rejects foreign identity
+  ---
+  duration_ms: 11.132661
+  type: 'test'
+  ...
+# Subtest: habesha: receipt accepts a settled win and rejects ledger tampering
+ok 45 - habesha: receipt accepts a settled win and rejects ledger tampering
+  ---
+  duration_ms: 2.940954
+  type: 'test'
+  ...
+# Subtest: habesha: all 3645 reel and multiplier combinations preserve the pinned engine payout
+ok 46 - habesha: all 3645 reel and multiplier combinations preserve the pinned engine payout
+  ---
+  duration_ms: 474.522407
+  type: 'test'
+  ...
+# Subtest: habesha: settled balance precedes animation and Collect sends no request
+ok 47 - habesha: settled balance precedes animation and Collect sends no request
+  ---
+  duration_ms: 40.029043
+  type: 'test'
+  ...
+# Subtest: habesha: INSUFFICIENT_FUNDS resets CONFIRM
+ok 48 - habesha: INSUFFICIENT_FUNDS resets CONFIRM
+  ---
+  duration_ms: 4.059145
+  type: 'test'
+  ...
+# Subtest: habesha: HOUSE_RESERVE_INSUFFICIENT resets CONFIRM
+ok 49 - habesha: HOUSE_RESERVE_INSUFFICIENT resets CONFIRM
+  ---
+  duration_ms: 3.572475
+  type: 'test'
+  ...
+# Subtest: habesha: GAME_UNAVAILABLE resets CONFIRM
+ok 50 - habesha: GAME_UNAVAILABLE resets CONFIRM
+  ---
+  duration_ms: 7.558964
+  type: 'test'
+  ...
+# Subtest: habesha: unknown failure keeps original idempotency token
+ok 51 - habesha: unknown failure keeps original idempotency token
+  ---
+  duration_ms: 3.462489
+  type: 'test'
+  ...
+# Subtest: habesha: late receipt cannot erase a newer token or balance
+ok 52 - habesha: late receipt cannot erase a newer token or balance
+  ---
+  duration_ms: 5.889241
+  type: 'test'
+  ...
+# Subtest: habesha: late rejection cannot erase a newer token or balance
+ok 53 - habesha: late rejection cannot erase a newer token or balance
+  ---
+  duration_ms: 3.679505
+  type: 'test'
+  ...
+# Subtest: habesha: old account response cannot overwrite or sign out a new session
+ok 54 - habesha: old account response cannot overwrite or sign out a new session
+  ---
+  duration_ms: 9.403976
+  type: 'test'
+  ...
+# Subtest: habesha: idle snapshot cannot overwrite a newer receipt
+ok 55 - habesha: idle snapshot cannot overwrite a newer receipt
+  ---
+  duration_ms: 5.092569
+  type: 'test'
+  ...
+# Subtest: habesha: delayed session lookup cannot sign out a newer session
+ok 56 - habesha: delayed session lookup cannot sign out a newer session
+  ---
+  duration_ms: 4.54797
+  type: 'test'
+  ...
+# Subtest: habesha: late gamble response leaves newer action and balance intact
+ok 57 - habesha: late gamble response leaves newer action and balance intact
+  ---
+  duration_ms: 7.024845
+  type: 'test'
+  ...
+# Subtest: habesha: old-session gamble failure cannot sign out or unlock new session
+ok 58 - habesha: old-session gamble failure cannot sign out or unlock new session
+  ---
+  duration_ms: 5.313733
+  type: 'test'
+  ...
+# Subtest: deluxe: isolated registry retains exact math and rejects foreign identity
+ok 59 - deluxe: isolated registry retains exact math and rejects foreign identity
+  ---
+  duration_ms: 1.402795
+  type: 'test'
+  ...
+# Subtest: deluxe: receipt accepts a settled win and rejects ledger tampering
+ok 60 - deluxe: receipt accepts a settled win and rejects ledger tampering
+  ---
+  duration_ms: 1.234821
+  type: 'test'
+  ...
+# Subtest: deluxe: all 3645 reel and multiplier combinations preserve the pinned engine payout
+ok 61 - deluxe: all 3645 reel and multiplier combinations preserve the pinned engine payout
+  ---
+  duration_ms: 206.073022
+  type: 'test'
+  ...
+# Subtest: deluxe: settled balance precedes animation and Collect sends no request
+ok 62 - deluxe: settled balance precedes animation and Collect sends no request
+  ---
+  duration_ms: 12.950033
+  type: 'test'
+  ...
+# Subtest: deluxe: INSUFFICIENT_FUNDS resets CONFIRM
+ok 63 - deluxe: INSUFFICIENT_FUNDS resets CONFIRM
+  ---
+  duration_ms: 30.085708
+  type: 'test'
+  ...
+# Subtest: deluxe: HOUSE_RESERVE_INSUFFICIENT resets CONFIRM
+ok 64 - deluxe: HOUSE_RESERVE_INSUFFICIENT resets CONFIRM
+  ---
+  duration_ms: 20.874295
+  type: 'test'
+  ...
+# Subtest: deluxe: GAME_UNAVAILABLE resets CONFIRM
+ok 65 - deluxe: GAME_UNAVAILABLE resets CONFIRM
+  ---
+  duration_ms: 2.827009
+  type: 'test'
+  ...
+# Subtest: deluxe: unknown failure keeps original idempotency token
+ok 66 - deluxe: unknown failure keeps original idempotency token
+  ---
+  duration_ms: 3.190009
+  type: 'test'
+  ...
+# Subtest: deluxe: late receipt cannot erase a newer token or balance
+ok 67 - deluxe: late receipt cannot erase a newer token or balance
+  ---
+  duration_ms: 5.368185
+  type: 'test'
+  ...
+# Subtest: deluxe: late rejection cannot erase a newer token or balance
+ok 68 - deluxe: late rejection cannot erase a newer token or balance
+  ---
+  duration_ms: 2.941555
+  type: 'test'
+  ...
+# Subtest: deluxe: old account response cannot overwrite or sign out a new session
+ok 69 - deluxe: old account response cannot overwrite or sign out a new session
+  ---
+  duration_ms: 5.367584
+  type: 'test'
+  ...
+# Subtest: deluxe: idle snapshot cannot overwrite a newer receipt
+ok 70 - deluxe: idle snapshot cannot overwrite a newer receipt
+  ---
+  duration_ms: 3.73575
+  type: 'test'
+  ...
+# Subtest: deluxe: delayed session lookup cannot sign out a newer session
+ok 71 - deluxe: delayed session lookup cannot sign out a newer session
+  ---
+  duration_ms: 2.377729
+  type: 'test'
+  ...
+# Subtest: deluxe: late gamble response leaves newer action and balance intact
+ok 72 - deluxe: late gamble response leaves newer action and balance intact
+  ---
+  duration_ms: 3.118366
+  type: 'test'
+  ...
+# Subtest: deluxe: old-session gamble failure cannot sign out or unlock new session
+ok 73 - deluxe: old-session gamble failure cannot sign out or unlock new session
+  ---
+  duration_ms: 3.689224
+  type: 'test'
+  ...
+# Subtest: completion requires exact token and current session
+ok 74 - completion requires exact token and current session
+  ---
+  duration_ms: 1.054673
+  type: 'test'
+  ...
+# Subtest: old-session finally cannot release a newer busy operation
+ok 75 - old-session finally cannot release a newer busy operation
+  ---
+  duration_ms: 1.050576
+  type: 'test'
+  ...
+# Subtest: POST transport preserves captured session, same-origin and no-store
+ok 76 - POST transport preserves captured session, same-origin and no-store
+  ---
+  duration_ms: 0.410428
+  type: 'test'
+  ...
+# Subtest: pause reasons compose without automatic play restart
+ok 77 - pause reasons compose without automatic play restart
+  ---
+  duration_ms: 0.492682
+  type: 'test'
+  ...
+# Subtest: audio base owns no bank and respects suspension
+ok 78 - audio base owns no bank and respects suspension
+  ---
+  duration_ms: 1.378038
+  type: 'test'
+  ...
+# Subtest: shared code imports no game models, renderers, art or audio banks
+ok 79 - shared code imports no game models, renderers, art or audio banks
+  ---
+  duration_ms: 15.836504
+  type: 'test'
+  ...
+# Subtest: AUTO counts select only; START PLAY reads options
+ok 80 - AUTO counts select only; START PLAY reads options
+  ---
+  duration_ms: 0.525914
+  type: 'test'
+  ...
+# Subtest: habesha: START PLAY preserves an invalid helper result and only starts validated options
+ok 81 - habesha: START PLAY preserves an invalid helper result and only starts validated options
+  ---
+  duration_ms: 1.872935
+  type: 'test'
+  ...
+# Subtest: deluxe: START PLAY preserves an invalid helper result and only starts validated options
+ok 82 - deluxe: START PLAY preserves an invalid helper result and only starts validated options
+  ---
+  duration_ms: 0.835373
+  type: 'test'
+  ...
+# Subtest: habesha: delayed model or state lookup cannot replace newer session state
+ok 83 - habesha: delayed model or state lookup cannot replace newer session state
+  ---
+  duration_ms: 3.434376
+  type: 'test'
+  ...
+# Subtest: deluxe: delayed model or state lookup cannot replace newer session state
+ok 84 - deluxe: delayed model or state lookup cannot replace newer session state
+  ---
+  duration_ms: 3.071197
+  type: 'test'
+  ...
+# Subtest: audio suspension stops both active and already retiring nodes immediately
+ok 85 - audio suspension stops both active and already retiring nodes immediately
+  ---
+  duration_ms: 0.753279
+  type: 'test'
+  ...
+# (node:45) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Habesha keeps its own music preference and default gains instead of another game settings
+ok 86 - Habesha keeps its own music preference and default gains instead of another game settings
+  ---
+  duration_ms: 8.867513
+  type: 'test'
+  ...
+# Subtest: Music OFF stops only background while effects and the current spin continue
+ok 87 - Music OFF stops only background while effects and the current spin continue
+  ---
+  duration_ms: 1.281047
+  type: 'test'
+  ...
+# Subtest: Effects OFF clears music and Effects ON restores both without replaying the spin from zero
+ok 88 - Effects OFF clears music and Effects ON restores both without replaying the spin from zero
+  ---
+  duration_ms: 0.888924
+  type: 'test'
+  ...
+# Subtest: Music ON never unmutes an Effects-OFF master
+ok 89 - Music ON never unmutes an Effects-OFF master
+  ---
+  duration_ms: 0.505226
+  type: 'test'
+  ...
+# Subtest: setting changes while blurred or hidden cannot bypass the lifecycle mute gate
+ok 90 - setting changes while blurred or hidden cannot bypass the lifecycle mute gate
+  ---
+  duration_ms: 2.093217
+  type: 'test'
+  ...
+# Subtest: music and volume persist for Habesha without changing another game music setting
+ok 91 - music and volume persist for Habesha without changing another game music setting
+  ---
+  duration_ms: 0.789388
+  type: 'test'
+  ...
+# Subtest: invalid saved volume and unavailable storage cannot break the controls
+ok 92 - invalid saved volume and unavailable storage cannot break the controls
+  ---
+  duration_ms: 0.978562
+  type: 'test'
+  ...
+# Subtest: Habesha bank references its own existing clips with no alternate game bank
+ok 93 - Habesha bank references its own existing clips with no alternate game bank
+  ---
+  duration_ms: 40.918607
+  type: 'test'
+  ...
+# (node:47) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Habesha selects only its own original pack and responsive geometry
+ok 94 - Habesha selects only its own original pack and responsive geometry
+  ---
+  duration_ms: 11.76763
+  type: 'test'
+  ...
+# Subtest: validated colour receipts reveal once, preserve the amount, and use Habesha gamble audio
+ok 95 - validated colour receipts reveal once, preserve the amount, and use Habesha gamble audio
+  ---
+  duration_ms: 5.808098
+  type: 'test'
+  ...
+# Subtest: untrusted or inconsistent colour receipts cannot create a card outcome
+ok 96 - untrusted or inconsistent colour receipts cannot create a card outcome
+  ---
+  duration_ms: 0.173404
+  type: 'test'
+  ...
+# Subtest: blur and visibility pause the reveal hold without replaying a receipt or starting a new action
+ok 97 - blur and visibility pause the reveal hold without replaying a receipt or starting a new action
+  ---
+  duration_ms: 2.081475
+  type: 'test'
+  ...
+# Subtest: TAKE preserves a pending saved choice and performs no collection or fake result
+ok 98 - TAKE preserves a pending saved choice and performs no collection or fake result
+  ---
+  duration_ms: 1.430967
+  type: 'test'
+  ...
+# Subtest: rapid TAKE taps invoke the existing collect callback once and do not duplicate its sound
+ok 99 - rapid TAKE taps invoke the existing collect callback once and do not duplicate its sound
+  ---
+  duration_ms: 1.213751
+  type: 'test'
+  ...
+# Subtest: closing or disposing a presentation clears queued reveal callbacks
+ok 100 - closing or disposing a presentation clears queued reveal callbacks
+  ---
+  duration_ms: 1.508413
+  type: 'test'
+  ...
+# Subtest: both panel layouts fit a short viewport and leave space for the actual gamble terms
+ok 101 - both panel layouts fit a short viewport and leave space for the actual gamble terms
+  ---
+  duration_ms: 0.285244
+  type: 'test'
+  ...
+# (node:82) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Habesha groups descending original symbols and calculates actual local payouts at0.05 ETB
+ok 102 - Habesha groups descending original symbols and calculates actual local payouts at0.05 ETB
+  ---
+  duration_ms: 12.710484
+  type: 'test'
+  ...
+# Subtest: payout amounts scale from the current model rather than fixed reference numbers
+ok 103 - payout amounts scale from the current model rather than fixed reference numbers
+  ---
+  duration_ms: 2.652433
+  type: 'test'
+  ...
+# Subtest: equal payout grouping separates a symbol when its current model payout changes
+ok 104 - equal payout grouping separates a symbol when its current model payout changes
+  ---
+  duration_ms: 1.248987
+  type: 'test'
+  ...
+# Subtest: preview stepping never mutates the supplied actual wager or frozen model
+ok 105 - preview stepping never mutates the supplied actual wager or frozen model
+  ---
+  duration_ms: 2.958716
+  type: 'test'
+  ...
+# Subtest: preview bounds are local and reopening resets to the actual selected wager
+ok 106 - preview bounds are local and reopening resets to the actual selected wager
+  ---
+  duration_ms: 0.848949
+  type: 'test'
+  ...
+# Subtest: invalid or zero line-bet amounts are rejected by the actual money contract
+ok 107 - invalid or zero line-bet amounts are rejected by the actual money contract
+  ---
+  duration_ms: 5.836722
+  type: 'test'
+  ...
+# (node:93) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: landscape uses a wide board composition while portrait stays independent
+ok 108 - landscape uses a wide board composition while portrait stays independent
+  ---
+  duration_ms: 2.799289
+  type: 'test'
+  ...
+# Subtest: every pending phase lands on the server stop without a discontinuous grid swap
+ok 109 - every pending phase lands on the server stop without a discontinuous grid swap
+  ---
+  duration_ms: 14.470488
+  type: 'test'
+  ...
+# Subtest: the decorative initial cabinet is 3 / 5 / 1 and a receipt always replaces its center
+ok 110 - the decorative initial cabinet is 3 / 5 / 1 and a receipt always replaces its center
+  ---
+  duration_ms: 3.455155
+  type: 'test'
+  ...
+# Subtest: cosmetic neighbors never replace the selected multiplier and replay choices stay stable
+ok 111 - cosmetic neighbors never replace the selected multiplier and replay choices stay stable
+  ---
+  duration_ms: 1.738793
+  type: 'test'
+  ...
+# Subtest: actual multiplier layers retain all receipt centers and cosmetic neighbors across delay, landing and idle
+ok 112 - actual multiplier layers retain all receipt centers and cosmetic neighbors across delay, landing and idle
+  ---
+  duration_ms: 196.448177
+  type: 'test'
+  ...
+# Subtest: a delayed receipt transfers the pending animation once, then orders stop cues and win
+ok 113 - a delayed receipt transfers the pending animation once, then orders stop cues and win
+  ---
+  duration_ms: 1.802714
+  type: 'test'
+  ...
+# Subtest: cancelled pending request stops its own sound, and an old token cannot cancel the next spin
+ok 114 - cancelled pending request stops its own sound, and an old token cannot cancel the next spin
+  ---
+  duration_ms: 6.94234
+  type: 'test'
+  ...
+# Subtest: visibility pause freezes presentation clock and resumes without a long elapsed jump
+ok 115 - visibility pause freezes presentation clock and resumes without a long elapsed jump
+  ---
+  duration_ms: 0.663882
+  type: 'test'
+  ...
+# Subtest: start sound belongs to reels and can be stopped on a definite request rejection
+ok 116 - start sound belongs to reels and can be stopped on a definite request rejection
+  ---
+  duration_ms: 1.480711
+  type: 'test'
+  ...
+# Subtest: paused win sound resumes at its frozen sample offset and a new spin clears it
+ok 117 - paused win sound resumes at its frozen sample offset and a new spin clears it
+  ---
+  duration_ms: 2.876393
+  type: 'test'
+  ...
+# Subtest: superclass suspension preserves the reel group and a win-only stop leaves that paused clip intact
+ok 118 - superclass suspension preserves the reel group and a win-only stop leaves that paused clip intact
+  ---
+  duration_ms: 0.846083
+  type: 'test'
+  ...
+# Subtest: cancelling a hidden spin prevents its stale clip from restarting on return
+ok 119 - cancelling a hidden spin prevents its stale clip from restarting on return
+  ---
+  duration_ms: 0.316673
+  type: 'test'
+  ...
+# Subtest: blur owner silences the actual audio class until both focus and visibility return
+ok 120 - blur owner silences the actual audio class until both focus and visibility return
+  ---
+  duration_ms: 0.810306
+  type: 'test'
+  ...
+# Subtest: focus while muted stays silent and unmute restores only the current spin portion
+ok 121 - focus while muted stays silent and unmute restores only the current spin portion
+  ---
+  duration_ms: 0.60949
+  type: 'test'
+  ...
+# Subtest: unmute cannot replay an ended or cancelled spin clip
+ok 122 - unmute cannot replay an ended or cancelled spin clip
+  ---
+  duration_ms: 0.429263
+  type: 'test'
+  ...
+# (node:104) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Habesha loading holds controls until all assets are ready, then offers sound without a round
+ok 123 - Habesha loading holds controls until all assets are ready, then offers sound without a round
+  ---
+  duration_ms: 233.372123
+  type: 'test'
+  ...
+# Subtest: double tapping sound Yes invokes the choice once and does not trigger gameplay
+ok 124 - double tapping sound Yes invokes the choice once and does not trigger gameplay
+  ---
+  duration_ms: 235.856409
+  type: 'test'
+  ...
+# Subtest: a saved sound choice is honored and signed-out failure releases the loader
+ok 125 - a saved sound choice is honored and signed-out failure releases the loader
+  ---
+  duration_ms: 224.661273
+  type: 'test'
+  ...
+# Subtest: asset failure removes the cover and retains a retryable failure instead of hiding the sign-in/error state
+ok 126 - asset failure removes the cover and retains a retryable failure instead of hiding the sign-in/error state
+  ---
+  duration_ms: 41.734693
+  type: 'test'
+  ...
+# Subtest: dismissing the sound dialog chooses No once and never starts a round
+ok 127 - dismissing the sound dialog chooses No once and never starts a round
+  ---
+  duration_ms: 245.39458
+  type: 'test'
+  ...
+# Subtest: landscape uses the observed cabinet coordinates and vertical artwork is cropped uniformly
+ok 128 - landscape uses the observed cabinet coordinates and vertical artwork is cropped uniformly
+  ---
+  duration_ms: 5.934735
+  type: 'test'
+  ...
+# Subtest: pause freezes pending movement, the multiplier, and the active presentation clock
+ok 129 - pause freezes pending movement, the multiplier, and the active presentation clock
+  ---
+  duration_ms: 5.059026
+  type: 'test'
+  ...
+# Subtest: settled receipt keeps exact stops and multiplier after a paused spin and fast stop
+ok 130 - settled receipt keeps exact stops and multiplier after a paused spin and fast stop
+  ---
+  duration_ms: 5.24793
+  type: 'test'
+  ...
+# Subtest: all authoritative multiplier values stop exactly in reduced motion and after resizing
+ok 131 - all authoritative multiplier values stop exactly in reduced motion and after resizing
+  ---
+  duration_ms: 15.397612
+  type: 'test'
+  ...
+# Subtest: runtime startup styling takes over the immediate cover and centers logo plus progress
+ok 132 - runtime startup styling takes over the immediate cover and centers logo plus progress
+  ---
+  duration_ms: 5.857511
+  type: 'test'
+  ...
+# Subtest: dedicated sound consent overrides inherited ID styling on both choices and heading
+ok 133 - dedicated sound consent overrides inherited ID styling on both choices and heading
+  ---
+  duration_ms: 1.573204
+  type: 'test'
+  ...
+# Subtest: BET popup stays inside short landscape and portrait viewports with working arrow heights
+ok 134 - BET popup stays inside short landscape and portrait viewports with working arrow heights
+  ---
+  duration_ms: 7.575586
+  type: 'test'
+  ...
+# Subtest: consent width and flexible choices fit narrow phones and desktop without an inherited cap
+ok 135 - consent width and flexible choices fit narrow phones and desktop without an inherited cap
+  ---
+  duration_ms: 24.251913
+  type: 'test'
+  ...
+# Subtest: habesha_fortune_5_native deterministic receipts obey the actual browser contract
+ok 136 - habesha_fortune_5_native deterministic receipts obey the actual browser contract
+  ---
+  duration_ms: 16.102642
+  type: 'test'
+  ...
+# Subtest: multi_hot_5_deluxe_native deterministic receipts obey the actual browser contract
+ok 137 - multi_hot_5_deluxe_native deterministic receipts obey the actual browser contract
+  ---
+  duration_ms: 2.821901
+  type: 'test'
+  ...
+# Subtest: interrupted settled response is recovered without another debit or round
+ok 138 - interrupted settled response is recovered without another debit or round
+  ---
+  duration_ms: 1.413735
+  type: 'test'
+  ...
+# Subtest: definite rejection and expired session do not settle a round
+ok 139 - definite rejection and expired session do not settle a round
+  ---
+  duration_ms: 0.729115
+  type: 'test'
+  ...
+# Subtest: gamble fixture validates current stake and replays its existing result
+ok 140 - gamble fixture validates current stake and replays its existing result
+  ---
+  duration_ms: 2.529223
+  type: 'test'
+  ...
+# Subtest: dedicated packages serve their exact closure and synthetic API over isolated HTTP
+    # Subtest: both entry pages reference only served local assets and include the fixture toolbar
+    ok 1 - both entry pages reference only served local assets and include the fixture toolbar
+      ---
+      duration_ms: 320.704087
+      type: 'test'
+      ...
+    # Subtest: all game and shared manifest assets return exact SHA-256 and byte lengths
+    ok 2 - all game and shared manifest assets return exact SHA-256 and byte lengths
+      ---
+      duration_ms: 1851.305615
+      type: 'test'
+      ...
+    # Subtest: actual staged validators accept local winning spins, gambles and idempotent replays
+    ok 3 - actual staged validators accept local winning spins, gambles and idempotent replays
+      ---
+      duration_ms: 84.129864
+      type: 'test'
+      ...
+    # Subtest: interrupted, rejected and expired fixture responses remain local and recoverable
+    ok 4 - interrupted, rejected and expired fixture responses remain local and recoverable
+      ---
+      duration_ms: 42.152046
+      type: 'test'
+      ...
+    1..4
+ok 141 - dedicated packages serve their exact closure and synthetic API over isolated HTTP
+  ---
+  duration_ms: 2620.017599
+  type: 'test'
+  ...
+# {"stage":"/workspace/scratch/9a8b0ddfa7e7/local-qa-built","assetsChecked":321,"bytesChecked":23822558,"productionTransactions":0,"browserRenderingTested":false}
+# Subtest: multipart preserves binary and trailing newline bytes exactly
+ok 142 - multipart preserves binary and trailing newline bytes exactly
+  ---
+  duration_ms: 17.872703
+  type: 'test'
+  ...
+# Subtest: upload adds modules and inherits all binding identities without secret values
+ok 143 - upload adds modules and inherits all binding identities without secret values
+  ---
+  duration_ms: 2.962684
+  type: 'test'
+  ...
+1..143
+# tests 147
+# suites 0
+# pass 147
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3635.320477
