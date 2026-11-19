@@ -33,6 +33,9 @@ test('desktop reference layout: wheel, board, logo, touch targets stay in the co
   assert.ok(h.controls.spin.width>100);
   assert.ok(h.board.width>360);
   assert.ok(h.controls.bet.y>h.board.y+h.board.height);
+  assert.ok(h.controls.menu.width>=44 && h.controls.menu.height>=44);
+  assert.ok(h.controls.sound.width>=44 && h.controls.sound.height>=44);
+  assert.ok(h.controls.menu.x>=0 && h.controls.sound.x+h.controls.sound.width<=h.width+0.5);
 });
 test('a backend result does not immediately complete reels before the stop sequence',()=>{
   const m=new MultiHot40Motion({clock:()=>0});
