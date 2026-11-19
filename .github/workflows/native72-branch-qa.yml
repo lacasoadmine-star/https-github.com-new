@@ -40,5 +40,9 @@ jobs:
             codex-work/native72-20261119/changes/safari-r3/resume-sync.test.mjs
           node --check codex-work/native72-20261119/changes/safari-r3/game.mjs
           node --check codex-work/native72-20261119/changes/safari-r3/resume-sync.mjs
+      - name: Verify Multi Hot 100 engine and sound lifecycle
+        run: |
+          node --test codex-work/fresh74-20261113/*.test.mjs
+          node --check codex-work/fresh74-20261113/multihot100-entry.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
