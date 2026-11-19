@@ -70,3 +70,41 @@ test('signed-out restoration never reopens gamble or clears an unconfirmed saved
  assert.ok(h.log.includes('startup-fail:signedout'));assert.ok(!h.log.includes('bind'));assert.ok(!h.log.includes('history-read'));assert.ok(!h.log.includes('view-open'));
  assert.equal(h.saved,saved);assert.equal(saved.choice,'RED');assert.equal(saved.expectedStake,'7.50');
 });
+
+test('a delayed session check cannot sign out a newly bound Player',async()=>{
+ const h=harness(),response=deferred();
+ h.context.api.sessionId='first';
+ h.context.api.session=()=>response.promise;
+ vm.runInContext(extractFunction(source,'sameSession'),h.context);
+ const check=h.context.sameSession();
+ h.context.epoch++;
+ h.context.api.sessionId='second';
+ response.resolve({authenticated:false});
+ assert.equal(await check,false);
+ assert.equal(h.context.signedIn,true);
+});
+
+test('late gamble rejection preserves the next session and its active gamble',async()=>{
+ const h=harness(),response=deferred(),sent=deferred();
+ Object.assign(h.context,{sameSession:async()=>true});
+ h.context.audio.unlock=async()=>{};
+ h.view.pending=()=>true;
+ h.context.api.gamble=()=>{sent.resolve();return response.promise;};
+ vm.runInContext(extractFunction(source,'gamble'),h.context);
+ const gamble=h.context.gamble('RED');
+ await sent.promise;
+ h.context.epoch++;
+ h.context.api.sessionId='second';
+ response.resolve(Promise.reject(Object.assign(new Error('session expired'),{status:401})));
+ await gamble;
+ assert.equal(h.context.signedIn,true);
+ assert.equal(h.context.actionBusy,true);
+});
+
+test('Deluxe closes its previous gamble before the account check',async()=>{
+ const h=harness({stallAccount:true});
+ h.context.machineId='multi_hot_5_deluxe_native';
+ void h.run();
+ assert.equal(h.dialog.open,false);
+ assert.equal(h.view.opened,false);
+});
