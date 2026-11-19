@@ -32,5 +32,11 @@ jobs:
         run: |
           node --test \
             codex-work/native72-20261119/changes/dedicated-resume/tests/foundation.test.mjs
+      - name: Verify Safari Simba foreground resume policy
+        run: |
+          node --test \
+            codex-work/native72-20261119/changes/safari-r3/resume-sync.test.mjs
+          node --check codex-work/native72-20261119/changes/safari-r3/game.mjs
+          node --check codex-work/native72-20261119/changes/safari-r3/resume-sync.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
