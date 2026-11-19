@@ -18,17 +18,26 @@ export function validateModel(model) {
  req(typeof model.engineVersion==='string' && model.engineVersion.length>0,'ENGINE_VERSION_MISSING');
  req(typeof model.mathSha256==='string' && /^[a-f0-9]{64}$/i.test(model.mathSha256),'MODEL_HASH_INVALID');
  req(Array.isArray(model.betLevels) && model.betLevels.length>0 && model.betLevels.every(x=>cents(x)&&Number(x)>0),'INVALID_BET_LADDER');
+ // A foreign game model must never silently drive this 5-by-4, 40-line title.
+ req(model.reels===undefined || model.reels===5,'MH40_MODEL_REELS_MISMATCH');
+ req(model.rows===undefined || model.rows===4,'MH40_MODEL_ROWS_MISMATCH');
+ req(model.paylines===undefined || model.paylines===40,'MH40_MODEL_LINES_MISMATCH');
+ if(model.symbolNames!==undefined)req(Array.isArray(model.symbolNames)&&model.symbolNames.length===8&&model.symbolNames.every(x=>typeof x==='string'&&x.length>0)&&new Set(model.symbolNames).size===8,'MH40_SYMBOL_DICTIONARY_INVALID');
  return model;
 }
 export function validateRound(receipt,{model,bet}) {
  req(receipt?.gameId===GAME_ID,'WRONG_GAME_RECEIPT');
  req(typeof receipt.roundId==='string' && receipt.roundId.length>0,'ROUND_ID_MISSING');
  req(receipt.mathVersion===model.mathVersion && receipt.mathSha256===model.mathSha256 && receipt.engineVersion===model.engineVersion,'RULES_VERSION_MISMATCH');
- req(receipt.bet===bet && cents(receipt.finalWin) && cents(receipt.balance),'ROUND_ACCOUNTING_INVALID');
+ // Native backend receipts use balanceAfter; retain balance for older read-only snapshots.
+ // Never compute a balance locally and never infer a win from reel graphics.
+ const authoritativeBalance=receipt.balanceAfter ?? receipt.balance;
+ req(receipt.bet===bet && cents(receipt.finalWin) && cents(authoritativeBalance),'ROUND_ACCOUNTING_INVALID');
  req(Array.isArray(receipt.grid) && receipt.grid.length===4 && receipt.grid.every(row=>Array.isArray(row) && row.length===5),'MH40_GRID_INVALID');
- req(receipt.grid.every(row=>row.every(v=>typeof v==='string'||Number.isInteger(v))),'MH40_SYMBOL_INVALID');
+ req(receipt.grid.every(row=>row.every(v=>(typeof v==='string'&&v.length>0)||(Number.isInteger(v)&&v>=0&&v<8))),'MH40_SYMBOL_INVALID');
+ if(model.symbolNames)req(receipt.grid.every(row=>row.every(v=>typeof v==='number'||model.symbolNames.includes(v))),'MH40_SYMBOL_OUTSIDE_MODEL');
  req(Number.isInteger(receipt.wheelMultiplier) && receipt.wheelMultiplier>=1 && receipt.wheelMultiplier<=5,'MH40_MULTIPLIER_INVALID');
- return receipt;
+ return {...receipt,balance:authoritativeBalance};
 }
 export class MultiHot40Live {
  constructor({api=new WalletAdapter(),scene,clock=()=>Date.now(),onState=()=>{}}={}) {
@@ -45,6 +54,7 @@ export class MultiHot40Live {
    const model=validateModel(await this.api.model(GAME_ID));
    if(generation!==this.generation||this.disposed)return false;
    this.api.bind(session.sessionId,GAME_ID);this.session=session;this.model=model;
+   this.scene.setSymbolNames?.(model.symbolNames);
    this.stake=model.betLevels.includes(this.stake)?this.stake:model.betLevels[0];
    const pending=this.api.pending();this.scene.reset();
    this.change(pending?'confirm':'ready');return true;
@@ -65,6 +75,7 @@ export class MultiHot40Live {
   if(!model||!stake)return false;
   if(saved&&saved.bet!==stake){this.change('confirm','SAVED_BET_CONFLICT');return false;}
   this.active=true;this.change('requesting');this.scene.start();
+  this.audio?.play?.('spin');
   try {
    const stillSignedIn=validatePlayer(await this.api.session());
    if(stillSignedIn.sessionId!==this.session.sessionId)fail('PLAYER_SESSION_CHANGED');
@@ -76,8 +87,20 @@ export class MultiHot40Live {
    const pending=this.api.pending();if(!pending)fail('ROUND_TOKEN_LOST');
    this.api.complete(pending);
    this.lastReceipt=receipt;this.session={...this.session,balance:receipt.balance};
-   this.change('revealing');await this.scene.reveal(receipt);
+   this.change('revealing');
+   try {
+    await this.scene.reveal(receipt);
+   } catch (presentationError) {
+    // The accepted receipt was already settled on the existing server. A failed
+    // local animation must NEVER restore a pending wager or trigger another debit.
+    if(generation!==this.generation||this.disposed)return false;
+    this.stopAuto();this.scene.reset();
+    this.change('ready','ROUND_SETTLED_PRESENTATION_ERROR');
+    return true;
+   }
    if(generation!==this.generation||this.disposed)return false;
+   this.audio?.play?.('stop');
+   if(Number(receipt.finalWin)>0)this.audio?.play?.('win');
    this.change('ready');
    const continueAuto=this.autoLeft>0&&this.visible();
    if(continueAuto){this.autoLeft--;this.onState(this.snapshot());if(this.autoLeft>0){queueMicrotask(()=>{if(this.phase==='ready'&&this.visible()&&!this.disposed)this.spin();});}else this.stopAuto();}
