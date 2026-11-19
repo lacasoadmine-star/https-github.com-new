@@ -24,7 +24,7 @@ export class MultiHot40Scene {
   }
   throw Error('MH40_UNKNOWN_RECEIPT_SYMBOL');
  }
- start(){if(this.disposed||this.busy)throw Error('MH40_SCENE_BUSY');this.busy=true;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;}
+ start(){if(this.disposed||this.busy)throw Error('MH40_SCENE_BUSY');this.busy=true;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;this.lastReceipt=null;}
  stop(){if(this.busy)this.stopping=true;}
  reset(){this.busy=false;this.stopping=false;this.elapsed=0;this.win=0;this.stopAt=0;this.lastReceipt=null;if(this.revealPromise){const end=this.revealPromise;this.revealPromise=null;end.reject(Error('MH40_PRESENTATION_RESET'));}}
  reveal(receipt){
