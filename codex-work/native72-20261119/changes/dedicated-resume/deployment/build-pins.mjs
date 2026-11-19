@@ -12,18 +12,57 @@ const expected = Object.freeze({
   deluxe: { release: 'zplay-native-machines-20261119-mh5deluxe-r2', gameId: 'multi_hot_5_deluxe_native' },
 });
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
+const catalogUrl = new URL('./verified-target-catalog.json', import.meta.url);
+const canonical = path => path?.endsWith('/') ? path.slice(0, -1) : path;
+async function loadCatalog() {
+  const catalog = JSON.parse(await readFile(catalogUrl, 'utf8'));
+  if (catalog.targets !== 72 || catalog.games?.length !== 72) throw Error('INVALID_TARGET_CATALOG');
+  const byRoute = new Map(), identities = new Set();
+  for (const game of catalog.games) {
+    if (!game.catalogId || identities.has(game.catalogId)) throw Error('DUPLICATE_CATALOG_ID');
+    identities.add(game.catalogId);
+    if (game.accountPath) {
+      const path = canonical(game.accountPath);
+      if (byRoute.has(path)) throw Error('DUPLICATE_CATALOG_ROUTE');
+      byRoute.set(path, game);
+    }
+  }
+  return byRoute;
+}
+
 
 export async function buildReleaseModules(stageDirectory, outputDirectory = here) {
   const stage = resolve(stageDirectory), output = resolve(outputDirectory);
   const report = JSON.parse(await readFile(join(stage, 'package-report.json'), 'utf8'));
-  const pins = {};
-  for (const [name, identity] of Object.entries(expected)) {
+  const pins = {}, catalog = await loadCatalog();
+  const defined = Object.entries(expected);
+  const additional = report.packages.filter(item => !Object.hasOwn(expected, item.name));
+  if (defined.length + additional.length - 1 > 72) throw Error('TOO_MANY_GAME_RELEASES');
+  for (const candidate of additional) {
+    if (typeof candidate.name !== 'string' || !/^[a-z0-9][a-z0-9_-]{0,63}$/.test(candidate.name)
+      || typeof candidate.release !== 'string' || typeof candidate.gameId !== 'string'
+      || typeof candidate.accountPath !== 'string') throw Error('INVALID_ADDITIONAL_PACKAGE');
+    const catalogGame = catalog.get(canonical(candidate.accountPath));
+    if (!catalogGame || !catalogGame.reference.demo || !candidate.qaEvidence
+      || candidate.qaEvidence.referenceCompared !== true
+      || candidate.qaEvidence.gameplayTested !== true
+      || candidate.qaEvidence.settlementContractTested !== true) {
+      throw Error('UNVERIFIED_GAME_PACKAGE:' + candidate.name);
+    }
+    if (Object.values(expected).some(item => item.gameId === candidate.gameId)) {
+      throw Error('DUPLICATE_GAME_PACKAGE');
+    }
+    defined.push([candidate.name, { release: candidate.release,
+      gameId: candidate.gameId, accountPath: canonical(candidate.accountPath) }]);
+  }
+  for (const [name, identity] of defined) {
     const bytes = await readFile(join(stage, `${name}-manifest.json`));
     const manifestSha256 = digest(bytes);
     const record = report.packages.find(item => item.name === name);
     if (!record || record.manifestSha256 !== manifestSha256 || record.manifestBytes !== bytes.length
       || record.manifestKey !== `native72/manifests/${manifestSha256}`
-      || record.release !== identity.release || record.gameId !== identity.gameId) {
+      || record.release !== identity.release || record.gameId !== identity.gameId
+      || (identity.accountPath && canonical(record.accountPath) !== identity.accountPath)) {
       throw new Error(`PACKAGE_REPORT_MISMATCH:${name}`);
     }
     const pin = {
@@ -39,7 +78,7 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
   const releasePins = {
     presencePath: '/player-v236/presence.63ed199a80b6c700.mjs',
     shared: pins.shared,
-    games: [pins.habesha, pins.deluxe],
+    games: defined.filter(([name]) => name !== 'shared').map(([name]) => pins[name]),
   };
   await mkdir(output, { recursive: true });
   for (const name of ['entry.mjs', 'handler.mjs']) {
