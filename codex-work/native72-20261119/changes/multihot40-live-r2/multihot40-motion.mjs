@@ -58,8 +58,8 @@ export function multiHot40Layout(width, height) {
   const board = portrait ? rect(-8, 346, 642, 526) : rect(373, 176, 594, 479);
   const controls = portrait ? {
     spin: rect(214, 1015, 198, 198), auto: rect(109, 1069, 96, 96),
-    bet: rect(424, 1069, 96, 96), menu: rect(21, 1240, 38, 29),
-    sound: rect(568, 1240, 38, 29), turbo: rect(395, 1006, 46, 55),
+    bet: rect(424, 1069, 96, 96), menu: rect(0, 1229, 72, 72),
+    sound: rect(554, 1229, 72, 72), turbo: rect(395, 1006, 46, 55),
     collect: rect(532, 1069, 76, 76), gamble: rect(18, 1069, 76, 76),
   } : {
     spin: rect(1137, 295, 158, 158), auto: rect(1176, 204, 83, 83),
