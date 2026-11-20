@@ -64,11 +64,19 @@ jobs:
           node --test codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-live-r2.test.mjs
           node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-motion.mjs
           node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-presentation.mjs
+          node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-app.mjs
       - name: Verify Multi Hot 10 dedicated Player login and audio lifecycle
         run: |
           node --test codex-work/native72-20261119/changes/multihot10-r2/qa.test.mjs
           node --check codex-work/native72-20261119/changes/multihot10-r2/app.mjs
           node --check codex-work/native72-20261119/changes/multihot10-r2/audio.mjs
+          node --check codex-work/native72-20261119/changes/multihot10-r2/presentation.mjs
+          node --check codex-work/native72-20261119/changes/multihot10-r2/portrait.mjs
+          node --check codex-work/native72-20261119/changes/multihot10-r2/reels.mjs
+      - name: Verify Safari Simba live Samsung control hitboxes
+        run: |
+          node --test codex-work/native72-20261119/changes/safari-live-r5/mobile-touch.test.mjs
+          node --check codex-work/native72-20261119/changes/safari-live-r5/game.mjs
       - name: Verify Safari Simba immutable r4 package
         run: |
           node --test codex-work/native72-20261119/changes/safari-r4/release.test.mjs
