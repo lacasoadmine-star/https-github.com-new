@@ -1,6 +1,6 @@
 {
   "schema": "zplay-first-ten-release-readiness-v1",
-  "asOf": "2026-11-20",
+  "asOf": "2026-11-21",
   "existingStack": {
     "worker": "superwin-player",
     "repository": "lacasoadmine-star/https-github.com-new",
@@ -29,7 +29,8 @@
     "Every currently prepared patch is staged on the GitHub work branch, not deployed into superwin-player production.",
     "No unverified slot payout math or screenshot-as-game substitutions are accepted.",
     "Five additional games' overlapping TURBO hit areas were corrected per game and verified with Playwright across 360/390/412px; no public asset deployment has occurred.",
-    "Dedicated original 5x3 Canvas scenes for Multi Hot 20 and Burn Wilds were browser-tested with synthetic QA sprites; strict production mode refuses missing real symbol atlases, and no public route, verified server math or authenticated ETB wagering has been activated."
+    "Dedicated original 5x3 Canvas scenes for Multi Hot 20 and Burn Wilds were browser-tested with synthetic QA sprites; strict production mode refuses missing real symbol atlases, and no public route, verified server math or authenticated ETB wagering has been activated.",
+    "2026-11-21: Multi Hot 20 and Burn Wilds official-capture media and all 16 source files staged in existing Cloudflare SSG_OFFICIAL_REFERENCES; 57 exact pinned release entries; 26 critical KV source/media hash readbacks passed. Both independent actual frontend pages passed isolated browser intercept SPIN/recovery QA, not real ETB. Public /new74 routes still 404 because main Player wrapper was not deployed; release pins published=false until authoritative math and real Player ledger certification."
   ],
   "entries": [
     {
@@ -113,12 +114,20 @@
       "sourceKey": "multihot20",
       "title": "Multi Hot 20",
       "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
-      "requestedPlayerRoute": null,
+      "requestedPlayerRoute": "/new74/multi-hot-20/",
       "observedRoute": null,
-      "packageType": "new-controller-no-public-route",
+      "packageType": "per-game-native-canvas-and-existing-KV-pinned-unreleased",
       "patches": [
+        "./multihot20/index.html",
+        "./multihot20/style.css",
+        "./multihot20/app.mjs",
         "./multihot20/controller.mjs",
-        "./multihot20/scene.mjs"
+        "./multihot20/session.mjs",
+        "./multihot20/scene.mjs",
+        "./multihot20/assets.mjs",
+        "./multihot20/assets.json",
+        "./player-kv-route.mjs",
+        "./player-route-pins.json"
       ],
       "verifiedChecks": [
         "server_receipt_validation",
@@ -127,15 +136,22 @@
         "dedicated_5x3_canvas_receipt_scene_staged",
         "playwright_synthetic_asset_scene_smoke",
         "verified_five_reel_stop_audio_events",
-        "blurred_background_mutes_future_win_audio"
+        "blurred_background_mutes_future_win_audio",
+        "verified_multihot20_27_kv_release_assets",
+        "playwright_mock_spin_stop_one_request",
+        "browser_bet_auto_menu_sound_controls",
+        "sha256_verified_26_critical_kv_assets_combined",
+        "browser_20_pinned_routes_passed_in_qa_mode",
+        "actual_new_player_route_still_not_live"
       ],
       "remainingGates": [
-        "no_live_play_now_route",
-        "server_game_model_unverified",
-        "dedicated_verified_artwork_missing",
-        "math_paytable_not_verified",
-        "production_assets_not_published",
-        "scene_not_yet_bound_to_existing_authenticated_launch_route"
+        "public_player_route_not_deployed",
+        "server_enabled_authoritative_game_model_not_verified",
+        "licensed_operator_paytable_and_probability_model_not_verified",
+        "real_authenticated_player_ETB_ledger_and_win_settlement_not_tested",
+        "official_demo_sound_graphics_and_bet_behavior_not_fully_parity_verified",
+        "GitHub_CI_complete_run_not_verified",
+        "signed_off_live_deploy_not_executed"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
@@ -148,6 +164,15 @@
         "screenshots": 6,
         "videoContainsAudio": false,
         "manifestSha256": "1627740b6d88106a57dadd517e5fcb0386fadab3d4b926f1ee0020a0ca0352aa"
+      },
+      "kvRelease": {
+        "namespaceBinding": "SSG_OFFICIAL_REFERENCES",
+        "revision": "batch01-20261120-r1",
+        "pinnedFiles": 27,
+        "router": "./player-kv-route.mjs",
+        "published": false,
+        "verifiedCriticalReadbacksCombined": 26,
+        "sourceGitBranch": "work/native72-session-presentation-20261119"
       }
     },
     {
@@ -275,12 +300,20 @@
       "sourceKey": "multihot5burnwilds",
       "title": "Multi Hot 5 Burn Wilds",
       "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
-      "requestedPlayerRoute": null,
+      "requestedPlayerRoute": "/new74/multi-hot-5-burn-wilds/",
       "observedRoute": null,
-      "packageType": "new-controller-no-public-route",
+      "packageType": "per-game-native-canvas-and-existing-KV-pinned-unreleased",
       "patches": [
+        "./multihot5burnwilds/index.html",
+        "./multihot5burnwilds/style.css",
+        "./multihot5burnwilds/app.mjs",
         "./multihot5burnwilds/controller.mjs",
-        "./multihot5burnwilds/scene.mjs"
+        "./multihot5burnwilds/session.mjs",
+        "./multihot5burnwilds/scene.mjs",
+        "./multihot5burnwilds/assets.mjs",
+        "./multihot5burnwilds/assets.json",
+        "./player-kv-route.mjs",
+        "./player-route-pins.json"
       ],
       "verifiedChecks": [
         "server_receipt_validation",
@@ -290,15 +323,22 @@
         "dedicated_5x3_canvas_receipt_scene_staged",
         "playwright_synthetic_asset_scene_smoke",
         "verified_five_reel_stop_audio_events",
-        "blurred_background_mutes_future_win_audio"
+        "blurred_background_mutes_future_win_audio",
+        "verified_burnwilds_30_kv_release_assets",
+        "playwright_mock_503_replay_same_round_token",
+        "playwright_burn_wilds_server_selected_expansion",
+        "sha256_verified_26_critical_kv_assets_combined",
+        "browser_20_pinned_routes_passed_in_qa_mode",
+        "actual_new_player_route_still_not_live"
       ],
       "remainingGates": [
-        "no_live_play_now_route",
-        "server_game_model_unverified",
-        "dedicated_verified_artwork_missing",
-        "math_paytable_not_verified",
-        "production_assets_not_published",
-        "scene_not_yet_bound_to_existing_authenticated_launch_route"
+        "public_player_route_not_deployed",
+        "server_enabled_authoritative_game_model_not_verified",
+        "licensed_operator_paytable_and_probability_model_not_verified",
+        "real_authenticated_player_ETB_ledger_and_win_settlement_not_tested",
+        "official_demo_sound_graphics_and_bet_behavior_not_fully_parity_verified",
+        "GitHub_CI_complete_run_not_verified",
+        "signed_off_live_deploy_not_executed"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
@@ -311,6 +351,15 @@
         "screenshots": 7,
         "videoContainsAudio": false,
         "manifestSha256": "42dc90c034a549c021e8928876ce53f240a384d7096e777affd36f5ebcec928f"
+      },
+      "kvRelease": {
+        "namespaceBinding": "SSG_OFFICIAL_REFERENCES",
+        "revision": "batch01-20261120-r1",
+        "pinnedFiles": 30,
+        "router": "./player-kv-route.mjs",
+        "published": false,
+        "verifiedCriticalReadbacksCombined": 26,
+        "sourceGitBranch": "work/native72-session-presentation-20261119"
       }
     },
     {
