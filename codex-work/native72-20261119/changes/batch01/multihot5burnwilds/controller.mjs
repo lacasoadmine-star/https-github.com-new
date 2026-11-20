@@ -39,6 +39,24 @@ export function validateReceipt(receipt,model,stake){
  const burns=receipt.features?.expandedWildReels??[];
  if(!Array.isArray(burns)||burns.some(i=>!Number.isInteger(i)||i<1||i>3)||
     new Set(burns).size!==burns.length)fail('BURN_WILD_REEL_INVALID');
+ // SmartSoft's rule: a wild expands vertically only after participating in
+ // an actual left-to-right win. A made-up expansion may misrepresent a paid
+ // outcome, so never trust a detached feature flag without the receipt grid.
+ if(burns.length){
+  if(!model.symbols.includes('wild')||money(receipt.finalWin)<=0n)
+   fail('BURN_WILD_REQUIRES_SETTLED_WIN');
+  for(const col of burns){
+   if(!receipt.grid.some(row=>row[col]==='wild'))
+    fail('BURN_WILD_SYMBOL_REQUIRED');
+   const onWinningLine=receipt.winLines.some(line=>line.positions.some(pos=>{
+    const row=Array.isArray(pos)?pos[0]:pos.row;
+    const reel=Array.isArray(pos)?pos[1]:pos.col;
+    return reel===col&&Number.isInteger(row)&&receipt.grid[row]?.[col]==='wild';
+   }));
+   if(!onWinningLine)fail('BURN_WILD_MUST_PARTICIPATE_IN_WIN');
+  }
+ }
+ if(receipt.winLines.length>GAME_SPEC.fixedPaylines)fail('TOO_MANY_PAYLINES');
  const w=receipt.walletReceipt;
  if(!w||w.currency!=='ETB'||money(w.chargedStake)!==(receipt.isFree?0n:money(stake))||
     money(w.balanceBefore)-money(w.chargedStake)+money(w.finalWin)!==money(w.balanceAfter)||
