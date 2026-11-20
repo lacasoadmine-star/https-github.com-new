@@ -81,7 +81,9 @@ test('actual live app fails closed after Player logout while retaining STOP on r
  const app=await readFile(new URL('./multihot40-app.mjs',import.meta.url),'utf8');
  assert.match(app,/nodes\.spin\.disabled=!entered\|\|!ready\|\|\(!visualBusy&&/);
  assert.match(app,/!state\.authenticated\|\|!state\.connected\|\|automatic\.active/);
- assert.ok(app.includes("visualBusy?'Stop animation':!state.authenticated?'Sign in to play'"));
+ assert.ok(app.includes("visualBusy?'Stop animation':requiresSignIn?'Sign in to play':!state.connected?'Game connection unavailable'"));
+ assert.match(app,/nodes\.signIn\.hidden=!requiresSignIn/);
+ assert.match(app,/if\(!state\?\.authenticated\|\|!state\.connected\)return false/);
  assert.match(app,/if\(visualBusy\)\{presenter\.speedUp\(\);return false;\}/);
  assert.match(app,/supportsWagerProfile\(state\?\.game,ID\)/);
  assert.doesNotMatch(app,/nodes\.spin\.disabled=.*!state\.authenticated&&!available/);
@@ -105,7 +107,7 @@ test('a thrown wager request releases SPIN without retrying the wager', async ()
   const context = {
     document: {visibilityState:'visible'}, ready:true, entered:true, disposed:false,
     operation:'', visualBusy:false, visualRound:'', selectedStake:'1.00',
-    state:{authenticated:true, sessionId:'qa-session', game:{version:'qa-model'}, balance:'10.00'},
+    state:{authenticated:true, connected:true, sessionId:'qa-session', game:{version:'qa-model'}, balance:'10.00'},
     session:{canAct:()=>false, start:async () => {attempts.push('start'); throw Error('transport');},
       refresh:async () => {attempts.push('refresh');}},
     auto:{snapshot:()=>({active:false}), stop:reason=>stopReasons.push(reason), observe:()=>{}},

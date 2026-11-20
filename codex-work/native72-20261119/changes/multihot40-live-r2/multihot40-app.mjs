@@ -55,11 +55,12 @@ function syncControls(){
  if(!state)return;
  const automatic=auto.snapshot(),round=state.round,active=round?.status==='active',hasCollect=getRoundActions(round,state.game).includes('collect');
  const available=ready&&entered&&!operation&&!state.busy&&!state.pending&&!state.confirming&&!state.recoveryBlocked;
+ const requiresSignIn=!state.authenticated&&state.message==='Sign in to your ZPLAY account to play.';
  // A signed-out or disconnected Player must never have an enabled SPIN, even
  // when the canvas remains ready and a late wager response has arrived.
  // During an active local reel animation, STOP remains reachable.
  nodes.spin.disabled=!entered||!ready||(!visualBusy&&(!!operation||!available||!state.authenticated||!state.connected||automatic.active||!canStart()&&!actionAllowed('collect')));
- nodes.spin.setAttribute('aria-label',visualBusy?'Stop animation':!state.authenticated?'Sign in to play':active&&hasCollect?'Collect win and spin':'Spin');
+ nodes.spin.setAttribute('aria-label',visualBusy?'Stop animation':requiresSignIn?'Sign in to play':!state.connected?'Game connection unavailable':active&&hasCollect?'Collect win and spin':'Spin');
  nodes.spin.setAttribute('aria-busy',String(state.busy||visualBusy));
  nodes.auto.disabled=!canStart()&&!automatic.active;nodes.auto.setAttribute('aria-label',automatic.active?'Stop autoplay':'Autoplay');
  nodes.bet.disabled=!available||active||visualBusy||automatic.active||!supportsWagerProfile(state.game,ID);
@@ -74,14 +75,14 @@ function syncControls(){
  const message=state.error||state.pending||!state.authenticated||!state.connected||state.otherActiveGame||!ready?state.message:state.busy?'Confirming…':!state.accepting?'New rounds are paused.':!supportsWagerProfile(state.game,ID)?'Game settings changed. Refresh before starting.':moneyMinor(state.balance)===0n&&!active?'Add funds to your player account to play.':'';
  nodes.status.textContent=message;nodes.statusBar.classList.toggle('quiet',!message);
  nodes.retry.hidden=!(state.error||state.pending)&&state.connected;nodes.retry.disabled=!!operation||state.busy;
- nodes.signIn.hidden=state.authenticated;nodes.otherGame.hidden=!state.otherActiveGame;
+ nodes.signIn.hidden=!requiresSignIn;nodes.otherGame.hidden=!state.otherActiveGame;
  if(state.otherActiveGame)nodes.otherGame.href=/^[a-z0-9_]+$/.test(state.otherActiveGame)?'/games/'+state.otherActiveGame:'/';
  presenter.setState({canSpin:canStart()||actionAllowed('collect'),canGamble:actionAllowed('gamble'),autoPlaying:automatic.active});
 }
 async function doStart({automatic=false,holding=false}={}){
  if(operation||disposed||document.visibilityState!=='visible'||!ready||!entered)return false;
  if(visualBusy){presenter.speedUp();return false;}
- if(!state?.authenticated){location.href=nodes.signIn.href;return false;}
+ if(!state?.authenticated||!state.connected)return false;
  if(!automatic&&auto.snapshot().active)return false;
  const initiatingSession=state.sessionId,initiatingModel=state.game?.version;
  operation='collect-before-spin';syncControls();
