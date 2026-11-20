@@ -186,7 +186,7 @@ export class MultiHot40Motion {
     const wq = clamp((t - this.wheel.start) / (this.wheel.end - this.wheel.start));
     const smooth = 1 - (1 - wq) ** 3;
     let angle = t < this.wheel.start ? this.spinAngle(t) : this.wheel.from + (this.wheel.to - this.wheel.from) * smooth;
-    if (wq >= 1 && !this.wheelStopped) { this.wheelStopped = true; this.emit('wheel-stop', { multiplier: this.receipt.multiplier }); }
+    if (wq >= 1 && !this.wheelStopped) { this.wheelStopped = true; this.emit('wheel-stop', { multiplier: this.receipt.multiplier, winMinor: this.receipt.winMinor }); }
     if (t >= this.revealAt && this.phase === 'settling') {
       this.phase = 'celebrating'; this.grid = copyGrid(this.receipt.grid); this.multiplier = this.receipt.multiplier;
       this.angle = wheelAngle(this.multiplier); this.lines = this.receipt.lines;

@@ -190,7 +190,58 @@ function showReplay(entry){
 }
 function enteredGame(sound){entered=true;preferences.sound=sound;preferences.music=sound;nodes.startup.hidden=true;savePreferences();if(sound)void presenter.unlockAudio();syncControls();resize();}
 
+// Original MH40 opens QUICK PLAY confirmation on every off-to-on transition.
+// Confirming only changes animation speed; it never starts or changes a wager.
+function requestQuickPlay(enabled){
+ if(!enabled){preferences.turbo=false;savePreferences();return;}
+ if(preferences.turbo)return;
+ if(!nodes.quickPlayDialog){
+  const dialog=element('dialog');dialog.id='quickPlayDialog';dialog.setAttribute('aria-labelledby','quickPlayTitle');
+  const title=element('h2','QUICK PLAY');title.id='quickPlayTitle';
+  const confirm=element('button','ENABLE QUICK PLAY');confirm.id='quickPlayConfirm';confirm.type='button';
+  confirm.className='primary';
+  const cancel=element('button','NO');cancel.id='quickPlayCancel';cancel.type='button';
+  confirm.addEventListener('click',()=>{preferences.turbo=true;savePreferences();dialog.close();});
+  cancel.addEventListener('click',()=>dialog.close());
+  dialog.append(title,element('p','For faster play enable ⚡ turbo mode.'),element('p','You can disable the feature ⚡ from game menu.'),confirm,cancel);
+  document.body.append(dialog);nodes.quickPlayDialog=dialog;dialogNames.push('quickPlayDialog');
+ }
+ applyPreferences();openDialog('quickPlayDialog');
+}
+
+// Bound the complete response body, not just receipt of HTTP headers. A stalled
+// asset/config response must leave a visible retry without changing the session.
+async function fetchGameBytes(url,message,timeoutMs=20000){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
+ try{
+  const response=await fetch(url,{credentials:'same-origin',cache:'no-store',redirect:'error',signal:controller.signal});
+  if(!response.ok)throw Error(message);
+  return await response.arrayBuffer();
+ }catch(error){if(controller.signal.aborted)throw Error('Loading timed out. Retry loading.');throw error;}
+ finally{clearTimeout(timer);}
+}
+async function loadGamePresentation(timeoutMs=20000){
+ let timer;
+ try{
+  await Promise.race([presenter.load(),new Promise((_,reject)=>{timer=setTimeout(()=>{
+   presenter.controller?.abort();reject(Error('Loading timed out. Retry loading.'));
+  },timeoutMs);})]);
+ }finally{clearTimeout(timer);}
+}
+function showLoadingRetry(){
+ if($('loadingRetry'))return;
+ const button=element('button','Retry loading');button.id='loadingRetry';button.type='button';
+ button.addEventListener('click',()=>location.reload());
+ nodes.loadingStatus.after(button);
+}
+
 hold=new SpinHold(nodes.spin,{target:window,canLaunch:()=>!auto.snapshot().active&&(canStart()||actionAllowed('collect')),launch:()=>doStart({holding:true})});
+// The original non-SPIN controls use ButtonsDefault on pointerdown, before
+// their action (including mute) takes effect. This handler owns no game action.
+document.addEventListener('pointerdown',event=>{
+ const button=event.target?.closest?.('button');
+ if(button&&!button.disabled&&!['spin','soundYes','soundNo'].includes(button.id))presenter.buttonSound();
+});
 nodes.spin.addEventListener('click',()=>{if(hold.consumesClick())return;if(visualBusy)presenter.speedUp();else void doStart();});
 nodes.collect.addEventListener('click',()=>void collectWin());nodes.gamble.addEventListener('click',()=>{if(actionAllowed('gamble')){syncGamble();openDialog('gambleDialog');}});
 nodes.recoveryCollect.addEventListener('click',()=>void collectWin());
@@ -198,8 +249,8 @@ nodes.red.addEventListener('click',()=>void gamble('red'));nodes.black.addEventL
 nodes.menu.addEventListener('click',()=>openDialog('menuDialog'));nodes.bet.addEventListener('click',()=>{renderStakeOptions();openDialog('betDialog');});
 nodes.openSettings.addEventListener('click',()=>openDialog('settingsDialog'));nodes.openRules.addEventListener('click',()=>openDialog('rulesDialog'));nodes.openHistory.addEventListener('click',()=>void showHistory());
 nodes.historyRecent.addEventListener('click',()=>void showHistory('recent'));nodes.historyBiggest.addEventListener('click',()=>void showHistory('wins'));
-nodes.sound.addEventListener('click',()=>{preferences.sound=!preferences.sound;savePreferences();if(preferences.sound)void presenter.unlockAudio();});nodes.turbo.addEventListener('click',()=>{preferences.turbo=!preferences.turbo;savePreferences();});
-nodes.soundSetting.addEventListener('change',()=>{preferences.sound=nodes.soundSetting.checked;savePreferences();if(preferences.sound)void presenter.unlockAudio();});nodes.musicSetting.addEventListener('change',()=>{preferences.music=nodes.musicSetting.checked;savePreferences();if(preferences.music)void presenter.unlockAudio();});nodes.turboSetting.addEventListener('change',()=>{preferences.turbo=nodes.turboSetting.checked;savePreferences();});
+nodes.sound.addEventListener('click',()=>{preferences.sound=!preferences.sound;savePreferences();if(preferences.sound)void presenter.unlockAudio();});nodes.turbo.addEventListener('click',()=>requestQuickPlay(!preferences.turbo));
+nodes.soundSetting.addEventListener('change',()=>{preferences.sound=nodes.soundSetting.checked;savePreferences();if(preferences.sound)void presenter.unlockAudio();});nodes.musicSetting.addEventListener('change',()=>{preferences.music=nodes.musicSetting.checked;savePreferences();if(preferences.music)void presenter.unlockAudio();});nodes.turboSetting.addEventListener('change',()=>requestQuickPlay(nodes.turboSetting.checked));
 nodes.fullscreenSetting.addEventListener('change',async()=>{try{if(nodes.fullscreenSetting.checked)await nodes.machine.requestFullscreen();else if(document.fullscreenElement)await document.exitFullscreen();}catch{nodes.fullscreenSetting.checked=!!document.fullscreenElement;}});
 document.addEventListener('fullscreenchange',()=>{nodes.fullscreenSetting.checked=!!document.fullscreenElement;resize();});
 nodes.soundYes.addEventListener('click',()=>enteredGame(true));nodes.soundNo.addEventListener('click',()=>enteredGame(false));
@@ -224,18 +275,18 @@ async function boot(){
  session=new ExpansionSession({gameId:ID,storage,onChange:onState});bindPlayerEvents(window,session);session.setGame({id:ID,name:'Multi Hot 40',launchable:false});
  let connected=null;
  try{
-  const response=await fetch(PREFIX+'games.json',{credentials:'same-origin',cache:'no-store'});if(!response.ok)throw Error('Game configuration is unavailable.');const games=await response.json();config=games.find(game=>game.id===ID);if(!config||!config.referencePresentation)throw Error('This game is not available yet.');
+  const games=JSON.parse(new TextDecoder().decode(await fetchGameBytes(PREFIX+'games.json','Game configuration is unavailable.')));config=games.find(game=>game.id===ID);if(!config||!config.referencePresentation)throw Error('This game is not available yet.');
   selectedStake=config.stakeValues.includes(config.defaultStake)?config.defaultStake:config.stakeValues[0];
   session.setGame(config);
   connected=session.refresh();
   const spec=config.referencePresentation,url=new URL(spec.manifestURL,location.origin);if(url.origin!==location.origin)throw Error('Invalid game artwork origin.');
-  const assetResponse=await fetch(url,{credentials:'same-origin',redirect:'error'});if(!assetResponse.ok)throw Error('Game artwork is unavailable.');const bytes=await assetResponse.arrayBuffer();
+  const bytes=await fetchGameBytes(url,'Game artwork is unavailable.');
   const actual=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(value=>value.toString(16).padStart(2,'0')).join('');if(actual!==spec.manifestSha256)throw Error('Game artwork could not be verified.');manifest=JSON.parse(new TextDecoder().decode(bytes));
   if(manifest.id!==ID||manifest.modelVersion!==config.version||manifest.operatorWagerProfileId!==config.operatorWagerProfile?.id||manifest.grid.columns!==5||manifest.grid.rows!==4)throw Error('Game artwork does not match this game.');
-  nodes.loadingProgress.value=25;presenter.configure({manifest,paylines:config.paylinePaths,assetBase:new URL(spec.assetBaseURL,location.origin).href});await presenter.load();ready=true;nodes.loadingProgress.value=100;nodes.loadingStatus.textContent='Ready';nodes.soundConsent.hidden=false;
+  nodes.loadingProgress.value=25;presenter.configure({manifest,paylines:config.paylinePaths,assetBase:new URL(spec.assetBaseURL,location.origin).href});await loadGamePresentation();ready=true;nodes.loadingProgress.value=100;nodes.loadingStatus.textContent='Ready';nodes.soundConsent.hidden=false;
   applyPreferences();if(state)presenter.setState({...presenterState(state),phase:'idle'});resize();renderTick=requestAnimationFrame(tick);renderStakeOptions();await buildRules();syncControls();
   await connected;
   setInterval(()=>{if(!disposed&&!operation&&!visualBusy&&!session.state.busy&&document.visibilityState==='visible')void session.refresh({quiet:true});},10000);
- }catch(error){ready=false;visualBusy=false;presenter.setState({phase:'error'});nodes.loadingStatus.textContent=error.message+' Return to the lobby and try again.';nodes.status.textContent=error.message;nodes.loadingProgress.value=0;nodes.statusBar.classList.add('error');await (connected??session.refresh());syncControls();}
+ }catch(error){ready=false;visualBusy=false;presenter.setState({phase:'error'});nodes.loadingStatus.textContent=error.message;showLoadingRetry();nodes.status.textContent=error.message;nodes.loadingProgress.value=0;nodes.statusBar.classList.add('error');await (connected??session.refresh());syncControls();}
 }
 void boot();

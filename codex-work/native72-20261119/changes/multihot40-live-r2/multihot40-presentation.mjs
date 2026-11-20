@@ -69,12 +69,18 @@ class MachineAudio {
   }
   event(event) {
     if (event.type === 'spin-start') {
+      this.turbo = event.turbo === true;
+      // Original MH40 beforeLoadBoxes() and fresh WebAudio observation use a
+      // single fast movement cue. A generic looping ObjectMove is not this game.
+      this.stop(this.movement);
+      this.movement = this.play('Start/ObjectMoveFast.mp3', { volume: .38 });
       this.play('Buttons/Spin.mp3', { volume: .5 });
-      this.movement = this.play(this.first(['Start/ObjectMove.mp3', 'Start/ObjectMoveFast.mp3']), { volume: .38, loop: Boolean(this.manifest.audio?.['Start/ObjectMove.mp3']) });
     } else if (event.type === 'reel-stop') {
-      this.play(this.first([`Start/ReelStop${event.column + 1}.mp3`, 'Start/ReelStop4.mp3', 'Start/ObjectMoveFast.mp3']), { volume: .42 });
+      if (this.turbo) {
+        if (event.column === 4) this.play('Start/ObjectMoveFast.mp3', { volume: .38 });
+      } else this.play(this.first([`Start/ReelStop${event.column + 1}.mp3`, 'Start/ReelStop4.mp3']), { volume: .42 });
     } else if (event.type === 'wheel-stop') {
-      this.play(this.first(['Start/WinMultiplier.mp3', 'Buttons/Button.mp3']), { volume: .3 });
+      if (validMinor(event.winMinor) && BigInt(event.winMinor) > 0n) this.play('Start/WinMultiplier.mp3', { volume: .3 });
     } else if (event.type === 'reels-complete') this.stop(this.movement);
     else if (event.type === 'win-tier') {
       this.play(this.first([`Win/${event.name.replaceAll(' ', '')}.mp3`, 'Start/Win.mp3']), { volume: .55 });
@@ -127,9 +133,14 @@ export class MultiHot40Presentation {
     if (this.loading) return this.loading;
     this.controller = new AbortController();
     const lockedFetch = async (url, options = {}) => {
+      if (this.controller.signal.aborted) throw new Error('Presentation loading aborted');
       const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 20000);
       const abort = () => controller.abort(); this.controller.signal.addEventListener('abort', abort, { once: true });
-      try { return await this.fetchImpl(url, { ...options, method: 'GET', credentials: 'omit', redirect: 'error', signal: controller.signal }); }
+      try {
+        const response = await this.fetchImpl(url, { ...options, method: 'GET', credentials: 'omit', redirect: 'error', signal: controller.signal });
+        const bytes = await response.arrayBuffer();
+        return new Response(bytes, { status: response.status, statusText: response.statusText, headers: response.headers });
+      }
       finally { clearTimeout(timeout); this.controller.signal.removeEventListener('abort', abort); }
     };
     this.loading = (async () => {

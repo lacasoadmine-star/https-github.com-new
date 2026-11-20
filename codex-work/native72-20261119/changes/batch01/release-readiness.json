@@ -38,7 +38,8 @@
     "2026-11-21: Corrected FoundationBet math also stress-tested using 1000 independently generated deterministic QA boards across 20/5 official line patterns. Node v22 28/28 PASS, 0 fail; synthetic QA only (no real ETB, no statistically certified RNG/RTP), regression commit 11471f7b8add2fa74052612a8e6423adc18bdc8f.",
     "2026-11-21: Server math and sw_nine PostgreSQL adapter hardening committed on original work branch. Burn FoundationBet=2 invalid stake 1.05 ETB now fails before transaction; replayOnly uses persisted original ledger receipt even when operator profile store throws. Executed local Node v22.16.0: 30 tests passed, zero failed; 4 source/test syntax checks passed. No production deployment, real ETB wagers or live PostgreSQL mutations. Profile math RTP/strips/weights certification and E2E Player settlement remain required.",
     "2026-11-21 continuation: Multi Hot 40 actual app blur stops AUTO/hold and blocks new starts without interrupting submitted-round confirmation; separate controller restores pending stake and cancels background preflight. Existing adapter now requires active-game and account-limit hooks. Local first-ten suite 278/278 on Node 24.22.3 and 22.23.5, server 32/32, real disposable PostgreSQL 16/16. These new source changes are not repinned to KV or deployed; no completion/production gate changed.",
-    "2026-11-21 remote CI VERIFIED: source commit 50a072b6150bb51478912ecf7a4d3b13ee548e33, GitHub Actions run 44831865507 completed success. Both native72-unit (278 tests) and native72-postgres (16 tests, PostgreSQL 17.12) passed on Node22.23.5. This clears source-CI uncertainty, not math certification, production schema, live settlement, audio/graphics parity or deployment gates."
+    "2026-11-21 remote CI VERIFIED: source commit 50a072b6150bb51478912ecf7a4d3b13ee548e33, GitHub Actions run 44831865507 completed success. Both native72-unit (278 tests) and native72-postgres (16 tests, PostgreSQL 17.12) passed on Node22.23.5. This clears source-CI uncertainty, not math certification, production schema, live settlement, audio/graphics parity or deployment gates.",
+    "2026-11-21 actual MH40 r3 presentation-only release deployed to existing superwin-player (version546d9322-fba0-4d83-b5ab-ed134747618d, deploymentea65e044-a3f7-440a-8d06-aafa7b605a07). Preserved18 bindings/compatibility, used active v457 entry as previous handler, retained399 modules and added2 isolated modules. All3 source KV bytes SHA/size-readback verified. Real public route passed original artwork load, exact module hashes,44px targets360/390/412,Quick Play consent and rules. Auth remains401 without Player login; no live ETB wager or settlement claimed.289 local source tests and10 browser-intercept checks passed; math/financial APIs unchanged."
   ],
   "entries": [
     {
@@ -62,24 +63,34 @@
         "actual_app_submitted_round_still_confirms_after_blur",
         "fresh_official_DMO_spin_20261121",
         "live_unauthenticated_route_200_state_401_20261121",
-        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b",
+        "mh40_r3_live_deployed_546d9322",
+        "live_3_module_hashes_verified",
+        "live_44px_controls_360_390_412",
+        "live_quick_play_consent_every_enable",
+        "original_WebAudio_buffers_observed",
+        "loading_body_abort_retry_sessionStorage_preserved",
+        "node22_289_local_tests_passed"
       ],
       "remainingGates": [
         "operator_paytable_math_not_verified",
-        "authenticated_real_ETB_round_not_verified",
-        "production_assets_not_published"
+        "authenticated_real_ETB_round_not_verified"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
       "realMoneyTestCharges": 0,
       "latestStatus": "FIXED_PENDING_TEST",
       "latestLocalQA": {
-        "mh40TestsPassed": 38,
-        "liveDeployed": false,
-        "evidence": "../../qa/evidence/multihot40-20261121-observation.json",
-        "liveTouchTargetsCssPx": 36,
-        "stagedMinimumTouchTargetCssPx": 44,
-        "soundAndFullParityVerified": false
+        "mh40R3TestsPassed": 22,
+        "workflowTestsPassed": 289,
+        "liveDeployed": true,
+        "release": "zplay-multihot40-20261121-r3",
+        "version": "546d9322-fba0-4d83-b5ab-ed134747618d",
+        "deploymentId": "ea65e044-a3f7-440a-8d06-aafa7b605a07",
+        "liveMinimumTouchTargetCssPx": 44,
+        "soundAndFullParityVerified": false,
+        "realETBWagers": 0,
+        "evidence": "../../qa/evidence/mh40-r3/deployment.json"
       }
     },
     {
@@ -714,5 +725,16 @@
       "failed": 0,
       "evidence": "../../qa/evidence/ci-20261121.json"
     }
+  },
+  "presentationRelease": {
+    "gamePosition": 1,
+    "release": "zplay-multihot40-20261121-r3",
+    "liveDeployed": true,
+    "version": "546d9322-fba0-4d83-b5ab-ed134747618d",
+    "deploymentId": "ea65e044-a3f7-440a-8d06-aafa7b605a07",
+    "bindingsPreserved": 18,
+    "mathChanged": false,
+    "realETBWagers": 0,
+    "fullBatchComplete": false
   }
 }

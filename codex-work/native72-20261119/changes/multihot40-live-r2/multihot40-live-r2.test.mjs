@@ -103,6 +103,53 @@ test('mobile hitbox regression: Menu, Sound and TURBO reach 44px and avoid SPIN/
  assert.ok(app.includes('Math.max(0,rect.height-height)'));
 });
 
+test('loader timeout covers a stalled response body after successful HTTP headers',async()=>{
+ const source=await readFile(new URL('./multihot40-app.mjs',import.meta.url),'utf8');
+ const code=source.slice(source.indexOf('async function fetchGameBytes('),source.indexOf('\nasync function loadGamePresentation('));
+ let bodyRead=false,aborted=false;
+ const context=vm.createContext({AbortController,setTimeout,clearTimeout,Error,
+  fetch:async(_url,{signal})=>({ok:true,arrayBuffer:()=>new Promise((_,reject)=>{
+   bodyRead=true;signal.addEventListener('abort',()=>{aborted=true;reject(Error('body aborted'));},{once:true});
+  })})});
+ vm.runInContext(code,context);
+ await assert.rejects(()=>context.fetchGameBytes('/artwork','Unavailable',15),/Loading timed out/);
+ assert.equal(bodyRead,true);assert.equal(aborted,true);
+});
+
+test('stalled artwork loading is bounded and aborts its pending asset requests',async()=>{
+ const source=await readFile(new URL('./multihot40-app.mjs',import.meta.url),'utf8');
+ const code=source.slice(source.indexOf('async function loadGamePresentation('),source.indexOf('\nfunction showLoadingRetry('));
+ const controller=new AbortController();let aborts=0;
+ controller.signal.addEventListener('abort',()=>aborts++);
+ const context=vm.createContext({setTimeout,clearTimeout,Error,presenter:{load:()=>new Promise(()=>{}),controller}});
+ vm.runInContext(code,context);
+ await assert.rejects(()=>context.loadGamePresentation(15),/Loading timed out/);
+ assert.equal(aborts,1);
+});
+
+test('official MH40 spin movement cue plays once rather than looping generic ObjectMove',async()=>{
+ const source=await readFile(new URL('./multihot40-presentation.mjs',import.meta.url),'utf8');
+ const code=source.slice(source.indexOf('class MachineAudio {'),source.indexOf('\nexport class MultiHot40Presentation'));
+ const context=vm.createContext({});vm.runInContext(code,context);
+ const Audio=vm.runInContext('MachineAudio',context),audio=new Audio({}, {audio:{}},()=>{}),played=[];
+ audio.play=(key,options={})=>{played.push({key,loop:options.loop===true});return {};};audio.stop=()=>{};
+ audio.event({type:'spin-start'});
+ assert.deepEqual(played,[{key:'Start/ObjectMoveFast.mp3',loop:false},{key:'Buttons/Spin.mp3',loop:false}]);
+});
+
+test('losing wheels stay silent and turbo settles with its single fast cue',async()=>{
+ const source=await readFile(new URL('./multihot40-presentation.mjs',import.meta.url),'utf8');
+ const code=source.slice(source.indexOf('class MachineAudio {'),source.indexOf('\nexport class MultiHot40Presentation'));
+ const context=vm.createContext({validMinor:v=>typeof v==='string'&&/^\d+$/.test(v)});vm.runInContext(code,context);
+ const Audio=vm.runInContext('MachineAudio',context),audio=new Audio({}, {audio:{}},()=>{}),played=[];
+ audio.play=key=>{played.push(key);return {};};audio.stop=()=>{};
+ audio.event({type:'wheel-stop',winMinor:'0'});assert.deepEqual(played,[]);
+ audio.event({type:'wheel-stop',winMinor:'100'});assert.deepEqual(played,['Start/WinMultiplier.mp3']);
+ played.length=0;audio.event({type:'spin-start',turbo:true});played.length=0;
+ for(let column=0;column<5;column++)audio.event({type:'reel-stop',column});
+ assert.deepEqual(played,['Start/ObjectMoveFast.mp3']);
+});
+
 
 // Execute the actual Play Now application with its existing imports replaced by
 // non-wagering DOM/session doubles. No network or synthetic wallet is attached.

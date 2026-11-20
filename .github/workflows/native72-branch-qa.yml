@@ -61,7 +61,7 @@ jobs:
           node --check codex-work/native72-20261119/changes/multihot40-r1/title-assets.mjs
       - name: Verify corrected Multi Hot 40 live renderer and reference timing
         run: |
-          node --test codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-live-r2.test.mjs
+          node --test codex-work/native72-20261119/changes/multihot40-live-r2/*.test.mjs
           node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-motion.mjs
           node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-presentation.mjs
           node --check codex-work/native72-20261119/changes/multihot40-live-r2/multihot40-app.mjs
