@@ -31,7 +31,9 @@
     "Five additional games' overlapping TURBO hit areas were corrected per game and verified with Playwright across 360/390/412px; no public asset deployment has occurred.",
     "Dedicated original 5x3 Canvas scenes for Multi Hot 20 and Burn Wilds were browser-tested with synthetic QA sprites; strict production mode refuses missing real symbol atlases, and no public route, verified server math or authenticated ETB wagering has been activated.",
     "2026-11-21: Multi Hot 20 and Burn Wilds official-capture media and all 16 source files staged in existing Cloudflare SSG_OFFICIAL_REFERENCES; 57 exact pinned release entries; 26 critical KV source/media hash readbacks passed. Both independent actual frontend pages passed isolated browser intercept SPIN/recovery QA, not real ETB. Public /new74 routes still 404 because main Player wrapper was not deployed; release pins published=false until authoritative math and real Player ledger certification.",
-    "2026-11-21: All 57/57 pinned KV assets read back with SHA-256 and size verified; both mobile layouts passed 16/16 viewport checks from 320px to 1440px; wager availability lock regressions passed in browser import QA; none of these authorize real-money games."
+    "2026-11-21: All 57/57 pinned KV assets read back with SHA-256 and size verified; both mobile layouts passed 16/16 viewport checks from 320px to 1440px; wager availability lock regressions passed in browser import QA; none of these authorize real-money games.",
+    "2026-11-21: Reassembled both saved first-party official demos from Cloudflare KV chunk manifests, extracted PayTable.Coeffs, frame linePlay, multiplier values and original menu rules/screenshot. Multi Hot 20 20 lines, Burn Wilds 5 lines, both 5x3. Provider RTP distribution, reel strips, real payline shapes and wheel RNG weights remain unverified; no production outcome sampling enabled.",
+    "2026-11-21: Committed independent integer-cent server evaluator official-math.mjs, schema-accurate existing sw_nine PostgreSQL adapter sw-nine-pg-adapter.mjs and 26 successful Node tests, all in branch work/native72-session-presentation-20261119. Uses original sw_rebuild wallet/transfers/ledger and sw_nine game_rounds, no new API/DB; mock DB tested, not deployed to Railway. Committed fixes to both session modules so fresh-state requests include exact gameId rather than receiving default Multi Hot 10."
   ],
   "entries": [
     {
@@ -148,7 +150,16 @@
         "mobile_touch_320_350_360_390_412_440_768_1440_16_16_both_games",
         "player_house_capacity_active_game_and_SESSION_UNAVAILABLE_gate_test",
         "controller_CSS_repinned_verified_in_existing_KV",
-        "zero_real_ETB_tests"
+        "zero_real_ETB_tests",
+        "official_demo_configuration_paytable_coefficients_extracted",
+        "original_5x3_line_count_verified_from_actual_game_state",
+        "original_wheel_multiplier_values_1_to_5",
+        "server_ledger_integer_cent_evaluator_committed",
+        "existing_sw_rebuild_wallet_and_sw_nine_postgres_adapter_committed",
+        "node_26_of_26_offline_mock_ledger_regressions_passed",
+        "real_gameId_fresh_state_query_fix_committed",
+        "GitHub_Actions_workflow_updated_for_server_tests",
+        "real_ETB_wagers_executed_zero"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -157,7 +168,11 @@
         "real_authenticated_player_ETB_ledger_and_win_settlement_not_tested",
         "official_demo_sound_graphics_and_bet_behavior_not_fully_parity_verified",
         "GitHub_CI_complete_run_not_verified",
-        "signed_off_live_deploy_not_executed"
+        "signed_off_live_deploy_not_executed",
+        "certified_provider_probability_and_line_path_profile_missing",
+        "production_Railway_fresh_route_not_integrated",
+        "live_PostgreSQL_ETB_settlement_not_tested",
+        "GitHub_branch_CI_success_not_observed"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
@@ -183,6 +198,29 @@
         "criticalAndRemainingReadbacksCombined": 57,
         "viewportGeometryPassed": 16,
         "playerSettlementSourceConfirmed": false
+      },
+      "serverMathWork": {
+        "evaluator": "./server/official-math.mjs",
+        "settlement": "./server/sw-nine-pg-adapter.mjs",
+        "mathTests": "./server/official-math.test.mjs",
+        "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
+        "offlinePassed": 26,
+        "offlineFailed": 0,
+        "liveDeployed": false,
+        "auditedProbabilityProfileApproved": false,
+        "originalPaytableCoefficientsVerified": true,
+        "realPlayerLedgerNotModified": true,
+        "requiredBeforeRealMoney": [
+          "verified_exact_payline_charts",
+          "certified_reel_strips_and_probabilities",
+          "certified_wheel_weights",
+          "RTP_max_liability_signoff",
+          "actual_existing_Railway_engine_integration",
+          "noncharging_real_PostgreSQL_transaction_QA",
+          "GitHub_CI_success",
+          "full_demo_parity",
+          "rollback_ready_live_deploy"
+        ]
       }
     },
     {
@@ -344,7 +382,16 @@
         "mobile_touch_320_350_360_390_412_440_768_1440_16_16_both_games",
         "player_house_capacity_active_game_and_SESSION_UNAVAILABLE_gate_test",
         "controller_CSS_repinned_verified_in_existing_KV",
-        "zero_real_ETB_tests"
+        "zero_real_ETB_tests",
+        "official_demo_configuration_paytable_coefficients_extracted",
+        "original_5x3_line_count_verified_from_actual_game_state",
+        "original_wheel_multiplier_values_1_to_5",
+        "server_ledger_integer_cent_evaluator_committed",
+        "existing_sw_rebuild_wallet_and_sw_nine_postgres_adapter_committed",
+        "node_26_of_26_offline_mock_ledger_regressions_passed",
+        "real_gameId_fresh_state_query_fix_committed",
+        "GitHub_Actions_workflow_updated_for_server_tests",
+        "real_ETB_wagers_executed_zero"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -353,7 +400,11 @@
         "real_authenticated_player_ETB_ledger_and_win_settlement_not_tested",
         "official_demo_sound_graphics_and_bet_behavior_not_fully_parity_verified",
         "GitHub_CI_complete_run_not_verified",
-        "signed_off_live_deploy_not_executed"
+        "signed_off_live_deploy_not_executed",
+        "certified_provider_probability_and_line_path_profile_missing",
+        "production_Railway_fresh_route_not_integrated",
+        "live_PostgreSQL_ETB_settlement_not_tested",
+        "GitHub_branch_CI_success_not_observed"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
@@ -379,6 +430,29 @@
         "criticalAndRemainingReadbacksCombined": 57,
         "viewportGeometryPassed": 16,
         "playerSettlementSourceConfirmed": false
+      },
+      "serverMathWork": {
+        "evaluator": "./server/official-math.mjs",
+        "settlement": "./server/sw-nine-pg-adapter.mjs",
+        "mathTests": "./server/official-math.test.mjs",
+        "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
+        "offlinePassed": 26,
+        "offlineFailed": 0,
+        "liveDeployed": false,
+        "auditedProbabilityProfileApproved": false,
+        "originalPaytableCoefficientsVerified": true,
+        "realPlayerLedgerNotModified": true,
+        "requiredBeforeRealMoney": [
+          "verified_exact_payline_charts",
+          "certified_reel_strips_and_probabilities",
+          "certified_wheel_weights",
+          "RTP_max_liability_signoff",
+          "actual_existing_Railway_engine_integration",
+          "noncharging_real_PostgreSQL_transaction_QA",
+          "GitHub_CI_success",
+          "full_demo_parity",
+          "rollback_ready_live_deploy"
+        ]
       }
     },
     {
