@@ -45,7 +45,10 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
  }
  if(manifest.symbols.includes('wild'))assetMap.wild=await image('wild.png');
  assetMap.__background=await image('background.png');
- if(manifest.files['logo.png'])assetMap.__logo=await image('logo.png');
+ assetMap.__wheel=await image('wheel.png');
+ // The Burn Wilds logo source is an animated Spine atlas, NOT a flat logo.
+ // Retain the atlas for a verified animator; never render its entire sprite sheet.
+ if(manifest.files['logo.png'])assetMap.__logoAtlas=await image('logo.png');
  // Create object URLs only for media that has passed byte-for-byte verification.
  async function audio(name){
   const file=name+'.mp3';
