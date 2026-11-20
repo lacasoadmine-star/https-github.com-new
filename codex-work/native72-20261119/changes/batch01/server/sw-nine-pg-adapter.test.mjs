@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createSwNinePgAdapter} from './sw-nine-pg-adapter.mjs';
+import {OFFICIAL_LINE_PATHS} from './official-math.mjs';
 
 const gameId='fresh_multihot20',uid='player-123',house='house-1';
 const token='7835a955-4116-4010-b2d1-67ce4f1e584e';
 const cookie='b'.repeat(64);
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const guard=hash('fresh-account-session-v1\0'+uid+'\0'+cookie);
-const paths20=(()=>{const list=[[0,0,0,0,0]];for(let n=1;list.length<20;n++){const p=Array.from({length:5},(_,i)=>Math.floor(n/3**i)%3);if(p[0]===0&&p[1]===0&&p[2]===0)continue;list.push(p)}return list})();
+const paths20=OFFICIAL_LINE_PATHS.fresh_multihot20;
 const profile={gameId,productionApproved:true,probabilityModelAudited:true,auditReference:'QA_ONLY_NOT_PRODUCTION',mathSha256:'c'.repeat(64),mathVersion:'qa-v1',engineVersion:'qa-r1',linePaths:paths20,reelStrips:Array.from({length:5},()=>['seven','cherry','bell']),wheelWeights:[1,2,3,4,5]};
 const request=new Request('https://superwin-player.apdiy61.workers.dev/api/slots/spin',{method:'POST',headers:{cookie:'sw_session='+cookie}});
 const data={gameId,bet:'1.00',roundToken:token,sessionGuard:guard,mathSha256:profile.mathSha256,mathVersion:profile.mathVersion,engineVersion:profile.engineVersion};
