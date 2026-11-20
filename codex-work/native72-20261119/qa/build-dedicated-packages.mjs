@@ -11,11 +11,22 @@ const args=process.argv.slice(2),option=(name,fallback)=>{const i=args.indexOf(n
 const baselineRoot=path.resolve(option('--baseline',path.resolve(root,'../../../local-qa')));
 const outputRoot=path.resolve(option('--out',path.resolve(root,'../../../local-qa-built')));
 const sourceRoot=path.resolve(option('--source',path.join(root,'changes/dedicated-resume')));
-const sharedRelease='zplay-native-shared-20261119-r1',sharedPrefix='/'+sharedRelease+'/';
-const specs=[
+const originalSharedRelease='zplay-native-shared-20261119-r1';
+const sharedRelease=option('--shared-release',originalSharedRelease),sharedPrefix='/'+sharedRelease+'/';
+if(!/^zplay-native-shared-\d{8}-r\d+$/.test(sharedRelease))throw Error('INVALID_SHARED_RELEASE');
+const selectedGame=option('--game',null),selectedRelease=option('--release',null);
+const allSpecs=[
  {name:'habesha',gameId:'habesha_fortune_5_native',release:'zplay-native-machines-20261119-habesha-r8',previous:'zplay-native-machines-20261119-habesha-r7',model:'habesha-model.mjs'},
  {name:'deluxe',gameId:'multi_hot_5_deluxe_native',release:'zplay-native-machines-20261119-mh5deluxe-r2',previous:'zplay-native-machines-20261119-mh5deluxe-r1',model:'mh5deluxe-model.mjs'}
 ];
+if(selectedGame&&!allSpecs.some(spec=>spec.name===selectedGame))throw Error('UNKNOWN_GAME');
+if(selectedRelease&&!selectedGame)throw Error('RELEASE_REQUIRES_SINGLE_GAME');
+const specs=allSpecs.filter(spec=>!selectedGame||spec.name===selectedGame).map(spec=>{
+ if(!selectedRelease)return spec;
+ const family=spec.name==='habesha'?'habesha':'mh5deluxe';
+ if(!new RegExp('^zplay-native-machines-\\d{8}-'+family+'-r\\d+$').test(selectedRelease))throw Error('INVALID_GAME_RELEASE');
+ return {...spec,release:selectedRelease};
+});
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const exists=async file=>{try{return(await stat(file)).isFile();}catch{return false;}};
 const mime=name=>({mjs:'application/javascript; charset=utf-8',js:'application/javascript; charset=utf-8',css:'text/css; charset=utf-8',json:'application/json; charset=utf-8',txt:'text/plain; charset=utf-8',html:'text/html; charset=utf-8',svg:'image/svg+xml',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',gif:'image/gif',mp3:'audio/mpeg',otf:'font/otf',woff:'font/woff',woff2:'font/woff2'}[name.split('.').at(-1)]||'application/octet-stream');
@@ -62,6 +73,9 @@ async function loadFile(spec,name,scope='game'){
    provenance={kind:'verified-live-baseline',path:source,sha256:metadata.sha256};
   }
   if(bytes.length===9&&bytes.toString()==='Not found')throw Error('NOT_FOUND_PLACEHOLDER:'+name);
+  if(/\.(?:mjs|js|css)$/.test(name)&&sharedRelease!==originalSharedRelease){
+   bytes=Buffer.from(bytes.toString('utf8').replaceAll('/'+originalSharedRelease+'/',sharedPrefix));
+  }
   rejectForeign(spec,name,bytes,scope);
   const item={name,bytes,sha256:hash(bytes),size:bytes.length,type:metadata?.type||mime(name),provenance};
   const files=scope==='shared'?shared:gameFiles.get(spec.name);files.set(name,item);

@@ -16,8 +16,10 @@ async function availablePort(){const server=net.createServer();server.listen(0,'
 
 test('dedicated packages serve their exact closure and synthetic API over isolated HTTP',async t=>{
  const report=JSON.parse(await readFile(path.join(stage,'package-report.json'),'utf8'));
+ const games=report.packages.filter(entry=>entry.gameId),shared=report.packages.find(entry=>entry.name==='shared');
+ assert.ok(games.length);assert.ok(shared);
  const port=await availablePort(),origin='http://127.0.0.1:'+port;
- const child=spawn(process.execPath,[fileURLToPath(new URL('./browser-server.mjs',import.meta.url)),'--habesha',path.join(stage,'habesha'),'--deluxe',path.join(stage,'deluxe'),'--shared',path.join(stage,'shared'),'--port',String(port)],{stdio:['ignore','pipe','pipe']});
+ const child=spawn(process.execPath,[fileURLToPath(new URL('./browser-server.mjs',import.meta.url)),...games.flatMap(entry=>['--'+entry.name,path.join(stage,entry.name)]),'--shared',path.join(stage,'shared'),'--shared-release',shared.release,'--port',String(port)],{stdio:['ignore','pipe','pipe']});
  let output='',errors='';child.stdout.on('data',part=>output+=part);child.stderr.on('data',part=>errors+=part);
  t.after(async()=>{if(child.exitCode===null){child.kill('SIGTERM');await Promise.race([once(child,'exit'),new Promise(resolve=>{const timer=setTimeout(()=>{child.kill('SIGKILL');resolve();},3000);timer.unref();})]);}});
  await new Promise((resolve,reject)=>{
@@ -30,8 +32,8 @@ test('dedicated packages serve their exact closure and synthetic API over isolat
  const post=(pathname,input,headers={},expected=200)=>json(pathname,{method:'POST',headers:{'content-type':'application/json',origin,...headers},body:JSON.stringify(input)},expected);
  let assetsChecked=0,bytesChecked=0;
 
- await t.test('both entry pages reference only served local assets and include the fixture toolbar',async()=>{
-  for(const name of ['habesha','deluxe']){
+ await t.test('selected entry pages reference only served local assets and include the fixture toolbar',async()=>{
+  for(const {name} of games){
    const response=await request('/qa/'+name+'/');assert.equal(response.status,200);assert.match(response.headers.get('content-security-policy'),/connect-src 'self'/);
    const html=await response.text();assert.match(html,/data-machine="(?:habesha_fortune_5_native|multi_hot_5_deluxe_native)"/);assert.ok(html.includes('/__qa/toolbar.js'));
    const sources=[...html.matchAll(/<(?:link|script)\b[^>]*\b(?:src|href)="([^"]+)"/g)].map(match=>match[1]);
@@ -54,7 +56,7 @@ test('dedicated packages serve their exact closure and synthetic API over isolat
  });
 
  await t.test('actual staged validators accept local winning spins, gambles and idempotent replays',async()=>{
-  for(const gameId of ['habesha_fortune_5_native','multi_hot_5_deluxe_native']){
+  for(const {gameId} of games){
    await post('/__qa/control',{action:'reset',scenario:'win',delayMs:0});
    const session=await json('/api/machine-session'),model=await json('/api/slots/games/'+gameId),headers={'x-zplay-machine-session':session.sessionId};
    const input={gameId,bet:model.betLevels[0],roundToken:randomUUID(),mathVersion:model.mathVersion};
@@ -67,7 +69,7 @@ test('dedicated packages serve their exact closure and synthetic API over isolat
  });
 
  await t.test('interrupted, rejected and expired fixture responses remain local and recoverable',async()=>{
-  const gameId='multi_hot_5_deluxe_native';
+  const gameId=games.at(-1).gameId;
   await post('/__qa/control',{action:'reset',scenario:'interrupted-once',delayMs:0});
   const session=await json('/api/machine-session'),model=await json('/api/slots/games/'+gameId),headers={'x-zplay-machine-session':session.sessionId};
   const input={gameId,bet:model.betLevels[0],roundToken:randomUUID(),mathVersion:model.mathVersion};

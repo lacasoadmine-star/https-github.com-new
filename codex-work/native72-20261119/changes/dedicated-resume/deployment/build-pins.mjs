@@ -35,7 +35,20 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
   const stage = resolve(stageDirectory), output = resolve(outputDirectory);
   const report = JSON.parse(await readFile(join(stage, 'package-report.json'), 'utf8'));
   const pins = {}, catalog = await loadCatalog();
-  const defined = Object.entries(expected);
+  if (!Array.isArray(report.packages) || new Set(report.packages.map(item => item.name)).size !== report.packages.length
+    || !report.packages.some(item => item.name === 'shared') || report.packages.length < 2) {
+    throw Error('INVALID_PACKAGE_SELECTION');
+  }
+  const defined = Object.entries(expected).filter(([name]) => report.packages.some(item => item.name === name))
+    .map(([name, identity]) => {
+      const record = report.packages.find(item => item.name === name);
+      const family = name === 'shared' ? 'shared' : 'machines';
+      const suffix = name === 'shared' ? '' : name === 'habesha' ? 'habesha-' : 'mh5deluxe-';
+      if (!new RegExp('^zplay-native-' + family + '-\\d{8}-' + suffix + 'r\\d+$').test(record.release)) {
+        throw Error('INVALID_PACKAGE_RELEASE:' + name);
+      }
+      return [name, { ...identity, release: record.release }];
+    });
   const additional = report.packages.filter(item => !Object.hasOwn(expected, item.name));
   if (defined.length + additional.length - 1 > 72) throw Error('TOO_MANY_GAME_RELEASES');
   for (const candidate of additional) {

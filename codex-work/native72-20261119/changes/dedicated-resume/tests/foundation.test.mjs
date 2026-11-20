@@ -34,7 +34,7 @@ function harness(definition,{spinResponse=()=>Response.json(receiptFor(definitio
  const renderer={presentedAt:0,dirty:false,particles:{clear(){}},beginPendingSpin(){const token={};this.pending=token;rendererEvents.push('pending');return token;},cancelPendingSpin(token){if(this.pending===token)this.pending=null;rendererEvents.push('cancel-pending');},setGameModel(){},start(){rendererEvents.push('start');return animation.promise;},speedUp(){},enableNativePresentation(){},cancelPresentation(){}};
  const state=new contract.SpinState();state.move('ready');
  const globals={...registry,...contract,definitelyRejected,api,renderer,state,$:element,document:{hidden:false},matchMedia:()=>({matches:false}),console,
-  disposed:false,signedIn:true,legacy:false,actionBusy:false,epoch:0,free:0,auto:0,autoEpoch:0,displayPendingWin:false,canGamble:false,gambleValue:'0.00',gambleAttempt:0,lastWin:'0.00',lastRound:null,lastRoundModel:null,latestKnown:null,balance:'1000.00',walletDisplayRevision:0,
+  disposed:false,signedIn:true,legacy:false,actionBusy:false,epoch:0,free:0,auto:0,autoEpoch:0,displayPendingWin:false,canGamble:false,gambleValue:'0.00',gambleAttempt:0,lastWin:'0.00',lastRound:null,lastRoundModel:null,latestKnown:null,balance:'1000.00',walletDisplayRevision:0,walletRefreshRequest:0,
   g:registry.gameConfig(definition.id),currentModel:registry.gameConfig(definition.id),machineId:definition.id,gameId:definition.id,versionedGame:true,authoritativeBalanceDisplay:true,
   bet:()=> '1.00',pending:()=>api.pending(),sameSession:async()=>true,nextSpinModel:async()=>{},selectNextModel:()=>{},update:()=>{},updateGamble:()=>{},scheduleRefresh:()=>{},boot:async()=>{},
   setState(value){state.move(value);},notice:(text,retry)=>notices.push({text,retry}),signOut:()=>{globals.signedIn=false;state.value='signedout';globals.epoch++;},gambleView:null,
@@ -61,7 +61,7 @@ for(const [label,definition,pin] of cases){
   }
  });
  test(label+': a verified settled spin survives a failed client renderer without CONFIRM or a second debit',async()=>{
-  const h=harness(definition),receipt=receiptFor(definition);
+  const receipt=receiptFor(definition),h=harness(definition,{spinResponse:()=>Response.json(receipt)});
   try{
    h.renderer.start=()=>{h.rendererEvents.push('start');return Promise.reject(Error('RENDERER_CRASH_AFTER_SETTLEMENT'));};
    assert.equal(await h.context.oneRound(),false);
@@ -92,6 +92,28 @@ for(const [label,definition,pin] of cases){
  });
  test(label+': idle snapshot cannot overwrite a newer receipt',async()=>{
   const response=deferred(),h=harness(definition,{balanceResponse:()=>response.promise});try{const refresh=h.context.refreshBalance();await until(()=>h.calls.some(c=>c.path==='/api/slots/balance'));const round=h.context.oneRound();await until(()=>h.rendererEvents.includes('start'));h.animation.resolve();await round;const balance=h.context.balance;response.resolve(Response.json({currency:'ETB',balance:'1000.00'}));await refresh;assert.equal(h.context.balance,balance);}finally{h.close();}
+ });
+ test(label+': a newer balance request owns the display before either response arrives',async()=>{
+  const first=deferred(),second=deferred();let requests=0;
+  const h=harness(definition,{balanceResponse:()=>++requests===1?first.promise:second.promise});
+  try{
+   const old=h.context.refreshBalance();await until(()=>requests===1);
+   const current=h.context.refreshBalance();await until(()=>requests===2);
+   first.resolve(Response.json({currency:'ETB',balance:'123.00'}));await old;
+   assert.equal(h.context.balance,'1000.00','superseded requests must not change the display');
+   second.resolve(Response.json({currency:'ETB',balance:'456.00'}));await current;
+   assert.equal(h.context.balance,'456.00');
+  }finally{h.close();}
+ });
+ test(label+': a superseded balance error cannot sign out the current request',async()=>{
+  const first=deferred();let requests=0;
+  const h=harness(definition,{balanceResponse:()=>++requests===1?first.promise:Response.json({currency:'ETB',balance:'456.00'})});
+  try{
+   const old=h.context.refreshBalance();await until(()=>requests===1);
+   await h.context.refreshBalance();
+   first.resolve(Response.json({detail:'PLAYER_SESSION_EXPIRED'},{status:401}));await old;
+   assert.equal(h.context.signedIn,true);assert.equal(h.context.balance,'456.00');
+  }finally{h.close();}
  });
  test(label+': delayed session lookup cannot sign out a newer session',async()=>{
   const response=deferred(),h=harness(definition,{sessionResponse:()=>response.promise});try{vm.runInContext(extractFunction(source,'sameSession'),h.context);const check=h.context.sameSession();await until(()=>h.calls.length);h.context.epoch++;h.api.bind(sessionB,definition.id);h.context.setBalance('777.00');response.resolve(Response.json({authenticated:false}));assert.equal(await check,false);assert.equal(h.context.signedIn,true);assert.equal(h.context.balance,'777.00');}finally{h.close();}

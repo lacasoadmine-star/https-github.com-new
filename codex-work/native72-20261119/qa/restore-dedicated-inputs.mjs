@@ -11,11 +11,14 @@ const args=process.argv.slice(2),option=(name,fallback)=>{const i=args.indexOf(n
 const archive=path.resolve(option('--checkpoint',path.join(root,'changes/dedicated-resume/release-checkpoint')));
 const destination=path.resolve(option('--out',path.resolve(root,'../../../restored-dedicated-baseline')));
 const reuse=option('--reuse',null),checkpoint=JSON.parse(await readFile(path.join(archive,'checkpoint.json'),'utf8'));
+const selectedGame=option('--game',null);
+if(selectedGame&&!Object.hasOwn(checkpoint.requiredBaseline,selectedGame))throw Error('UNKNOWN_GAME');
 if(checkpoint.origin!=='https://superwin-player.apdiy61.workers.dev')throw Error('UNEXPECTED_BASELINE_ORIGIN');
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const valid=(bytes,meta)=>bytes.length===meta.size&&sha(bytes)===meta.sha256;
 let copied=0,downloaded=0,verifiedBytes=0;
 for(const [game,{release,assets}]of Object.entries(checkpoint.requiredBaseline)){
+ if(selectedGame&&game!==selectedGame)continue;
  if(!['habesha','deluxe'].includes(game)||!/^zplay-native-machines-\d{8}-(?:habesha|mh5deluxe)-r\d+$/.test(release))throw Error('INVALID_BASELINE_ROUTE');
  const directory=path.join(destination,game);await mkdir(directory,{recursive:true});
  for(const name of ['qa-baseline-manifest.json','index.html'])await writeFile(path.join(directory,name),await readFile(path.join(archive,'baseline',game,name)));

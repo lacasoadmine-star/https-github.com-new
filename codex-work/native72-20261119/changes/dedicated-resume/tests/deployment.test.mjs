@@ -308,3 +308,32 @@ test('offline builder pins exact UTF-8 manifest bytes and only three additive mo
     await assert.rejects(buildReleaseModules(directory, join(directory, 'rejected')), /PACKAGE_REPORT_MISMATCH/);
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
+
+test('a single Habesha release pins only its own game and the selected shared version', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'single-game-release-'));
+  try {
+    const f = fixture(), packages = [];
+    for (const name of ['shared', 'habesha']) {
+      const manifest = f.manifests[name];
+      const next = name === 'shared' ? 'zplay-native-shared-20261120-r1' : 'zplay-native-machines-20261120-habesha-r9';
+      const updated = JSON.parse(JSON.stringify(manifest).replaceAll(manifest.release, next));
+      const pin = pinFor(updated);
+      await writeFile(join(directory, `${name}-manifest.json`), pin.inlineManifest);
+      packages.push({ name, release: pin.release, gameId: pin.gameId,
+        manifestKey: pin.manifestKey, manifestSha256: pin.manifestSha256, manifestBytes: pin.manifestSize });
+    }
+    await writeFile(join(directory, 'package-report.json'), JSON.stringify({ packages }));
+    const inventory = await buildReleaseModules(directory, join(directory, 'modules'));
+    assert.deepEqual(inventory.manifests.map(item => item.name), ['shared', 'habesha']);
+    const { releasePins } = await import(pathToFileURL(join(directory, 'modules/release-pins.mjs')));
+    assert.equal(releasePins.shared.release, 'zplay-native-shared-20261120-r1');
+    assert.deepEqual(releasePins.games.map(pin => pin.gameId), ['habesha_fortune_5_native']);
+    const worker = installDedicatedReleases(f.previous, { ...releasePins, createProductionHandler });
+    const unchanged = await worker.fetch(f.request('/games/multi_hot_5_deluxe_native'), f.env, {});
+    assert.equal(unchanged.status, 202);
+    assert.equal(f.calls.length, 1, 'the unselected game stays on the existing Worker');
+    packages.push(packages[1]);
+    await writeFile(join(directory, 'package-report.json'), JSON.stringify({ packages }));
+    await assert.rejects(buildReleaseModules(directory, join(directory, 'duplicate')), /INVALID_PACKAGE_SELECTION/);
+  } finally { await rm(directory, { recursive: true, force: true }); }
+});

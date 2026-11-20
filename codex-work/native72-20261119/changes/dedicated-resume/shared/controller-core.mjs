@@ -30,7 +30,7 @@ const bet=()=>g.betLevels[betIndex],listen=(node,event,fn)=>node.addEventListene
 const setState=next=>{state.move(next);document.body.dataset.state=state.value;update();};
 function notice(text='',retry=false,login=false){$('notice-text').textContent=text;$('retry').hidden=!retry;$('sign-in').hidden=!login;}
 function pending(){return api.pending();}
-let walletDisplayRevision=0;
+let walletDisplayRevision=0,walletRefreshRequest=0;
 function setBalance(value){units(value,2);walletDisplayRevision++;balance=value;$('balance').textContent=presentedBalance(balance,gambleValue,displayPendingWin);}
 function selectNextModel(model,lockedBet=null){
  const previous=bet(),changed=g.mathVersion!==model.mathVersion||g.mathSha256!==model.mathSha256;g=model;
@@ -88,15 +88,28 @@ async function boot(){
   setState(saved?'pending':'ready');renderer.enableNativePresentation?.();notice(legacy?'A round saved by the earlier game version needs review. Open History before continuing.':saved?'A saved round needs confirmation. Press CONFIRM; the same request is reused.':balance==='0.00'&&!free?'Your ETB balance is empty. Deposit funds from your account.':'');update();scheduleRefresh();if(startupView&&action)showGamble(true);askSound();
  }catch(e){if(disposed||run!==epoch)return;startupView?.fail(e.message);if(e.status===401){signOut();return;}if(state.value==='loading')setState('error');notice(e.message,true);audio.event('error');}
 }
-async function sameSession(){
+async function sameSession(isCurrent=()=>true){
  const run=epoch,session=api.sessionId;
  const current=await api.session();
- if(disposed||run!==epoch||session!==api.sessionId)return false;
+ if(disposed||run!==epoch||session!==api.sessionId||!isCurrent())return false;
  if(!current.authenticated||current.sessionId!==session){signOut('Your session changed. Sign in again before continuing.');return false;}
  return true;
 }
 function scheduleRefresh(){clearTimeout(refreshTimer);if(!disposed)refreshTimer=setTimeout(refreshBalance,15000);}
-async function refreshBalance(){const run=epoch,revision=walletDisplayRevision,session=api.sessionId;try{if(!document.hidden&&signedIn&&!state.locked&&!actionBusy){if(!await sameSession())return;const value=await api.balance();if(run===epoch&&revision===walletDisplayRevision&&session===api.sessionId&&!state.locked&&!actionBusy&&signedIn){if(value.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');setBalance(value.balance);update();}}}catch(e){if(e.status===401&&run===epoch&&session===api.sessionId)signOut();}finally{scheduleRefresh();}}
+async function refreshBalance(){
+ const run=epoch,revision=walletDisplayRevision,session=api.sessionId,request=++walletRefreshRequest;
+ const isCurrent=()=>!disposed&&request===walletRefreshRequest&&run===epoch
+  &&revision===walletDisplayRevision&&session===api.sessionId&&signedIn;
+ try{
+  if(document.hidden||!isCurrent()||state.locked||actionBusy)return;
+  if(!await sameSession(isCurrent)||!isCurrent()||state.locked||actionBusy)return;
+  const value=await api.balance();
+  if(!isCurrent()||state.locked||actionBusy)return;
+  if(value.currency!=='ETB')throw Error('WALLET_CURRENCY_MISMATCH');
+  setBalance(value.balance);update();
+ }catch(e){if(e.status===401&&isCurrent())signOut();}
+ finally{if(request===walletRefreshRequest)scheduleRefresh();}
+}
 async function oneRound(){
  if(disposed||!signedIn||legacy||actionBusy||api.pending(api.actionKey)||!['ready','presenting','pending'].includes(state.value))return false;
  const run=epoch,session=api.sessionId,saved=pending(),shown={...modelIdentity(g),bet:bet(),freeSpinsRemaining:free};setState('requesting');notice('Confirming round…');

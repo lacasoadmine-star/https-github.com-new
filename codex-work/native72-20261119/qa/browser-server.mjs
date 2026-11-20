@@ -11,10 +11,13 @@ for(let i=2;i<process.argv.length;i+=2){if(!process.argv[i]?.startsWith('--')||p
 const port=Number(args.get('port')||4179),base=path.dirname(fileURLToPath(import.meta.url));
 if(!Number.isInteger(port)||port<1024||port>65535||[8000,8085].includes(port))throw Error('Invalid QA port');
 const games=new Map(),contracts=new Map(),shared=args.has('shared')?{slug:'shared',dir:await realpath(path.resolve(args.get('shared')))}:null;
+const sharedRelease=args.get('shared-release')||'zplay-native-shared-20261119-r1';
+if(!/^zplay-native-shared-\d{8}-r\d+$/.test(sharedRelease))throw Error('Invalid shared release');
+const sharedPrefix='/'+sharedRelease+'/';
 // The browser uses origin-absolute shared module URLs. Resolve that same
 // observed local route when loading contract validators in Node.
 if(shared)registerHooks({resolve(specifier,context,nextResolve){
- const prefix='/zplay-native-shared-20261119-r1/';
+ const prefix=sharedPrefix;
  if(specifier.startsWith(prefix))return nextResolve(pathToFileURL(path.join(shared.dir,specifier.slice(prefix.length))).href,context);
  return nextResolve(specifier,context);
 }});
@@ -23,7 +26,9 @@ for(const [slug,id]of [['habesha','habesha_fortune_5_native'],['deluxe','multi_h
  const dir=await realpath(path.resolve(args.get(slug))),html=path.resolve(args.get(slug+'-html')||path.join(dir,'index.html'));
  const contract=await import(pathToFileURL(path.join(dir,'contract.mjs'))),registry=await import(pathToFileURL(path.join(dir,'registry.mjs')));
  contract.validateModel(core.getGame(id),registry.gameConfig(id));
- games.set(slug,{slug,id,dir,html});contracts.set(id,contract);
+ const source=await readFile(html,'utf8');
+ const release=source.match(/src="\/(zplay-native-machines-\d{8}-(?:habesha|mh5deluxe)-r\d+)\/controller\.mjs"/)?.[1];
+ games.set(slug,{slug,id,dir,html,release});contracts.set(id,contract);
 }
 if(!games.size)throw Error('Pass --habesha <complete-assets-dir> and/or --deluxe <complete-assets-dir>, optionally --habesha-html / --deluxe-html');
 const session=new FixtureSession(contracts),missing=new Map();
@@ -36,7 +41,8 @@ function send(res,status,body,type='application/json; charset=utf-8'){
 async function body(req){let text='';for await(const part of req){text+=part;if(text.length>16384)throw Object.assign(Error('BODY_TOO_LARGE'),{status:413});}try{return JSON.parse(text||'{}');}catch{throw Object.assign(Error('INVALID_JSON'),{status:400});}}
 function gameFrom(value){if(!value)return null;let url;try{url=new URL(value,'http://127.0.0.1:'+port);}catch{return null;}
  const slug=url.pathname.match(/^\/(?:qa|qa-assets)\/([^/]+)/)?.[1];if(games.has(slug))return games.get(slug);
- if(shared&&(slug==='shared'||url.pathname.startsWith('/zplay-native-shared-20261119-r1/')))return shared;
+ if(shared&&(slug==='shared'||url.pathname.startsWith(sharedPrefix)))return shared;
+ for(const game of games.values())if(game.release&&url.pathname.startsWith('/'+game.release+'/'))return game;
  if(/^\/zplay-native-machines-20261119-habesha-r(?:7|8)\//.test(url.pathname))return games.get('habesha')||null;
  if(/^\/zplay-native-machines-20261119-mh5deluxe-r(?:1|2)\//.test(url.pathname))return games.get('deluxe')||null;
  const id=url.searchParams.get('game')||url.pathname.split('/').filter(Boolean).at(-1);return [...games.values()].find(game=>game.id===id)||null;
@@ -53,7 +59,7 @@ async function page(game){
   if(/^(?:data:|blob:|#|mailto:|tel:)/i.test(value))return all;
   let url;try{url=new URL(value,'http://127.0.0.1:'+port+'/');}catch{return all;}
   if(!/\.(?:m?js|css|json|png|jpe?g|webp|svg|gif|woff2?|otf|ttf|mp3|ogg|wav|mp4)$/i.test(url.pathname))return all;
-  if(shared&&url.pathname.startsWith('/zplay-native-shared-20261119-r1/'))return attribute+'='+quote+'/qa-assets/shared/'+path.basename(url.pathname)+url.search+quote;
+  if(shared&&url.pathname.startsWith(sharedPrefix))return attribute+'='+quote+'/qa-assets/shared/'+path.basename(url.pathname)+url.search+quote;
   return attribute+'='+quote+'/qa-assets/'+game.slug+'/'+path.basename(url.pathname)+url.search+quote;
  });
  const injection='<link rel="stylesheet" href="/__qa/toolbar.css"><script defer src="/__qa/toolbar.js"></script>';
