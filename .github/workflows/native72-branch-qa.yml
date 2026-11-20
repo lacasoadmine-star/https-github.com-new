@@ -77,6 +77,11 @@ jobs:
         run: |
           node --test codex-work/native72-20261119/changes/safari-live-r5/mobile-touch.test.mjs
           node --check codex-work/native72-20261119/changes/safari-live-r5/game.mjs
+      - name: Verify archived SmartSoft server math and existing Player ETB ledger adapter
+        run: |
+          node --test codex-work/native72-20261119/changes/batch01/server/official-math.test.mjs
+          node --check codex-work/native72-20261119/changes/batch01/server/official-math.mjs
+          node --check codex-work/native72-20261119/changes/batch01/server/official-math.test.mjs
       - name: Verify first ten unique game release checkpoints
         run: |
           node --test codex-work/native72-20261119/changes/batch01/release-readiness.test.mjs
