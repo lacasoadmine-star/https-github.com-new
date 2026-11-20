@@ -6,5 +6,7 @@ import neon from './neon-circuit.mjs';
 import orbit from './orbit-hundred.mjs';
 import tidal from './tidal-relay.mjs';
 import canopy from './canopy-lanterns.mjs';
+import aurora from './aurora-locks.mjs';
+import copper from './copper-crossroads.mjs';
 
-export const games = [prism, savanna, ember, signal, neon, orbit, tidal, canopy];
+export const games = [prism, savanna, ember, signal, neon, orbit, tidal, canopy, aurora, copper];

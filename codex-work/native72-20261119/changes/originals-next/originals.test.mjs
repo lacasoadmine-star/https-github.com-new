@@ -8,6 +8,8 @@ import prism from './games/prism-deluxe.mjs';
 import savanna from './games/savanna-signals.mjs';
 import tidal from './games/tidal-relay.mjs';
 import canopy from './games/canopy-lanterns.mjs';
+import aurora from './games/aurora-locks.mjs';
+import copper from './games/copper-crossroads.mjs';
 
 import { games } from './games/catalog.mjs';
 const names = ['index.html', 'lobby.css', 'app.mjs', 'round.mjs', 'cash.mjs', 'style.css', 'games/catalog.mjs', ...games.map(game => 'games/' + game.slug + '.mjs')];
@@ -32,19 +34,29 @@ test('distinct title rules award their own scores and bonuses', () => {
   }
 });
 
+function play(game, grid, multiplier, level) {
+  const draws = [...grid.flat(), game.multipliers.indexOf(multiplier)];
+  const result = deal(game, level, () => draws.shift());
+  assert.equal(draws.length, 0);
+  return result;
+}
+
 test('Tidal Relay and Canopy Lanterns settle known wins, bonuses and misses exactly', () => {
-  const play = (game, grid, multiplier, level) => {
-    const draws = [...grid.flat(), game.multipliers.indexOf(multiplier)];
-    const result = deal(game, level, () => draws.shift());
-    assert.equal(draws.length, 0);
-    return result;
-  };
   assert.equal(play(tidal, [[0,4,1],[2,3,0],[1,2,3],[3,4,5]], 2, 2).score, 28);
   assert.equal(play(tidal, [[0,1,2],[0,2,3],[0,3,4],[0,4,5]], 3, 1).score, 48);
   assert.equal(play(tidal, [[0,1,2],[1,2,3],[2,3,4],[3,4,5]], 1, 1).score, 0);
   assert.equal(play(canopy, [[0,1,2,0],[1,2,3,4],[2,3,4,5],[3,4,5,1],[0,5,1,0]], 4, 2).score, 56);
   assert.equal(play(canopy, [[1,0,2,3],[1,2,3,4],[1,3,4,5],[1,4,5,0],[1,5,0,2]], 2, 1).score, 20);
   assert.equal(play(canopy, [[1,1,2,3],[2,2,3,4],[3,3,4,5],[4,4,5,0],[5,5,0,1]], 1, 1).score, 0);
+});
+
+test('Aurora Locks and Copper Crossroads settle distinct bonuses and outcomes', () => {
+  assert.equal(play(aurora, [[0,0,0,0],[1,2,3,4],[2,3,4,5],[3,4,5,1]], 1, 2).score, 50);
+  assert.equal(play(aurora, [[1,2,3,4],[1,3,4,5],[1,4,5,2],[1,5,2,3]], 5, 1).score, 25);
+  assert.equal(play(aurora, [[1,2,3,4],[2,3,4,5],[3,4,5,1],[5,5,1,2]], 2, 1).score, 0);
+  assert.equal(play(copper, [[1,2,3],[1,1,4],[1,5,1]], 2, 1).score, 51);
+  assert.equal(play(copper, [[4,1,2],[4,2,3],[4,3,5]], 3, 1).score, 39);
+  assert.equal(play(copper, [[0,0,0],[1,1,1],[2,2,2]], 1, 1).score, 0);
 });
 
 class Rewriter {
