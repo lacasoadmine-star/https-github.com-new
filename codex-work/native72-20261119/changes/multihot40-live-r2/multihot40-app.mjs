@@ -129,7 +129,26 @@ function stopAuto(reason='user-stop'){auto.stop(reason);syncControls();}
 function limitValue(input){const text=input.value.trim();if(!text)return null;if(!/^(0|[1-9]\d{0,10})(?:\.\d{1,2})?$/.test(text))throw Error('Enter a valid ETB amount.');const[whole,fraction='']=text.split('.');return String(BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0')));}
 function resize(){
  const rect=nodes.machine.getBoundingClientRect(),layout=presenter.layout(rect.width,rect.height);
- for(const[name,box]of Object.entries(layout.controls||{})){const button=nodes[name];if(!button||!box)continue;Object.assign(button.style,{left:box.x+'px',top:box.y+'px',width:box.width+'px',height:box.height+'px'});}
+ const mobile=window.innerWidth<=600;
+ // Official artwork stays untouched; only transparent touch hit areas are enlarged.
+ // Keep TURBO outside both the round SPIN target and the BET touch target.
+ for(const[name,box]of Object.entries(layout.controls||{})){
+  const button=nodes[name];if(!button||!box)continue;
+  let {x,y,width,height}=box;
+  if(mobile&&['menu','sound','turbo'].includes(name)){
+   const minTouch=44,oldWidth=width,oldHeight=height;
+   width=Math.max(width,minTouch);height=Math.max(height,minTouch);
+   x-=(width-oldWidth)/2;y-=(height-oldHeight)/2;
+   if(name==='turbo'){
+    const spin=layout.controls?.spin,bet=layout.controls?.bet;
+    if(spin)x=Math.max(x,spin.x+spin.width+5);
+    if(bet)y=Math.min(y,bet.y-height-6);
+   }
+   x=Math.min(Math.max(0,x),Math.max(0,rect.width-width));
+   y=Math.min(Math.max(0,y),Math.max(0,rect.height-height));
+  }
+  Object.assign(button.style,{left:x+'px',top:y+'px',width:width+'px',height:height+'px'});
+ }
  presenter.resize?.(rect.width,rect.height);
 }
 function tick(time){if(disposed)return;renderTick=requestAnimationFrame(tick);if(document.visibilityState!=='hidden')presenter.render(time);}
