@@ -23,7 +23,7 @@ function create(v){
  };
  let calls=0,throwStatus=null,lastToken=null,forceGuard=null;
  const request=async(path,body)=>{
-  if(path==='/api/slots/fresh-state')return {...state,balance:calls>0&&throwStatus===null?'99.00':'100.00',sessionGuard:forceGuard||GUARD};
+  if(path==='/api/slots/fresh-state?gameId='+m.GAME_ID)return {...state,balance:calls>0&&throwStatus===null?'99.00':'100.00',sessionGuard:forceGuard||GUARD};
   assert.equal(path,'/api/slots/spin');
   calls++;lastToken=body.roundToken;
   if(throwStatus)throw Object.assign(new Error('HTTP_'+throwStatus),{status:throwStatus,code:'HTTP_'+throwStatus});
