@@ -1,0 +1,209 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  GAME_REFERENCE, asETB, cents, evaluateCapturedMath,
+  requireApprovedProfile, spinCertifiedMath, settleExistingPlayerRound
+} from './official-math.mjs';
+
+const M20='fresh_multihot20', BURN='fresh_multihot5burnwilds';
+// These are TEST-ONLY synthetic line patterns, NOT approved provider line charts.
+const lines20=(()=>{
+ const result=[[0,0,0,0,0]];
+ for(let n=1;result.length<20;n++){
+   const p=Array.from({length:5},(_,i)=>Math.floor(n/(3**i))%3);
+   if(p[0]===0&&p[1]===0&&p[2]===0)continue;
+   result.push(p);
+ }return result;
+})();
+const lines5=[
+ [0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],
+ [0,1,2,1,0],[2,1,0,1,2]
+];
+function board(fill='cherry'){return Array.from({length:3},()=>Array(5).fill(fill));}
+function fakeCertifiedProfile(gameId){
+ const symbols=gameId===M20?['seven','bell','cherry','grape']:['seven','bell','cherry','wild'];
+ return {gameId,productionApproved:true,probabilityModelAudited:true,
+  auditReference:'QA_FIXTURE_NOT_PRODUCTION_VALID',mathSha256:'a'.repeat(64),
+  mathVersion:'qa-only-1',engineVersion:'qa-only-1',
+  linePaths:gameId===M20?lines20:lines5,
+  reelStrips:Array.from({length:5},(_,col)=>col===1&&gameId===BURN?['wild','cherry','seven','bell']:['seven','cherry','bell','grape'].filter(s=>symbols.includes(s))),
+  wheelWeights:[1,2,3,4,5]};
+}
+
+test('exact archived SmartSoft coefficients for the first two batch-1 games',()=>{
+ assert.equal(GAME_REFERENCE[M20].paytable.seven[3],50);
+ assert.equal(GAME_REFERENCE[M20].paytable.seven[4],400);
+ assert.equal(GAME_REFERENCE[M20].paytable.seven[5],2000);
+ assert.equal(GAME_REFERENCE[M20].paytable.bell[5],200);
+ assert.equal(GAME_REFERENCE[BURN].paytable.seven[2],5);
+ assert.equal(GAME_REFERENCE[BURN].paytable.seven[3],40);
+ assert.equal(GAME_REFERENCE[BURN].paytable.seven[5],1000);
+ assert.equal(GAME_REFERENCE[BURN].paytable.wild[3],undefined);
+});
+test('ETB money uses integer cents with no floating-point rounding',()=>{
+ assert.equal(cents('40000.00'),4000000n);
+ assert.equal(asETB(4000000n),'40000.00');
+ assert.equal(asETB(1n),'0.01');
+ assert.throws(()=>cents('1.001'),/INVALID_ETB_AMOUNT/);
+ assert.throws(()=>cents('-1.00'),/INVALID_ETB_AMOUNT/);
+ assert.throws(()=>cents('1e3'),/INVALID_ETB_AMOUNT/);
+});
+test('Multi Hot 20: three sevens at ETB 1.00 = ETB 2.50 per line, multiplier 3 gives 7.50',()=>{
+ const grid=[['seven','seven','seven','bell','grape'],['cherry','bell','grape','cherry','seven'],['lemon','orange','plum','watermelon','bell']];
+ const x=evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:3});
+ assert.equal(x.winLines.filter(w=>w.symbol==='seven'&&w.count===3).length,1);
+ assert.equal(x.winLines.find(w=>w.line===1).baseWin,'2.50');
+ assert.equal(x.finalWin,'7.50');
+ assert.deepEqual(x.expandedWildReels,[]);
+});
+test('Multi Hot 20: five sevens are 2,000 times the per-line bet',()=>{
+ const grid=[Array(5).fill('seven'),['cherry','bell','grape','lemon','orange'],['plum','watermelon','bell','cherry','grape']];
+ const x=evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:1});
+ assert.equal(x.winLines.find(w=>w.line===1).baseWin,'100.00');
+ assert.equal(x.finalWin,'100.00');
+});
+test('Multi Hot 20: total bet must split exactly among 20 lines',()=>{
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid:board(),linePaths:lines20,bet:'1.01',wheelMultiplier:1}),/BET_NOT_DIVISIBLE_BY_PAYLINES/);
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid:board(),linePaths:lines20,bet:'0.20',wheelMultiplier:1}),/BET_OUTSIDE_WORKER_POLICY/);
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid:board(),linePaths:lines20,bet:'40000.01',wheelMultiplier:1}),/BET_OUTSIDE_WORKER_POLICY/);
+});
+test('Burn Wilds: one winning Wild expands over the full middle reel then reevaluates all fixed lines',()=>{
+ const grid=[
+  ['seven','wild','seven','lemon','grape'],
+  ['seven','cherry','seven','lemon','grape'],
+  ['orange','cherry','seven','cherry','plum']
+ ];
+ const x=evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:2});
+ assert.deepEqual(x.expandedWildReels,[1]);
+ assert.equal(x.initialGrid[1][1],'cherry');
+ assert.equal(x.grid[1][1],'wild');
+ assert.equal(x.grid[2][1],'wild');
+ assert.equal(x.winLines.filter(w=>w.symbol==='seven').length,3);
+ assert.equal(x.finalWin,'48.00');
+});
+test('Burn Wilds: seven pays even for two matching symbols; no invented Wild expansion',()=>{
+ const grid=board('cherry');grid[0]=['seven','seven','bell','cherry','cherry'];
+ const x=evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1});
+ assert.equal(x.winLines.find(w=>w.line===1).count,2);
+ assert.equal(x.winLines.find(w=>w.line===1).baseWin,'1.00');
+ assert.deepEqual(x.expandedWildReels,[]);
+});
+test('Burn Wild cannot appear in reel one or five',()=>{
+ const grid=board('cherry');grid[1][0]='wild';
+ assert.throws(()=>evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1}),/ILLEGAL_WILD_REEL/);
+ grid[1][0]='cherry';grid[1][4]='wild';
+ assert.throws(()=>evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1}),/ILLEGAL_WILD_REEL/);
+});
+test('reject guessed paylines, invalid wheel multipliers and unknown symbols',()=>{
+ const grid=board('cherry');
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1}),/UNVERIFIED_PAYLINE_COUNT/);
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:6}),/MULTIPLIER_UNVERIFIED/);
+ grid[0][0]='invented';
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:1}),/INVALID_REEL_SYMBOL/);
+});
+test('cannot permit production outcome sampling without certified strips, wheel and independent audit',()=>{
+ const p=fakeCertifiedProfile(M20);
+ assert.throws(()=>requireApprovedProfile({...p,productionApproved:false}),/UNCERTIFIED_MATH_PROFILE/);
+ assert.throws(()=>requireApprovedProfile({...p,probabilityModelAudited:false}),/UNCERTIFIED_MATH_PROFILE/);
+ assert.throws(()=>requireApprovedProfile({...p,linePaths:lines5}),/UNVERIFIED_PAYLINE_COUNT/);
+ assert.throws(()=>requireApprovedProfile({...p,wheelWeights:[1,1,1,1]}),/UNVERIFIED_WHEEL_WEIGHTS/);
+});
+test('QA certified profile builds verifiable deterministic server receipt from strips',()=>{
+ const p=fakeCertifiedProfile(M20);
+ const roundId='bf4c5335-b711-44c5-a8bd-13d114b15f88';
+ const out=spinCertifiedMath({profile:p,bet:'1.00',drawIndex:()=>0,newRoundId:()=>roundId});
+ assert.equal(out.roundId,roundId);
+ assert.equal(out.isFree,false);
+ assert.equal(out.bet,'1.00');
+ assert.equal(out.gameId,M20);
+ assert.equal(out.mathSha256,p.mathSha256);
+ assert.equal(out.currency,'ETB');
+ assert.equal(out.grid.length,3);
+ assert.equal(out.grid[0].length,5);
+});
+
+function ledgerFixture({user=10000n,house=10000000n,badLedger=false,ready=true}={}){
+ let state={user,house,records:new Map(),debits:0};
+ let queue=Promise.resolve();
+ const withExistingTransaction=fn=>{
+  const task=queue.catch(()=>{}).then(async()=>{
+   const local={...state,records:new Map(state.records)};
+   const tx={
+    async lockExistingWallets(){},
+    async findExistingRound(uid,token){return local.records.get(uid+'|'+token)||null;},
+    async assertReleaseEnabled(){if(!ready)throw Error('PRODUCTION_RELEASE_DISABLED');},
+    async balanceCents(){return local.user;},
+    async houseReserveCents(){return local.house;},
+    async applyExistingLedger({wagerCents,winCents}){
+     const before=local.user,houseBefore=local.house;
+     local.user=before-wagerCents+winCents;
+     local.house=houseBefore+wagerCents-winCents;
+     local.debits++;
+     return{balanceBeforeCents:before,balanceAfterCents:local.user+(badLedger?1n:0n),houseBeforeCents:houseBefore,houseAfterCents:local.house};
+    },
+    async recordExistingRound({userId,gameId,bet,roundToken,receipt}){
+     const key=userId+'|'+roundToken;if(local.records.has(key))throw Error('IDEMPOTENCY_UNIQUE_VIOLATION');
+     local.records.set(key,{userId,gameId,bet,receipt});
+    },
+   };
+   const value=await fn(tx);state=local;return value;
+  });
+  queue=task.catch(()=>{});return task;
+ };
+ return{get state(){return state},withExistingTransaction};
+}
+const uuid1='bf4c5335-b711-44c5-a8bd-13d114b15f88';
+const token='41030c67-a204-40bf-a848-94dfa6c0a086';
+function request(ledger,overrides={}){
+ return {userId:'user_7',gameId:M20,bet:'1.00',roundToken:token,
+  profile:fakeCertifiedProfile(M20),withExistingTransaction:ledger.withExistingTransaction,
+  drawIndex:()=>0,newRoundId:()=>uuid1,...overrides};
+}
+test('two concurrent identical SPIN requests yield one ledger transfer and identical round receipt',async()=>{
+ const ledger=ledgerFixture();
+ const [r1,r2]=await Promise.all([settleExistingPlayerRound(request(ledger)),settleExistingPlayerRound(request(ledger))]);
+ assert.deepEqual(r1,r2);
+ assert.equal(ledger.state.debits,1);
+ assert.equal(ledger.state.records.size,1);
+ assert.equal(cents(r1.walletReceipt.balanceBefore),10000n);
+ assert.equal(cents(r1.walletReceipt.balanceAfter),10000n-cents(r1.bet)+cents(r1.finalWin));
+ assert.equal(ledger.state.house,10000000n+cents(r1.bet)-cents(r1.finalWin));
+ assert.equal(ledger.state.user,cents(r1.walletReceipt.balanceAfter));
+});
+test('replayOnly recovers same previous round but never invents a second wager',async()=>{
+ const ledger=ledgerFixture();
+ const r1=await settleExistingPlayerRound(request(ledger));
+ const r2=await settleExistingPlayerRound(request(ledger,{replayOnly:true}));
+ assert.deepEqual(r1,r2);
+ assert.equal(ledger.state.debits,1);
+ await assert.rejects(()=>settleExistingPlayerRound(request(ledger,{roundToken:'877290e1-112f-4e6e-8904-4d8f3fe8a297',replayOnly:true})),/ROUND_NOT_FOUND_FOR_REPLAY/);
+ assert.equal(ledger.state.debits,1);
+});
+test('same token with different bet cannot be used to tamper with a settled round',async()=>{
+ const ledger=ledgerFixture();
+ await settleExistingPlayerRound(request(ledger));
+ await assert.rejects(()=>settleExistingPlayerRound(request(ledger,{bet:'2.00'})),/IDEMPOTENCY_PARAMETER_CONFLICT/);
+ assert.equal(ledger.state.debits,1);
+});
+test('insufficient player balance and insufficient house reserve reject with zero ledger writes',async()=>{
+ const broke=ledgerFixture({user:50n});
+ await assert.rejects(()=>settleExistingPlayerRound(request(broke)),e=>e.code==='INSUFFICIENT_FUNDS'&&e.status===402);
+ assert.equal(broke.state.debits,0);
+ const noReserve=ledgerFixture({house:1000n});
+ await assert.rejects(()=>settleExistingPlayerRound(request(noReserve)),e=>e.code==='HOUSE_RESERVE_INSUFFICIENT'&&e.status===503);
+ assert.equal(noReserve.state.debits,0);
+});
+test('a failed existing-ledger receipt rolls back the transaction rather than losing ETB',async()=>{
+ const ledger=ledgerFixture({badLedger:true});
+ await assert.rejects(()=>settleExistingPlayerRound(request(ledger)),/EXISTING_LEDGER_SETTLEMENT_MISMATCH/);
+ assert.equal(ledger.state.user,10000n);
+ assert.equal(ledger.state.house,10000000n);
+ assert.equal(ledger.state.records.size,0);
+ assert.equal(ledger.state.debits,0);
+});
+test('game remains closed on unsupported player game release or incomplete DB transaction adapter',async()=>{
+ const db=ledgerFixture({ready:false});
+ await assert.rejects(()=>settleExistingPlayerRound(request(db)),/PRODUCTION_RELEASE_DISABLED/);
+ assert.equal(db.state.debits,0);
+ await assert.rejects(()=>settleExistingPlayerRound(request(db,{withExistingTransaction:async fn=>fn({})})),/INCOMPLETE_EXISTING_LEDGER_ADAPTER/);
+});
