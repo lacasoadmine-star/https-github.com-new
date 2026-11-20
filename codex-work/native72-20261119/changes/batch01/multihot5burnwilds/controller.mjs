@@ -87,9 +87,29 @@ export class GameController {
    if(generation!==this.generation)return false;
    const receipt=validateReceipt(raw,this.account.game,stake);
    this.lastReceipt=receipt;
-   try{await this.scene.settle?.(receipt);}catch{this.stopAuto();this.change('ready','ROUND_SETTLED_RENDER_ERROR');return true;}
+   let renderFailed=false;
+   try{await this.scene.settle?.(receipt);}catch{renderFailed=true;this.stopAuto();}
    if(generation!==this.generation)return false;
-   this.change('ready');
+   // A real ZPLAY session stays SHOWING_RESULT until finish() re-reads its
+   // authenticated ledger. No second wager may start before reconciliation.
+   if(typeof this.session.finish==='function'){
+    try{
+     const refreshed=await this.session.finish();
+     if(generation!==this.generation)return false;
+     if(!refreshed?.authenticated||refreshed.currency!=='ETB'||
+        refreshed.sessionGuard!==this.account.sessionGuard||refreshed.game?.id!==GAME_ID)
+       fail('SESSION_CHANGED_AFTER_ROUND');
+     validateModel(refreshed.game);
+     this.account=refreshed;
+    }catch(error){
+     if(generation!==this.generation)return false;
+     this.stopAuto();this.change('confirm',error?.code||'ROUND_SETTLED_REFRESH_REQUIRED');
+     return true; // Actual round may have paid; do NOT submit a new wager.
+    }
+   }
+   if(generation!==this.generation)return false;
+   this.change('ready',renderFailed?'ROUND_SETTLED_RENDER_ERROR':null);
+   if(renderFailed)return true;
    if(this.auto.started&&this.auto.armed>0){
     this.auto.armed--;
     if(this.auto.armed>0&&this.visible())queueMicrotask(()=>{if(generation===this.generation&&this.phase==='ready')void this.spin()});
