@@ -16,7 +16,7 @@ for(const {name,expected,old} of cases){
   const source=await readFile(new URL('./'+name+'/game.mjs',import.meta.url),'utf8');
   assert.ok(source.includes(expected),name+' dedicated TURBO coordinates');
   assert.ok(!source.includes(old),name+' overlapping hit region removed');
-  assert.ok(source.includes('44*c.width/Math.max(n,1)'),name+' minimum 44 CSS px');
+  assert.match(source,/44\*\w+\.width\/Math\.max\(\w+,1\)/,name+' minimum 44 CSS px');
   assert.ok(source.includes('/api/remaining20'),name+' existing authenticated Worker routes');
   assert.ok(source.includes('ExpansionSession'),name+' existing Player session adapter');
   assert.ok(!/newDetachedWallet|createFakeSettlement|localRandomPayout/.test(source),name+' must not invent a wallet or math server');
