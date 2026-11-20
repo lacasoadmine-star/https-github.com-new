@@ -1,0 +1,285 @@
+{
+  "schema": "zplay-first-ten-release-readiness-v1",
+  "asOf": "2026-11-20",
+  "existingStack": {
+    "worker": "superwin-player",
+    "repository": "lacasoadmine-star/https-github.com-new",
+    "railway": "superwinbet-platform",
+    "wallet": "existing_player_ledger_only",
+    "newWallets": 0,
+    "newBackends": 0
+  },
+  "releasesRequire": {
+    "officialArtworkAndBehavior": true,
+    "authoritativeMathAndPaytable": true,
+    "existingPlayerSession": true,
+    "existingServerReceipts": true,
+    "playNowRoute": true,
+    "liveGameplayQA": true,
+    "productionHttpQA": true,
+    "noRealMoneyMockWrites": true
+  },
+  "protectedOriginals": [
+    "Multi Hot 5",
+    "Foxy Hot 20"
+  ],
+  "archiveSource": "SSG_OFFICIAL_REFERENCES/archive-index.json",
+  "notes": [
+    "Demo loader for Multi Hot 20 and Burn Wilds reported country restriction in Cloudflare Playwright; the existing archive contains earlier captured demo media.",
+    "Every currently prepared patch is staged on the GitHub work branch, not deployed into superwin-player production.",
+    "No unverified slot payout math or screenshot-as-game substitutions are accepted."
+  ],
+  "entries": [
+    {
+      "position": 1,
+      "sourceKey": "multihot40",
+      "title": "Multi Hot 40",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo",
+      "requestedPlayerRoute": "/games/multihot40_native",
+      "observedRoute": "/games/multihot40_native",
+      "packageType": "existing-route-patched",
+      "patches": [
+        "../multihot40-live-r2/multihot40-app.mjs"
+      ],
+      "verifiedChecks": [
+        "official_spins_recorded",
+        "playwright_mock_spin",
+        "touch_target_mobile"
+      ],
+      "remainingGates": [
+        "operator_paytable_math_not_verified",
+        "authenticated_real_ETB_round_not_verified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 2,
+      "sourceKey": "safarisimba",
+      "title": "Safari Simba",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "requestedPlayerRoute": "/new74/037-safari-simba/",
+      "observedRoute": "/new74/037-safari-simba/",
+      "packageType": "existing-route-patched",
+      "patches": [
+        "../safari-live-r5/game.mjs"
+      ],
+      "verifiedChecks": [
+        "official_spins_recorded",
+        "playwright_mock_spin",
+        "touch_target_mobile"
+      ],
+      "remainingGates": [
+        "official_original_audio_asset_parity_unverified",
+        "authenticated_real_ETB_round_not_verified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 3,
+      "sourceKey": "multihot10",
+      "title": "Multi Hot 10",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+      "requestedPlayerRoute": "/zplay74/multi-hot-10/",
+      "observedRoute": "/zplay74/multi-hot-10/",
+      "packageType": "existing-route-patched",
+      "patches": [
+        "../multihot10-r2/app.mjs",
+        "../multihot10-r2/presentation.mjs",
+        "../multihot10-r2/audio.mjs"
+      ],
+      "verifiedChecks": [
+        "official_spins_recorded",
+        "playwright_mock_spin",
+        "touch_target_mobile"
+      ],
+      "remainingGates": [
+        "authenticated_real_ETB_round_not_verified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 4,
+      "sourceKey": "multihot20",
+      "title": "Multi Hot 20",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
+      "requestedPlayerRoute": null,
+      "observedRoute": null,
+      "packageType": "new-controller-no-public-route",
+      "patches": [
+        "./multihot20/controller.mjs"
+      ],
+      "verifiedChecks": [
+        "server_receipt_validation",
+        "auto_requires_start_play",
+        "demo_archive_available"
+      ],
+      "remainingGates": [
+        "no_live_play_now_route",
+        "server_game_model_unverified",
+        "dedicated_verified_artwork_missing",
+        "math_paytable_not_verified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 5,
+      "sourceKey": "multihot100",
+      "title": "Multi Hot 100",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
+      "requestedPlayerRoute": "/games/multihot100_native",
+      "observedRoute": "/new74/multi-hot-100/",
+      "packageType": "existing-route-audio-patched",
+      "patches": [
+        "./audio-r3/multihot100/game.mjs"
+      ],
+      "verifiedChecks": [
+        "playwright_page_load",
+        "audio_pause_resume_browser"
+      ],
+      "remainingGates": [
+        "authenticated_real_ETB_round_not_verified",
+        "visual_demo_parity_unverified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 6,
+      "sourceKey": "multihot5wild",
+      "title": "Multi Hot 5 Wild",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "requestedPlayerRoute": "/games/multihot5wild_native",
+      "observedRoute": "/new74/multi-hot-5-wild/",
+      "packageType": "existing-route-audio-patched",
+      "patches": [
+        "./audio-r3/multihot5wild/game.mjs"
+      ],
+      "verifiedChecks": [
+        "playwright_page_load",
+        "audio_pause_resume_browser"
+      ],
+      "remainingGates": [
+        "authenticated_real_ETB_round_not_verified",
+        "visual_demo_parity_unverified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 7,
+      "sourceKey": "multihot5deluxe",
+      "title": "Multi Hot 5 Deluxe",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "requestedPlayerRoute": "/games/multi_hot_5_deluxe_native",
+      "observedRoute": "/new74/multi-hot-5-deluxe/",
+      "packageType": "existing-route-audio-patched",
+      "patches": [
+        "./audio-r3/multihot5deluxe/game.mjs"
+      ],
+      "verifiedChecks": [
+        "playwright_page_load",
+        "audio_pause_resume_browser"
+      ],
+      "remainingGates": [
+        "authenticated_real_ETB_round_not_verified",
+        "visual_demo_parity_unverified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 8,
+      "sourceKey": "multihot5burnwilds",
+      "title": "Multi Hot 5 Burn Wilds",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "requestedPlayerRoute": null,
+      "observedRoute": null,
+      "packageType": "new-controller-no-public-route",
+      "patches": [
+        "./multihot5burnwilds/controller.mjs"
+      ],
+      "verifiedChecks": [
+        "server_receipt_validation",
+        "expanding_wild_column_validation",
+        "auto_requires_start_play",
+        "demo_archive_available"
+      ],
+      "remainingGates": [
+        "no_live_play_now_route",
+        "server_game_model_unverified",
+        "dedicated_verified_artwork_missing",
+        "math_paytable_not_verified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 9,
+      "sourceKey": "multihot5superwilds",
+      "title": "Multi Hot 5 Super Wilds",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "requestedPlayerRoute": "/games/multihot5superwilds_native",
+      "observedRoute": "/new74/multi-hot-5-super-wilds/",
+      "packageType": "existing-route-audio-patched",
+      "patches": [
+        "./audio-r3/multihot5superwilds/game.mjs"
+      ],
+      "verifiedChecks": [
+        "playwright_page_load",
+        "audio_pause_resume_browser"
+      ],
+      "remainingGates": [
+        "authenticated_real_ETB_round_not_verified",
+        "visual_demo_parity_unverified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    },
+    {
+      "position": 10,
+      "sourceKey": "multihotwildways",
+      "title": "Multi Hot Wild Ways",
+      "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "requestedPlayerRoute": "/games/multihotwildways_native",
+      "observedRoute": "/new74/multi-hot-wild-ways/",
+      "packageType": "existing-route-audio-patched",
+      "patches": [
+        "./audio-r3/multihotwildways/game.mjs"
+      ],
+      "verifiedChecks": [
+        "playwright_page_load",
+        "audio_pause_resume_browser"
+      ],
+      "remainingGates": [
+        "authenticated_real_ETB_round_not_verified",
+        "visual_demo_parity_unverified",
+        "production_assets_not_published"
+      ],
+      "productionReady": false,
+      "authenticatedLiveSettlementVerified": false,
+      "realMoneyTestCharges": 0
+    }
+  ]
+}
