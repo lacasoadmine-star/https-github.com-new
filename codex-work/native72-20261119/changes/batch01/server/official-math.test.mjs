@@ -28,6 +28,8 @@ test('exact archived SmartSoft coefficients for the first two batch-1 games',()=
  assert.equal(GAME_REFERENCE[BURN].paytable.seven[2],5);
  assert.equal(GAME_REFERENCE[BURN].paytable.seven[3],40);
  assert.equal(GAME_REFERENCE[BURN].paytable.seven[5],1000);
+ assert.equal(GAME_REFERENCE[M20].foundationBet,1);
+ assert.equal(GAME_REFERENCE[BURN].foundationBet,2);
  assert.equal(GAME_REFERENCE[BURN].paytable.wild[3],undefined);
  assert.equal(OFFICIAL_LINE_PATHS[M20].length,20);
  assert.equal(OFFICIAL_LINE_PATHS[BURN].length,5);
@@ -72,15 +74,29 @@ test('Burn Wilds: one winning Wild expands over the full middle reel then reeval
  assert.equal(x.grid[1][1],'wild');
  assert.equal(x.grid[2][1],'wild');
  assert.equal(x.winLines.filter(w=>w.symbol==='seven').length,3);
- assert.equal(x.finalWin,'48.00');
+ assert.equal(x.finalWin,'24.00');
 });
 test('Burn Wilds: seven pays even for two matching symbols; no invented Wild expansion',()=>{
  const grid=board('cherry');grid[0]=['seven','seven','bell','cherry','cherry'];
  const x=evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1});
  assert.equal(x.winLines.find(w=>w.line===2).count,2);
- assert.equal(x.winLines.find(w=>w.line===2).baseWin,'1.00');
+ assert.equal(x.winLines.find(w=>w.line===2).baseWin,'0.50');
  assert.deepEqual(x.expandedWildReels,[]);
 });
+
+test('Burn Wilds original FoundationBet=2 prevents double-paying the 5-seven payline',()=>{
+ // Archived SmartSoft machine state: FoundationBet=2, linePlay=5, chipCoef=.01.
+ // Paytable help client formula: winning coefficient * totalBet / 5 / 2.
+ const grid=[Array(5).fill('seven'),
+  ['cherry','bell','grape','plum','orange'],
+  ['lemon','watermelon','orange','cherry','grape']];
+ const x=evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1});
+ assert.equal(x.winLines.find(w=>w.line===2).baseWin,'100.00');
+ // At the original DMO 0.10 total stake, 5 sevens pay 10 DMO on this payline.
+ assert.equal(x.winLines.find(w=>w.line===2).factor,1000);
+ assert.throws(()=>evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.05',wheelMultiplier:1}),/BET_NOT_DIVISIBLE_BY_PAYLINES/);
+});
+
 test('Burn Wild cannot appear in reel one or five',()=>{
  const grid=board('cherry');grid[1][0]='wild';
  assert.throws(()=>evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1}),/ILLEGAL_WILD_REEL/);
