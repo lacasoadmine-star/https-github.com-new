@@ -10,7 +10,7 @@
 export const GAME_REFERENCE = Object.freeze({
   fresh_multihot20: {
     gameId: 'fresh_multihot20', title: 'Multi Hot 20', reels: 5, rows: 3,
-    paylines: 20, wheelValues: [1, 2, 3, 4, 5], maxWinX: 1000,
+    paylines: 20, foundationBet: 1, wheelValues: [1, 2, 3, 4, 5], maxWinX: 1000,
     observedOfficialMinDMO: '0.20', observedOfficialMaxDMO: '200.00',
     observedOfficialRtpPercent: '96.63', observedGameVersion: 'v1.0.0',
     source: 'archive/multi-hot-20.tar.gz:05-reels-system/observed-states.json',
@@ -27,7 +27,7 @@ export const GAME_REFERENCE = Object.freeze({
   },
   fresh_multihot5burnwilds: {
     gameId: 'fresh_multihot5burnwilds', title: 'Multi Hot 5 Burn Wilds',
-    reels: 5, rows: 3, paylines: 5, wheelValues: [1, 2, 3, 4, 5],
+    reels: 5, rows: 3, paylines: 5, foundationBet: 2, wheelValues: [1, 2, 3, 4, 5],
     maxWinX: 1300, observedOfficialMinDMO: '0.10',
     observedOfficialMaxDMO: '200.00', observedOfficialRtpPercent: null,
     observedGameVersion: 'v1.0.1',
@@ -133,9 +133,13 @@ export function evaluateCapturedMath({gameId,grid,linePaths,bet,wheelMultiplier}
   checkGrid(grid,ref);checkPaths(linePaths,ref);
   const stake=cents(bet);
   assert(stake>=100n&&stake<=4000000n,'BET_OUTSIDE_WORKER_POLICY',422);
-  assert(stake%BigInt(ref.paylines)===0n,'BET_NOT_DIVISIBLE_BY_PAYLINES',422);
+  // MachineInfo.FoundationBet: M20=1; Burn Wilds=2. The provider help UI
+  // calculates base line win as coeff * totalBet / linePlay / foundationBet.
+  // No rounding of non-integral ETB cents is permitted in the ledger.
+  const denomination=BigInt(ref.paylines*ref.foundationBet);
+  assert(stake%denomination===0n,'BET_NOT_DIVISIBLE_BY_PAYLINES',422);
   assert(Number.isInteger(wheelMultiplier)&&ref.wheelValues.includes(wheelMultiplier),'MULTIPLIER_UNVERIFIED',422);
-  const perLine=stake/BigInt(ref.paylines);
+  const perLine=stake/denomination;
   const rawGrid=grid.map(row=>[...row]);
   const rawWins=lineWins(rawGrid,linePaths,ref,perLine);
   const expandedWildReels=[];
@@ -204,7 +208,7 @@ export function spinCertifiedMath({profile,bet,drawIndex=secureIndex,newRoundId=
   requireApprovedProfile(profile);
   const ref=knownGame(profile.gameId);
   const stake=cents(bet);
-  assert(stake>=100n&&stake<=4000000n&&stake%BigInt(ref.paylines)===0n,'BET_OUTSIDE_WORKER_POLICY',422);
+  assert(stake>=100n&&stake<=4000000n&&stake%BigInt(ref.paylines*ref.foundationBet)===0n,'BET_OUTSIDE_WORKER_POLICY',422);
   const stops=profile.reelStrips.map(strip=>drawIndex(strip.length));
   stops.forEach((stop,c)=>assert(Number.isInteger(stop)&&stop>=0&&stop<profile.reelStrips[c].length,'RNG_OUT_OF_RANGE',500));
   const grid=Array.from({length:3},(_,row)=>stops.map((stop,col)=>{
