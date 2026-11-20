@@ -89,6 +89,7 @@ jobs:
       - name: Verify first ten game batch dedicated audio engines
         run: |
           node --test codex-work/native72-20261119/changes/batch01/audio-r3/audio-lifecycle.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/audio-r3/mobile-controls.test.mjs
           for game in multihot100 multihot5wild multihot5deluxe multihot5superwilds multihotwildways; do
             node --check "codex-work/native72-20261119/changes/batch01/audio-r3/$game/game.mjs"
           done
