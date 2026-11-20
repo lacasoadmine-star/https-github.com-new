@@ -31,3 +31,12 @@ test('the second deployment keeps the first deployment module bytes',async()=>{
  assert.equal(await form.get(next).text(),'export default {version:2};');
  assert.throws(()=>makeUploadForm(parts,[{name:previous,source:'replacement'}],{main_module:previous}),/NON_ADDITIVE_MODULE/);
 });
+
+test('the original games upload retains the active Worker module',async()=>{
+ const name='current-player/entry.mjs',main='zplayoriginals1/entry.mjs';
+ const retained=enc.encode('export default {fetch(){}};');
+ const parts=new Map([[name,retained]]);
+ const form=makeUploadForm(parts,[{name:main,source:'import previous from "../current-player/entry.mjs";export default previous;'}],{main_module:main});
+ assert.deepEqual(new Uint8Array(await form.get(name).arrayBuffer()),retained);
+ assert.ok(form.has(main));
+});
