@@ -1,0 +1,101 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as hot20 from './multihot20/controller.mjs';
+import * as burn from './multihot5burnwilds/controller.mjs';
+
+function fixtures(module){
+ const model={
+  id:module.GAME_ID,reels:5,rows:3,paylines:module.GAME_SPEC.fixedPaylines,
+  enabled:true,freshReleaseReady:true,mathVersion:'m20-qa',engineVersion:'server-qa',mathSha256:'a'.repeat(64),
+  betLevels:['1.00','2.00'],symbols:['cherry','seven'],paytable:{source:'server-only'}
+ };
+ const receipt={
+  gameId:module.GAME_ID,bet:'1.00',currency:'ETB',roundId:'c4353465-1182-48dc-b1a2-617ccebe7def',
+  isFree:false,mathVersion:model.mathVersion,engineVersion:model.engineVersion,mathSha256:model.mathSha256,
+  grid:Array.from({length:3},()=>Array.from({length:5},()=> 'cherry')),
+  wheelMultiplier:3,winLines:[],finalWin:'0.00',
+  walletReceipt:{currency:'ETB',balanceBefore:'10.00',chargedStake:'1.00',finalWin:'0.00',balanceAfter:'9.00'},
+  features:{expandedWildReels:[1,3]}
+ };
+ const account={authenticated:true,sessionGuard:'a'.repeat(64),currency:'ETB',game:model};
+ return {model,receipt,account};
+}
+
+for(const m of [hot20,burn]){
+ const name=m.GAME_SPEC.title;
+ test(name+' validates immutable math model and server receipt, not a client payout calculator',()=>{
+  const {model,receipt}=fixtures(m);
+  assert.equal(m.validateModel(model),model);
+  assert.equal(m.validateReceipt(receipt,model,'1.00'),receipt);
+  assert.throws(()=>m.validateModel({...model,betLevels:['0.10']}),/BET_OUTSIDE_EXISTING_WORKER_LIMIT/);
+  assert.throws(()=>m.validateReceipt({...receipt,walletReceipt:{...receipt.walletReceipt,balanceAfter:'50.00'}},model,'1.00'),/INVALID_AUTHORITATIVE_SETTLEMENT/);
+  assert.throws(()=>m.validateReceipt({...receipt,wheelMultiplier:100},model,'1.00'),/MULTIPLIER_NOT_AUTHORIZED/);
+  assert.equal(m.GAME_SPEC.productionLaunchable,false);
+ });
+ test(name+' AUTO does not submit until START PLAY is pressed, then uses only existing session',async()=>{
+  const {receipt,account}=fixtures(m);
+  let posts=0,renders=0;const scene={start(){},async settle(){renders++}};
+  const session={spin:async()=>{posts++;return receipt},pending:null};
+  const c=new m.GameController({session,scene});
+  assert.equal(c.connect(account),true);
+  assert.equal(c.previewPaytable(),account.game.paytable);
+  assert.equal(c.armAuto(2),true);
+  assert.equal(posts,0);
+  assert.equal(await c.startPlay(),true);
+  await new Promise(r=>setTimeout(r,10));
+  assert.equal(posts,2);
+  assert.equal(renders,2);
+  assert.equal(c.phase,'ready');
+  assert.equal(c.auto.armed,0);
+ });
+ test(name+' prevents phantom wager on renderer-start failure',async()=>{
+  const {account}=fixtures(m);
+  let posts=0;
+  const c=new m.GameController({session:{spin:async()=>{posts++},pending:null},scene:{start(){throw Error('CANVAS_UNAVAILABLE')},reset(){}}});
+  c.connect(account);
+  assert.equal(await c.spin(),false);assert.equal(posts,0);assert.equal(c.phase,'ready');
+ });
+ test(name+' retains ambiguous 503 for reconciliation rather than resubmitting',async()=>{
+  const {account}=fixtures(m);let posts=0;
+  const session={spin:async()=>{posts++;throw Object.assign(Error('TEMPORARY_ERROR'),{status:503})},pending:null};
+  const c=new m.GameController({session,scene:{start(){},reset(){}}});
+  c.connect(account);assert.equal(await c.spin(),false);
+  assert.equal(c.phase,'confirm');
+  assert.equal(posts,1);
+  assert.equal(await c.spin(),false);
+  assert.equal(posts,1);
+ });
+ test(name+' releases explicitly rejected 402 without leaving CONFIRM stuck',async()=>{
+  const {account}=fixtures(m);let posts=0;
+  const session={spin:async()=>{posts++;throw Object.assign(Error('INSUFFICIENT_FUNDS'),{status:402})},pending:null};
+  const c=new m.GameController({session,scene:{start(){},reset(){}}});
+  c.connect(account);assert.equal(await c.spin(),false);
+  assert.equal(c.phase,'ready');assert.equal(posts,1);
+ });
+ test(name+' never overwrites a newer Player session with a late previous receipt',async()=>{
+  const {account,receipt}=fixtures(m);let settle=0,resolve;
+  const session={spin:()=>new Promise(r=>{resolve=r}),pending:null};
+  const c=new m.GameController({session,scene:{start(){},async settle(){settle++},reset(){}}});
+  c.connect(account);
+  const pending=c.spin();
+  c.logout();
+  resolve(receipt);
+  assert.equal(await pending,false);
+  assert.equal(c.phase,'disconnected');
+  assert.equal(settle,0);
+ });
+ test(name+' preserves settled receipt if only animation crashes',async()=>{
+  const {account,receipt}=fixtures(m);let posts=0;
+  const session={spin:async()=>{posts++;return receipt},pending:null};
+  const c=new m.GameController({session,scene:{start(){},async settle(){throw Error('RENDER_FAIL')}}});
+  c.connect(account);assert.equal(await c.spin(),true);
+  assert.equal(posts,1);assert.equal(c.lastReceipt,receipt);
+  assert.equal(c.phase,'ready');assert.equal(c.error,'ROUND_SETTLED_RENDER_ERROR');
+ });
+}
+test('Burn Wilds expands only authenticated server-selected reels 2, 3 and 4',()=>{
+ const {model,receipt}=fixtures(burn);
+ assert.equal(burn.validateReceipt(receipt,model,'1.00'),receipt);
+ assert.throws(()=>burn.validateReceipt({...receipt,features:{expandedWildReels:[0]}},model,'1.00'),/BURN_WILD_REEL_INVALID/);
+ assert.throws(()=>burn.validateReceipt({...receipt,features:{expandedWildReels:[1,1]}},model,'1.00'),/BURN_WILD_REEL_INVALID/);
+});
