@@ -99,3 +99,41 @@ test('Burn Wilds expands only authenticated server-selected reels 2, 3 and 4',()
  assert.throws(()=>burn.validateReceipt({...receipt,features:{expandedWildReels:[0]}},model,'1.00'),/BURN_WILD_REEL_INVALID/);
  assert.throws(()=>burn.validateReceipt({...receipt,features:{expandedWildReels:[1,1]}},model,'1.00'),/BURN_WILD_REEL_INVALID/);
 });
+
+for(const m of [hot20,burn]){
+ test(m.GAME_SPEC.title+' existing session pending() function never causes phantom CONFIRM after a rejected 402',async()=>{
+  const {account}=fixtures(m);let posts=0;
+  const session={pending:()=>null,spin:async()=>{posts++;throw Object.assign(Error('INSUFFICIENT_FUNDS'),{status:402})}};
+  const c=new m.GameController({session,scene:{start(){},reset(){}}});
+  assert.equal(c.connect(account),true);
+  assert.equal(await c.spin(),false);
+  assert.equal(posts,1);
+  assert.equal(c.phase,'ready');
+ });
+ test(m.GAME_SPEC.title+' Player reconnection resets old receipt and blocks an unresolved token',async()=>{
+  const {account,receipt}=fixtures(m);let posts=0,token=null;
+  const session={pending:()=>token,spin:async()=>{posts++;return receipt}};
+  const c=new m.GameController({session,scene:{start(){},settle:async()=>true,reset(){}}});
+  assert.equal(c.connect(account),true);
+  assert.equal(await c.spin(),true);
+  assert.equal(c.lastReceipt,receipt);
+  token={requestId:'OLD_SESSION_PENDING'};
+  assert.equal(c.connect({...account,sessionGuard:'otherPlayer'}),false);
+  assert.equal(c.phase,'confirm');
+  assert.equal(c.lastReceipt,null,'never show Player A receipt on Player B');
+  assert.equal(await c.spin(),false,'never duplicate unsettled token');
+  assert.equal(posts,1);
+  token=null;
+  assert.equal(c.connect({...account,sessionGuard:'otherPlayer'}),true);
+  c.logout();
+  assert.equal(c.lastReceipt,null);
+  assert.equal(c.phase,'disconnected');
+ });
+ test(m.GAME_SPEC.title+' default wager uses first authorized bet if 1 ETB is not offered by server',()=>{
+  const {account}=fixtures(m);
+  const levels=['2.00','5.00'];
+  const c=new m.GameController({session:{spin:async()=>{},pending:()=>null},scene:{reset(){}}});
+  assert.equal(c.connect({...account,game:{...account.game,betLevels:levels}}),true);
+  assert.equal(c.bet,'2.00');
+ });
+}
