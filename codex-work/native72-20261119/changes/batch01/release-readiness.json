@@ -28,7 +28,8 @@
     "Demo loader for Multi Hot 20 and Burn Wilds reported country restriction in Cloudflare Playwright; the existing archive contains earlier captured demo media.",
     "Every currently prepared patch is staged on the GitHub work branch, not deployed into superwin-player production.",
     "No unverified slot payout math or screenshot-as-game substitutions are accepted.",
-    "Five additional games' overlapping TURBO hit areas were corrected per game and verified with Playwright across 360/390/412px; no public asset deployment has occurred."
+    "Five additional games' overlapping TURBO hit areas were corrected per game and verified with Playwright across 360/390/412px; no public asset deployment has occurred.",
+    "Dedicated original 5x3 Canvas scenes for Multi Hot 20 and Burn Wilds were browser-tested with synthetic QA sprites; strict production mode refuses missing real symbol atlases, and no public route, verified server math or authenticated ETB wagering has been activated."
   ],
   "entries": [
     {
@@ -116,23 +117,38 @@
       "observedRoute": null,
       "packageType": "new-controller-no-public-route",
       "patches": [
-        "./multihot20/controller.mjs"
+        "./multihot20/controller.mjs",
+        "./multihot20/scene.mjs"
       ],
       "verifiedChecks": [
         "server_receipt_validation",
         "auto_requires_start_play",
-        "demo_archive_available"
+        "demo_archive_available",
+        "dedicated_5x3_canvas_receipt_scene_staged",
+        "playwright_synthetic_asset_scene_smoke",
+        "verified_five_reel_stop_audio_events",
+        "blurred_background_mutes_future_win_audio"
       ],
       "remainingGates": [
         "no_live_play_now_route",
         "server_game_model_unverified",
         "dedicated_verified_artwork_missing",
         "math_paytable_not_verified",
-        "production_assets_not_published"
+        "production_assets_not_published",
+        "scene_not_yet_bound_to_existing_authenticated_launch_route"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "archiveEvidence": {
+        "storage": "SSG_OFFICIAL_REFERENCES",
+        "captureStatus": "loaded",
+        "playClicked": true,
+        "fileCount": 214,
+        "screenshots": 6,
+        "videoContainsAudio": false,
+        "manifestSha256": "1627740b6d88106a57dadd517e5fcb0386fadab3d4b926f1ee0020a0ca0352aa"
+      }
     },
     {
       "position": 5,
@@ -263,24 +279,39 @@
       "observedRoute": null,
       "packageType": "new-controller-no-public-route",
       "patches": [
-        "./multihot5burnwilds/controller.mjs"
+        "./multihot5burnwilds/controller.mjs",
+        "./multihot5burnwilds/scene.mjs"
       ],
       "verifiedChecks": [
         "server_receipt_validation",
         "expanding_wild_column_validation",
         "auto_requires_start_play",
-        "demo_archive_available"
+        "demo_archive_available",
+        "dedicated_5x3_canvas_receipt_scene_staged",
+        "playwright_synthetic_asset_scene_smoke",
+        "verified_five_reel_stop_audio_events",
+        "blurred_background_mutes_future_win_audio"
       ],
       "remainingGates": [
         "no_live_play_now_route",
         "server_game_model_unverified",
         "dedicated_verified_artwork_missing",
         "math_paytable_not_verified",
-        "production_assets_not_published"
+        "production_assets_not_published",
+        "scene_not_yet_bound_to_existing_authenticated_launch_route"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "archiveEvidence": {
+        "storage": "SSG_OFFICIAL_REFERENCES",
+        "captureStatus": "loaded",
+        "playClicked": true,
+        "fileCount": 224,
+        "screenshots": 7,
+        "videoContainsAudio": false,
+        "manifestSha256": "42dc90c034a549c021e8928876ce53f240a384d7096e777affd36f5ebcec928f"
+      }
     },
     {
       "position": 9,
