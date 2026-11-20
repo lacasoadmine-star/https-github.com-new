@@ -34,7 +34,8 @@
     "2026-11-21: All 57/57 pinned KV assets read back with SHA-256 and size verified; both mobile layouts passed 16/16 viewport checks from 320px to 1440px; wager availability lock regressions passed in browser import QA; none of these authorize real-money games.",
     "2026-11-21: Reassembled both saved first-party official demos from Cloudflare KV chunk manifests, extracted PayTable.Coeffs, frame linePlay, multiplier values and original menu rules/screenshot. Multi Hot 20 20 lines, Burn Wilds 5 lines, both 5x3. Provider RTP distribution, reel strips, real payline shapes and wheel RNG weights remain unverified; no production outcome sampling enabled.",
     "2026-11-21: Committed independent integer-cent server evaluator official-math.mjs, schema-accurate existing sw_nine PostgreSQL adapter sw-nine-pg-adapter.mjs and 26 successful Node tests, all in branch work/native72-session-presentation-20261119. Uses original sw_rebuild wallet/transfers/ledger and sw_nine game_rounds, no new API/DB; mock DB tested, not deployed to Railway. Committed fixes to both session modules so fresh-state requests include exact gameId rather than receiving default Multi Hot 10.",
-    "2026-11-21: Caught and FIXED 2x incorrect Burn Wilds payout: original MachineInfo.FoundationBet=2 (M20=1), provider help formula coeff*totalBet/linePlay/FoundationBet; official screenshot Five Sevens at DMO 0.10 paid DMO 10.00. Corrected server math with integer cents, accepted only payline*foundation divisibility, 27/27 actual Node tests pass. Work branch only; no real ETB wagering, no Railway deployment."
+    "2026-11-21: Caught and FIXED 2x incorrect Burn Wilds payout: original MachineInfo.FoundationBet=2 (M20=1), provider help formula coeff*totalBet/linePlay/FoundationBet; official screenshot Five Sevens at DMO 0.10 paid DMO 10.00. Corrected server math with integer cents, accepted only payline*foundation divisibility, 27/27 actual Node tests pass. Work branch only; no real ETB wagering, no Railway deployment.",
+    "2026-11-21: Corrected FoundationBet math also stress-tested using 1000 independently generated deterministic QA boards across 20/5 official line patterns. Node v22 28/28 PASS, 0 fail; synthetic QA only (no real ETB, no statistically certified RNG/RTP), regression commit 11471f7b8add2fa74052612a8e6423adc18bdc8f."
   ],
   "entries": [
     {
@@ -164,7 +165,9 @@
         "original_exact_provider_payline_chart_verified",
         "original_FoundationBet_1_from_captured_MachineInfo",
         "provider_paytable_help_math_formula_verified",
-        "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed"
+        "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed",
+        "node_server_accounting_28_of_28_passed",
+        "1000_nonmoney_deterministic_board_line_paytable_cap_wild_stress_test"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -209,7 +212,7 @@
         "settlement": "./server/sw-nine-pg-adapter.mjs",
         "mathTests": "./server/official-math.test.mjs",
         "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
-        "offlinePassed": 27,
+        "offlinePassed": 28,
         "offlineFailed": 0,
         "liveDeployed": false,
         "auditedProbabilityProfileApproved": false,
@@ -231,7 +234,8 @@
         "originalReelStripProbabilitiesCertified": false,
         "originalWalletUndisturbed": true,
         "latestMathCommit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
-        "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f"
+        "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f",
+        "syntheticBoards": 1000
       }
     },
     {
@@ -406,7 +410,9 @@
         "original_exact_provider_payline_chart_verified",
         "original_FoundationBet_2_from_captured_MachineInfo",
         "provider_paytable_help_math_formula_verified",
-        "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed"
+        "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed",
+        "node_server_accounting_28_of_28_passed",
+        "1000_nonmoney_deterministic_board_line_paytable_cap_wild_stress_test"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -451,7 +457,7 @@
         "settlement": "./server/sw-nine-pg-adapter.mjs",
         "mathTests": "./server/official-math.test.mjs",
         "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
-        "offlinePassed": 27,
+        "offlinePassed": 28,
         "offlineFailed": 0,
         "liveDeployed": false,
         "auditedProbabilityProfileApproved": false,
@@ -473,7 +479,8 @@
         "originalReelStripProbabilitiesCertified": false,
         "originalWalletUndisturbed": true,
         "latestMathCommit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
-        "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f"
+        "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f",
+        "syntheticBoards": 1000
       },
       "fixedPayoutBug": {
         "original": "Burn Wilds 5×3, 5 lines, FoundationBet=2, 1000× Seven factor",
