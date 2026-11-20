@@ -35,7 +35,8 @@
     "2026-11-21: Reassembled both saved first-party official demos from Cloudflare KV chunk manifests, extracted PayTable.Coeffs, frame linePlay, multiplier values and original menu rules/screenshot. Multi Hot 20 20 lines, Burn Wilds 5 lines, both 5x3. Provider RTP distribution, reel strips, real payline shapes and wheel RNG weights remain unverified; no production outcome sampling enabled.",
     "2026-11-21: Committed independent integer-cent server evaluator official-math.mjs, schema-accurate existing sw_nine PostgreSQL adapter sw-nine-pg-adapter.mjs and 26 successful Node tests, all in branch work/native72-session-presentation-20261119. Uses original sw_rebuild wallet/transfers/ledger and sw_nine game_rounds, no new API/DB; mock DB tested, not deployed to Railway. Committed fixes to both session modules so fresh-state requests include exact gameId rather than receiving default Multi Hot 10.",
     "2026-11-21: Caught and FIXED 2x incorrect Burn Wilds payout: original MachineInfo.FoundationBet=2 (M20=1), provider help formula coeff*totalBet/linePlay/FoundationBet; official screenshot Five Sevens at DMO 0.10 paid DMO 10.00. Corrected server math with integer cents, accepted only payline*foundation divisibility, 27/27 actual Node tests pass. Work branch only; no real ETB wagering, no Railway deployment.",
-    "2026-11-21: Corrected FoundationBet math also stress-tested using 1000 independently generated deterministic QA boards across 20/5 official line patterns. Node v22 28/28 PASS, 0 fail; synthetic QA only (no real ETB, no statistically certified RNG/RTP), regression commit 11471f7b8add2fa74052612a8e6423adc18bdc8f."
+    "2026-11-21: Corrected FoundationBet math also stress-tested using 1000 independently generated deterministic QA boards across 20/5 official line patterns. Node v22 28/28 PASS, 0 fail; synthetic QA only (no real ETB, no statistically certified RNG/RTP), regression commit 11471f7b8add2fa74052612a8e6423adc18bdc8f.",
+    "2026-11-21: Server math and sw_nine PostgreSQL adapter hardening committed on original work branch. Burn FoundationBet=2 invalid stake 1.05 ETB now fails before transaction; replayOnly uses persisted original ledger receipt even when operator profile store throws. Executed local Node v22.16.0: 30 tests passed, zero failed; 4 source/test syntax checks passed. No production deployment, real ETB wagers or live PostgreSQL mutations. Profile math RTP/strips/weights certification and E2E Player settlement remain required."
   ],
   "entries": [
     {
@@ -167,7 +168,11 @@
         "provider_paytable_help_math_formula_verified",
         "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed",
         "node_server_accounting_28_of_28_passed",
-        "1000_nonmoney_deterministic_board_line_paytable_cap_wild_stress_test"
+        "1000_nonmoney_deterministic_board_line_paytable_cap_wild_stress_test",
+        "node_server_math_and_existing_postgres_QA_30_of_30_passed",
+        "burn_foundation_bet_full_denomination_preflight_no_DB_transaction",
+        "replay_prior_settlement_when_active_math_profile_store_unavailable_no_extra_debit",
+        "server_math_and_adapter_new_source_sha256_verified_local"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -212,7 +217,7 @@
         "settlement": "./server/sw-nine-pg-adapter.mjs",
         "mathTests": "./server/official-math.test.mjs",
         "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
-        "offlinePassed": 28,
+        "offlinePassed": 30,
         "offlineFailed": 0,
         "liveDeployed": false,
         "auditedProbabilityProfileApproved": false,
@@ -233,9 +238,16 @@
         "originalArchivedPaytableValidated": true,
         "originalReelStripProbabilitiesCertified": false,
         "originalWalletUndisturbed": true,
-        "latestMathCommit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
+        "latestMathCommit": "fda5982681de6cffff78cbd4ba56bfa34d8ce68b",
         "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f",
-        "syntheticBoards": 1000
+        "syntheticBoards": 1000,
+        "latestAdapterCommit": "c46a2f2f9773e68f4a53d2481c2819e0226fdd1e",
+        "latestRegressionCommits": [
+          "20b4024489fa2dced837ea080fd23cec8c0a7fb8",
+          "7401783be6e0e14dab70fa1d43125cd81892417d"
+        ],
+        "lastLocalVerifiedNode": "22.16.0",
+        "sha256OfMathSource": "173ce7e96da9631991507dedd4052bb5810d1af6871e2a276a876aae69c78179"
       }
     },
     {
@@ -412,7 +424,11 @@
         "provider_paytable_help_math_formula_verified",
         "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed",
         "node_server_accounting_28_of_28_passed",
-        "1000_nonmoney_deterministic_board_line_paytable_cap_wild_stress_test"
+        "1000_nonmoney_deterministic_board_line_paytable_cap_wild_stress_test",
+        "node_server_math_and_existing_postgres_QA_30_of_30_passed",
+        "burn_foundation_bet_full_denomination_preflight_no_DB_transaction",
+        "replay_prior_settlement_when_active_math_profile_store_unavailable_no_extra_debit",
+        "server_math_and_adapter_new_source_sha256_verified_local"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -457,7 +473,7 @@
         "settlement": "./server/sw-nine-pg-adapter.mjs",
         "mathTests": "./server/official-math.test.mjs",
         "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
-        "offlinePassed": 28,
+        "offlinePassed": 30,
         "offlineFailed": 0,
         "liveDeployed": false,
         "auditedProbabilityProfileApproved": false,
@@ -478,9 +494,16 @@
         "originalArchivedPaytableValidated": true,
         "originalReelStripProbabilitiesCertified": false,
         "originalWalletUndisturbed": true,
-        "latestMathCommit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
+        "latestMathCommit": "fda5982681de6cffff78cbd4ba56bfa34d8ce68b",
         "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f",
-        "syntheticBoards": 1000
+        "syntheticBoards": 1000,
+        "latestAdapterCommit": "c46a2f2f9773e68f4a53d2481c2819e0226fdd1e",
+        "latestRegressionCommits": [
+          "20b4024489fa2dced837ea080fd23cec8c0a7fb8",
+          "7401783be6e0e14dab70fa1d43125cd81892417d"
+        ],
+        "lastLocalVerifiedNode": "22.16.0",
+        "sha256OfMathSource": "173ce7e96da9631991507dedd4052bb5810d1af6871e2a276a876aae69c78179"
       },
       "fixedPayoutBug": {
         "original": "Burn Wilds 5×3, 5 lines, FoundationBet=2, 1000× Seven factor",
@@ -571,5 +594,28 @@
         "qaMode": "Playwright route interception of staged game module; production assets unchanged"
       }
     }
-  ]
+  ],
+  "serverMathLatestQA": {
+    "date": "2026-11-21",
+    "nodeVersion": "22.16.0",
+    "serverMathCommit": "fda5982681de6cffff78cbd4ba56bfa34d8ce68b",
+    "postgresAdapterCommit": "c46a2f2f9773e68f4a53d2481c2819e0226fdd1e",
+    "testCommits": [
+      "20b4024489fa2dced837ea080fd23cec8c0a7fb8",
+      "7401783be6e0e14dab70fa1d43125cd81892417d"
+    ],
+    "testsPassed": 30,
+    "testsFailed": 0,
+    "syntaxChecked": [
+      "official-math.mjs",
+      "sw-nine-pg-adapter.mjs",
+      "official-math.test.mjs",
+      "sw-nine-pg-adapter.test.mjs"
+    ],
+    "mathSha256": "173ce7e96da9631991507dedd4052bb5810d1af6871e2a276a876aae69c78179",
+    "adapterSha256": "8e1cb03545e12dbd5e2ac841a9067fcb7d3a4b06a117d014e6e71ee5850c77f9",
+    "scope": "GitHub work branch and local Node; no existing Player/PostgreSQL/ETB production mutation",
+    "serverProfileCertified": false,
+    "liveDeployment": false
+  }
 }
