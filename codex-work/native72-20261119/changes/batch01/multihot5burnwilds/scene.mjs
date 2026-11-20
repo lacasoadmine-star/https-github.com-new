@@ -25,9 +25,10 @@ export class BurnWildsScene {
   this.current=null;this.receipt=null;this.pending=null;this.finishAt=0;this.stopHint=false;
   this.lastTime=0;this.frames=0;this.frameId=null;this.reelStopped=Array(REELS).fill(false);
   this.fpsSamples=[];this.resolveAnimation=null;this.reducedMotion=false;this.hidden=false;this.focused=true;
+  this.expansionStartedAt=null;this.expansionFrame=null;
   this.onVisibility=()=>{this.hidden=!!this.doc?.hidden||!this.focused;this.pauseAudio();if(this.hidden&&this.pending)this._finish();else if(!this.hidden)this._paint(this.clock())};
   this.onBlur=()=>{this.focused=false;this.hidden=true;this.pauseAudio();if(this.pending)this._finish()};
-  this.onFocus=()=>{this.focused=true;this.hidden=!!this.doc?.hidden;this._paint(this.clock())};
+  this.onFocus=()=>{this.focused=true;this.hidden=!!this.doc?.hidden;this._paint(this.clock());this._animateExpansion()};
   doc?.addEventListener?.('visibilitychange',this.onVisibility);
   win?.addEventListener?.('blur',this.onBlur);
   win?.addEventListener?.('focus',this.onFocus);
@@ -48,7 +49,10 @@ export class BurnWildsScene {
  start(){
   if(this.disposed||this.rolling)throw Error('REELS_NOT_READY');
   if(this.hidden||this.doc?.hidden)throw Error('GAME_NOT_VISIBLE');
-  this._verifySymbols();this.rolling=true;this.stopHint=false;this.pending=null;this.finishAt=0;
+  this._verifySymbols();
+  if(this.expansionFrame!==null){this.cancelFrame(this.expansionFrame);this.expansionFrame=null}
+  this.expansionStartedAt=null;
+  this.rolling=true;this.stopHint=false;this.pending=null;this.finishAt=0;
   this.reelStopped.fill(false);this.startedAt=this.clock();this.lastTime=0;this.frames=0;this.fpsSamples=[];
   this._sound('spin');this._loop();
  }
@@ -152,12 +156,27 @@ export class BurnWildsScene {
    }
    ctx.shadowBlur=0;
    const wilds=receipt.features?.expandedWildReels??[];
-   for(const col of wilds){ // Server uses 0-based reel index; never invent extra Wilds.
-     if(Number.isInteger(col)&&col>=0&&col<REELS){
-      const x=X+col*(REEL_W+GAP);
-      ctx.strokeStyle='#ff6618';ctx.lineWidth=6;ctx.shadowColor='#ff5218';ctx.shadowBlur=16;
-      ctx.strokeRect(x-2,Y-3,REEL_W+4,ROWS*TILE_H+6);ctx.shadowBlur=0;
-     }
+   for(const col of wilds){ // Only the authoritative receipt selects a reel.
+    if(!Number.isInteger(col)||col<1||col>3)continue;
+    const sourceRow=receipt.grid.findIndex(row=>row[col]==='wild');
+    if(sourceRow<0||!this._asset('wild'))continue;
+    const x=X+col*(REEL_W+GAP);
+    // SmartSoft Burn Wilds EXPANDS the Wild symbol across the entire reel,
+    // not merely an orange border. This overlays the ORIGINAL wild sprite,
+    // leaving wallet math and the underlying server grid unchanged.
+    const elapsed=this.expansionStartedAt===null?420:Math.max(0,now-this.expansionStartedAt);
+    const progress=Math.min(1,elapsed/360);
+    for(let row=0;row<ROWS;row++){
+     if(row===sourceRow)continue;
+     const opacity=Math.max(0,Math.min(1,progress*1.4-Math.abs(row-sourceRow)*0.2));
+     if(opacity<=0)continue;
+     ctx.save();ctx.globalAlpha=opacity;
+     this._symbol(ctx,'wild',x+2,Y+row*TILE_H+2,REEL_W-4,TILE_H-4);
+     ctx.restore();
+    }
+    ctx.strokeStyle='#ff6618';ctx.lineWidth=4;ctx.shadowColor='#ff5218';
+    ctx.shadowBlur=10+7*progress;
+    ctx.strokeRect(x-2,Y-3,REEL_W+4,ROWS*TILE_H+6);ctx.shadowBlur=0;
    }
   }
   // The artwork shows one multiplier wheel, not a fictional vertical 1×–5× list.
@@ -165,6 +184,17 @@ export class BurnWildsScene {
   ctx.shadowBlur=0;ctx.strokeStyle='#b98b46';ctx.lineWidth=3;
   ctx.strokeRect(X-5,Y-5,VIEW_GRID_WIDTH+10,ROWS*TILE_H+10);
   
+ }
+ _animateExpansion(){
+  if(this.disposed||this.hidden||this.rolling||this.expansionStartedAt===null||this.expansionFrame!==null)return;
+  if(this.clock()-this.expansionStartedAt>=420){this._paint(this.clock());return}
+  this.expansionFrame=this.requestFrame(time=>{
+   this.expansionFrame=null;
+   if(this.disposed||this.hidden||this.rolling||this.expansionStartedAt===null)return;
+   const now=num(time)||this.clock();
+   this._paint(now);
+   if(now-this.expansionStartedAt<420)this._animateExpansion();
+  });
  }
  _finish(){
   if(!this.pending||this.disposed)return;
@@ -175,13 +205,17 @@ export class BurnWildsScene {
   this.current=this.pending.grid.map(row=>[...row]);this.receipt=this.pending;
   this.pending=null;this.rolling=false;
   if(this.frameId!==null){this.cancelFrame(this.frameId);this.frameId=null}
+  this.expansionStartedAt=this.receipt.features?.expandedWildReels?.length?this.clock():null;
   this._paint(this.clock());
+  if(this.expansionStartedAt!==null){this._sound('fast-motion');this._animateExpansion()}
   if(Number(this.receipt.finalWin)>0)this._sound('win');
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(true);
  }
  pauseAudio(){try{this.audio.pauseAll?.()}catch{}}
  resumeOptedInMusic(){if(!this.hidden&&!this.doc?.hidden)try{this.audio.resumeOptedInMusic?.()}catch{}}
  reset(){
+  if(this.expansionFrame!==null){this.cancelFrame(this.expansionFrame);this.expansionFrame=null}
+  this.expansionStartedAt=null;
   if(this.frameId!==null){this.cancelFrame(this.frameId);this.frameId=null}
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(false);
   this.rolling=false;this.pending=null;this.current=null;this.receipt=null;this.stopHint=false;this.reelStopped.fill(false);
