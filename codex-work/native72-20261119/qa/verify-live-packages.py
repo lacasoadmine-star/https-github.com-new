@@ -22,6 +22,7 @@ stage = Path(args.stage)
 packages = json.loads((stage / 'package-report.json').read_text())['packages']
 before = json.loads(Path(args.before).read_text())
 jobs = []
+external_assets = {}
 for package in packages:
     name = package['name']
     if not re.fullmatch(r'[a-z][a-z0-9_-]*', name):
@@ -40,6 +41,14 @@ for package in packages:
     if not args.launch_only:
         for filename, asset in manifest['assets'].items():
             jobs.append(dict(path='/' + release + '/' + filename, release=release, **asset))
+        for path, asset in manifest.get('externalDependencies', {}).items():
+            if not re.fullmatch(r'/(?!/)[A-Za-z0-9_./-]+', path) or '..' in path.split('/'):
+                raise SystemExit(f'Invalid dependency path: {path}')
+            expected = {key: asset[key] for key in ('sha256', 'size', 'type')}
+            if path in external_assets and external_assets[path] != expected:
+                raise SystemExit(f'Conflicting dependency pins: {path}')
+            external_assets[path] = expected
+jobs.extend(dict(path=path, **asset) for path, asset in external_assets.items())
 protected = {'/', '/games/multi_hot_5_native', '/games/foxy_hot_20_native', '/games/multi_hot_5_video', '/games/hot_foxy_20'}
 for old in before:
     if old['path'] in protected:

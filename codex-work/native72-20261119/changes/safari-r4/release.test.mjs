@@ -17,7 +17,18 @@ test('Safari r4 retains the one existing Player route and references verified co
  assert.match(manifest.htmlTemplate,/\{\{PRESENTATION_GAME\}\}/);
  assert.match(manifest.htmlTemplate,/\/zplay-safari-20261120-r4\/startup\.mjs/);
  assert.doesNotMatch(manifest.htmlTemplate,/(?:play demo|mock wallet|fake balance)/i);
- assert.deepEqual(manifest.externalDependencies,prior.externalDependencies);
+ const stylePath='/new74/037-safari-simba/style.css';
+ const {[stylePath]:stylesheet,...dependencies}=manifest.externalDependencies;
+ const {[stylePath]:priorStylesheet,...priorDependencies}=prior.externalDependencies;
+ assert.deepEqual(dependencies,priorDependencies);
+ assert.ok(manifest.htmlTemplate.includes(`href="${stylePath}"`));
+ for(const path of [manifest.accountPath,manifest.accountPath.slice(0,-1)]){
+  assert.equal(new URL(stylePath,'https://qa.invalid'+path).pathname,stylePath);
+ }
+ assert.equal(stylesheet.source,'public');
+ assert.equal(stylesheet.size,4058);
+ assert.match(stylesheet.sha256,/^[a-f0-9]{64}$/);
+ assert.notEqual(stylesheet.sha256,priorStylesheet.sha256);
 });
 test('new Safari source exactly matches staged KV hashes and has no fake payout path',async()=>{
  for(const name of ['game.mjs','auto-start-policy.mjs']){
