@@ -246,7 +246,11 @@ export async function settleExistingPlayerRound({
   const ref=knownGame(gameId);
   assert(typeof withExistingTransaction==='function','EXISTING_LEDGER_REQUIRED',503);
   const wager=cents(bet);
-  assert(wager>=100n&&wager<=4000000n&&wager%BigInt(ref.paylines)===0n,'BET_OUTSIDE_WORKER_POLICY',422);
+  // Validate the COMPLETE provider denomination before opening a DB transaction.
+  // Burn Wilds has FoundationBet=2: 1.05 ETB splits into 5 lines but not
+  // 5 lines * 2 foundation units, and must never enter settlement.
+  assert(wager>=100n&&wager<=4000000n&&
+    wager%BigInt(ref.paylines*ref.foundationBet)===0n,'BET_OUTSIDE_WORKER_POLICY',422);
   // Replay must return a previously settled receipt even when an old math
   // profile has since been disabled, removed or superseded.
   // Both new and replay requests use the same authenticated transaction.
