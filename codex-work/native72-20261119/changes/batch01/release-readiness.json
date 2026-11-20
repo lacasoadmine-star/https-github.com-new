@@ -33,7 +33,8 @@
     "2026-11-21: Multi Hot 20 and Burn Wilds official-capture media and all 16 source files staged in existing Cloudflare SSG_OFFICIAL_REFERENCES; 57 exact pinned release entries; 26 critical KV source/media hash readbacks passed. Both independent actual frontend pages passed isolated browser intercept SPIN/recovery QA, not real ETB. Public /new74 routes still 404 because main Player wrapper was not deployed; release pins published=false until authoritative math and real Player ledger certification.",
     "2026-11-21: All 57/57 pinned KV assets read back with SHA-256 and size verified; both mobile layouts passed 16/16 viewport checks from 320px to 1440px; wager availability lock regressions passed in browser import QA; none of these authorize real-money games.",
     "2026-11-21: Reassembled both saved first-party official demos from Cloudflare KV chunk manifests, extracted PayTable.Coeffs, frame linePlay, multiplier values and original menu rules/screenshot. Multi Hot 20 20 lines, Burn Wilds 5 lines, both 5x3. Provider RTP distribution, reel strips, real payline shapes and wheel RNG weights remain unverified; no production outcome sampling enabled.",
-    "2026-11-21: Committed independent integer-cent server evaluator official-math.mjs, schema-accurate existing sw_nine PostgreSQL adapter sw-nine-pg-adapter.mjs and 26 successful Node tests, all in branch work/native72-session-presentation-20261119. Uses original sw_rebuild wallet/transfers/ledger and sw_nine game_rounds, no new API/DB; mock DB tested, not deployed to Railway. Committed fixes to both session modules so fresh-state requests include exact gameId rather than receiving default Multi Hot 10."
+    "2026-11-21: Committed independent integer-cent server evaluator official-math.mjs, schema-accurate existing sw_nine PostgreSQL adapter sw-nine-pg-adapter.mjs and 26 successful Node tests, all in branch work/native72-session-presentation-20261119. Uses original sw_rebuild wallet/transfers/ledger and sw_nine game_rounds, no new API/DB; mock DB tested, not deployed to Railway. Committed fixes to both session modules so fresh-state requests include exact gameId rather than receiving default Multi Hot 10.",
+    "2026-11-21: Caught and FIXED 2x incorrect Burn Wilds payout: original MachineInfo.FoundationBet=2 (M20=1), provider help formula coeff*totalBet/linePlay/FoundationBet; official screenshot Five Sevens at DMO 0.10 paid DMO 10.00. Corrected server math with integer cents, accepted only payline*foundation divisibility, 27/27 actual Node tests pass. Work branch only; no real ETB wagering, no Railway deployment."
   ],
   "entries": [
     {
@@ -159,7 +160,11 @@
         "node_26_of_26_offline_mock_ledger_regressions_passed",
         "real_gameId_fresh_state_query_fix_committed",
         "GitHub_Actions_workflow_updated_for_server_tests",
-        "real_ETB_wagers_executed_zero"
+        "real_ETB_wagers_executed_zero",
+        "original_exact_provider_payline_chart_verified",
+        "original_FoundationBet_1_from_captured_MachineInfo",
+        "provider_paytable_help_math_formula_verified",
+        "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -204,14 +209,13 @@
         "settlement": "./server/sw-nine-pg-adapter.mjs",
         "mathTests": "./server/official-math.test.mjs",
         "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
-        "offlinePassed": 26,
+        "offlinePassed": 27,
         "offlineFailed": 0,
         "liveDeployed": false,
         "auditedProbabilityProfileApproved": false,
         "originalPaytableCoefficientsVerified": true,
         "realPlayerLedgerNotModified": true,
         "requiredBeforeRealMoney": [
-          "verified_exact_payline_charts",
           "certified_reel_strips_and_probabilities",
           "certified_wheel_weights",
           "RTP_max_liability_signoff",
@@ -220,7 +224,14 @@
           "GitHub_CI_success",
           "full_demo_parity",
           "rollback_ready_live_deploy"
-        ]
+        ],
+        "foundationBetVerified": 1,
+        "officialPaylineChartVerified": true,
+        "originalArchivedPaytableValidated": true,
+        "originalReelStripProbabilitiesCertified": false,
+        "originalWalletUndisturbed": true,
+        "latestMathCommit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
+        "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f"
       }
     },
     {
@@ -391,7 +402,11 @@
         "node_26_of_26_offline_mock_ledger_regressions_passed",
         "real_gameId_fresh_state_query_fix_committed",
         "GitHub_Actions_workflow_updated_for_server_tests",
-        "real_ETB_wagers_executed_zero"
+        "real_ETB_wagers_executed_zero",
+        "original_exact_provider_payline_chart_verified",
+        "original_FoundationBet_2_from_captured_MachineInfo",
+        "provider_paytable_help_math_formula_verified",
+        "node_27_of_27_corrected_foundation_win_and_sw_nine_ledger_QA_passed"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -436,14 +451,13 @@
         "settlement": "./server/sw-nine-pg-adapter.mjs",
         "mathTests": "./server/official-math.test.mjs",
         "databaseTests": "./server/sw-nine-pg-adapter.test.mjs",
-        "offlinePassed": 26,
+        "offlinePassed": 27,
         "offlineFailed": 0,
         "liveDeployed": false,
         "auditedProbabilityProfileApproved": false,
         "originalPaytableCoefficientsVerified": true,
         "realPlayerLedgerNotModified": true,
         "requiredBeforeRealMoney": [
-          "verified_exact_payline_charts",
           "certified_reel_strips_and_probabilities",
           "certified_wheel_weights",
           "RTP_max_liability_signoff",
@@ -452,7 +466,22 @@
           "GitHub_CI_success",
           "full_demo_parity",
           "rollback_ready_live_deploy"
-        ]
+        ],
+        "foundationBetVerified": 2,
+        "officialPaylineChartVerified": true,
+        "originalArchivedPaytableValidated": true,
+        "originalReelStripProbabilitiesCertified": false,
+        "originalWalletUndisturbed": true,
+        "latestMathCommit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
+        "latestRegressionCommit": "daa8c6d9718a17e7f51072631876ae4b72eb882f"
+      },
+      "fixedPayoutBug": {
+        "original": "Burn Wilds 5×3, 5 lines, FoundationBet=2, 1000× Seven factor",
+        "oldErroneousExample": "total bet 1 ETB => 200 ETB / line 5 Sevens",
+        "correctedExample": "total bet 1 ETB => 100 ETB / line 5 Sevens",
+        "commit": "05cc5d238fd11c38171dcec26d547e04269afc8f",
+        "nodePassed": 27,
+        "liveReleased": false
       }
     },
     {
