@@ -46,7 +46,7 @@ export class MultiHot40Live {
   this.api=api;this.scene=scene;this.clock=clock;this.onState=onState;this.generation=0;this.session=null;this.model=null;this.stake=null;this.phase='loading';this.autoArmed=0;this.autoLeft=0;this.active=false;this.hidden=false;this.focused=true;this.disposed=false;this.lastReceipt=null;this.error=null;this.audio=null;
  }
  snapshot(){return {phase:this.phase,stake:this.stake,balance:this.session?.balance??null,autoArmed:this.autoArmed,autoLeft:this.autoLeft,lastReceipt:this.lastReceipt,error:this.error};}
- change(phase,error=null){this.phase=phase;this.error=error;this.onState(this.snapshot());}
+ change(phase,error=null){this.phase=phase;this.error=error;try{this.onState(this.snapshot());}catch{ /* A failing UI observer cannot alter wallet or round state. */ }}
  async boot(){
   const generation=++this.generation;this.active=false;this.autoLeft=0;this.change('loading');
   try {
@@ -72,21 +72,28 @@ export class MultiHot40Live {
  syncLifecycle(){if(this.visible()){this.scene.resume();this.audio?.resume?.();}else{this.stopAuto();this.scene.pause();this.audio?.pause?.();}}
  async spin(){
   if(this.disposed||!this.visible()||!['ready','confirm'].includes(this.phase)||this.active)return false;
-  const generation=this.generation,model=this.model,stake=this.stake,saved=this.api.pending();
+  const generation=this.generation,model=this.model,stake=this.stake;
+  let saved;
+  try{saved=this.api.pending();}catch(e){this.change('error',e.code||e.message);return false;}
   if(!model||!stake)return false;
   if(saved&&saved.bet!==stake){this.change('confirm','SAVED_BET_CONFLICT');return false;}
-  this.active=true;this.change('requesting');this.scene.start();
-  this.audio?.play?.('spin');
+  this.active=true;
+  let submitted=!!saved,settled=false;
   try {
+   this.change('requesting');
+   this.scene.start();
+   try{this.audio?.play?.('spin');}catch{ /* Audio never blocks or creates a wager. */ }
    const stillSignedIn=validatePlayer(await this.api.session());
    if(stillSignedIn.sessionId!==this.session.sessionId)fail('PLAYER_SESSION_CHANGED');
    // Re-query the existing model before creating a new request; never wager on changed rules.
    if(!saved){const now=validateModel(await this.api.model(GAME_ID));if(now.mathSha256!==model.mathSha256||now.mathVersion!==model.mathVersion||now.engineVersion!==model.engineVersion)fail('GAME_RULES_UPDATED_RELOAD');}
    if(generation!==this.generation||this.disposed)return false;
+   submitted=true;
    const receipt=validateRound(await this.api.spin(stake,saved?null:model),{model,bet:stake});
    if(generation!==this.generation||this.disposed)return false;
    const pending=this.api.pending();if(!pending)fail('ROUND_TOKEN_LOST');
-   this.api.complete(pending);
+   if(!this.api.complete(pending))fail('ROUND_REQUEST_CHANGED');
+   settled=true;
    this.lastReceipt=receipt;this.session={...this.session,balance:receipt.balance};
    this.change('revealing');
    try {
@@ -100,20 +107,28 @@ export class MultiHot40Live {
     return true;
    }
    if(generation!==this.generation||this.disposed)return false;
-   this.audio?.play?.('stop');
-   if(Number(receipt.finalWin)>0)this.audio?.play?.('win');
+   try{this.audio?.play?.('stop');if(Number(receipt.finalWin)>0)this.audio?.play?.('win');}catch{ /* Audio cannot invalidate a settled receipt. */ }
    this.change('ready');
    const continueAuto=this.autoLeft>0&&this.visible();
    if(continueAuto){this.autoLeft--;this.onState(this.snapshot());if(this.autoLeft>0){queueMicrotask(()=>{if(this.phase==='ready'&&this.visible()&&!this.disposed)this.spin();});}else this.stopAuto();}
    return true;
   }catch(e){
    if(generation!==this.generation||this.disposed)return false;
+   if(settled){
+    this.stopAuto();try{this.scene.reset();}catch{}
+    this.change('ready','ROUND_SETTLED_PRESENTATION_ERROR');
+    return true;
+   }
    const authRejected=e.status===401||e.status===403||['MACHINE_SESSION_CHANGED','PLAYER_NOT_AUTHENTICATED'].includes(e.code);
    const rejected=authRejected||definitelyRejected(e)||['GAME_RULES_UPDATED_RELOAD','PLAYER_SESSION_CHANGED'].includes(e.code);
    // Ambiguous failure retains the *same* saved request token for CONFIRM replay.
-   if(rejected){const pending=this.api.pending();if(pending)this.api.complete(pending);}
-   this.stopAuto();this.scene.reset();
-   this.change(authRejected?'error':rejected?'ready':'confirm',e.code||e.message);
+   let pending=null;
+   try{pending=this.api.pending();}catch{}
+   if(rejected&&pending)this.api.complete(pending);
+   this.stopAuto();try{this.scene.reset();}catch{}
+   // A presentation failure or preflight error before any wager was submitted
+   // has no saved token to confirm, so never strand the SPIN button on CONFIRM.
+   this.change(authRejected?'error':rejected||(!submitted&&!pending)?'ready':'confirm',e.code||e.message);
    return false;
   }finally {if(generation===this.generation&&!this.disposed){this.active=false;if(this.phase==='requesting')this.change('confirm','ROUND_CONFIRM_REQUIRED');}}
  }
