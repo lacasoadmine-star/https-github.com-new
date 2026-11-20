@@ -71,9 +71,11 @@ export class GameController {
   if(this.pending||this.phase!=='ready'||!this.visible()||!this.account)return false;
   const generation=this.generation,stake=this.bet;
   this.pending=true;
+  let submitted=false;
   try{
    this.change('spinning');
    this.scene.start?.(); // Any error here is pre-submit and creates no wager.
+   submitted=true;
    const raw=await this.session.spin(stake); // Existing session owns idempotency and wallet receipt.
    if(generation!==this.generation)return false;
    const receipt=validateReceipt(raw,this.account.game,stake);
@@ -92,8 +94,9 @@ export class GameController {
    this.stopAuto();
    try{this.scene.reset?.()}catch{}
    // An ambiguous transport response needs reconciliation, not a new wager.
-   const unresolved=!!this.session.pending;
-   this.change(unresolved?'confirm':error?.code==='SESSION_CHANGED'?'disconnected':'ready',error?.code||error?.message||'ROUND_UNAVAILABLE');
+   const rejected=[400,402,422].includes(error?.status)||['INSUFFICIENT_FUNDS','INVALID_BET','GAME_LOCKED'].includes(error?.code);
+   const unresolved=!!this.session.pending||submitted&&!rejected;
+   this.change(error?.code==='SESSION_CHANGED'?'disconnected':unresolved?'confirm':'ready',error?.code||error?.message||'ROUND_UNAVAILABLE');
    return false;
   }finally{if(generation===this.generation){this.pending=false;this.notify()}}
  }
