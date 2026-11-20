@@ -49,7 +49,7 @@ function createGame(game) {
 
 export function extendOriginals(existing, { paidIds = [] } = {}) {
   const selected = new Set(paidIds);
-  const models = games.map(createGame).filter(model => selected.has(model.id));
+  const models = games.filter(game => !game.previewOnly && selected.has(idFor(game))).map(createGame);
   const byId = new Map(models.map(model => [model.id, model]));
   if (byId.size !== selected.size || existing.GAMES.some(game => byId.has(game.id))) {
     throw Error('ORIGINALS_MODEL_SELECTION_INVALID');

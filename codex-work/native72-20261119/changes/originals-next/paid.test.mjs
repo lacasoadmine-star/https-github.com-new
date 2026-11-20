@@ -8,7 +8,9 @@ const existing = { GAMES: [{ id: 'existing' }], VERSION: 'current',
   math: () => ({ maxMultiplier: 20 }), spin: () => 'retained' };
 const game = games[0];
 const id = game.slug.replaceAll('-', '_');
-const extended = extendOriginals(existing, { paidIds: games.map(item => item.slug.replaceAll('-', '_')) });
+const extended = extendOriginals(existing, {
+  paidIds: games.filter(item => !item.previewOnly).map(item => item.slug.replaceAll('-', '_')),
+});
 
 test('cash models use distinct identities, retain the old engine and require explicit activation', () => {
   assert.deepEqual(extendOriginals(existing).nextManifest, []);
@@ -26,6 +28,7 @@ test('cash models use distinct identities, retain the old engine and require exp
     }
   }
   assert.throws(() => extendOriginals(existing, { paidIds: ['unknown'] }), /ORIGINALS_MODEL_SELECTION_INVALID/);
+  assert.throws(() => extendOriginals(existing, { paidIds: ['tidal_relay'] }), /ORIGINALS_MODEL_SELECTION_INVALID/);
 });
 
 test('an interrupted paid spin reuses the same request and accepts only a server ETB receipt', async () => {

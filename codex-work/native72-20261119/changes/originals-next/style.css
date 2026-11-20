@@ -24,8 +24,13 @@
 .original-game dialog::backdrop{background:#090910bf}.original-game dialog form{display:grid;gap:12px}
 .original-game #status{min-height:1.4em}.original-game footer{font-size:.78rem}
 .ember{--glow:#523023;--panel:#301e27;--stroke:#75495a;--accent:#ffc49a;--ink:#331a20}
-.board.wide{grid-template-columns:repeat(5,minmax(0,1fr))}
-.board.wide .tile{font-size:clamp(1.3rem,7vw,2.7rem);border-radius:8px}
+.board[data-columns="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.board[data-columns="5"]{grid-template-columns:repeat(5,minmax(0,1fr))}
+.board:is([data-columns="4"],[data-columns="5"]) .tile{font-size:clamp(1.3rem,7vw,2.7rem);border-radius:8px}
 .signal{--glow:#18395e;--panel:#152541;--stroke:#3b5a84;--accent:#a0edff;--ink:#102841}
 .neon{--glow:#573450;--panel:#2c1d3b;--stroke:#65466b;--accent:#ffa3de;--ink:#3c1535}
 .orbit{--glow:#242857;--panel:#171d38;--stroke:#444c77;--accent:#bfcaff;--ink:#222949}
+.tidal{--glow:#075976;--panel:#0b2d45;--stroke:#286780;--accent:#a6efff;--ink:#0c2a3d}
+.tidal .tile{background:linear-gradient(160deg,#14455c 0%,#102e48 55%,#102137 56%,#111f32 100%)}
+.canopy{--glow:#455720;--panel:#26351d;--stroke:#596a37;--accent:#f5e381;--ink:#2c3316}
+.canopy .tile{background:radial-gradient(ellipse at 50% 24%,#46532a,#1a2519 79%);text-shadow:0 0 .36em currentColor}

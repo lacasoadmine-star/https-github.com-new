@@ -29,7 +29,7 @@ export function installOriginalGames(previous, { assets, games, Rewriter = globa
     const method = request.method;
     const mode = env.ZPLAY_ORIGINALS_QA === 'true' ? 'preview' : 'paid';
     const approved = new Set((env.ZPLAY_NEW_ORIGINALS_PAID_IDS ?? '').split(','));
-    const shown = mode === 'preview' ? games : games.filter(game => approved.has(game.slug.replaceAll('-', '_')));
+    const shown = mode === 'preview' ? games : games.filter(game => !game.previewOnly && approved.has(game.slug.replaceAll('-', '_')));
     if (env.PORTAL !== 'player' || !shown.length || (method !== 'GET' && method !== 'HEAD')) {
       return previous.fetch.call(previous, request, env, ctx);
     }
@@ -45,7 +45,8 @@ export function installOriginalGames(previous, { assets, games, Rewriter = globa
         'Content-Type': type,
         'Cache-Control': 'no-store',
         'X-Content-Type-Options': 'nosniff',
-        'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'",
+        'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'; connect-src " +
+          (mode === 'paid' ? "'self'" : "'none'"),
       } });
     }
     const response = await previous.fetch.call(previous, request, env, ctx);

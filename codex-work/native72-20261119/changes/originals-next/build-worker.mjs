@@ -13,7 +13,7 @@ const files = ['index.html', 'style.css', 'lobby.css', 'app.mjs', 'round.mjs', '
 const assets = Object.fromEntries(await Promise.all(files.map(async name => [
   name, await readFile(new URL(name, import.meta.url), 'utf8'),
 ])));
-const metadata = games.map(({ slug, title, theme, description }) => ({ slug, title, theme, description }));
+const metadata = games.map(({ slug, title, theme, description, previewOnly }) => ({ slug, title, theme, description, previewOnly }));
 await mkdir(output, { recursive: true });
 await writeFile(join(output, 'worker.mjs'), await readFile(new URL('worker.mjs', import.meta.url)));
 await writeFile(join(output, 'entry.mjs'),

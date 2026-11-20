@@ -6,6 +6,8 @@ import { deal } from './round.mjs';
 import { installOriginalGames } from './worker.mjs';
 import prism from './games/prism-deluxe.mjs';
 import savanna from './games/savanna-signals.mjs';
+import tidal from './games/tidal-relay.mjs';
+import canopy from './games/canopy-lanterns.mjs';
 
 import { games } from './games/catalog.mjs';
 const names = ['index.html', 'lobby.css', 'app.mjs', 'round.mjs', 'cash.mjs', 'style.css', 'games/catalog.mjs', ...games.map(game => 'games/' + game.slug + '.mjs')];
@@ -28,6 +30,21 @@ test('distinct title rules award their own scores and bonuses', () => {
       assert.ok(Number.isSafeInteger(round.score) && round.score >= 0);
     }
   }
+});
+
+test('Tidal Relay and Canopy Lanterns settle known wins, bonuses and misses exactly', () => {
+  const play = (game, grid, multiplier, level) => {
+    const draws = [...grid.flat(), game.multipliers.indexOf(multiplier)];
+    const result = deal(game, level, () => draws.shift());
+    assert.equal(draws.length, 0);
+    return result;
+  };
+  assert.equal(play(tidal, [[0,4,1],[2,3,0],[1,2,3],[3,4,5]], 2, 2).score, 28);
+  assert.equal(play(tidal, [[0,1,2],[0,2,3],[0,3,4],[0,4,5]], 3, 1).score, 48);
+  assert.equal(play(tidal, [[0,1,2],[1,2,3],[2,3,4],[3,4,5]], 1, 1).score, 0);
+  assert.equal(play(canopy, [[0,1,2,0],[1,2,3,4],[2,3,4,5],[3,4,5,1],[0,5,1,0]], 4, 2).score, 56);
+  assert.equal(play(canopy, [[1,0,2,3],[1,2,3,4],[1,3,4,5],[1,4,5,0],[1,5,0,2]], 2, 1).score, 20);
+  assert.equal(play(canopy, [[1,1,2,3],[2,2,3,4],[3,3,4,5],[4,4,5,0],[5,5,0,1]], 1, 1).score, 0);
 });
 
 class Rewriter {
@@ -92,13 +109,18 @@ test('production Player never exposes the local score games', async () => {
 });
 
 test('the paid release shows only the titles selected for activation', async () => {
-  const env = { PORTAL: 'player', ZPLAY_NEW_ORIGINALS_PAID_IDS: 'prism_deluxe,savanna_signals' };
+  const env = { PORTAL: 'player', ZPLAY_NEW_ORIGINALS_PAID_IDS: 'prism_deluxe,savanna_signals,tidal_relay,canopy_lanterns' };
   const get = path => worker.fetch(new Request('https://qa.invalid' + path), env);
   const lobby = await (await get('/')).text();
   assert.match(lobby, /Play Now · Prism Deluxe/);
   assert.match(lobby, /Play Now · Savanna Signals/);
   assert.doesNotMatch(lobby, /Ember Arcade|Signal Ten|Neon Circuit|Orbit Hundred/);
-  const page = await (await get('/zplay-originals/prism-deluxe/')).text();
+  assert.doesNotMatch(lobby, /Tidal Relay|Canopy Lanterns/);
+  const reply = await get('/zplay-originals/prism-deluxe/');
+  assert.match(reply.headers.get('Content-Security-Policy'), /connect-src 'self'/);
+  const preview = await request('/zplay-originals/tidal-relay/', 'GET');
+  assert.match(preview.headers.get('Content-Security-Policy'), /connect-src 'none'/);
+  const page = await reply.text();
   assert.match(page, /data-mode="paid"/);
   assert.doesNotMatch(page, /Score points have no cash value/);
 });

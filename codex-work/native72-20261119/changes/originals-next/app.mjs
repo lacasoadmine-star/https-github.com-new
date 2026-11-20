@@ -5,7 +5,7 @@ import { CashGame } from './cash.mjs';
 const game = games.find(model => model.slug === document.body.dataset.game);
 const get = id => document.getElementById(id);
 const board = get('board');
-if (game.columns === 5) board.classList.add('wide');
+board.dataset.columns = game.columns;
 board.setAttribute('aria-label', game.columns + ' reels');
 const spin = get('spin');
 const auto = get('auto');
