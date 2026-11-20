@@ -50,7 +50,9 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
  async function audio(name){
   const file=name+'.mp3';
   if(!manifest.files[file])return null;
-  if(!urls.has(file))urls.set(file,URL.createObjectURL(await bytes(file)));
+  // Sound must use the same-origin asset route: the original Player CSP does
+  // not grant blob: for media, and the Worker pins every file's hash.
+  if(!urls.has(file)){await bytes(file);urls.set(file,new URL(file,base).href)}
   return urls.get(file);
  }
  async function primeAudio(){
@@ -59,7 +61,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
   }
   return result;
  }
- return {manifest,images:assetMap,primeAudio,dispose(){for(const uri of urls.values())URL.revokeObjectURL(uri);urls.clear();cache.clear()}};
+ return {manifest,images:assetMap,primeAudio,dispose(){urls.clear();cache.clear()}};
 }
 export function createSoundEngine({win=window,doc=document,audioConstructor=Audio,clipUrls={}}={}){
  const musicUrl=clipUrls.music||null;
