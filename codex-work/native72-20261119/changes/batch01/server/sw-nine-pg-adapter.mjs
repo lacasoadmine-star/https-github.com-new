@@ -50,7 +50,10 @@ export function createSwNinePgAdapter({
     if(body.identity!==undefined&&body.identity!==userId)fail('PLAYER_SESSION_CHANGED',403);
     const gameId=body.gameId;
     if(typeof gameId!=='string'||!Object.hasOwn(GAME_REFERENCE,gameId))fail('FRESH_GAME_UNAVAILABLE',404);
-    const profile=await profileForGame(gameId); // server-only; null when no approved profile
+    // An already-settled replay must not depend on the currently active
+    // probability profile (which may have been withdrawn or become unreadable).
+    // It is recovered from the existing sw_nine.game_rounds ledger by token.
+    const profile=body.replayOnly===true?null:await profileForGame(gameId);
     // New wagers must use the exact server-approved math presented by fresh-state.
     // Replays may refer to a prior approved model, recovered by token from DB.
     if(body.replayOnly!==true&&profile&&
