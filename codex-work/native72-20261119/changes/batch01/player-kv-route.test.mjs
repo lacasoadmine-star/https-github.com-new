@@ -17,10 +17,12 @@ const fakeVerifier=async bytes=>{
  return '0'.repeat(64);
 };
 
-test('all 45 paths are pinned to exactly two isolated games, no fake wallet',()=>{
+test('all 57 source, wheel, artwork and sound paths are pinned to exactly two isolated games, no fake wallet',()=>{
  const validated=validateGamePins(pins);
  assert.equal(Object.keys(validated.games).length,2);
- assert.equal(get.size,45);
+ assert.equal(get.size,57);
+ assert.ok(Object.values(pins.games).every(g=>g.files['assets/wheel.png']), 'multiplier wheel texture must be accessible to gameplay');
+ assert.ok(Object.values(pins.games).every(g=>g.files['assets/music.mp3']), 'original opt-in music must be accessible');
  assert.equal(validated.games.multihot20.id,'fresh_multihot20');
  assert.equal(validated.games.multihot5burnwilds.id,'fresh_multihot5burnwilds');
  assert.equal(validated.games.multihot20.published,false);
@@ -43,6 +45,7 @@ test('GET, HEAD, ETag and module MIME types on two isolated routes',async()=>{
   assert.equal(html.status,200);
   assert.equal(html.headers.get('Content-Type'),'text/html; charset=utf-8');
   assert.equal(html.headers.get('X-Zplay-Release'),pins.release);
+  assert.match(html.headers.get('Content-Security-Policy'),/media-src 'self'/);
   assert.equal((await html.arrayBuffer()).byteLength,game.files['index.html'].bytes);
   const js=await route(new Request(url+'app.mjs'),allowed());
   assert.equal(js.status,200);
@@ -50,6 +53,9 @@ test('GET, HEAD, ETag and module MIME types on two isolated routes',async()=>{
   const etag=js.headers.get('ETag');
   const notModified=await route(new Request(url+'app.mjs',{headers:{'If-None-Match':etag}}),allowed());
   assert.equal(notModified.status,304);
+  const wheel=await route(new Request(url+'assets/wheel.png'),allowed());
+  assert.equal(wheel.status,200);
+  assert.equal(wheel.headers.get('Content-Type'),'image/png');
   const head=await route(new Request(url+'assets/seven.png',{method:'HEAD'}),allowed());
   assert.equal(head.status,200);
   assert.equal((await head.arrayBuffer()).byteLength,0);
