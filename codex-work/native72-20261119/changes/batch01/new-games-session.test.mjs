@@ -137,3 +137,36 @@ for(const m of [hot20,burn]){
   assert.equal(c.bet,'2.00');
  });
 }
+
+for(const m of [hot20,burn]){
+ test(m.GAME_SPEC.title+' honors existing Player active-game, house-capacity and session permission before wager',async()=>{
+  const {account}=fixtures(m);let posts=0;
+  const session={phase:'READY',pending:null,spin:async()=>{posts++;throw Error('NOT_ALLOWED')}};
+  const controller=new m.GameController({session,scene:{reset(){}}});
+  assert.equal(controller.connect({...account,blockedByActiveGame:true}),false);
+  assert.equal(controller.phase,'unavailable');
+  assert.equal(await controller.spin(),false);
+  assert.equal(controller.connect({...account,game:{...account.game,wagerAvailability:'house_capacity'}}),false);
+  assert.equal(controller.phase,'unavailable');
+  session.phase='UNAVAILABLE';
+  assert.equal(controller.connect(account),false);
+  assert.equal(await controller.spin(),false);
+  assert.equal(posts,0,'existing Player must never charge a refused wager');
+ });
+ test(m.GAME_SPEC.title+' stops AUTO when refreshed authenticated ledger disallows new wager',async()=>{
+  const {account,receipt}=fixtures(m);let posts=0;
+  const session={phase:'READY',pending:null,
+   spin:async()=>{posts++;return receipt},
+   finish:async()=>{session.phase='UNAVAILABLE';return {...account,blockedByActiveGame:true}}
+  };
+  const controller=new m.GameController({session,scene:{start(){},async settle(){},reset(){}}});
+  assert.equal(controller.connect(account),true);
+  assert.equal(controller.armAuto(20),true);
+  assert.equal(await controller.startPlay(),true);
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(posts,1,'AUTO must not charge a second wager after server lock');
+  assert.equal(controller.phase,'unavailable');
+  assert.equal(controller.auto.armed,0);
+  assert.equal(await controller.spin(),false);
+ });
+}
