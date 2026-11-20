@@ -23,10 +23,10 @@ export class BurnWildsScene {
   this.width=WIDTH;this.height=HEIGHT;this.rolling=false;this.disposed=false;
   this.current=null;this.receipt=null;this.pending=null;this.finishAt=0;this.stopHint=false;
   this.lastTime=0;this.frames=0;this.frameId=null;this.reelStopped=Array(REELS).fill(false);
-  this.fpsSamples=[];this.resolveAnimation=null;this.reducedMotion=false;this.hidden=false;
-  this.onVisibility=()=>{this.hidden=!!this.doc?.hidden;this.pauseAudio();if(this.hidden&&this.pending)this._finish();else if(!this.hidden)this._paint(this.clock())};
-  this.onBlur=()=>{this.hidden=true;this.pauseAudio();if(this.pending)this._finish()};
-  this.onFocus=()=>{this.hidden=!!this.doc?.hidden;this._paint(this.clock())};
+  this.fpsSamples=[];this.resolveAnimation=null;this.reducedMotion=false;this.hidden=false;this.focused=true;
+  this.onVisibility=()=>{this.hidden=!!this.doc?.hidden||!this.focused;this.pauseAudio();if(this.hidden&&this.pending)this._finish();else if(!this.hidden)this._paint(this.clock())};
+  this.onBlur=()=>{this.focused=false;this.hidden=true;this.pauseAudio();if(this.pending)this._finish()};
+  this.onFocus=()=>{this.focused=true;this.hidden=!!this.doc?.hidden;this._paint(this.clock())};
   doc?.addEventListener?.('visibilitychange',this.onVisibility);
   win?.addEventListener?.('blur',this.onBlur);
   win?.addEventListener?.('focus',this.onFocus);
@@ -46,6 +46,7 @@ export class BurnWildsScene {
  }
  start(){
   if(this.disposed||this.rolling)throw Error('REELS_NOT_READY');
+  if(this.hidden||this.doc?.hidden)throw Error('GAME_NOT_VISIBLE');
   this._verifySymbols();this.rolling=true;this.stopHint=false;this.pending=null;this.finishAt=0;
   this.reelStopped.fill(false);this.startedAt=this.clock();this.lastTime=0;this.frames=0;this.fpsSamples=[];
   this._sound('spin');this._loop();
@@ -88,7 +89,7 @@ export class BurnWildsScene {
  _displaySymbol(row,col,now){
   if(this.pending&&now>=this.finishAt+col*95)return this.pending.grid[row][col];
   if(!this.rolling&&this.current)return this.current[row][col];
-  const spinStep=Math.floor((now-(this.startedAt||now))/(70+col*8));
+  const spinStep=Math.floor((now-(this.startedAt??now))/(70+col*8));
   return this.symbols[((spinStep+(row*3)+(col*7))%this.symbols.length+this.symbols.length)%this.symbols.length];
  }
  _paint(time){
@@ -109,7 +110,7 @@ export class BurnWildsScene {
     this._symbol(ctx,sym,x+2,y+2,REEL_W-4,TILE_H-4);
     if(this.rolling&&!(this.pending&&now>=this.finishAt+col*95)){
      // Visual-only motion blur; final symbols come EXCLUSIVELY from receipt.grid.
-     const cy=(now-(this.startedAt||now))%(TILE_H/1.5);
+     const cy=(now-(this.startedAt??now))%(TILE_H/1.5);
      ctx.fillStyle='rgba(255,241,209,0.08)';ctx.fillRect(x+5,y+(cy%80),REEL_W-10,5);
     }
    }
