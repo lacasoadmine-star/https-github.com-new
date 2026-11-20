@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createAudio } from './audio.mjs';
+import { Presentation } from './presentation.mjs';
+import { portraitGeometry } from './portrait.mjs';
 
 test('Sign in to ZPLAY opens only the existing Player login, preserving the game return path', async () => {
  const app = await readFile(new URL('./app.mjs', import.meta.url), 'utf8');
@@ -57,4 +59,34 @@ test('audio stops on window blur or document hide and only resumes opted-in musi
    else globalThis[name] = value;
   }
  }
+});
+
+test('Samsung canvas touch targets remain at least 44 CSS px without covering SPIN or BET', () => {
+ const overlap=(a,b)=>{
+  const w=Math.max(0,Math.min(a[0]+a[2],b[0]+b[2])-Math.max(a[0],b[0]));
+  const h=Math.max(0,Math.min(a[1]+a[3],b[1]+b[3])-Math.max(a[1],b[1]));
+  return w*h;
+ };
+ for(const cssWidth of [320,360,390,412,600]){
+  const height=844-26;
+  const geometry=portraitGeometry(cssWidth,height);
+  const areas=Presentation.prototype.hitAreas.call({geometry,model:{win:'0.00',gambleAvailable:false}});
+  const scale=geometry.scale;
+  for(const name of ['menu','sound','turbo']){
+   const [x,y,w,h]=areas[name],orig=geometry.controls[name];
+   assert.ok(w*scale>=43.99&&h*scale>=43.99,`${name} @ ${cssWidth}: must reach 44 CSS pixels`);
+   assert.ok(x>=0&&y>=0&&x+w<=390+0.001&&y+h<=geometry.height+0.001,`${name} @ ${cssWidth}: stays inside viewport`);
+   assert.ok(orig[0]+orig[2]/2>=x&&orig[0]+orig[2]/2<=x+w,`${name} @ ${cssWidth}: original graphic center stays clickable`);
+   assert.ok(orig[1]+orig[3]/2>=y&&orig[1]+orig[3]/2<=y+h,`${name} @ ${cssWidth}: original graphic center y stays clickable`);
+  }
+  assert.equal(overlap(areas.turbo,areas.spin),0,`TURBO must not overlap SPIN at ${cssWidth}`);
+  assert.equal(overlap(areas.turbo,areas.bet),0,`TURBO must not overlap BET at ${cssWidth}`);
+  assert.deepEqual(areas.spin,geometry.controls.spin,'Do not change the SPIN wager area');
+  assert.deepEqual(areas.bet,geometry.controls.bet,'Do not change the BET area');
+ }
+});
+test('canvas sprites retain official-size artwork while hit regions are expanded',async()=>{
+ const file=await readFile(new URL('./presentation.mjs',import.meta.url),'utf8');
+ assert.ok(file.includes("g.controls[name]:r"),'Original icon artwork must be drawn at its own original size');
+ assert.match(file,/this\.geometry\.scale/,'minimum target size must respond to viewport scaling');
 });
