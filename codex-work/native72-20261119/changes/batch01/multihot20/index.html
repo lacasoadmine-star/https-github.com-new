@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="color-scheme" content="dark"><meta name="theme-color" content="#190f1d">
+ <title>Multi Hot 20 — ZPLAY</title>
+ <link rel="stylesheet" href="./style.css"><script defer type="module" src="./app.mjs"></script>
+</head><body>
+<main id="zplay" class="zplay-app" data-game="multihot20">
+ <header class="header">
+  <a class="brand" href="/" aria-label="Return to ZPLAY"><span class="mark">Z</span>PLAY</a>
+  <h1>Multi Hot 20</h1>
+  <a id="back" class="home" href="/">Lobby</a>
+ </header>
+ <section class="game-frame" aria-label="Multi Hot 20 live reel machine">
+  <canvas id="reels" width="960" height="600" role="img" aria-label="Five reels, three rows"></canvas>
+  <div id="loading" class="screen-message" role="status" aria-live="polite">Loading Multi Hot 20…</div>
+ </section>
+ <section class="account" aria-label="Player ETB and round information">
+  <div class="tile"><small>PLAYER BALANCE</small><output id="balance">—</output><small>ETB</small></div>
+  <div class="tile"><small>BET</small><output id="bet-value">—</output><small>ETB</small></div>
+  <div class="tile"><small>WIN</small><output id="win-value">0.00</output><small>ETB</small></div>
+  <div class="tile"><small>MULTIPLIER</small><output id="multiplier-value">—</output><small>×</small></div>
+ </section>
+ <nav class="controls" aria-label="Multi Hot 20 controls">
+  <button id="menu" type="button" aria-label="Open game menu">☰<span>MENU</span></button>
+  <button id="sound" type="button" aria-label="Sound settings">♫<span>SOUND</span></button>
+  <button id="bet" type="button" aria-label="Select bet" disabled>ETB<span>BET</span></button>
+  <button id="spin" class="spin" type="button" aria-label="Spin reels" disabled>SPIN</button>
+  <button id="turbo" type="button" aria-label="Toggle Turbo" aria-pressed="false">⚡<span>TURBO</span></button>
+  <button id="auto" type="button" aria-label="Autoplay options" disabled>↻<span>AUTO</span></button>
+  <button id="rules" type="button" aria-label="Paytable and rules">ⓘ<span>RULES</span></button>
+ </nav>
+ <div class="footer">
+  <p id="status" role="status" aria-live="polite">Connecting to ZPLAY Player…</p>
+  <a id="signin" href="/?login=1">Sign in to ZPLAY</a>
+  <button id="retry" type="button" hidden>Recover this round</button>
+ </div>
+</main>
+<dialog id="bet-dialog" aria-labelledby="bet-title"><form method="dialog"><header><h2 id="bet-title">Choose BET (ETB)</h2><button aria-label="Close BET">✕</button></header><div id="bet-options" class="bet-options"></div><p>Paytable preview never changes BET.</p></form></dialog>
+<dialog id="auto-dialog" aria-labelledby="auto-title"><form method="dialog"><header><h2 id="auto-title">AUTOPLAY</h2><button aria-label="Close AUTOPLAY">✕</button></header><label for="auto-count">Number of rounds</label><select id="auto-count"><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="50">50</option></select><div class="actions"><button id="auto-stop" type="button">STOP AUTO</button><button id="auto-start" type="button">START PLAY</button></div></form></dialog>
+<dialog id="menu-dialog" aria-labelledby="menu-title"><form method="dialog"><header><h2 id="menu-title">Multi Hot 20</h2><button aria-label="Close menu">✕</button></header><div class="menu-actions"><button id="menu-rules" type="button">Rules &amp; paytable</button><button id="menu-history" type="button">Last server round</button><button id="menu-sound" type="button">Sound settings</button><a href="/">Back to ZPLAY</a></div><p class="disclaimer">Round payouts and balance are read from the existing ZPLAY server, never calculated by this screen.</p></form></dialog>
+<dialog id="rules-dialog" aria-labelledby="rules-title"><form method="dialog"><header><h2 id="rules-title">Rules &amp; paytable</h2><button aria-label="Close rules">✕</button></header><pre id="paytable-text">Connecting to server rules…</pre></form></dialog>
+<dialog id="history-dialog" aria-labelledby="history-title"><form method="dialog"><header><h2 id="history-title">Last settled round</h2><button aria-label="Close history">✕</button></header><pre id="history-text"></pre><a href="/">Full history: ZPLAY account</a></form></dialog>
+<dialog id="sound-dialog" aria-labelledby="sound-title"><form method="dialog"><header><h2 id="sound-title">Sound &amp; music</h2><button aria-label="Close sound options">✕</button></header><div class="actions"><button id="sound-off" type="button">Sound OFF</button><button id="sound-on" type="button">Sound ON</button></div><label><input type="checkbox" id="music-opt">Background music (opt in)</label></form></dialog>
+</body></html>
