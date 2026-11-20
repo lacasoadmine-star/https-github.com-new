@@ -125,6 +125,36 @@ export class GameController {
    return false;
   }finally{if(generation===this.generation){this.pending=false;this.notify()}}
  }
+ async reconcile(){
+  if(this.pending||this.phase!=='confirm'||!this.account||!this.visible())return false;
+  const generation=this.generation,guard=this.account.sessionGuard;
+  this.pending=true;this.stopAuto();
+  try{
+   // The existing session owns the persisted roundToken. Replay-only cannot
+   // submit a new bet or change the amount. Never invent a wallet receipt.
+   if(this.unresolved()){
+    if(typeof this.session.recover!=='function')fail('REPLAY_ONLY_NOT_SUPPORTED');
+    const response=await this.session.recover();
+    if(generation!==this.generation||this.account?.sessionGuard!==guard)return false;
+    const receipt=validateReceipt(response,this.account.game,response.bet);
+    this.lastReceipt=receipt;
+    try{this.scene.start?.();await this.scene.settle?.(receipt)}catch{
+     // The transaction is settled even when a canvas fails to render it.
+     this.error='ROUND_SETTLED_RENDER_ERROR';
+    }
+   }
+   if(typeof this.session.finish!=='function')fail('LEDGER_REFRESH_REQUIRED');
+   const account=await this.session.finish();
+   if(generation!==this.generation||this.account?.sessionGuard!==guard)return false;
+   if(account?.sessionGuard!==guard||account.currency!=='ETB'||account.game?.id!==GAME_ID)fail('SESSION_CHANGED');
+   validateModel(account.game);
+   this.account=account;this.change('ready',this.error==='ROUND_SETTLED_RENDER_ERROR'?this.error:null);
+   return true;
+  }catch(error){
+   if(generation===this.generation)this.change('confirm',error?.code||error?.message||'RECONCILIATION_REQUIRED');
+   return false;
+  }finally{if(generation===this.generation){this.pending=false;this.notify()}}
+ }
  onHidden(){try{this.scene.pauseAudio?.()}catch{};this.stopAuto();}
  onVisible(){if(this.musicOptedIn&&this.visible())try{this.scene.resumeOptedInMusic?.()}catch{}}
  logout(){this.generation++;this.account=null;this.pending=false;this.lastReceipt=null;this.bet=GAME_SPEC.minETB;this.auto={armed:0,started:false};this.musicOptedIn=false;try{this.scene.pauseAudio?.();this.scene.reset?.()}catch{}this.change('disconnected')}
