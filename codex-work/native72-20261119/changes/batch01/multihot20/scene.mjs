@@ -36,7 +36,7 @@ export class MultiHot20Scene {
  _verifySymbols(){
   if(this.strictAssets&&this.symbols.some(s=>{const a=this._asset(s);return !a||!(a.complete??true)||!((a.naturalWidth??a.width)>0)}))throw Error('OFFICIAL_SPRITES_NOT_READY');
  }
- _sound(name){try{this.audio.play?.(name)}catch{ /* A broken speaker never changes a server receipt. */ }}
+ _sound(name){if(this.hidden||this.doc?.hidden||this.disposed)return;try{this.audio.play?.(name)}catch{ /* A broken speaker never changes a server receipt. */ }}
  resize(){
   const box=this.canvas.getBoundingClientRect(),w=box.width||WIDTH,h=box.height||HEIGHT;
   const dpr=Math.max(1,Math.min(2,this.win?.devicePixelRatio||1));
@@ -137,6 +137,10 @@ export class MultiHot20Scene {
  }
  _finish(){
   if(!this.pending||this.disposed)return;
+  // Complete all five reel-stop events exactly once. RAF's final frame can jump
+  // straight into finish, so the fifth sound cannot depend on another paint.
+  // Never emit reel-stop or win audio after blur/visibility loss.
+  for(let i=0;i<REELS;i++){if(!this.reelStopped[i]){this.reelStopped[i]=true;this._sound('reel-stop')}}
   this.current=this.pending.grid.map(row=>[...row]);this.receipt=this.pending;
   this.pending=null;this.rolling=false;
   if(this.frameId!==null){this.cancelFrame(this.frameId);this.frameId=null}
