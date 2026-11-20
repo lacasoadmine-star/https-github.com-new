@@ -5,7 +5,8 @@
 // This module is STAGED ONLY; it does not expose a public Play Now route.
 export const PRESENTATION_GAME_ID="fresh_multihot20";
 const REELS=5, ROWS=3, WIDTH=960, HEIGHT=600;
-const X=176,Y=110,REEL_W=143,TILE_H=128,GAP=8;
+// Dimensions measured against 1440×900 official gameplay capture, scaled to 960×600.
+const X=235,Y=170,REEL_W=96,TILE_H=96,GAP=0;
 const VIEW_GRID_WIDTH=REELS*(REEL_W+GAP)-GAP;
 const num=n=>Number.isFinite(n)?n:0;
 const noop=()=>{};
@@ -103,14 +104,24 @@ export class MultiHot20Scene {
   if(background&&(background.naturalWidth??background.width)>0){
    try{ctx.drawImage(background,0,0,WIDTH,HEIGHT)}catch{ /* Keep Canvas interactive if a decoded image fails. */ }
   }
-  const logo=this._asset('__logo');
-  if(logo&&(logo.naturalWidth??logo.width)>0){
-   const aspect=(logo.naturalWidth??logo.width)/Math.max(1,(logo.naturalHeight??logo.height));
-   const h=74,w=Math.min(340,h*aspect);
-   try{ctx.drawImage(logo,WIDTH/2-w/2,8,w,h)}catch{}
+  // Official wheel texture, with selected multiplier driven by the server receipt.
+  // During a spin only the decorative wheel number moves; NEVER compute a payout here.
+  const wheel=this._asset('__wheel');
+  if(wheel&&(wheel.naturalWidth??wheel.width)>0){
+   try{ctx.drawImage(wheel,240,55,480,145)}catch{}
+   const value=this.rolling?
+       this.pending&&now>=this.finishAt?this.pending.wheelMultiplier:1+(Math.floor((now-(this.startedAt??now))/130)%5):
+       this.receipt?.wheelMultiplier||2;
+   const multiplier=Number.isInteger(value)&&value>=1&&value<=5?value:2;
+   ctx.beginPath();ctx.moveTo(440,74);ctx.lineTo(538,74);ctx.lineTo(529,159);ctx.lineTo(448,159);ctx.closePath();
+   ctx.fillStyle='rgba(0,81,52,.98)';ctx.fill();ctx.strokeStyle='#bd7446';ctx.lineWidth=3;ctx.stroke();
+   ctx.textAlign='center';ctx.font='bold 42px Georgia,serif';ctx.lineWidth=2;
+   ctx.strokeStyle='#633313';ctx.fillStyle='#fce078';ctx.strokeText(multiplier+'×',489,134);ctx.fillText(multiplier+'×',489,134);
   }
-  ctx.font='bold 32px sans-serif';ctx.textAlign='left';ctx.fillStyle='#f2c56e';
-  ctx.fillText("MULTI HOT 20",X,66);
+  ctx.save();ctx.textAlign='left';ctx.shadowColor='#f32761';ctx.shadowBlur=9;
+  ctx.font='bold 38px Georgia,serif';ctx.fillStyle='#ffd259';ctx.fillText('MULTI HOT',37,110);
+  ctx.fillStyle='#ff4293';ctx.fillText('20',259,110);ctx.restore();
+  
   ctx.fillStyle='#130f16';ctx.fillRect(X-7,Y-9,VIEW_GRID_WIDTH+14,ROWS*TILE_H+18);
   for(let col=0;col<REELS;col++){
    const x=X+col*(REEL_W+GAP);
@@ -141,10 +152,11 @@ export class MultiHot20Scene {
    ctx.shadowBlur=0;
    
   }
-  ctx.fillStyle='#f6bd56';ctx.textAlign='center';ctx.font='bold 20px sans-serif';
-  for(let i=1;i<=5;i++){ctx.fillText(i+'×',95,Y+26+(i-1)*72)}
-  ctx.textAlign='left';ctx.fillStyle='#ffffff';ctx.font='16px sans-serif';
-  ctx.fillText(this.rolling?'REELS MOVING — STOP AVAILABLE':receipt?'SERVER RESULT DISPLAYED':'AWAITING SPIN',X,HEIGHT-42);
+  // The artwork shows one multiplier wheel, not a fictional vertical 1×–5× list.
+  // Account BET/WIN labels and buttons belong to the real interactive UI layer.
+  ctx.shadowBlur=0;ctx.strokeStyle='#b98b46';ctx.lineWidth=3;
+  ctx.strokeRect(X-5,Y-5,VIEW_GRID_WIDTH+10,ROWS*TILE_H+10);
+  
  }
  _finish(){
   if(!this.pending||this.disposed)return;
