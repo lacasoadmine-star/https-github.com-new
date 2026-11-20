@@ -82,6 +82,8 @@ jobs:
           node --test codex-work/native72-20261119/changes/batch01/server/official-math.test.mjs
           node --check codex-work/native72-20261119/changes/batch01/server/official-math.mjs
           node --check codex-work/native72-20261119/changes/batch01/server/official-math.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/server/sw-nine-pg-adapter.test.mjs
+          node --check codex-work/native72-20261119/changes/batch01/server/sw-nine-pg-adapter.mjs
       - name: Verify first ten unique game release checkpoints
         run: |
           node --test codex-work/native72-20261119/changes/batch01/release-readiness.test.mjs
