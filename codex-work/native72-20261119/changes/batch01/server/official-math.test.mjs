@@ -257,3 +257,20 @@ test('1,000 deterministic independent game boards respect archived paylines, pro
  }
  assert(wildOutputs>=0 && paidOutcomes>0);
 });
+
+test('Burn Wilds nonintegral FoundationBet stake is rejected before any existing wallet transaction',async()=>{
+ let transactions=0;
+ const ledger=ledgerFixture();
+ const withExistingTransaction=async fn=>{transactions++;return ledger.withExistingTransaction(fn)};
+ await assert.rejects(
+   ()=>settleExistingPlayerRound({
+     userId:'user_7',gameId:BURN,bet:'1.05',roundToken:token,
+     profile:fakeCertifiedProfile(BURN),withExistingTransaction
+   }),
+   e=>e.code==='BET_OUTSIDE_WORKER_POLICY'&&e.status===422
+ );
+ assert.equal(transactions,0,'invalid provider stake must not acquire DB locks or debit');
+ assert.equal(ledger.state.user,10000n);
+ assert.equal(ledger.state.house,10000000n);
+ assert.equal(ledger.state.records.size,0);
+});
