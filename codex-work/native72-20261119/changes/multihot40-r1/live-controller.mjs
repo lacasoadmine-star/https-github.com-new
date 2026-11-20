@@ -46,7 +46,8 @@ export class MultiHot40Live {
   this.api=api;this.scene=scene;this.clock=clock;this.onState=onState;this.generation=0;this.session=null;this.model=null;this.stake=null;this.phase='loading';this.autoArmed=0;this.autoLeft=0;this.active=false;this.hidden=false;this.focused=true;this.disposed=false;this.lastReceipt=null;this.error=null;this.audio=null;
  }
  snapshot(){return {phase:this.phase,stake:this.stake,balance:this.session?.balance??null,autoArmed:this.autoArmed,autoLeft:this.autoLeft,lastReceipt:this.lastReceipt,error:this.error};}
- change(phase,error=null){this.phase=phase;this.error=error;try{this.onState(this.snapshot());}catch{ /* A failing UI observer cannot alter wallet or round state. */ }}
+ notify(){try{this.onState(this.snapshot());}catch{ /* UI callbacks never own wallet, settlement, or lifecycle state. */ }}
+ change(phase,error=null){this.phase=phase;this.error=error;this.notify();}
  async boot(){
   const generation=++this.generation;this.active=false;this.autoLeft=0;this.change('loading');
   try {
@@ -61,11 +62,11 @@ export class MultiHot40Live {
    this.change(pending?'confirm':'ready');return true;
   }catch(e){if(generation!==this.generation||this.disposed)return false;this.change('error',e.code||e.message);return false;}
  }
- bet(value){if(this.phase!=='ready'||this.autoLeft||this.autoArmed)return false;if(!this.model?.betLevels.includes(value))return false;this.stake=value;this.onState(this.snapshot());return true;}
- armAuto(count){if(this.phase!=='ready'||!Number.isInteger(count)||count<1||count>100)return false;this.autoArmed=count;this.onState(this.snapshot());return true;}
+ bet(value){if(this.phase!=='ready'||this.autoLeft||this.autoArmed)return false;if(!this.model?.betLevels.includes(value))return false;this.stake=value;this.notify();return true;}
+ armAuto(count){if(this.phase!=='ready'||!Number.isInteger(count)||count<1||count>100)return false;this.autoArmed=count;this.notify();return true;}
  // Selecting AUTO never executes a spin. Only this explicit START PLAY entry does.
  async startPlay(){if(!this.autoArmed||this.phase!=='ready')return false;this.autoLeft=this.autoArmed;this.autoArmed=0;return this.spin();}
- stopAuto(){this.autoArmed=0;this.autoLeft=0;this.onState(this.snapshot());}
+ stopAuto(){this.autoArmed=0;this.autoLeft=0;this.notify();}
  visible(){return !this.disposed&&!this.hidden&&this.focused;}
  visibility(hidden){this.hidden=!!hidden;this.syncLifecycle();}
  focus(focused){this.focused=!!focused;this.syncLifecycle();}
@@ -110,7 +111,7 @@ export class MultiHot40Live {
    try{this.audio?.play?.('stop');if(Number(receipt.finalWin)>0)this.audio?.play?.('win');}catch{ /* Audio cannot invalidate a settled receipt. */ }
    this.change('ready');
    const continueAuto=this.autoLeft>0&&this.visible();
-   if(continueAuto){this.autoLeft--;this.onState(this.snapshot());if(this.autoLeft>0){queueMicrotask(()=>{if(this.phase==='ready'&&this.visible()&&!this.disposed)this.spin();});}else this.stopAuto();}
+   if(continueAuto){this.autoLeft--;this.notify();if(this.autoLeft>0){queueMicrotask(()=>{if(this.phase==='ready'&&this.visible()&&!this.disposed)this.spin();});}else this.stopAuto();}
    return true;
   }catch(e){
    if(generation!==this.generation||this.disposed)return false;
