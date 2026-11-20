@@ -62,3 +62,81 @@ test('an interrupted paid spin reuses the same request and accepts only a server
   await assert.rejects(adapter.connect(), /PLAYER_LOGIN_REQUIRED/);
   assert.equal(adapter.current, null);
 });
+
+test('only a definitive spin rejection clears a saved wager', async () => {
+  const model = extended.nextManifest[0];
+  const values = new Map(), wagers = [];
+  let outcome = 'network';
+  let refreshRejected = false;
+  const adapter = new CashGame(game, {
+    storage: { getItem: key => values.get(key), setItem: (key, value) => values.set(key, value),
+      removeItem: key => values.delete(key) },
+    fetcher: async (path, options) => {
+      if (path.endsWith('/session')) {
+        if (refreshRejected) return Response.json({ detail: 'SLOT_RELEASE_NOT_ENABLED' }, { status: 503 });
+        return Response.json({ authenticated: true, identity: 'account-a', balance: '10.00',
+          currency: 'ETB', enabled: true, nextGames: [model] });
+      }
+      wagers.push(JSON.parse(options.body));
+      if (outcome === 'network') throw Error('INSUFFICIENT_FUNDS');
+      if (outcome === 'wrong-status') return Response.json({ detail: 'INSUFFICIENT_FUNDS' }, { status: 503 });
+      if (outcome === 'definitive') return Response.json({ detail: 'INSUFFICIENT_FUNDS' }, { status: 402 });
+      refreshRejected = true;
+      return Response.json({ ...extended.spin(id, 1), walletSettled: true, currency: 'ETB',
+        chargedStake: '1.00', balanceBefore: '10.00', balanceAfter: '9.00', finalWin: '0.00' });
+    },
+  });
+  await adapter.connect();
+  await assert.rejects(adapter.spin('1.00'), /INSUFFICIENT_FUNDS/);
+  assert.equal(values.size, 1);
+  outcome = 'wrong-status';
+  await assert.rejects(adapter.spin('1.00'), /INSUFFICIENT_FUNDS/);
+  assert.equal(values.size, 1);
+  outcome = 'settled';
+  await assert.rejects(adapter.spin('1.00'), /SLOT_RELEASE_NOT_ENABLED/);
+  assert.equal(values.size, 1);
+  assert.deepEqual(wagers[0], wagers[1]);
+  assert.deepEqual(wagers[1], wagers[2]);
+  refreshRejected = false;
+  outcome = 'definitive';
+  await assert.rejects(adapter.spin('1.00'), /INSUFFICIENT_FUNDS/);
+  assert.equal(values.size, 0);
+  assert.equal(adapter.busy, false);
+});
+
+test('a late spin cannot replace the balance or delete the pending wager for a newer session', async () => {
+  const model = extended.nextManifest[0];
+  const values = new Map();
+  let identity = 'older-account';
+  let balance = '10.00';
+  let releaseSpin;
+  let spinStarted;
+  const started = new Promise(resolve => { spinStarted = resolve; });
+  const delayed = new Promise(resolve => { releaseSpin = resolve; });
+  const adapter = new CashGame(game, {
+    storage: { getItem: key => values.get(key), setItem: (key, value) => values.set(key, value),
+      removeItem: key => values.delete(key) },
+    fetcher: async path => {
+      if (path.endsWith('/session')) {
+        return Response.json({ authenticated: true, identity, balance,
+          currency: 'ETB', enabled: true, nextGames: [model] });
+      }
+      spinStarted();
+      return delayed;
+    },
+  });
+  await adapter.connect();
+  const spin = adapter.spin('1.00');
+  await started;
+  identity = 'newer-account';
+  balance = '47.00';
+  await adapter.connect();
+  const newKey = 'zplay:originals:round:' + id + ':' + identity;
+  values.set(newKey, 'pending-newer-round');
+  releaseSpin(Response.json({ ...extended.spin(id, 1), walletSettled: true, currency: 'ETB',
+    chargedStake: '1.00', balanceBefore: '10.00', balanceAfter: '9.00', finalWin: '0.00' }));
+  await assert.rejects(spin, /PLAYER_SESSION_CHANGED/);
+  assert.equal(adapter.current.balance, '47.00');
+  assert.equal(values.get(newKey), 'pending-newer-round');
+  assert.equal(adapter.busy, false);
+});

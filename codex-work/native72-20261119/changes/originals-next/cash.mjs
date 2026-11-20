@@ -1,9 +1,21 @@
 const prefix = '/api/slots/originals/';
 const money = /^(0|[1-9][0-9]*)\.[0-9]{2}$/;
 const token = /^[a-f0-9-]{36}$/i;
-const rejected = new Set(['INSUFFICIENT_FUNDS', 'GAME_BET_OR_TOKEN_INVALID', 'GAME_RULES_UPDATED_RELOAD',
-  'HOUSE_RESERVE_INSUFFICIENT', 'SLOT_RELEASE_NOT_ENABLED', 'IDEMPOTENCY_PARAMETER_CONFLICT']);
+const rejected = new Map([
+  ['GAME_BET_OR_TOKEN_INVALID', 400],
+  ['INSUFFICIENT_FUNDS', 402],
+  ['GAME_RULES_UPDATED_RELOAD', 409],
+  ['HOUSE_RESERVE_INSUFFICIENT', 503],
+  ['SLOT_RELEASE_NOT_ENABLED', 503],
+]);
 const cents = amount => BigInt(amount.replace('.', ''));
+
+class OriginalsResponseError extends Error {
+  constructor(detail, status) {
+    super(detail || 'PLAYER_GAME_UNAVAILABLE');
+    this.status = status;
+  }
+}
 
 export class CashGame {
   constructor(game, { fetcher = globalThis.fetch.bind(globalThis), storage = globalThis.sessionStorage } = {}) {
@@ -24,7 +36,7 @@ export class CashGame {
       signal: AbortSignal.timeout(15000),
     });
     const data = await response.json();
-    if (!response.ok) throw Error(data.detail || 'PLAYER_GAME_UNAVAILABLE');
+    if (!response.ok) throw new OriginalsResponseError(data?.detail, response.status);
     return data;
   }
 
@@ -59,7 +71,6 @@ export class CashGame {
     const current = this.current;
     const generation = this.generation;
     const key = 'zplay:originals:round:' + this.id + ':' + current.identity;
-    let pending;
     try {
       const fresh = await this.read();
       if (this.generation !== generation || fresh.identity !== current.identity ||
@@ -67,7 +78,7 @@ export class CashGame {
         if (this.generation === generation) this.invalidate();
         throw Error('PLAYER_SESSION_CHANGED');
       }
-      pending = JSON.parse(this.storage.getItem(key) || 'null');
+      let pending = JSON.parse(this.storage.getItem(key) || 'null');
       if (pending && (!token.test(pending.roundToken) || pending.identity !== current.identity || pending.gameId !== this.id ||
           !fresh.model.betLevels.includes(pending.bet) || pending.mathVersion !== fresh.model.mathVersion)) {
         throw Error('SAVED_ROUND_REQUIRES_REVIEW');
@@ -78,12 +89,20 @@ export class CashGame {
           mathVersion: fresh.model.mathVersion, roundToken: crypto.randomUUID() };
         this.storage.setItem(key, JSON.stringify(pending));
       }
-      const result = await this.request('spin', pending);
+      let result;
+      try {
+        result = await this.request('spin', pending);
+      } catch (error) {
+        if (error instanceof OriginalsResponseError && rejected.get(error.message) === error.status) {
+          this.clearPending(key, pending);
+        }
+        throw error;
+      }
       const validGrid = Array.isArray(result.grid) && result.grid.length === this.game.columns && result.grid.every(
         reel => Array.isArray(reel) && reel.length === this.game.rows &&
           reel.every(symbol => Number.isInteger(symbol) && symbol >= 0 && symbol < this.game.symbols.length),
       );
-      if (!result.walletSettled || result.currency !== 'ETB' || result.gameId !== this.id ||
+      if (result.walletSettled !== true || result.currency !== 'ETB' || result.gameId !== this.id ||
           result.mathVersion !== fresh.model.mathVersion || result.mathSha256 !== fresh.model.mathSha256 ||
           !token.test(result.roundId) || !validGrid || !this.game.multipliers.includes(result.wheelMultiplier) ||
           !Array.isArray(result.lines) || !result.lines.every(line => Number.isInteger(line) && this.game.lines[line]) ||
@@ -101,9 +120,6 @@ export class CashGame {
       this.current = after;
       this.clearPending(key, pending);
       return { ...result, displayBalance: after.balance };
-    } catch (error) {
-      if (pending && rejected.has(error.message)) this.clearPending(key, pending);
-      throw error;
     } finally {
       this.busy = false;
     }
