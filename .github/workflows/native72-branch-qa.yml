@@ -77,6 +77,12 @@ jobs:
         run: |
           node --test codex-work/native72-20261119/changes/safari-live-r5/mobile-touch.test.mjs
           node --check codex-work/native72-20261119/changes/safari-live-r5/game.mjs
+      - name: Verify first ten game batch dedicated audio engines
+        run: |
+          node --test codex-work/native72-20261119/changes/batch01/audio-r3/audio-lifecycle.test.mjs
+          for game in multihot100 multihot5wild multihot5deluxe multihot5superwilds multihotwildways; do
+            node --check "codex-work/native72-20261119/changes/batch01/audio-r3/$game/game.mjs"
+          done
       - name: Verify Safari Simba immutable r4 package
         run: |
           node --test codex-work/native72-20261119/changes/safari-r4/release.test.mjs
