@@ -15,7 +15,7 @@ const request=new Request('https://superwin-player.apdiy61.workers.dev/api/slots
 const data={gameId,bet:'1.00',roundToken:token,sessionGuard:guard,mathSha256:profile.mathSha256,mathVersion:profile.mathVersion,engineVersion:profile.engineVersion};
 function env({player=10000n,houseBalance=10000000n,accepting=true,operator=true,brokenPayout=false}={}){
  let db={wallets:{[uid]:player,[house]:houseBalance},rounds:new Map(),legacyRounds:[],moves:[],version:0};
- let serial=Promise.resolve();let activeProfile=profile;
+ let serial=Promise.resolve();let activeProfile=profile;let profileLookupFails=false;
  const transaction=fn=>{
    const work=serial.catch(()=>{}).then(async()=>{
      const local=structuredClone(db);
@@ -53,7 +53,7 @@ function env({player=10000n,houseBalance=10000000n,accepting=true,operator=true,
    houseFor:()=>house,
    hash,
    accepting:()=>accepting,
-   profileForGame:async()=>activeProfile,
+   profileForGame:async()=>{if(profileLookupFails)throw Error('PROFILE_STORE_UNAVAILABLE');return activeProfile},
    assertOperatorWagerEnabled:async(id)=>{if(!operator)throw Error('DISABLED_OPERATOR_MODEL');assert.equal(id,gameId)},
    move:async(c,user,round,g,kind,amount,from,to)=>{
      assert.equal(user,uid);assert.equal(g,gameId);assert.ok(['BET','WIN'].includes(kind));
@@ -63,7 +63,7 @@ function env({player=10000n,houseBalance=10000000n,accepting=true,operator=true,
      if(brokenPayout&&kind==='WIN')throw Error('SIMULATED_TRANSFER_FAILURE');
    }
  });
- return{api,read:()=>db,disableProfile:()=>{activeProfile=null}};
+ return{api,read:()=>db,disableProfile:()=>{activeProfile=null},failProfileLookup:()=>{profileLookupFails=true}};
 }
 
 test('uses existing sw_rebuild wallet accounts, transfers and sw_nine round tables without new DB',async()=>{
@@ -118,4 +118,18 @@ test('failed existing house-to-Player transfer rolls back bet, win and round ato
  await assert.rejects(()=>x.api(request,data),/SIMULATED_TRANSFER_FAILURE/);
  assert.equal(x.read().wallets[uid],10000n);assert.equal(x.read().wallets[house],10000000n);
  assert.equal(x.read().moves.length,0);assert.equal(x.read().rounds.size,0);
+});
+
+test('replayOnly survives operator profile storage outage and never charges again',async()=>{
+ const x=env();
+ const settled=await x.api(request,data);
+ x.failProfileLookup();
+ const recovered=await x.api(request,{...data,replayOnly:true});
+ assert.deepEqual(recovered,settled);
+ assert.equal(x.read().moves.filter(m=>m.kind==='BET').length,1);
+ await assert.rejects(
+   ()=>x.api(request,{...data,roundToken:'a4830693-9716-4393-9868-a2f9dd0b8234'}),
+   /PROFILE_STORE_UNAVAILABLE/
+ );
+ assert.equal(x.read().moves.filter(m=>m.kind==='BET').length,1);
 });
