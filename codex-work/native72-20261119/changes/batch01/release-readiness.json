@@ -30,7 +30,8 @@
     "No unverified slot payout math or screenshot-as-game substitutions are accepted.",
     "Five additional games' overlapping TURBO hit areas were corrected per game and verified with Playwright across 360/390/412px; no public asset deployment has occurred.",
     "Dedicated original 5x3 Canvas scenes for Multi Hot 20 and Burn Wilds were browser-tested with synthetic QA sprites; strict production mode refuses missing real symbol atlases, and no public route, verified server math or authenticated ETB wagering has been activated.",
-    "2026-11-21: Multi Hot 20 and Burn Wilds official-capture media and all 16 source files staged in existing Cloudflare SSG_OFFICIAL_REFERENCES; 57 exact pinned release entries; 26 critical KV source/media hash readbacks passed. Both independent actual frontend pages passed isolated browser intercept SPIN/recovery QA, not real ETB. Public /new74 routes still 404 because main Player wrapper was not deployed; release pins published=false until authoritative math and real Player ledger certification."
+    "2026-11-21: Multi Hot 20 and Burn Wilds official-capture media and all 16 source files staged in existing Cloudflare SSG_OFFICIAL_REFERENCES; 57 exact pinned release entries; 26 critical KV source/media hash readbacks passed. Both independent actual frontend pages passed isolated browser intercept SPIN/recovery QA, not real ETB. Public /new74 routes still 404 because main Player wrapper was not deployed; release pins published=false until authoritative math and real Player ledger certification.",
+    "2026-11-21: All 57/57 pinned KV assets read back with SHA-256 and size verified; both mobile layouts passed 16/16 viewport checks from 320px to 1440px; wager availability lock regressions passed in browser import QA; none of these authorize real-money games."
   ],
   "entries": [
     {
@@ -142,7 +143,12 @@
         "browser_bet_auto_menu_sound_controls",
         "sha256_verified_26_critical_kv_assets_combined",
         "browser_20_pinned_routes_passed_in_qa_mode",
-        "actual_new_player_route_still_not_live"
+        "actual_new_player_route_still_not_live",
+        "kv_readback_sha256_57_57_across_both_games",
+        "mobile_touch_320_350_360_390_412_440_768_1440_16_16_both_games",
+        "player_house_capacity_active_game_and_SESSION_UNAVAILABLE_gate_test",
+        "controller_CSS_repinned_verified_in_existing_KV",
+        "zero_real_ETB_tests"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -172,7 +178,11 @@
         "router": "./player-kv-route.mjs",
         "published": false,
         "verifiedCriticalReadbacksCombined": 26,
-        "sourceGitBranch": "work/native72-session-presentation-20261119"
+        "sourceGitBranch": "work/native72-session-presentation-20261119",
+        "allPinnedFilesHashVerified": true,
+        "criticalAndRemainingReadbacksCombined": 57,
+        "viewportGeometryPassed": 16,
+        "playerSettlementSourceConfirmed": false
       }
     },
     {
@@ -329,7 +339,12 @@
         "playwright_burn_wilds_server_selected_expansion",
         "sha256_verified_26_critical_kv_assets_combined",
         "browser_20_pinned_routes_passed_in_qa_mode",
-        "actual_new_player_route_still_not_live"
+        "actual_new_player_route_still_not_live",
+        "kv_readback_sha256_57_57_across_both_games",
+        "mobile_touch_320_350_360_390_412_440_768_1440_16_16_both_games",
+        "player_house_capacity_active_game_and_SESSION_UNAVAILABLE_gate_test",
+        "controller_CSS_repinned_verified_in_existing_KV",
+        "zero_real_ETB_tests"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -359,7 +374,11 @@
         "router": "./player-kv-route.mjs",
         "published": false,
         "verifiedCriticalReadbacksCombined": 26,
-        "sourceGitBranch": "work/native72-session-presentation-20261119"
+        "sourceGitBranch": "work/native72-session-presentation-20261119",
+        "allPinnedFilesHashVerified": true,
+        "criticalAndRemainingReadbacksCombined": 57,
+        "viewportGeometryPassed": 16,
+        "playerSettlementSourceConfirmed": false
       }
     },
     {
