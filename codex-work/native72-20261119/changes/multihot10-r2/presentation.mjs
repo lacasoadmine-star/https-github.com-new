@@ -10,7 +10,9 @@ export class Presentation{
    // keeping TURBO clear of the active SPIN and BET targets.
    for(const name of ['menu','sound','turbo']){
     const [left,top,w,h]=out[name];
-    const width=Math.max(44,w),height=Math.max(44,h);
+    // 44 *CSS pixels* on phones of any width, not 44 virtual canvas units.
+    const minTouch=44/(this.geometry.scale||1);
+    const width=Math.max(minTouch,w),height=Math.max(minTouch,h);
     let x=left-(width-w)/2,y=top-(height-h)/2;
     if(name==='turbo'){
      const [spinX,,spinW]=out.spin,[,betY]=out.bet;
