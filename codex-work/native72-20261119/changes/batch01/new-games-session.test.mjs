@@ -15,7 +15,7 @@ function fixtures(module){
   grid:Array.from({length:3},()=>Array.from({length:5},()=> 'cherry')),
   wheelMultiplier:3,winLines:[],finalWin:'0.00',
   walletReceipt:{currency:'ETB',balanceBefore:'10.00',chargedStake:'1.00',finalWin:'0.00',balanceAfter:'9.00'},
-  features:{expandedWildReels:[1,3]}
+  features:{expandedWildReels:[]}
  };
  const account={authenticated:true,sessionGuard:'a'.repeat(64),currency:'ETB',game:model};
  return {model,receipt,account};
@@ -93,11 +93,21 @@ for(const m of [hot20,burn]){
   assert.equal(c.phase,'ready');assert.equal(c.error,'ROUND_SETTLED_RENDER_ERROR');
  });
 }
-test('Burn Wilds expands only authenticated server-selected reels 2, 3 and 4',()=>{
+test('Burn Wilds expands only real Wilds on winning lines of authorized reels 2, 3 and 4',()=>{
  const {model,receipt}=fixtures(burn);
- assert.equal(burn.validateReceipt(receipt,model,'1.00'),receipt);
- assert.throws(()=>burn.validateReceipt({...receipt,features:{expandedWildReels:[0]}},model,'1.00'),/BURN_WILD_REEL_INVALID/);
- assert.throws(()=>burn.validateReceipt({...receipt,features:{expandedWildReels:[1,1]}},model,'1.00'),/BURN_WILD_REEL_INVALID/);
+ const approvedModel={...model,symbols:[...model.symbols,'wild']};
+ const grid=receipt.grid.map(row=>[...row]);
+ grid[1][1]='wild';grid[1][3]='wild';
+ const winning={...receipt,grid,features:{expandedWildReels:[1,3]},
+  winLines:[{positions:[[1,0],[1,1],[1,2],[1,3],[1,4]]}],
+  finalWin:'2.00',walletReceipt:{...receipt.walletReceipt,finalWin:'2.00',balanceAfter:'11.00'}};
+ assert.equal(burn.validateReceipt(winning,approvedModel,'1.00'),winning);
+ assert.throws(()=>burn.validateReceipt({...winning,features:{expandedWildReels:[0]}},approvedModel,'1.00'),/BURN_WILD_REEL_INVALID/);
+ assert.throws(()=>burn.validateReceipt({...winning,features:{expandedWildReels:[1,1]}},approvedModel,'1.00'),/BURN_WILD_REEL_INVALID/);
+ assert.throws(()=>burn.validateReceipt({...winning,grid:receipt.grid},approvedModel,'1.00'),/BURN_WILD_SYMBOL_REQUIRED/);
+ assert.throws(()=>burn.validateReceipt({...winning,winLines:[]},approvedModel,'1.00'),/BURN_WILD_MUST_PARTICIPATE_IN_WIN/);
+ assert.throws(()=>burn.validateReceipt({...winning,finalWin:'0.00',walletReceipt:receipt.walletReceipt},approvedModel,'1.00'),/BURN_WILD_REQUIRES_SETTLED_WIN/);
+ assert.throws(()=>burn.validateReceipt({...winning,winLines:Array(6).fill(winning.winLines[0])},approvedModel,'1.00'),/TOO_MANY_PAYLINES/);
 });
 
 for(const m of [hot20,burn]){
