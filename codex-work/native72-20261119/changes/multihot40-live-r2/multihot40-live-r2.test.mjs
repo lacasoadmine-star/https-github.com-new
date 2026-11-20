@@ -85,7 +85,7 @@ test('actual live app fails closed after Player logout while retaining STOP on r
  const app=await readFile(new URL('./multihot40-app.mjs',import.meta.url),'utf8');
  assert.match(app,/nodes\.spin\.disabled=!entered\|\|!ready\|\|\(!visualBusy&&/);
  assert.match(app,/!state\.authenticated\|\|!state\.connected\|\|automatic\.active/);
- assert.match(app,/visualBusy\?'Stop animation':'?/.replace(/\?\'Stop animation\':\'?/,"?"));
+ assert.ok(app.includes("visualBusy?'Stop animation':!state.authenticated?'Sign in to play'"));
  assert.match(app,/if\(visualBusy\)\{presenter\.speedUp\(\);return false;\}/);
  assert.match(app,/supportsWagerProfile\(state\?\.game,ID\)/);
  assert.doesNotMatch(app,/nodes\.spin\.disabled=.*!state\.authenticated&&!available/);
