@@ -4,7 +4,7 @@
 // gates remain authoritative. A rejected model MUST remain unlaunchable.
 import {GAME_ID,validateModel,validateReceipt} from './controller.mjs';
 const fail=(code,status=null)=>Object.assign(new Error(code),{code,status});
-const exactMoney=v=>{if(typeof v!=='string'||!/^(0|[1-9]\\d{0,12})\\.\\d{2}$/.test(v))throw fail('INVALID_SERVER_ETB');return BigInt(v.replace('.',''))};
+const exactMoney=v=>{if(typeof v!=='string'||!/^(0|[1-9]\d{0,12})\.\d{2}$/.test(v))throw fail('INVALID_SERVER_ETB');return BigInt(v.replace('.',''))};
 const uuidPattern=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 export const STORAGE_KEY='zplay.player.pending.multihot20.v1';
 export function transport(fetcher=globalThis.fetch,timeoutMs=20000){
