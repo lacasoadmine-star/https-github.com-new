@@ -59,10 +59,14 @@ export function versionMetadata(version,{mainModule,commitSha,message,tag}) {
 }
 
 export function makeUploadForm(parts,newModules,metadata) {
+ const main=metadata.main_module?.match(/^(native72dedicated(?:r1|mh40r3))\/entry\.mjs$/);
+ if(!main||!newModules.some(({name})=>name===metadata.main_module))throw Error('INVALID_UPLOAD_ENTRY');
+ const added=new Set(parts.keys());
  const form=new FormData();form.append('metadata',new Blob([JSON.stringify(metadata)],{type:'application/json'}));
  for(const [name,bytes]of parts)form.append(name,new Blob([bytes],{type:name.endsWith('.mjs')?'application/javascript+module':'application/octet-stream'}),name);
  for(const {name,source} of newModules){
-  if(parts.has(name)||!name.startsWith('native72dedicatedr1/')||!name.endsWith('.mjs'))throw Error('NON_ADDITIVE_MODULE');
+  if(added.has(name)||!name.startsWith(main[1]+'/')||!/^\w[\w-]*\.mjs$/.test(name.slice(main[1].length+1)))throw Error('NON_ADDITIVE_MODULE');
+  added.add(name);
   form.append(name,new Blob([source],{type:'application/javascript+module'}),name);
  }
  return form;

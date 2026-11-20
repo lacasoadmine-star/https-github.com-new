@@ -99,6 +99,8 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
     shared: pins.shared,
     games: defined.filter(([name]) => name !== 'shared').map(([name]) => pins[name]),
   };
+  if (pins.multihot40 && !pins.habesha) throw Error('MULTIHOT40_REQUIRES_HABESHA_PACKAGE');
+  const namespace = pins.multihot40 ? 'native72dedicatedmh40r3' : 'native72dedicatedr1';
   await mkdir(output, { recursive: true });
   for (const name of ['entry.mjs', 'handler.mjs']) {
     if (resolve(here, name) !== resolve(output, name)) await copyFile(join(here, name), join(output, name));
@@ -109,13 +111,14 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
   const modules = [];
   for (const name of ['entry.mjs', 'handler.mjs', 'release-pins.mjs']) {
     const bytes = await readFile(join(output, name));
-    modules.push({ name: `native72dedicatedr1/${name}`, file: join(output, name),
+    modules.push({ name: `${namespace}/${name}`, file: join(output, name),
       type: 'application/javascript+module', size: bytes.length, sha256: digest(bytes) });
   }
   const inventory = {
     baselineVersion: '11ec5499-9697-4063-bf3f-92252c32f89d',
     baselineEntry: 'native72habesha7/entry.mjs',
-    mainModule: 'native72dedicatedr1/entry.mjs',
+    mainModule: `${namespace}/entry.mjs`,
+    ...(pins.multihot40 ? { requiresLiveGameRelease: pins.habesha.release } : {}),
     preserveExistingModules: true,
     preserveExistingBindings: true,
     preserveExistingAssets: true,

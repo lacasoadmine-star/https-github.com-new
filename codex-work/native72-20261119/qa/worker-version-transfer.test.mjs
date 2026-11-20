@@ -17,5 +17,17 @@ test('upload adds modules and inherits all binding identities without secret val
  const metadata=versionMetadata(version,{mainModule:'native72dedicatedr1/entry.mjs',commitSha:'a'.repeat(40),message:'test',tag:'test'});assert.equal(metadata.keep_assets,true);assert.ok(metadata.bindings.every(b=>b.type==='inherit'&&Object.keys(b).length===2));assert.deepEqual(metadata.exports,version.resources.script_runtime.exports);assert.notEqual(metadata.exports,version.resources.script_runtime.exports);
  const form=makeUploadForm(parts,[{name:'native72dedicatedr1/entry.mjs',source:'export default {};'}],metadata);assert.deepEqual(new Uint8Array(await form.get('images/a.bin').arrayBuffer()),f.parts[1][1]);
  assert.equal(form.get('entry/main.mjs').type,'application/javascript+module');assert.equal(form.get('images/a.bin').type,'application/octet-stream');
- assert.throws(()=>makeUploadForm(parts,[{name:'entry/main.mjs',source:'changed'}],metadata),/NON_ADDITIVE/);
+ const entry={name:metadata.main_module,source:'export default {};'};
+ assert.throws(()=>makeUploadForm(parts,[entry,{name:'entry/main.mjs',source:'changed'}],metadata),/NON_ADDITIVE_MODULE/);
+ assert.throws(()=>makeUploadForm(parts,[entry,entry],metadata),/NON_ADDITIVE_MODULE/);
+});
+
+test('the second deployment keeps the first deployment module bytes',async()=>{
+ const previous='native72dedicatedr1/entry.mjs', next='native72dedicatedmh40r3/entry.mjs';
+ const previousSource=enc.encode('export default {version:1};');
+ const parts=new Map([[previous,previousSource]]);
+ const form=makeUploadForm(parts,[{name:next,source:'export default {version:2};'}],{main_module:next});
+ assert.deepEqual(new Uint8Array(await form.get(previous).arrayBuffer()),previousSource);
+ assert.equal(await form.get(next).text(),'export default {version:2};');
+ assert.throws(()=>makeUploadForm(parts,[{name:previous,source:'replacement'}],{main_module:previous}),/NON_ADDITIVE_MODULE/);
 });

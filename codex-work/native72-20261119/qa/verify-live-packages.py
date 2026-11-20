@@ -3,6 +3,7 @@ import argparse
 import concurrent.futures
 import hashlib
 import json
+import re
 import subprocess
 import tempfile
 from datetime import datetime, timezone
@@ -13,19 +14,32 @@ parser.add_argument('--stage', required=True)
 parser.add_argument('--before', required=True)
 parser.add_argument('--output', required=True)
 parser.add_argument('--base', default='https://superwin-player.apdiy61.workers.dev')
+parser.add_argument('--launch-only', action='store_true')
 args = parser.parse_args()
 if args.base != 'https://superwin-player.apdiy61.workers.dev':
     raise SystemExit('Use the existing verified Player origin.')
 stage = Path(args.stage)
-manifests = [json.loads((stage / (name + '-manifest.json')).read_text()) for name in ('habesha', 'deluxe', 'shared')]
+packages = json.loads((stage / 'package-report.json').read_text())['packages']
 before = json.loads(Path(args.before).read_text())
 jobs = []
-for manifest in manifests:
+for package in packages:
+    name = package['name']
+    if not re.fullmatch(r'[a-z][a-z0-9_-]*', name):
+        raise SystemExit(f'Invalid package name: {name}')
+    manifest_bytes = (stage / (name + '-manifest.json')).read_bytes()
+    if hashlib.sha256(manifest_bytes).hexdigest() != package['manifestSha256']:
+        raise SystemExit(f'Manifest hash mismatch: {name}')
+    manifest = json.loads(manifest_bytes)
     release = manifest['release']
     if 'gameId' in manifest:
-        jobs.append(dict(path='/games/' + manifest['gameId'], release=release, html=True))
-    for name, asset in manifest['assets'].items():
-        jobs.append(dict(path='/' + release + '/' + name, release=release, **asset))
+        path = manifest.get('accountPath', '/games/' + manifest['gameId'])
+        scripts = re.findall(r'\bsrc="(/' + re.escape(release) + r'/[^"?]+\.mjs(?:\?[^\"]*)?)"', manifest['htmlTemplate'])
+        if not scripts or any(src.split('?', 1)[0].rsplit('/', 1)[-1] not in manifest['assets'] for src in scripts):
+            raise SystemExit(f'Missing pinned bootstrap script: {name}')
+        jobs.append(dict(path=path, release=release, scripts=scripts))
+    if not args.launch_only:
+        for filename, asset in manifest['assets'].items():
+            jobs.append(dict(path='/' + release + '/' + filename, release=release, **asset))
 protected = {'/', '/games/multi_hot_5_native', '/games/foxy_hot_20_native', '/games/multi_hot_5_video', '/games/hot_foxy_20'}
 for old in before:
     if old['path'] in protected:
@@ -59,12 +73,14 @@ def check(job):
             errors.append('length')
         if 'type' in job and response.get('content-type') != job['type']:
             errors.append('mime')
-        if job.get('html'):
-            text = data.decode('utf8')
+        if 'scripts' in job:
+            if not response.get('content-type', '').startswith('text/html'):
+                errors.append('mime')
+            text = data.decode('utf8', errors='replace')
             if '{{GAME}}' in text or '{{PRESENTATION_GAME}}' in text:
                 errors.append('unresolved_identity')
-            if '/' + job['release'] + '/controller.mjs' not in text:
-                errors.append('controller')
+            if any(script not in text for script in job['scripts']):
+                errors.append('bootstrap')
             if 'presence.63ed199a80b6c700.mjs' not in text:
                 errors.append('presence')
             if 'Local QA' in text or '/__qa/' in text:

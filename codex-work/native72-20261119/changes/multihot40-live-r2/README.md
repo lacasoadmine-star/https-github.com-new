@@ -11,7 +11,9 @@ curl -fsS https://superwin-player.apdiy61.workers.dev/games/multihot40_native -o
 cp -a /tmp/habesha-r9 /tmp/habesha-multihot40-r3
 node changes/multihot40-live-r2/stage-release.mjs /tmp/habesha-multihot40-r3 /tmp/multihot40-live.html
 node changes/dedicated-resume/deployment/build-pins.mjs /tmp/habesha-multihot40-r3 /tmp/habesha-multihot40-r3/worker
-node --test changes/multihot40-live-r2/multihot40-live-r2.test.mjs
+MULTIHOT40_QA_STAGE=/tmp/habesha-multihot40-r3 node --test changes/multihot40-live-r2/multihot40-live-r2.test.mjs
 ```
+
+Deploy Habesha first and verify it using `qa/verify-live-packages.py`. Fetch the active Worker content again before preparing the Multi Hot 40 upload. The second inventory records the required live Habesha release and uses `native72dedicatedmh40r3/`, so the uploaded multipart can preserve every module from the first deployment. Keep the active version ID for rollback. After promotion, verify both routes from the second stage. `--launch-only` checks page releases and bootstraps before verifying every asset.
 
 The page baselines and new assets are pinned by SHA-256. The candidate has not been published. The existing official demo response gives the launcher identity only. Interactive visual parity and authenticated live settlement remain unverified.
