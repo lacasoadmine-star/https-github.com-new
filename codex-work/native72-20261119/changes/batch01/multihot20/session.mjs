@@ -32,7 +32,7 @@ export class Session {
   this.busy=true;const version=++this.generation;
   this.account=null;this.pending=null;this.result=null;this.phase='DISCONNECTED';
   try{
-   const s=await this.request('/api/slots/fresh-state');
+   const s=await this.request('/api/slots/fresh-state?gameId='+encodeURIComponent(GAME_ID));
    if(this.generation!==version)throw fail('STALE_SESSION_RESPONSE');
    if(!s?.authenticated||s.currency!=='ETB'||s.game?.id!==GAME_ID||!/^[a-f0-9]{64}$/i.test(s.sessionGuard||'')){
     // Guard is an opaque, fixed-length per-session hash, not a user credential.
@@ -99,7 +99,7 @@ export class Session {
   if(this.busy||!['SHOWING_RESULT','WAITING_FOR_RESULT'].includes(this.phase)||!this.account||this.pending||!this.result)throw fail('ROUND_NOT_REVEALING');
   this.busy=true;const gen=this.generation,guard=this.account.sessionGuard;
   try{
-   const s=await this.request('/api/slots/fresh-state');
+   const s=await this.request('/api/slots/fresh-state?gameId='+encodeURIComponent(GAME_ID));
    if(!this._active(gen,guard))throw fail('STALE_SESSION_RESPONSE');
    if(!s.authenticated||s.sessionGuard!==guard||s.currency!=='ETB'||s.game?.id!==GAME_ID)throw fail('SESSION_CHANGED');
    validateModel(s.game);exactMoney(s.balance);
