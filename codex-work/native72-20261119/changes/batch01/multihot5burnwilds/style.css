@@ -18,3 +18,19 @@ dialog{border:2px solid #bc8141;border-radius:18px;background:#221923;color:#ffe
 @media(max-width:640px){.zplay-app{padding:6px 5px 18px}.header{padding:1px 7px}.account{gap:4px}.tile{padding:7px 2px}.controls{gap:4px;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(82px,1.5fr) repeat(3,minmax(42px,1fr))}.controls button{min-height:56px;font-size:19px;padding:2px}.controls button span{font-size:9px}.controls .spin{min-height:65px;font-size:18px}.bet-options{grid-template-columns:repeat(2,1fr)}} 
 @media(max-width:350px){.controls{grid-template-columns:repeat(4,minmax(42px,1fr))}.controls .spin{grid-column:2/4;grid-row:1/3}.controls #menu,.controls #sound,.controls #bet{grid-row:1}.controls #turbo,.controls #auto,.controls #rules{grid-row:2}.account{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* 320–440px: the original seven-column bar produced 42px touch targets at
+   360px, horizontal scroll and SPIN/SOUND overlap at <=350px. Assign every
+   control an explicit non-overlapping cell, preserving >=44px hit areas. */
+@media(max-width:440px){
+ .controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(58px,auto));gap:5px;align-items:stretch}
+ .controls button{min-width:0;min-height:58px;font-size:21px;padding:4px}
+ .controls button span{font-size:10px}
+ .controls #menu{grid-column:1;grid-row:1}
+ .controls #sound{grid-column:4;grid-row:1}
+ .controls #bet{grid-column:1;grid-row:2}
+ .controls .spin{grid-column:2/4;grid-row:1/3;aspect-ratio:auto;min-height:0;height:100%;border-radius:32px;font-size:24px}
+ .controls #turbo{grid-column:4;grid-row:2}
+ .controls #auto{grid-column:1/3;grid-row:3}
+ .controls #rules{grid-column:3/5;grid-row:3}
+}
