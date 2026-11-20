@@ -29,7 +29,7 @@ function create(v){
   if(throwStatus)throw Object.assign(new Error('HTTP_'+throwStatus),{status:throwStatus,code:'HTTP_'+throwStatus});
   return {gameId:game.id,bet:body.bet,currency:'ETB',roundId:UUID,isFree:false,
    mathVersion:game.mathVersion,engineVersion:game.engineVersion,mathSha256:game.mathSha256,
-   grid:Array.from({length:3},()=>Array(5).fill('seven')),wheelMultiplier:3,winLines:[],features:{expandedWildReels:[1,3]},
+   grid:Array.from({length:3},()=>Array(5).fill('seven')),wheelMultiplier:3,winLines:[],features:{expandedWildReels:[]},
    finalWin:'0.00',walletReceipt:{currency:'ETB',balanceBefore:'100.00',chargedStake:body.bet,finalWin:'0.00',balanceAfter:'99.00'}};
  };
  const session=new v.Session({request,storage,uuid:()=>UUID});
