@@ -33,9 +33,14 @@ test('dedicated packages serve their exact closure and synthetic API over isolat
  let assetsChecked=0,bytesChecked=0;
 
  await t.test('selected entry pages reference only served local assets and include the fixture toolbar',async()=>{
-  for(const {name} of games){
+  for(const {name,gameId} of games){
    const response=await request('/qa/'+name+'/');assert.equal(response.status,200);assert.match(response.headers.get('content-security-policy'),/connect-src 'self'/);
    const html=await response.text();assert.match(html,/data-machine="(?:habesha_fortune_5_native|multi_hot_5_deluxe_native)"/);assert.ok(html.includes('/__qa/toolbar.js'));
+   const signIn=html.match(/<a id="sign-in" href="([^"]+)"/)?.[1];
+   assert.ok(signIn);
+   const login=new URL(signIn.replaceAll('&amp;','&'),origin);
+   assert.equal(login.searchParams.get('login'),'1');
+   assert.equal(login.searchParams.get('return'),'/games/'+gameId);
    const sources=[...html.matchAll(/<(?:link|script)\b[^>]*\b(?:src|href)="([^"]+)"/g)].map(match=>match[1]);
    for(const source of sources){assert.match(source,/^\/(?!\/)/);const asset=await request(source);assert.equal(asset.status,200,source);assert.equal(asset.headers.get('x-local-qa'),'simulated-only');await asset.arrayBuffer();}
    const presence=await request('/qa-assets/'+name+'/presence.63ed199a80b6c700.mjs');assert.match(await presence.text(),/production presence lease intentionally inactive/);

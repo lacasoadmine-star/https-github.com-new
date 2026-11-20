@@ -11,7 +11,10 @@ const expected = Object.freeze({
   habesha: { release: 'zplay-native-machines-20261119-habesha-r8', gameId: 'habesha_fortune_5_native' },
   deluxe: { release: 'zplay-native-machines-20261119-mh5deluxe-r2', gameId: 'multi_hot_5_deluxe_native' },
   multihot40: { release: 'zplay-multihot40-20261120-r3', gameId: 'multihot40_native', accountPath: '/games/multihot40_native' },
+  safari: { release: 'zplay-safari-20261120-r4', gameId: 'fresh_safarisimba', accountPath: '/new74/037-safari-simba' },
 });
+const safariManifest = new URL('../../safari-r4/release-manifest.json', import.meta.url);
+const catalogIds = { multihot40: 'ind74_official_multihot40', safari: 'ind74_official_safarisimba' };
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const catalogUrl = new URL('./verified-target-catalog.json', import.meta.url);
 const canonical = path => path?.endsWith('/') ? path.slice(0, -1) : path;
@@ -43,9 +46,11 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
   const defined = Object.entries(expected).filter(([name]) => report.packages.some(item => item.name === name))
     .map(([name, identity]) => {
       const record = report.packages.find(item => item.name === name);
-      if (name === 'multihot40') {
+      if (Object.hasOwn(catalogIds, name)) {
         const game = catalog.get(identity.accountPath);
-        if (record.release !== identity.release || game?.catalogId !== 'ind74_official_multihot40') throw Error('INVALID_MULTIHOT40_PACKAGE');
+        if (record.release !== identity.release || game?.catalogId !== catalogIds[name]) {
+          throw Error('INVALID_CATALOG_PACKAGE:' + name);
+        }
         return [name, identity];
       }
       const family = name === 'shared' ? 'shared' : 'machines';
@@ -76,6 +81,7 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
   }
   for (const [name, identity] of defined) {
     const bytes = await readFile(join(stage, `${name}-manifest.json`));
+    if (name === 'safari' && !bytes.equals(await readFile(safariManifest))) throw Error('SAFARI_MANIFEST_CHANGED');
     const manifestSha256 = digest(bytes);
     const record = report.packages.find(item => item.name === name);
     if (!record || record.manifestSha256 !== manifestSha256 || record.manifestBytes !== bytes.length
@@ -94,16 +100,25 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
     validateReleasePin(pin, { game: Boolean(identity.gameId) });
     pins[name] = pin;
   }
+  if (pins.multihot40 && !pins.habesha) throw Error('MULTIHOT40_REQUIRES_HABESHA_PACKAGE');
+  if (pins.safari && !pins.multihot40) throw Error('SAFARI_REQUIRES_MULTIHOT40_PACKAGE');
+  if (pins.safari && output === here) throw Error('SAFARI_REQUIRES_SEPARATE_OUTPUT');
   const releasePins = {
     presencePath: '/player-v236/presence.63ed199a80b6c700.mjs',
     shared: pins.shared,
-    games: defined.filter(([name]) => name !== 'shared').map(([name]) => pins[name]),
+    games: pins.safari ? [pins.safari] : defined.filter(([name]) => name !== 'shared').map(([name]) => pins[name]),
   };
-  if (pins.multihot40 && !pins.habesha) throw Error('MULTIHOT40_REQUIRES_HABESHA_PACKAGE');
-  const namespace = pins.multihot40 ? 'native72dedicatedmh40r3' : 'native72dedicatedr1';
+  const namespace = pins.safari ? 'native72dedicatedsafarir4'
+    : pins.multihot40 ? 'native72dedicatedmh40r3' : 'native72dedicatedr1';
+  const requiredLiveRelease = pins.safari ? pins.multihot40.release : pins.multihot40 && pins.habesha.release;
+  const baselineEntry = pins.safari ? 'native72dedicatedmh40r3/entry.mjs' : 'native72habesha7/entry.mjs';
   await mkdir(output, { recursive: true });
   for (const name of ['entry.mjs', 'handler.mjs']) {
     if (resolve(here, name) !== resolve(output, name)) await copyFile(join(here, name), join(output, name));
+  }
+  if (pins.safari) {
+    const entry = await readFile(join(here, 'entry.mjs'), 'utf8');
+    await writeFile(join(output, 'entry.mjs'), entry.replaceAll('native72habesha7/entry.mjs', baselineEntry));
   }
   await writeFile(join(output, 'release-pins.mjs'),
     '// Generated from verified, exact package manifest bytes by build-pins.mjs.\n'
@@ -115,10 +130,10 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
       type: 'application/javascript+module', size: bytes.length, sha256: digest(bytes) });
   }
   const inventory = {
-    baselineVersion: '11ec5499-9697-4063-bf3f-92252c32f89d',
-    baselineEntry: 'native72habesha7/entry.mjs',
+    ...(!pins.safari ? { baselineVersion: '11ec5499-9697-4063-bf3f-92252c32f89d' } : {}),
+    baselineEntry,
     mainModule: `${namespace}/entry.mjs`,
-    ...(pins.multihot40 ? { requiresLiveGameRelease: pins.habesha.release } : {}),
+    ...(requiredLiveRelease ? { requiresLiveGameRelease: requiredLiveRelease } : {}),
     preserveExistingModules: true,
     preserveExistingBindings: true,
     preserveExistingAssets: true,

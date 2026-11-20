@@ -1,7 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {buildReleaseModules} from '../dedicated-resume/deployment/build-pins.mjs';
+import {installDedicatedReleases} from '../dedicated-resume/deployment/handler.mjs';
+import {createProductionHandler} from '../dedicated-resume/tests/fixtures/native72habesha3-routes.mjs';
 
 const dir=new URL('./',import.meta.url);
 const previous=new URL('../safari-r3/',import.meta.url);
@@ -60,4 +67,46 @@ test('the Worker 1 ETB minimum is reflected in Safari BET and AUTO, not simulate
  assert.match(source,/canStartSafariAuto/);
  assert.match(policy,/100n/);
  assert.doesNotMatch(policy,/api\/slots\/spin/);
+});
+
+test('the staged Safari wrapper serves its two launch URLs and delegates existing routes',async(t)=>{
+ const stage=await mkdtemp(join(tmpdir(),'safari-r4-stage-'));
+ t.after(()=>rm(stage,{recursive:true,force:true}));
+ const checkpoint=new URL('../../releases/20261120-habesha-http/',dir);
+ const shared=await read('shared-manifest.json',checkpoint);
+ const habesha=await read('habesha-manifest.json',checkpoint);
+ const multihot40=JSON.stringify({
+  release:'zplay-multihot40-20261120-r3',gameId:'multihot40_native',accountPath:'/games/multihot40_native',
+  htmlTemplate:'<body data-game="{{PRESENTATION_GAME}}" data-machine="{{GAME}}"></body>',
+  assets:{'startup.mjs':manifest.assets['startup.mjs']},
+ });
+ const packages=[];
+ for(const [name,source] of Object.entries({shared,habesha,multihot40})){
+  const {release,gameId,accountPath}=JSON.parse(source),manifestSha256=hash(source);
+  await writeFile(join(stage,name+'-manifest.json'),source);
+  packages.push({name,release,gameId,accountPath,manifestSha256,manifestBytes:Buffer.byteLength(source),
+   manifestKey:'native72/manifests/'+manifestSha256});
+ }
+ await writeFile(join(stage,'package-report.json'),JSON.stringify({packages,uploads:[]}));
+ execFileSync(process.execPath,[fileURLToPath(new URL('stage-release.mjs',dir)),stage]);
+ const output=join(stage,'worker');
+ const inventory=await buildReleaseModules(stage,output);
+ assert.equal(inventory.mainModule,'native72dedicatedsafarir4/entry.mjs');
+ assert.equal(inventory.baselineEntry,'native72dedicatedmh40r3/entry.mjs');
+ assert.equal(inventory.requiresLiveGameRelease,'zplay-multihot40-20261120-r3');
+ assert.match(await readFile(join(output,'entry.mjs'),'utf8'),/from '\.\.\/native72dedicatedmh40r3\/entry\.mjs'/);
+ const {releasePins}=await import(pathToFileURL(join(output,'release-pins.mjs')));
+ assert.deepEqual(releasePins.games.map(pin=>pin.gameId),[manifest.gameId]);
+ const worker=installDedicatedReleases({fetch:req=>new Response(new URL(req.url).pathname)},
+  {...releasePins,createProductionHandler});
+ const origin='https://fixture.invalid';
+ const get=(path,method='GET')=>worker.fetch(new Request(origin+path,{method}),{PORTAL:'player'});
+ for(const path of [manifest.accountPath,manifest.accountPath.slice(0,-1)]){
+  const response=await get(path);
+  assert.equal(response.headers.get('x-zplay-release'),manifest.release);
+  assert.match(await response.text(),/href="\/new74\/037-safari-simba\/style\.css"/);
+ }
+ for(const path of ['/new74/037-safari-simba/style.css','/games/multihot40_native','/games/habesha_fortune_5_native','/api/slots/spin']){
+  assert.equal(await (await get(path,path.startsWith('/api/')?'POST':'GET')).text(),path);
+ }
 });

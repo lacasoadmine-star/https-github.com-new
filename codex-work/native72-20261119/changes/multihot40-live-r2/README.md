@@ -17,3 +17,13 @@ MULTIHOT40_QA_STAGE=/tmp/habesha-multihot40-r3 node --test changes/multihot40-li
 Deploy Habesha first and verify it using `qa/verify-live-packages.py`. Fetch the active Worker content again before preparing the Multi Hot 40 upload. The second inventory records the required live Habesha release and uses `native72dedicatedmh40r3/`, so the uploaded multipart can preserve every module from the first deployment. Keep the active version ID for rollback. After promotion, verify both routes from the second stage. `--launch-only` checks page releases and bootstraps before verifying every asset.
 
 The page baselines and new assets are pinned by SHA-256. The candidate has not been published. The existing official demo response gives the launcher identity only. Interactive visual parity and authenticated live settlement remain unverified.
+
+After Multi Hot 40 r3 is live and verified, use the same stage to prepare Safari Simba:
+
+```sh
+node changes/safari-r4/stage-release.mjs /tmp/habesha-multihot40-r3
+node changes/dedicated-resume/deployment/build-pins.mjs /tmp/habesha-multihot40-r3 /tmp/habesha-multihot40-r3/safari-worker
+node --test changes/safari-r4/release.test.mjs
+```
+
+Before Safari promotion, verify the active Multi Hot 40 entry point, retain its version ID for rollback, and verify the Safari manifest's inherited KV values and public dependencies. The Safari entry delegates to the active Multi Hot 40 wrapper, including Habesha and the existing Player APIs. After promotion, verify both Safari route spellings and the pinned stylesheet at `/new74/037-safari-simba/style.css`.

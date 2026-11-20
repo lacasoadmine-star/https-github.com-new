@@ -59,7 +59,7 @@ export function versionMetadata(version,{mainModule,commitSha,message,tag}) {
 }
 
 export function makeUploadForm(parts,newModules,metadata) {
- const main=metadata.main_module?.match(/^(native72dedicated(?:r1|mh40r3))\/entry\.mjs$/);
+ const main=metadata.main_module?.match(/^(native72dedicated(?:r1|mh40r3|safarir4))\/entry\.mjs$/);
  if(!main||!newModules.some(({name})=>name===metadata.main_module))throw Error('INVALID_UPLOAD_ENTRY');
  const added=new Set(parts.keys());
  const form=new FormData();form.append('metadata',new Blob([JSON.stringify(metadata)],{type:'application/json'}));

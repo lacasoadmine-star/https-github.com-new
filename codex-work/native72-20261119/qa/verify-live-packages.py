@@ -32,22 +32,26 @@ for package in packages:
         raise SystemExit(f'Manifest hash mismatch: {name}')
     manifest = json.loads(manifest_bytes)
     release = manifest['release']
+    startup_names = set()
     if 'gameId' in manifest:
         path = manifest.get('accountPath', '/games/' + manifest['gameId'])
         scripts = re.findall(r'\bsrc="(/' + re.escape(release) + r'/[^"?]+\.mjs(?:\?[^\"]*)?)"', manifest['htmlTemplate'])
         if not scripts or any(src.split('?', 1)[0].rsplit('/', 1)[-1] not in manifest['assets'] for src in scripts):
             raise SystemExit(f'Missing pinned bootstrap script: {name}')
         jobs.append(dict(path=path, release=release, scripts=scripts))
-    if not args.launch_only:
-        for filename, asset in manifest['assets'].items():
+        startup_names = {script.split('?', 1)[0].rsplit('/', 1)[-1] for script in scripts}
+    for filename, asset in manifest['assets'].items():
+        if not args.launch_only or filename in startup_names:
             jobs.append(dict(path='/' + release + '/' + filename, release=release, **asset))
-        for path, asset in manifest.get('externalDependencies', {}).items():
-            if not re.fullmatch(r'/(?!/)[A-Za-z0-9_./-]+', path) or '..' in path.split('/'):
-                raise SystemExit(f'Invalid dependency path: {path}')
-            expected = {key: asset[key] for key in ('sha256', 'size', 'type')}
-            if path in external_assets and external_assets[path] != expected:
-                raise SystemExit(f'Conflicting dependency pins: {path}')
-            external_assets[path] = expected
+    for path, asset in manifest.get('externalDependencies', {}).items():
+        if args.launch_only and not path.endswith('.css'):
+            continue
+        if not re.fullmatch(r'/(?!/)[A-Za-z0-9_./-]+', path) or '..' in path.split('/'):
+            raise SystemExit(f'Invalid dependency path: {path}')
+        expected = {key: asset[key] for key in ('sha256', 'size', 'type')}
+        if path in external_assets and external_assets[path] != expected:
+            raise SystemExit(f'Conflicting dependency pins: {path}')
+        external_assets[path] = expected
 jobs.extend(dict(path=path, **asset) for path, asset in external_assets.items())
 protected = {'/', '/games/multi_hot_5_native', '/games/foxy_hot_20_native', '/games/multi_hot_5_video', '/games/hot_foxy_20'}
 for old in before:

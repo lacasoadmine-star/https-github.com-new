@@ -29,6 +29,18 @@ function selectStake(){
  if(h.pending&&h.pending.kind!=='gamble')v=h.pending.bet;
  else if(h.account){const levels=playableSafariBets(h.account);if(!levels.includes(v))v=levels[0]||null;}
 }
+function showConnectionError(error){
+ if(!/PLAYER_LOGIN_REQUIRED|SESSION_UNAVAILABLE/.test(error.message)){
+  k.textContent='Account connection unavailable. Reconnect to continue.';
+  return;
+ }
+ const accountStatus=document.createElement('span'),signIn=document.createElement('a');
+ accountStatus.id='account-status';
+ signIn.href='/?login=1&return='+encodeURIComponent('/new74/037-safari-simba/');
+ signIn.textContent='Sign in';
+ accountStatus.append(signIn);
+ k.replaceChildren(accountStatus,' to your ZPLAY account to play.');
+}
 async function finishCurrent(run){
  if(!currentRun(run))return false;
  const refresh=h.finishReveal(),generation=h.generation;await refresh;
@@ -46,7 +58,7 @@ async function Ee(){
   clearResult();we();k.textContent=h.phase==='ready'?'':h.phase==='uncertain'?'Select RECOVER to confirm the previous round.':'This game is temporarily unavailable.';
  }catch(error){
   if(epoch!==uiEpoch||generation!==h.generation||error.stale)return;
-  k.textContent=/PLAYER_LOGIN_REQUIRED|SESSION_UNAVAILABLE/.test(error.message)?'Sign in to your ZPLAY account to play.':'Account connection unavailable. Reconnect to continue.';
+  showConnectionError(error);
  }
  if(epoch===uiEpoch)w();
 }

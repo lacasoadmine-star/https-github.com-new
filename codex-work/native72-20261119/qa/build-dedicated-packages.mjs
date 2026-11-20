@@ -128,6 +128,9 @@ for(const spec of specs){
  html=html.replaceAll('/'+spec.previous+'/', '/'+spec.release+'/');
  html=html.replace(/<script type="module" src="\/player-v236\/presence\.[^"]+"><\/script>/g,'');
  html=html.replace('data-game="'+spec.gameId+'"','data-game="{{PRESENTATION_GAME}}"').replace('data-machine="'+spec.gameId+'"','data-machine="{{GAME}}"');
+ const signIn='<a id="sign-in" href="/" hidden>';
+ if(!html.includes(signIn))throw Error('SIGN_IN_LINK_MISSING:'+spec.name);
+ html=html.replace(signIn,'<a id="sign-in" href="/?login=1&amp;return='+encodeURIComponent('/games/'+spec.gameId)+'" hidden>');
  if(spec.name==='deluxe')html=html.replace('</head>','<link rel="stylesheet" href="/'+spec.release+'/deluxe-cabinet.css"></head>');
  templates.set(spec.name,html);
  const seeds=[];for(const match of html.matchAll(/(?:src|href)="([^"]+)"/g)){
