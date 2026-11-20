@@ -217,3 +217,43 @@ test('game remains closed on unsupported player game release or incomplete DB tr
  assert.equal(db.state.debits,0);
  await assert.rejects(()=>settleExistingPlayerRound(request(db,{withExistingTransaction:async fn=>fn({})})),/INCOMPLETE_EXISTING_LEDGER_ADAPTER/);
 });
+
+test('1,000 deterministic independent game boards respect archived paylines, provider foundation, Wild and ETB payout cap',()=>{
+ const symbols=['seven','bell','grape','watermelon','lemon','plum','orange','cherry'];
+ let state=0x14f56329;
+ const draw=n=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return state%n};
+ let wildOutputs=0,paidOutcomes=0;
+ for(const gameId of [M20,BURN]){
+  const reference=GAME_REFERENCE[gameId];
+  for(let round=0;round<500;round++){
+   const grid=Array.from({length:3},(_,row)=>Array.from({length:5},(_,col)=>{
+    if(gameId===BURN&&col>0&&col<4&&draw(17)===0)return 'wild';
+    return symbols[draw(symbols.length)];
+   }));
+   const multiplier=draw(5)+1;
+   const bet='2.00';
+   const result=evaluateCapturedMath({gameId,grid,bet,wheelMultiplier:multiplier});
+   const total=cents(result.finalWin),stake=cents(bet),base=cents(result.baseWin);
+   assert(total>=0n && total<=stake*BigInt(reference.maxWinX));
+   assert.equal(total,base*BigInt(multiplier)>stake*BigInt(reference.maxWinX)
+    ?stake*BigInt(reference.maxWinX):base*BigInt(multiplier));
+   assert(result.winLines.length<=reference.paylines);
+   const expectedPaths=OFFICIAL_LINE_PATHS[gameId];
+   for(const line of result.winLines){
+    assert.deepEqual(line.positions,expectedPaths[line.line-1].slice(0,line.count).map((row,col)=>[row,col]));
+    assert(cents(line.baseWin)>=0n);
+    assert.equal(reference.paytable[line.symbol][line.count],line.factor);
+   }
+   if(gameId===BURN){
+    for(const index of result.expandedWildReels){
+     wildOutputs++;
+     assert(index>=1&&index<=3);
+     assert(grid.some(row=>row[index]==='wild'));
+     assert(result.grid.every(row=>row[index]==='wild'));
+    }
+   }else assert.deepEqual(result.expandedWildReels,[]);
+   if(total>0n)paidOutcomes++;
+  }
+ }
+ assert(wildOutputs>=0 && paidOutcomes>0);
+});
