@@ -37,7 +37,8 @@
     "2026-11-21: Caught and FIXED 2x incorrect Burn Wilds payout: original MachineInfo.FoundationBet=2 (M20=1), provider help formula coeff*totalBet/linePlay/FoundationBet; official screenshot Five Sevens at DMO 0.10 paid DMO 10.00. Corrected server math with integer cents, accepted only payline*foundation divisibility, 27/27 actual Node tests pass. Work branch only; no real ETB wagering, no Railway deployment.",
     "2026-11-21: Corrected FoundationBet math also stress-tested using 1000 independently generated deterministic QA boards across 20/5 official line patterns. Node v22 28/28 PASS, 0 fail; synthetic QA only (no real ETB, no statistically certified RNG/RTP), regression commit 11471f7b8add2fa74052612a8e6423adc18bdc8f.",
     "2026-11-21: Server math and sw_nine PostgreSQL adapter hardening committed on original work branch. Burn FoundationBet=2 invalid stake 1.05 ETB now fails before transaction; replayOnly uses persisted original ledger receipt even when operator profile store throws. Executed local Node v22.16.0: 30 tests passed, zero failed; 4 source/test syntax checks passed. No production deployment, real ETB wagers or live PostgreSQL mutations. Profile math RTP/strips/weights certification and E2E Player settlement remain required.",
-    "2026-11-21 continuation: Multi Hot 40 actual app blur stops AUTO/hold and blocks new starts without interrupting submitted-round confirmation; separate controller restores pending stake and cancels background preflight. Existing adapter now requires active-game and account-limit hooks. Local first-ten suite 278/278 on Node 24.22.3 and 22.23.5, server 32/32, real disposable PostgreSQL 16/16. These new source changes are not repinned to KV or deployed; no completion/production gate changed."
+    "2026-11-21 continuation: Multi Hot 40 actual app blur stops AUTO/hold and blocks new starts without interrupting submitted-round confirmation; separate controller restores pending stake and cancels background preflight. Existing adapter now requires active-game and account-limit hooks. Local first-ten suite 278/278 on Node 24.22.3 and 22.23.5, server 32/32, real disposable PostgreSQL 16/16. These new source changes are not repinned to KV or deployed; no completion/production gate changed.",
+    "2026-11-21 remote CI VERIFIED: source commit 50a072b6150bb51478912ecf7a4d3b13ee548e33, GitHub Actions run 44831865507 completed success. Both native72-unit (278 tests) and native72-postgres (16 tests, PostgreSQL 17.12) passed on Node22.23.5. This clears source-CI uncertainty, not math certification, production schema, live settlement, audio/graphics parity or deployment gates."
   ],
   "entries": [
     {
@@ -60,7 +61,8 @@
         "actual_app_blur_stops_auto_hold_regression",
         "actual_app_submitted_round_still_confirms_after_blur",
         "fresh_official_DMO_spin_20261121",
-        "live_unauthenticated_route_200_state_401_20261121"
+        "live_unauthenticated_route_200_state_401_20261121",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "operator_paytable_math_not_verified",
@@ -94,7 +96,8 @@
       "verifiedChecks": [
         "official_spins_recorded",
         "playwright_mock_spin",
-        "touch_target_mobile"
+        "touch_target_mobile",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "official_original_audio_asset_parity_unverified",
@@ -121,7 +124,8 @@
       "verifiedChecks": [
         "official_spins_recorded",
         "playwright_mock_spin",
-        "touch_target_mobile"
+        "touch_target_mobile",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -191,7 +195,8 @@
         "server_math_and_adapter_new_source_sha256_verified_local",
         "local_existing_active_game_hook_before_debit",
         "local_existing_account_maximum_liability_hook_before_debit",
-        "real_disposable_PostgreSQL_transactions_and_8_concurrent_same_token_requests"
+        "real_disposable_PostgreSQL_transactions_and_8_concurrent_same_token_requests",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -199,12 +204,10 @@
         "licensed_operator_paytable_and_probability_model_not_verified",
         "real_authenticated_player_ETB_ledger_and_win_settlement_not_tested",
         "official_demo_sound_graphics_and_bet_behavior_not_fully_parity_verified",
-        "GitHub_CI_complete_run_not_verified",
         "signed_off_live_deploy_not_executed",
         "certified_provider_probability_and_line_path_profile_missing",
         "production_Railway_fresh_route_not_integrated",
-        "live_PostgreSQL_ETB_settlement_not_tested",
-        "GitHub_branch_CI_success_not_observed"
+        "live_PostgreSQL_ETB_settlement_not_tested"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
@@ -248,7 +251,6 @@
           "RTP_max_liability_signoff",
           "actual_existing_Railway_engine_integration",
           "noncharging_real_PostgreSQL_transaction_QA",
-          "GitHub_CI_success",
           "full_demo_parity",
           "rollback_ready_live_deploy"
         ],
@@ -273,7 +275,9 @@
           "postgresVersion": "17.12",
           "productionSchemaVerified": false,
           "realETBCharged": 0,
-          "liveDeployed": false
+          "liveDeployed": false,
+          "githubActionsRunId": 44831865507,
+          "githubActionsConclusion": "success"
         }
       },
       "latestStatus": "MISSING_PARTS"
@@ -295,7 +299,8 @@
         "audio_foreground_browser_smoke",
         "mobile_turbo_target_44px",
         "mobile_turbo_zero_overlap_360_390_412",
-        "turbo_touch_creates_no_wager"
+        "turbo_touch_creates_no_wager",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -335,7 +340,8 @@
         "audio_foreground_browser_smoke",
         "mobile_turbo_target_44px",
         "mobile_turbo_zero_overlap_360_390_412",
-        "turbo_touch_creates_no_wager"
+        "turbo_touch_creates_no_wager",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -375,7 +381,8 @@
         "audio_foreground_browser_smoke",
         "mobile_turbo_target_44px",
         "mobile_turbo_zero_overlap_360_390_412",
-        "turbo_touch_creates_no_wager"
+        "turbo_touch_creates_no_wager",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -459,7 +466,8 @@
         "server_math_and_adapter_new_source_sha256_verified_local",
         "local_existing_active_game_hook_before_debit",
         "local_existing_account_maximum_liability_hook_before_debit",
-        "real_disposable_PostgreSQL_transactions_and_8_concurrent_same_token_requests"
+        "real_disposable_PostgreSQL_transactions_and_8_concurrent_same_token_requests",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "public_player_route_not_deployed",
@@ -467,12 +475,10 @@
         "licensed_operator_paytable_and_probability_model_not_verified",
         "real_authenticated_player_ETB_ledger_and_win_settlement_not_tested",
         "official_demo_sound_graphics_and_bet_behavior_not_fully_parity_verified",
-        "GitHub_CI_complete_run_not_verified",
         "signed_off_live_deploy_not_executed",
         "certified_provider_probability_and_line_path_profile_missing",
         "production_Railway_fresh_route_not_integrated",
-        "live_PostgreSQL_ETB_settlement_not_tested",
-        "GitHub_branch_CI_success_not_observed"
+        "live_PostgreSQL_ETB_settlement_not_tested"
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
@@ -516,7 +522,6 @@
           "RTP_max_liability_signoff",
           "actual_existing_Railway_engine_integration",
           "noncharging_real_PostgreSQL_transaction_QA",
-          "GitHub_CI_success",
           "full_demo_parity",
           "rollback_ready_live_deploy"
         ],
@@ -541,7 +546,9 @@
           "postgresVersion": "17.12",
           "productionSchemaVerified": false,
           "realETBCharged": 0,
-          "liveDeployed": false
+          "liveDeployed": false,
+          "githubActionsRunId": 44831865507,
+          "githubActionsConclusion": "success"
         }
       },
       "fixedPayoutBug": {
@@ -571,7 +578,8 @@
         "audio_foreground_browser_smoke",
         "mobile_turbo_target_44px",
         "mobile_turbo_zero_overlap_360_390_412",
-        "turbo_touch_creates_no_wager"
+        "turbo_touch_creates_no_wager",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -611,7 +619,8 @@
         "audio_foreground_browser_smoke",
         "mobile_turbo_target_44px",
         "mobile_turbo_zero_overlap_360_390_412",
-        "turbo_touch_creates_no_wager"
+        "turbo_touch_creates_no_wager",
+        "GitHub_Actions_44831865507_both_jobs_success_source_50a072b"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -693,7 +702,17 @@
     "officialDemoEvidence": "../../qa/evidence/multihot40-20261121-observation.json",
     "productionWagerRequests": 0,
     "productionDeployed": false,
-    "githubActionsRunVerified": false,
-    "adapterSha256": "9a69f6c0dcada0459d8cc4159bae45d6f63a7ddd6cf2a7cdd2b123c38cc034bb"
+    "githubActionsRunVerified": true,
+    "adapterSha256": "9a69f6c0dcada0459d8cc4159bae45d6f63a7ddd6cf2a7cdd2b123c38cc034bb",
+    "githubActions": {
+      "sourceCommit": "50a072b6150bb51478912ecf7a4d3b13ee548e33",
+      "runId": 44831865507,
+      "url": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44831865507",
+      "conclusion": "success",
+      "unitPassed": 278,
+      "postgresPassed": 16,
+      "failed": 0,
+      "evidence": "../../qa/evidence/ci-20261121.json"
+    }
   }
 }
