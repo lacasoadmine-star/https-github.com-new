@@ -30,10 +30,11 @@ export class Session {
  async connect(){
   if(this.busy)throw fail('SESSION_BUSY');
   this.busy=true;const version=++this.generation;
+  this.account=null;this.pending=null;this.result=null;this.phase='DISCONNECTED';
   try{
    const s=await this.request('/api/slots/fresh-state');
    if(this.generation!==version)throw fail('STALE_SESSION_RESPONSE');
-   if(!s?.authenticated||s.currency!=='ETB'||s.game?.id!==GAME_ID||!uuidPattern.test(s.sessionGuard?.slice(0,8)+'-0000-4000-8000-'+s.sessionGuard?.slice(8,20))){
+   if(!s?.authenticated||s.currency!=='ETB'||s.game?.id!==GAME_ID||!/^[a-f0-9]{64}$/i.test(s.sessionGuard||'')){
     // Guard is an opaque, fixed-length per-session hash, not a user credential.
     if(!s?.authenticated)throw fail('LOGIN_REQUIRED');
     if(s.game?.id!==GAME_ID)throw fail('GAME_NOT_REGISTERED_IN_EXISTING_ZPLAY');
@@ -95,7 +96,7 @@ export class Session {
   }finally{if(this.generation===gen)this.busy=false}
  }
  async finish(){
-  if(this.busy||this.phase!=='SHOWING_RESULT'||!this.account||this.pending)throw fail('ROUND_NOT_REVEALING');
+  if(this.busy||!['SHOWING_RESULT','WAITING_FOR_RESULT'].includes(this.phase)||!this.account||this.pending||!this.result)throw fail('ROUND_NOT_REVEALING');
   this.busy=true;const gen=this.generation,guard=this.account.sessionGuard;
   try{
    const s=await this.request('/api/slots/fresh-state');
