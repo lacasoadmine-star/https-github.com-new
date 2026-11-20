@@ -46,6 +46,35 @@ export const GAME_REFERENCE = Object.freeze({
   },
 });
 
+/**
+ * Game-by-game certified PRESENTATION/payline paths, reconstructed from actual
+ * first-party archived line chart sprites: 06-artwork/*-MultiHot-PayLine.png.
+ * Row indices are 0=top, 1=middle, 2=bottom; each path has five reel rows.
+ * This verifies geometry ONLY, NOT reel-strip frequencies or RTP.
+ * The Burn Wilds chart numbers are deliberately [2 top, 1 middle, 3 bottom].
+ */
+export const OFFICIAL_LINE_PATHS=Object.freeze({
+  fresh_multihot20: Object.freeze([
+    [0,0,0,0,0], [1,1,1,1,1], [2,2,2,2,2],
+    [0,1,2,1,0], [2,1,0,1,2],
+    [0,0,1,2,2], [2,2,1,0,0],
+    [1,0,0,0,1], [1,2,2,2,1],
+    [0,1,1,1,0], [2,1,1,1,2],
+    [0,0,0,0,1], [2,2,2,2,1],
+    [0,1,0,1,0], [2,1,2,1,2],
+    [1,1,0,1,1], [1,1,2,1,1],
+    [0,0,1,0,0], [2,2,1,2,2],
+    [1,2,1,2,1],
+  ].map(path=>Object.freeze(path))),
+  fresh_multihot5burnwilds: Object.freeze([
+    [1,1,1,1,1], // line 1: middle
+    [0,0,0,0,0], // line 2: top
+    [2,2,2,2,2], // line 3: bottom
+    [0,1,2,1,0], // line 4: V
+    [2,1,0,1,2], // line 5: inverted V
+  ].map(path=>Object.freeze(path))),
+});
+
 export class GameMathError extends Error {
   constructor(code, status=422) { super(code); this.name='GameMathError'; this.code=code; this.status=status; }
 }
@@ -75,6 +104,8 @@ function checkPaths(linePaths,ref){
   for(const p of linePaths){
     assert(Array.isArray(p)&&p.length===ref.reels&&p.every(row=>Number.isInteger(row)&&row>=0&&row<ref.rows),'UNVERIFIED_PAYLINE_SHAPE',503);
     const key=p.join('');assert(!unique.has(key),'DUPLICATE_PAYLINE',503);unique.add(key);
+    const official=OFFICIAL_LINE_PATHS[ref.gameId]?.[unique.size-1];
+    assert(!!official&&p.every((row,col)=>row===official[col]),'OFFICIAL_PAYLINE_CHART_MISMATCH',503);
   }
 }
 function lineWins(grid,linePaths,ref,stakePerLine){
@@ -98,6 +129,7 @@ function lineWins(grid,linePaths,ref,stakePerLine){
 }
 export function evaluateCapturedMath({gameId,grid,linePaths,bet,wheelMultiplier}){
   const ref=knownGame(gameId);
+  linePaths ??= OFFICIAL_LINE_PATHS[gameId];
   checkGrid(grid,ref);checkPaths(linePaths,ref);
   const stake=cents(bet);
   assert(stake>=100n&&stake<=4000000n,'BET_OUTSIDE_WORKER_POLICY',422);
