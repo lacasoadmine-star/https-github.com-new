@@ -53,12 +53,16 @@ export class GameController {
  status(){return{phase:this.phase,bet:this.bet,pending:this.pending,auto:{...this.auto},lastReceipt:this.lastReceipt,error:this.error};}
  notify(){try{this.onChange(this.status())}catch{/* UI never changes settlement. */}}
  change(phase,error=null){this.phase=phase;this.error=error;this.notify();}
+ unresolved(){try{const p=this.session.pending;return !!(typeof p==='function'?p.call(this.session):p)}catch{return true}}
  connect(account){
   if(!account?.authenticated||account.currency!=='ETB'||!account.sessionGuard)fail('LOGIN_REQUIRED');
   validateModel(account.game);
   this.account=account;this.generation++;
+  this.pending=false;this.lastReceipt=null;
+  this.bet=account.game.betLevels.includes(GAME_SPEC.minETB)?GAME_SPEC.minETB:account.game.betLevels[0];
   this.auto={armed:0,started:false};
-  this.change(account.game.enabled&&account.game.freshReleaseReady?'ready':'unavailable');
+  try{this.scene.reset?.()}catch{ /* A stale canvas cannot block auth. */ }
+  this.change(this.unresolved()?'confirm':account.game.enabled&&account.game.freshReleaseReady?'ready':'unavailable');
   return this.phase==='ready';
  }
  setBet(amount){if(this.pending||this.phase!=='ready'||!this.account.game.betLevels.includes(amount))return false;this.bet=amount;this.notify();return true;}
@@ -69,6 +73,7 @@ export class GameController {
  stop(){try{this.scene.speedUp?.()}catch{}return this.phase==='spinning';} // STOP alters animation only.
  async spin(){
   if(this.pending||this.phase!=='ready'||!this.visible()||!this.account)return false;
+  if(this.unresolved()){this.change('confirm','PENDING_ROUND_REQUIRES_RECONCILIATION');return false;}
   const generation=this.generation,stake=this.bet;
   this.pending=true;
   let submitted=false;
@@ -95,12 +100,12 @@ export class GameController {
    try{this.scene.reset?.()}catch{}
    // An ambiguous transport response needs reconciliation, not a new wager.
    const rejected=[400,402,422].includes(error?.status)||['INSUFFICIENT_FUNDS','INVALID_BET','GAME_LOCKED'].includes(error?.code);
-   const unresolved=!!this.session.pending||submitted&&!rejected;
+   const unresolved=this.unresolved()||submitted&&!rejected;
    this.change(error?.code==='SESSION_CHANGED'?'disconnected':unresolved?'confirm':'ready',error?.code||error?.message||'ROUND_UNAVAILABLE');
    return false;
   }finally{if(generation===this.generation){this.pending=false;this.notify()}}
  }
  onHidden(){try{this.scene.pauseAudio?.()}catch{};this.stopAuto();}
  onVisible(){if(this.musicOptedIn&&this.visible())try{this.scene.resumeOptedInMusic?.()}catch{}}
- logout(){this.generation++;this.account=null;this.pending=false;this.auto={armed:0,started:false};this.musicOptedIn=false;try{this.scene.pauseAudio?.();this.scene.reset?.()}catch{}this.change('disconnected')}
+ logout(){this.generation++;this.account=null;this.pending=false;this.lastReceipt=null;this.bet=GAME_SPEC.minETB;this.auto={armed:0,started:false};this.musicOptedIn=false;try{this.scene.pauseAudio?.();this.scene.reset?.()}catch{}this.change('disconnected')}
 }
