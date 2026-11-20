@@ -1,0 +1,45 @@
+import {portraitGeometry} from './portrait.mjs';
+import {SYMBOLS,Reels} from './reels.mjs';
+const controls={spin:[1066,277,150,145],auto:[1104,191,77,77],bet:[1104,441,77,77],menu:[38,636,32,21],sound:[1214,632,34,34],turbo:[1200,253,34,45]};
+export class Presentation{
+ constructor(canvas,art,onAction){this.canvas=canvas;this.ctx=canvas.getContext('2d');this.art=art;this.reels=new Reels();this.onAction=onAction;this.model={bet:'—',balance:'—',currency:'ETB',wheel:2};canvas.addEventListener('pointerup',e=>{const box=canvas.getBoundingClientRect(),x=(e.clientX-box.left)*(this.portrait?390:1280)/box.width,y=(e.clientY-box.top)*(this.geometry?.height??720)/box.height;const found=Object.entries(this.hitAreas()).find(([,r])=>x>=r[0]&&y>=r[1]&&x<=r[0]+r[2]&&y<=r[1]+r[3]);if(found)this.onAction?.(found[0])});this.observer=new ResizeObserver(()=>this.size());this.observer.observe(canvas);this.size();}
+ hitAreas(){
+  const out={...(this.geometry?.controls??controls)};
+  if(this.geometry){
+   // Preserve game artwork. Enlarge only the interactive regions on phones,
+   // keeping TURBO clear of the active SPIN and BET targets.
+   for(const name of ['menu','sound','turbo']){
+    const [left,top,w,h]=out[name];
+    const width=Math.max(44,w),height=Math.max(44,h);
+    let x=left-(width-w)/2,y=top-(height-h)/2;
+    if(name==='turbo'){
+     const [spinX,,spinW]=out.spin,[,betY]=out.bet;
+     x=Math.max(x,spinX+spinW+5);
+     y=Math.min(y,betY-height-6);
+    }
+    x=Math.min(Math.max(0,x),this.geometry.width-width);
+    y=Math.min(Math.max(0,y),this.geometry.height-height);
+    out[name]=[x,y,width,height];
+   }
+  }
+  if(this.model.gambleAvailable)out.gamble=this.geometry?[18,this.geometry.height-206,46,46]:[1113,117,60,60];
+  if(this.model.win&&this.model.win!=='0.00')out.collect=this.geometry?[326,this.geometry.height-206,46,46]:[1113,527,60,60];
+  return out
+ }
+ size(){const dpr=Math.min(2,devicePixelRatio||1),width=this.canvas.clientWidth;this.canvas.width=Math.round(width*dpr);this.portrait=width<=600;const h=this.portrait?Math.max(480,innerHeight-26):width*720/1280;this.canvas.style.height=h+'px';this.canvas.style.aspectRatio='auto';this.canvas.height=Math.round(h*dpr);this.geometry=this.portrait?portraitGeometry(width,h):null;this.draw(performance.now());}
+ set(data){Object.assign(this.model,data);this.draw(performance.now());}
+ animate(grid,plan){this.wheelStart=this.lastWheel??2;this.lastWheel=this.model.wheel;this.reels.start(grid,performance.now(),plan);const frame=time=>{const ended=this.reels.tick(time);this.draw(time);if(!ended)this.raf=requestAnimationFrame(frame);else this.onSettled?.()};this.raf=requestAnimationFrame(frame);}
+ stop(){this.reels.stop(performance.now());}
+ draw(time){const c=this.ctx,a=this.art,s=(key,x,y,w,h)=>a.sprite(c,key,x,y,w,h);const g=this.geometry,lw=g?390:1280,lh=g?g.height:720;c.setTransform(this.canvas.width/lw,0,0,this.canvas.height/lh,0,0);c.clearRect(0,0,lw,lh);const bg=a.image('background.png'),bs=Math.max(lw/bg.width,lh/bg.height);c.drawImage(bg,(lw-bg.width*bs)/2,0,bg.width*bs,bg.height*bs);const title=g?g.title:{x:48,y:106,w:297,h:46};c.drawImage(a.image('logo.png'),23,1542,565,87,title.x,title.y,title.w,title.h);if(g){c.save();c.translate(g.reelOrigin.x,g.reelOrigin.y);c.scale(g.reelScale,g.reelScale)}
+ // Wheel mask and coordinates measured from the live desktop screenshot.
+ s('Multiplier/Background',321,53,619,151);c.save();c.beginPath();c.moveTo(323,201);c.quadraticCurveTo(630,-81,938,201);c.closePath();c.clip();c.translate(630,392);const angles={1:3,2:0,3:2,4:-1,5:1};let angle=(angles[this.model.wheel]??0)*Math.PI*2/14;if(this.reels.phase!=='READY'){const start=(angles[this.wheelStart]??0)*Math.PI*2/14;let end=angle;while(end<start+Math.PI*4)end+=Math.PI*2;const progress=Math.min(1,Math.max(0,(time-this.reels.startTime)/this.reels.plan[0]));angle=start+(end-start)*(1-Math.pow(1-progress,3));}c.rotate(angle);s('Multiplier/Numbers',-311,-329,622,632);c.restore();
+ s('Box/Background',300,189,660,402);const cellW=126,cellH=125;
+ for(let x=0;x<5;x++){c.save();c.beginPath();c.rect(316+x*cellW,204,121,373);c.clip();const moving=this.reels.phase!=='READY'&&time-this.reels.startTime<this.reels.plan[x];const fraction=moving?this.reels.offsets[x]%1:0;for(let y=moving?-1:0;y<(moving?4:3);y++){const symbol=moving?Object.keys(SYMBOLS)[(Math.floor(this.reels.offsets[x])+y+x+80)%8]:this.reels.grid[y][x];const key='Box/'+(moving?'Blur/':'')+SYMBOLS[symbol],meta=a.atlas.frames[key],ratio=meta.frame.w/meta.frame.h;const h=Math.min(134,131/ratio),w=h*ratio;s(key,316+x*cellW+(121-w)/2,204+(y+fraction)*cellH+(cellH-h)/2,w,h)}c.restore()}
+ if(this.model.winLines?.length){c.save();c.strokeStyle='#ffe947';c.shadowColor='#ffad13';c.shadowBlur=12;c.lineWidth=3;for(const line of this.model.winLines){c.beginPath();line.positions.forEach((p,i)=>{const y=Array.isArray(p)?p[0]:p.row,x=Array.isArray(p)?p[1]:p.col;const px=316+x*126+60.5,py=204+y*125+62.5;i?c.lineTo(px,py):c.moveTo(px,py)});c.stroke()}c.restore()}if(g)c.restore();for(const[name,r]of Object.entries(this.hitAreas())){const key={spin:this.reels.phase==='READY'?(this.model.enabled===false?'Buttons/SpinDisabled':'Buttons/Spin'):'Buttons/SpinStop',gamble:'Buttons/Double',collect:'Buttons/DoubleTake',auto:'Buttons/AutoPlay',bet:'Buttons/Bet',menu:'Buttons/Menu',sound:this.model.sound?'Buttons/SoundOn':'Buttons/SoundOff',turbo:this.model.turbo?'Buttons/QuickPlayActive':'Buttons/QuickPlay'}[name];s(key,...(g&&['menu','sound','turbo'].includes(name)?g.controls[name]:r))}const spin=(g?.controls??controls).spin,cx=spin[0]+spin[2]/2,cy=spin[1]+spin[3]/2;c.fillStyle='#fff';c.font='bold '+(g?11:14)+'px MH10Intro';c.textAlign='center';if(this.reels.phase==='READY'){c.fillText('HOLD',cx,cy-12);c.fillText('&',cx,cy+3);c.fillText('SPIN',cx,cy+18)}else c.fillText('STOP',cx,cy+22);
+ const balance=g?g.balance:[354,623,158,48],bet=g?g.bet:[757,623,158,48];s('Start/FooterBalance',...balance);s('Start/FooterBet',...bet);c.textAlign='center';c.fillStyle='#fff';c.font='bold '+(g?12:15)+'px MH10Intro,Arial';c.fillText(this.model.balance+' '+this.model.currency,balance[0]+balance[2]/2,balance[1]+balance[3]*.75);c.fillText(this.model.bet+' '+this.model.currency,bet[0]+bet[2]/2,bet[1]+bet[3]*.75);c.fillStyle='#ffff00';c.font=(g?11:14)+'px Arial';c.fillText('BALANCE',balance[0]+balance[2]/2,balance[1]+balance[3]*.39);c.fillText('BET',bet[0]+bet[2]/2,bet[1]+bet[3]*.39);
+ if(this.celebration){const cx=lw/2,cy=g?g.height*.47:345,scale=g?.7:1;c.save();c.fillStyle='#001320bb';c.fillRect(0,0,lw,lh);c.translate(cx,cy);c.scale(scale,scale);c.shadowColor='#ffcd28';c.shadowBlur=30;c.fillStyle='#08703b';c.strokeStyle='#ffdc53';c.lineWidth=7;c.beginPath();c.moveTo(0,-120);c.lineTo(125,0);c.lineTo(0,120);c.lineTo(-125,0);c.closePath();c.fill();c.stroke();c.shadowBlur=0;c.fillStyle='#ffe441';c.textAlign='center';c.font='bold 49px MH10Intro';c.fillText('NICE',0,-15);c.fillText('WIN',0,36);c.fillStyle='#401373';c.fillRect(-125,80,250,48);c.strokeRect(-125,80,250,48);c.fillStyle='#ffff70';c.font='bold 23px MH10Intro';c.fillText(this.celebration+' '+this.model.currency,0,112);c.restore();}if(this.model.win&&this.model.win!=='0.00'){c.fillStyle='#ffdf39';c.font='bold '+(g?18:22)+'px MH10Intro';c.fillText('WIN '+this.model.win+' '+this.model.currency,lw/2,g?g.controls.spin[1]-35:604);}
+ }
+
+ async celebrate(amount){this.celebration=amount;this.draw(performance.now());await new Promise(r=>setTimeout(r,1400));this.celebration=null;this.draw(performance.now())}
+ destroy(){cancelAnimationFrame(this.raf);this.observer.disconnect()}
+}
