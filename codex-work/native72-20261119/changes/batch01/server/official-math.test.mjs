@@ -1,24 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  GAME_REFERENCE, asETB, cents, evaluateCapturedMath,
+  GAME_REFERENCE, OFFICIAL_LINE_PATHS, asETB, cents, evaluateCapturedMath,
   requireApprovedProfile, spinCertifiedMath, settleExistingPlayerRound
 } from './official-math.mjs';
 
 const M20='fresh_multihot20', BURN='fresh_multihot5burnwilds';
-// These are TEST-ONLY synthetic line patterns, NOT approved provider line charts.
-const lines20=(()=>{
- const result=[[0,0,0,0,0]];
- for(let n=1;result.length<20;n++){
-   const p=Array.from({length:5},(_,i)=>Math.floor(n/(3**i))%3);
-   if(p[0]===0&&p[1]===0&&p[2]===0)continue;
-   result.push(p);
- }return result;
-})();
-const lines5=[
- [0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],
- [0,1,2,1,0],[2,1,0,1,2]
-];
+// Exactly archived game-specific charts (NOT guessed paylines).
+const lines20=OFFICIAL_LINE_PATHS.fresh_multihot20;
+const lines5=OFFICIAL_LINE_PATHS.fresh_multihot5burnwilds;
 function board(fill='cherry'){return Array.from({length:3},()=>Array(5).fill(fill));}
 function fakeCertifiedProfile(gameId){
  const symbols=gameId===M20?['seven','bell','cherry','grape']:['seven','bell','cherry','wild'];
@@ -39,6 +29,9 @@ test('exact archived SmartSoft coefficients for the first two batch-1 games',()=
  assert.equal(GAME_REFERENCE[BURN].paytable.seven[3],40);
  assert.equal(GAME_REFERENCE[BURN].paytable.seven[5],1000);
  assert.equal(GAME_REFERENCE[BURN].paytable.wild[3],undefined);
+ assert.equal(OFFICIAL_LINE_PATHS[M20].length,20);
+ assert.equal(OFFICIAL_LINE_PATHS[BURN].length,5);
+ assert.deepEqual(OFFICIAL_LINE_PATHS[BURN][0],[1,1,1,1,1]);
 });
 test('ETB money uses integer cents with no floating-point rounding',()=>{
  assert.equal(cents('40000.00'),4000000n);
@@ -48,19 +41,19 @@ test('ETB money uses integer cents with no floating-point rounding',()=>{
  assert.throws(()=>cents('-1.00'),/INVALID_ETB_AMOUNT/);
  assert.throws(()=>cents('1e3'),/INVALID_ETB_AMOUNT/);
 });
-test('Multi Hot 20: three sevens at ETB 1.00 = ETB 2.50 per line, multiplier 3 gives 7.50',()=>{
+test('Multi Hot 20: two verified winning lines with 3 sevens, multiplier 3 gives ETB 15.00',()=>{
  const grid=[['seven','seven','seven','bell','grape'],['cherry','bell','grape','cherry','seven'],['lemon','orange','plum','watermelon','bell']];
  const x=evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:3});
- assert.equal(x.winLines.filter(w=>w.symbol==='seven'&&w.count===3).length,1);
+ assert.equal(x.winLines.filter(w=>w.symbol==='seven'&&w.count===3).length,2);
  assert.equal(x.winLines.find(w=>w.line===1).baseWin,'2.50');
- assert.equal(x.finalWin,'7.50');
+ assert.equal(x.finalWin,'15.00');
  assert.deepEqual(x.expandedWildReels,[]);
 });
 test('Multi Hot 20: five sevens are 2,000 times the per-line bet',()=>{
  const grid=[Array(5).fill('seven'),['cherry','bell','grape','lemon','orange'],['plum','watermelon','bell','cherry','grape']];
  const x=evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:1});
  assert.equal(x.winLines.find(w=>w.line===1).baseWin,'100.00');
- assert.equal(x.finalWin,'100.00');
+ assert.equal(x.finalWin,'120.00');
 });
 test('Multi Hot 20: total bet must split exactly among 20 lines',()=>{
  assert.throws(()=>evaluateCapturedMath({gameId:M20,grid:board(),linePaths:lines20,bet:'1.01',wheelMultiplier:1}),/BET_NOT_DIVISIBLE_BY_PAYLINES/);
@@ -84,8 +77,8 @@ test('Burn Wilds: one winning Wild expands over the full middle reel then reeval
 test('Burn Wilds: seven pays even for two matching symbols; no invented Wild expansion',()=>{
  const grid=board('cherry');grid[0]=['seven','seven','bell','cherry','cherry'];
  const x=evaluateCapturedMath({gameId:BURN,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1});
- assert.equal(x.winLines.find(w=>w.line===1).count,2);
- assert.equal(x.winLines.find(w=>w.line===1).baseWin,'1.00');
+ assert.equal(x.winLines.find(w=>w.line===2).count,2);
+ assert.equal(x.winLines.find(w=>w.line===2).baseWin,'1.00');
  assert.deepEqual(x.expandedWildReels,[]);
 });
 test('Burn Wild cannot appear in reel one or five',()=>{
@@ -97,6 +90,7 @@ test('Burn Wild cannot appear in reel one or five',()=>{
 test('reject guessed paylines, invalid wheel multipliers and unknown symbols',()=>{
  const grid=board('cherry');
  assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines5,bet:'1.00',wheelMultiplier:1}),/UNVERIFIED_PAYLINE_COUNT/);
+ assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines20.map((p,i)=>i===0?[0,0,0,0,1]:p),bet:'1.00',wheelMultiplier:1}),/OFFICIAL_PAYLINE_CHART_MISMATCH/);
  assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:6}),/MULTIPLIER_UNVERIFIED/);
  grid[0][0]='invented';
  assert.throws(()=>evaluateCapturedMath({gameId:M20,grid,linePaths:lines20,bet:'1.00',wheelMultiplier:1}),/INVALID_REEL_SYMBOL/);
