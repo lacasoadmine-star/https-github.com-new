@@ -19,7 +19,7 @@ const helpView=createOfficialHelpPresentation({document,gameId,audioControls});
 const startupView=createOfficialStartup({document,gameId,onSoundChoice:chooseSound});
 let nativeControlsReady=!nativeControls,nativeControlsError=null;if(nativeControls?.ready)void nativeControls.ready.then(()=>{nativeControlsReady=true;}).catch(error=>{nativeControlsError=String(error?.message||error);});
 let lastWin='0.00',soundChoice=false,displayPendingWin=false;
-let epoch=0,betIndex=g.betLevels.indexOf(defaultStake(g)),signedIn=false,balance=null,lastRound=null,free=0,auto=0,autoEpoch=0,actionBusy=false,canGamble=false,gambleValue='0.00',gambleAttempt=0,legacy=false,disposed=false,refreshTimer,turbo=false,holdTimer,holdStarted=false,suppressSpinClick=false;
+let epoch=0,betIndex=g.betLevels.indexOf(defaultStake(g)),signedIn=false,balance=null,lastRound=null,free=0,auto=0,autoEpoch=0,actionBusy=false,canGamble=false,gambleValue='0.00',gambleAttempt=0,legacy=false,disposed=false,refreshTimer,turbo=false,holdTimer,suppressSpinClick=false;
 document.title=g.name+' · ZPLAY';$('settings-title').textContent=g.name;
 if(audioControls){soundChoice=audioControls.getState().effectsEnabled;audioControls.subscribe(value=>{soundChoice=value.effectsEnabled;soundIndicator();});}
 else try{const choice=localStorage.getItem('zplay:sound-choice');if(choice==='no')audio.toggle();soundChoice=choice==='yes';audio.setBackgroundEnabled(soundChoice);}catch{}
@@ -57,7 +57,7 @@ function update(){
  let saved=null,action=null;try{saved=api.key?pending():null;action=api.key?api.pending(api.actionKey):null;}catch(e){legacy=true;notice('Saved round information needs review. Open History before continuing.');}const animating=state.value==='animating',waiting=state.value==='requesting',locked=state.locked||actionBusy||!!saved||!!action||legacy;
  $('spin').disabled=disposed||legacy||!signedIn||actionBusy||!!action||(!animating&&state.value!=='pending'&&!['ready','presenting'].includes(state.value))||(!saved&&!animating&&!free&&balance!==null&&units(balance)===0n)||(!animating&&auto>0);
  $('spin-label').textContent=animating?'STOP':waiting?'WAIT':saved?'CONFIRM':free?'FREE SPIN':'SPIN';$('spin-bet').textContent=bet()+' ETB';
- $('spin').setAttribute('aria-label',animating?'Speed up the current spin animation':saved?'Confirm the saved round':'Spin '+bet()+' ETB.'+' Hold to repeat spins.');
+ $('spin').setAttribute('aria-label',animating?'Speed up the current spin animation':saved?'Confirm the saved round':'Spin '+bet()+' ETB. Hold to open autoplay options.');
  $('bet-value').textContent=bet();$('last-win').textContent=signedIn?lastWin:'—';$('previous-stake').hidden=true;$('previous-stake').disabled=true;$('previous-stake-amount').textContent='';$('stake-amount').textContent=bet();$('stake-open').setAttribute('aria-label','Choose bet');$('stake-open').disabled=locked||auto>0||free>0;$('bet-quick').disabled=locked||auto>0||free>0;$('bet-open').disabled=locked||auto>0||free>0;$('bet-less').disabled=locked||auto>0||free>0||betIndex===0;$('bet-more').disabled=locked||auto>0||free>0||betIndex===g.betLevels.length-1;
  $('auto').disabled=!signedIn||legacy||actionBusy||!!action||(!auto&&(!!saved||state.locked));$('auto-label').textContent=auto?'STOP '+(auto===Infinity?'∞':auto):'AUTO';$('auto').setAttribute('aria-pressed',String(auto>0));
  $('gamble').disabled=$('gamble-menu').disabled=!(signedIn&&!actionBusy&&!legacy&&((!!action&&!state.locked)||(canGamble&&!locked&&!auto&&!free))); $('collect').disabled=!lastRound||locked||auto>0||Number(gambleValue)<=0;
@@ -67,9 +67,10 @@ function update(){
  $('bet-note').textContent=free?'The bet is locked while your free spins remain.':saved?'Confirm the saved round before changing the bet.':'Select a stake before the next spin.';
 }
 function stopAuto(){if(auto)audio.autoStopped?.();auto=0;autoEpoch++;update();}
-function signOut(message='Sign in to your existing Player account.'){epoch++;startupView?.fail('signedout');signedIn=false;balance=null;canGamble=false;displayPendingWin=false;renderer.cancelPresentation();stopAuto();audio.stop();$('balance').textContent='—';$('win').textContent='—';if(state.value!=='signedout')setState('signedout');notice(message,false,true);}
+function closeGamblePresentation(){gambleView?.close();const dialog=$('gamble-dialog');if(dialog?.open)dialog.close();}
+function signOut(message='Sign in to your existing Player account.'){epoch++;closeGamblePresentation();startupView?.fail('signedout');signedIn=false;balance=null;canGamble=false;displayPendingWin=false;renderer.cancelPresentation();stopAuto();audio.stop();$('balance').textContent='—';$('win').textContent='—';if(state.value!=='signedout')setState('signedout');notice(message,false,true);}
 async function boot(){
- {gambleView?.close();const dialog=$('gamble-dialog');if(dialog?.open)dialog.close();}
+ closeGamblePresentation();
  const run=++epoch;actionBusy=false;clearTimeout(refreshTimer);signedIn=false;canGamble=false;lastRound=null;lastRoundModel=null;latestKnown=null;lastWin='0.00';free=0;gambleValue='0.00';displayPendingWin=false;gambleAttempt=0;if(state.value!=='loading')setState('loading');notice('Checking your account…');startupView?.begin();
  try{
   {await Promise.all([renderer.artReady,nativeControls?.ready]);if(disposed||run!==epoch)return;if(!startupView)$('official-startup')?.remove();}
@@ -206,9 +207,9 @@ async function gamble(choice){if(actionBusy||!signedIn||pending())return;const s
 }
 renderBetOptions();
 listen($('spin'),'click',()=>{if(suppressSpinClick){suppressSpinClick=false;return;}void spin();});listen($('spin'),'keydown',e=>{if(e.repeat&&(e.key===' '||e.key==='Enter'))e.preventDefault();});
-const endHold=()=>{clearTimeout(holdTimer);if(holdStarted){holdStarted=false;stopAuto();}};
-const lifecycle=new MachineLifecycle(renderer,{hidden:document.hidden,focused:document.hasFocus?.()??true,onPause:()=>{endHold();stopAuto();}});
-listen($('spin'),'pointerdown',e=>{if(e.button!==0||state.value!=='ready'||$('spin').disabled)return;clearTimeout(holdTimer);suppressSpinClick=false;holdTimer=setTimeout(()=>{if(document.hidden||disposed||state.value!=='ready'||document.querySelector('dialog[open]'))return;holdStarted=true;suppressSpinClick=true;void startAuto(1000);},600);});
+const endHold=()=>clearTimeout(holdTimer);
+const lifecycle=new MachineLifecycle(renderer,{audio,hidden:document.hidden,focused:document.hasFocus?.()??true,onPause:()=>{endHold();stopAuto();}});
+listen($('spin'),'pointerdown',e=>{if(e.button!==0||state.value!=='ready'||$('spin').disabled)return;clearTimeout(holdTimer);suppressSpinClick=false;holdTimer=setTimeout(()=>{if(!lifecycle.running||disposed||state.value!=='ready'||$('auto').disabled||document.querySelector('dialog[open]'))return;suppressSpinClick=true;$('auto-dialog').showModal();},600);});
 listen(window,'pointerup',endHold);listen(window,'pointercancel',endHold);listen($('spin'),'pointerleave',endHold);if(!lifecycle)listen(window,'blur',endHold);
 function setTurbo(enabled){turbo=enabled;renderer.setTurbo(turbo);$('turbo').setAttribute('aria-pressed',String(turbo));$('turbo').setAttribute('aria-label',turbo?'Use normal spin animation':'Enable faster spin animation');}
 listen($('turbo'),'click',()=>setTurbo(!turbo));

@@ -137,6 +137,18 @@ test('POST transport preserves captured session, same-origin and no-store',async
 test('pause reasons compose without automatic play restart',()=>{
  const calls=[],renderer={pause(){calls.push('pause');},resume(){calls.push('resume');}},life=new MachineLifecycle(renderer,{onPause(){calls.push('stop-auto');}});life.blur();life.visibility(true);life.focus(true);life.pageHide();life.visibility(false);life.focus(false);assert.deepEqual(calls,['pause','stop-auto']);life.pageShow({hidden:false,focused:true});assert.deepEqual(calls,['pause','stop-auto','resume']);life.dispose();life.focus(false);life.pageShow({hidden:false,focused:true});assert.deepEqual(calls,['pause','stop-auto','resume','pause','stop-auto']);
 });
+test('blur silences audio before pausing even when the renderer does not own audio',()=>{
+ const events=[];
+ const renderer={pause:()=>events.push('pause'),resume:()=>events.push('resume')};
+ const audio={setSuspended:value=>events.push(value?'silence':'restore')};
+ const lifecycle=new MachineLifecycle(renderer,{audio,onPause:()=>events.push('stop-auto')});
+ lifecycle.blur();
+ lifecycle.visibility(true);
+ lifecycle.focus(true);
+ assert.deepEqual(events,['silence','pause','stop-auto']);
+ lifecycle.visibility(false);
+ assert.deepEqual(events,['silence','pause','stop-auto','resume','restore']);
+});
 test('audio base owns no bank and respects suspension',async()=>{
  const audio=new SoundEngine();assert.deepEqual(audio.audioSamples,{});assert.equal(await audio.preload(),false);assert.equal(await audio.preloadBackground(),false);audio.reelWanted=true;audio.setSuspended(true);assert.equal(audio.playbackSuspended,true);assert.equal(audio.playSample('tap'),false);assert.equal(audio.backgroundLoop(),false);assert.equal(audio.reelWanted,true);await audio.dispose();
 });
@@ -146,6 +158,23 @@ test('shared code imports no game models, renderers, art or audio banks',async()
 });
 test('AUTO counts select only; START PLAY reads options',()=>{
  assert.doesNotMatch(source,/\[data-auto\][^\n]*click[^\n]*startAuto\(Number/);assert.match(source,/selectedAutoCount=Number\(b\.dataset\.auto\)/);assert.match(source,/official-auto-start[\s\S]*readAutoOptions/);
+});
+test('holding Spin opens the autoplay dialog without sending a spin',()=>{
+ const elements=new Map();
+ const get=id=>{if(!elements.has(id))elements.set(id,{disabled:false,showModal(){this.open=true;}});return elements.get(id);};
+ let scheduled,handler;
+ const context=vm.createContext({$:get,holdTimer:0,suppressSpinClick:false,
+  state:{value:'ready'},lifecycle:{running:true},disposed:false,document:{querySelector:()=>null},
+  listen:(node,event,callback)=>{handler=callback;},clearTimeout(){},
+  setTimeout:callback=>{scheduled=callback;return 1;},
+  startAuto(){assert.fail('Hold must not start autoplay');}});
+ const registration=source.split('\n').find(line=>line.startsWith("listen($('spin'),'pointerdown'"));
+ vm.runInContext(registration,context);
+ handler({button:0});
+ assert.equal(get('auto-dialog').open,undefined);
+ scheduled();
+ assert.equal(get('auto-dialog').open,true);
+ assert.equal(context.suppressSpinClick,true);
 });
 for(const [label]of cases)test(label+': START PLAY preserves an invalid helper result and only starts validated options',()=>{
  const listeners=new Map(),elements=new Map(),started=[];
