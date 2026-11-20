@@ -13,8 +13,8 @@
   "done": false,
   "deploymentBlocker": {
     "provider": "Cloudflare",
-    "code": "oauth_token_invalid_grant",
-    "action": "Reconnect the existing Cloudflare app; no credentials in chat."
+    "code": "HTTP_403_WORKERS_SCOPE_MISSING",
+    "action": "Reconnect the existing Cloudflare app with Workers read/write and the existing KV namespace permissions."
   },
   "officialReference": {
     "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",

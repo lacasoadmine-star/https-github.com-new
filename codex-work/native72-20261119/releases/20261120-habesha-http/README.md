@@ -1,6 +1,6 @@
 # Habesha mobile code and HTTP checkpoint
 
-The existing live route returns HTTP 200 with Habesha r7. This checkpoint prepares Habesha r9 and shared r1 (20 November) for that same Worker route. Publication has **not** occurred: the connected Cloudflare app returned `oauth_token_invalid_grant`. No game is marked DONE on the basis of the older live page.
+The existing live route returns HTTP 200 with Habesha r7. This checkpoint prepares Habesha r9 and shared r1 (20 November) for that same Worker route. The Cloudflare connection can list accounts, but Worker versions, settings and deployment reads return HTTP 403 for missing Workers scopes. Habesha r9 remains staged.
 
 The shared controller ignores superseded balance requests and their session failures. Single-game packaging selects only Habesha and shared dependencies; Deluxe and the two protected original games are not selected. The original model and existing `/api/slots/*` wallet endpoints are retained. No backend, wallet, database, dashboard, Worker, or desktop layout was created.
 

@@ -241,7 +241,7 @@ export class MultiHot40Presentation {
   }
   wheel(view, sample) {
     const context = this.context, scale = view.board.width / 993 * (view.portrait ? .845 : 1);
-    const origin = { x: view.board.x + view.board.width / 2, y: view.board.y + (view.portrait ? 408 : 400) * scale };
+    const origin = { x: view.board.x + view.board.width / 2, y: view.board.y + (view.portrait ? 408 : 392) * scale };
     const normal = [202, 367, 305, 269, 417, 198, 516, 161, 581, 367, 738, 367, 801, 161, 918, 204, 1015, 268, 1124, 368, 1037, 368, 273, 367];
     const light = [543, 170, 657, 145, 773, 170, 720, 358, 592, 358];
     this.sprite('Multiplier/Background', RECT(origin.x - 660 * scale, origin.y - 660 * scale, 1320 * scale, 1320 * scale), { padding: true, fit: 'stretch' });

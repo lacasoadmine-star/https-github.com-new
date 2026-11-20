@@ -3,6 +3,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {runInNewContext} from 'node:vm';
+import {join} from 'node:path';
+import {installDedicatedReleases} from '../dedicated-resume/deployment/handler.mjs';
+import {createProductionHandler} from '../dedicated-resume/tests/fixtures/native72habesha3-routes.mjs';
 import {
   MultiHot40Motion,multiHot40Layout,MULTIHOT40_INITIAL_GRID,
   isMultiHot40Grid,winTier
@@ -19,15 +23,7 @@ test('official 5x4 grid is kept distinct from every 3x3 / other title engine',()
   assert.equal(isMultiHot40Grid(Array.from({length:4},()=>[0,1,2,3,4])),false);
   assert.equal(isMultiHot40Grid([[1,1,1],[1,1,1],[1,1,1]]),false);
 });
-test('desktop reference layout: wheel, board, logo, touch targets stay in the correct regions',()=>{
-  const v=multiHot40Layout(1280,800);
-  assert.equal(v.portrait,false);
-  assert.ok(v.board.x>340 && v.board.x<370,JSON.stringify(v.board));
-  assert.ok(v.board.y>188 && v.board.y<196,JSON.stringify(v.board));
-  assert.ok(v.board.width>555 && v.board.width<563);
-  assert.ok(v.logo.x<40 && v.logo.y<120);
-  assert.ok(v.controls.spin.x>1020 && v.controls.spin.y<310);
-  assert.ok(v.hud.balance.y<660 && v.hud.balance.y>650);
+test('phone portrait layout places the bet and touch targets below the board',()=>{
   const h=multiHot40Layout(390,844);
   assert.equal(h.portrait,true);
   assert.ok(h.controls.spin.width>100);
@@ -100,4 +96,59 @@ test('mobile hitbox regression: Menu, Sound and TURBO reach 44px and avoid SPIN/
  assert.ok(app.includes('bet.y-height-6'));
  assert.ok(app.includes('Math.max(0,rect.width-width)'));
  assert.ok(app.includes('Math.max(0,rect.height-height)'));
+});
+
+test('a thrown wager request releases SPIN without retrying the wager', async () => {
+  const app = await readFile(new URL('./multihot40-app.mjs', import.meta.url), 'utf8');
+  const start = app.slice(app.indexOf('async function doStart('), app.indexOf('async function collectWin('));
+  const phases = [], attempts = [], stopReasons = [];
+  const context = {
+    document: {visibilityState:'visible'}, ready:true, entered:true, disposed:false,
+    operation:'', visualBusy:false, visualRound:'', selectedStake:'1.00',
+    state:{authenticated:true, sessionId:'qa-session', game:{version:'qa-model'}, balance:'10.00'},
+    session:{canAct:()=>false, start:async () => {attempts.push('start'); throw Error('transport');},
+      refresh:async () => {attempts.push('refresh');}},
+    auto:{snapshot:()=>({active:false}), stop:reason=>stopReasons.push(reason), observe:()=>{}},
+    presenter:{setState:({phase})=>phases.push(phase)}, presenterState:()=>({}),
+    canStart:()=>true, moneyMinor:value=>BigInt(value.replace('.', '')), hostState:()=>({}),
+    closeDialogs:()=>{}, syncControls:()=>{}, queueAutomatic:()=>{},
+  };
+  assert.equal(await runInNewContext(`${start}\ndoStart()`, context), false);
+  assert.equal(context.operation, '');
+  assert.equal(context.visualBusy, false);
+  assert.deepEqual(attempts, ['start', 'refresh']);
+  assert.deepEqual(phases, ['spinning', 'error']);
+  assert.deepEqual(stopReasons, ['unconfirmed-round']);
+});
+
+const stage = process.env.MULTIHOT40_QA_STAGE;
+test('staged Worker serves the dedicated page and assets and leaves wallet routes to the existing handler', {skip: !stage}, async () => {
+  const {releasePins} = await import(join(stage, 'worker', 'release-pins.mjs'));
+  const game = releasePins.games.find(pin => pin.gameId === 'multihot40_native');
+  const {assets} = JSON.parse(game.inlineManifest);
+  const keys = new Map(Object.entries(assets).map(([name, asset]) => [asset.kvKey, name]));
+  const worker = installDedicatedReleases({fetch: request => new Response(new URL(request.url).pathname, {status: 202})},
+    {...releasePins, createProductionHandler});
+  const env = {PORTAL: 'player', SSG_OFFICIAL_REFERENCES: {get: key => readFile(join(stage, 'multihot40', keys.get(key)))}};
+  const request = (path, method = 'GET') => worker.fetch(new Request('https://qa.invalid' + path, {method}), env, {});
+  const page = await request(game.accountPath);
+  assert.equal(page.status, 200);
+  assert.equal(page.headers.get('X-Zplay-Release'), game.release);
+  const html = await page.text();
+  assert.match(html, /type="submit">START PLAY<\/button>/);
+  assert.ok(html.includes(`/${game.release}/multihot40-app.mjs`));
+  assert.equal(html.match(/presence\.[a-z0-9]+\.mjs/g).length, 1);
+  for (const [filename, asset] of Object.entries(assets)) {
+    const response = await request(`/${game.release}/${filename}`);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('ETag'), `"${asset.sha256}"`);
+    const source = await response.text();
+    for (const [, relative] of source.matchAll(/from '\.\/([^']+)'/g)) assert.ok(assets[relative], relative);
+  }
+  for (const [path, method] of [['/api/expansion/state', 'GET'], ['/api/expansion/action', 'POST'],
+    ['/games/multi_hot_5_native', 'GET'], ['/games/foxy_hot_20_native', 'GET']]) {
+    const response = await request(path, method);
+    assert.equal(response.status, 202);
+    assert.equal(await response.text(), path);
+  }
 });

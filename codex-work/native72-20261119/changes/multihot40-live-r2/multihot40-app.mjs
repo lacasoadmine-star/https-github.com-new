@@ -93,8 +93,17 @@ async function doStart({automatic=false,holding=false}={}){
  if(!canStart()||state.sessionId!==initiatingSession||state.game?.version!==initiatingModel||automatic&&!auto.snapshot().active||holding&&!hold?.active)return false;
  if(moneyMinor(state.balance)<moneyMinor(selectedStake)){nodes.status.textContent='Your balance is below this stake.';nodes.statusBar.classList.remove('quiet');auto.stop('insufficient-funds');return false;}
  operation='start';visualBusy=true;visualRound='';closeDialogs();presenter.setState({...presenterState(state),phase:'spinning'});syncControls();
- const confirmed=await session.start(selectedStake,automatic?{autoCollect:true}:{});
- operation='';
+ let confirmed=false;
+ try{
+  confirmed=await session.start(selectedStake,automatic?{autoCollect:true}:{});
+ }catch{
+  // Refresh reads the authoritative round and any retained request ID.
+  // Never submit a second wager to recover from a thrown start.
+  void session.refresh({quiet:true});
+ }finally{
+  operation='';
+ }
+ if(disposed||state.sessionId!==initiatingSession)return false;
  if(!confirmed){visualBusy=false;presenter.setState({...presenterState(state),phase:'error'});auto.stop('unconfirmed-round');}
  auto.observe(hostState());syncControls();queueAutomatic();return confirmed;
 }
@@ -209,6 +218,7 @@ nodes.auto.addEventListener('click',()=>{if(auto.snapshot().active){stopAuto();r
 nodes.autoForm.addEventListener('submit',event=>{event.preventDefault();if(!canStart()||auto.snapshot().active)return;try{auto.begin({gameId:ID,modelVersion:state.game.version,sessionId:state.sessionId,stakeMinor:amount(selectedStake),count:Number(nodes.autoCount.value),startingBalanceMinor:amount(state.balance),previousRoundId:state.round?.round_id??null,winLimitMinor:limitValue(nodes.autoWin),lossLimitMinor:limitValue(nodes.autoLoss),gainLimitMinor:limitValue(nodes.autoGain)});nodes.autoDialog.close();syncControls();queueAutomatic();}catch(error){nodes.autoError.textContent=error.message;}});
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){hold.stop();stopAuto('page-hidden');presenter.setState({soundEnabled:false,musicEnabled:false});}else{applyPreferences();if(!operation)void session?.refresh({quiet:true});}});
+window.addEventListener('blur',()=>{hold.stop();stopAuto('window-blur');});
 window.addEventListener('pagehide',()=>{disposed=true;hold.stop();stopAuto('pagehide');cancelAnimationFrame(renderTick);presenter.dispose();});
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
 window.addEventListener('keydown',event=>{if(event.code==='Space'&&!event.repeat&&!dialogNames.some(name=>nodes[name].open)&&!['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement?.tagName)){event.preventDefault();if(!nodes.spin.disabled)nodes.spin.click();}});

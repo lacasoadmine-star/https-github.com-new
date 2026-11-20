@@ -10,6 +10,7 @@ const expected = Object.freeze({
   shared: { release: 'zplay-native-shared-20261119-r1' },
   habesha: { release: 'zplay-native-machines-20261119-habesha-r8', gameId: 'habesha_fortune_5_native' },
   deluxe: { release: 'zplay-native-machines-20261119-mh5deluxe-r2', gameId: 'multi_hot_5_deluxe_native' },
+  multihot40: { release: 'zplay-multihot40-20261120-r3', gameId: 'multihot40_native', accountPath: '/games/multihot40_native' },
 });
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const catalogUrl = new URL('./verified-target-catalog.json', import.meta.url);
@@ -42,6 +43,11 @@ export async function buildReleaseModules(stageDirectory, outputDirectory = here
   const defined = Object.entries(expected).filter(([name]) => report.packages.some(item => item.name === name))
     .map(([name, identity]) => {
       const record = report.packages.find(item => item.name === name);
+      if (name === 'multihot40') {
+        const game = catalog.get(identity.accountPath);
+        if (record.release !== identity.release || game?.catalogId !== 'ind74_official_multihot40') throw Error('INVALID_MULTIHOT40_PACKAGE');
+        return [name, identity];
+      }
       const family = name === 'shared' ? 'shared' : 'machines';
       const suffix = name === 'shared' ? '' : name === 'habesha' ? 'habesha-' : 'mh5deluxe-';
       if (!new RegExp('^zplay-native-' + family + '-\\d{8}-' + suffix + 'r\\d+$').test(record.release)) {

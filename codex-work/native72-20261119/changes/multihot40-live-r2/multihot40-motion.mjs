@@ -50,12 +50,9 @@ export function multiHot40Layout(width, height) {
   const designHeight = portrait ? 1314 : 768;
   const scale = Math.min(width / designWidth, height / designHeight);
   const offsetX = (width - designWidth * scale) / 2;
-  // The provider desktop embeds a 26px header and places the game at the top of
-  // the remaining viewport. Centering all 768 design units instead caused the
-  // live cabinet, toolbar and footer to sit ~14 CSS pixels too low at 1280x800.
-  const offsetY = portrait ? Math.max(0, height - designHeight * scale) : Math.max(0, height - designHeight * scale) / 3;
+  const offsetY = portrait ? Math.max(0, height - designHeight * scale) : (height - designHeight * scale) / 2;
   const map = value => rect(offsetX + value.x * scale, offsetY + value.y * scale, value.width * scale, value.height * scale);
-  const board = portrait ? rect(-8, 346, 642, 526) : rect(373, 176, 594, 479);
+  const board = portrait ? rect(-8, 346, 642, 526) : rect(385, 184, 573, 469);
   const controls = portrait ? {
     spin: rect(214, 1015, 198, 198), auto: rect(109, 1069, 96, 96),
     bet: rect(424, 1069, 96, 96), menu: rect(0, 1229, 72, 72),
@@ -63,8 +60,8 @@ export function multiHot40Layout(width, height) {
     collect: rect(532, 1069, 76, 76), gamble: rect(18, 1069, 76, 76),
   } : {
     spin: rect(1137, 295, 158, 158), auto: rect(1176, 204, 83, 83),
-    bet: rect(1174, 469, 82, 83), menu: rect(42, 674, 33, 27),
-    sound: rect(1292, 675, 33, 27), turbo: rect(1274, 270, 43, 51),
+    bet: rect(1174, 469, 82, 83), menu: rect(42, 680, 33, 27),
+    sound: rect(1292, 681, 33, 27), turbo: rect(1274, 270, 43, 51),
     collect: rect(1184, 569, 69, 69), gamble: rect(1184, 127, 69, 69),
   };
   const hud = portrait ? {
@@ -81,7 +78,7 @@ export function multiHot40Layout(width, height) {
     grid: map(portrait
       ? rect(board.x + board.width * .026, board.y + board.height * .037, board.width * .95, board.height * .922)
       : rect(board.x + board.width * .018, board.y + board.height * .022, board.width * .964, board.height * .957)),
-    logo: map(portrait ? rect(88, 95, 440, 109) : rect(33, 94, 370, 82)),
+    logo: map(portrait ? rect(88, 95, 440, 109) : rect(49, 105, 324, 78)),
     controls: Object.fromEntries(Object.entries(controls).map(([key, value]) => [key, map(value)])),
     hud: Object.fromEntries(Object.entries(hud).map(([key, value]) => [key, map(value)])),
   };
