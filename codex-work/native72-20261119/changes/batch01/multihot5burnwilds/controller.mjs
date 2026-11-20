@@ -50,7 +50,7 @@ export class GameController {
   if(!session||typeof session.spin!=='function'||!scene)fail('EXISTING_PLAYER_SESSION_REQUIRED');
   this.session=session;this.scene=scene;this.onChange=onChange;this.visible=visible;
   this.phase='disconnected';this.generation=0;this.pending=false;this.lastReceipt=null;
-  this.auto={armed:0,started:false};this.musicOptedIn=false;this.bet=GAME_SPEC.minETB;this.error=null;
+  this.auto={armed:0,started:false};this.musicOptedIn=false;this.turbo=false;this.bet=GAME_SPEC.minETB;this.error=null;
  }
  status(){return{phase:this.phase,bet:this.bet,pending:this.pending,auto:{...this.auto},lastReceipt:this.lastReceipt,error:this.error};}
  notify(){try{this.onChange(this.status())}catch{/* UI never changes settlement. */}}
@@ -71,6 +71,7 @@ export class GameController {
  previewPaytable(){return this.account?.game?.paytable??null;} // Must never alter stake or debit.
  armAuto(count){if(this.phase!=='ready'||!Number.isInteger(count)||count<1||count>1000)return false;this.auto={armed:count,started:false};this.notify();return true;}
  stopAuto(){this.auto={armed:0,started:false};this.notify();}
+ setTurbo(enabled){this.turbo=enabled===true;this.notify();return this.turbo;}
  async startPlay(){if(this.auto.armed<1||this.auto.started)return false;this.auto.started=true;return this.spin();}
  stop(){try{this.scene.speedUp?.()}catch{}return this.phase==='spinning';} // STOP alters animation only.
  async spin(){
@@ -82,6 +83,7 @@ export class GameController {
   try{
    this.change('spinning');
    this.scene.start?.(); // Any error here is pre-submit and creates no wager.
+   if(this.turbo)this.scene.speedUp?.(); // Speed affects visuals, NEVER server settlement.
    submitted=true;
    const raw=await this.session.spin(stake); // Existing session owns idempotency and wallet receipt.
    if(generation!==this.generation)return false;
