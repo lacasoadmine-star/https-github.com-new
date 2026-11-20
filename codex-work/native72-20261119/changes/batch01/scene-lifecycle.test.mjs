@@ -88,3 +88,40 @@ for(const v of variants){
   scene.dispose();
  });
 }
+
+test('Burn Wilds expands the original Wild sprite through 3 rows only when server receipt selects a winning reel',async()=>{
+ let now=1000,draws=[],frames=[];
+ const symbols=['seven','cherry','wild'];
+ const sprites=Object.fromEntries(symbols.map(s=>[s,{width:100,height:100,tag:s}]));
+ const grad={addColorStop(){}};
+ const ctx=new Proxy({createLinearGradient:()=>grad,drawImage:(asset,x,y)=>draws.push({tag:asset.tag,x,y})},{
+  get(target,prop){return prop in target?target[prop]:()=>{}},
+  set(target,prop,value){target[prop]=value;return true}
+ });
+ const cv={width:0,height:0,getContext:()=>ctx,getBoundingClientRect:()=>({width:390,height:244})};
+ const doc=new EventTarget();doc.hidden=false;
+ const win=new EventTarget();win.devicePixelRatio=1;
+ const sounds=[];
+ const audio={play:name=>sounds.push(name),pauseAll(){},resumeOptedInMusic(){}};
+ const scene=new BurnWildsScene({canvas:cv,symbols,assets:sprites,audio,doc,win,
+  clock:()=>now,requestFrame:callback=>setTimeout(()=>{now+=22;callback(now)},0),
+  cancelFrame:id=>clearTimeout(id)});
+ const grid=Array.from({length:3},()=>Array(5).fill('cherry'));
+ grid[1][1]='wild';
+ const receipt={gameId:'fresh_multihot5burnwilds',roundId:'round-1',grid,
+  winLines:[{positions:[[1,0],[1,1],[1,2]]}],finalWin:'4.00',
+  features:{expandedWildReels:[1]}};
+ scene.start();
+ assert.equal(scene.speedUp(),true);
+ assert.equal(await scene.settle(receipt),true);
+ await new Promise(resolve=>setTimeout(resolve,50));
+ const XOFF=235+96;
+ const paintedWildRows=new Set(draws.filter(x=>x.tag==='wild'&&x.x>=XOFF&&x.x<XOFF+96).map(x=>Math.floor((x.y-172)/96)));
+ assert.deepEqual([...paintedWildRows].sort(),[0,1,2]);
+ assert.equal(sounds.filter(x=>x==='fast-motion').length,1);
+ assert.equal(sounds.filter(x=>x==='win').length,1);
+ assert.equal(scene.inspect().receiptId,'round-1');
+ scene.reset();
+ assert.equal(scene.inspect().receiptId,null);
+ scene.dispose();
+});
