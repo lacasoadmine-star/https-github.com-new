@@ -25,21 +25,38 @@ test('a route and a file do not imply release: every game requires production an
   assert.match(entry.officialDemo,/^https:\/\//,entry.title);
  }
 });
-test('missing games are never represented as live Player games without a launch route',()=>{
+test('staged games retain unavailable Player routes and closed math/deployment gates',async()=>{
+ const pins=JSON.parse(await readFile(new URL('./player-route-pins.json',import.meta.url),'utf8'));
  for(const key of ['multihot20','multihot5burnwilds']){
   const e=batch.entries.find(e=>e.sourceKey===key);
   assert.equal(e.observedRoute,null);
-  assert.ok(e.remainingGates.includes('no_live_play_now_route'));
-  assert.ok(e.remainingGates.includes('server_game_model_unverified'));
-  assert.equal(e.packageType,'new-controller-no-public-route');
+  assert.ok(e.remainingGates.includes('public_player_route_not_deployed'));
+  assert.ok(e.remainingGates.includes('server_enabled_authoritative_game_model_not_verified'));
+  assert.equal(e.packageType,'per-game-native-canvas-and-existing-KV-pinned-unreleased');
+  assert.equal(e.kvRelease.published,false);
+  assert.equal(pins.games[key].published,false);
+  assert.equal(pins.games[key].path,e.requestedPlayerRoute);
+  assert.equal(e.serverMathWork.liveDeployed,false);
+  assert.equal(e.serverMathWork.auditedProbabilityProfileApproved,false);
  }
 });
 test('new first-ten game modules are not one cross-contaminated renderer',async()=>{
+ // The route wrapper and pin manifest are shared deployment infrastructure;
+ // each game's artwork, renderer, session and controls stay in its own package.
+ const sharedInfrastructure=new Set(['./player-kv-route.mjs','./player-route-pins.json']);
  const individualFiles=new Set();
  for(const entry of batch.entries){
+  const withinEntry=new Set();
   for(const path of entry.patches){
-   assert.ok(!individualFiles.has(path),'Duplicate package linked to two games: '+path);
-   individualFiles.add(path);
+   assert.ok(!withinEntry.has(path),'Duplicate patch within game: '+path);
+   withinEntry.add(path);
+   if(sharedInfrastructure.has(path)){
+    assert.ok(['multihot20','multihot5burnwilds'].includes(entry.sourceKey),'Unexpected shared route owner');
+   }else{
+    assert.ok(!individualFiles.has(path),'Duplicate package linked to two games: '+path);
+    individualFiles.add(path);
+    if(['multihot20','multihot5burnwilds'].includes(entry.sourceKey))assert.ok(path.startsWith('./'+entry.sourceKey+'/'),'Foreign game package: '+path);
+   }
    const resolved=new URL(path,new URL('./',import.meta.url));
    const source=await readFile(resolved,'utf8');
    assert.ok(source.length>80,'Empty module '+path);

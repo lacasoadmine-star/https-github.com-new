@@ -9,6 +9,7 @@ const $=id=>document.getElementById(id);
 const nodes=Object.fromEntries([...document.querySelectorAll('[id]')].map(node=>[node.id,node]));
 const auto=new AutoplayController();
 let config=null,manifest=null,session=null,state=null,ready=false,entered=false,operation='',visualBusy=false,visualRound='',lastRound='',queuePending=false,disposed=false;
+let focused=document.hasFocus?.()!==false;
 let selectedStake='1.00',historyOrder='recent',historySequence=0,renderTick=0,initialSnapshot=true,hold=null;
 const preferences={sound:true,music:true,turbo:false};
 try{const saved=JSON.parse(localStorage.getItem('zplay:multihot40:preferences')||'{}');for(const name of Object.keys(preferences))if(typeof saved[name]==='boolean')preferences[name]=saved[name];}catch{}
@@ -29,8 +30,9 @@ function applyPreferences(){
 }
 function closeDialogs(){for(const name of dialogNames)nodes[name].close();}
 function openDialog(name){hold?.stop();closeDialogs();nodes[name].showModal();}
-function actionAllowed(action){return !disposed&&document.visibilityState==='visible'&&(action==='collect'||ready&&entered)&&!operation&&!visualBusy&&!auto.snapshot().active&&session?.canAct(action)===true;}
-function canStart(){return !disposed&&document.visibilityState==='visible'&&ready&&entered&&!operation&&!visualBusy&&supportsWagerProfile(state?.game,ID)&&session?.canStart()===true;}
+function gameplayVisible(){return !disposed&&focused&&document.visibilityState==='visible'&&document.hasFocus?.()!==false;}
+function actionAllowed(action){return gameplayVisible()&&(action==='collect'||ready&&entered)&&!operation&&!visualBusy&&!auto.snapshot().active&&session?.canAct(action)===true;}
+function canStart(){return gameplayVisible()&&ready&&entered&&!operation&&!visualBusy&&supportsWagerProfile(state?.game,ID)&&session?.canStart()===true;}
 function hostState(){return {...state,canStart:canStart(),animationRunning:visualBusy};}
 function presenterState(next){
  const round=next?.round;
@@ -79,7 +81,7 @@ function syncControls(){
  presenter.setState({canSpin:canStart()||actionAllowed('collect'),canGamble:actionAllowed('gamble'),autoPlaying:automatic.active});
 }
 async function doStart({automatic=false,holding=false}={}){
- if(operation||disposed||document.visibilityState!=='visible'||!ready||!entered)return false;
+ if(operation||!gameplayVisible()||!ready||!entered)return false;
  if(visualBusy){presenter.speedUp();return false;}
  if(!state?.authenticated){location.href=nodes.signIn.href;return false;}
  if(!automatic&&auto.snapshot().active)return false;
@@ -209,6 +211,10 @@ nodes.auto.addEventListener('click',()=>{if(auto.snapshot().active){stopAuto();r
 nodes.autoForm.addEventListener('submit',event=>{event.preventDefault();if(!canStart()||auto.snapshot().active)return;try{auto.begin({gameId:ID,modelVersion:state.game.version,sessionId:state.sessionId,stakeMinor:amount(selectedStake),count:Number(nodes.autoCount.value),startingBalanceMinor:amount(state.balance),previousRoundId:state.round?.round_id??null,winLimitMinor:limitValue(nodes.autoWin),lossLimitMinor:limitValue(nodes.autoLoss),gainLimitMinor:limitValue(nodes.autoGain)});nodes.autoDialog.close();syncControls();queueAutomatic();}catch(error){nodes.autoError.textContent=error.message;}});
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){hold.stop();stopAuto('page-hidden');presenter.setState({soundEnabled:false,musicEnabled:false});}else{applyPreferences();if(!operation)void session?.refresh({quiet:true});}});
+// A desktop blur can leave visibilityState as visible. Stop future AUTO/hold
+// wagers immediately; the existing session still confirms any submitted round.
+window.addEventListener('blur',()=>{focused=false;hold.stop();stopAuto('page-blur');presenter.setState({soundEnabled:false,musicEnabled:false});});
+window.addEventListener('focus',()=>{focused=true;if(!disposed){applyPreferences();syncControls();}});
 window.addEventListener('pagehide',()=>{disposed=true;hold.stop();stopAuto('pagehide');cancelAnimationFrame(renderTick);presenter.dispose();});
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
 window.addEventListener('keydown',event=>{if(event.code==='Space'&&!event.repeat&&!dialogNames.some(name=>nodes[name].open)&&!['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement?.tagName)){event.preventDefault();if(!nodes.spin.disabled)nodes.spin.click();}});

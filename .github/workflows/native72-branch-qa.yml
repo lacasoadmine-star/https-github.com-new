@@ -120,3 +120,18 @@ jobs:
           node --test codex-work/native72-20261119/changes/safari-r4/release.test.mjs
       - name: Check patch formatting
         run: git diff --check HEAD~1 HEAD
+
+  native72-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated PostgreSQL QA client
+        working-directory: codex-work/native72-20261119/changes/batch01/server/postgres-qa
+        run: npm ci --ignore-scripts
+      - name: Verify real transactions in a disposable local PostgreSQL container
+        working-directory: codex-work/native72-20261119/changes/batch01/server/postgres-qa
+        run: npm test

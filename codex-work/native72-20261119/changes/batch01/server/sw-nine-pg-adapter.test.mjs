@@ -13,9 +13,11 @@ const paths20=OFFICIAL_LINE_PATHS.fresh_multihot20;
 const profile={gameId,productionApproved:true,probabilityModelAudited:true,auditReference:'QA_ONLY_NOT_PRODUCTION',mathSha256:'c'.repeat(64),mathVersion:'qa-v1',engineVersion:'qa-r1',linePaths:paths20,reelStrips:Array.from({length:5},()=>['seven','cherry','bell']),wheelWeights:[1,2,3,4,5]};
 const request=new Request('https://superwin-player.apdiy61.workers.dev/api/slots/spin',{method:'POST',headers:{cookie:'sw_session='+cookie}});
 const data={gameId,bet:'1.00',roundToken:token,sessionGuard:guard,mathSha256:profile.mathSha256,mathVersion:profile.mathVersion,engineVersion:profile.engineVersion};
-function env({player=10000n,houseBalance=10000000n,accepting=true,operator=true,brokenPayout=false}={}){
+function env({player=10000n,houseBalance=10000000n,accepting=true,operator=true,brokenPayout=false,activeGame=null,maxBalance=null}={}){
  let db={wallets:{[uid]:player,[house]:houseBalance},rounds:new Map(),legacyRounds:[],moves:[],version:0};
- let serial=Promise.resolve();let activeProfile=profile;let profileLookupFails=false;
+ let serial=Promise.resolve();let activeProfile=brokenPayout?
+   {...profile,reelStrips:Array.from({length:5},()=>['seven','seven','seven'])}:profile;
+ let profileLookupFails=false;
  const transaction=fn=>{
    const work=serial.catch(()=>{}).then(async()=>{
      const local=structuredClone(db);
@@ -55,6 +57,16 @@ function env({player=10000n,houseBalance=10000000n,accepting=true,operator=true,
    accepting:()=>accepting,
    profileForGame:async()=>{if(profileLookupFails)throw Error('PROFILE_STORE_UNAVAILABLE');return activeProfile},
    assertOperatorWagerEnabled:async(id)=>{if(!operator)throw Error('DISABLED_OPERATOR_MODEL');assert.equal(id,gameId)},
+   assertNoActive:async(c,userId)=>{
+     assert.equal(userId,uid);assert.ok(c.state);
+     if(activeGame)throw Object.assign(new Error('FINISH_ACTIVE_ROUND:'+activeGame),{status:409});
+   },
+   assertPlayerCapacity:async(c,userId,before,stake,maximumPayout)=>{
+     assert.equal(userId,uid);assert.equal(before,c.state.wallets[uid]);
+     assert.equal(stake,100n);assert.equal(maximumPayout,100000n);
+     if(maxBalance!==null&&before-stake+maximumPayout>maxBalance)
+       throw Object.assign(new Error('ACCOUNT_BALANCE_LIMIT'),{status:409});
+   },
    move:async(c,user,round,g,kind,amount,from,to)=>{
      assert.equal(user,uid);assert.equal(g,gameId);assert.ok(['BET','WIN'].includes(kind));
      assert.ok(amount>0n);assert.ok(c.state.wallets[from]>=amount);
@@ -132,4 +144,21 @@ test('replayOnly survives operator profile storage outage and never charges agai
    /PROFILE_STORE_UNAVAILABLE/
  );
  assert.equal(x.read().moves.filter(m=>m.kind==='BET').length,1);
+});
+
+test('existing active library round prevents a new slot debit',async()=>{
+ const x=env({activeGame:'other_existing_game'});
+ await assert.rejects(()=>x.api(request,data),e=>e.status===409&&e.message==='FINISH_ACTIVE_ROUND:other_existing_game');
+ assert.equal(x.read().moves.length,0);assert.equal(x.read().rounds.size,0);
+ assert.equal(x.read().wallets[uid],10000n);
+});
+
+test('existing account maximum balance gates maximum liability before any transfer',async()=>{
+ const x=env({maxBalance:109899n});
+ await assert.rejects(()=>x.api(request,data),e=>e.status===409&&e.message==='ACCOUNT_BALANCE_LIMIT');
+ assert.equal(x.read().moves.length,0);assert.equal(x.read().rounds.size,0);
+ assert.equal(x.read().wallets[uid],10000n);
+ const exact=env({maxBalance:109900n});
+ await exact.api(request,data);
+ assert.equal(exact.read().moves.filter(m=>m.kind==='BET').length,1);
 });

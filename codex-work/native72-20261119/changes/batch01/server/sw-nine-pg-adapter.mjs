@@ -4,7 +4,8 @@
  * All dependencies are supplied by the current Railway createSlotService:
  *   authenticate(request, client, true), transaction(fn), lockWallets(client,user),
  *   move(client,user,round,game,kind,amount,from,to),
- *   balance(client,user), houseFor(user), hash(string), accepting().
+ *   balance(client,user), houseFor(user), hash(string), accepting(),
+ *   existing fresh-release assertNoActive / assertPlayerCapacity hooks.
  * Route ONLY after an independently signed-off production model is installed.
  */
 import {GameMathError, settleExistingPlayerRound, GAME_REFERENCE} from './official-math.mjs';
@@ -33,9 +34,11 @@ const toCents=value=>{
 export function createSwNinePgAdapter({
   authenticate, transaction, lockWallets, move, balance, houseFor,
   hash, accepting, profileForGame, assertOperatorWagerEnabled,
+  assertNoActive, assertPlayerCapacity,
 }) {
   for(const [k,v] of Object.entries({authenticate,transaction,lockWallets,move,balance,
-    houseFor,hash,accepting,profileForGame,assertOperatorWagerEnabled})) {
+    houseFor,hash,accepting,profileForGame,assertOperatorWagerEnabled,
+    assertNoActive,assertPlayerCapacity})) {
     if(typeof v!=='function')fail('EXISTING_RAILWAY_DEPENDENCY_REQUIRED_'+k,503);
   }
   return async function existingZplaySpin(request,body){
@@ -97,11 +100,18 @@ export function createSwNinePgAdapter({
         async assertReleaseEnabled(id){
           if(accepting()!==true)fail('SLOT_RELEASE_NOT_ENABLED',503);
           await assertOperatorWagerEnabled(id,client); // server operator gate
+          // Preserve the existing account's active game ownership, with the
+          // same authenticated transaction and already locked wallet rows.
+          await assertNoActive(client,userId);
         },
         balanceCents:()=>readBalance(userId),
         houseReserveCents:()=>readBalance(houseId),
         async applyExistingLedger({gameId:id,roundId,wagerCents,winCents}){
           const before=await readBalance(userId),houseBefore=await readBalance(houseId);
+          // Existing account_limits applies to the maximum possible payout,
+          // not the sampled result. Check before either BET or WIN transfer.
+          await assertPlayerCapacity(client,userId,before,wagerCents,
+            wagerCents*BigInt(GAME_REFERENCE[id].maxWinX));
           // Existing Railway move() writes sw_rebuild.wallets, sw_rebuild.transfers,
           // sw_rebuild.ledger and sw_nine.wallet_transactions, inside SAME transaction.
           await move(client,userId,roundId,id,'BET',wagerCents,userId,houseId);

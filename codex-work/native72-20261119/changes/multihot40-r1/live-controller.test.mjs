@@ -5,14 +5,14 @@ import {WalletAdapter} from '../dedicated-resume/shared/wallet.mjs';
 const model={id:GAME_ID,enabled:true,mathVersion:'mh40.v1',engineVersion:'existing.v1',mathSha256:'a'.repeat(64),betLevels:['1.00','2.00']};
 const session={authenticated:true,currency:'ETB',balance:'100.00',sessionId:'f'.repeat(64)};
 const receipt={gameId:GAME_ID,roundId:'round-1',mathVersion:model.mathVersion,engineVersion:model.engineVersion,mathSha256:model.mathSha256,bet:'1.00',finalWin:'0.00',balance:'99.00',grid:Array.from({length:5},()=>[1,2,3,4]),wheelMultiplier:3};
-const make=({error=null,requests}={})=>{
- const storage=new Map(),calls=[],flags={};
+const make=({error=null,requests,storage=new Map(),result=receipt}={})=>{
+ const calls=[],flags={};
  const memory={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
  const scene={start:()=>calls.push('start'),stop:()=>calls.push('stop'),reset:()=>calls.push('reset'),reveal:async r=>{calls.push('reveal');assert.equal(r.roundId,'round-1');},pause:()=>calls.push('pause'),resume:()=>calls.push('resume'),dispose:()=>calls.push('dispose')};
  let spins=0;
  const fetcher=async (url,options)=>{calls.push(url);const body=options.body?JSON.parse(options.body):null;
   let data=url==='/api/machine-session'?session:url==='/api/slots/games/'+GAME_ID?model:null;
-  if(url==='/api/slots/spin'){spins++;requests?.push(body);if(error){return {ok:false,status:error.status,json:async()=>({detail:error.code})}}data=receipt;}
+  if(url==='/api/slots/spin'){spins++;requests?.push(body);if(error){return {ok:false,status:error.status,json:async()=>({detail:error.code})}}data=result;}
   assert.ok(data,'unexpected endpoint: '+url);
   return {ok:true,status:200,json:async()=>data};
  };
@@ -117,4 +117,41 @@ test('accepted result survives even when animation AND its reset throw',async()=
  assert.equal(h.game.phase,'ready');
  assert.equal(h.game.snapshot().error,'ROUND_SETTLED_PRESENTATION_ERROR');
  h.game.dispose();
+});
+
+
+test('refresh restores the original pending stake and confirms the same saved token',async()=>{
+ const storage=new Map(),requests=[];
+ const original=make({storage,error:{status:503,code:'TEMPORARY_ERROR'}});
+ await original.game.boot();assert.equal(original.game.bet('2.00'),true);
+ assert.equal(await original.game.spin(),false);
+ const pending=original.game.api.pending();original.game.dispose();
+ const refreshed=make({storage,requests,result:{...receipt,bet:'2.00',balance:'98.00'}});
+ try{
+  assert.equal(await refreshed.game.boot(),true);
+  assert.equal(refreshed.game.phase,'confirm');
+  assert.equal(refreshed.game.stake,'2.00');
+  assert.equal(await refreshed.game.retry(),true);
+  assert.equal(requests.length,1);
+  assert.equal(requests[0].roundToken,pending.roundToken);
+  assert.equal(requests[0].bet,'2.00');
+  assert.equal(refreshed.game.snapshot().balance,'98.00');
+  assert.equal(storage.size,0);
+ }finally{refreshed.game.dispose();}
+});
+
+for(const lifecycle of ['hidden','blurred'])test(`${lifecycle} during async preflight cancels an unsubmitted wager`,async()=>{
+ const h=make();await h.game.boot();
+ let resolveSession;
+ h.game.api.session=()=>new Promise(resolve=>{resolveSession=resolve;});
+ const spinning=h.game.spin();
+ if(lifecycle==='hidden')h.game.visibility(true);else h.game.focus(false);
+ resolveSession(session);
+ try{
+  assert.equal(await spinning,false);
+  assert.equal(h.spins,0);
+  assert.equal(h.storage.size,0);
+  assert.equal(h.game.phase,'ready');
+  assert.equal(h.game.active,false);
+ }finally{h.game.dispose();}
 });

@@ -3,6 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
 import {
   MultiHot40Motion,multiHot40Layout,MULTIHOT40_INITIAL_GRID,
   isMultiHot40Grid,winTier
@@ -100,4 +101,63 @@ test('mobile hitbox regression: Menu, Sound and TURBO reach 44px and avoid SPIN/
  assert.ok(app.includes('bet.y-height-6'));
  assert.ok(app.includes('Math.max(0,rect.width-width)'));
  assert.ok(app.includes('Math.max(0,rect.height-height)'));
+});
+
+
+// Execute the actual Play Now application with its existing imports replaced by
+// non-wagering DOM/session doubles. No network or synthetic wallet is attached.
+async function liveAppHarness({collect=false,startResult=async()=>true}={}){
+ const source=await readFile(new URL('./multihot40-app.mjs',import.meta.url),'utf8');
+ const events=new Map(),elements=new Map(),starts=[],stops=[];
+ const element=id=>({id,open:false,hidden:false,disabled:false,style:{},classList:{toggle(){},remove(){},add(){}},setAttribute(){},addEventListener(){},close(){this.open=false;},showModal(){this.open=true;},replaceChildren(){},append(){},getBoundingClientRect(){return {width:390,height:844};}});
+ for(const name of new Set([...source.matchAll(/nodes\.([A-Za-z][A-Za-z0-9]*)/g)].map(match=>match[1])))elements.set(name,element(name));
+ for(const name of ['menuDialog','settingsDialog','betDialog','autoDialog','rulesDialog','historyDialog','gambleDialog'])elements.set(name,element(name));
+ const target={addEventListener(name,handler){const list=events.get(name)||[];list.push(handler);events.set(name,list);}};
+ const document={...target,visibilityState:'visible',hidden:false,hasFocus:()=>true,getElementById:id=>elements.get(id),querySelectorAll:selector=>selector==='[id]'?[...elements.values()]:[],createElement:()=>element('new')};
+ let active=false,canCollect=collect,resolveCollect;
+ const session={canStart:()=>!canCollect,canAct:action=>action==='collect'&&canCollect,async start(stake){starts.push(stake);return startResult();},async act(){await new Promise(resolve=>{resolveCollect=resolve;});canCollect=false;return true;}};
+ class Auto{snapshot(){return {active,remaining:5};}stop(reason){active=false;stops.push(reason);}observe(){}canLaunch(){return false;}}
+ class Presenter{setState(){}speedUp(){}dispose(){}}
+ class Hold{constructor(){this.active=false;}stop(){this.active=false;}consumesClick(){return false;}}
+ const context={document,window:{...target},localStorage:{getItem:()=>null},location:{},queueMicrotask,requestAnimationFrame:()=>1,cancelAnimationFrame(){},supportsWagerProfile:()=>true,acceptedBetMinor:()=>null,wagerMathSummary:()=>'',moneyMinor:value=>typeof value==='string'?BigInt(value.replace('.','')):null,fromMinor:String,formatMoney:String,getRoundActions:()=>[],AutoplayController:Auto,MultiHot40Presentation:Presenter,SpinHold:Hold};
+ const executable=source.replace(/^import .*;\n/gm,'').replace(/void boot\(\);\s*$/,`globalThis.qa={doStart,canStart,actionAllowed,setActive(value){activeFixture(value);},setup(client){session=client;state={sessionId:'player',game:{id:ID,version:'v1'},authenticated:true,connected:true,balance:'100.00',accepting:true};ready=true;entered=true;},controls:()=>({spin:nodes.spin.disabled,auto:nodes.auto.disabled})};`);
+ context.activeFixture=value=>{active=value;};
+ vm.runInNewContext(executable,context,{filename:'multihot40-app.mjs'});
+ context.qa.setup(session);
+ return {qa:context.qa,starts,stops,elements,document,get autoActive(){return active;},dispatch(name){for(const handler of events.get(name)||[])handler({});},resolveCollect(){resolveCollect();}};
+}
+
+test('actual Play Now app stops AUTO and refuses new spins on visible-window blur',async()=>{
+ const h=await liveAppHarness();h.qa.setActive(true);
+ h.dispatch('blur');
+ assert.ok(h.stops.includes('page-blur'));
+ assert.equal(h.qa.canStart(),false);
+ assert.equal(await h.qa.doStart(),false);
+ assert.equal(h.starts.length,0);
+ h.dispatch('focus');
+ assert.equal(h.autoActive,false);
+ assert.equal(h.qa.canStart(),true);
+ assert.equal(await h.qa.doStart(),true);
+ assert.deepEqual(h.starts,['1.00']);
+});
+
+test('actual Play Now app does not open another wager after collect resolves in a blurred window',async()=>{
+ const h=await liveAppHarness({collect:true});
+ const starting=h.qa.doStart();
+ h.dispatch('blur');h.resolveCollect();
+ assert.equal(await starting,false);
+ assert.equal(h.starts.length,0);
+});
+
+
+test('actual Play Now app retains confirmation of an already submitted round after blur',async()=>{
+ let resolveRound;
+ const h=await liveAppHarness({startResult:()=>new Promise(resolve=>{resolveRound=resolve;})});
+ const submitted=h.qa.doStart();
+ assert.deepEqual(h.starts,['1.00']);
+ h.dispatch('blur');resolveRound(true);
+ assert.equal(await submitted,true);
+ assert.equal(h.starts.length,1);
+ assert.equal(h.qa.canStart(),false);
+ assert.equal(h.autoActive,false);
 });

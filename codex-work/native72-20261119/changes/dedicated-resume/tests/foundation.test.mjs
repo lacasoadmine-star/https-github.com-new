@@ -61,7 +61,7 @@ for(const [label,definition,pin] of cases){
   }
  });
  test(label+': a verified settled spin survives a failed client renderer without CONFIRM or a second debit',async()=>{
-  const h=harness(definition),receipt=receiptFor(definition);
+  const receipt=receiptFor(definition),h=harness(definition,{spinResponse:()=>Response.json(receipt)});
   try{
    h.renderer.start=()=>{h.rendererEvents.push('start');return Promise.reject(Error('RENDERER_CRASH_AFTER_SETTLEMENT'));};
    assert.equal(await h.context.oneRound(),false);

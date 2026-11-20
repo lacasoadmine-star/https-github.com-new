@@ -57,8 +57,13 @@ export class MultiHot40Live {
    if(generation!==this.generation||this.disposed)return false;
    this.api.bind(session.sessionId,GAME_ID);this.session=session;this.model=model;
    this.scene.setSymbolNames?.(model.symbolNames);
-   this.stake=model.betLevels.includes(this.stake)?this.stake:model.betLevels[0];
-   const pending=this.api.pending();this.scene.reset();
+   const pending=this.api.pending();
+   // A refresh must confirm the saved wager at its original stake. BET is
+   // intentionally locked in CONFIRM, so choosing today's first ladder value
+   // here would strand every interrupted wager placed at a different stake.
+   if(pending){req(cents(pending.bet)&&Number(pending.bet)>0,'SAVED_BET_INVALID');this.stake=pending.bet;}
+   else this.stake=model.betLevels.includes(this.stake)?this.stake:model.betLevels[0];
+   this.scene.reset();
    this.change(pending?'confirm':'ready');return true;
   }catch(e){if(generation!==this.generation||this.disposed)return false;this.change('error',e.code||e.message);return false;}
  }
@@ -89,6 +94,9 @@ export class MultiHot40Live {
    // Re-query the existing model before creating a new request; never wager on changed rules.
    if(!saved){const now=validateModel(await this.api.model(GAME_ID));if(now.mathSha256!==model.mathSha256||now.mathVersion!==model.mathVersion||now.engineVersion!==model.engineVersion)fail('GAME_RULES_UPDATED_RELOAD');}
    if(generation!==this.generation||this.disposed)return false;
+   // Visibility may change while authentication/model preflight is awaiting
+   // the server. Cancel before creating a token or submitting a new wager.
+   if(!this.visible())fail('SPIN_CANCELLED_IN_BACKGROUND');
    submitted=true;
    const receipt=validateRound(await this.api.spin(stake,saved?null:model),{model,bet:stake});
    if(generation!==this.generation||this.disposed)return false;
