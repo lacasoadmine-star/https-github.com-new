@@ -77,6 +77,10 @@ jobs:
         run: |
           node --test codex-work/native72-20261119/changes/safari-live-r5/mobile-touch.test.mjs
           node --check codex-work/native72-20261119/changes/safari-live-r5/game.mjs
+      - name: Verify first ten unique game release checkpoints
+        run: |
+          node --test codex-work/native72-20261119/changes/batch01/release-readiness.test.mjs
+          node --check codex-work/native72-20261119/changes/batch01/release-readiness.test.mjs
       - name: Verify new Multi Hot 20 and Burn Wilds server-receipt controllers
         run: |
           node --test codex-work/native72-20261119/changes/batch01/new-games-session.test.mjs
