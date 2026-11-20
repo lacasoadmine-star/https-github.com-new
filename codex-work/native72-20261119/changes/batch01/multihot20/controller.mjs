@@ -54,6 +54,14 @@ export class GameController {
  notify(){try{this.onChange(this.status())}catch{/* UI never changes settlement. */}}
  change(phase,error=null){this.phase=phase;this.error=error;this.notify();}
  unresolved(){try{const p=this.session.pending;return !!(typeof p==='function'?p.call(this.session):p)}catch{return true}}
+ canWager(account=this.account){
+  // The existing Player engine/session has the final say after a round.
+  // Do not re-enable SPIN when another game owns the account, the house
+  // cannot accept bets, or fresh-state explicitly returned UNAVAILABLE.
+  return !!(account?.game?.enabled&&account.game.freshReleaseReady&&
+   !account.blockedByActiveGame&&account.game.wagerAvailability!=='house_capacity'&&
+   (typeof this.session.phase!=='string'||this.session.phase==='READY'));
+ }
  connect(account){
   if(!account?.authenticated||account.currency!=='ETB'||!account.sessionGuard)fail('LOGIN_REQUIRED');
   validateModel(account.game);
@@ -62,7 +70,7 @@ export class GameController {
   this.bet=account.game.betLevels.includes(GAME_SPEC.minETB)?GAME_SPEC.minETB:account.game.betLevels[0];
   this.auto={armed:0,started:false};
   try{this.scene.reset?.()}catch{ /* A stale canvas cannot block auth. */ }
-  this.change(this.unresolved()?'confirm':account.game.enabled&&account.game.freshReleaseReady?'ready':'unavailable');
+  this.change(this.unresolved()?'confirm':this.canWager(account)?'ready':'unavailable');
   return this.phase==='ready';
  }
  setBet(amount){if(this.pending||this.phase!=='ready'||!this.account.game.betLevels.includes(amount))return false;this.bet=amount;this.notify();return true;}
@@ -108,6 +116,7 @@ export class GameController {
     }
    }
    if(generation!==this.generation)return false;
+   if(!this.canWager()){this.stopAuto();this.change('unavailable','PLAYER_WAGER_NOT_AVAILABLE');return true;}
    this.change('ready',renderFailed?'ROUND_SETTLED_RENDER_ERROR':null);
    if(renderFailed)return true;
    if(this.auto.started&&this.auto.armed>0){
@@ -150,7 +159,9 @@ export class GameController {
    if(generation!==this.generation||this.account?.sessionGuard!==guard)return false;
    if(account?.sessionGuard!==guard||account.currency!=='ETB'||account.game?.id!==GAME_ID)fail('SESSION_CHANGED');
    validateModel(account.game);
-   this.account=account;this.change('ready',this.error==='ROUND_SETTLED_RENDER_ERROR'?this.error:null);
+   this.account=account;
+   if(!this.canWager(account)){this.change('unavailable','PLAYER_WAGER_NOT_AVAILABLE');return true;}
+   this.change('ready',this.error==='ROUND_SETTLED_RENDER_ERROR'?this.error:null);
    return true;
   }catch(error){
    if(generation===this.generation)this.change('confirm',error?.code||error?.message||'RECONCILIATION_REQUIRED');
