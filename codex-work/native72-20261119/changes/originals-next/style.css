@@ -7,7 +7,7 @@
 .original-game header{display:grid;gap:8px}.original-game h1{font-family:Georgia,serif;font-size:clamp(2rem,9vw,3rem);line-height:1}
 .original-game header p,.original-game footer{color:#ded1e7;font-size:.9rem}
 .readouts,.actions,.options{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
-.readouts span{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;text-align:center;padding:8px;display:grid;gap:2px;font-size:.8rem}
+.readouts>span{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;text-align:center;padding:8px;display:grid;gap:2px;font-size:.8rem}
 .readouts output{font-size:1.2rem;font-weight:750;color:var(--accent)}
 .board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px;background:#08090d;border:1px solid var(--stroke);border-radius:22px}
 .reel{display:grid;gap:6px;overflow:hidden;border-radius:13px}
@@ -27,3 +27,5 @@
 .board.wide{grid-template-columns:repeat(5,minmax(0,1fr))}
 .board.wide .tile{font-size:clamp(1.3rem,7vw,2.7rem);border-radius:8px}
 .signal{--glow:#18395e;--panel:#152541;--stroke:#3b5a84;--accent:#a0edff;--ink:#102841}
+.neon{--glow:#573450;--panel:#2c1d3b;--stroke:#65466b;--accent:#ffa3de;--ink:#3c1535}
+.orbit{--glow:#242857;--panel:#171d38;--stroke:#444c77;--accent:#bfcaff;--ink:#222949}

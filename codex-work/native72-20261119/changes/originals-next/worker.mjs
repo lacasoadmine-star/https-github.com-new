@@ -5,16 +5,15 @@ const mime = {
   '.html': 'text/html; charset=utf-8',
 };
 
-export function installOriginalGames(previous, { assets, games, previewOnly = true, Rewriter = globalThis.HTMLRewriter }) {
-  const pages = new Map(games.map(game => [
-    prefix + game.slug,
+export function installOriginalGames(previous, { assets, games, Rewriter = globalThis.HTMLRewriter }) {
+  const pages = new Map(games.map(game => [game.slug,
     assets['index.html'].replaceAll('{{TITLE}}', game.title)
       .replace('{{GAME}}', game.slug).replace('{{THEME}}', game.theme)
       .replace('{{DESCRIPTION}}', game.description),
   ]));
-  const cards = '<section class="zplay-original-games" id="zplay-original-games" aria-labelledby="zplay-original-games-title">' +
+  const cards = shown => '<section class="zplay-original-games" id="zplay-original-games" aria-labelledby="zplay-original-games-title">' +
     '<h2 id="zplay-original-games-title">New games</h2>' +
-    games.map(game => '<article><strong>' + game.title + '</strong><a href="' +
+    shown.map(game => '<article><strong>' + game.title + '</strong><a href="' +
       prefix + game.slug + '/" aria-label="Play Now · ' + game.title + '">Play Now</a></article>').join('') +
     '</section>';
   const descriptors = Object.getOwnPropertyDescriptors(previous);
@@ -28,14 +27,19 @@ export function installOriginalGames(previous, { assets, games, previewOnly = tr
   Object.defineProperty(worker, 'fetch', { enumerable: true, async value(request, env, ctx) {
     const { pathname } = new URL(request.url);
     const method = request.method;
-    if (env.PORTAL !== 'player' || (previewOnly && env.ZPLAY_ORIGINALS_QA !== 'true') ||
-        (method !== 'GET' && method !== 'HEAD')) {
+    const mode = env.ZPLAY_ORIGINALS_QA === 'true' ? 'preview' : 'paid';
+    const approved = new Set((env.ZPLAY_NEW_ORIGINALS_PAID_IDS ?? '').split(','));
+    const shown = mode === 'preview' ? games : games.filter(game => approved.has(game.slug.replaceAll('-', '_')));
+    if (env.PORTAL !== 'player' || !shown.length || (method !== 'GET' && method !== 'HEAD')) {
       return previous.fetch.call(previous, request, env, ctx);
     }
-    const page = pages.get(pathname.replace(/\/$/, ''));
     const name = pathname.slice(prefix.length);
+    const slug = name.replace(/\/$/, '');
+    const page = pathname.startsWith(prefix) && shown.some(game => game.slug === slug)
+      ? pages.get(slug).replace('{{MODE}}', mode) : null;
     if (page || pathname.startsWith(prefix) && name !== 'index.html' && Object.hasOwn(assets, name)) {
-      const body = page ?? assets[name];
+      const body = page && mode === 'paid' ? page.replace('Free play. Score points have no cash value.', 'Player wallet · ETB.')
+        : page ?? assets[name];
       const type = page ? mime['.html'] : mime[name.slice(name.lastIndexOf('.'))];
       return new Response(method === 'HEAD' ? null : body, { headers: {
         'Content-Type': type,
@@ -49,7 +53,7 @@ export function installOriginalGames(previous, { assets, games, previewOnly = tr
         !response.headers.get('content-type')?.includes('text/html')) return response;
     const transformed = new Rewriter()
       .on('head', { element: node => node.append('<link rel="stylesheet" href="/zplay-originals/lobby.css">', { html: true }) })
-      .on('body', { element: node => node.append(cards, { html: true }) })
+      .on('body', { element: node => node.append(cards(shown), { html: true }) })
       .transform(response);
     const headers = new Headers(transformed.headers);
     for (const name of ['content-length', 'etag', 'last-modified']) headers.delete(name);

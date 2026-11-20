@@ -1,5 +1,6 @@
 import { deal } from './round.mjs';
 import { games } from './games/catalog.mjs';
+import { CashGame } from './cash.mjs';
 
 const game = games.find(model => model.slug === document.body.dataset.game);
 const get = id => document.getElementById(id);
@@ -13,6 +14,9 @@ const sound = get('sound');
 const turbo = get('turbo');
 const dialog = get('dialog');
 const content = get('dialog-content');
+const cash = document.body.dataset.mode === 'paid' ? new CashGame(game) : null;
+let bet = null;
+let connecting = false;
 
 let level = 1;
 let rounds = 0;
@@ -64,9 +68,10 @@ function note(frequency, duration = 0.08) {
 
 function controls() {
   spin.textContent = active ? 'STOP' : 'SPIN';
-  spin.disabled = !active && remaining > 0;
+  spin.disabled = !active && (remaining > 0 || connecting || Boolean(cash && !cash.current));
+  auto.disabled = connecting || Boolean(cash && !cash.current);
   auto.textContent = remaining > 0 ? 'STOP AUTO' : 'AUTO';
-  levelButton.disabled = Boolean(active || remaining);
+  levelButton.disabled = Boolean(active || remaining || connecting || cash && !cash.current);
 }
 
 function stopAuto() {
@@ -86,26 +91,44 @@ function reveal(round, column) {
   round.timers.forEach(clearTimeout);
   active = null;
   rounds += 1;
-  score += round.result.score;
+  if (!cash) score += round.result.score;
   for (const line of round.result.lines) {
     game.lines[line].forEach((row, index) => reels[index].tiles[row].classList.add('hit'));
   }
   get('rounds').value = rounds;
-  get('score').value = score;
-  get('multiplier').value = round.result.multiplier + '×';
-  get('status').textContent = round.result.score > 0
+  get('score').value = cash ? round.result.displayBalance + ' ETB' : score;
+  get('multiplier').value = (cash ? round.result.wheelMultiplier : round.result.multiplier) + '×';
+  get('status').textContent = cash ? 'Win ' + round.result.finalWin + ' ETB' : round.result.score > 0
     ? '+' + round.result.score + ' points' + (round.result.bonus ? ' · Bonus' : '')
     : 'No match';
   if (remaining > 0 && --remaining > 0) next = setTimeout(startSpin, 360);
   controls();
 }
 
-function startSpin() {
-  if (active || document.hidden || !document.hasFocus()) {
+async function startSpin() {
+  if (active || connecting || document.hidden || !document.hasFocus()) {
     if (document.hidden || !document.hasFocus()) stopAuto();
     return;
   }
-  const round = { result: deal(game, level), revealed: 0, timers: [] };
+  let result;
+  if (cash) {
+    connecting = true;
+    controls();
+    get('status').textContent = 'Confirming with Player wallet…';
+    try {
+      result = await cash.spin(bet);
+    } catch (error) {
+      stopAuto();
+      if (['PLAYER_LOGIN_REQUIRED','PLAYER_SESSION_CHANGED'].includes(error.message)) cash.invalidate();
+      get('status').textContent = error.message === 'INSUFFICIENT_FUNDS' ? 'Insufficient ETB balance.'
+        : 'Round unavailable. A retry checks any saved round before starting a new one.';
+      return;
+    } finally {
+      connecting = false;
+      controls();
+    }
+  } else result = deal(game, level);
+  const round = { result, revealed: 0, timers: [] };
   active = round;
   get('status').textContent = 'Reels spinning';
   reels.forEach(({ reel }) => reel.classList.add('rolling'));
@@ -163,6 +186,15 @@ auto.addEventListener('click', () => {
 });
 
 levelButton.addEventListener('click', () => {
+  if (cash) {
+    const bets = cash.current?.model.betLevels ?? [];
+    if (bets.length) open('Choose a stake', bets.map(value => choice(value + ' ETB', () => {
+      bet = value;
+      levelButton.textContent = bet + ' ETB';
+      dialog.close();
+    })));
+    return;
+  }
   open('Choose a level', [1, 2, 3].map(number => choice('Level ' + number, () => {
     level = number;
     levelButton.textContent = 'Level ' + level;
@@ -172,7 +204,8 @@ levelButton.addEventListener('click', () => {
 
 get('rules').addEventListener('click', () => {
   const details = document.createElement('p');
-  details.textContent = game.description + ' Higher levels multiply points. STOP finishes the current round.';
+  details.textContent = cash ? 'The Player wallet settles the selected stake and any win. STOP finishes the current animation.'
+    : game.description + ' Higher levels multiply points. STOP finishes the current round.';
   open('Rules', [details]);
 });
 
@@ -210,6 +243,26 @@ function pause() {
 
 window.addEventListener('blur', pause);
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
-window.addEventListener('pagehide', pause);
+window.addEventListener('pagehide', () => { cash?.invalidate(); pause(); });
 reels.forEach((_, column) => paint(column, Array.from({ length: game.rows }, (_, row) => (column + row + 1) % game.symbols.length)));
 controls();
+if (cash) {
+  get('score-label').textContent = 'Balance';
+  get('mode-label').textContent = 'Player wallet · ETB';
+  get('score').value = '—';
+  levelButton.textContent = 'BET';
+  get('status').textContent = 'Checking Player wallet…';
+  cash.connect().then(session => {
+    [bet] = session.model.betLevels;
+    levelButton.textContent = bet + ' ETB';
+    get('score').value = session.balance + ' ETB';
+    get('status').textContent = 'Ready';
+  }).catch(error => {
+    if (error.message === 'PLAYER_LOGIN_REQUIRED') {
+      const login = document.createElement('a');
+      login.href = '/?login=1&return=' + encodeURIComponent(location.pathname);
+      login.textContent = 'Sign in to your Player account';
+      get('status').replaceChildren(login);
+    } else get('status').textContent = 'This game is not yet registered for ETB.';
+  }).finally(controls);
+}

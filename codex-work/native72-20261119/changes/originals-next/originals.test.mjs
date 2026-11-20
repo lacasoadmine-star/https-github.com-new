@@ -8,7 +8,7 @@ import prism from './games/prism-deluxe.mjs';
 import savanna from './games/savanna-signals.mjs';
 
 import { games } from './games/catalog.mjs';
-const names = ['index.html', 'lobby.css', 'app.mjs', 'round.mjs', 'style.css', 'games/catalog.mjs', ...games.map(game => 'games/' + game.slug + '.mjs')];
+const names = ['index.html', 'lobby.css', 'app.mjs', 'round.mjs', 'cash.mjs', 'style.css', 'games/catalog.mjs', ...games.map(game => 'games/' + game.slug + '.mjs')];
 const assets = Object.fromEntries(await Promise.all(names.map(async name => [
   name, await readFile(new URL(name, import.meta.url), 'utf8'),
 ])));
@@ -89,6 +89,18 @@ test('production Player never exposes the local score games', async () => {
   const path = '/zplay-originals/prism-deluxe/';
   const game = await worker.fetch(new Request('https://qa.invalid' + path), { PORTAL: 'player' });
   assert.equal(await game.text(), 'retained' + path);
+});
+
+test('the paid release shows only the titles selected for activation', async () => {
+  const env = { PORTAL: 'player', ZPLAY_NEW_ORIGINALS_PAID_IDS: 'prism_deluxe,savanna_signals' };
+  const get = path => worker.fetch(new Request('https://qa.invalid' + path), env);
+  const lobby = await (await get('/')).text();
+  assert.match(lobby, /Play Now · Prism Deluxe/);
+  assert.match(lobby, /Play Now · Savanna Signals/);
+  assert.doesNotMatch(lobby, /Ember Arcade|Signal Ten|Neon Circuit|Orbit Hundred/);
+  const page = await (await get('/zplay-originals/prism-deluxe/')).text();
+  assert.match(page, /data-mode="paid"/);
+  assert.doesNotMatch(page, /Score points have no cash value/);
 });
 
 test('the ordered queue covers the 71 unprotected catalog titles once', async () => {
