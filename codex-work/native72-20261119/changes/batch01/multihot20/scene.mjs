@@ -99,6 +99,16 @@ export class MultiHot20Scene {
   const g=ctx.createLinearGradient(0,0,0,HEIGHT);
   g.addColorStop(0,'#541b15');g.addColorStop(.5,'#240b17');g.addColorStop(1,'#0b0e19');
   ctx.fillStyle=g;ctx.fillRect(0,0,WIDTH,HEIGHT);
+  const background=this._asset('__background');
+  if(background&&(background.naturalWidth??background.width)>0){
+   try{ctx.drawImage(background,0,0,WIDTH,HEIGHT)}catch{ /* Keep Canvas interactive if a decoded image fails. */ }
+  }
+  const logo=this._asset('__logo');
+  if(logo&&(logo.naturalWidth??logo.width)>0){
+   const aspect=(logo.naturalWidth??logo.width)/Math.max(1,(logo.naturalHeight??logo.height));
+   const h=74,w=Math.min(340,h*aspect);
+   try{ctx.drawImage(logo,WIDTH/2-w/2,8,w,h)}catch{}
+  }
   ctx.font='bold 32px sans-serif';ctx.textAlign='left';ctx.fillStyle='#f2c56e';
   ctx.fillText("MULTI HOT 20",X,66);
   ctx.fillStyle='#130f16';ctx.fillRect(X-7,Y-9,VIEW_GRID_WIDTH+14,ROWS*TILE_H+18);
@@ -154,7 +164,7 @@ export class MultiHot20Scene {
  reset(){
   if(this.frameId!==null){this.cancelFrame(this.frameId);this.frameId=null}
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(false);
-  this.rolling=false;this.pending=null;this.stopHint=false;this.reelStopped.fill(false);
+  this.rolling=false;this.pending=null;this.current=null;this.receipt=null;this.stopHint=false;this.reelStopped.fill(false);
   this._paint(this.clock());this.pauseAudio();
  }
  inspect(){const sample=this.fpsSamples;return{gameId:PRESENTATION_GAME_ID,rolling:this.rolling,receiptId:this.receipt?.roundId||null,frames:this.frames,fpsSampleCount:sample.length,averageSampledFps:sample.length?sample.reduce((s,v)=>s+v,0)/sample.length:null,originalArtworkProvided:this.symbols.every(s=>!!this._asset(s)),usesServerReceiptOnly:true}}
