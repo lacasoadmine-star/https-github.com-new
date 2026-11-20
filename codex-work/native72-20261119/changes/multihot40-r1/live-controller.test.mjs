@@ -73,3 +73,48 @@ test('accepts the existing engine column-major receipt and refuses a transposed 
  const transposed=Array.from({length:4},(_,row)=>Array.from({length:5},(_,col)=>receipt.grid[col][row]));
  assert.throws(()=>validateRound({...receipt,grid:transposed},{model,bet:'1.00'}),/MH40_GRID_INVALID/);
 });
+
+test('local canvas startup failure never creates a wager or strands CONFIRM',async()=>{
+ const h=make();await h.game.boot();
+ h.scene.start=()=>{throw Error('CANVAS_CONTEXT_UNAVAILABLE');};
+ assert.equal(await h.game.spin(),false);
+ assert.equal(h.spins,0);
+ assert.equal(h.game.phase,'ready');
+ assert.equal(h.game.active,false);
+ assert.equal(h.storage.size,0);
+ assert.equal(h.game.snapshot().error,'CANVAS_CONTEXT_UNAVAILABLE');
+ h.game.dispose();
+});
+test('preflight network fault before spin never creates a token or forces CONFIRM',async()=>{
+ const h=make();await h.game.boot();
+ h.game.api.session=async()=>{throw Error('NETWORK_PRECHECK_FAILED');};
+ assert.equal(await h.game.spin(),false);
+ assert.equal(h.spins,0);
+ assert.equal(h.storage.size,0);
+ assert.equal(h.game.phase,'ready');
+ assert.equal(h.game.active,false);
+ h.game.dispose();
+});
+test('sound or UI observer faults cannot prevent a settled spin',async()=>{
+ const h=make();await h.game.boot();
+ h.game.audio={play(){throw Error('SOUND_DEVICE_UNAVAILABLE');},pause(){}};
+ h.game.onState=()=>{throw Error('UI_RENDERER_CRASH');};
+ assert.equal(await h.game.spin(),true);
+ assert.equal(h.spins,1);
+ assert.equal(h.game.snapshot().balance,'99.00');
+ assert.equal(h.storage.size,0);
+ assert.equal(h.game.phase,'ready');
+ h.game.dispose();
+});
+test('accepted result survives even when animation AND its reset throw',async()=>{
+ const h=make();await h.game.boot();
+ h.scene.reveal=async()=>{throw Error('FRAME_RENDER_FAILURE');};
+ h.scene.reset=()=>{throw Error('CANVAS_RESET_FAILURE');};
+ assert.equal(await h.game.spin(),true);
+ assert.equal(h.spins,1);
+ assert.equal(h.game.snapshot().balance,'99.00');
+ assert.equal(h.storage.size,0);
+ assert.equal(h.game.phase,'ready');
+ assert.equal(h.game.snapshot().error,'ROUND_SETTLED_PRESENTATION_ERROR');
+ h.game.dispose();
+});
