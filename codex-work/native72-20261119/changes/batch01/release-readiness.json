@@ -27,7 +27,8 @@
   "notes": [
     "Demo loader for Multi Hot 20 and Burn Wilds reported country restriction in Cloudflare Playwright; the existing archive contains earlier captured demo media.",
     "Every currently prepared patch is staged on the GitHub work branch, not deployed into superwin-player production.",
-    "No unverified slot payout math or screenshot-as-game substitutions are accepted."
+    "No unverified slot payout math or screenshot-as-game substitutions are accepted.",
+    "Five additional games' overlapping TURBO hit areas were corrected per game and verified with Playwright across 360/390/412px; no public asset deployment has occurred."
   ],
   "entries": [
     {
@@ -146,7 +147,11 @@
       ],
       "verifiedChecks": [
         "playwright_page_load",
-        "audio_pause_resume_browser"
+        "audio_pause_resume_browser",
+        "audio_foreground_browser_smoke",
+        "mobile_turbo_target_44px",
+        "mobile_turbo_zero_overlap_360_390_412",
+        "turbo_touch_creates_no_wager"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -155,7 +160,19 @@
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "mobileTouchQA": {
+        "viewportWidths": [
+          360,
+          390,
+          412
+        ],
+        "minimumCssPx": 44,
+        "priorTurboSpinOverlapAt390": 439.5,
+        "patchedTurboSpinOverlap": 0,
+        "patchedTurboBetOverlap": 0,
+        "qaMode": "Playwright route interception of staged game module; production assets unchanged"
+      }
     },
     {
       "position": 6,
@@ -170,7 +187,11 @@
       ],
       "verifiedChecks": [
         "playwright_page_load",
-        "audio_pause_resume_browser"
+        "audio_pause_resume_browser",
+        "audio_foreground_browser_smoke",
+        "mobile_turbo_target_44px",
+        "mobile_turbo_zero_overlap_360_390_412",
+        "turbo_touch_creates_no_wager"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -179,7 +200,19 @@
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "mobileTouchQA": {
+        "viewportWidths": [
+          360,
+          390,
+          412
+        ],
+        "minimumCssPx": 44,
+        "priorTurboSpinOverlapAt390": 498.74,
+        "patchedTurboSpinOverlap": 0,
+        "patchedTurboBetOverlap": 0,
+        "qaMode": "Playwright route interception of staged game module; production assets unchanged"
+      }
     },
     {
       "position": 7,
@@ -194,7 +227,11 @@
       ],
       "verifiedChecks": [
         "playwright_page_load",
-        "audio_pause_resume_browser"
+        "audio_pause_resume_browser",
+        "audio_foreground_browser_smoke",
+        "mobile_turbo_target_44px",
+        "mobile_turbo_zero_overlap_360_390_412",
+        "turbo_touch_creates_no_wager"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -203,7 +240,19 @@
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "mobileTouchQA": {
+        "viewportWidths": [
+          360,
+          390,
+          412
+        ],
+        "minimumCssPx": 44,
+        "priorTurboSpinOverlapAt390": 542.5,
+        "patchedTurboSpinOverlap": 0,
+        "patchedTurboBetOverlap": 0,
+        "qaMode": "Playwright route interception of staged game module; production assets unchanged"
+      }
     },
     {
       "position": 8,
@@ -246,7 +295,11 @@
       ],
       "verifiedChecks": [
         "playwright_page_load",
-        "audio_pause_resume_browser"
+        "audio_pause_resume_browser",
+        "audio_foreground_browser_smoke",
+        "mobile_turbo_target_44px",
+        "mobile_turbo_zero_overlap_360_390_412",
+        "turbo_touch_creates_no_wager"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -255,7 +308,19 @@
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "mobileTouchQA": {
+        "viewportWidths": [
+          360,
+          390,
+          412
+        ],
+        "minimumCssPx": 44,
+        "priorTurboSpinOverlapAt390": 444.42,
+        "patchedTurboSpinOverlap": 0,
+        "patchedTurboBetOverlap": 0,
+        "qaMode": "Playwright route interception of staged game module; production assets unchanged"
+      }
     },
     {
       "position": 10,
@@ -270,7 +335,11 @@
       ],
       "verifiedChecks": [
         "playwright_page_load",
-        "audio_pause_resume_browser"
+        "audio_pause_resume_browser",
+        "audio_foreground_browser_smoke",
+        "mobile_turbo_target_44px",
+        "mobile_turbo_zero_overlap_360_390_412",
+        "turbo_touch_creates_no_wager"
       ],
       "remainingGates": [
         "authenticated_real_ETB_round_not_verified",
@@ -279,7 +348,19 @@
       ],
       "productionReady": false,
       "authenticatedLiveSettlementVerified": false,
-      "realMoneyTestCharges": 0
+      "realMoneyTestCharges": 0,
+      "mobileTouchQA": {
+        "viewportWidths": [
+          360,
+          390,
+          412
+        ],
+        "minimumCssPx": 44,
+        "priorTurboSpinOverlapAt390": 498.74,
+        "patchedTurboSpinOverlap": 0,
+        "patchedTurboBetOverlap": 0,
+        "qaMode": "Playwright route interception of staged game module; production assets unchanged"
+      }
     }
   ]
 }
