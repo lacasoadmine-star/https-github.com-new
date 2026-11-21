@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#003d2b"><title>Multi Hot 20 — ZPLAY</title><link rel="stylesheet" href="./style.css"><script type="module" src="./app.mjs"></script></head>
-<body><main id="zplay" class="zplay-app" data-game="multihot20" data-phase="loading">
+<body><canvas id="game-backdrop" aria-hidden="true"></canvas><main id="zplay" class="zplay-app" data-game="multihot20" data-phase="loading">
 <header class="topbar"><a href="/" class="brand" aria-label="ZPLAY lobby">ZPLAY</a><span>Multi Hot 20</span><a href="/" class="lobby">Exit</a></header>
 <section class="machine" aria-label="Multi Hot 20">
 <div class="game-frame"><canvas id="reels" width="600" height="600" role="img" aria-label="Multi Hot 20: five reels and three rows"></canvas><div id="loading" class="loading-screen" role="status"><strong>MULTI HOT <em>20</em></strong><span id="loading-text">Loading game…</span><progress id="load-progress" aria-label="Loading game"></progress><button id="load-retry" type="button" hidden>Try again</button></div><div id="win-banner" class="win-banner" hidden><span>WIN</span><strong id="win-value">0.00</strong><span>ETB · <output id="multiplier-value">1</output>×</span></div></div>

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {Session,GAMBLE_STORAGE_KEY,STORAGE_KEY} from './multihot20/session.mjs';
 import {GameController,GAME_ID,validateGambleReceipt} from './multihot20/controller.mjs';
-import {CONTROL_TEXTURES,controlTextureName,createControlArt,createHoldSpin} from './multihot20/app.mjs';
+import {CONTROL_TEXTURES,controlTextureName,createControlArt,createHoldSpin,spinControlRunning} from './multihot20/app.mjs';
 
 const GUARD='f'.repeat(64),PARENT='c4353465-1182-48dc-b1a2-617ccebe7def';
 const etb=n=>(n/100n)+'.'+(n%100n).toString().padStart(2,'0');
@@ -600,4 +600,25 @@ test('M20 a rejected second finger cannot consume the primary HOLD release or ad
  for(const callback of queued)callback.fn();await Promise.resolve();
  assert.equal(f.metrics().debits,1);assert.equal(f.requests.filter(r=>r.path==='/api/slots/spin').length,1);
  assert.equal(hold.consumeClick({pointerId:-1,pointerType:'',detail:0}),false,'keyboard click remains available');
+});
+
+test('M20 a held focused SPIN stays enabled through ready-plus-pending settlement before the next serial round',async()=>{
+ const {f,c,hold,next,queued}=await holdFixture(),transitions=[];
+ c.onChange=state=>{
+  const holding=hold.active,running=spinControlRunning(state,holding);
+  const canStart=state.phase==='ready'&&!state.pending;
+  const disabled=!running&&!canStart;
+  transitions.push({phase:state.phase,pending:state.pending,holding,running,disabled});
+  // A disabled focused native button loses focus. The app's blur handler
+  // correctly cancels HOLD, so its presentation must not disable mid-settle.
+  if(disabled)hold.cancel();
+ };
+ hold.begin(31);const first=await next();first.release();await hold.currentRound;
+ const handoff=transitions.filter(s=>s.holding&&s.phase==='ready'&&s.pending);
+ assert.ok(handoff.length>0,'actual controller emits a pending ready-phase handoff');
+ assert.ok(handoff.every(s=>s.running&&!s.disabled));assert.equal(hold.active,true);assert.equal(queued.length,1);
+ queued.shift().fn();const second=await next();assert.equal(f.metrics().debits,2);
+ hold.release(31);second.release();await hold.currentRound;assert.equal(queued.length,0);assert.equal(c.pending,false);
+ assert.equal(spinControlRunning({phase:'confirm',pending:true},true),false,'recovery remains disabled');
+ assert.equal(spinControlRunning({phase:'ready',pending:true,error:'ROUND_SETTLED_RENDER_ERROR'},true),false,'errors cannot continue HOLD');
 });

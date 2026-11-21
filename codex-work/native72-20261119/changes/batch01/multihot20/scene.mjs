@@ -33,13 +33,16 @@ const drawable=a=>!!a&&((a.naturalWidth??a.width)>0)&&((a.naturalHeight??a.heigh
 const wheelStopAngle=value=>modulo(-WHEEL_STOP_SECTORS[value]*WHEEL_STEP,TAU);
 
 export class MultiHot20Scene {
- constructor({canvas,symbols,assets={},audio={},strictAssets=true,
+ constructor({canvas,backdropCanvas=null,symbols,assets={},audio={},strictAssets=true,
    doc=globalThis.document,win=globalThis.window,clock=()=>performance.now(),
    requestFrame=fn=>requestAnimationFrame(fn),cancelFrame=id=>cancelAnimationFrame(id)}={}){
   if(!canvas?.getContext)throw Error('CANVAS_REQUIRED');
   if(!Array.isArray(symbols)||symbols.length<2||symbols.some(s=>typeof s!=='string'||!s))throw Error('VALIDATED_SYMBOL_SET_REQUIRED');
   this.canvas=canvas;this.ctx=canvas.getContext('2d');
   if(!this.ctx)throw Error('CANVAS_CONTEXT_UNAVAILABLE');
+  if(backdropCanvas&&(backdropCanvas===canvas||typeof backdropCanvas.getContext!=='function'))throw Error('SEPARATE_BACKDROP_CANVAS_REQUIRED');
+  this.backdropCanvas=backdropCanvas;this.backdropCtx=backdropCanvas?.getContext('2d')??null;this.backdropState=null;
+  if(backdropCanvas&&!this.backdropCtx)throw Error('BACKDROP_CONTEXT_UNAVAILABLE');
   this.symbols=[...symbols];this.assets=assets;this.audio=audio;this.strictAssets=strictAssets;
   this.doc=doc;this.win=win;this.clock=clock;this.requestFrame=requestFrame;this.cancelFrame=cancelFrame;
   this.width=WIDTH;this.height=HEIGHT;this.rolling=false;this.disposed=false;
@@ -88,7 +91,35 @@ export class MultiHot20Scene {
   const dpr=Math.max(1,Math.min(2,this.win?.devicePixelRatio||1));
   this.canvas.width=Math.round(w*dpr);this.canvas.height=Math.round(h*dpr);
   this.ctx.setTransform(this.canvas.width/WIDTH,0,0,this.canvas.height/HEIGHT,0,0);
+  this._resizeBackdrop(dpr);
   this._paint(this.clock());
+ }
+ _drawBackground(ctx,width,height){
+  const gradient=ctx.createLinearGradient(0,0,0,height);
+  gradient.addColorStop(0,'#064b34');gradient.addColorStop(.55,'#003223');gradient.addColorStop(1,'#031c16');
+  ctx.fillStyle=gradient;ctx.fillRect(0,0,width,height);
+  const background=this._asset('__background');
+  if(drawable(background)){
+   const aw=background.naturalWidth??background.width,ah=background.naturalHeight??background.height;
+   const scale=Math.max(width/aw,height/ah);
+   ctx.drawImage(background,(width-aw*scale)/2,(height-ah*scale)/2,aw*scale,ah*scale);
+  }
+ }
+ _resizeBackdrop(dpr){
+  if(!this.backdropCanvas||this.disposed)return;
+  const rect=this.backdropCanvas.getBoundingClientRect?.()||{};
+  const width=rect.width>0?rect.width:this.win?.innerWidth>0?this.win.innerWidth:WIDTH;
+  const height=rect.height>0?rect.height:this.win?.innerHeight>0?this.win.innerHeight:HEIGHT;
+  const pixelWidth=Math.max(1,Math.round(width*dpr)),pixelHeight=Math.max(1,Math.round(height*dpr));
+  const image=this._asset('__background'),previous=this.backdropState;
+  if(previous&&previous.width===width&&previous.height===height&&previous.pixelWidth===pixelWidth&&
+    previous.pixelHeight===pixelHeight&&previous.image===image)return;
+  // The same verified bitmap covers the viewport behind scene and controls.
+  // It is static: a spin, focus event or unchanged resize never redraws it.
+  this.backdropCanvas.width=pixelWidth;this.backdropCanvas.height=pixelHeight;
+  this.backdropCtx.setTransform(pixelWidth/width,0,0,pixelHeight/height,0,0);
+  this.backdropCtx.clearRect(0,0,width,height);this._drawBackground(this.backdropCtx,width,height);
+  this.backdropState={width,height,pixelWidth,pixelHeight,image};
  }
  start(){
   if(this.disposed||this.rolling)throw Error('REELS_NOT_READY');
@@ -266,13 +297,9 @@ export class MultiHot20Scene {
   if(this.disposed)return;
   const ctx=this.ctx,now=Number.isFinite(time)?time:this.clock();
   ctx.clearRect(0,0,WIDTH,HEIGHT);
-  const g=ctx.createLinearGradient(0,0,0,HEIGHT);g.addColorStop(0,'#064b34');g.addColorStop(.55,'#003223');g.addColorStop(1,'#031c16');
-  ctx.fillStyle=g;ctx.fillRect(0,0,WIDTH,HEIGHT);
-  const background=this._asset('__background');
-  if(drawable(background)){
-   const aw=background.naturalWidth??background.width,ah=background.naturalHeight??background.height,scale=Math.max(WIDTH/aw,HEIGHT/ah);
-   try{ctx.drawImage(background,(WIDTH-aw*scale)/2,(HEIGHT-ah*scale)/2,aw*scale,ah*scale)}catch{}
-  }
+  // Standalone embeds keep their original background. The full-page Player
+  // paints it once on its separate backdrop, leaving this stage transparent.
+  if(!this.backdropCanvas)this._drawBackground(ctx,WIDTH,HEIGHT);
   this._title(ctx);this._wheel(ctx,now);
   const box=this._asset('__boxFrame'),originalBox=drawable(box);
   if(originalBox)ctx.drawImage(box,(WIDTH-BOX_WIDTH)/2,Y-26*BOX_SCALE,BOX_WIDTH,BOX_HEIGHT);
@@ -321,6 +348,11 @@ export class MultiHot20Scene {
   averageSampledFps:sample.length?sample.reduce((s,v)=>s+v,0)/sample.length:null,originalArtworkProvided:this.symbols.every(s=>drawable(this._asset(s))),usesServerReceiptOnly:true}}
  dispose(){
   if(this.disposed)return;this.disposed=true;this.reset();
+  // Release the viewport-sized buffer, but leave the caller-owned DOM node
+  // available for an asset retry or a new scene. No event listener or RAF is
+  // created for the backdrop; the existing app resize path owns resizing.
+  if(this.backdropCanvas){this.backdropCanvas.width=1;this.backdropCanvas.height=1}
+  this.backdropCanvas=null;this.backdropCtx=null;this.backdropState=null;
   this.doc?.removeEventListener?.('visibilitychange',this.onVisibility);
   this.win?.removeEventListener?.('blur',this.onBlur);this.win?.removeEventListener?.('focus',this.onFocus);
   this.win?.removeEventListener?.('pagehide',this.onPageHide);this.win?.removeEventListener?.('pageshow',this.onPageShow);

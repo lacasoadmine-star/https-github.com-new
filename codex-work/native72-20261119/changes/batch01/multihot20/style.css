@@ -9,3 +9,19 @@
 .round-control .control-art{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden}.icon-control .control-art{width:28px;height:28px;pointer-events:none}.turbo-control .control-art{width:30px;height:34px;pointer-events:none;overflow:hidden}.turbo-control[aria-pressed="true"] .control-art{opacity:1;filter:none}.round-control.has-art{background:transparent;box-shadow:none}button.has-art:disabled{opacity:1}button.has-art:not(:disabled):active{filter:none}.spin-control.has-art .control-label{background:transparent;color:#f6db53}.auto-control.has-art[data-active="false"] .control-label{opacity:0}
 
 .topbar a{display:flex;align-items:center;min-width:44px;min-height:44px;justify-content:center}
+
+/* One verified original background spans the stage, controls and ledger. */
+body{isolation:isolate}
+#game-backdrop{position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0}
+.zplay-app{position:relative;z-index:1}
+.spin-control.has-art .control-label{color:#fff;font-size:12px;line-height:1.1;max-width:42px;letter-spacing:.2px}
+@media(orientation:landscape) and (max-height:600px){
+ .machine{--landscape-stage-size:min(62svh,calc(100svh - 160px),480px);max-width:calc(var(--landscape-stage-size) + 180px)}
+ .game-frame{height:var(--landscape-stage-size)}
+ .ledger{grid-template-columns:48px minmax(0,1fr) minmax(0,1fr) 48px;gap:8px}
+ .machine:has(.win-actions:not([hidden])){max-width:calc(var(--landscape-stage-size) + 280px);grid-template-columns:100px minmax(0,1fr) 130px}
+ .machine:has(.win-actions:not([hidden])) .game-frame{grid-column:2;grid-row:1;width:100%;height:auto;max-width:var(--landscape-stage-size);max-height:var(--landscape-stage-size)}
+ .machine:has(.win-actions:not([hidden])) .play-controls{grid-column:3;grid-row:1}
+ .machine:has(.win-actions:not([hidden])) .win-actions{position:static;grid-column:1;grid-row:1;align-self:start;margin:12px 0 0;gap:8px}
+ .machine:has(.win-actions:not([hidden])) .win-actions button{min-width:0;width:100%;padding:0 6px;font-size:12px}
+}

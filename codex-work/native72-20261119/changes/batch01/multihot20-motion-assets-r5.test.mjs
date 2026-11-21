@@ -10,10 +10,10 @@ class Target extends EventTarget {
  addEventListener(type,fn,opt){super.addEventListener(type,fn,opt);this.listeners.set(type,(this.listeners.get(type)||0)+1)}
  removeEventListener(type,fn,opt){super.removeEventListener(type,fn,opt);this.listeners.set(type,(this.listeners.get(type)||0)-1)}
 }
-function harness(extraAssets={}){
+function harness(extraAssets={},options={}){
  let now=1000,next=0,draws=[],clips=[],texts=[],fills=[],strokes=[],transform={angle:0,x:0,y:0};
  const stack=[];
- const frames=new Map(),sounds=[],doc=new Target(),win=new Target();
+ const frames=new Map(),sounds=[],doc=options.doc??new Target(),win=options.win??new Target();
  const ctx=new Proxy({createLinearGradient:()=>({addColorStop(){}}),measureText:s=>({width:s.length*22}),
   clearRect(){draws=[];clips=[];texts=[];fills=[];strokes=[]},
   setTransform(){transform={angle:0,x:0,y:0}},save(){stack.push({...transform})},restore(){transform=stack.pop()},
@@ -35,7 +35,7 @@ function harness(extraAssets={}){
   __title:{symbol:'title',width:633,height:152},__boxFrame:{symbol:'box-frame',width:1119,height:696},
   __background:{symbol:'background',width:100,height:100}
  };
- const scene=new MultiHot20Scene({canvas,symbols,assets:{...Object.fromEntries(symbols.map(symbol=>[symbol,{symbol,width:100,height:100}])),...presentation,...extraAssets},doc,win,
+ const scene=new MultiHot20Scene({canvas,backdropCanvas:options.backdropCanvas??null,symbols,assets:{...Object.fromEntries(symbols.map(symbol=>[symbol,{symbol,width:100,height:100}])),...presentation,...extraAssets},doc,win,
   audio:{play:name=>sounds.push({name,at:now}),stop:name=>sounds.push({name:'stop:'+name,at:now}),pauseAll:()=>sounds.push({name:'pause',at:now})},
   clock:()=>now,requestFrame:fn=>{frames.set(++next,fn);return next},cancelFrame:id=>frames.delete(id)});
  const receipt={gameId:'fresh_multihot20',roundId:'server-round-01',wheelMultiplier:3,finalWin:'2.40',
@@ -44,6 +44,76 @@ function harness(extraAssets={}){
  return {scene,canvas,doc,win,receipt,sounds,frames,get draws(){return draws},get clips(){return clips},get texts(){return texts},get fills(){return fills},get strokes(){return strokes},
   tick(time){now=time;const callbacks=[...frames.values()];frames.clear();for(const cb of callbacks)cb(now)},time:()=>now};
 }
+
+function backdropFixture(width=390,height=844){
+ const rect={width,height},draws=[],fills=[],transforms=[],clears=[];
+ const ctx={createLinearGradient:()=>({addColorStop(){}}),
+  fillRect:(...args)=>fills.push(args),setTransform:(...args)=>transforms.push(args),
+  clearRect:(...args)=>clears.push(args),drawImage:(image,...args)=>draws.push({image,args})};
+ const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({...rect}),width:0,height:0};
+ return{canvas,rect,draws,fills,transforms,clears};
+}
+
+test('MH20 covers the whole viewport with the verified background and leaves the reel canvas transparent',()=>{
+ const b=backdropFixture(),background={symbol:'background',width:1920,height:1080};
+ const h=harness({__background:background},{backdropCanvas:b.canvas});
+ assert.equal(b.canvas.width,780);assert.equal(b.canvas.height,1688,'backdrop DPR is capped at two');
+ assert.deepEqual(b.transforms,[[2,0,0,2,0,0]]);assert.deepEqual(b.clears,[[0,0,390,844]]);
+ assert.deepEqual(b.fills,[[0,0,390,844]]);assert.equal(b.draws.length,1);assert.equal(b.draws[0].image,background);
+ const scale=844/1080;assert.deepEqual(b.draws[0].args,[(390-1920*scale)/2,0,1920*scale,844]);
+ assert.deepEqual(h.fills,[],'the foreground has no opaque full-stage fill');
+ assert.equal(h.draws.some(draw=>draw.symbol==='background'),false,'the backdrop is not repeated inside the square stage');
+ for(const symbol of ['title','wheel-numbers','wheel-light','wheel-frame','box-frame','seven'])
+  assert.ok(h.draws.some(draw=>draw.symbol===symbol),'original foreground art remains visible: '+symbol);
+ assert.equal(h.frames.size,0);h.scene.dispose();
+});
+
+test('MH20 never repaints the static backdrop for motion, settlement, restore, focus, or unchanged resize',async()=>{
+ const b=backdropFixture(),h=harness({}, {backdropCanvas:b.canvas}),original=structuredClone(h.receipt);
+ h.scene.start();h.tick(1200);const settled=h.scene.settle(h.receipt);
+ for(let time=1216;time<=2400;time+=16)h.tick(time);
+ assert.equal(await settled,true);assert.deepEqual(visibleGrid(h),original.grid);assert.equal(h.frames.size,0);
+ h.scene.restore(original);h.win.dispatchEvent(new Event('blur'));h.win.dispatchEvent(new Event('focus'));
+ h.tick(9000);h.scene.resize();h.scene.resize();
+ assert.equal(b.clears.length,1);assert.equal(b.draws.length,1);assert.equal(b.transforms.length,1);
+ assert.equal(h.frames.size,0,'the backdrop creates no idle animation loop');
+ assert.deepEqual(h.fills,[]);assert.equal(h.draws.some(draw=>draw.symbol==='background'),false);h.scene.dispose();
+});
+
+test('MH20 repaints the backdrop only after viewport, physical resolution, or verified bitmap changes',()=>{
+ const b=backdropFixture(),background={symbol:'background',width:1920,height:1080};
+ const h=harness({__background:background},{backdropCanvas:b.canvas});
+ Object.assign(b.rect,{width:844,height:390});h.scene.resize();
+ assert.equal(b.draws.length,2);assert.equal(b.canvas.width,1688);assert.equal(b.canvas.height,780);
+ const scale=844/1920;
+ assert.deepEqual(b.draws.at(-1).args,[0,(390-1080*scale)/2,844,1080*scale]);
+ assert.deepEqual(b.clears.at(-1),[0,0,844,390]);
+ h.win.devicePixelRatio=1.25;h.scene.resize();
+ assert.equal(b.canvas.width,1055);assert.equal(b.canvas.height,488);assert.equal(b.draws.length,3);
+ assert.deepEqual(b.transforms.at(-1),[1055/844,0,0,488/390,0,0]);
+ h.scene.resize();assert.equal(b.draws.length,3);
+ const replacement={symbol:'background',width:1920,height:1080};h.scene.assets.__background=replacement;h.scene.resize();
+ assert.equal(b.draws.length,4);assert.equal(b.draws.at(-1).image,replacement);assert.equal(h.frames.size,0);h.scene.dispose();
+});
+
+test('MH20 releases the backdrop buffer and listeners on disposal without repainting or resolving a wager',async()=>{
+ const b=backdropFixture(),h=harness({}, {backdropCanvas:b.canvas});
+ h.scene.start();h.tick(1200);const settled=h.scene.settle(h.receipt);h.scene.dispose();
+ assert.equal(await settled,false);assert.equal(b.canvas.width,1);assert.equal(b.canvas.height,1);
+ assert.equal(h.scene.backdropCanvas,null);assert.equal(h.scene.backdropCtx,null);assert.equal(h.scene.backdropState,null);
+ assert.equal(h.frames.size,0);assert.ok([...h.win.listeners.values(),...h.doc.listeners.values()].every(n=>n===0));
+ h.scene.dispose();h.scene.resize();h.win.dispatchEvent(new Event('focus'));h.tick(5000);
+ assert.equal(b.draws.length,1);assert.equal(b.clears.length,1);assert.equal(h.scene.receipt,null);
+});
+
+test('MH20 rejects an invalid or shared backdrop before registering lifecycle listeners',()=>{
+ const doc=new Target(),win=new Target(),canvas={getContext:()=>({})};
+ const options={canvas,symbols:['one','two'],strictAssets:false,doc,win};
+ for(const backdropCanvas of [canvas,{}])
+  assert.throws(()=>new MultiHot20Scene({...options,backdropCanvas}),/SEPARATE_BACKDROP_CANVAS_REQUIRED/);
+ assert.throws(()=>new MultiHot20Scene({...options,backdropCanvas:{getContext:()=>null}}),/BACKDROP_CONTEXT_UNAVAILABLE/);
+ assert.equal(doc.listeners.size,0);assert.equal(win.listeners.size,0);
+});
 
 test('MH20 paints original wheel atlas, title and reel frame in proportion without a generated overlay',()=>{
  const h=harness(),frame=h.draws.find(d=>d.symbol==='wheel-frame');

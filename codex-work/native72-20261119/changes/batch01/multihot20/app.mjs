@@ -135,6 +135,14 @@ export function createHoldSpin({getController,visible=()=>true,schedule=fn=>setT
  };
 }
 
+// The controller announces its settled phase before its finally releases the
+// pending lock. Disabling the focused held button in that short transition
+// causes a native blur and cancels an otherwise valid held gesture. Keep its
+// STOP presentation until the lock clears; canStart still forbids a new bet.
+export function spinControlRunning(state,holding=false){
+ return state.phase==='spinning'||(holding&&state.phase==='ready'&&state.pending&&!state.error);
+}
+
 // Presentation helpers can be tested without mounting a Player or making API
 // requests. Browsers mount the same application below.
 if(typeof document!=='undefined'){
@@ -190,8 +198,9 @@ function saveSound(effects,music){
 }
 function sync(){
  const state=controller?.status()??{phase:'loading',pending:false,lastReceipt:null},account=controller?.account;
- const receipt=state.lastReceipt,activeAuto=state.auto?.started===true,spinning=state.phase==='spinning';
+ const receipt=state.lastReceipt,activeAuto=state.auto?.started===true;
  if(!['ready','spinning'].includes(state.phase)||activeAuto||state.error||!live())holdSpin.cancel();
+ const spinning=spinControlRunning(state,holdSpin.active);
  const canStart=assetsReady&&state.phase==='ready'&&!state.pending&&live();
  ui.zplay.dataset.phase=assetFailed?'load-error':state.phase;
  ui.zplay.dataset.roundId=receipt?.roundId||'';
@@ -283,7 +292,7 @@ async function loadGame(){
   const audioClips=await resources.primeAudio();
   if(generation!==loadGeneration)return;
   sound=createSoundEngine({clipUrls:audioClips});
-  scene=new MultiHot20Scene({canvas:ui.reels,symbols:resources.manifest.symbols,assets:resources.images,audio:soundBridge,strictAssets:true});
+  scene=new MultiHot20Scene({canvas:ui.reels,backdropCanvas:ui['game-backdrop'],symbols:resources.manifest.symbols,assets:resources.images,audio:soundBridge,strictAssets:true});
   scene.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
   controller=new GameController({session,scene,onChange:sync,visible:live});
   for(let atlas=0;atlas<4;atlas++)if(!resources.urls.get(`atlas-${atlas}.png`))throw Error('CONTROL_ATLAS_MISSING');

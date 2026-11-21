@@ -40,6 +40,7 @@ const report={schema:'zplay/multihot20-browser-acceptance/v1',startedAt:new Date
 report.checkPlan={fullAcceptance:26,responsiveAndPlay:11,defaultSevenViewportTotal:92,
  scope:'Preserves the prior 62 checks and adds real atlas, moving-wheel/restore and serial HOLD observations. No provider wager-count or timing equivalence is inferred.'};
 let server,browser,evaluator,reference,productionCSP;
+const verifiedMediaDigests={};
 
 async function readBody(req){let text='';for await(const chunk of req){text+=chunk;if(text.length>65536)throw Error('BODY_TOO_LARGE')}return JSON.parse(text)}
 function fixture(){
@@ -107,9 +108,10 @@ async function verifyMedia(){
  for(const [file,record] of Object.entries(manifest.files)){
   assert.match(file,/^[a-z0-9][a-z0-9._-]*$/i);const bytes=await fs.readFile(path.join(mediaDir,file));
   assert.equal(bytes.length,record.bytes,'byte count: '+file);assert.equal(digest(bytes),record.sha256,'SHA256: '+file);
+  verifiedMediaDigests[file]=record.sha256;
   verified.set(file,{bytes,mime:record.contentType});
  }
- report.assets={verifiedCount:verified.size,captureDate:manifest.captureDate,revision:manifest.revision,manifestSha256:digest(await fs.readFile(manifestPath)),
+ report.assets={verifiedCount:verified.size,captureDate:manifest.captureDate,revision:manifest.revision,manifestSha256:digest(await fs.readFile(manifestPath)),sha256ByFile:{...verifiedMediaDigests},
   scope:'Integrity checks of supplied local media only. Capture freshness is not established by this harness; retained audio must keep its recorded provenance.'};
  return {manifest,verified};
 }
@@ -153,7 +155,18 @@ async function serve(media){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));return 'http://127.0.0.1:'+server.address().port;
 }
 function instrument(){
- const qa=window.__m20QA={raf:[],media:[],mediaErrors:[],held:[],holdAuto:false,sceneFrames:[],sceneSequence:0,crops:[]};
+ const qa=window.__m20QA={raf:[],media:[],mediaErrors:[],held:[],holdAuto:false,sceneFrames:[],sceneSequence:0,backdropFrames:[],backdropSequence:0,crops:[],inputEvents:[]};
+ const traceInput=(event,windowEvent=false)=>{
+  if(!windowEvent&&event.target?.id!=='spin')return;
+  const spin=document.getElementById('spin');
+  qa.inputEvents.push({event:event.type,at:performance.now(),pointerId:event.pointerId??null,pointerType:event.pointerType??null,
+   buttons:event.buttons??null,detail:event.detail??null,target:windowEvent?'window':event.target.id,
+   phase:document.getElementById('zplay')?.dataset.phase??null,disabled:spin?.disabled??null,
+   texture:spin?.dataset.controlTexture??null,focused:document.activeElement?.id??null});
+  if(qa.inputEvents.length>500)qa.inputEvents.shift();
+ };
+ for(const type of ['pointerdown','pointerup','pointercancel','pointerleave','lostpointercapture','focus','blur'])document.addEventListener(type,traceInput,true);
+ window.addEventListener('blur',event=>traceInput(event,true));
  const originalRAF=window.requestAnimationFrame.bind(window),originalMicrotask=window.queueMicrotask.bind(window);
  window.requestAnimationFrame=callback=>{
   const sceneCall=new Error().stack?.includes('/scene.mjs');
@@ -176,33 +189,46 @@ function instrument(){
  // Observe successful native Canvas draws, not scene methods or a production
  // debug object. A wrong crop, fixed wheel or text replacement is observable
  // even when the app's own inspect()/state labels claim a correct result.
- const proto=CanvasRenderingContext2D.prototype,clear=proto.clearRect,draw=proto.drawImage,fill=proto.fillText,stroke=proto.strokeText;
- const sourceCrops=new WeakMap(),matrix=context=>{const m=context.getTransform();return [m.a,m.b,m.c,m.d,m.e,m.f]};
+ const proto=CanvasRenderingContext2D.prototype,clear=proto.clearRect,draw=proto.drawImage,fillRect=proto.fillRect,fill=proto.fillText,stroke=proto.strokeText;
+ const recordedFrames=canvas=>canvas.id==='reels'?qa.sceneFrames:canvas.id==='game-backdrop'?qa.backdropFrames:null;
+ const sourceCrops=new WeakMap(),bitmapDigests=new WeakMap(),matrix=context=>{const m=context.getTransform();return [m.a,m.b,m.c,m.d,m.e,m.f]};
+ const originalBitmap=window.createImageBitmap.bind(window);
+ window.createImageBitmap=async function(...args){
+  const bitmap=await originalBitmap(...args);
+  if(args[0] instanceof Blob){
+   const hash=await crypto.subtle.digest('SHA-256',await args[0].arrayBuffer());
+   bitmapDigests.set(bitmap,Array.from(new Uint8Array(hash),byte=>byte.toString(16).padStart(2,'0')).join(''));
+  }
+  return bitmap;
+ };
  proto.clearRect=function(...args){
   const result=clear.apply(this,args);
-  if(this.canvas.id==='reels'){
+  const frames=recordedFrames(this.canvas);
+  if(frames){
    const rect=this.canvas.getBoundingClientRect();
-   const frame={sequence:++qa.sceneSequence,at:performance.now(),draws:[],texts:[],width:this.canvas.width,height:this.canvas.height,
+   const frame={sequence:this.canvas.id==='reels'?++qa.sceneSequence:++qa.backdropSequence,at:performance.now(),draws:[],texts:[],fills:[],width:this.canvas.width,height:this.canvas.height,
     css:{x:rect.x,y:rect.y,width:rect.width,height:rect.height}};
-   qa.sceneFrames.push(frame);if(qa.sceneFrames.length>600)qa.sceneFrames.shift();
+   frames.push(frame);if(frames.length>600)frames.shift();
   }
   return result;
  };
  proto.drawImage=function(image,...args){
   const result=draw.call(this,image,...args),width=image.naturalWidth??image.width,height=image.naturalHeight??image.height;
-  const transform=matrix(this);
-  if(this.canvas.id==='reels'){
-   const frame=qa.sceneFrames.at(-1);if(frame)frame.draws.push({width,height,args,transform,crop:sourceCrops.get(image)||null});
+  const transform=matrix(this),sourceSha256=bitmapDigests.get(image)||sourceCrops.get(image)?.sourceSha256||null;
+  const frames=recordedFrames(this.canvas);
+  if(frames){
+   const frame=frames.at(-1);if(frame)frame.draws.push({width,height,args,transform,sourceSha256,crop:sourceCrops.get(image)||null});
   }else if(args.length===8&&this.canvas instanceof HTMLCanvasElement&&!sourceCrops.has(this.canvas)){
    const pixels=this.getImageData(0,0,this.canvas.width,this.canvas.height).data,step=Math.max(1,Math.floor(pixels.length/4/4096));
    let visible=0,sampled=0;const colours=new Set();
    for(let p=0;p<pixels.length;p+=step*4){sampled++;if(pixels[p+3]){visible++;if(colours.size<256)colours.add([pixels[p],pixels[p+1],pixels[p+2],pixels[p+3]].join(','))}}
-   const crop={width:this.canvas.width,height:this.canvas.height,sourceWidth:width,sourceHeight:height,args,transform,
+   const crop={width:this.canvas.width,height:this.canvas.height,sourceWidth:width,sourceHeight:height,sourceSha256,args,transform,
     pixels:{sampled,visible,colours:colours.size}};
    sourceCrops.set(this.canvas,crop);qa.crops.push(crop);
   }
   return result;
  };
+ proto.fillRect=function(...args){const result=fillRect.apply(this,args);recordedFrames(this.canvas)?.at(-1)?.fills.push({args,transform:matrix(this)});return result};
  for(const [name,original]of [['fillText',fill],['strokeText',stroke]])proto[name]=function(text,...args){
   const result=original.call(this,text,...args);if(this.canvas.id==='reels')qa.sceneFrames.at(-1)?.texts.push(String(text));return result;
  };
@@ -378,6 +404,7 @@ const SYMBOL_REGIONS={seven:[2047,2047,1337,1,264,225,-1],bell:[1093,1946,612,13
  grape:[1093,1946,612,1098,230,235,0],watermelon:[2047,2047,1837,1791,209,232,-1],
  cherry:[1093,1946,1,1657,218,244,0],orange:[1093,1946,844,1098,248,214,-1],
  plum:[2047,2025,1514,586,197,263,0],lemon:[2047,2047,1603,1,243,220,-1]};
+const SYMBOL_ATLASES={seven:'atlas-2.png',bell:'atlas-3.png',grape:'atlas-3.png',watermelon:'atlas-2.png',cherry:'atlas-3.png',orange:'atlas-3.png',plum:'atlas-1.png',lemon:'atlas-2.png'};
 const TAU=2*Math.PI,WHEEL_STEP=TAU/14,STOP_SECTORS={1:11,2:0,3:5,4:10,5:13};
 const angle=draw=>Math.atan2(draw.transform[1],draw.transform[0]);
 const angleDistance=(a,b)=>Math.abs(Math.atan2(Math.sin(a-b),Math.cos(a-b)));
@@ -387,6 +414,8 @@ function wheelParts(frame){
  const light=frame.draws.filter(d=>d.width===2047&&d.height===2047&&region(d,1,1,1077,1095));
  const fixed=frame.draws.filter(d=>d.width===2047&&d.height===2047&&region(d,1,1715,978,267));
  assert.equal(numbers.length,1,'one complete Numbers ring is painted');assert.equal(light.length,1,'one complete Light ring is painted');assert.equal(fixed.length,1,'one original fixed wheel frame is painted');
+ for(const [draw,file]of [[numbers[0],'atlas-3.png'],[light[0],'atlas-2.png'],[fixed[0],'atlas-0.png']])
+  assert.equal(draw.sourceSha256,verifiedMediaDigests[file],'native bitmap comes from '+file+' rather than a same-sized different atlas');
  assert.deepEqual(light[0].args,numbers[0].args,'light and numerals have identical ring geometry');
  for(let i=0;i<6;i++)closeNumber(light[0].transform[i],numbers[0].transform[i],'light and numerals share the actual transform',.001);
  closeNumber(angle(fixed[0]),0,'selector frame must remain fixed');
@@ -397,6 +426,9 @@ function artwork(frame,receipt){
  assert.ok(frame&&frame.css.width>0&&frame.css.height>0,'visible scene canvas');closeNumber(frame.css.width/frame.css.height,1,'square scene viewport',.005);
  const title=frame.draws.filter(d=>d.width===633&&d.height===152),box=frame.draws.filter(d=>d.width===1119&&d.height===696);
  assert.equal(title.length,1);assert.equal(box.length,1);
+ assert.equal(title[0].sourceSha256,verifiedMediaDigests['atlas-logo.png']);assert.equal(box[0].sourceSha256,verifiedMediaDigests['atlas-1.png']);
+ assert.equal(frame.draws.filter(d=>d.sourceSha256===verifiedMediaDigests['background.png']).length,0,'foreground must not redraw the page background in a separate square');
+ assert.ok(!(frame.fills||[]).some(fill=>fill.args[0]<=0&&fill.args[1]<=0&&fill.args[2]>=600&&fill.args[3]>=600),'foreground has no opaque full-stage rectangle');
  for(const [label,list,ratio]of [['title',title,633/152],['box',box,1119/696]]){
   const d=list[0];assert.equal(d.args.length,4);assert.ok(d.args[2]>0&&d.args[3]>0);
   closeNumber(d.args[2]/d.args[3],ratio,label+' natural proportions',.0001);closeNumber(angle(d),0,label+' upright draw');
@@ -417,6 +449,7 @@ function artwork(frame,receipt){
   closeNumber(w/h,d.width/d.height,'symbol aspect ratio',.0001);closeNumber(angle(d),0,'symbol is upright');
   assert.ok(d.crop?.pixels.visible>0&&d.crop.pixels.colours>2,'symbol crop contains original pixels');
   const [sw,sh,sx,sy,pw,ph,turn]=SYMBOL_REGIONS[grid[row][col]];
+  assert.equal(d.sourceSha256,verifiedMediaDigests[SYMBOL_ATLASES[grid[row][col]]],'symbol comes from its captured source atlas');
   assert.deepEqual([d.crop.sourceWidth,d.crop.sourceHeight],[sw,sh]);assert.deepEqual(d.crop.args,[sx,sy,pw,ph,0,0,pw,ph]);
   closeNumber(Math.atan2(d.crop.transform[1],d.crop.transform[0]),turn*Math.PI/2,'packed symbol has the captured orientation');
  }
@@ -424,6 +457,27 @@ function artwork(frame,receipt){
  return {css:frame.css,bitmap:[frame.width,frame.height],title:title[0],box:box[0],grid};
 }
 async function latestScene(page){return page.evaluate(()=>__m20QA.sceneFrames.at(-1))}
+async function inspectBackdrop(page,result,label){
+ const state=await page.evaluate(()=>{
+  const backdrop=document.getElementById('game-backdrop'),foreground=document.getElementById('reels'),frame=__m20QA.backdropFrames.at(-1);
+  const appearance=element=>({backgroundColor:getComputedStyle(element).backgroundColor,backgroundImage:getComputedStyle(element).backgroundImage});
+  return {frame,viewport:{width:document.documentElement.clientWidth||innerWidth,height:document.documentElement.clientHeight||innerHeight},window:{width:innerWidth,height:innerHeight},sequence:__m20QA.backdropSequence,
+   style:backdrop&&{position:getComputedStyle(backdrop).position,pointerEvents:getComputedStyle(backdrop).pointerEvents,opacity:getComputedStyle(backdrop).opacity,visibility:getComputedStyle(backdrop).visibility,display:getComputedStyle(backdrop).display},
+   foreground:foreground&&appearance(foreground),stage:foreground?.parentElement&&appearance(foreground.parentElement)};
+ });
+ assert.ok(state.frame,'original page backdrop was actually drawn');const frame=state.frame;
+ assert.equal(state.style.position,'fixed');assert.equal(state.style.pointerEvents,'none');
+ assert.equal(state.style.opacity,'1');assert.equal(state.style.visibility,'visible');assert.notEqual(state.style.display,'none');
+ assert.equal(state.foreground.backgroundColor,'rgba(0, 0, 0, 0)');assert.equal(state.foreground.backgroundImage,'none');
+ assert.equal(state.stage.backgroundColor,'rgba(0, 0, 0, 0)');assert.equal(state.stage.backgroundImage,'none');
+ assert.ok(frame.css.x<=.5&&frame.css.y<=.5&&frame.css.width>=state.viewport.width-.5&&frame.css.height>=state.viewport.height-.5,'backdrop canvas covers the visible page');
+ const draws=frame.draws.filter(draw=>draw.sourceSha256===verifiedMediaDigests['background.png']);assert.equal(draws.length,1,'backdrop paints the exact verified background bitmap once');
+ const d=draws[0];assert.equal(d.args.length,4);closeNumber(d.args[2]/d.args[3],d.width/d.height,'background cover preserves proportions',.0001);closeNumber(angle(d),0,'backdrop is upright');
+ const [x,y,w,h]=d.args,[a,b,c,dd,e,f]=d.transform;
+ const corners=[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(([px,py])=>({x:(a*px+c*py+e)*frame.css.width/frame.width+frame.css.x,y:(b*px+dd*py+f)*frame.css.height/frame.height+frame.css.y}));
+ assert.ok(Math.min(...corners.map(p=>p.x))<=.5&&Math.min(...corners.map(p=>p.y))<=.5&&Math.max(...corners.map(p=>p.x))>=state.viewport.width-.5&&Math.max(...corners.map(p=>p.y))>=state.viewport.height-.5,'original bitmap fills the page without gaps');
+ result.backdropChecks.push({label,...state});return state.sequence;
+}
 async function inspectWheelMotion(page,start,result,label,receipt){
  const frames=await page.evaluate(sequence=>__m20QA.sceneFrames.filter(f=>f.sequence>sequence),start);
  assert.ok(frames.length>=3,label+' actual animation paints multiple frames');
@@ -454,10 +508,14 @@ async function verifyHoldPointer(page,f,result){
  result.holdPlay=[];
  for(const scenario of [{name:'release',rounds:3},{name:'leave',rounds:1},{name:'menu-focus',rounds:1}]){
   const postsBefore=count(f,'/api/slots/spin'),roundsBefore=f.rounds.size,requestsBefore=f.requests.length,balanceBefore=f.balance;
+  const eventsBefore=await page.evaluate(()=>__m20QA.inputEvents.length);
   f.remainingRounds=scenario.rounds;
   try{
    await beginHeldPointer(page);
    await waitFixture(()=>f.rounds.size===roundsBefore+scenario.rounds,'held '+scenario.name+' accepted rounds');
+   const beforeStop=await page.evaluate(start=>__m20QA.inputEvents.slice(start),eventsBefore);
+   assert.ok(beforeStop.some(event=>event.event==='pointerdown'&&event.target==='spin'));
+   assert.ok(!beforeStop.some(event=>event.event==='blur'&&event.target==='spin'),'held focused SPIN cannot disable/blur between accepted rounds');
    if(scenario.name==='release')await page.mouse.up();
    else if(scenario.name==='leave')await moveAway(page);
    else {await page.locator('#menu').focus();await page.keyboard.press('Enter');await page.locator('#menu-dialog').waitFor({state:'visible'})}
@@ -474,8 +532,13 @@ async function verifyHoldPointer(page,f,result){
    assert.equal(new Set(spins.map(r=>r.body.roundToken)).size,scenario.rounds,'each accepted held round has its own token');
    for(const spin of spins)assert.equal(f.ledger.filter(r=>r.kind==='BET'&&r.token===spin.body.roundToken).length,1);
    assert.equal((await page.locator('#balance').innerText()).replace(/[^0-9.]/g,''),money(f.balance));
-   result.holdPlay.push({stop:scenario.name,acceptedRounds:scenario.rounds,postCount:spins.length,balanceBefore:money(balanceBefore),balanceAfter:money(f.balance),tokens:spins.map(r=>r.body.roundToken)});
+   result.holdPlay.push({stop:scenario.name,acceptedRounds:scenario.rounds,postCount:spins.length,balanceBefore:money(balanceBefore),balanceAfter:money(f.balance),tokens:spins.map(r=>r.body.roundToken),
+    inputEvents:await page.evaluate(start=>__m20QA.inputEvents.slice(start),eventsBefore)});
    result.checks.push(scenario.name==='release'?'HOLD serially settles three fixture rounds; release adds no fourth bet':scenario.name==='leave'?'Leaving held SPIN settles its accepted round and cancels repetition':'Moving focus to MENU cancels held repetition while its accepted round settles');
+  }catch(error){
+   result.holdFailure={stop:scenario.name,acceptedRounds:f.rounds.size-roundsBefore,postCount:count(f,'/api/slots/spin')-postsBefore,
+    inputEvents:await page.evaluate(start=>__m20QA.inputEvents.slice(start),eventsBefore).catch(()=>[]),error:error.message};
+   throw error;
   }finally{await page.mouse.up().catch(()=>{});f.remainingRounds=null}
  }
 }
@@ -494,6 +557,7 @@ async function verifyWheelReceipts(page,f,result){
    const beforeCanvas=await page.locator('#reels').evaluate(canvas=>canvas.toDataURL()),ledgerBefore=f.ledger.length,postsBefore=f.requests.filter(r=>r.method==='POST').length;
    result.observationChunks.push(await observe(page));await page.reload({waitUntil:'networkidle'});await restorePage(page);
    const restored=await latestScene(page),parts=wheelParts(restored);artwork(restored,receipt);
+   await inspectBackdrop(page,result,'restored '+multiplier+'x');
    assert.ok(angleDistance(parts.angle,settled.angle)<.0001,'restore preserves the server multiplier sector');
    assert.equal(await page.locator('#reels').evaluate(canvas=>canvas.toDataURL()),beforeCanvas,'restore paints the identical settled title, frame, ring and symbols');
    assert.equal(f.requests.filter(r=>r.method==='POST').length,postsBefore);assert.equal(f.ledger.length,ledgerBefore);
@@ -554,7 +618,7 @@ async function verifyAutoLimits(page,f,result){
  result.checks.push('AUTO single-win, net-loss and net-gain limits stop after 1/2/2 bounded rounds; invalid thresholds place zero bets');
 }
 async function exercise(origin,viewport){
- current=fixture();const f=current,result={name:viewport.width+'x'+viewport.height,viewport,scope:viewport.width===FULL_WIDTH?'FULL_ACCEPTANCE':'RESPONSIVE_AND_PLAY',checks:[],layouts:[],screenshots:[],controlStates:[],sceneChecks:[],observationChunks:[],consoleErrors:[],pageErrors:[],httpErrors:[],requestFailures:[]};
+ current=fixture();const f=current,result={name:viewport.width+'x'+viewport.height,viewport,scope:viewport.width===FULL_WIDTH?'FULL_ACCEPTANCE':'RESPONSIVE_AND_PLAY',checks:[],layouts:[],screenshots:[],controlStates:[],sceneChecks:[],backdropChecks:[],observationChunks:[],consoleErrors:[],pageErrors:[],httpErrors:[],requestFailures:[]};
  report.viewports.push(result);
  const shortSide=Math.min(viewport.width,viewport.height),mobile=shortSide<=430;
  const context=await browser.newContext({viewport,deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:shortSide<=768,reducedMotion:'no-preference'});
@@ -570,17 +634,19 @@ async function exercise(origin,viewport){
   result.checks.push('Six original atlas controls render within reachable hitboxes; no annotated help images are requested');
   const idleScene=await latestScene(page),idleWheel=wheelParts(idleScene);closeNumber(idleWheel.angle,0,'idle original centre2 with neighbours5/4');
   result.sceneChecks.push({label:'idle original artwork',angle:idleWheel.angle,presented:artwork(idleScene)});
-  result.checks.push('Original upright title, frame, symbols and full multiplier ring draw from verified atlas crops');
+  await inspectBackdrop(page,result,'idle');
+  result.checks.push('Original upright title, frame, symbols and multiplier ring draw over one full-page verified backdrop without a foreground rectangle');
   result.checks.push('Boot: verified assets, existing-session GET, no spin, no sound autoplay');await audit(page,'main',result);await screenshot(page,result,'idle');
   if(viewport.width===FULL_WIDTH)for(const id of CONTROL_IDS)await pointerStates(page,f,result,id,IDLE_CONTROLS[id].slice('Buttons/'.length));
   await page.locator('#bet').click();await audit(page,'bet-dialog',result);await page.locator('#bet-options button').filter({hasText:/^2(?:\.00)?\s*ETB$/}).click();
   assert.match(await page.locator('#bet-value').innerText(),/2(?:\.00)?/);assert.equal(count(f,'/api/slots/spin'),0);result.checks.push('BET selection is read-only');
-  const before=count(f,'/api/slots/spin'),normalStart=Date.now(),normalScene=await page.evaluate(()=>__m20QA.sceneSequence);await page.locator('#spin').click();
+  const before=count(f,'/api/slots/spin'),normalStart=Date.now(),normalScene=await page.evaluate(()=>__m20QA.sceneSequence),normalBackdrop=await page.evaluate(()=>__m20QA.backdropSequence);await page.locator('#spin').click();
   await page.waitForFunction(()=>document.getElementById('spin').textContent.includes('STOP'));
   await controls(page,result,'normal pending STOP',{spin:'Buttons/SpinStop',auto:'Buttons/AutoPlayDisabled',bet:'Buttons/BetDisabled',turbo:'Buttons/QuickPlayDisabled'});await ready(page);
   result.normalSpinMs=Date.now()-normalStart;assert.equal(count(f,'/api/slots/spin'),before+1);assert.equal((await page.locator('#balance').innerText()).replace(/[^0-9.]/g,''),money(f.balance));
   assert.equal(await page.evaluate(()=>__m20QA.media.filter(x=>x.event==='play').length),0);result.checks.push('Normal SPIN: one POST, integer receipt balance, five-reel presentation, sound still off');
   await inspectWheelMotion(page,normalScene,result,'normal SPIN',f.round.result);result.checks.push('Numbers and Light rotate together while the original selector stays fixed and the receipt grid settles exactly');
+  assert.equal(await inspectBackdrop(page,result,'settled'),normalBackdrop,'static backdrop does not repaint on reel or wheel animation');
   await audit(page,'settled',result);await screenshot(page,result,'settled');
   await page.locator('#menu').click();await audit(page,'menu-dialog',result);await page.locator('#menu-history').click();
   assert.ok((await page.locator('#history-dialog').innerText()).includes(f.round.result.roundId));
@@ -693,7 +759,8 @@ async function exercise(origin,viewport){
   result.rafCadence={sampleCount:intervals.length,meanFps:intervals.length?1000/(intervals.reduce((a,b)=>a+b,0)/intervals.length):null,
    medianFps:intervals.length?1000/[...intervals].sort((a,b)=>a-b)[Math.floor(intervals.length/2)]:null,claim:'Browser RAF cadence only; not physical device FPS certification'};
   result.mediaEvents=chunks.flatMap(c=>c.media);result.mediaErrors=chunks.flatMap(c=>c.mediaErrors);
-  const idleFrames=observed.raf.length;await page.waitForTimeout(180);assert.equal(await page.evaluate(()=>__m20QA.raf.length),idleFrames);
+  const idleFrames=observed.raf.length,idleBackdrop=await page.evaluate(()=>__m20QA.backdropSequence);await page.waitForTimeout(180);assert.equal(await page.evaluate(()=>__m20QA.raf.length),idleFrames);
+  assert.equal(await page.evaluate(()=>__m20QA.backdropSequence),idleBackdrop,'background remains static while idle');
   await assertNoHelpArt(page);assert.equal(result.checks.length,viewport.width===FULL_WIDTH?26:11,'all planned browser acceptance checks ran');
   assert.deepEqual(result.pageErrors,[]);assert.deepEqual(result.mediaErrors,[]);
   assert.deepEqual(result.httpErrors.map(e=>({path:new URL(e.url).pathname,status:e.status})),f.injectedFaults,'only explicitly injected503 responses are permitted');
