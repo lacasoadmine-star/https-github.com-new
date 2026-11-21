@@ -1,3 +1,16 @@
+# Current continuation — native recovery and remaining per-game verification
+
+Updated: 22 November 2026, Africa/Addis_Ababa. This additive candidate follows verified commit `e91e3ae188b54e5a1adb9a5f4782a24c37e6c1d6`; it preserves every prior checkpoint below. Exact-source browser results for the new work are **pending**, so neither native issue is marked fixed yet.
+
+- The prior final integration passed [CI44957393122](https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44957393122): 363 Node tests, 55 Roll X browser checks, nine existing backend tests and the Player/Agent/Admin builds. Its 16 source hashes and 15 screenshot hashes matched the reviewed merge.
+- Roll X now retains those 55 browser checks and adds eight native held-Space checks across STOP/READY transitions. A separate full-Chromium/CDP diagnostic requires genuine BFCache restoration, preserved controller/receipt identity, no extra wager, fresh state and usable controls. A reload cannot pass as restoration. Both native issue retests remain pending.
+- The new shared recovery browser suite exercises native fetch, real reload, shared request metadata and native cross-tab locks against intercepted synthetic accounts. It covers accepted/unaccepted response loss, same-key status-first recovery and an independently timed server Retry-After deadline. A controlled negative path verifies cleanup while a request is held. This does not prove PostgreSQL ledger settlement and does not alter the production storage choice or wallet.
+- A new partial Multi Hot 100 component passed47 local tests and47 independent peer retests. Automatic approval review rejected publication of its private evidence provenance. The mixed upload was stopped before any tree/ref update; the rejected action was not retried. All new M100 additions are withheld from this public commit and public CI and retained privately. The earlier public reference files are unchanged. No M100 full-game or ETB settlement claim is made.
+
+The requested target remains **72 distinct additional games**, with current supplied-name identity gaps retained in `codex-work/user-request-20261122`. **RELEASE_READY: 0; LIVE_VERIFIED: 0; new-game cash activation: false.** No production wager, balance/ledger change, credential change or live activation is part of this candidate. The current existing live metadata readback and all earlier captures remain valid only within their recorded scope and timestamps.
+
+---
+
 # Protected source reconciliation — canonical routing and viewport verification
 
 Updated: 22 November 2026, Africa/Addis_Ababa. This continuation integrates tested code merge `381c25279e1d30ac3a3db198c3bfb2f0eeb7363d` and the concurrent progress-only follow-up `43c36d9322e7f7bb76d634ed988475ef9e106f50`. It preserves the latest supplied-name audit, fresh per-game work and existing-system maintenance recorded below. The requested total remains **72 distinct additional games**; no missing or duplicate identity is invented to reach that count.

@@ -251,6 +251,91 @@ export default async function run({ page, context, browser }, files, receipts, m
     await page.evaluate(() => rollxTest.game.dispose());
     check('exit disposes sound and all owned controller work', await page.evaluate(() => rollxTest.audio.disposed && rollxTest.audio.nodes.size === 0 && rollxTest.calls.dispose === 1 && rollxTest.game.controller.disposed));
 
+    // Space activates a focused native button on keyup. Use a separate fixture
+    // so held-key cases do not change the existing desktop/mobile round counts.
+    const keyboardContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    await intercept(keyboardContext); const keyboardPage = await keyboardContext.newPage(); watch(keyboardPage);
+    activePage = keyboardPage;
+    await keyboardPage.goto(origin + base + 'fixture.html');
+    await keyboardPage.waitForFunction(() => globalThis.rollxTest?.game.controller.snapshot.canSpin === true);
+    await keyboardPage.evaluate(() => {
+      globalThis.rollxKeyboardEvidence = { stage: 'shortcut-hold', events: [] };
+      for (const type of ['keydown', 'keyup', 'click']) window.addEventListener(type, event => {
+        const evidence = globalThis.rollxKeyboardEvidence;
+        if ((type !== 'click' && event.code !== 'Space') || evidence.events.length >= 256) return;
+        const state = rollxTest.game.controller.snapshot;
+        evidence.events.push({ type, code: event.code ?? null, repeat: event.repeat === true,
+          trusted: event.isTrusted, defaultPrevented: event.defaultPrevented,
+          targetId: event.target?.id ?? null, targetTag: event.target?.tagName ?? null,
+          stage: evidence.stage, phase: state.phase, canStop: state.canStop, canSpin: state.canSpin,
+          busy: state.busy, spinRequests: rollxTest.calls.spin.length,
+          acceptedReceipts: state.history.length, at: performance.now() });
+      });
+      document.body.tabIndex = -1; document.body.focus();
+    });
+    await keyboardPage.keyboard.down('Space');
+    await keyboardPage.waitForFunction(() => rollxTest.calls.spin.length === 1 && rollxTest.game.controller.snapshot.canStop);
+    for (let index = 0; index < 8; index++) await keyboardPage.keyboard.down('Space');
+    await settled(keyboardPage, 1);
+    await keyboardPage.locator('#spin').focus();
+    await keyboardPage.evaluate(() => { rollxKeyboardEvidence.stage = 'shortcut-ready-hold'; });
+    check('held native Space reaches READY with SPIN focus and one accepted round',
+      await keyboardPage.evaluate(() => document.activeElement === document.getElementById('spin') &&
+        rollxTest.game.controller.snapshot.canSpin && rollxTest.calls.spin.length === 1));
+    for (let index = 0; index < 8; index++) await keyboardPage.keyboard.down('Space');
+    await keyboardPage.keyboard.up('Space');
+    check('held native Space repeats and release cannot add a wager across shortcut STOP to READY',
+      await keyboardPage.evaluate(() => rollxTest.calls.spin.length === 1 && rollxTest.game.controller.snapshot.history.length === 1 &&
+        rollxKeyboardEvidence.events.some(event => event.type === 'keydown' && event.trusted && event.repeat && event.canStop) &&
+        rollxKeyboardEvidence.events.some(event => event.type === 'keydown' && event.trusted && event.repeat && event.canSpin) &&
+        rollxKeyboardEvidence.events.filter(event => event.type === 'keydown' && event.repeat).every(event => event.trusted && event.defaultPrevented)));
+
+    await keyboardPage.evaluate(() => { rollxKeyboardEvidence.stage = 'focused-spin-hold'; });
+    await keyboardPage.locator('#spin').focus();
+    await keyboardPage.keyboard.down('Space');
+    for (let index = 0; index < 8; index++) await keyboardPage.keyboard.down('Space');
+    check('focused held Space does not submit a native button action before keyup',
+      await keyboardPage.evaluate(() => document.activeElement === document.getElementById('spin') &&
+        rollxTest.calls.spin.length === 1 && rollxKeyboardEvidence.events.some(event =>
+          event.stage === 'focused-spin-hold' && event.type === 'keydown' && !event.repeat && event.trusted && event.targetId === 'spin')));
+    await keyboardPage.keyboard.up('Space');
+    await keyboardPage.waitForFunction(() => rollxTest.calls.spin.length === 2 && rollxTest.game.controller.snapshot.canStop);
+    check('releasing a fresh focused held Space starts exactly one additional fixture round',
+      await keyboardPage.evaluate(() => rollxTest.calls.spin.length === 2 && rollxKeyboardEvidence.events.some(event =>
+        event.stage === 'focused-spin-hold' && event.type === 'click' && event.trusted && event.targetId === 'spin')));
+
+    // A key press begun while the button means STOP must not become a new
+    // wager when the accepted round finishes and that button means SPIN again.
+    await keyboardPage.evaluate(() => { rollxKeyboardEvidence.stage = 'focused-stop-hold'; });
+    await keyboardPage.locator('#spin').focus();
+    await keyboardPage.keyboard.down('Space');
+    for (let index = 0; index < 8; index++) await keyboardPage.keyboard.down('Space');
+    check('the next physical Space press is observed on the focused STOP button',
+      await keyboardPage.evaluate(() => rollxKeyboardEvidence.events.some(event => event.stage === 'focused-stop-hold' &&
+        event.type === 'keydown' && !event.repeat && event.trusted && event.targetId === 'spin' && event.canStop)));
+    await settled(keyboardPage, 2);
+    await keyboardPage.locator('#spin').focus();
+    await keyboardPage.evaluate(() => { rollxKeyboardEvidence.stage = 'focused-stop-ready-hold'; });
+    check('Space remains held while the same focused button returns to READY',
+      await keyboardPage.evaluate(() => document.activeElement === document.getElementById('spin') &&
+        rollxTest.game.controller.snapshot.canSpin && rollxTest.calls.spin.length === 2));
+    for (let index = 0; index < 8; index++) await keyboardPage.keyboard.down('Space');
+    await keyboardPage.keyboard.up('Space');
+    await keyboardPage.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    output.heldSpaceEvidence = await keyboardPage.evaluate(() => ({ ...rollxKeyboardEvidence,
+      spinRequests: rollxTest.calls.spin.length, acceptedReceipts: rollxTest.game.controller.snapshot.history.length,
+      phase: rollxTest.game.controller.snapshot.phase, busy: rollxTest.game.controller.snapshot.busy }));
+    check('a held Space press begun on STOP cannot become a new wager on READY or keyup',
+      output.heldSpaceEvidence.spinRequests === 2 && output.heldSpaceEvidence.acceptedReceipts === 2 && !output.heldSpaceEvidence.busy,
+      output.heldSpaceEvidence);
+    check('focused STOP and READY Space repeats are trusted events with cancelled defaults',
+      output.heldSpaceEvidence.events.some(event => event.stage === 'focused-stop-hold' && event.type === 'keydown' && event.repeat && event.canStop) &&
+      output.heldSpaceEvidence.events.some(event => event.stage === 'focused-stop-ready-hold' && event.type === 'keydown' && event.repeat && event.canSpin) &&
+      output.heldSpaceEvidence.events.filter(event => event.type === 'keydown' && event.repeat).every(event => event.trusted && event.defaultPrevented));
+    output.screenshots['fixture-held-space-ready'] = (await keyboardPage.screenshot({ type: 'jpeg', quality: 65 })).toString('base64');
+    await keyboardContext.close();
+    activePage = page;
+
     const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
     await intercept(mobileContext); const mobile = await mobileContext.newPage(); watch(mobile);
     activePage = mobile;
@@ -328,7 +413,8 @@ export default async function run({ page, context, browser }, files, receipts, m
         const state = fixture.game.controller.snapshot;
         return { fixture: true, spinRequests: fixture.calls.spin.length, refreshes: fixture.calls.refresh,
           phase: state.phase, busy: state.busy, autoActive: state.autoActive,
-          autoRemaining: state.autoRemaining, acceptedReceipts: state.history.length, message: state.message };
+          autoRemaining: state.autoRemaining, acceptedReceipts: state.history.length, message: state.message,
+          keyboardEvidence: globalThis.rollxKeyboardEvidence ?? null };
       });
     } catch {}
     try { output.screenshots['failure'] = (await activePage.screenshot({ type: 'jpeg', quality: 60, fullPage: true })).toString('base64'); } catch {}

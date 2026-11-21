@@ -1,7 +1,8 @@
 # Feature-branch verification only. No deployment secrets, provider credentials,
 # production accounts or live wallet endpoints are used.
 # M20 and M100 reference images are preserved privately and are unavailable in
-# this checkout. CI checks M20 bounded arithmetic only; M100 is reference-only.
+# this checkout. CI checks M20 bounded arithmetic only. New M100 bounded
+# source/provenance is retained privately and is not part of public CI.
 # These checks do not verify the private images or open the release gate.
 name: Additive games and live presentation QA
 
@@ -119,5 +120,77 @@ jobs:
         with:
           name: new72-roll-x-browser-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/new72-browser-results
+          if-no-files-found: error
+          retention-days: 30
+
+  shared-recovery-browser:
+    needs: focused-unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/new72-recovery-tools" --ignore-scripts --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/new72-recovery-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify native cross-tab and lost-response recovery on synthetic accounts
+        env:
+          NODE_PATH: ${{ runner.temp }}/new72-recovery-tools/node_modules
+          ZPLAY_RECOVERY_QA_OUTPUT: ${{ runner.temp }}/new72-recovery-results
+        run: node codex-work/new-games72-20261121/shared/qa/run-recovery-browser.cjs
+      - name: Confirm failure during a held request still closes and records evidence
+        env:
+          NODE_PATH: ${{ runner.temp }}/new72-recovery-tools/node_modules
+          ZPLAY_RECOVERY_QA_OUTPUT: ${{ runner.temp }}/new72-recovery-results/controlled-failure
+          ZPLAY_RECOVERY_QA_FAILURE_PROBE: after-exclusive-lock
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          result = subprocess.run(['node', 'codex-work/new-games72-20261121/shared/qa/run-recovery-browser.cjs'], timeout=45)
+          report = json.loads((pathlib.Path(os.environ['ZPLAY_RECOVERY_QA_OUTPUT']) / 'recovery-browser-report.json').read_text())
+          assert result.returncode == 1 and report['success'] is False
+          assert report['failureProbeRequested'] is True
+          assert report['failure']['message'] == 'INTENTIONAL_CLEANUP_PROBE'
+          assert report['browserClosed'] is True and report['scenarios'][0]['heldEvaluationDrained'] is True
+          assert report['scenarios'][0]['debitCount'] == 1 and report['scenarios'][0]['creditCount'] == 1
+          assert report['pageErrors'] == [] and report['forbiddenRequests'] == []
+          print('Controlled negative path retained failure evidence and drained/closed the browser.')
+          PY
+      - name: Preserve exact-source native recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new72-recovery-browser-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new72-recovery-results
+          if-no-files-found: error
+          retention-days: 30
+
+  roll-x-bfcache:
+    needs: focused-unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install full Chromium for native history restoration
+        run: |
+          npm install --prefix "$RUNNER_TEMP/new72-bfcache-tools" --ignore-scripts --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/new72-bfcache-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify trusted native BFCache restoration and resumed controls
+        env:
+          NODE_PATH: ${{ runner.temp }}/new72-bfcache-tools/node_modules
+          ZPLAY_NEW72_BFCACHE_OUTPUT: ${{ runner.temp }}/new72-bfcache-results
+        run: node codex-work/new-games72-20261121/games/roll-x/qa/run-bfcache-browser.cjs
+      - name: Preserve native lifecycle outcome and failure diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new72-roll-x-bfcache-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new72-bfcache-results
           if-no-files-found: error
           retention-days: 30

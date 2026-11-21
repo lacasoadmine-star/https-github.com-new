@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-21T22:46:55.623519+00:00",
+  "reviewer": "official_variants",
+  "sourceBaseCommit": "e91e3ae188b54e5a1adb9a5f4782a24c37e6c1d6",
+  "status": "SOURCE_REVIEW_PASSED_NATIVE_RESTORE_UNVERIFIED",
+  "issue": "ROLLX-FIX-006",
+  "issueStillOpen": true,
+  "reviewedSourceHashes": {
+    "codex-work/new-games72-20261121/games/roll-x/qa/run-bfcache-browser.cjs": "086cab164187104cf165b6f4d14b2bf3e8b033c769ceb9cafc593df30d13fa65",
+    "codex-work/new-games72-20261121/games/roll-x/qa/bfcache-probe.mjs": "1d91d837dd6d0b82d3021b7ee9ef9578786c1392220760c97dba87cdbf17438b"
+  },
+  "unchangedRuntimeHashes": {
+    "app.mjs": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
+    "controller.mjs": "c09b4f38e97abee6a64fad9ec9f999bf5debabae052ddc56a205811b55b3cda8",
+    "audio.mjs": "66cab15a5273999d95f3aff083a08c1c3056bd06bb2cd7cbadf8859975b2c060",
+    "session.mjs": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9"
+  },
+  "runtimeFinding": "Persisted pagehide already pauses and preserves the controller/listeners; persisted pageshow invokes guarded resume/refresh without a wager. No concrete runtime defect found and no runtime patch justified before genuine browser evidence.",
+  "focusedExistingTests": {
+    "command": "node --test codex-work/new-games72-20261121/games/roll-x/tests/input-lifecycle.test.mjs codex-work/new-games72-20261121/games/roll-x/tests/controller.test.mjs codex-work/new-games72-20261121/games/roll-x/tests/audio.test.mjs",
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "nativeBFCacheProof": false
+  },
+  "reviewedProofRequirements": [
+    "Separate full Chromium launch, with only the BFCache-disabling default argument omitted; normal suite launch remains unchanged.",
+    "Raw CDP Page history navigation and Runtime evaluation after restoration; no Playwright goBack lifecycle assumption.",
+    "Real trusted pagehide and pageshow events with persisted=true; no simulated lifecycle dispatch.",
+    "Same in-memory document nonce, timeOrigin and bound controller, corroborated by main-frame BackForwardCacheRestore.",
+    "Late native persisted-hide observation confirms hidden state, stopped AUTO, zero audio nodes and no disposal.",
+    "Existing receipt/history preserved; account refresh count increases and balance is fresh; no new spin during restoration.",
+    "Explicit native mouse input after restoration produces exactly one more immutable fixture receipt and STOP settles it.",
+    "Exact away URL, complete document readyState and a distinct recorder nonce required before history restoration.",
+    "All requests confined to intercepted test origin; no financial endpoint accepted and runtime activation remains disabled.",
+    "Bounded polling and preserved native cache-miss/notRestoredReasons diagnostics; screenshot and browser cleanup in finally."
+  ],
+  "findings": [
+    {
+      "id": "BFCACHE-QA-REVIEW-001",
+      "type": "timing-race hardening",
+      "problem": "Location.href alone can identify a newly committed away document before its load completes.",
+      "correction": "Away transition now waits for complete readyState plus exact URL and distinct document nonce.",
+      "status": "FIXED_PENDING_RETEST",
+      "verification": "Narrow source diff and syntax independently reviewed; native browser CI pending."
+    }
+  ],
+  "syntaxChecks": {
+    "qa/run-bfcache-browser.cjs": "PASS",
+    "qa/bfcache-probe.mjs": "PASS"
+  },
+  "ownerReportedValidatorChecks": {
+    "invalidProofVariantsRejected": 24,
+    "scope": "Synthetic verdict validation only; reported by architecture_audit, not repeated by this reviewer; not native BFCache evidence."
+  },
+  "remainingEvidence": [
+    "Run exact frozen source in CI full Chromium.",
+    "Require all native proof predicates and post-restoration control checks.",
+    "If no restore occurs, inspect actual launch flags, cache-miss events, navigation diagnostics and potential interception constraints; leave the issue open with exact observed cause."
+  ],
+  "limitations": [
+    "Source review and existing unit tests do not prove that CI Chrome enters BFCache.",
+    "Null notRestoredReasons, ordinary reload or synthetic persisted events cannot satisfy proof.",
+    "No production wallet, ledger, accounts, physical-device behavior, audio audibility or performance verification."
+  ],
+  "primaryReferences": [
+    "https://playwright.dev/docs/navigations#backforward-cache-bfcache",
+    "https://playwright.dev/docs/api/class-cdpsession",
+    "https://developer.chrome.com/docs/web-platform/bfcache-notrestoredreasons",
+    "https://developer.chrome.com/docs/devtools/application/back-forward-cache"
+  ],
+  "repositoryEditsByReviewer": false,
+  "publishedByReviewer": false,
+  "productionOperations": false
+}

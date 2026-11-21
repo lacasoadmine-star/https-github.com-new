@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-21T22:45:54.301205+00:00",
+  "reviewer": "official_variants",
+  "sourceBaseCommit": "e91e3ae188b54e5a1adb9a5f4782a24c37e6c1d6",
+  "status": "SOURCE_REVIEW_PASSED_CI_PENDING",
+  "sourceHashes": {
+    "codex-work/new-games72-20261121/shared/qa/browser-fixture.mjs": "9be362d9648989161f5b51ae264035bfdce30e4c5a58ec1bd40b714daaa7d09e",
+    "codex-work/new-games72-20261121/shared/qa/run-recovery-browser.cjs": "e4d65480b57b9930a55661fe7d3469ec0359c208deaeb4d6bd903a5d62f21d1d"
+  },
+  "scope": [
+    "Native browser fetch through an intercepted test-only origin",
+    "Real page reload and injected shared localStorage metadata",
+    "Native Web Locks for cooperating test tabs",
+    "Synthetic in-memory fixture ledger; explicitly not PostgreSQL or production proof"
+  ],
+  "scenariosReviewed": [
+    "native-cross-tab-exclusive-lock",
+    "accepted-response-lost-and-reload",
+    "unaccepted-request-lost-same-key-retry",
+    "cross-tab-persisted-retry-after"
+  ],
+  "findings": [
+    {
+      "id": "RECOVERY-QA-REVIEW-001",
+      "severity": "medium",
+      "problem": "Retry-After:2 was initially validated only against a client deadline more than 500ms away, and replay timing was compared to that same client-derived value; a one-second parser error could falsely pass.",
+      "sourceCorrection": "Fixture now records independent server issuedAt/notBefore=issuedAt+2000, rejects early replays, requires stored client deadline at least the server bound, and validates actual replay timestamp against both bounds plus zero early replays.",
+      "status": "FIXED_PENDING_RETEST",
+      "verification": "Corrected source reviewed; JavaScript syntax passed. Native browser CI pending."
+    },
+    {
+      "id": "RECOVERY-QA-REVIEW-002",
+      "severity": "medium",
+      "problem": "Failure before releasing the first held request could leave page.evaluate rejection unhandled when the context closed.",
+      "sourceCorrection": "Pending evaluation receives immediate rejection handling; finally always releases the barrier, awaits completion and records heldEvaluationDrained before context cleanup. A separate controlled failure-path CI step exercises failure while the first native lock/request is still held.",
+      "status": "FIXED_PENDING_RETEST",
+      "verification": "Corrected source and controlled negative CI assertions reviewed; JavaScript syntax passed. Both normal and deliberate-failure native CI executions remain pending."
+    }
+  ],
+  "positiveFindings": [
+    "Overlapping second tab must fail with ROUND_BUSY and generate no token; first action must produce exactly one spin POST and one debit/credit.",
+    "Accepted lost-response recovery requires reload-retained pending identity, zero new tokens on reload, replay-only retrieval of the original accepted round, unchanged request token and one debit/credit.",
+    "Unaccepted lost-request recovery requires replay,state,spin ordering; original and retried action bodies must match; exactly one token and one acceptance are required.",
+    "429 observation occurs while the second tab is already connected; its blocked recovery must cause no additional request and must read the newly persisted deadline.",
+    "Settled state disables new spin/AUTO until an authoritative state refresh.",
+    "Context-wide routing blocks foreign origins, unsupported paths and request methods; request actions are checked against explicit synthetic identity/model fields.",
+    "Each scenario owns and closes a fresh browser context; outer completion closes the browser.",
+    "Fixture is not a registered game or Player route; runtime default sessionStorage and existing financial gates are unchanged.",
+    "All identifiers/account values in this fixture are invented test data; no production credentials or account data were found in reviewed files."
+  ],
+  "validation": [
+    {
+      "command": "node --check codex-work/new-games72-20261121/shared/qa/browser-fixture.mjs",
+      "result": "PASS"
+    },
+    {
+      "command": "node --check codex-work/new-games72-20261121/shared/qa/run-recovery-browser.cjs",
+      "result": "PASS"
+    },
+    {
+      "check": "Root-owned workflow declares separate shared-recovery-browser job, ten-minute bound and always-upload artifact step",
+      "result": "SOURCE_REVIEWED"
+    },
+    {
+      "check": "Controlled held-request failure probe must emit a failure artifact and satisfy explicit drain/close/ledger assertions",
+      "result": "SOURCE_REVIEWED_CI_PENDING"
+    }
+  ],
+  "limitations": [
+    "No new native browser run was executed by this peer review.",
+    "Fixture debit/credit counters are only an in-memory test oracle; they do not prove SQL isolation, durable ledger constraints or real-money settlement.",
+    "Only the four named cases are covered; cross-account ownership changes, browser process crash, BFCache and uncooperative tabs are outside this runner.",
+    "Existing shared-client unit tests and new native CI must remain required; assertions must not be relaxed to obtain a pass."
+  ],
+  "nextAction": "Publish the reviewed CI candidate through root coordination, run the native browser job, and inspect exact-source artifact/counts/timestamps before marking either finding retested.",
+  "repositoryEditsByReviewer": false,
+  "productionOperations": false,
+  "workflowReviewedSha256": "2031db7f5ca8a54fc0777112639aa3fc0c7254fc4b018280cca29466f2b75a3c",
+  "controlledFailureProbe": {
+    "status": "CI_PENDING",
+    "selector": "ZPLAY_RECOVERY_QA_FAILURE_PROBE=after-exclusive-lock",
+    "trigger": "After observing the first native exclusive lock, while its request is still held",
+    "expectedFailure": "INTENTIONAL_CLEANUP_PROBE",
+    "workflowRequirements": [
+      "Child exits 1 and report.success is false",
+      "failureProbeRequested is true",
+      "Exact intentional error message retained",
+      "heldEvaluationDrained and browserClosed are true",
+      "Exactly one fixture debit and credit",
+      "No pageErrors or forbiddenRequests"
+    ],
+    "subprocessTimeoutSeconds": 45,
+    "normalPositiveRunStillRequired": true
+  }
+}

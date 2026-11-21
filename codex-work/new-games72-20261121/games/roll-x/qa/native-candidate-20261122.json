@@ -1,0 +1,115 @@
+{
+  "schema": "zplay/roll-x-native-qa-candidate/v1",
+  "recordedAt": "2026-11-21T22:46:47.932863+00:00",
+  "worktree": "/workspace/scratch/0e74fac09ed8/zplay-held-space",
+  "sourceCommit": "e91e3ae188b54e5a1adb9a5f4782a24c37e6c1d6",
+  "status": "READY_FOR_EXACT_SOURCE_CI",
+  "sourceFrozen": true,
+  "hasUncommittedSource": true,
+  "sourceHashes": {
+    "qa/browser-run.mjs": "d2c8bd831b8dce0436988fe06b552d90432ebc6169c03c8fb75e3ac795f1e1c9",
+    "qa/run-bfcache-browser.cjs": "086cab164187104cf165b6f4d14b2bf3e8b033c769ceb9cafc593df30d13fa65",
+    "qa/bfcache-probe.mjs": "1d91d837dd6d0b82d3021b7ee9ef9578786c1392220760c97dba87cdbf17438b",
+    "tests/keyboard-repeat.test.mjs": "d64e47015e8938c1b6dc30dd1a1eff70a23ce5f40dea241b2ea43b40f12142db"
+  },
+  "scope": {
+    "runtimeFilesChanged": false,
+    "normalBrowserLaunchChanged": false,
+    "productionRequests": 0,
+    "realAccountsUsed": false,
+    "financialPostRequests": 0,
+    "stagedOrPublished": false,
+    "issueOrProgressRecordsChanged": false
+  },
+  "originalSuitePreservation": {
+    "retainedByteForByteAfterRemovingOnlyAppendedCasesAndFailureMetadata": true,
+    "priorExactSourceBrowserChecks": 55,
+    "appendedNativeHeldSpaceChecks": 8,
+    "expectedBrowserChecksIfAllPass": 63
+  },
+  "localVerification": {
+    "nodeCommand": "node --test --test-reporter=tap codex-work/new-games72-20261121/games/roll-x/tests/*.test.mjs",
+    "nodeCounts": {
+      "tests": 63,
+      "pass": 63,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "tapPath": "/workspace/scratch/0e74fac09ed8/audit/held-space-node-20261122.tap",
+    "tapSha256": "ba2b3aaeab6e9b8d50489811424a11a5e9f62511b002c0c9459183b65d25ad53",
+    "syntaxFilesPassed": 4,
+    "gitDiffCheck": "PASS",
+    "bfcacheVerdictProbe": {
+      "result": "PASS",
+      "validFixtureAccepted": 1,
+      "invalidProofCasesRejected": 24,
+      "cases": [
+        "new document",
+        "new time origin",
+        "new controller",
+        "disposed controller",
+        "disposal call",
+        "extra wager",
+        "lost history",
+        "changed receipt",
+        "missing refresh",
+        "stale balance",
+        "still hidden",
+        "still busy",
+        "spin unavailable",
+        "AUTO restarted",
+        "disabled spin",
+        "synthetic pageshow",
+        "nonpersisted pageshow",
+        "synthetic pagehide",
+        "nonpersisted pagehide",
+        "missing pause sample",
+        "audio still running",
+        "controller not paused",
+        "missing frame restoration",
+        "missing restored document"
+      ],
+      "browserExecuted": false,
+      "nativeBFCacheProof": false
+    }
+  },
+  "nativeHeldSpaceCoverage": [
+    "Global Space shortcut held across presenting and READY with native repeat events",
+    "Focused SPIN requires one keyup activation despite held-repeat keydowns",
+    "Focused STOP keydown held until READY must not rebind to a new SPIN on keyup"
+  ],
+  "bfcache": {
+    "command": "node codex-work/new-games72-20261121/games/roll-x/qa/run-bfcache-browser.cjs",
+    "outputVariable": "ZPLAY_NEW72_BFCACHE_OUTPUT",
+    "separateLaunch": true,
+    "channel": "chromium",
+    "ignoreDefaultArgs": [
+      "--disable-back-forward-cache"
+    ],
+    "proofRequires": [
+      "trusted native persisted pagehide and pageshow",
+      "CDP main-frame BackForwardCacheRestore",
+      "same document nonce/timeOrigin/controller",
+      "paused controller and no active audio nodes at pagehide",
+      "retained receipt/history with no new wager or disposal",
+      "fresh account balance after restoration",
+      "native SPIN/STOP usable after restoration"
+    ],
+    "peerReview": "official_variants read-only review found no false-proof path; its fully-loaded away-document and distinct nonce guard is included",
+    "sourcePinning": "Runner includes its own hash, probe, frontend route map, every mapped runtime resource, browser fixture and immutable fixture-session source; sourceCommit and dirty status accompany report"
+  },
+  "nativeBrowserExecutedForCandidate": false,
+  "nativeBFCacheProof": false,
+  "issues": {
+    "ROLLX-FIX-005": "OPEN_PENDING_NATIVE_RETEST",
+    "ROLLX-FIX-006": "OPEN_PENDING_NATIVE_RETEST"
+  },
+  "limitations": [
+    "A local Node test or synthetic verdict fixture does not prove native keyboard or BFCache behavior.",
+    "Root must publish the candidate and execute actual exact-source CI. No runtime patch is justified before a reproduced failure.",
+    "Held STOP Space may reveal native keyup action rebinding; the assertion is intentionally strict and must not be weakened.",
+    "A reload, missing trusted persisted events, or null notRestoredReasons is never accepted as BFCache success.",
+    "All browser fixtures are immutable isolated receipts; this work does not certify production engine math, wallet ledger or game release readiness."
+  ]
+}
