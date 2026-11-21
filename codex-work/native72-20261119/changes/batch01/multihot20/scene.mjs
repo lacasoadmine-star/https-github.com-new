@@ -104,7 +104,7 @@ const wheelStopAngle=value=>modulo(-WHEEL_STOP_SECTORS[value]*WHEEL_STEP,TAU);
 
 export class MultiHot20Scene {
  constructor({canvas,backdropCanvas=null,symbols,assets={},audio={},strictAssets=true,
-   onLinePresentation=null,
+   onLinePresentation=null,showInternalTitle=()=>true,visibleSceneTop=()=>0,
    doc=globalThis.document,win=globalThis.window,clock=()=>performance.now(),
    requestFrame=fn=>requestAnimationFrame(fn),cancelFrame=id=>cancelAnimationFrame(id)}={}){
   if(!canvas?.getContext)throw Error('CANVAS_REQUIRED');
@@ -116,6 +116,8 @@ export class MultiHot20Scene {
   if(backdropCanvas&&!this.backdropCtx)throw Error('BACKDROP_CONTEXT_UNAVAILABLE');
   this.symbols=[...symbols];this.assets=assets;this.audio=audio;this.strictAssets=strictAssets;
   this.onLinePresentation=typeof onLinePresentation==='function'?onLinePresentation:null;
+  this.showInternalTitle=typeof showInternalTitle==='function'?showInternalTitle:()=>true;
+  this.visibleSceneTop=typeof visibleSceneTop==='function'?visibleSceneTop:()=>0;
   this.linePresentation=null;this.lineView=null;this.resultPresentationDismissed=false;
   this.doc=doc;this.win=win;this.clock=clock;this.requestFrame=requestFrame;this.cancelFrame=cancelFrame;
   this.width=WIDTH;this.height=HEIGHT;this.rolling=false;this.disposed=false;
@@ -414,6 +416,10 @@ export class MultiHot20Scene {
   return this.symbols[modulo(index*3+col*7,this.symbols.length)];
  }
  _title(ctx){
+  // A wide desktop composition can draw this same verified title in its own
+  // canvas beside the wheel. Mobile/standalone retain the original in-stage
+  // position. A layout callback never changes scene outcome or animation.
+  try{if(this.showInternalTitle()===false)return}catch{/* Keep the title if layout information is unavailable. */}
   const title=this._asset('__title');
   if(drawable(title)){this._symbol(ctx,'__title',60,16,480,76);return}
   if(this.strictAssets)return;
@@ -453,31 +459,99 @@ export class MultiHot20Scene {
   drawRing(light);ctx.restore();ctx.restore();
  }
  _selectedMultiplierEmphasis(ctx,now){
-  // Fresh official 2026-11-21 / 02-stop.jpg shows yellow fire rising from
-  // the selected wedge's base. The approved Spine JSON names its frames,
+  // Fresh r7/official/spin-04-win-reference.jpg and win-line-later.jpg show
+  // yellow-orange fire rising from the selected wedge's base. The approved
+  // Spine JSON names its frames,
   // but no trusted loaded frame-to-PNG mapping is available. This cancellable
   // deterministic flame is original ZPLAY drawing, NOT copied provider
   // animation or an implied multiplier/outcome selector. The verified
   // original numeral is drawn above it, at the unchanged receipt angle.
   const phase=(now-this.linePresentation.startedAt)/1000;
   const sx=x=>X+x*WHEEL_SCALE,sy=y=>WHEEL_TOP+y*WHEEL_SCALE;
-  const glow=ctx.createLinearGradient(0,sy(155),0,sy(255));
-  glow.addColorStop(0,'rgba(255,202,28,0)');glow.addColorStop(.42,'rgba(255,198,31,.34)');
-  glow.addColorStop(1,'rgba(255,249,163,.9)');
-  ctx.save();ctx.globalCompositeOperation='lighter';ctx.fillStyle=glow;
+  // Source-over translucent gradients retain orange edges and a gold core.
+  // Additive overlapping pale tongues saturated into flat white spikes in
+  // the earlier rendering. Soft asymmetric curls avoid that visual defect.
+  const glow=ctx.createLinearGradient(0,sy(151),0,sy(255));
+  glow.addColorStop(0,'rgba(255,110,8,0)');glow.addColorStop(.48,'rgba(255,117,12,.18)');
+  glow.addColorStop(.8,'rgba(255,176,20,.43)');glow.addColorStop(1,'rgba(255,218,50,.7)');
+  ctx.save();ctx.globalCompositeOperation='source-over';ctx.fillStyle=glow;
   ctx.beginPath();ctx.moveTo(sx(407),sy(255));ctx.lineTo(sx(577),sy(255));
-  ctx.lineTo(sx(577),sy(155));ctx.lineTo(sx(407),sy(155));ctx.closePath();ctx.fill();
-  const bases=[425,449,473,497,521,545,565],heights=[42,67,55,77,61,70,43];
-  for(let i=0;i<bases.length;i++){
-   const x=bases[i],sway=Math.sin(phase*5.1+i*1.7)*7,height=heights[i]+Math.sin(phase*6.7+i*2.3)*11;
-   for(const inner of [false,true]){
-    const width=inner?9:17,h=height*(inner?.71:1),tip=x+sway*(inner?.7:1),floor=255;
-    ctx.fillStyle=inner?'rgba(255,255,188,.82)':'rgba(255,174,18,.48)';
-    ctx.beginPath();ctx.moveTo(sx(x-width),sy(floor));
-    ctx.bezierCurveTo(sx(x-width*1.2),sy(floor-h*.42),sx(tip+width*.4),sy(floor-h*.62),sx(tip),sy(floor-h));
-    ctx.bezierCurveTo(sx(tip+width*.9),sy(floor-h*.72),sx(x+width*1.15),sy(floor-h*.35),sx(x+width),sy(floor));
-    ctx.closePath();ctx.fill();
+  ctx.lineTo(sx(577),sy(151));ctx.lineTo(sx(407),sy(151));ctx.closePath();ctx.fill();
+  const drift=Math.sin(phase*3.7)*6,curl=Math.sin(phase*2.9+1.4)*7,lift=Math.sin(phase*5.1+.8)*6;
+  const flame=ctx.createLinearGradient(0,sy(165),0,sy(255));
+  flame.addColorStop(0,'rgba(255,113,6,0)');flame.addColorStop(.22,'rgba(255,128,8,.35)');
+  flame.addColorStop(.62,'rgba(255,178,17,.76)');flame.addColorStop(1,'rgba(255,205,37,.83)');
+  const core=ctx.createLinearGradient(0,sy(185),0,sy(255));
+  core.addColorStop(0,'rgba(255,226,66,0)');core.addColorStop(.28,'rgba(255,225,62,.5)');
+  core.addColorStop(.66,'rgba(255,239,112,.82)');core.addColorStop(1,'rgba(255,231,81,.86)');
+  const move=(x,y)=>ctx.moveTo(sx(x),sy(y)),curve=(a,b,c,d,e,f)=>ctx.bezierCurveTo(sx(a),sy(b),sx(c),sy(d),sx(e),sy(f));
+  // One uneven joined plume and three differently shaped curling ribbons.
+  // There is no repeated row of identical pointed tongues.
+  ctx.fillStyle=flame;ctx.beginPath();move(406,255);
+  curve(426,239,414+drift,223,430+drift,203);
+  curve(426+drift,225,451,224,447,211+lift);
+  curve(438,199+lift,452+curl,181,464+curl,177);
+  curve(452+curl,197,478,201,477,216);
+  curve(489,212,484+drift,183,506+drift,165+lift);
+  curve(495+drift,195,521,195,515,215);
+  curve(533,212,531+curl,195,547+curl,183);
+  curve(541+curl,214,566,207,559,229);
+  curve(555,241,580,238,580,255);ctx.closePath();ctx.fill();
+  ctx.fillStyle=core;ctx.beginPath();move(427,255);
+  curve(443,241,428+drift,229,443+drift,214);
+  curve(438+drift,231,460+curl,225,457,241);
+  curve(454,247,467,251,472,255);
+  curve(456,258,440,259,427,255);ctx.closePath();ctx.fill();
+  ctx.beginPath();move(462,255);
+  curve(481,246,461+curl,229,479+curl,215);
+  curve(491+curl,206,478+drift,192,494+drift,183+lift);
+  curve(484+drift,205,506,213,496,231);
+  curve(490,241,509,245,513,255);ctx.closePath();ctx.fill();
+  ctx.beginPath();move(508,255);
+  curve(526,240,515+drift,224,531+drift,208+lift);
+  curve(525+drift,225,546+curl,225,544,238);
+  curve(541,245,562,247,569,255);
+  curve(550,259,528,258,508,255);ctx.closePath();ctx.fill();
+  ctx.restore();
+ }
+ _selectedCellFire(ctx,row,col,now){
+  // Independent, deterministic curved ribbons follow only the winning
+  // receipt cells. They use a fixed amount of vector work (four edge bands
+  // with narrow moving cores), no particles, sampling, filters or outcome RNG.
+  const x=X+col*REEL_W+3,y=Y+row*TILE_H+3,w=REEL_W-6,h=TILE_H-6;
+  const phase=(now-this.linePresentation.startedAt)/1000+row*.53+col*.71;
+  ctx.save();ctx.beginPath();ctx.rect(x-2,y-2,w+4,h+4);ctx.clip();
+  ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;
+  const edges=[{x,y,tx:1,ty:0,nx:0,ny:1,length:w},{x:x+w,y,tx:0,ty:1,nx:-1,ny:0,length:h},
+   {x:x+w,y:y+h,tx:-1,ty:0,nx:0,ny:-1,length:w},{x,y:y+h,tx:0,ty:-1,nx:1,ny:0,length:h}];
+  const curve=points=>{
+   for(let i=0;i<points.length-1;i++){
+    const a=points[Math.max(0,i-1)],b=points[i],c=points[i+1],d=points[Math.min(points.length-1,i+2)];
+    ctx.bezierCurveTo(b[0]+(c[0]-a[0])/6,b[1]+(c[1]-a[1])/6,
+     c[0]-(d[0]-b[0])/6,c[1]-(d[1]-b[1])/6,c[0],c[1]);
    }
+  };
+  for(const [side,edge]of edges.entries()){
+   const point=(along,inset)=>[edge.x+edge.tx*along+edge.nx*inset,edge.y+edge.ty*along+edge.ny*inset];
+   const outer=[],inner=[],coreOuter=[],coreInner=[];
+   for(let i=0;i<=8;i++){
+    const along=edge.length*i/8,wave=phase*4.2+side*1.8+i*1.7;
+    const crest=(.5+.5*Math.sin(phase*3.3-side*.9+i*2.5))**3;
+    const centre=1.9+2.1*Math.sin(wave)+1.2*Math.sin(phase*2.3+i*3.1-side);
+    outer.push(point(along,centre-3.2));inner.push(point(along,centre+3.3+3.6*crest));
+    coreOuter.push(point(along,centre-.75));coreInner.push(point(along,centre+1.05+1.7*crest));
+   }
+   const from=point(0,-2),to=point(0,11),gradient=ctx.createLinearGradient(...from,...to);
+   gradient.addColorStop(0,'rgba(255,87,4,0)');gradient.addColorStop(.12,'rgba(255,108,7,.16)');
+   gradient.addColorStop(.25,'rgba(255,150,12,.4)');gradient.addColorStop(.38,'rgba(255,226,83,.44)');
+   gradient.addColorStop(.6,'rgba(255,164,19,.21)');gradient.addColorStop(1,'rgba(255,105,6,0)');
+   ctx.fillStyle=gradient;ctx.beginPath();ctx.moveTo(...outer[0]);curve(outer);
+   const reversed=inner.reverse();ctx.lineTo(...reversed[0]);curve(reversed);ctx.closePath();ctx.fill();
+   const light=ctx.createLinearGradient(...from,...to);
+   light.addColorStop(0,'rgba(255,150,12,.55)');light.addColorStop(.28,'rgba(255,226,83,.88)');
+   light.addColorStop(.56,'rgba(255,226,83,.72)');light.addColorStop(1,'rgba(255,150,12,0)');
+   ctx.fillStyle=light;ctx.beginPath();ctx.moveTo(...coreOuter[0]);curve(coreOuter);
+   const coreReverse=coreInner.reverse();ctx.lineTo(...coreReverse[0]);curve(coreReverse);ctx.closePath();ctx.fill();
   }
   ctx.restore();
  }
@@ -490,6 +564,12 @@ export class MultiHot20Scene {
  _paintCelebration(ctx,now){
   const celebration=this.celebration;if(!celebration)return;
   const cfg=MULTIHOT20_WIN_PRESENTATION;
+  let visibleTop=0;
+  try{const value=this.visibleSceneTop();if(Number.isFinite(value)&&value>=0&&value<=HEIGHT/2)visibleTop=value}catch{}
+  // Desktop exposes logical y110..600 after moving the title beside the
+  // wheel. Centre only the premium composition in that visible region;
+  // all wheel/reel/line coordinates and the accepted receipt stay fixed.
+  ctx.save();ctx.translate(0,visibleTop/2);
   // Turbo compresses this presentation timeline only. Normal entrance keys
   // retain the original visual-data timestamps; dismissal is a ZPLAY choice.
   const age=Math.max(0,now-celebration.startedAt)*cfg.durationMs/celebration.durationMs;
@@ -523,6 +603,7 @@ export class MultiHot20Scene {
    // a displayed amount here; the authenticated server has already settled it.
    ctx.fillText(celebration.amount+' ETB',300,moneyY+30*moneyScale,330*moneyScale);ctx.restore();
   }
+  ctx.restore();
  }
  _setCelebration(value){
   this.celebration=value;
@@ -559,7 +640,7 @@ export class MultiHot20Scene {
    // Original Box/Line PNGs have opaque #ffee00 paths. The accepted line ID
    // selects its chart path; only its matching receipt positions get borders.
    ctx.lineWidth=selected?2.5+pulse:3;ctx.strokeStyle=selected?'#ffee00':'#f9db6c';
-   ctx.shadowColor='#ffba36';ctx.shadowBlur=selected?10+pulse*8:12;
+   ctx.shadowColor='#ffba36';ctx.shadowBlur=selected?0:12;
    if(selected){
     ctx.save();ctx.globalAlpha*=.72;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();
     selected.path.forEach(([row,col],i)=>{
@@ -568,9 +649,15 @@ export class MultiHot20Scene {
     });
     ctx.stroke();ctx.restore();
    }
+   if(selected){ctx.lineWidth=1;ctx.strokeStyle='#ff9c20'}
    for(const line of selected?[selected]:this.receipt.winLines||[])for(const p of line.positions||[]){
     const row=Array.isArray(p)?p[0]:p.row,col=Array.isArray(p)?p[1]:p.col;
-    if(Number.isInteger(row)&&Number.isInteger(col)&&row>=0&&row<ROWS&&col>=0&&col<REELS)ctx.strokeRect(X+col*REEL_W+3,Y+row*TILE_H+3,REEL_W-6,TILE_H-6);
+    if(Number.isInteger(row)&&Number.isInteger(col)&&row>=0&&row<ROWS&&col>=0&&col<REELS){
+     if(selected){ctx.save();ctx.globalAlpha*=.28}
+     ctx.strokeRect(X+col*REEL_W+3,Y+row*TILE_H+3,REEL_W-6,TILE_H-6);
+     if(selected)ctx.restore();
+     if(selected)this._selectedCellFire(ctx,row,col,now);
+    }
    }
   }
   ctx.shadowBlur=0;

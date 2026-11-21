@@ -37,8 +37,8 @@ const report={schema:'zplay/multihot20-browser-acceptance/v1',startedAt:new Date
  actualWalletAccess:false,productionMathCertification:false,officialVisualParity:false,physicalMobilePerformance:false,
  audioScope:'HTMLMediaElement decode/play and event mapping only; no audible waveform parity claim',
  mediaDirectory:mediaDir||null,manifestPath,outputDir,viewports:[],externalRequests:[],sourceDigests:{},errors:[]};
-report.checkPlan={fullAcceptance:36,responsiveAndPlay:13,defaultSevenViewportTotal:114,
- scope:'Preserves the prior 93 checks, adds fresh receipt-line/layout and direct SOUND checks at all seven viewports, repeated multi-line presentation, four settled-result UI cancellations, MENU during NICE settlement and large AUTO keyboard stop. No provider wager-count, visual-tier or timing equivalence is inferred.'};
+report.checkPlan={fullAcceptance:36,responsiveAndPlay:13,desktopCompositionAdditional:1,defaultSevenViewportTotal:115,
+ scope:'Preserves all prior 114 checks, strengthens actual fresh-result fire observations, and adds desktop composition proof at the desktop breakpoint. No provider wager-count, visual-tier or timing equivalence is inferred.'};
 let server,browser,evaluator,reference,productionCSP;
 const verifiedMediaDigests={};
 
@@ -157,7 +157,7 @@ async function serve(media){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));return 'http://127.0.0.1:'+server.address().port;
 }
 function instrument(){
- const qa=window.__m20QA={raf:[],media:[],mediaErrors:[],held:[],holdAuto:false,sceneFrames:[],sceneSequence:0,backdropFrames:[],backdropSequence:0,crops:[],inputEvents:[],lineCaptions:[]};
+ const qa=window.__m20QA={raf:[],media:[],mediaErrors:[],held:[],holdAuto:false,sceneFrames:[],sceneSequence:0,backdropFrames:[],backdropSequence:0,titleFrames:[],titleSequence:0,crops:[],inputEvents:[],lineCaptions:[]};
  const traceInput=(event,windowEvent=false)=>{
   if(!windowEvent&&event.target?.id!=='spin')return;
   const spin=document.getElementById('spin');
@@ -192,15 +192,24 @@ function instrument(){
  // debug object. A wrong crop, fixed wheel or text replacement is observable
  // even when the app's own inspect()/state labels claim a correct result.
  const proto=CanvasRenderingContext2D.prototype,clear=proto.clearRect,draw=proto.drawImage,fillRect=proto.fillRect,fill=proto.fillText,stroke=proto.strokeText;
- const beginPath=proto.beginPath,pathStroke=proto.stroke,strokeRect=proto.strokeRect;
- const pathCommands=new WeakMap();
- const recordedFrames=canvas=>canvas.id==='reels'?qa.sceneFrames:canvas.id==='game-backdrop'?qa.backdropFrames:null;
+ const beginPath=proto.beginPath,pathStroke=proto.stroke,strokeRect=proto.strokeRect,pathFill=proto.fill;
+ const pathCommands=new WeakMap(),clipStates=new WeakMap(),savedClips=new WeakMap(),gradientData=new WeakMap();
+ const copyCommands=commands=>commands.map(command=>({...command,args:[...command.args],transform:[...command.transform]}));
+ const recordedFrames=canvas=>canvas.id==='reels'?qa.sceneFrames:canvas.id==='game-backdrop'?qa.backdropFrames:canvas.id==='desktop-title'?qa.titleFrames:null;
  const sourceCrops=new WeakMap(),bitmapDigests=new WeakMap(),canvasDraws=new WeakMap(),matrix=context=>{const m=context.getTransform();return [m.a,m.b,m.c,m.d,m.e,m.f]};
  const box=element=>{const r=element.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}};
+ const titleObservation=()=>{
+  const canvas=document.getElementById('desktop-title');if(!canvas)return null;
+  const rect=box(canvas),style=getComputedStyle(canvas);
+  return {visible:rect.width>0&&rect.height>0&&!canvas.hidden&&style.display!=='none'&&style.visibility!=='hidden',box:rect,
+   ariaHidden:canvas.getAttribute('aria-hidden'),nativeFrame:qa.titleFrames.at(-1)||null};
+ };
+ qa.currentScene=()=>{const frame=qa.sceneFrames.at(-1);return frame?{...frame,externalTitle:titleObservation()}:null};
  let previousCaptionKey=null;
  function sampleLineCaption(){
   const caption=document.getElementById('line-caption'),frame=qa.sceneFrames.at(-1);
   if(!caption||!frame)return;
+  frame.externalTitle=titleObservation();
   const rect=box(caption),visible=rect.width>0&&rect.height>0&&!caption.hidden&&getComputedStyle(caption).visibility!=='hidden';
   const text=visible?caption.innerText.trim():null,roundId=document.getElementById('zplay')?.dataset.roundId||null;
   frame.lineCaption=text;
@@ -210,13 +219,13 @@ function instrument(){
    for(let i=3;i<pixels.length;i+=4)if(pixels[i]>0)opaque++;
    return {symbol:canvas.dataset.lineSymbol||null,bitmap:[canvas.width,canvas.height],box:box(canvas),opaque,draw:canvasDraws.get(canvas)||null};
   }):[];
-  const footer=document.getElementById('win-banner'),stage=document.getElementById('reels'),ledger=document.querySelector('.ledger');
+  const footer=document.getElementById('win-banner'),stage=document.querySelector('.game-frame'),canvas=document.getElementById('reels'),ledger=document.querySelector('.ledger');
   const balancePanel=document.querySelector('.balance-panel'),betPanel=document.getElementById('bet-panel');
   qa.lineCaptions.push({at:performance.now(),roundId,text,frameSequence:frame.sequence,visible,box:rect,
    line:Number(caption.dataset.line)||null,captionRoundId:caption.dataset.roundId||null,
    symbolGroupLabel:caption.querySelector('[role="img"]')?.getAttribute('aria-label')||null,
    children:visible?[...caption.children].map(element=>({text:element.innerText,box:box(element)})):[],
-   footer:footer&&box(footer),stage:stage&&box(stage),ledger:ledger&&box(ledger),footerInLedger:!!ledger?.contains(footer),
+   footer:footer&&box(footer),stage:stage&&box(stage),canvas:canvas&&box(canvas),ledger:ledger&&box(ledger),footerInLedger:!!ledger?.contains(footer),
    balancePanel:balancePanel&&box(balancePanel),betPanel:betPanel&&box(betPanel),
    // Preserve this actual transition frame independently of the rolling
    // 600-frame buffer; a faster display must not erase an earlier line.
@@ -237,9 +246,12 @@ function instrument(){
   const frames=recordedFrames(this.canvas);
   if(frames){
    const rect=this.canvas.getBoundingClientRect();
-   const frame={sequence:this.canvas.id==='reels'?++qa.sceneSequence:++qa.backdropSequence,at:performance.now(),draws:[],texts:[],fills:[],strokedRects:[],strokedPaths:[],width:this.canvas.width,height:this.canvas.height,
+   const sequenceKey=this.canvas.id==='reels'?'sceneSequence':this.canvas.id==='game-backdrop'?'backdropSequence':'titleSequence';
+   const frame={sequence:++qa[sequenceKey],at:performance.now(),draws:[],texts:[],fills:[],strokedRects:[],strokedPaths:[],pathPaints:[],paintSequence:0,width:this.canvas.width,height:this.canvas.height,
+    viewport:{width:innerWidth,height:innerHeight},
     phase:document.getElementById('zplay')?.dataset.phase??null,
     css:{x:rect.x,y:rect.y,width:rect.width,height:rect.height}};
+   if(this.canvas.id==='reels')frame.externalTitle=titleObservation();
    frames.push(frame);if(frames.length>600)frames.shift();
   }
   return result;
@@ -250,7 +262,7 @@ function instrument(){
   canvasDraws.set(this.canvas,{width,height,args,transform,sourceSha256,crop:sourceCrops.get(image)||null});
   const frames=recordedFrames(this.canvas);
   if(frames){
-   const frame=frames.at(-1);if(frame)frame.draws.push({width,height,args,transform,alpha:this.globalAlpha,sourceSha256,crop:sourceCrops.get(image)||null});
+   const frame=frames.at(-1);if(frame)frame.draws.push({width,height,args,transform,alpha:this.globalAlpha,paintOrder:++frame.paintSequence,sourceSha256,crop:sourceCrops.get(image)||null});
   }else if(args.length===8&&this.canvas instanceof HTMLCanvasElement&&!sourceCrops.has(this.canvas)){
    const pixels=this.getImageData(0,0,this.canvas.width,this.canvas.height).data,step=Math.max(1,Math.floor(pixels.length/4/4096));
    let visible=0,sampled=0;const colours=new Set();
@@ -266,13 +278,52 @@ function instrument(){
  // them. Receipt coordinates are checked outside the page; no scene internals
  // or production debug labels determine what the test calls a winning line.
  proto.beginPath=function(...args){const result=beginPath.apply(this,args);pathCommands.set(this,[]);return result};
- for(const name of ['moveTo','lineTo','rect','closePath']){
+ for(const name of ['moveTo','lineTo','rect','closePath','bezierCurveTo','quadraticCurveTo','arc','ellipse']){
   const original=proto[name];
   proto[name]=function(...args){const result=original.apply(this,args);pathCommands.get(this)?.push({name,args,transform:matrix(this)});return result};
  }
+ // Observe the native clip/save/restore and gradient state attached to real
+ // fills. This distinguishes an animated curved flame confined to a selected
+ // cell from an unbounded glow, a static rectangle, or a copied state label.
+ for(const name of ['save','restore']){
+  const original=proto[name];
+  proto[name]=function(...args){
+   const result=original.apply(this,args),stack=savedClips.get(this)||[];
+   if(name==='save'){stack.push([...(clipStates.get(this)||[])]);savedClips.set(this,stack)}
+   else if(stack.length)clipStates.set(this,stack.pop());
+   return result;
+  };
+ }
+ const nativeClip=proto.clip;
+ proto.clip=function(...args){
+  const result=nativeClip.apply(this,args),clips=[...(clipStates.get(this)||[])];
+  clips.push({commands:copyCommands(pathCommands.get(this)||[]),transform:matrix(this)});clipStates.set(this,clips);return result;
+ };
+ for(const name of ['createLinearGradient','createRadialGradient']){
+  const original=proto[name];
+  proto[name]=function(...args){const value=original.apply(this,args);gradientData.set(value,{kind:name,args,transform:matrix(this),stops:[]});return value};
+ }
+ const nativeStop=CanvasGradient.prototype.addColorStop;
+ CanvasGradient.prototype.addColorStop=function(...args){const result=nativeStop.apply(this,args);gradientData.get(this)?.stops.push([...args]);return result};
+ proto.fill=function(...args){
+  const result=pathFill.apply(this,args),frame=recordedFrames(this.canvas)?.at(-1);
+  if(frame){
+   const commands=copyCommands(pathCommands.get(this)||[]),clips=clipStates.get(this)||[],key=JSON.stringify(clips);
+   let group=frame.pathPaints.find(value=>value.key===key);
+   if(!group){group={key,clips,drawCount:0,curvedDrawCount:0,samples:[],firstPaintOrder:frame.paintSequence+1,lastPaintOrder:0};frame.pathPaints.push(group)}
+   group.drawCount++;group.lastPaintOrder=++frame.paintSequence;
+   if(commands.some(command=>['bezierCurveTo','quadraticCurveTo'].includes(command.name)))group.curvedDrawCount++;
+   // The full draw count and clip region are retained, with three actual
+   // paths per region for motion/paint inspection. Bound observation cost
+   // independently of how many flames the renderer chooses to draw.
+   if(group.samples.length<3)group.samples.push({commands,alpha:this.globalAlpha,composite:this.globalCompositeOperation,
+    paintOrder:group.lastPaintOrder,transform:matrix(this),paint:gradientData.get(this.fillStyle)||String(this.fillStyle)});
+  }
+  return result;
+ };
  proto.stroke=function(...args){
   const result=pathStroke.apply(this,args);
-  recordedFrames(this.canvas)?.at(-1)?.strokedPaths.push({commands:(pathCommands.get(this)||[]).map(command=>({...command,args:[...command.args],transform:[...command.transform]})),
+  recordedFrames(this.canvas)?.at(-1)?.strokedPaths.push({commands:copyCommands(pathCommands.get(this)||[]),
    transform:matrix(this),alpha:this.globalAlpha,lineWidth:this.lineWidth,colour:String(this.strokeStyle)});
   return result;
  };
@@ -322,7 +373,7 @@ async function audit(page,label,result){
   // panel centre. Keep this structural separation distinct from rounded
   // button bounds, which may legitimately intersect in their empty corners.
   const rect=element=>{const r=element.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};
-  const stage=scope.querySelector('#reels'),stageBox=stage&&rect(stage);
+  const stage=scope.querySelector('.game-frame'),stageBox=stage&&rect(stage);
   const ledgerPanels=[...scope.querySelectorAll('.balance-panel,.bet-panel,#win-banner')].map(element=>({id:element.id||element.className,...rect(element)})).filter(panel=>panel.w>0&&panel.h>0);
   const stageLedgerOverlaps=stageBox?ledgerPanels.map(panel=>({id:panel.id,
    width:Math.min(stageBox.x+stageBox.w,panel.x+panel.w)-Math.max(stageBox.x,panel.x),
@@ -562,14 +613,21 @@ function wheelParts(frame,receipt){
 }
 function artwork(frame,receipt){
  assert.ok(frame&&frame.css.width>0&&frame.css.height>0,'visible scene canvas');closeNumber(frame.css.width/frame.css.height,1,'square scene viewport',.005);
- const title=frame.draws.filter(d=>d.width===633&&d.height===152),box=frame.draws.filter(d=>d.width===1119&&d.height===696);
- assert.equal(title.length,1);assert.equal(box.length,1);
+ const desktop=frame.viewport?.width>=1100&&frame.viewport?.height>=650;
+ const internalTitles=frame.draws.filter(d=>d.width===633&&d.height===152),external=frame.externalTitle;
+ const title=desktop?(external?.nativeFrame?.draws||[]).filter(d=>d.width===633&&d.height===152):internalTitles;
+ assert.equal(internalTitles.length,desktop?0:1,'the original title occupies its responsive location exactly once');
+ if(desktop){assert.equal(external?.visible,true,'desktop title is visible outside the cropped scene');assert.equal(external.ariaHidden,'true');}
+ else assert.ok(!external?.visible,'mobile and tablet retain their internal original title');
+ const box=frame.draws.filter(d=>d.width===1119&&d.height===696);
+ assert.equal(title.length,1,'one native original title draw');assert.equal(box.length,1);
  assert.equal(title[0].sourceSha256,verifiedMediaDigests['atlas-logo.png']);assert.equal(box[0].sourceSha256,verifiedMediaDigests['atlas-1.png']);
  assert.equal(frame.draws.filter(d=>d.sourceSha256===verifiedMediaDigests['background.png']).length,0,'foreground must not redraw the page background in a separate square');
  assert.ok(!(frame.fills||[]).some(fill=>fill.args[0]<=0&&fill.args[1]<=0&&fill.args[2]>=600&&fill.args[3]>=600),'foreground has no opaque full-stage rectangle');
  for(const [label,list,ratio]of [['title',title,633/152],['box',box,1119/696]]){
-  const d=list[0];assert.equal(d.args.length,4);assert.ok(d.args[2]>0&&d.args[3]>0);
-  closeNumber(d.args[2]/d.args[3],ratio,label+' natural proportions',.0001);closeNumber(angle(d),0,label+' upright draw');
+  const d=list[0],destination=desktop&&label==='title'&&d.args.length===2?[...d.args,d.width,d.height]:d.args;
+  assert.equal(destination.length,4);assert.ok(destination[2]>0&&destination[3]>0);
+  closeNumber(destination[2]/destination[3],ratio,label+' natural proportions',.0001);closeNumber(angle(d),0,label+' upright draw');
   assert.ok(d.crop?.pixels.visible>0&&d.crop.pixels.colours>2,label+' original crop contains coloured artwork');
  }
  assert.deepEqual(title[0].crop.args,[2,1158,152,633,0,0,152,633]);
@@ -592,9 +650,66 @@ function artwork(frame,receipt){
   closeNumber(Math.atan2(d.crop.transform[1],d.crop.transform[0]),turn*Math.PI/2,'packed symbol has the captured orientation');
  }
  if(receipt)assert.deepEqual(grid,receipt.grid,'painted symbols equal the server receipt');
- return {css:frame.css,bitmap:[frame.width,frame.height],title:title[0],box:box[0],grid};
+ return {css:frame.css,bitmap:[frame.width,frame.height],title:title[0],titleLocation:desktop?'external-left':'internal-top',externalTitle:desktop?external:null,box:box[0],grid};
 }
-async function latestScene(page){return page.evaluate(()=>__m20QA.sceneFrames.at(-1))}
+async function latestScene(page){return page.evaluate(()=>__m20QA.currentScene())}
+async function inspectDesktopComposition(page,result,label,{freshWin=false}={}){
+ if(result.viewport.width<1100||result.viewport.height<650)return null;
+ const state=await page.evaluate(()=>{
+  const rect=element=>{const r=element.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height}};
+  const title=document.getElementById('desktop-title'),canvas=document.getElementById('reels'),frame=document.querySelector('.game-frame'),machine=document.querySelector('.machine');
+  const t=rect(title),c=rect(canvas),f=rect(frame),controls={};
+  for(const id of ['gamble','auto','spin','bet','take-win','turbo']){
+   const element=document.getElementById(id),r=rect(element),style=getComputedStyle(element);
+   controls[id]={...r,visible:r.width>0&&r.height>0&&style.display!=='none'&&style.visibility!=='hidden',disabled:element.disabled};
+  }
+  // The title's rectangular bounds may overlap the intentionally empty
+  // upper-left scene corner. Compare actual opaque pixels in that overlap,
+  // rather than declaring all transparent bounding boxes to be collisions.
+  const overlap={left:Math.max(t.x,c.x,f.x),top:Math.max(t.y,c.y,f.y),right:Math.min(t.x+t.width,c.x+c.width,f.x+f.width),bottom:Math.min(t.y+t.height,c.y+c.height,f.y+f.height)};
+  let opaqueOverlap=0,overlapSamples=0;
+  if(overlap.right>overlap.left&&overlap.bottom>overlap.top){
+   const titlePixels=title.getContext('2d').getImageData(0,0,title.width,title.height).data;
+   const scenePixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
+   for(let y=Math.ceil(overlap.top);y<overlap.bottom;y++)for(let x=Math.ceil(overlap.left);x<overlap.right;x++){
+    const tx=Math.min(title.width-1,Math.max(0,Math.floor((x+.5-t.x)*title.width/t.width))),ty=Math.min(title.height-1,Math.max(0,Math.floor((y+.5-t.y)*title.height/t.height)));
+    const cx=Math.min(canvas.width-1,Math.max(0,Math.floor((x+.5-c.x)*canvas.width/c.width))),cy=Math.min(canvas.height-1,Math.max(0,Math.floor((y+.5-c.y)*canvas.height/c.height)));
+    overlapSamples++;if(titlePixels[(ty*title.width+tx)*4+3]>96&&scenePixels[(cy*canvas.width+cx)*4+3]>96)opaqueOverlap++;
+   }
+  }
+  return {title:t,canvas:c,frame:f,machine:rect(machine),controls,opaqueOverlap,overlapSamples,
+   canvasClip:{overflow:getComputedStyle(frame).overflow,position:getComputedStyle(canvas).position},
+   viewport:{width:innerWidth,height:innerHeight}};
+ });
+ const frame=await latestScene(page);artwork(frame,freshWin?current.round.result:undefined);
+ const stage=state.frame,canvas=state.canvas,grid={x:canvas.x+canvas.width*45/600,y:canvas.y+canvas.height*252/600,width:canvas.width*510/600,height:canvas.height*306/600};
+ assert.equal(state.canvasClip.overflow,'hidden','desktop uses a visible clip rather than shrinking the original result');
+ closeNumber(stage.width/stage.height,600/490,'desktop visible scene proportions',.002);
+ closeNumber(canvas.width,stage.width,'desktop scene keeps the complete reel width',1);
+ closeNumber(stage.y-canvas.y,canvas.height*110/600,'desktop crops only the unused internal-title band',1);
+ within(grid,stage,'desktop original reel grid');within(state.title,{x:0,y:0,...state.viewport},'desktop original title');
+ assert.ok(state.title.x+state.title.width/2<grid.x+grid.width/2,'original title is on the left of the wheel/reels');
+ assert.ok(state.title.y+state.title.height<=grid.y+1,'left title stays above the symbols');
+ closeNumber(state.title.width/state.title.height,633/152,'external original title proportions',.002);
+ assert.equal(state.opaqueOverlap,0,'external title cannot cover opaque wheel or reel pixels');
+ const minimumGridWidth=Math.min(state.viewport.width*.445,(state.viewport.height-104)*.82);
+ assert.ok(grid.width>=minimumGridWidth,'desktop reels use the larger visible play area');
+ const order=freshWin?['gamble','auto','spin','bet','take-win']:['auto','spin','bet'];
+ for(const id of order){
+  const control=state.controls[id];assert.ok(control.visible,id+' is visible in the desktop stack');
+  assert.ok(control.width>=43.5&&control.height>=43.5,id+' keeps its accessible hitbox');
+  assert.ok(control.x>=stage.x+stage.width-1,id+' stays to the right of the complete reel frame');
+  within(control,{x:0,y:0,...state.viewport},id+' desktop control');
+ }
+ for(let i=1;i<order.length;i++){
+  const a=state.controls[order[i-1]],b=state.controls[order[i]];
+  assert.ok(a.y+a.height<=b.y+1,'desktop X2 / AUTO / SPIN / BET / TAKE order does not overlap');
+  closeNumber(a.x+a.width/2,b.x+b.width/2,'desktop controls share one vertical axis',2);
+ }
+ (result.desktopComposition||=[]).push({label,...state,grid,minimumGridWidth});
+ if(freshWin)result.checks.push('Desktop original title sits separately left of larger reels, with X2 above and TAKE below the reachable right-hand control stack');
+ return state;
+}
 async function inspectBackdrop(page,result,label){
  const state=await page.evaluate(()=>{
   const backdrop=document.getElementById('game-backdrop'),foreground=document.getElementById('reels'),frame=__m20QA.backdropFrames.at(-1);
@@ -636,6 +751,7 @@ async function inspectWheelMotion(page,start,result,label,receipt){
 const PRESENTATION_LINES={1:[0,0,0,0,0],8:[1,0,0,0,1],12:[0,0,0,0,1]};
 const normalText=value=>String(value??'').replace(/\s+/g,' ').trim();
 const yellow=value=>['#ffee00','rgb(255, 238, 0)'].includes(String(value).toLowerCase());
+const selectedCellColour=value=>['#ff9c20','rgb(255, 156, 32)'].includes(String(value).toLowerCase());
 function within(inner,outer,label,tolerance=1){
  assert.ok(inner&&outer&&inner.width>0&&inner.height>0&&outer.width>0&&outer.height>0,label+' is visible');
  assert.ok(inner.x>=outer.x-tolerance&&inner.y>=outer.y-tolerance&&
@@ -666,7 +782,7 @@ function inspectCaption(sample,receipt){
  // The line description belongs below the reel grid; total WIN belongs in
  // the independent ledger. Neither may cover a cell or clip its own text.
  within(sample.box,sample.stage,'line caption');
- assert.ok(sample.box.y>=sample.stage.y+sample.stage.height*(558/600)-1,'line caption clears the final symbol row');
+ assert.ok(sample.box.y>=sample.canvas.y+sample.canvas.height*(558/600)-1,'line caption clears the final symbol row');
  for(const child of sample.children)within(child.box,sample.box,'caption component');
  assert.equal(sample.footerInLedger,true,'authoritative WIN belongs to the ledger');
  within(sample.footer,sample.ledger,'authoritative WIN');
@@ -681,6 +797,60 @@ function inspectCaption(sample,receipt){
 function cssPoint(frame,transform,x,y){
  const [a,b,c,d,e,f]=transform;
  return {x:frame.css.x+(a*x+c*y+e)*frame.css.width/frame.width,y:frame.css.y+(b*x+d*y+f)*frame.css.height/frame.height};
+}
+function inspectResultFire(frame,receipt,line){
+ const parts=wheelParts(frame,receipt),groups=(frame.pathPaints||[]).filter(group=>group.curvedDrawCount>0);
+ const positions=line.positions.map(position=>Array.isArray(position)?position:[position.row,position.col]);
+ const expected=new Set(positions.map(position=>position.join(','))),seen=new Set(),cells=[];
+ let wedge=null;
+ for(const group of groups){
+  assert.ok(group.drawCount>=group.curvedDrawCount&&group.samples.length>0,'observed fire has actual native curved fills');
+  const clip=group.clips.at(-1);assert.ok(clip?.commands.length,'fire is clipped to a real visible result region');
+  const rect=clip.commands.length===1&&clip.commands[0].name==='rect'?clip.commands[0]:null;
+  const warm=[];
+  for(const sample of group.samples){
+   assert.equal(sample.composite,'source-over','result flame cannot turn the original pixels into an additive pale flare');
+   assert.ok(sample.alpha>0&&sample.alpha<=1,'flame is visibly painted');
+   const colours=typeof sample.paint==='string'?[sample.paint]:(sample.paint?.stops||[]).map(stop=>stop[1]);
+   for(const value of colours){
+    const match=/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?\s*\)/.exec(value);
+    if(match&&(match[4]===undefined||Number(match[4])>0))warm.push(match.slice(1,4).map(Number));
+    else if(/^#[a-f\d]{6}$/i.test(value))warm.push([1,3,5].map(start=>parseInt(value.slice(start,start+2),16)));
+   }
+  }
+  assert.ok(warm.some(([r,g,b])=>r>=220&&r>g+30&&g>b+20),'each clipped flame region contains a visible orange component');
+  assert.ok(warm.some(([r,g,b])=>r>=220&&g>=150&&b<120),'each clipped flame region contains a visible yellow/gold component');
+  if(rect){
+   const [x,y,w,h]=rect.args,centre=cssPoint(frame,rect.transform,x+w/2,y+h/2);
+   const expectedCentre=positions.map(([row,col])=>({key:row+','+col,
+    point:cssPoint(frame,parts.fixed.transform,45+(col+.5)*102,252+(row+.5)*102)}))
+    .find(cell=>Math.abs(cell.point.x-centre.x)<.5&&Math.abs(cell.point.y-centre.y)<.5);
+   assert.ok(expectedCentre&&expected.has(expectedCentre.key),'cell flame belongs to the receipt-selected winning prefix');
+   assert.ok(!seen.has(expectedCentre.key),'one clipped flame region per selected cell');seen.add(expectedCentre.key);
+   const topLeft=cssPoint(frame,rect.transform,x,y),bottomRight=cssPoint(frame,rect.transform,x+w,y+h),span=frame.css.width*102/600;
+   assert.ok(bottomRight.x-topLeft.x>span*.90&&bottomRight.x-topLeft.x<span,'fire clip stays inside its reel column');
+   assert.ok(bottomRight.y-topLeft.y>span*.90&&bottomRight.y-topLeft.y<span,'fire clip stays inside its symbol row');
+   const symbolOrders=frame.draws.filter(draw=>Object.values(SYMBOL_SIZES).some(([sw,sh])=>draw.width===sw&&draw.height===sh)).map(draw=>draw.paintOrder);
+   assert.ok(group.firstPaintOrder>Math.max(...symbolOrders),'selected-cell flame is visible above the original symbols');
+   cells.push({position:expectedCentre.key,clip:{topLeft,bottomRight},curvedDrawCount:group.curvedDrawCount,samples:group.samples});
+  }else{
+   assert.equal(wedge,null,'only the selected multiplier wedge has non-cell fire');wedge=group;
+   assert.deepEqual(clip.commands.map(command=>command.name),['moveTo','lineTo','lineTo','lineTo','closePath'],'selected wheel fire has a polygon clip');
+   const points=clip.commands.slice(0,4).map(command=>cssPoint(frame,command.transform,...command.args));
+   const [fx,fy,fw,fh]=parts.fixed.args.slice(4),left=cssPoint(frame,parts.fixed.transform,fx,fy),right=cssPoint(frame,parts.fixed.transform,fx+fw,fy+fh);
+   const bounds={left:Math.min(...points.map(point=>point.x)),right:Math.max(...points.map(point=>point.x)),top:Math.min(...points.map(point=>point.y)),bottom:Math.max(...points.map(point=>point.y))};
+   assert.ok(bounds.left>left.x+(right.x-left.x)*.30&&bounds.right<left.x+(right.x-left.x)*.70,'wheel fire cannot cover the neighbouring multiplier sectors');
+   assert.ok(bounds.top>=left.y-.5&&bounds.bottom<=right.y+.5,'wheel fire stays inside its original selector frame');
+   assert.ok(group.lastPaintOrder<parts.light.paintOrder,'original selected numeral is painted above the procedural fire');
+  }
+ }
+ assert.ok(wedge,'fresh selected multiplier has actual curved flame');
+ assert.deepEqual([...seen].sort(),[...expected].sort(),'all and only the accepted winning cells have fire');
+ return {wheel:{clips:wedge.clips,curvedDrawCount:wedge.curvedDrawCount,samples:wedge.samples},cells,
+  shapeSignature:JSON.stringify(groups.map(group=>group.samples.map(sample=>sample.commands.map(command=>[command.name,...command.args.map(value=>typeof value==='number'?Math.round(value*100)/100:value)]))))};
+}
+function assertNoResultFire(frame,label){
+ assert.equal((frame.pathPaints||[]).some(group=>group.curvedDrawCount>0),false,label+' has no procedural fresh-result fire');
 }
 function inspectLineFrame(frame,receipt,line){
  const presented=artwork(frame,receipt),parts=wheelParts(frame,receipt);
@@ -706,7 +876,7 @@ function inspectLineFrame(frame,receipt,line){
   closeNumber(actual.y,expected.y,'payline passes through actual cell centre y',.5);
   return actual;
  });
- const rects=(frame.strokedRects||[]).filter(rect=>yellow(rect.colour));
+ const rects=(frame.strokedRects||[]).filter(rect=>selectedCellColour(rect.colour));
  assert.equal(rects.length,line.count,'only the accepted winning prefix is outlined');
  const expected=new Map(expectedPositions.map(position=>[position.join(','),cells.get(position.join(','))])),seen=new Set();
  for(const rect of rects){
@@ -718,7 +888,8 @@ function inspectLineFrame(frame,receipt,line){
   assert.ok(bottomRight.x-topLeft.x>cellSpan*.75&&bottomRight.x-topLeft.x<cellSpan*1.01,'outline stays within a single reel column');
   assert.ok(bottomRight.y-topLeft.y>cellSpan*.75&&bottomRight.y-topLeft.y<cellSpan*1.01,'outline stays within a single symbol row');
  }
- return {sequence:frame.sequence,line:line.line,positions:expectedPositions,path,rectangles:rects,lightAlpha:parts.light.alpha,angle:parts.angle,grid:presented.grid};
+ return {sequence:frame.sequence,line:line.line,positions:expectedPositions,path,rectangles:rects,lightAlpha:parts.light.alpha,angle:parts.angle,grid:presented.grid,
+  fire:inspectResultFire(frame,receipt,line)};
 }
 async function lineSamples(page,receipt,minimum=1){
  await page.waitForFunction(({id,minimum})=>__m20QA.lineCaptions.filter(sample=>sample.visible&&sample.roundId===id&&sample.captionRoundId===id).length>=minimum,
@@ -734,6 +905,7 @@ async function assertStoppedPresentation(page,label,waitMs=1350){
  await page.waitForTimeout(waitMs);
  assert.equal(await page.locator('#line-caption').isHidden(),true,label+' cannot revive a dismissed line');
  assert.deepEqual(await page.evaluate(()=>({frames:__m20QA.sceneSequence,raf:__m20QA.raf.length})),before,label+' stops the result animation instead of leaving an idle RAF');
+ assertNoResultFire(await latestScene(page),label);
  return before;
 }
 async function dismissLineWithMenu(page,f,label){
@@ -803,14 +975,25 @@ async function verifyRepeatedLines(page,f,result,receipt){
   return part.light.alpha;
  });
  assert.ok(lights.length>10&&Math.max(...lights)-Math.min(...lights)>.08,'original selected multiplier light visibly varies while the ring stays fixed');
+ const heldLine=activeFrames.filter(frame=>normalText(frame.lineCaption)===normalText(activeFrames.at(-1)?.lineCaption));
+ assert.ok(heldLine.length>=3,'fire motion is sampled while the same selected line remains visible');
+ const fireSamples=[heldLine[0],heldLine[Math.floor(heldLine.length/2)],heldLine.at(-1)].map(frame=>{
+  const number=Number(/^Line\s+(\d+)/.exec(normalText(frame.lineCaption))?.[1]),line=receipt.winLines.find(item=>item.line===number);
+  assert.ok(line);return inspectResultFire(frame,receipt,line);
+ });
+ assert.ok(new Set(fireSamples.map(sample=>sample.shapeSignature)).size>=3,'curved wheel and selected-cell fire visibly changes during one accepted line');
+ for(const position of fireSamples[0].cells.map(cell=>cell.position)){
+  const signatures=fireSamples.map(sample=>JSON.stringify(sample.cells.find(cell=>cell.position===position).samples.map(fill=>fill.commands)));
+  assert.ok(new Set(signatures).size>=3,'each selected cell flame changes shape without moving to a different symbol');
+ }
  assert.equal((await page.locator('#win-value').innerText()).trim(),receipt.finalWin);
  assert.equal(f.requests.filter(request=>request.method==='POST').length,posts);assert.equal(f.ledger.length,ledger);assert.equal(f.balance,balance);
  assert.equal(f.ledger.filter(item=>item.kind==='BET'&&item.token===receipt.roundToken).length,1);
  assert.equal(f.ledger.filter(item=>item.kind==='WIN'&&item.token===receipt.roundToken).length,1);
  result.repeatedLines={roundId:receipt.roundId,captionSequence:samples.slice(0,6),drawings:proof,frameCount:activeFrames.length,
-  lightAlphaRange:[Math.min(...lights),Math.max(...lights)],extraPostCount:0,ledgerDelta:0};
+  lightAlphaRange:[Math.min(...lights),Math.max(...lights)],fireMotionSamples:fireSamples,extraPostCount:0,ledgerDelta:0};
  await screenshot(page,result,'repeated-lines');
- result.checks.push('Three receipt lines repeat with different captions, full paths and winning-cell outlines while the fixed multiplier light varies and the ledger settles only once');
+ result.checks.push('Three receipt lines repeat with different captions, full paths and winning-cell outlines; curved fire animates only in those cells and the fixed selected wedge while the ledger settles once');
 }
 
 async function openSound(page){
@@ -829,6 +1012,7 @@ async function restorePage(page){
   assert.equal(await page.locator('#win-banner').evaluate(element=>getComputedStyle(element).animationName),'none');
   assert.equal(await page.locator('#line-caption').isHidden(),true,'historical receipt cannot restart a fresh winning-line cycle');
   assert.equal(await page.evaluate(()=>__m20QA.lineCaptions.filter(sample=>sample.visible).length),0,'restore cannot briefly expose a historical line caption');
+  assertNoResultFire(await latestScene(page),'historical receipt restore');
  }
 }
 async function waitFixture(predicate,label,timeout=12000){
@@ -1166,6 +1350,7 @@ async function exercise(origin,viewport){
   const idleScene=await latestScene(page),idleWheel=wheelParts(idleScene);closeNumber(idleWheel.angle,0,'idle original centre2 with neighbours5/4');
   result.sceneChecks.push({label:'idle original artwork',angle:idleWheel.angle,presented:artwork(idleScene)});
   await inspectBackdrop(page,result,'idle');
+  await inspectDesktopComposition(page,result,'idle');
   result.checks.push('Original upright title, frame, symbols and multiplier ring draw over one full-page verified backdrop without a foreground rectangle');
   result.checks.push('Boot: verified assets, existing-session GET, no spin, no sound autoplay');await audit(page,'main',result);await screenshot(page,result,'idle');
   if(viewport.width===FULL_WIDTH)for(const id of CONTROL_IDS)await pointerStates(page,f,result,id,IDLE_CONTROLS[id].slice('Buttons/'.length));
@@ -1182,6 +1367,7 @@ async function exercise(origin,viewport){
   assert.equal(await inspectBackdrop(page,result,'settled'),normalBackdrop,'static backdrop does not repaint on reel or wheel animation');
   await verifyFreshLine(page,f,result);
   await verifyDirectSound(page,f,result);
+  await inspectDesktopComposition(page,result,'fresh win',{freshWin:true});
   await audit(page,'settled',result);await screenshot(page,result,'settled');
   await page.locator('#menu').click();await audit(page,'menu-dialog',result);await page.locator('#menu-history').click();
   assert.ok((await page.locator('#history-dialog').innerText()).includes(f.round.result.roundId));
@@ -1306,7 +1492,8 @@ async function exercise(origin,viewport){
   result.mediaEvents=chunks.flatMap(c=>c.media);result.mediaErrors=chunks.flatMap(c=>c.mediaErrors);
   const idleFrames=observed.raf.length,idleBackdrop=await page.evaluate(()=>__m20QA.backdropSequence);await page.waitForTimeout(180);assert.equal(await page.evaluate(()=>__m20QA.raf.length),idleFrames);
   assert.equal(await page.evaluate(()=>__m20QA.backdropSequence),idleBackdrop,'background remains static while idle');
-  await assertNoHelpArt(page);assert.equal(result.checks.length,viewport.width===FULL_WIDTH?36:13,'all planned browser acceptance checks ran');
+  const expectedChecks=(viewport.width===FULL_WIDTH?36:13)+(viewport.width>=1100&&viewport.height>=650?1:0);
+  await assertNoHelpArt(page);assert.equal(result.checks.length,expectedChecks,'all planned browser acceptance checks ran');
   assert.deepEqual(result.pageErrors,[]);assert.deepEqual(result.mediaErrors,[]);
   assert.deepEqual(result.httpErrors.map(e=>({path:new URL(e.url).pathname,status:e.status})),f.injectedFaults,'only explicitly injected503 responses are permitted');
   assert.ok(result.consoleErrors.every(e=>e.includes('503')&&viewport.width===FULL_WIDTH),'unexpected browser console error');

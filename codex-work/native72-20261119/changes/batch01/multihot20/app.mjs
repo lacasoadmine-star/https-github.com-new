@@ -179,6 +179,7 @@ export function spinControlRunning(state,holding=false){
 if(typeof document!=='undefined'){
 const $=id=>document.getElementById(id);
 const ui=Object.fromEntries([...document.querySelectorAll('[id]')].map(el=>[el.id,el]));
+const desktopLayout=matchMedia('(min-width:1100px) and (min-height:650px)');
 ui.signin.href='/?login=1&return='+encodeURIComponent('/new74/multi-hot-20/');
 const session=new Session();
 const live=()=>!document.hidden&&document.hasFocus();
@@ -331,7 +332,15 @@ function sync(){
  if(!navigator.onLine)message='Connection lost. Your accepted round is saved.';
  status(message);
 }
-function disposeResources(){holdSpin.cancel();cancelWinBannerAnimation();loadAbort?.abort();scene?.dispose();sound?.destroy();resources?.dispose();scene=null;sound=null;resources=null;assetsReady=false}
+function disposeResources(){holdSpin.cancel();cancelWinBannerAnimation();loadAbort?.abort();scene?.dispose();sound?.destroy();resources?.dispose();scene=null;sound=null;resources=null;assetsReady=false;ui['desktop-title'].hidden=true}
+function drawDesktopTitle(){
+ const source=resources?.images?.__title,canvas=ui['desktop-title'];
+ if(!source||source.width!==633||source.height!==152)throw Error('OFFICIAL_TITLE_UNAVAILABLE');
+ const ctx=canvas.getContext('2d');if(!ctx)throw Error('TITLE_CANVAS_UNAVAILABLE');
+ canvas.width=source.width;canvas.height=source.height;
+ ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(source,0,0);
+ canvas.dataset.artSource='__title';canvas.hidden=false;
+}
 function restoreHistoricalRound(account){
  const r=account?.round?.result;
  if(!r||session.pending||(session.pendingAction&&session.pendingAction.roundId!==r.roundId))return false;
@@ -367,7 +376,8 @@ async function loadGame(){
   const audioClips=await resources.primeAudio();
   if(generation!==loadGeneration)return;
   sound=createSoundEngine({clipUrls:audioClips});
-  scene=new MultiHot20Scene({canvas:ui.reels,backdropCanvas:ui['game-backdrop'],symbols:resources.manifest.symbols,assets:resources.images,audio:soundBridge,strictAssets:true,onLinePresentation:showLinePresentation});
+  drawDesktopTitle();
+  scene=new MultiHot20Scene({canvas:ui.reels,backdropCanvas:ui['game-backdrop'],symbols:resources.manifest.symbols,assets:resources.images,audio:soundBridge,strictAssets:true,onLinePresentation:showLinePresentation,showInternalTitle:()=>!desktopLayout.matches,visibleSceneTop:()=>desktopLayout.matches?110:0});
   scene.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
   controller=new GameController({session,scene,onChange:sync,visible:live});
   for(let atlas=0;atlas<4;atlas++)if(!resources.urls.get(`atlas-${atlas}.png`))throw Error('CONTROL_ATLAS_MISSING');

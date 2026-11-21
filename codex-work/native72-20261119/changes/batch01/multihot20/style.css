@@ -62,3 +62,38 @@ body:has(#reels[data-win-presentation]) .topbar{opacity:.35}
 .sr-only{padding:0!important;border:0!important;margin:-1px!important;clip-path:inset(50%)}
 .spin-control.has-art[data-autoplay="true"] .control-label{max-width:none;padding:0;background:transparent;color:#fff;font-size:26px;line-height:1;font-weight:900;letter-spacing:0}
 @media(orientation:landscape) and (max-height:600px){.spin-control.has-art[data-autoplay="true"] .control-label{font-size:18px}}
+
+/* The wide composition uses the same verified scene and control artwork.
+   Its left title replaces the canvas title; the clear logical y0..110 band
+   is cropped, while the wheel, reels and line-caption strip remain visible. */
+#desktop-title{display:none;pointer-events:none}
+@media(min-width:1100px) and (min-height:650px){
+ .zplay-app{max-width:none;width:100%}
+ .machine{container-type:inline-size;display:block;flex:none;width:min(100%,calc((100svh - 104px - env(safe-area-inset-bottom)) * 1363 / 768));max-width:none;aspect-ratio:1363/768;margin:0 auto}
+ #desktop-title{display:block;position:absolute;left:3.5%;top:12%;width:24%;height:auto;aspect-ratio:633/152}
+ .game-frame{position:absolute;left:21.2%;top:6%;width:56%;height:auto;max-width:none;max-height:none;aspect-ratio:600/490}
+ #reels{position:absolute;left:0;top:calc(-11000% / 490);width:100%;height:calc(60000% / 490)}
+ .line-caption{top:95%;bottom:auto;height:3%;font-size:clamp(10px,2.1cqw,16px)}
+ .play-controls{position:absolute;left:82.2%;top:0;width:14%;height:100%;display:block;padding:0;margin:0}
+ .play-controls #auto,.play-controls #bet{position:absolute;left:50%;width:42.9%;height:auto;min-width:44px;min-height:44px;aspect-ratio:1;transform:translate(-50%,-50%)}
+ .play-controls #auto{top:31.8%}
+ .play-controls #bet{top:66.1%}
+ .spin-group{position:absolute;left:50%;top:48.7%;width:83%;height:auto;aspect-ratio:1;transform:translate(-50%,-50%)}
+ .spin-group .spin-control{position:absolute;inset:0;width:100%;height:100%;min-width:44px}
+ .spin-group .turbo-control{right:-12%;top:0}
+ .ledger{position:absolute;left:0;right:0;top:88%;display:block;width:100%;height:6.6%;min-height:52px;max-width:none;margin:0;padding:0}
+ .ledger .balance-panel,.ledger .bet-panel,.ledger .win-banner{position:absolute;inset:auto;top:0;height:100%;min-height:52px;padding:7px 4px}
+ .ledger .balance-panel{left:27.7%;width:12.2%}
+ .ledger .win-banner{left:43.3%;width:12.3%}
+ .ledger .bet-panel{left:59.3%;width:12%}
+ .ledger .icon-control{position:absolute;top:0;width:5%;height:100%;min-width:44px;padding:0}
+ .ledger #menu{left:2.6%}
+ .ledger #sound{right:2.6%}
+ .ledger .icon-control .control-art{width:32px;height:32px}
+ .win-actions{position:absolute;inset:0;display:block;margin:0;pointer-events:none}
+ .win-actions .win-action-control{position:absolute;left:89.2%;width:clamp(52px,4.8cqw,76px);height:clamp(52px,4.8cqw,76px);min-width:52px;transform:translate(-50%,-50%);pointer-events:auto}
+ .win-actions #gamble{top:20.2%}
+ .win-actions #take-win{top:77.3%}
+ .statusbar{flex:none;min-height:60px;margin-top:auto}
+ body:has(#reels[data-win-presentation]) #desktop-title{opacity:.35}
+}

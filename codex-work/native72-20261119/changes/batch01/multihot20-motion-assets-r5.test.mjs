@@ -12,14 +12,16 @@ class Target extends EventTarget {
  removeEventListener(type,fn,opt){super.removeEventListener(type,fn,opt);this.listeners.set(type,(this.listeners.get(type)||0)-1)}
 }
 function harness(extraAssets={},options={}){
- let now=1000,next=0,draws=[],clips=[],texts=[],fills=[],strokes=[],path=[],strokePaths=[],filledPaths=[],clipPaths=[],transform={angle:0,x:0,y:0};
+ let now=1000,next=0,draws=[],clips=[],texts=[],fills=[],strokes=[],path=[],strokePaths=[],filledPaths=[],clipPaths=[],activeClips=[],transform={angle:0,x:0,y:0};
  const stack=[];
  const frames=new Map(),sounds=[],lineViews=[],doc=options.doc??new Target(),win=options.win??new Target();
- const ctx=new Proxy({globalAlpha:1,globalCompositeOperation:'source-over',createLinearGradient:()=>({addColorStop(){}}),measureText:s=>({width:s.length*22}),
+ const ctx=new Proxy({globalAlpha:1,globalCompositeOperation:'source-over',createLinearGradient:(...coords)=>({coords,stops:[],addColorStop(at,colour){this.stops.push([at,colour])}}),measureText:s=>({width:s.length*22}),
   clearRect(){draws=[];clips=[];texts=[];fills=[];strokes=[];strokePaths=[];filledPaths=[];clipPaths=[]},
   setTransform(){transform={angle:0,x:0,y:0}},
-  save(){stack.push({transform:{...transform},alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation})},
-  restore(){const state=stack.pop();transform=state.transform;ctx.globalAlpha=state.alpha;ctx.globalCompositeOperation=state.blend},
+  save(){stack.push({transform:{...transform},alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation,
+   clips:structuredClone(activeClips),fill:ctx.fillStyle,stroke:ctx.strokeStyle,width:ctx.lineWidth,shadow:ctx.shadowBlur})},
+  restore(){const state=stack.pop();transform=state.transform;ctx.globalAlpha=state.alpha;ctx.globalCompositeOperation=state.blend;
+   activeClips=state.clips;ctx.fillStyle=state.fill;ctx.strokeStyle=state.stroke;ctx.lineWidth=state.width;ctx.shadowBlur=state.shadow},
   translate(x,y){transform.x+=x;transform.y+=y},rotate(angle){transform.angle+=angle},
   drawImage(sprite,...args){
    const [x,y,w,h]=args.length===8?args.slice(4):args;
@@ -29,9 +31,10 @@ function harness(extraAssets={},options={}){
   },
   beginPath(){path=[]},moveTo:(...args)=>path.push(['M',...args]),lineTo:(...args)=>path.push(['L',...args]),
   bezierCurveTo:(...args)=>path.push(['C',...args]),closePath:()=>path.push(['Z']),
-  clip:()=>clipPaths.push(structuredClone(path)),
+  clip:()=>{clipPaths.push(structuredClone(path));activeClips.push(structuredClone(path))},
   stroke:()=>strokePaths.push({path:structuredClone(path),colour:ctx.strokeStyle,alpha:ctx.globalAlpha,width:ctx.lineWidth}),
-  fill:()=>filledPaths.push({path:structuredClone(path),colour:typeof ctx.fillStyle==='string'?ctx.fillStyle:'gradient',alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation}),
+  fill:()=>filledPaths.push({path:structuredClone(path),colour:typeof ctx.fillStyle==='string'?ctx.fillStyle:'gradient',
+   gradientStops:ctx.fillStyle?.stops?structuredClone(ctx.fillStyle.stops):null,clips:structuredClone(activeClips),alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation}),
   rect:(...r)=>{clips.push(r);path.push(['R',...r])},fillText:(...args)=>texts.push(args),fillRect:(...r)=>fills.push(r),strokeRect:(...r)=>strokes.push(r)},
  {get:(target,key)=>key in target?target[key]:()=>{},set:(target,key,value)=>(target[key]=value,true)});
  const attributes=new Map();
@@ -51,6 +54,7 @@ function harness(extraAssets={},options={}){
  };
  const scene=new MultiHot20Scene({canvas,backdropCanvas:options.backdropCanvas??null,symbols,assets:{...Object.fromEntries(symbols.map(symbol=>[symbol,{symbol,width:100,height:100}])),...presentation,...extraAssets},doc,win,
   onLinePresentation:view=>{lineViews.push({at:now,view});options.onLinePresentation?.(view)},
+  showInternalTitle:options.showInternalTitle,visibleSceneTop:options.visibleSceneTop,
   audio:{play:name=>sounds.push({name,at:now}),stop:name=>sounds.push({name:'stop:'+name,at:now}),pauseAll:()=>sounds.push({name:'pause',at:now})},
   clock:()=>now,requestFrame:fn=>{frames.set(++next,fn);return next},cancelFrame:id=>frames.delete(id)});
  const receipt={gameId:'fresh_multihot20',roundId:'server-round-01',wheelMultiplier:3,bet:'2.00',finalWin:'2.40',
@@ -308,6 +312,39 @@ function beginWin(h,overrides={},turbo=false){
 const winDraw=(h,name)=>h.draws.find(draw=>draw.symbol===name&&draw.blend==='source-over');
 const near=(actual,expected)=>assert.ok(Math.abs(actual-expected)<.001,`${actual} differs from ${expected}`);
 
+test('desktop title relocation removes only the internal original title and does not move the wheel or reels',()=>{
+ let desktop=true;
+ const h=harness({}, {showInternalTitle:()=>!desktop,visibleSceneTop:()=>desktop?110:0}),mobile=harness();
+ assert.equal(h.draws.some(draw=>draw.symbol==='title'),false);
+ assert.deepEqual(h.draws,mobile.draws.filter(draw=>draw.symbol!=='title'),'all receipt geometry remains at its existing coordinates');
+ assert.equal(h.frames.size,0);
+ desktop=false;h.scene.resize();assert.deepEqual(h.draws,mobile.draws);assert.equal(h.frames.size,0);
+ desktop=true;h.scene.resize();assert.equal(h.draws.some(draw=>draw.symbol==='title'),false);assert.equal(h.frames.size,0);
+ h.scene.showInternalTitle=()=>{throw Error('layout unavailable')};h.scene.resize();
+ assert.ok(h.draws.some(draw=>draw.symbol==='title'),'unavailable layout information retains the original title');
+ h.scene.dispose();mobile.scene.dispose();
+});
+
+test('desktop premium artwork centres inside the exposed scene region without changing amount, timing or source sprites',async()=>{
+ let top=110;
+ const h=harness({}, {showInternalTitle:()=>false,visibleSceneTop:()=>top}),mobile=harness();
+ const current=beginWin(h),baseline=beginWin(mobile);h.tick(current.start+1100);mobile.tick(baseline.start+1100);
+ for(const name of ['__winFrame','__winCrownSmall','__winNice','__winText','__winMoneyFrame','__winCoin','__winBacklight','__winShine']){
+  const find=state=>name==='__winShine'?state.draws.find(draw=>draw.symbol===name&&draw.blend==='lighter'):winDraw(state,name);
+  const moved=find(h),original=find(mobile);assert.ok(moved&&original,name);
+  assert.deepEqual({...moved,pivot:original.pivot},original,name+' uses unchanged original crop/scale/rotation');
+  near(moved.pivot[0],original.pivot[0]);near(moved.pivot[1],original.pivot[1]+55);
+ }
+ assert.deepEqual(h.texts,mobile.texts,'text remains the exact receipt string; context alone translates the composition');
+ assert.deepEqual(h.scene.receipt,mobile.scene.receipt);assert.equal(h.scene.celebration.endsAt,mobile.scene.celebration.endsAt);
+ for(const invalid of [NaN,-1,301,Infinity,'110']){
+  top=invalid;h.scene.resize();near(winDraw(h,'__winFrame').pivot[1],300);
+ }
+ top=0;h.scene.resize();near(winDraw(h,'__winMoneyFrame').pivot[1],450);
+ h.scene.speedUp();mobile.scene.speedUp();assert.equal(await current.done,true);assert.equal(await baseline.done,true);
+ assert.equal(h.frames.size,0);assert.equal(mobile.frames.size,0);h.scene.dispose();mobile.scene.dispose();
+});
+
 test('NICE uses original art after all reels stop, holds settlement, and displays the exact receipt amount once',async()=>{
  const backdrop=backdropFixture(),h=harness({}, {backdropCanvas:backdrop.canvas});
  const random=Math.random;Math.random=()=>{throw Error('presentation cannot select a random result')};
@@ -535,7 +572,7 @@ test('receipt line sequence repeats the actual evaluator lines until interrupted
  }finally{Math.random=random;h.scene.dispose()}
 });
 
-test('selected multiplier animation uses a single fixed-angle original Light draw with cancellable clipped deterministic fire',async()=>{
+test('selected multiplier uses warm curved gradient fire beneath one fixed-angle original Light draw',async()=>{
  const h=harness(),receipt=evaluatedLineReceipt({wheelMultiplier:4}),started=await revealLineReceipt(h,receipt);
  h.tick(started+700);
  const first=structuredClone(h.draws.find(draw=>draw.symbol==='wheel-light')),fire=structuredClone(h.filledPaths);
@@ -543,11 +580,18 @@ test('selected multiplier animation uses a single fixed-angle original Light dra
  assert.equal(h.draws.filter(draw=>draw.symbol==='wheel-light').length,1);
  assert.equal(first.angle,expectedRing.angle);assert.deepEqual(paintedNeighbours(h),[2,4,1]);
  assert.ok(first.alpha>=.78&&first.alpha<=1);
- assert.equal(fire.length,15);assert.ok(fire.every(item=>item.blend==='lighter'));
  const scale=510/978,top=252-267*scale;
  const wedge=[['M',45+368*scale,top+34*scale],['L',45+611*scale,top+34*scale],
   ['L',45+570*scale,top+255*scale],['L',45+411*scale,top+255*scale],['Z']];
  assert.ok(h.clipPaths.some(path=>JSON.stringify(path)===JSON.stringify(wedge)),'all generated fire is clipped by the original selector polygon');
+ const wedgeFire=fire.filter(item=>item.clips.some(path=>JSON.stringify(path)===JSON.stringify(wedge)));
+ assert.ok(wedgeFire.length>1&&wedgeFire.length<=20,'selected-sector work is bounded');
+ assert.ok(wedgeFire.every(item=>item.blend==='source-over'&&item.gradientStops?.length>=3),
+  'translucent warm gradients must not accumulate as additive white spikes');
+ assert.ok(wedgeFire.filter(item=>item.path.some(p=>p[0]==='C')).every(item=>item.path.filter(p=>p[0]==='C').length>=4),
+  'tongues have asymmetric multi-curve curls rather than triangular peaks');
+ assert.ok(wedgeFire.some(item=>item.gradientStops.some(([,colour])=>colour.includes('255,128,8'))),'orange edge');
+ assert.ok(wedgeFire.some(item=>item.gradientStops.some(([,colour])=>colour.includes('255,239,112'))),'gold core');
  h.tick(started+917);
  const next=h.draws.find(draw=>draw.symbol==='wheel-light');assert.notEqual(next.alpha,first.alpha);
  assert.notDeepEqual(h.filledPaths,fire,'flame curves move smoothly without changing a numeral');
@@ -555,6 +599,47 @@ test('selected multiplier animation uses a single fixed-angle original Light dra
  assert.deepEqual(visibleGrid(h),receipt.grid);assert.equal(h.scene.receipt.finalWin,receipt.finalWin);
  h.scene.stopLinePresentation();assert.equal(h.frames.size,0);assert.equal(h.filledPaths.length,0);
  assert.equal(h.draws.find(draw=>draw.symbol==='wheel-light').alpha,1);assert.deepEqual(paintedNeighbours(h),[2,4,1]);h.scene.dispose();
+});
+
+test('curved winning-cell fire follows only the exact receipt prefix with bounded work and no outcome or audio changes',async()=>{
+ const h=harness(),other=harness(),receipt=evaluatedLineReceipt({wheelMultiplier:4}),original=structuredClone(receipt);
+ const started=await revealLineReceipt(h,receipt),otherStarted=await revealLineReceipt(other,receipt);
+ const sounds=structuredClone(h.sounds),random=Math.random;
+ Math.random=()=>{throw Error('presentation must not sample outcomes')};
+ try{
+  for(const [index,offset]of [[0,700],[1,1900],[2,3100]]){
+   h.tick(started+offset);other.tick(otherStarted+offset);
+   const line=original.winLines[index],expected=line.positions.map(([row,col])=>[45+col*102+1,252+row*102+1,100,100]);
+   const cellFire=h.filledPaths.filter(item=>item.clips.at(-1)?.[0]?.[0]==='R'&&item.path.some(p=>p[0]==='C'));
+   const regions=[...new Set(cellFire.map(item=>JSON.stringify(item.clips.at(-1)[0].slice(1))))].map(JSON.parse);
+   assert.deepEqual(regions,expected,'non-winning fifth-column cells never acquire a flame border');
+   assert.ok(cellFire.length>=line.count&&cellFire.length<=line.count*8,'work scales with one displayed line, never every paid line');
+   assert.ok(cellFire.every(item=>item.blend==='source-over'&&item.gradientStops?.length>=3));
+   assert.ok(cellFire.every(item=>item.path.filter(p=>p[0]==='C').length>=8),'each border is a smooth ribbon');
+   assert.ok(cellFire.every(item=>item.gradientStops.some(([,colour])=>colour.includes('255,150,12'))&&
+    item.gradientStops.some(([,colour])=>colour.includes('255,226,83'))),'orange and gold are preserved without white additive blending');
+   assert.deepEqual(h.filledPaths,other.filledPaths,'the same receipt and time produce the same drawing');
+   assert.deepEqual(h.strokes,cellRects(line.positions));assert.deepEqual(h.strokePaths.map(item=>item.path),[linePath(OFFICIAL_LINE_PATHS.fresh_multihot20[line.line-1].map((row,col)=>[row,col]))]);
+   assert.deepEqual(h.scene.receipt,original);assert.deepEqual(visibleGrid(h),original.grid);assert.deepEqual(h.sounds,sounds);
+   const first=structuredClone(cellFire);h.tick(started+offset+90);
+   assert.notDeepEqual(h.filledPaths.filter(item=>item.clips.at(-1)?.[0]?.[0]==='R'&&item.path.some(p=>p[0]==='C')),first,'ribbons flow within their fixed cell clips');
+   assert.equal(h.frames.size,1,'one existing scene RAF owns all vector effects');
+  }
+  h.scene.dismissResultPresentation();assert.equal(h.frames.size,0);assert.equal(h.filledPaths.length,0);
+  h.scene.restore(original);h.tick(started+90000);assert.equal(h.filledPaths.length,0);assert.equal(h.frames.size,0);
+ }finally{Math.random=random;h.scene.dispose();other.scene.dispose()}
+});
+
+test('loss, history and reduced-motion results never draw selected-sector or winning-cell fire',async()=>{
+ const lost=evaluatedLineReceipt({grid:[['seven','bell','grape','watermelon','lemon'],
+  ['plum','orange','cherry','seven','bell'],['grape','watermelon','lemon','plum','orange']]});
+ assert.equal(lost.finalWin,'0.00');
+ const h=harness();await revealLineReceipt(h,lost);h.tick(h.time()+90000);
+ assert.equal(h.filledPaths.length,0);assert.equal(h.frames.size,0);
+ const won=evaluatedLineReceipt();h.scene.restore(won);h.tick(h.time()+90000);
+ assert.equal(h.filledPaths.length,0);assert.equal(h.frames.size,0);
+ h.scene.reducedMotion=true;h.scene.start();await h.scene.settle(won);h.tick(h.time()+90000);
+ assert.equal(h.filledPaths.length,0);assert.equal(h.frames.size,0);h.scene.dispose();
 });
 
 test('capped receipts preserve exact cap metadata through all twenty lines and repeat without allocating the total cap',async()=>{
