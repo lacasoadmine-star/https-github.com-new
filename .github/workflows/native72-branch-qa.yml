@@ -79,13 +79,10 @@ jobs:
           node --check codex-work/native72-20261119/changes/safari-live-r5/game.mjs
       - name: Verify archived SmartSoft server math and existing Player ETB ledger adapter
         run: |
-          node --test codex-work/native72-20261119/changes/batch01/server/multihot40-reference.test.mjs
-          node --check codex-work/native72-20261119/changes/batch01/server/multihot40-reference.mjs
-          node --test codex-work/native72-20261119/changes/batch01/server/official-math.test.mjs
-          node --check codex-work/native72-20261119/changes/batch01/server/official-math.mjs
-          node --check codex-work/native72-20261119/changes/batch01/server/official-math.test.mjs
-          node --test codex-work/native72-20261119/changes/batch01/server/sw-nine-pg-adapter.test.mjs
-          node --check codex-work/native72-20261119/changes/batch01/server/sw-nine-pg-adapter.mjs
+          node --test codex-work/native72-20261119/changes/batch01/server/*.test.mjs
+          for file in codex-work/native72-20261119/changes/batch01/server/*.mjs; do
+            node --check "$file"
+          done
       - name: Verify first ten unique game release checkpoints
         run: |
           node --test codex-work/native72-20261119/changes/batch01/release-readiness.test.mjs

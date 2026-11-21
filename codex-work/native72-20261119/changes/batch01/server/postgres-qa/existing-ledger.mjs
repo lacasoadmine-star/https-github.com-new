@@ -38,7 +38,7 @@ export function createFixture(pool,{profileLookupFails=false,operator=true,accep
     setProfileOutage(value){profileLookupFails=value},setOperator(value){operator=value},
     metrics:()=>({transactions,authenticated,maxActiveTransactions}),
   };
-  fixture.api=createSwNinePgAdapter({
+  const dependencies={
     authenticate,balance,houseFor:()=>house,hash,accepting:()=>accepting,
     profileForGame:async id=>{if(profileLookupFails)throw Error('PROFILE_STORE_UNAVAILABLE');return profileFor(id)},
     assertOperatorWagerEnabled:async()=>{if(!operator)fail(503,'OPERATOR_WAGER_DISABLED')},
@@ -76,11 +76,13 @@ export function createFixture(pool,{profileLookupFails=false,operator=true,accep
  audit AS (INSERT INTO sw_nine.wallet_transactions(user_id,round_id,game_id,type,amount,balance_after,transfer_id)
  SELECT $6,$7::uuid,$8,$9,$3::bigint,CASE WHEN $6=$1 THEN (SELECT balance FROM d) ELSE (SELECT balance FROM cr) END,t.id FROM t RETURNING id)
  SELECT (SELECT count(*) FROM d)::int debited,(SELECT count(*) FROM cr)::int credited,(SELECT count(*) FROM audit)::int recorded`,
-        [from,to,amount.toString(),'nine:'+round+':'+kind,kind==='BET'?'bet':'win',id,round,game,kind]);
+        [from,to,amount.toString(),'nine:'+round+':'+kind,kind==='BET'?'bet':kind==='GAMBLE_BET'?'gamble_bet':kind==='GAMBLE_WIN'?'gamble_win':'win',id,round,game,kind]);
       if(r.rows[0].debited!==1)fail(from===id?402:503,from===id?'INSUFFICIENT_FUNDS':'HOUSE_RESERVE_INSUFFICIENT');
       if(r.rows[0].credited!==1||r.rows[0].recorded!==1)fail(503,'CREDIT_ACCOUNT_MISSING');
       if(failAfterWin&&kind==='WIN')throw Error('SIMULATED_FAILURE_AFTER_ACTUAL_WIN_SQL');
     }
-  });
+  };
+  fixture.dependencies=dependencies;
+  fixture.api=createSwNinePgAdapter(dependencies);
   return fixture;
 }

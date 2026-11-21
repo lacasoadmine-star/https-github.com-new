@@ -29,7 +29,7 @@ export const GAME_REFERENCE = Object.freeze({
     gameId: 'fresh_multihot5burnwilds', title: 'Multi Hot 5 Burn Wilds',
     reels: 5, rows: 3, paylines: 5, foundationBet: 2, wheelValues: [1, 2, 3, 4, 5],
     maxWinX: 1300, observedOfficialMinDMO: '0.10',
-    observedOfficialMaxDMO: '200.00', observedOfficialRtpPercent: null,
+    observedOfficialMaxDMO: '200.00', observedOfficialRtpPercent: '96.55',
     observedGameVersion: 'v1.0.1',
     source: 'archive/multi-hot-5-burn-wilds.tar.gz:05-reels-system/observed-states.json',
     paytable: {

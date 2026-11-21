@@ -76,7 +76,17 @@ export class Session {
   this.busy=true;this.phase='REQUESTING_RESULT';
   const token=this.pending,guard=this.account.sessionGuard,gen=this.generation;
   try{
-   const response=await this.request('/api/slots/spin',{...token,...(replayOnly?{replayOnly:true}:{})});
+   let response;
+   try{response=await this.request('/api/slots/spin',{...token,...(replayOnly?{replayOnly:true}:{})})}
+   catch(error){
+    // A lost request may never have reached the server. Only its authenticated,
+    // explicit replay miss permits resubmission, with the SAME saved token and
+    // original stake/model. Existing wallet locks and idempotency cover a late
+    // first request racing this retry; no new token or client result is created.
+    if(!replayOnly||error?.status!==404||error?.code!=='ROUND_NOT_FOUND_FOR_REPLAY'||
+       !this._active(gen,guard)||this.pending!==token)throw error;
+    response=await this.request('/api/slots/spin',{...token});
+   }
    if(!this._active(gen,guard)||this.pending!==token)throw fail('STALE_SESSION_RESPONSE');
    // A malformed receipt is ambiguous after submission: keep the persisted
    // token so the existing server can replay/reconcile without double charging.
