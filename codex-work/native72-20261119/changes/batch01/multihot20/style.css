@@ -59,5 +59,6 @@ body:has(#reels[data-win-presentation]) .topbar{opacity:.35}
 @media(max-width:380px){.ledger:has(.win-banner:not([hidden])){gap:4px}.ledger .win-banner>span:not(.sr-only){font-size:10px}}
 /* AUTO uses the original gold disk, a clean composed centre, and live text.
    The small red-square control keeps its stop icon free of counter text. */
+.sr-only{padding:0!important;border:0!important;margin:-1px!important;clip-path:inset(50%)}
 .spin-control.has-art[data-autoplay="true"] .control-label{max-width:none;padding:0;background:transparent;color:#fff;font-size:26px;line-height:1;font-weight:900;letter-spacing:0}
 @media(orientation:landscape) and (max-height:600px){.spin-control.has-art[data-autoplay="true"] .control-label{font-size:18px}}
