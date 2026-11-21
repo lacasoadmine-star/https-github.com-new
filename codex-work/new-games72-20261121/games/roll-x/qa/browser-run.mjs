@@ -1,10 +1,12 @@
 // Executed only inside an isolated Playwright session with all network routed
 // to checked-out file content. Nothing is deployed to a public origin.
-export default async function run({ page, context, browser }, files, receipts, mockAccount) {
+export default async function run({ page, context, browser }, files, receipts, mockAccount, routing) {
   const origin = 'https://qa.zplay.invalid';
-  const base = '/new-games72/games/roll-x/';
+  const base = routing.route;
+  const moduleBase = routing.modulePrefix;
   const output = { environment: 'Playwright / fully intercepted isolated QA',
-    startedAt: new Date().toISOString(), browserVersion: browser.version(), checks: [], errors: [], pageErrorDetails: [], requests: [], screenshots: {} };
+    startedAt: new Date().toISOString(), browserVersion: browser.version(), documentRoute: base,
+    checks: [], errors: [], pageErrorDetails: [], requests: [], unmappedPaths: [], screenshots: {} };
   const check = (name, value, detail = null) => { output.checks.push({ name, passed: value === true, detail }); if (!value) throw new Error(name + ' failed: ' + JSON.stringify(detail)); };
   async function intercept(ctx) {
     await ctx.route('**/*', async route => {
@@ -16,16 +18,17 @@ export default async function run({ page, context, browser }, files, receipts, m
       }
       if (url.pathname === '/api/slots/spin') { await route.fulfill({ status: 500, contentType: 'application/json', body: '{"code":"FORBIDDEN_IN_ISOLATED_QA"}' }); return; }
       if (url.pathname === base + 'fixture.html') {
-        const source = files[base + 'index.html'].replace('src="./main.mjs"', 'src="./qa/browser-fixture.mjs"')
+        const source = files[base].replace('src="' + moduleBase + 'main.mjs"', 'src="' + moduleBase + 'qa/browser-fixture.mjs"')
           .replace('</head>', '<script type="application/json" id="fixture-receipts">' + JSON.stringify(receipts) + '</script></head>');
         await route.fulfill({ status: 200, contentType: 'text/html', body: source }); return;
       }
       let body = files[url.pathname];
       if (body !== undefined) {
-        if (url.pathname === base + 'index.html') body = body.replace('<body>', '<body><div style="padding:8px;text-align:center;background:#d1ef84;color:#182018;font:700 12px sans-serif">ISOLATED QA · MOCK ACCOUNT STATE · NO REAL MONEY</div>');
+        if (url.pathname === base) body = body.replace('<body>', '<body><div style="padding:8px;text-align:center;background:#d1ef84;color:#182018;font:700 12px sans-serif">ISOLATED QA · MOCK ACCOUNT STATE · NO REAL MONEY</div>');
         await route.fulfill({ status: 200, contentType: url.pathname.endsWith('.mjs') ? 'text/javascript' : url.pathname.endsWith('.css') ? 'text/css' : 'text/html', body }); return;
       }
       if (url.pathname === '/favicon.ico') { await route.fulfill({ status: 204, body: '' }); return; }
+      output.unmappedPaths.push(url.pathname);
       await route.fulfill({ status: 404, body: 'Unknown isolated test route' });
     });
   }
@@ -37,18 +40,65 @@ export default async function run({ page, context, browser }, files, receipts, m
     });
   };
   const settled = async (page, count) => page.waitForFunction(expected => globalThis.rollxTest?.calls.spin.length === expected && !globalThis.rollxTest.game.controller.snapshot.busy, count);
-  const layout = page => page.evaluate(() => {
+  const layout = async page => {
+    // Reset incidental Playwright focus/scroll before measuring whether the
+    // entire wheel and control set fits together in the initial viewport.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    return page.evaluate(() => {
     const width = innerWidth;
-    const boxes = ['spin', 'auto', 'history', 'menu', 'mute', 'bet-plus', 'turbo'].map(id => {
+    const height = innerHeight;
+    const boxes = ['spin', 'auto', 'history', 'menu', 'mute', 'bet-plus', 'turbo', 'target', 'bet'].map(id => {
       const b = document.getElementById(id).getBoundingClientRect(); return { id, x: b.x, y: b.y, width: b.width, height: b.height };
     });
-    return { viewport: { width, height: innerHeight }, scrollWidth: document.documentElement.scrollWidth, boxes,
-      readable: boxes.every(b => b.width >= 44 && b.height >= 44 && b.x >= 0 && b.x + b.width <= width + 1) };
-  });
+    const w = document.getElementById('rollx-wheel').getBoundingClientRect();
+    const wheel = { x: w.x, y: w.y, width: w.width, height: w.height };
+    const feedback = ['auto-progress', 'recover', 'reconnect'].map(id => document.getElementById(id))
+      .filter(element => !element.hidden).map(element => {
+        const b = element.getBoundingClientRect();
+        return { id: element.id, x: b.x, y: b.y, width: b.width, height: b.height };
+      });
+    const contained = b => b.x >= 0 && b.y >= 0 && b.x + b.width <= width && b.y + b.height <= height;
+    return { viewport: { width, height }, scrollWidth: document.documentElement.scrollWidth, scrollY, boxes, wheel, feedback,
+      readable: boxes.every(b => b.width >= 44 && b.height >= 44 && b.x >= 0 && b.x + b.width <= width + 1),
+      controlsFullyVisible: boxes.every(contained), wheelFullyVisible: contained(wheel),
+      feedbackMutuallyExclusive: feedback.length <= 1, feedbackFullyVisible: feedback.every(contained) };
+    });
+  };
+  const viewportFit = measured => measured.readable && measured.controlsFullyVisible &&
+    measured.wheelFullyVisible && measured.feedbackMutuallyExclusive && measured.feedbackFullyVisible &&
+    measured.scrollY === 0 && measured.scrollWidth <= measured.viewport.width;
+  const modalFit = async (page, id) => {
+    const box = await page.locator('#' + id).boundingBox();
+    const viewport = page.viewportSize();
+    return !!box && box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width && box.y + box.height <= viewport.height;
+  };
+  const autoModalControlsFit = async page => {
+    const controls = page.locator('#auto-dialog button, #auto-dialog select, #auto-dialog input');
+    const viewport = page.viewportSize();
+    const measured = [];
+    for (let index = 0; index < await controls.count(); index++) {
+      const control = controls.nth(index);
+      await control.scrollIntoViewIfNeeded();
+      const box = await control.boundingBox();
+      const fontSize = await control.evaluate(element => parseFloat(getComputedStyle(element).fontSize));
+      measured.push({ box, fontSize });
+    }
+    await page.locator('#auto-dialog').evaluate(dialog => { dialog.scrollTop = 0; });
+    return measured.length === 9 && measured.every(({ box, fontSize }) => box &&
+      box.width >= 44 && box.height >= 44 && fontSize >= 12 &&
+      box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width && box.y + box.height <= viewport.height);
+  };
   try {
+    check('authored mapping retains the canonical registry route with activation closed',
+      base === '/new-games72/roll-x/' && routing.gameId === receipts[0].gameId &&
+      routing.enabled === false && routing.resources[base] === 'index.html' &&
+      files[base]?.includes('src="' + moduleBase + 'main.mjs"'));
     await intercept(context); watch(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(origin + base + 'index.html');
+    await page.goto(origin + base);
+    check('normal page uses the exact reserved document route', new URL(page.url()).pathname === base);
+    check('canonical entry loads the authored shared-module URL without a hidden 404',
+      output.requests.some(request => request.path === routing.sharedModulePath) && output.unmappedPaths.length === 0);
     // The static HTML already carries the unavailable label. Wait for the
     // account response to reach the rendered balance before checking that an
     // enabled server flag cannot override the runtime release gate.
@@ -63,6 +113,8 @@ export default async function run({ page, context, browser }, files, receipts, m
       await page.locator('#spin').isDisabled() && await page.locator('#auto').isDisabled());
     await page.keyboard.press('Space'); await page.keyboard.press('Enter');
     check('normal runtime performs no financial POST', !output.requests.some(r => r.path === '/api/slots/spin'));
+    const unreleased = await layout(page); output.unreleasedLayout = unreleased;
+    check('unreleased shell controls and availability action fit the desktop viewport', viewportFit(unreleased), unreleased);
     output.screenshots['unreleased-desktop'] = (await page.screenshot({ type: 'jpeg', quality: 65, fullPage: true })).toString('base64');
     await page.locator('#menu').click(); await page.locator('[data-open="help-dialog"]').click();
     check('menu opens help with unreleased notice', await page.locator('#help-dialog').isVisible() && await page.locator('#help-dialog .notice').isVisible());
@@ -127,10 +179,18 @@ export default async function run({ page, context, browser }, files, receipts, m
     await page.waitForFunction(() => rollxTest.calls.spin.length === 16);
     for (let index = 0; index < 8; index++) await page.keyboard.down('Enter');
     await settled(page, 16);
+    // Request-pending disables the button and may move native focus. Restore
+    // that focus while Enter is still held so READY repeats test this button.
+    await page.locator('#spin').focus();
+    check('held Enter repeats target the ready SPIN button',
+      await page.evaluate(() => document.activeElement === document.getElementById('spin')));
     for (let index = 0; index < 8; index++) await page.keyboard.down('Enter');
     await page.keyboard.up('Enter');
     check('held native Enter on focused SPIN cannot submit again after READY',
       await page.evaluate(() => rollxTest.calls.spin.length === 16 && !rollxTest.game.controller.snapshot.busy));
+    await page.locator('#spin').focus();
+    check('native Space scenario has SPIN focus after Enter settlement',
+      await page.evaluate(() => document.activeElement === document.getElementById('spin')));
     await page.keyboard.press('Space');
     await settled(page, 17);
     check('focused native Space activation starts exactly one additional round',
@@ -145,6 +205,7 @@ export default async function run({ page, context, browser }, files, receipts, m
     check('history displays seventeen accepted receipts', await page.locator('#history-rows tr').count() === 17);
     await page.locator('#history-dialog [data-close]').click();
     const desktop = await layout(page); output.desktopLayout = desktop; check('desktop controls meet minimum hit size and horizontal bounds', desktop.readable && desktop.scrollWidth <= desktop.viewport.width);
+    check('desktop wheel and all nine key controls fit vertically without scrolling', viewportFit(desktop), desktop);
     await page.evaluate(() => rollxTest.game.dispose());
     check('exit disposes sound and all owned controller work', await page.evaluate(() => rollxTest.audio.disposed && rollxTest.audio.nodes.size === 0 && rollxTest.calls.dispose === 1 && rollxTest.game.controller.disposed));
 
@@ -156,25 +217,46 @@ export default async function run({ page, context, browser }, files, receipts, m
     await mobile.locator('#spin').tap(); await settled(mobile, 1);
     check('mobile touch spin and STOP accept one receipt', await mobile.evaluate(() => rollxTest.calls.spin.length === 1));
     const portrait = await layout(mobile); output.mobilePortraitLayout = portrait; check('portrait controls remain within width with at least 44px hit sizes', portrait.readable && portrait.scrollWidth <= portrait.viewport.width);
+    check('390x844 portrait wheel and all key controls fit vertically without scrolling', viewportFit(portrait), portrait);
     output.screenshots['fixture-mobile-portrait'] = (await mobile.screenshot({ type: 'jpeg', quality: 65, fullPage: true })).toString('base64');
     await mobile.locator('#menu').tap(); await mobile.locator('[data-open="settings-dialog"]').tap();
     const dialog = await mobile.locator('#settings-dialog').boundingBox();
     check('mobile settings modal fits the viewport', dialog.x >= 0 && dialog.x + dialog.width <= 391 && dialog.height <= 844);
+    check('mobile settings modal stays inside all four viewport edges', await modalFit(mobile, 'settings-dialog'));
     output.screenshots['fixture-mobile-settings'] = (await mobile.screenshot({ type: 'jpeg', quality: 65 })).toString('base64');
     await mobile.locator('#settings-dialog [data-close]').tap();
+    await mobile.locator('#auto').tap();
+    check('portrait AUTO modal remains inside all viewport edges', await modalFit(mobile, 'auto-dialog'));
+    check('portrait AUTO fields and buttons retain readable text and 44px targets through dialog scroll', await autoModalControlsFit(mobile));
+    output.screenshots['fixture-mobile-auto-settings'] = (await mobile.screenshot({ type: 'jpeg', quality: 65 })).toString('base64');
+    await mobile.locator('#auto-dialog [data-close]').first().tap();
     output.mobileWidths = [];
     for (const viewport of [{ width: 360, height: 800 }, { width: 430, height: 932 }]) {
       await mobile.setViewportSize(viewport);
       const measured = await layout(mobile); output.mobileWidths.push(measured);
       check('mobile width ' + viewport.width + ' preserves hit sizes, bounds and accepted round',
         measured.readable && measured.scrollWidth <= viewport.width && await mobile.evaluate(() => rollxTest.calls.spin.length === 1));
+      check('mobile ' + viewport.width + 'x' + viewport.height + ' wheel and key controls fit vertically without scrolling', viewportFit(measured), measured);
       output.screenshots['fixture-mobile-' + viewport.width] = (await mobile.screenshot({ type: 'jpeg', quality: 65, fullPage: true })).toString('base64');
     }
+    await mobile.setViewportSize({ width: 768, height: 1024 });
+    const tablet = await layout(mobile); output.tabletPortraitLayout = tablet;
+    check('768x1024 tablet preserves full wheel, key-control bounds and accepted round',
+      viewportFit(tablet) && await mobile.evaluate(() => rollxTest.calls.spin.length === 1), tablet);
+    output.screenshots['fixture-tablet-portrait'] = (await mobile.screenshot({ type: 'jpeg', quality: 65, fullPage: true })).toString('base64');
     await mobile.setViewportSize({ width: 844, height: 390 });
     const landscape = await layout(mobile); output.mobileLandscapeLayout = landscape; check('landscape change preserves control bounds and round state', landscape.readable && landscape.scrollWidth <= landscape.viewport.width && await mobile.evaluate(() => rollxTest.calls.spin.length === 1));
+    check('844x390 landscape wheel and all key controls fit vertically without scrolling', viewportFit(landscape), landscape);
     output.screenshots['fixture-mobile-landscape'] = (await mobile.screenshot({ type: 'jpeg', quality: 65, fullPage: true })).toString('base64');
+    await mobile.locator('#auto').tap();
+    check('landscape AUTO modal remains inside all viewport edges', await modalFit(mobile, 'auto-dialog'));
+    check('landscape AUTO fields and buttons retain readable text and 44px targets through dialog scroll', await autoModalControlsFit(mobile));
+    output.screenshots['fixture-landscape-auto-settings'] = (await mobile.screenshot({ type: 'jpeg', quality: 65 })).toString('base64');
+    await mobile.locator('#auto-dialog [data-close]').first().tap();
+    check('landscape AUTO layout inspection starts no additional round', await mobile.evaluate(() => rollxTest.calls.spin.length === 1));
     await mobileContext.close();
     check('all test requests stayed intercepted and no financial POST escaped', output.requests.every(r => r.origin === origin) && !output.requests.some(r => r.path === '/api/slots/spin'));
+    check('all requested runtime resources have explicit authored mappings', output.unmappedPaths.length === 0, output.unmappedPaths);
     check('no browser page errors', output.errors.length === 0, output.errors);
     output.success = true;
   } catch (error) {

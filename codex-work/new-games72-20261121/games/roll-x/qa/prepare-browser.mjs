@@ -3,12 +3,10 @@ import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { fixtureReceipt } from '../tests/fixture-session.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const prefix = '/new-games72/games/roll-x/';
-const names = ['index.html', 'style.css', 'main.mjs', 'app.mjs', 'controller.mjs', 'session.mjs',
-  'evaluator.mjs', 'receipt.mjs', 'renderer.mjs', 'audio.mjs', 'qa/browser-fixture.mjs'];
+const routing = JSON.parse(await readFile(resolve(root, 'frontend-route.json'), 'utf8'));
 const files = {};
-for (const name of names) files[prefix + name] = await readFile(resolve(root, name), 'utf8');
-files['/new-games72/shared/round-recovery.mjs'] = await readFile(resolve(root, '../../shared/round-recovery.mjs'), 'utf8');
+for (const [urlPath, name] of Object.entries(routing.resources)) files[urlPath] = await readFile(resolve(root, name), 'utf8');
+files[routing.modulePrefix + 'qa/browser-fixture.mjs'] = await readFile(resolve(root, 'qa/browser-fixture.mjs'), 'utf8');
 const receipts = []; let before = 10000n;
 for (let index = 1; index <= 20; index++) {
   const options = { before };
@@ -23,6 +21,6 @@ const mockAccount = { authenticated: true, currency: 'ETB', balance: '98.00', se
     engineVersion: receipts[0].engineVersion, mathSha256: receipts[0].mathSha256 } };
 const runner = (await readFile(resolve(root, 'qa/browser-run.mjs'), 'utf8')).replace('export default ', '');
 const code = 'async ({page,context,browser}) => {\n' + runner + '\nreturn run({page,context,browser},' +
-  JSON.stringify(files) + ',' + JSON.stringify(receipts) + ',' + JSON.stringify(mockAccount) + ');\n}';
+  JSON.stringify(files) + ',' + JSON.stringify(receipts) + ',' + JSON.stringify(mockAccount) + ',' + JSON.stringify(routing) + ');\n}';
 await writeFile(resolve(root, 'qa/browser-input.json'), JSON.stringify({ library: 'playwright', timeout: 60000, code }));
 process.stdout.write(JSON.stringify({ bodyBytes: Buffer.byteLength(code), receiptCount: receipts.length }) + '\n');

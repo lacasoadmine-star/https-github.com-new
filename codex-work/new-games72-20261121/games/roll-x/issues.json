@@ -122,6 +122,42 @@
       "evidence": "qa/browser-attempt-04-github.json",
       "status": "FIXED_PENDING_RETEST",
       "pendingRetestScope": "The next exact-source GitHub browser run must confirm full AUTO and the remaining native input/mobile checks."
+    },
+    {
+      "id": "ROLLX-FIX-009",
+      "owner": "release-coordinator/roll-x-route",
+      "action": "Open the new game at its canonical registry document route and hold Enter while the ready SPIN button retains native focus",
+      "expected": "The exact reserved route resolves all authored modules and repeat keys cannot create a second accepted request",
+      "observed": "Previous isolated QA used the module index URL rather than the registry route; relative imports failed under the registry path and post-settlement repeat assertions could target a blurred button",
+      "files": [
+        "frontend-route.json",
+        "index.html",
+        "qa/browser-run.mjs",
+        "qa/run-isolated-browser.cjs",
+        "qa/prepare-browser.mjs",
+        "tests/route.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Four URL/import regressions pass after two reproduced failures; independent handler review rejects unknown paths. Exact-source browser route/focus run is pending.",
+      "evidence": "../../release/canonical-route-reconciliation-20261122.json",
+      "status": "FIXED_PENDING_RETEST",
+      "nextAction": "Run the isolated new-source GitHub browser job at /new-games72/roll-x/ and inspect source hashes/native focus results"
+    },
+    {
+      "id": "ROLLX-FIX-010",
+      "owner": "release-coordinator/roll-x-layout",
+      "action": "Open the isolated game at 844x390 landscape and 360x800 portrait without scrolling",
+      "expected": "Wheel and main controls are visible, with 44px or larger touch controls and usable AUTO dialog",
+      "observed": "Upstream browser artifact placed landscape SPIN at y 656.625 and menu at y 722.625 in a 390px viewport; portrait menu bottom 812.828125 exceeded 800px. Old checks omitted vertical bounds.",
+      "files": [
+        "style.css",
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "CSS and strict nine-control/wheel/modal bounds assertions patched. Local Chromium failed at socket creation before any check. Independent transition review found no simultaneous landscape feedback items. Actual browser retest pending.",
+      "evidence": "../../release/vertical-layout-reconciliation-20261122.json",
+      "status": "FIXED_PENDING_RETEST",
+      "nextAction": "Execute actual Chromium CI at all specified sizes, inspect screenshots and preserve failed/successful action evidence before closure"
     }
   ],
   "openTaskSource": "specification.json#openWork"

@@ -1,3 +1,11 @@
+# Scope reconciliation notice — 22 November 2026
+
+The 72-entry matrix below is the retained candidate inventory for the explicit 57-name request plus 15 current official products. The later leading scope instruction in [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) still targets 72 but also asks for three replacements within a 74-card order; that membership conflict remains open. This preserved matrix must not be mistaken for approval of an unresolved replacement list. All shared identities and independent tasks continue, with public activation closed and zero new games release-ready.
+
+Current comparison: [official 75, rendered 74 and retained 71](codex-work/new-games72-20261121/references/scope-reconciliation-20261122/SCOPE_RECONCILIATION.md). Current product-rule ambiguity and owned next actions: [partial official-rule refresh](codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json). No history screenshot, new round count or completed-game claim is introduced by this notice.
+
+---
+
 # ZPLAY / Superwin — 72 additional games matrix
 
 This is the active additive scope requested on 21 November 2026 (Africa/Addis_Ababa). It preserves the prior game catalog and unfinished prior work. It does not count an old game or a reserved path as a new playable implementation.

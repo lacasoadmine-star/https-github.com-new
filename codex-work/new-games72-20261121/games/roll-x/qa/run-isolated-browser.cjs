@@ -14,19 +14,21 @@ const { execFileSync } = require('node:child_process');
   await mkdir(outputRoot, { recursive: true });
   const { fixtureReceipt } = await import(pathToFileURL(resolve(gameRoot, 'tests/fixture-session.mjs')));
   const { default: run } = await import(pathToFileURL(resolve(__dirname, 'browser-run.mjs')));
-  const prefix = '/new-games72/games/roll-x/';
   const files = {}, sourceHashes = {};
-  const names = ['index.html', 'style.css', 'main.mjs', 'app.mjs', 'controller.mjs', 'session.mjs',
-    'evaluator.mjs', 'receipt.mjs', 'renderer.mjs', 'audio.mjs', 'qa/browser-fixture.mjs'];
   const hash = value => createHash('sha256').update(value).digest('hex');
-  for (const name of names) {
+  const routingBytes = await readFile(resolve(gameRoot, 'frontend-route.json'));
+  const routing = JSON.parse(routingBytes);
+  sourceHashes['frontend-route.json'] = hash(routingBytes);
+  for (const [urlPath, name] of Object.entries(routing.resources)) {
     const bytes = await readFile(resolve(gameRoot, name));
-    files[prefix + name] = bytes.toString('utf8');
+    files[urlPath] = bytes.toString('utf8');
     sourceHashes[name] = hash(bytes);
   }
-  const shared = await readFile(resolve(gameRoot, '../../shared/round-recovery.mjs'));
-  files['/new-games72/shared/round-recovery.mjs'] = shared.toString('utf8');
-  sourceHashes['../../shared/round-recovery.mjs'] = hash(shared);
+  // Fixture entry exists only in this intercepted test map, not the authored
+  // runtime publication map or the normal player document.
+  const fixtureBytes = await readFile(resolve(gameRoot, 'qa/browser-fixture.mjs'));
+  files[routing.modulePrefix + 'qa/browser-fixture.mjs'] = fixtureBytes.toString('utf8');
+  sourceHashes['qa/browser-fixture.mjs'] = hash(fixtureBytes);
   for (const name of ['qa/browser-run.mjs', 'qa/run-isolated-browser.cjs', 'tests/fixture-session.mjs']) {
     sourceHashes[name] = hash(await readFile(resolve(gameRoot, name)));
   }
@@ -53,7 +55,7 @@ const { execFileSync } = require('node:child_process');
       ...(process.env.ZPLAY_QA_CHROMIUM ? { executablePath: process.env.ZPLAY_QA_CHROMIUM } : {}) });
     const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
     const page = await context.newPage();
-    report = await run({ page, context, browser }, files, receipts, mockAccount);
+    report = await run({ page, context, browser }, files, receipts, mockAccount, routing);
   } catch (error) {
     report.failure = { name: error.name, message: error.message };
   } finally {

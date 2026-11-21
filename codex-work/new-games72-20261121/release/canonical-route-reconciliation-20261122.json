@@ -1,0 +1,354 @@
+{
+  "schema": "zplay/new72-canonical-route-reconciliation/v1",
+  "recordedAt": "2026-11-21T22:00:09.198744+00:00",
+  "sourceBaseline": "b61f6e278c85c449f6abd6f29392bbb795a0f304",
+  "branch": "work/new72-canonical-route-20261122",
+  "reviewTask": "architecture_audit",
+  "scope": "Six bounded canonical-document/module mapping and focused-keyboard QA source changes atop current upstream; no gameplay, timer, wallet, asset-router or active-scope modification.",
+  "result": "LOCAL_CHECKS_PASS_BROWSER_RETEST_PENDING",
+  "defectStatus": "FIXED_PENDING_RETEST",
+  "changes": [
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/index.html",
+      "sha256": "8af4c6e6824d565bd1c085c76a36d0a857e667e00676cb751cd5ec129998365f",
+      "byteLength": 7094,
+      "baseSha256": "26f2b90d59be95bd5775f41e17cb99e1759c830595c9a17e9b2ce3f955613a53",
+      "changeType": "modified"
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+      "sha256": "321cac5b623f146c2a6814bb988e898dc31860a59936d4703f5ed60541cb5d43",
+      "byteLength": 18307,
+      "baseSha256": "ebc954ea94e8b1fc0cef6f39615ec762309001c1da7522b6fbb849a42866b8da",
+      "changeType": "modified"
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/qa/prepare-browser.mjs",
+      "sha256": "3ff8f39fe40e4060792b66c6b43230cf614a97373d223fabdfff61c74352a5f7",
+      "byteLength": 2071,
+      "baseSha256": "b43758ccccb3e79e41e602857a37a6fc809ca95b51e04bc8f562986bdc2af65f",
+      "changeType": "modified"
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs",
+      "sha256": "a38d3bdaf9edb112171e8fc4a6ca905aa0210de26e3b0f8253213f13de754de7",
+      "byteLength": 5528,
+      "baseSha256": "b9b63ee6c0ba87103a3ff78b4ab4a990beb4ca61736089f60f2af42bc2855745",
+      "changeType": "modified"
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/frontend-route.json",
+      "sha256": "13c20fb1735d4b9a0903a4f9d16e3ff1e15447b660b5df9be37c990e938f0466",
+      "byteLength": 1094,
+      "baseSha256": null,
+      "changeType": "added"
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs",
+      "sha256": "4e32bdbb6fbc28673bebcf3fbe8e6ee281bdc8369e70dd0e53cd1ed1521aed34",
+      "byteLength": 3797,
+      "baseSha256": null,
+      "changeType": "added"
+    }
+  ],
+  "runtime": "v24.22.3",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "tests": [
+    {
+      "name": "canonical-route-before-correction",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs"
+      ],
+      "exitCode": 1,
+      "counts": {
+        "tests": 4,
+        "pass": 2,
+        "fail": 2,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "output": {
+        "path": "codex-work/new-games72-20261121/release/canonical-route-reconciliation-before-fix.tap",
+        "sha256": "8e455049255470f11a0354332f68ecd6b3988c9df8acd41feba97f3aa2508976",
+        "byteLength": 3043
+      },
+      "interpretation": "Two real canonical HTML/import regressions fail against original upstream relative document URLs."
+    },
+    {
+      "name": "roll-x-after-correction",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "codex-work/new-games72-20261121/games/roll-x/tests/*.test.mjs"
+      ],
+      "exitCode": 0,
+      "counts": {
+        "tests": 62,
+        "pass": 62,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "output": {
+        "path": "codex-work/new-games72-20261121/release/canonical-route-reconciliation-roll-x.tap",
+        "sha256": "dbe60248e887a435e97b2ceee233d2db134cf7efd8f8b1e4962ed425d9a29273",
+        "byteLength": 14238
+      }
+    },
+    {
+      "name": "current-workflow-focused-node-suite",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "codex-work/new-games72-20261121/capture/evidence-capture.test.mjs",
+        "codex-work/new-games72-20261121/shared/round-recovery.test.mjs",
+        "codex-work/new-games72-20261121/release/release-gate.test.mjs",
+        "codex-work/new-games72-20261121/integration/asset-router-review.test.mjs",
+        "codex-work/new-games72-20261121/integration/asset-router.test.mjs",
+        "codex-work/new-games72-20261121/integration/catalog.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/audio.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/controller.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/evaluator.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/input-lifecycle.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/receipt.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/renderer.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs",
+        "codex-work/new-games72-20261121/games/roll-x/tests/session.test.mjs",
+        "codex-work/new-games72-20261121/games/multi-hot-5-deluxe/tests/evaluator.test.mjs"
+      ],
+      "exitCode": 0,
+      "counts": {
+        "tests": 226,
+        "pass": 226,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "output": {
+        "path": "codex-work/new-games72-20261121/release/canonical-route-reconciliation-focused.tap",
+        "sha256": "951543aca79fe7cb05d7b9254b25301a9f12055e092fa0aee831f89757556b6c",
+        "byteLength": 49917
+      },
+      "workflowSource": {
+        "path": ".github/workflows/new-games72-additive-qa.yml",
+        "baseCommit": "b61f6e278c85c449f6abd6f29392bbb795a0f304",
+        "baseSha256": "386c5882d7d4e1c10b975910c85b5b61cf437a17e3c9e8c3c386f58a9a0d235b",
+        "currentSha256": "be0cc4e9d39c7c2b7e8892510a25d32143f13c588199cbfe55810e49e826ab69",
+        "focusedStepUnchanged": true
+      },
+      "scope": "Matches current workflow capture/shared/release/integration/Roll X/Deluxe focused Node test step. No claim that separate Python materialization, platform build/backend, live-maintenance or browser workflow steps ran."
+    }
+  ],
+  "syntaxChecks": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "codex-work/new-games72-20261121/games/roll-x/qa/prepare-browser.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "diffWhitespaceCheck": {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exitCode": 0,
+    "scope": "Source change checkpoint before parent-owned documentation/workflow additions."
+  },
+  "preservation": {
+    "taskTrackedChanges": [
+      "codex-work/new-games72-20261121/games/roll-x/index.html",
+      "codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+      "codex-work/new-games72-20261121/games/roll-x/qa/prepare-browser.mjs",
+      "codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs"
+    ],
+    "concurrentParentChanges": [
+      {
+        "path": ".github/workflows/new-games72-additive-qa.yml",
+        "sha256": "be0cc4e9d39c7c2b7e8892510a25d32143f13c588199cbfe55810e49e826ab69",
+        "byteLength": 4421,
+        "baseSha256": "386c5882d7d4e1c10b975910c85b5b61cf437a17e3c9e8c3c386f58a9a0d235b",
+        "owner": "root",
+        "scope": "Adds only reconcile branch trigger; focused commands unchanged."
+      },
+      {
+        "path": "PROJECT_PROGRESS.md",
+        "sha256": "59ded8ff2d62e398d9c7b1314fe93857f6e1655b05a95dcc008396b77c11ad01",
+        "byteLength": 27275,
+        "baseSha256": "1da0c6d77795f8bc33625821f8bc99ecfd243e0f0c9ccf48ec835428d89d1d5e",
+        "owner": "root",
+        "scope": "Additive scoped checkpoint; entire upstream contents retained as suffix."
+      },
+      {
+        "path": "codex-work/new-games72-20261121/references/scope-reconciliation-20261122/official-catalog-refresh.json",
+        "sha256": "0dc42a68ffe23797a90579d5f0ecf2eeae01721f391d70ccebc5c9fd816677c9",
+        "byteLength": 15321,
+        "owner": "root/catalog",
+        "scope": "Parent-owned scope reconciliation report; this task did not edit it."
+      },
+      {
+        "path": "codex-work/new-games72-20261121/references/scope-reconciliation-20261122/scope-reconciliation.json",
+        "sha256": "e7209722c6d77fd4cb8491459e34362f3d48c8ea1832076ed6e24980d63a3f76",
+        "byteLength": 44307,
+        "owner": "root/catalog",
+        "scope": "Parent-owned scope reconciliation report; this task did not edit it."
+      }
+    ],
+    "allOtherTrackedFilesUnchanged": true,
+    "stagedPaths": [],
+    "protectedFiles": [
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/controller.mjs",
+        "baseSha256": "c09b4f38e97abee6a64fad9ec9f999bf5debabae052ddc56a205811b55b3cda8",
+        "currentSha256": "c09b4f38e97abee6a64fad9ec9f999bf5debabae052ddc56a205811b55b3cda8",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/tests/controller.test.mjs",
+        "baseSha256": "f067e84790d99ae76198b476363fecb8d9217aa6fa9025440ede21c0b3c3f1e4",
+        "currentSha256": "f067e84790d99ae76198b476363fecb8d9217aa6fa9025440ede21c0b3c3f1e4",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/app.mjs",
+        "baseSha256": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
+        "currentSha256": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/session.mjs",
+        "baseSha256": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
+        "currentSha256": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/evaluator.mjs",
+        "baseSha256": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
+        "currentSha256": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/receipt.mjs",
+        "baseSha256": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
+        "currentSha256": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/integration/asset-router.mjs",
+        "baseSha256": "b3f911daaf1ae4e0a12195660a641bd934914e7e32bc4d3521bd529e2de2b53a",
+        "currentSha256": "b3f911daaf1ae4e0a12195660a641bd934914e7e32bc4d3521bd529e2de2b53a",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/integration/asset-router.test.mjs",
+        "baseSha256": "cd1370ccdc2e849b412859dc481382794cf026cf81ee6cd1a973649fd3c676d2",
+        "currentSha256": "cd1370ccdc2e849b412859dc481382794cf026cf81ee6cd1a973649fd3c676d2",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/integration/asset-router-review.test.mjs",
+        "baseSha256": "aaf5145162a913a77c1c9959d9447f65528f27f8ab2afa92b5e545fc6ebc4230",
+        "currentSha256": "aaf5145162a913a77c1c9959d9447f65528f27f8ab2afa92b5e545fc6ebc4230",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/evidence-index.json",
+        "baseSha256": "cf3109eaafc112a4f29ac677ef09ea77803bc9375cdacf01d1de39066773d323",
+        "currentSha256": "cf3109eaafc112a4f29ac677ef09ea77803bc9375cdacf01d1de39066773d323",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/multi-hot-5-deluxe/evidence-index.json",
+        "baseSha256": "24018af43c07c17052b2c5c7709fa1ff1bc20c8357fb78d38bb108fa5465bb6b",
+        "currentSha256": "24018af43c07c17052b2c5c7709fa1ff1bc20c8357fb78d38bb108fa5465bb6b",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/games/roll-x/frontend-test-report.json",
+        "baseSha256": "c99d467f22503d3afe5072c375f56429ab414a43b0abe47f7b6383f79382e930",
+        "currentSha256": "c99d467f22503d3afe5072c375f56429ab414a43b0abe47f7b6383f79382e930",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/release/focused-integration-report.json",
+        "baseSha256": "476d54abec475c75295d1502fa2674032a86b9b7e187f718447e9b36f3083d1a",
+        "currentSha256": "476d54abec475c75295d1502fa2674032a86b9b7e187f718447e9b36f3083d1a",
+        "byteForByteEqual": true
+      },
+      {
+        "path": "codex-work/new-games72-20261121/registry.json",
+        "baseSha256": "1dc1ec6f406e80622f3b02b63eadce808b79ceda443e3029474657a780b8ef17",
+        "currentSha256": "1dc1ec6f406e80622f3b02b63eadce808b79ceda443e3029474657a780b8ef17",
+        "byteForByteEqual": true
+      }
+    ],
+    "upstreamAutoFieldsPresent": true,
+    "upstreamHarnessChecksRetained": [
+      "normal runtime consumes authenticated account state before release assertions",
+      "AUTO opens with the current bet and multiplier in editable fields",
+      "AUTO uses its confirmed wager selection instead of the previous outer controls",
+      "pageErrorDetails",
+      "failureState",
+      "width: 360",
+      "width: 430"
+    ],
+    "upstreamRunnerProvenanceRetained": true,
+    "privacyEvidenceIndicesUnchanged": true,
+    "historicalReportsOverwritten": false,
+    "registryMatricesProgressWorkflowChangedByThisTask": false
+  },
+  "routing": {
+    "gameId": "zplay72_roll_x_v1",
+    "canonicalDocument": "/new-games72/roll-x/",
+    "modulePrefix": "/new-games72/games/roll-x/",
+    "sharedModule": "/new-games72/shared/round-recovery.mjs",
+    "enabled": false,
+    "deploymentStatus": "NOT_DEPLOYED",
+    "runtimeMapExcludesFixtures": true,
+    "unknownResourcesFailQA": true,
+    "immutableAssetRouterIntegration": "Unchanged and separate. The disabled authored static map is not an activated immutable-release asset publication. Future host integration must dispatch canonical launch documents and preserve pinned release assets."
+  },
+  "nativeKeyboard": {
+    "heldEnterReadyRepeats": "SPIN focus restored and asserted before eight repeat keydowns while Enter remains held.",
+    "spaceAfterEnter": "SPIN focus restored and asserted before native Space activation.",
+    "expectedAcceptedCount": 17,
+    "newBrowserRunExecuted": false,
+    "newBrowserPassClaimed": false
+  },
+  "activation": {
+    "publicActivation": false,
+    "allNewBackendFlagsDisabled": true,
+    "productionRequests": 0,
+    "productionWagers": 0,
+    "deploymentPerformed": false,
+    "privateSourceUploadAttempted": false
+  },
+  "nextAction": "Parent may publish this bounded source diff and run exact-source isolated CI browser QA. Keep the route/focus defect pending until that retest passes. Preserve historical reports and upstream changes."
+}

@@ -1,0 +1,77 @@
+TAP version 13
+# Subtest: authored Roll X document route matches its stable registry identity and stays disabled
+ok 1 - authored Roll X document route matches its stable registry identity and stays disabled
+  ---
+  duration_ms: 1.160017
+  type: 'test'
+  ...
+# Subtest: canonical player HTML resolves its real script and stylesheet through the authored mapping
+not ok 2 - canonical player HTML resolves its real script and stylesheet through the authored mapping
+  ---
+  duration_ms: 1.265645
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-reconcile/codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs:26:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The registry route must not depend on the QA-only directory depth.
+    + actual - expected
+    
+    + undefined
+    - 'main.mjs'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'main.mjs'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-reconcile/codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs:30:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: every runtime module import resolves to an existing mapped source from the canonical entry
+not ok 3 - every runtime module import resolves to an existing mapped source from the canonical entry
+  ---
+  duration_ms: 0.608256
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-reconcile/codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs:36:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Unmapped module URL: /new-games72/roll-x/main.mjs
+    + actual - expected
+    
+    + 'undefined'
+    - 'string'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'string'
+  actual: 'undefined'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-reconcile/codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs:42:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: mapping exposes only new runtime resources and does not alias a different player route or fixtures
+ok 4 - mapping exposes only new runtime resources and does not alias a different player route or fixtures
+  ---
+  duration_ms: 15.997681
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 2
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 148.350278

@@ -1,0 +1,1366 @@
+TAP version 13
+# Subtest: seven separate inputs produce seven observations; identical outcome images are allowed
+ok 1 - seven separate inputs produce seven observations; identical outcome images are allowed
+  ---
+  duration_ms: 228.005267
+  type: 'test'
+  ...
+# Subtest: lobby cannot be counted as a completed round
+ok 2 - lobby cannot be counted as a completed round
+  ---
+  duration_ms: 14.874834
+  type: 'test'
+  ...
+# Subtest: loading cannot be counted as a completed round
+ok 3 - loading cannot be counted as a completed round
+  ---
+  duration_ms: 12.8357
+  type: 'test'
+  ...
+# Subtest: error cannot be counted as a completed round
+ok 4 - error cannot be counted as a completed round
+  ---
+  duration_ms: 16.408308
+  type: 'test'
+  ...
+# Subtest: gameplay-ready cannot be counted as a completed round
+ok 5 - gameplay-ready cannot be counted as a completed round
+  ---
+  duration_ms: 18.040278
+  type: 'test'
+  ...
+# Subtest: loading page blocks before any round input
+ok 6 - loading page blocks before any round input
+  ---
+  duration_ms: 4.001057
+  type: 'test'
+  ...
+# Subtest: AUTO or held rounds cannot fill the seven individually initiated observations
+ok 7 - AUTO or held rounds cannot fill the seven individually initiated observations
+  ---
+  duration_ms: 9.482923
+  type: 'test'
+  ...
+# Subtest: extra bonus/AUTO observations are recorded but do not replace manual observations
+ok 8 - extra bonus/AUTO observations are recorded but do not replace manual observations
+  ---
+  duration_ms: 83.991059
+  type: 'test'
+  ...
+# Subtest: a repeated provider/observed round ID cannot satisfy another round
+ok 9 - a repeated provider/observed round ID cannot satisfy another round
+  ---
+  duration_ms: 21.842669
+  type: 'test'
+  ...
+# Subtest: lost start response keeps pending action and resumes observation without a second input
+ok 10 - lost start response keeps pending action and resumes observation without a second input
+  ---
+  duration_ms: 80.340787
+  type: 'test'
+  ...
+# Subtest: missing after-input evidence is not fabricated during recovery
+ok 11 - missing after-input evidence is not fabricated during recovery
+  ---
+  duration_ms: 75.999498
+  type: 'test'
+  ...
+# Subtest: 403 is durable and cannot trigger an automatic retry
+ok 12 - 403 is durable and cannot trigger an automatic retry
+  ---
+  duration_ms: 8.740876
+  type: 'test'
+  ...
+# Subtest: 429 honors Retry-After, persists progress, and limits repeated automatic resumes
+ok 13 - 429 honors Retry-After, persists progress, and limits repeated automatic resumes
+  ---
+  duration_ms: 15.450812
+  type: 'test'
+  ...
+# Subtest: one browser session cannot be reused for another game
+ok 14 - one browser session cannot be reused for another game
+  ---
+  duration_ms: 50.221592
+  type: 'test'
+  ...
+# Subtest: resume cannot replace the original session or viewport metadata silently
+ok 15 - resume cannot replace the original session or viewport metadata silently
+  ---
+  duration_ms: 10.743892
+  type: 'test'
+  ...
+# Subtest: bounded worker pool runs other games when one is blocked
+ok 16 - bounded worker pool runs other games when one is blocked
+  ---
+  duration_ms: 88.917865
+  type: 'test'
+  ...
+# Subtest: supported audio and motion must have actual indexed artifacts covering all seven inputs
+ok 17 - supported audio and motion must have actual indexed artifacts covering all seven inputs
+  ---
+  duration_ms: 32.430045
+  type: 'test'
+  ...
+# Subtest: tampered evidence files invalidate a previously completed capture
+ok 18 - tampered evidence files invalidate a previously completed capture
+  ---
+  duration_ms: 26.853015
+  type: 'test'
+  ...
+# Subtest: unknown identities, production tokens, uninspected drivers and forged image payloads are rejected
+ok 19 - unknown identities, production tokens, uninspected drivers and forged image payloads are rejected
+  ---
+  duration_ms: 1.455613
+  type: 'test'
+  ...
+# Subtest: validator does not mistake seven click logs for seven completed observations
+ok 20 - validator does not mistake seven click logs for seven completed observations
+  ---
+  duration_ms: 0.296186
+  type: 'test'
+  ...
+# Subtest: a lost control response is not replayed automatically
+ok 21 - a lost control response is not replayed automatically
+  ---
+  duration_ms: 35.50745
+  type: 'test'
+  ...
+# Subtest: recording recovery does not repeat controls or the seven inputs
+ok 22 - recording recovery does not repeat controls or the seven inputs
+  ---
+  duration_ms: 60.187646
+  type: 'test'
+  ...
+# Subtest: a callback that never resolves is bounded and receives an aborted signal
+ok 23 - a callback that never resolves is bounded and receives an aborted signal
+  ---
+  duration_ms: 22.165415
+  type: 'test'
+  ...
+# Subtest: separate coordinators cannot write or initiate the same game concurrently
+ok 24 - separate coordinators cannot write or initiate the same game concurrently
+  ---
+  duration_ms: 34.938632
+  type: 'test'
+  ...
+# Subtest: viewport changes require a new capture rather than mixing evidence
+ok 25 - viewport changes require a new capture rather than mixing evidence
+  ---
+  duration_ms: 4.147327
+  type: 'test'
+  ...
+# Subtest: duplicate launch parameters cannot hide a non-demo token
+ok 26 - duplicate launch parameters cannot hide a non-demo token
+  ---
+  duration_ms: 1.121259
+  type: 'test'
+  ...
+# Subtest: review regression: a lost completed-observation response resumes the same round in recovery mode
+ok 27 - review regression: a lost completed-observation response resumes the same round in recovery mode
+  ---
+  duration_ms: 46.472204
+  type: 'test'
+  ...
+# Subtest: review regression: corrupt missing-pending checkpoint preserves input intent without another click
+ok 28 - review regression: corrupt missing-pending checkpoint preserves input intent without another click
+  ---
+  duration_ms: 8.174032
+  type: 'test'
+  ...
+# Subtest: review regression: corrupt attempted-flag-cleared checkpoint preserves input intent without another click
+ok 29 - review regression: corrupt attempted-flag-cleared checkpoint preserves input intent without another click
+  ---
+  duration_ms: 5.768669
+  type: 'test'
+  ...
+# Subtest: review regression: corrupt pending-identity-changed checkpoint preserves input intent without another click
+ok 30 - review regression: corrupt pending-identity-changed checkpoint preserves input intent without another click
+  ---
+  duration_ms: 9.20265
+  type: 'test'
+  ...
+# Subtest: review regression: completed evidence rejects orphan attempted action logs
+ok 31 - review regression: completed evidence rejects orphan attempted action logs
+  ---
+  duration_ms: 26.467383
+  type: 'test'
+  ...
+# Subtest: review regression: lock release failure does not retain an in-process running slot
+ok 32 - review regression: lock release failure does not retain an in-process running slot
+  ---
+  duration_ms: 50.226874
+  type: 'test'
+  ...
+# Subtest: review regression: invalid extra-round metadata cannot half-commit the pending manual round
+ok 33 - review regression: invalid extra-round metadata cannot half-commit the pending manual round
+  ---
+  duration_ms: 52.458891
+  type: 'test'
+  ...
+# Subtest: review regression: a malformed control batch cannot persist partial controls or double-count extra rounds
+ok 34 - review regression: a malformed control batch cannot persist partial controls or double-count extra rounds
+  ---
+  duration_ms: 59.858166
+  type: 'test'
+  ...
+# Subtest: bound 0.05 DMO paytable matches every observed symbol
+ok 35 - bound 0.05 DMO paytable matches every observed symbol
+  ---
+  duration_ms: 10.981743
+  type: 'test'
+  ...
+# Subtest: bound 0.10 DMO paytable matches every observed symbol
+ok 36 - bound 0.10 DMO paytable matches every observed symbol
+  ---
+  duration_ms: 0.530427
+  type: 'test'
+  ...
+# Subtest: captured spin-05: grid, multiplier and total payout match
+ok 37 - captured spin-05: grid, multiplier and total payout match
+  ---
+  duration_ms: 3.507561
+  type: 'test'
+  ...
+# Subtest: captured spin-07: grid, multiplier and total payout match
+ok 38 - captured spin-07: grid, multiplier and total payout match
+  ---
+  duration_ms: 1.072111
+  type: 'test'
+  ...
+# Subtest: each of the five observed multipliers scales the same accepted line
+ok 39 - each of the five observed multipliers scales the same accepted line
+  ---
+  duration_ms: 2.786808
+  type: 'test'
+  ...
+# Subtest: three different horizontal wins add before applying the shared multiplier
+ok 40 - three different horizontal wins add before applying the shared multiplier
+  ---
+  duration_ms: 0.460733
+  type: 'test'
+  ...
+# Subtest: descending diagonal uses observed line 4 and correct highlight coordinates
+ok 41 - descending diagonal uses observed line 4 and correct highlight coordinates
+  ---
+  duration_ms: 0.435444
+  type: 'test'
+  ...
+# Subtest: ascending diagonal uses observed line 5
+ok 42 - ascending diagonal uses observed line 5
+  ---
+  duration_ms: 2.297833
+  type: 'test'
+  ...
+# Subtest: coinciding paylines that share the center cell both contribute
+ok 43 - coinciding paylines that share the center cell both contribute
+  ---
+  duration_ms: 0.215924
+  type: 'test'
+  ...
+# Subtest: all five qualifying lines are summed exactly once
+ok 44 - all five qualifying lines are summed exactly once
+  ---
+  duration_ms: 0.342955
+  type: 'test'
+  ...
+# Subtest: two matching symbols or nonadjacent matches alone do not pay
+ok 45 - two matching symbols or nonadjacent matches alone do not pay
+  ---
+  duration_ms: 0.151628
+  type: 'test'
+  ...
+# Subtest: symbol groups share pay factors but mixed fruit symbols are not substitutes
+ok 46 - symbol groups share pay factors but mixed fruit symbols are not substitutes
+  ---
+  duration_ms: 3.561442
+  type: 'test'
+  ...
+# Subtest: synthetic outcomes above published 145x are flagged, never capped or licensed for settlement
+ok 47 - synthetic outcomes above published 145x are flagged, never capped or licensed for settlement
+  ---
+  duration_ms: 0.252309
+  type: 'test'
+  ...
+# Subtest: DMO demo limits are not mistaken for ETB stake authorization
+ok 48 - DMO demo limits are not mistaken for ETB stake authorization
+  ---
+  duration_ms: 0.168433
+  type: 'test'
+  ...
+# Subtest: input grid and frozen rule tables cannot be changed by evaluation
+ok 49 - input grid and frozen rule tables cannot be changed by evaluation
+  ---
+  duration_ms: 0.496105
+  type: 'test'
+  ...
+# Subtest: invalid bet amounts are rejected without coercion or rounding
+ok 50 - invalid bet amounts are rejected without coercion or rounding
+  ---
+  duration_ms: 0.256004
+  type: 'test'
+  ...
+# Subtest: a missing or unobserved multiplier is rejected instead of defaulting to 1x
+ok 51 - a missing or unobserved multiplier is rejected instead of defaulting to 1x
+  ---
+  duration_ms: 0.1863
+  type: 'test'
+  ...
+# Subtest: wrong-size and sparse grids are rejected
+ok 52 - wrong-size and sparse grids are rejected
+  ---
+  duration_ms: 0.156876
+  type: 'test'
+  ...
+# Subtest: unknown, inherited-key, WILD and scatter symbols are not silently evaluated
+ok 53 - unknown, inherited-key, WILD and scatter symbols are not silently evaluated
+  ---
+  duration_ms: 2.667649
+  type: 'test'
+  ...
+# Subtest: invalid top-level input is rejected
+ok 54 - invalid top-level input is rejected
+  ---
+  duration_ms: 0.16025
+  type: 'test'
+  ...
+# Subtest: large but exactly representable payout uses integer arithmetic
+ok 55 - large but exactly representable payout uses integer arithmetic
+  ---
+  duration_ms: 0.14605
+  type: 'test'
+  ...
+# Subtest: individual line, multiplier and aggregate payout overflow are each rejected
+ok 56 - individual line, multiplier and aggregate payout overflow are each rejected
+  ---
+  duration_ms: 0.594303
+  type: 'test'
+  ...
+# Subtest: large losing stake returns exact zero without speculative award multiplication
+ok 57 - large losing stake returns exact zero without speculative award multiplication
+  ---
+  duration_ms: 0.168873
+  type: 'test'
+  ...
+# Subtest: audio requires gesture unlock and maps each named event to bounded procedural cues
+ok 58 - audio requires gesture unlock and maps each named event to bounded procedural cues
+  ---
+  duration_ms: 2.689942
+  type: 'test'
+  ...
+# Subtest: mute cuts all active and scheduled tones without creating overlapping replacement music
+ok 59 - mute cuts all active and scheduled tones without creating overlapping replacement music
+  ---
+  duration_ms: 0.607413
+  type: 'test'
+  ...
+# Subtest: tab hide suspends sound and resume waits for a new user gesture
+ok 60 - tab hide suspends sound and resume waits for a new user gesture
+  ---
+  duration_ms: 0.494183
+  type: 'test'
+  ...
+# Subtest: ended nodes detach themselves and repeated disposal closes the owned context once
+ok 61 - ended nodes detach themselves and repeated disposal closes the owned context once
+  ---
+  duration_ms: 3.989486
+  type: 'test'
+  ...
+# Subtest: unavailable audio remains a silent presentation failure, without new objects or timer loops
+ok 62 - unavailable audio remains a silent presentation failure, without new objects or timer loops
+  ---
+  duration_ms: 1.131931
+  type: 'test'
+  ...
+# Subtest: repeated inputs while a request is unresolved submit exactly one bound wager
+ok 63 - repeated inputs while a request is unresolved submit exactly one bound wager
+  ---
+  duration_ms: 4.967285
+  type: 'test'
+  ...
+# Subtest: STOP accelerates receipt presentation and never submits another financial action
+ok 64 - STOP accelerates receipt presentation and never submits another financial action
+  ---
+  duration_ms: 7.201522
+  type: 'test'
+  ...
+# Subtest: history and wheel use the receipt while current balance comes from refreshed account state
+ok 65 - history and wheel use the receipt while current balance comes from refreshed account state
+  ---
+  duration_ms: 1.066042
+  type: 'test'
+  ...
+# Subtest: lost accepted response pauses AUTO and uses recover without a second spin
+ok 66 - lost accepted response pauses AUTO and uses recover without a second spin
+  ---
+  duration_ms: 1.377971
+  type: 'test'
+  ...
+# Subtest: AUTO performs exactly its confirmed finite count
+ok 67 - AUTO performs exactly its confirmed finite count
+  ---
+  duration_ms: 8.962698
+  type: 'test'
+  ...
+# Subtest: native host timers preserve their receiver during AUTO continuation and cancellation
+ok 68 - native host timers preserve their receiver during AUTO continuation and cancellation
+  ---
+  duration_ms: 8.499253
+  type: 'test'
+  ...
+# Subtest: AUTO binds the bet and multiplier chosen in its own form for every accepted round
+ok 69 - AUTO binds the bet and multiplier chosen in its own form for every accepted round
+  ---
+  duration_ms: 3.094029
+  type: 'test'
+  ...
+# Subtest: invalid or stale AUTO selection cannot alter the active choice or start a wager
+ok 70 - invalid or stale AUTO selection cannot alter the active choice or start a wager
+  ---
+  duration_ms: 0.643457
+  type: 'test'
+  ...
+# Subtest: AUTO rejects invented, fractional or unbounded counts before any request
+ok 71 - AUTO rejects invented, fractional or unbounded counts before any request
+  ---
+  duration_ms: 0.324889
+  type: 'test'
+  ...
+# Subtest: cancelling AUTO during its pending request permits that accepted round to settle but starts none after it
+ok 72 - cancelling AUTO during its pending request permits that accepted round to settle but starts none after it
+  ---
+  duration_ms: 0.686662
+  type: 'test'
+  ...
+# Subtest: AUTO single-win and balance limits stop after confirmed settlement
+ok 73 - AUTO single-win and balance limits stop after confirmed settlement
+  ---
+  duration_ms: 0.871339
+  type: 'test'
+  ...
+# Subtest: a strict more-than threshold does not stop at equality
+ok 74 - a strict more-than threshold does not stop at equality
+  ---
+  duration_ms: 4.913104
+  type: 'test'
+  ...
+# Subtest: unbound chosen multiplier cannot be omitted or silently replaced by the adapter
+ok 75 - unbound chosen multiplier cannot be omitted or silently replaced by the adapter
+  ---
+  duration_ms: 0.834554
+  type: 'test'
+  ...
+# Subtest: hide stops AUTO and presentation audio; resume refreshes without another wager
+ok 76 - hide stops AUTO and presentation audio; resume refreshes without another wager
+  ---
+  duration_ms: 1.077329
+  type: 'test'
+  ...
+# Subtest: dispose invalidates late accepted callbacks and closes every owned component
+ok 77 - dispose invalidates late accepted callbacks and closes every owned component
+  ---
+  duration_ms: 0.358719
+  type: 'test'
+  ...
+# Subtest: balance-refresh failure retains accepted receipt and does not claim the round failed to start
+ok 78 - balance-refresh failure retains accepted receipt and does not claim the round failed to start
+  ---
+  duration_ms: 0.700473
+  type: 'test'
+  ...
+# Subtest: a presentation error retains financial acceptance and cancels animation ownership
+ok 79 - a presentation error retains financial acceptance and cancels animation ownership
+  ---
+  duration_ms: 0.528865
+  type: 'test'
+  ...
+# Subtest: unresolved recovery locks wager controls and restores accepted receipt choice
+ok 80 - unresolved recovery locks wager controls and restores accepted receipt choice
+  ---
+  duration_ms: 0.647182
+  type: 'test'
+  ...
+# Subtest: Turbo and reduced motion affect only requested presentation duration
+ok 81 - Turbo and reduced motion affect only requested presentation duration
+  ---
+  duration_ms: 0.488103
+  type: 'test'
+  ...
+# Subtest: fresh 0.20 x 1.4 green observation returns 0.28, net +0.08
+ok 82 - fresh 0.20 x 1.4 green observation returns 0.28, net +0.08
+  ---
+  duration_ms: 2.613007
+  type: 'test'
+  ...
+# Subtest: fresh 0.20 x 1.4 empty-sector observation loses exactly the stake
+ok 83 - fresh 0.20 x 1.4 empty-sector observation loses exactly the stake
+  ---
+  duration_ms: 0.197938
+  type: 'test'
+  ...
+# Subtest: fresh STOP-control round: 0.50 x 2 green returns 1.00
+ok 84 - fresh STOP-control round: 0.50 x 2 green returns 1.00
+  ---
+  duration_ms: 0.150026
+  type: 'test'
+  ...
+# Subtest: the seven manual reference observations reconcile without fabricated money
+ok 85 - the seven manual reference observations reconcile without fabricated money
+  ---
+  duration_ms: 0.182554
+  type: 'test'
+  ...
+# Subtest: integer arithmetic remains exact above IEEE-754 safe integer capacity
+ok 86 - integer arithmetic remains exact above IEEE-754 safe integer capacity
+  ---
+  duration_ms: 0.303446
+  type: 'test'
+  ...
+# Subtest: fractional minor-unit potential wins are rejected on both outcomes
+ok 87 - fractional minor-unit potential wins are rejected on both outcomes
+  ---
+  duration_ms: 0.399491
+  type: 'test'
+  ...
+# Subtest: invalid or inexact wager amounts cannot enter payout arithmetic
+ok 88 - invalid or inexact wager amounts cannot enter payout arithmetic
+  ---
+  duration_ms: 3.688923
+  type: 'test'
+  ...
+# Subtest: published target maximum is enforced without inventing a full target schedule
+ok 89 - published target maximum is enforced without inventing a full target schedule
+  ---
+  duration_ms: 0.227992
+  type: 'test'
+  ...
+# Subtest: unsettled or unknown outcomes never become losses or payouts by coercion
+ok 90 - unsettled or unknown outcomes never become losses or payouts by coercion
+  ---
+  duration_ms: 0.260902
+  type: 'test'
+  ...
+# Subtest: demo credits cannot be mislabeled as the ETB arithmetic input
+ok 91 - demo credits cannot be mislabeled as the ETB arithmetic input
+  ---
+  duration_ms: 0.250417
+  type: 'test'
+  ...
+# Subtest: the original input is unchanged and results are immutable
+ok 92 - the original input is unchanged and results are immutable
+  ---
+  duration_ms: 0.201192
+  type: 'test'
+  ...
+# Subtest: partial reference arithmetic cannot represent cash readiness or RNG implementation
+ok 93 - partial reference arithmetic cannot represent cash readiness or RNG implementation
+  ---
+  duration_ms: 0.089695
+  type: 'test'
+  ...
+# Subtest: held Enter/Space on SPIN, STOP or AUTO controls prevents synthesized repeat clicks
+ok 94 - held Enter/Space on SPIN, STOP or AUTO controls prevents synthesized repeat clicks
+  ---
+  duration_ms: 0.962847
+  type: 'test'
+  ...
+# Subtest: global keyboard starts one action and repeated keydown cannot cross STOP into a new wager
+ok 95 - global keyboard starts one action and repeated keydown cannot cross STOP into a new wager
+  ---
+  duration_ms: 3.950306
+  type: 'test'
+  ...
+# Subtest: AUTO form repeated Enter is cancelled while normal text input remains unaffected
+ok 96 - AUTO form repeated Enter is cancelled while normal text input remains unaffected
+  ---
+  duration_ms: 0.189244
+  type: 'test'
+  ...
+# Subtest: BFCache pagehide pauses owned work and pageshow refreshes without disposing or wagering
+ok 97 - BFCache pagehide pauses owned work and pageshow refreshes without disposing or wagering
+  ---
+  duration_ms: 1.095847
+  type: 'test'
+  ...
+# Subtest: receipt validation retains an immutable server receipt, including its exact round identity
+ok 98 - receipt validation retains an immutable server receipt, including its exact round identity
+  ---
+  duration_ms: 5.782239
+  type: 'test'
+  ...
+# Subtest: receipt from another game, currency, round or unversioned engine is rejected
+ok 99 - receipt from another game, currency, round or unversioned engine is rejected
+  ---
+  duration_ms: 4.198659
+  type: 'test'
+  ...
+# Subtest: receipt bet and target cannot replace the bound requested wager
+ok 100 - receipt bet and target cannot replace the bound requested wager
+  ---
+  duration_ms: 0.919071
+  type: 'test'
+  ...
+# Subtest: an inconsistent visible win or ledger settlement is rejected before presentation
+ok 101 - an inconsistent visible win or ledger settlement is rejected before presentation
+  ---
+  duration_ms: 3.257445
+  type: 'test'
+  ...
+# Subtest: money parsing is exact and rejects noncanonical or floating currency values
+ok 102 - money parsing is exact and rejects noncanonical or floating currency values
+  ---
+  duration_ms: 0.319239
+  type: 'test'
+  ...
+# Subtest: green and empty receipts place the decorative sector under the pointer for each supported target
+ok 103 - green and empty receipts place the decorative sector under the pointer for each supported target
+  ---
+  duration_ms: 0.935706
+  type: 'test'
+  ...
+# Subtest: SVG presentation escapes receipt labels and has no provider image, video or script asset
+ok 104 - SVG presentation escapes receipt labels and has no provider image, video or script asset
+  ---
+  duration_ms: 0.475655
+  type: 'test'
+  ...
+# Subtest: reduced-motion receipt presentation settles immediately without an animation frame
+ok 105 - reduced-motion receipt presentation settles immediately without an animation frame
+  ---
+  duration_ms: 0.82564
+  type: 'test'
+  ...
+# Subtest: STOP finishes the current receipt once and cancels pending animation work
+ok 106 - STOP finishes the current receipt once and cancels pending animation work
+  ---
+  duration_ms: 8.401846
+  type: 'test'
+  ...
+# Subtest: dispose invalidates already queued animation callbacks and resolves the waiting presenter
+ok 107 - dispose invalidates already queued animation callbacks and resolves the waiting presenter
+  ---
+  duration_ms: 0.506932
+  type: 'test'
+  ...
+# Subtest: abort stops presentation without inventing a settled outcome or money event
+ok 108 - abort stops presentation without inventing a settled outcome or money event
+  ---
+  duration_ms: 0.32642
+  type: 'test'
+  ...
+# Subtest: normal animation completes from the immutable empty-sector receipt
+ok 109 - normal animation completes from the immutable empty-sector receipt
+  ---
+  duration_ms: 0.451388
+  type: 'test'
+  ...
+# Subtest: authored Roll X document route matches its stable registry identity and stays disabled
+ok 110 - authored Roll X document route matches its stable registry identity and stays disabled
+  ---
+  duration_ms: 1.434265
+  type: 'test'
+  ...
+# Subtest: canonical player HTML resolves its real script and stylesheet through the authored mapping
+ok 111 - canonical player HTML resolves its real script and stylesheet through the authored mapping
+  ---
+  duration_ms: 10.707781
+  type: 'test'
+  ...
+# Subtest: every runtime module import resolves to an existing mapped source from the canonical entry
+ok 112 - every runtime module import resolves to an existing mapped source from the canonical entry
+  ---
+  duration_ms: 9.137181
+  type: 'test'
+  ...
+# Subtest: mapping exposes only new runtime resources and does not alias a different player route or fixtures
+ok 113 - mapping exposes only new runtime resources and does not alias a different player route or fixtures
+  ---
+  duration_ms: 21.57927
+  type: 'test'
+  ...
+# Subtest: even an enabled server model cannot override the unreleased cash gate or issue a wager
+ok 114 - even an enabled server model cannot override the unreleased cash gate or issue a wager
+  ---
+  duration_ms: 4.859653
+  type: 'test'
+  ...
+# Subtest: missing or unverified target binding never produces a default playable multiplier
+ok 115 - missing or unverified target binding never produces a default playable multiplier
+  ---
+  duration_ms: 1.112562
+  type: 'test'
+  ...
+# Subtest: an existing accepted round can be read through replay while new cash play stays disabled
+ok 116 - an existing accepted round can be read through replay while new cash play stays disabled
+  ---
+  duration_ms: 3.46681
+  type: 'test'
+  ...
+# Subtest: an authoritative replay miss cannot fall through to a new wager before release
+ok 117 - an authoritative replay miss cannot fall through to a new wager before release
+  ---
+  duration_ms: 0.987104
+  type: 'test'
+  ...
+# Subtest: production recovery rejects fixture receipts and preserves pending identity for investigation
+ok 118 - production recovery rejects fixture receipts and preserves pending identity for investigation
+  ---
+  duration_ms: 3.024666
+  type: 'test'
+  ...
+# Subtest: recovery fails closed if the current model cannot retain the accepted target/math binding
+ok 119 - recovery fails closed if the current model cannot retain the accepted target/math binding
+  ---
+  duration_ms: 1.708187
+  type: 'test'
+  ...
+# Subtest: retained historical assets remain addressable when no new publication is active
+ok 120 - retained historical assets remain addressable when no new publication is active
+  ---
+  duration_ms: 28.089442
+  type: 'test'
+  ...
+# Subtest: broken new release cannot hide explicitly requested independently pinned historical assets
+ok 121 - broken new release cannot hide explicitly requested independently pinned historical assets
+  ---
+  duration_ms: 21.706401
+  type: 'test'
+  ...
+# Subtest: one corrupt retained snapshot cannot disable other independently valid release URLs
+ok 122 - one corrupt retained snapshot cannot disable other independently valid release URLs
+  ---
+  duration_ms: 44.691552
+  type: 'test'
+  ...
+# Subtest: every legacy path passes through unchanged even when new publication is invalid
+ok 123 - every legacy path passes through unchanged even when new publication is invalid
+  ---
+  duration_ms: 6.614261
+  type: 'test'
+  ...
+# Subtest: no active publication serves no new files and performs no storage read
+ok 124 - no active publication serves no new files and performs no storage read
+  ---
+  duration_ms: 10.259168
+  type: 'test'
+  ...
+# Subtest: GET serves exact pinned bytes with immutable release/source headers after one read
+ok 125 - GET serves exact pinned bytes with immutable release/source headers after one read
+  ---
+  duration_ms: 19.097009
+  type: 'test'
+  ...
+# Subtest: HEAD verifies once and returns matching headers without a response body
+ok 126 - HEAD verifies once and returns matching headers without a response body
+  ---
+  duration_ms: 20.34804
+  type: 'test'
+  ...
+# Subtest: invalid method returns explicit no-store 405 before reading storage
+ok 127 - invalid method returns explicit no-store 405 before reading storage
+  ---
+  duration_ms: 28.621693
+  type: 'test'
+  ...
+# Subtest: same-size corrupt stored asset cannot be hidden by its expected cache hash
+ok 128 - same-size corrupt stored asset cannot be hidden by its expected cache hash
+  ---
+  duration_ms: 20.126906
+  type: 'test'
+  ...
+# Subtest: wrong-size stored asset is rejected before serving any bytes
+ok 129 - wrong-size stored asset is rejected before serving any bytes
+  ---
+  duration_ms: 11.65813
+  type: 'test'
+  ...
+# Subtest: missing published file produces no-store failure with no old-release fallback
+ok 130 - missing published file produces no-store failure with no old-release fallback
+  ---
+  duration_ms: 51.880987
+  type: 'test'
+  ...
+# Subtest: storage error is explicit and is not replaced with another release
+ok 131 - storage error is explicit and is not replaced with another release
+  ---
+  duration_ms: 11.646101
+  type: 'test'
+  ...
+# Subtest: unknown release/source and mutable canonical URL cannot load current or old assets
+ok 132 - unknown release/source and mutable canonical URL cannot load current or old assets
+  ---
+  duration_ms: 20.964411
+  type: 'test'
+  ...
+# Subtest: unknown file in known release returns no-store 404 without a storage probe
+ok 133 - unknown file in known release returns no-store 404 without a storage probe
+  ---
+  duration_ms: 14.348962
+  type: 'test'
+  ...
+# Subtest: traversal, encoding, alternate separators and query hash overrides never read storage
+ok 134 - traversal, encoding, alternate separators and query hash overrides never read storage
+  ---
+  duration_ms: 15.176118
+  type: 'test'
+  ...
+# Subtest: changed release manifest bytes or source identity fail closed without storage reads
+ok 135 - changed release manifest bytes or source identity fail closed without storage reads
+  ---
+  duration_ms: 13.136235
+  type: 'test'
+  ...
+# Subtest: per-game frontend version mismatch cannot be served under the new release hash
+ok 136 - per-game frontend version mismatch cannot be served under the new release hash
+  ---
+  duration_ms: 3.155072
+  type: 'test'
+  ...
+# Subtest: missing or corrupt per-game asset manifest invalidates the whole new publication
+ok 137 - missing or corrupt per-game asset manifest invalidates the whole new publication
+  ---
+  duration_ms: 36.506745
+  type: 'test'
+  ...
+# Subtest: 71 games or duplicate publication IDs cannot partially expose the new release
+ok 138 - 71 games or duplicate publication IDs cannot partially expose the new release
+  ---
+  duration_ms: 7.236659
+  type: 'test'
+  ...
+# Subtest: runtime descriptor cannot map a retained source file onto a legacy public path
+ok 139 - runtime descriptor cannot map a retained source file onto a legacy public path
+  ---
+  duration_ms: 3.6979
+  type: 'test'
+  ...
+# Subtest: explicit retained snapshot serves its original immutable bytes and source identity
+ok 140 - explicit retained snapshot serves its original immutable bytes and source identity
+  ---
+  duration_ms: 26.487454
+  type: 'test'
+  ...
+# Subtest: mutating supplied publication after construction cannot change served release identity
+ok 141 - mutating supplied publication after construction cannot change served release identity
+  ---
+  duration_ms: 16.950961
+  type: 'test'
+  ...
+# Subtest: an inactive publication stays closed while exact retained assets remain available
+ok 142 - an inactive publication stays closed while exact retained assets remain available
+  ---
+  duration_ms: 13.401575
+  type: 'test'
+  ...
+# Subtest: preparation preserves every old card and exposes no placeholder section
+ok 143 - preparation preserves every old card and exposes no placeholder section
+  ---
+  duration_ms: 4.617248
+  type: 'test'
+  ...
+# Subtest: complete reviewed-publication shape adds exactly72 without modifying old cards
+ok 144 - complete reviewed-publication shape adds exactly72 without modifying old cards
+  ---
+  duration_ms: 1.534516
+  type: 'test'
+  ...
+# Subtest: 71 or73 published cards cannot activate
+ok 145 - 71 or73 published cards cannot activate
+  ---
+  duration_ms: 1.847697
+  type: 'test'
+  ...
+# Subtest: duplicate publication identity cannot inflate count
+ok 146 - duplicate publication identity cannot inflate count
+  ---
+  duration_ms: 1.819535
+  type: 'test'
+  ...
+# Subtest: a reserved ID cannot overwrite a legacy card
+ok 147 - a reserved ID cannot overwrite a legacy card
+  ---
+  duration_ms: 0.660041
+  type: 'test'
+  ...
+# Subtest: a new deep link cannot shadow an existing card route
+ok 148 - a new deep link cannot shadow an existing card route
+  ---
+  duration_ms: 0.653141
+  type: 'test'
+  ...
+# Subtest: foreign/old image assets and traversal are rejected
+ok 149 - foreign/old image assets and traversal are rejected
+  ---
+  duration_ms: 2.578224
+  type: 'test'
+  ...
+# Subtest: mixed release and rules identities are rejected
+ok 150 - mixed release and rules identities are rejected
+  ---
+  duration_ms: 1.415748
+  type: 'test'
+  ...
+# Subtest: altered card mapping and missing asset hashes are rejected
+ok 151 - altered card mapping and missing asset hashes are rejected
+  ---
+  duration_ms: 1.832373
+  type: 'test'
+  ...
+# Subtest: complete synthetic evidence passes structural review but starts with all new gates closed
+ok 152 - complete synthetic evidence passes structural review but starts with all new gates closed
+  ---
+  duration_ms: 244.863297
+  type: 'test'
+  ...
+# Subtest: 71 or 73 entries cannot inflate or truncate the exact 72 new-game requirement
+ok 153 - 71 or 73 entries cannot inflate or truncate the exact 72 new-game requirement
+  ---
+  duration_ms: 98.715507
+  type: 'test'
+  ...
+# Subtest: aliases cannot fill the count using punctuation, category, route or asset variations
+ok 154 - aliases cannot fill the count using punctuation, category, route or asset variations
+  ---
+  duration_ms: 54.397091
+  type: 'test'
+  ...
+# Subtest: legacy game ID, deep link and assets cannot be claimed by the new release
+ok 155 - legacy game ID, deep link and assets cannot be claimed by the new release
+  ---
+  duration_ms: 108.461056
+  type: 'test'
+  ...
+# Subtest: a root namespace and overlapping new routes fail closed
+ok 156 - a root namespace and overlapping new routes fail closed
+  ---
+  duration_ms: 29.803429
+  type: 'test'
+  ...
+# Subtest: separate evaluator and configuration identities are required for every game
+ok 157 - separate evaluator and configuration identities are required for every game
+  ---
+  duration_ms: 28.048166
+  type: 'test'
+  ...
+# Subtest: RELEASE_READY labels alone cannot produce an activation proof
+ok 158 - RELEASE_READY labels alone cannot produce an activation proof
+  ---
+  duration_ms: 30.033
+  type: 'test'
+  ...
+# Subtest: one unfinished game prevents the whole release even when 71 pass
+ok 159 - one unfinished game prevents the whole release even when 71 pass
+  ---
+  duration_ms: 140.918425
+  type: 'test'
+  ...
+# Subtest: partial evidence manifest cannot activate any game
+ok 160 - partial evidence manifest cannot activate any game
+  ---
+  duration_ms: 39.021543
+  type: 'test'
+  ...
+# Subtest: missing source hash and modified pinned bytes are rejected
+ok 161 - missing source hash and modified pinned bytes are rejected
+  ---
+  duration_ms: 310.056341
+  type: 'test'
+  ...
+# Subtest: registry and source commit evidence cannot silently change after review inputs were pinned
+ok 162 - registry and source commit evidence cannot silently change after review inputs were pinned
+  ---
+  duration_ms: 69.631074
+  type: 'test'
+  ...
+# Subtest: seven labels with six observations or duplicated action IDs cannot pass reference review
+ok 163 - seven labels with six observations or duplicated action IDs cannot pass reference review
+  ---
+  duration_ms: 254.087946
+  type: 'test'
+  ...
+# Subtest: completed capture labels do not replace the actual recording and control artifacts
+ok 164 - completed capture labels do not replace the actual recording and control artifacts
+  ---
+  duration_ms: 296.142569
+  type: 'test'
+  ...
+# Subtest: old capture dates and absent screenshot bytes are rejected
+ok 165 - old capture dates and absent screenshot bytes are rejected
+  ---
+  duration_ms: 261.848963
+  type: 'test'
+  ...
+# Subtest: unverified payout rules cannot be masked by passing test reports
+ok 166 - unverified payout rules cannot be masked by passing test reports
+  ---
+  duration_ms: 270.845925
+  type: 'test'
+  ...
+# Subtest: a passing report for a different source hash does not count
+ok 167 - a passing report for a different source hash does not count
+  ---
+  duration_ms: 112.023715
+  type: 'test'
+  ...
+# Subtest: test execution evidence must match the subject and requested check
+ok 168 - test execution evidence must match the subject and requested check
+  ---
+  duration_ms: 128.083432
+  type: 'test'
+  ...
+# Subtest: a failing or skipped test and production-ledger testing do not satisfy readiness
+ok 169 - a failing or skipped test and production-ledger testing do not satisfy readiness
+  ---
+  duration_ms: 440.972185
+  type: 'test'
+  ...
+# Subtest: FIXED_PENDING_RETEST remains an open defect
+ok 170 - FIXED_PENDING_RETEST remains an open defect
+  ---
+  duration_ms: 128.226734
+  type: 'test'
+  ...
+# Subtest: VERIFIED asset rights label needs full hash-matched grant evidence
+ok 171 - VERIFIED asset rights label needs full hash-matched grant evidence
+  ---
+  duration_ms: 136.129741
+  type: 'test'
+  ...
+# Subtest: math peer review needs a separate task and hash-bound producer record, not a boolean
+ok 172 - math peer review needs a separate task and hash-bound producer record, not a boolean
+  ---
+  duration_ms: 254.868119
+  type: 'test'
+  ...
+# Subtest: a copied allowed decision is not an issued in-process review proof
+ok 173 - a copied allowed decision is not an issued in-process review proof
+  ---
+  duration_ms: 119.846657
+  type: 'test'
+  ...
+# Subtest: activation rejects drift and only opens the verified complete set
+ok 174 - activation rejects drift and only opens the verified complete set
+  ---
+  duration_ms: 132.332287
+  type: 'test'
+  ...
+# Subtest: disabling new wagers leaves legacy handling and accepted-round recovery intact
+ok 175 - disabling new wagers leaves legacy handling and accepted-round recovery intact
+  ---
+  duration_ms: 144.997297
+  type: 'test'
+  ...
+# Subtest: withdrawing an unactivated release prevents accidental later activation
+ok 176 - withdrawing an unactivated release prevents accidental later activation
+  ---
+  duration_ms: 199.551079
+  type: 'test'
+  ...
+# Subtest: artifact traversal is rejected before filesystem access
+ok 177 - artifact traversal is rejected before filesystem access
+  ---
+  duration_ms: 0.6841
+  type: 'test'
+  ...
+# Subtest: requires per-game model and receipt validation before it can be constructed
+ok 178 - requires per-game model and receipt validation before it can be constructed
+  ---
+  duration_ms: 3.589344
+  type: 'test'
+  ...
+# Subtest: persists only request identity before POST and enables next round after authoritative refresh
+ok 179 - persists only request identity before POST and enables next round after authoritative refresh
+  ---
+  duration_ms: 14.017205
+  type: 'test'
+  ...
+# Subtest: lost response after accepted settlement replays original receipt with no second debit or credit
+ok 180 - lost response after accepted settlement replays original receipt with no second debit or credit
+  ---
+  duration_ms: 3.485919
+  type: 'test'
+  ...
+# Subtest: lost request before acceptance first checks replay, then resends exact same key after explicit miss
+ok 181 - lost request before acceptance first checks replay, then resends exact same key after explicit miss
+  ---
+  duration_ms: 3.409153
+  type: 'test'
+  ...
+# Subtest: refresh reconstruction retains pending request and never invents a replacement token
+ok 182 - refresh reconstruction retains pending request and never invents a replacement token
+  ---
+  duration_ms: 7.315073
+  type: 'test'
+  ...
+# Subtest: late first acceptance racing the same-key resend still settles once in the contract fake
+ok 183 - late first acceptance racing the same-key resend still settles once in the contract fake
+  ---
+  duration_ms: 3.415403
+  type: 'test'
+  ...
+# Subtest: generic 404 is not the explicit replay miss and cannot authorize resubmission
+ok 184 - generic 404 is not the explicit replay miss and cannot authorize resubmission
+  ---
+  duration_ms: 1.888108
+  type: 'test'
+  ...
+# Subtest: bounded 5xx replay retries retain request and emit delay reasons
+ok 185 - bounded 5xx replay retries retain request and emit delay reasons
+  ---
+  duration_ms: 2.2625
+  type: 'test'
+  ...
+# Subtest: 429 Retry-After delays the same read-only request before retry
+ok 186 - 429 Retry-After delays the same read-only request before retry
+  ---
+  duration_ms: 4.19225
+  type: 'test'
+  ...
+# Subtest: long Retry-After is persisted, defers without shortening it, and survives refresh
+ok 187 - long Retry-After is persisted, defers without shortening it, and survives refresh
+  ---
+  duration_ms: 3.050464
+  type: 'test'
+  ...
+# Subtest: 401 preserves original pending identity and requires account recovery
+ok 188 - 401 preserves original pending identity and requires account recovery
+  ---
+  duration_ms: 1.741998
+  type: 'test'
+  ...
+# Subtest: 403 preserves original pending identity and requires account recovery
+ok 189 - 403 preserves original pending identity and requires account recovery
+  ---
+  duration_ms: 1.312342
+  type: 'test'
+  ...
+# Subtest: pre-spin fresh-state detects replaced session before any financial request
+ok 190 - pre-spin fresh-state detects replaced session before any financial request
+  ---
+  duration_ms: 0.609566
+  type: 'test'
+  ...
+# Subtest: new account has independent scope while old pending remains available under its original guard
+ok 191 - new account has independent scope while old pending remains available under its original guard
+  ---
+  duration_ms: 2.817364
+  type: 'test'
+  ...
+# Subtest: late accepted response after session replacement cannot update new session or erase old request
+ok 192 - late accepted response after session replacement cannot update new session or erase old request
+  ---
+  duration_ms: 2.664114
+  type: 'test'
+  ...
+# Subtest: dispose ignores a late accepted response and preserves request for another instance
+ok 193 - dispose ignores a late accepted response and preserves request for another instance
+  ---
+  duration_ms: 1.272362
+  type: 'test'
+  ...
+# Subtest: malformed authoritative wallet receipt remains recoverable and cannot fabricate a payout
+ok 194 - malformed authoritative wallet receipt remains recoverable and cannot fabricate a payout
+  ---
+  duration_ms: 1.881548
+  type: 'test'
+  ...
+# Subtest: mismatched game in response preserves pending without another financial request
+ok 195 - mismatched game in response preserves pending without another financial request
+  ---
+  duration_ms: 1.160945
+  type: 'test'
+  ...
+# Subtest: mismatched stake in response preserves pending without another financial request
+ok 196 - mismatched stake in response preserves pending without another financial request
+  ---
+  duration_ms: 1.070088
+  type: 'test'
+  ...
+# Subtest: mismatched math in response preserves pending without another financial request
+ok 197 - mismatched math in response preserves pending without another financial request
+  ---
+  duration_ms: 0.925411
+  type: 'test'
+  ...
+# Subtest: mismatched request in response preserves pending without another financial request
+ok 198 - mismatched request in response preserves pending without another financial request
+  ---
+  duration_ms: 2.463402
+  type: 'test'
+  ...
+# Subtest: per-game receipt validation is mandatory even when common wallet fields are valid
+ok 199 - per-game receipt validation is mandatory even when common wallet fields are valid
+  ---
+  duration_ms: 1.27726
+  type: 'test'
+  ...
+# Subtest: current model change before first submit requires review and cannot silently change accepted rules
+ok 200 - current model change before first submit requires review and cannot silently change accepted rules
+  ---
+  duration_ms: 7.642585
+  type: 'test'
+  ...
+# Subtest: model change after replay miss prevents same token becoming a wager under different rules
+ok 201 - model change after replay miss prevents same token becoming a wager under different rules
+  ---
+  duration_ms: 2.921761
+  type: 'test'
+  ...
+# Subtest: previously settled round can replay while game is disabled and current model has advanced
+ok 202 - previously settled round can replay while game is disabled and current model has advanced
+  ---
+  duration_ms: 2.033005
+  type: 'test'
+  ...
+# Subtest: double click or repeated key activation cannot queue another spin
+ok 203 - double click or repeated key activation cannot queue another spin
+  ---
+  duration_ms: 1.08449
+  type: 'test'
+  ...
+# Subtest: cooperating instances reject concurrent action and share unresolved request across games
+ok 204 - cooperating instances reject concurrent action and share unresolved request across games
+  ---
+  duration_ms: 2.940299
+  type: 'test'
+  ...
+# Subtest: a late result cannot remove newer persisted ownership
+ok 205 - a late result cannot remove newer persisted ownership
+  ---
+  duration_ms: 1.914338
+  type: 'test'
+  ...
+# Subtest: corrupt or cross-session persisted metadata blocks without sending it or deleting it
+ok 206 - corrupt or cross-session persisted metadata blocks without sending it or deleting it
+  ---
+  duration_ms: 0.821034
+  type: 'test'
+  ...
+# Subtest: failed persistence cannot precede a financial POST
+ok 207 - failed persistence cannot precede a financial POST
+  ---
+  duration_ms: 0.925942
+  type: 'test'
+  ...
+# Subtest: known initial pre-settlement rejection clears request but unknown 400 preserves it
+ok 208 - known initial pre-settlement rejection clears request but unknown 400 preserves it
+  ---
+  duration_ms: 3.426911
+  type: 'test'
+  ...
+# Subtest: read-only preflight retries exhaust without sending a wager
+ok 209 - read-only preflight retries exhaust without sending a wager
+  ---
+  duration_ms: 1.861032
+  type: 'test'
+  ...
+# Subtest: idempotency conflict during recovery remains visible and cannot create a fresh request
+ok 210 - idempotency conflict during recovery remains visible and cannot create a fresh request
+  ---
+  duration_ms: 1.324204
+  type: 'test'
+  ...
+# Subtest: timeout leaves a recoverable token; aborted transport never implies rollback
+ok 211 - timeout leaves a recoverable token; aborted transport never implies rollback
+  ---
+  duration_ms: 24.23712
+  type: 'test'
+  ...
+# Subtest: money format is exact and rejected locally without financial request
+ok 212 - money format is exact and rejected locally without financial request
+  ---
+  duration_ms: 3.039387
+  type: 'test'
+  ...
+# Subtest: transport only addresses the two existing routes with same-origin cookie policy
+ok 213 - transport only addresses the two existing routes with same-origin cookie policy
+  ---
+  duration_ms: 0.67775
+  type: 'test'
+  ...
+# Subtest: Retry-After accepts server seconds and HTTP-date without time truncation
+ok 214 - Retry-After accepts server seconds and HTTP-date without time truncation
+  ---
+  duration_ms: 0.107122
+  type: 'test'
+  ...
+# Subtest: UI observer failure cannot erase a successful result or repeat settlement
+ok 215 - UI observer failure cannot erase a successful result or repeat settlement
+  ---
+  duration_ms: 0.938593
+  type: 'test'
+  ...
+# Subtest: connect cannot restore a disconnected session after the fresh-state await boundary
+ok 216 - connect cannot restore a disconnected session after the fresh-state await boundary
+  ---
+  duration_ms: 0.576008
+  type: 'test'
+  ...
+# Subtest: refresh cannot restore a disconnected session after the fresh-state await boundary
+ok 217 - refresh cannot restore a disconnected session after the fresh-state await boundary
+  ---
+  duration_ms: 0.568426
+  type: 'test'
+  ...
+# Subtest: spin cannot restore a disconnected session after the fresh-state await boundary
+ok 218 - spin cannot restore a disconnected session after the fresh-state await boundary
+  ---
+  duration_ms: 0.47772
+  type: 'test'
+  ...
+# Subtest: disconnect after replay-miss fresh-state prevents a same-key resend and retains pending intent
+ok 219 - disconnect after replay-miss fresh-state prevents a same-key resend and retains pending intent
+  ---
+  duration_ms: 3.324617
+  type: 'test'
+  ...
+# Subtest: spin does not publish an accepted receipt after disconnect during lock return
+ok 220 - spin does not publish an accepted receipt after disconnect during lock return
+  ---
+  duration_ms: 1.56658
+  type: 'test'
+  ...
+# Subtest: recover does not publish an accepted receipt after disconnect during lock return
+ok 221 - recover does not publish an accepted receipt after disconnect during lock return
+  ---
+  duration_ms: 1.58708
+  type: 'test'
+  ...
+# Subtest: connect rejects a synchronous disconnect from the READY observer
+ok 222 - connect rejects a synchronous disconnect from the READY observer
+  ---
+  duration_ms: 0.500975
+  type: 'test'
+  ...
+# Subtest: refresh rejects a synchronous disconnect from the READY observer
+ok 223 - refresh rejects a synchronous disconnect from the READY observer
+  ---
+  duration_ms: 1.100889
+  type: 'test'
+  ...
+# Subtest: cooperating client discovering pending through refresh honors its saved Retry-After
+ok 224 - cooperating client discovering pending through refresh honors its saved Retry-After
+  ---
+  duration_ms: 2.761619
+  type: 'test'
+  ...
+# Subtest: cooperating client discovering pending through spin honors its saved Retry-After
+ok 225 - cooperating client discovering pending through spin honors its saved Retry-After
+  ---
+  duration_ms: 1.69976
+  type: 'test'
+  ...
+# Subtest: recovery reloads a newer Retry-After written by another cooperating client
+ok 226 - recovery reloads a newer Retry-After written by another cooperating client
+  ---
+  duration_ms: 2.08487
+  type: 'test'
+  ...
+1..226
+# tests 226
+# suites 0
+# pass 226
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4654.817761
