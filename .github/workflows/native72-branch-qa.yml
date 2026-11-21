@@ -90,6 +90,7 @@ jobs:
       - name: Verify new Multi Hot 20 and Burn Wilds server-receipt controllers
         run: |
           node --test codex-work/native72-20261119/changes/batch01/new-games-session.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/session-transport.test.mjs
           node --check codex-work/native72-20261119/changes/batch01/multihot20/controller.mjs
           node --check codex-work/native72-20261119/changes/batch01/multihot5burnwilds/controller.mjs
       - name: Verify missing-game independent Canvas reels and background audio

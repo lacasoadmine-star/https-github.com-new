@@ -35,6 +35,7 @@ function fixture(gameId,{approved=false,reserve=1000000000n,activeGame=null}={})
      const found=[...local.rounds.values()].filter(r=>r.user_id===args[0]&&r.game_id===args[1]).at(-1);
      return {rows:found?[found]:[],rowCount:found?1:0};
     }
+    if(sql.startsWith("SELECT attempt,result_json FROM sw_nine.actions WHERE parent_id="))return{rows:[],rowCount:0};
     if(sql.startsWith('SELECT request_hash,result_json FROM sw_nine.game_rounds')){
      const found=local.rounds.get(args[0]+'|'+args[1]);return{rows:found?[found]:[],rowCount:found?1:0};
     }
@@ -97,6 +98,7 @@ for(const [gameId,validateModel,validateReceipt] of [
   assert.equal(result.game.providerRngReproduced,false);assert.equal(result.game.providerCertified,false);
   assert.equal(result.game.modelKind,'independent_operator_probability_model');
   assert.equal(result.game.offlineExactEnumerationVerified,true);
+  assert.equal(result.game.features.gambleRounds,5);assert.equal(result.game.features.gambleMaxStake,'500.00');
   assert.ok(result.game.betLevels.includes('1.00'));assert.ok(!result.game.betLevels.includes('0.20'));
   assert.ok(!result.game.betLevels.includes('1.05'),'full provider denomination is enforced in the ladder');
   assert.doesNotMatch(JSON.stringify(result),/reelStrips|wheelWeights|auditReference|qa-existing-house/);
@@ -124,6 +126,9 @@ for(const [gameId,validateModel,validateReceipt] of [
   const refreshed=await f.routes.state(request(),gameId);
   assert.equal(refreshed.balance,a.walletReceipt.balanceAfter);
   assert.equal(refreshed.round.result.roundId,a.roundId);
+  assert.equal(refreshed.round.gamble.maxAttempts,5);
+  assert.equal(refreshed.round.gamble.maxStake,'500.00');
+  assert.equal(refreshed.round.gamble.stake,a.finalWin);
  });
  test(gameId+' same-token replay survives profile/catalogue outage and disabled release without a new debit',async()=>{
   const f=fixture(gameId,{approved:true}),a=await f.routes.spin(request(),f.body());

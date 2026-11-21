@@ -1,0 +1,255 @@
+{
+  "scope": "Actual retained createSlotService and HTTP handlers; disposable local PostgreSQL/Redis and QA accounts only",
+  "sources": {
+    "release": "native72-batch01-20261121-r2",
+    "baselineSha256": "9ed186420e58330388e96aa62c9f4dea70d82ae596bfd57060d66053b981dfa3",
+    "runtimeSha256": "23d14712d193519d9878fd956c6429bf739d45e5593d92904dce027cc4446f48",
+    "wrapperSha256": "c552025a7287de008c2d5d4fd6d57ede95c0640dfd941a7036f97bd8c195d0a6",
+    "prefixSha256": "87f858e8b62c17104873c0d5b10a2cff41b22e30666fc6c27d0b066e7d551ae4",
+    "baselinePrefixSha256": "aca90cbcee6c0be1d18e637a86e5134e6f6b0157fe39f8f1fbc811d0581b50a9",
+    "autoBootExecuted": false,
+    "productionConfigurationRead": false,
+    "hoistedDeclarations": {
+      "patched": [
+        "protected74ReadOnlyStartupAudit",
+        "referenceAvailableGame",
+        "referenceReceiptVerification",
+        "referenceDraftMathVerification",
+        "referenceRequireAdmin",
+        "referenceReadOnlyLedgerAudit",
+        "referenceFinancialReadiness"
+      ],
+      "baseline": [
+        "protected74ReadOnlyStartupAudit",
+        "referenceAvailableGame",
+        "referenceReceiptVerification",
+        "referenceDraftMathVerification",
+        "referenceRequireAdmin",
+        "referenceReadOnlyLedgerAudit",
+        "referenceFinancialReadiness"
+      ]
+    },
+    "helpers": [
+      {
+        "path": "native72-batch01/official-math.mjs",
+        "sha256": "776b7cd2987a5dba4ca3dfe94ba41540218d0ab4ed4505840254fe09f0ea76f0",
+        "bytes": 14877
+      },
+      {
+        "path": "native72-batch01/sw-nine-pg-adapter.mjs",
+        "sha256": "9a69f6c0dcada0459d8cc4159bae45d6f63a7ddd6cf2a7cdd2b123c38cc034bb",
+        "bytes": 7852
+      },
+      {
+        "path": "native72-batch01/existing-server-routes.mjs",
+        "sha256": "d730c41b3a3cf5f9df38096767407bbc9f4aa5474f3a565b8c5bfacf8c4b7ba7",
+        "bytes": 9816
+      },
+      {
+        "path": "native72-batch01/existing-gamble.mjs",
+        "sha256": "6b0fa6335ad1d4c20f3dfbc945ad3a4225c38e4324920ee8fd4875881b88bb7d",
+        "bytes": 11074
+      },
+      {
+        "path": "native72-batch01/independent-registry.mjs",
+        "sha256": "0530716dc929727c1c36f7203a5e38efd9e47b5c260a13945abb1c6b64b8d6a0",
+        "bytes": 4314
+      },
+      {
+        "path": "native72-batch01/independent-operator-audit.json",
+        "sha256": "7f26851665f6a1224b6bb05400091cf8b5e3b53a4566037b544c0cdf8faf93f8",
+        "bytes": 42772
+      },
+      {
+        "path": "native72-batch01/independent-release-pins.json",
+        "sha256": "8563aaa809a7782fe4d22e0b044e9b38ddffad46f8751ff2ce06d631851f65e5",
+        "bytes": 478
+      },
+      {
+        "path": "native72-batch01/railway-binding.mjs",
+        "sha256": "01818e72658b53493339a48ce5001da7b64e4954eea8b1dc0f340717e3cc9632",
+        "bytes": 3870
+      }
+    ]
+  },
+  "node": "v22.23.5",
+  "autoBootExecuted": false,
+  "productionRequests": 0,
+  "realMoneyCharges": 0,
+  "checks": [
+    {
+      "name": "Actual baseline and patched constructors initialized with real pg and ioredis callbacks"
+    },
+    {
+      "name": "Public health confirms retained runtime and closed Native72 release"
+    },
+    {
+      "name": "Every other original public game model is byte-for-value unchanged",
+      "compared": 87
+    },
+    {
+      "name": "Missing Player cookie is denied before new state disclosure",
+      "game": "fresh_multihot20",
+      "code": "PLAYER_LOGIN_REQUIRED"
+    },
+    {
+      "name": "Authenticated new state exposes correct closed model, original ETB ladder and ledger balance",
+      "game": "fresh_multihot20",
+      "mathSha256": "4b7af42145bca5e7aa18a6d058c7394381d8b9b252110bffc61503c0470643d8",
+      "bets": [
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00",
+        "200.00"
+      ]
+    },
+    {
+      "name": "Candidate spin is rejected by actual HTTP route with no wager",
+      "game": "fresh_multihot20",
+      "code": "UNCERTIFIED_MATH_PROFILE"
+    },
+    {
+      "name": "Unknown replay through actual route cannot create a spin",
+      "game": "fresh_multihot20"
+    },
+    {
+      "name": "Missing Player cookie is denied before new state disclosure",
+      "game": "fresh_multihot5burnwilds",
+      "code": "PLAYER_LOGIN_REQUIRED"
+    },
+    {
+      "name": "Authenticated new state exposes correct closed model, original ETB ladder and ledger balance",
+      "game": "fresh_multihot5burnwilds",
+      "mathSha256": "e386b3096acfe1c1e749c9bdbfdccfee06ddd7a6cf99b939e0248e14ad262c5e",
+      "bets": [
+        "1.00",
+        "2.00",
+        "5.00",
+        "10.00",
+        "20.00",
+        "50.00",
+        "100.00",
+        "200.00"
+      ]
+    },
+    {
+      "name": "Candidate spin is rejected by actual HTTP route with no wager",
+      "game": "fresh_multihot5burnwilds",
+      "code": "UNCERTIFIED_MATH_PROFILE"
+    },
+    {
+      "name": "Unknown replay through actual route cannot create a spin",
+      "game": "fresh_multihot5burnwilds"
+    },
+    {
+      "name": "Retained HTTP Origin guard rejects before new model dispatch",
+      "status": 403,
+      "code": "INVALID_ORIGIN"
+    },
+    {
+      "name": "Retained HTTP Content type guard rejects before new model dispatch",
+      "status": 415,
+      "code": "JSON_REQUIRED"
+    },
+    {
+      "name": "Retained HTTP Malformed JSON guard rejects before new model dispatch",
+      "status": 400,
+      "code": "INVALID_JSON"
+    },
+    {
+      "name": "Retained HTTP Body length guard rejects before new model dispatch",
+      "status": 413,
+      "code": "BODY_TOO_LARGE"
+    },
+    {
+      "name": "Retained HTTP POST authentication guard rejects before new model dispatch",
+      "status": 401,
+      "code": "PLAYER_LOGIN_REQUIRED"
+    },
+    {
+      "name": "Existing Multi Hot 10 authenticated state remains identical"
+    },
+    {
+      "name": "Original game session and shared ETB balance remain available"
+    },
+    {
+      "name": "Actual bound-session guard rejects another session before settlement"
+    },
+    {
+      "name": "Actual existing database authentication rejects a suspended QA Player"
+    },
+    {
+      "name": "Every HTTP check left both wallets unchanged and all transfer/round/action tables empty"
+    }
+  ],
+  "postgres": "PostgreSQL 17.12 (Debian 17.12-1.pgdg12+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "redis": "7.4.12",
+  "health": {
+    "brand": "SUPERWIN.BET",
+    "db": "up",
+    "redis": "up",
+    "games": 89,
+    "originalGames": 20,
+    "originalVersion": "originals-2.0.0",
+    "enabled": true,
+    "mathSha256": "9bc6cfaad2fa6558882bc88a3eb78514f1432ab1c11a52217a427d1f383ba8e7",
+    "engineVersion": "superwin-slot-runtime-r13",
+    "legacyEngineVersion": "superwin-slot-runtime-reference-v3000",
+    "native72Batch01": {
+      "release": "native72-batch01-20261121-r2",
+      "artifactSha256": "7f26851665f6a1224b6bb05400091cf8b5e3b53a4566037b544c0cdf8faf93f8",
+      "evaluatorSha256": "776b7cd2987a5dba4ca3dfe94ba41540218d0ab4ed4505840254fe09f0ea76f0",
+      "realMoneyEnabled": false,
+      "providerRngReproduced": false,
+      "models": {
+        "fresh_multihot20": {
+          "mathSha256": "4b7af42145bca5e7aa18a6d058c7394381d8b9b252110bffc61503c0470643d8",
+          "targetReturn": {
+            "numerator": "9663",
+            "denominator": "10000"
+          }
+        },
+        "fresh_multihot5burnwilds": {
+          "mathSha256": "e386b3096acfe1c1e749c9bdbfdccfee06ddd7a6cf99b939e0248e14ad262c5e",
+          "targetReturn": {
+            "numerator": "1931",
+            "denominator": "2000"
+          }
+        }
+      }
+    },
+    "nativeSchemaCompatibility": {
+      "status": "compatible",
+      "compatible": true,
+      "target": "sw_rebuild.rounds.game",
+      "gameIds": [
+        "foxy_hot_20_native",
+        "multi_hot_5_native"
+      ],
+      "columnType": "text",
+      "maxLength": null,
+      "constraints": [],
+      "insertTriggers": [],
+      "insertRules": [],
+      "reasons": []
+    },
+    "activeModels": {
+      "foxy_hot_20_native": {
+        "mathVersion": "2026-11-07-foxy-native-v1",
+        "engineVersion": "superwin-slot-runtime-r13",
+        "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272"
+      },
+      "multi_hot_5_native": {
+        "mathVersion": "2026-11-07-mh5-native-v1",
+        "engineVersion": "superwin-slot-runtime-r13",
+        "mathSha256": "d8888e57448d41c4c4d46124482a37bed54a80f8debf21ee0116a32bcee11272"
+      }
+    }
+  },
+  "result": "PASS",
+  "fixtureSchema": "Minimal sw_rebuild/sw_native_library contract; authentic retained sw_nine migration. This is not a complete production-DDL audit."
+}

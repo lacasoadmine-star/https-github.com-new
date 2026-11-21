@@ -4,12 +4,14 @@
  * origin, JSON body-size and content-type guards and its original json():
  *   GET /api/fresh-state -> state(req, gameId), only when handles(gameId)
  *   POST /api/spin       -> spin(req, body), only when handles(body.gameId)
+ *   POST /api/gamble     -> gamble(req, body), only when handles(body.gameId)
  * The current handler already normalizes /api/slots/* to /api/*.
  * Other games, endpoints, sessions, ledger tables and services are untouched.
  * This module does not listen, create accounts, install profiles or enable games.
  */
 import {createSwNinePgAdapter} from './sw-nine-pg-adapter.mjs';
 import {GAME_REFERENCE,GameMathError,cents} from './official-math.mjs';
+import {createExistingGamble,GAMBLE_POLICY} from './existing-gamble.mjs';
 
 const fail=(code,status=503)=>{throw new GameMathError(code,status)};
 const digest=/^[a-f0-9]{64}$/i;
@@ -66,6 +68,7 @@ export function createExistingServerRoutes(dependencies){
     return game;
   };
   const profileForGame=async gameId=>candidate(await d.profileForGame(gameId),gameId);
+  const gambleActions=createExistingGamble({...d,profileForGame});
   async function authenticated(request){
     if(!(request instanceof Request))fail('INVALID_EXISTING_REQUEST',400);
     const userId=await d.authenticate(request);
@@ -112,7 +115,8 @@ export function createExistingServerRoutes(dependencies){
         symbols:Object.keys(ref.paytable),paytable:structuredClone(ref.paytable),
         multiplierValues:[...ref.wheelValues],
         features:{expandingWild:gameId==='fresh_multihot5burnwilds',
-          wildReels:gameId==='fresh_multihot5burnwilds'?[1,2,3]:[]},
+          wildReels:gameId==='fresh_multihot5burnwilds'?[1,2,3]:[],
+          gambleRounds:GAMBLE_POLICY.maxAttempts,gambleMaxStake:GAMBLE_POLICY.maxStake},
         mathVersion:profile.mathVersion,engineVersion:profile.engineVersion,mathSha256:profile.mathSha256,
         modelKind:'independent_operator_probability_model',providerRngReproduced:false,providerCertified:false,
         productionApproved:profile.productionApproved,probabilityModelAudited:profile.probabilityModelAudited,
@@ -125,9 +129,11 @@ export function createExistingServerRoutes(dependencies){
         availableBetLevels,wagerAvailability:availableBetLevels.length?'available':'house_capacity',
         ...(disabledReason?{disabledReason}:{})};
       const stored=latest.rows[0];
+      const gamble=stored?await gambleActions.describe(client,userId,stored,{
+        enabled:game.enabled,blockedByActiveGame:active.rows[0]?.game_id??null,currentProfile:profile}):null;
       return {authenticated:true,currency:'ETB',sessionGuard:guard,balance:accountBalance,game,
         blockedByActiveGame:active.rows[0]?.game_id??null,
-        round:stored?{result:stored.result_json,createdAt:stored.created_at}:null};
+        round:stored?{result:stored.result_json,createdAt:stored.created_at,gamble}:null};
     });
   }
 
@@ -149,5 +155,5 @@ export function createExistingServerRoutes(dependencies){
     return {...receipt,modelKind:'independent_operator_probability_model',
       providerRngReproduced:false,providerCertified:false};
   }
-  return Object.freeze({handles,state,spin});
+  return Object.freeze({handles,state,spin,gamble:gambleActions.gamble});
 }

@@ -13,7 +13,7 @@ export function transport(fetcher=globalThis.fetch,timeoutMs=20000){
   try{
    const r=await fetcher(path,{method:body?'POST':'GET',cache:'no-store',credentials:'same-origin',redirect:'error',signal:ctrl.signal,headers:{accept:'application/json',...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
    let data;try{data=await r.json()}catch{throw fail('INVALID_SERVER_RESPONSE',r.status)}
-   if(!r.ok)throw fail(typeof data?.code==='string'?data.code:typeof data?.error==='string'?data.error:'HTTP_'+r.status,r.status);
+   if(!r.ok)throw fail(typeof data?.code==='string'?data.code:typeof data?.error==='string'?data.error:typeof data?.detail==='string'?data.detail:'HTTP_'+r.status,r.status);
    return data;
   }finally{clearTimeout(timer)}
  };
