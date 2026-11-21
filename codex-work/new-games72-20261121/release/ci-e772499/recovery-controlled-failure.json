@@ -1,0 +1,94 @@
+{
+  "success": false,
+  "startedAt": "2026-11-21T22:57:34.560Z",
+  "checks": [
+    {
+      "name": "native Web Locks available",
+      "passed": true
+    },
+    {
+      "name": "first tab holds exclusive native lock",
+      "passed": true,
+      "observed": {
+        "held": [
+          {
+            "clientId": "26C9386F15FC1B5B0AE4B61A38FB2663",
+            "mode": "exclusive",
+            "name": "zplay-new72-round:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "pending": []
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "native-cross-tab-exclusive-lock",
+      "calls": [
+        {
+          "kind": "state",
+          "at": 1795301854778
+        },
+        {
+          "kind": "state",
+          "at": 1795301854847
+        },
+        {
+          "kind": "state",
+          "at": 1795301854860
+        },
+        {
+          "kind": "spin",
+          "token": "216b2895-4396-4850-a0b3-29ff43656364",
+          "at": 1795301854864,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "216b2895-4396-4850-a0b3-29ff43656364",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        }
+      ],
+      "accepted": [
+        {
+          "token": "216b2895-4396-4850-a0b3-29ff43656364",
+          "roundId": "73e365d7-301e-4929-93b1-57855600d8ca"
+        }
+      ],
+      "debitCount": 1,
+      "creditCount": 1,
+      "abortedRequests": [],
+      "settledBalance": "101.00",
+      "heldEvaluationDrained": true
+    }
+  ],
+  "pageErrors": [],
+  "forbiddenRequests": [],
+  "sourceHashes": {
+    "round-recovery.mjs": "76784381f80c164209911ab6ab6634486c845389d37be34f6e9d57ae83b79096",
+    "qa/browser-fixture.mjs": "9be362d9648989161f5b51ae264035bfdce30e4c5a58ec1bd40b714daaa7d09e",
+    "qa/run-recovery-browser.cjs": "e4d65480b57b9930a55661fe7d3469ec0359c208deaeb4d6bd903a5d62f21d1d"
+  },
+  "testOnly": true,
+  "realMoneyActions": 0,
+  "productionEndpointsUsed": false,
+  "failureProbeRequested": true,
+  "browserVersion": "151.0.7922.34",
+  "failure": {
+    "name": "Error",
+    "message": "INTENTIONAL_CLEANUP_PROBE"
+  },
+  "browserClosed": true,
+  "finishedAt": "2026-11-21T22:57:34.907Z",
+  "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+  "hasUncommittedSource": false,
+  "limitations": [
+    "In-memory fixture ledger; not SQL locking or production settlement proof",
+    "Injected shared localStorage metadata and native Web Locks; production default sessionStorage is unchanged",
+    "No new game registration, model, activation, authentication bypass or real wager",
+    "No provider gameplay, audio, video, BFCache or performance parity claim"
+  ]
+}

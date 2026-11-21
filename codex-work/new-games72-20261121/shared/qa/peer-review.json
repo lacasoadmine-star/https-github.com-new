@@ -26,16 +26,18 @@
       "severity": "medium",
       "problem": "Retry-After:2 was initially validated only against a client deadline more than 500ms away, and replay timing was compared to that same client-derived value; a one-second parser error could falsely pass.",
       "sourceCorrection": "Fixture now records independent server issuedAt/notBefore=issuedAt+2000, rejects early replays, requires stored client deadline at least the server bound, and validates actual replay timestamp against both bounds plus zero early replays.",
-      "status": "FIXED_PENDING_RETEST",
-      "verification": "Corrected source reviewed; JavaScript syntax passed. Native browser CI pending."
+      "status": "FIXED",
+      "verification": "Corrected source reviewed; JavaScript syntax passed. Native browser CI pending.",
+      "subsequentRetest": "Actual CI verified20 normal assertions and the deliberate held-request failure cleanup; exact source/artifact hashes checked."
     },
     {
       "id": "RECOVERY-QA-REVIEW-002",
       "severity": "medium",
       "problem": "Failure before releasing the first held request could leave page.evaluate rejection unhandled when the context closed.",
       "sourceCorrection": "Pending evaluation receives immediate rejection handling; finally always releases the barrier, awaits completion and records heldEvaluationDrained before context cleanup. A separate controlled failure-path CI step exercises failure while the first native lock/request is still held.",
-      "status": "FIXED_PENDING_RETEST",
-      "verification": "Corrected source and controlled negative CI assertions reviewed; JavaScript syntax passed. Both normal and deliberate-failure native CI executions remain pending."
+      "status": "FIXED",
+      "verification": "Corrected source and controlled negative CI assertions reviewed; JavaScript syntax passed. Both normal and deliberate-failure native CI executions remain pending.",
+      "subsequentRetest": "Actual CI verified20 normal assertions and the deliberate held-request failure cleanup; exact source/artifact hashes checked."
     }
   ],
   "positiveFindings": [
@@ -92,5 +94,15 @@
     ],
     "subprocessTimeoutSeconds": 45,
     "normalPositiveRunStillRequired": true
+  },
+  "subsequentNativeRetest": {
+    "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+    "runId": 44959310953,
+    "browserChecksPassed": 20,
+    "controlledFailurePassed": true,
+    "artifactId": 14728822281,
+    "sourceHashesVerified": 3,
+    "noProductionOperations": true,
+    "scope": "Native Chromium with injected shared request metadata and intercepted synthetic ledger; not actual SQL settlement."
   }
 }

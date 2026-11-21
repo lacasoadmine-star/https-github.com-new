@@ -1,0 +1,68 @@
+{
+  "schema": "zplay/roll-x-independent-bfcache-ci-review/v1",
+  "reviewedAt": "2026-11-21T22:59:12.261931+00:00",
+  "status": "NATIVE_BFCACHE_RESTORE_VERIFIED_IN_ISOLATED_FIXTURE",
+  "runId": 44959310953,
+  "jobId": 137014430507,
+  "artifactId": 14728738679,
+  "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+  "hasUncommittedSource": false,
+  "artifactSha256": "0850886cf7e42fa104f448cca96f1ea805a161a5dd4ef411d6b85c203716f72d",
+  "artifactDigestMatchedGitHub": true,
+  "sourceHashCount": 16,
+  "allSourceHashesMatchImmutableCommit": true,
+  "screenshotsVerifiedAndViewed": 1,
+  "screenshotSha256": "f582cc9ebdbd8acc7253d8a33a901f7ca968a83d3f14726bde72b47efcefecdf",
+  "checksPassed": 8,
+  "checksFailed": 0,
+  "environment": {
+    "node": "v22.23.5",
+    "playwright": "1.62.1",
+    "browser": "Chrome/151.0.7922.34",
+    "platform": "Linux x86_64, headless full Chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    }
+  },
+  "independentChecks": {
+    "trustedPersistedPagehidePageshow": true,
+    "mainFrameBackForwardCacheRestoreToExactOriginalUrl": true,
+    "sameDocumentNonceTimeOriginController": true,
+    "awayWasDifferentDocument": true,
+    "pagehidePausedAndRemovedAudioNodes": true,
+    "noDisposalOrAdditionalWagerDuringRestore": true,
+    "sameAcceptedReceiptHistoryAndBalance": true,
+    "freshAccountAfterRestore": true,
+    "explicitNativeSpinStopUsableAfterRestore": true,
+    "requestsGetOnlyInterceptedInvalidOrigin": true,
+    "noUnknownRoutesOrPageErrors": true,
+    "browserClosed": true
+  },
+  "counts": {
+    "requests": 10,
+    "spinBeforeRestore": 1,
+    "spinAfterRestore": 1,
+    "spinAfterExplicitInteraction": 2,
+    "refreshBeforeRestore": 1,
+    "refreshAfterRestore": 3,
+    "controllerDisposals": 0
+  },
+  "diagnostics": [
+    {
+      "message": "cdpSession.send: Protocol error (Browser.getBrowserCommandLine): Command line not returned because --enable-automation not set.",
+      "classification": "OPTIONAL_ENVIRONMENT_DIAGNOSTIC",
+      "impact": "Command-line metadata unavailable; native restoration proof is independently present and does not rely on this optional diagnostic."
+    }
+  ],
+  "findings": [],
+  "runtimeFixRequired": false,
+  "sourceEditsMade": false,
+  "publishedByReviewer": false,
+  "limits": [
+    "One exact-source isolated desktop browser environment.",
+    "No production account, financial POST, real ledger or live deployment was exercised.",
+    "No claim of audible parity, fairness, payout-model completion or overall game release readiness.",
+    "No M100 private source or evidence was read or included in this review."
+  ]
+}

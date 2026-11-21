@@ -1,0 +1,45 @@
+{
+  "artifactId": 14728822281,
+  "archiveSha256": "95a736ff0d77cf09b0b509249752aa653f5c0ffda0000709071b627daa42fa32",
+  "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+  "sourceHashesVerified": 3,
+  "browserVersion": "151.0.7922.34",
+  "checks": 20,
+  "passed": 20,
+  "scenarios": [
+    {
+      "name": "native-cross-tab-exclusive-lock",
+      "debits": 1,
+      "credits": 1,
+      "accepted": 1
+    },
+    {
+      "name": "accepted-response-lost-and-reload",
+      "debits": 1,
+      "credits": 1,
+      "accepted": 1
+    },
+    {
+      "name": "unaccepted-request-lost-same-key-retry",
+      "debits": 1,
+      "credits": 1,
+      "accepted": 1
+    },
+    {
+      "name": "cross-tab-persisted-retry-after",
+      "debits": 1,
+      "credits": 1,
+      "accepted": 1
+    }
+  ],
+  "retryAfterServerDeadline": 1795301853997,
+  "actualReplayTimestamp": 1795301854029,
+  "controlledFailure": {
+    "expectedFailure": true,
+    "browserClosed": true,
+    "heldEvaluationDrained": true
+  },
+  "productionEndpointsUsed": false,
+  "realMoneyActions": 0,
+  "limitation": "Native browser behavior over intercepted synthetic accounts; not actual PostgreSQL/production ledger proof"
+}

@@ -1,0 +1,470 @@
+{
+  "success": true,
+  "startedAt": "2026-11-21T22:57:31.162Z",
+  "checks": [
+    {
+      "name": "native Web Locks available",
+      "passed": true
+    },
+    {
+      "name": "first tab holds exclusive native lock",
+      "passed": true,
+      "observed": {
+        "held": [
+          {
+            "clientId": "333AD4027ADE65331D4F58C9870D3203",
+            "mode": "exclusive",
+            "name": "zplay-new72-round:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "pending": []
+      }
+    },
+    {
+      "name": "overlapping second tab rejected without token",
+      "passed": true,
+      "observed": {
+        "code": "ROUND_BUSY",
+        "status": 0
+      }
+    },
+    {
+      "name": "cross-tab overlap submits and settles once",
+      "passed": true,
+      "observed": [
+        {
+          "token": "0671263c-f7e4-4265-9767-8f2a5687375a",
+          "roundId": "b4ae9e4e-62e8-4c69-81d4-53e48f48c200"
+        }
+      ]
+    },
+    {
+      "name": "settled round blocks next spin and AUTO until fresh balance",
+      "passed": true
+    },
+    {
+      "name": "authoritative refresh enables next round",
+      "passed": true
+    },
+    {
+      "name": "accepted response loss retains pending identity",
+      "passed": true
+    },
+    {
+      "name": "unresolved response blocks new spin and AUTO",
+      "passed": true
+    },
+    {
+      "name": "real reload recovers stored request without new token",
+      "passed": true
+    },
+    {
+      "name": "status-first replay returns same accepted round",
+      "passed": true,
+      "observed": [
+        {
+          "kind": "spin",
+          "token": "b33371de-89ec-4204-a231-26219d64c7c9",
+          "at": 1795301851727,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "b33371de-89ec-4204-a231-26219d64c7c9",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "kind": "replay",
+          "token": "b33371de-89ec-4204-a231-26219d64c7c9",
+          "at": 1795301851757,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "b33371de-89ec-4204-a231-26219d64c7c9",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "accepted recovery has one fixture debit and credit",
+      "passed": true
+    },
+    {
+      "name": "accepted request journal cleared only after verified receipt",
+      "passed": true
+    },
+    {
+      "name": "request lost before acceptance has no fixture debit",
+      "passed": true
+    },
+    {
+      "name": "explicit miss precedes state check and same-key resend",
+      "passed": true,
+      "observed": [
+        "replay",
+        "state",
+        "spin"
+      ]
+    },
+    {
+      "name": "same-key retry accepts once with one generated token",
+      "passed": true
+    },
+    {
+      "name": "429 persists full server retry deadline",
+      "passed": true,
+      "observed": {
+        "issuedAt": 1795301851997,
+        "notBefore": 1795301853997,
+        "seconds": 2,
+        "earlyReplays": 0
+      }
+    },
+    {
+      "name": "other connected tab honors new deadline without request",
+      "passed": true
+    },
+    {
+      "name": "retry after deadline uses same key without another debit",
+      "passed": true,
+      "observed": [
+        {
+          "kind": "replay",
+          "token": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+          "at": 1795301851997,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        },
+        {
+          "kind": "replay",
+          "token": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+          "at": 1795301854029,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "no unexpected browser exceptions",
+      "passed": true,
+      "observed": []
+    },
+    {
+      "name": "all requests confined to intercepted test origin",
+      "passed": true,
+      "observed": []
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "native-cross-tab-exclusive-lock",
+      "calls": [
+        {
+          "kind": "state",
+          "at": 1795301851535
+        },
+        {
+          "kind": "state",
+          "at": 1795301851609
+        },
+        {
+          "kind": "state",
+          "at": 1795301851624
+        },
+        {
+          "kind": "spin",
+          "token": "0671263c-f7e4-4265-9767-8f2a5687375a",
+          "at": 1795301851630,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "0671263c-f7e4-4265-9767-8f2a5687375a",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "kind": "state",
+          "at": 1795301851645
+        }
+      ],
+      "accepted": [
+        {
+          "token": "0671263c-f7e4-4265-9767-8f2a5687375a",
+          "roundId": "b4ae9e4e-62e8-4c69-81d4-53e48f48c200"
+        }
+      ],
+      "debitCount": 1,
+      "creditCount": 1,
+      "abortedRequests": [],
+      "settledBalance": "101.00",
+      "heldEvaluationDrained": true
+    },
+    {
+      "name": "accepted-response-lost-and-reload",
+      "calls": [
+        {
+          "kind": "state",
+          "at": 1795301851718
+        },
+        {
+          "kind": "state",
+          "at": 1795301851724
+        },
+        {
+          "kind": "spin",
+          "token": "b33371de-89ec-4204-a231-26219d64c7c9",
+          "at": 1795301851727,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "b33371de-89ec-4204-a231-26219d64c7c9",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "kind": "state",
+          "at": 1795301851751
+        },
+        {
+          "kind": "replay",
+          "token": "b33371de-89ec-4204-a231-26219d64c7c9",
+          "at": 1795301851757,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "b33371de-89ec-4204-a231-26219d64c7c9",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        }
+      ],
+      "accepted": [
+        {
+          "token": "b33371de-89ec-4204-a231-26219d64c7c9",
+          "roundId": "8dd14d2a-f563-444a-bd55-d342b6802127"
+        }
+      ],
+      "debitCount": 1,
+      "creditCount": 1,
+      "abortedRequests": [
+        {
+          "url": "https://recovery-qa.zplay.invalid/api/slots/spin",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "settledBalance": "101.00"
+    },
+    {
+      "name": "unaccepted-request-lost-same-key-retry",
+      "calls": [
+        {
+          "kind": "state",
+          "at": 1795301851835
+        },
+        {
+          "kind": "state",
+          "at": 1795301851843
+        },
+        {
+          "kind": "spin",
+          "token": "0e70424a-ec51-4d93-9160-034343aa92e3",
+          "at": 1795301851846,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "0e70424a-ec51-4d93-9160-034343aa92e3",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "kind": "replay",
+          "token": "0e70424a-ec51-4d93-9160-034343aa92e3",
+          "at": 1795301851851,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "0e70424a-ec51-4d93-9160-034343aa92e3",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        },
+        {
+          "kind": "state",
+          "at": 1795301851854
+        },
+        {
+          "kind": "spin",
+          "token": "0e70424a-ec51-4d93-9160-034343aa92e3",
+          "at": 1795301851856,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "0e70424a-ec51-4d93-9160-034343aa92e3",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        }
+      ],
+      "accepted": [
+        {
+          "token": "0e70424a-ec51-4d93-9160-034343aa92e3",
+          "roundId": "a2f57c3e-6559-4171-acb4-5b1cd8d58c51"
+        }
+      ],
+      "debitCount": 1,
+      "creditCount": 1,
+      "abortedRequests": [
+        {
+          "url": "https://recovery-qa.zplay.invalid/api/slots/spin",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "settledBalance": "101.00"
+    },
+    {
+      "name": "cross-tab-persisted-retry-after",
+      "calls": [
+        {
+          "kind": "state",
+          "at": 1795301851920
+        },
+        {
+          "kind": "state",
+          "at": 1795301851926
+        },
+        {
+          "kind": "spin",
+          "token": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+          "at": 1795301851929,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "kind": "state",
+          "at": 1795301851992
+        },
+        {
+          "kind": "replay",
+          "token": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+          "at": 1795301851997,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        },
+        {
+          "kind": "replay",
+          "token": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+          "at": 1795301854029,
+          "action": {
+            "gameId": "new72_browser_recovery_fixture",
+            "bet": "1.00",
+            "roundToken": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+            "sessionGuard": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "mathVersion": "browser-fixture-rules-1",
+            "engineVersion": "browser-fixture-engine-1",
+            "mathSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "replayOnly": true
+          }
+        }
+      ],
+      "accepted": [
+        {
+          "token": "bfb5da49-ef67-4e6f-94c9-604817224e9a",
+          "roundId": "c08f8ab1-1556-4c5d-b5e8-55cf502395b0"
+        }
+      ],
+      "debitCount": 1,
+      "creditCount": 1,
+      "abortedRequests": [
+        {
+          "url": "https://recovery-qa.zplay.invalid/api/slots/spin",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "settledBalance": "101.00",
+      "rateLimit": {
+        "issuedAt": 1795301851997,
+        "notBefore": 1795301853997,
+        "seconds": 2,
+        "earlyReplays": 0
+      }
+    }
+  ],
+  "pageErrors": [],
+  "forbiddenRequests": [],
+  "sourceHashes": {
+    "round-recovery.mjs": "76784381f80c164209911ab6ab6634486c845389d37be34f6e9d57ae83b79096",
+    "qa/browser-fixture.mjs": "9be362d9648989161f5b51ae264035bfdce30e4c5a58ec1bd40b714daaa7d09e",
+    "qa/run-recovery-browser.cjs": "e4d65480b57b9930a55661fe7d3469ec0359c208deaeb4d6bd903a5d62f21d1d"
+  },
+  "testOnly": true,
+  "realMoneyActions": 0,
+  "productionEndpointsUsed": false,
+  "failureProbeRequested": false,
+  "browserVersion": "151.0.7922.34",
+  "browserClosed": true,
+  "finishedAt": "2026-11-21T22:57:34.061Z",
+  "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+  "hasUncommittedSource": false,
+  "limitations": [
+    "In-memory fixture ledger; not SQL locking or production settlement proof",
+    "Injected shared localStorage metadata and native Web Locks; production default sessionStorage is unchanged",
+    "No new game registration, model, activation, authentication bypass or real wager",
+    "No provider gameplay, audio, video, BFCache or performance parity claim"
+  ]
+}

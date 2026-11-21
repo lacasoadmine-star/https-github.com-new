@@ -68,11 +68,20 @@
         "app.mjs",
         "tests/input-lifecycle.test.mjs"
       ],
-      "attempts": 1,
-      "retest": "The exact combined browser verified focused held-Enter repeat rejection and native Space activation. Synthetic repeat/defaultPrevented checks also pass. A physically held Space sequence across readiness changes has not been claimed.",
+      "attempts": 2,
+      "retest": "Exact-source native held-Space retest passed:63/63 browser assertions including8 new keyboard checks,47 trusted events and40 default-cancelled repeat keydowns. STOP held through READY and released left2 requests/2 receipts; no third wager.",
       "evidence": "frontend-test-report.json",
-      "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "Native held-Space repeat/release sequence; see separate BFCache lifecycle issue for actual history restoration."
+      "status": "FIXED",
+      "priorPendingRetestScope": "Native held-Space repeat/release sequence; see separate BFCache lifecycle issue for actual history restoration.",
+      "subsequentNativeRetest": {
+        "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+        "workflowRunId": 44959310953,
+        "environment": "Chromium151.0.7922.34, isolated GitHub Actions fixture",
+        "runtimeChangesNeeded": false,
+        "sourceHashesVerified": 16,
+        "productionWagers": 0,
+        "evidence": "../../release/ci-e772499/rollx-review.json"
+      }
     },
     {
       "id": "ROLLX-FIX-006",
@@ -83,11 +92,20 @@
         "app.mjs",
         "tests/input-lifecycle.test.mjs"
       ],
-      "attempts": 1,
-      "retest": "Persisted hide pauses; persisted show requests guarded refresh; nonpersisted hide disposes. Actual browser BFCache restore remains open in ROLLX-007.",
+      "attempts": 2,
+      "retest": "Exact-source full-Chromium native BFCache retest passed8/8:trusted persisted hide/show, same document/controller, actual main-frame cache restoration, audio nodes0 on hide, preserved receipt, refresh1to3 and no wager during restoration. Explicit restored SPIN/STOP then produced the second receipt.",
       "evidence": "frontend-test-report.json",
-      "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "Native browser held-key/BFCache behavior; local regression tests passed."
+      "status": "FIXED",
+      "priorPendingRetestScope": "Native browser held-key/BFCache behavior; local regression tests passed.",
+      "subsequentNativeRetest": {
+        "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+        "workflowRunId": 44959310953,
+        "environment": "Chromium151.0.7922.34, isolated GitHub Actions fixture",
+        "runtimeChangesNeeded": false,
+        "sourceHashesVerified": 16,
+        "productionWagers": 0,
+        "evidence": "../../release/ci-e772499/bfcache-review.json"
+      }
     },
     {
       "id": "ROLLX-FIX-007",

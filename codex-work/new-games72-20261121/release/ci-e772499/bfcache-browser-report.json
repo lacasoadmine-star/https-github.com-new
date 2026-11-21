@@ -1,0 +1,542 @@
+{
+  "schema": "zplay/roll-x-native-bfcache-probe/v1",
+  "startedAt": "2026-11-21T22:57:25.008Z",
+  "success": true,
+  "status": "NATIVE_BFCACHE_RESTORE_VERIFIED_IN_ISOLATED_FIXTURE",
+  "nodeVersion": "v22.23.5",
+  "playwrightVersion": "1.62.1",
+  "testOnly": true,
+  "realMoneyActions": 0,
+  "productionEndpointsUsed": false,
+  "sourceHashes": {
+    "frontend-route.json": "13c20fb1735d4b9a0903a4f9d16e3ff1e15447b660b5df9be37c990e938f0466",
+    "index.html": "244a1a7bdd6382af764a74762f6a729207de59c836d13078def671ca0ef44c46",
+    "style.css": "0c2f48619a30b71a2f5a9a37039aa8316af0b2abd67a682716f2a725d489e969",
+    "main.mjs": "9d0ea73e1e8edfffb175754d148432baca95c97f85b5845b244540b8da4a39b7",
+    "app.mjs": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
+    "controller.mjs": "c09b4f38e97abee6a64fad9ec9f999bf5debabae052ddc56a205811b55b3cda8",
+    "session.mjs": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
+    "evaluator.mjs": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
+    "receipt.mjs": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
+    "renderer.mjs": "dd87ad68aa8a6ef66d5af15f31d8deda3369d34ab02568f664924e509f16945f",
+    "audio.mjs": "66cab15a5273999d95f3aff083a08c1c3056bd06bb2cd7cbadf8859975b2c060",
+    "../../shared/round-recovery.mjs": "76784381f80c164209911ab6ab6634486c845389d37be34f6e9d57ae83b79096",
+    "qa/browser-fixture.mjs": "29098276302a1cf639b669a6c8300b8459685182a6d5611a5eb53b9388cbf7b4",
+    "qa/run-bfcache-browser.cjs": "086cab164187104cf165b6f4d14b2bf3e8b033c769ceb9cafc593df30d13fa65",
+    "qa/bfcache-probe.mjs": "1d91d837dd6d0b82d3021b7ee9ef9578786c1392220760c97dba87cdbf17438b",
+    "tests/fixture-session.mjs": "c48b7fbc44f2b9f0f130e3501009a51d0c73341d88c9a78475c18fbb6dafa6bd"
+  },
+  "launch": {
+    "headless": true,
+    "channel": "chromium",
+    "ignoreDefaultArgs": [
+      "--disable-back-forward-cache"
+    ],
+    "executableOverridePresent": false
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/roll-x/fixture.html"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/style.css"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/qa/browser-fixture.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/app.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/audio.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/receipt.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/evaluator.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/controller.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/new-games72/games/roll-x/renderer.mjs"
+    },
+    {
+      "method": "GET",
+      "origin": "https://qa.zplay.invalid",
+      "path": "/bfcache-away.html"
+    }
+  ],
+  "unmappedPaths": [],
+  "checks": [
+    {
+      "name": "authored mapping remains disabled and matches the isolated fixture game",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "baseline retains one settled fixture receipt and an undisposed controller",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "history entry identifies the exact fixture document",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "away navigation creates a different actual document",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "trusted persisted lifecycle and frame restore retain the document/controller without wagering",
+      "passed": true,
+      "detail": {
+        "trustedRestore": true,
+        "trustedHide": true,
+        "nativeFrameRestore": true,
+        "preserved": true,
+        "noWager": true,
+        "historyPreserved": true,
+        "refreshed": true,
+        "paused": true,
+        "usable": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "restored native controls remain usable with no duplicate round",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all requests stayed isolated with no financial endpoint used",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no browser page errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "transientPollErrors": [],
+  "frameNavigations": [
+    {
+      "type": "Navigation",
+      "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html",
+      "frameId": "CDD0F78A6831256B00B5B29551252602"
+    },
+    {
+      "type": "Navigation",
+      "url": "https://qa.zplay.invalid/bfcache-away.html",
+      "frameId": "CDD0F78A6831256B00B5B29551252602"
+    },
+    {
+      "type": "BackForwardCacheRestore",
+      "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html",
+      "frameId": "CDD0F78A6831256B00B5B29551252602"
+    }
+  ],
+  "cacheMissEvents": [],
+  "sourceCommit": "e772499664ff2a558df3ff5f70a6d74cf9e5f051",
+  "hasUncommittedSource": false,
+  "browserVersion": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/151.0.7922.34",
+    "revision": "@782af9cb30a53f54487e5d2e44738645a8ec457c",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "jsVersion": "15.1.206.8"
+  },
+  "browserArgumentDiagnostic": "cdpSession.send: Protocol error (Browser.getBrowserCommandLine): Command line not returned because --enable-automation not set.",
+  "before": {
+    "documentId": "938b0298-7950-4e2f-93cd-75d20d0b85b6",
+    "timeOrigin": 1795301845663.4,
+    "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html",
+    "bound": true,
+    "sameController": true,
+    "controllerDisposed": false,
+    "events": [
+      {
+        "type": "pageshow",
+        "persisted": false,
+        "isTrusted": true,
+        "time": 81.20000000000073
+      }
+    ],
+    "afterRuntimeHandlers": [],
+    "calls": {
+      "spin": 1,
+      "refresh": 1,
+      "dispose": 0
+    },
+    "state": {
+      "phase": "IDLE",
+      "hidden": false,
+      "busy": false,
+      "canSpin": true,
+      "canStop": false,
+      "autoActive": false,
+      "autoRemaining": 0,
+      "balance": "100.08",
+      "balanceFresh": true,
+      "receiptRoundId": "00000000-0000-4000-8000-000000000001",
+      "historyRoundIds": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    },
+    "audio": {
+      "hidden": false,
+      "disposed": false,
+      "nodeCount": 4,
+      "contextState": "running"
+    },
+    "spinDisabled": false,
+    "navigation": {
+      "type": "navigate",
+      "reasonsSupported": true,
+      "notRestoredReasons": null
+    }
+  },
+  "navigationEntry": {
+    "id": 4,
+    "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html"
+  },
+  "away": {
+    "documentId": "16016f49-a3e9-4cb3-b971-7860a3a723f7",
+    "timeOrigin": 1795301847548.7,
+    "url": "https://qa.zplay.invalid/bfcache-away.html",
+    "bound": false,
+    "sameController": false,
+    "controllerDisposed": null,
+    "events": [
+      {
+        "type": "pageshow",
+        "persisted": false,
+        "isTrusted": true,
+        "time": 11.799999999995634
+      }
+    ],
+    "afterRuntimeHandlers": [],
+    "calls": null,
+    "state": null,
+    "audio": null,
+    "spinDisabled": null,
+    "navigation": {
+      "type": "navigate",
+      "reasonsSupported": true,
+      "notRestoredReasons": null
+    }
+  },
+  "lastRestorationSnapshot": {
+    "documentId": "938b0298-7950-4e2f-93cd-75d20d0b85b6",
+    "timeOrigin": 1795301845663.4,
+    "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html",
+    "bound": true,
+    "sameController": true,
+    "controllerDisposed": false,
+    "events": [
+      {
+        "type": "pageshow",
+        "persisted": false,
+        "isTrusted": true,
+        "time": 81.20000000000073
+      },
+      {
+        "type": "pagehide",
+        "persisted": true,
+        "isTrusted": true,
+        "time": 1890.6000000000022
+      },
+      {
+        "type": "pageshow",
+        "persisted": true,
+        "isTrusted": true,
+        "time": 1906.8999999999978
+      }
+    ],
+    "afterRuntimeHandlers": [
+      {
+        "type": "pagehide",
+        "persisted": true,
+        "isTrusted": true,
+        "hidden": true,
+        "busy": false,
+        "autoActive": false,
+        "controllerDisposed": false,
+        "spinCount": 1,
+        "refreshCount": 1,
+        "disposeCount": 0,
+        "audioNodes": 0
+      },
+      {
+        "type": "pageshow",
+        "persisted": true,
+        "isTrusted": true,
+        "hidden": false,
+        "busy": false,
+        "autoActive": false,
+        "controllerDisposed": false,
+        "spinCount": 1,
+        "refreshCount": 3,
+        "disposeCount": 0,
+        "audioNodes": 0
+      }
+    ],
+    "calls": {
+      "spin": 1,
+      "refresh": 3,
+      "dispose": 0
+    },
+    "state": {
+      "phase": "IDLE",
+      "hidden": false,
+      "busy": false,
+      "canSpin": true,
+      "canStop": false,
+      "autoActive": false,
+      "autoRemaining": 0,
+      "balance": "100.08",
+      "balanceFresh": true,
+      "receiptRoundId": "00000000-0000-4000-8000-000000000001",
+      "historyRoundIds": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    },
+    "audio": {
+      "hidden": false,
+      "disposed": false,
+      "nodeCount": 0,
+      "contextState": "suspended"
+    },
+    "spinDisabled": false,
+    "navigation": {
+      "type": "navigate",
+      "reasonsSupported": true,
+      "notRestoredReasons": null
+    }
+  },
+  "restoration": {
+    "trustedRestore": true,
+    "trustedHide": true,
+    "nativeFrameRestore": true,
+    "preserved": true,
+    "noWager": true,
+    "historyPreserved": true,
+    "refreshed": true,
+    "paused": true,
+    "usable": true,
+    "passed": true
+  },
+  "after": {
+    "documentId": "938b0298-7950-4e2f-93cd-75d20d0b85b6",
+    "timeOrigin": 1795301845663.4,
+    "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html",
+    "bound": true,
+    "sameController": true,
+    "controllerDisposed": false,
+    "events": [
+      {
+        "type": "pageshow",
+        "persisted": false,
+        "isTrusted": true,
+        "time": 81.20000000000073
+      },
+      {
+        "type": "pagehide",
+        "persisted": true,
+        "isTrusted": true,
+        "time": 1890.6000000000022
+      },
+      {
+        "type": "pageshow",
+        "persisted": true,
+        "isTrusted": true,
+        "time": 1906.8999999999978
+      }
+    ],
+    "afterRuntimeHandlers": [
+      {
+        "type": "pagehide",
+        "persisted": true,
+        "isTrusted": true,
+        "hidden": true,
+        "busy": false,
+        "autoActive": false,
+        "controllerDisposed": false,
+        "spinCount": 1,
+        "refreshCount": 1,
+        "disposeCount": 0,
+        "audioNodes": 0
+      },
+      {
+        "type": "pageshow",
+        "persisted": true,
+        "isTrusted": true,
+        "hidden": false,
+        "busy": false,
+        "autoActive": false,
+        "controllerDisposed": false,
+        "spinCount": 1,
+        "refreshCount": 3,
+        "disposeCount": 0,
+        "audioNodes": 0
+      }
+    ],
+    "calls": {
+      "spin": 1,
+      "refresh": 3,
+      "dispose": 0
+    },
+    "state": {
+      "phase": "IDLE",
+      "hidden": false,
+      "busy": false,
+      "canSpin": true,
+      "canStop": false,
+      "autoActive": false,
+      "autoRemaining": 0,
+      "balance": "100.08",
+      "balanceFresh": true,
+      "receiptRoundId": "00000000-0000-4000-8000-000000000001",
+      "historyRoundIds": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    },
+    "audio": {
+      "hidden": false,
+      "disposed": false,
+      "nodeCount": 0,
+      "contextState": "suspended"
+    },
+    "spinDisabled": false,
+    "navigation": {
+      "type": "navigate",
+      "reasonsSupported": true,
+      "notRestoredReasons": null
+    }
+  },
+  "afterInteraction": {
+    "documentId": "938b0298-7950-4e2f-93cd-75d20d0b85b6",
+    "timeOrigin": 1795301845663.4,
+    "url": "https://qa.zplay.invalid/new-games72/roll-x/fixture.html",
+    "bound": true,
+    "sameController": true,
+    "controllerDisposed": false,
+    "events": [
+      {
+        "type": "pageshow",
+        "persisted": false,
+        "isTrusted": true,
+        "time": 81.20000000000073
+      },
+      {
+        "type": "pagehide",
+        "persisted": true,
+        "isTrusted": true,
+        "time": 1890.6000000000022
+      },
+      {
+        "type": "pageshow",
+        "persisted": true,
+        "isTrusted": true,
+        "time": 1906.8999999999978
+      }
+    ],
+    "afterRuntimeHandlers": [
+      {
+        "type": "pagehide",
+        "persisted": true,
+        "isTrusted": true,
+        "hidden": true,
+        "busy": false,
+        "autoActive": false,
+        "controllerDisposed": false,
+        "spinCount": 1,
+        "refreshCount": 1,
+        "disposeCount": 0,
+        "audioNodes": 0
+      },
+      {
+        "type": "pageshow",
+        "persisted": true,
+        "isTrusted": true,
+        "hidden": false,
+        "busy": false,
+        "autoActive": false,
+        "controllerDisposed": false,
+        "spinCount": 1,
+        "refreshCount": 3,
+        "disposeCount": 0,
+        "audioNodes": 0
+      }
+    ],
+    "calls": {
+      "spin": 2,
+      "refresh": 4,
+      "dispose": 0
+    },
+    "state": {
+      "phase": "IDLE",
+      "hidden": false,
+      "busy": false,
+      "canSpin": true,
+      "canStop": false,
+      "autoActive": false,
+      "autoRemaining": 0,
+      "balance": "99.88",
+      "balanceFresh": true,
+      "receiptRoundId": "00000000-0000-4000-8000-000000000002",
+      "historyRoundIds": [
+        "00000000-0000-4000-8000-000000000002",
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    },
+    "audio": {
+      "hidden": false,
+      "disposed": false,
+      "nodeCount": 5,
+      "contextState": "running"
+    },
+    "spinDisabled": false,
+    "navigation": {
+      "type": "navigate",
+      "reasonsSupported": true,
+      "notRestoredReasons": null
+    }
+  },
+  "screenshot": {
+    "path": "bfcache-restored.jpg",
+    "byteLength": 32940,
+    "sha256": "f582cc9ebdbd8acc7253d8a33a901f7ca968a83d3f14726bde72b47efcefecdf"
+  },
+  "browserClosed": true,
+  "finishedAt": "2026-11-21T22:57:27.887Z",
+  "limitations": [
+    "A separate full-Chromium CDP diagnostic; the normal Playwright launch remains unchanged.",
+    "Reload, absent trusted persisted events, missing frame restore, or null notRestoredReasons never establish BFCache success.",
+    "Immutable fixture receipts only; no production account, financial POST, engine distribution or real ledger tested.",
+    "Any failure leaves the native lifecycle issue unverified until its cause and exact-source retest are recorded."
+  ]
+}
