@@ -16,6 +16,22 @@ const SYMBOL_FRAMES={
  plum:{atlas:1,x:1514,y:586,w:197,h:263},
  lemon:{atlas:2,x:1603,y:1,w:220,h:243,turn:-1}
 };
+// These are exact visible-pixel bounds measured in the retained original
+// WIN artwork. They are not claimed to be the provider's unavailable atlas
+// trim offsets. Placement and win tiers are presentation-only ZPLAY rules.
+const WIN_FRAMES={
+ __winNice:{atlas:0,x:240,y:1861,w:264,h:105},
+ __winText:{atlas:0,x:2,y:1881,w:236,h:100},
+ __winCrownSmall:{atlas:0,x:711,y:1961,w:60,h:48},
+ __winMoneyFrame:{atlas:0,x:576,y:1080,w:430,h:155},
+ __winCoin:{atlas:0,x:1400,y:1911,w:105,h:97},
+ __winFrame:{atlas:1,x:869,y:30,w:399,h:379},
+ __winBacklight:{atlas:1,x:7,y:7,w:855,h:834},
+ __winShine:{atlas:1,x:881,y:428,w:391,h:397},
+ __winBig:{atlas:0,x:1645,y:1908,w:198,h:100},
+ __winSuper:{atlas:0,x:1062,y:1800,w:344,h:109},
+ __winFantastic:{atlas:0,x:786,y:1683,w:537,h:115}
+};
 
 export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',import.meta.url),fetcher=globalThis.fetch,
  doc=globalThis.document,imageDecoder=globalThis.createImageBitmap,signal,timeoutMs=15000}={}){
@@ -108,6 +124,12 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
   // Only the inspected base-title region is shown, never the whole Spine sheet.
   // The packed lettering reads bottom-to-top, so it needs a clockwise turn.
   assetMap.__title=crop(atlases[4],{x:2,y:1158,w:633,h:152,turn:1});
+  const winPages=await Promise.all(['wins.png','wins2.png'].map(async(file,index)=>{
+   const bitmap=await image(file),[width,height]=[[2042,2010],[1529,847]][index];
+   if(bitmap.width!==width||bitmap.height!==height)throw Error('OFFICIAL_ATLAS_DIMENSIONS_'+file);
+   return bitmap;
+  }));
+  for(const [name,frame] of Object.entries(WIN_FRAMES))assetMap[name]=crop(winPages[frame.atlas],frame);
   async function primeAudio(){
    active();
    const result={};

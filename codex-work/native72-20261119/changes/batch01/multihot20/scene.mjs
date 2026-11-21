@@ -10,6 +10,60 @@ export const MULTIHOT20_MOTION = Object.freeze({
  settleDurationMs:690,reelDelayMs:95,fastSettleDurationMs:200,fastReelDelayMs:35,
  minimumRunInTiles:4,wheelRadiansPerMs:.009,wheelMinimumRunRadians:Math.PI/2
 });
+// Independent ZPLAY visual routing, NOT provider trigger rules or payout math.
+// A fresh original NICE WIN was observed at 12.5x. The tier boundaries and
+// bounded display duration below are explicit choices for this implementation.
+export const MULTIHOT20_WIN_PRESENTATION = Object.freeze({
+ durationMs:2600,turboDurationMs:700,exitFadeMs:180,
+ tiers:Object.freeze([
+  Object.freeze({name:'FANTASTIC',minimumMultiple:100,asset:'__winFantastic'}),
+  Object.freeze({name:'SUPER',minimumMultiple:50,asset:'__winSuper'}),
+  Object.freeze({name:'BIG',minimumMultiple:25,asset:'__winBig'}),
+  Object.freeze({name:'NICE',minimumMultiple:10,asset:'__winNice'})
+ ])
+});
+const WIN_ART=Object.freeze(['__winNice','__winText','__winCrownSmall','__winMoneyFrame','__winCoin',
+ '__winFrame','__winBacklight','__winShine','__winBig','__winSuper','__winFantastic']);
+const cents=value=>typeof value==='string'&&/^(0|[1-9]\d{0,12})\.\d{2}$/.test(value)?BigInt(value.replace('.','')):null;
+const presentationTier=receipt=>{
+ const win=cents(receipt?.finalWin),bet=cents(receipt?.bet);
+ if(win===null||bet===null||bet<=0n)return null;
+ return MULTIHOT20_WIN_PRESENTATION.tiers.find(tier=>win>=bet*BigInt(tier.minimumMultiple))??null;
+};
+// Entrance keys transcribed from approved original wins.json / Nice Win.
+// Times are seconds; missing Spine scale/translate values are 1/0. These
+// tracks describe presentation only. No provider client code is executed.
+const EASE=Object.freeze([.25,0,.75,1]),RISE=Object.freeze([.25,0,.312,1]);
+const WIN_KEYS=Object.freeze({
+ frame:[[0,0,[.25,0,.454,1]],[.3333,1.1,[.505,-.01,.75,1]],[.5667,.95,[.449,0,.75,1]],[.7667,1]],
+ crownScale:[[0,0,'stepped'],[.1,0,EASE],[.3,1.05,EASE],[.5667,1]],
+ crownY:[[0,-226,RISE],[.3,4,EASE],[.5667,-1,EASE],[.7667,0]],
+ tierScale:[[0,0,'stepped'],[.1333,0,EASE],[.4333,1.05,EASE],[.7,1]],
+ tierY:[[0,-226,'stepped'],[.0333,-226,RISE],[.4333,4,EASE],[.7,-1,EASE],[.9,0]],
+ winScale:[[0,0,'stepped'],[.2333,0,EASE],[.5333,1.05,EASE],[.8,1]],
+ winY:[[0,-226,'stepped'],[.1333,-226,RISE],[.5333,4,EASE],[.8,-1,EASE],[1,0]],
+ moneyScale:[[0,0,'stepped'],[.3,0,EASE],[.6,1.1,EASE],[.8333,.98],[1.0667,1]],
+ moneyY:[[0,-39.25,'stepped'],[.3,-39.25,EASE],[.6,-2,EASE],[.9333,0]],
+ light:[[0,0,'stepped'],[.0667,0],[.3333,1]],
+ tierFlash:[[0,0,'stepped'],[.2333,0,EASE],[.4333,1,EASE],[.6333,0]],
+ winFlash:[[0,0,'stepped'],[.3667,0,EASE],[.5667,1,EASE],[.7667,0]]
+});
+const cubic=(t,a,b)=>3*(1-t)*(1-t)*t*a+3*(1-t)*t*t*b+t*t*t;
+function tween(progress,curve){
+ if(progress<=0||progress>=1)return progress;
+ if(curve==='stepped')return 0;
+ if(!Array.isArray(curve))return progress;
+ let low=0,high=1;
+ for(let i=0;i<16;i++){const mid=(low+high)/2;if(cubic(mid,curve[0],curve[2])<progress)low=mid;else high=mid}
+ return cubic((low+high)/2,curve[1],curve[3]);
+}
+function keyValue(keys,time){
+ if(time<=keys[0][0])return keys[0][1];
+ for(let i=1;i<keys.length;i++)if(time<=keys[i][0]){
+  const a=keys[i-1],b=keys[i],p=tween((time-a[0])/(b[0]-a[0]),a[2]);return a[1]+(b[1]-a[1])*p;
+ }
+ return keys.at(-1)[1];
+}
 // Original visual atlas, not a probability table. The 14 clockwise sectors
 // begin with the top 2x in Images-3/Multiplier/Numbers. Fresh official captures
 // show that sector 0 has neighbours 5/4 and sector 13 has neighbours 3/2.
@@ -46,10 +100,11 @@ export class MultiHot20Scene {
   this.symbols=[...symbols];this.assets=assets;this.audio=audio;this.strictAssets=strictAssets;
   this.doc=doc;this.win=win;this.clock=clock;this.requestFrame=requestFrame;this.cancelFrame=cancelFrame;
   this.width=WIDTH;this.height=HEIGHT;this.rolling=false;this.disposed=false;
-  this.current=null;this.receipt=null;this.pending=null;this.reelPlans=null;this.finishAt=0;this.stopHint=false;
+  this.current=null;this.receipt=null;this.pending=null;this.reelPlans=null;this.finishAt=0;this.stopHint=false;this.celebration=null;
   this.wheelAngle=wheelStopAngle(2);this.wheelStartAngle=this.wheelAngle;this.wheelPlan=null;
   this.lastTime=null;this.frames=0;this.frameId=null;this.reelStopped=Array(REELS).fill(false);
-  this.fpsSamples=[];this.resolveAnimation=null;this.reducedMotion=false;this.pageHidden=false;
+  this.fpsSamples=[];this.resolveAnimation=null;this.motionPreference=win?.matchMedia?.('(prefers-reduced-motion: reduce)')??null;
+  this.reducedMotion=!!this.motionPreference?.matches;this.pageHidden=false;
   this.focused=typeof doc?.hasFocus==='function'?doc.hasFocus():true;
   this.hidden=!!doc?.hidden||!this.focused;
   this.onVisibility=()=>this._visibility();
@@ -57,16 +112,22 @@ export class MultiHot20Scene {
   this.onFocus=()=>{this.focused=true;this._visibility()};
   this.onPageHide=()=>{this.pageHidden=true;this._visibility()};
   this.onPageShow=()=>{this.pageHidden=false;this.focused=typeof doc?.hasFocus==='function'?doc.hasFocus():this.focused;this._visibility()};
+  this.onMotionPreference=event=>{
+   this.reducedMotion=!!event.matches;
+   if(this.disposed||!this.reducedMotion)return;
+   if(this.pending)this._finish({immediate:true,silent:true});else if(this.celebration)this._completeCelebration();
+  };
   this._verifyArtwork();
   doc?.addEventListener?.('visibilitychange',this.onVisibility);
   win?.addEventListener?.('blur',this.onBlur);win?.addEventListener?.('focus',this.onFocus);
   win?.addEventListener?.('pagehide',this.onPageHide);win?.addEventListener?.('pageshow',this.onPageShow);
+  this.motionPreference?.addEventListener?.('change',this.onMotionPreference);
   this.resize();
  }
  _asset(symbol){return this.assets instanceof Map?this.assets.get(symbol):this.assets[symbol]}
  _verifyArtwork(){
   if(!this.strictAssets)return;
-  for(const name of ['__wheelNumbers','__wheelFrame','__wheelLight','__title','__boxFrame','__background'])if(!drawable(this._asset(name)))throw Error('OFFICIAL_PRESENTATION_ART_REQUIRED_'+name);
+  for(const name of ['__wheelNumbers','__wheelFrame','__wheelLight','__title','__boxFrame','__background',...WIN_ART])if(!drawable(this._asset(name)))throw Error('OFFICIAL_PRESENTATION_ART_REQUIRED_'+name);
   for(const [name,frame] of [['__wheelNumbers',WHEEL_RING_FRAME],['__wheelLight',WHEEL_RING_FRAME],['__wheelFrame',WHEEL_BACKGROUND_FRAME]]){
    const image=this._asset(name);
    if((image.naturalWidth??image.width)<frame.x+frame.w||(image.naturalHeight??image.height)<frame.y+frame.h)throw Error('OFFICIAL_ATLAS_BOUNDS_INVALID_'+name);
@@ -82,7 +143,7 @@ export class MultiHot20Scene {
  _visibility(){
   if(this.disposed)return;
   this.hidden=this.pageHidden||!!this.doc?.hidden||!this.focused;
-  if(this.hidden){this._cancelFrame();this.pauseAudio();if(this.pending)this._finish();return}
+  if(this.hidden){this._cancelFrame();this.pauseAudio();if(this.pending)this._finish({immediate:true,silent:true});else if(this.celebration)this._completeCelebration();return}
   this.lastTime=null;this._paint(this.clock());this._loop();
  }
  resize(){
@@ -122,7 +183,7 @@ export class MultiHot20Scene {
   this.backdropState={width,height,pixelWidth,pixelHeight,image};
  }
  start(){
-  if(this.disposed||this.rolling)throw Error('REELS_NOT_READY');
+  if(this.disposed||this.rolling||this.celebration)throw Error('REELS_NOT_READY');
   if(this.hidden||this.doc?.hidden)throw Error('GAME_NOT_VISIBLE');
   this._verifySymbols();this.rolling=true;this.stopHint=false;this.pending=null;this.reelPlans=null;this.finishAt=0;
   this.wheelStartAngle=this.wheelAngle;this.wheelPlan=null;
@@ -180,6 +241,7 @@ export class MultiHot20Scene {
    startVelocity:Math.max(0,Math.min(velocity,3*(target-angle)/duration))};
  }
  speedUp(){
+  if(this.celebration){this._completeCelebration();return true}
   if(!this.rolling)return false;
   if(this.stopHint)return true;
   this.stopHint=true;
@@ -207,7 +269,7 @@ export class MultiHot20Scene {
  // a wallet again; it only paints that already settled server result.
  restore(receipt){
   if(this.disposed)throw Error('SCENE_DISPOSED');
-  if(this.rolling||this.pending)throw Error('REELS_NOT_READY');
+  if(this.rolling||this.pending||this.celebration)throw Error('REELS_NOT_READY');
   const snapshot=this._receiptSnapshot(receipt);
   this._cancelFrame();this.current=snapshot.grid.map(row=>[...row]);this.receipt=snapshot;
   this.pending=null;this.reelPlans=null;this.wheelPlan=null;this.wheelAngle=wheelStopAngle(snapshot.wheelMultiplier);this.stopHint=false;this.reelStopped.fill(true);
@@ -225,18 +287,23 @@ export class MultiHot20Scene {
    (this.stopHint?cfg.fastSettleDurationMs:cfg.settleDurationMs)+col*(this.stopHint?cfg.fastReelDelayMs:cfg.reelDelayMs)));
   this.wheelPlan=this._planWheel(now,this.reelPlans.at(-1).endTime-now,this.pending.wheelMultiplier);
   this.finishAt=this.reelPlans[0].endTime;
-  if(this.hidden||this.doc?.hidden||this.reducedMotion){this._finish();return true}
+  if(this.hidden||this.doc?.hidden||this.reducedMotion){this._finish({immediate:true,silent:true});return true}
   return new Promise(resolve=>{this.resolveAnimation=resolve;this._loop()});
  }
  _loop(){
-  if(this.disposed||!this.rolling||this.hidden||this.doc?.hidden||this.frameId!==null)return;
+  if(this.disposed||(!this.rolling&&!this.celebration)||this.hidden||this.doc?.hidden||this.frameId!==null)return;
   this.frameId=this.requestFrame(time=>{
    this.frameId=null;
-   if(this.disposed||!this.rolling||this.hidden||this.doc?.hidden)return;
+   if(this.disposed||(!this.rolling&&!this.celebration)||this.hidden||this.doc?.hidden)return;
    const now=Number.isFinite(time)?time:this.clock();
    if(this.lastTime!==null){const dt=now-this.lastTime;if(dt>1&&dt<200)this.fpsSamples.push(1000/dt);if(this.fpsSamples.length>120)this.fpsSamples.shift()}
    this.lastTime=now;this.frames++;
+   if(this.celebration){
+    if(this.reducedMotion||now>=this.celebration.endsAt){this._completeCelebration();return}
+    this._paint(now);this._loop();return;
+   }
    if(this.pending){
+    if(this.reducedMotion){this._finish({immediate:true,silent:true});return}
     for(let col=0;col<REELS;col++)if(!this.reelStopped[col]&&now>=this.reelPlans[col].endTime){this.reelStopped[col]=true;this._sound('reel-stop')}
     if(this.reelStopped.every(Boolean)){this._finish();return}
    }
@@ -293,6 +360,54 @@ export class MultiHot20Scene {
   }
   ctx.closePath();ctx.clip();drawRing(light);ctx.restore();ctx.restore();
  }
+ _winPart(ctx,name,x,y,width,height,scale,alpha=1,rotation=0,additive=false){
+  if(scale<=0||alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;ctx.globalCompositeOperation=additive?'lighter':'source-over';
+  ctx.translate(x,y);ctx.rotate(rotation);
+  this._symbol(ctx,name,-width*scale/2,-height*scale/2,width*scale,height*scale);ctx.restore();
+ }
+ _paintCelebration(ctx,now){
+  const celebration=this.celebration;if(!celebration)return;
+  const cfg=MULTIHOT20_WIN_PRESENTATION;
+  // Turbo compresses this presentation timeline only. Normal entrance keys
+  // retain the original visual-data timestamps; dismissal is a ZPLAY choice.
+  const age=Math.max(0,now-celebration.startedAt)*cfg.durationMs/celebration.durationMs;
+  const time=age/1000,fade=Math.min(1,Math.max(0,(cfg.durationMs-age)/cfg.exitFadeMs));
+  const light=keyValue(WIN_KEYS.light,time),frame=keyValue(WIN_KEYS.frame,time);
+  this._winPart(ctx,'__winBacklight',300,300,555,542,light,fade*.46,time*Math.PI/8);
+  this._winPart(ctx,'__winShine',300,300,480,480,light,fade*.32,-time*Math.PI/6,true);
+  this._winPart(ctx,'__winFrame',300,300,399,379,frame,fade);
+  // These are measured visible-pixel crops, not unavailable Spine trim
+  // offsets. The common bounded composition is independent ZPLAY placement;
+  // higher tiers reuse it without claiming an observed provider composition.
+  const crownScale=keyValue(WIN_KEYS.crownScale,time),crownY=176-keyValue(WIN_KEYS.crownY,time);
+  this._winPart(ctx,'__winCrownSmall',300,crownY,60,48,crownScale,fade);
+  const tierScale=keyValue(WIN_KEYS.tierScale,time),tierY=248-keyValue(WIN_KEYS.tierY,time);
+  const tierImage=this._asset(celebration.tier.asset),tierWidth=Math.min(420,tierImage?.width??264);
+  const tierHeight=tierWidth*(tierImage?.height??105)/(tierImage?.width??264);
+  this._winPart(ctx,celebration.tier.asset,300,tierY,tierWidth,tierHeight,tierScale,fade);
+  this._winPart(ctx,celebration.tier.asset,300,tierY,tierWidth,tierHeight,tierScale,fade*keyValue(WIN_KEYS.tierFlash,time),0,true);
+  const winScale=keyValue(WIN_KEYS.winScale,time),winY=327-keyValue(WIN_KEYS.winY,time);
+  this._winPart(ctx,'__winText',300,winY,236,100,winScale,fade);
+  this._winPart(ctx,'__winText',300,winY,236,100,winScale,fade*keyValue(WIN_KEYS.winFlash,time),0,true);
+  const moneyScale=keyValue(WIN_KEYS.moneyScale,time),moneyY=450-keyValue(WIN_KEYS.moneyY,time);
+  // The unrotated original coin is a deliberate bounded placement inside the
+  // measured transparent money-frame aperture, not a guessed atlas rotation.
+  this._winPart(ctx,'__winCoin',300,moneyY-31*moneyScale,82,76,moneyScale,fade);
+  this._winPart(ctx,'__winMoneyFrame',300,moneyY,430,155,moneyScale,fade);
+  if(moneyScale>0&&fade>0){
+   ctx.save();ctx.globalAlpha=fade;ctx.textAlign='center';ctx.textBaseline='middle';
+   ctx.font=`900 ${31*moneyScale}px Arial, sans-serif`;ctx.fillStyle='#fff';ctx.shadowColor='#230f35';ctx.shadowBlur=3;
+   // Exact accepted receipt string. Never count up, multiply, round or credit
+   // a displayed amount here; the authenticated server has already settled it.
+   ctx.fillText(celebration.amount+' ETB',300,moneyY+30*moneyScale,330*moneyScale);ctx.restore();
+  }
+ }
+ _setCelebration(value){
+  this.celebration=value;
+  if(value)this.canvas.setAttribute?.('data-win-presentation',value.tier.name);
+  else this.canvas.removeAttribute?.('data-win-presentation');
+ }
  _paint(time){
   if(this.disposed)return;
   const ctx=this.ctx,now=Number.isFinite(time)?time:this.clock();
@@ -300,6 +415,8 @@ export class MultiHot20Scene {
   // Standalone embeds keep their original background. The full-page Player
   // paints it once on its separate backdrop, leaving this stage transparent.
   if(!this.backdropCanvas)this._drawBackground(ctx,WIDTH,HEIGHT);
+  if(this.celebration&&!this.backdropCanvas){ctx.fillStyle='rgba(0,0,0,.68)';ctx.fillRect(0,0,WIDTH,HEIGHT)}
+  ctx.save();if(this.celebration)ctx.globalAlpha=.35;
   this._title(ctx);this._wheel(ctx,now);
   const box=this._asset('__boxFrame'),originalBox=drawable(box);
   if(originalBox)ctx.drawImage(box,(WIDTH-BOX_WIDTH)/2,Y-26*BOX_SCALE,BOX_WIDTH,BOX_HEIGHT);
@@ -325,26 +442,42 @@ export class MultiHot20Scene {
   }
   ctx.shadowBlur=0;
   if(!originalBox){ctx.strokeStyle='#e1bf62';ctx.lineWidth=3;ctx.strokeRect(X-3,Y-3,GRID_W+6,GRID_H+6)}
+  ctx.restore();if(this.celebration)this._paintCelebration(ctx,now);
  }
- _finish(){
+ _finish({immediate=false,silent=false}={}){
   if(!this.pending||this.disposed)return;
   this._stopSound('spin');
-  for(let col=0;col<REELS;col++)if(!this.reelStopped[col]){this.reelStopped[col]=true;this._sound('reel-stop')}
+  for(let col=0;col<REELS;col++)if(!this.reelStopped[col]){this.reelStopped[col]=true;if(!silent)this._sound('reel-stop')}
   this.current=this.pending.grid.map(row=>[...row]);this.receipt=this.pending;this.pending=null;this.reelPlans=null;this.rolling=false;
   this.wheelAngle=wheelStopAngle(this.receipt.wheelMultiplier);this.wheelPlan=null;
-  this._cancelFrame();this._paint(this.clock());
-  if(Number(this.receipt.finalWin)>0)this._sound('win');
+  this._cancelFrame();
+  const now=this.clock(),win=cents(this.receipt.finalWin),tier=presentationTier(this.receipt);
+  if(!silent&&win!==null&&win>0n)this._sound('win');
+  if(tier&&!immediate&&!this.hidden&&!this.doc?.hidden&&!this.reducedMotion){
+   const durationMs=this.stopHint?MULTIHOT20_WIN_PRESENTATION.turboDurationMs:MULTIHOT20_WIN_PRESENTATION.durationMs;
+   this._setCelebration({tier,amount:this.receipt.finalWin,roundId:this.receipt.roundId,startedAt:now,durationMs,endsAt:now+durationMs});
+   this._paint(now);this._loop();return;
+  }
+  this._paint(now);
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(true);
+ }
+ _completeCelebration(){
+  if(!this.celebration)return false;
+  this._setCelebration(null);this._cancelFrame();this._stopSound('win');this._paint(this.clock());
+  const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(true);return true;
  }
  pauseAudio(){try{this.audio.pauseAll?.()}catch{}}
  resumeOptedInMusic(){if(!this.hidden&&!this.doc?.hidden&&!this.disposed)try{this.audio.resumeOptedInMusic?.()}catch{}}
  reset(){
   this._cancelFrame();this._stopSound('spin');
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(false);
+  this._setCelebration(null);
   this.rolling=false;this.pending=null;this.reelPlans=null;this.wheelPlan=null;this.wheelAngle=wheelStopAngle(2);this.wheelStartAngle=this.wheelAngle;this.current=null;this.receipt=null;this.stopHint=false;this.reelStopped.fill(false);
   this._paint(this.clock());this.pauseAudio();
  }
  inspect(){const sample=this.fpsSamples;return{gameId:PRESENTATION_GAME_ID,rolling:this.rolling,receiptId:this.receipt?.roundId||null,frames:this.frames,fpsSampleCount:sample.length,
+  celebration:this.celebration?{tier:this.celebration.tier.name,roundId:this.celebration.roundId,amount:this.celebration.amount,
+   startedAt:this.celebration.startedAt,endsAt:this.celebration.endsAt,durationMs:this.celebration.durationMs}:null,
   averageSampledFps:sample.length?sample.reduce((s,v)=>s+v,0)/sample.length:null,originalArtworkProvided:this.symbols.every(s=>drawable(this._asset(s))),usesServerReceiptOnly:true}}
  dispose(){
   if(this.disposed)return;this.disposed=true;this.reset();
@@ -356,5 +489,6 @@ export class MultiHot20Scene {
   this.doc?.removeEventListener?.('visibilitychange',this.onVisibility);
   this.win?.removeEventListener?.('blur',this.onBlur);this.win?.removeEventListener?.('focus',this.onFocus);
   this.win?.removeEventListener?.('pagehide',this.onPageHide);this.win?.removeEventListener?.('pageshow',this.onPageShow);
+  this.motionPreference?.removeEventListener?.('change',this.onMotionPreference);
  }
 }

@@ -14,7 +14,7 @@
 body{isolation:isolate}
 #game-backdrop{position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0}
 .zplay-app{position:relative;z-index:1}
-.spin-control.has-art .control-label{color:#fff;font-size:12px;line-height:1.1;max-width:42px;letter-spacing:.2px}
+.spin-control.has-art .control-label{color:#fff;font-size:12px;line-height:1.1;max-width:42px;letter-spacing:.2px;white-space:pre-line}
 @media(orientation:landscape) and (max-height:600px){
  .machine{--landscape-stage-size:min(62svh,calc(100svh - 160px),480px);max-width:calc(var(--landscape-stage-size) + 180px)}
  .game-frame{height:var(--landscape-stage-size)}
@@ -24,4 +24,22 @@ body{isolation:isolate}
  .machine:has(.win-actions:not([hidden])) .play-controls{grid-column:3;grid-row:1}
  .machine:has(.win-actions:not([hidden])) .win-actions{position:static;grid-column:1;grid-row:1;align-self:start;margin:12px 0 0;gap:8px}
  .machine:has(.win-actions:not([hidden])) .win-actions button{min-width:0;width:100%;padding:0 6px;font-size:12px}
+}
+
+/* The scene exposes only visual activity; it never changes account state. */
+body:has(#reels[data-win-presentation]) #game-backdrop{filter:brightness(.32)}
+body:has(#reels[data-win-presentation]) .play-controls,
+body:has(#reels[data-win-presentation]) .ledger,
+body:has(#reels[data-win-presentation]) .topbar{opacity:.35}
+.win-actions .win-action-control{position:relative;display:grid;place-items:center;padding:0;min-width:64px;width:64px;height:64px;min-height:44px;border:0;border-radius:50%;background:transparent;box-shadow:none}
+.win-action-control .control-art{display:block;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.win-action-control:disabled{opacity:1}
+/* The settled receipt fits the clear y564..600 strip below the y558 grid. */
+.game-frame{container-type:inline-size}
+.win-banner{bottom:0;left:12%;right:12%;height:6%;padding:0 5px;gap:6px;display:flex;align-items:center;justify-content:center;white-space:nowrap;border-width:1px;border-radius:6px;font-size:clamp(9px,2.5cqw,18px);line-height:1}
+.win-banner strong{font-size:clamp(10px,3.2cqw,22px);line-height:1}
+@media(min-width:900px){.spin-control.has-art .control-label{font-size:13px}}
+@media(orientation:landscape) and (max-height:600px){
+ .machine:has(.win-actions:not([hidden])) .win-actions .win-action-control{width:52px;min-width:52px;height:52px;margin-inline:auto;padding:0}
+ .spin-control.has-art .control-label{font-size:9px}
 }

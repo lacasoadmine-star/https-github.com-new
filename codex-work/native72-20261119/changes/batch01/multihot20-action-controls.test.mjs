@@ -450,7 +450,7 @@ function transformedPoint(transform,[x,y]){
  const [a,b,c,d,e,f]=values;return[a*x+c*y+e,b*x+d*y+f];
 }
 test('M20 atlas controls crop every frame without neighbour bleed and undo each packed quarter-turn',()=>{
- assert.equal(Object.keys(CONTROL_TEXTURES).length,38);
+ assert.equal(Object.keys(CONTROL_TEXTURES).length,46);
  for(const [name,frame]of Object.entries(CONTROL_TEXTURES)){
   const packedW=frame.rotated?frame.h:frame.w,packedH=frame.rotated?frame.w:frame.h;
   assert.ok(frame.x+packedW<=frame.atlasWidth,name+' right edge is inside atlas');
@@ -473,6 +473,14 @@ test('M20 atlas controls crop every frame without neighbour bleed and undo each 
  assert.equal(CONTROL_TEXTURES['Buttons/SoundOff'].sourceW,48);
  assert.equal(CONTROL_TEXTURES['Buttons/SoundOff'].sourceH,38);
  assert.equal(CONTROL_TEXTURES['Buttons/QuickPlay'].trimY,18);
+ assert.equal(CONTROL_TEXTURES['Buttons/Double'].rotated,true);
+ assert.equal(CONTROL_TEXTURES['Buttons/Double'].sourceW,111);
+ assert.equal(CONTROL_TEXTURES['Buttons/Double'].sourceH,110);
+ assert.equal(CONTROL_TEXTURES['Buttons/DoubleTake'].rotated,false);
+ // The captured disabled variants are deliberately transparent pixels, not
+ // the separately named DoubleTakeDisabled1 artwork from another UI state.
+ assert.equal(CONTROL_TEXTURES['Buttons/DoubleDisabled'].w,1);
+ assert.equal(CONTROL_TEXTURES['Buttons/DoubleTakeDisabled'].w,1);
 });
 
 test('M20 SPIN, STOP, AUTO STOP, turbo and sound choose real state textures independently of hover',()=>{
@@ -485,11 +493,15 @@ test('M20 SPIN, STOP, AUTO STOP, turbo and sound choose real state textures inde
   ['auto',{disabled:true},'Buttons/AutoPlayDisabled'],['bet',{disabled:true},'Buttons/BetDisabled'],
   ['turbo',{},'Buttons/QuickPlay'],['turbo',{turbo:true},'Buttons/QuickPlayTurbo'],
   ['menu',{hovered:true},'Buttons/MenuHover'],['sound',{soundOn:false},'Buttons/SoundOff'],
-  ['sound',{soundOn:true},'Buttons/SoundOn'],['sound',{soundOn:true,pressed:true},'Buttons/SoundOnActive']
+  ['sound',{soundOn:true},'Buttons/SoundOn'],['sound',{soundOn:true,pressed:true},'Buttons/SoundOnActive'],
+  ['gamble',{},'Buttons/Double'],['gamble',{pressed:true},'Buttons/DoubleActive'],
+  ['gamble',{hovered:true},'Buttons/DoubleHover'],['gamble',{disabled:true,pressed:true},'Buttons/DoubleDisabled'],
+  ['take-win',{},'Buttons/DoubleTake'],['take-win',{pressed:true},'Buttons/DoubleTakeActive'],
+  ['take-win',{hovered:true},'Buttons/DoubleTakeHover'],['take-win',{disabled:true,hovered:true},'Buttons/DoubleTakeDisabled']
  ])assert.equal(controlTextureName(id,state),name);
  for(let bits=0;bits<128;bits++){
   const state=Object.fromEntries(['disabled','pressed','hovered','spinning','autoplay','turbo','soundOn'].map((name,i)=>[name,!!(bits&(1<<i))]));
-  for(const id of ['spin','auto','bet','turbo','menu','sound'])assert.ok(CONTROL_TEXTURES[controlTextureName(id,state)],id+' never selects an absent frame');
+  for(const id of ['spin','auto','bet','turbo','menu','sound','gamble','take-win'])assert.ok(CONTROL_TEXTURES[controlTextureName(id,state)],id+' never selects an absent frame');
  }
  assert.throws(()=>controlTextureName('unknown'),/UNKNOWN_CONTROL_TEXTURE/);
  assert.throws(()=>createControlArt('help-strip','/verified/atlas-0.png',artDocument()),/CONTROL_ART_UNAVAILABLE/);

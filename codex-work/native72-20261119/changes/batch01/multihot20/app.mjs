@@ -24,6 +24,9 @@ const quickActiveFrame=controlFrame(1,1820,1933,82,96,true,1,1,84,99);
 const menuFrame=controlFrame(0,1,1984,48,33),menuActiveFrame=controlFrame(0,51,1984,48,33);
 const soundOffActiveFrame=controlFrame(0,1856,1984,48,37,true,0,0,48,38);
 const soundOnActiveFrame=controlFrame(0,1747,1667,38,37,true,0,0,48,38);
+const doubleFrame=controlFrame(1,1936,1407,111,110,true);
+const doubleTakeActiveFrame=controlFrame(1,1936,1745,110,110);
+const doubleDisabledFrame=controlFrame(0,2039,860,1,1);
 export const CONTROL_TEXTURES=Object.freeze({
  'Buttons/Spin':spinFrame,'Buttons/SpinDisabled':spinFrame,
  'Buttons/SpinActive':spinActiveFrame,'Buttons/SpinHover':spinActiveFrame,
@@ -48,7 +51,13 @@ export const CONTROL_TEXTURES=Object.freeze({
  'Buttons/SoundOffActive':soundOffActiveFrame,'Buttons/SoundOffHover':soundOffActiveFrame,'Buttons/SoundOffDisabled':soundOffActiveFrame,
  'Buttons/SoundOn':controlFrame(0,1934,1984,38,37,true,0,0,48,38),
  'Buttons/SoundOnActive':soundOnActiveFrame,'Buttons/SoundOnHover':soundOnActiveFrame,
- 'Buttons/SoundOnDisabled':controlFrame(0,1707,1667,39,38,true,0,0,48,38)
+ 'Buttons/SoundOnDisabled':controlFrame(0,1707,1667,39,38,true,0,0,48,38),
+ 'Buttons/Double':doubleFrame,'Buttons/DoubleActive':doubleFrame,
+ 'Buttons/DoubleHover':controlFrame(1,1936,1520,111,110,true),
+ 'Buttons/DoubleDisabled':doubleDisabledFrame,
+ 'Buttons/DoubleTake':controlFrame(1,1936,1633,110,110),
+ 'Buttons/DoubleTakeActive':doubleTakeActiveFrame,'Buttons/DoubleTakeHover':doubleTakeActiveFrame,
+ 'Buttons/DoubleTakeDisabled':doubleDisabledFrame
 });
 
 export function controlTextureName(id,{disabled=false,pressed=false,hovered=false,spinning=false,
@@ -64,6 +73,8 @@ export function controlTextureName(id,{disabled=false,pressed=false,hovered=fals
  if(id==='turbo')return 'Buttons/QuickPlay'+(turbo&&!disabled?'Turbo':suffix);
  if(id==='menu')return 'Buttons/Menu'+suffix;
  if(id==='sound')return 'Buttons/Sound'+(soundOn?'On':'Off')+suffix;
+ if(id==='gamble')return 'Buttons/Double'+suffix;
+ if(id==='take-win')return 'Buttons/DoubleTake'+suffix;
  throw Error('UNKNOWN_CONTROL_TEXTURE');
 }
 
@@ -153,11 +164,12 @@ const session=new Session();
 const live=()=>!document.hidden&&document.hasFocus();
 let resources=null,scene=null,sound=null,controller=null,assetsReady=false,loading=false;
 let loadAbort=null,loadGeneration=0,assetFailed=false,autoCount=100,previewIndex=0,lastCelebrated=null;
+let winBannerFrame=null,winBannerSequence=0;
 const holdSpin=createHoldSpin({getController:()=>controller,visible:()=>assetsReady&&live()&&!document.querySelector('dialog[open]')});
 const soundBridge={play:name=>sound?.play(name),stop:name=>sound?.stop(name),pauseAll:()=>sound?.pauseAll(),resumeOptedInMusic:()=>sound?.resumeOptedInMusic()};
 const settingsKey='zplay:multihot20:audio:v1';
 let savedSettings={chosen:false,effects:false,music:false};
-const controlPointers=new Map(['spin','auto','bet','turbo','menu','sound'].map(id=>[id,{pressed:false,hovered:false}]));
+const controlPointers=new Map(['spin','auto','bet','turbo','menu','sound','gamble','take-win'].map(id=>[id,{pressed:false,hovered:false}]));
 try{const s=JSON.parse(localStorage.getItem(settingsKey)||'null');if(s&&s.chosen===true)savedSettings={chosen:true,effects:s.effects===true,music:s.music===true}}catch{/* Preferences never block game loading. */}
 // Display-only coefficients and line geometry verified in the official help.
 // This view does not evaluate a spin; finalWin always comes from its receipt.
@@ -168,6 +180,11 @@ function node(tag,text,className){const el=document.createElement(tag);if(text!=
 function open(dialog){if(!dialog||dialog.open)return;holdSpin.cancel();if(controller?.auto.started)controller.stopAuto('MENU');dialog.showModal()}
 function close(dialog){if(dialog?.open)dialog.close()}
 function status(message){ui.status.textContent=message}
+function cancelWinBannerAnimation(){
+ winBannerSequence++;
+ if(winBannerFrame!==null){cancelAnimationFrame(winBannerFrame);winBannerFrame=null}
+ ui['win-banner'].classList.remove('celebrate');
+}
 function clearControlPointers(){for(const pointer of controlPointers.values()){pointer.pressed=false;pointer.hovered=false}}
 function syncControlArt(){
  if(!resources)return;
@@ -206,7 +223,7 @@ function sync(){
  ui.zplay.dataset.roundId=receipt?.roundId||'';
  ui.balance.textContent=account?.balance??session.account?.balance??'—';
  ui['bet-value'].textContent=account?state.bet:'—';
- ui['spin-label'].textContent=spinning?'STOP':'HOLD & SPIN';
+ ui['spin-label'].textContent=spinning?'STOP':'HOLD\n&\nSPIN';
  ui['spin-label'].classList.toggle('sr-only',spinning);
  ui.spin.dataset.spinning=String(spinning);
  ui.spin.setAttribute('aria-label',spinning?'Stop reel animation':'Spin reels; hold to repeat');
@@ -219,7 +236,6 @@ function sync(){
  ui['auto-label'].textContent=activeAuto?String(state.auto.armed):'AUTO';
  ui.turbo.disabled=!assetsReady||!!state.pending;
  ui.turbo.setAttribute('aria-pressed',String(!!controller?.turbo));
- syncControlArt();
  ui.signin.hidden=!!account?.authenticated||state.phase==='loading'||assetFailed;
  ui.retry.hidden=state.phase!=='confirm';ui.retry.disabled=!!state.pending;
  ui.reconnect.hidden=!assetsReady||(!['unavailable','disconnected'].includes(state.phase)&&state.gamble?.reason!=='ROUND_CHANGED');ui.reconnect.disabled=loading;
@@ -233,6 +249,7 @@ function sync(){
  ui['gamble-red'].disabled=!canStart||!matchingWin||!g?.available;
  ui['gamble-black'].disabled=!canStart||!matchingWin||!g?.available;
  ui['gamble-take'].disabled=ui['take-win'].disabled;
+ syncControlArt();
  ui['gamble-stake'].textContent=matchingWin?g.stake:'0.00';
  ui['gamble-limits'].textContent=matchingWin?`Attempt ${g.attempt} of ${g.maxAttempts} · Maximum stake ${g.maxStake} ETB`:'';
  const cardCandidate=g?.lastResult??state.lastAction;
@@ -244,9 +261,16 @@ function sync(){
  const shownWin=card?card.payout:receipt?.finalWin??'0.00';
  ui['win-value'].textContent=shownWin;ui['multiplier-value'].textContent=receipt?.wheelMultiplier??1;
  ui['win-banner'].hidden=!settledView||Number(shownWin)<=0;
+ if(ui['win-banner'].hidden)cancelWinBannerAnimation();
  if(receipt&&settledView&&Number(shownWin)>0&&lastCelebrated!==receipt.roundId){
-  lastCelebrated=receipt.roundId;ui['win-banner'].classList.remove('celebrate');
-  requestAnimationFrame(()=>ui['win-banner'].classList.add('celebrate'));
+  cancelWinBannerAnimation();lastCelebrated=receipt.roundId;
+  const owner=controller,generation=owner.generation,roundId=receipt.roundId,sequence=winBannerSequence;
+  winBannerFrame=requestAnimationFrame(()=>{
+   if(sequence!==winBannerSequence)return;
+   winBannerFrame=null;
+   if(controller!==owner||owner.generation!==generation||owner.lastReceipt?.roundId!==roundId||ui['win-banner'].hidden)return;
+   ui['win-banner'].classList.add('celebrate');
+  });
  }
  if(assetFailed){status('Game files could not load. Please try again.');return}
  const messages={loading:'Connecting…',disconnected:'Sign in to play.',unavailable:'This game is temporarily unavailable.',ready:activeAuto?`Autoplay · ${state.auto.armed} spins remaining`:'Ready',spinning:activeAuto?`Autoplay · ${state.auto.armed} spins remaining`:'Spinning…',confirm:'Your round needs to be recovered before you play again.',gambling:'Revealing card…',collecting:'Updating balance…'};
@@ -259,12 +283,15 @@ function sync(){
  if(!navigator.onLine)message='Connection lost. Your accepted round is saved.';
  status(message);
 }
-function disposeResources(){holdSpin.cancel();loadAbort?.abort();scene?.dispose();sound?.destroy();resources?.dispose();scene=null;sound=null;resources=null;assetsReady=false}
+function disposeResources(){holdSpin.cancel();cancelWinBannerAnimation();loadAbort?.abort();scene?.dispose();sound?.destroy();resources?.dispose();scene=null;sound=null;resources=null;assetsReady=false}
 function restoreHistoricalRound(account){
  const r=account?.round?.result;
  if(!r||session.pending||(session.pendingAction&&session.pendingAction.roundId!==r.roundId))return false;
  const historicalModel={...account.game,...Object.fromEntries(['mathVersion','engineVersion','mathSha256'].map(k=>[k,r[k]]))};
- try{validateReceipt(r,historicalModel,r.bet);scene.restore(r);controller.lastReceipt=r;return true}catch{return false}
+ try{
+  validateReceipt(r,historicalModel,r.bet);scene.restore(r);
+  cancelWinBannerAnimation();lastCelebrated=r.roundId;controller.lastReceipt=r;return true;
+ }catch{return false}
 }
 async function connectAccount(){
  if(!controller||controller.pending)return;

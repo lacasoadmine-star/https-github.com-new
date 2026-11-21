@@ -22,12 +22,17 @@ const source=(file='seven.png',body=bytes)=>{
 const response=(body=bytes,type='image/png')=>new Response(body,{headers:{'content-type':type}});
 
 test('CI inventory pins all actual game files and preserves the five retained audio records',()=>{
- assert.equal(verifySourceManifest(manifest,sources).length,11);
+ assert.equal(verifySourceManifest(manifest,sources).length,13);
  const audio=Object.entries(sources.files).filter(([name])=>name.endsWith('.mp3'));
  assert.equal(audio.length,5);
  for(const [,record] of audio){
   assert.equal(record.retrievalProvenance.kind,'retained_verified_project_asset');
   assert.equal(record.retrievalProvenance.freshOfficialDownload,false);
+ }
+ for(const file of ['wins.png','wins2.png']){
+  assert.equal(sources.files[file].contentType,'image/png');
+  assert.equal(sources.files[file].retrievalProvenance.kind,'retained_verified_project_asset');
+  assert.equal(sources.files[file].retrievalProvenance.freshOfficialDownload,false);
  }
  const changed=structuredClone(sources);delete changed.files['win.mp3'];
  assert.throws(()=>verifySourceManifest(manifest,changed),/inventory must exactly match/);
@@ -46,6 +51,21 @@ test('CI inventory pins all actual game files and preserves the five retained au
  assert.throws(()=>verifySourceManifest(manifest,privateProvenance),/only public fields/);
  const changedDate=structuredClone(sources);changedDate.files['background.png'].retrievalProvenance.at='2026-11-20T00:00:00.000Z';
  assert.throws(()=>verifySourceManifest(manifest,changedDate),/retrieval provenance changed/);
+});
+
+test('CI inventory rejects missing or substituted WIN sheets even when both manifests agree',()=>{
+ for(const file of ['wins.png','wins2.png']){
+  const missingSource=structuredClone(sources);delete missingSource.files[file];
+  assert.throws(()=>verifySourceManifest(manifest,missingSource),/inventory must exactly match/);
+  const missingManifest=structuredClone(manifest);delete missingManifest.files[file];
+  assert.throws(()=>verifySourceManifest(missingManifest,missingSource),/thirteen verified original game media files are required/);
+  const renamedManifest=structuredClone(manifest),renamedSources=structuredClone(sources);
+  for(const record of [renamedManifest,renamedSources]){
+   record.files['unreviewed-'+file]=record.files[file];delete record.files[file];
+  }
+  assert.equal(Object.keys(renamedManifest.files).length,13);
+  assert.throws(()=>verifySourceManifest(renamedManifest,renamedSources),/thirteen verified original game media files are required/);
+ }
 });
 
 test('provider, wallet, credentialed and query-string URLs fail before any network request',async()=>{
@@ -102,7 +122,7 @@ async function withSetup(run){
 
 test('complete verified set becomes visible together and produces an explicit nonfresh QA report',async()=>withSetup(async({options,bodies})=>{
  const result=await prepareBrowserMedia({...options,fetchImpl:async url=>{const item=bodies.get(url);assert.ok(item);return response(item.body,item.type)}});
- assert.equal(result.status,'PASS');assert.equal(result.verifiedFiles,11);assert.equal((await readdir(options.output)).length,11);
+ assert.equal(result.status,'PASS');assert.equal(result.verifiedFiles,13);assert.equal((await readdir(options.output)).length,13);
  const report=JSON.parse(await readFile(options.reportPath,'utf8'));
  assert.equal(report.providerRequests,false);assert.equal(report.walletRequests,false);assert.equal(report.credentialsSent,false);
  assert.equal(report.files.find(file=>file.file==='win.mp3').retrievalProvenance.freshOfficialDownload,false);

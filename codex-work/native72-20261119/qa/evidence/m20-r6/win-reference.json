@@ -1,0 +1,124 @@
+{
+  "schema": "zplay/multihot20-win-reference/v1",
+  "observedDate": "2026-11-21",
+  "timezone": "Africa/Addis_Ababa",
+  "gameId": "fresh_multihot20",
+  "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&PortalName=demo&Token=DEMO",
+  "sourceKind": "Direct public demo UI observation and retained original visual artwork",
+  "observedNiceWin": {
+    "displayClockDuringPopup": "05:30:28",
+    "bet": "0.20 DMO",
+    "win": "2.50 DMO",
+    "wheelLeftCentreRight": [
+      3,
+      5,
+      2
+    ],
+    "balanceBeforeCollection": "19999.60 DMO",
+    "balanceAfterCollection": "20002.10 DMO",
+    "takeWinObserved": true,
+    "collectionDelta": "2.50 DMO",
+    "visibleElements": [
+      "Darkened game scene",
+      "Rounded green diamond frame",
+      "Small crown",
+      "Gold NICE and WIN lettering",
+      "Gold clover coin",
+      "Purple amount plaque",
+      "Gold backlight rays",
+      "X2 control above AUTO",
+      "TAKE WIN control below BET"
+    ],
+    "visiblePaylineExample": {
+      "line": 15,
+      "symbol": "plum",
+      "matches": 3,
+      "caption": "0.05 × 5 = 0.25 DMO"
+    },
+    "popupScreenshotEmitted": true,
+    "popupScreenshotSavedToFile": false,
+    "exactDurationMeasured": false,
+    "officialTierThresholdsEstablished": false,
+    "providerReceiptsRead": false
+  },
+  "approvedVisualSources": [
+    {
+      "name": "wins.json",
+      "path": "multi-hot-20/04-video-animation/b8727403a8ac-Multi_hot_5_Wilde_wins.json",
+      "bytes": 191050,
+      "sha256": "271110378ac235b462e2470be2a410ad030e1ca5208121ec23183e9461ad85ea"
+    },
+    {
+      "name": "wins.png",
+      "path": "multi-hot-20/06-artwork/36282eefbebe-Multi_hot_5_Wilde_wins.png",
+      "bytes": 584562,
+      "sha256": "a63ebe0fce418b7b670f554fb7b564f4a7b26745592d31c520c1dd44acf29fce"
+    },
+    {
+      "name": "wins2.png",
+      "path": "multi-hot-20/06-artwork/e08490a5fa33-Multi_hot_5_Wilde_wins2.png",
+      "bytes": 208793,
+      "sha256": "036b3430be4bfc4b03e267492b8856ad79bff444301177f73f36c1981dc7e851"
+    }
+  ],
+  "measuredCropMethod": "Alpha-bounded original PNG regions; each region has a transparent one-pixel outer border. These are not recovered provider atlas rectangles or trim offsets.",
+  "supportedNiceEntranceSeconds": {
+    "frameSettled": 0.7667,
+    "crownSettled": 0.7667,
+    "niceScaleSettled": 0.7,
+    "winScaleSettled": 0.8,
+    "moneyFrameSettled": 1.0667,
+    "niceFlashPeak": 0.4333,
+    "winFlashPeak": 0.5667,
+    "frameLightFadeEnds": 1.9333
+  },
+  "rejectedTimingInference": "13.3333s belongs to coin-bone rotation; NICE hides falling coin slots at time zero. It is not an observed visible duration.",
+  "implementationDecisions": {
+    "modelKind": "independent_zplay_presentation",
+    "visualThresholds": {
+      "NICE": 10,
+      "BIG": 25,
+      "SUPER": 50,
+      "FANTASTIC": 100
+    },
+    "thresholdBasis": "Final accepted win divided by the accepted stake, using integer cents, only to select artwork.",
+    "thresholdsAreOfficial": false,
+    "normalDurationMs": 2600,
+    "turboMaximumDurationMs": 700,
+    "durationIsOfficial": false,
+    "higherTierComposition": "Common small-crown frame with original tier lettering; this is ZPLAY composition, not a claim of complete provider arrangement parity.",
+    "noPayoutOrRngChanges": true,
+    "amountSource": "Validated server receipt finalWin; the multiplier is already included and is never applied again by rendering.",
+    "restorePolicy": "Historical receipts restore without re-running the celebration or its sound.",
+    "audio": "Existing verified win.mp3 remains the win event. Newly captured or tier-specific provider audio is not claimed."
+  },
+  "runtimeMedia": {
+    "files": 13,
+    "freshOriginalBackground": 1,
+    "retainedOriginalRenderingAtlases": 5,
+    "retainedOriginalWinPages": 2,
+    "retainedOriginalSounds": 5,
+    "providerClientCodeCopied": false,
+    "userExampleScreenshotsUsedAsAssets": false
+  },
+  "freshLaterSession": {
+    "loadingRecovery": "One reported reload after the SmartSoft splash left a black screen opened the same official demo successfully.",
+    "displayClock": "05:41:57",
+    "currency": "DMO",
+    "bet": "0.20",
+    "balance": "19999.55",
+    "wheelLeftCentreRight": [3, 5, 2],
+    "popupVisibleInSavedScreenshot": false
+  },
+  "screenshots": [{
+    "file": "official-layout-after-hold.jpg",
+    "bytes": 134200,
+    "sha256": "c3befc8024db2a11648817c06454c4931703d9a99a83505e20859c8fba2974ef",
+    "purpose": "Fresh official settled layout after held demo spins; not the earlier NICE WIN popup."
+  }],
+  "limits": {
+    "officialAudioAudiblyCompared": false,
+    "physicalMobile60FpsVerified": false,
+    "realPlayerWagers": 0
+  }
+}

@@ -26,7 +26,7 @@ export async function createReleaseTestFixture(){
       checks:Object.fromEntries(REQUIRED_CHECKS[kind].map(key=>[key,true]))};
     if(['unit','real-postgres'].includes(kind))report.tests={passed:1,failed:0,skipped:0,cancelled:0};
     if(kind==='real-postgres')Object.assign(report,{database:'PostgreSQL',disposable:true,productionWagers:0});
-    if(kind==='browser')Object.assign(report,{mode:'LOOPBACK_QA_FIXTURE',productionWagers:0,mediaVerified:11,criticalErrors:0,
+    if(kind==='browser')Object.assign(report,{mode:'LOOPBACK_QA_FIXTURE',productionWagers:0,mediaVerified:13,criticalErrors:0,
       viewports:[[390,844],[768,1024],[1440,900],[844,390]].map(([width,height])=>({width,height,status:'PASS'}))});
     if(kind==='source')Object.assign(report,{baselineSha256:RETAINED_BASELINE_SHA256,
       newServices:0,newDatabases:0,newTables:0,enabledGames:[M20_GAME_ID],environmentVariablesChanged:[]});

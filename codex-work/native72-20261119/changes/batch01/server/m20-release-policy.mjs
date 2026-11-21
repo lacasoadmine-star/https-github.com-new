@@ -13,12 +13,12 @@ export const M20_EVALUATOR_SHA256='776b7cd2987a5dba4ca3dfe94ba41540218d0ab4ed450
 export const M20_MATH_SHA256='4b7af42145bca5e7aa18a6d058c7394381d8b9b252110bffc61503c0470643d8';
 export const RETAINED_BASELINE_SHA256='9ed186420e58330388e96aa62c9f4dea70d82ae596bfd57060d66053b981dfa3';
 export const EVIDENCE_KINDS=Object.freeze(['unit','real-postgres','browser','source','operator-policy']);
-// The r6 presentation uses five original atlases, one background and
-// five original sound files. Bind browser verification to that exact inventory
+// The r6 presentation uses five original atlases, two win-art pages, one
+// background and five original sound files. Bind browser verification to that exact inventory
 // in the reviewed, SHA-verified source snapshot, not an arbitrary file count.
 export const REQUIRED_M20_MEDIA_FILES=Object.freeze([
   'atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png',
-  'button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3'
+  'button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3','wins.png','wins2.png'
 ]);
 export const REQUIRED_SOURCE_PATHS=Object.freeze([
   'server/official-math.mjs','server/sw-nine-pg-adapter.mjs','server/existing-server-routes.mjs',

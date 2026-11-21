@@ -78,21 +78,25 @@ test('failed, skipped or wrong-snapshot test evidence stays closed even after re
   }
 });
 
-test('browser acceptance requires all eleven original media files and rejects the old nineteen-file count',async()=>{
+test('browser acceptance requires all thirteen original media files and rejects old or incomplete counts',async()=>{
   const accepted=await createReleaseTestFixture();
-  assert.equal(accepted.reports.browser.mediaVerified,11);
-  assert.equal(Object.keys(JSON.parse(accepted.inputs.sourceBytes['multihot20/assets.json']).files).length,11);
+  assert.equal(accepted.reports.browser.mediaVerified,13);
+  assert.equal(Object.keys(JSON.parse(accepted.inputs.sourceBytes['multihot20/assets.json']).files).length,13);
   assert.equal(activate(accepted).enabled(M20_GAME_ID),true);
-  for(const count of [19,10,12,0,'11',null,undefined]){
+  for(const count of [11,19,12,14,0,'13',null,undefined]){
     const f=await createReleaseTestFixture();f.reports.browser.mediaVerified=count;f.repinEvidence('browser');
     assert.throws(()=>activate(f),/M20_RELEASE_BROWSER_SCOPE_INVALID/);
     assert.equal(f.registry.profileForGame(M20_GAME_ID).productionApproved,false);
   }
 });
 
-test('repinned eleven-file browser evidence cannot approve a wrong or malformed source media inventory',async()=>{
+test('repinned thirteen-file browser evidence cannot approve missing WIN sheets or a malformed source media inventory',async()=>{
   for(const edit of [
     m=>{m.files['unreviewed-atlas.png']=m.files['atlas-0.png'];delete m.files['atlas-0.png']},
+    m=>{delete m.files['wins.png']},
+    m=>{delete m.files['wins2.png']},
+    m=>{delete m.files['wins.png'];delete m.files['wins2.png']},
+    m=>{m.files['unreviewed-wins.png']=m.files['wins2.png'];delete m.files['wins2.png']},
     m=>{delete m.files['win.mp3']},
     m=>{m.files['extra.mp3']={...m.files['win.mp3']}},
     m=>{m.gameId='fresh_multihot5burnwilds'},

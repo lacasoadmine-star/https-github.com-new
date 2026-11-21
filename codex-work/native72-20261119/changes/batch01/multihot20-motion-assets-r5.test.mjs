@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {MultiHot20Scene,SCENE_LAYOUT,MULTIHOT20_WHEEL_SECTORS} from './multihot20/scene.mjs';
+import {MultiHot20Scene,SCENE_LAYOUT,MULTIHOT20_WHEEL_SECTORS,MULTIHOT20_WIN_PRESENTATION} from './multihot20/scene.mjs';
 import {loadVerifiedAssets,createSoundEngine} from './multihot20/assets.mjs';
 
 class Target extends EventTarget {
@@ -14,31 +14,39 @@ function harness(extraAssets={},options={}){
  let now=1000,next=0,draws=[],clips=[],texts=[],fills=[],strokes=[],transform={angle:0,x:0,y:0};
  const stack=[];
  const frames=new Map(),sounds=[],doc=options.doc??new Target(),win=options.win??new Target();
- const ctx=new Proxy({createLinearGradient:()=>({addColorStop(){}}),measureText:s=>({width:s.length*22}),
+ const ctx=new Proxy({globalAlpha:1,globalCompositeOperation:'source-over',createLinearGradient:()=>({addColorStop(){}}),measureText:s=>({width:s.length*22}),
   clearRect(){draws=[];clips=[];texts=[];fills=[];strokes=[]},
-  setTransform(){transform={angle:0,x:0,y:0}},save(){stack.push({...transform})},restore(){transform=stack.pop()},
+  setTransform(){transform={angle:0,x:0,y:0}},
+  save(){stack.push({transform:{...transform},alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation})},
+  restore(){const state=stack.pop();transform=state.transform;ctx.globalAlpha=state.alpha;ctx.globalCompositeOperation=state.blend},
   translate(x,y){transform.x+=x;transform.y+=y},rotate(angle){transform.angle+=angle},
   drawImage(sprite,...args){
    const [x,y,w,h]=args.length===8?args.slice(4):args;
-   draws.push({symbol:sprite.symbol,x,y,w,h,source:args.length===8?args.slice(0,4):null,...transform});
+   draws.push({symbol:sprite.symbol,x,y,w,h,source:args.length===8?args.slice(0,4):null,alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation,...transform});
    // Destination position stays separate from the transformed pivot.
    Object.assign(draws.at(-1),{x,y,pivot:[transform.x,transform.y]});
   },
   rect:(...r)=>clips.push(r),fillText:(...args)=>texts.push(args),fillRect:(...r)=>fills.push(r),strokeRect:(...r)=>strokes.push(r)},
  {get:(target,key)=>key in target?target[key]:()=>{},set:(target,key,value)=>(target[key]=value,true)});
- const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({width:360,height:360})};
+ const attributes=new Map();
+ const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({width:360,height:360}),
+  setAttribute:(name,value)=>attributes.set(name,value),removeAttribute:name=>attributes.delete(name),getAttribute:name=>attributes.get(name)??null};
  const symbols=['seven','bell','grape','watermelon','lemon','plum','orange','cherry'];
  const presentation={
   __wheelNumbers:{symbol:'wheel-numbers',width:1093,height:1946},
   __wheelFrame:{symbol:'wheel-frame',width:2047,height:2047},
   __wheelLight:{symbol:'wheel-light',width:2047,height:2047},
   __title:{symbol:'title',width:633,height:152},__boxFrame:{symbol:'box-frame',width:1119,height:696},
-  __background:{symbol:'background',width:100,height:100}
+  __background:{symbol:'background',width:100,height:100},
+  ...Object.fromEntries(Object.entries({__winNice:[264,105],__winText:[236,100],__winCrownSmall:[60,48],
+   __winMoneyFrame:[430,155],__winCoin:[105,97],__winFrame:[399,379],__winBacklight:[855,834],
+   __winShine:[391,397],__winBig:[198,100],__winSuper:[344,109],__winFantastic:[537,115]})
+   .map(([name,[width,height]])=>[name,{symbol:name,width,height}]))
  };
  const scene=new MultiHot20Scene({canvas,backdropCanvas:options.backdropCanvas??null,symbols,assets:{...Object.fromEntries(symbols.map(symbol=>[symbol,{symbol,width:100,height:100}])),...presentation,...extraAssets},doc,win,
   audio:{play:name=>sounds.push({name,at:now}),stop:name=>sounds.push({name:'stop:'+name,at:now}),pauseAll:()=>sounds.push({name:'pause',at:now})},
   clock:()=>now,requestFrame:fn=>{frames.set(++next,fn);return next},cancelFrame:id=>frames.delete(id)});
- const receipt={gameId:'fresh_multihot20',roundId:'server-round-01',wheelMultiplier:3,finalWin:'2.40',
+ const receipt={gameId:'fresh_multihot20',roundId:'server-round-01',wheelMultiplier:3,bet:'2.00',finalWin:'2.40',
   grid:[['seven','bell','grape','watermelon','lemon'],['plum','orange','cherry','seven','bell'],['grape','watermelon','lemon','plum','orange']],
   winLines:[{positions:[[0,0],[0,1],[0,2]]}]};
  return {scene,canvas,doc,win,receipt,sounds,frames,get draws(){return draws},get clips(){return clips},get texts(){return texts},get fills(){return fills},get strokes(){return strokes},
@@ -133,7 +141,8 @@ test('MH20 paints original wheel atlas, title and reel frame in proportion witho
 });
 
 test('MH20 requires original presentation sprites and rejects atlas crop coordinates outside decoded images',()=>{
- for(const name of ['__wheelNumbers','__wheelFrame','__wheelLight','__title','__boxFrame','__background'])
+ for(const name of ['__wheelNumbers','__wheelFrame','__wheelLight','__title','__boxFrame','__background','__winNice','__winText',
+  '__winCrownSmall','__winMoneyFrame','__winCoin','__winFrame','__winBacklight','__winShine','__winBig','__winSuper','__winFantastic'])
   assert.throws(()=>harness({[name]:null}),new RegExp('OFFICIAL_PRESENTATION_ART_REQUIRED_'+name));
  for(const name of ['__wheelNumbers','__wheelFrame','__wheelLight'])
   assert.throws(()=>harness({[name]:{width:100,height:100}}),new RegExp('OFFICIAL_ATLAS_BOUNDS_INVALID_'+name));
@@ -282,16 +291,150 @@ test('MH20 keeps the aspect ratio of actual trimmed Box symbol frames',()=>{
  h.scene.dispose();
 });
 
+function beginWin(h,overrides={},turbo=false){
+ const receipt={...structuredClone(h.receipt),finalWin:'25.00',...overrides};
+ h.scene.start();if(turbo)h.scene.speedUp();h.tick(1200);
+ const done=h.scene.settle(receipt),reelsEnd=Math.max(...h.scene.reelPlans.map(plan=>plan.endTime));
+ h.tick(reelsEnd);return{receipt,done,start:reelsEnd};
+}
+const winDraw=(h,name)=>h.draws.find(draw=>draw.symbol===name&&draw.blend==='source-over');
+const near=(actual,expected)=>assert.ok(Math.abs(actual-expected)<.001,`${actual} differs from ${expected}`);
+
+test('NICE uses original art after all reels stop, holds settlement, and displays the exact receipt amount once',async()=>{
+ const backdrop=backdropFixture(),h=harness({}, {backdropCanvas:backdrop.canvas});
+ const random=Math.random;Math.random=()=>{throw Error('presentation cannot select a random result')};
+ try{
+  const {receipt,done,start}=beginWin(h,{wheelMultiplier:5}),accepted=structuredClone(receipt);
+  let finished=false;done.then(()=>{finished=true});
+  assert.equal(h.scene.rolling,false);assert.equal(h.scene.inspect().celebration.tier,'NICE');
+  assert.equal(h.scene.inspect().celebration.durationMs,2600);assert.equal(h.canvas.getAttribute('data-win-presentation'),'NICE');
+  assert.throws(()=>h.scene.start(),/REELS_NOT_READY/);assert.throws(()=>h.scene.restore(receipt),/REELS_NOT_READY/);
+  await assert.rejects(h.scene.settle({...receipt,roundId:'replacement'}),/SPIN_NOT_STARTED/);
+  receipt.finalWin='999.99';receipt.bet='0.01';receipt.grid[0][0]='cherry';
+  h.tick(start+1067);await Promise.resolve();assert.equal(finished,false);
+  assert.deepEqual(visibleGrid(h),accepted.grid);assert.deepEqual(h.scene.receipt,accepted);
+  for(const name of ['__winNice','__winText','__winCrownSmall','__winMoneyFrame','__winCoin','__winFrame','__winBacklight','__winShine'])
+   assert.ok(h.draws.some(draw=>draw.symbol===name),'missing original win sprite '+name);
+  assert.equal(h.draws.some(draw=>['__winBig','__winSuper','__winFantastic'].includes(draw.symbol)),false);
+  assert.deepEqual(h.texts.map(args=>args[0]),['25.00 ETB'],'the multiplier is not applied to the already settled amount again');
+  assert.ok(h.draws.filter(draw=>h.scene.symbols.includes(draw.symbol)).every(draw=>draw.alpha===.35));
+  assert.deepEqual(h.fills,[],'page dimming must not introduce another full-stage rectangular seam');
+  assert.equal(backdrop.draws.length,1);assert.equal(h.sounds.filter(sound=>sound.name==='win').length,1);
+  assert.equal(h.sounds.find(sound=>sound.name==='win').at,start);
+  h.tick(start+2599);await Promise.resolve();assert.equal(finished,false);
+  h.tick(start+2600);assert.equal(await done,true);assert.equal(h.scene.inspect().celebration,null);
+  assert.equal(h.canvas.getAttribute('data-win-presentation'),null);assert.equal(h.frames.size,0);
+  assert.deepEqual(visibleGrid(h),accepted.grid);assert.equal(h.scene.receipt.finalWin,'25.00');
+  assert.equal(h.draws.some(draw=>draw.symbol.startsWith('__win')),false);assert.deepEqual(h.texts,[]);
+  h.tick(start+10000);assert.equal(h.frames.size,0);assert.equal(h.sounds.filter(sound=>sound.name==='win').length,1);
+ }finally{Math.random=random;h.scene.dispose()}
+});
+
+test('NICE entrance follows the approved frame, crown, staggered title, and money-frame keyframes',async()=>{
+ const h=harness(),{done,start}=beginWin(h,{bet:'0.20',finalWin:'2.50',wheelMultiplier:5});
+ h.tick(start+300);near(winDraw(h,'__winCrownSmall').w,63);near(winDraw(h,'__winCrownSmall').pivot[1],172);
+ h.tick(start+333.3);near(winDraw(h,'__winFrame').w,399*1.1);
+ h.tick(start+433.3);near(winDraw(h,'__winNice').w,264*1.05);near(winDraw(h,'__winNice').pivot[1],244);
+ near(h.draws.find(draw=>draw.symbol==='__winNice'&&draw.blend==='lighter').alpha,1);
+ h.tick(start+533.3);near(winDraw(h,'__winText').w,236*1.05);near(winDraw(h,'__winText').pivot[1],323);
+ h.tick(start+566.7);near(winDraw(h,'__winFrame').w,399*.95);
+ h.tick(start+600);near(winDraw(h,'__winMoneyFrame').w,430*1.1);near(winDraw(h,'__winMoneyFrame').pivot[1],452);
+ h.tick(start+1067);near(winDraw(h,'__winFrame').w,399);near(winDraw(h,'__winMoneyFrame').w,430);
+ assert.deepEqual(h.texts.map(args=>args[0]),['2.50 ETB']);h.scene.speedUp();assert.equal(await done,true);h.scene.dispose();
+});
+
+test('independent ZPLAY visual tier boundaries use finalWin/bet only and preserve every server amount',async()=>{
+ assert.deepEqual(MULTIHOT20_WIN_PRESENTATION.tiers.map(({name,minimumMultiple})=>[name,minimumMultiple]),
+  [['FANTASTIC',100],['SUPER',50],['BIG',25],['NICE',10]]);
+ for(const [amount,tier,asset]of [['0.00',null,null],['19.99',null,null],['20.00','NICE','__winNice'],
+  ['49.99','NICE','__winNice'],['50.00','BIG','__winBig'],['99.99','BIG','__winBig'],
+  ['100.00','SUPER','__winSuper'],['199.99','SUPER','__winSuper'],['200.00','FANTASTIC','__winFantastic']]){
+  const h=harness(),{done,start}=beginWin(h,{bet:'2.00',finalWin:amount,wheelMultiplier:5});
+  assert.equal(h.scene.inspect().celebration?.tier??null,tier,amount+' tier');
+  if(tier){
+   h.tick(start+1100);assert.ok(winDraw(h,asset));assert.deepEqual(h.texts.map(args=>args[0]),[amount+' ETB']);
+   assert.equal(h.draws.some(draw=>draw.symbol==='__winCrownBig'),false);h.scene.speedUp();
+  }else{assert.equal(h.frames.size,0);assert.equal(h.draws.some(draw=>draw.symbol.startsWith('__win')),false)}
+  assert.equal(await done,true);assert.equal(h.scene.receipt.finalWin,amount);assert.equal(h.scene.receipt.bet,'2.00');
+  assert.equal(h.sounds.filter(sound=>sound.name==='win').length,amount==='0.00'?0:1);h.scene.dispose();
+ }
+});
+
+test('an absent or malformed stake never invents a win tier and large exact-cent amounts stay below their boundary',async()=>{
+ for(const bet of [undefined,'0.00','-1.00','2','2e0',2]){
+  const h=harness(),{done}=beginWin(h,{bet,finalWin:'200.00'});assert.equal(await done,true);
+  assert.equal(h.scene.inspect().celebration,null);assert.equal(h.scene.receipt.finalWin,'200.00');h.scene.dispose();
+ }
+ const h=harness(),{done}=beginWin(h,{bet:'1000000000000.00',finalWin:'9999999999999.99'});
+ assert.equal(await done,true);assert.equal(h.scene.inspect().celebration,null);h.scene.dispose();
+});
+
+test('STOP ends the win presentation without accepting another receipt, playing another win, or moving a symbol',async()=>{
+ const h=harness(),{done,start}=beginWin(h),accepted=structuredClone(h.scene.receipt);
+ h.tick(start+900);assert.equal(h.scene.speedUp(),true);assert.equal(await done,true);
+ assert.deepEqual(h.scene.receipt,accepted);assert.deepEqual(visibleGrid(h),accepted.grid);
+ assert.equal(h.frames.size,0);assert.equal(h.scene.speedUp(),false);assert.equal(h.scene.inspect().celebration,null);
+ h.tick(start+9000);assert.equal(h.sounds.filter(sound=>sound.name==='win').length,1);h.scene.dispose();
+});
+
+test('turbo compresses only the win presentation and completes by its explicit 700ms bound',async()=>{
+ const h=harness(),{done,start}=beginWin(h,{},true);let finished=false;done.then(()=>{finished=true});
+ assert.equal(h.scene.inspect().celebration.durationMs,700);
+ h.tick(start+350);assert.ok(winDraw(h,'__winMoneyFrame'));assert.deepEqual(h.texts.map(args=>args[0]),['25.00 ETB']);
+ h.tick(start+699);await Promise.resolve();assert.equal(finished,false);
+ h.tick(start+700);assert.equal(await done,true);assert.equal(h.frames.size,0);assert.equal(h.scene.receipt.finalWin,'25.00');
+ assert.equal(h.sounds.filter(sound=>sound.name==='win').length,1);h.scene.dispose();
+});
+
+test('hidden-page and reduced-motion completion remove win dimming without replaying sound or animation',async()=>{
+ const h=harness(),{done,start}=beginWin(h);h.tick(start+1100);const accepted=structuredClone(h.scene.receipt);
+ const plays=h.sounds.filter(sound=>!sound.name.startsWith('stop:')&&sound.name!=='pause').length;
+ h.doc.hidden=true;h.doc.dispatchEvent(new Event('visibilitychange'));assert.equal(await done,true);
+ assert.equal(h.frames.size,0);assert.equal(h.canvas.getAttribute('data-win-presentation'),null);
+ h.doc.hidden=false;h.doc.dispatchEvent(new Event('visibilitychange'));h.scene.restore(accepted);h.tick(start+9000);
+ assert.equal(h.sounds.filter(sound=>!sound.name.startsWith('stop:')&&sound.name!=='pause').length,plays);
+ assert.deepEqual(visibleGrid(h),accepted.grid);assert.equal(h.frames.size,0);h.scene.dispose();
+
+ const preference=new Target();preference.matches=true;const win=new Target();win.matchMedia=()=>preference;
+ const reduced=harness({}, {win});reduced.scene.start();assert.equal(await reduced.scene.settle({...reduced.receipt,finalWin:'25.00'}),true);
+ assert.equal(reduced.scene.inspect().celebration,null);assert.equal(reduced.frames.size,0);assert.equal(reduced.sounds.filter(sound=>sound.name==='win').length,0);
+ assert.equal(reduced.sounds.filter(sound=>sound.name==='reel-stop').length,0,'visible reduced-motion completion is silent, including remaining reel stops');
+ preference.matches=false;preference.dispatchEvent(Object.assign(new Event('change'),{matches:false}));
+ const next=beginWin(reduced);assert.equal(reduced.scene.inspect().celebration.tier,'NICE');
+ preference.dispatchEvent(Object.assign(new Event('change'),{matches:true}));assert.equal(await next.done,true);
+ assert.equal(reduced.frames.size,0);assert.equal(reduced.canvas.getAttribute('data-win-presentation'),null);
+ reduced.scene.dispose();assert.ok([...preference.listeners.values()].every(count=>count===0));
+});
+
+test('reset and disposal cancel an active win exactly once and leave no future frames, sounds, or dimming',async()=>{
+ for(const method of ['reset','dispose']){
+  const h=harness(),{done,start}=beginWin(h);h.tick(start+1100);h.scene[method]();
+  assert.equal(await done,false);assert.equal(h.scene.receipt,null);assert.equal(h.frames.size,0);
+  assert.equal(h.canvas.getAttribute('data-win-presentation'),null);
+  const sounds=h.sounds.length;h.tick(start+9000);assert.equal(h.sounds.length,sounds);assert.equal(h.frames.size,0);
+  if(method==='dispose')assert.ok([...h.win.listeners.values(),...h.doc.listeners.values()].every(count=>count===0));
+  h.scene.dispose();
+ }
+});
+
+test('restoring a premium historical receipt is silent and static with no celebration or dimming',()=>{
+ const h=harness(),receipt={...h.receipt,finalWin:'200.00'};h.scene.restore(receipt);
+ assert.deepEqual(visibleGrid(h),receipt.grid);assert.equal(h.scene.inspect().celebration,null);
+ assert.equal(h.canvas.getAttribute('data-win-presentation'),null);assert.equal(h.frames.size,0);assert.deepEqual(h.sounds,[]);
+ assert.equal(h.draws.some(draw=>draw.symbol.startsWith('__win')),false);h.scene.dispose();
+});
+
 function fixture(){
  const names=['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png',
-  'spin.mp3','reel-stop.mp3','win.mp3','button.mp3','music.mp3'];
+  'wins.png','wins2.png','spin.mp3','reel-stop.mp3','win.mp3','button.mp3','music.mp3'];
  const bodies=new Map(names.map(name=>[name,Buffer.from('verified-'+name)]));
  const manifest={schema:'zplay/verified-official-capture-assets/v1',gameId:'fresh_multihot20',baseUrl:'./assets/',
   symbols:['seven','bell','grape','watermelon','lemon','plum','orange','cherry'],
   files:Object.fromEntries([...bodies].map(([name,body])=>[name,{sha256:createHash('sha256').update(body).digest('hex'),bytes:body.length,contentType:name.endsWith('.png')?'image/png':'audio/mpeg'}]))};
  const decoded=[],requests=[],canvases=[],dimensions={
   'atlas-0.png':[2047,2047],'atlas-1.png':[2047,2025],'atlas-2.png':[2047,2047],
-  'atlas-3.png':[1093,1946],'atlas-logo.png':[1822,1793],'background.png':[400,100]
+  'atlas-3.png':[1093,1946],'atlas-logo.png':[1822,1793],'background.png':[400,100],
+  'wins.png':[2042,2010],'wins2.png':[1529,847]
  };
  const imageDecoder=async blob=>{
   const file=(await blob.text()).replace('verified-',''),[width,height]=dimensions[file];
@@ -307,11 +450,11 @@ function fixture(){
 
 test('verified original atlas URLs and audio remain same-origin; dispose closes bitmaps and blocks new reads',async()=>{
  const f=fixture(),resources=await loadVerifiedAssets(f.options);
- for(const name of ['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png'])assert.equal(resources.urls.get(name),'https://player.invalid/new74/multi-hot-20/assets/'+name);
+ for(const name of ['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png','wins.png','wins2.png'])assert.equal(resources.urls.get(name),'https://player.invalid/new74/multi-hot-20/assets/'+name);
  assert.equal(resources.urls.has('spin-button.png'),false);assert.equal(resources.images.lemon.width,220);assert.equal(resources.images.lemon.height,243);
  assert.equal(resources.images.__wheelFrame.file,'atlas-0.png');assert.equal(resources.images.__wheelNumbers.file,'atlas-3.png');assert.equal(resources.images.__wheelLight.file,'atlas-2.png');
  const audio=await resources.primeAudio();assert.ok(audio.spin.endsWith('/spin.mp3'));assert.ok(audio.music.endsWith('/music.mp3'));
- assert.equal(resources.urls.size,11);
+ assert.equal(resources.urls.size,13);
  const readCount=f.requests.length;await resources.primeAudio();assert.equal(f.requests.length,readCount,'verified bytes are deduplicated');
  resources.dispose();resources.dispose();assert.equal(resources.urls.size,0);assert.ok(f.decoded.every(b=>b.closed===1));
  await assert.rejects(resources.primeAudio(),/ASSETS_DISPOSED/);
@@ -326,9 +469,16 @@ test('original symbol, box and title crops use inspected visual metadata and und
   grape:['atlas-3.png',612,1098,230,235,0],watermelon:['atlas-2.png',1837,1791,232,209,-1],
   cherry:['atlas-3.png',1,1657,218,244,0],orange:['atlas-3.png',844,1098,214,248,-1],
   plum:['atlas-1.png',1514,586,197,263,0],lemon:['atlas-2.png',1603,1,220,243,-1],
-  __boxFrame:['atlas-1.png',1,1098,1119,696,0],__title:['atlas-logo.png',2,1158,633,152,1]
+  __boxFrame:['atlas-1.png',1,1098,1119,696,0],__title:['atlas-logo.png',2,1158,633,152,1],
+  // Independent alpha-bound measurements of the unmodified approved pages.
+  __winNice:['wins.png',240,1861,264,105,0],__winText:['wins.png',2,1881,236,100,0],
+  __winCrownSmall:['wins.png',711,1961,60,48,0],__winMoneyFrame:['wins.png',576,1080,430,155,0],
+  __winCoin:['wins.png',1400,1911,105,97,0],__winFrame:['wins2.png',869,30,399,379,0],
+  __winBacklight:['wins2.png',7,7,855,834,0],__winShine:['wins2.png',881,428,391,397,0],
+  __winBig:['wins.png',1645,1908,198,100,0],__winSuper:['wins.png',1062,1800,344,109,0],
+  __winFantastic:['wins.png',786,1683,537,115,0]
  };
- assert.equal(f.canvases.length,10);
+ assert.equal(f.canvases.length,21);
  for(const [name,[file,x,y,w,h,turn]] of Object.entries(expected)){
   const canvas=resources.images[name],packedWidth=turn?h:w,packedHeight=turn?w:h;
   assert.deepEqual([canvas.width,canvas.height],[w,h],name+' keeps native trimmed dimensions');
@@ -348,6 +498,17 @@ test('unverified atlas size and invalid symbol inventories fail before an incomp
   const bad=fixture();bad.manifest.symbols=symbols;
   await assert.rejects(loadVerifiedAssets(bad.options),/INVALID_SYMBOL_INVENTORY/);
   assert.deepEqual(bad.requests,['assets.json'],'bad inventory never starts asset reads');
+ }
+});
+
+test('each original win page must pass its hash and exact dimensions before premium sprites are exposed',async()=>{
+ for(const name of ['wins.png','wins2.png']){
+  const wrongSize=fixture();wrongSize.dimensions[name][0]--;
+  await assert.rejects(loadVerifiedAssets(wrongSize.options),new RegExp('OFFICIAL_ATLAS_DIMENSIONS_'+name.replace('.','\\.')));
+  await new Promise(resolve=>setImmediate(resolve));assert.ok(wrongSize.decoded.every(bitmap=>bitmap.closed===1));
+  const tampered=fixture();tampered.bodies.set(name,Buffer.from('corrupt-original-win-page'));
+  await assert.rejects(loadVerifiedAssets(tampered.options),new RegExp('ASSET_INTEGRITY_ERROR_'+name.replace('.','\\.')));
+  await new Promise(resolve=>setImmediate(resolve));assert.ok(tampered.decoded.every(bitmap=>bitmap.closed===1));
  }
 });
 

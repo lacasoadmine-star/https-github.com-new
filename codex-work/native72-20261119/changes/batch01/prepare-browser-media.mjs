@@ -51,7 +51,7 @@ export function verifySourceManifest(manifest,sources){
  assert.equal(sources?.schema,'zplay/multihot20-ci-media/v1');
  assert.deepEqual(Object.keys(sources).sort(),['files','gameId','schema'],'CI source manifest must use only public fields');
  const files=Object.keys(manifest.files||{}).sort();
- assert.deepEqual(files,['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png','button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3'],'The eleven verified original game media files are required');
+ assert.deepEqual(files,['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png','button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3','wins.png','wins2.png'],'The thirteen verified original game media files are required');
  assert.deepEqual(Object.keys(sources.files||{}).sort(),files,'CI source inventory must exactly match the current game');
  for(const file of files){
   const expected=manifest.files[file],source=checkedSource(file,sources.files[file]);

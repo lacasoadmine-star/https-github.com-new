@@ -7,6 +7,9 @@ const mime={
  html:'text/html; charset=utf-8',mjs:'application/javascript; charset=utf-8',
  css:'text/css; charset=utf-8',json:'application/json',png:'image/png',mp3:'audio/mpeg'
 };
+const CORE_FILES=Object.freeze(['index.html','app.mjs','assets.json','scene.mjs','controller.mjs','session.mjs','assets.mjs','style.css']);
+const M20_MEDIA=Object.freeze(['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png',
+ 'button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3','wins.png','wins2.png']);
 const CSP="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'";
 const isRecord=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
 const asBytes=x=>x instanceof ArrayBuffer?new Uint8Array(x):ArrayBuffer.isView(x)?new Uint8Array(x.buffer,x.byteOffset,x.byteLength):null;
@@ -33,9 +36,16 @@ export function validateGamePins(pins){
       item.type!==mime[name.split('.').at(-1)])throw Error('INVALID_GAME_ASSET_PIN_'+slug+'_'+name);
    files[name]=Object.freeze({...item});
   }
-  if(!files['index.html']||!files['app.mjs']||!files['assets.json']||!files['scene.mjs']||
-     !files['controller.mjs']||!files['session.mjs']||!files['assets.mjs']||!files['style.css']||
-     !files['assets/seven.png']||!files['assets/other-fruits.png'])throw Error('INCOMPLETE_GAME_PACKAGE_'+slug);
+  // Retained, closed M20 pins remain valid input to the additive release
+  // builder. Published M20 and any package using its original atlases must
+  // contain the complete new media set, without stale split-sprite files.
+  // Burn retains its existing package requirements independently.
+  const m20AtlasPackage=slug==='multihot20'&&(g.published||Object.keys(files).some(name=>
+   /^assets\/(?:atlas-[0-3]|atlas-logo|wins2?)\.png$/.test(name)));
+  const requiredMedia=m20AtlasPackage?M20_MEDIA.map(name=>'assets/'+name):['assets/seven.png','assets/other-fruits.png'];
+  if(CORE_FILES.some(name=>!files[name])||requiredMedia.some(name=>!files[name])||
+     m20AtlasPackage&&Object.keys(files).length!==CORE_FILES.length+M20_MEDIA.length)
+   throw Error('INCOMPLETE_GAME_PACKAGE_'+slug);
   games[slug]=Object.freeze({...g,files:Object.freeze(files)});
  }
  return Object.freeze({release:pins.release,games:Object.freeze(games)});

@@ -160,7 +160,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Fetch and verify eleven original project media files for isolated QA
+      - name: Fetch and verify thirteen original project media files for isolated QA
         run: |
           node codex-work/native72-20261119/changes/batch01/prepare-browser-media.mjs \
             --output "$RUNNER_TEMP/m20-browser-assets" \

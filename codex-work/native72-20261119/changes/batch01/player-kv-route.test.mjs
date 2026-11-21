@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import pins from './player-route-pins.json' with {type:'json'};
 import {validateGamePins,createBatch01Routes,wrapBatch01Player} from './player-kv-route.mjs';
 
@@ -16,6 +18,26 @@ const fakeVerifier=async bytes=>{
  for(const item of get.values())if(item.bytes===bytes.length)return item.sha256;
  return '0'.repeat(64);
 };
+const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
+
+// Use the real checked-out game source and actual media manifest. Binary media
+// is only pinned here; browser acceptance verifies and decodes its real bytes.
+async function currentM20Candidate(){
+ const candidate=structuredClone(pins),bodies=new Map();candidate.release='batch01-20261121-r6';
+ for(const [slug,game] of Object.entries(candidate.games))for(const [name,pin] of Object.entries(game.files))
+  pin.key='native72/'+candidate.release+'/'+slug+'/'+name;
+ const game=candidate.games.multihot20;game.published=true;game.files={};
+ const mime={mjs:'application/javascript; charset=utf-8',html:'text/html; charset=utf-8',css:'text/css; charset=utf-8',json:'application/json'};
+ for(const name of ['app.mjs','index.html','style.css','scene.mjs','assets.mjs','controller.mjs','session.mjs','assets.json']){
+  const body=await readFile(new URL('./multihot20/'+name,import.meta.url));
+  const pin={key:'native72/'+candidate.release+'/multihot20/'+name,bytes:body.length,sha256:digest(body),type:mime[name.split('.').at(-1)]};
+  game.files[name]=pin;bodies.set(pin.key,{body,pin});
+ }
+ const manifest=JSON.parse(bodies.get(game.files['assets.json'].key).body.toString('utf8'));
+ for(const [name,pin] of Object.entries(manifest.files))game.files['assets/'+name]={
+  key:'native72/'+candidate.release+'/multihot20/assets/'+name,bytes:pin.bytes,sha256:pin.sha256,type:pin.contentType};
+ return {candidate,manifest,bodies};
+}
 
 test('all 57 source, wheel, artwork and sound paths are pinned to exactly two isolated games, no fake wallet',()=>{
  const validated=validateGamePins(pins);
@@ -35,6 +57,59 @@ test('never publish unapproved Player games from a route-only patch',async()=>{
  const response=await route(new Request(ORIGIN+'/new74/multi-hot-20/'),allowed());
  assert.equal(response.status,503);
  assert.equal(response.headers.get('Cache-Control'),'no-store');
+});
+
+test('actual thirteen-file M20 manifest forms a valid atlas package and serves exact current source bytes',async()=>{
+ const {candidate,manifest,bodies}=await currentM20Candidate(),validated=validateGamePins(candidate);
+ assert.equal(Object.keys(manifest.files).length,13);
+ assert.equal(Object.keys(validated.games.multihot20.files).length,21);
+ assert.deepEqual(Object.keys(validated.games.multihot20.files).filter(name=>name.startsWith('assets/')).sort(),
+  Object.keys(manifest.files).map(name=>'assets/'+name).sort());
+ assert.equal(validated.games.multihot20.files['assets/seven.png'],undefined);
+ assert.equal(validated.games.multihot20.files['assets/other-fruits.png'],undefined);
+ for(const file of ['wins.png','wins2.png'])assert.equal(validated.games.multihot20.files['assets/'+file].sha256,manifest.files[file].sha256);
+ const expectedBurn=structuredClone(pins.games.multihot5burnwilds);
+ for(const [name,pin] of Object.entries(expectedBurn.files))pin.key='native72/'+candidate.release+'/multihot5burnwilds/'+name;
+ assert.deepEqual(validated.games.multihot5burnwilds,expectedBurn);
+ const env={PORTAL:'player',SSG_OFFICIAL_REFERENCES:{async getWithMetadata(key){
+  const entry=bodies.get(key);assert.ok(entry,'this test serves actual source files only');
+  return {value:entry.body,metadata:{bytes:entry.pin.bytes,sha256:entry.pin.sha256,contentType:entry.pin.type}};
+ }}};
+ const route=createBatch01Routes({pins:candidate});
+ for(const name of ['index.html','assets.json','app.mjs']){
+  const url=ORIGIN+candidate.games.multihot20.path+(name==='index.html'?'':name);
+  const response=await route(new Request(url),env),expected=bodies.get(candidate.games.multihot20.files[name].key);
+  assert.equal(response.status,200);assert.deepEqual(Buffer.from(await response.arrayBuffer()),expected.body);
+  const head=await route(new Request(url,{method:'HEAD'}),env);assert.equal(head.status,200);
+  assert.equal(head.headers.get('Content-Length'),String(expected.body.length));assert.equal((await head.arrayBuffer()).byteLength,0);
+ }
+ assert.equal((await route(new Request(ORIGIN+candidate.games.multihot5burnwilds.path),env)).status,503);
+});
+
+test('M20 refuses old published sprites, missing atlas media, and mixed old/new packages',async()=>{
+ const legacy=structuredClone(pins);legacy.games.multihot20.published=true;
+ assert.throws(()=>validateGamePins(legacy),/INCOMPLETE_GAME_PACKAGE_multihot20/);
+ assert.equal(validateGamePins(pins).games.multihot20.published,false,'retained closed base pins remain usable by the release builder');
+ const {candidate}=await currentM20Candidate();
+ for(const name of Object.keys(candidate.games.multihot20.files)){
+  const missing=structuredClone(candidate);delete missing.games.multihot20.files[name];
+  assert.throws(()=>validateGamePins(missing),/INCOMPLETE_GAME_PACKAGE_multihot20/,name+' is required');
+ }
+ const mixed=structuredClone(candidate);
+ mixed.games.multihot20.files['assets/seven.png']={...pins.games.multihot20.files['assets/seven.png'],
+  key:'native72/'+mixed.release+'/multihot20/assets/seven.png'};
+ assert.throws(()=>validateGamePins(mixed),/INCOMPLETE_GAME_PACKAGE_multihot20/);
+ for(const name of ['assets/wins.png','assets/wins2.png']){
+  const closedPartial=structuredClone(mixed);closedPartial.games.multihot20.published=false;
+  delete closedPartial.games.multihot20.files[name];
+  closedPartial.games.multihot20.files['assets/other-fruits.png']={...pins.games.multihot20.files['assets/other-fruits.png'],
+   key:'native72/'+closedPartial.release+'/multihot20/assets/other-fruits.png'};
+  assert.throws(()=>validateGamePins(closedPartial),/INCOMPLETE_GAME_PACKAGE_multihot20/,'legacy sprites cannot mask a missing WIN sheet');
+ }
+ for(const name of ['assets/seven.png','assets/other-fruits.png']){
+  const missingBurn=structuredClone(candidate);delete missingBurn.games.multihot5burnwilds.files[name];
+  assert.throws(()=>validateGamePins(missingBurn),/INCOMPLETE_GAME_PACKAGE_multihot5burnwilds/);
+ }
 });
 
 test('GET, HEAD, ETag and module MIME types on two isolated routes',async()=>{
@@ -63,16 +138,26 @@ test('GET, HEAD, ETag and module MIME types on two isolated routes',async()=>{
 });
 
 test('router delegates all wallet APIs, earlier games and Durable Object exports intact',async()=>{
- let count=0;
+ const received=[];
  class ExistingWallet {}
- const prev={LocalDemoWallet:ExistingWallet,fetch:async()=>{count++;return new Response('ORIGINAL',{status:209})}};
- const wrapped=wrapBatch01Player(prev,pins,{allowUnpublishedForQA:true});
+ const prev={LocalDemoWallet:ExistingWallet,async fetch(request,env,ctx){
+  assert.equal(this,prev);received.push({request,env,ctx});return new Response('ORIGINAL',{status:209});
+ }};
+ const {candidate}=await currentM20Candidate(),wrapped=wrapBatch01Player(prev,candidate);
  assert.equal(wrapped.LocalDemoWallet,ExistingWallet);
- for(const path of ['/api/slots/spin','/api/slots/fresh-state','/games/multihot40_native','/new74/multi-hot-100/']){
-  const res=await wrapped.fetch(new Request(ORIGIN+path,{method:path.includes('spin')?'POST':'GET'}),allowed(),{});
+ for(const path of ['/api/slots/spin','/api/slots/gamble','/api/slots/fresh-state?gameId=fresh_multihot20',
+  '/games/multihot40_native','/new74/multi-hot-100/']){
+  const post=path==='/api/slots/spin'||path==='/api/slots/gamble',body=post?JSON.stringify({gameId:'fresh_multihot20',roundToken:'FIXTURE_ONLY'}):undefined;
+  const request=new Request(ORIGIN+path,{method:post?'POST':'GET',body,
+   headers:{cookie:'sw_session=FIXTURE_ONLY',authorization:'Bearer FIXTURE_ONLY'}}),env=allowed(),ctx={marker:'original-context'};
+  const res=await wrapped.fetch(request,env,ctx);
   assert.equal(res.status,209);
+  const observed=received.at(-1);assert.equal(observed.request,request);assert.equal(observed.env,env);assert.equal(observed.ctx,ctx);
+  assert.equal(observed.request.headers.get('cookie'),'sw_session=FIXTURE_ONLY');
+  assert.equal(observed.request.headers.get('authorization'),'Bearer FIXTURE_ONLY');
+  assert.equal(await observed.request.clone().text(),body??'');assert.equal(observed.request.url,ORIGIN+path);
  }
- assert.equal(count,4);
+ assert.equal(received.length,5);
 });
 
 test('reject modified/corrupt binary even when KV metadata claims correct SHA',async()=>{
