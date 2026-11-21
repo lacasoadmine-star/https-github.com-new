@@ -45,7 +45,8 @@ function fixture(){
   mathVersion:'QA_BROWSER_ONLY_v1',engineVersion:'QA_CAPTURED_EVALUATOR_v1',mathSha256:digest(Buffer.from('QA fixture: not an approved production probability model')),
   betLevels:['1.00','2.00','5.00','8.00','10.00','20.00'],symbols:Object.keys(reference.paytable),paytable:reference.paytable,
   features:{fixedPaylines:20,multipliers:[1,2,3,4,5],gamble:true,freeSpins:false},qaFixture:true};
- const f={balance:100000n,round:null,requests:[],ledger:[],rounds:new Map(),actions:new Map(),failNext:null,failNextAction:null,injectedFaults:[],responseDelay:90,model};
+ const f={balance:100000n,round:null,requests:[],ledger:[],rounds:new Map(),actions:new Map(),failNext:null,failNextAction:null,injectedFaults:[],responseDelay:90,model,
+  outcome:'WIN',remainingRounds:null};
  f.state=()=>({authenticated:true,sessionGuard:GUARD,currency:'ETB',balance:money(f.balance),game:model,round:f.round,qaFixture:true});
  f.spin=body=>{
   assert.equal(body.gameId,GAME_ID);assert.equal(body.sessionGuard,GUARD);assert.ok(model.betLevels.includes(body.bet));
@@ -53,12 +54,17 @@ function fixture(){
   const existing=f.rounds.get(body.roundToken);
   if(existing){assert.equal(existing.bet,body.bet);return existing}
   if(body.replayOnly)throw Object.assign(Error('ROUND_NOT_FOUND_FOR_REPLAY'),{status:404});
+  if(f.remainingRounds!==null&&f.remainingRounds<=0)throw Object.assign(Error('QA_ROUND_BUDGET_EXCEEDED'),{status:400});
   // Deliberate deterministic winning arrangement for UI acceptance only.
   // Actual integer evaluator computes the receipt; the browser does not.
-  const grid=[['cherry','cherry','cherry','cherry','cherry'],['bell','seven','lemon','plum','orange'],['grape','watermelon','orange','bell','seven']];
+  const grid=f.outcome==='LOSS'
+   ?[['seven','watermelon','cherry','orange','lemon'],['bell','lemon','seven','grape','orange'],['grape','plum','bell','watermelon','cherry']]
+   :[['cherry','cherry','cherry','cherry','cherry'],['bell','seven','lemon','plum','orange'],['grape','watermelon','orange','bell','seven']];
   const evaluated=evaluator({gameId:GAME_ID,grid,bet:body.bet,wheelMultiplier:1});
+  if(f.outcome==='LOSS')assert.equal(evaluated.finalWinCents,0n,'LOSS fixture must be nonwinning in the actual evaluator');
   const stake=cents(body.bet),payout=evaluated.finalWinCents,before=f.balance;
   assert.ok(before>=stake);f.balance=before-stake+payout;
+  if(f.remainingRounds!==null)f.remainingRounds--;
   const receipt={gameId:GAME_ID,roundId:randomUUID(),roundToken:body.roundToken,bet:body.bet,currency:'ETB',isFree:false,
    mathVersion:model.mathVersion,engineVersion:model.engineVersion,mathSha256:model.mathSha256,
    grid:evaluated.grid,wheelMultiplier:evaluated.wheelMultiplier,winLines:evaluated.winLines,finalWin:evaluated.finalWin,
@@ -198,12 +204,29 @@ async function audit(page,label,result){
    const r=element.getBoundingClientRect(),style=getComputedStyle(element);
    return r.width>=44&&r.height>0&&['auto','scroll','hidden','clip'].includes(style.overflowX)&&element.scrollWidth>element.clientWidth+1;
   }).map(element=>({id:element.id||element.className||element.tagName,width:element.clientWidth,contentWidth:element.scrollWidth}));
+  // A canvas can obscure the top of a ledger panel without blocking the
+  // panel centre. Keep this structural separation distinct from rounded
+  // button bounds, which may legitimately intersect in their empty corners.
+  const rect=element=>{const r=element.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};
+  const stage=scope.querySelector('#reels'),stageBox=stage&&rect(stage);
+  const ledgerPanels=[...scope.querySelectorAll('.balance-panel,.bet-panel')].map(element=>({id:element.id||element.className,...rect(element)}));
+  const stageLedgerOverlaps=stageBox?ledgerPanels.map(panel=>({id:panel.id,
+   width:Math.min(stageBox.x+stageBox.w,panel.x+panel.w)-Math.max(stageBox.x,panel.x),
+   height:Math.min(stageBox.y+stageBox.h,panel.y+panel.h)-Math.max(stageBox.y,panel.y)}))
+   .filter(overlap=>overlap.width>1&&overlap.height>1):[];
+  const shortLandscape=!!stage&&innerWidth>innerHeight&&innerHeight<=600;
+  const landscapeClipped=shortLandscape?[...document.querySelectorAll('.game-frame,.play-controls,.ledger,.statusbar')]
+   .map(element=>({id:element.id||element.className,...rect(element)}))
+   .filter(r=>r.w>0&&r.h>0&&(r.x<-.5||r.y<-.5||r.x+r.w>innerWidth+1||r.y+r.h>innerHeight+1)):[];
   return {overflow:document.documentElement.scrollWidth>innerWidth+1,viewport:innerWidth,documentWidth:document.documentElement.scrollWidth,
-   minWidth:Math.min(...boxes.map(x=>x.w)),minHeight:Math.min(...boxes.map(x=>x.h)),smallTargets:boxes.filter(b=>b.w<43.5||b.h<43.5).map(({target,...b})=>b),boundingIntersections:overlap,occluded,nestedOverflow};
+   minWidth:Math.min(...boxes.map(x=>x.w)),minHeight:Math.min(...boxes.map(x=>x.h)),smallTargets:boxes.filter(b=>b.w<43.5||b.h<43.5).map(({target,...b})=>b),boundingIntersections:overlap,occluded,nestedOverflow,
+   stageBox,ledgerPanels,stageLedgerOverlaps,shortLandscape,landscapeClipped};
  });
  result.layouts.push({label,...value});assert.equal(value.overflow,false,label+' horizontal overflow');
  assert.deepEqual(value.smallTargets,[],label+' touch targets below 44px');assert.deepEqual(value.occluded,[],label+' controls cannot receive a centre tap');
  assert.deepEqual(value.nestedOverflow,[],label+' horizontal overflow inside a clipped or scrolling panel');
+ assert.deepEqual(value.stageLedgerOverlaps,[],label+' stage overlaps BALANCE or BET panel');
+ assert.deepEqual(value.landscapeClipped,[],label+' short landscape stage/controls/ledger/status must fit the viewport');
 }
 async function screenshot(page,result,label){
  const file=path.join(outputDir,result.name+'-'+label+'.png');
@@ -223,6 +246,53 @@ async function restorePage(page){
  await page.locator('#loading').waitFor({state:'hidden',timeout:20000});
  if(await page.locator('#sound-prompt').isVisible())await page.locator('#sound-off').click();
  await ready(page);
+}
+async function verifyAutoLimits(page,f,result){
+ result.autoplayLimits=[];
+ for(const scenario of [
+  {name:'win',limit:'6.00',outcome:'WIN',rounds:1,delta:400n},
+  {name:'loss',limit:'3.00',outcome:'LOSS',rounds:2,delta:-400n},
+  {name:'gain',limit:'5.00',outcome:'WIN',rounds:2,delta:800n},
+ ]){
+  await page.locator('#auto').click();
+  for(const name of ['win','loss','gain'])await page.locator('#auto-'+name+'-enabled').uncheck();
+  await page.locator('[data-auto-count="25"]').click();
+  await page.locator('#auto-'+scenario.name+'-enabled').check();
+  await page.locator('#auto-'+scenario.name+'-limit').fill(scenario.limit);
+  const postsBefore=count(f,'/api/slots/spin'),roundsBefore=f.rounds.size,balanceBefore=f.balance;
+  assert.equal((await page.locator('#bet-value').innerText()).trim(),'2.00','threshold fixture requires the selected 2 ETB stake');
+  // Bound accepted fixture rounds even if the client limit is broken. Any
+  // attempted extra POST still fails this test and appears in HTTP evidence.
+  f.outcome=scenario.outcome;f.remainingRounds=scenario.rounds;
+  try{
+   await page.locator('#auto-start').click();
+   await page.waitForFunction(()=>document.getElementById('auto').dataset.active==='false'&&
+    document.getElementById('zplay').dataset.phase==='ready'&&!document.getElementById('spin').disabled);
+   await page.waitForTimeout(250);
+   assert.equal(count(f,'/api/slots/spin')-postsBefore,scenario.rounds,scenario.name+' limit POST count');
+   assert.equal(f.rounds.size-roundsBefore,scenario.rounds,scenario.name+' accepted rounds');
+   assert.equal(f.balance-balanceBefore,scenario.delta,scenario.name+' net balance threshold');
+   assert.equal((await page.locator('#balance').innerText()).replace(/[^0-9.]/g,''),money(f.balance));
+   result.autoplayLimits.push({control:scenario.name,threshold:scenario.limit,selectedCount:25,acceptedRounds:scenario.rounds,
+    balanceBefore:money(balanceBefore),balanceAfter:money(f.balance),extraPosts:0});
+  }finally{f.outcome='WIN';f.remainingRounds=null}
+ }
+ await page.locator('#auto').click();
+ for(const name of ['win','loss','gain'])await page.locator('#auto-'+name+'-enabled').uncheck();
+ await page.locator('#auto-win-enabled').check();
+ const invalidPosts=count(f,'/api/slots/spin'),invalidRounds=f.rounds.size,balanceBeforeInvalid=f.balance;
+ f.remainingRounds=0;
+ try{
+  for(const value of ['0','-1','abc','1.001']){
+   await page.locator('#auto-win-limit').fill(value);await page.locator('#auto-start').click();
+   assert.ok(await page.locator('#auto-dialog').isVisible());assert.ok((await page.locator('#auto-error').innerText()).trim());
+   assert.equal(await page.locator('#auto').getAttribute('data-active'),'false');
+   await page.waitForTimeout(100);assert.equal(count(f,'/api/slots/spin'),invalidPosts,'invalid threshold must not POST');
+  }
+  assert.equal(f.rounds.size,invalidRounds);assert.equal(f.balance,balanceBeforeInvalid);
+  await page.locator('#auto-win-enabled').uncheck();await close(page,'auto-dialog');
+ }finally{f.remainingRounds=null}
+ result.checks.push('AUTO single-win, net-loss and net-gain limits stop after 1/2/2 bounded rounds; invalid thresholds place zero bets');
 }
 async function exercise(origin,viewport){
  current=fixture();const f=current,result={name:viewport.width+'x'+viewport.height,viewport,scope:viewport.width===FULL_WIDTH?'FULL_ACCEPTANCE':'RESPONSIVE_AND_PLAY',checks:[],layouts:[],screenshots:[],observationChunks:[],consoleErrors:[],pageErrors:[],httpErrors:[],requestFailures:[]};
@@ -244,7 +314,7 @@ async function exercise(origin,viewport){
   await page.waitForFunction(()=>document.getElementById('spin').textContent.includes('STOP'));await ready(page);
   result.normalSpinMs=Date.now()-normalStart;assert.equal(count(f,'/api/slots/spin'),before+1);assert.equal((await page.locator('#balance').innerText()).replace(/[^0-9.]/g,''),money(f.balance));
   assert.equal(await page.evaluate(()=>__m20QA.media.filter(x=>x.event==='play').length),0);result.checks.push('Normal SPIN: one POST, integer receipt balance, five-reel presentation, sound still off');
-  await screenshot(page,result,'settled');
+  await audit(page,'settled',result);await screenshot(page,result,'settled');
   await page.locator('#menu').click();await audit(page,'menu-dialog',result);await page.locator('#menu-history').click();
   assert.ok((await page.locator('#history-dialog').innerText()).includes(f.round.result.roundId));await close(page,'history-dialog');
   await page.locator('#menu').click();await page.locator('#menu-rules').click();await audit(page,'rules-dialog',result);await screenshot(page,result,'rules');await close(page,'rules-dialog');
@@ -270,8 +340,7 @@ async function exercise(origin,viewport){
   await page.locator('#effects-opt').uncheck();await page.locator('#music-opt').uncheck();await page.locator('#sound-save').click();
   if(await page.locator('#turbo').getAttribute('aria-pressed')==='true')await page.locator('#turbo').click();result.checks.push('Effects require opt in; music remains off; mute restores silence');
   await page.locator('#auto').click();await audit(page,'auto-dialog',result);const armedBefore=count(f,'/api/slots/spin');
-  const countButton=page.locator('[data-auto-count="25"]');if(await countButton.count())await countButton.click();
-  else await page.locator('#auto-count').selectOption('5');
+  await page.locator('[data-auto-count="25"]').click();
   await page.waitForTimeout(100);assert.equal(count(f,'/api/slots/spin'),armedBefore);await screenshot(page,result,'autoplay');
   await close(page,'auto-dialog');result.checks.push('Selecting AUTO count alone cannot place a wager');
   if(viewport.width===FULL_WIDTH){
@@ -280,6 +349,7 @@ async function exercise(origin,viewport){
    await page.locator('#auto').click();if(await page.locator('#auto-dialog').isVisible())await page.locator('#auto-stop').click();
    await page.evaluate(()=>__m20QA.releaseAuto());await page.waitForTimeout(200);assert.equal(count(f,'/api/slots/spin'),queuedPosts);
    await ready(page);result.checks.push('STOP AUTO cancels the already queued next-round callback');
+   await verifyAutoLimits(page,f,result);
    f.failNext='AFTER_COMMIT_503';const disconnectBefore=count(f,'/api/slots/spin'),roundsBefore=f.rounds.size;
    await page.locator('#spin').click();await page.locator('#retry').waitFor({state:'visible'});
    const initial=f.requests.filter(x=>x.path==='/api/slots/spin').at(-1).body;await screenshot(page,result,'recover-required');

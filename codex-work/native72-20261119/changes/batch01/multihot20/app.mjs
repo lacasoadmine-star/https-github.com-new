@@ -24,7 +24,7 @@ const DISPLAY_LINES=[[0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2]
 const CONTROL_RECTS={
  'spin-button.png':[227,227,304,227], 'auto-button.png':[123,123,250,123],
  'menu-icon.png':[35,34,210,34], 'sound-icon.png':[35,35,205,35],
- 'turbo-icon.png':[62,78,117,92]
+ 'turbo-icon.png':[62,70,117,92]
 };
 const money=n=>{const v=BigInt(n);return String(v/100n)+'.'+String(v%100n).padStart(2,'0')};
 function node(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=String(text);if(className)el.className=className;return el}
@@ -144,7 +144,13 @@ async function loadGame(){
     if(bounds){
      const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),image=document.createElementNS(ns,'image');
      svg.setAttribute('viewBox',`0 0 ${bounds[0]} ${bounds[1]}`);svg.setAttribute('aria-hidden','true');svg.classList.add('control-art');
-     image.setAttribute('width',bounds[2]);image.setAttribute('height',bounds[3]);image.setAttribute('href',url);svg.append(image);img.replaceWith(svg);svg.parentElement.classList.add('has-art');
+     image.setAttribute('width',bounds[2]);image.setAttribute('height',bounds[3]);image.setAttribute('href',url);
+     if(img.dataset.art==='spin-button.png'){
+      const defs=document.createElementNS(ns,'defs'),clip=document.createElementNS(ns,'clipPath'),circle=document.createElementNS(ns,'circle');
+      clip.id='m20-spin-art-clip';circle.setAttribute('cx','113.5');circle.setAttribute('cy','113.5');circle.setAttribute('r','113.5');
+      clip.append(circle);defs.append(clip);svg.append(defs);image.setAttribute('clip-path','url(#m20-spin-art-clip)');
+     }
+     svg.append(image);img.replaceWith(svg);svg.parentElement.classList.add('has-art');
     }else{img.src=url;img.parentElement.classList.add('has-art')}
    }else img.hidden=true;
   }

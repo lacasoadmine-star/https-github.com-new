@@ -137,7 +137,17 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Verify real transactions in a disposable local PostgreSQL container
         working-directory: codex-work/native72-20261119/changes/batch01/server/postgres-qa
+        env:
+          ZPLAY_PG_QA_REPORT_DIR: ${{ runner.temp }}/m20-postgres-report
         run: npm test
+      - name: Preserve accepted-policy PostgreSQL test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multihot20-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/m20-postgres-report
+          if-no-files-found: error
+          retention-days: 14
 
   multihot20-browser:
     needs: native72-unit

@@ -29,9 +29,9 @@ try {
     if(!ready)await delay(200);
   }
   if(!ready)throw Error('DISPOSABLE_POSTGRES_START_TIMEOUT');
-  // The first suite installs the QA schema. The second reuses it sequentially;
+  // The first suite installs the QA schema. The others reuse it sequentially;
   // concurrent schema/reset fixtures would invalidate transaction evidence.
-  for(const file of ['postgres.test.mjs','independent-postgres.test.mjs','existing-gamble-postgres.test.mjs']){
+  for(const file of ['postgres.test.mjs','independent-postgres.test.mjs','existing-gamble-postgres.test.mjs','m20-release-postgres.test.mjs']){
     const child=spawn(process.execPath,['--test',fileURLToPath(new URL('./'+file,import.meta.url))],{
       stdio:'inherit',env:{...process.env,ZPLAY_PG_QA_DISPOSABLE:'1',ZPLAY_PG_QA_DATABASE:database,ZPLAY_PG_QA_URL:url}
     });
