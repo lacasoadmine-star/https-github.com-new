@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: fixture inputs equal the current deployed renderer, manifest, timing module and PNG pins
+ok 1 - fixture inputs equal the current deployed renderer, manifest, timing module and PNG pins
+  ---
+  duration_ms: 5.889734
+  type: 'test'
+  ...
+# Subtest: all nine pending symbols keep their idle visible width and height
+ok 2 - all nine pending symbols keep their idle visible width and height
+  ---
+  duration_ms: 36.791509
+  type: 'test'
+  ...
+# Subtest: all nine settling symbols keep the same size at normal and turbo speed
+ok 3 - all nine settling symbols keep the same size at normal and turbo speed
+  ---
+  duration_ms: 156.596502
+  type: 'test'
+  ...
+# Subtest: moving sprites preserve each authored visible aspect ratio
+ok 4 - moving sprites preserve each authored visible aspect ratio
+  ---
+  duration_ms: 11.04241
+  type: 'test'
+  ...
+# Subtest: every moving draw stays within its column and its painted pixels stay inside the reel mask
+ok 5 - every moving draw stays within its column and its painted pixels stay inside the reel mask
+  ---
+  duration_ms: 163.287181
+  type: 'test'
+  ...
+# Subtest: settled and reduced-motion draws retain their original geometry
+ok 6 - settled and reduced-motion draws retain their original geometry
+  ---
+  duration_ms: 35.552876
+  type: 'test'
+  ...
+# Subtest: STOP and presentation cancellation preserve the accepted receipt and reel targets
+ok 7 - STOP and presentation cancellation preserve the accepted receipt and reel targets
+  ---
+  duration_ms: 2.22824
+  type: 'test'
+  ...
+# Subtest: the patch has no other effect on background, multiplier or frame draw calls
+ok 8 - the patch has no other effect on background, multiplier or frame draw calls
+  ---
+  duration_ms: 7.418693
+  type: 'test'
+  ...
+# Subtest: deployed Sound Effects switch intentionally mutes music together with the master
+ok 9 - deployed Sound Effects switch intentionally mutes music together with the master
+  ---
+  duration_ms: 1.02443
+  type: 'test'
+  ...
+# Subtest: parse returns exact binary views and a closing boundary
+ok 10 - parse returns exact binary views and a closing boundary
+  ---
+  duration_ms: 2.527119
+  type: 'test'
+  ...
+# Subtest: stream append preserves every old module byte and adds only named parts
+ok 11 - stream append preserves every old module byte and adds only named parts
+  ---
+  duration_ms: 3.950749
+  type: 'test'
+  ...
+# Subtest: download parts lacking MIME and filename become typed file parts without byte changes
+ok 12 - download parts lacking MIME and filename become typed file parts without byte changes
+  ---
+  duration_ms: 0.797609
+  type: 'test'
+  ...
+# Subtest: untyped unknown extensions fail before an upload body can be used
+ok 13 - untyped unknown extensions fail before an upload body can be used
+  ---
+  duration_ms: 0.647553
+  type: 'test'
+  ...
+# Subtest: parser rejects missing terminator and duplicate module names
+ok 14 - parser rejects missing terminator and duplicate module names
+  ---
+  duration_ms: 0.48577
+  type: 'test'
+  ...
+# Subtest: append rejects collisions and header injection before streaming
+ok 15 - append rejects collisions and header injection before streaming
+  ---
+  duration_ms: 0.315965
+  type: 'test'
+  ...
+# Subtest: route factory and candidate renderer are pinned to verified source bytes
+ok 16 - route factory and candidate renderer are pinned to verified source bytes
+  ---
+  duration_ms: 3.31282
+  type: 'test'
+  ...
+# Subtest: canonical Deluxe page selects the new immutable paths without mutating retained assets
+ok 17 - canonical Deluxe page selects the new immutable paths without mutating retained assets
+  ---
+  duration_ms: 7.312503
+  type: 'test'
+  ...
+# Subtest: GET and HEAD each read the new pinned renderer once and never read the old key
+ok 18 - GET and HEAD each read the new pinned renderer once and never read the old key
+  ---
+  duration_ms: 12.456816
+  type: 'test'
+  ...
+# Subtest: corrupt or unavailable new renderer fails closed with no fallback
+ok 19 - corrupt or unavailable new renderer fails closed with no fallback
+  ---
+  duration_ms: 7.221375
+  type: 'test'
+  ...
+# Subtest: unknown assets do not substitute an old asset or delegate the new prefix
+ok 20 - unknown assets do not substitute an old asset or delegate the new prefix
+  ---
+  duration_ms: 1.9093
+  type: 'test'
+  ...
+# Subtest: all old immutable paths, protected native games, other games and API calls are preserved
+ok 21 - all old immutable paths, protected native games, other games and API calls are preserved
+  ---
+  duration_ms: 3.337968
+  type: 'test'
+  ...
+# Subtest: agent and admin portals continue through the previous Worker
+ok 22 - agent and admin portals continue through the previous Worker
+  ---
+  duration_ms: 2.32848
+  type: 'test'
+  ...
+# Subtest: unexpected old renderer pin or HTML is rejected before publication
+ok 23 - unexpected old renderer pin or HTML is rejected before publication
+  ---
+  duration_ms: 3.088203
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 614.331193

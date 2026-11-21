@@ -1,0 +1,115 @@
+TAP version 13
+# Subtest: fixture inputs equal the current deployed renderer, manifest, timing module and PNG pins
+ok 1 - fixture inputs equal the current deployed renderer, manifest, timing module and PNG pins
+  ---
+  duration_ms: 2.912092
+  type: 'test'
+  ...
+# Subtest: all nine pending symbols keep their idle visible width and height
+not ok 2 - all nine pending symbols keep their idle visible width and height
+  ---
+  duration_ms: 4.226931
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:13:1'
+  failureType: 'testCodeFailure'
+  error: 'symbol 0 pending width: 40.10666666666666 != 85.33333333333333'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    close (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:7:47)
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:19:7)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: all nine settling symbols keep the same size at normal and turbo speed
+not ok 3 - all nine settling symbols keep the same size at normal and turbo speed
+  ---
+  duration_ms: 2.020612
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:25:1'
+  failureType: 'testCodeFailure'
+  error: 'symbol 0 settling width: 40.10666666666666 != 85.33333333333333'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    close (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:7:47)
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:30:7)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: moving sprites preserve each authored visible aspect ratio
+not ok 4 - moving sprites preserve each authored visible aspect ratio
+  ---
+  duration_ms: 2.45147
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:36:1'
+  failureType: 'testCodeFailure'
+  error: 'symbol 0 aspect ratio: 1.0338546141948788 != 1.0217391304347827'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    close (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:7:47)
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs:40:7)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: every moving draw stays within its column and its painted pixels stay inside the reel mask
+ok 5 - every moving draw stays within its column and its painted pixels stay inside the reel mask
+  ---
+  duration_ms: 110.196369
+  type: 'test'
+  ...
+# Subtest: settled and reduced-motion draws retain their original geometry
+ok 6 - settled and reduced-motion draws retain their original geometry
+  ---
+  duration_ms: 61.665369
+  type: 'test'
+  ...
+# Subtest: STOP and presentation cancellation preserve the accepted receipt and reel targets
+ok 7 - STOP and presentation cancellation preserve the accepted receipt and reel targets
+  ---
+  duration_ms: 2.473092
+  type: 'test'
+  ...
+# Subtest: the patch has no other effect on background, multiplier or frame draw calls
+ok 8 - the patch has no other effect on background, multiplier or frame draw calls
+  ---
+  duration_ms: 9.447609
+  type: 'test'
+  ...
+# Subtest: deployed Sound Effects switch intentionally mutes music together with the master
+ok 9 - deployed Sound Effects switch intentionally mutes music together with the master
+  ---
+  duration_ms: 0.678742
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 6
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 330.393553

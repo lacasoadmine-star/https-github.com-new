@@ -1,0 +1,67 @@
+{
+  "schema": "zplay/live-deluxe-presentation-fix/v1",
+  "preparedAt": "2026-11-21T21:10:27.706Z",
+  "status": "EXECUTED_DEPLOYED",
+  "existingGameId": "multi_hot_5_deluxe_native",
+  "new72GameCountContribution": 0,
+  "worker": "superwin-player",
+  "requiredActiveVersion": "fb87068c-5e84-4af1-b43c-5465ad10c300",
+  "requiredActiveMainModule": "native72mh40r4/entry.mjs",
+  "requiredModuleCount": 403,
+  "requiredBaselinePins": {
+    "native72mh40r4/entry.mjs": {
+      "bytes": 1667,
+      "sha256": "9e07ac3befb63088005c505d233ec63c9ec766f90470a168e618a8a214b8964d"
+    },
+    "native72deluxe/routes.mjs": {
+      "bytes": 2970,
+      "sha256": "2d677af6bf3a35a845c56e9fe334342d0a132d3803d21e21a3bfefea7f0016d9"
+    },
+    "native72deluxe/native-machine-assets.mjs": {
+      "bytes": 94771,
+      "sha256": "202db78d49012aab9193b79e35763206d124eda49635545238049588b75da87c"
+    }
+  },
+  "appendModule": {
+    "name": "native72deluxefix20261121/entry.mjs",
+    "localPath": "deployment/entry.mjs",
+    "bytes": 1865,
+    "sha256": "5ab6ecdc728dddfed10f049ce326d2d0540eeb1abb1bf6cbfb87dc4d3f670f2f",
+    "contentType": "application/javascript+module"
+  },
+  "newMainModule": "native72deluxefix20261121/entry.mjs",
+  "oldRelease": "zplay-native-machines-20261119-mh5deluxe-r1",
+  "newRelease": "zplay-native-machines-20261121-mh5deluxe-r1",
+  "kvUpload": {
+    "binding": "SSG_OFFICIAL_REFERENCES",
+    "key": "native72/zplay-native-machines-20261121-mh5deluxe-r1/8d35b7ab7fa693792c213d68ab9cf5605fd6fdcab7942297e471c85ef03768b8",
+    "localPath": "candidate/mh5deluxe-renderer.mjs",
+    "bytes": 10566,
+    "sha256": "8d35b7ab7fa693792c213d68ab9cf5605fd6fdcab7942297e471c85ef03768b8"
+  },
+  "preservation": {
+    "originalModules": "all403_byte_identical",
+    "originalAssetKeys": "unchanged",
+    "oldReleaseRoutes": "delegated_to_previous_main",
+    "bindings": "all18_existing_bindings_preserved",
+    "namedDurableObjectExports": [
+      "LocalDemoWallet",
+      "NativeGameResources"
+    ],
+    "authenticationAndWallet": "no_changes",
+    "mathAndReceipt": "no_changes"
+  },
+  "activationPerformed": true,
+  "requiredVerification": [
+    "same active Worker version and baseline module hashes",
+    "new KV bytes match hash and length",
+    "old module graph preserved byte-for-byte; one wrapper module added",
+    "retained metadata, static-asset configuration and bindings preserved",
+    "version upload then successful deployment; do not claim merely uploaded version live",
+    "new canonical HTML links and renderer byte hash verified; old immutable renderer still preserved",
+    "no real wager required for presentation verification"
+  ],
+  "preparationStatus": "PREPARED_NOT_DEPLOYED",
+  "deploymentResult": "result.json",
+  "newGameCountContribution": 0
+}

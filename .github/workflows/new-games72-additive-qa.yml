@@ -1,6 +1,6 @@
 # Feature-branch verification only. No deployment secrets, provider credentials,
 # production accounts or live wallet endpoints are used.
-name: New 72 additive games QA
+name: Additive games and live presentation QA
 
 on:
   push:
@@ -8,6 +8,9 @@ on:
       - work/new-games72-additive-20261121
     paths:
       - 'codex-work/new-games72-20261121/**'
+      - 'codex-work/new-games71-20261122/**'
+      - 'codex-work/live-presentation-fixes-20261122/**'
+      - 'codex-work/live-expansion-transport-fix-20261121/**'
       - '.github/workflows/new-games72-additive-qa.yml'
   workflow_dispatch:
 
@@ -40,9 +43,19 @@ jobs:
             codex-work/new-games72-20261121/integration/*.test.mjs \
             codex-work/new-games72-20261121/games/roll-x/tests/*.test.mjs \
             codex-work/new-games72-20261121/games/multi-hot-5-deluxe/tests/*.test.mjs
-      - name: Validate the exact 72 identities and require activation to remain closed
+      - name: Validate the retained 72-game checkpoint with activation closed
         run: |
           node codex-work/new-games72-20261121/release/check-current-registry.mjs --expect-closed
+      - name: Verify the retained ordered 71-game snapshot and protected exclusions
+        run: |
+          node --test codex-work/new-games71-20261122/active-scope.test.mjs
+          node codex-work/new-games71-20261122/check-active-scope.mjs
+      - name: Verify the deployed Deluxe geometry and immutable release wrapper
+        run: |
+          node --test \
+            codex-work/live-presentation-fixes-20261122/deluxe-symbol-scale.test.mjs \
+            codex-work/live-presentation-fixes-20261122/deployment/route.test.mjs \
+            codex-work/live-presentation-fixes-20261122/deployment/multipart.test.mjs
 
   existing-platform:
     runs-on: ubuntu-latest

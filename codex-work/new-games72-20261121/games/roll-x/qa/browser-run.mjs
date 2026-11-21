@@ -4,7 +4,7 @@ export default async function run({ page, context, browser }, files, receipts, m
   const origin = 'https://qa.zplay.invalid';
   const base = '/new-games72/games/roll-x/';
   const output = { environment: 'Playwright / fully intercepted isolated QA',
-    startedAt: new Date().toISOString(), browserVersion: browser.version(), checks: [], errors: [], requests: [], screenshots: {} };
+    startedAt: new Date().toISOString(), browserVersion: browser.version(), checks: [], errors: [], pageErrorDetails: [], requests: [], screenshots: {} };
   const check = (name, value, detail = null) => { output.checks.push({ name, passed: value === true, detail }); if (!value) throw new Error(name + ' failed: ' + JSON.stringify(detail)); };
   async function intercept(ctx) {
     await ctx.route('**/*', async route => {
@@ -29,7 +29,13 @@ export default async function run({ page, context, browser }, files, receipts, m
       await route.fulfill({ status: 404, body: 'Unknown isolated test route' });
     });
   }
-  const watch = page => { page.setDefaultTimeout(5000); page.on('pageerror', error => output.errors.push(error.message)); };
+  const watch = page => {
+    page.setDefaultTimeout(5000);
+    page.on('pageerror', error => {
+      output.errors.push(error.message);
+      output.pageErrorDetails.push({ name: error.name, message: error.message, stack: error.stack?.split('\n').slice(0, 6) });
+    });
+  };
   const settled = async (page, count) => page.waitForFunction(expected => globalThis.rollxTest?.calls.spin.length === expected && !globalThis.rollxTest.game.controller.snapshot.busy, count);
   const layout = page => page.evaluate(() => {
     const width = innerWidth;
@@ -173,6 +179,16 @@ export default async function run({ page, context, browser }, files, receipts, m
     output.success = true;
   } catch (error) {
     output.success = false; output.failure = { name: error.name, message: error.message, stack: error.stack?.split('\n').slice(0, 4) };
+    try {
+      output.failureState = await page.evaluate(() => {
+        const fixture = globalThis.rollxTest;
+        if (!fixture) return { fixture: false, status: document.getElementById('status')?.textContent ?? null };
+        const state = fixture.game.controller.snapshot;
+        return { fixture: true, spinRequests: fixture.calls.spin.length, refreshes: fixture.calls.refresh,
+          phase: state.phase, busy: state.busy, autoActive: state.autoActive,
+          autoRemaining: state.autoRemaining, acceptedReceipts: state.history.length, message: state.message };
+      });
+    } catch {}
     try { output.screenshots['failure'] = (await page.screenshot({ type: 'jpeg', quality: 60, fullPage: true })).toString('base64'); } catch {}
   } finally {
     output.finishedAt = new Date().toISOString();

@@ -1,0 +1,19 @@
+--- baseline/mh5deluxe-renderer.mjs
++++ candidate/mh5deluxe-renderer.mjs
+@@ -85,7 +85,7 @@
+    const position=this.motion.position(col),moving=!this.reducedMotion&&(this.pendingSpin||this.motion.active&&!position.landed);
+    if(moving){
+     const phase=this.pendingSpin?this.pendingSpin.elapsed/95:position.offset;const strip=this.game.strips[col];
+-    for(let row=-1;row<4;row++){const n=((Math.floor(phase)+row)%strip.length+strip.length)%strip.length;c.drawImage(this.sprites.get('Box/Blur/'+strip[n].slice(7)),x+col*cw,y+(row-(phase%1))*ch,cw,ch);}
++    for(let row=-1;row<4;row++){const n=((Math.floor(phase)+row)%strip.length+strip.length)%strip.length;this.drawSymbol(c,strip[n],x+col*cw,y+(row-(phase%1))*ch,cw,ch,true);}
+    }else for(let row=0;row<3;row++){
+     const grid=this.motion.active?this.result.grid:this.grid,symbol=grid[row][col],animation=this.symbolAnimations.get(symbol);
+     if(!this.reducedMotion&&activeLine?.positions.some(([r,k])=>r===row&&k===col)&&animation){
+@@ -103,6 +103,6 @@
+    c.strokeStyle='#ffe26b';c.lineWidth=3;c.beginPath();win.rows.forEach((row,col)=>{const px=x+(col+.5)*cw,py=y+(row+.5)*ch;col?c.lineTo(px,py):c.moveTo(px,py);});c.stroke();
+   }
+  }
+- drawSymbol(c,symbol,x,y,w,h){const image=this.atlas.get(symbol),b=this.spriteBounds.get('Box/'+symbol.slice(7));if(!b){c.drawImage(image,x,y,w,h);return;}const scale=Math.min(w/b.w,h/b.h);c.drawImage(image,b.x,b.y,b.w,b.h,x+(w-b.w*scale)/2,y+(h-b.h*scale)/2,b.w*scale,b.h*scale);}
++ drawSymbol(c,symbol,x,y,w,h,blur=false){const key=(blur?'Box/Blur/':'Box/')+symbol.slice(7),image=blur?this.sprites.get(key):this.atlas.get(symbol),b=this.spriteBounds.get(key);if(!b){c.drawImage(image,x,y,w,h);return;}const scale=Math.min(w/b.w,h/b.h);c.drawImage(image,b.x,b.y,b.w,b.h,x+(w-b.w*scale)/2,y+(h-b.h*scale)/2,b.w*scale,b.h*scale);}
+  dispose(){this.disposed=true;this.pause();this.cancelPresentation();this.logo?.destroy();for(const animation of this.symbolAnimations.values())animation.destroy();this.symbolAnimations.clear();this.atlas.clear();this.sprites.clear();}
+ }

@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: fixture inputs equal the current deployed renderer, manifest, timing module and PNG pins
+ok 1 - fixture inputs equal the current deployed renderer, manifest, timing module and PNG pins
+  ---
+  duration_ms: 2.376978
+  type: 'test'
+  ...
+# Subtest: all nine pending symbols keep their idle visible width and height
+ok 2 - all nine pending symbols keep their idle visible width and height
+  ---
+  duration_ms: 17.533142
+  type: 'test'
+  ...
+# Subtest: all nine settling symbols keep the same size at normal and turbo speed
+ok 3 - all nine settling symbols keep the same size at normal and turbo speed
+  ---
+  duration_ms: 120.47159
+  type: 'test'
+  ...
+# Subtest: moving sprites preserve each authored visible aspect ratio
+ok 4 - moving sprites preserve each authored visible aspect ratio
+  ---
+  duration_ms: 11.315858
+  type: 'test'
+  ...
+# Subtest: every moving draw stays within its column and its painted pixels stay inside the reel mask
+ok 5 - every moving draw stays within its column and its painted pixels stay inside the reel mask
+  ---
+  duration_ms: 165.764047
+  type: 'test'
+  ...
+# Subtest: settled and reduced-motion draws retain their original geometry
+ok 6 - settled and reduced-motion draws retain their original geometry
+  ---
+  duration_ms: 30.66646
+  type: 'test'
+  ...
+# Subtest: STOP and presentation cancellation preserve the accepted receipt and reel targets
+ok 7 - STOP and presentation cancellation preserve the accepted receipt and reel targets
+  ---
+  duration_ms: 1.112454
+  type: 'test'
+  ...
+# Subtest: the patch has no other effect on background, multiplier or frame draw calls
+ok 8 - the patch has no other effect on background, multiplier or frame draw calls
+  ---
+  duration_ms: 5.158976
+  type: 'test'
+  ...
+# Subtest: deployed Sound Effects switch intentionally mutes music together with the master
+ok 9 - deployed Sound Effects switch intentionally mutes music together with the master
+  ---
+  duration_ms: 0.523388
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 471.743608

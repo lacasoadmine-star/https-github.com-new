@@ -14,7 +14,9 @@ const supportedWager = (bet, targetBps) => {
 
 export class RollXController {
   constructor({ session, renderer = noAnimation, audio = silentAudio,
-    onState = noop, schedule = setTimeout, cancel = clearTimeout,
+    onState = noop,
+    schedule = (callback, delay) => globalThis.setTimeout(callback, delay),
+    cancel = timer => globalThis.clearTimeout(timer),
     reducedMotion = false } = {}) {
     if (!session || !['connect', 'spin', 'recover', 'refresh', 'dispose', 'supportsTarget'].every(key => typeof session[key] === 'function')) {
       throw new TypeError('A session/recovery adapter with explicit target binding is required.');

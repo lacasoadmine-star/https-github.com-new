@@ -42,14 +42,14 @@
     "assetsReuseRights": "UNVERIFIED",
     "renderer": "ORIGINAL_SVG_IMPLEMENTED_UNIT_TESTED_STATIC_QA",
     "walletIntegration": "EXISTING_ADAPTER_READ_AND_REPLAY_ONLY_UNRELEASED",
-    "mobileTouchKeyboard": "BROWSER_NOT_TESTED",
+    "mobileTouchKeyboard": "DESKTOP_SUBSET_PASSED_MOBILE_NOT_REACHED",
     "referenceCompleteness": "PARTIAL_SEVEN_ROUNDS_AND_CONTROLS_CAPTURED",
     "controller": "IMPLEMENTED_UNIT_TESTED",
     "soundMapping": "ORIGINAL_WEB_AUDIO_IMPLEMENTED_UNIT_TESTED",
     "targetAwareBackend": "NOT_CONNECTED",
-    "browserQA": "PENDING_GITHUB_CI_LOCAL_LAUNCH_BLOCKED",
+    "browserQA": "FAILED_CI_PENDING_TIMER_FIX_RETEST",
     "performance": "UNMEASURED",
-    "localTests": 57
+    "localTests": 58
   },
   "mechanics": [
     {
@@ -354,9 +354,9 @@
     },
     {
       "id": "ROLLX-007",
-      "status": "PENDING_GITHUB_CI",
+      "status": "OPEN",
       "owner": "qa",
-      "next": "Run the reviewed public checkpoint in existing GitHub CI. Local installed Chromium aborts at socket() permission before assertions; preserve attempt03 without bypass. Verify native held keys, BFCache, mouse/touch/keyboard, responsive HTML, audio and performance. Node tests are not browser acceptance."
+      "next": "Rerun exact-source GitHub browser QA after the native host timer receiver fix. First push passed 13 desktop checks then failed AUTO continuation; held-key, remaining AUTO and mobile checks were not reached."
     },
     {
       "id": "ROLLX-008",

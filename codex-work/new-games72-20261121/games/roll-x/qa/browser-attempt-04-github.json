@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_roll_x_v1",
+  "recordedAtUtc": "2026-11-21T21:26:20.630717+00:00",
+  "environment": "GitHub Actions / checked-out public source / Playwright / intercepted .invalid origin",
+  "sourceCommit": "c743f8d2030eb1f6585ee4a5fa9f0aaca6274aa8",
+  "sourceHashes": {
+    "index.html": "26f2b90d59be95bd5775f41e17cb99e1759c830595c9a17e9b2ce3f955613a53",
+    "style.css": "602ee3f84f917e3cdaae6d82bfcc9234db10d972b11f5bfbaf59fa92a8930d17",
+    "main.mjs": "9d0ea73e1e8edfffb175754d148432baca95c97f85b5845b244540b8da4a39b7",
+    "app.mjs": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
+    "controller.mjs": "c13742b1165c54605e6eac77c8954c13a8a41facd38474ae1f21032ceb860d80",
+    "session.mjs": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
+    "evaluator.mjs": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
+    "receipt.mjs": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
+    "renderer.mjs": "dd87ad68aa8a6ef66d5af15f31d8deda3369d34ab02568f664924e509f16945f",
+    "audio.mjs": "66cab15a5273999d95f3aff083a08c1c3056bd06bb2cd7cbadf8859975b2c060",
+    "qa/browser-fixture.mjs": "29098276302a1cf639b669a6c8300b8459685182a6d5611a5eb53b9388cbf7b4",
+    "../../shared/round-recovery.mjs": "76784381f80c164209911ab6ab6634486c845389d37be34f6e9d57ae83b79096",
+    "qa/browser-run.mjs": "6b65276b4eea718fb273113dbcdd97d5b58916d8c6d43d54349aa8d9e08b981c",
+    "qa/run-isolated-browser.cjs": "b9b63ee6c0ba87103a3ff78b4ab4a990beb4ca61736089f60f2af42bc2855745",
+    "tests/fixture-session.mjs": "c48b7fbc44f2b9f0f130e3501009a51d0c73341d88c9a78475c18fbb6dafa6bd"
+  },
+  "hasUncommittedSource": false,
+  "run": {
+    "id": 44951228218,
+    "event": "push",
+    "url": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951228218",
+    "conclusion": "failure",
+    "browserJobId": 136989421425,
+    "browserJobConclusion": "failure",
+    "existingPlatformConclusion": "success",
+    "existingBackendTestsPassed": 9,
+    "frontendBuildsPassed": [
+      "Player",
+      "Agent",
+      "Admin"
+    ],
+    "focusedUnitConclusion": "success",
+    "focusedTestsPassed": 221,
+    "packagingTestsPassed": 12,
+    "publicReferenceImagesRestored": 65
+  },
+  "result": "FAILED_AUTO_HOST_TIMER_RECEIVER",
+  "passingChecks": 13,
+  "checks": [
+    {
+      "name": "normal runtime consumes authenticated account state before release assertions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "normal runtime remains unavailable despite enabled mock server configuration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "normal runtime performs no financial POST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "menu opens help with unreleased notice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test adapter and immutable receipt set are visibly isolated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "double click followed by STOP accepts exactly one receipt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wheel and history show the accepted win",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "repeated keyboard events do not submit a round",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "keyboard start and STOP settle one empty receipt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bet and target controls update the bound choice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "2x receipt is presented with its exact 1.00 return",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cancelling AUTO confirmation starts no round",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "AUTO opens with the current bet and multiplier in editable fields",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "pageErrors": [
+    "Illegal invocation"
+  ],
+  "failure": {
+    "name": "TimeoutError",
+    "message": "page.waitForFunction: Timeout 18000ms exceeded.",
+    "stack": [
+      "page.waitForFunction: Timeout 18000ms exceeded.",
+      "    at run (/home/runner/work/https-github.com-new/https-github.com-new/codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs:103:16)",
+      "    at async /home/runner/work/https-github.com-new/https-github.com-new/codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs:56:14"
+    ]
+  },
+  "screenshotObservation": "AUTO remains active with 9 rounds remaining after its first accepted and refreshed fixture round.",
+  "artifact": {
+    "id": 14725876109,
+    "name": "new72-roll-x-browser-44951228218-1",
+    "url": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951228218/artifacts/14725876109",
+    "bytes": 110102,
+    "sha256": "79311d2765b555664830a565a47325ce01f0fc466e149d49f39a5f2e89f27fff",
+    "downloadDigestVerified": true,
+    "files": [
+      {
+        "path": "unreleased-desktop.jpg",
+        "bytes": 36138,
+        "sha256": "e25abd1b7fafd50fab9b61ebbfa4928d19f0fe1f5659f594ed82243c4b8ee7db"
+      },
+      {
+        "path": "fixture-win-desktop.jpg",
+        "bytes": 36901,
+        "sha256": "55458506e6eb723ed19534d0e1ecbc48ec327dfcac9750c42988761d71b3e612"
+      },
+      {
+        "path": "fixture-auto-settings.jpg",
+        "bytes": 35047,
+        "sha256": "051bca4b95cabb08e85a00a913ee7e49e3e8b1c6bcc0ae4ea0afd6a1b3c8d402"
+      },
+      {
+        "path": "failure.jpg",
+        "bytes": 35042,
+        "sha256": "000000bf14b7e44ae07e4fec5bd6fb72cd1e28851f9dce3a5287e9a3b41ca198"
+      }
+    ],
+    "imageAvailability": "GitHub workflow artifact and ignored local QA directory; no screenshots added to source tree."
+  },
+  "diagnosis": "Stored native setTimeout/clearTimeout methods receive the controller as this when invoked via this.schedule/this.cancel; the browser rejects that receiver.",
+  "fix": "Default timer wrappers now call globalThis.setTimeout and globalThis.clearTimeout with the host receiver. Timer injection remains supported.",
+  "regression": {
+    "name": "native host timers preserve their receiver during AUTO continuation and cancellation",
+    "beforeFix": "FAIL: Illegal invocation: host setTimeout receiver",
+    "afterFix": "PASS: ten rounds complete; cancellation during the next between-round delay accepts one round only",
+    "localRollXTestsPassed": 58
+  },
+  "browserRetest": "PENDING_NEXT_COMMIT_CI",
+  "realMoneyActions": 0,
+  "productionEndpointsUsed": false,
+  "runtimeReleaseGateClosed": true,
+  "providerVisualSoundParityVerified": false,
+  "screenshotsPublishedByThisFix": false
+}

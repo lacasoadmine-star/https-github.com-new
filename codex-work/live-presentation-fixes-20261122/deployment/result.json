@@ -1,0 +1,119 @@
+{
+  "schema": "zplay/live-deluxe-deployment-result/v1",
+  "observedAt": "2026-11-21T21:21:18.883Z",
+  "deployment": {
+    "id": "3d8e5552-02f0-48db-82eb-f9ccc8d54260",
+    "created_on": "2026-11-21T21:19:24.756756Z",
+    "strategy": "percentage",
+    "versions": [
+      {
+        "version_id": "527ad53e-210e-4e44-9c92-8bc5f74386f1",
+        "percentage": 100
+      }
+    ]
+  },
+  "version": {
+    "id": "527ad53e-210e-4e44-9c92-8bc5f74386f1",
+    "number": 463,
+    "metadata": {
+      "created_on": "2026-11-21T21:18:31.109769Z",
+      "source": "api"
+    },
+    "bindingCount": 18,
+    "namedHandlers": [
+      {
+        "name": "LocalDemoWallet",
+        "handlers": [
+          "class"
+        ]
+      },
+      {
+        "name": "NativeGameResources",
+        "handlers": [
+          "class"
+        ]
+      }
+    ],
+    "scriptRuntime": {
+      "migration_tag": "local-demo-v1",
+      "exports": {
+        "LocalDemoWallet": {
+          "type": "durable-object",
+          "storage": "sqlite"
+        },
+        "NativeGameResources": {
+          "type": "durable-object",
+          "storage": "sqlite"
+        },
+        "default": {
+          "type": "worker"
+        }
+      },
+      "assets": {
+        "html_handling": "none",
+        "not_found_handling": "none",
+        "serve_directly": false,
+        "raw_run_worker_first": true,
+        "base_path": "/"
+      },
+      "compatibility_date": "2026-10-01",
+      "usage_model": "standard"
+    }
+  },
+  "worker": "superwin-player",
+  "existingGameId": "multi_hot_5_deluxe_native",
+  "newGameCountContribution": 0,
+  "previousVersion": "fb87068c-5e84-4af1-b43c-5465ad10c300",
+  "previousVersionNumber": 461,
+  "status": "DEPLOYED",
+  "newMainModule": "native72deluxefix20261121/entry.mjs",
+  "newRelease": "zplay-native-machines-20261121-mh5deluxe-r1",
+  "renderer": {
+    "path": "candidate/mh5deluxe-renderer.mjs",
+    "bytes": 10566,
+    "sha256": "8d35b7ab7fa693792c213d68ab9cf5605fd6fdcab7942297e471c85ef03768b8"
+  },
+  "checksReportedByDeploymentOwner": {
+    "all403BaselineModuleHashesVerifiedBeforeUpload": true,
+    "all18BindingsExactlyPreserved": true,
+    "scriptRuntimeAndNamedHandlersEqualityGuardPassed": true,
+    "newRendererKVReadbackHashVerified": true,
+    "canonicalPageLoadedNewReleasePrefix": true,
+    "canonicalCanvasAndAuthenticatedControlsVisible": true,
+    "paidSpinPerformed": false
+  },
+  "independentReadback": "Recovery reviewer read the current deployment and version metadata through the Cloudflare API; the sanitized response fields are recorded above.",
+  "postDeploymentFullModuleAudit": {
+    "status": "PASS",
+    "record": "post-deploy-module-verification.json",
+    "deploymentId": "3d8e5552-02f0-48db-82eb-f9ccc8d54260",
+    "version": "527ad53e-210e-4e44-9c92-8bc5f74386f1",
+    "verifiedModules": 404,
+    "originalModulesPreserved": 403,
+    "mismatches": [],
+    "checkedAt": "2026-11-21T21:23:19.563Z"
+  },
+  "stagingHistory": [
+    {
+      "attempt": "Original download headers reused for upload",
+      "result": "Rejected HTTP 400: multipart message too large",
+      "fix": "Rebuild file headers with filename and MIME; retain original module body byte views."
+    },
+    {
+      "versionNumber": 462,
+      "result": "Uploaded but not activated",
+      "reason": "Runtime exports did not retain both existing Durable Object classes; equality guard rejected activation."
+    },
+    {
+      "versionNumber": 463,
+      "result": "Uploaded, preservation guard passed, activated at 100%",
+      "runtimeExports": [
+        "LocalDemoWallet",
+        "NativeGameResources",
+        "default"
+      ]
+    }
+  ],
+  "productionWagersByThisVerification": 0,
+  "scope": "Existing game presentation maintenance; no new game activation or change to game math, wallet or account data."
+}

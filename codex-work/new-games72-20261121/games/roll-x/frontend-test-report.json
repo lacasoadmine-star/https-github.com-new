@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "gameId": "zplay72_roll_x_v1",
-  "recordedAt": "2026-11-21T20:31:49.737625+00:00",
+  "recordedAt": "2026-11-21T21:26:20.630717+00:00",
   "frontendVersion": "zplay72-roll-x-frontend-0.2.0",
   "sourceCommit": "UNCOMMITTED_ADDITIVE_CHECKPOINT",
   "cashEnabled": false,
@@ -10,8 +10,8 @@
   "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
   "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/games/roll-x/tests/*.test.mjs",
   "result": "PASS",
-  "tests": 57,
-  "passed": 57,
+  "tests": 58,
+  "passed": 58,
   "failed": 0,
   "skipped": 0,
   "cancelled": 0,
@@ -23,7 +23,8 @@
     "evaluator.mjs",
     "receipt.mjs",
     "renderer.mjs",
-    "audio.mjs"
+    "audio.mjs",
+    "qa/browser-run.mjs"
   ],
   "runtimeGraphFiles": 9,
   "runtimeReferencesOrFixturesImported": false,
@@ -53,26 +54,33 @@
     "scope": "Static original wheel SVG only; not responsive HTML/browser/sound verification"
   },
   "browserQA": {
-    "result": "PENDING_GITHUB_CI_LOCAL_LAUNCH_BLOCKED",
-    "passingBrowserAssertions": 0,
+    "result": "FAILED_CI_PENDING_TIMER_FIX_RETEST",
+    "passingBrowserAssertions": 13,
     "attemptRecords": [
       "qa/browser-attempt-01.json",
       "qa/browser-attempt-02.json",
-      "qa/browser-attempt-03-local.json"
+      "qa/browser-attempt-03-local.json",
+      "qa/browser-attempt-04-github.json"
     ],
     "rejectedUploadRetried": false,
     "emptySessionCloseConfirmed": true,
-    "next": "Run the authorized reviewed public source in the existing GitHub feature-branch isolated browser workflow.",
+    "next": "Publish the bounded host timer fix and rerun the exact push browser job; all remaining checks must actually pass.",
     "localLaunchFailure": "Installed Chromium aborted at socket() permission before context creation or assertions.",
     "sourceUploadInLocalAttempt": false,
-    "readinessAssertion": "Requires an observed GET fresh-state request and its rendered confirmed balance before checking the closed release gate; pending actual CI execution."
+    "readinessAssertion": "Passed on the first exact-source push: fresh-state was requested and 98.00 ETB rendered before asserting the cash gate stayed closed.",
+    "verifiedSourceCommit": "c743f8d2030eb1f6585ee4a5fa9f0aaca6274aa8",
+    "runId": 44951228218,
+    "artifactId": 14725876109,
+    "pageErrors": [
+      "Illegal invocation"
+    ]
   },
   "peerReview": {
     "agent": "architecture_audit",
     "independentTestsPassed": 55,
     "report": "../../release/roll-x-peer-test-results.tap",
     "nativeHeldKeyAndBfcacheStillUnverified": true,
-    "scope": "Historical review of prior55-test checkpoint; current57-test continuation has not received independent review."
+    "scope": "Historical review of prior 55-test checkpoint; current 58-test continuation still needs independent browser rerun."
   },
   "sharedDependency": {
     "path": "../../shared/round-recovery.mjs",
@@ -83,36 +91,37 @@
     "style.css": "602ee3f84f917e3cdaae6d82bfcc9234db10d972b11f5bfbaf59fa92a8930d17",
     "main.mjs": "9d0ea73e1e8edfffb175754d148432baca95c97f85b5845b244540b8da4a39b7",
     "app.mjs": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
-    "controller.mjs": "c13742b1165c54605e6eac77c8954c13a8a41facd38474ae1f21032ceb860d80",
+    "controller.mjs": "c09b4f38e97abee6a64fad9ec9f999bf5debabae052ddc56a205811b55b3cda8",
     "session.mjs": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
     "evaluator.mjs": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
     "receipt.mjs": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
     "renderer.mjs": "dd87ad68aa8a6ef66d5af15f31d8deda3369d34ab02568f664924e509f16945f",
     "audio.mjs": "66cab15a5273999d95f3aff083a08c1c3056bd06bb2cd7cbadf8859975b2c060",
-    "specification.json": "7a222132e788cfd28e50c838371e103c76509476a95d366a8db5942b86b803c6",
+    "specification.json": "2b8f6349f9d9634369e53f7d243571b2a243a1d55072f69128b6fa011dcb4a87",
     "assets-manifest.json": "059f81fb2e1579d4f27eae4d5ed6445aff084078d7dd5e1f60fce11a2469c83b",
-    "issues.json": "eb763c31866963a135b59b7c4c8992eafee666ef913a580dbf0ade649d276f16",
+    "issues.json": "5e79a0f0e225c1b772055bc419a6daae1f75f07f5a68f6dab49509444adb04d5",
     "qa/static-renderer.svg": "920df2fd9567885ab9d170c02d4e3272c169db9607530f419db7c86bc348d2d5",
     "qa/static-renderer.png": "320878b08cbbab18bb368f7471ad8adb5be8b790805e9743a597dd8c6e27343c",
-    "qa/local-test-results.tap": "4adf8ebf33f72e3768eef33a90384b5cc21dd55456a3a7621ed84d87835f8397",
+    "qa/local-test-results.tap": "acf515f50116559cc3b363e267caf71355615ea3bb41ade00abd3a0ac3d245f5",
     "tests/input-lifecycle.test.mjs": "f79de33758c0da58942ea554e31fe3bf4f1fec3ce88027163a59881efb863dd2",
     "tests/evaluator.test.mjs": "21d923f5028047703076138d86860b66a52859c0fac87e1418f2e5147840323b",
     "tests/session.test.mjs": "255a40ef079381196b43e0c3e8adc8c0e7284109dda526f9170ac8daabdfc04c",
     "tests/receipt.test.mjs": "2e133ed6d687633a3eef4caf7e2c345092d1a0b1fab676984dd90eb314521e8a",
     "tests/audio.test.mjs": "c716a1416cb724c74425161a21894f518b56d819d5a42f5dedf176b8807bd3cf",
     "tests/renderer.test.mjs": "72581ce63a3da95b8c62bf2a9b45c1c9ece9cc75dff5c9304a65f6a6a85fa2a6",
-    "tests/controller.test.mjs": "18030243d3a01daa26ddbc0e04c05c206a98c00c76fe0074f31c40159da5e895",
+    "tests/controller.test.mjs": "f067e84790d99ae76198b476363fecb8d9217aa6fa9025440ede21c0b3c3f1e4",
     "tests/fixture-session.mjs": "c48b7fbc44f2b9f0f130e3501009a51d0c73341d88c9a78475c18fbb6dafa6bd",
     "evidence-index.json": "cf3109eaafc112a4f29ac677ef09ea77803bc9375cdacf01d1de39066773d323",
     "evidence-verification-report.json": "0acaa1237b7ee08a6940c4934c6d28faa2db83190fbf1e103f567ff66e7aa15c",
     "evidence/follow-up-2026-11-21-motion/index.json": "c9872c78d1416ca5224a7e0fae3b1d366f6422ee1a066790ad6de0008353ad2f",
-    "qa/browser-run.mjs": "6b65276b4eea718fb273113dbcdd97d5b58916d8c6d43d54349aa8d9e08b981c",
+    "qa/browser-run.mjs": "ebc954ea94e8b1fc0cef6f39615ec762309001c1da7522b6fbb849a42866b8da",
     "qa/run-isolated-browser.cjs": "b9b63ee6c0ba87103a3ff78b4ab4a990beb4ca61736089f60f2af42bc2855745",
-    "qa/browser-attempt-03-local.json": "6d2371ec0d2214ac95f6b8a66ee279193ac161dff4cfbe3252aa894aa4856f35"
+    "qa/browser-attempt-03-local.json": "6d2371ec0d2214ac95f6b8a66ee279193ac161dff4cfbe3252aa894aa4856f35",
+    "qa/browser-attempt-04-github.json": "e26051d43c2d910b407f7f1c645dca42fc7f0efcbb4410c5d54eb30285434407"
   },
   "limitations": [
     "No real account/ledger or production wager; fixtures are isolated and predefined.",
-    "No full HTML/mouse/mobile/touch/keyboard/native BFCache acceptance result.",
+    "First GitHub browser attempt passed 13 desktop checks; remaining AUTO, held-key, mobile/touch and native BFCache acceptance are unverified.",
     "No measured FPS, memory growth or audible/provider sound parity.",
     "No probability model, RNG, independent RTP/fairness verification.",
     "Complete multiplier schedule, provider stake limits, rounding and additional source controls remain unverified.",

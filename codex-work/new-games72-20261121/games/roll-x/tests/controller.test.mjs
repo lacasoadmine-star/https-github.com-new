@@ -83,6 +83,46 @@ test('AUTO performs exactly its confirmed finite count', async () => {
   h.controller.dispose();
 });
 
+test('native host timers preserve their receiver during AUTO continuation and cancellation', async () => {
+  const originalSetTimeout = globalThis.setTimeout, originalClearTimeout = globalThis.clearTimeout;
+  const pending = new Map();
+  let scheduled = 0, cancelled = 0, hold = false, controller;
+  // Browser timer methods reject a controller object as their receiver. Node's
+  // permissive timers and injected arrow timers otherwise hide this failure.
+  globalThis.setTimeout = function (callback) {
+    if (this !== globalThis) throw new TypeError('Illegal invocation: host setTimeout receiver');
+    const id = ++scheduled;
+    pending.set(id, callback);
+    if (!hold) queueMicrotask(() => { const next = pending.get(id); pending.delete(id); next?.(); });
+    return id;
+  };
+  globalThis.clearTimeout = function (id) {
+    if (this !== globalThis) throw new TypeError('Illegal invocation: host clearTimeout receiver');
+    cancelled++; pending.delete(id);
+  };
+  try {
+    const session = fixtureSession(sequence(20));
+    controller = new RollXController({ session, ...instruments() });
+    await controller.connect();
+    assert.deepEqual(await controller.startAuto({ count: 10 }), { started: true, completed: 10 });
+    assert.equal(session.calls.spin.length, 10);
+    assert.equal(scheduled, 9);
+    hold = true;
+    const next = controller.startAuto({ count: 10 });
+    await waitUntil(() => controller.autoTimer !== null);
+    controller.stopAuto();
+    assert.deepEqual(await next, { started: true, completed: 1 });
+    assert.equal(session.calls.spin.length, 11);
+    assert.equal(cancelled, 1);
+    assert.equal(pending.size, 0);
+    assert.equal(controller.snapshot.autoActive, false);
+  } finally {
+    controller?.dispose();
+    globalThis.setTimeout = originalSetTimeout;
+    globalThis.clearTimeout = originalClearTimeout;
+  }
+});
+
 test('AUTO binds the bet and multiplier chosen in its own form for every accepted round', async () => {
   const receipts = Array.from({ length: 10 }, (_, index) => fixtureReceipt(index + 1, {
     before: 10000n + BigInt(index) * 50n, bet: '0.50', payout: '1.00', targetBps: 20_000,

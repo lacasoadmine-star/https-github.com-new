@@ -1,0 +1,26 @@
+{
+  "schema": "zplay.official-source-check.v1",
+  "checkedAt": "2026-11-21T21:21:00.583175+00:00",
+  "targetDisplayName": "JetX",
+  "purpose": "Distinguish the newly scoped visible JetX card from the separately listed New Era of JetX; do not count one demo as two independently verified games.",
+  "method": "Fresh web retrieval of official provider homepage and its Learn more and Play Demo links; no UI gameplay or betting action in this check.",
+  "sources": [
+    {
+      "url": "https://www.smartsoftgaming.com/",
+      "observation": "The JetX hero Learn more link resolves to /games/jetx. Its public demo resolves to GameCategory=JetXNew, GameName=JetX."
+    },
+    {
+      "url": "https://www.smartsoftgaming.com/games/jetx",
+      "observedTitle": "New Era of JetX",
+      "observation": "Current page labels the game New Era of JetX; its demo is the same JetXNew variant as the homepage."
+    },
+    {
+      "url": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&PortalName=DEMO&Token=DEMO_EXH",
+      "observation": "Exact current public demo link from both official pages. DEMO_EXH is the published demo token, not an account credential. Runtime iframe and session tokens are not retained."
+    }
+  ],
+  "result": "CLASSIC_JETX_DISTINCT_OFFICIAL_VARIANT_AND_DEMO_UNRESOLVED",
+  "newEraDemoCannotAlsoCountAsClassic": true,
+  "gameplayRoundsObservedInThisCheck": 0,
+  "nextAction": "Obtain a currently official classic JetX variant/demo entry or provider documentation establishing a distinct variant. Do not guess an old loader category, clone the New Era implementation, or count an alias."
+}

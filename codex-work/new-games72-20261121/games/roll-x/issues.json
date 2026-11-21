@@ -106,6 +106,22 @@
       "evidence": "frontend-test-report.json",
       "status": "FIXED_PENDING_RETEST",
       "pendingRetestScope": "Native browser AUTO select/input and responsive dialog interaction."
+    },
+    {
+      "id": "ROLLX-FIX-008",
+      "action": "Continue or cancel AUTO using native browser timers",
+      "expected": "The confirmed finite AUTO sequence continues after each settled receipt and cancels its pending delay without another wager.",
+      "observed": "Exact-source GitHub browser run 44951228218 passed 13 checks, then Illegal invocation from a timer called with controller receiver left AUTO at 9 remaining.",
+      "files": [
+        "controller.mjs",
+        "tests/controller.test.mjs",
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Browser-like host-timer regression failed before the fix and passes afterward; all 58 RollX local checks pass. Defaults now retain the global host receiver; failure artifacts record page-error stacks and fixture state.",
+      "evidence": "qa/browser-attempt-04-github.json",
+      "status": "FIXED_PENDING_RETEST",
+      "pendingRetestScope": "The next exact-source GitHub browser run must confirm full AUTO and the remaining native input/mobile checks."
     }
   ],
   "openTaskSource": "specification.json#openWork"
