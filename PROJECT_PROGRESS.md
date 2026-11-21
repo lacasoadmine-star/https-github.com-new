@@ -1,3 +1,54 @@
+# ZPLAY / Superwin — active additional 72-game work
+
+Checkpoint: 21 November 2026, Africa/Addis_Ababa. This section records the latest explicit additive request and supersedes the earlier sequential scheduling instruction for this new scope. The complete prior checkpoint is retained below; its existing implementations, staged work and unresolved deployment investigation have not been reset or activated by this preparation.
+
+## Active scope and durable handoff
+
+- Repository: `lacasoadmine-star/https-github.com-new`.
+- New feature branch: `work/new-games72-additive-20261121`, based on the retained continuation commit `1d0f4c9ddc9d14aacc436021ed0bcb2b27dd85f0`.
+- Active matrix: [NEW_GAMES_72_MATRIX.md](NEW_GAMES_72_MATRIX.md).
+- New source/evidence: [codex-work/new-games72-20261121](codex-work/new-games72-20261121/README.md).
+- Exact stable identities, reserved routes, backend paths, task owners and next actions: [registry.json](codex-work/new-games72-20261121/registry.json).
+- Preservation inventory: [baseline.json](codex-work/new-games72-20261121/preservation/baseline.json), containing 74 retained source-catalog entries. This is not a claim that 74 old games were freshly tested live.
+
+The user's supplied list contains 57 names. Fifteen additional distinct current official products complete the required 72-entry scope. Aliases share one identity and are not counted twice. Old same-name games retain their old IDs/routes. New code uses `zplay72_*_v1` and `/new-games72/`; reserving these paths does not make them playable.
+
+All 72 remain in the active project scope, with per-game tasks for references, rules, assets, frontend, backend, controls, sound/animation and QA. Groups of ten are for reporting; they do not block parallel independent work. Shared API/wallet code is coordinated separately from per-game files.
+
+## Verified work at this checkpoint
+
+Fresh official product identities and current demo links are recorded for the 72 entries. The retained canonical evidence contains seven separately started manual demo-round observations for Multi Hot 5 Deluxe and seven for Roll X. Roll X's additional AUTO and STOP-control rounds remain separate. Deluxe has an actual canvas motion recording; some result frames were recovered from that same recording after a tool response was lost, without another spin. Its recovered desktop screenshots add zero verified manual rounds because their original action log and exact capture timestamps are unavailable. They supply separately labelled paytable and control-state evidence. Reference media is never runtime gameplay.
+
+Deluxe now has deterministic five-line payout arithmetic with **23 passing tests**. Bound help displays at two bets and two observed wins support the implemented scaling. This is not a complete engine: admissible outcomes, probability weights, the displayed maximum-win restriction, X2 settlement, renderer and live integration remain unresolved. Outputs retain `settlementEligible: false` and `outcomeLegalityVerified: false`. The arithmetic does not invent reel restrictions or silently clamp a synthetic outcome to the provider's displayed cap.
+
+Roll X frontend `zplay72-roll-x-frontend-0.2.0` adds editable AUTO stake and target fields. Its **57 local tests** verify that valid selections remain bound through serialized actions and invalid or stale selections cannot submit a wager. Its partial evaluator still covers the verified 1.4x/2x arithmetic subset. Complete target/stake limits, rounding, probability model, retained accepted-model versions, target-aware integration on the existing server, provider parity and live settlement remain unfinished. Cash is closed. A local installed-browser attempt failed at socket creation before any browser assertion; actual browser acceptance remains pending.
+
+Multi Hot 5 Wild's later full-reference attempt returned a provider country restriction. Its earlier sound-prompt entry observation is retained as a separate event; neither attempt produced a gameplay round. Hot Samba also remains blocked by its observed provider restriction. The registry now distinguishes **68 REFERENCE_PENDING, 2 REFERENCE_PARTIAL and 2 REFERENCE_BLOCKED** entries. Other games continue independently, and entry-only surveys do not count as seven-spin captures.
+
+Shared recovery now adopts saved `Retry-After` deadlines when another client's pending request is discovered and reloads the latest deadline before replay. Three reproduced failures were corrected; **49 recovery tests pass**. The existing API, accepted request identity and wallet boundaries are unchanged. Earlier capture/recovery/lifecycle retests remain in [peer-review.json](codex-work/new-games72-20261121/release/peer-review.json).
+
+The unmounted additive asset router validates complete publication identities, release/source versions and each asset's size/SHA-256 before serving immutable URLs. Missing, corrupt or mismatched assets return explicit uncached errors without substituting older content. Independently validated retained releases remain available at their exact historical URLs when the current publication is absent, inactive or invalid. **32 integration tests pass**: nine catalog checks, 20 router checks and three independently reproduced historical-asset regressions. The [independent router review](codex-work/new-games72-20261121/integration/asset-router-review.json) retains the failed attempts and successful action retests. This handler is not mounted or activated.
+
+The combined focused local suite passed **221/221** tests, with 0 failed, skipped or cancelled: capture 34, recovery 49, release gate 26, integration 32, Roll X 57 and Deluxe arithmetic 23. [The exact-source report](codex-work/new-games72-20261121/release/focused-integration-report.json) records the actual command, runtime, source hashes and TAP output. These isolated tests are not production ledger tests, native browser acceptance or 72-game completion.
+
+The earlier Cloudflare source/fixture upload for browser QA was rejected by automatic approval review because authorization for transmitting that private payload to the destination account had not been established to the reviewer. That rejected upload was not retried or rerouted. The prepared feature-branch-only GitHub workflow tests checked-out source with game network traffic intercepted on an invalid test origin and uses no production credentials or wallet actions. The current GitHub publication/readback and browser workflow results remain unverified at this document checkpoint. The normal release-check command remains closed; `--expect-closed` proves only that valid preparation identities remain disabled.
+
+## Preservation and release state
+
+No existing game/runtime source or assets were overwritten. Accounts, balances, ledger, past rounds, authentication, permissions and Telebirr were not modified. Existing dirty checkouts were left intact. The earlier checkpoint recorded read-only Player/Agent HTTP 200 checks and Worker version/binding inspection without activation; those observations are not fresh authenticated gameplay or ETB settlement verification for this continuation. A new live baseline is still required before release.
+
+**RELEASE_READY: 0/72. LIVE_VERIFIED: 0/72. Canonical seven-manual-round reference sets: 2/72. Public activation: false.** The new backend IDs are unregistered and disabled. No production spin, balance adjustment, data reset or new deployment activation was performed. A successful source publication or CI run must not be reported as live completion.
+
+## Next actions
+
+Publish and read back the exact source checkpoint through the existing GitHub feature branch, then inspect the isolated browser workflow's actual result and correct reproduced failures. Complete Roll X's native AUTO/input/lifecycle checks and target-aware adapter on the existing server. Complete Deluxe's outcome-legality, maximum-win and probability specifications alongside its renderer and remaining controls. Continue the other games independently from their per-game evidence and task owners. Preserve completed captures for the same version. Add disposable-database ledger and recovery tests before release, preserving accepted request identity and historical versions. Activate only one compatible release after all 72 reach RELEASE_READY and a fresh live baseline confirms existing services/modules/configuration.
+
+Specific unresolved provider access, unknown financial rules, missing runtime code and evidence gaps remain active tasks; they must not be hidden by templates, copied old math, renamed cards or passing structural tests. Rollback must only close future new-game rounds and preserve accepted rounds, ledger, correct balances, payouts and required historical assets/rules.
+
+---
+
+# Retained prior checkpoint — unchanged historical record
+
 # ZPLAY / Superwin — Project progress
 
 Updated: 21 November 2026 (Africa/Addis_Ababa).

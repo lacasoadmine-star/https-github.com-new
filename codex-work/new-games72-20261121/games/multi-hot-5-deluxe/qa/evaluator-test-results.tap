@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: bound 0.05 DMO paytable matches every observed symbol
+ok 1 - bound 0.05 DMO paytable matches every observed symbol
+  ---
+  duration_ms: 3.158883
+  type: 'test'
+  ...
+# Subtest: bound 0.10 DMO paytable matches every observed symbol
+ok 2 - bound 0.10 DMO paytable matches every observed symbol
+  ---
+  duration_ms: 0.539532
+  type: 'test'
+  ...
+# Subtest: captured spin-05: grid, multiplier and total payout match
+ok 3 - captured spin-05: grid, multiplier and total payout match
+  ---
+  duration_ms: 0.884041
+  type: 'test'
+  ...
+# Subtest: captured spin-07: grid, multiplier and total payout match
+ok 4 - captured spin-07: grid, multiplier and total payout match
+  ---
+  duration_ms: 0.239431
+  type: 'test'
+  ...
+# Subtest: each of the five observed multipliers scales the same accepted line
+ok 5 - each of the five observed multipliers scales the same accepted line
+  ---
+  duration_ms: 0.289886
+  type: 'test'
+  ...
+# Subtest: three different horizontal wins add before applying the shared multiplier
+ok 6 - three different horizontal wins add before applying the shared multiplier
+  ---
+  duration_ms: 0.270768
+  type: 'test'
+  ...
+# Subtest: descending diagonal uses observed line 4 and correct highlight coordinates
+ok 7 - descending diagonal uses observed line 4 and correct highlight coordinates
+  ---
+  duration_ms: 0.348073
+  type: 'test'
+  ...
+# Subtest: ascending diagonal uses observed line 5
+ok 8 - ascending diagonal uses observed line 5
+  ---
+  duration_ms: 0.208834
+  type: 'test'
+  ...
+# Subtest: coinciding paylines that share the center cell both contribute
+ok 9 - coinciding paylines that share the center cell both contribute
+  ---
+  duration_ms: 0.274543
+  type: 'test'
+  ...
+# Subtest: all five qualifying lines are summed exactly once
+ok 10 - all five qualifying lines are summed exactly once
+  ---
+  duration_ms: 0.453933
+  type: 'test'
+  ...
+# Subtest: two matching symbols or nonadjacent matches alone do not pay
+ok 11 - two matching symbols or nonadjacent matches alone do not pay
+  ---
+  duration_ms: 0.277858
+  type: 'test'
+  ...
+# Subtest: symbol groups share pay factors but mixed fruit symbols are not substitutes
+ok 12 - symbol groups share pay factors but mixed fruit symbols are not substitutes
+  ---
+  duration_ms: 1.170161
+  type: 'test'
+  ...
+# Subtest: synthetic outcomes above published 145x are flagged, never capped or licensed for settlement
+ok 13 - synthetic outcomes above published 145x are flagged, never capped or licensed for settlement
+  ---
+  duration_ms: 0.15992
+  type: 'test'
+  ...
+# Subtest: DMO demo limits are not mistaken for ETB stake authorization
+ok 14 - DMO demo limits are not mistaken for ETB stake authorization
+  ---
+  duration_ms: 0.2457
+  type: 'test'
+  ...
+# Subtest: input grid and frozen rule tables cannot be changed by evaluation
+ok 15 - input grid and frozen rule tables cannot be changed by evaluation
+  ---
+  duration_ms: 0.509297
+  type: 'test'
+  ...
+# Subtest: invalid bet amounts are rejected without coercion or rounding
+ok 16 - invalid bet amounts are rejected without coercion or rounding
+  ---
+  duration_ms: 0.337638
+  type: 'test'
+  ...
+# Subtest: a missing or unobserved multiplier is rejected instead of defaulting to 1x
+ok 17 - a missing or unobserved multiplier is rejected instead of defaulting to 1x
+  ---
+  duration_ms: 0.178939
+  type: 'test'
+  ...
+# Subtest: wrong-size and sparse grids are rejected
+ok 18 - wrong-size and sparse grids are rejected
+  ---
+  duration_ms: 0.183376
+  type: 'test'
+  ...
+# Subtest: unknown, inherited-key, WILD and scatter symbols are not silently evaluated
+ok 19 - unknown, inherited-key, WILD and scatter symbols are not silently evaluated
+  ---
+  duration_ms: 0.158238
+  type: 'test'
+  ...
+# Subtest: invalid top-level input is rejected
+ok 20 - invalid top-level input is rejected
+  ---
+  duration_ms: 0.208784
+  type: 'test'
+  ...
+# Subtest: large but exactly representable payout uses integer arithmetic
+ok 21 - large but exactly representable payout uses integer arithmetic
+  ---
+  duration_ms: 0.190677
+  type: 'test'
+  ...
+# Subtest: individual line, multiplier and aggregate payout overflow are each rejected
+ok 22 - individual line, multiplier and aggregate payout overflow are each rejected
+  ---
+  duration_ms: 0.277337
+  type: 'test'
+  ...
+# Subtest: large losing stake returns exact zero without speculative award multiplication
+ok 23 - large losing stake returns exact zero without speculative award multiplication
+  ---
+  duration_ms: 0.135844
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 156.710183

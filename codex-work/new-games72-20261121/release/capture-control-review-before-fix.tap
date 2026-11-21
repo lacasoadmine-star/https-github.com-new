@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: review regression: a malformed control batch cannot persist partial controls or double-count extra rounds
+not ok 1 - review regression: a malformed control batch cannot persist partial controls or double-count extra rounds
+  ---
+  duration_ms: 63.030464
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:429:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    2 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:443:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 226.767406

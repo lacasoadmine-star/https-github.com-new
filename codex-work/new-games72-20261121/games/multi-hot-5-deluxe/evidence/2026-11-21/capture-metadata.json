@@ -1,0 +1,42 @@
+{
+  "schema": "zplay/fresh-reference-capture/v1",
+  "gameId": "zplay72_multi_hot_5_deluxe_v1",
+  "source": {
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+    "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
+    "provider": "SmartSoft Gaming",
+    "providerGameName": "MultiHot5Deluxe",
+    "gameVersion": "v1.0.1"
+  },
+  "capturedOn": "2026-11-21",
+  "status": "REFERENCE_PARTIAL",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "devicePixelRatio": 1,
+    "orientation": "portrait",
+    "mobileEmulation": true,
+    "maxTouchPoints": 1
+  },
+  "video": {
+    "file": "seven-manual-rounds.webm",
+    "method": "MediaRecorder of the live game canvas captureStream(20)",
+    "mime": "video/webm;codecs=vp8",
+    "requestedFramesPerSecond": 20,
+    "measuredPerformanceFps": null,
+    "byteLength": 5970289,
+    "remuxedTimelineDurationSeconds": 116.419,
+    "coverage": "reel movement, stop sequences and visible wins for the seven manual reference rounds",
+    "limitation": "Canvas-only recording excludes CSS backgrounds and page-level dialogs. Canvas dimensions changed during browser runner reattachment; result-frame derivations retain that limitation.",
+    "audioTrackPresent": false
+  },
+  "audio": {
+    "recordingSupported": false,
+    "reason": "Canvas captureStream had no audio track. Clicking YES and loading sound URLs do not prove audible parity.",
+    "heardOrParityVerified": false
+  },
+  "sessionClosed": true,
+  "productionWagers": 0,
+  "operatorWalletAccess": false,
+  "referenceImagesUsedAsRuntimeAssets": false
+}

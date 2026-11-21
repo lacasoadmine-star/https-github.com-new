@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: review regression: a lost completed-observation response resumes the same round in recovery mode
+not ok 1 - review regression: a lost completed-observation response resumes the same round in recovery mode
+  ---
+  duration_ms: 35.813748
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:351:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'BLOCKED'
+    - 'REFERENCE_CAPTURED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'REFERENCE_CAPTURED'
+  actual: 'BLOCKED'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:369:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: review regression: corrupt missing-pending checkpoint preserves input intent without another click
+not ok 2 - review regression: corrupt missing-pending checkpoint preserves input intent without another click
+  ---
+  duration_ms: 15.408959
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:375:99'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'INVALID_CAPTURE_CHECKPOINT'
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:388:5)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: review regression: corrupt attempted-flag-cleared checkpoint preserves input intent without another click
+not ok 3 - review regression: corrupt attempted-flag-cleared checkpoint preserves input intent without another click
+  ---
+  duration_ms: 11.116357
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:375:99'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'INVALID_CAPTURE_CHECKPOINT'
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:388:5)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: review regression: corrupt pending-identity-changed checkpoint preserves input intent without another click
+not ok 4 - review regression: corrupt pending-identity-changed checkpoint preserves input intent without another click
+  ---
+  duration_ms: 14.197599
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:375:99'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'INVALID_CAPTURE_CHECKPOINT'
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:388:5)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: review regression: completed evidence rejects orphan attempted action logs
+not ok 5 - review regression: completed evidence rejects orphan attempted action logs
+  ---
+  duration_ms: 61.79094
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:392:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:397:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: review regression: lock release failure does not retain an in-process running slot
+not ok 6 - review regression: lock release failure does not retain an in-process running slot
+  ---
+  duration_ms: 44.347464
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:401:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:410:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: review regression: invalid extra-round metadata cannot half-commit the pending manual round
+not ok 7 - review regression: invalid extra-round metadata cannot half-commit the pending manual round
+  ---
+  duration_ms: 8.340388
+  type: 'test'
+  location: '/workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:415:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/0e74fac09ed8/zplay-new72/codex-work/new-games72-20261121/capture/evidence-capture.test.mjs:423:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 0
+# fail 7
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 342.733007

@@ -1,0 +1,72 @@
+{
+  "gameId": "zplay72_multi_hot_5_deluxe_v1",
+  "actions": [
+    {
+      "action": "Open current official demo",
+      "result": "Initial splash; one reload completed gameplay loading."
+    },
+    {
+      "action": "Configure Android portrait and touch emulation",
+      "result": "Portrait game and sound prompt visible."
+    },
+    {
+      "action": "Choose YES on sound prompt",
+      "result": "Prompt dismissed; UI sound enabled; audible sound unverified."
+    },
+    {
+      "action": "SPIN 01",
+      "result": "POST200 and distinct reel result; demo balance19999.95."
+    },
+    {
+      "action": "SPIN 02",
+      "result": "POST200; provider round1989643180.2; demo balance19999.90."
+    },
+    {
+      "action": "SPIN03 through07",
+      "result": "Five separate click/response/wait cycles executed. Bulk media transfer failed after execution; no replacement spins were sent."
+    },
+    {
+      "action": "Recover after transport failure",
+      "result": "Confirmed recording inactive with5970289bytes, captured final result and downloaded recording in16 bounded chunks; reconstructed four missing result screenshots from the same video."
+    },
+    {
+      "action": "Open MENU",
+      "result": "In-game paytable displayed; last spinID1989643180.7."
+    },
+    {
+      "action": "Scroll to Payline Chart",
+      "result": "Five-line chart, version1.0.1, displayed96.39% and145X cap observed."
+    },
+    {
+      "action": "HISTORY",
+      "result": "Seven current-date records confirmed; older rows excluded from evidence.",
+      "unpublishedScreenshots": [
+        {
+          "path": "evidence/2026-11-21/history-current-seven.png",
+          "bytes": 53947,
+          "sha256": "affde89facbb07e6e919b7a4fae8202ce181f5c34fe41870651cbd0de0378fe5",
+          "status": "WITHHELD_FROM_PUBLIC_TREE",
+          "reason": "Deluxe current-session history panel intentionally excluded from public GitHub evidence; private original preserved unchanged.",
+          "materialized": false,
+          "originalPreservedLocally": true
+        }
+      ]
+    },
+    {
+      "action": "SETTINGS",
+      "result": "Effects/music/fullscreen switches visible."
+    },
+    {
+      "action": "Toggle effects and music off then restore",
+      "result": "Off-state image captured; no audible verification."
+    },
+    {
+      "action": "Close menu and attempt BET",
+      "result": "Provider time-out message prevented bet interaction. No extra round counted."
+    },
+    {
+      "action": "Close reference browser session",
+      "result": "Cloudflare confirmed closed."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "zplay/new72-registry-builder-review/v1",
+  "observedAt": "2026-11-21T20:17:59.953400+00:00",
+  "command": "python3 codex-work/new-games72-20261121/build-registry.py",
+  "exitCode": 1,
+  "message": "Registry already exists. Preserve recorded work; update rows explicitly instead of regenerating.",
+  "existingRegistryGuardHeld": true,
+  "before": {
+    "codex-work/new-games72-20261121/registry.json": "cfad1f0be0f7fc13cdbe12bf49ee7ce144a867c90a3bca50ca96aa679478ed80",
+    "codex-work/new-games72-20261121/preservation/baseline.json": "8ecd8235f8cd3e11595c5287cdd1eee32e253889c37d60af8c4b7b8f713d3d2d",
+    "codex-work/native72-20261119/qa/game-progress.json": "037ef2bb228f852896dfee0d0613dc6946f496e9d72ece98a8e806f6c9d0079d"
+  },
+  "after": {
+    "codex-work/new-games72-20261121/registry.json": "cfad1f0be0f7fc13cdbe12bf49ee7ce144a867c90a3bca50ca96aa679478ed80",
+    "codex-work/new-games72-20261121/preservation/baseline.json": "8ecd8235f8cd3e11595c5287cdd1eee32e253889c37d60af8c4b7b8f713d3d2d",
+    "codex-work/native72-20261119/qa/game-progress.json": "037ef2bb228f852896dfee0d0613dc6946f496e9d72ece98a8e806f6c9d0079d"
+  },
+  "allInspectedFilesUnchanged": true,
+  "trackedChangesOutsideAdditiveDirectory": [],
+  "inspection": {
+    "writeTargets": [
+      "codex-work/new-games72-20261121/preservation/baseline.json",
+      "codex-work/new-games72-20261121/registry.json"
+    ],
+    "legacyCatalogAccess": "read-only",
+    "subprocess": "git rev-parse for baseline tree; no deployment",
+    "metadataDefaults": "REFERENCE_PENDING, backend disabled, rules/engine null, publicActivation false"
+  },
+  "limits": [
+    "Source preservation inspection is not a fresh production availability audit.",
+    "The guard was exercised against existing registry; no regeneration or live deployment was attempted."
+  ]
+}

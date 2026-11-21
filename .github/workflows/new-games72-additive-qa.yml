@@ -1,0 +1,94 @@
+# Feature-branch verification only. No deployment secrets, provider credentials,
+# production accounts or live wallet endpoints are used.
+name: New 72 additive games QA
+
+on:
+  push:
+    branches:
+      - work/new-games72-additive-20261121
+    paths:
+      - 'codex-work/new-games72-20261121/**'
+      - '.github/workflows/new-games72-additive-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: new72-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Restore and verify the exact published reference evidence
+        run: |
+          python3 codex-work/new-games72-20261121/evidence-bundle/materialize.py --root .
+          python3 -m unittest discover -s codex-work/new-games72-20261121/evidence-bundle -p test_materialize.py -v
+      - name: Test capture, recovery, asset integrity, release gating and individual game arithmetic
+        run: |
+          node --test \
+            codex-work/new-games72-20261121/capture/*.test.mjs \
+            codex-work/new-games72-20261121/shared/*.test.mjs \
+            codex-work/new-games72-20261121/release/*.test.mjs \
+            codex-work/new-games72-20261121/integration/*.test.mjs \
+            codex-work/new-games72-20261121/games/roll-x/tests/*.test.mjs \
+            codex-work/new-games72-20261121/games/multi-hot-5-deluxe/tests/*.test.mjs
+      - name: Validate the exact 72 identities and require activation to remain closed
+        run: |
+          node codex-work/new-games72-20261121/release/check-current-registry.mjs --expect-closed
+
+  existing-platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - name: Build the existing Player, Agent and Admin
+        run: |
+          npm ci --ignore-scripts
+          npm run build --workspaces
+      - name: Verify the existing backend on its disposable SQLite test database
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pytest -q tests/test_platform.py
+
+  roll-x-browser:
+    needs: focused-unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/new72-browser-tools" --ignore-scripts --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/new72-browser-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Exercise checked-out Roll X against isolated immutable receipts
+        env:
+          NODE_PATH: ${{ runner.temp }}/new72-browser-tools/node_modules
+          ZPLAY_NEW72_QA_OUTPUT: ${{ runner.temp }}/new72-browser-results
+        run: node codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs
+      - name: Preserve the exact-source browser report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new72-roll-x-browser-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new72-browser-results
+          if-no-files-found: error
+          retention-days: 30

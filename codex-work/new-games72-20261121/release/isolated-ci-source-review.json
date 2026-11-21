@@ -1,0 +1,94 @@
+{
+  "schema": "zplay/new72-isolated-ci-source-review/v1",
+  "reviewedAt": "2026-11-21T20:24:14.238960+00:00",
+  "reviewTask": "architecture_audit",
+  "method": "Read-only source inspection plus syntax checks; no browser, GitHub workflow or upload was executed by this review.",
+  "files": [
+    {
+      "path": ".github/workflows/new-games72-additive-qa.yml",
+      "sha256": "05dead0b816478fe64b6b853e97b58e9b887ff46c1b32f5206d9d0af3e32335a",
+      "bytes": 2440
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs",
+      "sha256": "27ca24f449fb5a29164a1dede003c5878c35c9389ea13ac1a4b5baefd7a78290",
+      "bytes": 5025
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+      "sha256": "e052f7d2a95fbfa2975d3e213288a1fce3e4053cae53af5daca888002f6858f0",
+      "bytes": 13056
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/qa/browser-fixture.mjs",
+      "sha256": "29098276302a1cf639b669a6c8300b8459685182a6d5611a5eb53b9388cbf7b4",
+      "bytes": 2235
+    },
+    {
+      "path": "codex-work/new-games72-20261121/release/check-current-registry.mjs",
+      "sha256": "6238bd433d4ea6cd9ab89734412170a6b44e66909671ecdd56b8ccdf7c67210f",
+      "bytes": 3955
+    }
+  ],
+  "sourceChecks": [
+    {
+      "check": "Workflow permissions",
+      "result": "PASS",
+      "detail": "contents:read only; no repository/environment/deployment secret or provider credential configured."
+    },
+    {
+      "check": "Closed preparation semantics",
+      "result": "PASS",
+      "detail": "Default verification still exits 2 for incomplete release. --expect-closed exits 0 only with valid identities, actual review denied, publicActivation false and all backend flags false."
+    },
+    {
+      "check": "Current browser fixture isolation",
+      "result": "PASS",
+      "detail": "Fresh browser contexts use an intercepted qa.zplay.invalid origin; outside origins abort, unknown fixture paths return 404, SPIN endpoint returns mock failure, and no request is continued to a live server."
+    },
+    {
+      "check": "Failure exit behavior",
+      "result": "PASS",
+      "detail": "Check failures throw, run marks success false, runner sets nonzero exit. Setup/import/close exceptions reach the top-level nonzero catch. Missing artifact output cannot yield a successful upload step."
+    },
+    {
+      "check": "Evidence attribution",
+      "result": "PASS",
+      "detail": "Runner records exact source file SHA-256 values, git commit, fixture flag, screenshots hashes, browser version and explicit limitations. No runtime match or production fairness is inferred."
+    },
+    {
+      "check": "Rejected private upload",
+      "result": "PASS",
+      "detail": "This workflow runs checked-out repository code. It does not retry the rejected private-source upload."
+    }
+  ],
+  "syntaxChecks": [
+    {
+      "command": "node --check codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+      "exitCode": 0
+    }
+  ],
+  "commandRetest": {
+    "path": "codex-work/new-games72-20261121/release/closed-preparation-command-review.json",
+    "sha256": "f084eb1ae2e3363d460e763fcfe8c0a89d519d795fa4973269d97905e44f5377",
+    "bytes": 1962
+  },
+  "foundIsolationOrFalseSuccessDefects": [],
+  "limits": [
+    "This is a review of current source, not evidence that the workflow/browser run has executed or passed.",
+    "The current browser script exercises repeated body key events, not native held Enter on a focused SPIN/STOP/AUTO control.",
+    "Actual BFCache navigation/restoration is not tested by the current browser script.",
+    "Node handler regressions cover key default cancellation and persisted pagehide/pageshow routing, but native browser behavior still needs observation.",
+    "The fixture cannot verify a real ETB ledger, real probability model, server-side version retention, provider sound parity, physical-device behavior or 60 FPS.",
+    "Future changes adding network mechanisms beyond the inspected HTTP requests must be reviewed for isolation before claiming equivalent coverage."
+  ],
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "browserExecuted": false,
+  "workflowExecuted": false,
+  "approvalFlowAdded": false
+}

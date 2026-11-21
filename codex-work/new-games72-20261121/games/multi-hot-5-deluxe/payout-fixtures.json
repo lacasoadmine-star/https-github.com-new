@@ -1,0 +1,119 @@
+{
+  "schema": "zplay/observed-paytable-fixtures/v1",
+  "gameId": "zplay72_multi_hot_5_deluxe_v1",
+  "referenceVersion": "v1.0.1",
+  "minorUnitScaleForRecordedDMO": 100,
+  "scope": "Deterministic arithmetic fixtures only; no wager, generator, outcome-distribution or admissibility claim.",
+  "boundPaytableSamples": [
+    {
+      "selectedBetDemo": "0.05",
+      "selectedBetMinor": 5,
+      "expectedThreeOfKindMinor": {
+        "seven77": 75,
+        "dollar": 50,
+        "bell": 25,
+        "watermelon": 20,
+        "grapes": 20,
+        "plum": 10,
+        "lemon": 10,
+        "orange": 10,
+        "cherry": 10
+      },
+      "source": "evidence/supplemental-2026-11-21-desktop/paytable-bound-values.jpg"
+    },
+    {
+      "selectedBetDemo": "0.10",
+      "selectedBetMinor": 10,
+      "expectedThreeOfKindMinor": {
+        "seven77": 150,
+        "dollar": 100,
+        "bell": 50,
+        "watermelon": 40,
+        "grapes": 40,
+        "plum": 20,
+        "lemon": 20,
+        "orange": 20,
+        "cherry": 20
+      },
+      "source": "evidence/supplemental-2026-11-21-desktop/paytable-bet-change.jpg"
+    }
+  ],
+  "capturedWinningRounds": [
+    {
+      "roundLabel": "spin-05",
+      "totalBetMinor": 5,
+      "multiplier": 2,
+      "gridRows": [
+        [
+          "watermelon",
+          "grapes",
+          "watermelon"
+        ],
+        [
+          "grapes",
+          "grapes",
+          "grapes"
+        ],
+        [
+          "grapes",
+          "orange",
+          "orange"
+        ]
+      ],
+      "totalWinMinor": 40,
+      "winningLineIds": [
+        1
+      ],
+      "source": "evidence/2026-11-21/spin-05.png",
+      "sourceKind": "frame decoded from the retained initial canvas recording"
+    },
+    {
+      "roundLabel": "spin-07",
+      "totalBetMinor": 5,
+      "multiplier": 3,
+      "gridRows": [
+        [
+          "dollar",
+          "watermelon",
+          "dollar"
+        ],
+        [
+          "lemon",
+          "bell",
+          "lemon"
+        ],
+        [
+          "lemon",
+          "lemon",
+          "lemon"
+        ]
+      ],
+      "totalWinMinor": 30,
+      "winningLineIds": [
+        3
+      ],
+      "source": "evidence/2026-11-21/spin-07.png",
+      "sourceKind": "direct initial portrait screenshot"
+    }
+  ],
+  "observedFactorsOfTotalBet": {
+    "seven77": 15,
+    "dollar": 10,
+    "bell": 5,
+    "watermelon": 4,
+    "grapes": 4,
+    "plum": 2,
+    "lemon": 2,
+    "orange": 2,
+    "cherry": 2
+  },
+  "rulesSources": [
+    "evidence/supplemental-2026-11-21-desktop/rules-lines.jpg",
+    "evidence/supplemental-2026-11-21-desktop/rules-multiplier.jpg"
+  ],
+  "unresolvedMaximum": {
+    "publishedDemoMaximumWinMultiplier": 145,
+    "syntheticAllSevensAt5xArithmeticMultiplier": 375,
+    "interpretation": "An arbitrary synthetic full-seven grid has not been proven admissible. No hidden cap or reel constraint is invented to make it match 145x. Such output is flagged and every output remains ineligible for settlement."
+  }
+}

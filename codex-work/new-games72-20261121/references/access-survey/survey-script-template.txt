@@ -1,0 +1,33 @@
+async ({context}) => {
+ const target = __TARGET__;
+ const startedAt = new Date().toISOString();
+ if (context.pages().length > 1) return {gameId:target.gameId,officialName:target.officialName,status:'OWNED_SURVEY_PAGE_LEFT_OPEN',startedAt,pageCount:context.pages().length,attempts:0};
+ const gamePage = await context.newPage();
+ let result;
+ let responseStatus = null;
+ let navigationError = null;
+ try {
+  await gamePage.setViewportSize({width:390,height:844});
+  const cdp=await context.newCDPSession(gamePage);
+  await cdp.send('Emulation.setDeviceMetricsOverride',{mobile:true,width:390,height:844,deviceScaleFactor:1,screenWidth:390,screenHeight:844});
+  await cdp.send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:5});
+  await cdp.send('Network.setUserAgentOverride',{userAgent:'Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36',platform:'Android'});
+  try { const response=await gamePage.goto(target.officialDemo,{waitUntil:'domcontentloaded',timeout:16000}); responseStatus=response?.status()??null; }
+  catch(error){navigationError=String(error?.name??'NavigationError');}
+  await gamePage.waitForTimeout(4500);
+  const frames=[];
+  for(const frame of gamePage.frames()){
+   try { const data=await frame.evaluate(()=>({visibleText:document.body?.innerText?.slice(0,4500)??'',canvasCount:document.querySelectorAll('canvas').length,canvases:Array.from(document.querySelectorAll('canvas')).map(c=>({width:c.width,height:c.height,clientWidth:c.clientWidth,clientHeight:c.clientHeight})),title:document.title}));frames.push({...data,url:frame.url().split('?')[0]}); }
+   catch { frames.push({url:frame.url().split('?')[0],inspectionFailed:true});}
+  }
+  const text=frames.map(f=>f.visibleText??'').join('\n');
+  const lower=text.toLowerCase();
+  const status=responseStatus===429?'HTTP_RATE_LIMIT':responseStatus===403?'HTTP_FORBIDDEN':lower.includes('not available in your country')?'PROVIDER_COUNTRY_RESTRICTION':lower.includes('too many')||lower.includes('maximum number of games')?'PROVIDER_CAPACITY_MESSAGE':responseStatus&&responseStatus>=500?'HTTP_SERVER_ERROR':navigationError?'BOUNDED_LOAD_TIMEOUT_OR_ERROR':'ENTRY_SCREEN_OBSERVED';
+  let shot=await gamePage.screenshot({type:'jpeg',quality:52,timeout:5000});
+  if(shot.byteLength>200000)shot=await gamePage.screenshot({type:'jpeg',quality:32,timeout:5000});
+  result={gameId:target.gameId,officialName:target.officialName,providerGameName:target.providerGameName,officialPage:target.officialPage,officialDemo:target.officialDemo,catalogSha256:target.catalogSha256,status,startedAt,observedAt:new Date().toISOString(),viewport:{width:390,height:844,deviceScaleFactor:1},orientation:'portrait',mobile:true,touch:true,userAgent:'Android SM-S928B; Chrome128 mobile emulation',responseStatus,navigationError,finalPath:gamePage.url().split('?')[0],frames,screenshotBase64:shot.byteLength<=200000?shot.toString('base64'):null,screenshotByteLength:shot.byteLength,screenshotOmittedForTransportLimit:shot.byteLength>200000,attempts:1,controlsClicked:0,manualRoundInputs:0,completedRoundObservations:0,rulesVerified:false,videoCaptured:false,audibleSoundVerified:false,retries:0};
+ }catch(error){result={gameId:target.gameId,officialName:target.officialName,status:'SURVEY_OPERATION_ERROR',errorName:String(error?.name??'Error'),startedAt,observedAt:new Date().toISOString(),responseStatus,attempts:1,controlsClicked:0,completedRoundObservations:0,rulesVerified:false};}
+ finally{try{await gamePage.close();}catch{}}
+ result.gamePageClosed=gamePage.isClosed();result.remainingPages=context.pages().length;
+ return result;
+}

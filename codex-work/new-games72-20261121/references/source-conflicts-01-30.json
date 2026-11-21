@@ -1,0 +1,222 @@
+{
+  "createdAt": "2026-11-21T19:58:01.761257+00:00",
+  "issues": [
+    {
+      "issueId": "REF-SOURCE-001",
+      "officialName": "Multi Hot Ways",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+      "sourceSha256": "2793168fa87e2890ca4611a3c1a17c0a8e15583bb2469a55912dffeb9a436f0c",
+      "sourceRetrievedAt": "2026-11-21T19:56:40.934477+00:00",
+      "webRef": "turn546157657view0",
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "Provider page heading/launcher identify Multi Hot Ways, but description and specification identify Burning Ice 40 with 40 paylines.",
+      "affectedFields": [
+        "grid",
+        "paylineCount",
+        "RTP",
+        "maximumWin"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    },
+    {
+      "issueId": "REF-SOURCE-002",
+      "officialName": "Hot Samba",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/hot-samba",
+      "sourceSha256": "1ec4faafe202ae7e64b87b1bbefe6e3eabf5f4a40c869b265a32152374ee87a2",
+      "sourceRetrievedAt": "2026-11-21T19:56:57.602488+00:00",
+      "webRef": "turn546157657view1",
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "Published description says5 reels and20 paylines; specification says3 reels / 3 rows and5 paylines.",
+      "affectedFields": [
+        "grid",
+        "paylineCount",
+        "freeSpins"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        },
+        {
+          "action": "Opened exact current official demo with fresh Cloudflare Browser Run session and Android portrait emulation",
+          "observedAt": "2026-11-21T20:08:16.609Z",
+          "result": "Provider country restriction before gameplay; zero rounds",
+          "evidence": "hot-samba-current-20261121/blocked-country.jpg",
+          "evidenceSha256": "7a57d567787429bcab7411767c3efa0998592e0539c156195e0e2eb08be8c5b1"
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Resume only when the provider offers an authorized demo path for this environment or an authorized provider document resolves the rules; do not change region/proxy or substitute a different game.",
+      "retestResult": "UNRESOLVED_PROVIDER_COUNTRY_RESTRICTION"
+    },
+    {
+      "issueId": "REF-SOURCE-003",
+      "officialName": "Multi Hot 5 Deluxe",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+      "sourceSha256": "a286b10760943d952046120a79dde350720348df9f6f82eb1dbe2cf3367d945a",
+      "sourceRetrievedAt": "2026-11-21T19:56:24.593239+00:00",
+      "webRef": "turn594792444view0",
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "The product is labelled Deluxe in heading and launcher, while specification Game Title is Multi Hot 5. Variant attribution of numerical specification is unresolved.",
+      "affectedFields": [
+        "variant",
+        "RTP",
+        "grid",
+        "paytable"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    },
+    {
+      "issueId": "REF-SOURCE-004",
+      "officialName": "Multi Hot 20",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-20",
+      "sourceSha256": "a2cfa57265ffe84943eb25d083c0e5c3963298add7cab5989e6f3dc13f6177b3",
+      "sourceRetrievedAt": "2026-11-21T19:56:24.595000+00:00",
+      "webRef": "turn594792444view3",
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "The page is Multi Hot 20, but feature list explicitly states 100 fixed paylines. Must resolve actual payline count in same-variant in-game help.",
+      "affectedFields": [
+        "paylineCount"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    },
+    {
+      "issueId": "REF-SOURCE-005",
+      "officialName": "Genie's Bonanza",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/genies-bonanza",
+      "sourceSha256": "9a06c5eedb87366644dcf734a0cf75aa0d9aa07553b8f94383606f97a30719f0",
+      "sourceRetrievedAt": "2026-11-21T19:57:22.086780+00:00",
+      "webRef": null,
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "Description identifies6 reels while specification identifies5 reels / 6 rows.",
+      "affectedFields": [
+        "grid"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    },
+    {
+      "issueId": "REF-SOURCE-006",
+      "officialName": "Coins Of Atlantis",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "sourceSha256": "d1b96809af6c5aded10905e5aff394078112d65a7abbb932bac3cc08aef0e1b8",
+      "sourceRetrievedAt": "2026-11-21T19:57:13.882580+00:00",
+      "webRef": null,
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "Core description specifies expanding wilds and coin respins; feature list mentions multiplayer and 4 simultaneous bets. Do not assume those controls apply before same-variant demo verification.",
+      "affectedFields": [
+        "gameMode",
+        "controls"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    },
+    {
+      "issueId": "REF-SOURCE-007",
+      "officialName": "Multi Fruits Charging Wilds",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+      "sourceSha256": "bc41c6eb6e6cc7645e978a45a984729df5438a316916fdd6e5ba201e1b8e7a45",
+      "sourceRetrievedAt": "2026-11-21T19:56:49.174532+00:00",
+      "webRef": null,
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "Fruit-wild description is paired with Gemstones Theme in feature list. Artwork theme metadata requires demo confirmation.",
+      "affectedFields": [
+        "theme"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    },
+    {
+      "issueId": "REF-SOURCE-008",
+      "officialName": "Multi Hot Wild Ways",
+      "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+      "sourceSha256": "6eeaf18a3b7e935123cb6866360ba3cb06ddb5beeb552fca26439158816f1908",
+      "sourceRetrievedAt": "2026-11-21T19:56:41.018263+00:00",
+      "webRef": null,
+      "expected": "Consistent same-variant official rules sufficient to define payout and presentation.",
+      "observed": "Product heading and loader identify Wild Ways while rule paragraph starts with Multi Hot Ways. Specific wild substitution is described, but numerical 27 ways must still be matched to in-game variant.",
+      "affectedFields": [
+        "variant",
+        "waysCount"
+      ],
+      "status": "OPEN_REFERENCE_CONFLICT",
+      "ownerTask": "reference-capture-and-rules",
+      "attempts": [
+        {
+          "action": "Fresh official product page retrieval",
+          "httpStatus": 200,
+          "result": "Source text captured; discrepancy remains unresolved."
+        }
+      ],
+      "productionFilesChanged": [],
+      "nextAction": "Enter the exact official demo from the fresh catalog, capture its version and help/paytable, and resolve the listed fields before constructing evaluator fixtures. Do not copy the conflicting marketing specification into a live engine.",
+      "retestResult": "NOT_YET_RETESTED"
+    }
+  ]
+}

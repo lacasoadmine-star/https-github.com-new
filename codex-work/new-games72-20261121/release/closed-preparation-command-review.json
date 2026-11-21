@@ -1,0 +1,59 @@
+{
+  "schema": "zplay/new72-closed-preparation-command-review/v1",
+  "checkedAt": "2026-11-21T20:23:25.699644+00:00",
+  "scriptSha256": "6238bd433d4ea6cd9ab89734412170a6b44e66909671ecdd56b8ccdf7c67210f",
+  "checks": [
+    {
+      "command": "node codex-work/new-games72-20261121/release/check-current-registry.mjs",
+      "expectedExitCode": 2,
+      "actualExitCode": 2,
+      "summary": {
+        "identityValid": true,
+        "newGames": 72,
+        "legacyCatalogCount": 74,
+        "statuses": {
+          "REFERENCE_PARTIAL": 2,
+          "REFERENCE_PENDING": 69,
+          "REFERENCE_BLOCKED": 1
+        },
+        "releaseAllowed": false,
+        "verifiedReleaseGames": 0,
+        "issueCodes": [
+          "GAME_NOT_RELEASE_READY",
+          "RELEASE_EVIDENCE_MANIFEST_MISSING"
+        ],
+        "activationPerformed": false,
+        "expectClosed": false,
+        "closedPreparationVerified": true
+      }
+    },
+    {
+      "command": "node codex-work/new-games72-20261121/release/check-current-registry.mjs --expect-closed",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "summary": {
+        "identityValid": true,
+        "newGames": 72,
+        "legacyCatalogCount": 74,
+        "statuses": {
+          "REFERENCE_PARTIAL": 2,
+          "REFERENCE_PENDING": 69,
+          "REFERENCE_BLOCKED": 1
+        },
+        "releaseAllowed": false,
+        "verifiedReleaseGames": 0,
+        "issueCodes": [
+          "GAME_NOT_RELEASE_READY",
+          "RELEASE_EVIDENCE_MANIFEST_MISSING"
+        ],
+        "activationPerformed": false,
+        "expectClosed": true,
+        "closedPreparationVerified": true
+      }
+    }
+  ],
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "activationPerformed": false,
+  "interpretation": "Default release verification remains exit 2 because evidence is incomplete. The explicit preparation mode exits 0 only while identities are valid and actual release/public/backend gates are all closed."
+}

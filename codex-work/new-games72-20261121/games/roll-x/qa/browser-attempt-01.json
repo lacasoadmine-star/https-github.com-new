@@ -1,0 +1,12 @@
+{
+  "attempt": 1,
+  "status": "FAILED_ENVIRONMENT_OR_SCRIPT",
+  "service": "Cloudflare Browser Run script API",
+  "httpStatus": 422,
+  "message": "Script execution failed",
+  "apiResultContainedAssertions": false,
+  "browserResultReceived": false,
+  "sessionKeepAliveMs": 10000,
+  "next": "Acquire a known dedicated session and close it through DELETE after retrieving assertions, so in-script browser.close cannot discard the result. Retest all assertions without weakening checks.",
+  "productionTraffic": false
+}

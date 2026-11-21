@@ -1,0 +1,468 @@
+{
+  "schema": "zplay/new72-source-peer-review/v1",
+  "reviewedAt": "2026-11-21T20:22:20.263821+00:00",
+  "baselineCommit": "1d0f4c9ddc9d14aacc436021ed0bcb2b27dd85f0",
+  "reviewTasks": [
+    {
+      "task": "architecture_audit",
+      "scope": "Independent capture/store, registry-builder and Roll X review; shared self-review and fixes."
+    },
+    {
+      "task": "architecture_audit/recovery_peer",
+      "scope": "Independent read-only shared lifecycle review and reproductions."
+    },
+    {
+      "task": "official_variants",
+      "scope": "Author fixed Roll X review findings; architecture_audit independently reran its tests."
+    }
+  ],
+  "authorizationNote": "Ordinary source review and fixes use existing project authorization. No user approval, external reviewer account, cryptographic identity or signature gate was added.",
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "productionChanges": false,
+  "releaseActivationPerformed": false,
+  "fairnessCertified": false,
+  "conclusion": "Reproduced/source-identified defects were fixed and locally retested. This report verifies preparation code, not a completed 72-game release, live wallet, official gameplay parity or fairness.",
+  "files": {
+    "capture/evidence-capture.mjs": "71c26bf647fa179176973e121ea3a21f15722e1d94659149d83f18fb45365665",
+    "capture/file-evidence-store.mjs": "f27c3a47b48a0a6f7f4ada99ac9d5f2e32f88e7c6714121a5e2d8db90a2a9100",
+    "capture/evidence-capture.test.mjs": "671f502f34c20f177603abb8de99310af944019091b94f10e55355967efc98da",
+    "capture/capture-manifest.schema.json": "79b9d2d47bb56d1100f890ebce67da62719e85d26bb85f5691ce2cd0865125da",
+    "shared/round-recovery.mjs": "17149153c451e8604758dc21ed90697fe7db5d854aba21b0900d81801bedc196",
+    "shared/round-recovery.test.mjs": "0e6c09a0b6afeb541b8399ffa259dd552328657b42103f99c91983be9c5ad7cf",
+    "release/release-gate.mjs": "4a2381cfb06b09676d65ba24033d42d271de7a667adf74c10378920bdd206022",
+    "release/release-gate.test.mjs": "3a71baf1eedd22f35aa38f970f9b9714ff1c898cc3ffe0ee85db3c6cf7abe55e",
+    "release/check-current-registry.mjs": "6238bd433d4ea6cd9ab89734412170a6b44e66909671ecdd56b8ccdf7c67210f",
+    "build-registry.py": "8071abeb246961f3ccc8b580f5ee6b74ff372ad74202337927912a105d8fff55",
+    "games/roll-x/controller.mjs": "6cf9b72ba64d44c524245de906d785c2381f1b43b2b82542f9949de805885a3d",
+    "games/roll-x/receipt.mjs": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
+    "games/roll-x/session.mjs": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
+    "games/roll-x/renderer.mjs": "dd87ad68aa8a6ef66d5af15f31d8deda3369d34ab02568f664924e509f16945f",
+    "games/roll-x/audio.mjs": "66cab15a5273999d95f3aff083a08c1c3056bd06bb2cd7cbadf8859975b2c060",
+    "games/roll-x/app.mjs": "8ef67ad9932b94856b5d1e07da457091162a70a124546f445619f3de20fc9a9b",
+    "games/roll-x/evaluator.mjs": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
+    "games/roll-x/main.mjs": "9d0ea73e1e8edfffb175754d148432baca95c97f85b5845b244540b8da4a39b7"
+  },
+  "tests": [
+    {
+      "suite": "shared-recovery",
+      "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/shared/round-recovery.test.mjs",
+      "exitCode": 0,
+      "tests": 46,
+      "pass": 46,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "output": {
+        "path": "codex-work/new-games72-20261121/shared/round-recovery-test-results.tap",
+        "sha256": "648f96af8e251996482e5cb22c287f00aa837b370bc802112be42c65e8156383",
+        "bytes": 10668
+      },
+      "environment": "Contract-shaped in-memory transport; no browser or database."
+    },
+    {
+      "suite": "capture",
+      "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/capture/evidence-capture.test.mjs",
+      "exitCode": 0,
+      "tests": 34,
+      "pass": 34,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "output": {
+        "path": "codex-work/new-games72-20261121/capture/evidence-capture-test-results.tap",
+        "sha256": "47989fc833b720f650b3ab0b63e987459c5bf0820586d52b1fb694b3c40d9eff",
+        "bytes": 7514
+      },
+      "environment": "Synthetic driver and media bytes in isolated temporary directories; no official-demo actions."
+    },
+    {
+      "suite": "release-gate",
+      "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/release/release-gate.test.mjs",
+      "exitCode": 0,
+      "tests": 26,
+      "pass": 26,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "output": {
+        "path": "codex-work/new-games72-20261121/release/release-gate-test-results.tap",
+        "sha256": "30e58e0a2e59916fa66bf9aada779b6cf361b1c3ccfdf469759bed48c73fe0bf",
+        "bytes": 5630
+      },
+      "environment": "Structural evidence fixtures in memory; no production activation."
+    },
+    {
+      "suite": "roll-x",
+      "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/games/roll-x/tests/*.test.mjs",
+      "exitCode": 0,
+      "tests": 55,
+      "pass": 55,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "output": {
+        "path": "codex-work/new-games72-20261121/release/roll-x-peer-test-results.tap",
+        "sha256": "f528a6476b6460fa594fd985cbb833ed2b8b1ba6d64ee7aced03092c4b935406",
+        "bytes": 12511
+      },
+      "environment": "Isolated receipt, renderer, audio and DOM-event fixtures; no native browser or real money."
+    }
+  ],
+  "totalLocalPassingTests": 161,
+  "preFixEvidence": [
+    {
+      "path": "codex-work/new-games72-20261121/release/capture-review-before-fix.tap",
+      "sha256": "3cf7ebd5d646750c58604764301cd224e99511f2549cd21f208642465b09eee5",
+      "bytes": 6517
+    },
+    {
+      "path": "codex-work/new-games72-20261121/release/capture-control-review-before-fix.tap",
+      "sha256": "258acd9ce22399ccc41f8701787c681665e5118ff9ef407ec1b3715cdb22ff69",
+      "bytes": 1049
+    }
+  ],
+  "findings": [
+    {
+      "id": "SHARED-REVIEW-001",
+      "component": "shared",
+      "gameId": null,
+      "severity": "high",
+      "expectedBehavior": "A disconnected/disposed operation must not restore the old account, create pending intent or send a wager.",
+      "observedBeforeFix": "A microtask disconnect after _state returned could let refresh restore READY and enable SPIN/AUTO; spin and replay-miss branches had the same unguarded await boundary.",
+      "reviewMethod": "Independent recovery_peer read-only reproduction followed by parent-owned shared fixes and isolated regressions.",
+      "filesChanged": [
+        "shared/round-recovery.mjs",
+        "shared/round-recovery.test.mjs"
+      ],
+      "regressions": [
+        "connect/refresh/spin after fresh-state disconnect",
+        "replay-miss disconnect retains old pending intent without resending",
+        "synchronous READY observer disconnect"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "shared-recovery",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "SHARED-REVIEW-002",
+      "component": "shared",
+      "gameId": null,
+      "severity": "medium",
+      "expectedBehavior": "An async lock-return continuation must not publish a receipt through a disconnected operation.",
+      "observedBeforeFix": "SETTLED observer scheduled disconnect; the outer spin/recover promise could return the old receipt after the lock resolved. No second debit occurred in the reproductions.",
+      "reviewMethod": "Independent recovery_peer reproduction plus focused regression.",
+      "filesChanged": [
+        "shared/round-recovery.mjs",
+        "shared/round-recovery.test.mjs"
+      ],
+      "regressions": [
+        "spin/recover disconnect during lock return rejects STALE_OPERATION",
+        "accepted request remains settled and is not re-created"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "shared-recovery",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "CAPTURE-REVIEW-001",
+      "component": "capture",
+      "gameId": null,
+      "severity": "high",
+      "expectedBehavior": "A resumed attempted action must request recovery of the same completed/pending round without new input.",
+      "observedBeforeFix": "When after-input screenshot was saved but observeRound response was lost, resume passed recovery:false; the driver could not recover the already completed result.",
+      "reviewMethod": "Failing-before/fixed-after regression in release/capture-review-before-fix.tap.",
+      "filesChanged": [
+        "capture/evidence-capture.mjs",
+        "capture/evidence-capture.test.mjs"
+      ],
+      "regressions": [
+        "lost completed-observation response uses same actionId and recovery:true with exactly seven total inputs"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "capture",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "CAPTURE-REVIEW-002",
+      "component": "capture",
+      "gameId": null,
+      "severity": "high",
+      "expectedBehavior": "Each attempted input must belong to one completed observation or the exact pending intent; corrupt state must remain unchanged and block interaction.",
+      "observedBeforeFix": "A missing/false/changed pending marker did not match the action journal, yet the coordinator resumed input; completed validation also accepted orphan attempted actions.",
+      "reviewMethod": "Four failing-before regressions; causal journal validation now runs before session interaction and rejects without rewriting the checkpoint.",
+      "filesChanged": [
+        "capture/evidence-capture.mjs",
+        "capture/evidence-capture.test.mjs"
+      ],
+      "regressions": [
+        "missing pending",
+        "attempted flag cleared",
+        "pending identity changed",
+        "completed manifest orphan journal"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "capture",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "CAPTURE-REVIEW-003",
+      "component": "capture",
+      "gameId": null,
+      "severity": "medium",
+      "expectedBehavior": "A failed persistent lock release must not leave an additional in-process concurrency slot permanently occupied.",
+      "observedBeforeFix": "An exception from release skipped running.delete; another run in the same coordinator failed even after the persistent lock was released.",
+      "reviewMethod": "Failing-before injected one-shot release failure; finally cleanup retested.",
+      "filesChanged": [
+        "capture/evidence-capture.mjs",
+        "capture/evidence-capture.test.mjs"
+      ],
+      "regressions": [
+        "release IO failure followed by completed checkpoint resume without another input"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "capture",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "CAPTURE-REVIEW-004",
+      "component": "capture",
+      "gameId": null,
+      "severity": "medium",
+      "expectedBehavior": "Invalid extra-round metadata must not half-commit the pending manual observation.",
+      "observedBeforeFix": "The manual round was appended before extra metadata validation; rejection saved that round while retaining the same pending action, blocking recovery as a duplicate.",
+      "reviewMethod": "Failing-before metadata rejection and same-action retest.",
+      "filesChanged": [
+        "capture/evidence-capture.mjs",
+        "capture/evidence-capture.test.mjs"
+      ],
+      "regressions": [
+        "invalid extra metadata leaves zero committed rounds; corrected observation resumes exact input"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "capture",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "CAPTURE-REVIEW-005",
+      "component": "capture",
+      "gameId": null,
+      "severity": "medium",
+      "expectedBehavior": "A control batch and its extra observations must commit together exactly once.",
+      "observedBeforeFix": "Malformed metadata in a later control left earlier controls/extra rounds persisted; read-only recovery could append them again and double-count an observed extra round.",
+      "reviewMethod": "Separate failing-before regression in release/capture-control-review-before-fix.tap; staged batch commit retested.",
+      "filesChanged": [
+        "capture/evidence-capture.mjs",
+        "capture/evidence-capture.test.mjs"
+      ],
+      "regressions": [
+        "malformed control batch retains no partial records; read-only recovery yields two controls and one extra round with one control execution"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "REPRODUCED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "capture",
+      "retestResult": "PASS",
+      "verificationScope": "Local isolated regression; no production actions.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "ROLLX-REVIEW-001",
+      "component": "roll-x",
+      "gameId": "zplay72_roll_x_v1",
+      "severity": "medium",
+      "expectedBehavior": "Held Enter/Space must not synthesize repeated wagering clicks when a focused button becomes ready again.",
+      "observedBeforeFix": "The keydown guard returned for repeated events and BUTTON targets without canceling native default behavior.",
+      "reviewMethod": "Independent source-path finding; author corrected it and reviewer reran full local suite.",
+      "filesChanged": [
+        "games/roll-x/app.mjs",
+        "games/roll-x/tests/input-lifecycle.test.mjs"
+      ],
+      "regressions": [
+        "defaultPrevented for repeated Enter/Space on SPIN/STOP/AUTO",
+        "global repeats cannot traverse STOP into a wager",
+        "AUTO form repeated Enter canceled"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "SOURCE_PATH_IDENTIFIED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "roll-x",
+      "retestResult": "PASS",
+      "verificationScope": "DOM-event handler behavior is locally verified; actual native keyboard click synthesis remains a required browser check.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    },
+    {
+      "id": "ROLLX-REVIEW-002",
+      "component": "roll-x",
+      "gameId": "zplay72_roll_x_v1",
+      "severity": "medium",
+      "expectedBehavior": "Back-forward cache restoration must retain or reconstruct a usable paused controller without wagering.",
+      "observedBeforeFix": "Unconditional pagehide disposal aborted listeners; no persisted pageshow handler restored the page.",
+      "reviewMethod": "Independent source-path finding; author fixed persisted lifecycle handlers and local event assertions pass.",
+      "filesChanged": [
+        "games/roll-x/app.mjs",
+        "games/roll-x/tests/input-lifecycle.test.mjs"
+      ],
+      "regressions": [
+        "persisted pagehide pauses without disposing",
+        "persisted pageshow resumes/refreshes without spin",
+        "non-persisted pagehide disposes"
+      ],
+      "status": "CLOSED_VERIFIED",
+      "statusHistory": [
+        "SOURCE_PATH_IDENTIFIED",
+        "FIXED_PENDING_RETEST",
+        "CLOSED_VERIFIED"
+      ],
+      "retestSuite": "roll-x",
+      "retestResult": "PASS",
+      "verificationScope": "Event-routing behavior is locally verified; actual native browser BFCache restoration remains unverified.",
+      "nextAction": "No further code change identified for this defect; complete the separately listed browser/integration verification before release."
+    }
+  ],
+  "sourcePreservation": {
+    "builderReport": {
+      "path": "codex-work/new-games72-20261121/release/registry-builder-review.json",
+      "sha256": "d4bcec60903778307ba35923444ff6691866237bc1678d689fba6ce0a550ffa3",
+      "bytes": 1830
+    },
+    "existingRegistryGuardHeld": true,
+    "inspectedFilesUnchanged": true,
+    "trackedChangesOutsideAdditiveDirectory": [],
+    "legacyCatalogCount": 74,
+    "scope": "Retained source catalog only; not a fresh complete production availability audit."
+  },
+  "actualReleaseCheck": {
+    "registry": {
+      "path": "codex-work/new-games72-20261121/registry.json",
+      "sha256": "e340eb21ba81c245466fe2e9ef4bb4ef16f9f98e5bc28e4d033a9951f013872f",
+      "bytes": 184963
+    },
+    "identityReport": {
+      "path": "codex-work/new-games72-20261121/release/actual-registry-validation.json",
+      "sha256": "3ed1013f15f811459e6a7247b885e22745fcc639636ba020db9ab8961d04d382",
+      "bytes": 806
+    },
+    "releaseReport": {
+      "path": "codex-work/new-games72-20261121/release/actual-release-review.json",
+      "sha256": "d04eaab2b6d45c51edc0105e74708aa61df9d68178b4dc45b75127066029df09",
+      "bytes": 11724
+    },
+    "publicActivation": false,
+    "allBackendsDisabled": true,
+    "statuses": {
+      "REFERENCE_PARTIAL": 2,
+      "REFERENCE_PENDING": 69,
+      "REFERENCE_BLOCKED": 1
+    },
+    "releaseAllowed": false,
+    "releaseVerifiedGames": 0,
+    "claim": "Identity validation succeeds while actual release remains closed.",
+    "snapshotNote": "These registry/progress bindings are the timestamped reviewed snapshot, not a claim about subsequent factual progress edits. Re-run check-current-registry for the current activation review.",
+    "checkedAt": "2026-11-21T20:23:25.678Z"
+  },
+  "openVerificationItems": [
+    {
+      "id": "REVIEW-LIMIT-BROWSER",
+      "owner": "qa/frontend",
+      "state": "OPEN",
+      "nextAction": "Use an authorized public-source isolated browser fixture to check native keyboard/BFCache, mobile layout, animations, lifecycle and actual sound; do not retry the rejected private-source upload."
+    },
+    {
+      "id": "REVIEW-LIMIT-LEDGER",
+      "owner": "backend/qa",
+      "state": "OPEN",
+      "nextAction": "Verify actual isolated existing PostgreSQL transaction/uniqueness/ownership and cross-tab recovery contracts before any live activation."
+    },
+    {
+      "id": "REVIEW-LIMIT-VERSIONS",
+      "owner": "backend/game-specific-validator",
+      "state": "OPEN",
+      "nextAction": "Retain and resolve accepted rules/models across upgrades; current unreleased Roll X wrapper refuses changed model identities and retains pending requests."
+    },
+    {
+      "id": "REVIEW-LIMIT-CAPTURE",
+      "owner": "reference/qa",
+      "state": "OPEN",
+      "nextAction": "Collect/review real per-game capture artifacts. Synthetic drivers/media, checksums and metadata consistency are not semantic proof of observed gameplay or sound."
+    },
+    {
+      "id": "REVIEW-LIMIT-CROSSTAB",
+      "owner": "shared-integration/qa",
+      "state": "OPEN",
+      "nextAction": "Integrate cooperating shared metadata storage and browser Web Locks, then test real tabs; default sessionStorage and local fallback do not establish cross-tab financial guarantees."
+    },
+    {
+      "id": "REVIEW-LIMIT-RELEASE",
+      "owner": "release/integration",
+      "state": "OPEN",
+      "nextAction": "Complete actual source-bound evidence for all 72 games and refresh the live preservation baseline; keep public activation and backend gates closed until verified."
+    }
+  ],
+  "lockingAndIntegrityLimits": [
+    "Capture file locks are exclusive for cooperating processes. A stale crashed-owner lock is retained until its dead owner is verified; no bypass was added.",
+    "A changed capture session/target/viewport/version is rejected; saved original evidence is preserved.",
+    "Metadata consistency detects contradictory/orphaned records but cannot reconstruct deleted data or prove truthful observations.",
+    "Shared pending identity retains the original request, session guard and rules/engine/hash. A new session cannot silently acquire another guard's pending request.",
+    "No hash, provenance attribution, unit-test status or signature is treated as a complete fairness proof."
+  ],
+  "supplementalReviewedAt": "2026-11-21T20:24:14.238960+00:00",
+  "closedPreparationCommandReview": {
+    "path": "codex-work/new-games72-20261121/release/closed-preparation-command-review.json",
+    "sha256": "f084eb1ae2e3363d460e763fcfe8c0a89d519d795fa4973269d97905e44f5377",
+    "bytes": 1962
+  },
+  "isolatedCISourceReview": {
+    "path": "codex-work/new-games72-20261121/release/isolated-ci-source-review.json",
+    "sha256": "60affadc3415a7cba55083bec449052f490ff39e4950d6b65b5da7cd5f86d6a9",
+    "bytes": 4399
+  }
+}

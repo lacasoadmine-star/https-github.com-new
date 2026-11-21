@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_roll_x_v1",
+  "displayName": "Roll X",
+  "providerReference": "SmartSoft Gaming",
+  "route": "/new-games72/roll-x/",
+  "routeStatus": "RESERVED_NOT_SERVED",
+  "implementation": "Independent receipt-driven Roll X controller/renderer, original code-generated graphics/audio and partial integer payout evaluator. No old game or provider source code reused.",
+  "rulesVersion": "roll-x-reference-20261121-partial-v1",
+  "engineVersion": "zplay72-roll-x-arithmetic-0.1.0",
+  "reference": {
+    "officialPage": "https://www.smartsoftgaming.com/games/rollx",
+    "officialPageSourceRef": "turn520067866view1",
+    "launchName": "RollX",
+    "captureDate": "2026-11-21",
+    "captureVersion": "v1.0.1",
+    "captureTimeZone": "Africa/Addis_Ababa",
+    "viewport": {
+      "width": 1363,
+      "height": 936
+    },
+    "viewportOrientation": "landscape",
+    "gameCabinetOrientation": "portrait",
+    "initialReferenceSpins": 7,
+    "additionalAutoRounds": 1,
+    "additionalStopRounds": 1,
+    "evidenceIndex": "evidence-index.json",
+    "publicHistoryScreenshots": "WITHHELD_PRIVATE_ORIGINALS_PRESERVED"
+  },
+  "readiness": {
+    "releaseReady": false,
+    "cashEnabled": false,
+    "stage": "IMPLEMENTING",
+    "payoutArithmetic": "VERIFIED_SUBSET_IMPLEMENTED",
+    "probabilityModel": "UNVERIFIED",
+    "fullBetLimits": "UNVERIFIED",
+    "fullTargetSchedule": "UNVERIFIED",
+    "roundingPolicy": "UNVERIFIED",
+    "gameplayVideo": "NOT_CAPTURED",
+    "audioRecording": "NOT_CAPTURED",
+    "audibleSound": "NOT_VERIFIED",
+    "assetsReuseRights": "UNVERIFIED",
+    "renderer": "ORIGINAL_SVG_IMPLEMENTED_UNIT_TESTED_STATIC_QA",
+    "walletIntegration": "EXISTING_ADAPTER_READ_AND_REPLAY_ONLY_UNRELEASED",
+    "mobileTouchKeyboard": "BROWSER_NOT_TESTED",
+    "referenceCompleteness": "PARTIAL_SEVEN_ROUNDS_AND_CONTROLS_CAPTURED",
+    "controller": "IMPLEMENTED_UNIT_TESTED",
+    "soundMapping": "ORIGINAL_WEB_AUDIO_IMPLEMENTED_UNIT_TESTED",
+    "targetAwareBackend": "NOT_CONNECTED",
+    "browserQA": "PENDING_GITHUB_CI_LOCAL_LAUNCH_BLOCKED",
+    "performance": "UNMEASURED",
+    "localTests": 57
+  },
+  "mechanics": [
+    {
+      "id": "chosen-target",
+      "statement": "Before a round, the player chooses a bet and a target multiplier.",
+      "evidence": [
+        "evidence/2026-11-21/help-02.jpg",
+        "evidence/2026-11-21/multiplier-adjust.jpg"
+      ],
+      "classification": "VERIFIED_RULE"
+    },
+    {
+      "id": "sector-outcome",
+      "statement": "The wheel stops on a green winning sector or empty losing sector.",
+      "evidence": [
+        "evidence/2026-11-21/help-02.jpg",
+        "evidence/2026-11-21/spin-05.jpg"
+      ],
+      "classification": "VERIFIED_RULE"
+    },
+    {
+      "id": "payout",
+      "statement": "Observed green rounds return bet multiplied by the chosen target; the returned amount includes the stake. Empty-sector observations return zero.",
+      "equation": "totalPayoutMinor = betMinor * targetBps / 10000 for green; 0 for empty",
+      "evidence": [
+        "round-observations.json",
+        "evidence/2026-11-21/spin-01.jpg",
+        "evidence/2026-11-21/spin-05.jpg",
+        "evidence/2026-11-21/stop-result.jpg"
+      ],
+      "classification": "VERIFIED_OBSERVED_ARITHMETIC_SUBSET",
+      "restriction": "Only integral minor-unit products and observed 1.4x/2x targets are accepted by the fixture evaluator.",
+      "unpublishedEvidence": [
+        {
+          "path": "evidence/2026-11-21/my-bets-history.jpg",
+          "bytes": 28486,
+          "sha256": "156e4d600d481edbaab7447954560f57ee559d1460d760f446c64a854b314e04",
+          "status": "WITHHELD_FROM_PUBLIC_TREE",
+          "reason": "Roll X own-bet history panel intentionally excluded from public GitHub evidence; private original preserved unchanged.",
+          "materialized": false,
+          "originalPreservedLocally": true
+        }
+      ]
+    },
+    {
+      "id": "maximum-target",
+      "statement": "The official product page advertises up to 30x.",
+      "evidence": [
+        "https://www.smartsoftgaming.com/games/rollx"
+      ],
+      "classification": "PUBLISHED_MAXIMUM_NOT_FULL_SCHEDULE"
+    },
+    {
+      "id": "rtp",
+      "statement": "The in-game mathematics panel displays RTP 96% and says player speed/skill does not determine outcomes.",
+      "evidence": [
+        "evidence/2026-11-21/help-06.jpg"
+      ],
+      "classification": "DISPLAYED_PROVIDER_INFORMATION",
+      "restriction": "No RNG distribution, winning-sector probability, hidden tables or independent-engine RTP is thereby established."
+    },
+    {
+      "id": "stop",
+      "statement": "During the extra manual control round, SPIN changed to STOP; clicking STOP was followed by one settled history row with bet 0.5 DMO, chosen 2x, payout 1 DMO.",
+      "evidence": [
+        "evidence/2026-11-21/stop-before-click.jpg",
+        "evidence/2026-11-21/stop-result.jpg",
+        "evidence/2026-11-21/actions.json"
+      ],
+      "classification": "OBSERVED_PRESENTATION_BEHAVIOR",
+      "restriction": "This observation alone does not prove the provider's internal result-selection timing. The new engine must preserve the accepted financial outcome independently of STOP."
+    },
+    {
+      "id": "autoplay",
+      "statement": "AUTO offers 10, 50, 100, 500 or 1000 rounds, target/bet fields, and stop thresholds for a single win or balance decrease/increase.",
+      "evidence": [
+        "evidence/2026-11-21/autoplay-settings.jpg",
+        "evidence/2026-11-21/help-03.jpg"
+      ],
+      "classification": "VERIFIED_VISIBLE_CONTROLS",
+      "testedBehavior": "10 selected; one additional settled round; AUTO cancelled and total history count stayed eight before the subsequent manual round."
+    },
+    {
+      "id": "bonus",
+      "statement": "No bonus or free-spin mechanic was observed in this session or described in the captured six-panel help.",
+      "classification": "NOT_OBSERVED_NOT_PROVEN_ABSENT",
+      "restriction": "Do not add an invented bonus mechanic or describe absence as a defect."
+    }
+  ],
+  "controls": [
+    {
+      "id": "spin",
+      "status": "CLICK_AND_SETTLEMENT_OBSERVED",
+      "keyboard": "UNTESTED",
+      "touch": "UNTESTED"
+    },
+    {
+      "id": "stop",
+      "status": "CLICK_AND_ONE_NEW_SETTLED_ROUND_OBSERVED",
+      "financialInvariance": "REQUIRED_BY_ZPLAY_CONTRACT_NOT_PROVEN_PROVIDER_INTERNALS"
+    },
+    {
+      "id": "auto",
+      "status": "SETTINGS_START_AND_CANCELLATION_OBSERVED",
+      "options": [
+        10,
+        50,
+        100,
+        500,
+        1000
+      ],
+      "testedOption": 10,
+      "additionalRounds": 1,
+      "implementation": "Editable bet and target fields use current server bet levels and verified target subset; all confirmed AUTO rounds bind the selected pair. Invalid/stale selections are rejected before mutation or a request."
+    },
+    {
+      "id": "bet-increase",
+      "status": "CLICK_OBSERVED",
+      "observedChange": "0.2 -> 0.5 DMO"
+    },
+    {
+      "id": "bet-slider",
+      "status": "VISIBLE_NOT_INTERACTION_TESTED"
+    },
+    {
+      "id": "multiplier-slider",
+      "status": "DRAG_OBSERVED",
+      "observedChange": "1.4x -> 2x"
+    },
+    {
+      "id": "menu",
+      "status": "OPEN_OBSERVED"
+    },
+    {
+      "id": "help",
+      "status": "OPEN_CLOSE_NEXT_AND_ALL_SIX_TABS_OBSERVED"
+    },
+    {
+      "id": "turbo",
+      "status": "TOGGLE_STATE_OBSERVED",
+      "timing": "UNMEASURED"
+    },
+    {
+      "id": "sound",
+      "status": "ICON_TOGGLE_OBSERVED",
+      "audible": "UNVERIFIED"
+    },
+    {
+      "id": "music",
+      "status": "MENU_ICON_VISIBLE_NOT_TESTED"
+    },
+    {
+      "id": "history",
+      "status": "OWN_NINE_ROUNDS_VISIBLE"
+    },
+    {
+      "id": "fullscreen",
+      "status": "MENU_ICON_VISIBLE_NOT_TESTED"
+    },
+    {
+      "id": "exit",
+      "status": "MENU_ICON_VISIBLE_NOT_TESTED"
+    }
+  ],
+  "stateContract": {
+    "source": "New implementation requirements; observations inform presentation only.",
+    "states": [
+      "UNAVAILABLE",
+      "CONNECTING",
+      "IDLE",
+      "REQUEST_PENDING",
+      "RECOVERY_PENDING",
+      "PRESENTING",
+      "REFRESHING",
+      "EXITED"
+    ],
+    "transitions": [
+      [
+        "UNAVAILABLE",
+        "CONNECTING",
+        "Read existing account/session and game availability; no new wager."
+      ],
+      [
+        "CONNECTING",
+        "IDLE",
+        "Only an authorized injected isolated fixture can currently enable play; default production wrapper remains UNAVAILABLE."
+      ],
+      [
+        "IDLE",
+        "REQUEST_PENDING",
+        "Freeze bet and target; submit one adapter action."
+      ],
+      [
+        "REQUEST_PENDING",
+        "RECOVERY_PENDING",
+        "Missing receipt keeps original request pending, locks wager controls and stops AUTO."
+      ],
+      [
+        "REQUEST_PENDING",
+        "PRESENTING",
+        "Validate and retain accepted immutable receipt before drawing outcome."
+      ],
+      [
+        "RECOVERY_PENDING",
+        "PRESENTING",
+        "Retrieve accepted receipt with original request, restore its accepted bet/target and keep AUTO stopped."
+      ],
+      [
+        "PRESENTING",
+        "REFRESHING",
+        "Finish receipt presentation; STOP and Turbo change only this timing."
+      ],
+      [
+        "REFRESHING",
+        "IDLE",
+        "Read current account balance separately from historical receipt; only continue if transport ready."
+      ],
+      [
+        "REFRESHING",
+        "UNAVAILABLE",
+        "Accepted receipt retained if account refresh fails; no replacement wager."
+      ],
+      [
+        "ANY",
+        "EXITED",
+        "Dispose owned request callbacks, animation, audio and AUTO delays on actual exit."
+      ]
+    ],
+    "requirements": [
+      "Use the existing project wallet and recovery adapter; no detached balance or ledger.",
+      "Pause AUTO whenever a prior request or connectivity is unresolved.",
+      "Retain requestId, roundId, accepted target, rules version and engine version.",
+      "A refresh/second tab must retrieve accepted state before permitting another wager.",
+      "For exit with an accepted unresolved round, preserve recoverable identifiers; do not synthesize a refund.",
+      "Provider help's disconnect sentence describes source behavior but does not authorize inventing a settlement amount in ZPLAY."
+    ],
+    "lifecycle": {
+      "hiddenTab": "Stop AUTO, finish presentation, cut/suspend audio.",
+      "bfcacheHide": "Pause without disposing; keep recovery identity and listeners.",
+      "bfcacheShow": "Resume with account refresh and pending-round guard; do not restart AUTO.",
+      "actualExit": "Dispose session, renderer, audio, handlers and timers."
+    }
+  },
+  "artifacts": {
+    "module": "evaluator.mjs",
+    "tests": "tests/*.test.mjs",
+    "observations": "round-observations.json",
+    "assetsManifest": "assets-manifest.json",
+    "evidenceIndex": "evidence-index.json",
+    "frontend": [
+      "index.html",
+      "style.css",
+      "app.mjs",
+      "main.mjs",
+      "controller.mjs",
+      "renderer.mjs",
+      "audio.mjs",
+      "receipt.mjs",
+      "session.mjs"
+    ],
+    "currentTestReport": "frontend-test-report.json",
+    "bugLog": "issues.json",
+    "staticQa": "qa/static-renderer.png",
+    "browserQa": "qa/browser-run.mjs"
+  },
+  "openWork": [
+    {
+      "id": "ROLLX-001",
+      "status": "OPEN",
+      "owner": "official_variants/reference",
+      "next": "Collect continuous video and native audio where supported; do not label screenshot timing as video proof."
+    },
+    {
+      "id": "ROLLX-002",
+      "status": "OPEN",
+      "owner": "official_variants/rules",
+      "next": "Verify complete multiplier schedule, supported stake limits and currency rounding from current official in-game rules/documentation."
+    },
+    {
+      "id": "ROLLX-003",
+      "status": "OPEN",
+      "owner": "engine-mathematics",
+      "next": "Specify and independently validate the ZPLAY probability model. No provider distribution inferred from the seven rounds."
+    },
+    {
+      "id": "ROLLX-004",
+      "status": "OPEN",
+      "owner": "assets",
+      "next": "Verify permission/license for any provider asset reuse; otherwise keep original assets clearly identified and parity unverified."
+    },
+    {
+      "id": "ROLLX-005",
+      "status": "IMPLEMENTING",
+      "owner": "frontend-controls",
+      "next": "Original renderer/controller, settings and editable AUTO wager fields are implemented and locally tested. Complete browser interaction/source comparison and verified additional controls; visual/sound parity remains unverified."
+    },
+    {
+      "id": "ROLLX-006",
+      "status": "OPEN",
+      "owner": "shared-wallet-integration",
+      "next": "Provide server target/math binding and accepted-model retention, then verify existing wallet against an isolated ledger. The adapter currently permits read/replay only and rejects every new wager."
+    },
+    {
+      "id": "ROLLX-007",
+      "status": "PENDING_GITHUB_CI",
+      "owner": "qa",
+      "next": "Run the reviewed public checkpoint in existing GitHub CI. Local installed Chromium aborts at socket() permission before assertions; preserve attempt03 without bypass. Verify native held keys, BFCache, mouse/touch/keyboard, responsive HTML, audio and performance. Node tests are not browser acceptance."
+    },
+    {
+      "id": "ROLLX-008",
+      "status": "OPEN",
+      "owner": "reference-controls",
+      "next": "Observe source music/fullscreen/exit and complete AUTO dialog field behavior; do not invent unverified functions or claim equivalence."
+    }
+  ],
+  "frontendVersion": "zplay72-roll-x-frontend-0.2.0",
+  "integration": {
+    "sharedAdapter": "../../shared/round-recovery.mjs",
+    "stateRoute": "/api/slots/fresh-state?gameId=zplay72_roll_x_v1",
+    "recoveryRoute": "/api/slots/spin with replayOnly=true only",
+    "cashEnabled": false,
+    "newWagerPostBlocked": true,
+    "replayMissResendBlocked": true,
+    "localRng": false,
+    "localWallet": false,
+    "targetBindingGap": "Existing shared action has no selectable Roll X multiplier. Require target bound to immutable accepted math model and retained through recovery before activation.",
+    "fixtureIsolation": "Only tests/ and qa/browser-fixture.mjs inject immutable receipts. Runtime main.mjs has no fixture import or query-flag switch."
+  }
+}

@@ -1,0 +1,72 @@
+:root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #121718; color: #eef6ee; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 280px; background: radial-gradient(ellipse at 50% 35%, #26302c, #121718 65%); }
+button, input, select { font: inherit; }
+button, a, input { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+button { cursor: pointer; color: inherit; }
+button:disabled { cursor: not-allowed; opacity: .42; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #a4ef88; outline-offset: 4px; }
+button:active:not(:disabled) { transform: translateY(1px); }
+[hidden] { display: none !important; }
+.rollx-app { max-width: 760px; margin: 0 auto; padding: max(12px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom)); }
+.topbar { display: flex; align-items: center; justify-content: space-between; min-height: 44px; gap: 10px; margin: 0 0 14px; }
+.brand { font-size: 17px; font-weight: 850; letter-spacing: .14em; }
+.back-link { color: #b8cbbb; text-decoration: none; font-size: 14px; min-height: 44px; display: flex; align-items: center; }
+.release-badge { color: #d9e9d3; border: 1px solid #52664e; padding: 6px 8px; font-size: 9px; letter-spacing: .08em; border-radius: 5px; white-space: nowrap; }
+.fixture-label { max-width: 430px; margin: 0 auto 12px; text-align: center; padding: 10px; color: #222b16; background: #d1ef84; font-weight: 800; font-size: 12px; }
+.cabinet { max-width: 430px; width: 100%; margin: 0 auto; padding: 20px 22px 16px; border-radius: 30px; background: linear-gradient(145deg, #22292a, #171d1e); box-shadow: 0 25px 70px #0007, inset 0 1px 0 #ffffff0d; border: 1px solid #343d3e; }
+.title-row { display: flex; align-items: center; justify-content: center; gap: 14px; }
+h1 { font-size: clamp(29px, 7vw, 36px); font-weight: 850; font-style: italic; letter-spacing: -.07em; margin: 0; line-height: 1.1; color: #a4ec91; }
+h1 span { color: #45c776; }
+.game-category { padding: 4px 6px; border-radius: 4px; background: #2c382f; color: #90ab93; font-size: 8px; letter-spacing: .12em; }
+.wheel-stage { width: 100%; margin: 3px auto -4px; }
+.wheel-stage svg { display: block; width: 100%; height: auto; overflow: visible; }
+.target-control, .bet-control { margin: 8px 0 6px; }
+.control-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 11px; color: #a2b2a8; }
+.control-heading output { color: #8ae1a4; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+input[type="range"] { display: block; width: 100%; height: 40px; margin: 0; padding: 0; accent-color: #72ce8d; cursor: pointer; }
+input[type="range"]:disabled { opacity: .35; cursor: not-allowed; }
+.utility-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.small-button, .plus-button, .secondary-button, .icon-button { background: transparent; border: 1px solid #3d4c42; border-radius: 12px; min-height: 44px; min-width: 44px; }
+.small-button { font-size: 11px; padding: 0 12px; color: #b5c8b7; }
+.small-button[aria-pressed="true"] { color: #edf4bf; border-color: #99a85a; background: #61672233; }
+.plus-button { font-size: 25px; color: #8fdda3; }
+.play-row { display: grid; grid-template-columns: 1fr 2.1fr 1fr; gap: 8px; margin-top: 8px; }
+.secondary-button { font-size: 10px; padding: 0 5px; color: #b2c1b4; }
+.spin-button { border: 1px solid #9aed8f; background: linear-gradient(#7ce785, #3caf67); box-shadow: 0 3px 15px #75cc6225; color: #102815; font-weight: 800; min-height: 52px; font-size: 16px; letter-spacing: .01em; border-radius: 28px; }
+.spin-button:disabled { background: #283e2e; color: #b2c2ad; border-color: #47634d; opacity: .75; font-size: 11px; }
+.auto-progress { text-align: center; color: #b4dc9f; font-size: 11px; margin-top: 10px; }
+.balance-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 14px; text-align: center; }
+.balance-row strong { display: block; font-size: clamp(13px, 3.7vw, 16px); color: #d6e6d7; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.balance-caption { display: block; font-size: 8px; letter-spacing: .09em; color: #82998a; margin-bottom: 4px; }
+.icon-button { border: 0; font-size: 21px; color: #a8bdad; }
+.icon-button[aria-pressed="true"] { color: #6c7a72; text-decoration: line-through; }
+.status { min-height: 32px; text-align: center; font-size: 11px; line-height: 1.5; color: #a9bcb0; margin: 10px 0 3px; }
+.recover-button, .reconnect-button { display: block; width: 100%; border-radius: 8px; min-height: 44px; background: #2c4535; border: 1px solid #57795f; font-size: 12px; }
+.reconnect-button { margin-top: 5px; background: transparent; border-color: transparent; color: #91ad98; }
+.presentation-note { text-align: center; color: #809288; font-size: 10px; line-height: 1.6; margin: 18px 10px 0; }
+dialog { max-width: min(420px, calc(100vw - 24px)); width: 100%; max-height: min(720px, calc(100dvh - 32px)); overflow-y: auto; padding: 20px; color: #e6efe8; background: #222b29; border: 1px solid #4b5d50; border-radius: 20px; box-shadow: 0 20px 90px #0009; }
+dialog::backdrop { background: #050a09b8; backdrop-filter: blur(3px); }
+.dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.dialog-heading h2 { font-size: 18px; margin: 0; }
+.dialog-heading button { min-width: 44px; min-height: 44px; border: 0; background: #ffffff08; border-radius: 10px; font-size: 24px; }
+dialog p { font-size: 13px; line-height: 1.65; color: #b5c6ba; }
+.notice { color: #dceca7 !important; background: #4b5b2633; padding: 12px; border-radius: 8px; }
+.muted-text { color: #8fa296; }
+.field { display: grid; gap: 7px; font-size: 12px; line-height: 1.5; margin: 15px 0; color: #bed0c2; }
+.field input, .field select { width: 100%; min-height: 44px; border: 1px solid #516455; background: #161e1a; color: #eaf6e9; border-radius: 8px; padding: 8px 12px; }
+.setting { display: flex; align-items: center; justify-content: space-between; min-height: 56px; }
+.setting input { width: 24px; height: 24px; accent-color: #72cf89; }
+.menu-actions { display: grid; gap: 10px; }
+.menu-actions button, .menu-actions a, .dialog-actions button { display: flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #455a4b; border-radius: 9px; text-decoration: none; background: #1a231e; color: #d7e6d9; font-size: 13px; padding: 10px; }
+.dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+.dialog-actions .confirm-button { background: #68c97c; color: #112819; border-color: #83df93; font-weight: 750; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 10px 8px; border-bottom: 1px solid #384d3d; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+@media (max-width: 360px) { .rollx-app { padding-inline: 8px; } .cabinet { padding-inline: 16px; border-radius: 24px; } .play-row { gap: 5px; } .topbar { gap: 5px; } .brand { font-size: 14px; } }
+@media (min-width: 700px) { .rollx-app { padding-top: 24px; } .cabinet { padding: 26px 34px 20px; } }
+@media (orientation: landscape) and (max-height: 600px) { .cabinet { max-width: 360px; } .wheel-stage { max-width: 245px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }

@@ -1,0 +1,47 @@
+{
+  "schema": "zplay-new72-release-gate-verification-v1",
+  "verifiedAt": "2026-11-21T20:21:06.832106+00:00",
+  "baselineCommit": "1d0f4c9ddc9d14aacc436021ed0bcb2b27dd85f0",
+  "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/release/release-gate.test.mjs",
+  "exitCode": 0,
+  "tests": 26,
+  "pass": 26,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "testEnvironment": "Node structural validator fixtures created only in memory; no official games or operational reviewers claimed",
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "activationPerformed": false,
+  "files": {
+    "release-gate.mjs": "4a2381cfb06b09676d65ba24033d42d271de7a667adf74c10378920bdd206022",
+    "release-gate.test.mjs": "3a71baf1eedd22f35aa38f970f9b9714ff1c898cc3ffe0ee85db3c6cf7abe55e",
+    "check-current-registry.mjs": "6238bd433d4ea6cd9ab89734412170a6b44e66909671ecdd56b8ccdf7c67210f",
+    "README.md": "dcebf7892013047afd53dbd59ddaf59bc94d04ac48a339342e282b0a91f044e7"
+  },
+  "limitations": [
+    "Synthetic evidence tests validate the gate, not any game",
+    "No cryptographic identity, extra external account, user confirmation or manual approval flow required",
+    "No production deployment or ledger changes",
+    "Actual registry/release status is recorded separately"
+  ],
+  "actualRegistryCheckCommand": "node codex-work/new-games72-20261121/release/check-current-registry.mjs",
+  "actualRegistryCheckExitCode": 2,
+  "actualRegistryIdentityValid": true,
+  "actualRegistryReleaseAllowed": false,
+  "testOutput": {
+    "path": "codex-work/new-games72-20261121/release/release-gate-test-results.tap",
+    "sha256": "30e58e0a2e59916fa66bf9aada779b6cf361b1c3ccfdf469759bed48c73fe0bf"
+  },
+  "commandModeVerification": {
+    "record": {
+      "path": "codex-work/new-games72-20261121/release/closed-preparation-command-review.json",
+      "sha256": "f084eb1ae2e3363d460e763fcfe8c0a89d519d795fa4973269d97905e44f5377",
+      "bytes": 1962
+    },
+    "defaultExitCode": 2,
+    "expectClosedExitCode": 0,
+    "reviewedAt": "2026-11-21T20:24:14.238960+00:00"
+  }
+}

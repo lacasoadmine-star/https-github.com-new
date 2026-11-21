@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>Roll X · ZPLAY</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="rollx-app" class="rollx-app" aria-label="Roll X game">
+    <header class="topbar">
+      <a class="back-link" href="/" aria-label="Back to ZPLAY lobby">‹ Lobby</a>
+      <span class="brand">ZPLAY</span>
+      <span class="release-badge">NOT RELEASED</span>
+    </header>
+    <div id="fixture-label" class="fixture-label" hidden>ISOLATED TEST · NO REAL MONEY</div>
+    <section class="cabinet" aria-labelledby="game-title">
+      <div class="title-row"><h1 id="game-title">Roll<span>X</span></h1><span class="game-category">WHEEL</span></div>
+      <div id="rollx-wheel" class="wheel-stage" aria-live="off"></div>
+      <div class="target-control">
+        <div class="control-heading"><label for="target">Multiplier</label><output id="target-value" for="target">1.4×</output></div>
+        <input id="target" type="range" min="0" max="1" step="1" value="0" aria-valuetext="1.4 times" disabled>
+      </div>
+      <div class="bet-control">
+        <div class="control-heading"><label for="bet">Bet amount</label><output id="bet-value" for="bet">Unavailable</output></div>
+        <input id="bet" type="range" min="0" max="0" step="1" value="0" disabled>
+      </div>
+      <div class="utility-row">
+        <button id="turbo" type="button" class="small-button" aria-pressed="false">⚡ Turbo</button>
+        <button id="bet-plus" type="button" class="plus-button" aria-label="Increase bet" disabled>+</button>
+      </div>
+      <div class="play-row">
+        <button id="auto" type="button" class="secondary-button" disabled>AUTO</button>
+        <button id="spin" type="button" class="spin-button" disabled>UNAVAILABLE</button>
+        <button id="history" type="button" class="secondary-button" aria-label="Round history">History</button>
+      </div>
+      <div id="auto-progress" class="auto-progress" hidden></div>
+      <div class="balance-row">
+        <button id="menu" class="icon-button" type="button" aria-label="Open game menu">☰</button>
+        <div><span id="balance-caption" class="balance-caption">ACCOUNT BALANCE</span><strong id="balance">Unavailable</strong></div>
+        <button id="mute" class="icon-button" type="button" aria-label="Mute sound" aria-pressed="false">♪</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Game not released yet.</p>
+      <button id="recover" class="recover-button" type="button" hidden>Confirm previous round</button>
+      <button id="reconnect" class="reconnect-button" type="button">Check availability</button>
+    </section>
+    <p class="presentation-note">Original ZPLAY presentation · Reference verification in progress</p>
+
+    <dialog id="menu-dialog" aria-labelledby="menu-title">
+      <div class="dialog-heading"><h2 id="menu-title">Game menu</h2><button type="button" data-close aria-label="Close menu">×</button></div>
+      <div class="menu-actions">
+        <button type="button" data-open="help-dialog">How to play</button>
+        <button type="button" data-open="settings-dialog">Settings</button>
+        <button type="button" data-open="history-dialog">Round history</button>
+        <a href="/">Return to lobby</a>
+      </div>
+    </dialog>
+    <dialog id="help-dialog" aria-labelledby="help-title">
+      <div class="dialog-heading"><h2 id="help-title">How to play</h2><button type="button" data-close aria-label="Close help">×</button></div>
+      <p>Choose an available bet and multiplier, then press SPIN. A confirmed green result pays the bet multiplied by the selected target. An empty result pays zero.</p>
+      <p>STOP and Turbo change the presentation. They do not place another bet. AUTO stops when cancelled, when its selected count finishes, or when a chosen limit or connection issue stops it.</p>
+      <p class="notice">This new game is not released. Rules and controls are still being verified before real play opens.</p>
+    </dialog>
+    <dialog id="settings-dialog" aria-labelledby="settings-title">
+      <div class="dialog-heading"><h2 id="settings-title">Settings</h2><button type="button" data-close aria-label="Close settings">×</button></div>
+      <label class="setting"><span>Sound</span><input id="sound-setting" type="checkbox" checked></label>
+      <label class="setting"><span>Turbo presentation</span><input id="turbo-setting" type="checkbox"></label>
+      <p class="muted-text">Reduced motion follows your device preference. Audio pauses when this tab is hidden.</p>
+    </dialog>
+    <dialog id="auto-dialog" aria-labelledby="auto-title">
+      <form id="auto-form">
+        <div class="dialog-heading"><h2 id="auto-title">AUTO PLAY</h2><button type="button" data-close aria-label="Cancel AUTO settings">×</button></div>
+        <label class="field">Number of rounds<select id="auto-count"><option>10</option><option>50</option><option>100</option><option>500</option><option>1000</option></select></label>
+        <label class="field">Bet amount (ETB)<select id="auto-bet" aria-label="AUTO bet amount"></select></label>
+        <label class="field">Multiplier<select id="auto-target" aria-label="AUTO multiplier"></select></label>
+        <label class="field">Stop if a single win is more than (ETB)<input id="stop-win" inputmode="decimal" value="0.00" autocomplete="off"></label>
+        <label class="field">Stop if balance decreases by more than (ETB)<input id="stop-loss" inputmode="decimal" value="0.00" autocomplete="off"></label>
+        <label class="field">Stop if balance increases by more than (ETB)<input id="stop-gain" inputmode="decimal" value="0.00" autocomplete="off"></label>
+        <p class="muted-text">A limit of 0.00 is off. AUTO pauses when a round needs confirmation.</p>
+        <p id="auto-error" class="notice" role="alert" hidden></p>
+        <div class="dialog-actions"><button type="button" data-close>Cancel</button><button type="submit" class="confirm-button">Start AUTO</button></div>
+      </form>
+    </dialog>
+    <dialog id="history-dialog" aria-labelledby="history-title">
+      <div class="dialog-heading"><h2 id="history-title">Round history</h2><button type="button" data-close aria-label="Close history">×</button></div>
+      <p id="history-empty">No confirmed rounds in this session.</p>
+      <div class="table-scroll"><table id="history-table" hidden><thead><tr><th>Target</th><th>Bet ETB</th><th>Return ETB</th></tr></thead><tbody id="history-rows"></tbody></table></div>
+    </dialog>
+    <noscript><p class="notice">JavaScript is required to check this game's availability.</p></noscript>
+  </main>
+  <script type="module" src="./main.mjs"></script>
+</body>
+</html>

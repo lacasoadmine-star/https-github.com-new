@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_multi_hot_5_deluxe_v1",
+  "displayName": "Multi Hot 5 Deluxe",
+  "route": "/new-games72/multi-hot-5-deluxe/",
+  "reference": {
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+    "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
+    "provider": "SmartSoft Gaming",
+    "providerGameName": "MultiHot5Deluxe",
+    "gameVersion": "v1.0.1"
+  },
+  "status": "REFERENCE_PARTIAL",
+  "cashEnabled": false,
+  "rulesVerified": false,
+  "engineImplemented": false,
+  "observedStructure": {
+    "reels": 3,
+    "rows": 3,
+    "paylines": 5,
+    "paylineRows": [
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        1,
+        0
+      ]
+    ],
+    "paylineSource": "paylines-and-rtp.png",
+    "multiplierAppliedFrom": "center position of the left multiplier reel",
+    "shownMultiplierValues": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "publishedInGameInformation": {
+    "displayedRtpPercent": "96.39",
+    "displayedMaximumWinX": 145,
+    "gameVersion": "v1.0.1",
+    "isIndependentEngineRtp": false,
+    "demoStakeLimitsDMO": {
+      "min": "0.05",
+      "max": "400.00",
+      "isOperatorETBPolicy": false
+    }
+  },
+  "verifiedFeatureDescriptions": {
+    "gamble": "In-game help describes guessing red/black to double a win, up to five attempts, with TAKE WIN. This feature was not played in this session.",
+    "paylines": "In-game help describes adjacent matching symbols from the leftmost reel; wins across lines are added.",
+    "autoplay": "In-game help describes AUTO and stopping it on disconnect; actual AUTO interaction remains untested."
+  },
+  "criticalUnknowns": [
+    "Full bet ladder, currency rounding beyond the observed integer ratios, and operator ETB stake/risk policy are unverified. DMO limits are not ETB limits.",
+    "Provider reel strips, admissible outcome combinations, probability distribution and independent engine math validation are not implemented.",
+    "Displayed maximum win is 145x, but arbitrary synthetic grids can produce larger arithmetic sums (full sevens at 5x produces 375x). Admissibility/cap rules must be resolved before live settlement; no cap is inferred.",
+    "X2 maximum stake/limit and probabilities, complete control lifecycle, renderer, sound and live wallet integration remain unverified."
+  ],
+  "controlsObserved": [
+    "sound prompt YES",
+    "seven SPIN actions",
+    "MENU/HELP/paytable",
+    "scroll to paylines and RTP",
+    "SETTINGS page",
+    "sound-effects and background-music toggles changed visible UI state",
+    "HISTORY with seven current-date records"
+  ],
+  "controlsPending": [
+    "STOP",
+    "AUTO start/cancel and threshold behavior",
+    "TURBO",
+    "complete BET ladder and interaction-state validation",
+    "TAKE WIN as its own action",
+    "X2 gamble controls and numeric limit",
+    "fullscreen",
+    "keyboard"
+  ],
+  "assetsRightsStatus": "UNVERIFIED",
+  "rendererStatus": "NOT_IMPLEMENTED",
+  "nextAction": "Retain the resolved base-paytable arithmetic and seven canonical rounds. Verify remaining controls, legal outcomes/145x boundary and full math before enabling any settlement; build a dedicated renderer and authenticated existing-server integration separately.",
+  "paylineEvaluatorImplemented": true,
+  "paylineEvaluator": {
+    "module": "evaluator.mjs",
+    "version": "mh5deluxe-1.0.1-observed-20261121",
+    "scope": "OBSERVED_BASE_GAME_ARITHMETIC_ONLY",
+    "gridFormat": "gridRows[row][reel], each index 0..2",
+    "betBasis": "total round bet in integer minor units",
+    "factorsOfTotalBet": {
+      "seven77": 15,
+      "dollar": 10,
+      "bell": 5,
+      "watermelon": 4,
+      "grapes": 4,
+      "plum": 2,
+      "lemon": 2,
+      "orange": 2,
+      "cherry": 2
+    },
+    "fixtureSource": "payout-fixtures.json",
+    "arithmetic": "BigInt intermediate operations; safe integer input/output; reject overflow",
+    "randomOutcomeGenerator": false,
+    "settlementEligible": false,
+    "maximumWinTreatment": "Flag arithmetic over displayed 145x; never cap or authorize it without verified outcome constraints."
+  },
+  "numericPaytableStatus": "OBSERVED_SCALING_CROSS_CHECKED",
+  "numericPaytableEvidence": [
+    "evidence/supplemental-2026-11-21-desktop/paytable-bound-values.jpg",
+    "evidence/supplemental-2026-11-21-desktop/paytable-bet-change.jpg",
+    "evidence/2026-11-21/spin-05.png",
+    "evidence/2026-11-21/spin-07.png"
+  ],
+  "supplementalScreenshotObservations": {
+    "source": "evidence/supplemental-2026-11-21-desktop/observations.json",
+    "paytableSelectorStatesDMO": [
+      "0.05",
+      "0.10"
+    ],
+    "betMenuFirstVisibleValuesDMO": [
+      "0.05",
+      "0.10",
+      "0.20",
+      "0.30",
+      "0.40"
+    ],
+    "laterBottomBetDMO": "0.10",
+    "autoCounts": [
+      25,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "autoThresholdFields": [
+      "single win reaches or exceeds",
+      "balance decreases",
+      "balance increases"
+    ],
+    "actionLogPresent": false,
+    "continuousVideoPresent": false,
+    "addedVerifiedRounds": 0
+  }
+}

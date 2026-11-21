@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_roll_x_v1",
+  "sourceVersion": "v1.0.1",
+  "disclaimer": "These are reference observations from the official demonstration. They are not ZPLAY ledger entries, test credits or a probability estimate.",
+  "openingDemoBalance": "20000.00",
+  "currency": "DMO",
+  "observations": [
+    {
+      "observationId": "spin-01",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "green",
+      "payout": "0.28",
+      "balance": "20000.08",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-01.jpg"
+    },
+    {
+      "observationId": "spin-02",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "green",
+      "payout": "0.28",
+      "balance": "20000.16",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-02.jpg"
+    },
+    {
+      "observationId": "spin-03",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "green",
+      "payout": "0.28",
+      "balance": "20000.24",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-03.jpg"
+    },
+    {
+      "observationId": "spin-04",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "green",
+      "payout": "0.28",
+      "balance": "20000.32",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-04.jpg"
+    },
+    {
+      "observationId": "spin-05",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "empty",
+      "payout": "0.00",
+      "balance": "20000.12",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-05.jpg"
+    },
+    {
+      "observationId": "spin-06",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "green",
+      "payout": "0.28",
+      "balance": "20000.20",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-06.jpg"
+    },
+    {
+      "observationId": "spin-07",
+      "initiator": "manual",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "empty",
+      "payout": "0.00",
+      "balance": "20000.00",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": true,
+      "screenshot": "evidence/2026-11-21/spin-07.jpg"
+    },
+    {
+      "observationId": "control-auto-01",
+      "initiator": "auto",
+      "bet": "0.20",
+      "target": "1.4",
+      "outcome": "green",
+      "payout": "0.28",
+      "balance": "20000.08",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": false,
+      "screenshot": "evidence/2026-11-21/autoplay-stop.jpg"
+    },
+    {
+      "observationId": "control-stop-01",
+      "initiator": "manual-with-stop",
+      "bet": "0.50",
+      "target": "2",
+      "outcome": "green",
+      "payout": "1.00",
+      "balance": "20000.58",
+      "currency": "DMO",
+      "providerRoundId": null,
+      "referenceSeven": false,
+      "screenshot": "evidence/2026-11-21/stop-result.jpg"
+    }
+  ],
+  "excludedAttempts": [
+    {
+      "action": "text-locator SPIN click",
+      "reason": "No balance or history change; not counted as a round.",
+      "evidence": "evidence/2026-11-21/failed-locator-click-no-new-round.jpg"
+    }
+  ]
+}
+

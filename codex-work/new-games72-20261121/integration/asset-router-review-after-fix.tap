@@ -1,0 +1,340 @@
+TAP version 13
+# Subtest: bound 0.05 DMO paytable matches every observed symbol
+ok 1 - bound 0.05 DMO paytable matches every observed symbol
+  ---
+  duration_ms: 2.247051
+  type: 'test'
+  ...
+# Subtest: bound 0.10 DMO paytable matches every observed symbol
+ok 2 - bound 0.10 DMO paytable matches every observed symbol
+  ---
+  duration_ms: 0.413251
+  type: 'test'
+  ...
+# Subtest: captured spin-05: grid, multiplier and total payout match
+ok 3 - captured spin-05: grid, multiplier and total payout match
+  ---
+  duration_ms: 1.093464
+  type: 'test'
+  ...
+# Subtest: captured spin-07: grid, multiplier and total payout match
+ok 4 - captured spin-07: grid, multiplier and total payout match
+  ---
+  duration_ms: 0.210817
+  type: 'test'
+  ...
+# Subtest: each of the five observed multipliers scales the same accepted line
+ok 5 - each of the five observed multipliers scales the same accepted line
+  ---
+  duration_ms: 0.367764
+  type: 'test'
+  ...
+# Subtest: three different horizontal wins add before applying the shared multiplier
+ok 6 - three different horizontal wins add before applying the shared multiplier
+  ---
+  duration_ms: 0.303206
+  type: 'test'
+  ...
+# Subtest: descending diagonal uses observed line 4 and correct highlight coordinates
+ok 7 - descending diagonal uses observed line 4 and correct highlight coordinates
+  ---
+  duration_ms: 0.355745
+  type: 'test'
+  ...
+# Subtest: ascending diagonal uses observed line 5
+ok 8 - ascending diagonal uses observed line 5
+  ---
+  duration_ms: 0.247833
+  type: 'test'
+  ...
+# Subtest: coinciding paylines that share the center cell both contribute
+ok 9 - coinciding paylines that share the center cell both contribute
+  ---
+  duration_ms: 0.33889
+  type: 'test'
+  ...
+# Subtest: all five qualifying lines are summed exactly once
+ok 10 - all five qualifying lines are summed exactly once
+  ---
+  duration_ms: 0.606502
+  type: 'test'
+  ...
+# Subtest: two matching symbols or nonadjacent matches alone do not pay
+ok 11 - two matching symbols or nonadjacent matches alone do not pay
+  ---
+  duration_ms: 1.545234
+  type: 'test'
+  ...
+# Subtest: symbol groups share pay factors but mixed fruit symbols are not substitutes
+ok 12 - symbol groups share pay factors but mixed fruit symbols are not substitutes
+  ---
+  duration_ms: 0.18563
+  type: 'test'
+  ...
+# Subtest: synthetic outcomes above published 145x are flagged, never capped or licensed for settlement
+ok 13 - synthetic outcomes above published 145x are flagged, never capped or licensed for settlement
+  ---
+  duration_ms: 0.157346
+  type: 'test'
+  ...
+# Subtest: DMO demo limits are not mistaken for ETB stake authorization
+ok 14 - DMO demo limits are not mistaken for ETB stake authorization
+  ---
+  duration_ms: 0.181013
+  type: 'test'
+  ...
+# Subtest: input grid and frozen rule tables cannot be changed by evaluation
+ok 15 - input grid and frozen rule tables cannot be changed by evaluation
+  ---
+  duration_ms: 0.6714
+  type: 'test'
+  ...
+# Subtest: invalid bet amounts are rejected without coercion or rounding
+ok 16 - invalid bet amounts are rejected without coercion or rounding
+  ---
+  duration_ms: 0.392451
+  type: 'test'
+  ...
+# Subtest: a missing or unobserved multiplier is rejected instead of defaulting to 1x
+ok 17 - a missing or unobserved multiplier is rejected instead of defaulting to 1x
+  ---
+  duration_ms: 0.223657
+  type: 'test'
+  ...
+# Subtest: wrong-size and sparse grids are rejected
+ok 18 - wrong-size and sparse grids are rejected
+  ---
+  duration_ms: 0.26614
+  type: 'test'
+  ...
+# Subtest: unknown, inherited-key, WILD and scatter symbols are not silently evaluated
+ok 19 - unknown, inherited-key, WILD and scatter symbols are not silently evaluated
+  ---
+  duration_ms: 0.307423
+  type: 'test'
+  ...
+# Subtest: invalid top-level input is rejected
+ok 20 - invalid top-level input is rejected
+  ---
+  duration_ms: 0.335905
+  type: 'test'
+  ...
+# Subtest: large but exactly representable payout uses integer arithmetic
+ok 21 - large but exactly representable payout uses integer arithmetic
+  ---
+  duration_ms: 0.216455
+  type: 'test'
+  ...
+# Subtest: individual line, multiplier and aggregate payout overflow are each rejected
+ok 22 - individual line, multiplier and aggregate payout overflow are each rejected
+  ---
+  duration_ms: 0.323547
+  type: 'test'
+  ...
+# Subtest: large losing stake returns exact zero without speculative award multiplication
+ok 23 - large losing stake returns exact zero without speculative award multiplication
+  ---
+  duration_ms: 0.190997
+  type: 'test'
+  ...
+# Subtest: retained historical assets remain addressable when no new publication is active
+ok 24 - retained historical assets remain addressable when no new publication is active
+  ---
+  duration_ms: 38.472761
+  type: 'test'
+  ...
+# Subtest: broken new release cannot hide explicitly requested independently pinned historical assets
+ok 25 - broken new release cannot hide explicitly requested independently pinned historical assets
+  ---
+  duration_ms: 39.229235
+  type: 'test'
+  ...
+# Subtest: one corrupt retained snapshot cannot disable other independently valid release URLs
+ok 26 - one corrupt retained snapshot cannot disable other independently valid release URLs
+  ---
+  duration_ms: 52.761572
+  type: 'test'
+  ...
+# Subtest: every legacy path passes through unchanged even when new publication is invalid
+ok 27 - every legacy path passes through unchanged even when new publication is invalid
+  ---
+  duration_ms: 11.317606
+  type: 'test'
+  ...
+# Subtest: no active publication serves no new files and performs no storage read
+ok 28 - no active publication serves no new files and performs no storage read
+  ---
+  duration_ms: 5.691662
+  type: 'test'
+  ...
+# Subtest: GET serves exact pinned bytes with immutable release/source headers after one read
+ok 29 - GET serves exact pinned bytes with immutable release/source headers after one read
+  ---
+  duration_ms: 35.275357
+  type: 'test'
+  ...
+# Subtest: HEAD verifies once and returns matching headers without a response body
+ok 30 - HEAD verifies once and returns matching headers without a response body
+  ---
+  duration_ms: 22.099705
+  type: 'test'
+  ...
+# Subtest: invalid method returns explicit no-store 405 before reading storage
+ok 31 - invalid method returns explicit no-store 405 before reading storage
+  ---
+  duration_ms: 19.201655
+  type: 'test'
+  ...
+# Subtest: same-size corrupt stored asset cannot be hidden by its expected cache hash
+ok 32 - same-size corrupt stored asset cannot be hidden by its expected cache hash
+  ---
+  duration_ms: 14.79014
+  type: 'test'
+  ...
+# Subtest: wrong-size stored asset is rejected before serving any bytes
+ok 33 - wrong-size stored asset is rejected before serving any bytes
+  ---
+  duration_ms: 12.300163
+  type: 'test'
+  ...
+# Subtest: missing published file produces no-store failure with no old-release fallback
+ok 34 - missing published file produces no-store failure with no old-release fallback
+  ---
+  duration_ms: 21.481616
+  type: 'test'
+  ...
+# Subtest: storage error is explicit and is not replaced with another release
+ok 35 - storage error is explicit and is not replaced with another release
+  ---
+  duration_ms: 14.79707
+  type: 'test'
+  ...
+# Subtest: unknown release/source and mutable canonical URL cannot load current or old assets
+ok 36 - unknown release/source and mutable canonical URL cannot load current or old assets
+  ---
+  duration_ms: 19.979806
+  type: 'test'
+  ...
+# Subtest: unknown file in known release returns no-store 404 without a storage probe
+ok 37 - unknown file in known release returns no-store 404 without a storage probe
+  ---
+  duration_ms: 7.283608
+  type: 'test'
+  ...
+# Subtest: traversal, encoding, alternate separators and query hash overrides never read storage
+ok 38 - traversal, encoding, alternate separators and query hash overrides never read storage
+  ---
+  duration_ms: 8.792247
+  type: 'test'
+  ...
+# Subtest: changed release manifest bytes or source identity fail closed without storage reads
+ok 39 - changed release manifest bytes or source identity fail closed without storage reads
+  ---
+  duration_ms: 7.615106
+  type: 'test'
+  ...
+# Subtest: per-game frontend version mismatch cannot be served under the new release hash
+ok 40 - per-game frontend version mismatch cannot be served under the new release hash
+  ---
+  duration_ms: 2.913934
+  type: 'test'
+  ...
+# Subtest: missing or corrupt per-game asset manifest invalidates the whole new publication
+ok 41 - missing or corrupt per-game asset manifest invalidates the whole new publication
+  ---
+  duration_ms: 31.41543
+  type: 'test'
+  ...
+# Subtest: 71 games or duplicate publication IDs cannot partially expose the new release
+ok 42 - 71 games or duplicate publication IDs cannot partially expose the new release
+  ---
+  duration_ms: 3.491272
+  type: 'test'
+  ...
+# Subtest: runtime descriptor cannot map a retained source file onto a legacy public path
+ok 43 - runtime descriptor cannot map a retained source file onto a legacy public path
+  ---
+  duration_ms: 3.325623
+  type: 'test'
+  ...
+# Subtest: explicit retained snapshot serves its original immutable bytes and source identity
+ok 44 - explicit retained snapshot serves its original immutable bytes and source identity
+  ---
+  duration_ms: 20.554451
+  type: 'test'
+  ...
+# Subtest: mutating supplied publication after construction cannot change served release identity
+ok 45 - mutating supplied publication after construction cannot change served release identity
+  ---
+  duration_ms: 9.123606
+  type: 'test'
+  ...
+# Subtest: an inactive publication stays closed while exact retained assets remain available
+ok 46 - an inactive publication stays closed while exact retained assets remain available
+  ---
+  duration_ms: 13.881362
+  type: 'test'
+  ...
+# Subtest: preparation preserves every old card and exposes no placeholder section
+ok 47 - preparation preserves every old card and exposes no placeholder section
+  ---
+  duration_ms: 6.496663
+  type: 'test'
+  ...
+# Subtest: complete reviewed-publication shape adds exactly72 without modifying old cards
+ok 48 - complete reviewed-publication shape adds exactly72 without modifying old cards
+  ---
+  duration_ms: 1.824244
+  type: 'test'
+  ...
+# Subtest: 71 or73 published cards cannot activate
+ok 49 - 71 or73 published cards cannot activate
+  ---
+  duration_ms: 3.564653
+  type: 'test'
+  ...
+# Subtest: duplicate publication identity cannot inflate count
+ok 50 - duplicate publication identity cannot inflate count
+  ---
+  duration_ms: 4.537106
+  type: 'test'
+  ...
+# Subtest: a reserved ID cannot overwrite a legacy card
+ok 51 - a reserved ID cannot overwrite a legacy card
+  ---
+  duration_ms: 1.315709
+  type: 'test'
+  ...
+# Subtest: a new deep link cannot shadow an existing card route
+ok 52 - a new deep link cannot shadow an existing card route
+  ---
+  duration_ms: 1.095288
+  type: 'test'
+  ...
+# Subtest: foreign/old image assets and traversal are rejected
+ok 53 - foreign/old image assets and traversal are rejected
+  ---
+  duration_ms: 4.321351
+  type: 'test'
+  ...
+# Subtest: mixed release and rules identities are rejected
+ok 54 - mixed release and rules identities are rejected
+  ---
+  duration_ms: 4.286568
+  type: 'test'
+  ...
+# Subtest: altered card mapping and missing asset hashes are rejected
+ok 55 - altered card mapping and missing asset hashes are rejected
+  ---
+  duration_ms: 3.807969
+  type: 'test'
+  ...
+1..55
+# tests 55
+# suites 0
+# pass 55
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 403.125123

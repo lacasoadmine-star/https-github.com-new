@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_roll_x_v1",
+  "verifiedAt": "2026-11-21T21:17:16.984913+00:00",
+  "result": "PASS",
+  "scope": "Public evidence sanitization, omission scope and hash integrity; no new runtime or gameplay claims.",
+  "primaryEvidence": {
+    "index": "evidence-index.json",
+    "indexSha256": "cf3109eaafc112a4f29ac677ef09ea77803bc9375cdacf01d1de39066773d323",
+    "verifiedFiles": 32,
+    "manualRoundImagesUnchanged": 7,
+    "manualRoundHashes": {
+      "spin-01.jpg": "afa7b9926d9650606e206dfa5daaef370cac804f5893f74517a7c87ecf5ae0ac",
+      "spin-02.jpg": "104101c31360c88de44c7662e54ea98e1782f94b6c63071449b9900b41ffed5b",
+      "spin-03.jpg": "c50d938866234155b2f9fe57a40241264cd9b012e2e0c0cc9f846f92cb3c36eb",
+      "spin-04.jpg": "cdee5f7de70b019864095cc8d9a2f30ba0762313bd6d1e5963f52e0777a1bc76",
+      "spin-05.jpg": "ff80050886c26853ce9cd451444b60e7368636bbb1bf75d6ef34b51983b740cd",
+      "spin-06.jpg": "ba57f1eb6ed97491a47298f0d4874d274a2cfc481d3e262565b5095b823e1172",
+      "spin-07.jpg": "3ada88853ba2c1af65bf4eda0c55b7b6b8070b19926ccf956b1ebad42f959303"
+    },
+    "unpublishedFiles": 1,
+    "unpublishedImagesRestored": false
+  },
+  "sanitizedRecords": {
+    "actions": "evidence/2026-11-21/actions.json",
+    "actionCount": 27,
+    "rules": "evidence/2026-11-21/rules-pages.json",
+    "helpPanels": 6,
+    "rawAccessibilitySnapshotFields": 0,
+    "sessionDerivedBoardUrls": 0,
+    "jurisdictionOrClientRegionFields": 0,
+    "rawOriginalsRetainedOutsideRepository": true,
+    "derivationProvenance": "Each sanitized file records its sourceId, raw SHA-256 and byte length; originals are not published."
+  },
+  "followUpEvidence": {
+    "index": "evidence/follow-up-2026-11-21-motion/index.json",
+    "indexSha256": "c9872c78d1416ca5224a7e0fae3b1d366f6422ee1a066790ad6de0008353ad2f",
+    "verifiedFiles": 2,
+    "result": "BLOCKED_PROVIDER_COUNTRY_RESTRICTION",
+    "newRounds": 0,
+    "motionCaptured": false,
+    "audioCaptured": false
+  },
+  "runtimeFilesChanged": false,
+  "verificationNotes": [
+    "Verified all 32 public primary evidence files and both follow-up files against their indices; the original history panel is separately declared unpublished.",
+    "Checked sanitized JSON schema recursively for raw snapshot fields.",
+    "Scanned public evidence JSON for session Board URLs, jurisdiction and client-region fields; none remain.",
+    "Continuous motion and audible sound remain unverified.",
+    "All seven canonical manual-round image hashes are unchanged. The unpublished history screenshot is not supplied by the public checkout or materializer."
+  ],
+  "publicOmissions": [
+    {
+      "path": "evidence/2026-11-21/my-bets-history.jpg",
+      "bytes": 28486,
+      "sha256": "156e4d600d481edbaab7447954560f57ee559d1460d760f446c64a854b314e04",
+      "status": "WITHHELD_FROM_PUBLIC_TREE",
+      "reason": "Roll X own-bet history panel intentionally excluded from public GitHub evidence; private original preserved unchanged.",
+      "materialized": false,
+      "originalPreservedLocally": true
+    }
+  ]
+}

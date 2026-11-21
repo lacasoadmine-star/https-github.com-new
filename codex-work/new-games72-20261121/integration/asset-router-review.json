@@ -1,0 +1,32 @@
+{
+  "reviewedAtUtc": "2026-11-21T20:39:22.168164+00:00",
+  "handlerBeforeFixSha256": "1ac287eb425493314610ce598edb61f775604f198e6d7835e283f1fda0f7ec78",
+  "reviewTestSha256": "aaf5145162a913a77c1c9959d9447f65528f27f8ab2afa92b5e545fc6ebc4230",
+  "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/integration/asset-router-review.test.mjs",
+  "exitCode": 1,
+  "beforeFixReport": "asset-router-review-before-fix.tap",
+  "result": "3 FAILED: retained snapshot outage; 503 instead of 200",
+  "status": "CLOSED_VERIFIED",
+  "productionRequests": 0,
+  "productionMutations": 0,
+  "fixOwner": "recovery_review",
+  "independentReviewer": "catalog_references",
+  "retestedAtUtc": "2026-11-21T20:40:37.480186+00:00",
+  "handlerAfterFixSha256": "b3f911daaf1ae4e0a12195660a641bd934914e7e32bc4d3521bd529e2de2b53a",
+  "afterFixReport": "asset-router-review-after-fix.tap",
+  "afterFixCommand": "node --test --test-reporter=tap codex-work/new-games72-20261121/integration/asset-router.test.mjs codex-work/new-games72-20261121/integration/asset-router-review.test.mjs codex-work/new-games72-20261121/integration/catalog.test.mjs codex-work/new-games72-20261121/games/multi-hot-5-deluxe/tests/evaluator.test.mjs",
+  "afterFixExitCode": 0,
+  "afterFixTests": {
+    "passed": 55,
+    "failed": 0,
+    "skipped": 0,
+    "retainedAssetRegressionTests": 3,
+    "deluxeEvaluatorTests": 23
+  },
+  "conclusion": "Each release compiles atomically in isolation; explicitly pinned retained URLs survive absent or broken active publication and an unrelated corrupt retained snapshot. Failed current URLs stay closed without fallback. Legacy passthrough and content hashes continue to pass.",
+  "reviewLimits": [
+    "Synthetic local complete-publication fixtures only; no approval of actual games or production deployment.",
+    "The router assumes trusted snapshots already passed release review; hash validation does not itself authorize release or wallet actions.",
+    "Deluxe deterministic 145x overage flag is correct; the 375x synthetic example remains inadmissibility-unverified and ineligible for settlement."
+  ]
+}

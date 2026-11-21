@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: seven separate inputs produce seven observations; identical outcome images are allowed
+ok 1 - seven separate inputs produce seven observations; identical outcome images are allowed
+  ---
+  duration_ms: 89.932627
+  type: 'test'
+  ...
+# Subtest: lobby cannot be counted as a completed round
+ok 2 - lobby cannot be counted as a completed round
+  ---
+  duration_ms: 11.540462
+  type: 'test'
+  ...
+# Subtest: loading cannot be counted as a completed round
+ok 3 - loading cannot be counted as a completed round
+  ---
+  duration_ms: 8.128437
+  type: 'test'
+  ...
+# Subtest: error cannot be counted as a completed round
+ok 4 - error cannot be counted as a completed round
+  ---
+  duration_ms: 19.377942
+  type: 'test'
+  ...
+# Subtest: gameplay-ready cannot be counted as a completed round
+ok 5 - gameplay-ready cannot be counted as a completed round
+  ---
+  duration_ms: 17.001474
+  type: 'test'
+  ...
+# Subtest: loading page blocks before any round input
+ok 6 - loading page blocks before any round input
+  ---
+  duration_ms: 11.525406
+  type: 'test'
+  ...
+# Subtest: AUTO or held rounds cannot fill the seven individually initiated observations
+ok 7 - AUTO or held rounds cannot fill the seven individually initiated observations
+  ---
+  duration_ms: 8.688389
+  type: 'test'
+  ...
+# Subtest: extra bonus/AUTO observations are recorded but do not replace manual observations
+ok 8 - extra bonus/AUTO observations are recorded but do not replace manual observations
+  ---
+  duration_ms: 60.115229
+  type: 'test'
+  ...
+# Subtest: a repeated provider/observed round ID cannot satisfy another round
+ok 9 - a repeated provider/observed round ID cannot satisfy another round
+  ---
+  duration_ms: 15.103132
+  type: 'test'
+  ...
+# Subtest: lost start response keeps pending action and resumes observation without a second input
+ok 10 - lost start response keeps pending action and resumes observation without a second input
+  ---
+  duration_ms: 47.986009
+  type: 'test'
+  ...
+# Subtest: missing after-input evidence is not fabricated during recovery
+ok 11 - missing after-input evidence is not fabricated during recovery
+  ---
+  duration_ms: 45.447538
+  type: 'test'
+  ...
+# Subtest: 403 is durable and cannot trigger an automatic retry
+ok 12 - 403 is durable and cannot trigger an automatic retry
+  ---
+  duration_ms: 4.827578
+  type: 'test'
+  ...
+# Subtest: 429 honors Retry-After, persists progress, and limits repeated automatic resumes
+ok 13 - 429 honors Retry-After, persists progress, and limits repeated automatic resumes
+  ---
+  duration_ms: 8.180536
+  type: 'test'
+  ...
+# Subtest: one browser session cannot be reused for another game
+ok 14 - one browser session cannot be reused for another game
+  ---
+  duration_ms: 43.943453
+  type: 'test'
+  ...
+# Subtest: resume cannot replace the original session or viewport metadata silently
+ok 15 - resume cannot replace the original session or viewport metadata silently
+  ---
+  duration_ms: 5.95238
+  type: 'test'
+  ...
+# Subtest: bounded worker pool runs other games when one is blocked
+ok 16 - bounded worker pool runs other games when one is blocked
+  ---
+  duration_ms: 89.433069
+  type: 'test'
+  ...
+# Subtest: supported audio and motion must have actual indexed artifacts covering all seven inputs
+ok 17 - supported audio and motion must have actual indexed artifacts covering all seven inputs
+  ---
+  duration_ms: 36.229311
+  type: 'test'
+  ...
+# Subtest: tampered evidence files invalidate a previously completed capture
+ok 18 - tampered evidence files invalidate a previously completed capture
+  ---
+  duration_ms: 29.466199
+  type: 'test'
+  ...
+# Subtest: unknown identities, production tokens, uninspected drivers and forged image payloads are rejected
+ok 19 - unknown identities, production tokens, uninspected drivers and forged image payloads are rejected
+  ---
+  duration_ms: 1.450308
+  type: 'test'
+  ...
+# Subtest: validator does not mistake seven click logs for seven completed observations
+ok 20 - validator does not mistake seven click logs for seven completed observations
+  ---
+  duration_ms: 0.194162
+  type: 'test'
+  ...
+# Subtest: a lost control response is not replayed automatically
+ok 21 - a lost control response is not replayed automatically
+  ---
+  duration_ms: 33.711796
+  type: 'test'
+  ...
+# Subtest: recording recovery does not repeat controls or the seven inputs
+ok 22 - recording recovery does not repeat controls or the seven inputs
+  ---
+  duration_ms: 50.292712
+  type: 'test'
+  ...
+# Subtest: a callback that never resolves is bounded and receives an aborted signal
+ok 23 - a callback that never resolves is bounded and receives an aborted signal
+  ---
+  duration_ms: 18.96687
+  type: 'test'
+  ...
+# Subtest: separate coordinators cannot write or initiate the same game concurrently
+ok 24 - separate coordinators cannot write or initiate the same game concurrently
+  ---
+  duration_ms: 41.607651
+  type: 'test'
+  ...
+# Subtest: viewport changes require a new capture rather than mixing evidence
+ok 25 - viewport changes require a new capture rather than mixing evidence
+  ---
+  duration_ms: 4.968798
+  type: 'test'
+  ...
+# Subtest: duplicate launch parameters cannot hide a non-demo token
+ok 26 - duplicate launch parameters cannot hide a non-demo token
+  ---
+  duration_ms: 2.003345
+  type: 'test'
+  ...
+# Subtest: review regression: a lost completed-observation response resumes the same round in recovery mode
+ok 27 - review regression: a lost completed-observation response resumes the same round in recovery mode
+  ---
+  duration_ms: 67.15853
+  type: 'test'
+  ...
+# Subtest: review regression: corrupt missing-pending checkpoint preserves input intent without another click
+ok 28 - review regression: corrupt missing-pending checkpoint preserves input intent without another click
+  ---
+  duration_ms: 6.112429
+  type: 'test'
+  ...
+# Subtest: review regression: corrupt attempted-flag-cleared checkpoint preserves input intent without another click
+ok 29 - review regression: corrupt attempted-flag-cleared checkpoint preserves input intent without another click
+  ---
+  duration_ms: 4.590468
+  type: 'test'
+  ...
+# Subtest: review regression: corrupt pending-identity-changed checkpoint preserves input intent without another click
+ok 30 - review regression: corrupt pending-identity-changed checkpoint preserves input intent without another click
+  ---
+  duration_ms: 9.422351
+  type: 'test'
+  ...
+# Subtest: review regression: completed evidence rejects orphan attempted action logs
+ok 31 - review regression: completed evidence rejects orphan attempted action logs
+  ---
+  duration_ms: 49.907528
+  type: 'test'
+  ...
+# Subtest: review regression: lock release failure does not retain an in-process running slot
+ok 32 - review regression: lock release failure does not retain an in-process running slot
+  ---
+  duration_ms: 41.77227
+  type: 'test'
+  ...
+# Subtest: review regression: invalid extra-round metadata cannot half-commit the pending manual round
+ok 33 - review regression: invalid extra-round metadata cannot half-commit the pending manual round
+  ---
+  duration_ms: 63.052396
+  type: 'test'
+  ...
+# Subtest: review regression: a malformed control batch cannot persist partial controls or double-count extra rounds
+ok 34 - review regression: a malformed control batch cannot persist partial controls or double-count extra rounds
+  ---
+  duration_ms: 42.366799
+  type: 'test'
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1146.895056

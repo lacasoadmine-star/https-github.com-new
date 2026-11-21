@@ -1,0 +1,744 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zplay:new72:reference-capture:v1",
+  "title": "Fresh official game reference capture",
+  "description": "Structural schema only. Run validateEvidence and verify actual artifact hashes. This schema does not prove truthful observations, full rules, sound parity, or release readiness.",
+  "type": "object",
+  "properties": {
+    "captureId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gameId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "officialName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "providerGameName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "officialPageUrl": {
+      "type": "string",
+      "minLength": 1
+    },
+    "officialLaunchUrl": {
+      "type": "string",
+      "minLength": 1
+    },
+    "startedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updatedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "referenceFingerprint": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "referenceSha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "driverInspectionSha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "CAPTURING",
+        "BLOCKED",
+        "CAPTURE_INCOMPLETE",
+        "REFERENCE_CAPTURED"
+      ]
+    },
+    "session": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/session"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "rounds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/round"
+      }
+    },
+    "extraRounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "countedTowardSeven": {
+            "const": false
+          },
+          "initiationMode": {
+            "enum": [
+              "auto",
+              "hold",
+              "bonus",
+              "unattributed"
+            ]
+          }
+        },
+        "required": [
+          "countedTowardSeven",
+          "initiationMode"
+        ]
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/control"
+      }
+    },
+    "inspectedControls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    "pendingAction": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/action"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blocker"
+      }
+    },
+    "blocker": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/blocker"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "consecutiveResumes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "controlsCompleted": {
+      "type": "boolean"
+    },
+    "pendingControlBatch": {
+      "type": "boolean"
+    },
+    "completedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "valid": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "individuallyCompletedRounds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "extraObservedRounds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "videoCaptured": {
+          "type": "boolean"
+        },
+        "audioSupported": {
+          "type": "boolean"
+        },
+        "audioCaptured": {
+          "type": "boolean"
+        },
+        "soundParityVerified": {
+          "const": false
+        },
+        "fullRulesVerified": {
+          "const": false
+        },
+        "releaseReady": {
+          "const": false
+        }
+      },
+      "required": [
+        "valid",
+        "errors",
+        "individuallyCompletedRounds",
+        "extraObservedRounds",
+        "videoCaptured",
+        "audioSupported",
+        "audioCaptured",
+        "soundParityVerified",
+        "fullRulesVerified",
+        "releaseReady"
+      ]
+    }
+  },
+  "required": [
+    "captureId",
+    "gameId",
+    "officialName",
+    "providerGameName",
+    "officialPageUrl",
+    "officialLaunchUrl",
+    "startedAt",
+    "updatedAt",
+    "referenceFingerprint",
+    "referenceSha256",
+    "driverInspectionSha256",
+    "schemaVersion",
+    "status",
+    "session",
+    "actions",
+    "rounds",
+    "extraRounds",
+    "artifacts",
+    "controls",
+    "inspectedControls",
+    "pendingAction",
+    "blockers",
+    "consecutiveResumes"
+  ],
+  "$defs": {
+    "support": {
+      "type": "object",
+      "properties": {
+        "supported": {
+          "type": "boolean"
+        },
+        "methodOrReason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "supported",
+        "methodOrReason"
+      ]
+    },
+    "viewport": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "deviceScaleFactor": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "deviceScaleFactor"
+      ]
+    },
+    "session": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targetId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "viewport": {
+          "$ref": "#/$defs/viewport"
+        },
+        "orientation": {
+          "enum": [
+            "portrait",
+            "landscape"
+          ]
+        },
+        "gameVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gameVersionObservation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "captureSupport": {
+          "type": "object",
+          "properties": {
+            "screenshot": {
+              "$ref": "#/$defs/support"
+            },
+            "video": {
+              "$ref": "#/$defs/support"
+            },
+            "audio": {
+              "$ref": "#/$defs/support"
+            }
+          },
+          "required": [
+            "screenshot",
+            "video",
+            "audio"
+          ]
+        }
+      },
+      "required": [
+        "sessionId",
+        "targetId",
+        "viewport",
+        "orientation",
+        "gameVersion",
+        "captureSupport"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "gameVersion": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "gameVersionObservation"
+            ]
+          }
+        }
+      ]
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "actionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "pattern": "^spin-0[1-7]$"
+        },
+        "initiationMode": {
+          "const": "individual-input"
+        },
+        "createdAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "initiationAttempted": {
+          "type": "boolean"
+        },
+        "inputAttemptedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "screenshots": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "actionId",
+        "label",
+        "initiationMode",
+        "createdAt",
+        "initiationAttempted",
+        "screenshots"
+      ]
+    },
+    "round": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "providerGameName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sessionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedRoundKey": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roundKeySource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completionEvidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "pattern": "^spin-0[1-7]$"
+        },
+        "phase": {
+          "const": "complete"
+        },
+        "screen": {
+          "const": "gameplay-result"
+        },
+        "initiationMode": {
+          "const": "individual-input"
+        },
+        "viewport": {
+          "$ref": "#/$defs/viewport"
+        },
+        "orientation": {
+          "enum": [
+            "portrait",
+            "landscape"
+          ]
+        },
+        "gameVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "screenshots": {
+          "type": "object",
+          "properties": {
+            "before": {
+              "type": "string",
+              "minLength": 1
+            },
+            "afterInput": {
+              "type": "string",
+              "minLength": 1
+            },
+            "result": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "before",
+            "result"
+          ]
+        },
+        "inputAccepted": {
+          "const": true
+        },
+        "activePhaseObserved": {
+          "const": true
+        },
+        "completionObserved": {
+          "const": true
+        },
+        "autoWasDisabled": {
+          "const": true
+        },
+        "holdWasNotUsed": {
+          "const": true
+        }
+      },
+      "required": [
+        "gameId",
+        "providerGameName",
+        "sessionId",
+        "actionId",
+        "observedRoundKey",
+        "roundKeySource",
+        "completionEvidence",
+        "observedAt",
+        "label",
+        "phase",
+        "screen",
+        "initiationMode",
+        "viewport",
+        "orientation",
+        "gameVersion",
+        "screenshots",
+        "inputAccepted",
+        "activePhaseObserved",
+        "completionObserved",
+        "autoWasDisabled",
+        "holdWasNotUsed"
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "screenshot",
+            "video",
+            "audio"
+          ]
+        },
+        "mediaType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relativePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "captureRole": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "controlId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "durationMs": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "capturedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provenance": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "artifactId",
+        "kind",
+        "mediaType",
+        "relativePath",
+        "sha256",
+        "byteLength",
+        "captureRole",
+        "controlId",
+        "actionIds",
+        "durationMs",
+        "capturedAt",
+        "provenance"
+      ]
+    },
+    "control": {
+      "type": "object",
+      "properties": {
+        "controlId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actionObserved": {
+          "type": "boolean"
+        },
+        "responseObserved": {
+          "type": "boolean"
+        },
+        "observation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "screenshotArtifactIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "controlId",
+        "actionObserved",
+        "responseObserved",
+        "observation",
+        "screenshotArtifactIds"
+      ]
+    },
+    "blocker": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "retryAfterMs": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "retryAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextAction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pendingActionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "status",
+        "retryable",
+        "retryAfterMs",
+        "retryAt",
+        "nextAction",
+        "stage",
+        "observedAt",
+        "pendingActionId"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "REFERENCE_CAPTURED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rounds": {
+            "minItems": 7,
+            "maxItems": 7
+          },
+          "pendingAction": {
+            "type": "null"
+          },
+          "controlsCompleted": {
+            "const": true
+          },
+          "pendingControlBatch": {
+            "const": false
+          }
+        },
+        "required": [
+          "validation",
+          "controlsCompleted",
+          "pendingControlBatch",
+          "completedAt"
+        ]
+      }
+    }
+  ]
+}

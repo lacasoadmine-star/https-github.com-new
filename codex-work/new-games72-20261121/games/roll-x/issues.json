@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_roll_x_v1",
+  "issues": [
+    {
+      "id": "ROLLX-FIX-001",
+      "action": "Account refresh fails after receipt acceptance",
+      "expected": "Keep accepted status and immutable receipt; no replacement wager.",
+      "observed": "Earlier controller returned accepted=false on any later failure.",
+      "files": [
+        "controller.mjs",
+        "tests/controller.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Accepted result remains true with ready=false; one adapter spin; pending presentation aborted on renderer failure.",
+      "evidence": "frontend-test-report.json",
+      "status": "FIXED"
+    },
+    {
+      "id": "ROLLX-FIX-002",
+      "action": "Recover an accepted 2x round in a default 1.4x UI",
+      "expected": "Receipt controls and wheel retain accepted target.",
+      "observed": "Source-path review found post-refresh preview could reset to default target.",
+      "files": [
+        "controller.mjs",
+        "app.mjs",
+        "tests/controller.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Recovered 2x/0.50 receipt restores both selections; pending controls reject mutation; no new spin.",
+      "evidence": "frontend-test-report.json",
+      "status": "FIXED"
+    },
+    {
+      "id": "ROLLX-FIX-003",
+      "action": "Rasterize original SVG through Sharp",
+      "expected": "SVG parses as XML and renders.",
+      "observed": "First static QA failed with an XML tag mismatch due to unvalued HTML-style data attributes.",
+      "files": [
+        "renderer.mjs",
+        "qa/static-render.mjs"
+      ],
+      "attempts": 2,
+      "retest": "Explicit empty data attributes parsed; PNG generated and visually inspected.",
+      "evidence": "qa/static-renderer.png",
+      "status": "FIXED"
+    },
+    {
+      "id": "ROLLX-FIX-004",
+      "action": "Unreleased recovery receives authoritative replay miss",
+      "expected": "No new financial POST before release.",
+      "observed": "Shared adapter permits an eligible same-request retry; this wrapper required a separate release guard.",
+      "files": [
+        "session.mjs",
+        "tests/session.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Replay-only POST allowed; fallback original POST rejected as RELEASE_NOT_READY and saved pending identity retained.",
+      "evidence": "frontend-test-report.json",
+      "status": "FIXED"
+    },
+    {
+      "id": "ROLLX-FIX-005",
+      "action": "Hold native Enter/Space on focused wagering button across readiness changes",
+      "expected": "Cancel repeat default actions so they cannot synthesize new clicks.",
+      "observed": "Peer source review found returning for repeat without preventDefault was insufficient.",
+      "files": [
+        "app.mjs",
+        "tests/input-lifecycle.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Cancelable event regressions verify defaultPrevented and no new spin across STOP/READY transitions; native browser test remains open in ROLLX-007.",
+      "evidence": "frontend-test-report.json",
+      "status": "FIXED_PENDING_RETEST",
+      "pendingRetestScope": "Native browser held-key/BFCache behavior; local regression tests passed."
+    },
+    {
+      "id": "ROLLX-FIX-006",
+      "action": "Browser restores a cached page after pagehide persisted=true",
+      "expected": "Pause and restore existing controller safely; never show a disposed unresponsive page.",
+      "observed": "Peer source review found unconditional pagehide disposal with no pageshow restore.",
+      "files": [
+        "app.mjs",
+        "tests/input-lifecycle.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Persisted hide pauses; persisted show requests guarded refresh; nonpersisted hide disposes. Actual browser BFCache restore remains open in ROLLX-007.",
+      "evidence": "frontend-test-report.json",
+      "status": "FIXED_PENDING_RETEST",
+      "pendingRetestScope": "Native browser held-key/BFCache behavior; local regression tests passed."
+    },
+    {
+      "id": "ROLLX-FIX-007",
+      "action": "Choose AUTO bet and multiplier independently of the outer controls",
+      "expected": "AUTO confirmation binds both selected values before the first and every later serialized action.",
+      "observed": "Recovered UI had no editable AUTO wager fields and always used outer controls.",
+      "files": [
+        "index.html",
+        "app.mjs",
+        "controller.mjs",
+        "tests/controller.test.mjs",
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "10 isolated 0.50 ETB / 2x receipts accepted exactly; invalid/stale selections reject before state mutation or request. Native form selection checks prepared for GitHub CI.",
+      "evidence": "frontend-test-report.json",
+      "status": "FIXED_PENDING_RETEST",
+      "pendingRetestScope": "Native browser AUTO select/input and responsive dialog interaction."
+    }
+  ],
+  "openTaskSource": "specification.json#openWork"
+}

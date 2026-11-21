@@ -1,0 +1,65 @@
+{
+  "officialName": "Hot Samba",
+  "provider": "SmartSoft Gaming",
+  "providerGameName": "HotSamba",
+  "sourceUrl": "https://www.smartsoftgaming.com/games/hot-samba",
+  "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
+  "observedAt": "2026-11-21T20:08:16.609Z",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "deviceScaleFactor": 1
+  },
+  "orientation": "portrait",
+  "emulation": {
+    "mobile": true,
+    "touch": true,
+    "platform": "Android",
+    "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36"
+  },
+  "screen": "provider-country-restriction",
+  "observedMessage": "Sorry, this game is not available in your country",
+  "gameVersion": null,
+  "gameVersionObservation": "The provider blocked the demo before gameplay; no game version was displayed.",
+  "gameplayEntered": false,
+  "individuallyStartedSpins": 0,
+  "completedRoundObservations": 0,
+  "paytableCaptured": false,
+  "controlsExercised": [],
+  "captureSupport": {
+    "screenshot": {
+      "supported": true,
+      "method": "Cloudflare Browser Run Playwright page.screenshot"
+    },
+    "video": {
+      "supported": null,
+      "reason": "Not evaluated because gameplay did not load"
+    },
+    "audio": {
+      "supported": null,
+      "reason": "Not evaluated because gameplay did not load"
+    }
+  },
+  "screenshot": {
+    "path": "blocked-country.jpg",
+    "mediaType": "image/jpeg",
+    "byteLength": 10688,
+    "sha256": "7a57d567787429bcab7411767c3efa0998592e0539c156195e0e2eb08be8c5b1"
+  },
+  "blocker": {
+    "code": "PROVIDER_COUNTRY_RESTRICTION",
+    "status": "OPEN_ACCESS_RESTRICTION",
+    "automaticRetry": false,
+    "attempts": 1,
+    "ownerTask": "reference-capture-and-rules",
+    "nextAction": "Resume only when the provider offers an authorized demo path for this environment or an authorized provider document resolves the rules; do not change region/proxy or substitute a different game."
+  },
+  "rulesConflict": {
+    "issueId": "REF-SOURCE-002",
+    "status": "UNRESOLVED",
+    "conflict": "Product description says five reels/twenty paylines; specification says three reels/three rows/five paylines. No in-game rules were accessible."
+  },
+  "newGameImplemented": false,
+  "releaseReady": false,
+  "browserSessionClosed": true
+}

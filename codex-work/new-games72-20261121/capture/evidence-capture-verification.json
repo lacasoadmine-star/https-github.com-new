@@ -1,0 +1,46 @@
+{
+  "schema": "zplay/new72-reference-capture-verification/v1",
+  "baselineCommit": "1d0f4c9ddc9d14aacc436021ed0bcb2b27dd85f0",
+  "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/capture/evidence-capture.test.mjs",
+  "testEnvironment": "Node isolated filesystem and synthetic driver callbacks; no provider/demo interaction or browser execution",
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "activationPerformed": false,
+  "limitations": [
+    "Synthetic media and round fixtures are not official reference evidence.",
+    "No actual browser input, animation/audio parity, probability model, ledger or deployment verified.",
+    "Filesystem locks cover cooperating capture processes; stale locks are not bypassed.",
+    "Metadata consistency and hashes do not prove semantic truth or fairness."
+  ],
+  "verifiedAt": "2026-11-21T20:21:06.832106+00:00",
+  "tests": 34,
+  "pass": 34,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "exitCode": 0,
+  "files": {
+    "evidence-capture.mjs": "71c26bf647fa179176973e121ea3a21f15722e1d94659149d83f18fb45365665",
+    "file-evidence-store.mjs": "f27c3a47b48a0a6f7f4ada99ac9d5f2e32f88e7c6714121a5e2d8db90a2a9100",
+    "evidence-capture.test.mjs": "671f502f34c20f177603abb8de99310af944019091b94f10e55355967efc98da",
+    "capture-manifest.schema.json": "79b9d2d47bb56d1100f890ebce67da62719e85d26bb85f5691ce2cd0865125da",
+    "README.md": "b4aaff3708d563d56af19607607b50c758ae0c597be54f044d07413c48f1841b"
+  },
+  "testOutput": {
+    "path": "codex-work/new-games72-20261121/capture/evidence-capture-test-results.tap",
+    "sha256": "47989fc833b720f650b3ab0b63e987459c5bf0820586d52b1fb694b3c40d9eff"
+  },
+  "preFixRegressions": [
+    {
+      "path": "codex-work/new-games72-20261121/release/capture-review-before-fix.tap",
+      "tests": 7,
+      "fail": 7
+    },
+    {
+      "path": "codex-work/new-games72-20261121/release/capture-control-review-before-fix.tap",
+      "tests": 1,
+      "fail": 1
+    }
+  ]
+}

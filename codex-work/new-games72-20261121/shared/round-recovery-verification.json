@@ -1,0 +1,39 @@
+{
+  "schema": "zplay-new72-shared-recovery-verification-v1",
+  "verifiedAt": "2026-11-21T20:30:46.383901+00:00",
+  "baselineCommit": "1d0f4c9ddc9d14aacc436021ed0bcb2b27dd85f0",
+  "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/shared/round-recovery.test.mjs",
+  "exitCode": 0,
+  "tests": 49,
+  "pass": 49,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "testEnvironment": "Node isolated in-memory contract-shaped transport; no database or browser",
+  "files": {
+    "round-recovery.mjs": "76784381f80c164209911ab6ab6634486c845389d37be34f6e9d57ae83b79096",
+    "round-recovery.test.mjs": "eda6e2e6541ff5bf0c65545520232a01f30217195e82c5acef4757c5a683a6a8",
+    "README.md": "047779104227f27d3c498f52ccc91168b6213d00fc6ccde8c5c47763e80a0789"
+  },
+  "limitations": [
+    "Does not prove PostgreSQL locks or ledger deployment",
+    "Does not prove browser Web Locks or cross-tab shared storage",
+    "No game rules, provider mathematics, rendering, animation or sound validated",
+    "No new games registered or activated"
+  ],
+  "testOutput": {
+    "path": "codex-work/new-games72-20261121/shared/round-recovery-test-results.tap",
+    "sha256": "9c5b67a0429e9de013eac8ac9ab3f5a0ecfa4d1e9244f5cf4007336e2c802d99"
+  },
+  "regressionReview": {
+    "task": "recovery_review",
+    "reproducedFailuresBeforeFix": 3,
+    "passedActionRetests": 3,
+    "issue": "Cooperating clients ignored persisted Retry-After when adopting pending work or when another client advanced the same request deadline.",
+    "fix": "Adopt stored retry deadlines on refresh and spin discovery; reload the latest deadline under the recovery lock before replay.",
+    "scope": "Shared in-memory request storage and contract-shaped fake only; no production requests or data mutations."
+  }
+}

@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: retained historical assets remain addressable when no new publication is active
+not ok 1 - retained historical assets remain addressable when no new publication is active
+  ---
+  duration_ms: 12.348267
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/new-games72-20261121/integration/asset-router-review.test.mjs:57:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    accepted-round assets must survive disabling new activation
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/new-games72-20261121/integration/asset-router-review.test.mjs:60:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: broken new release cannot hide explicitly requested independently pinned historical assets
+not ok 2 - broken new release cannot hide explicitly requested independently pinned historical assets
+  ---
+  duration_ms: 16.573684
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/new-games72-20261121/integration/asset-router-review.test.mjs:66:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    old URL is explicit retention, not fallback for a new URL
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/new-games72-20261121/integration/asset-router-review.test.mjs:72:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one corrupt retained snapshot cannot disable other independently valid release URLs
+not ok 3 - one corrupt retained snapshot cannot disable other independently valid release URLs
+  ---
+  duration_ms: 83.481417
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/new-games72-20261121/integration/asset-router-review.test.mjs:77:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/new-games72-20261121/integration/asset-router-review.test.mjs:83:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 0
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 241.672462

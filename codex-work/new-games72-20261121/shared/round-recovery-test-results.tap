@@ -1,0 +1,304 @@
+TAP version 13
+# Subtest: requires per-game model and receipt validation before it can be constructed
+ok 1 - requires per-game model and receipt validation before it can be constructed
+  ---
+  duration_ms: 3.170026
+  type: 'test'
+  ...
+# Subtest: persists only request identity before POST and enables next round after authoritative refresh
+ok 2 - persists only request identity before POST and enables next round after authoritative refresh
+  ---
+  duration_ms: 12.713607
+  type: 'test'
+  ...
+# Subtest: lost response after accepted settlement replays original receipt with no second debit or credit
+ok 3 - lost response after accepted settlement replays original receipt with no second debit or credit
+  ---
+  duration_ms: 4.220967
+  type: 'test'
+  ...
+# Subtest: lost request before acceptance first checks replay, then resends exact same key after explicit miss
+ok 4 - lost request before acceptance first checks replay, then resends exact same key after explicit miss
+  ---
+  duration_ms: 3.8801
+  type: 'test'
+  ...
+# Subtest: refresh reconstruction retains pending request and never invents a replacement token
+ok 5 - refresh reconstruction retains pending request and never invents a replacement token
+  ---
+  duration_ms: 5.064095
+  type: 'test'
+  ...
+# Subtest: late first acceptance racing the same-key resend still settles once in the contract fake
+ok 6 - late first acceptance racing the same-key resend still settles once in the contract fake
+  ---
+  duration_ms: 1.860718
+  type: 'test'
+  ...
+# Subtest: generic 404 is not the explicit replay miss and cannot authorize resubmission
+ok 7 - generic 404 is not the explicit replay miss and cannot authorize resubmission
+  ---
+  duration_ms: 1.525895
+  type: 'test'
+  ...
+# Subtest: bounded 5xx replay retries retain request and emit delay reasons
+ok 8 - bounded 5xx replay retries retain request and emit delay reasons
+  ---
+  duration_ms: 1.727728
+  type: 'test'
+  ...
+# Subtest: 429 Retry-After delays the same read-only request before retry
+ok 9 - 429 Retry-After delays the same read-only request before retry
+  ---
+  duration_ms: 5.67267
+  type: 'test'
+  ...
+# Subtest: long Retry-After is persisted, defers without shortening it, and survives refresh
+ok 10 - long Retry-After is persisted, defers without shortening it, and survives refresh
+  ---
+  duration_ms: 2.802674
+  type: 'test'
+  ...
+# Subtest: 401 preserves original pending identity and requires account recovery
+ok 11 - 401 preserves original pending identity and requires account recovery
+  ---
+  duration_ms: 1.511132
+  type: 'test'
+  ...
+# Subtest: 403 preserves original pending identity and requires account recovery
+ok 12 - 403 preserves original pending identity and requires account recovery
+  ---
+  duration_ms: 1.945245
+  type: 'test'
+  ...
+# Subtest: pre-spin fresh-state detects replaced session before any financial request
+ok 13 - pre-spin fresh-state detects replaced session before any financial request
+  ---
+  duration_ms: 0.882087
+  type: 'test'
+  ...
+# Subtest: new account has independent scope while old pending remains available under its original guard
+ok 14 - new account has independent scope while old pending remains available under its original guard
+  ---
+  duration_ms: 3.953855
+  type: 'test'
+  ...
+# Subtest: late accepted response after session replacement cannot update new session or erase old request
+ok 15 - late accepted response after session replacement cannot update new session or erase old request
+  ---
+  duration_ms: 1.863512
+  type: 'test'
+  ...
+# Subtest: dispose ignores a late accepted response and preserves request for another instance
+ok 16 - dispose ignores a late accepted response and preserves request for another instance
+  ---
+  duration_ms: 1.685635
+  type: 'test'
+  ...
+# Subtest: malformed authoritative wallet receipt remains recoverable and cannot fabricate a payout
+ok 17 - malformed authoritative wallet receipt remains recoverable and cannot fabricate a payout
+  ---
+  duration_ms: 2.024414
+  type: 'test'
+  ...
+# Subtest: mismatched game in response preserves pending without another financial request
+ok 18 - mismatched game in response preserves pending without another financial request
+  ---
+  duration_ms: 1.543491
+  type: 'test'
+  ...
+# Subtest: mismatched stake in response preserves pending without another financial request
+ok 19 - mismatched stake in response preserves pending without another financial request
+  ---
+  duration_ms: 1.60926
+  type: 'test'
+  ...
+# Subtest: mismatched math in response preserves pending without another financial request
+ok 20 - mismatched math in response preserves pending without another financial request
+  ---
+  duration_ms: 1.447306
+  type: 'test'
+  ...
+# Subtest: mismatched request in response preserves pending without another financial request
+ok 21 - mismatched request in response preserves pending without another financial request
+  ---
+  duration_ms: 1.737272
+  type: 'test'
+  ...
+# Subtest: per-game receipt validation is mandatory even when common wallet fields are valid
+ok 22 - per-game receipt validation is mandatory even when common wallet fields are valid
+  ---
+  duration_ms: 1.301668
+  type: 'test'
+  ...
+# Subtest: current model change before first submit requires review and cannot silently change accepted rules
+ok 23 - current model change before first submit requires review and cannot silently change accepted rules
+  ---
+  duration_ms: 3.075935
+  type: 'test'
+  ...
+# Subtest: model change after replay miss prevents same token becoming a wager under different rules
+ok 24 - model change after replay miss prevents same token becoming a wager under different rules
+  ---
+  duration_ms: 1.341988
+  type: 'test'
+  ...
+# Subtest: previously settled round can replay while game is disabled and current model has advanced
+ok 25 - previously settled round can replay while game is disabled and current model has advanced
+  ---
+  duration_ms: 1.618073
+  type: 'test'
+  ...
+# Subtest: double click or repeated key activation cannot queue another spin
+ok 26 - double click or repeated key activation cannot queue another spin
+  ---
+  duration_ms: 0.83798
+  type: 'test'
+  ...
+# Subtest: cooperating instances reject concurrent action and share unresolved request across games
+ok 27 - cooperating instances reject concurrent action and share unresolved request across games
+  ---
+  duration_ms: 2.648743
+  type: 'test'
+  ...
+# Subtest: a late result cannot remove newer persisted ownership
+ok 28 - a late result cannot remove newer persisted ownership
+  ---
+  duration_ms: 0.960163
+  type: 'test'
+  ...
+# Subtest: corrupt or cross-session persisted metadata blocks without sending it or deleting it
+ok 29 - corrupt or cross-session persisted metadata blocks without sending it or deleting it
+  ---
+  duration_ms: 0.637428
+  type: 'test'
+  ...
+# Subtest: failed persistence cannot precede a financial POST
+ok 30 - failed persistence cannot precede a financial POST
+  ---
+  duration_ms: 0.972522
+  type: 'test'
+  ...
+# Subtest: known initial pre-settlement rejection clears request but unknown 400 preserves it
+ok 31 - known initial pre-settlement rejection clears request but unknown 400 preserves it
+  ---
+  duration_ms: 3.686433
+  type: 'test'
+  ...
+# Subtest: read-only preflight retries exhaust without sending a wager
+ok 32 - read-only preflight retries exhaust without sending a wager
+  ---
+  duration_ms: 1.418333
+  type: 'test'
+  ...
+# Subtest: idempotency conflict during recovery remains visible and cannot create a fresh request
+ok 33 - idempotency conflict during recovery remains visible and cannot create a fresh request
+  ---
+  duration_ms: 1.983082
+  type: 'test'
+  ...
+# Subtest: timeout leaves a recoverable token; aborted transport never implies rollback
+ok 34 - timeout leaves a recoverable token; aborted transport never implies rollback
+  ---
+  duration_ms: 25.148666
+  type: 'test'
+  ...
+# Subtest: money format is exact and rejected locally without financial request
+ok 35 - money format is exact and rejected locally without financial request
+  ---
+  duration_ms: 4.340146
+  type: 'test'
+  ...
+# Subtest: transport only addresses the two existing routes with same-origin cookie policy
+ok 36 - transport only addresses the two existing routes with same-origin cookie policy
+  ---
+  duration_ms: 0.674885
+  type: 'test'
+  ...
+# Subtest: Retry-After accepts server seconds and HTTP-date without time truncation
+ok 37 - Retry-After accepts server seconds and HTTP-date without time truncation
+  ---
+  duration_ms: 0.142114
+  type: 'test'
+  ...
+# Subtest: UI observer failure cannot erase a successful result or repeat settlement
+ok 38 - UI observer failure cannot erase a successful result or repeat settlement
+  ---
+  duration_ms: 0.979483
+  type: 'test'
+  ...
+# Subtest: connect cannot restore a disconnected session after the fresh-state await boundary
+ok 39 - connect cannot restore a disconnected session after the fresh-state await boundary
+  ---
+  duration_ms: 0.568855
+  type: 'test'
+  ...
+# Subtest: refresh cannot restore a disconnected session after the fresh-state await boundary
+ok 40 - refresh cannot restore a disconnected session after the fresh-state await boundary
+  ---
+  duration_ms: 0.661074
+  type: 'test'
+  ...
+# Subtest: spin cannot restore a disconnected session after the fresh-state await boundary
+ok 41 - spin cannot restore a disconnected session after the fresh-state await boundary
+  ---
+  duration_ms: 0.448845
+  type: 'test'
+  ...
+# Subtest: disconnect after replay-miss fresh-state prevents a same-key resend and retains pending intent
+ok 42 - disconnect after replay-miss fresh-state prevents a same-key resend and retains pending intent
+  ---
+  duration_ms: 1.277061
+  type: 'test'
+  ...
+# Subtest: spin does not publish an accepted receipt after disconnect during lock return
+ok 43 - spin does not publish an accepted receipt after disconnect during lock return
+  ---
+  duration_ms: 0.72444
+  type: 'test'
+  ...
+# Subtest: recover does not publish an accepted receipt after disconnect during lock return
+ok 44 - recover does not publish an accepted receipt after disconnect during lock return
+  ---
+  duration_ms: 0.934996
+  type: 'test'
+  ...
+# Subtest: connect rejects a synchronous disconnect from the READY observer
+ok 45 - connect rejects a synchronous disconnect from the READY observer
+  ---
+  duration_ms: 0.577718
+  type: 'test'
+  ...
+# Subtest: refresh rejects a synchronous disconnect from the READY observer
+ok 46 - refresh rejects a synchronous disconnect from the READY observer
+  ---
+  duration_ms: 0.43182
+  type: 'test'
+  ...
+# Subtest: cooperating client discovering pending through refresh honors its saved Retry-After
+ok 47 - cooperating client discovering pending through refresh honors its saved Retry-After
+  ---
+  duration_ms: 2.083132
+  type: 'test'
+  ...
+# Subtest: cooperating client discovering pending through spin honors its saved Retry-After
+ok 48 - cooperating client discovering pending through spin honors its saved Retry-After
+  ---
+  duration_ms: 1.548909
+  type: 'test'
+  ...
+# Subtest: recovery reloads a newer Retry-After written by another cooperating client
+ok 49 - recovery reloads a newer Retry-After written by another cooperating client
+  ---
+  duration_ms: 1.792665
+  type: 'test'
+  ...
+1..49
+# tests 49
+# suites 0
+# pass 49
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 229.751821

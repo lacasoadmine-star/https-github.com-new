@@ -1,0 +1,57 @@
+{
+  "schema": "zplay/game-component-verification/v1",
+  "gameId": "zplay72_multi_hot_5_deluxe_v1",
+  "verifiedAtUtc": "2026-11-21T20:32:30.425087+00:00",
+  "component": "observed base-game payout arithmetic",
+  "tests": {
+    "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/games/multi-hot-5-deluxe/tests/evaluator.test.mjs",
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "report": "qa/evaluator-test-results.tap"
+  },
+  "evidence": {
+    "verifiedHashedFiles": 41,
+    "mismatches": [],
+    "supplementalJPEGs": 22,
+    "canonicalManualRoundCount": 7,
+    "roundCountAddedByIngestion": 0
+  },
+  "scope": {
+    "browserInteractionsTested": false,
+    "providerInputsDuringThisReview": 0,
+    "probabilityModelImplemented": false,
+    "outcomeLegalityVerified": false,
+    "productionRequests": 0,
+    "productionWagers": 0,
+    "cashEnabled": false,
+    "releaseReady": false
+  },
+  "reviewedFiles": [
+    {
+      "path": "evaluator.mjs",
+      "sha256": "9e6bc24299194e85482ca5e9d2dd986632a3032595b8492ed832e014b8f29809"
+    },
+    {
+      "path": "tests/evaluator.test.mjs",
+      "sha256": "0bffd882b3fdb5eac671e2b727f7bf1259fb261e07030569324327df114bbf2f"
+    },
+    {
+      "path": "payout-fixtures.json",
+      "sha256": "52dd1fe2253b01f0b0596aec63eb123e686328fcab724d22cf2270a9243398b5"
+    },
+    {
+      "path": "specification.json",
+      "sha256": "931273d29331f1f98d006d0c778ff0193ce4487c1c5629899640a89f42b7d4a0"
+    },
+    {
+      "path": "evidence-index.json",
+      "sha256": "48dd079e967ef9d11025865e99debaa5d9f2010f0b18ca9bd7fb88cbb5cc33d0"
+    },
+    {
+      "path": "README.md",
+      "sha256": "1442025475888607e2ab771973a4e6dc83042b5c3f18ddade385ed0d0297007b"
+    }
+  ]
+}
