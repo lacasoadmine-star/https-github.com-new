@@ -1,3 +1,33 @@
+# Current continuation — renderer, controls and hosted AUTO
+
+Updated: 22 November 2026, Africa/Addis_Ababa. This section records the current continuation; the evaluator-only checkpoint below is retained as history. The new identity remains `zplay72_multi_hot_10_v1`, with the reserved game route `/new-games72/multi-hot-10/`. Existing games and account/ledger records are unchanged.
+
+## Implemented source
+
+The current module now contains its original Canvas renderer, responsive portrait layout, sprite-atlas reader, title-data reader, audio-event handler, controls/dialog state, application entry and dedicated deferred-receipt client/controller. Its current-game artwork/audio files are supplied through the exact preview asset manifest. These files are individually rendered assets; reference screenshots and recordings do not serve as gameplay or as a sequence of outcomes.
+
+The hosted AUTO entry now closes the selected AUTO dialog before checking authenticated SPIN authority. Each original SPIN consumes one AUTO slot, while presentation STOP and receipt retries consume none. BET and a new AUTO selection are disabled during pending/animating results. AUTO stops on uncertainty, session change, disconnect, page hiding, blur and page exit; returning to the page does not silently restart it. An uncertain round keeps its original request key for replay-first recovery. Preview mode cannot accept a financial host or outcome transport and cannot start rounds.
+
+The renderer continuation fixes first-render restoration of a retained winning receipt, native animation-frame receiver binding, portrait control geometry, retained result identity during settlement/orientation changes, and wheel continuity after a late receipt or STOP. The 360/390/430px geometry checks require at least 44px visible control targets. Device-pixel scaling is bounded to two. These statements describe implementation and component checks, not a measured physical-device frame rate or verified provider visual/audio parity.
+
+## Verification at this checkpoint
+
+`node --test codex-work/new-games72-20261121/games/multi-hot-10/*.test.mjs` passed **54/54 component and fixture tests**, with zero failures/skips: 34 retained evaluator checks, 10 actual-entry/deferred-controller checks and 10 responsive renderer checks. The entry checks execute the real application action code, controls, deferred client and controller against an isolated synthetic transport; drawing/audio are stubbed for those checks. They verify exactly 25 accepted fixture rounds with distinct original keys and no 26th request, STOP without another wager, lost-reply replay, pending controls and session/visibility behavior. They are not live account settlement, PostgreSQL concurrency, native browser acceptance or whole-game completion.
+
+## Exact server integration still to complete
+
+The carried-forward backend files in this module are `contract.mjs`, `deferred-protocol.mjs`, `deferred-client.mjs` and `deferred-controller.mjs`. They specify and validate the authenticated deferred SPIN/TAKE/X2 receipt boundary. **No PostgreSQL migration, journal implementation, reserve-wallet callback or new endpoint has been installed by this source continuation.** The existing shared recovery and old game routes remain unchanged.
+
+1. Bind the new game to the existing engine's authenticated transaction and ledger closures. SPIN must debit once and reserve a positive win; TAKE or the next SPIN must collect that same reserved win once. The existing immediate-credit receipt equation must not be substituted for this deferred contract. The prepared lifecycle/journal work from the ongoing project must be integrated and tested in a disposable PostgreSQL database before deployment, including concurrent retry, TAKE/SPIN contention, rollback and cross-game active-round ownership.
+2. Install the trusted game-specific model identified by `mathVersion`, `engineVersion` and `mathSha256`, with retained versions for accepted receipts. The current evaluator supplies exact per-line quotes only. Full outcome probabilities, legal outcome restrictions, multiplier distribution/dependence, aggregate payout, the displayed 1000x maximum rule, and fractional-minor-unit rounding are not established by the observed rounds. No guessed sampler or round total is provided.
+3. Bind an explicit ETB stake policy and maximum-liability calculation from that approved model. The provider's displayed DMO choices are not automatically the operator's ETB policy.
+4. Finish X2 eligibility, attempt/time/amount limits, outcome distribution and accepted-action history. The frontend's X2 presentation is not activated by the existence of a receipt type. Keep an already accepted pending win collectable when future wagering is disabled or a model is retired.
+5. Register the reviewed new-game state/SPIN dispatch and the reserved collection/gamble routes in the existing server, preserve origin/body/rate/session controls, then verify the exact authenticated live release. Keep the new-game release disabled until these prerequisites and its gameplay verification are satisfied.
+
+**This checkpoint does not enable production wagers or declare Multi Hot 10 complete.** The current preview is presentation-only, and the host defaults to new rounds disabled. The following section describes the earlier evaluator-only source and its evidence limits at that earlier time.
+
+---
+
 # Multi Hot 10 — confirmed line arithmetic, fresh reference and state specification
 
 This independent additive module uses only the current official Multi Hot 10 reference captured on 21 November 2026. It preserves game ID `zplay72_multi_hot_10_v1` and route `/new-games72/multi-hot-10/`. No old live game implementation, gameplay, symbols or artwork was borrowed.
