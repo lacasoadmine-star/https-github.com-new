@@ -1,0 +1,144 @@
+{
+  "schema": "zplay/multihot20-fresh-reference/v1",
+  "observedDate": "2026-11-21",
+  "timezone": "Africa/Addis_Ababa",
+  "gameId": "fresh_multihot20",
+  "officialProduct": "https://www.smartsoftgaming.com/games/multi-hot-20",
+  "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&PortalName=demo&Token=DEMO",
+  "screenshots": {
+    "ready.jpg": {
+      "file": "official-ready.jpg",
+      "bytes": 136608,
+      "sha256": "924510dcba7dedc076503f166c62662b8b7821d7729d8543cb35b7d9c8b08b21"
+    },
+    "spin-01-result.jpg": {
+      "file": "official-spin-01-result.jpg",
+      "bytes": 133079,
+      "sha256": "d944c4658c2a7a33df8da52449d9784086e03c262f7ba5cc039bd2defb4e9a61"
+    },
+    "rules-top.jpg": {
+      "file": "official-rules-top.jpg",
+      "bytes": 73026,
+      "sha256": "1d4d515b5e1d6c3cc5aadd29202d689841361c462f05ce9eb4b48fff7c6c505e"
+    },
+    "autoplay.jpg": {
+      "file": "official-autoplay.jpg",
+      "bytes": 65547,
+      "sha256": "f18a2702786a1722f9b3b0d341cb4f253fec9a1f5130840c6e2e6fba03973022"
+    },
+    "timeout.jpg": {
+      "file": "official-timeout.jpg",
+      "bytes": 89745,
+      "sha256": "dc9010749875d90ce04f06d5e4fc79a8bc3565f76ae4b683a6c9fdfe65921f0f"
+    }
+  },
+  "observed": {
+    "reels": 5,
+    "rows": 3,
+    "fixedPaylines": 20,
+    "autoCounts": [
+      25,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "autoDefault": 100,
+    "stopAutoplayConditions": [
+      "single win",
+      "balance decrease",
+      "balance increase"
+    ],
+    "wheelMultipliers": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "demoCurrency": "DMO",
+    "completedSpins": 1,
+    "firstSpin": {
+      "bet": "0.20",
+      "balanceBefore": "20000.00",
+      "balanceAfter": "19999.80",
+      "wheelMultiplier": 5,
+      "win": "0.00"
+    },
+    "secondSpin": "TIME_OUT_AFTER_SESSION_IDLE",
+    "quickPlayReference": "Opening the control produced a blank game view; one reload recovered it. No timing parity was established."
+  },
+  "media": {
+    "officialImagesRefetched": 14,
+    "existingOriginalSoundsRetained": 5,
+    "allSoundsFreshlyDownloaded": false,
+    "officialDemoObserved": "2026-11-21",
+    "officialDemoCompletedSpins": 1,
+    "officialDemoSecondSpin": "session_timeout",
+    "providedUserScreenshotsUsedAsAssets": false
+  },
+  "limits": {
+    "providerRngReproduced": false,
+    "freshOfficialAudioDownloaded": false,
+    "officialAudioAudiblyCompared": false,
+    "fullOfficialMotionTimingMeasured": false,
+    "physicalMobile60FpsVerified": false,
+    "realPlayerWagers": 0,
+    "providedExamplesUsedAsProductionAssets": false
+  },
+  "retainedAudio": {
+    "schema": "zplay/retained-local-audio-provenance/v1",
+    "gameId": "fresh_multihot20",
+    "recordedAt": "2026-11-21T01:12:43.086409+00:00",
+    "sourcePolicy": "Four exact matching files were copied from existing workspace files. Win was separately supplied by the root agent from the existing project KV, as recorded in retained-win-provenance.json. These retained clips provide existing sound continuity; none is claimed as freshly acquired official demo audio.",
+    "verifiedStagedFiles": 5,
+    "files": [
+      {
+        "file": "button.mp3",
+        "expectedSHA256": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003",
+        "expectedBytes": 10493,
+        "manifestOriginalName": "multi-hot-20/03-sound/3c00963f1dd6-Button.mp3",
+        "freshCapture": false,
+        "status": "RETAINED_EXISTING_LOCAL_AUDIO",
+        "copied": true
+      },
+      {
+        "file": "music.mp3",
+        "expectedSHA256": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5",
+        "expectedBytes": 2096626,
+        "manifestOriginalName": "multi-hot-20/03-sound/be1d653cbf8d-Background.mp3",
+        "freshCapture": false,
+        "status": "RETAINED_EXISTING_LOCAL_AUDIO",
+        "copied": true
+      },
+      {
+        "file": "reel-stop.mp3",
+        "expectedSHA256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
+        "expectedBytes": 22080,
+        "manifestOriginalName": "multi-hot-20/03-sound/27f16e728760-ReelStop1.mp3",
+        "freshCapture": false,
+        "status": "RETAINED_EXISTING_LOCAL_AUDIO",
+        "copied": true
+      },
+      {
+        "file": "spin.mp3",
+        "expectedSHA256": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87",
+        "expectedBytes": 28322,
+        "manifestOriginalName": "multi-hot-20/03-sound/6b121706bb37-Spin.mp3",
+        "freshCapture": false,
+        "status": "RETAINED_EXISTING_LOCAL_AUDIO",
+        "copied": true
+      },
+      {
+        "file": "win.mp3",
+        "expectedSHA256": "86c389b42fd8f0ff62a4d1a6e0789cda7a212f8d37297ea499bf19b9a9e0e5a7",
+        "expectedBytes": 32644,
+        "manifestOriginalName": "multi-hot-20/03-sound/fd4aa1b0db60-Win.mp3",
+        "freshCapture": false,
+        "status": "RETAINED_EXISTING_PROJECT_KV_STAGED_BY_ROOT",
+        "copied": true
+      }
+    ],
+    "provenanceDetail": "Original local and deployment provenance remains in the private release verification records; this public record contains media identity and acquisition status only."
+  }
+}

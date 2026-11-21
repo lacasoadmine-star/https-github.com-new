@@ -91,17 +91,20 @@ jobs:
         run: |
           node --test codex-work/native72-20261119/changes/batch01/new-games-session.test.mjs
           node --test codex-work/native72-20261119/changes/batch01/session-transport.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/multihot20-action-controls.test.mjs
           node --check codex-work/native72-20261119/changes/batch01/multihot20/controller.mjs
           node --check codex-work/native72-20261119/changes/batch01/multihot5burnwilds/controller.mjs
       - name: Verify missing-game independent Canvas reels and background audio
         run: |
           node --test codex-work/native72-20261119/changes/batch01/scene-lifecycle.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/multihot20-motion-assets-r5.test.mjs
           node --check codex-work/native72-20261119/changes/batch01/multihot20/scene.mjs
           node --check codex-work/native72-20261119/changes/batch01/multihot5burnwilds/scene.mjs
       - name: Verify Multi Hot 20 and Burn Wilds original Player UI and KV route integration
         run: |
           node --test codex-work/native72-20261119/changes/batch01/player-kv-route.test.mjs
           node --test codex-work/native72-20261119/changes/batch01/player-session-ledger.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/prepare-browser-media.test.mjs
           for game in multihot20 multihot5burnwilds; do
             for file in app controller scene session assets; do
               node --check "codex-work/native72-20261119/changes/batch01/$game/$file.mjs"
@@ -135,3 +138,39 @@ jobs:
       - name: Verify real transactions in a disposable local PostgreSQL container
         working-directory: codex-work/native72-20261119/changes/batch01/server/postgres-qa
         run: npm test
+
+  multihot20-browser:
+    needs: native72-unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch and verify nineteen existing project media files for isolated QA
+        run: |
+          node codex-work/native72-20261119/changes/batch01/prepare-browser-media.mjs \
+            --output "$RUNNER_TEMP/m20-browser-assets" \
+            --report "$RUNNER_TEMP/m20-browser-report/media-download.json"
+      - name: Install pinned Playwright and its bundled Chromium
+        run: |
+          npm install --prefix "$RUNNER_TEMP/m20-browser-tools" --ignore-scripts --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/m20-browser-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Exercise the actual checked-out Multi Hot 20 app against an isolated loopback ledger
+        env:
+          NODE_PATH: ${{ runner.temp }}/m20-browser-tools/node_modules
+        run: |
+          export M20_QA_CHROMIUM="$(node -e 'process.stdout.write(require("playwright").chromium.executablePath())')"
+          node codex-work/native72-20261119/changes/batch01/multihot20-browser-acceptance-r5.cjs \
+            --assets "$RUNNER_TEMP/m20-browser-assets" \
+            --output "$RUNNER_TEMP/m20-browser-report" \
+            --viewports 390x844,360x800,412x915,430x932,768x1024,1440x900,844x390
+      - name: Preserve QA screenshots, media provenance and browser acceptance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multihot20-browser-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/m20-browser-report
+          if-no-files-found: error
+          retention-days: 14

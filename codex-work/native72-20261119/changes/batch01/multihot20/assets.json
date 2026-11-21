@@ -1,11 +1,11 @@
 {
   "schema": "zplay/verified-official-capture-assets/v1",
   "gameId": "fresh_multihot20",
-  "revision": "batch01-20261120-r1",
-  "captureDate": "2026-11-11",
-  "source": "SSG_OFFICIAL_REFERENCES archived official demo capture, not a game-engine license",
+  "revision": "batch01-20261121-r5",
+  "captureDate": "2026-11-21",
+  "source": "14 images freshly downloaded from the official demo CDN on 2026-11-21; five original audio files retained from the existing verified project capture",
   "baseUrl": "./assets/",
-  "provenance": "existing Cloudflare KV namespace 361c2fbf17b747ae8b76fb0e9540555a",
+  "provenance": "Per-file retrieval records distinguish fresh official images from retained verified project audio; original SHA-256 and byte sizes are preserved",
   "symbols": [
     "seven",
     "bell",
@@ -27,115 +27,219 @@
       "sha256": "87b4e66861db2f1740601f8638a9c0a1d8ddb4f6b81c139272871d38639819c5",
       "bytes": 1797452,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/0295ce9a40aa-background.png"
+      "originalName": "multi-hot-20/06-artwork/0295ce9a40aa-background.png",
+      "officialURL": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot20/Images/background.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:37.238Z"
+      }
     },
     "bell.png": {
       "sha256": "2bb0fa62ff7d8fe497e1a56d393589dc7253f43ae6cfda26ae7703a86a501ea3",
       "bytes": 46212,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/d2dbabe0b591-Symbol2.png"
+      "originalName": "multi-hot-20/06-artwork/d2dbabe0b591-Symbol2.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol2.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:37.771Z"
+      }
     },
     "button.mp3": {
       "sha256": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003",
       "bytes": 10493,
       "contentType": "audio/mpeg",
-      "originalName": "multi-hot-20/03-sound/3c00963f1dd6-Button.mp3"
+      "originalName": "multi-hot-20/03-sound/3c00963f1dd6-Button.mp3",
+      "officialURL": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot20/Buttons/Button.mp3",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
     },
     "grape.png": {
       "sha256": "f9647c23bfbe3ec3623515b715d16267d12d97d4b8a91a76028acbfb47ea61b4",
       "bytes": 60114,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/f9be6119b6d9-Symbol3.png"
+      "originalName": "multi-hot-20/06-artwork/f9be6119b6d9-Symbol3.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol3.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:38.244Z"
+      }
     },
     "music.mp3": {
       "sha256": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5",
       "bytes": 2096626,
       "contentType": "audio/mpeg",
-      "originalName": "multi-hot-20/03-sound/be1d653cbf8d-Background.mp3"
+      "originalName": "multi-hot-20/03-sound/be1d653cbf8d-Background.mp3",
+      "officialURL": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot20/Start/Background.mp3",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
     },
     "other-fruits.png": {
       "sha256": "1a9ea1b312f0842f5419742880cbe7392fbe9918624ce9e870f11e0e9aecbe8a",
       "bytes": 94346,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/5e9b529c4f53-Symbol-Others.png"
+      "originalName": "multi-hot-20/06-artwork/5e9b529c4f53-Symbol-Others.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol-Others.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:38.726Z"
+      }
     },
     "reel-stop.mp3": {
       "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946",
       "bytes": 22080,
       "contentType": "audio/mpeg",
-      "originalName": "multi-hot-20/03-sound/27f16e728760-ReelStop1.mp3"
+      "originalName": "multi-hot-20/03-sound/27f16e728760-ReelStop1.mp3",
+      "officialURL": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot20/Start/ReelStop1.mp3",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
     },
     "seven.png": {
       "sha256": "af40dbf0aa01ee211b8a7138042a400de800721c32854c59afaa1ee016eff754",
       "bytes": 37889,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/57ce700f383e-Symbol1.png"
+      "originalName": "multi-hot-20/06-artwork/57ce700f383e-Symbol1.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol1.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:36.954Z"
+      }
     },
     "spin.mp3": {
       "sha256": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87",
       "bytes": 28322,
       "contentType": "audio/mpeg",
-      "originalName": "multi-hot-20/03-sound/6b121706bb37-Spin.mp3"
+      "originalName": "multi-hot-20/03-sound/6b121706bb37-Spin.mp3",
+      "officialURL": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/MultiHot20/Buttons/Spin.mp3",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
     },
     "watermelon.png": {
       "sha256": "5c8f3488bd146186a388a7fbe2227986aad40dadaaf09da1b2af6b35504c4672",
       "bytes": 46580,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/e5a029a846bd-Symbol4.png"
+      "originalName": "multi-hot-20/06-artwork/e5a029a846bd-Symbol4.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol4.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:39.232Z"
+      }
     },
     "win.mp3": {
       "sha256": "86c389b42fd8f0ff62a4d1a6e0789cda7a212f8d37297ea499bf19b9a9e0e5a7",
       "bytes": 32644,
       "contentType": "audio/mpeg",
-      "originalName": "multi-hot-20/03-sound/fd4aa1b0db60-Win.mp3"
+      "originalName": "multi-hot-20/03-sound/fd4aa1b0db60-Win.mp3",
+      "officialURL": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Sound/Common/Start/Win.mp3",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
     },
     "auto-button.png": {
       "sha256": "6bb25d290efa976784f1d2834bf15a28c28eb6b00c4980d642b1d81417b864e5",
       "bytes": 21864,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/eed9025010d8-AutoPlay.png"
+      "originalName": "multi-hot-20/06-artwork/eed9025010d8-AutoPlay.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/AutoPlay.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:39.726Z"
+      }
     },
     "balance-frame.png": {
       "sha256": "2721399b9e7aad82e7fc7c1b92f3eef4ffda938836f7151743a170c6ffd8c48d",
       "bytes": 5423,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/d48a55a381bb-Balance.png"
+      "originalName": "multi-hot-20/06-artwork/d48a55a381bb-Balance.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Balance.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:40.235Z"
+      }
     },
     "bet-frame.png": {
       "sha256": "9e325d5c606dace62110b45e328d06b4193e49a750bb79c7b9fba7921af22f7a",
       "bytes": 5441,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/29705ae20771-Bet.png"
+      "originalName": "multi-hot-20/06-artwork/29705ae20771-Bet.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Bet.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:40.740Z"
+      }
     },
     "menu-icon.png": {
       "sha256": "68461e8fcfd13de54e13d8ebaca8a0a4176e0e84d8dc2a9e89174c7c7bbde34f",
       "bytes": 1237,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/d956fb891f05-Menu.png"
+      "originalName": "multi-hot-20/06-artwork/d956fb891f05-Menu.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Menu.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:41.233Z"
+      }
     },
     "sound-icon.png": {
       "sha256": "74564c9e4d36ec510d0d592c46fa0defb6b9fe203daaf749dd7f81acc609205b",
       "bytes": 1678,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/e65afdbb55fa-Sound.png"
+      "originalName": "multi-hot-20/06-artwork/e65afdbb55fa-Sound.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Sound.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:41.732Z"
+      }
     },
     "spin-button.png": {
       "sha256": "ce6b54ef6bf1239f55b33c8696595217c97fd7ab81f74bb2a8aa2dccc399f704",
       "bytes": 47468,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/b951902e8291-Spin.png"
+      "originalName": "multi-hot-20/06-artwork/b951902e8291-Spin.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Spin.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:42.239Z"
+      }
     },
     "turbo-icon.png": {
       "sha256": "7f05f6c378594d35fbc4ecc35b73db2069c4920c8dc8055cfed7ada61561ab5f",
       "bytes": 5705,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/9223a94bd6b4-Turbo.png"
+      "originalName": "multi-hot-20/06-artwork/9223a94bd6b4-Turbo.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Turbo.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:42.715Z"
+      }
     },
     "wheel.png": {
       "sha256": "6334b88d1b66cfad2b6ec818d0c955b2f76d3f129dbb7054c7589d6514e790fb",
       "bytes": 201981,
       "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/6fc0af99b73c-MultiHot-Multiplier.png"
+      "originalName": "multi-hot-20/06-artwork/6fc0af99b73c-MultiHot-Multiplier.png",
+      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/MultiHot-Multiplier.png",
+      "retrieval": {
+        "kind": "fresh_official_browser_download",
+        "at": "2026-11-21T01:09:43.214Z"
+      }
     }
+  },
+  "provenanceSummary": {
+    "officialImagesRefetched": 14,
+    "existingOriginalSoundsRetained": 5,
+    "allSoundsFreshlyDownloaded": false,
+    "officialDemoObserved": "2026-11-21",
+    "officialDemoCompletedSpins": 1,
+    "officialDemoSecondSpin": "session_timeout",
+    "providedUserScreenshotsUsedAsAssets": false
   }
 }
