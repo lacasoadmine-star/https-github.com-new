@@ -1,10 +1,10 @@
 export default {
   "schema": "zplay/m10-visual-preview/v1",
   "repository": "lacasoadmine-star/https-github.com-new",
-  "sourceCommit": null,
+  "sourceCommit": "9326e45e0f5384afea5c503e3bdbfb649da4d414",
   "revision": "5e458be30eb4fc0bf8492793",
   "entry": "/new-games72/games/multi-hot-10/main.mjs",
-  "status": "UNPUBLISHED_COMMIT_REQUIRED",
+  "status": "PINNED_BYTES_REQUIRE_REMOTE_VERIFICATION",
   "visualPreviewOnly": true,
   "financialOperations": false,
   "entries": [
