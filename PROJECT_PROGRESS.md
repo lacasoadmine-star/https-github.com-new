@@ -8,7 +8,63 @@
 
 > Release claims apply only to the exact files and Worker version in the newest dated release below. Other staged patches, including the two missing-game controllers, are not verified deployed. A public page, an intercepted QA spin and an official demo are distinct evidence; none establishes real authenticated ETB settlement.
 
-## 2026-11-21 — current continuation: Multi Hot 20 original scene, held SPIN and win presentation
+
+## 2026-11-21 07:00 EAT — current checkpoint: exact M20 QA passed, activation pending
+
+**Active: batch 1, games 1–10 of 72; #4 Multi Hot 20 is IN_PROGRESS. #8 Multi Hot 5 Burn Wilds remains closed and follows this game. COMPLETED: 0/10.** Continue this existing project and branch. This newest checkpoint supersedes the historical next-step paragraphs below.
+
+### Implemented and verified
+
+The frozen tested source is [d94c654d67a264d744fb412dafc07ff4c5aec186](https://github.com/lacasoadmine-star/https-github.com-new/commit/d94c654d67a264d744fb412dafc07ff4c5aec186). The canonical SHA256 of its nineteen release source files is `f33e290b237c2a285b5bae392f48ae3be2012dcc4b6555316a803815cfedc7ab`.
+
+- Original multiplier ring, symbol sprites, reel frame, title and control atlas replace the earlier help-image composition. HOLD repeats only after settlement and stops on release, leaving the button or opening MENU. The brief pending/ready focus bug is fixed.
+- The original background covers the viewport without the square scene seam. Short-landscape controls stay close to the machine and clear the grid and ledger.
+- NICE WIN uses original lettering, small crown, green frame, clover coin, amount plaque and backlight. Its amount comes only from the authoritative receipt. X2 and TAKE use original button textures. Historical restoration is static and silent; reduced-motion completion no longer emits delayed reel-stop sounds.
+- The Player route now validates the actual M20 package: eight game source files and thirteen media files. Existing API/auth forwarding and the other games remain preserved.
+- Runtime media is thirteen verified files: one fresh official background, five retained original rendering atlases, two retained original WIN sheets and five retained original audio files. The fresh idle-layout reference and the explicitly bounded NICE observation are committed under `codex-work/native72-20261119/qa/evidence/m20-r6/`.
+
+### Actual exact-source test result
+
+[GitHub Actions run 44857853999](https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44857853999) completed **SUCCESS** for d94c654. This replaces the earlier failed a2e54ff/399a226 browser attempts as the accepted test evidence.
+
+| Scope | Executed result |
+| --- | --- |
+| Unit job | 489/489 PASS, zero failures/skips/cancellations |
+| Disposable PostgreSQL job | 52/52 PASS; the separate eight-case accepted-policy report is included in 52 |
+| Browser | 7/7 viewports, 93/93 named checks |
+| Media integrity | All thirteen exact length/SHA pins passed |
+| Original controls | All 39 reachable atlas states; the full source inventory has 46 names |
+| HOLD | Three rounds then release, one then pointer-leave, one then MENU focus; no extra POST |
+| NICE fixture | Actual evaluator produces 20.00 ETB from a 1.00 ETB stake; one POST, one BET, one WIN and one win cue |
+| Restore | Zero new POSTs, zero sound cues and zero scene animation frames |
+
+The browser used the actual app with its production CSP and an isolated loopback fixture. There were zero page errors, external requests or media failures; the two resource errors were the deliberately injected SPIN/X2 503 recovery cases. NICE was observed over 151 frames spanning approximately 2583ms. Portrait, tablet, desktop, short-landscape, restored and NICE screenshots were inspected; no concrete new overlap, clipped control, misoriented art or background seam was found.
+
+Browser artifact: `14688517038`; byte-exact report SHA256 `dda58218e22f4c0a33a7ba7e9aacecee9e8ae32e3c417b0dcc04af3cec5b726e`. PostgreSQL artifact: `14688595562`. Keep actual reports/logs with their source identities; this summary is not a substitute for evidence.
+
+### Staging and release state
+
+**Twenty-four new Player KV records were staged and their contents read back by size and SHA before the interruption:** twenty-one M20 game files and three lobby files. A fresh connector inventory at 04:00 UTC confirmed all twenty-four keys and their recorded hashes remain present under asset revision `batch01-20261121-r6`. They are **STAGED_NOT_ACTIVATED**.
+
+The five private evidence categories were assembled and the explicit M20-only acceptance validator passed. The exact twelve-record backend package reconstructed correctly; the compact-wrapper size preflight was **86,128 bytes**, with a **114,849-byte** start command. This was a local preflight, not a deployment. The backend release identity is `native72-batch01-20261121-r3`; it is distinct from the Player asset revision.
+
+The execution environment and browser became unavailable during publication of the reviewed public transport artifact. The runtime store was replaced. The interrupted blob upload was not confirmed: lookup of its expected Git object `5b5879c649168ba442da33160317050f40306895` returned 404. The repository branch was independently rechecked at d94c654 before this progress-only commit.
+
+**No new Worker or backend release was activated.** Post-interruption reads confirmed the live Player remains v461 and the existing Railway service remains on its successful r2 deployment with no staged change to that service. No production wager or wallet mutation was performed. Burn stays closed.
+
+The operator math is independently implemented, with exact 96.63% modeled return and a 1000x cap; provider RNG and certification flags remain false. These tests do not certify audible provider parity, full provider timing/composition equivalence or physical mobile 60 FPS. Visual tier thresholds and durations remain documented independent presentation choices.
+
+### Exact next action — resume here
+
+1. Restore access to the existing execution environment, then recover the frozen release inputs. Preserve d94c654, the nineteen-source digest, thirteen-media inventory and all staged keys. Do not rebuild the games from zero or skip to the next game.
+2. Recover the actual evidence from CI run44857853999 and the reviewed private inputs. Revalidate all five evidence pairs against the unchanged source and mathematical identities. If private scratch records were lost, reconstruct their review from actual evidence and existing authorization; do not fabricate their old bytes or signatures.
+3. Complete publication and exact readback of the reviewed public transport subset. Expected bytes: **1,731,334**; SHA256: `98fe9c5d9d7556823531c60b17911929e6c339a6123aa60ea17c323cb9c55856`. It contains only the nineteen already-public sources plus unit/PostgreSQL/browser evidence. Private acceptance, source/operator reviews and runtime material stay private.
+4. Build the final compact wrapper against that artifact's actual immutable publication commit URL. The tested source remains d94c654. Require exact twelve-record restoration, unchanged loader checks, function source at most 98,295 bytes and start command including NUL at most 131,072 bytes. Do not deploy the size-preflight placeholder URL.
+5. Recheck current live preservation guards, update only the existing Railway service, then activate the additive Player route while retaining the older modules and configuration. Do not accept unrelated environment-wide staged changes. Verify actual deployment and public/authenticated readbacks without a production wager.
+6. Record actual deployment identifiers and verification results here. Finish Multi Hot 20's remaining release verification before proceeding to Burn Wilds and the rest of Games 1–10. Existing user authorization to implement, test and deploy remains in force; no repeated permission or project re-explanation is needed.
+
+
+## 2026-11-21 — preceding checkpoint: Multi Hot 20 original scene, held SPIN and win presentation
 
 **Active: batch 1, games 1–10 of 72; #4 Multi Hot 20 is IN_PROGRESS. #8 Multi Hot 5 Burn Wilds follows this acceptance. COMPLETED: 0/10.** This checkpoint and the exact-next-step section govern continuation. Older dated “current” and “next” paragraphs below are retained historical evidence, not instructions to restart or move away from the active game.
 
