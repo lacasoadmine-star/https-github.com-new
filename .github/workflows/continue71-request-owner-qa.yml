@@ -1,0 +1,109 @@
+# Isolated continuation verification only. The credentials and wallet rows below
+# belong to a temporary localhost service created for this job. No production
+# secrets, schemas, services, game release flags or deployments are used.
+name: Continuation request ownership and presentation QA
+
+on:
+  push:
+    branches:
+      - work/continue71-20261122
+    paths:
+      - 'codex-work/continue71-20261122/request-owner-guard/**'
+      - 'codex-work/continue71-20261122/multi-hot-20-component/**'
+      - 'codex-work/continue71-20261122/multi-hot-100-component/**'
+      - '.github/workflows/continue71-request-owner-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: continue71-request-owner-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard-and-presentation:
+    if: github.ref == 'refs/heads/work/continue71-20261122'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify request ownership and isolated M20 and M100 presentation
+        timeout-minutes: 2
+        run: |
+          mkdir -p "$RUNNER_TEMP/continue71-unit-results"
+          timeout 60s node --test --test-reporter=tap \
+            codex-work/continue71-20261122/request-owner-guard/request-owner-guard.test.mjs \
+            codex-work/continue71-20261122/multi-hot-20-component/render/motion.test.mjs \
+            codex-work/continue71-20261122/multi-hot-100-component/render/presentation.test.mjs \
+            | tee "$RUNNER_TEMP/continue71-unit-results/tests.tap"
+      - name: Preserve isolated component test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continue71-components-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/continue71-unit-results
+          if-no-files-found: error
+          retention-days: 7
+
+  request-owner-postgres:
+    if: github.ref == 'refs/heads/work/continue71-20261122'
+    needs: guard-and-presentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        # Exact image digest retained from the existing disposable server QA.
+        image: postgres:17-bookworm@sha256:837bed18782820fe967067cb5328b02b0d9992c1be9a37ee0c9c492cfc03af3b
+        env:
+          POSTGRES_USER: zplay_guard_ci
+          POSTGRES_PASSWORD: disposable_ci_only
+          POSTGRES_DB: postgres
+        ports:
+          - '127.0.0.1:5432:5432'
+        options: >-
+          --health-cmd "pg_isready -U zplay_guard_ci -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+          --tmpfs /var/lib/postgresql/data:rw
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install the pinned disposable PostgreSQL client
+        timeout-minutes: 2
+        # The existing server QA also pins pg 8.16.3. This install is outside
+        # the repository and runs no package scripts or project install.
+        run: npm install --prefix "$RUNNER_TEMP/request-owner-tools" --ignore-scripts --no-package-lock --no-audit --no-fund pg@8.16.3
+      - name: Verify real transactions, ownership races and rollback in a new database
+        timeout-minutes: 3
+        env:
+          REQUEST_OWNER_TEST_POSTGRES_ADMIN_URL: postgres://zplay_guard_ci:disposable_ci_only@127.0.0.1:5432/postgres
+          REQUEST_OWNER_TEST_CREATE_DATABASE: disposable-database-only
+          REQUEST_OWNER_TEST_NODE_MODULES: ${{ runner.temp }}/request-owner-tools/node_modules
+        run: |
+          mkdir -p "$RUNNER_TEMP/request-owner-postgres-results"
+          timeout 120s node --test --test-reporter=tap \
+            codex-work/continue71-20261122/request-owner-guard/postgres/run-postgres-tests.mjs \
+            | tee "$RUNNER_TEMP/request-owner-postgres-results/tests.tap"
+      - name: Preserve disposable PostgreSQL test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continue71-request-owner-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/request-owner-postgres-results
+          if-no-files-found: error
+          retention-days: 7

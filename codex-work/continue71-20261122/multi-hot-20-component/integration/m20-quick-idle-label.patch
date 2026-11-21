@@ -1,0 +1,11 @@
+--- a/main.mjs
++++ b/main.mjs
+@@ -36,7 +36,7 @@
+     const spin=buttons.spin;
+     buttonArt(spin,moving&&!state.stopRequested?(state.settings.quick?'Buttons/SpinTurboStop':'Buttons/SpinStop'):(state.settings.quick?'Buttons/SpinTurbo':'Buttons/Spin'));
+     spin.setAttribute('aria-label',moving&&!state.stopRequested?'Stop':'Spin');
+-    spin.disabled=previewOnly||state.modal!==null||(!idle&&!moving)||(moving&&state.stopRequested);spin.textContent=moving&&!state.stopRequested?'STOP':state.settings.quick?'SPIN':'HOLD\n&\nSPIN';
++    spin.disabled=previewOnly||state.modal!==null||(!idle&&!moving)||(moving&&state.stopRequested);spin.textContent=moving&&!state.stopRequested?'STOP':'HOLD\n&\nSPIN';
+     buttonArt(buttons.auto,state.auto?.active?'Buttons/AutoPlayStop':'Buttons/AutoPlay');buttons.auto.disabled=!idle&&!state.auto?.active;
+     const betLocked=state.phase!=='READY'||!!state.auto?.active;
+     buttonArt(buttons.bet,betLocked?'Buttons/BetDisabled':'Buttons/Bet');buttons.bet.disabled=betLocked;

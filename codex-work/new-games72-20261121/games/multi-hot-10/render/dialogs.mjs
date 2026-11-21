@@ -9,9 +9,16 @@ export class MultiHot10Dialogs {
   constructor(container, atlas, onAction) {
     this.container = container; this.atlas = atlas; this.onAction = onAction;
     this.current = null; this.quickOpen = false; this.opener = null;
+    this.betStart = 0; this.betState = null;
     this.click = event => {
+      if (this.current === 'bet' && event.target === this.container) { this.onAction('close'); return; }
       const target = event.target.closest('button[data-action]');
-      if (target && !target.disabled) this.onAction(target.dataset.action, target.dataset.value);
+      if (!target || target.disabled) return;
+      if (target.dataset.action === 'bet-page') {
+        event.preventDefault(); event.stopPropagation();
+        this.pageBets(target.dataset.value); return;
+      }
+      this.onAction(target.dataset.action, target.dataset.value);
     };
     this.key = event => {
       if (event.key === 'Escape') { event.preventDefault(); this.onAction('close'); }
@@ -35,6 +42,7 @@ export class MultiHot10Dialogs {
     const focusAction = same ? document.activeElement?.dataset?.action : null;
     const focusValue = same ? document.activeElement?.dataset?.value : null;
     if (!same) this.opener = document.activeElement;
+    this.betState = name === 'bet' ? state : null;
     this.current = name; this.container.hidden = false; this.container.replaceChildren();
     this.container.className = 'm10-dialog-layer m10-dialog-' + name;
     const modal = el('section', 'm10-dialog'); modal.setAttribute('role', 'dialog');
@@ -46,8 +54,8 @@ export class MultiHot10Dialogs {
     else this.quick(modal);
     const content = this.container.querySelector('.m10-menu-content'); if (content) content.scrollTop = scroll;
     const matching = [...this.container.querySelectorAll('button')].find(node =>
-      node.dataset.action === focusAction && node.dataset.value === focusValue);
-    (matching || this.container.querySelector('button'))?.focus({ preventScroll: true });
+      !node.disabled && node.dataset.action === focusAction && node.dataset.value === focusValue);
+    (matching || this.container.querySelector('button:not(:disabled)'))?.focus({ preventScroll: true });
   }
   menu(modal, state) {
     const header = el('header', 'm10-menu-header');
@@ -137,11 +145,41 @@ export class MultiHot10Dialogs {
   bets(modal, state) {
     modal.style.backgroundImage = `url("${this.atlas.url('Bets/Popup')}")`;
     const list = el('div', 'm10-bet-choices');
-    for (const value of state.betLevels) {
-      const node = this.nativeButton(value + ' ' + state.currency, 'choose-bet', value === state.selectedBet ? 'Bets/ButtonActive' : 'Bets/Button', value);
-      node.setAttribute('aria-label', 'Bet ' + value + ' ' + state.currency); list.append(node);
+    list.setAttribute('role', 'list'); list.setAttribute('aria-label', 'Bet options');
+    const lastStart = Math.max(0, state.betLevels.length - 5);
+    this.betStart = Math.max(0, Math.min(this.betStart, lastStart));
+    list.dataset.startIndex = String(this.betStart);
+    // The observed control moves a five-row window, clamping the final
+    // window to the last five values. It never fills gaps in the host ladder.
+    for (let index = 0; index < 5; index++) {
+      const value = state.betLevels[this.betStart + index];
+      const row = el('div', 'm10-bet-row'); row.setAttribute('role', 'listitem');
+      row.style.backgroundImage = `url("${this.atlas.url(value === state.selectedBet ? 'Bets/ButtonActive' : 'Bets/Button')}")`;
+      if (value !== undefined) {
+        const choice = button('', 'choose-bet', value); choice.className = 'm10-bet-choice';
+        choice.setAttribute('aria-label', 'Bet ' + value + ' ' + state.currency);
+        choice.setAttribute('aria-pressed', String(value === state.selectedBet));
+        const label = el('span', 'm10-bet-label'); label.setAttribute('aria-hidden', 'true');
+        label.append(el('span', 'm10-bet-amount', value), el('span', 'm10-bet-currency', state.currency));
+        row.append(choice, label);
+      }
+      if (index === 0 || index === 4) {
+        const previous = index === 0;
+        const caret = this.nativeButton('', 'bet-page', previous ? 'Bets/Up' : 'Bets/Down', previous ? 'previous' : 'next');
+        caret.className = 'm10-bet-page';
+        caret.setAttribute('aria-label', previous ? 'Previous bet options' : 'Next bet options');
+        caret.disabled = previous ? this.betStart === 0 : this.betStart === lastStart;
+        row.className += ' m10-bet-row-with-caret'; row.append(caret);
+      }
+      list.append(row);
     }
-    modal.append(list); const close = button('Close', 'close'); close.className = 'm10-bet-close'; modal.append(close);
+    modal.append(list);
+  }
+  pageBets(direction) {
+    if (this.current !== 'bet' || !this.betState || !['previous', 'next'].includes(direction)) return false;
+    const next = Math.max(0, Math.min(this.betStart + (direction === 'next' ? 5 : -5), Math.max(0, this.betState.betLevels.length - 5)));
+    if (next === this.betStart) return false;
+    this.betStart = next; this.show(this.betState); return true;
   }
   auto(modal, state) {
     modal.style.backgroundImage = `url("${this.atlas.url('AutoPlay/Popup')}")`;
@@ -169,7 +207,7 @@ export class MultiHot10Dialogs {
   }
   close() {
     if (!this.current) return;
-    this.current = null; this.container.hidden = true; this.container.replaceChildren();
+    this.current = null; this.betState = null; this.container.hidden = true; this.container.replaceChildren();
     this.opener?.focus?.({ preventScroll: true }); this.opener = null;
   }
   dispose() { this.close(); this.container.removeEventListener('click', this.click); this.container.removeEventListener('keydown', this.key); }

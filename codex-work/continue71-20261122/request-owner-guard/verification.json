@@ -1,0 +1,46 @@
+{
+  "schema": "zplay/request-owner-guard-verification/v1",
+  "checkedAtUtc": "2026-11-21T23:35:39.680121+00:00",
+  "local": {
+    "command": "node --test codex-work/continue71-20261122/request-owner-guard/request-owner-guard.test.mjs",
+    "tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "testLevel": "actual guard and integration seams with synthetic adapters and transaction/lock fake",
+    "concurrentAttempts": 20
+  },
+  "postgres": {
+    "status": "NOT_EXECUTED_LOCALLY",
+    "preparedScenarios": 6,
+    "syntaxCheckPassed": true,
+    "reason": "No local PostgreSQL tools or pg driver were available.",
+    "command": "node --test codex-work/continue71-20261122/request-owner-guard/postgres/run-postgres-tests.mjs",
+    "finalReview": "URL query/fragment overrides rejected; nested finally closes admin pool even if test-pool close or DROP fails. No additional PostgreSQL execution claimed."
+  },
+  "activation": {
+    "mounted": false,
+    "productionWagers": false,
+    "migrationApplied": false,
+    "modelInstalled": false
+  },
+  "sourceHashes": {
+    "request-owner-guard.mjs": "1a7019ee350c4b2abb7470f37b16955e03f15c2a90d4b32f4b9489137d9cecc2",
+    "adapter-seams.mjs": "a431481c32b8589265c93e1486fe79c9c5d60f91115412261df9b2007b9c3caa",
+    "request-owner-guard.test.mjs": "2123364adc4c27ea1ef80b61cadf2ce1c3058530a3c336afdca5fa4beb13efb7",
+    "test-support.mjs": "7e8463ee1b73792e9afd80a3e836815f0f6fac672dfe15cf32e7a121e0316d39",
+    "postgres/run-postgres-tests.mjs": "4ac646f071ee301eb154fa81a7f906e0cea6f734ce04f4012a9e04afca6f9a82",
+    "postgres/fixture.sql": "cd55541101a679ecfeca72061e30e033282bfd8029ac2fa84bab341db26f7e0e",
+    "README.md": "cd0a195727ee4668f442df8b9b3869b7444d6aada4b385c51641d9c64831d237"
+  },
+  "ci": {
+    "workflow": ".github/workflows/continue71-request-owner-qa.yml",
+    "branch": "work/continue71-20261122",
+    "status": "PREPARED_NOT_RUN",
+    "componentTests": 27,
+    "postgresScenarios": 6,
+    "pgVersion": "8.16.3",
+    "workflowSha256": "2faa856881f78e8c3fae838e7110267c99a7ca5297612e4e837d27bdd57bbb4c",
+    "localValidation": "YAML parsed; branch, paths, permissions, shell syntax and referenced test files checked"
+  }
+}

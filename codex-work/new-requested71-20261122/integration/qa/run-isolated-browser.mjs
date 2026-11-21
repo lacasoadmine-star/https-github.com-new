@@ -5,8 +5,13 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {resolve} from 'node:path';
-import config from '../worker-assets.mjs';
-import {createAdditiveWorker} from '../worker.mjs';
+import sourceConfig from '../worker-assets.mjs';
+import {createAdditiveWorker as sourceCreateAdditiveWorker} from '../worker.mjs';
+import {loadCompactDeployment} from '../compact-deployment.mjs';
+
+const compact=process.env.ZPLAY_COMPACT_MODULE_ROOT?await loadCompactDeployment(process.env.ZPLAY_COMPACT_MODULE_ROOT):null;
+const config=compact?.config||sourceConfig;
+const createAdditiveWorker=compact?.createAdditiveWorker||sourceCreateAdditiveWorker;
 
 const require=createRequire(import.meta.url);
 const runtimeModules=process.env.ZPLAY_QA_NODE_MODULES||process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
@@ -102,6 +107,6 @@ test('360/390/430 and desktop: NEW mounts once; touch targets, preserved rows an
   }catch(error){failure=error.stack||String(error);throw error;}
   finally{
     await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));
-    await writeFile(new URL('browser-report.json',qa),JSON.stringify({schema:'zplay/new71-catalogue-ui-qa/v1',testedAt:new Date().toISOString(),environment:'isolated local catalogue fixture; no official gameplay or production spin tested',passed:failure===null&&reports.length===4,failure,reports,forbiddenRequests,financialRequests:requestLog.filter(request=>request.path.startsWith('/api/')).length,sourceCommit:process.env.GITHUB_SHA||null,assetRevision:config.assetRevision},null,2)+'\n');
+    await writeFile(new URL('browser-report.json',qa),JSON.stringify({schema:'zplay/new71-catalogue-ui-qa/v1',testedAt:new Date().toISOString(),environment:'isolated local catalogue fixture; no official gameplay or production spin tested',passed:failure===null&&reports.length===4,failure,reports,forbiddenRequests,financialRequests:requestLog.filter(request=>request.path.startsWith('/api/')).length,sourceCommit:process.env.GITHUB_SHA||null,assetRevision:config.assetRevision,deploymentFormat:compact?'compact':'source',deploymentModules:compact?.report.modules||null},null,2)+'\n');
   }
 });

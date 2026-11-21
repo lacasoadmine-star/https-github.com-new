@@ -14,6 +14,7 @@ import { CONTROL_RECTS, STAGE } from '../render/layout.mjs';
 const source = await readFile(new URL('../main.mjs', import.meta.url), 'utf8');
 const entry = source.replace(/^import .*;\r?\n/gm, '')
   .replace('export async function mountMultiHot10', 'async function mountMultiHot10')
+  .replace('export const PREVIEW_BET_LEVELS', 'const PREVIEW_BET_LEVELS')
   .replaceAll('import.meta.url', '__moduleURL');
 assert.equal(/^import |^export /m.test(entry), false, 'entry module wrapper must bind every import');
 
@@ -87,7 +88,7 @@ export async function until(predicate, label = 'fixture condition') {
 }
 export async function flush() { for (let i = 0; i < 12; i++) await new Promise(resolve => setImmediate(resolve)); }
 
-export async function mountFixture({ before, after, allowNewRounds = true } = {}) {
+export async function mountFixture({ before, after, allowNewRounds = true, previewOnly = false, useDefaultControls = false } = {}) {
   const root = new Element('main'), document = new Target(), window = new Target();
   Object.assign(document, { hidden: false, createElement: tag => new Element(tag), getElementById: () => null });
   const context = vm.createContext({
@@ -128,7 +129,7 @@ export async function mountFixture({ before, after, allowNewRounds = true } = {}
     return after ? await after(path, body, result) : result;
   };
   const controls = new MultiHot10Controls({ betLevels: ['0.10', '0.20'], selectedBet: '0.10', currency: 'ETB' });
-  const app = await mount({ root, controls, host: {
+  const host = {
     allowNewRounds, request: transport, retry: { attempts: 1 }, lock: async (_name, fn) => fn(),
     storage: { getItem: key => saved.get(key) ?? null, setItem: (key, value) => saved.set(key, value), removeItem: key => saved.delete(key) },
     resolveMath: async identity => identity.mathSha256 === math.mathSha256 ? {
@@ -136,8 +137,10 @@ export async function mountFixture({ before, after, allowNewRounds = true } = {}
       collectionLifecycleVerified: true, roundingVerified: true,
       verifyDeferredRound: receipt => receipt.winAmount === '0.00' && JSON.stringify(receipt.grid) === JSON.stringify(grid),
     } : null,
-  } });
-  await until(() => app.controller.snapshot.phase === 'READY', 'the actual deferred controller should connect');
+  };
+  const app = await mount({ root, controls: useDefaultControls ? undefined : controls,
+    ...(previewOnly ? { previewOnly: true } : { host }) });
+  if (!previewOnly) await until(() => app.controller.snapshot.phase === 'READY', 'the actual deferred controller should connect');
   const buttons = new Map(root.children[0].querySelector('.m10-hitboxes').children.map(node => [node.dataset.control, node]));
   return { app, root, document, window, posts, reads, buttons, accepted, saved,
     disableRelease() { release = false; }, changeSession() { activeGuard = 'c'.repeat(64); },

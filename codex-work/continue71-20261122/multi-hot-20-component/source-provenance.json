@@ -1,0 +1,55 @@
+{
+  "scope": "retained-current-task-own-M20-component",
+  "sourceHandoffFrozenAt": "2026-11-21T23:08:41Z",
+  "providerProgramIncluded": false,
+  "privateEvidenceIncluded": false,
+  "assetsIncluded": false,
+  "existingEvaluatorReplaced": false,
+  "sources": [
+    {
+      "path": "presentation-quote.mjs",
+      "retainedSource": "evaluator.mjs",
+      "retainedSha256": "f9d80d39ec193d05e06c2182c9805f70b1ca78990b616cd771bfd32906f48232",
+      "currentSha256": "f9d80d39ec193d05e06c2182c9805f70b1ca78990b616cd771bfd32906f48232"
+    },
+    {
+      "path": "controls.mjs",
+      "retainedSource": "controls.mjs",
+      "retainedSha256": "43c75fecc30cd9567d52b5612eb10560832a456b65c2abacbdc471d06767b416",
+      "currentSha256": "80ad28a8afc1395a012519a3b585ecf2f36d365ee66402ff67e67a119e170e2f"
+    },
+    {
+      "path": "render/layout.mjs",
+      "retainedSource": "render/layout.mjs",
+      "retainedSha256": "062c4c6f1feae587472c0ac26f7eb81d3be12177905b33e9f383d4d1cbf7b6ee",
+      "currentSha256": "062c4c6f1feae587472c0ac26f7eb81d3be12177905b33e9f383d4d1cbf7b6ee"
+    },
+    {
+      "path": "render/renderer.mjs",
+      "retainedSource": "render/renderer.mjs",
+      "retainedSha256": "5c2aa1ee42d27c0ed6e779f873335cd9d9491a52678ca4751a7b80838f148c70",
+      "currentSha256": "0453f8efd5502ff484304033bcb161af0b834c190933a54a0c39a4a63b8cefe7"
+    }
+  ],
+  "verifiedSourceClosure": true,
+  "verification": {
+    "command": "node --test codex-work/continue71-20261122/multi-hot-20-component/render/motion.test.mjs",
+    "tests": 5,
+    "beforeFixFailures": 3,
+    "afterFixPasses": 5,
+    "canvasContext": "stub; actual renderer rotation commands",
+    "browser": false,
+    "livePlayer": false,
+    "deployment": false
+  },
+  "entryCorrection": {
+    "path": "integration/m20-quick-idle-label.patch",
+    "target": "main.mjs",
+    "retainedSha256": "1a253f8acc7b41ad5d268db1f37ee683e410f93062ed03585eab34fc15bd6501",
+    "correctedSha256": "88d8ca5894c913d558a22c18be6913d2a50c398f95cf5effeaf495a334448810",
+    "patchSha256": "755a686f65e6fc0d88a1780ed2118e515da4199dc09b56328f93dd61b97ab6e2",
+    "scope": "Own retained current-task M20 entry; idle label only. Existing motion-state STOP and native QUICK artwork unchanged.",
+    "mountedByThisComponent": false,
+    "officialObservationDateUtc": "2026-11-21"
+  }
+}

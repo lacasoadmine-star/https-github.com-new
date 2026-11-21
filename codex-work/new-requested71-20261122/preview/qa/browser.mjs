@@ -4,8 +4,13 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import manifest from '../preview-manifest.mjs';
-import { createVisualPreviewWorker, PREVIEW_PATH, REPOSITORY, immutableBase } from '../preview-worker.mjs';
+import sourceManifest from '../preview-manifest.mjs';
+import { createVisualPreviewWorker as sourceCreateVisualPreviewWorker, PREVIEW_PATH, REPOSITORY, immutableBase } from '../preview-worker.mjs';
+import { loadCompactDeployment } from '../../integration/compact-deployment.mjs';
+
+const compact = process.env.ZPLAY_COMPACT_MODULE_ROOT ? await loadCompactDeployment(process.env.ZPLAY_COMPACT_MODULE_ROOT) : null;
+const manifest = compact?.manifest || sourceManifest;
+const createVisualPreviewWorker = compact?.createVisualPreviewWorker || sourceCreateVisualPreviewWorker;
 
 const require = createRequire(import.meta.url);
 const runtimeModules = process.env.ZPLAY_QA_NODE_MODULES || process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
@@ -23,6 +28,17 @@ const cases = [
   { label: '390-portrait', width: 390, height: 844, touch: true },
   { label: '430-portrait', width: 430, height: 844, touch: true },
   { label: '1280-desktop', width: 1280, height: 900, touch: false },
+];
+// Fresh official M10 observation, 22 Nov 2026: a five-row window advances
+// five values, clamps at index 26, and retains its offset when reopened.
+const observedBetWindows = [
+  ['0.10', '0.20', '0.30', '0.40', '0.50'],
+  ['0.60', '0.70', '0.80', '1.00', '1.50'],
+  ['2.00', '2.50', '3.00', '4.00', '5.00'],
+  ['6.00', '7.00', '8.00', '10.00', '15.00'],
+  ['20.00', '25.00', '30.00', '40.00', '50.00'],
+  ['60.00', '70.00', '80.00', '100.00', '150.00'],
+  ['70.00', '80.00', '100.00', '150.00', '200.00'],
 ];
 let browser, server, currentPage, origin, watchdog;
 const check = (label, condition, detail) => {
@@ -146,6 +162,40 @@ try {
       await capture(page, viewport.label, 'idle');
       await activate(page.getByRole('button', { name: 'Choose bet', exact: true }), viewport);
       caseReport.panels.bet = await inspectPanel(page, viewport);
+      const betValues = () => page.locator('[data-action="choose-bet"]').evaluateAll(nodes => nodes.map(node => node.dataset.value));
+      const previousBets = page.getByRole('button', { name: 'Previous bet options', exact: true });
+      const nextBets = page.getByRole('button', { name: 'Next bet options', exact: true });
+      assert.deepEqual(await betValues(), observedBetWindows[0]);
+      check(name('BET starts with five observed options and a disabled upper boundary'),
+        await page.locator('.m10-bet-row').count() === 5 && await previousBets.isDisabled());
+      await capture(page, viewport.label, 'bet-first');
+      for (let index = 1; index < observedBetWindows.length; index++) {
+        await activate(nextBets, viewport);
+        assert.deepEqual(await betValues(), observedBetWindows[index]);
+        check(name(`BET window ${index + 1} matches current official values without selecting a stake`),
+          await page.getByRole('dialog', { name: 'bet', exact: true }).isVisible());
+      }
+      check(name('BET final five-row window clamps at index 26'),
+        await page.locator('.m10-bet-choices').getAttribute('data-start-index') === '26' && await nextBets.isDisabled());
+      await capture(page, viewport.label, 'bet-last');
+      await activate(previousBets, viewport);
+      assert.deepEqual(await betValues(), ['25.00', '30.00', '40.00', '50.00', '60.00']);
+      check(name('BET upper arrow subtracts five from the clamped final window'),
+        await page.locator('.m10-bet-choices').getAttribute('data-start-index') === '21');
+      // Click the observed backdrop, outside all five rows and their carets.
+      const backdrop = page.locator('.m10-dialog-layer');
+      if (viewport.touch) await backdrop.tap({ position: { x: 2, y: 2 } });
+      else await backdrop.click({ position: { x: 2, y: 2 } });
+      check(name('BET backdrop closes without selecting a row'), await page.locator('.m10-dialog-layer').isHidden());
+      await activate(page.getByRole('button', { name: 'Choose bet', exact: true }), viewport);
+      assert.deepEqual(await betValues(), ['25.00', '30.00', '40.00', '50.00', '60.00']);
+      check(name('BET reopen retains its observed window offset'),
+        await page.locator('.m10-bet-choices').getAttribute('data-start-index') === '21');
+      for (let index = 0; index < 5; index++) await activate(previousBets, viewport);
+      assert.deepEqual(await betValues(), observedBetWindows[0]);
+      check(name('BET returns to its first boundary with the selected stake unchanged'),
+        await previousBets.isDisabled()
+        && await page.getByRole('button', { name: 'Bet 0.10 DMO', exact: true }).getAttribute('aria-pressed') === 'true');
       await activate(page.getByRole('button', { name: 'Bet 0.20 DMO', exact: true }), viewport);
       check(name('selecting a bet closes its panel'), await page.locator('.m10-dialog-layer').isHidden());
       await activate(page.getByRole('button', { name: 'Menu', exact: true }), viewport);
@@ -210,7 +260,8 @@ try {
     passed: errors.length === 0 && viewports.length === cases.length && viewports.every(result => result.passed),
     checks, errors, viewports, requestCount: requests.length, financialRequests, forbiddenRequests,
     sourceCommit: manifest.sourceCommit, fixtureURLCommit: config.sourceCommit, publishedSourceVerified: false,
-    manifestRevision: config.revision, sourceFileCount: config.entries.length };
+    manifestRevision: config.revision, sourceFileCount: config.entries.length,
+    deploymentFormat: compact ? 'compact' : 'source', deploymentModules: compact?.report.modules || null };
   await mkdir(output, { recursive: true });
   await writeFile(resolve(output, 'browser-report.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify({ passed: report.passed, checks: checks.length, viewports: viewports.length,

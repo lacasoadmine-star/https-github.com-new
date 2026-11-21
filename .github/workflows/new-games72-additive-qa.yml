@@ -1,8 +1,8 @@
 # Feature-branch verification only. No deployment secrets, provider credentials,
 # production accounts or live wallet endpoints are used.
 # M20 and M100 reference images are preserved privately and are unavailable in
-# this checkout. CI checks M20 bounded arithmetic only. New M100 bounded
-# source/provenance is retained privately and is not part of public CI.
+# this checkout. This workflow checks the retained M20 bounded arithmetic;
+# continuation M20/M100 presentation components have a separate source-only job.
 # These checks do not verify the private images or open the release gate.
 name: Additive games and live presentation QA
 
@@ -110,13 +110,28 @@ jobs:
         run: |
           npm ci --ignore-scripts
           npm run build --workspaces
+      - name: Build equivalent six-module deployment within the existing Worker size budget
+        env:
+          ZPLAY_COMPACT_MODULE_ROOT: ${{ runner.temp }}/new71-compact-deployment
+        run: |
+          node codex-work/new-requested71-20261122/integration/compact-deployment.mjs \
+            --active-main balloonstatefix20261121/entry.mjs \
+            --output "$ZPLAY_COMPACT_MODULE_ROOT"
+          node --test codex-work/new-requested71-20261122/integration/qa/compact-runtime.test.mjs
+      - name: Preserve exact compiled deployment modules and source inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: new71-compact-deployment-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new71-compact-deployment
+          if-no-files-found: error
+          retention-days: 30
       - name: Verify the existing backend on its disposable SQLite test database
         run: |
           python -m pip install -r requirements.txt
           python -m pytest -q tests/test_platform.py
 
   new71-m10-preview-browser:
-    needs: focused-unit
+    needs: [focused-unit, existing-platform]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -124,6 +139,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Load the exact-run compiled deployment artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: new71-compact-deployment-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new71-compact-deployment
       - name: Install isolated browser tools for the retained NEW71 and M10 preview
         run: |
           npm install --prefix "$RUNNER_TEMP/new71-preview-tools" --ignore-scripts --no-package-lock playwright@1.62.1
@@ -133,6 +153,7 @@ jobs:
           ZPLAY_QA_NODE_MODULES: ${{ runner.temp }}/new71-preview-tools/node_modules
           ZPLAY_NEW71_QA_OUTPUT: ${{ runner.temp }}/new71-preview-results/catalogue
           ZPLAY_M10_PREVIEW_QA_OUTPUT: ${{ runner.temp }}/new71-preview-results/m10
+          ZPLAY_COMPACT_MODULE_ROOT: ${{ runner.temp }}/new71-compact-deployment
         run: |
           python3 - <<'PY'
           import pathlib, os, subprocess

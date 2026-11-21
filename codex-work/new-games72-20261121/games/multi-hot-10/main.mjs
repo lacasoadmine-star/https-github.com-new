@@ -9,6 +9,14 @@ import { CONTROL_RECTS, STAGE } from './render/layout.mjs';
 
 async function loadImage(url) { const image = new Image(); image.src = url.href; await image.decode(); return image; }
 
+// Freshly observed DMO picker values. Only the non-financial visual preview
+// uses this ladder; authenticated host policy and supplied controls stay intact.
+export const PREVIEW_BET_LEVELS = Object.freeze([
+  '0.10', '0.20', '0.30', '0.40', '0.50', '0.60', '0.70', '0.80', '1.00', '1.50',
+  '2.00', '2.50', '3.00', '4.00', '5.00', '6.00', '7.00', '8.00', '10.00', '15.00',
+  '20.00', '25.00', '30.00', '40.00', '50.00', '60.00', '70.00', '80.00', '100.00', '150.00', '200.00',
+]);
+
 /** Independent host entry. Production outcomes enter through the validated
  * backend controller. A QA host can supply isolated presentation callbacks;
  * this module contains no RNG, sample cycling, receipt fixture or wallet math.
@@ -18,7 +26,7 @@ export async function mountMultiHot10({ root, host = null, controls: suppliedCon
   if (!(root instanceof HTMLElement)) throw new TypeError('A game root is required.');
   if (previewOnly && (host || isolatedPresentation)) throw new TypeError('A visual preview cannot accept a financial or outcome transport.');
   const controls = suppliedControls || new MultiHot10Controls({
-    betLevels: ['0.10', '0.20', '0.30', '0.40', '0.50'], selectedBet: '0.10',
+    betLevels: previewOnly ? PREVIEW_BET_LEVELS : ['0.10', '0.20', '0.30', '0.40', '0.50'], selectedBet: '0.10',
     currency: host ? 'ETB' : 'DMO',
   });
   if (isolatedPresentation && host) throw new TypeError('An isolated presentation cannot use a financial host.');

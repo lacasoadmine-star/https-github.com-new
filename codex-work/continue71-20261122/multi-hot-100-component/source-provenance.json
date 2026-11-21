@@ -1,0 +1,39 @@
+{
+  "scope": "retained-current-task-own-M100-component",
+  "providerProgramIncluded": false,
+  "privateEvidenceIncluded": false,
+  "assetsIncluded": false,
+  "existingRuntimeChanged": false,
+  "sources": [
+    {
+      "path": "module/controls.mjs",
+      "retainedSha256": "b5f5bb7f9ba7a1fa92bc634c45a187714920bdf0c8f3d3bb6683b51578cc538f",
+      "currentSha256": "c2c802334aa7d65cd63f700b1db282c0130c831a97ee07145fb5ad1efbfb32c2"
+    },
+    {
+      "path": "render/atlas.mjs",
+      "retainedSha256": "a99091d8fd6599d1e3b6fad04d2bbb9a620e39dfc81c3c45b0ad1ba9c6ffb88a",
+      "currentSha256": "a99091d8fd6599d1e3b6fad04d2bbb9a620e39dfc81c3c45b0ad1ba9c6ffb88a"
+    },
+    {
+      "path": "render/presentation.mjs",
+      "retainedSha256": "09ac4062be96a21406bcc599afa24e021ccacf39346beced1563165bbd38342a",
+      "currentSha256": "8e522e31b7a754ba30489611feb30525c4cb3e919cb229ed4d2d53115ad068dc"
+    },
+    {
+      "path": "render/spine-assets.mjs",
+      "retainedSha256": "27780ab2784a869ba05788771200328faaefee84fc35eaed6b6b019b28b889da",
+      "currentSha256": "27780ab2784a869ba05788771200328faaefee84fc35eaed6b6b019b28b889da"
+    }
+  ],
+  "verifiedSourceClosure": true,
+  "verification": {
+    "command": "node --test codex-work/continue71-20261122/multi-hot-100-component/render/presentation.test.mjs",
+    "tests": 7,
+    "beforeFixFailures": 5,
+    "afterFixPasses": 7,
+    "browser": false,
+    "livePlayer": false,
+    "deployment": false
+  }
+}

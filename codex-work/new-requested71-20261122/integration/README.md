@@ -43,3 +43,25 @@ The entry module must import the **active** main module. It must not assume that
 The retained checkpoint identified active v466 (`8e07dd15-edb8-408e-b9fd-6fcabc25687b`), deployment `6379df0b-d336-44f2-94d9-bea13ff10574`, with main module `balloonstatefix20261121/entry.mjs`, 405 modules and 18 bindings. These are historical identifiers, not proof of the currently active version. The release coordinator must retrieve the exact current module inventory and version configuration, preserve all baseline bytes, and recheck the active deployment immediately before staging and activation.
 
 No external deployment is performed by these files. Before an upload, verify the active version and all active module hashes, produce a public source commit, run the required checks, pin the preview source manifest, and review the exact additional six modules. After upload, verify retained module hashes and configuration before activating that version. The release coordinator owns all external writes.
+
+## Compact deployment package
+
+The first staging-only attempt to append six ordinary source modules exceeded the existing Worker's uncompressed-size limit. No activation was submitted. `compact-deployment.mjs` addresses that specific limit by changing the representation of **only the six new modules**. It does not read or rewrite existing Worker modules, and it does not reduce image or audio quality.
+
+The catalogue's repeated fields and the manifest's repeated directory/MIME strings are encoded as tuples and reconstructed to the exact canonical objects. Runtime source is minified with **esbuild 0.25.12**, already pinned in the platform's `package-lock.json`. The served lobby JavaScript/CSS strings, all 41 preview source paths, byte counts, hashes, MIME types, source commit and revision must remain exactly equal. Both structural equality and JSON serialization equality are required before output is accepted.
+
+After the final preview manifest has been regenerated and pinned, the existing platform-build job runs:
+
+```sh
+node codex-work/new-requested71-20261122/integration/compact-deployment.mjs \
+  --active-main balloonstatefix20261121/entry.mjs \
+  --output "$RUNNER_TEMP/new71-compact-deployment"
+ZPLAY_COMPACT_MODULE_ROOT="$RUNNER_TEMP/new71-compact-deployment" \
+  node --test codex-work/new-requested71-20261122/integration/qa/compact-runtime.test.mjs
+```
+
+The active-main argument above is the observed v466 entry; the release coordinator must recheck it before using the artifact. The build fails if the six module names change, the locked minifier version changes, canonical data differ, or combined UTF-8 source exceeds **30,000 bytes**. `compact-report.json` records the actual byte count, six content hashes, exact checkout commit, preview source pin and all build-source hashes. It does not claim a successful deployment.
+
+Six local data-compaction tests join the existing 28 catalogue/preview tests. Seven additional compiled-artifact tests check response equivalence, credential/redirect restrictions, composed-entry passthrough, both Durable Object exports, unchanged 405-module/18-binding fixture preservation and artifact-tamper rejection. These latter checks require the generated artifact and are not counted as executed merely because their source exists.
+
+The browser job downloads the artifact from **that same workflow run and attempt**. Both browser fixtures verify its module/source pins and exercise the compiled Worker factories. They preserve `deploymentFormat: "compact"` and the module hashes in their reports. No deployment should use hand-minified output or a package from another run. Stage the accepted artifact, verify every old module and all configuration against the exact active version, and then activate through the existing reviewed deployment flow.

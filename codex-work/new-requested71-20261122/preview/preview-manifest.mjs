@@ -1,10 +1,10 @@
 export default {
   "schema": "zplay/m10-visual-preview/v1",
   "repository": "lacasoadmine-star/https-github.com-new",
-  "sourceCommit": "fd8bdc4d9600e0f2d2bfc0bb7ab529a8d515ad51",
-  "revision": "bb61e83c1f1ef4ea940b6acb",
+  "sourceCommit": null,
+  "revision": "5e458be30eb4fc0bf8492793",
   "entry": "/new-games72/games/multi-hot-10/main.mjs",
-  "status": "PINNED_BYTES_REQUIRE_REMOTE_VERIFICATION",
+  "status": "UNPUBLISHED_COMMIT_REQUIRED",
   "visualPreviewOnly": true,
   "financialOperations": false,
   "entries": [
@@ -235,8 +235,8 @@ export default {
     {
       "path": "/new-games72/games/multi-hot-10/main.mjs",
       "repositoryPath": "codex-work/new-games72-20261121/games/multi-hot-10/main.mjs",
-      "bytes": 14599,
-      "sha256": "32a3f1b45d7f35e6677e1c4f14d9a3d509c0580ef5951e36689d41747d29b5c5",
+      "bytes": 15118,
+      "sha256": "0a401c8bd05b6f59661ff2ab41287bbdc95a0f052af97a5e8029c3da473bc5ed",
       "contentType": "text/javascript; charset=utf-8"
     },
     {
@@ -256,8 +256,8 @@ export default {
     {
       "path": "/new-games72/games/multi-hot-10/render/dialogs.mjs",
       "repositoryPath": "codex-work/new-games72-20261121/games/multi-hot-10/render/dialogs.mjs",
-      "bytes": 12645,
-      "sha256": "6733be37ae8ef9436b61335e39dee21b540b65292b5527c1011b21379c4efc6b",
+      "bytes": 14884,
+      "sha256": "1aa8502722508dc68a550e592b7f81e433ac0b776ee7f42d2f299318b81cbf28",
       "contentType": "text/javascript; charset=utf-8"
     },
     {
@@ -284,8 +284,8 @@ export default {
     {
       "path": "/new-games72/games/multi-hot-10/style.css",
       "repositoryPath": "codex-work/new-games72-20261121/games/multi-hot-10/style.css",
-      "bytes": 16848,
-      "sha256": "7fe10d224c5406fe51d0b204bdf9387c161044ca72f89b4aad186f2f4ed219a5",
+      "bytes": 17528,
+      "sha256": "5572d8ee72e4a8587f0adf3af0f3441d2c95a206d060efb47b2359fa61c33ddc",
       "contentType": "text/css; charset=utf-8"
     },
     {
