@@ -28,6 +28,18 @@ const json = value => JSON.stringify(value);
 const fromSource = source => import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 const sameKeys = (value, keys, label) => assert.deepEqual(Object.keys(value), keys, label);
 
+/** Lossless literal packing, not CSS minification. Replacement never executes code. */
+function stylesheetExpression(value) {
+  if (value.includes('~')) return json(value);
+  const dictionary = ['#zplay-requested71', '.new71-', 'display:flex;align-items:center;justify-content:',
+    'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif', 'font-weight:', 'font-size:',
+    'border-radius:', 'min-height:', 'text-decoration:none', ';color:'];
+  let packed = value;
+  dictionary.forEach((part, index) => { packed = packed.split(part).join('~' + index.toString(36)); });
+  const expression = `${json(packed)}.replace(/~([0-9a-z])/g,(_,i)=>${json(dictionary)}[parseInt(i,36)])`;
+  return Buffer.byteLength(expression) < Buffer.byteLength(json(value)) ? expression : json(value);
+}
+
 /** Repeated row fields become shared defaults; IDs are preserved literally, never inferred from names. */
 export function compactWorkerAssetsSource(value) {
   sameKeys(value, ['catalogue', 'clientSource', 'stylesheetSource', 'assetRevision'], 'Unexpected worker config fields');
@@ -52,14 +64,15 @@ export function compactWorkerAssetsSource(value) {
     return row;
   });
   const { games, ...header } = catalogue;
-  return `const defaults=${json(defaults)};\nconst catalogue={...${json(header)},games:${json(rows)}.map(([id,name,overrides],index)=>({ordinal:index+1,gameId:'zplay7'+id+'_v1',name,...defaults,...overrides}))};\nexport default {catalogue,...${json(assets)}};\n`;
+  return `const defaults=${json(defaults)};\nconst catalogue={...${json(header)},games:${json(rows)}.map(([id,name,overrides],index)=>({ordinal:index+1,gameId:'zplay7'+id+'_v1',name,...defaults,...overrides}))};\nexport default {catalogue,clientSource:${json(assets.clientSource)},stylesheetSource:${stylesheetExpression(assets.stylesheetSource)},assetRevision:${json(assets.assetRevision)}};\n`;
 }
 
-/** Deduplicate only the exact known directory pairs and MIME strings; every SHA and length stays literal. */
+/** Deduplicate directory/MIME strings and encode the same 32-byte SHA values in base64. */
 export function compactPreviewManifestSource(value) {
   validateManifest(value, { allowUnpinned: true });
   sameKeys(value, ['schema', 'repository', 'sourceCommit', 'revision', 'entry', 'status', 'visualPreviewOnly', 'financialOperations', 'entries'], 'Unexpected preview manifest fields');
-  const prefixes = [[MODULE_ROOT, REPOSITORY_ROOT], ['/new-games72/shared/', 'codex-work/new-games72-20261121/shared/']];
+  const prefixes = [[MODULE_ROOT + 'assets/runtime/', REPOSITORY_ROOT + 'assets/runtime/'],
+    [MODULE_ROOT, REPOSITORY_ROOT], ['/new-games72/shared/', 'codex-work/new-games72-20261121/shared/']];
   const types = [];
   const rows = value.entries.map(entry => {
     sameKeys(entry, ['path', 'repositoryPath', 'bytes', 'sha256', 'contentType'], 'Unexpected preview entry fields');
@@ -68,12 +81,12 @@ export function compactPreviewManifestSource(value) {
     assert(group >= 0, 'Unknown preview directory pair');
     let type = types.indexOf(entry.contentType);
     if (type < 0) { type = types.length; types.push(entry.contentType); }
-    const row = [entry.path.slice(prefixes[group][0].length), entry.bytes, entry.sha256, type];
+    const row = [entry.path.slice(prefixes[group][0].length), entry.bytes, Buffer.from(entry.sha256, 'hex').toString('base64'), type];
     if (group) row.push(group);
     return row;
   });
   const { entries, ...header } = value;
-  return `const prefixes=${json(prefixes)},types=${json(types)};\nexport default {...${json(header)},entries:${json(rows)}.map(([suffix,bytes,sha256,type,group=0])=>({path:prefixes[group][0]+suffix,repositoryPath:prefixes[group][1]+suffix,bytes,sha256,contentType:types[type]}))};\n`;
+  return `const prefixes=${json(prefixes)},types=${json(types)};\nexport default {...${json(header)},entries:${json(rows)}.map(([suffix,bytes,digest,type,group=0])=>({path:prefixes[group][0]+suffix,repositoryPath:prefixes[group][1]+suffix,bytes,sha256:Array.from(atob(digest),c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join(''),contentType:types[type]}))};\n`;
 }
 
 export async function buildCompactDeployment({ activeMainModule, minifier, sourceCommit = process.env.GITHUB_SHA || null } = {}) {

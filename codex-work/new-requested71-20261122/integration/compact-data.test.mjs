@@ -17,7 +17,7 @@ test('catalogue tuples retain exact ordered IDs, all JSON fields and served clie
   assert.equal(rebuilt.catalogue.games.length, 71);
   assert.equal(rebuilt.catalogue.readyCount, 0);
   assert.equal(rebuilt.catalogue.games.filter(game => game.previewRoute).length, 1);
-  assert(Buffer.byteLength(compactWorkerAssetsSource(config)) < 12000);
+  assert(Buffer.byteLength(compactWorkerAssetsSource(config)) < 10500);
 });
 
 test('row overrides retain distinct future readiness and routes without hardcoding a preparing state', async () => {
@@ -25,6 +25,15 @@ test('row overrides retain distinct future readiness and routes without hardcodi
   Object.assign(changed.catalogue.games[10], { status: 'ready', playable: true, route: '/new-games71/magic-garden-40/', previewRoute: '/new-games71/fixture-preview/' });
   changed.catalogue.readyCount = 1;
   assert.deepEqual(await evaluate(compactWorkerAssetsSource(changed)), changed);
+});
+
+test('literal CSS packing preserves escapes, Unicode, whitespace and marker-bearing input', async () => {
+  for (const suffix of ['\n/* quotes " \' \\ and → */\n', '\n/* a literal ~0 is never decoded */\n']) {
+    const changed = structuredClone(config); changed.stylesheetSource += suffix;
+    const rebuilt = await evaluate(compactWorkerAssetsSource(changed));
+    assert.equal(rebuilt.stylesheetSource, changed.stylesheetSource);
+    assert.equal(JSON.stringify(rebuilt), JSON.stringify(changed));
+  }
 });
 
 test('unexpected catalogue shape or ordinal order fails instead of losing fields', () => {
@@ -41,7 +50,7 @@ test('manifest prefix tuples preserve every source path, byte length, SHA, MIME 
   assert.equal(rebuilt.entries.length, 41);
   assert.equal(rebuilt.financialOperations, false);
   assert.equal(rebuilt.visualPreviewOnly, true);
-  assert(Buffer.byteLength(compactPreviewManifestSource(manifest)) < 6000);
+  assert(Buffer.byteLength(compactPreviewManifestSource(manifest)) < 4500);
 });
 
 test('manifest compaction rejects off-scope paths and unexpected fields', () => {
