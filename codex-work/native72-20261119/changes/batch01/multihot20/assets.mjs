@@ -3,7 +3,19 @@
 import {GAME_ID} from './controller.mjs';
 const hashBytes=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');
 const reason=signal=>signal.reason instanceof Error?signal.reason:Error('ASSET_LOAD_ABORTED');
-const CONTROL_FILES=['auto-button.png','balance-frame.png','bet-frame.png','menu-icon.png','sound-icon.png','spin-button.png','turbo-icon.png'];
+// Coordinates are visual metadata from the retained original Multi Hot 20
+// atlases, checked against the fresh official demo. No provider code is used.
+const ATLAS_SIZES=[[2047,2047],[2047,2025],[2047,2047],[1093,1946],[1822,1793]];
+const SYMBOL_FRAMES={
+ seven:{atlas:2,x:1337,y:1,w:225,h:264,turn:-1},
+ bell:{atlas:3,x:612,y:1335,w:217,h:243,turn:-1},
+ grape:{atlas:3,x:612,y:1098,w:230,h:235},
+ watermelon:{atlas:2,x:1837,y:1791,w:232,h:209,turn:-1},
+ cherry:{atlas:3,x:1,y:1657,w:218,h:244},
+ orange:{atlas:3,x:844,y:1098,w:214,h:248,turn:-1},
+ plum:{atlas:1,x:1514,y:586,w:197,h:263},
+ lemon:{atlas:2,x:1603,y:1,w:220,h:243,turn:-1}
+};
 
 export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',import.meta.url),fetcher=globalThis.fetch,
  doc=globalThis.document,imageDecoder=globalThis.createImageBitmap,signal,timeoutMs=15000}={}){
@@ -58,6 +70,18 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
    bitmaps.add(bitmap);return bitmap;
   },'DECODE_'+file);
  }
+ function crop(bitmap,{x,y,w,h,turn=0}){
+  const packedWidth=turn?h:w,packedHeight=turn?w:h;
+  if(![x,y,w,h].every(Number.isSafeInteger)||x<0||y<0||w<=0||h<=0||
+   x+packedWidth>bitmap.width||y+packedHeight>bitmap.height)throw Error('OFFICIAL_ATLAS_REGION_INVALID');
+  const canvas=doc?.createElement('canvas');if(!canvas)throw Error('CROP_CANVAS_UNAVAILABLE');
+  canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext('2d');if(!ctx)throw Error('CROP_CANVAS_UNAVAILABLE');
+  if(turn<0){ctx.translate(0,h);ctx.rotate(-Math.PI/2)}
+  else if(turn>0){ctx.translate(w,0);ctx.rotate(Math.PI/2)}
+  ctx.drawImage(bitmap,x,y,packedWidth,packedHeight,0,0,packedWidth,packedHeight);
+  return canvas;
+ }
  try{
   manifest=await bounded(async requestSignal=>{
    const response=await fetcher(manifestURL,{cache:'no-store',credentials:'same-origin',redirect:'error',signal:requestSignal});
@@ -69,29 +93,21 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
   if(!Array.isArray(manifest.symbols)||!manifest.files||typeof manifest.files!=='object')throw Error('INVALID_ASSET_MANIFEST');
   base=new URL(manifest.baseUrl,manifestURL);
   if(base.origin!==manifestURL.origin||!base.pathname.endsWith('/')||base.search||base.hash)throw Error('INVALID_ASSET_BASE');
-  await Promise.all(['seven','bell','grape','watermelon'].map(async sym=>{assetMap[sym]=await image(sym+'.png')}));
-  const strip=await image('other-fruits.png');
-  const fruitNames=manifest.otherFruitsOrder||['lemon','plum','orange','cherry'];
-  if(fruitNames.length!==4||new Set(fruitNames).size!==4||fruitNames.some(s=>!['lemon','plum','orange','cherry'].includes(s)))throw Error('INVALID_FRUIT_STRIP_ORDER');
-  // Fractions belong to the source strip named and hashed by this manifest.
-  const fracs=[0,.227,.531,.751,1];
-  for(let i=0;i<4;i++){
-   const canvas=doc?.createElement('canvas');if(!canvas)throw Error('CROP_CANVAS_UNAVAILABLE');
-   canvas.width=180;canvas.height=180;
-   const ctx=canvas.getContext('2d');if(!ctx)throw Error('CROP_CANVAS_UNAVAILABLE');
-   const x=Math.round(fracs[i]*strip.width),right=Math.round(fracs[i+1]*strip.width);
-   const width=right-x,scale=Math.min(180/width,180/strip.height),drawWidth=width*scale,drawHeight=strip.height*scale;
-   ctx.drawImage(strip,x,0,width,strip.height,(180-drawWidth)/2,(180-drawHeight)/2,drawWidth,drawHeight);assetMap[fruitNames[i]]=canvas;
-  }
-  strip.close?.();bitmaps.delete(strip);
-  await Promise.all([
-   image('background.png').then(value=>{assetMap.__background=value}),
-   image('wheel.png').then(value=>{assetMap.__wheel=value}),
-   ...CONTROL_FILES.filter(file=>manifest.files[file]).map(bytes)
-  ]);
-  if(manifest.symbols.includes('wild'))assetMap.wild=await image('wild.png');
-  // A Spine atlas must never be painted as a flat logo or a finished game.
-  if(manifest.files['logo.png'])assetMap.__logoAtlas=await image('logo.png');
+  if(manifest.symbols.length!==8||new Set(manifest.symbols).size!==8||
+   manifest.symbols.some(name=>!Object.hasOwn(SYMBOL_FRAMES,name)))throw Error('INVALID_SYMBOL_INVENTORY');
+  const names=['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png'];
+  const atlases=await Promise.all(names.map(async(file,index)=>{
+   const bitmap=await image(file),[width,height]=ATLAS_SIZES[index];
+   if(bitmap.width!==width||bitmap.height!==height)throw Error('OFFICIAL_ATLAS_DIMENSIONS_'+file);
+   return bitmap;
+  }));
+  for(const [name,frame] of Object.entries(SYMBOL_FRAMES))assetMap[name]=crop(atlases[frame.atlas],frame);
+  assetMap.__background=await image('background.png');
+  assetMap.__wheelNumbers=atlases[3];assetMap.__wheelFrame=atlases[0];assetMap.__wheelLight=atlases[2];
+  assetMap.__boxFrame=crop(atlases[1],{x:1,y:1098,w:1119,h:696});
+  // Only the inspected base-title region is shown, never the whole Spine sheet.
+  // The packed lettering reads bottom-to-top, so it needs a clockwise turn.
+  assetMap.__title=crop(atlases[4],{x:2,y:1158,w:633,h:152,turn:1});
   async function primeAudio(){
    active();
    const result={};

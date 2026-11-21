@@ -78,6 +78,41 @@ test('failed, skipped or wrong-snapshot test evidence stays closed even after re
   }
 });
 
+test('browser acceptance requires all eleven original media files and rejects the old nineteen-file count',async()=>{
+  const accepted=await createReleaseTestFixture();
+  assert.equal(accepted.reports.browser.mediaVerified,11);
+  assert.equal(Object.keys(JSON.parse(accepted.inputs.sourceBytes['multihot20/assets.json']).files).length,11);
+  assert.equal(activate(accepted).enabled(M20_GAME_ID),true);
+  for(const count of [19,10,12,0,'11',null,undefined]){
+    const f=await createReleaseTestFixture();f.reports.browser.mediaVerified=count;f.repinEvidence('browser');
+    assert.throws(()=>activate(f),/M20_RELEASE_BROWSER_SCOPE_INVALID/);
+    assert.equal(f.registry.profileForGame(M20_GAME_ID).productionApproved,false);
+  }
+});
+
+test('repinned eleven-file browser evidence cannot approve a wrong or malformed source media inventory',async()=>{
+  for(const edit of [
+    m=>{m.files['unreviewed-atlas.png']=m.files['atlas-0.png'];delete m.files['atlas-0.png']},
+    m=>{delete m.files['win.mp3']},
+    m=>{m.files['extra.mp3']={...m.files['win.mp3']}},
+    m=>{m.gameId='fresh_multihot5burnwilds'},
+    m=>{m.schema='unreviewed-manifest'},
+    m=>{m.files['atlas-0.png'].sha256='invalid'},
+    m=>{m.files['atlas-0.png'].bytes=0},
+    m=>{m.files['atlas-0.png'].contentType='audio/mpeg'},
+    m=>{m.files['win.mp3']=null}
+  ]){
+    const f=await createReleaseTestFixture(),path='multihot20/assets.json';
+    const media=JSON.parse(f.inputs.sourceBytes[path]);edit(media);
+    f.inputs.sourceBytes[path]=Buffer.from(JSON.stringify(media));
+    f.record.sources[path]=releaseSha256(f.inputs.sourceBytes[path]);
+    f.record.sourceSha256=sourceSnapshotSha256(f.record.sources);
+    for(const kind of EVIDENCE_KINDS){f.reports[kind].sourceSha256=f.record.sourceSha256;f.repinEvidence(kind)}
+    assert.throws(()=>activate(f),/M20_RELEASE_MEDIA_MANIFEST_INVALID/);
+    assert.equal(f.registry.profileForGame(M20_GAME_ID).productionApproved,false);
+  }
+});
+
 // Isolated integer ledger, not PostgreSQL acceptance and never real funds.
 function existingMemoryLedger(){
   const uid='release-policy-qa',house='release-policy-house',token='b'.repeat(64);

@@ -13,6 +13,13 @@ export const M20_EVALUATOR_SHA256='776b7cd2987a5dba4ca3dfe94ba41540218d0ab4ed450
 export const M20_MATH_SHA256='4b7af42145bca5e7aa18a6d058c7394381d8b9b252110bffc61503c0470643d8';
 export const RETAINED_BASELINE_SHA256='9ed186420e58330388e96aa62c9f4dea70d82ae596bfd57060d66053b981dfa3';
 export const EVIDENCE_KINDS=Object.freeze(['unit','real-postgres','browser','source','operator-policy']);
+// The r6 presentation uses five original atlases, one background and
+// five original sound files. Bind browser verification to that exact inventory
+// in the reviewed, SHA-verified source snapshot, not an arbitrary file count.
+export const REQUIRED_M20_MEDIA_FILES=Object.freeze([
+  'atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png',
+  'button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3'
+]);
 export const REQUIRED_SOURCE_PATHS=Object.freeze([
   'server/official-math.mjs','server/sw-nine-pg-adapter.mjs','server/existing-server-routes.mjs',
   'server/existing-gamble.mjs','server/independent-registry.mjs','server/independent-operator-audit.json',
@@ -73,7 +80,14 @@ function validateEvidence(kind,record,inputs){
   if(kind==='real-postgres'&&(e.database!=='PostgreSQL'||e.disposable!==true||e.productionWagers!==0))
     fail('M20_RELEASE_POSTGRES_SCOPE_INVALID');
   if(kind==='browser'){
-    if(e.mode!=='LOOPBACK_QA_FIXTURE'||e.productionWagers!==0||e.mediaVerified!==19||
+    const media=json(inputs.sourceBytes['multihot20/assets.json'],'M20_RELEASE_MEDIA_MANIFEST_INVALID');
+    if(!object(media)||media.schema!=='zplay/verified-official-capture-assets/v1'||media.gameId!==M20_GAME_ID||
+       !object(media.files)||!same(Object.keys(media.files).sort(),REQUIRED_M20_MEDIA_FILES)||
+       Object.entries(media.files).some(([file,item])=>!object(item)||!digest.test(item.sha256||'')||
+         !Number.isSafeInteger(item.bytes)||item.bytes<=0||
+         item.contentType!==(file.endsWith('.png')?'image/png':'audio/mpeg')))
+      fail('M20_RELEASE_MEDIA_MANIFEST_INVALID');
+    if(e.mode!=='LOOPBACK_QA_FIXTURE'||e.productionWagers!==0||e.mediaVerified!==REQUIRED_M20_MEDIA_FILES.length||
        e.criticalErrors!==0||!Array.isArray(e.viewports)||e.viewports.some(v=>!Number.isSafeInteger(v.width)||
          !Number.isSafeInteger(v.height)||v.width<300||v.height<300||v.status!=='PASS')||
        !e.viewports.some(v=>v.width<=430&&v.height>v.width)||

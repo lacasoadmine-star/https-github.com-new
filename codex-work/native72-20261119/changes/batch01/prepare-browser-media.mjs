@@ -18,10 +18,11 @@ const SOURCE_FIELDS=['bytes','contentType','retrievalProvenance','sha256','url']
 
 function checkedProvenance(file,value){
  assert.ok(value&&typeof value==='object'&&!Array.isArray(value),'Missing retrieval provenance');
- if(file.endsWith('.mp3')){
-  assert.deepEqual(Object.keys(value).sort(),['freshOfficialDownload','kind'],'Retained audio provenance must use only public fields');
-  assert.equal(value.kind,'retained_verified_project_asset','Audio must retain its existing project provenance');
-  assert.equal(value.freshOfficialDownload,false,'Retained audio is not a fresh official download');
+ if(file.endsWith('.mp3'))assert.equal(value.kind,'retained_verified_project_asset','Audio must retain its existing project provenance');
+ if(value.kind==='retained_verified_project_asset'){
+  assert.deepEqual(Object.keys(value).sort(),['freshOfficialDownload','kind'],'Retained media provenance must use only public fields');
+  assert.equal(value.kind,'retained_verified_project_asset','Media must retain its existing project provenance');
+  assert.equal(value.freshOfficialDownload,false,'Retained media is not a fresh official download');
  }else{
   assert.deepEqual(Object.keys(value).sort(),['at','kind'],'Image provenance must use only public fields');
   assert.equal(value.kind,'fresh_official_browser_download','Original image capture provenance must be preserved');
@@ -50,7 +51,7 @@ export function verifySourceManifest(manifest,sources){
  assert.equal(sources?.schema,'zplay/multihot20-ci-media/v1');
  assert.deepEqual(Object.keys(sources).sort(),['files','gameId','schema'],'CI source manifest must use only public fields');
  const files=Object.keys(manifest.files||{}).sort();
- assert.equal(files.length,19,'All nineteen verified game media files are required');
+ assert.deepEqual(files,['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png','background.png','button.mp3','music.mp3','reel-stop.mp3','spin.mp3','win.mp3'],'The eleven verified original game media files are required');
  assert.deepEqual(Object.keys(sources.files||{}).sort(),files,'CI source inventory must exactly match the current game');
  for(const file of files){
   const expected=manifest.files[file],source=checkedSource(file,sources.files[file]);

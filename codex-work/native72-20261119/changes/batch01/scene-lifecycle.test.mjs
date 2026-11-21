@@ -22,6 +22,10 @@ function harness(Variant,{images=true}={}){
  const doc=new EventTarget();doc.hidden=false;
  const symbols=['cherry','seven'];
  const assets=images?{cherry:{width:100,height:100,complete:true},seven:{width:100,height:100,complete:true}}:{};
+ if(Variant.id==='fresh_multihot20')Object.assign(assets,{
+  __wheelNumbers:{width:1093,height:1946},__wheelFrame:{width:2047,height:2047},__wheelLight:{width:2047,height:2047},
+  __title:{width:633,height:152},__boxFrame:{width:1119,height:696},__background:{width:600,height:600}
+ });
  const audioLog=[];
  const audio={play:key=>audioLog.push(key),pauseAll:()=>audioLog.push('pause'),resumeOptedInMusic:()=>audioLog.push('music')};
  const scene=new Variant.Scene({
@@ -29,7 +33,7 @@ function harness(Variant,{images=true}={}){
   clock:()=>time,requestFrame:cb=>setTimeout(()=>{time+=20;cb(time)},0),
   cancelFrame:id=>clearTimeout(id)
  });
- const receipt={gameId:Variant.id,roundId:'test-'+Variant.name,finalWin:'3.00',grid:[
+ const receipt={gameId:Variant.id,roundId:'test-'+Variant.name,wheelMultiplier:3,finalWin:'3.00',grid:[
   ['cherry','seven','cherry','seven','cherry'],
   ['seven','cherry','seven','cherry','seven'],
   ['cherry','seven','cherry','seven','cherry']

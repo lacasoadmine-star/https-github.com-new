@@ -1,0 +1,95 @@
+{
+  "schema": "zplay/multihot20-fresh-reference/v2",
+  "observedDate": "2026-11-21",
+  "timezone": "Africa/Addis_Ababa",
+  "gameId": "fresh_multihot20",
+  "officialProduct": "https://www.smartsoftgaming.com/games/multi-hot-20",
+  "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&PortalName=demo&Token=DEMO",
+  "continuesReference": "../m20-r5/official-reference.json",
+  "freshSession": {
+    "loading": "Original loading view remained visible; one reported low-risk reload opened the game successfully.",
+    "currency": "DMO",
+    "bet": "0.20",
+    "balanceBeforeHold": "20000.00",
+    "heldPointerMs": 3500,
+    "balanceAfterRelease": "19999.40",
+    "balanceAtLaterObservation": "19999.40",
+    "wheelLeftCentreRight": [
+      1,
+      3,
+      5
+    ],
+    "inference": "Net decrease equals three displayed stakes. No final win banner was visible; actual round count and provider receipts were not read, and intermediate wins were not measured.",
+    "observedBehavior": "Holding SPIN initiated successive rounds; releasing stopped further rounds after the accepted result.",
+    "subsequentIndividualSpins": [
+      {
+        "balanceBefore": "19999.40",
+        "balanceAfter": "19999.20",
+        "bet": "0.20",
+        "wheelLeftCentreRight": [
+          2,
+          4,
+          1
+        ],
+        "noWinBannerObserved": true
+      },
+      {
+        "balanceBefore": "19999.20",
+        "balanceAfter": "19999.00",
+        "bet": "0.20",
+        "wheelLeftCentreRight": [
+          2,
+          4,
+          1
+        ],
+        "noWinBannerObserved": true
+      },
+      {
+        "balanceBefore": "19999.00",
+        "balanceAfter": "19998.80",
+        "bet": "0.20",
+        "wheelLeftCentreRight": [
+          4,
+          1,
+          3
+        ],
+        "noWinBannerObserved": true
+      }
+    ],
+    "noWinBannerObserved": true,
+    "netStakeEquivalentsFromBalance": 3
+  },
+  "screenshots": [
+    {
+      "file": "official-held-spin-released.jpg",
+      "bytes": 136105,
+      "sha256": "1d7158848443553e45dcfb80d1c21e96142bb5e0418187f6d87faa30fdbbccc6",
+      "purpose": "Fresh original demo result and unchanged balance after releasing held SPIN."
+    }
+  ],
+  "changesFromComparison": [
+    "Replace help-page composite wheel with original 14-sector ring, fixed selector and illuminated ring textures.",
+    "Move the complete numeral ring so adjacent multipliers change with the accepted result.",
+    "Use original trimmed symbol sprites, logo and reel frame.",
+    "Use original button textures for normal, hover, pressed, disabled, turbo and sound states.",
+    "Add held-pointer serial spin with release/cancel guards."
+  ],
+  "runtimeMedia": {
+    "revision": "batch01-20261121-r6",
+    "files": 11,
+    "freshOriginalBackground": 1,
+    "retainedVerifiedOriginalAtlases": 5,
+    "retainedVerifiedOriginalSounds": 5,
+    "userScreenshotsUsedAsRuntimeAssets": false,
+    "providerClientCodeCopied": false
+  },
+  "limits": {
+    "providerRngReproduced": false,
+    "freshOfficialAudioDownloaded": false,
+    "officialAudioAudiblyCompared": false,
+    "fullOfficialMotionTimingMeasured": false,
+    "physicalMobile60FpsVerified": false,
+    "realPlayerWagers": 0,
+    "largeWinTiersObservedInThisSession": false
+  }
+}

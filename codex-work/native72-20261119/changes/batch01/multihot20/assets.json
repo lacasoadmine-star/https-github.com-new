@@ -1,11 +1,11 @@
 {
   "schema": "zplay/verified-official-capture-assets/v1",
   "gameId": "fresh_multihot20",
-  "revision": "batch01-20261121-r5",
+  "revision": "batch01-20261121-r6",
   "captureDate": "2026-11-21",
-  "source": "14 images freshly downloaded from the official demo CDN on 2026-11-21; five original audio files retained from the existing verified project capture",
+  "source": "Fresh official demo background from 2026-11-21; five original rendering atlases and five original sounds retained from the verified project capture. The atlases are compared to the fresh live demo observations.",
   "baseUrl": "./assets/",
-  "provenance": "Per-file retrieval records distinguish fresh official images from retained verified project audio; original SHA-256 and byte sizes are preserved",
+  "provenance": "Per-file retrieval distinguishes a fresh official download from retained verified original media. Original SHA-256 and byte sizes are preserved; provider implementation code is not copied.",
   "symbols": [
     "seven",
     "bell",
@@ -16,13 +16,57 @@
     "orange",
     "cherry"
   ],
-  "otherFruitsOrder": [
-    "lemon",
-    "plum",
-    "orange",
-    "cherry"
-  ],
   "files": {
+    "atlas-0.png": {
+      "sha256": "d7f66e65019dfb778968cc1caf1ab7eaf3a4c4099b37c475d09e32cce2799bd5",
+      "bytes": 1623108,
+      "contentType": "image/png",
+      "originalName": "multi-hot-20/06-artwork/fb2747de76eb-Images-0.png",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
+    },
+    "atlas-1.png": {
+      "sha256": "b69ddb538b871cbd476a1dc5aee5b0080ae29f121c3146bd523628d8824f617a",
+      "bytes": 1265504,
+      "contentType": "image/png",
+      "originalName": "multi-hot-20/06-artwork/1d97b33ff065-Images-1.png",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
+    },
+    "atlas-2.png": {
+      "sha256": "ef1e8f40021865fe853c9625cf5a6bf152dd0f7b3a19e387cad85add6312d8c0",
+      "bytes": 1691262,
+      "contentType": "image/png",
+      "originalName": "multi-hot-20/06-artwork/f0ef4b6c686a-Images-2.png",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
+    },
+    "atlas-3.png": {
+      "sha256": "768f8d203d2a8ef0b4ca67fc315decb86040fe1d5c0b58f4ebec6fab2657c5d7",
+      "bytes": 1094836,
+      "contentType": "image/png",
+      "originalName": "multi-hot-20/06-artwork/74669651c44c-Images-3.png",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
+    },
+    "atlas-logo.png": {
+      "sha256": "737ab58905c24f1302b2d78b2e20dceba1d5dd97b959900f3e87bae8db8b37fd",
+      "bytes": 375985,
+      "contentType": "image/png",
+      "originalName": "multi-hot-20/06-artwork/e8bcff9be646-multi_hot_100_logo.png",
+      "retrieval": {
+        "kind": "retained_verified_project_asset",
+        "freshOfficialDownload": false
+      }
+    },
     "background.png": {
       "sha256": "87b4e66861db2f1740601f8638a9c0a1d8ddb4f6b81c139272871d38639819c5",
       "bytes": 1797452,
@@ -32,17 +76,6 @@
       "retrieval": {
         "kind": "fresh_official_browser_download",
         "at": "2026-11-21T01:09:37.238Z"
-      }
-    },
-    "bell.png": {
-      "sha256": "2bb0fa62ff7d8fe497e1a56d393589dc7253f43ae6cfda26ae7703a86a501ea3",
-      "bytes": 46212,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/d2dbabe0b591-Symbol2.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol2.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:37.771Z"
       }
     },
     "button.mp3": {
@@ -56,17 +89,6 @@
         "freshOfficialDownload": false
       }
     },
-    "grape.png": {
-      "sha256": "f9647c23bfbe3ec3623515b715d16267d12d97d4b8a91a76028acbfb47ea61b4",
-      "bytes": 60114,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/f9be6119b6d9-Symbol3.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol3.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:38.244Z"
-      }
-    },
     "music.mp3": {
       "sha256": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5",
       "bytes": 2096626,
@@ -76,17 +98,6 @@
       "retrieval": {
         "kind": "retained_verified_project_asset",
         "freshOfficialDownload": false
-      }
-    },
-    "other-fruits.png": {
-      "sha256": "1a9ea1b312f0842f5419742880cbe7392fbe9918624ce9e870f11e0e9aecbe8a",
-      "bytes": 94346,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/5e9b529c4f53-Symbol-Others.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol-Others.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:38.726Z"
       }
     },
     "reel-stop.mp3": {
@@ -100,17 +111,6 @@
         "freshOfficialDownload": false
       }
     },
-    "seven.png": {
-      "sha256": "af40dbf0aa01ee211b8a7138042a400de800721c32854c59afaa1ee016eff754",
-      "bytes": 37889,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/57ce700f383e-Symbol1.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol1.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:36.954Z"
-      }
-    },
     "spin.mp3": {
       "sha256": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87",
       "bytes": 28322,
@@ -120,17 +120,6 @@
       "retrieval": {
         "kind": "retained_verified_project_asset",
         "freshOfficialDownload": false
-      }
-    },
-    "watermelon.png": {
-      "sha256": "5c8f3488bd146186a388a7fbe2227986aad40dadaaf09da1b2af6b35504c4672",
-      "bytes": 46580,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/e5a029a846bd-Symbol4.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Symbol4.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:39.232Z"
       }
     },
     "win.mp3": {
@@ -143,103 +132,27 @@
         "kind": "retained_verified_project_asset",
         "freshOfficialDownload": false
       }
-    },
-    "auto-button.png": {
-      "sha256": "6bb25d290efa976784f1d2834bf15a28c28eb6b00c4980d642b1d81417b864e5",
-      "bytes": 21864,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/eed9025010d8-AutoPlay.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/AutoPlay.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:39.726Z"
-      }
-    },
-    "balance-frame.png": {
-      "sha256": "2721399b9e7aad82e7fc7c1b92f3eef4ffda938836f7151743a170c6ffd8c48d",
-      "bytes": 5423,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/d48a55a381bb-Balance.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Balance.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:40.235Z"
-      }
-    },
-    "bet-frame.png": {
-      "sha256": "9e325d5c606dace62110b45e328d06b4193e49a750bb79c7b9fba7921af22f7a",
-      "bytes": 5441,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/29705ae20771-Bet.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Bet.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:40.740Z"
-      }
-    },
-    "menu-icon.png": {
-      "sha256": "68461e8fcfd13de54e13d8ebaca8a0a4176e0e84d8dc2a9e89174c7c7bbde34f",
-      "bytes": 1237,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/d956fb891f05-Menu.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Menu.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:41.233Z"
-      }
-    },
-    "sound-icon.png": {
-      "sha256": "74564c9e4d36ec510d0d592c46fa0defb6b9fe203daaf749dd7f81acc609205b",
-      "bytes": 1678,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/e65afdbb55fa-Sound.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Sound.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:41.732Z"
-      }
-    },
-    "spin-button.png": {
-      "sha256": "ce6b54ef6bf1239f55b33c8696595217c97fd7ab81f74bb2a8aa2dccc399f704",
-      "bytes": 47468,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/b951902e8291-Spin.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Spin.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:42.239Z"
-      }
-    },
-    "turbo-icon.png": {
-      "sha256": "7f05f6c378594d35fbc4ecc35b73db2069c4920c8dc8055cfed7ada61561ab5f",
-      "bytes": 5705,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/9223a94bd6b4-Turbo.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/Turbo.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:42.715Z"
-      }
-    },
-    "wheel.png": {
-      "sha256": "6334b88d1b66cfad2b6ec818d0c955b2f76d3f129dbb7054c7589d6514e790fb",
-      "bytes": 201981,
-      "contentType": "image/png",
-      "originalName": "multi-hot-20/06-artwork/6fc0af99b73c-MultiHot-Multiplier.png",
-      "officialURL": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot20/MultiHot-Multiplier.png",
-      "retrieval": {
-        "kind": "fresh_official_browser_download",
-        "at": "2026-11-21T01:09:43.214Z"
-      }
     }
   },
   "provenanceSummary": {
-    "officialImagesRefetched": 14,
+    "freshOfficialImagesInRuntime": 1,
+    "retainedOriginalAtlases": 5,
     "existingOriginalSoundsRetained": 5,
     "allSoundsFreshlyDownloaded": false,
     "officialDemoObserved": "2026-11-21",
     "officialDemoCompletedSpins": 1,
     "officialDemoSecondSpin": "session_timeout",
-    "providedUserScreenshotsUsedAsAssets": false
+    "providedUserScreenshotsUsedAsAssets": false,
+    "oldHelpCompositeWheelRemoved": true,
+    "oldHelpButtonCropsRemoved": true,
+    "additionalFreshSession": {
+      "reference": "codex-work/native72-20261119/qa/evidence/m20-r6/official-reference.json",
+      "heldPointerMs": 3500,
+      "observedBalanceBefore": "20000.00 DMO",
+      "observedBalanceAfterRelease": "19999.40 DMO",
+      "heldSpinRepeated": true,
+      "releaseStoppedFutureSpins": true,
+      "exactProviderTimingMeasured": false
+    }
   }
 }

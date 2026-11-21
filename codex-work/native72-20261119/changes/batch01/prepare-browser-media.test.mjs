@@ -22,7 +22,7 @@ const source=(file='seven.png',body=bytes)=>{
 const response=(body=bytes,type='image/png')=>new Response(body,{headers:{'content-type':type}});
 
 test('CI inventory pins all actual game files and preserves the five retained audio records',()=>{
- assert.equal(verifySourceManifest(manifest,sources).length,19);
+ assert.equal(verifySourceManifest(manifest,sources).length,11);
  const audio=Object.entries(sources.files).filter(([name])=>name.endsWith('.mp3'));
  assert.equal(audio.length,5);
  for(const [,record] of audio){
@@ -39,12 +39,12 @@ test('CI inventory pins all actual game files and preserves the five retained au
   assert.throws(()=>verifySourceManifest(manifest,privateField),/only public fields/);
  }
  for(const field of ['sourceKey','key']){
-  const privateField=structuredClone(sources);privateField.files['seven.png'][field]='must-not-publish';
+  const privateField=structuredClone(sources);privateField.files['background.png'][field]='must-not-publish';
   assert.throws(()=>verifySourceManifest(manifest,privateField),/only public fields/);
  }
- const privateProvenance=structuredClone(sources);privateProvenance.files['seven.png'].retrievalProvenance.sourceKey='must-not-publish';
+ const privateProvenance=structuredClone(sources);privateProvenance.files['background.png'].retrievalProvenance.sourceKey='must-not-publish';
  assert.throws(()=>verifySourceManifest(manifest,privateProvenance),/only public fields/);
- const changedDate=structuredClone(sources);changedDate.files['seven.png'].retrievalProvenance.at='2026-11-20T00:00:00.000Z';
+ const changedDate=structuredClone(sources);changedDate.files['background.png'].retrievalProvenance.at='2026-11-20T00:00:00.000Z';
  assert.throws(()=>verifySourceManifest(manifest,changedDate),/retrieval provenance changed/);
 });
 
@@ -54,6 +54,13 @@ test('provider, wallet, credentialed and query-string URLs fail before any netwo
   'https://name:password@superwin-player.apdiy61.workers.dev'+PUBLIC_PREFIX+'image.png',source().url+'?token=anything']){
   await assert.rejects(fetchVerifiedAsset('seven.png',{...source(),url},{fetchImpl}),/Only the pinned public project media URL/);
  }
+ assert.equal(requests,0);
+});
+
+test('retained original audio cannot be relabelled as a fresh provider download',async()=>{
+ let requests=0;
+ const altered={...source('win.mp3'),retrievalProvenance:{kind:'fresh_official_browser_download',at:'2026-11-21T00:00:00.000Z'}};
+ await assert.rejects(fetchVerifiedAsset('win.mp3',altered,{fetchImpl:async()=>{requests++;return response(bytes,'audio/mpeg')}}),/Audio must retain/);
  assert.equal(requests,0);
 });
 
@@ -95,7 +102,7 @@ async function withSetup(run){
 
 test('complete verified set becomes visible together and produces an explicit nonfresh QA report',async()=>withSetup(async({options,bodies})=>{
  const result=await prepareBrowserMedia({...options,fetchImpl:async url=>{const item=bodies.get(url);assert.ok(item);return response(item.body,item.type)}});
- assert.equal(result.status,'PASS');assert.equal(result.verifiedFiles,19);assert.equal((await readdir(options.output)).length,19);
+ assert.equal(result.status,'PASS');assert.equal(result.verifiedFiles,11);assert.equal((await readdir(options.output)).length,11);
  const report=JSON.parse(await readFile(options.reportPath,'utf8'));
  assert.equal(report.providerRequests,false);assert.equal(report.walletRequests,false);assert.equal(report.credentialsSent,false);
  assert.equal(report.files.find(file=>file.file==='win.mp3').retrievalProvenance.freshOfficialDownload,false);

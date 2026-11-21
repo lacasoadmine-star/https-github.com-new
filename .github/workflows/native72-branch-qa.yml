@@ -80,6 +80,8 @@ jobs:
       - name: Verify archived SmartSoft server math and existing Player ETB ledger adapter
         run: |
           node --test codex-work/native72-20261119/changes/batch01/server/*.test.mjs
+          node --test codex-work/native72-20261119/changes/batch01/server/railway-release/transport.test.mjs
+          node --check codex-work/native72-20261119/changes/batch01/server/railway-release/transport.mjs
           for file in codex-work/native72-20261119/changes/batch01/server/*.mjs; do
             node --check "$file"
           done
@@ -158,7 +160,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Fetch and verify nineteen existing project media files for isolated QA
+      - name: Fetch and verify eleven original project media files for isolated QA
         run: |
           node codex-work/native72-20261119/changes/batch01/prepare-browser-media.mjs \
             --output "$RUNNER_TEMP/m20-browser-assets" \

@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {Session,GAMBLE_STORAGE_KEY,STORAGE_KEY} from './multihot20/session.mjs';
 import {GameController,GAME_ID,validateGambleReceipt} from './multihot20/controller.mjs';
+import {CONTROL_TEXTURES,controlTextureName,createControlArt,createHoldSpin} from './multihot20/app.mjs';
 
 const GUARD='f'.repeat(64),PARENT='c4353465-1182-48dc-b1a2-617ccebe7def';
 const etb=n=>(n/100n)+'.'+(n%100n).toString().padStart(2,'0');
@@ -431,4 +432,172 @@ test('M20 X2 cannot target a later server round while an earlier receipt is disp
  assert.equal(f.requests.filter(r=>r.path==='/api/slots/gamble')[0].body.roundId,displayed.roundId);
  assert.equal(c.lastAction.roundId,later.roundId);assert.equal(c.account.balance,'104.00');
  assert.equal(f.metrics().debits,3);
+});
+
+// The real app exports its presentation helpers without mounting a DOM or
+// opening a Player session. This facade inspects emitted SVG geometry only.
+function artDocument(){
+ return{createElementNS(ns,tag){
+  assert.equal(ns,'http://www.w3.org/2000/svg');
+  return{tag,attributes:{},dataset:{},children:[],classes:new Set(),
+   classList:{add(){}},setAttribute(name,value){this.attributes[name]=String(value)},
+   append(child){this.children.push(child)}};
+ }};
+}
+function transformedPoint(transform,[x,y]){
+ const values=transform.match(/-?\d+(?:\.\d+)?/g).map(Number);
+ if(transform.startsWith('translate'))return[x+values[0],y+values[1]];
+ const [a,b,c,d,e,f]=values;return[a*x+c*y+e,b*x+d*y+f];
+}
+test('M20 atlas controls crop every frame without neighbour bleed and undo each packed quarter-turn',()=>{
+ assert.equal(Object.keys(CONTROL_TEXTURES).length,38);
+ for(const [name,frame]of Object.entries(CONTROL_TEXTURES)){
+  const packedW=frame.rotated?frame.h:frame.w,packedH=frame.rotated?frame.w:frame.h;
+  assert.ok(frame.x+packedW<=frame.atlasWidth,name+' right edge is inside atlas');
+  assert.ok(frame.y+packedH<=frame.atlasHeight,name+' bottom edge is inside atlas');
+  assert.ok(frame.trimX+frame.w<=frame.sourceW&&frame.trimY+frame.h<=frame.sourceH,name+' logical trim bounds');
+  const svg=createControlArt(name,'/verified/'+frame.atlas,artDocument()),crop=svg.children[0],image=crop.children[0];
+  assert.equal(svg.attributes.viewBox,`0 0 ${frame.sourceW} ${frame.sourceH}`);
+  assert.equal(svg.attributes['aria-hidden'],'true');assert.equal(svg.attributes.focusable,'false');
+  assert.equal(crop.attributes.overflow,'hidden');assert.equal(crop.attributes.width,String(frame.w));assert.equal(crop.attributes.height,String(frame.h));
+  assert.equal(crop.attributes.x,String(frame.trimX));assert.equal(crop.attributes.y,String(frame.trimY));
+  assert.equal(image.attributes.href,'/verified/'+frame.atlas);
+  const packed=[[frame.x,frame.y],[frame.x+packedW,frame.y],[frame.x+packedW,frame.y+packedH],[frame.x,frame.y+packedH]];
+  const corners=packed.map(point=>transformedPoint(image.attributes.transform,point));
+  assert.deepEqual(corners,frame.rotated?[[0,frame.h],[0,0],[frame.w,0],[frame.w,frame.h]]:
+    [[0,0],[frame.w,0],[frame.w,frame.h],[0,frame.h]],name+' display orientation');
+ }
+ // These are rectangular captured frames, so a wrong rotation cannot be
+ // concealed by a square icon or a same-size crop.
+ assert.equal(CONTROL_TEXTURES['Buttons/BetDisabled'].rotated,true);
+ assert.equal(CONTROL_TEXTURES['Buttons/SoundOff'].sourceW,48);
+ assert.equal(CONTROL_TEXTURES['Buttons/SoundOff'].sourceH,38);
+ assert.equal(CONTROL_TEXTURES['Buttons/QuickPlay'].trimY,18);
+});
+
+test('M20 SPIN, STOP, AUTO STOP, turbo and sound choose real state textures independently of hover',()=>{
+ for(const [id,state,name]of [
+  ['spin',{},'Buttons/Spin'],['spin',{hovered:true},'Buttons/SpinHover'],
+  ['spin',{pressed:true},'Buttons/SpinActive'],['spin',{disabled:true,hovered:true},'Buttons/SpinDisabled'],
+  ['spin',{spinning:true,pressed:true},'Buttons/SpinStop'],
+  ['spin',{turbo:true},'Buttons/SpinTurbo'],['spin',{spinning:true,turbo:true},'Buttons/SpinTurboStop'],
+  ['auto',{autoplay:true},'Buttons/AutoPlayStop'],['auto',{autoplay:true,pressed:true},'Buttons/AutoPlayStopActive'],
+  ['auto',{disabled:true},'Buttons/AutoPlayDisabled'],['bet',{disabled:true},'Buttons/BetDisabled'],
+  ['turbo',{},'Buttons/QuickPlay'],['turbo',{turbo:true},'Buttons/QuickPlayTurbo'],
+  ['menu',{hovered:true},'Buttons/MenuHover'],['sound',{soundOn:false},'Buttons/SoundOff'],
+  ['sound',{soundOn:true},'Buttons/SoundOn'],['sound',{soundOn:true,pressed:true},'Buttons/SoundOnActive']
+ ])assert.equal(controlTextureName(id,state),name);
+ for(let bits=0;bits<128;bits++){
+  const state=Object.fromEntries(['disabled','pressed','hovered','spinning','autoplay','turbo','soundOn'].map((name,i)=>[name,!!(bits&(1<<i))]));
+  for(const id of ['spin','auto','bet','turbo','menu','sound'])assert.ok(CONTROL_TEXTURES[controlTextureName(id,state)],id+' never selects an absent frame');
+ }
+ assert.throws(()=>controlTextureName('unknown'),/UNKNOWN_CONTROL_TEXTURE/);
+ assert.throws(()=>createControlArt('help-strip','/verified/atlas-0.png',artDocument()),/CONTROL_ART_UNAVAILABLE/);
+});
+
+test('M20 AUTO STOP art remains actionable during a paid spin and cancellation preserves the one accepted bet',async()=>{
+ const f=fixture(),session=f.session();let release,entered;
+ const settling=new Promise(resolve=>entered=resolve);
+ const scene={reset(){},start(){},async settle(){entered();await new Promise(resolve=>release=resolve)}};
+ const c=new GameController({session,scene});c.connect(await session.connect());
+ assert.equal(c.armAuto(25),true);const running=c.startPlay();await settling;
+ const state=c.status();assert.equal(state.phase,'spinning');assert.equal(state.auto.started,true);
+ assert.equal(controlTextureName('auto',{autoplay:state.auto.started,disabled:false}),'Buttons/AutoPlayStop');
+ assert.equal(controlTextureName('spin',{spinning:state.phase==='spinning',disabled:false}),'Buttons/SpinStop');
+ c.stopAuto();assert.equal(c.status().auto.started,false);
+ release();assert.equal(await running,true);
+ assert.equal(f.requests.filter(request=>request.path==='/api/slots/spin').length,1);
+ assert.equal(f.metrics().debits,1);assert.equal(c.status().phase,'ready');
+ assert.equal(controlTextureName('auto',{autoplay:c.status().auto.started,disabled:false}),'Buttons/AutoPlay');
+});
+
+async function holdFixture(){
+ const f=fixture(),session=f.session(),entered=[],waiting=[],queued=[];
+ let stopped=0,visible=true,owner;
+ const scene={reset(){},start(){},speedUp(){stopped++},settle(receipt){
+  let release;const promise=new Promise(resolve=>release=resolve),round={receipt,release};
+  if(waiting.length)waiting.shift()(round);else entered.push(round);
+  return promise;
+ }};
+ const c=new GameController({session,scene});owner=c;c.connect(await session.connect());
+ const hold=createHoldSpin({getController:()=>owner,visible:()=>visible,
+  schedule:fn=>{const entry={fn,cancelled:false};queued.push(entry);return entry},cancelScheduled:entry=>{entry.cancelled=true}});
+ return {f,session,c,hold,queued,next:()=>entered.length?Promise.resolve(entered.shift()):new Promise(resolve=>waiting.push(resolve)),
+  hide:()=>{visible=false},replace:replacement=>{owner=replacement},stopped:()=>stopped};
+}
+
+test('M20 HOLD tap settles one ordinary controller round and suppresses only the pointer release click',async()=>{
+ const {f,c,hold,next,queued}=await holdFixture();
+ assert.equal(hold.begin(11),true);assert.equal(hold.begin(12),false);
+ const round=await next();assert.equal(f.metrics().debits,1);assert.equal(c.phase,'spinning');
+ hold.release(12);assert.equal(hold.active,true,'another finger cannot release the held pointer');
+ hold.release(11);round.release();assert.equal(await hold.currentRound,true);
+ assert.equal(hold.active,false);assert.equal(queued.length,0);assert.equal(c.phase,'ready');
+ assert.equal(hold.consumeClick({pointerId:11,detail:1,pointerType:'touch'}),true);
+ assert.equal(hold.consumeClick({pointerId:11,detail:1,pointerType:'touch'}),false);
+ assert.equal(hold.consumeClick({detail:0,pointerType:''}),false,'keyboard activation remains a normal click');
+ assert.equal(f.requests.filter(r=>r.path==='/api/slots/spin').length,1);assert.equal(f.metrics().debits,1);
+});
+
+test('M20 HOLD repeats after settlement and ledger refresh, then release invalidates an already queued round',async()=>{
+ const {f,session,c,hold,next,queued}=await holdFixture();
+ let permitRefresh,refreshEntered;
+ const enteredRefresh=new Promise(resolve=>refreshEntered=resolve),originalFinish=session.finish.bind(session);
+ session.finish=async()=>{refreshEntered();await new Promise(resolve=>permitRefresh=resolve);return originalFinish()};
+ hold.begin(4);const first=await next();first.release();await enteredRefresh;
+ assert.equal(f.metrics().debits,1);assert.equal(queued.length,0,'animation alone must not authorize the next held spin');
+ permitRefresh();await hold.currentRound;assert.equal(c.phase,'ready');assert.equal(queued.length,1);
+ session.finish=originalFinish;queued.shift().fn();const second=await next();
+ assert.equal(f.metrics().debits,2);assert.equal(queued.length,0);second.release();await hold.currentRound;
+ assert.equal(queued.length,1);const pending=queued.shift();hold.release(4);assert.equal(pending.cancelled,true);
+ pending.fn();await Promise.resolve();assert.equal(f.metrics().debits,2,'even a raced cancelled callback cannot bet');
+ assert.equal(f.requests.filter(r=>r.path==='/api/slots/spin').length,2);assert.equal(c.phase,'ready');
+});
+
+test('M20 HOLD cancellation lets its accepted round settle but never starts another',async()=>{
+ const {f,c,hold,next,queued}=await holdFixture();hold.begin(3);const round=await next();
+ hold.cancel();round.release();await hold.currentRound;
+ assert.equal(f.metrics().debits,1);assert.equal(c.phase,'ready');assert.equal(queued.length,0);assert.equal(hold.active,false);
+});
+
+for(const stop of ['hidden','new session','different bet'])test('M20 HOLD queued continuation checks '+stop+' before another debit',async()=>{
+ const {f,c,hold,next,queued,hide}=await holdFixture();hold.begin(7);const round=await next();round.release();await hold.currentRound;
+ const callback=queued.shift();assert.ok(callback);
+ if(stop==='hidden')hide();else if(stop==='new session')c.connect(f.state());else c.setBet('2.00');
+ callback.fn();await hold.currentRound;assert.equal(f.metrics().debits,1);assert.equal(hold.active,false);
+});
+
+test('M20 HOLD response loss keeps the original token and cannot resume itself after reconciliation',async()=>{
+ const {f,c,hold,next,queued}=await holdFixture();f.loseAfter();hold.begin(8);await hold.currentRound;
+ assert.equal(c.phase,'confirm');assert.equal(hold.active,false);assert.equal(f.metrics().debits,1);assert.equal(queued.length,0);
+ const original=f.requests.find(r=>r.path==='/api/slots/spin').body;
+ const recovering=c.reconcile(),round=await next();round.release();assert.equal(await recovering,true);
+ const posts=f.requests.filter(r=>r.path==='/api/slots/spin');assert.equal(posts.length,2);
+ assert.equal(posts[1].body.roundToken,original.roundToken);assert.equal(posts[1].body.replayOnly,true);
+ assert.equal(f.metrics().debits,1);assert.equal(queued.length,0);assert.equal(hold.active,false);
+});
+
+test('M20 pressing STOP during AUTO cancels future AUTO and changes only the accepted animation',async()=>{
+ const {f,c,hold,next,queued,stopped}=await holdFixture();c.armAuto(25);const spinning=c.startPlay();const round=await next();
+ assert.equal(hold.begin(9),true);assert.equal(stopped(),1);assert.equal(c.auto.started,false);assert.equal(hold.active,false);
+ hold.release(9);assert.equal(hold.consumeClick({pointerId:9,detail:1,pointerType:'mouse'}),true);
+ round.release();await spinning;await Promise.resolve();
+ assert.equal(f.metrics().debits,1);assert.equal(queued.length,0);assert.equal(c.phase,'ready');
+});
+
+test('M20 a new deliberate HOLD tap can retry a previously rejected ready-state request',async()=>{
+ const {f,c,hold,next,queued}=await holdFixture();c.change('ready','INSUFFICIENT_FUNDS');
+ assert.equal(hold.begin(10),true);const round=await next();hold.release(10);round.release();await hold.currentRound;
+ assert.equal(f.metrics().debits,1);assert.equal(queued.length,0);assert.equal(c.error,null);
+});
+
+test('M20 a rejected second finger cannot consume the primary HOLD release or add a bet',async()=>{
+ const {f,c,hold,next,queued}=await holdFixture();hold.begin(21);const round=await next();
+ assert.equal(hold.begin(22),false);hold.release(22);
+ assert.equal(hold.consumeClick({pointerId:22,pointerType:'touch',detail:1}),true);
+ assert.equal(hold.active,true);round.release();await hold.currentRound;assert.equal(c.phase,'ready');
+ hold.release(21);assert.equal(hold.consumeClick({pointerId:21,pointerType:'touch',detail:1}),true);
+ for(const callback of queued)callback.fn();await Promise.resolve();
+ assert.equal(f.metrics().debits,1);assert.equal(f.requests.filter(r=>r.path==='/api/slots/spin').length,1);
+ assert.equal(hold.consumeClick({pointerId:-1,pointerType:'',detail:0}),false,'keyboard click remains available');
 });

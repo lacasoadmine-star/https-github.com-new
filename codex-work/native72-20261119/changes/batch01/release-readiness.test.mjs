@@ -25,7 +25,7 @@ test('a route and a file do not imply release: every game requires production an
   assert.match(entry.officialDemo,/^https:\/\//,entry.title);
  }
 });
-test('staged games retain unavailable Player routes and closed math/deployment gates',async()=>{
+test('new-game Player routes and enabled wager releases remain closed',async()=>{
  const pins=JSON.parse(await readFile(new URL('./player-route-pins.json',import.meta.url),'utf8'));
  for(const key of ['multihot20','multihot5burnwilds']){
   const e=batch.entries.find(e=>e.sourceKey===key);
@@ -36,7 +36,9 @@ test('staged games retain unavailable Player routes and closed math/deployment g
   assert.equal(e.kvRelease.published,false);
   assert.equal(pins.games[key].published,false);
   assert.equal(pins.games[key].path,e.requestedPlayerRoute);
-  assert.equal(e.serverMathWork.liveDeployed,false);
+  assert.equal(e.serverMathWork.liveDeployed,true);
+  assert.equal(e.serverMathWork.liveRelease,'r2_closed_gate');
+  assert.equal(e.serverMathWork.independentOperatorModel.currentWagerReleaseEnabled,false);
   assert.equal(e.serverMathWork.auditedProbabilityProfileApproved,false);
  }
 });
