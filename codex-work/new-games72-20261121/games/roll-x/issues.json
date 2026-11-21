@@ -69,10 +69,10 @@
         "tests/input-lifecycle.test.mjs"
       ],
       "attempts": 1,
-      "retest": "Cancelable event regressions verify defaultPrevented and no new spin across STOP/READY transitions; native browser test remains open in ROLLX-007.",
+      "retest": "The exact combined browser verified focused held-Enter repeat rejection and native Space activation. Synthetic repeat/defaultPrevented checks also pass. A physically held Space sequence across readiness changes has not been claimed.",
       "evidence": "frontend-test-report.json",
       "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "Native browser held-key/BFCache behavior; local regression tests passed."
+      "pendingRetestScope": "Native held-Space repeat/release sequence; see separate BFCache lifecycle issue for actual history restoration."
     },
     {
       "id": "ROLLX-FIX-006",
@@ -102,10 +102,33 @@
         "qa/browser-run.mjs"
       ],
       "attempts": 1,
-      "retest": "10 isolated 0.50 ETB / 2x receipts accepted exactly; invalid/stale selections reject before state mutation or request. Native form selection checks prepared for GitHub CI.",
+      "retest": "Exact combined-source GitHub browser run passed55 checks. Immutable source hashes and15 screenshots were verified; required action, native focus, AUTO and viewport assertions passed. No production wager or ledger transaction was involved.",
       "evidence": "frontend-test-report.json",
-      "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "Native browser AUTO select/input and responsive dialog interaction."
+      "status": "FIXED",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        },
+        {
+          "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+          "runId": 44956716335,
+          "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+          "browserChecksPassed": 55,
+          "artifactId": 14728380561,
+          "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+          "sourceHashesVerified": 16,
+          "screenshotsVerified": 15,
+          "realMoneyActions": 0,
+          "productionEndpointsUsed": false,
+          "evidence": "../../release/ci-381c252/review.json",
+          "result": "PASS_FOR_EXACT_COMBINED_SOURCE"
+        }
+      ],
+      "nextAction": "Retain this source-bound regression evidence; separate incomplete game/ledger/provider-parity gates remain closed."
     },
     {
       "id": "ROLLX-FIX-008",
@@ -118,10 +141,177 @@
         "qa/browser-run.mjs"
       ],
       "attempts": 1,
-      "retest": "Browser-like host-timer regression failed before the fix and passes afterward; all 58 RollX local checks pass. Defaults now retain the global host receiver; failure artifacts record page-error stacks and fixture state.",
+      "retest": "Exact combined-source GitHub browser run passed55 checks. Immutable source hashes and15 screenshots were verified; required action, native focus, AUTO and viewport assertions passed. No production wager or ledger transaction was involved.",
       "evidence": "qa/browser-attempt-04-github.json",
-      "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "The next exact-source GitHub browser run must confirm full AUTO and the remaining native input/mobile checks."
+      "status": "FIXED",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        },
+        {
+          "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+          "runId": 44956716335,
+          "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+          "browserChecksPassed": 55,
+          "artifactId": 14728380561,
+          "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+          "sourceHashesVerified": 16,
+          "screenshotsVerified": 15,
+          "realMoneyActions": 0,
+          "productionEndpointsUsed": false,
+          "evidence": "../../release/ci-381c252/review.json",
+          "result": "PASS_FOR_EXACT_COMBINED_SOURCE"
+        }
+      ],
+      "nextAction": "Retain this source-bound regression evidence; separate incomplete game/ledger/provider-parity gates remain closed."
+    },
+    {
+      "id": "ROLLX-FIX-009",
+      "owner": "release-coordinator/roll-x-route",
+      "action": "Open the new game at its canonical registry document route and hold Enter while the ready SPIN button retains native focus",
+      "expected": "The exact reserved route resolves all authored modules and repeat keys cannot create a second accepted request",
+      "observed": "Previous isolated QA used the module index URL rather than the registry route; relative imports failed under the registry path and post-settlement repeat assertions could target a blurred button",
+      "files": [
+        "frontend-route.json",
+        "index.html",
+        "qa/browser-run.mjs",
+        "qa/run-isolated-browser.cjs",
+        "qa/prepare-browser.mjs",
+        "tests/route.test.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Exact combined-source GitHub browser run passed55 checks. Immutable source hashes and15 screenshots were verified; required action, native focus, AUTO and viewport assertions passed. No production wager or ledger transaction was involved.",
+      "evidence": "../../release/canonical-route-reconciliation-20261122.json",
+      "status": "FIXED",
+      "nextAction": "Retain this source-bound regression evidence; separate incomplete game/ledger/provider-parity gates remain closed.",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        },
+        {
+          "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+          "runId": 44956716335,
+          "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+          "browserChecksPassed": 55,
+          "artifactId": 14728380561,
+          "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+          "sourceHashesVerified": 16,
+          "screenshotsVerified": 15,
+          "realMoneyActions": 0,
+          "productionEndpointsUsed": false,
+          "evidence": "../../release/ci-381c252/review.json",
+          "result": "PASS_FOR_EXACT_COMBINED_SOURCE"
+        }
+      ]
+    },
+    {
+      "id": "ROLLX-FIX-010",
+      "owner": "release-coordinator/roll-x-layout",
+      "action": "Open the isolated game at 844x390 landscape and 360x800 portrait without scrolling",
+      "expected": "Wheel and main controls are visible, with 44px or larger touch controls and usable AUTO dialog",
+      "observed": "Upstream browser artifact placed landscape SPIN at y 656.625 and menu at y 722.625 in a 390px viewport; portrait menu bottom 812.828125 exceeded 800px. Old checks omitted vertical bounds.",
+      "files": [
+        "style.css",
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Exact combined-source GitHub browser run passed55 checks. Immutable source hashes and15 screenshots were verified; required action, native focus, AUTO and viewport assertions passed. No production wager or ledger transaction was involved.",
+      "evidence": "../../release/vertical-layout-reconciliation-20261122.json",
+      "status": "FIXED",
+      "nextAction": "Retain this source-bound regression evidence; separate incomplete game/ledger/provider-parity gates remain closed.",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        },
+        {
+          "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+          "runId": 44956716335,
+          "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+          "browserChecksPassed": 55,
+          "artifactId": 14728380561,
+          "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+          "sourceHashesVerified": 16,
+          "screenshotsVerified": 15,
+          "realMoneyActions": 0,
+          "productionEndpointsUsed": false,
+          "evidence": "../../release/ci-381c252/review.json",
+          "result": "PASS_FOR_EXACT_COMBINED_SOURCE"
+        }
+      ]
+    },
+    {
+      "id": "ROLLX-QA-011",
+      "owner": "release-coordinator/roll-x-qa",
+      "action": "Measure layout when an essential SPIN control is hidden",
+      "expected": "A missing or hidden essential control fails viewport acceptance",
+      "observed": "The032df69 helper filtered every hidden control; an independent actual-helper probe hid SPIN and still obtained fits=true with eight controls",
+      "files": [
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Exact combined-source GitHub browser run passed55 checks. Immutable source hashes and15 screenshots were verified; required action, native focus, AUTO and viewport assertions passed. No production wager or ledger transaction was involved.",
+      "evidence": "../../release/browser-run-merge-probes.json",
+      "status": "FIXED",
+      "nextAction": "Retain this source-bound regression evidence; separate incomplete game/ledger/provider-parity gates remain closed.",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+          "runId": 44956716335,
+          "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+          "browserChecksPassed": 55,
+          "artifactId": 14728380561,
+          "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+          "sourceHashesVerified": 16,
+          "screenshotsVerified": 15,
+          "realMoneyActions": 0,
+          "productionEndpointsUsed": false,
+          "evidence": "../../release/ci-381c252/review.json",
+          "result": "PASS_FOR_EXACT_COMBINED_SOURCE"
+        }
+      ]
+    },
+    {
+      "id": "ROLLX-QA-012",
+      "owner": "release-coordinator/roll-x-qa",
+      "action": "Measure the layout described as active AUTO after viewport resize",
+      "expected": "The same geometry sample must report AUTO still active",
+      "observed": "Prior helper waited for autoActive before resizing but did not bind that state to the later measurement",
+      "files": [
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Exact combined-source GitHub browser run passed55 checks. Immutable source hashes and15 screenshots were verified; required action, native focus, AUTO and viewport assertions passed. No production wager or ledger transaction was involved.",
+      "evidence": "../../release/browser-run-merge-review.json",
+      "status": "FIXED",
+      "nextAction": "Retain this source-bound regression evidence; separate incomplete game/ledger/provider-parity gates remain closed.",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+          "runId": 44956716335,
+          "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+          "browserChecksPassed": 55,
+          "artifactId": 14728380561,
+          "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+          "sourceHashesVerified": 16,
+          "screenshotsVerified": 15,
+          "realMoneyActions": 0,
+          "productionEndpointsUsed": false,
+          "evidence": "../../release/ci-381c252/review.json",
+          "result": "PASS_FOR_EXACT_COMBINED_SOURCE"
+        }
+      ]
     }
   ],
   "openTaskSource": "specification.json#openWork"

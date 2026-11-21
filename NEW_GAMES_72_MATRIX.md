@@ -1,3 +1,11 @@
+# Scope reconciliation notice — 22 November 2026
+
+The 72-entry matrix below preserves the earlier candidate inventory for the explicit 57-name request plus 15 current official products. The newer [supplied-name audit](codex-work/user-request-20261122/README.md) records 71 strings, 35 distinct verified official products and an alias duplicate; the exact 72-game membership remains unresolved. This matrix is historical and does not override the latest list or authorize invented variants. Shared identities and independent tasks continue, with public activation closed and zero new games release-ready.
+
+The [official 75/rendered 74 comparison](codex-work/new-games72-20261121/references/scope-reconciliation-20261122/SCOPE_RECONCILIATION.md) and [partial official-rule refresh](codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json) remain source-bound checkpoints. Current integration and exact CI evidence are linked from [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md). No round count or completed-game claim is introduced by this notice.
+
+---
+
 # ZPLAY / Superwin — 72 additional games matrix
 
 This is the active additive scope requested on 21 November 2026 (Africa/Addis_Ababa). It preserves the prior game catalog and unfinished prior work. It does not count an old game or a reserved path as a new playable implementation.

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-21T22:21:44.525787+00:00",
+  "status": "FIXED",
+  "parents": [
+    "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+    "032df69f2343750719c438a6960bc08b7cdb845c"
+  ],
+  "actualParentBrowserProof": {
+    "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+    "runId": 44955629035,
+    "checksPassed": 50,
+    "substitutesForMergedSource": false
+  },
+  "mergedSourceHashes": {
+    ".github/workflows/new-games72-additive-qa.yml": "23efa9b21366daac2e01844434c56fb3dda94dd216d8fb4f1951bd383faf5c8e",
+    "codex-work/new-games72-20261121/games/roll-x/index.html": "244a1a7bdd6382af764a74762f6a729207de59c836d13078def671ca0ef44c46",
+    "codex-work/new-games72-20261121/games/roll-x/style.css": "0c2f48619a30b71a2f5a9a37039aa8316af0b2abd67a682716f2a725d489e969",
+    "codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs": "257780f9b810b67641cbcbaf5f9dfaa56098d594a2c2b85433bcfadd8cad0153",
+    "codex-work/new-games72-20261121/games/roll-x/frontend-route.json": "13c20fb1735d4b9a0903a4f9d16e3ff1e15447b660b5df9be37c990e938f0466",
+    "codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs": "a38d3bdaf9edb112171e8fc4a6ca905aa0210de26e3b0f8253213f13de754de7",
+    "codex-work/new-games72-20261121/games/roll-x/qa/prepare-browser.mjs": "3ff8f39fe40e4060792b66c6b43230cf614a97373d223fabdfff61c74352a5f7",
+    "codex-work/new-games72-20261121/games/roll-x/tests/route.test.mjs": "4e32bdbb6fbc28673bebcf3fbe8e6ee281bdc8369e70dd0e53cd1ed1521aed34"
+  },
+  "protectedModules": [
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/app.mjs",
+      "sha256": "b46179813fd1074fffea58f1dc01232859b5087a7e23c98a14fbc537c956ff8c",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/controller.mjs",
+      "sha256": "c09b4f38e97abee6a64fad9ec9f999bf5debabae052ddc56a205811b55b3cda8",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/session.mjs",
+      "sha256": "617b9c3596117016bb6d94026ebe12cf809f3a463139c4dfbba2a3e025dedcf9",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/evaluator.mjs",
+      "sha256": "da2a2a9577034de9be36bc993c249f698468a533cf233648382c95fa6fcae4d5",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/receipt.mjs",
+      "sha256": "5edd90d61bd7db64a70f3de8248f2814c77ad8c055aa3740e9b3a58b96ff21d0",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/renderer.mjs",
+      "sha256": "dd87ad68aa8a6ef66d5af15f31d8deda3369d34ab02568f664924e509f16945f",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/games/roll-x/audio.mjs",
+      "sha256": "66cab15a5273999d95f3aff083a08c1c3056bd06bb2cd7cbadf8859975b2c060",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/shared/round-recovery.mjs",
+      "sha256": "76784381f80c164209911ab6ab6634486c845389d37be34f6e9d57ae83b79096",
+      "matchesConcurrentUpstream": true
+    },
+    {
+      "path": "codex-work/new-games72-20261121/integration/asset-router.mjs",
+      "sha256": "b3f911daaf1ae4e0a12195660a641bd934914e7e32bc4d3521bd529e2de2b53a",
+      "matchesConcurrentUpstream": true
+    }
+  ],
+  "focusedTests": {
+    "tests": 284,
+    "pass": 284,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "evidence": "merge-focused-report.json"
+  },
+  "independentReview": "browser-run-merge-review.json",
+  "geometryAndHandlerProbes": "browser-run-merge-probes.json",
+  "mergeDecisions": [
+    "Preserve032df69 matching wrapper HTML and structural CSS",
+    "Retain canonical document/resource mapping and focused native Enter/Space checks",
+    "Keep mandatory-nine visibility, strict wheel/feedback bounds, modal controls and tablet coverage",
+    "Keep current upstream small-landscape, occlusion, overlap, document height and active-AUTO checks",
+    "Bind active AUTO state to the same measured layout and reject hidden essential controls",
+    "Preserve every concurrent independent game/source/evidence and existing-platform maintenance file",
+    "Ignore only the thirty already bundled public M10 image copies restored during QA; do not duplicate the bundle"
+  ],
+  "newCashEnabled": false,
+  "productionActions": 0,
+  "nextAction": "Publish this exact merged tree with both parents, run the full current workflow, inspect browser source hashes/screenshots and retest any failure before closing issues.",
+  "preparedStatus": "FIXED_PENDING_RETEST",
+  "subsequentVerifiedRetest": {
+    "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+    "runId": 44956716335,
+    "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+    "browserChecksPassed": 55,
+    "artifactId": 14728380561,
+    "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+    "sourceHashesVerified": 16,
+    "screenshotsVerified": 15,
+    "realMoneyActions": 0,
+    "productionEndpointsUsed": false,
+    "evidence": "ci-381c252/review.json"
+  },
+  "statusScope": "Verified isolated source at381c252; not production game release or complete game rules"
+}

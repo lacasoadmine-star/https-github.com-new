@@ -1,0 +1,382 @@
+TAP version 13
+# Subtest: audio requires gesture unlock and maps each named event to bounded procedural cues
+ok 1 - audio requires gesture unlock and maps each named event to bounded procedural cues
+  ---
+  duration_ms: 6.408591
+  type: 'test'
+  ...
+# Subtest: mute cuts all active and scheduled tones without creating overlapping replacement music
+ok 2 - mute cuts all active and scheduled tones without creating overlapping replacement music
+  ---
+  duration_ms: 1.887547
+  type: 'test'
+  ...
+# Subtest: tab hide suspends sound and resume waits for a new user gesture
+ok 3 - tab hide suspends sound and resume waits for a new user gesture
+  ---
+  duration_ms: 0.383076
+  type: 'test'
+  ...
+# Subtest: ended nodes detach themselves and repeated disposal closes the owned context once
+ok 4 - ended nodes detach themselves and repeated disposal closes the owned context once
+  ---
+  duration_ms: 0.606161
+  type: 'test'
+  ...
+# Subtest: unavailable audio remains a silent presentation failure, without new objects or timer loops
+ok 5 - unavailable audio remains a silent presentation failure, without new objects or timer loops
+  ---
+  duration_ms: 0.242194
+  type: 'test'
+  ...
+# Subtest: repeated inputs while a request is unresolved submit exactly one bound wager
+ok 6 - repeated inputs while a request is unresolved submit exactly one bound wager
+  ---
+  duration_ms: 9.118624
+  type: 'test'
+  ...
+# Subtest: STOP accelerates receipt presentation and never submits another financial action
+ok 7 - STOP accelerates receipt presentation and never submits another financial action
+  ---
+  duration_ms: 11.55172
+  type: 'test'
+  ...
+# Subtest: history and wheel use the receipt while current balance comes from refreshed account state
+ok 8 - history and wheel use the receipt while current balance comes from refreshed account state
+  ---
+  duration_ms: 0.686312
+  type: 'test'
+  ...
+# Subtest: lost accepted response pauses AUTO and uses recover without a second spin
+ok 9 - lost accepted response pauses AUTO and uses recover without a second spin
+  ---
+  duration_ms: 5.222288
+  type: 'test'
+  ...
+# Subtest: AUTO performs exactly its confirmed finite count
+ok 10 - AUTO performs exactly its confirmed finite count
+  ---
+  duration_ms: 18.955776
+  type: 'test'
+  ...
+# Subtest: native host timers preserve their receiver during AUTO continuation and cancellation
+ok 11 - native host timers preserve their receiver during AUTO continuation and cancellation
+  ---
+  duration_ms: 20.737114
+  type: 'test'
+  ...
+# Subtest: AUTO binds the bet and multiplier chosen in its own form for every accepted round
+ok 12 - AUTO binds the bet and multiplier chosen in its own form for every accepted round
+  ---
+  duration_ms: 12.710271
+  type: 'test'
+  ...
+# Subtest: invalid or stale AUTO selection cannot alter the active choice or start a wager
+ok 13 - invalid or stale AUTO selection cannot alter the active choice or start a wager
+  ---
+  duration_ms: 5.284932
+  type: 'test'
+  ...
+# Subtest: AUTO rejects invented, fractional or unbounded counts before any request
+ok 14 - AUTO rejects invented, fractional or unbounded counts before any request
+  ---
+  duration_ms: 0.497588
+  type: 'test'
+  ...
+# Subtest: cancelling AUTO during its pending request permits that accepted round to settle but starts none after it
+ok 15 - cancelling AUTO during its pending request permits that accepted round to settle but starts none after it
+  ---
+  duration_ms: 3.627952
+  type: 'test'
+  ...
+# Subtest: AUTO single-win and balance limits stop after confirmed settlement
+ok 16 - AUTO single-win and balance limits stop after confirmed settlement
+  ---
+  duration_ms: 0.949497
+  type: 'test'
+  ...
+# Subtest: a strict more-than threshold does not stop at equality
+ok 17 - a strict more-than threshold does not stop at equality
+  ---
+  duration_ms: 3.356254
+  type: 'test'
+  ...
+# Subtest: unbound chosen multiplier cannot be omitted or silently replaced by the adapter
+ok 18 - unbound chosen multiplier cannot be omitted or silently replaced by the adapter
+  ---
+  duration_ms: 0.45925
+  type: 'test'
+  ...
+# Subtest: hide stops AUTO and presentation audio; resume refreshes without another wager
+ok 19 - hide stops AUTO and presentation audio; resume refreshes without another wager
+  ---
+  duration_ms: 1.099352
+  type: 'test'
+  ...
+# Subtest: dispose invalidates late accepted callbacks and closes every owned component
+ok 20 - dispose invalidates late accepted callbacks and closes every owned component
+  ---
+  duration_ms: 0.326932
+  type: 'test'
+  ...
+# Subtest: balance-refresh failure retains accepted receipt and does not claim the round failed to start
+ok 21 - balance-refresh failure retains accepted receipt and does not claim the round failed to start
+  ---
+  duration_ms: 0.547913
+  type: 'test'
+  ...
+# Subtest: a presentation error retains financial acceptance and cancels animation ownership
+ok 22 - a presentation error retains financial acceptance and cancels animation ownership
+  ---
+  duration_ms: 0.388775
+  type: 'test'
+  ...
+# Subtest: unresolved recovery locks wager controls and restores accepted receipt choice
+ok 23 - unresolved recovery locks wager controls and restores accepted receipt choice
+  ---
+  duration_ms: 0.52508
+  type: 'test'
+  ...
+# Subtest: Turbo and reduced motion affect only requested presentation duration
+ok 24 - Turbo and reduced motion affect only requested presentation duration
+  ---
+  duration_ms: 0.45909
+  type: 'test'
+  ...
+# Subtest: fresh 0.20 x 1.4 green observation returns 0.28, net +0.08
+ok 25 - fresh 0.20 x 1.4 green observation returns 0.28, net +0.08
+  ---
+  duration_ms: 7.125117
+  type: 'test'
+  ...
+# Subtest: fresh 0.20 x 1.4 empty-sector observation loses exactly the stake
+ok 26 - fresh 0.20 x 1.4 empty-sector observation loses exactly the stake
+  ---
+  duration_ms: 0.353611
+  type: 'test'
+  ...
+# Subtest: fresh STOP-control round: 0.50 x 2 green returns 1.00
+ok 27 - fresh STOP-control round: 0.50 x 2 green returns 1.00
+  ---
+  duration_ms: 0.278209
+  type: 'test'
+  ...
+# Subtest: the seven manual reference observations reconcile without fabricated money
+ok 28 - the seven manual reference observations reconcile without fabricated money
+  ---
+  duration_ms: 0.389666
+  type: 'test'
+  ...
+# Subtest: integer arithmetic remains exact above IEEE-754 safe integer capacity
+ok 29 - integer arithmetic remains exact above IEEE-754 safe integer capacity
+  ---
+  duration_ms: 0.736306
+  type: 'test'
+  ...
+# Subtest: fractional minor-unit potential wins are rejected on both outcomes
+ok 30 - fractional minor-unit potential wins are rejected on both outcomes
+  ---
+  duration_ms: 0.729486
+  type: 'test'
+  ...
+# Subtest: invalid or inexact wager amounts cannot enter payout arithmetic
+ok 31 - invalid or inexact wager amounts cannot enter payout arithmetic
+  ---
+  duration_ms: 0.649195
+  type: 'test'
+  ...
+# Subtest: published target maximum is enforced without inventing a full target schedule
+ok 32 - published target maximum is enforced without inventing a full target schedule
+  ---
+  duration_ms: 0.415925
+  type: 'test'
+  ...
+# Subtest: unsettled or unknown outcomes never become losses or payouts by coercion
+ok 33 - unsettled or unknown outcomes never become losses or payouts by coercion
+  ---
+  duration_ms: 0.454273
+  type: 'test'
+  ...
+# Subtest: demo credits cannot be mislabeled as the ETB arithmetic input
+ok 34 - demo credits cannot be mislabeled as the ETB arithmetic input
+  ---
+  duration_ms: 0.44554
+  type: 'test'
+  ...
+# Subtest: the original input is unchanged and results are immutable
+ok 35 - the original input is unchanged and results are immutable
+  ---
+  duration_ms: 7.38604
+  type: 'test'
+  ...
+# Subtest: partial reference arithmetic cannot represent cash readiness or RNG implementation
+ok 36 - partial reference arithmetic cannot represent cash readiness or RNG implementation
+  ---
+  duration_ms: 0.345048
+  type: 'test'
+  ...
+# Subtest: held Enter/Space on SPIN, STOP or AUTO controls prevents synthesized repeat clicks
+ok 37 - held Enter/Space on SPIN, STOP or AUTO controls prevents synthesized repeat clicks
+  ---
+  duration_ms: 1.210449
+  type: 'test'
+  ...
+# Subtest: global keyboard starts one action and repeated keydown cannot cross STOP into a new wager
+ok 38 - global keyboard starts one action and repeated keydown cannot cross STOP into a new wager
+  ---
+  duration_ms: 0.343076
+  type: 'test'
+  ...
+# Subtest: AUTO form repeated Enter is cancelled while normal text input remains unaffected
+ok 39 - AUTO form repeated Enter is cancelled while normal text input remains unaffected
+  ---
+  duration_ms: 0.284568
+  type: 'test'
+  ...
+# Subtest: BFCache pagehide pauses owned work and pageshow refreshes without disposing or wagering
+ok 40 - BFCache pagehide pauses owned work and pageshow refreshes without disposing or wagering
+  ---
+  duration_ms: 2.705696
+  type: 'test'
+  ...
+# Subtest: receipt validation retains an immutable server receipt, including its exact round identity
+ok 41 - receipt validation retains an immutable server receipt, including its exact round identity
+  ---
+  duration_ms: 2.477212
+  type: 'test'
+  ...
+# Subtest: receipt from another game, currency, round or unversioned engine is rejected
+ok 42 - receipt from another game, currency, round or unversioned engine is rejected
+  ---
+  duration_ms: 4.712071
+  type: 'test'
+  ...
+# Subtest: receipt bet and target cannot replace the bound requested wager
+ok 43 - receipt bet and target cannot replace the bound requested wager
+  ---
+  duration_ms: 7.305458
+  type: 'test'
+  ...
+# Subtest: an inconsistent visible win or ledger settlement is rejected before presentation
+ok 44 - an inconsistent visible win or ledger settlement is rejected before presentation
+  ---
+  duration_ms: 1.048436
+  type: 'test'
+  ...
+# Subtest: money parsing is exact and rejects noncanonical or floating currency values
+ok 45 - money parsing is exact and rejects noncanonical or floating currency values
+  ---
+  duration_ms: 0.410266
+  type: 'test'
+  ...
+# Subtest: green and empty receipts place the decorative sector under the pointer for each supported target
+ok 46 - green and empty receipts place the decorative sector under the pointer for each supported target
+  ---
+  duration_ms: 5.082808
+  type: 'test'
+  ...
+# Subtest: SVG presentation escapes receipt labels and has no provider image, video or script asset
+ok 47 - SVG presentation escapes receipt labels and has no provider image, video or script asset
+  ---
+  duration_ms: 0.510908
+  type: 'test'
+  ...
+# Subtest: reduced-motion receipt presentation settles immediately without an animation frame
+ok 48 - reduced-motion receipt presentation settles immediately without an animation frame
+  ---
+  duration_ms: 1.341065
+  type: 'test'
+  ...
+# Subtest: STOP finishes the current receipt once and cancels pending animation work
+ok 49 - STOP finishes the current receipt once and cancels pending animation work
+  ---
+  duration_ms: 1.465182
+  type: 'test'
+  ...
+# Subtest: dispose invalidates already queued animation callbacks and resolves the waiting presenter
+ok 50 - dispose invalidates already queued animation callbacks and resolves the waiting presenter
+  ---
+  duration_ms: 0.443847
+  type: 'test'
+  ...
+# Subtest: abort stops presentation without inventing a settled outcome or money event
+ok 51 - abort stops presentation without inventing a settled outcome or money event
+  ---
+  duration_ms: 0.426611
+  type: 'test'
+  ...
+# Subtest: normal animation completes from the immutable empty-sector receipt
+ok 52 - normal animation completes from the immutable empty-sector receipt
+  ---
+  duration_ms: 0.307312
+  type: 'test'
+  ...
+# Subtest: authored Roll X document route matches its stable registry identity and stays disabled
+ok 53 - authored Roll X document route matches its stable registry identity and stays disabled
+  ---
+  duration_ms: 2.722682
+  type: 'test'
+  ...
+# Subtest: canonical player HTML resolves its real script and stylesheet through the authored mapping
+ok 54 - canonical player HTML resolves its real script and stylesheet through the authored mapping
+  ---
+  duration_ms: 6.365476
+  type: 'test'
+  ...
+# Subtest: every runtime module import resolves to an existing mapped source from the canonical entry
+ok 55 - every runtime module import resolves to an existing mapped source from the canonical entry
+  ---
+  duration_ms: 12.812024
+  type: 'test'
+  ...
+# Subtest: mapping exposes only new runtime resources and does not alias a different player route or fixtures
+ok 56 - mapping exposes only new runtime resources and does not alias a different player route or fixtures
+  ---
+  duration_ms: 5.922861
+  type: 'test'
+  ...
+# Subtest: even an enabled server model cannot override the unreleased cash gate or issue a wager
+ok 57 - even an enabled server model cannot override the unreleased cash gate or issue a wager
+  ---
+  duration_ms: 3.871688
+  type: 'test'
+  ...
+# Subtest: missing or unverified target binding never produces a default playable multiplier
+ok 58 - missing or unverified target binding never produces a default playable multiplier
+  ---
+  duration_ms: 0.854214
+  type: 'test'
+  ...
+# Subtest: an existing accepted round can be read through replay while new cash play stays disabled
+ok 59 - an existing accepted round can be read through replay while new cash play stays disabled
+  ---
+  duration_ms: 2.990324
+  type: 'test'
+  ...
+# Subtest: an authoritative replay miss cannot fall through to a new wager before release
+ok 60 - an authoritative replay miss cannot fall through to a new wager before release
+  ---
+  duration_ms: 1.056208
+  type: 'test'
+  ...
+# Subtest: production recovery rejects fixture receipts and preserves pending identity for investigation
+ok 61 - production recovery rejects fixture receipts and preserves pending identity for investigation
+  ---
+  duration_ms: 0.710287
+  type: 'test'
+  ...
+# Subtest: recovery fails closed if the current model cannot retain the accepted target/math binding
+ok 62 - recovery fails closed if the current model cannot retain the accepted target/math binding
+  ---
+  duration_ms: 0.802897
+  type: 'test'
+  ...
+1..62
+# tests 62
+# suites 0
+# pass 62
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 471.390887

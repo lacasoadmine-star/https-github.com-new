@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_roll_x_v1",
+  "recordedAt": "2026-11-21T22:05:43.639580+00:00",
+  "status": "FIXED",
+  "issue": "Wheel and wagering controls required vertical scrolling in the supplied mobile-landscape viewport; old assertions omitted y/bottom bounds.",
+  "baseline": {
+    "sourceCommit": "b61f6e278c85c449f6abd6f29392bbb795a0f304",
+    "githubRun": 44951988734,
+    "artifactId": 14725822914,
+    "report": "roll-x-layout-baseline/browser-report.json",
+    "landscapeScreenshot": {
+      "artifactArchiveUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951988734/artifacts/14725822914",
+      "entry": "fixture-mobile-landscape.jpg"
+    },
+    "portrait360Screenshot": {
+      "artifactArchiveUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951988734/artifacts/14725822914",
+      "entry": "fixture-mobile-360.jpg"
+    },
+    "landscapeViewport": [
+      844,
+      390
+    ],
+    "landscapeSpinY": 656.625,
+    "landscapeMenuY": 722.625,
+    "portrait360Viewport": [
+      360,
+      800
+    ],
+    "portrait360MenuBottom": 812.828125,
+    "files": [
+      {
+        "path": "roll-x-layout-baseline/browser-report.json",
+        "bytes": 17298,
+        "sha256": "fd875e33e55649f03b3f8633c6ab2b103b7a7baa6955a33f1722ba19d253f75d",
+        "includedInThisSourceTree": true
+      },
+      {
+        "bytes": 25845,
+        "sha256": "c0e855ee1888f3b7f0362183fdd9f81589d92d6bc91655659eaa3c20f25a8b7f",
+        "artifactEntry": "fixture-mobile-360.jpg",
+        "artifactArchiveUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951988734/artifacts/14725822914",
+        "includedInThisSourceTree": false
+      },
+      {
+        "bytes": 28386,
+        "sha256": "782574039f98710f0b91a6e3f46dc116040f2be28207586e14d2f74bccd987f4",
+        "artifactEntry": "fixture-mobile-landscape.jpg",
+        "artifactArchiveUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951988734/artifacts/14725822914",
+        "includedInThisSourceTree": false
+      }
+    ],
+    "artifactUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44951988734",
+    "imagePublication": "Both binary blob writes were unconfirmed; exact-SHA GitHub readbacks returned404. The existing public CI artifact remains the image source; this commit publishes coordinates, hashes and source-bound report only. No binary upload was repeated or rerouted."
+  },
+  "changes": {
+    "style.css": [
+      "Reduced decorative stack spacing while keeping buttons/ranges at least 44px.",
+      "Portrait wheel width follows viewport height, with a bounded legible wheel size.",
+      "Short landscape uses a separate wheel column and two control columns, with no scaling transform or overflow clipping.",
+      "The landscape fixture banner shares the header row; state/status/actions use explicit grid rows.",
+      "Landscape AUTO uses three field columns in a viewport-bounded scrollable dialog; text/hit sizes are retained."
+    ],
+    "qa/browser-run.mjs": [
+      "Preserved canonical document mapping, shared-module mapping checks and explicit native Enter/Space focus checks.",
+      "Measures all 9 key controls, wheel and visible status action from scrollY 0.",
+      "Strict x/y/right/bottom checks use actual viewport dimensions, without increasing limits.",
+      "Checks desktop 1280\u00d7900, portrait 360\u00d7800 / 390\u00d7844 / 430\u00d7932, tablet 768\u00d71024 and landscape 844\u00d7390.",
+      "Tablet sizing additionally preserves accepted fixture-round count.",
+      "Checks viewport containment and scroll-accessible 44px fields/buttons with readable font size in portrait/landscape AUTO dialogs.",
+      "Checks at most one visible AUTO/recover/reconnect feedback item."
+    ]
+  },
+  "row6VisibilityReview": {
+    "mutuallyExclusiveUnderCurrentAppTransitions": true,
+    "reason": "Reconnect is hidden when autoActive or canRecover is true. Recover requires !busy and a saved pending request; controller stops AUTO before leaving a failed/recovery operation. AUTO progress is visible only while autoActive. Normal UI transition paths therefore show at most one of these items.",
+    "simultaneousVisibleCombinationObserved": false,
+    "newBrowserAssertion": "feedbackMutuallyExclusive plus feedbackFullyVisible; future controller changes cannot silently overlap this row."
+  },
+  "localVerification": {
+    "javascriptSyntax": "PASS",
+    "gitDiffCheck": "PASS",
+    "browserCommand": "ZPLAY_QA_CHROMIUM=/usr/bin/chromium ZPLAY_NEW72_QA_OUTPUT=<isolated-output-dir> node codex-work/new-games72-20261121/games/roll-x/qa/run-isolated-browser.cjs",
+    "browserResult": "BLOCKED_ENVIRONMENT_BEFORE_TESTS",
+    "browserChecksExecuted": 0,
+    "browserFailure": "Chromium process_singleton_posix.cc:297: socket() failed: Operation not permitted; SIGABRT.",
+    "browserReport": "Local startup-failure report retained in workspace; no browser actions executed",
+    "browserFailureReportHash": "8feb01e687dd7d1be0dd21b0c6b89c6973a058781baef609d31485d28dbfafcd",
+    "environmentRestrictionBypassed": false
+  },
+  "sourceHashes": {
+    "style.css": "9c79024742690614aded0c3ebd3ff85da45477108d6b3cb5a7621ff21baf8d94",
+    "qa/browser-run.mjs": "cabdbbab808fbda596ff46eb82a8c8cd56667833c2abc2284853f1b4eaa5b4aa"
+  },
+  "next": "Publish reviewed source through the existing authorized feature branch, run GitHub browser CI, inspect strict viewport assertions and screenshots, fix/retest any remaining issue before changing this status.",
+  "notClaimed": [
+    "Passing local or new GitHub browser retest",
+    "Physical-device or performance parity",
+    "Provider visual or sound parity",
+    "Financial/controller changes",
+    "Production activation"
+  ],
+  "owner": "release-coordinator/roll-x-layout",
+  "publicEvidenceScope": "Synthetic isolated QA page screenshots and metadata only. No provider demo history or production account/ledger data.",
+  "preparedStatus": "FIXED_PENDING_RETEST",
+  "subsequentVerifiedRetest": {
+    "sourceCommit": "381c25279e1d30ac3a3db198c3bfb2f0eeb7363d",
+    "runId": 44956716335,
+    "runUrl": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44956716335",
+    "browserChecksPassed": 55,
+    "artifactId": 14728380561,
+    "browserReportSha256": "52bd2d3449ad13d7f46500df2601bc4768aea28a4d369c2c19c5845493d59c7e",
+    "sourceHashesVerified": 16,
+    "screenshotsVerified": 15,
+    "realMoneyActions": 0,
+    "productionEndpointsUsed": false,
+    "evidence": "ci-381c252/review.json"
+  },
+  "statusScope": "Verified isolated source at381c252; not production game release or complete game rules"
+}

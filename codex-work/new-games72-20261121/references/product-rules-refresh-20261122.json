@@ -1,0 +1,164 @@
+{
+  "schema": "zplay72-official-product-rule-checkpoint-v1",
+  "observedAt": "2026-11-21T22:03:40Z",
+  "displayDate": "22 November 2026, Africa/Addis_Ababa",
+  "ownerTask": "release-coordinator/official-rules",
+  "sourceScope": "Fresh official product-page text only; not a new demo session or full paytable verification",
+  "sourceBaseline": "b61f6e278c85c449f6abd6f29392bbb795a0f304",
+  "scopeMutation": false,
+  "newManualRounds": 0,
+  "runtimeOrWalletChanged": false,
+  "games": [
+    {
+      "gameId": "zplay72_multi_hot_5_wild_v1",
+      "officialName": "Multi Hot 5 Wild",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+      "retrieval": "OFFICIAL_PAGE_READ",
+      "sourceLocator": "Product description and Fruits section; retrieved lines32-80",
+      "verifiedProductClaims": {
+        "grid": "3x3",
+        "fixedPaylines": 5,
+        "lineDirection": "left to right",
+        "winningMatch": "three matching symbols with Wild substitution",
+        "multiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "multiplierPresentation": "A left-side multiplier reel can appear and multiplies a win",
+        "postWinControls": [
+          "X2 card-color gamble",
+          "Take Win"
+        ]
+      },
+      "unresolvedFinancialRules": [
+        "Complete symbol payout values and exact five line paths",
+        "Wild-only award and overlapping substitution precedence",
+        "Stake scaling, rounding, caps and permissible outcomes",
+        "Gamble settlement, limits and distribution",
+        "Independent engine outcome model and probability weights"
+      ],
+      "demoAccessStatus": "Previously observed provider country restriction remains unresolved; this product-page read is not access restoration",
+      "nextAction": "Obtain authorized access to this exact demo and its current paytable; preserve the already recorded entry/blocker observations",
+      "status": "PRODUCT_RULES_PARTIAL_DEMO_ACCESS_BLOCKED"
+    },
+    {
+      "gameId": "zplay72_multi_hot_10_v1",
+      "officialName": "Multi Hot 10",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+      "retrieval": "OFFICIAL_PAGE_READ",
+      "sourceLocator": "Fruits and Game Features sections; retrieved lines79-99",
+      "verifiedProductClaims": {
+        "gridLabel": "3x5",
+        "fixedPaylines": 10,
+        "symbolsNamed": [
+          "Lucky Sevens",
+          "Bells",
+          "Grapes",
+          "Watermelons",
+          "Lemons",
+          "Plums",
+          "Oranges",
+          "Cherries"
+        ],
+        "multiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "additionalFeaturesNamed": [
+          "Multiplier scale / extra multiplier reel",
+          "X2 card-color gamble",
+          "Big win animations",
+          "Gift Spin availability"
+        ]
+      },
+      "unresolvedFinancialRules": [
+        "This public page does not supply the complete numeric paytable, line coordinates or settlement contract",
+        "Gift Spin availability alone does not establish an intrinsic free-spin bonus or authorize promotional wallet credit",
+        "This page does not establish exact probabilities, RTP or engine weights"
+      ],
+      "existingEvidencePreserved": "The newer upstream progress record reports a separate seven-round Multi Hot 10 set; this page refresh neither replaces nor adds rounds to that set",
+      "nextAction": "Bind the existing current-session in-game paytable evidence to its exact version before extending the separate evaluator",
+      "status": "PRODUCT_RULES_PARTIAL"
+    },
+    {
+      "gameId": "zplay72_multi_hot_20_v1",
+      "officialName": "Multi Hot 20",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-20",
+      "retrieval": "OFFICIAL_PAGE_READ_WITH_RULE_AMBIGUITY",
+      "sourceLocator": "Fruits and Game Features sections; retrieved lines79-97",
+      "verifiedProductClaims": {
+        "gridLabel": "3x5",
+        "multiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "additionalFeaturesNamed": [
+          "Multiplier scale / extra multiplier reel",
+          "X2 card-color gamble",
+          "Big win animations",
+          "Gift Spin availability"
+        ]
+      },
+      "openIssue": {
+        "issueId": "M20-OFFICIAL-PRODUCT-PAYLINE-AMBIGUITY-20261122",
+        "state": "OPEN_NEEDS_AUTHORITATIVE_VARIANT_RULES",
+        "owner": "game-multi-hot-20/rules",
+        "action": "Read the current official product Game Features section",
+        "expected": "An unambiguous source for the exact variant's payline count and coordinate map",
+        "observed": "The page headed Multi Hot 20 lists 100 pay lines Fixed",
+        "financialConfigurationWritten": false,
+        "attempts": [
+          "Current official product page opened and exact contradictory feature text inspected"
+        ],
+        "filesChanged": [
+          "codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json"
+        ],
+        "retest": "The concurrent source records a twenty-path demo chart; conflicting marketing count and final settlement rules remain open. No public image retest claimed.",
+        "nextAction": "Review the existing exact-version twenty-path demo evidence and obtain authoritative reconciliation of the product count/variant; resolve aggregate settlement and outcome-model rules before wallet integration. Do not repeat the completed seven-round capture without a version-specific reason."
+      },
+      "status": "FINANCIAL_RULE_AMBIGUITY_OPEN",
+      "followUp": {
+        "sourceCommit": "032df69f2343750719c438a6960bc08b7cdb845c",
+        "sourceSpecification": "../games/multi-hot-20/specification.json",
+        "observedDemoChartPaths": 20,
+        "currentDemoVersion": "v1.0.0",
+        "captureFinalizedAt": "2026-11-21T21:49:20.162Z",
+        "newIndependentSevenRoundCaptureReported": true,
+        "rootImageReviewPerformed": false,
+        "publicImageQAAvailable": false,
+        "conflictResolved": false,
+        "aggregateSettlementEnabled": false,
+        "interpretation": "Preserve the current demo chart and bounded candidate arithmetic separately from the conflicting product text. The original specification still records unresolved marketing count, aggregation, outcome probabilities and ETB policy. Do not restart the existing capture solely because another session takes over."
+      }
+    },
+    {
+      "gameId": "zplay72_multi_hot_40_v1",
+      "officialName": "Multi Hot 40",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-40",
+      "retrieval": "TWO_BOUNDED_PAGE_RETRIEVAL_FAILURES",
+      "identitySource": "https://www.smartsoftgaming.com/games",
+      "verifiedProductClaims": {},
+      "observed": "The official catalog still names Multi Hot 40. The page-opening service returned an inaccessible/internal-error result twice. No origin HTTP status was exposed.",
+      "classification": "Retrieval failure; not evidence that the game or page is absent, an origin 404 or a provider country restriction",
+      "thirdPartyClaimsUsed": false,
+      "nextAction": "Inspect the current official catalog link through the authorized browser surface when available; retain existing entry evidence and do not substitute a third-party paytable",
+      "status": "PRODUCT_RULES_UNVERIFIED"
+    }
+  ],
+  "limitations": [
+    "No demo controls were clicked and no new round, video, audio or history screenshot was captured by this checkpoint",
+    "Public product claims are partial evidence, not a complete per-game rules specification",
+    "No hidden reel strips, RNG distribution or RTP were inferred",
+    "No production route, backend configuration, account, balance, ledger or accepted round was changed",
+    "No protected existing game was counted as a new implementation"
+  ]
+}
