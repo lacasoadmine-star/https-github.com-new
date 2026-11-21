@@ -74,6 +74,18 @@ Provider: **SmartSoft Gaming**. Magaca ku jira jadwalku wuxuu tilmaamayaa varian
 | 56 | Roll X | `ind74_official_rollx` | `/zplay-restored/20261117/rollx/` | Weli lama heli karo | [SmartSoft](https://www.smartsoftgaming.com/games/rollx) |
 | 57 | Balloon | `ind74_official_balloon` | `/games/balloon_native` | Play Now | [SmartSoft](https://www.smartsoftgaming.com/games/balloon) |
 
+## 15-ka magac ee kale ee diiwaankii hore
+
+Diiwaankii 72-ka ahaa wuxuu 57-ka ku daray Habesha Fortune 5, JetX, New Era of JetX, BalloonX, Helicopter X, Football X, Cricket X, CricketerX, CarX, AviaStar, Smash X, Crash Duel, PopX, Propel X iyo World Champion X. Dhammaantood waxay hore ugu jiraan diiwaanka Player-ka. Multi Hot 5 iyo Foxy Hot 20 waxay dhammaystiraan katalogga hadda jira ee 74-ka.
+
+## Meelaha mashruuca ee isku-xirka cusub
+
+| Qaybta | Isha mashruuca | Waxa uu hubintu u baahan yahay |
+| --- | --- | --- |
+| Player iyo wallet | [WalletAdapter](codex-work/native72-20261119/changes/dedicated-resume/shared/wallet.mjs) | Machine session, `gameId`, bet, `roundToken`, `mathVersion`, balance iyo raadinta isla round-ka kadib response lumay. |
+| Server iyo ledger | [Existing server routes](codex-work/native72-20261119/changes/batch01/server/existing-server-routes.mjs) | Auth, ownership iyo isla transaction-ka ledger-ka. Tijaabo go’doonsan oo xaqiijisa debit iyo settlement hal mar. |
+| Sii-deynta engine-ka | [Railway binding](codex-work/native72-20261119/changes/batch01/server/railway-binding.mjs) | Manifest-ka backend-ka iyo nooca runtime-ka oo is waafaqa ka hor inta qaybta cusub ee Player-ka la furin. |
+
 ## Caddeynta iyo xadka tijaabada
 
 - Player-ka ZPLAY v2.12.0 waxaa lagu arkay browser-ka iyadoo laga maqan yahay session ciyaartoy. Cinwaannada waxaa la waafajiyey module-ka catalog-ga live oo leh 74 diiwaan. SHA-256 ee module-ka waa `f63f386eda81b2eb28b67df15d84d3f619334f9e286460178cd9cbd259414a01`. [Player](https://superwin-player.apdiy61.workers.dev/) · [Module-ka catalog-ga live](https://superwin-player.apdiy61.workers.dev/zplay-player-20261119-play-now-r1/catalog-data.mjs)
