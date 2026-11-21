@@ -1,0 +1,142 @@
+{
+  "schema": "zplay-m20-official-ui-observations-v1",
+  "game": "Multi Hot 20",
+  "capturedDate": "2026-11-21",
+  "timezone": "Africa/Addis_Ababa",
+  "officialDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&PortalName=demo&Token=DEMO",
+  "method": "Direct rendered UI observations and pointer interactions in the official free DMO demo. These files are reference evidence only; no runtime path loads them.",
+  "spinSampling": {
+    "explicitSpinActivations": 5,
+    "distinctResultScreenshots": 5,
+    "exactServerRoundCountVerified": false,
+    "note": "HOLD input and remote observation latency can cover more than one demo round. The five images are distinct observed result states, not a verified one-to-one server round sequence. The original fifth immediate image still showed STOP; spin-05-settled.jpg was captured after it returned idle."
+  },
+  "observed": [
+    "Original five-by-three symbol grid, central selected 1x through 5x wheel sector, and original control artwork were visible.",
+    "BET opened choices 0.20, 0.40, 0.60, 0.80 and 1.00 DMO. Selecting 0.40 updated the visible stake.",
+    "At 0.40 DMO a 4x result showed total WIN 1.60 and line14 with four plum miniatures and base0.20 multiplied to0.80. A later image18 seconds later retained the same result and caption with a different flame/highlight phase. The exact line-cycle frequency was not measured.",
+    "The full payline extended through all five columns while winning borders were limited to matching symbols. The line equation occupied the strip below the reels; total WIN sat between BALANCE and BET.",
+    "TAKE WIN cleared the win controls, line caption and wheel flames. The displayed DMO balance changed from19996.40 to19998.00 for the1.60 win.",
+    "MENU exposed a paytable and rules, settings for effects/music/fullscreen, and a history tab. The visible rules state20 lines, 1x through5x multipliers, max1000x and RTP96.63%.",
+    "AUTO offered25,50,100,500,1000 spins plus win/balance stop limits. After25 was selected and started,24 appeared in the large gold STOP circle; the small AUTO control became a red stop square. Clicking the small stop returned the game to HOLD & SPIN after the accepted round.",
+    "QUICK showed an enable/decline dialog. Enabling it changed the spin arrows and lightning icon to yellow.",
+    "The bottom SOUND control changed its mute state directly without opening a dialog. Independent sound-effects and music switches were available in settings."
+  ],
+  "limitations": [
+    "No provider client scripts, network protocol or hidden RNG parameters were extracted.",
+    "Five observations do not establish outcome probabilities, reel weights or exact timing.",
+    "Sound UI transitions were observed; no fresh audio recording or claim of audible parity is made.",
+    "An earlier attempted STOP click raced a changing button; it is not used as proof of exact STOP timing.",
+    "The independent ETB model, existing authenticated wallet and idempotency receipts remain the only ZPLAY payout authority. DMO balances are never copied."
+  ],
+  "implementedCorrections": [
+    "Receipt-driven repeating line paths, winner-only borders and original miniature caption",
+    "Separate BALANCE/WIN/BET ledger panels",
+    "Procedural original-code flames clipped inside the fixed accepted multiplier sector",
+    "Dialog interruption suppresses current and late result presentation until a new spin",
+    "AUTO counter on composed original gold SPIN artwork; small stop icon unobscured",
+    "Direct bottom SOUND toggle; independent settings remain in MENU"
+  ],
+  "notClaims": [
+    "Not exact provider timing or original flame sprite animation",
+    "Not live ETB settlement proof",
+    "Not completion of Multi Hot20 or the72-game queue"
+  ],
+  "files": [
+    {
+      "file": "spin-01-settled.jpg",
+      "bytes": 138084,
+      "sha256": "68ba9617c0ba017582095459aa6137f024dad1edf5d816d20ab50de0e43d2a75"
+    },
+    {
+      "file": "spin-02-win-reference.jpg",
+      "bytes": 139643,
+      "sha256": "2dc745baaccf40f9fcda63fd5536167bdbdd21b1eec4a23dca32bad5f00f660e"
+    },
+    {
+      "file": "spin-03-settled.jpg",
+      "bytes": 132088,
+      "sha256": "1a4df067c13fcface259fe5eac1463643b0347a2310f8669af3075eea7d60cc6"
+    },
+    {
+      "file": "spin-04-win-reference.jpg",
+      "bytes": 148120,
+      "sha256": "a13d459da5534194e19adf75781cbc4cb77194a32c81bf6e874407d6375d8623"
+    },
+    {
+      "file": "spin-05-settled.jpg",
+      "bytes": 132224,
+      "sha256": "43c85594c6e1c04baacd63ad83aeeb01ce2705f356c9e781fbf76c3156b0e94e"
+    },
+    {
+      "file": "win-line-later.jpg",
+      "bytes": 135807,
+      "sha256": "d8068e13213b96b5d5f8bae67019669063efeeb69d6962c4078d57c90ac17a4b"
+    },
+    {
+      "file": "take-win-result.jpg",
+      "bytes": 130145,
+      "sha256": "53f83e7cab67d5c3b9696bea25bcce27d29575fa0b1c2f41d9330800b4b4c69f"
+    },
+    {
+      "file": "bet-options.jpg",
+      "bytes": 73955,
+      "sha256": "121cbe49f68f609c784b4e1b776ba225250c2bf9434b7afde81c917ff8a21d9b"
+    },
+    {
+      "file": "rules-paytable.jpg",
+      "bytes": 72898,
+      "sha256": "736e003a34380c0db2be7e7f7eb4268cb966b10c8db76db8170e3ecbd35a2b86"
+    },
+    {
+      "file": "rules-gamble.jpg",
+      "bytes": 87161,
+      "sha256": "03532dae3f76d9aecb35ad86506e99f2c52ea51fc264658488c1acd255f84aaf"
+    },
+    {
+      "file": "settings.jpg",
+      "bytes": 46879,
+      "sha256": "04c0f0e1400bd61f52acabce0e86827d17a19176bf26e69a7c2a4635ec49316d"
+    },
+    {
+      "file": "settings-effects-off.jpg",
+      "bytes": 46844,
+      "sha256": "7b13894454f1ce6e5fda09f72274c47a512ece3cc749c301727ceaf0b23694be"
+    },
+    {
+      "file": "auto-options.jpg",
+      "bytes": 64617,
+      "sha256": "a0884936e1505d376fe4363c5d5f058e93efaea6a690f7fbc8baa057b0f97f9d"
+    },
+    {
+      "file": "auto-configured.jpg",
+      "bytes": 65582,
+      "sha256": "a964c21c8c9b42d77b27b04c2ec70bd8f324086c38930ee9dfd5c4e525838dcf"
+    },
+    {
+      "file": "auto-running.jpg",
+      "bytes": 115264,
+      "sha256": "2feba03be1f729d76c8a2263d3c9c15131f8e7424bbcc3842e0fbbb7d2d35553"
+    },
+    {
+      "file": "auto-stopped.jpg",
+      "bytes": 138962,
+      "sha256": "b9e129c8bca21d378e7677bf17b99e00e590808bde7db1d7dd6452a729f33abe"
+    },
+    {
+      "file": "quick-prompt.jpg",
+      "bytes": 60473,
+      "sha256": "e9fe8ed5af35da3efcd57d29d4607e4247d54c0933b9076511188e8c6830f4fa"
+    },
+    {
+      "file": "quick-enabled.jpg",
+      "bytes": 133905,
+      "sha256": "1509e5595d3d2b0724a6b3e62ee9c70ffb71cb49ca0c1219e33aad4f0c4e1b24"
+    },
+    {
+      "file": "sound-toggle.jpg",
+      "bytes": 133918,
+      "sha256": "93a4ca155b919608f37ab47cdce48976d6a2200710c054016bf7a9004371be34"
+    }
+  ]
+}

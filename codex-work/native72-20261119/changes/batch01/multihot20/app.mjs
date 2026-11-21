@@ -65,6 +65,7 @@ export function controlTextureName(id,{disabled=false,pressed=false,hovered=fals
  const suffix=disabled?'Disabled':pressed?'Active':hovered?'Hover':'';
  if(id==='spin'){
   if(disabled)return 'Buttons/SpinDisabled';
+  if(autoplay)return 'Buttons/SpinStop';
   if(spinning)return turbo?'Buttons/SpinTurboStop':'Buttons/SpinStop';
   return turbo?(hovered||pressed?'Buttons/SpinTurboHover':'Buttons/SpinTurbo'):'Buttons/Spin'+suffix;
  }
@@ -78,13 +79,32 @@ export function controlTextureName(id,{disabled=false,pressed=false,hovered=fals
  throw Error('UNKNOWN_CONTROL_TEXTURE');
 }
 
-export function createControlArt(name,url,dom=globalThis.document){
+export function createControlArt(name,url,dom=globalThis.document,{autoplay=false}={}){
  const frame=CONTROL_TEXTURES[name];
  if(!frame||typeof url!=='string'||!url)throw Error('CONTROL_ART_UNAVAILABLE');
  const ns='http://www.w3.org/2000/svg',svg=dom.createElementNS(ns,'svg'),crop=dom.createElementNS(ns,'svg'),image=dom.createElementNS(ns,'image');
  svg.setAttribute('viewBox',`0 0 ${frame.sourceW} ${frame.sourceH}`);
  svg.setAttribute('preserveAspectRatio','xMidYMid meet');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
  svg.classList.add('control-art');svg.dataset.texture=name;
+ if(autoplay&&name==='Buttons/SpinStop'){
+  // The original gold STOP disk has a baked square. Exclude that centre and
+  // insert the pixel-identical clean centre from SpinActive exactly once;
+  // simply overpainting would leave its translucent glyph underneath.
+  const slice=(sx,sy,w,h,x,y,part)=>{
+   const viewport=dom.createElementNS(ns,'svg'),art=dom.createElementNS(ns,'image');
+   for(const [key,value]of Object.entries({x,y,width:w,height:h,viewBox:`0 0 ${w} ${h}`,overflow:'hidden'}))viewport.setAttribute(key,value);
+   if(part==='centre')viewport.dataset.autoplayCentre='true';else viewport.dataset.autoplayBase=part;
+   art.setAttribute('width',frame.atlasWidth);art.setAttribute('height',frame.atlasHeight);art.setAttribute('href',url);
+   art.setAttribute('transform',`translate(${-sx} ${-sy})`);viewport.append(art);svg.append(viewport);
+  };
+  svg.dataset.autoplay='true';
+  slice(frame.x,frame.y,255,96,12,12,'top');
+  slice(frame.x,frame.y+96,96,64,12,108,'left');
+  slice(frame.x+160,frame.y+96,95,64,172,108,'right');
+  slice(frame.x,frame.y+160,255,95,12,172,'bottom');
+  slice(spinActiveFrame.x+96,spinActiveFrame.y+96,64,64,108,108,'centre');
+  return svg;
+ }
  // The inner viewport clips exactly the packed sprite, including after a
  // quarter-turn. Atlas neighbours cannot bleed into transparent trim margins.
  for(const [key,value]of Object.entries({x:frame.trimX,y:frame.trimY,width:frame.w,height:frame.h,
@@ -126,7 +146,7 @@ export function createHoldSpin({getController,visible=()=>true,schedule=fn=>setT
    suppressedPointers.add(id);
    if(suppressedPointers.size>32)for(const saved of suppressedPointers){if(saved!==pointer&&saved!==id){suppressedPointers.delete(saved);break}}
    if(pointer!==null)return false;
-   if(owner.auto?.started)owner.stopAuto('HOLD_SPIN');
+   if(owner.auto?.started){owner.stopAuto('HOLD_SPIN');if(owner.phase==='spinning')owner.stop();return true}
    if(owner.phase==='spinning'){owner.stop();return true}
    if(owner.pending)return false;
    pointer=id;const token=++sequence;
@@ -177,9 +197,33 @@ const DISPLAY_PAYTABLE={seven:{3:50,4:400,5:2000},bell:{3:20,4:100,5:200},grape:
 const DISPLAY_LINES=[[0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],[0,0,1,2,2],[2,2,1,0,0],[1,0,0,0,1],[1,2,2,2,1],[0,1,1,1,0],[2,1,1,1,2],[0,0,0,0,1],[2,2,2,2,1],[0,1,0,1,0],[2,1,2,1,2],[1,1,0,1,1],[1,1,2,1,1],[0,0,1,0,0],[2,2,1,2,2],[1,2,1,2,1]];
 const money=n=>{const v=BigInt(n);return String(v/100n)+'.'+String(v%100n).padStart(2,'0')};
 function node(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=String(text);if(className)el.className=className;return el}
-function open(dialog){if(!dialog||dialog.open)return;holdSpin.cancel();if(controller?.auto.started)controller.stopAuto('MENU');dialog.showModal()}
+function open(dialog){if(!dialog||dialog.open)return;holdSpin.cancel();scene?.dismissResultPresentation();if(controller?.auto.started)controller.stopAuto('MENU');dialog.showModal()}
 function close(dialog){if(dialog?.open)dialog.close()}
 function status(message){ui.status.textContent=message}
+function showLinePresentation(view){
+ const caption=ui['line-caption'];
+ caption.replaceChildren();caption.hidden=true;
+ delete caption.dataset.line;delete caption.dataset.roundId;
+ if(!view||document.querySelector('dialog[open]'))return;
+ const source=resources?.images?.[view.symbol];
+ if(!source||!Number.isInteger(view.count)||view.count<3||view.count>5||
+   !/^(0|[1-9]\d{0,12})\.\d{2}$/.test(view.baseWin)||
+   !Number.isInteger(view.wheelMultiplier)||view.wheelMultiplier<1||view.wheelMultiplier>5)return;
+ const symbols=node('span',undefined,'line-symbols');
+ symbols.setAttribute('role','img');symbols.setAttribute('aria-label',`${view.count} ${view.symbol} symbols`);
+ for(let index=0;index<view.count;index++){
+  const art=node('canvas');art.width=48;art.height=48;art.dataset.lineSymbol=view.symbol;art.setAttribute('aria-hidden','true');
+  const width=source.width||source.naturalWidth,height=source.height||source.naturalHeight,scale=Math.min(48/width,48/height);
+  art.getContext('2d').drawImage(source,(48-width*scale)/2,(48-height*scale)/2,width*scale,height*scale);
+  symbols.append(art);
+ }
+ // A line's display equation never authorizes a credit. The settled WIN panel
+ // below always uses receipt.finalWin, including an authoritative capped win.
+ const multiplied=BigInt(view.baseWin.replace('.',''))*BigInt(view.wheelMultiplier);
+ const equation=`${view.baseWin} × ${view.wheelMultiplier}${view.maxWinCapped?'':` = ${money(multiplied)}`} ETB`;
+ caption.append(node('span',`Line ${view.line}`),symbols,node('span',equation));
+ caption.dataset.line=String(view.line);caption.dataset.roundId=view.roundId;caption.hidden=false;
+}
 function cancelWinBannerAnimation(){
  winBannerSequence++;
  if(winBannerFrame!==null){cancelAnimationFrame(winBannerFrame);winBannerFrame=null}
@@ -195,8 +239,9 @@ function syncControlArt(){
   const url=resources.urls.get(CONTROL_TEXTURES[name].atlas);
   if(!url)throw Error('CONTROL_ATLAS_MISSING');
   const previous=button.querySelector('[data-control-art]');
-  if(previous?.dataset.texture===name&&previous.dataset.atlasUrl===url)continue;
-  const svg=createControlArt(name,url);svg.dataset.controlArt=id;svg.dataset.atlasUrl=url;
+  const autoplay=id==='spin'&&ui.spin.dataset.autoplay==='true';
+  if(previous?.dataset.texture===name&&previous.dataset.atlasUrl===url&&(previous.dataset.autoplay==='true')===autoplay)continue;
+  const svg=createControlArt(name,url,document,{autoplay});svg.dataset.controlArt=id;svg.dataset.atlasUrl=url;
   if(previous)previous.replaceWith(svg);else button.prepend(svg);
   button.dataset.controlTexture=name;button.classList.add('has-art');
  }
@@ -217,23 +262,26 @@ function sync(){
  const state=controller?.status()??{phase:'loading',pending:false,lastReceipt:null},account=controller?.account;
  const receipt=state.lastReceipt,activeAuto=state.auto?.started===true;
  if(!['ready','spinning'].includes(state.phase)||activeAuto||state.error||!live())holdSpin.cancel();
- const spinning=spinControlRunning(state,holdSpin.active);
+ const spinning=spinControlRunning(state,holdSpin.active||activeAuto);
  const canStart=assetsReady&&state.phase==='ready'&&!state.pending&&live();
  ui.zplay.dataset.phase=assetFailed?'load-error':state.phase;
  ui.zplay.dataset.roundId=receipt?.roundId||'';
  ui.balance.textContent=account?.balance??session.account?.balance??'—';
  ui['bet-value'].textContent=account?state.bet:'—';
- ui['spin-label'].textContent=spinning?'STOP':'HOLD\n&\nSPIN';
- ui['spin-label'].classList.toggle('sr-only',spinning);
+ const autoRemaining=Math.max(0,(state.auto?.armed??0)-(state.pending?1:0));
+ ui['spin-label'].textContent=activeAuto?String(autoRemaining):spinning?'STOP':'HOLD\n&\nSPIN';
+ ui['spin-label'].classList.toggle('sr-only',spinning&&!activeAuto);
  ui.spin.dataset.spinning=String(spinning);
- ui.spin.setAttribute('aria-label',spinning?'Stop reel animation':'Spin reels; hold to repeat');
+ ui.spin.dataset.autoplay=String(activeAuto);
+ ui.spin.setAttribute('aria-label',activeAuto?`Stop autoplay; ${autoRemaining} spins remaining`:spinning?'Stop reel animation':'Spin reels; hold to repeat');
  ui.spin.disabled=!spinning&&!canStart;
  ui.bet.disabled=!canStart;ui['bet-panel'].disabled=!canStart;
  // AUTO remains an enabled STOP control throughout an accepted round.
  ui.auto.disabled=!activeAuto&&!canStart;
  ui.auto.dataset.active=String(activeAuto);
  ui.auto.setAttribute('aria-label',activeAuto?'Stop autoplay':'Autoplay options');
- ui['auto-label'].textContent=activeAuto?String(state.auto.armed):'AUTO';
+ ui['auto-label'].textContent=activeAuto?'Stop autoplay':'AUTO';
+ ui['auto-label'].classList.toggle('sr-only',activeAuto);
  ui.turbo.disabled=!assetsReady||!!state.pending;
  ui.turbo.setAttribute('aria-pressed',String(!!controller?.turbo));
  ui.signin.hidden=!!account?.authenticated||state.phase==='loading'||assetFailed;
@@ -319,7 +367,7 @@ async function loadGame(){
   const audioClips=await resources.primeAudio();
   if(generation!==loadGeneration)return;
   sound=createSoundEngine({clipUrls:audioClips});
-  scene=new MultiHot20Scene({canvas:ui.reels,backdropCanvas:ui['game-backdrop'],symbols:resources.manifest.symbols,assets:resources.images,audio:soundBridge,strictAssets:true});
+  scene=new MultiHot20Scene({canvas:ui.reels,backdropCanvas:ui['game-backdrop'],symbols:resources.manifest.symbols,assets:resources.images,audio:soundBridge,strictAssets:true,onLinePresentation:showLinePresentation});
   scene.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
   controller=new GameController({session,scene,onChange:sync,visible:live});
   for(let atlas=0;atlas<4;atlas++)if(!resources.urls.get(`atlas-${atlas}.png`))throw Error('CONTROL_ATLAS_MISSING');
@@ -406,7 +454,7 @@ window.addEventListener('pointermove',event=>{
  const box=ui.spin.getBoundingClientRect();
  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)holdSpin.cancel();
 },true);
-listen('spin','click',event=>{if(holdSpin.consumeClick(event))return;if(!controller)return;sound?.play('button');if(controller.phase==='spinning')controller.stop();else void controller.spin().then(sync)});
+listen('spin','click',event=>{if(holdSpin.consumeClick(event))return;if(!controller)return;sound?.play('button');if(controller.auto.started){controller.stopAuto();if(controller.phase==='spinning')controller.stop();sync()}else if(controller.phase==='spinning')controller.stop();else void controller.spin().then(sync)});
 for(const id of ['bet','bet-panel'])listen(id,'click',()=>{if(controller?.phase==='ready'){sound?.play('button');showBet()}});
 listen('auto','click',()=>{if(controller?.auto.started){controller.stopAuto();sync()}else if(controller?.phase==='ready'){ui['auto-error'].textContent='';open(ui['auto-dialog'])}});
 for(const button of document.querySelectorAll('[data-auto-count]'))button.addEventListener('click',()=>{autoCount=Number(button.dataset.autoCount);for(const b of document.querySelectorAll('[data-auto-count]'))b.setAttribute('aria-pressed',String(b===button));sound?.play('button')});
@@ -422,7 +470,8 @@ listen('auto-start','click',()=>{
 listen('auto-stop','click',()=>{controller?.stopAuto();close(ui['auto-dialog']);sync()});
 listen('turbo','click',()=>{if(controller?.turbo){controller.setTurbo(false);sync()}else open(ui['quick-dialog'])});
 listen('quick-confirm','click',()=>{controller?.setTurbo(true);sound?.play('button');close(ui['quick-dialog']);sync()});
-listen('menu','click',()=>open(ui['menu-dialog']));listen('rules','click',showRules);listen('sound','click',showSound);
+listen('menu','click',()=>open(ui['menu-dialog']));listen('rules','click',showRules);
+listen('sound','click',()=>{const enabled=!(savedSettings.effects||savedSettings.music);saveSound(enabled,enabled)});
 for(const [id,action]of [['menu-rules',showRules],['menu-history',showHistory],['menu-sound',showSound]])listen(id,'click',()=>{close(ui['menu-dialog']);action()});
 listen('preview-down','click',()=>{previewIndex--;renderPaytable()});listen('preview-up','click',()=>{previewIndex++;renderPaytable()});
 listen('sound-on','click',()=>{saveSound(true,true);close(ui['sound-prompt'])});
@@ -430,7 +479,7 @@ listen('sound-off','click',()=>{saveSound(false,false);close(ui['sound-prompt'])
 listen('sound-save','click',()=>{saveSound(ui['effects-opt'].checked,ui['music-opt'].checked);close(ui['sound-dialog'])});
 listen('gamble','click',()=>{sync();open(ui['gamble-dialog'])});
 for(const [id,colour]of [['gamble-red','RED'],['gamble-black','BLACK']])listen(id,'click',()=>{sound?.play('button');void controller?.gamble(colour).then(ok=>{if(ok&&controller?.lastAction?.won)sound?.play('win');sync()})});
-for(const id of ['take-win','gamble-take'])listen(id,'click',()=>{void controller?.takeWin().then(ok=>{if(ok)close(ui['gamble-dialog']);sync()})});
+for(const id of ['take-win','gamble-take'])listen(id,'click',()=>{scene?.stopLinePresentation();void controller?.takeWin().then(ok=>{if(ok)close(ui['gamble-dialog']);sync()})});
 listen('retry','click',()=>{if(controller?.phase==='confirm')void controller.reconcile().then(ok=>{if(ok&&!controller.lastReceipt&&!session.pending&&!session.pendingAction)restoreHistoricalRound(controller.account);sync()})});
 listen('reconnect','click',()=>void connectAccount());listen('load-retry','click',()=>void loadGame());
 for(const button of document.querySelectorAll('[data-close]'))button.addEventListener('click',()=>close(button.closest('dialog')));

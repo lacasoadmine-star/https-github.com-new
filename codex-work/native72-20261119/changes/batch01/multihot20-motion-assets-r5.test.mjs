@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {MultiHot20Scene,SCENE_LAYOUT,MULTIHOT20_WHEEL_SECTORS,MULTIHOT20_WIN_PRESENTATION} from './multihot20/scene.mjs';
+import {MultiHot20Scene,SCENE_LAYOUT,MULTIHOT20_WHEEL_SECTORS,MULTIHOT20_WIN_PRESENTATION,MULTIHOT20_LINE_PRESENTATION,MULTIHOT20_PAYLINE_ROWS} from './multihot20/scene.mjs';
 import {loadVerifiedAssets,createSoundEngine} from './multihot20/assets.mjs';
+import {evaluateCapturedMath,OFFICIAL_LINE_PATHS} from './server/official-math.mjs';
 
 class Target extends EventTarget {
  constructor(){super();this.listeners=new Map();this.hidden=false;this.focused=true;this.devicePixelRatio=3;}
@@ -11,11 +12,11 @@ class Target extends EventTarget {
  removeEventListener(type,fn,opt){super.removeEventListener(type,fn,opt);this.listeners.set(type,(this.listeners.get(type)||0)-1)}
 }
 function harness(extraAssets={},options={}){
- let now=1000,next=0,draws=[],clips=[],texts=[],fills=[],strokes=[],transform={angle:0,x:0,y:0};
+ let now=1000,next=0,draws=[],clips=[],texts=[],fills=[],strokes=[],path=[],strokePaths=[],filledPaths=[],clipPaths=[],transform={angle:0,x:0,y:0};
  const stack=[];
- const frames=new Map(),sounds=[],doc=options.doc??new Target(),win=options.win??new Target();
+ const frames=new Map(),sounds=[],lineViews=[],doc=options.doc??new Target(),win=options.win??new Target();
  const ctx=new Proxy({globalAlpha:1,globalCompositeOperation:'source-over',createLinearGradient:()=>({addColorStop(){}}),measureText:s=>({width:s.length*22}),
-  clearRect(){draws=[];clips=[];texts=[];fills=[];strokes=[]},
+  clearRect(){draws=[];clips=[];texts=[];fills=[];strokes=[];strokePaths=[];filledPaths=[];clipPaths=[]},
   setTransform(){transform={angle:0,x:0,y:0}},
   save(){stack.push({transform:{...transform},alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation})},
   restore(){const state=stack.pop();transform=state.transform;ctx.globalAlpha=state.alpha;ctx.globalCompositeOperation=state.blend},
@@ -26,7 +27,12 @@ function harness(extraAssets={},options={}){
    // Destination position stays separate from the transformed pivot.
    Object.assign(draws.at(-1),{x,y,pivot:[transform.x,transform.y]});
   },
-  rect:(...r)=>clips.push(r),fillText:(...args)=>texts.push(args),fillRect:(...r)=>fills.push(r),strokeRect:(...r)=>strokes.push(r)},
+  beginPath(){path=[]},moveTo:(...args)=>path.push(['M',...args]),lineTo:(...args)=>path.push(['L',...args]),
+  bezierCurveTo:(...args)=>path.push(['C',...args]),closePath:()=>path.push(['Z']),
+  clip:()=>clipPaths.push(structuredClone(path)),
+  stroke:()=>strokePaths.push({path:structuredClone(path),colour:ctx.strokeStyle,alpha:ctx.globalAlpha,width:ctx.lineWidth}),
+  fill:()=>filledPaths.push({path:structuredClone(path),colour:typeof ctx.fillStyle==='string'?ctx.fillStyle:'gradient',alpha:ctx.globalAlpha,blend:ctx.globalCompositeOperation}),
+  rect:(...r)=>{clips.push(r);path.push(['R',...r])},fillText:(...args)=>texts.push(args),fillRect:(...r)=>fills.push(r),strokeRect:(...r)=>strokes.push(r)},
  {get:(target,key)=>key in target?target[key]:()=>{},set:(target,key,value)=>(target[key]=value,true)});
  const attributes=new Map();
  const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({width:360,height:360}),
@@ -44,12 +50,14 @@ function harness(extraAssets={},options={}){
    .map(([name,[width,height]])=>[name,{symbol:name,width,height}]))
  };
  const scene=new MultiHot20Scene({canvas,backdropCanvas:options.backdropCanvas??null,symbols,assets:{...Object.fromEntries(symbols.map(symbol=>[symbol,{symbol,width:100,height:100}])),...presentation,...extraAssets},doc,win,
+  onLinePresentation:view=>{lineViews.push({at:now,view});options.onLinePresentation?.(view)},
   audio:{play:name=>sounds.push({name,at:now}),stop:name=>sounds.push({name:'stop:'+name,at:now}),pauseAll:()=>sounds.push({name:'pause',at:now})},
   clock:()=>now,requestFrame:fn=>{frames.set(++next,fn);return next},cancelFrame:id=>frames.delete(id)});
  const receipt={gameId:'fresh_multihot20',roundId:'server-round-01',wheelMultiplier:3,bet:'2.00',finalWin:'2.40',
   grid:[['seven','bell','grape','watermelon','lemon'],['plum','orange','cherry','seven','bell'],['grape','watermelon','lemon','plum','orange']],
   winLines:[{positions:[[0,0],[0,1],[0,2]]}]};
- return {scene,canvas,doc,win,receipt,sounds,frames,get draws(){return draws},get clips(){return clips},get texts(){return texts},get fills(){return fills},get strokes(){return strokes},
+ return {scene,canvas,doc,win,receipt,sounds,frames,lineViews,get draws(){return draws},get clips(){return clips},get texts(){return texts},get fills(){return fills},get strokes(){return strokes},
+  get strokePaths(){return strokePaths},get filledPaths(){return filledPaths},get clipPaths(){return clipPaths},
   tick(time){now=time;const callbacks=[...frames.values()];frames.clear();for(const cb of callbacks)cb(now)},time:()=>now};
 }
 
@@ -422,6 +430,201 @@ test('restoring a premium historical receipt is silent and static with no celebr
  assert.deepEqual(visibleGrid(h),receipt.grid);assert.equal(h.scene.inspect().celebration,null);
  assert.equal(h.canvas.getAttribute('data-win-presentation'),null);assert.equal(h.frames.size,0);assert.deepEqual(h.sounds,[]);
  assert.equal(h.draws.some(draw=>draw.symbol.startsWith('__win')),false);h.scene.dispose();
+});
+
+function evaluatedLineReceipt({grid,bet='1.00',wheelMultiplier=1,...overrides}={}){
+ const result=evaluateCapturedMath({gameId:'fresh_multihot20',bet,wheelMultiplier,grid:grid??[
+  Array(5).fill('bell'),['bell','seven','lemon','plum','orange'],['grape','watermelon','orange','bell','seven']
+ ]});
+ return {...result,roundId:'server-evaluated-line-result',currency:'ETB',bet,...overrides};
+}
+async function revealLineReceipt(h,receipt){
+ h.scene.start();h.tick(1200);const settled=h.scene.settle(receipt);
+ h.tick(Math.max(...h.scene.reelPlans.map(plan=>plan.endTime)));
+ if(h.scene.celebration)h.tick(h.scene.celebration.endsAt);
+ assert.equal(await settled,true);return h.time();
+}
+const cellRects=positions=>positions.map(([row,col])=>[45+col*102+3,252+row*102+3,96,96]);
+const linePath=positions=>positions.map(([row,col],i)=>[i?'L':'M',45+(col+.5)*102,252+(row+.5)*102]);
+
+test('dismissing NICE finishes its accepted settlement once and suppresses later result animation until a new spin',async()=>{
+ const h=harness(),receipt=evaluatedLineReceipt(),{done,start}=beginWin(h,receipt);
+ let resolutions=0;done.then(()=>resolutions++);
+ h.tick(start+1100);assert.ok(winDraw(h,'__winNice'));assert.equal(resolutions,0);
+ assert.equal(h.scene.dismissResultPresentation(),true);assert.equal(await done,true);assert.equal(resolutions,1);
+ assert.equal(h.scene.celebration,null);assert.equal(h.canvas.getAttribute('data-win-presentation'),null);
+ assert.equal(h.lineViews.at(-1).view,null);assert.equal(h.frames.size,0);
+ assert.equal(h.sounds.at(-1).name,'stop:win');assert.deepEqual(h.scene.receipt,receipt);
+ const finalDraws=structuredClone(h.draws),plays=h.sounds.filter(sound=>sound.name==='win').length;
+ assert.equal(h.scene.dismissResultPresentation(),false,'repeated modal dismissal is idempotent');
+ h.scene.stopLinePresentation();h.scene.resize();h.win.dispatchEvent(new Event('focus'));
+ h.tick(start+90000);assert.equal(h.frames.size,0);assert.deepEqual(h.draws,finalDraws);
+ assert.equal(h.lineViews.some(item=>item.view!==null),false);assert.equal(resolutions,1);
+ assert.equal(h.sounds.filter(sound=>sound.name==='win').length,plays);
+ h.scene.restore(receipt);assert.equal(h.frames.size,0);assert.deepEqual(h.draws,finalDraws);
+
+ const next={...receipt,roundId:'next-explicit-server-round'};
+ h.scene.start();const nextDone=h.scene.settle(next);
+ h.tick(Math.max(...h.scene.reelPlans.map(plan=>plan.endTime)));
+ assert.equal(h.scene.celebration?.tier.name,'NICE','only a new explicit spin clears suppression');
+ assert.equal(h.sounds.filter(sound=>sound.name==='win').length,plays+1);
+ h.tick(h.scene.celebration.endsAt);assert.equal(await nextDone,true);
+ h.tick(h.time()+700);assert.ok(h.lineViews.at(-1).view);
+ assert.equal(h.scene.dismissResultPresentation(),true);assert.equal(h.frames.size,0);
+ assert.equal(h.lineViews.at(-1).view,null);assert.deepEqual(h.scene.receipt,next);
+ h.scene.dispose();const soundCount=h.sounds.length;
+ assert.equal(h.scene.dismissResultPresentation(),false);h.tick(h.time()+90000);
+ assert.equal(h.sounds.length,soundCount);assert.equal(h.frames.size,0);
+});
+
+test('dismissal before a late winning receipt or during reels keeps settlement valid without a future win cue, popup or line loop',async()=>{
+ const ordinary=evaluatedLineReceipt({grid:[
+  ['cherry','cherry','cherry','seven','lemon'],['bell','grape','plum','orange','seven'],['seven','lemon','orange','grape','bell']
+ ]});
+ assert.ok(Number(ordinary.finalWin)>0&&Number(ordinary.finalWin)<10);
+ for(const timing of ['network','reels'])for(const receipt of [ordinary,evaluatedLineReceipt()]){
+  const h=harness();h.scene.start();h.tick(1200);let done;
+  if(timing==='reels'){done=h.scene.settle(receipt);h.tick(1250)}
+  assert.equal(h.scene.dismissResultPresentation(),true);assert.equal(h.scene.rolling,true,'dismissal must not discard an accepted or in-flight round');
+  if(timing==='network')done=h.scene.settle(receipt);
+  let resolutions=0;done.then(()=>resolutions++);
+  h.tick(Math.max(...h.scene.reelPlans.map(plan=>plan.endTime)));
+  assert.equal(await done,true);assert.equal(resolutions,1);assert.deepEqual(h.scene.receipt,receipt);
+  assert.deepEqual(visibleGrid(h),receipt.grid);assert.equal(h.scene.celebration,null);
+  assert.equal(h.draws.some(draw=>draw.symbol.startsWith('__win')),false);assert.equal(h.frames.size,0);
+  assert.equal(h.lineViews.some(item=>item.view!==null),false);assert.equal(h.sounds.filter(sound=>sound.name==='win').length,0);
+  const finalDraws=structuredClone(h.draws),sounds=structuredClone(h.sounds);
+  // Closing a dialog does not start a round. Ordinary focus/resize and an
+  // authenticated history repaint therefore cannot revive this result.
+  h.scene.stopLinePresentation();h.scene.resize();h.win.dispatchEvent(new Event('focus'));h.scene.restore(receipt);
+  h.tick(h.time()+90000);assert.equal(h.frames.size,0);assert.equal(resolutions,1);
+  assert.deepEqual(h.draws,finalDraws);assert.deepEqual(h.sounds,sounds);h.scene.dispose();
+ }
+});
+
+test('receipt line sequence repeats the actual evaluator lines until interrupted and preserves the silent restored summary',async()=>{
+ const h=harness(),receipt=evaluatedLineReceipt(),original=structuredClone(receipt);
+ assert.equal(receipt.finalWin,'20.00');assert.deepEqual(receipt.winLines.map(line=>[line.line,line.count,line.baseWin]),[[1,5,'10.00'],[8,4,'5.00'],[12,4,'5.00']]);
+ const random=Math.random;Math.random=()=>{throw Error('the line sequence cannot choose outcomes')};
+ try{
+  const started=await revealLineReceipt(h,receipt),sounds=structuredClone(h.sounds);
+  assert.equal(h.scene.inspect().rolling,false);assert.equal(h.frames.size,1,'settlement is finished while the fresh-result presentation continues');
+  assert.equal(h.lineViews.at(-1).view,null);assert.deepEqual(h.texts,[],'app-owned under-grid caption must not become Canvas title text');
+  h.tick(started+599);assert.equal(h.lineViews.at(-1).view,null);
+  for(const [i,line]of original.winLines.entries()){
+   h.tick(started+600+i*1200);
+   const view=h.lineViews.at(-1).view;
+   assert.deepEqual(view,{roundId:receipt.roundId,line:line.line,symbol:'bell',count:line.count,baseWin:line.baseWin,
+    wheelMultiplier:1,currency:'ETB',maxWinCapped:false,totalWin:'20.00',index:i,totalLines:3,positions:line.positions,
+    path:OFFICIAL_LINE_PATHS.fresh_multihot20[line.line-1].map((row,col)=>[row,col])});
+   assert.equal(Object.hasOwn(view,'lineWin'),false,'scene never computes a second payout');
+   assert.ok(Object.isFrozen(view)&&Object.isFrozen(view.positions)&&view.positions.every(Object.isFrozen));
+   assert.deepEqual(h.strokePaths.map(item=>item.path),[linePath(view.path)]);
+   assert.equal(h.strokePaths[0].colour,'#ffee00');assert.deepEqual(h.strokes,cellRects(line.positions));
+   assert.deepEqual(visibleGrid(h),original.grid);assert.deepEqual(h.scene.receipt,original);
+   const emitted=h.lineViews.length;h.tick(started+600+i*1200+16);assert.equal(h.lineViews.length,emitted,'caption changes once per line, not every frame');
+  }
+  receipt.winLines[0].positions[0][0]=2;receipt.winLines[0].baseWin='999.99';receipt.finalWin='999.99';
+  h.tick(started+4200);assert.equal(h.frames.size,1);assert.equal(h.lineViews.at(-1).view.line,1,'line sequence repeats after the first pass');
+  h.tick(started+18000);assert.equal(h.frames.size,1);assert.ok(h.lineViews.at(-1).view,'visible fresh win continues beyond eighteen seconds');
+  h.scene.stopLinePresentation();assert.equal(h.frames.size,0);assert.equal(h.lineViews.at(-1).view,null);
+  assert.deepEqual(h.scene.receipt,original);assert.deepEqual(h.sounds,sounds,'line transitions add no sound or settlement');
+  const final=structuredClone(h.draws),finalStrokes=structuredClone(h.strokes);
+  h.scene.restore(original);assert.deepEqual(h.draws,final);assert.deepEqual(h.strokes,finalStrokes);assert.deepEqual(h.strokePaths,[]);
+  h.tick(started+90000);assert.equal(h.frames.size,0);assert.deepEqual(h.sounds,sounds);assert.equal(h.lineViews.at(-1).view,null);
+ }finally{Math.random=random;h.scene.dispose()}
+});
+
+test('selected multiplier animation uses a single fixed-angle original Light draw with cancellable clipped deterministic fire',async()=>{
+ const h=harness(),receipt=evaluatedLineReceipt({wheelMultiplier:4}),started=await revealLineReceipt(h,receipt);
+ h.tick(started+700);
+ const first=structuredClone(h.draws.find(draw=>draw.symbol==='wheel-light')),fire=structuredClone(h.filledPaths);
+ const expectedRing=structuredClone(ringDraw(h));
+ assert.equal(h.draws.filter(draw=>draw.symbol==='wheel-light').length,1);
+ assert.equal(first.angle,expectedRing.angle);assert.deepEqual(paintedNeighbours(h),[2,4,1]);
+ assert.ok(first.alpha>=.78&&first.alpha<=1);
+ assert.equal(fire.length,15);assert.ok(fire.every(item=>item.blend==='lighter'));
+ const scale=510/978,top=252-267*scale;
+ const wedge=[['M',45+368*scale,top+34*scale],['L',45+611*scale,top+34*scale],
+  ['L',45+570*scale,top+255*scale],['L',45+411*scale,top+255*scale],['Z']];
+ assert.ok(h.clipPaths.some(path=>JSON.stringify(path)===JSON.stringify(wedge)),'all generated fire is clipped by the original selector polygon');
+ h.tick(started+917);
+ const next=h.draws.find(draw=>draw.symbol==='wheel-light');assert.notEqual(next.alpha,first.alpha);
+ assert.notDeepEqual(h.filledPaths,fire,'flame curves move smoothly without changing a numeral');
+ assert.deepEqual(ringDraw(h),expectedRing);assert.equal(next.angle,first.angle);assert.deepEqual(next.source,first.source);
+ assert.deepEqual(visibleGrid(h),receipt.grid);assert.equal(h.scene.receipt.finalWin,receipt.finalWin);
+ h.scene.stopLinePresentation();assert.equal(h.frames.size,0);assert.equal(h.filledPaths.length,0);
+ assert.equal(h.draws.find(draw=>draw.symbol==='wheel-light').alpha,1);assert.deepEqual(paintedNeighbours(h),[2,4,1]);h.scene.dispose();
+});
+
+test('capped receipts preserve exact cap metadata through all twenty lines and repeat without allocating the total cap',async()=>{
+ const h=harness(),receipt=evaluatedLineReceipt({grid:Array.from({length:3},()=>Array(5).fill('seven')),wheelMultiplier:5});
+ assert.equal(receipt.maxWinCapped,true);assert.equal(receipt.winLines.length,20);
+ assert.equal(receipt.finalWin,'1000.00');const started=await revealLineReceipt(h,receipt);
+ assert.deepEqual(MULTIHOT20_LINE_PRESENTATION,{summaryMs:600,lineMs:1200,maxLines:20});
+ assert.deepEqual(MULTIHOT20_PAYLINE_ROWS,OFFICIAL_LINE_PATHS.fresh_multihot20);
+ for(let i=0;i<20;i++){
+  h.tick(started+600+i*1200);
+  const view=h.lineViews.at(-1).view;assert.equal(view.line,i+1);assert.equal(view.maxWinCapped,true);
+  assert.equal(view.totalWin,'1000.00');assert.equal(view.baseWin,receipt.winLines[i].baseWin);
+  assert.equal(Object.hasOwn(view,'lineWin'),false,'a cap is never allocated to individual lines by presentation');
+ }
+ h.tick(started+24600);assert.equal(h.frames.size,1);assert.equal(h.lineViews.at(-1).view.line,1);
+ h.scene.stopLinePresentation();assert.equal(h.frames.size,0);assert.equal(h.lineViews.at(-1).view,null);
+ assert.deepEqual(h.scene.receipt,receipt);h.scene.dispose();
+});
+
+test('new spin, public stop, restore, reset, disposal and visibility changes cancel line captions and future emphasis immediately',async()=>{
+ for(const action of ['stop','start','restore','hidden','blur','pagehide','reset','dispose']){
+  const h=harness(),receipt=evaluatedLineReceipt(),started=await revealLineReceipt(h,receipt);
+  h.tick(started+700);assert.ok(h.lineViews.at(-1).view);const plays=h.sounds.filter(s=>s.name==='win').length;
+  if(action==='stop'){assert.equal(h.scene.stopLinePresentation(),true);assert.equal(h.scene.stopLinePresentation(),false)}
+  else if(action==='hidden'){h.doc.hidden=true;h.doc.dispatchEvent(new Event('visibilitychange'))}
+  else if(action==='blur'||action==='pagehide')h.win.dispatchEvent(new Event(action));
+  else if(action==='restore')h.scene.restore(receipt);
+  else h.scene[action]();
+  assert.equal(h.lineViews.at(-1).view,null,action);assert.equal(h.scene.linePresentation,null,action);
+  if(action==='start'){h.tick(started+720);assert.deepEqual(h.strokePaths,[]);h.scene.reset()}
+  assert.equal(h.frames.size,0,action);
+  h.doc.hidden=false;h.win.dispatchEvent(new Event('focus'));h.win.dispatchEvent(new Event('pageshow'));
+  h.tick(started+99999);assert.equal(h.frames.size,0,action+' must not replay on return');
+  assert.equal(h.sounds.filter(s=>s.name==='win').length,plays);h.scene.dispose();
+ }
+});
+
+test('reduced motion never starts a result cycle and changing preference cancels an existing one',async()=>{
+ const preference=new Target();preference.matches=true;const win=new Target();win.matchMedia=()=>preference;
+ const h=harness({}, {win}),receipt=evaluatedLineReceipt();
+ h.scene.start();assert.equal(await h.scene.settle(receipt),true);assert.equal(h.frames.size,0);
+ assert.equal(h.lineViews.some(item=>item.view!==null),false);assert.equal(h.sounds.filter(s=>s.name==='win').length,0);
+ preference.dispatchEvent(Object.assign(new Event('change'),{matches:false}));
+ const started=await revealLineReceipt(h,receipt);h.tick(started+700);assert.ok(h.lineViews.at(-1).view);
+ preference.dispatchEvent(Object.assign(new Event('change'),{matches:true}));assert.equal(h.frames.size,0);assert.equal(h.lineViews.at(-1).view,null);
+ preference.dispatchEvent(Object.assign(new Event('change'),{matches:false}));h.tick(started+90000);
+ assert.equal(h.frames.size,0);h.scene.dispose();assert.ok([...preference.listeners.values()].every(count=>count===0));
+});
+
+test('incomplete or contradictory line metadata cannot fabricate a caption or multiplier effect',async()=>{
+ const variants=[
+  r=>{r.currency='DMO'},r=>{r.winLines[0].line=0},r=>{r.winLines[1].line=r.winLines[0].line},
+  r=>{r.winLines[0].symbol='seven'},r=>{r.winLines[0].count=2},r=>{r.winLines[0].count=3},
+  r=>{r.winLines[0].positions[1]=[0,0]},r=>{r.winLines[0].line=2},r=>{r.winLines[0].baseWin='1e1'},r=>{r.winLines[0].baseWin='0.00'},
+  r=>{delete r.winLines[0].baseWin},r=>{r.winLines.push(...Array(20).fill(r.winLines[0]))}
+ ];
+ for(const alter of variants){
+  const h=harness(),receipt=evaluatedLineReceipt();alter(receipt);await revealLineReceipt(h,receipt);
+  assert.equal(h.frames.size,0);assert.equal(h.lineViews.some(item=>item.view!==null),false);
+  assert.equal(h.filledPaths.length,0);assert.equal(h.scene.receipt.finalWin,receipt.finalWin);h.scene.dispose();
+ }
+});
+
+test('caption callback failures cannot change an accepted result, add sound, or keep animation alive',async()=>{
+ const h=harness({}, {onLinePresentation:view=>{if(view)throw Error('caption detached')}}),receipt=evaluatedLineReceipt();
+ const started=await revealLineReceipt(h,receipt),sounds=structuredClone(h.sounds);
+ for(const offset of [600,1800,3000,4200])h.tick(started+offset);
+ h.scene.stopLinePresentation();
+ assert.equal(h.frames.size,0);assert.equal(h.lineViews.at(-1).view,null);assert.deepEqual(h.scene.receipt,receipt);
+ assert.deepEqual(h.sounds,sounds);h.scene.dispose();
 });
 
 function fixture(){

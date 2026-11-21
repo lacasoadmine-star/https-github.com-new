@@ -10,6 +10,22 @@ export const MULTIHOT20_MOTION = Object.freeze({
  settleDurationMs:690,reelDelayMs:95,fastSettleDurationMs:200,fastReelDelayMs:35,
  minimumRunInTiles:4,wheelRadiansPerMs:.009,wheelMinimumRunRadians:Math.PI/2
 });
+// Independent ZPLAY result pacing. Fresh official captures establish that
+// the same winning result keeps cycling beyond eighteen seconds; they do not
+// establish its cycle period. This visible-result sequence stops on user or
+// page lifecycle interruption. It never blocks settlement or chooses a win.
+export const MULTIHOT20_LINE_PRESENTATION = Object.freeze({
+ summaryMs:600,lineMs:1200,maxLines:20
+});
+// Retained official twenty-line chart, also shown by the app's rules screen.
+// A path continues across all five columns; only the matching receipt prefix
+// gets winning-cell emphasis. This is geometry, not an outcome evaluator.
+export const MULTIHOT20_PAYLINE_ROWS=Object.freeze([
+ [0,0,0,0,0],[1,1,1,1,1],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2],
+ [0,0,1,2,2],[2,2,1,0,0],[1,0,0,0,1],[1,2,2,2,1],[0,1,1,1,0],
+ [2,1,1,1,2],[0,0,0,0,1],[2,2,2,2,1],[0,1,0,1,0],[2,1,2,1,2],
+ [1,1,0,1,1],[1,1,2,1,1],[0,0,1,0,0],[2,2,1,2,2],[1,2,1,2,1]
+].map(rows=>Object.freeze(rows)));
 // Independent ZPLAY visual routing, NOT provider trigger rules or payout math.
 // A fresh original NICE WIN was observed at 12.5x. The tier boundaries and
 // bounded display duration below are explicit choices for this implementation.
@@ -88,6 +104,7 @@ const wheelStopAngle=value=>modulo(-WHEEL_STOP_SECTORS[value]*WHEEL_STEP,TAU);
 
 export class MultiHot20Scene {
  constructor({canvas,backdropCanvas=null,symbols,assets={},audio={},strictAssets=true,
+   onLinePresentation=null,
    doc=globalThis.document,win=globalThis.window,clock=()=>performance.now(),
    requestFrame=fn=>requestAnimationFrame(fn),cancelFrame=id=>cancelAnimationFrame(id)}={}){
   if(!canvas?.getContext)throw Error('CANVAS_REQUIRED');
@@ -98,6 +115,8 @@ export class MultiHot20Scene {
   this.backdropCanvas=backdropCanvas;this.backdropCtx=backdropCanvas?.getContext('2d')??null;this.backdropState=null;
   if(backdropCanvas&&!this.backdropCtx)throw Error('BACKDROP_CONTEXT_UNAVAILABLE');
   this.symbols=[...symbols];this.assets=assets;this.audio=audio;this.strictAssets=strictAssets;
+  this.onLinePresentation=typeof onLinePresentation==='function'?onLinePresentation:null;
+  this.linePresentation=null;this.lineView=null;this.resultPresentationDismissed=false;
   this.doc=doc;this.win=win;this.clock=clock;this.requestFrame=requestFrame;this.cancelFrame=cancelFrame;
   this.width=WIDTH;this.height=HEIGHT;this.rolling=false;this.disposed=false;
   this.current=null;this.receipt=null;this.pending=null;this.reelPlans=null;this.finishAt=0;this.stopHint=false;this.celebration=null;
@@ -115,7 +134,8 @@ export class MultiHot20Scene {
   this.onMotionPreference=event=>{
    this.reducedMotion=!!event.matches;
    if(this.disposed||!this.reducedMotion)return;
-   if(this.pending)this._finish({immediate:true,silent:true});else if(this.celebration)this._completeCelebration();
+   if(this.pending)this._finish({immediate:true,silent:true});else if(this.celebration)this._completeCelebration({showLines:false});
+   this.stopLinePresentation();
   };
   this._verifyArtwork();
   doc?.addEventListener?.('visibilitychange',this.onVisibility);
@@ -143,7 +163,7 @@ export class MultiHot20Scene {
  _visibility(){
   if(this.disposed)return;
   this.hidden=this.pageHidden||!!this.doc?.hidden||!this.focused;
-  if(this.hidden){this._cancelFrame();this.pauseAudio();if(this.pending)this._finish({immediate:true,silent:true});else if(this.celebration)this._completeCelebration();return}
+  if(this.hidden){this._cancelFrame();this.pauseAudio();this.stopLinePresentation();if(this.pending)this._finish({immediate:true,silent:true});else if(this.celebration)this._completeCelebration({showLines:false});return}
   this.lastTime=null;this._paint(this.clock());this._loop();
  }
  resize(){
@@ -185,7 +205,7 @@ export class MultiHot20Scene {
  start(){
   if(this.disposed||this.rolling||this.celebration)throw Error('REELS_NOT_READY');
   if(this.hidden||this.doc?.hidden)throw Error('GAME_NOT_VISIBLE');
-  this._verifySymbols();this.rolling=true;this.stopHint=false;this.pending=null;this.reelPlans=null;this.finishAt=0;
+  this._verifySymbols();this.resultPresentationDismissed=false;this.stopLinePresentation(false);this.rolling=true;this.stopHint=false;this.pending=null;this.reelPlans=null;this.finishAt=0;
   this.wheelStartAngle=this.wheelAngle;this.wheelPlan=null;
   this.reelStopped.fill(false);this.startedAt=this.clock();this.lastTime=null;this.frames=0;this.fpsSamples=[];
   this._stopSound('win');this._sound('spin');this._loop();
@@ -241,7 +261,8 @@ export class MultiHot20Scene {
    startVelocity:Math.max(0,Math.min(velocity,3*(target-angle)/duration))};
  }
  speedUp(){
-  if(this.celebration){this._completeCelebration();return true}
+  if(this.celebration){this._completeCelebration({showLines:false});return true}
+  if(this.linePresentation)return this.stopLinePresentation();
   if(!this.rolling)return false;
   if(this.stopHint)return true;
   this.stopHint=true;
@@ -271,9 +292,68 @@ export class MultiHot20Scene {
   if(this.disposed)throw Error('SCENE_DISPOSED');
   if(this.rolling||this.pending||this.celebration)throw Error('REELS_NOT_READY');
   const snapshot=this._receiptSnapshot(receipt);
-  this._cancelFrame();this.current=snapshot.grid.map(row=>[...row]);this.receipt=snapshot;
+  this.stopLinePresentation(false);this._cancelFrame();this.current=snapshot.grid.map(row=>[...row]);this.receipt=snapshot;
   this.pending=null;this.reelPlans=null;this.wheelPlan=null;this.wheelAngle=wheelStopAngle(snapshot.wheelMultiplier);this.stopHint=false;this.reelStopped.fill(true);
   this._paint(this.clock());return true;
+ }
+ _presentationLines(){
+  const receipt=this.receipt,lines=receipt?.winLines,cfg=MULTIHOT20_LINE_PRESENTATION,win=cents(receipt?.finalWin);
+  if(receipt?.currency!=='ETB'||typeof receipt.roundId!=='string'||!receipt.roundId||
+     !Array.isArray(lines)||!lines.length||lines.length>cfg.maxLines||win===null||win<=0n)return [];
+  const seen=new Set(),views=[];
+  for(const [index,line]of lines.entries()){
+   const base=cents(line.baseWin);
+   if(!Number.isInteger(line.line)||line.line<1||line.line>cfg.maxLines||seen.has(line.line)||
+      !this.symbols.includes(line.symbol)||!Number.isInteger(line.count)||line.count<3||line.count>REELS||
+      base===null||base<=0n||!Array.isArray(line.positions)||line.positions.length!==line.count)return [];
+   const positions=line.positions.map(p=>Array.isArray(p)?[p[0],p[1]]:[p?.row,p?.col]);
+   const rows=MULTIHOT20_PAYLINE_ROWS[line.line-1];
+   if(positions.some(([row,col],i)=>!Number.isInteger(row)||row<0||row>=ROWS||col!==i||
+      row!==rows[col]||receipt.grid[row][col]!==line.symbol))return [];
+   seen.add(line.line);
+   // The app can render the original miniature symbols and a presentation
+   // equation from these exact fields. No per-line payout is invented here;
+   // capped receipts explicitly carry their total cap into the view.
+   views.push(Object.freeze({roundId:receipt.roundId,line:line.line,symbol:line.symbol,count:line.count,
+    baseWin:line.baseWin,wheelMultiplier:receipt.wheelMultiplier,currency:'ETB',
+    maxWinCapped:receipt.maxWinCapped===true,totalWin:receipt.finalWin,index,totalLines:lines.length,
+    positions:Object.freeze(positions.map(p=>Object.freeze(p))),
+    path:Object.freeze(rows.map((row,col)=>Object.freeze([row,col])))}));
+  }
+  return Object.freeze(views);
+ }
+ _setLineView(view,force=false){
+  if(!force&&this.lineView===view)return;
+  this.lineView=view;
+  try{this.onLinePresentation?.(view)}catch{/* A caption cannot change a settled receipt. */}
+ }
+ _beginLinePresentation(){
+  this.stopLinePresentation(false);
+  if(this.disposed||this.hidden||this.doc?.hidden||this.reducedMotion||this.resultPresentationDismissed)return false;
+  const lines=this._presentationLines();if(!lines.length)return false;
+  const startedAt=this.clock();
+  this.linePresentation={roundId:this.receipt.roundId,lines,startedAt};
+  this._loop();return true;
+ }
+ stopLinePresentation(paint=true){
+  const active=!!this.linePresentation||!!this.lineView;
+  this.linePresentation=null;this._setLineView(null,true);
+  if(!this.rolling&&!this.celebration)this._cancelFrame();
+  if(active&&paint&&!this.disposed)this._paint(this.clock());
+  return active;
+ }
+ // A dialog can interrupt before the receipt or celebration has finished.
+ // Keep that dismissal until the next explicit start(), so completing the
+ // accepted round cannot revive a win cue or result loop behind the modal.
+ // This does not cancel reels, discard a receipt or resolve a wager again.
+ dismissResultPresentation(){
+  if(this.disposed)return false;
+  const hadLine=!!this.linePresentation||!!this.lineView;
+  const changed=!this.resultPresentationDismissed||hadLine||!!this.celebration;
+  this.resultPresentationDismissed=true;this.stopLinePresentation(false);
+  if(this.celebration)this._completeCelebration({showLines:false});
+  else {this._stopSound('win');if(hadLine)this._paint(this.clock())}
+  return changed;
  }
  async settle(receipt){
   if(this.disposed)throw Error('SCENE_DISPOSED');
@@ -291,15 +371,22 @@ export class MultiHot20Scene {
   return new Promise(resolve=>{this.resolveAnimation=resolve;this._loop()});
  }
  _loop(){
-  if(this.disposed||(!this.rolling&&!this.celebration)||this.hidden||this.doc?.hidden||this.frameId!==null)return;
+  if(this.disposed||(!this.rolling&&!this.celebration&&!this.linePresentation)||this.hidden||this.doc?.hidden||this.frameId!==null)return;
   this.frameId=this.requestFrame(time=>{
    this.frameId=null;
-   if(this.disposed||(!this.rolling&&!this.celebration)||this.hidden||this.doc?.hidden)return;
+   if(this.disposed||(!this.rolling&&!this.celebration&&!this.linePresentation)||this.hidden||this.doc?.hidden)return;
    const now=Number.isFinite(time)?time:this.clock();
    if(this.lastTime!==null){const dt=now-this.lastTime;if(dt>1&&dt<200)this.fpsSamples.push(1000/dt);if(this.fpsSamples.length>120)this.fpsSamples.shift()}
    this.lastTime=now;this.frames++;
    if(this.celebration){
-    if(this.reducedMotion||now>=this.celebration.endsAt){this._completeCelebration();return}
+    if(this.reducedMotion||now>=this.celebration.endsAt){this._completeCelebration({showLines:!this.reducedMotion});return}
+    this._paint(now);this._loop();return;
+   }
+   if(this.linePresentation){
+    const result=this.linePresentation,cfg=MULTIHOT20_LINE_PRESENTATION;
+    if(this.reducedMotion||this.receipt?.roundId!==result.roundId){this.stopLinePresentation();return}
+    const index=Math.floor((now-result.startedAt-cfg.summaryMs)/cfg.lineMs);
+    this._setLineView(index<0?null:result.lines[index%result.lines.length]);
     this._paint(now);this._loop();return;
    }
    if(this.pending){
@@ -358,7 +445,41 @@ export class MultiHot20Scene {
   for(const [i,[x,y]]of [[368,34],[611,34],[570,255],[411,255]].entries()){
    if(i===0)ctx.moveTo(X+x*WHEEL_SCALE,WHEEL_TOP+y*WHEEL_SCALE);else ctx.lineTo(X+x*WHEEL_SCALE,WHEEL_TOP+y*WHEEL_SCALE);
   }
-  ctx.closePath();ctx.clip();drawRing(light);ctx.restore();ctx.restore();
+  ctx.closePath();ctx.clip();
+  if(this.linePresentation){
+   this._selectedMultiplierEmphasis(ctx,now);
+   ctx.globalAlpha*=.89+.11*Math.sin((now-this.linePresentation.startedAt)*Math.PI/450);
+  }
+  drawRing(light);ctx.restore();ctx.restore();
+ }
+ _selectedMultiplierEmphasis(ctx,now){
+  // Fresh official 2026-11-21 / 02-stop.jpg shows yellow fire rising from
+  // the selected wedge's base. The approved Spine JSON names its frames,
+  // but no trusted loaded frame-to-PNG mapping is available. This cancellable
+  // deterministic flame is original ZPLAY drawing, NOT copied provider
+  // animation or an implied multiplier/outcome selector. The verified
+  // original numeral is drawn above it, at the unchanged receipt angle.
+  const phase=(now-this.linePresentation.startedAt)/1000;
+  const sx=x=>X+x*WHEEL_SCALE,sy=y=>WHEEL_TOP+y*WHEEL_SCALE;
+  const glow=ctx.createLinearGradient(0,sy(155),0,sy(255));
+  glow.addColorStop(0,'rgba(255,202,28,0)');glow.addColorStop(.42,'rgba(255,198,31,.34)');
+  glow.addColorStop(1,'rgba(255,249,163,.9)');
+  ctx.save();ctx.globalCompositeOperation='lighter';ctx.fillStyle=glow;
+  ctx.beginPath();ctx.moveTo(sx(407),sy(255));ctx.lineTo(sx(577),sy(255));
+  ctx.lineTo(sx(577),sy(155));ctx.lineTo(sx(407),sy(155));ctx.closePath();ctx.fill();
+  const bases=[425,449,473,497,521,545,565],heights=[42,67,55,77,61,70,43];
+  for(let i=0;i<bases.length;i++){
+   const x=bases[i],sway=Math.sin(phase*5.1+i*1.7)*7,height=heights[i]+Math.sin(phase*6.7+i*2.3)*11;
+   for(const inner of [false,true]){
+    const width=inner?9:17,h=height*(inner?.71:1),tip=x+sway*(inner?.7:1),floor=255;
+    ctx.fillStyle=inner?'rgba(255,255,188,.82)':'rgba(255,174,18,.48)';
+    ctx.beginPath();ctx.moveTo(sx(x-width),sy(floor));
+    ctx.bezierCurveTo(sx(x-width*1.2),sy(floor-h*.42),sx(tip+width*.4),sy(floor-h*.62),sx(tip),sy(floor-h));
+    ctx.bezierCurveTo(sx(tip+width*.9),sy(floor-h*.72),sx(x+width*1.15),sy(floor-h*.35),sx(x+width),sy(floor));
+    ctx.closePath();ctx.fill();
+   }
+  }
+  ctx.restore();
  }
  _winPart(ctx,name,x,y,width,height,scale,alpha=1,rotation=0,additive=false){
   if(scale<=0||alpha<=0)return;
@@ -434,8 +555,20 @@ export class MultiHot20Scene {
    if(!originalBox){ctx.strokeStyle='#bca459';ctx.lineWidth=1;ctx.strokeRect(x,Y,REEL_W,GRID_H)}
   }
   if(!this.rolling&&this.receipt){
-   ctx.lineWidth=3;ctx.strokeStyle='#f9db6c';ctx.shadowColor='#ffba36';ctx.shadowBlur=12;
-   for(const line of this.receipt.winLines||[])for(const p of line.positions||[]){
+   const selected=this.lineView,pulse=selected?(.5+.5*Math.sin((now-this.linePresentation.startedAt)*Math.PI/500)):0;
+   // Original Box/Line PNGs have opaque #ffee00 paths. The accepted line ID
+   // selects its chart path; only its matching receipt positions get borders.
+   ctx.lineWidth=selected?2.5+pulse:3;ctx.strokeStyle=selected?'#ffee00':'#f9db6c';
+   ctx.shadowColor='#ffba36';ctx.shadowBlur=selected?10+pulse*8:12;
+   if(selected){
+    ctx.save();ctx.globalAlpha*=.72;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();
+    selected.path.forEach(([row,col],i)=>{
+     const x=X+(col+.5)*REEL_W,y=Y+(row+.5)*TILE_H;
+     if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    });
+    ctx.stroke();ctx.restore();
+   }
+   for(const line of selected?[selected]:this.receipt.winLines||[])for(const p of line.positions||[]){
     const row=Array.isArray(p)?p[0]:p.row,col=Array.isArray(p)?p[1]:p.col;
     if(Number.isInteger(row)&&Number.isInteger(col)&&row>=0&&row<ROWS&&col>=0&&col<REELS)ctx.strokeRect(X+col*REEL_W+3,Y+row*TILE_H+3,REEL_W-6,TILE_H-6);
    }
@@ -452,18 +585,21 @@ export class MultiHot20Scene {
   this.wheelAngle=wheelStopAngle(this.receipt.wheelMultiplier);this.wheelPlan=null;
   this._cancelFrame();
   const now=this.clock(),win=cents(this.receipt.finalWin),tier=presentationTier(this.receipt);
-  if(!silent&&win!==null&&win>0n)this._sound('win');
-  if(tier&&!immediate&&!this.hidden&&!this.doc?.hidden&&!this.reducedMotion){
+  if(!silent&&!this.resultPresentationDismissed&&win!==null&&win>0n)this._sound('win');
+  if(tier&&!immediate&&!this.hidden&&!this.doc?.hidden&&!this.reducedMotion&&!this.resultPresentationDismissed){
    const durationMs=this.stopHint?MULTIHOT20_WIN_PRESENTATION.turboDurationMs:MULTIHOT20_WIN_PRESENTATION.durationMs;
    this._setCelebration({tier,amount:this.receipt.finalWin,roundId:this.receipt.roundId,startedAt:now,durationMs,endsAt:now+durationMs});
    this._paint(now);this._loop();return;
   }
+  if(!immediate&&!silent)this._beginLinePresentation();
   this._paint(now);
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(true);
  }
- _completeCelebration(){
+ _completeCelebration({showLines=true}={}){
   if(!this.celebration)return false;
-  this._setCelebration(null);this._cancelFrame();this._stopSound('win');this._paint(this.clock());
+  this._setCelebration(null);this._cancelFrame();this._stopSound('win');
+  if(showLines)this._beginLinePresentation();else this.stopLinePresentation(false);
+  this._paint(this.clock());
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(true);return true;
  }
  pauseAudio(){try{this.audio.pauseAll?.()}catch{}}
@@ -471,7 +607,7 @@ export class MultiHot20Scene {
  reset(){
   this._cancelFrame();this._stopSound('spin');
   const resolve=this.resolveAnimation;this.resolveAnimation=null;resolve?.(false);
-  this._setCelebration(null);
+  this._setCelebration(null);this.stopLinePresentation(false);
   this.rolling=false;this.pending=null;this.reelPlans=null;this.wheelPlan=null;this.wheelAngle=wheelStopAngle(2);this.wheelStartAngle=this.wheelAngle;this.current=null;this.receipt=null;this.stopHint=false;this.reelStopped.fill(false);
   this._paint(this.clock());this.pauseAudio();
  }
@@ -490,5 +626,6 @@ export class MultiHot20Scene {
   this.win?.removeEventListener?.('blur',this.onBlur);this.win?.removeEventListener?.('focus',this.onFocus);
   this.win?.removeEventListener?.('pagehide',this.onPageHide);this.win?.removeEventListener?.('pageshow',this.onPageShow);
   this.motionPreference?.removeEventListener?.('change',this.onMotionPreference);
+  this.onLinePresentation=null;
  }
 }

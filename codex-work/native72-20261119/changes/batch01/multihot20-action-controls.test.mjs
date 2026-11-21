@@ -483,6 +483,52 @@ test('M20 atlas controls crop every frame without neighbour bleed and undo each 
  assert.equal(CONTROL_TEXTURES['Buttons/DoubleTakeDisabled'].w,1);
 });
 
+test('M20 AUTO gold control composes the captured disk and clean centre exactly once without translucent overlap',()=>{
+ const url='/verified/atlas-2.png',svg=createControlArt('Buttons/SpinStop',url,artDocument(),{autoplay:true});
+ assert.equal(svg.attributes.viewBox,'0 0 279 279');assert.equal(svg.attributes['aria-hidden'],'true');
+ assert.equal(svg.dataset.texture,'Buttons/SpinStop');assert.equal(svg.dataset.autoplay,'true');
+ assert.equal(svg.children.length,5,'four original base regions and one original clean centre');
+ // Grounded by inspected Images-2 pixels: the 64px SpinActive centre has
+ // the same gold fill as SpinStop, but none of its white square or shadow.
+ const expected=[
+  {part:'top',source:[1125,1751,255,96],destination:[12,12,255,96]},
+  {part:'left',source:[1125,1847,96,64],destination:[12,108,96,64]},
+  {part:'right',source:[1285,1847,95,64],destination:[172,108,95,64]},
+  {part:'bottom',source:[1125,1911,255,95],destination:[12,172,255,95]},
+  {part:'centre',source:[964,1847,64,64],destination:[108,108,64,64]}
+ ];
+ const coverage=new Uint8Array(255*255);
+ for(const [index,region]of svg.children.entries()){
+  const spec=expected[index],image=region.children[0],[sx,sy,sw,sh]=spec.source,[x,y,w,h]=spec.destination;
+  assert.equal(region.tag,'svg');assert.equal(region.children.length,1);assert.equal(image.tag,'image');
+  assert.equal(region.attributes.overflow,'hidden');assert.equal(region.attributes.viewBox,`0 0 ${w} ${h}`);
+  assert.deepEqual(['x','y','width','height'].map(key=>Number(region.attributes[key])),spec.destination);
+  assert.equal(image.attributes.href,url);assert.equal(image.attributes.width,'2047');assert.equal(image.attributes.height,'2047');
+  assert.ok(sx>=0&&sy>=0&&sx+sw<=2047&&sy+sh<=2047,'each source region stays inside the verified atlas');
+  assert.deepEqual(transformedPoint(image.attributes.transform,[sx,sy]),[0,0]);
+  assert.deepEqual(transformedPoint(image.attributes.transform,[sx+sw,sy+sh]),[w,h],'no scaling or rotation changes source pixels');
+  if(spec.part==='centre'){assert.equal(region.dataset.autoplayCentre,'true');assert.equal(region.dataset.autoplayBase,undefined)}
+  else {assert.equal(region.dataset.autoplayBase,spec.part);assert.equal(region.dataset.autoplayCentre,undefined)}
+  for(let row=y-12;row<y-12+h;row++)for(let col=x-12;col<x-12+w;col++){
+   assert.ok(row>=0&&row<255&&col>=0&&col<255);coverage[row*255+col]++;
+  }
+ }
+ assert.ok(coverage.every(count=>count===1),'every disk pixel is drawn once: no holes, doubled alpha, or old glyph under the replacement');
+ const ordinary=createControlArt('Buttons/SpinStop',url,artDocument());
+ assert.equal(ordinary.children.length,1);assert.equal(ordinary.dataset.autoplay,undefined,'normal STOP retains its captured square');
+ const disabled=createControlArt('Buttons/SpinDisabled',url,artDocument(),{autoplay:true});
+ assert.equal(disabled.children.length,1);assert.equal(disabled.dataset.autoplay,undefined,'AUTO composition cannot override a disabled state');
+});
+
+test('M20 AUTO selects the gold SPIN STOP texture even in turbo while disabled priority remains intact',()=>{
+ for(let bits=0;bits<32;bits++){
+  const state={autoplay:true,...Object.fromEntries(['disabled','pressed','hovered','spinning','turbo'].map((name,index)=>[name,!!(bits&(1<<index))]))};
+  assert.equal(controlTextureName('spin',state),state.disabled?'Buttons/SpinDisabled':'Buttons/SpinStop',JSON.stringify(state));
+ }
+ assert.equal(controlTextureName('spin',{spinning:true,turbo:true,autoplay:false}),'Buttons/SpinTurboStop','manual turbo keeps its original gold stop glyph');
+ assert.equal(controlTextureName('auto',{autoplay:true}),'Buttons/AutoPlayStop','the small AUTO control retains its separate red stop square');
+});
+
 test('M20 SPIN, STOP, AUTO STOP, turbo and sound choose real state textures independently of hover',()=>{
  for(const [id,state,name]of [
   ['spin',{},'Buttons/Spin'],['spin',{hovered:true},'Buttons/SpinHover'],
@@ -595,6 +641,27 @@ test('M20 pressing STOP during AUTO cancels future AUTO and changes only the acc
  hold.release(9);assert.equal(hold.consumeClick({pointerId:9,detail:1,pointerType:'mouse'}),true);
  round.release();await spinning;await Promise.resolve();
  assert.equal(f.metrics().debits,1);assert.equal(queued.length,0);assert.equal(c.phase,'ready');
+});
+
+test('M20 HOLD gesture during queued-ready AUTO cancels continuation without submitting a manual or automatic bet',async()=>{
+ const {f,c,hold,next,queued,stopped}=await holdFixture(),original=globalThis.queueMicrotask,autoQueue=[];
+ globalThis.queueMicrotask=callback=>autoQueue.push(callback);
+ try{
+  assert.equal(c.armAuto(25),true);const running=c.startPlay(),round=await next();round.release();
+  assert.equal(await running,true);assert.equal(c.phase,'ready');assert.equal(c.pending,false);
+  assert.equal(c.auto.started,true);assert.equal(c.auto.armed,24);assert.equal(autoQueue.length,1);
+  assert.equal(f.metrics().debits,1);
+  assert.equal(hold.begin(41),true,'the visible AUTO stop gesture is accepted between rounds');
+  assert.equal(c.auto.started,false);assert.equal(c.auto.stopReason,'HOLD_SPIN');assert.equal(c.auto.armed,0);
+  assert.equal(hold.active,false);assert.equal(stopped(),0,'no settled reel animation is spuriously restarted or stopped');
+  hold.release(41);assert.equal(hold.consumeClick({pointerId:41,pointerType:'mouse',detail:1}),true,'release cannot fall through to a fresh manual SPIN');
+  assert.equal(await hold.currentRound,false);assert.equal(queued.length,0,'HOLD has not queued another wager');
+  for(const callback of autoQueue.splice(0))callback();
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(f.requests.filter(request=>request.path==='/api/slots/spin').length,1);
+  assert.equal(f.metrics().debits,1);assert.equal(f.metrics().balance,'99.00');
+  assert.equal(c.phase,'ready');assert.equal(c.pending,false);assert.equal(hold.active,false);
+ }finally{globalThis.queueMicrotask=original;hold.cancel();c.stopAuto()}
 });
 
 test('M20 a new deliberate HOLD tap can retry a previously rejected ready-state request',async()=>{
