@@ -1,0 +1,107 @@
+{
+  "schema": "zplay/balloon-r2-live-deployment-result/v1",
+  "release": "zplay-balloon-state-20261121-r2",
+  "worker": "superwin-player",
+  "version": "8e07dd15-edb8-408e-b9fd-6fcabc25687b",
+  "versionNumber": 466,
+  "activation": {
+    "verified": true,
+    "version": "8e07dd15-edb8-408e-b9fd-6fcabc25687b",
+    "versionNumber": 466,
+    "deployment": "6379df0b-d336-44f2-94d9-bea13ff10574",
+    "createdOn": "2026-11-21T22:01:36.670446Z",
+    "modules": 405,
+    "preservedActiveModules": 404,
+    "replacementWrapper": {
+      "name": "balloonstatefix20261121/entry.mjs",
+      "size": 3349,
+      "sha256": "eebe62bcc88b883697d027810e412b593eb3bf756315098f72bc19431ea16c63"
+    },
+    "mismatches": 0
+  },
+  "preservation": {
+    "activeVersion": "8ed7d80e-16c3-41d6-b301-4b35668ff571",
+    "candidateVersion": "8e07dd15-edb8-408e-b9fd-6fcabc25687b",
+    "activeDeployment": "752ad954-4e97-4633-bdc5-5d0bc594e591",
+    "bindingsIdentical": true,
+    "bindingCount": 18,
+    "scriptRuntimeIdentical": true,
+    "handlersIdentical": true,
+    "namedHandlersIdentical": true,
+    "leaseValid": true
+  },
+  "kvReadback": {
+    "release": "zplay-balloon-state-20261121-r2",
+    "assets": [
+      {
+        "key": "native72/zplay-balloon-state-20261121-r2/a957319895ffca907db5a828608af684df1dd0ce4e78ebf1e81ebc31508761b9",
+        "bytes": 23399,
+        "sha256": "a957319895ffca907db5a828608af684df1dd0ce4e78ebf1e81ebc31508761b9",
+        "created": true,
+        "verified": true
+      },
+      {
+        "key": "native72/zplay-balloon-state-20261121-r2/34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79",
+        "bytes": 1661,
+        "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79",
+        "created": true,
+        "verified": true
+      }
+    ],
+    "verified": true
+  },
+  "liveVerification": {
+    "url": "https://superwin-player.apdiy61.workers.dev/games/balloon_native",
+    "verifiedAt": "2026-11-21T22:02:53.971Z",
+    "canonicalSourceMatchesR2": true,
+    "moduleScriptTypePreserved": true,
+    "relativeDependencyLoaded": true,
+    "readyObserved": true,
+    "holdControlEnabled": true,
+    "refreshRetested": true,
+    "stakeSequence": [
+      1,
+      2,
+      1
+    ],
+    "stakeOptionsPreserved": true,
+    "productionWagers": 0,
+    "scope": "Connection and non-wager controls only; visual/gameplay parity and financial round execution are not certified.",
+    "screenshotCrop": {
+      "x": 0,
+      "y": 72,
+      "width": 1363,
+      "height": 864
+    },
+    "screenshotExcludesAccountHeader": true,
+    "privateEvidence": {
+      "availability": "PRIVATE_RETAINED_NOT_IN_GITHUB",
+      "originalFileName": "live-controls-cropped.jpg",
+      "bytes": 50142,
+      "sha256": "a40f2af32558436f9d2f20b37888657f081f37e32e19d79682a34ba19097d9ee",
+      "crop": {
+        "x": 0,
+        "y": 72,
+        "width": 1363,
+        "height": 864
+      },
+      "excludesAccountHeader": true,
+      "privateStorage": "PRIVATE_USER_LIBRARY_SAVED",
+      "publicStorageIdentifier": null,
+      "publicPath": null,
+      "publicUploadApproved": false,
+      "rejectedUploadRetried": false
+    }
+  },
+  "publicAnnotation": {
+    "annotatedAtUtc": "2026-11-21T22:09:05.615094+00:00",
+    "kind": "PRIVATE_EVIDENCE_AVAILABILITY",
+    "originalAuthoritativeRecord": {
+      "bytes": 2629,
+      "sha256": "4950ad8f9f17514a442467f39f98484ac18c55c82f2d5ce34224a66d22f652da"
+    },
+    "originalRecordPreservedPrivately": true,
+    "deploymentOutcomeChanged": false,
+    "note": "Original screenshot path omitted from the public derivative; original capture/hash/crop facts retained as private evidence. No library identifier is included."
+  }
+}

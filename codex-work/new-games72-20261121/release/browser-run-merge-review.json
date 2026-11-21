@@ -1,0 +1,66 @@
+{
+  "schema": "zplay/browser-run-merge-review/v1",
+  "recordedAt": "2026-11-21T22:19:59.090153+00:00",
+  "sourcePath": "/workspace/scratch/0e74fac09ed8/zplay-reconcile/codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+  "sourceSha256": "257780f9b810b67641cbcbaf5f9dfaa56098d594a2c2b85433bcfadd8cad0153",
+  "sourceBytes": 27587,
+  "parentSourceSha256": {
+    "cc6933ab21a86bc20b0b81ac0318651e896b498f": "cabdbbab808fbda596ff46eb82a8c8cd56667833c2abc2284853f1b4eaa5b4aa",
+    "032df69f2343750719c438a6960bc08b7cdb845c": "edc8616c4d89dc4cb64794a48e863767cf9a1be97e814a340862593951dc99bf"
+  },
+  "ownedEditedPaths": [
+    "codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs"
+  ],
+  "result": "SOURCE_RECONCILED_LOCAL_PROBES_PASS_BROWSER_CI_PENDING",
+  "conflictMarkersRemaining": false,
+  "syntaxCheck": {
+    "command": "node --check codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+    "exitCode": 0
+  },
+  "whitespaceCheck": {
+    "command": "git diff --check -- codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+    "exitCode": 0
+  },
+  "assertionProbes": {
+    "path": "/workspace/scratch/0e74fac09ed8/audit/browser-run-merge-probes.json",
+    "sha256": "f61818af0508d5f3a2fdae671b3e2d71385c94f081da2bc6ad4fa0837e7274d7",
+    "geometryCases": 13,
+    "handlerCases": 8,
+    "result": "PASS"
+  },
+  "independentSourceReview": {
+    "task": "architecture_audit/canonical_route_peer",
+    "result": "NO_CONCRETE_REGRESSION_FOUND",
+    "reviewedSourceSha256": "257780f9b810b67641cbcbaf5f9dfaa56098d594a2c2b85433bcfadd8cad0153"
+  },
+  "preservedChecks": [
+    "canonical document and explicit module map",
+    "unknown resource rejection",
+    "focused held-Enter and Space",
+    "authenticated account readiness and AUTO wager selection",
+    "mandatory nine controls and strict complete wheel/feedback bounds",
+    "center occlusion and control/panel overlap",
+    "full document dimensions and wheel minimum80px",
+    "portrait/tablet/three landscape sizes",
+    "unreleased and active AUTO landscape",
+    "portrait/landscape AUTO modals and four-edge settings bounds",
+    "17 desktop receipts; one mobile receipt through inspections, then two after final SPIN/STOP",
+    "activePage failure diagnostics"
+  ],
+  "correctedGaps": [
+    "Hidden required controls remain measured and cause fits=false.",
+    "autoActive is captured with geometry and checked for the active-AUTO sample."
+  ],
+  "stagingPerformed": false,
+  "published": false,
+  "browserExecuted": false,
+  "networkRequests": 0,
+  "productionWagers": 0,
+  "previousCommitBrowserEvidence": {
+    "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+    "runId": 44955629035,
+    "checksPassed": 50,
+    "attribution": "Reported exact-source verification by parent and official_variants; not a merged-source result."
+  },
+  "nextAction": "Parent stages/publishes the resolved merge and verifies this new exact source in isolated browser CI. No merged browser success is claimed by these source/synthetic checks."
+}

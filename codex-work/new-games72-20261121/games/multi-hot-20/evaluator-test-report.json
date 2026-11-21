@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_multi_hot_20_v1",
+  "command": "node --test codex-work/new-games72-20261121/games/multi-hot-20/evaluator.test.mjs",
+  "runtime": "Node.js v24.22.3",
+  "runType": "FIRST_RUN",
+  "tests": 24,
+  "passed": 24,
+  "failed": 0,
+  "skipped": 0,
+  "durationMs": 172.159575,
+  "exitCode": 0,
+  "initialFailureObserved": false,
+  "scope": "Isolated evidence-bound evaluator only; no production wagers, networking or wallet mutation.",
+  "sourceHashesAtRun": {
+    "evaluator.mjs": "44adb8128ebb7e423194e61dcc8e5c911268e914dc325b640151a050d02345ab",
+    "evaluator.test.mjs": "14c6223ddbc14c2304c9106baecf4dde238d5727a57afbbbc28c8c2307cb5637",
+    "fixtures/observed-seven-rounds.json": "000d0e51aabfad9a87f2ac366db4a3fb98a9f308339cebdc3d8df56ea6a2a8c2"
+  },
+  "covered": [
+    "Refreshed 0.20 and preview 0.40 screenshot amounts",
+    "Rejection of initial inconsistent first paint as numeric source",
+    "Multiplier once and exact rational fractional minor units",
+    "Leftmost adjacent identical symbols and longest prefix",
+    "Twenty distinct chart candidates including line12 and line20",
+    "Seven observed no-win fixture windows",
+    "No aggregate settlement or legal-outcome certification",
+    "ETB policy separation, unsafe inputs and overflow",
+    "Sparse windows and immutable private chart"
+  ],
+  "notCovered": [
+    "RNG/probabilities/legal outcomes",
+    "Aggregate settlement",
+    "Renderer/sound/animation equivalence",
+    "Backend/operator policy/deployment",
+    "All controls/mobile/keyboard/reconnect behavior"
+  ]
+}

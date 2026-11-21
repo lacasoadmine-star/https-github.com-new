@@ -1,0 +1,148 @@
+TAP version 13
+# Subtest: new client path and KV key bind the exact candidate bytes
+ok 1 - new client path and KV key bind the exact candidate bytes
+  ---
+  duration_ms: 1.318762
+  type: 'test'
+  ...
+# Subtest: canonical GET changes only the script reference and preserves existing page policy
+ok 2 - canonical GET changes only the script reference and preserves existing page policy
+  ---
+  duration_ms: 5.183013
+  type: 'test'
+  ...
+# Subtest: canonical HEAD validates the retained GET template and returns no body
+ok 3 - canonical HEAD validates the retained GET template and returns no body
+  ---
+  duration_ms: 2.156583
+  type: 'test'
+  ...
+# Subtest: new immutable asset GET and HEAD each perform one verified storage read
+ok 4 - new immutable asset GET and HEAD each perform one verified storage read
+  ---
+  duration_ms: 12.112119
+  type: 'test'
+  ...
+# Subtest: unchanged relative wager-profile dependency resolves under the new immutable prefix
+ok 5 - unchanged relative wager-profile dependency resolves under the new immutable prefix
+  ---
+  duration_ms: 5.126708
+  type: 'test'
+  ...
+# Subtest: missing, wrong-size, corrupt and unavailable new assets return explicit no-store errors
+ok 6 - missing, wrong-size, corrupt and unavailable new assets return explicit no-store errors
+  ---
+  duration_ms: 4.464602
+  type: 'test'
+  ...
+# Subtest: unknown new asset or unsupported method never falls back to old code
+ok 7 - unknown new asset or unsupported method never falls back to old code
+  ---
+  duration_ms: 1.267766
+  type: 'test'
+  ...
+# Subtest: unexpected retained HTML fails visibly without substituting a stale page
+ok 8 - unexpected retained HTML fails visibly without substituting a stale page
+  ---
+  duration_ms: 2.331505
+  type: 'test'
+  ...
+# Subtest: old assets, other games and existing API actions delegate without reading their bodies
+ok 9 - old assets, other games and existing API actions delegate without reading their bodies
+  ---
+  duration_ms: 6.527313
+  type: 'test'
+  ...
+# Subtest: non-player portals, upstream failures and scheduled behavior remain delegated
+ok 10 - non-player portals, upstream failures and scheduled behavior remain delegated
+  ---
+  duration_ms: 2.438958
+  type: 'test'
+  ...
+# Subtest: candidate differs only by tracking pending state reads and skipping overlapping quiet polls
+ok 11 - candidate differs only by tracking pending state reads and skipping overlapping quiet polls
+  ---
+  duration_ms: 5.167289
+  type: 'test'
+  ...
+# Subtest: successful states slower than the 1200ms poll connect instead of being discarded forever
+ok 12 - successful states slower than the 1200ms poll connect instead of being discarded forever
+  ---
+  duration_ms: 23.110565
+  type: 'test'
+  ...
+# Subtest: the real state shape needs no authenticated flag to connect
+ok 13 - the real state shape needs no authenticated flag to connect
+  ---
+  duration_ms: 21.179236
+  type: 'test'
+  ...
+# Subtest: quiet refresh during a pending state does not invalidate the pending result
+ok 14 - quiet refresh during a pending state does not invalidate the pending result
+  ---
+  duration_ms: 2.644245
+  type: 'test'
+  ...
+# Subtest: manual refresh retains latest-response ordering when it supersedes a pending read
+ok 15 - manual refresh retains latest-response ordering when it supersedes a pending read
+  ---
+  duration_ms: 2.77404
+  type: 'test'
+  ...
+# Subtest: a fresh after-action read is not blocked by a stale pending pre-action read
+ok 16 - a fresh after-action read is not blocked by a stale pending pre-action read
+  ---
+  duration_ms: 2.1615
+  type: 'test'
+  ...
+# Subtest: timed-out state read releases the poll guard so a later refresh can recover
+ok 17 - timed-out state read releases the poll guard so a later refresh can recover
+  ---
+  duration_ms: 3.79156
+  type: 'test'
+  ...
+# Subtest: stale completion cannot release another pending read guard
+ok 18 - stale completion cannot release another pending read guard
+  ---
+  duration_ms: 5.537055
+  type: 'test'
+  ...
+# Subtest: 401 and 403 state failures keep controls closed and do not create authentication
+ok 19 - 401 and 403 state failures keep controls closed and do not create authentication
+  ---
+  duration_ms: 10.532785
+  type: 'test'
+  ...
+# Subtest: invalid game identity, currency or session in a 200 response leaves play closed
+ok 20 - invalid game identity, currency or session in a 200 response leaves play closed
+  ---
+  duration_ms: 10.638895
+  type: 'test'
+  ...
+# Subtest: HTTP and parse failures release the guard and a manual Refresh retries correctly
+ok 21 - HTTP and parse failures release the guard and a manual Refresh retries correctly
+  ---
+  duration_ms: 6.980865
+  type: 'test'
+  ...
+# Subtest: ordinary quiet reads remain blocked during an action
+ok 22 - ordinary quiet reads remain blocked during an action
+  ---
+  duration_ms: 2.717265
+  type: 'test'
+  ...
+# Subtest: current 1–40000 ETB stake controls and wager-profile mismatch guard are preserved
+ok 23 - current 1–40000 ETB stake controls and wager-profile mismatch guard are preserved
+  ---
+  duration_ms: 3.633653
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 212.28932

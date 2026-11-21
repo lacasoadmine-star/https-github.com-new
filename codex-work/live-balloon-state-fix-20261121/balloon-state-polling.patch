@@ -1,0 +1,23 @@
+--- actual-served/balloon/balloon.js
++++ candidate/balloon.js
+@@ -77,8 +77,11 @@
+   throw Object.assign(Error(error.name==='AbortError'?'REQUEST_TIMEOUT':error.message||'CONNECTION_FAILED'),{retryable:true});
+  }finally{clearTimeout(timer);}
+ }
++let pendingStateReads=0;
+ async function loadState({quiet=false,afterAction=false}={}){
+  if(status.working&&!afterAction)return null;
++ if(quiet&&!afterAction&&pendingStateReads>0)return null;
++ pendingStateReads++;
+  const generation=status.readGeneration,sequence=++status.readSequence;
+  const current=()=>generation===status.readGeneration&&sequence===status.readSequence&&(!status.working||afterAction);
+  try{
+@@ -95,7 +98,7 @@
+    clearSession();updateMessage('Log in to your ZPLAY player account.',true);
+   }else updateMessage(describeError(err.message),true);
+   render();return null;
+- }
++ }finally{pendingStateReads--;}
+ }
+ async function submit(body){
+  let pending=status.requestInFlight;

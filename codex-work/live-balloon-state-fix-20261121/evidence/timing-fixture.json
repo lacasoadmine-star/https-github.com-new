@@ -1,0 +1,97 @@
+{
+  "schema": "zplay/balloon-state-fixture/v2",
+  "recordedAt": "2026-11-21T21:57:43.399Z",
+  "source": "Full actual served wager-profile client with its exact unchanged dependency, controlled clock, DOM and synthetic fetch; actual Worker function bodies for state-contract assertions",
+  "results": [
+    {
+      "revision": "baseline",
+      "clientSha256": "9a54803a1636d35670537de8e3e9da32aae6fd07039ee220b0771f4fe5a6e2d5",
+      "simulatedElapsedMs": 6000,
+      "upstreamLatencyMs": 1940,
+      "connected": false,
+      "authenticated": false,
+      "hasSession": false,
+      "hasBalance": false,
+      "buttonDisabled": true,
+      "statusText": "Not connected",
+      "notice": "Sign in to your ZPLAY player account to play",
+      "requestCount": 6,
+      "completedRequests": 4,
+      "requests": [
+        {
+          "startedAt": 0,
+          "settledAt": 1940,
+          "aborted": false
+        },
+        {
+          "startedAt": 1200,
+          "settledAt": 3140,
+          "aborted": false
+        },
+        {
+          "startedAt": 2400,
+          "settledAt": 4340,
+          "aborted": false
+        },
+        {
+          "startedAt": 3600,
+          "settledAt": 5540,
+          "aborted": false
+        },
+        {
+          "startedAt": 4800,
+          "settledAt": null,
+          "aborted": false
+        },
+        {
+          "startedAt": 6000,
+          "settledAt": null,
+          "aborted": false
+        }
+      ]
+    },
+    {
+      "revision": "candidate",
+      "clientSha256": "a957319895ffca907db5a828608af684df1dd0ce4e78ebf1e81ebc31508761b9",
+      "simulatedElapsedMs": 6000,
+      "upstreamLatencyMs": 1940,
+      "connected": true,
+      "authenticated": true,
+      "hasSession": true,
+      "hasBalance": true,
+      "buttonDisabled": false,
+      "statusText": "Ready",
+      "notice": "Press and hold to fly; release to collect.",
+      "requestCount": 3,
+      "completedRequests": 2,
+      "requests": [
+        {
+          "startedAt": 0,
+          "settledAt": 1940,
+          "aborted": false
+        },
+        {
+          "startedAt": 2400,
+          "settledAt": 4340,
+          "aborted": false
+        },
+        {
+          "startedAt": 4800,
+          "settledAt": null,
+          "aborted": false
+        }
+      ]
+    }
+  ],
+  "workerContract": {
+    "successStatus": 200,
+    "hasAuthenticated": false,
+    "hasSessionId": true,
+    "falseIdentityStatus": 401,
+    "falseIdentityUpstreamCalls": 0
+  },
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "browserExecuted": false,
+  "canvasFramesExecuted": 0
+}

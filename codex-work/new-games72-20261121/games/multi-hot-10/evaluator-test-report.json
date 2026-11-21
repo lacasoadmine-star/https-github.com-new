@@ -1,0 +1,29 @@
+{
+  "schema": "zplay/component-test-report/v1",
+  "reportedAt": "2026-11-21T21:32:50.916026+00:00",
+  "command": "node --test --test-reporter=tap codex-work/new-games72-20261121/games/multi-hot-10/evaluator.test.mjs",
+  "runtime": "Node v24.22.3",
+  "firstRun": {
+    "exitCode": 0,
+    "tests": 34,
+    "pass": 34,
+    "fail": 0,
+    "skipped": 0,
+    "durationMs": 170.423876
+  },
+  "sourceHashesAtReport": {
+    "evaluator.mjs": "c7e6cdda7714295b4747a42a7823b42bf9ea44fecdf400af69e048605a7cc7d6",
+    "evaluator.test.mjs": "62836cf9b85c0c6a4e26212183e818c15e5ee57f5f6b8ff931ea6392637e2368",
+    "specification.json": "bea5037a7440e5c2fcba1f1b06cb6afcfb5490a7b8090082ad6410c865a08cf6",
+    "controls-state-spec.json": "b0e777d578732b4bea53a1c5cdf0d217e2f0b18b4533bc36a299fbceb6fa127b",
+    "fixtures/observed-seven-rounds.json": "b8e1dc51ea23d1b7cfdb08b28e78584df58cd6a2d883c8fad39e4edb6e9b26da",
+    "evidence-index.json": "f0a2bed1dc44048aca5a1e8484c2813705e610bf955ef572a63a7fc1999fc55b",
+    "assets-manifest.json": "22b52650b9884cbcb46b58b11a2acf538b01c0d74b80bc70b9809de01e10e10d"
+  },
+  "scope": "Isolated line-candidate/payout-quote fixtures and source/release-boundary checks; no live network requests or wagers.",
+  "initialTestFailure": false,
+  "controlRuntimeTested": false,
+  "browserGameplayTested": false,
+  "settlementValidated": false,
+  "outcomeLegalityValidated": false
+}

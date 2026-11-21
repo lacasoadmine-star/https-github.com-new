@@ -18,34 +18,40 @@
     </header>
     <div id="fixture-label" class="fixture-label" hidden>ISOLATED TEST · NO REAL MONEY</div>
     <section class="cabinet" aria-labelledby="game-title">
-      <div class="title-row"><h1 id="game-title">Roll<span>X</span></h1><span class="game-category">WHEEL</span></div>
-      <div id="rollx-wheel" class="wheel-stage" aria-live="off"></div>
-      <div class="target-control">
-        <div class="control-heading"><label for="target">Multiplier</label><output id="target-value" for="target">1.4×</output></div>
-        <input id="target" type="range" min="0" max="1" step="1" value="0" aria-valuetext="1.4 times" disabled>
+      <div class="wheel-panel">
+        <div class="title-row"><h1 id="game-title">Roll<span>X</span></h1><span class="game-category">WHEEL</span></div>
+        <div id="rollx-wheel" class="wheel-stage" aria-live="off"></div>
       </div>
-      <div class="bet-control">
-        <div class="control-heading"><label for="bet">Bet amount</label><output id="bet-value" for="bet">Unavailable</output></div>
-        <input id="bet" type="range" min="0" max="0" step="1" value="0" disabled>
+      <div class="control-panel">
+        <div class="target-control">
+          <div class="control-heading"><label for="target">Multiplier</label><output id="target-value" for="target">1.4×</output></div>
+          <input id="target" type="range" min="0" max="1" step="1" value="0" aria-valuetext="1.4 times" disabled>
+        </div>
+        <div class="bet-control">
+          <div class="control-heading"><label for="bet">Bet amount</label><output id="bet-value" for="bet">Unavailable</output></div>
+          <input id="bet" type="range" min="0" max="0" step="1" value="0" disabled>
+        </div>
+        <div class="utility-row">
+          <button id="turbo" type="button" class="small-button" aria-pressed="false">⚡ Turbo</button>
+          <button id="bet-plus" type="button" class="plus-button" aria-label="Increase bet" disabled>+</button>
+        </div>
+        <div class="play-row">
+          <button id="auto" type="button" class="secondary-button" disabled>AUTO</button>
+          <button id="spin" type="button" class="spin-button" disabled>UNAVAILABLE</button>
+          <button id="history" type="button" class="secondary-button" aria-label="Round history">History</button>
+        </div>
+        <div class="balance-row">
+          <button id="menu" class="icon-button" type="button" aria-label="Open game menu">☰</button>
+          <div><span id="balance-caption" class="balance-caption">ACCOUNT BALANCE</span><strong id="balance">Unavailable</strong></div>
+          <button id="mute" class="icon-button" type="button" aria-label="Mute sound" aria-pressed="false">♪</button>
+        </div>
       </div>
-      <div class="utility-row">
-        <button id="turbo" type="button" class="small-button" aria-pressed="false">⚡ Turbo</button>
-        <button id="bet-plus" type="button" class="plus-button" aria-label="Increase bet" disabled>+</button>
+      <div class="round-feedback">
+        <div id="auto-progress" class="auto-progress" hidden></div>
+        <p id="status" class="status" role="status" aria-live="polite">Game not released yet.</p>
+        <button id="recover" class="recover-button" type="button" hidden>Confirm previous round</button>
+        <button id="reconnect" class="reconnect-button" type="button">Check availability</button>
       </div>
-      <div class="play-row">
-        <button id="auto" type="button" class="secondary-button" disabled>AUTO</button>
-        <button id="spin" type="button" class="spin-button" disabled>UNAVAILABLE</button>
-        <button id="history" type="button" class="secondary-button" aria-label="Round history">History</button>
-      </div>
-      <div id="auto-progress" class="auto-progress" hidden></div>
-      <div class="balance-row">
-        <button id="menu" class="icon-button" type="button" aria-label="Open game menu">☰</button>
-        <div><span id="balance-caption" class="balance-caption">ACCOUNT BALANCE</span><strong id="balance">Unavailable</strong></div>
-        <button id="mute" class="icon-button" type="button" aria-label="Mute sound" aria-pressed="false">♪</button>
-      </div>
-      <p id="status" class="status" role="status" aria-live="polite">Game not released yet.</p>
-      <button id="recover" class="recover-button" type="button" hidden>Confirm previous round</button>
-      <button id="reconnect" class="reconnect-button" type="button">Check availability</button>
     </section>
     <p class="presentation-note">Original ZPLAY presentation · Reference verification in progress</p>
 

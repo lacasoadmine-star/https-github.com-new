@@ -20,9 +20,18 @@
         "fixedPaylines": 5,
         "lineDirection": "left to right",
         "winningMatch": "three matching symbols with Wild substitution",
-        "multiplierValues": [1, 2, 3, 4, 5],
+        "multiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
         "multiplierPresentation": "A left-side multiplier reel can appear and multiplies a win",
-        "postWinControls": ["X2 card-color gamble", "Take Win"]
+        "postWinControls": [
+          "X2 card-color gamble",
+          "Take Win"
+        ]
       },
       "unresolvedFinancialRules": [
         "Complete symbol payout values and exact five line paths",
@@ -44,9 +53,29 @@
       "verifiedProductClaims": {
         "gridLabel": "3x5",
         "fixedPaylines": 10,
-        "symbolsNamed": ["Lucky Sevens", "Bells", "Grapes", "Watermelons", "Lemons", "Plums", "Oranges", "Cherries"],
-        "multiplierValues": [1, 2, 3, 4, 5],
-        "additionalFeaturesNamed": ["Multiplier scale / extra multiplier reel", "X2 card-color gamble", "Big win animations", "Gift Spin availability"]
+        "symbolsNamed": [
+          "Lucky Sevens",
+          "Bells",
+          "Grapes",
+          "Watermelons",
+          "Lemons",
+          "Plums",
+          "Oranges",
+          "Cherries"
+        ],
+        "multiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "additionalFeaturesNamed": [
+          "Multiplier scale / extra multiplier reel",
+          "X2 card-color gamble",
+          "Big win animations",
+          "Gift Spin availability"
+        ]
       },
       "unresolvedFinancialRules": [
         "This public page does not supply the complete numeric paytable, line coordinates or settlement contract",
@@ -65,8 +94,19 @@
       "sourceLocator": "Fruits and Game Features sections; retrieved lines79-97",
       "verifiedProductClaims": {
         "gridLabel": "3x5",
-        "multiplierValues": [1, 2, 3, 4, 5],
-        "additionalFeaturesNamed": ["Multiplier scale / extra multiplier reel", "X2 card-color gamble", "Big win animations", "Gift Spin availability"]
+        "multiplierValues": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "additionalFeaturesNamed": [
+          "Multiplier scale / extra multiplier reel",
+          "X2 card-color gamble",
+          "Big win animations",
+          "Gift Spin availability"
+        ]
       },
       "openIssue": {
         "issueId": "M20-OFFICIAL-PRODUCT-PAYLINE-AMBIGUITY-20261122",
@@ -76,12 +116,29 @@
         "expected": "An unambiguous source for the exact variant's payline count and coordinate map",
         "observed": "The page headed Multi Hot 20 lists 100 pay lines Fixed",
         "financialConfigurationWritten": false,
-        "attempts": ["Current official product page opened and exact contradictory feature text inspected"],
-        "filesChanged": ["codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json"],
-        "retest": "Pending exact-variant in-game HELP/PAYTABLE or corrected official specification",
-        "nextAction": "Capture current exact-variant paytable and line map; do not infer 20 from the title, adopt 100 from marketing copy or reuse the old live game's configuration"
+        "attempts": [
+          "Current official product page opened and exact contradictory feature text inspected"
+        ],
+        "filesChanged": [
+          "codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json"
+        ],
+        "retest": "The concurrent source records a twenty-path demo chart; conflicting marketing count and final settlement rules remain open. No public image retest claimed.",
+        "nextAction": "Review the existing exact-version twenty-path demo evidence and obtain authoritative reconciliation of the product count/variant; resolve aggregate settlement and outcome-model rules before wallet integration. Do not repeat the completed seven-round capture without a version-specific reason."
       },
-      "status": "FINANCIAL_RULE_AMBIGUITY_OPEN"
+      "status": "FINANCIAL_RULE_AMBIGUITY_OPEN",
+      "followUp": {
+        "sourceCommit": "032df69f2343750719c438a6960bc08b7cdb845c",
+        "sourceSpecification": "../games/multi-hot-20/specification.json",
+        "observedDemoChartPaths": 20,
+        "currentDemoVersion": "v1.0.0",
+        "captureFinalizedAt": "2026-11-21T21:49:20.162Z",
+        "newIndependentSevenRoundCaptureReported": true,
+        "rootImageReviewPerformed": false,
+        "publicImageQAAvailable": false,
+        "conflictResolved": false,
+        "aggregateSettlementEnabled": false,
+        "interpretation": "Preserve the current demo chart and bounded candidate arithmetic separately from the conflicting product text. The original specification still records unresolved marketing count, aggregation, outcome probabilities and ETB policy. Do not restart the existing capture solely because another session takes over."
+      }
     },
     {
       "gameId": "zplay72_multi_hot_40_v1",

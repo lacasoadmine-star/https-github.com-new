@@ -1,0 +1,274 @@
+TAP version 13
+# Subtest: pinned candidates change only redirect mode and explicit redirect rejection
+ok 1 - pinned candidates change only redirect mode and explicit redirect rejection
+  ---
+  duration_ms: 2.452921
+  type: 'test'
+  ...
+# Subtest: recorded Workers constructor constraint rejects error and accepts manual
+ok 2 - recorded Workers constructor constraint rejects error and accepts manual
+  ---
+  duration_ms: 1.580088
+  type: 'test'
+  ...
+# Subtest: retained signer matches deterministic HMAC without changing authentication
+ok 3 - retained signer matches deterministic HMAC without changing authentication
+  ---
+  duration_ms: 17.482958
+  type: 'test'
+  ...
+# Subtest: expansion: authenticated state makes one correctly signed request and returns the current state
+not ok 4 - expansion: authenticated state makes one correctly signed request and returns the current state
+  ---
+  duration_ms: 13.508928
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:35:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:37:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: balloon: authenticated state makes one correctly signed request and returns the current state
+not ok 5 - balloon: authenticated state makes one correctly signed request and returns the current state
+  ---
+  duration_ms: 10.185086
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:35:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:37:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: expansion history preserves game, sort, signature and single-call behavior
+not ok 6 - expansion history preserves game, sort, signature and single-call behavior
+  ---
+  duration_ms: 5.236069
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:59:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:61:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: both action routes preserve exact request body and never replay or place another request
+not ok 7 - both action routes preserve exact request body and never replay or place another request
+  ---
+  duration_ms: 4.701776
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:66:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    503 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 503
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:70:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: both routes reject every 3xx without following Location or exposing redirect content
+not ok 8 - both routes reject every 3xx without following Location or exposing redirect content
+  ---
+  duration_ms: 5.455379
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:79:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:86:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: redirect body cancellation failure cannot conceal the explicit no-store failure
+not ok 9 - redirect body cancellation failure cannot conceal the explicit no-store failure
+  ---
+  duration_ms: 4.487642
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:95:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:100:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: network errors retain the same retry response with no second attempt
+not ok 10 - network errors retain the same retry response with no second attempt
+  ---
+  duration_ms: 5.511203
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:105:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:111:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: ordinary upstream JSON errors retain original status and payload
+not ok 11 - ordinary upstream JSON errors retain original status and payload
+  ---
+  duration_ms: 4.85742
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:115:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      {
+    +   error: 'RETRY_SAME_REQUEST'
+    -   error: 'FIXTURE_UPSTREAM_UNAVAILABLE'
+      }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    error: 'FIXTURE_UPSTREAM_UNAVAILABLE'
+  actual:
+    error: 'RETRY_SAME_REQUEST'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:120:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: non-JSON upstream response remains an explicit engine response error
+not ok 12 - non-JSON upstream response remains an explicit engine response error
+  ---
+  duration_ms: 6.112168
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:125:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      {
+    +   error: 'RETRY_SAME_REQUEST'
+    -   error: 'INVALID_ENGINE_RESPONSE'
+      }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    error: 'INVALID_ENGINE_RESPONSE'
+  actual:
+    error: 'RETRY_SAME_REQUEST'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-expansion-transport-fix-20261121/transport.test.mjs:130:12)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: anonymous requests remain unauthorized without contacting identity or engine
+ok 13 - anonymous requests remain unauthorized without contacting identity or engine
+  ---
+  duration_ms: 5.645154
+  type: 'test'
+  ...
+# Subtest: identity rejection is preserved and never reaches engine
+ok 14 - identity rejection is preserved and never reaches engine
+  ---
+  duration_ms: 7.069248
+  type: 'test'
+  ...
+# Subtest: wrong origin or changed library session still prevents actions
+ok 15 - wrong origin or changed library session still prevents actions
+  ---
+  duration_ms: 16.38123
+  type: 'test'
+  ...
+# Subtest: oversized and malformed actions retain existing rejection before engine access
+ok 16 - oversized and malformed actions retain existing rejection before engine access
+  ---
+  duration_ms: 10.80531
+  type: 'test'
+  ...
+# Subtest: wrong methods, invalid game and invalid history sort remain rejected
+ok 17 - wrong methods, invalid game and invalid history sort remain rejected
+  ---
+  duration_ms: 10.042441
+  type: 'test'
+  ...
+# Subtest: other portal and unrelated legacy paths delegate unchanged
+ok 18 - other portal and unrelated legacy paths delegate unchanged
+  ---
+  duration_ms: 12.477865
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 9
+# fail 9
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 272.902117

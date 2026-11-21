@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-11-21T21:24:43.015Z",
+  "networkRequests": 0,
+  "productionRequests": 0,
+  "description": "Request constructor fixture only, no fetch executed",
+  "observations": [
+    {
+      "redirect": "error",
+      "constructed": false,
+      "errorName": "TypeError",
+      "errorMessage": "Invalid redirect value, must be one of \"follow\" or \"manual\" (\"error\" won't be implemented since it does not make sense at the edge; use \"manual\" and check the response status code)."
+    },
+    {
+      "redirect": "manual",
+      "constructed": true,
+      "reportedRedirect": "manual"
+    },
+    {
+      "redirect": "follow",
+      "constructed": true,
+      "reportedRedirect": "follow"
+    }
+  ]
+}

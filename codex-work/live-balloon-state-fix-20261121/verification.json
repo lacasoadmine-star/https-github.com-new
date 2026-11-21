@@ -1,0 +1,234 @@
+{
+  "schema": "zplay/live-balloon-state-verification/v2",
+  "recordedAt": "2026-11-21T22:05:09.841892+00:00",
+  "nodeVersion": "v24.22.3",
+  "nodeExecutable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+  "command": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "state-polling.test.mjs",
+    "deployment/route.test.mjs"
+  ],
+  "workingDirectory": "/workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121",
+  "baselineCommand": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "state-polling.test.mjs"
+  ],
+  "baselineEnvironment": {
+    "BALLOON_REVIEW_BASELINE": "1"
+  },
+  "results": {
+    "baseline": {
+      "counts": {
+        "tests": 13,
+        "pass": 10,
+        "fail": 3,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "tap": "baseline-tests.tap",
+      "bytes": 4910,
+      "sha256": "de70f58c998a35fde9271a6322fae228ce4920ed2535805fc5775cf167823d8d"
+    },
+    "focused": {
+      "counts": {
+        "tests": 23,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "tap": "focused-tests.tap",
+      "bytes": 5227,
+      "sha256": "c3bc8601be1a9f70e2cc89b50770102e9946ba060132eb39c47d5ceb4788f1b2"
+    }
+  },
+  "sourcePins": {
+    "README.md": {
+      "bytes": 9975,
+      "sha256": "da5a2fa129eb33a98d052a7473e065af19c4720cc44b29b1fd1a65257da32137"
+    },
+    "attempts/v465/balloon.js": {
+      "bytes": 23050,
+      "sha256": "e341d1b4e3bc6d6b312fdca9b6fb12c7fd0ba034d7ebcdee24b58d1b4fa6f5ed"
+    },
+    "attempts/v465/early-client-tests.tap": {
+      "bytes": 2756,
+      "sha256": "d0343a7497f3918a16ff0dcee3efff340b630e09227457afa2fe869daffc8f89"
+    },
+    "attempts/v465/entry.mjs": {
+      "bytes": 3008,
+      "sha256": "d2f70f50ca74d470acaa1f07ebdf03d999a1a8a75fa81b14ea1c98ac56cba492"
+    },
+    "balloon-state-polling.patch": {
+      "bytes": 950,
+      "sha256": "ec79c698bf8b8ecb451fd67bb458d126d2a08e3007cc6455d79a75222f254031"
+    },
+    "baseline/actual-served-assets.json": {
+      "bytes": 26057,
+      "sha256": "ebb56fca448ffbab79f6699d3cd6b8cea54e664a22d7a1870d34c8d7e040e0c1"
+    },
+    "baseline/balloon-assets-20261108.mjs": {
+      "bytes": 58600,
+      "sha256": "83f5b55ca75c9c5af44692932716501c8825ac14e7072b9161bda1ea63574ff8"
+    },
+    "baseline/balloon-worker-20261108.mjs": {
+      "bytes": 8339,
+      "sha256": "497606663471e6ffafcdebbbdf2263f49321a3e7ddaad8db71b9196ec65d3ec6"
+    },
+    "baseline/existing-new-wager-client-index-r1.mjs": {
+      "bytes": 1857,
+      "sha256": "5b5beb868722962722dbff6817e2cb1e57850c6797026362aabab1534aff7b2f"
+    },
+    "baseline/existing-new-wager-client-worker-r1.mjs": {
+      "bytes": 4175,
+      "sha256": "63b06aede739955ab11d03ee5447383964719309a50b621b2f3c3d9ffb9158d3"
+    },
+    "baseline-tests.tap": {
+      "bytes": 4910,
+      "sha256": "de70f58c998a35fde9271a6322fae228ce4920ed2535805fc5775cf167823d8d"
+    },
+    "candidate/balloon.js": {
+      "bytes": 23399,
+      "sha256": "a957319895ffca907db5a828608af684df1dd0ce4e78ebf1e81ebc31508761b9"
+    },
+    "candidate/wager-profile-client.mjs": {
+      "bytes": 1661,
+      "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79"
+    },
+    "deployment/entry.mjs": {
+      "bytes": 3349,
+      "sha256": "eebe62bcc88b883697d027810e412b593eb3bf756315098f72bc19431ea16c63"
+    },
+    "deployment/plan.json": {
+      "bytes": 6411,
+      "sha256": "c3817d4c438a40141c2ae991c40253c7af20e79a20fa987598cdc7d2ce6e400d"
+    },
+    "deployment/result.json": {
+      "bytes": 3693,
+      "sha256": "fd7da9062dbbdbcb9e55fa8a54305c3e040fb971c5817cf995421e2e49928360"
+    },
+    "deployment/route.test.mjs": {
+      "bytes": 9759,
+      "sha256": "a4a95dd6edfb407ba6691ee732fb542b7c32f1b1fc69e3f9ed24ff326161b52f"
+    },
+    "evidence/deployment-attempt-v465.json": {
+      "bytes": 1655,
+      "sha256": "c246ba6b48ee87b70de7ae8e2e8b962bf49c3e04bb3db31cc99772c08096e04e"
+    },
+    "evidence/live-state-field-presence.json": {
+      "bytes": 750,
+      "sha256": "9b54da370a9beb42711c76c569a94c490d22c8b637bf803b7f9f20ee8c4ec629"
+    },
+    "evidence/service-timing.json": {
+      "bytes": 2526,
+      "sha256": "57746356357c240193bc0079e395f2eeb7ac5929bda745ec8a0dd7ad78728e4f"
+    },
+    "evidence/timing-fixture.json": {
+      "bytes": 2576,
+      "sha256": "72cf0c29313c661d6babe336b0fbed110aa63292d0b10acc542bcc06509c5b7e"
+    },
+    "fixture.mjs": {
+      "bytes": 10741,
+      "sha256": "c8a2a0bd688c92475edac60e101bb3925dde31c3929129e78937280492824c98"
+    },
+    "focused-tests.tap": {
+      "bytes": 5227,
+      "sha256": "c3bc8601be1a9f70e2cc89b50770102e9946ba060132eb39c47d5ceb4788f1b2"
+    },
+    "state-polling.test.mjs": {
+      "bytes": 7280,
+      "sha256": "5b78585d022e7326071badc60f10cd319b1ad38678d50716530cef15913b29a6"
+    }
+  },
+  "stateFixture": "evidence/timing-fixture.json",
+  "sourceContract": "evidence/live-state-field-presence.json",
+  "sourceProvenance": "Exact currently served wager-profile client and dependency independently extracted from existing library Worker; current Player higher wrapper and index pinned",
+  "scope": "Existing Balloon client polling and immutable route maintenance, zero new games",
+  "serverResponseContractChanged": false,
+  "productionRequestsByFixture": 0,
+  "productionWagers": 0,
+  "browserFixtureExecuted": false,
+  "candidateRelease": "zplay-balloon-state-20261121-r2",
+  "deployed": true,
+  "previousAttempt": "evidence/deployment-attempt-v465.json",
+  "remaining": [
+    "Publication and exact next GitHub CI outcome for this maintenance source checkpoint remain pending"
+  ],
+  "testEvidenceRecordedAt": "2026-11-21T21:58:18.636693+00:00",
+  "metadataOnlyUpdate": true,
+  "testsRerunForMetadataUpdate": false,
+  "liveVerified": true,
+  "deploymentResult": "deployment/result.json",
+  "liveBrowserVerification": {
+    "url": "https://superwin-player.apdiy61.workers.dev/games/balloon_native",
+    "verifiedAt": "2026-11-21T22:02:53.971Z",
+    "canonicalSourceMatchesR2": true,
+    "moduleScriptTypePreserved": true,
+    "relativeDependencyLoaded": true,
+    "readyObserved": true,
+    "holdControlEnabled": true,
+    "refreshRetested": true,
+    "stakeSequence": [
+      1,
+      2,
+      1
+    ],
+    "stakeOptionsPreserved": true,
+    "productionWagers": 0,
+    "scope": "Connection and non-wager controls only; visual/gameplay parity and financial round execution are not certified.",
+    "screenshotCrop": {
+      "x": 0,
+      "y": 72,
+      "width": 1363,
+      "height": 864
+    },
+    "screenshotExcludesAccountHeader": true,
+    "privateEvidence": {
+      "availability": "PRIVATE_RETAINED_NOT_IN_GITHUB",
+      "originalFileName": "live-controls-cropped.jpg",
+      "bytes": 50142,
+      "sha256": "a40f2af32558436f9d2f20b37888657f081f37e32e19d79682a34ba19097d9ee",
+      "crop": {
+        "x": 0,
+        "y": 72,
+        "width": 1363,
+        "height": 864
+      },
+      "excludesAccountHeader": true,
+      "privateStorage": "PRIVATE_USER_LIBRARY_SAVED",
+      "publicStorageIdentifier": null,
+      "publicPath": null,
+      "publicUploadApproved": false,
+      "rejectedUploadRetried": false
+    }
+  },
+  "verificationScope": "Existing Balloon connection and non-wager controls; no financial-round or full provider-parity certification",
+  "metadataUpdatedAt": "2026-11-21T22:09:05.615094+00:00",
+  "unpublishedEvidence": [
+    {
+      "availability": "PRIVATE_RETAINED_NOT_IN_GITHUB",
+      "originalFileName": "live-controls-cropped.jpg",
+      "bytes": 50142,
+      "sha256": "a40f2af32558436f9d2f20b37888657f081f37e32e19d79682a34ba19097d9ee",
+      "crop": {
+        "x": 0,
+        "y": 72,
+        "width": 1363,
+        "height": 864
+      },
+      "excludesAccountHeader": true,
+      "privateStorage": "PRIVATE_USER_LIBRARY_SAVED",
+      "publicStorageIdentifier": null,
+      "publicPath": null,
+      "publicUploadApproved": false,
+      "rejectedUploadRetried": false
+    }
+  ],
+  "deploymentRecordAnnotation": "Public availability-annotated derivative; exact original authoritative record retained privately and pinned in deployment/result.json"
+}

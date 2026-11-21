@@ -105,7 +105,16 @@
       "retest": "10 isolated 0.50 ETB / 2x receipts accepted exactly; invalid/stale selections reject before state mutation or request. Native form selection checks prepared for GitHub CI.",
       "evidence": "frontend-test-report.json",
       "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "Native browser AUTO select/input and responsive dialog interaction."
+      "pendingRetestScope": "Combined source with concurrent032df69 panel layout and stricter browser assertions must run its own exact-source CI.",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        }
+      ]
     },
     {
       "id": "ROLLX-FIX-008",
@@ -121,7 +130,16 @@
       "retest": "Browser-like host-timer regression failed before the fix and passes afterward; all 58 RollX local checks pass. Defaults now retain the global host receiver; failure artifacts record page-error stacks and fixture state.",
       "evidence": "qa/browser-attempt-04-github.json",
       "status": "FIXED_PENDING_RETEST",
-      "pendingRetestScope": "The next exact-source GitHub browser run must confirm full AUTO and the remaining native input/mobile checks."
+      "pendingRetestScope": "Combined source with concurrent032df69 panel layout and stricter browser assertions must run its own exact-source CI.",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        }
+      ]
     },
     {
       "id": "ROLLX-FIX-009",
@@ -141,7 +159,17 @@
       "retest": "Four URL/import regressions pass after two reproduced failures; independent handler review rejects unknown paths. Exact-source browser route/focus run is pending.",
       "evidence": "../../release/canonical-route-reconciliation-20261122.json",
       "status": "FIXED_PENDING_RETEST",
-      "nextAction": "Run the isolated new-source GitHub browser job at /new-games72/roll-x/ and inspect source hashes/native focus results"
+      "nextAction": "Run the isolated new-source GitHub browser job at /new-games72/roll-x/ and inspect source hashes/native focus results",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        }
+      ],
+      "pendingRetestScope": "Combined source with concurrent032df69 panel layout and stricter browser assertions must run its own exact-source CI."
     },
     {
       "id": "ROLLX-FIX-010",
@@ -157,7 +185,47 @@
       "retest": "CSS and strict nine-control/wheel/modal bounds assertions patched. Local Chromium failed at socket creation before any check. Independent transition review found no simultaneous landscape feedback items. Actual browser retest pending.",
       "evidence": "../../release/vertical-layout-reconciliation-20261122.json",
       "status": "FIXED_PENDING_RETEST",
-      "nextAction": "Execute actual Chromium CI at all specified sizes, inspect screenshots and preserve failed/successful action evidence before closure"
+      "nextAction": "Execute actual Chromium CI at all specified sizes, inspect screenshots and preserve failed/successful action evidence before closure",
+      "verifiedRetestHistory": [
+        {
+          "sourceCommit": "cc6933ab21a86bc20b0b81ac0318651e896b498f",
+          "runId": 44955629035,
+          "browserChecksPassed": 50,
+          "evidence": "../../release/ci-cc6933a/review.json",
+          "result": "PASS_FOR_EXACT_PARENT_SOURCE"
+        }
+      ],
+      "pendingRetestScope": "Combined source with concurrent032df69 panel layout and stricter browser assertions must run its own exact-source CI."
+    },
+    {
+      "id": "ROLLX-QA-011",
+      "owner": "release-coordinator/roll-x-qa",
+      "action": "Measure layout when an essential SPIN control is hidden",
+      "expected": "A missing or hidden essential control fails viewport acceptance",
+      "observed": "The032df69 helper filtered every hidden control; an independent actual-helper probe hid SPIN and still obtained fits=true with eight controls",
+      "files": [
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "Combined helper always measures all nine required controls. Hidden/zero-size/occluded control and geometry negative probes pass; actual merged browser run pending.",
+      "evidence": "../../release/browser-run-merge-probes.json",
+      "status": "FIXED_PENDING_RETEST",
+      "nextAction": "Confirm all nine essential controls in exact-source CI layouts"
+    },
+    {
+      "id": "ROLLX-QA-012",
+      "owner": "release-coordinator/roll-x-qa",
+      "action": "Measure the layout described as active AUTO after viewport resize",
+      "expected": "The same geometry sample must report AUTO still active",
+      "observed": "Prior helper waited for autoActive before resizing but did not bind that state to the later measurement",
+      "files": [
+        "qa/browser-run.mjs"
+      ],
+      "attempts": 1,
+      "retest": "The combined measurement captures autoActive and the active-AUTO predicate rejects inactive samples. Synthetic true/false probes pass; actual browser sample pending.",
+      "evidence": "../../release/browser-run-merge-review.json",
+      "status": "FIXED_PENDING_RETEST",
+      "nextAction": "Verify active AUTO state and full viewport geometry in the same exact-source browser sample"
     }
   ],
   "openTaskSource": "specification.json#openWork"

@@ -1,0 +1,141 @@
+{
+  "schema": "zplay/browser-run-merge-probes/v1",
+  "recordedAt": "2026-11-21T22:19:44.480Z",
+  "sourcePath": "/workspace/scratch/0e74fac09ed8/zplay-reconcile/codex-work/new-games72-20261121/games/roll-x/qa/browser-run.mjs",
+  "sourceSha256": "257780f9b810b67641cbcbaf5f9dfaa56098d594a2c2b85433bcfadd8cad0153",
+  "result": "PASS",
+  "geometry": [
+    {
+      "case": "baseline",
+      "expectedFit": true,
+      "actualFit": true,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "hidden-spin",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "zero-sized-spin",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "obscured-control",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "control-overlap",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "panel-overlap",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "wheel-outside",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "feedback-outside",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "double-feedback",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "wheel-too-small",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "document-overflow",
+      "expectedFit": false,
+      "actualFit": false,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "inactive-auto",
+      "expectedFit": true,
+      "actualFit": true,
+      "requiredControlCount": 9,
+      "autoActive": false
+    },
+    {
+      "case": "active-auto",
+      "expectedFit": true,
+      "actualFit": true,
+      "requiredControlCount": 9,
+      "autoActive": true
+    }
+  ],
+  "interception": [
+    {
+      "path": "/new-games72/roll-x/",
+      "outcome": 200
+    },
+    {
+      "path": "/new-games72/shared/round-recovery.mjs",
+      "outcome": 200
+    },
+    {
+      "path": "/new-games72/games/roll-x/index.html",
+      "outcome": 404
+    },
+    {
+      "path": "/new-games72/games/roll-x/evidence/private.json",
+      "outcome": 404
+    },
+    {
+      "path": "/shared/round-recovery.mjs",
+      "outcome": 404
+    },
+    {
+      "path": "/new-games72/roll-x/%2f..%2fprivate.json",
+      "outcome": 404
+    },
+    {
+      "path": "/api/slots/spin",
+      "outcome": 500
+    },
+    {
+      "path": "/new-games72/roll-x/",
+      "outcome": "aborted"
+    }
+  ],
+  "browserExecuted": false,
+  "networkRequests": 0,
+  "productionWagers": 0,
+  "limits": [
+    "Synthetic geometry verifies assertion strength, not rendered layout.",
+    "Actual merged-source browser CI is still required."
+  ]
+}

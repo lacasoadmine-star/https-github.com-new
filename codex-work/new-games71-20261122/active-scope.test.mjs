@@ -12,7 +12,7 @@ const reject = (change, code) => {
   assert.equal(result.releaseAllowed, false);
 };
 
-test('the actual 74 minus three catalog yields 71 ordered additive identities and 568 owned tasks', () => {
+test('the historical 74 minus three snapshot has 71 ordered identities and 568 owned tasks', () => {
   const result = validateActiveScope(original);
   assert.equal(result.valid, true, JSON.stringify(result.issues));
   assert.equal(result.targetGames, 71);
@@ -61,4 +61,50 @@ test('a missing owner or removed work area cannot disappear behind a valid game 
   reject(x => x.workItems.items[0].owner = '', 'OWNED_WORK_ITEM');
   reject(x => x.workItems.items.pop(), 'WORK_COUNT');
   reject(x => x.workItems.cohortsAreSequentialGates = true, 'WORK_AREAS');
+});
+
+test('reserved JetX cannot reuse a legacy module or another game backend and assets', () => {
+  for (const field of ['modulePath', 'configurationPath', 'evaluatorPath', 'prefix', 'manifestPath']) {
+    reject(x => {
+      const jetx = x.registry.games.find(game => game.officialName === 'JetX');
+      if (field === 'modulePath') jetx.modulePath = 'codex-work/native72-20261119/changes/multihot40-live-r2';
+      else if (field === 'configurationPath' || field === 'evaluatorPath') jetx.backend[field] = x.registry.games[0].backend[field];
+      else jetx.assets[field] = x.registry.games[0].assets[field];
+    }, 'JETX_RESERVED_PATHS');
+  }
+});
+
+test('carried asset paths cannot overwrite live assets or borrow another manifest', () => {
+  reject(x => x.registry.games[0].assets.prefix = '/native-library/existing-new/20261110-etb1-40000-r1/multihot40/', 'PRESERVED_ASSETS');
+  reject(x => x.registry.games[0].assets.manifestPath = x.registry.games[1].assets.manifestPath, 'PRESERVED_ASSETS');
+});
+
+test('verified provider variants cannot be erased or relabelled to evade duplicate checks', () => {
+  reject(x => {
+    for (const game of x.registry.games) if (game.officialName !== 'JetX') game.variant = { key: null, category: null };
+  }, 'PRESERVED_PROVIDER_VARIANT');
+  reject(x => x.registry.games[0].provider = 'Unverified fixture provider', 'PRESERVED_PROVIDER_VARIANT');
+  reject(x => x.registry.games.find(game => game.officialName === 'JetX').variant.category = 'JetXNew', 'UNRESOLVED_VARIANT');
+});
+
+test('parsed catalog and history cannot drift behind unchanged pinned bytes', () => {
+  reject(x => x.catalog.cards[0].currentPlayerRoute = '/fixture/changed-route', 'CATALOG_OBJECT');
+  reject(x => {
+    const game = x.registry.games[0];
+    const historical = x.historical.games.find(old => old.officialName === game.officialName);
+    game.backend.configurationPath = historical.backend.configurationPath = 'fixture/changed-specification.json';
+  }, 'HISTORICAL_OBJECT');
+});
+
+test('semantic source binding allows harmless JSON property order changes', () => {
+  const input = fixture();
+  input.catalog = Object.fromEntries(Object.entries(input.catalog).reverse());
+  input.historical = Object.fromEntries(Object.entries(input.historical).reverse());
+  const result = validateActiveScope(input);
+  assert.equal(result.valid, true, JSON.stringify(result.issues));
+  assert.equal(result.releaseAllowed, false);
+});
+
+test('existing player routes must match the retained visible catalog mapping', () => {
+  reject(x => x.registry.games[0].currentPlayerRoute = '/games/multi_hot_5_native', 'CURRENT_PLAYER_ROUTE');
 });

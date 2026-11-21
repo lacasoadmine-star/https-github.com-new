@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: candidate differs only by tracking pending state reads and skipping overlapping quiet polls
+ok 1 - candidate differs only by tracking pending state reads and skipping overlapping quiet polls
+  ---
+  duration_ms: 1.711696
+  type: 'test'
+  ...
+# Subtest: successful states slower than the1200ms poll connect instead of being discarded forever
+ok 2 - successful states slower than the1200ms poll connect instead of being discarded forever
+  ---
+  duration_ms: 16.193913
+  type: 'test'
+  ...
+# Subtest: the real state shape needs no authenticated flag to connect
+ok 3 - the real state shape needs no authenticated flag to connect
+  ---
+  duration_ms: 1.6146
+  type: 'test'
+  ...
+# Subtest: quiet refresh during a pending state does not invalidate the pending result
+ok 4 - quiet refresh during a pending state does not invalidate the pending result
+  ---
+  duration_ms: 1.502902
+  type: 'test'
+  ...
+# Subtest: manual refresh retains latest-response ordering when it supersedes a pending read
+ok 5 - manual refresh retains latest-response ordering when it supersedes a pending read
+  ---
+  duration_ms: 1.823835
+  type: 'test'
+  ...
+# Subtest: a fresh after-action read is not blocked by a stale pending pre-action read
+ok 6 - a fresh after-action read is not blocked by a stale pending pre-action read
+  ---
+  duration_ms: 5.034838
+  type: 'test'
+  ...
+# Subtest: timed-out state read releases the poll guard so a later refresh can recover
+ok 7 - timed-out state read releases the poll guard so a later refresh can recover
+  ---
+  duration_ms: 1.669703
+  type: 'test'
+  ...
+# Subtest: stale completion cannot release another pending read guard
+ok 8 - stale completion cannot release another pending read guard
+  ---
+  duration_ms: 1.186826
+  type: 'test'
+  ...
+# Subtest: 401 and403 state failures keep controls closed and do not create authentication
+ok 9 - 401 and403 state failures keep controls closed and do not create authentication
+  ---
+  duration_ms: 2.194924
+  type: 'test'
+  ...
+# Subtest: invalid game identity, currency or session in a200 response leaves play closed
+ok 10 - invalid game identity, currency or session in a200 response leaves play closed
+  ---
+  duration_ms: 2.865152
+  type: 'test'
+  ...
+# Subtest: HTTP and parse failures release the guard and a manual Refresh retries correctly
+ok 11 - HTTP and parse failures release the guard and a manual Refresh retries correctly
+  ---
+  duration_ms: 7.006526
+  type: 'test'
+  ...
+# Subtest: ordinary quiet reads remain blocked during an action
+ok 12 - ordinary quiet reads remain blocked during an action
+  ---
+  duration_ms: 2.329226
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 143.163352

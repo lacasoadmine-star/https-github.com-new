@@ -1,0 +1,63 @@
+{
+  "observedAt": "2026-11-21T21:27:34.586Z",
+  "description": "Pinned route bodies with actual Cloudflare Request constructor and synthetic fetch",
+  "realNetworkRequests": 0,
+  "productionRequests": 0,
+  "productionWagers": 0,
+  "sourcePins": {
+    "baseline": {
+      "expansion": "d348ec638ddfae3a676a340c157eecc01971b5bb6a6e04b9b50a92e5148c1cec",
+      "balloon": "0a28ca4a593bc4925d11d18e468e44cf51dc2b4021677504da91bef9f5f02aca"
+    },
+    "candidate": {
+      "expansion": "4fccd64669136c2bfbe74454b627b6ae06fbc2c9a061147e770702230a1fc279",
+      "balloon": "497606663471e6ffafcdebbbdf2263f49321a3e7ddaad8db71b9196ec65d3ec6"
+    }
+  },
+  "results": [
+    {
+      "revision": "baseline",
+      "kind": "expansion",
+      "status": 503,
+      "error": "RETRY_SAME_REQUEST",
+      "fixture": false,
+      "syntheticUpstreamCalls": []
+    },
+    {
+      "revision": "baseline",
+      "kind": "balloon",
+      "status": 503,
+      "error": "RETRY_SAME_REQUEST",
+      "fixture": false,
+      "syntheticUpstreamCalls": []
+    },
+    {
+      "revision": "candidate",
+      "kind": "expansion",
+      "status": 200,
+      "error": null,
+      "fixture": true,
+      "syntheticUpstreamCalls": [
+        {
+          "url": "https://engine.example.test/v2/library/state?game_id=multihot40_native",
+          "method": "GET",
+          "redirect": "manual"
+        }
+      ]
+    },
+    {
+      "revision": "candidate",
+      "kind": "balloon",
+      "status": 200,
+      "error": null,
+      "fixture": true,
+      "syntheticUpstreamCalls": [
+        {
+          "url": "https://engine.example.test/v2/library/state?game_id=balloon_native",
+          "method": "GET",
+          "redirect": "manual"
+        }
+      ]
+    }
+  ]
+}

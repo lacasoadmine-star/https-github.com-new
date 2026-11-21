@@ -1,0 +1,25 @@
+{
+  "schema": "zplay/balloon-state-field-presence/v1",
+  "recordedAt": "2026-11-21T21:44:11.811882+00:00",
+  "observedBy": "Deployment owner using safe DOM read of the existing signed-in state endpoint",
+  "endpoint": "/api/library/state?game_id=balloon_native",
+  "keys": [
+    "user_id",
+    "game",
+    "game_id",
+    "model_version",
+    "accepting",
+    "balance",
+    "currency",
+    "server_now",
+    "round",
+    "other_active_game",
+    "sessionId"
+  ],
+  "hasAuthenticated": false,
+  "authenticatedTrue": false,
+  "hasSessionId": true,
+  "hasError": false,
+  "accountValuesRecorded": false,
+  "interpretation": "Missing authenticated is accepted by the exact deployed client; successful validated state sets local authentication itself."
+}

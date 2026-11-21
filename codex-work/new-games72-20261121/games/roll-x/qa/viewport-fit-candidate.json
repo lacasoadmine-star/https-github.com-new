@@ -1,0 +1,101 @@
+{
+  "status": "PENDING_EXACT_SOURCE_BROWSER_CI",
+  "preparedAt": "2026-11-21T21:42:28.060363+00:00",
+  "problem": {
+    "sourceCommit": "b61f6e278c85c449f6abd6f29392bbb795a0f304",
+    "workflowRun": 44951988734,
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "spinY": 656.625,
+    "spinBottom": 708.625,
+    "oldLayoutPassesNewVerticalBounds": false,
+    "previousPassDidNotCheckVerticalBounds": true
+  },
+  "changes": [
+    "Reserve actual viewport space for the control groups; let the existing wheel artwork use the remaining height.",
+    "Reflow wheel and ordered control panel side by side only in short landscape; preserve at least 44px touch targets.",
+    "Keep status and AUTO progress in their own feedback region; preserve visibility of recovery and availability controls.",
+    "Measure exact control vertical bounds, document dimensions, center hit testing, panel overlap and visible wheel size.",
+    "Exercise unavailable and active AUTO layouts, mobile rotations, the bottom menu and touch SPIN/STOP without a real wallet."
+  ],
+  "verifiedLocally": {
+    "javascriptSyntax": "pass",
+    "htmlBalanced": "pass",
+    "uniqueHtmlIds": 44,
+    "otherPreviouslyPinnedSourceFilesUnchanged": {
+      "main.mjs": true,
+      "app.mjs": true,
+      "controller.mjs": true,
+      "session.mjs": true,
+      "evaluator.mjs": true,
+      "receipt.mjs": true,
+      "renderer.mjs": true,
+      "audio.mjs": true,
+      "qa/browser-fixture.mjs": true,
+      "../../shared/round-recovery.mjs": true,
+      "qa/run-isolated-browser.cjs": true,
+      "tests/fixture-session.mjs": true
+    },
+    "oldCIArtifactFailsNewVerticalPredicate": true
+  },
+  "browserAcceptance": {
+    "newRunExecuted": false,
+    "expectedChecks": 37,
+    "viewports": [
+      {
+        "width": 1280,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 360,
+        "height": 800
+      },
+      {
+        "width": 430,
+        "height": 932
+      },
+      {
+        "width": 568,
+        "height": 320
+      },
+      {
+        "width": 667,
+        "height": 375
+      },
+      {
+        "width": 844,
+        "height": 390
+      }
+    ],
+    "required": "Exact published source GitHub Actions run and downloaded screenshot/report artifact.",
+    "localBlocker": "Previously observed Chromium socket() failed: Operation not permitted (1); no restriction bypass or new local browser launch attempted."
+  },
+  "officialReferenceFollowup": {
+    "source": "https://www.smartsoftgaming.com/games/rollx",
+    "observedAt": "2026-11-21T21:42:28.060409+00:00",
+    "environment": "Existing cloud browser, public Play Demo link",
+    "viewport": {
+      "width": 1363,
+      "height": 936
+    },
+    "observed": "Current official demo renders the portrait cabinet and the same wheel/sliders/Turbo-plus/AUTO-SPIN-history/menu-balance-sound groups.",
+    "newSpins": 0,
+    "shortLandscapeProviderLayoutVerified": false,
+    "limitation": "The supported cloud browser API did not expose viewport resizing; this layout adaptation is not a claim of provider visual parity.",
+    "newArtOrSound": false
+  },
+  "sourceHashes": {
+    "index.html": "c960a68956a61c2f7dbab7930d76bca861626b88e41964c998775be3252c1e02",
+    "style.css": "7473170828197619fcf18658ad04ed23e801d528bb4b7997bfbaede008ceb055",
+    "qa/browser-run.mjs": "edc8616c4d89dc4cb64794a48e863767cf9a1be97e814a340862593951dc99bf"
+  },
+  "realMoneyActions": 0,
+  "productionEndpointsUsed": false,
+  "releaseGateChanged": false
+}

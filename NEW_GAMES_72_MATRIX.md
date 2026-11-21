@@ -1,8 +1,8 @@
 # Scope reconciliation notice — 22 November 2026
 
-The 72-entry matrix below is the retained candidate inventory for the explicit 57-name request plus 15 current official products. The later leading scope instruction in [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) still targets 72 but also asks for three replacements within a 74-card order; that membership conflict remains open. This preserved matrix must not be mistaken for approval of an unresolved replacement list. All shared identities and independent tasks continue, with public activation closed and zero new games release-ready.
+The 72-entry matrix below preserves the earlier candidate inventory for the explicit 57-name request plus 15 current official products. The newer [supplied-name audit](codex-work/user-request-20261122/README.md) records 71 strings, 35 distinct verified official products and an alias duplicate; the exact 72-game membership remains unresolved. This matrix is historical and does not override the latest list or authorize invented variants. Shared identities and independent tasks continue, with public activation closed and zero new games release-ready.
 
-Current comparison: [official 75, rendered 74 and retained 71](codex-work/new-games72-20261121/references/scope-reconciliation-20261122/SCOPE_RECONCILIATION.md). Current product-rule ambiguity and owned next actions: [partial official-rule refresh](codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json). No history screenshot, new round count or completed-game claim is introduced by this notice.
+The [official 75/rendered 74 comparison](codex-work/new-games72-20261121/references/scope-reconciliation-20261122/SCOPE_RECONCILIATION.md) and [partial official-rule refresh](codex-work/new-games72-20261121/references/product-rules-refresh-20261122.json) remain source-bound checkpoints. Current integration and exact CI evidence are linked from [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md). No round count or completed-game claim is introduced by this notice.
 
 ---
 

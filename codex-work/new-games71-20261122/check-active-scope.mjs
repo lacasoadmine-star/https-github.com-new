@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 
 export const EXCLUDED = Object.freeze(['Multi Hot 5', 'Foxy Hot 20', 'Habesha Fortune 5']);
 export const AREAS = Object.freeze(['reference', 'rules', 'assets', 'frontend', 'backend', 'controls', 'soundAnimation', 'qa']);
@@ -12,6 +13,21 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export function validateActiveScope({ registry, catalog, historical, workItems, catalogBytes, historicalBytes }) {
   const issues = [];
   const require = (ok, code, detail) => { if (!ok) issues.push({ code, detail }); };
+  const sourceObject = (supplied, bytes, label) => {
+    let parsed;
+    try {
+      parsed = JSON.parse(typeof bytes === 'string' ? bytes : new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+    } catch {
+      require(false, label + '_OBJECT', 'The pinned source must be valid UTF-8 JSON');
+      return {};
+    }
+    require(isDeepStrictEqual(supplied, parsed), label + '_OBJECT', 'Parsed input must match its pinned source bytes');
+    return parsed ?? {};
+  };
+  // Validate against the byte-derived snapshots, never an independently supplied
+  // object that could hide changed identities behind the hash of an older file.
+  catalog = sourceObject(catalog, catalogBytes, 'CATALOG');
+  historical = sourceObject(historical, historicalBytes, 'HISTORICAL');
   const games = registry?.games ?? [];
   const cards = catalog?.cards ?? [];
   const names = cards.map(card => card.displayName);
@@ -31,6 +47,8 @@ export function validateActiveScope({ registry, catalog, historical, workItems, 
   unique(games.map(game => game.gameId), 'GAME_ID_UNIQUE');
   unique(games.map(game => game.route), 'ROUTE_UNIQUE');
   unique(games.map(game => game.modulePath), 'MODULE_UNIQUE');
+  unique(games.map(game => game.assets?.prefix), 'ASSET_PREFIX_UNIQUE');
+  unique(games.map(game => game.assets?.manifestPath), 'ASSET_MANIFEST_UNIQUE');
   const variants = games.filter(game => game.variant?.key).map(game => JSON.stringify([game.provider, game.variant.category, game.variant.key]));
   unique(variants, 'PROVIDER_VARIANT_UNIQUE');
 
@@ -38,6 +56,7 @@ export function validateActiveScope({ registry, catalog, historical, workItems, 
   for (const [index, game] of games.entries()) {
     const card = expected[index];
     require(game.ordinal === index + 1 && game.catalogOrder === card?.catalogOrder && game.workActive === true, 'ORDINAL', game.officialName);
+    require(game.currentPlayerRoute === card?.currentPlayerRoute, 'CURRENT_PLAYER_ROUTE', game.officialName);
     require(game.backend?.enabled === false && game.implementationComplete === false && game.releaseReady === false && game.cashReleaseEnabled === false, 'GAME_CLOSED', game.officialName);
     require(!routes.has(game.route) && /^\/new-games7[12]\/[a-z0-9-]+\/$/.test(game.route ?? ''), 'ADDITIVE_ROUTE', game.officialName);
     const old = older.get(game.officialName);
@@ -45,9 +64,17 @@ export function validateActiveScope({ registry, catalog, historical, workItems, 
       preserved++;
       require(['gameId', 'route', 'modulePath'].every(key => game[key] === old[key]) &&
         ['configurationPath', 'evaluatorPath'].every(key => game.backend?.[key] === old.backend?.[key]), 'PRESERVED_IDENTITY', game.officialName);
+      require(game.provider === old.provider && isDeepStrictEqual(game.variant, old.variant), 'PRESERVED_PROVIDER_VARIANT', game.officialName);
+      require(['prefix', 'manifestPath'].every(key => game.assets?.[key] === old.assets?.[key]), 'PRESERVED_ASSETS', game.officialName);
     } else {
-      require(game.officialName === 'JetX' && game.gameId === 'zplay71_jetx_v1' && game.route === '/new-games71/jetx/', 'NEW_IDENTITY', game.officialName);
-      require(game.variant?.key === null && game.variant?.status === 'UNRESOLVED_DISTINCT_OFFICIAL_VARIANT' && game.notAnAliasOf === 'zplay72_new_era_of_jetx_v1', 'UNRESOLVED_VARIANT', 'Classic JetX must not inherit the New Era demo');
+      require(game.officialName === 'JetX' && game.gameId === 'zplay71_jetx_v1' && game.route === '/new-games71/jetx/' && game.provider === 'SmartSoft Gaming', 'NEW_IDENTITY', game.officialName);
+      const jetxModule = 'codex-work/new-games71-20261122/games/jetx';
+      require(game.modulePath === jetxModule &&
+        game.backend?.configurationPath === jetxModule + '/specification.json' &&
+        game.backend?.evaluatorPath === jetxModule + '/evaluator.mjs' &&
+        game.assets?.prefix === '/new-games71/jetx/assets/v1/' &&
+        game.assets?.manifestPath === jetxModule + '/assets-manifest.json', 'JETX_RESERVED_PATHS', game.officialName);
+      require(game.variant?.key === null && game.variant?.category === null && game.variant?.status === 'UNRESOLVED_DISTINCT_OFFICIAL_VARIANT' && game.notAnAliasOf === 'zplay72_new_era_of_jetx_v1', 'UNRESOLVED_VARIANT', 'Classic JetX must not inherit the New Era demo');
     }
   }
   require(preserved === 70 && !games.some(game => ['SplitX', 'Double X'].includes(game.officialName)), 'SCOPE_DELTA', 'Seventy previous identities carry forward; SplitX and Double X remain historical');
