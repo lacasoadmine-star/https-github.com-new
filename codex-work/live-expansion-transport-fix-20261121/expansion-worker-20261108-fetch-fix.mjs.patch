@@ -1,0 +1,13 @@
+--- baseline/expansion-worker-20261108-fetch-fix.mjs
++++ candidate/expansion-worker-20261108-fetch-fix.mjs
+@@ -89,7 +89,9 @@
+    const upstreamPath='/v2/library/'+(action?'action':history?'history?game_id='+id+'&sort='+sort:'state?game_id='+id);
+    let target;try{target=new URL(upstreamPath,env.NATIVE_ENGINE_ORIGIN);if(target.protocol!=='https:')throw Error('INVALID_ORIGIN');}catch{return json({error:'NATIVE_ENGINE_ORIGIN_UNAVAILABLE'},503);}
+    let response;
+-   try{response=await fetch(target,{method,headers:{...await sign(env.NATIVE_ENGINE_SECRET,subject,method,upstreamPath,body),accept:'application/json',...(action?{'content-type':'application/json'}:{})},body:action?body:undefined,signal:request.signal,redirect:'error'});}catch{return json({error:'RETRY_SAME_REQUEST'},503);}
++   try{response=await fetch(target,{method,headers:{...await sign(env.NATIVE_ENGINE_SECRET,subject,method,upstreamPath,body),accept:'application/json',...(action?{'content-type':'application/json'}:{})},body:action?body:undefined,signal:request.signal,redirect:'manual'});}catch{return json({error:'RETRY_SAME_REQUEST'},503);}
++   // Workers accepts manual/follow only; never forward signed requests to a redirect target.
++   if(response.status>=300&&response.status<400){try{await response.body?.cancel();}catch{}return json({error:'RETRY_SAME_REQUEST'},503);}
+    let data;try{data=await response.json();}catch{return json({error:'INVALID_ENGINE_RESPONSE'},503);}
+    return json(response.ok?{...data,authenticated:true,sessionId:await session(request)}:data,response.status);
+   }

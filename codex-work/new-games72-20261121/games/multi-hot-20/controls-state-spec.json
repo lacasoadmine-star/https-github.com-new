@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_multi_hot_20_v1",
+  "status": "SOURCE_OBSERVATION_AND_PENDING_IMPLEMENTATION_SPEC",
+  "implementedControlRuntime": false,
+  "reference": {
+    "evidenceIndex": "evidence-index.json",
+    "actions": "evidence/2026-11-21/actions.json",
+    "metadata": "evidence/2026-11-21/metadata.json",
+    "viewport": {
+      "width": 1363,
+      "height": 936,
+      "orientation": "landscape"
+    },
+    "observedVersion": "v1.0.0"
+  },
+  "visualLayout": {
+    "measurementMethod": "Approximate manual measurements of current screenshot; not responsive layout validation.",
+    "reelRows": 3,
+    "reelColumns": 5,
+    "reelFrameApproxPx": {
+      "left": 331,
+      "top": 237,
+      "right": 1015,
+      "bottom": 651
+    },
+    "contentBottomApproxPx": 792,
+    "multiplierPosition": "Above reels, centered over the frame",
+    "gameTitlePosition": "Upper left",
+    "controls": "AUTO above the large spin button on the right, quick-play lightning at its upper right, bet button below; menu lower left and speaker lower right.",
+    "menuPanelApproxPx": {
+      "left": 232,
+      "top": 168,
+      "right": 1134,
+      "bottom": 770
+    },
+    "frameSource": "evidence/2026-11-21/before-spin.jpg",
+    "otherViewportsVerified": false
+  },
+  "controls": [
+    {
+      "id": "spin",
+      "label": "HOLD & SPIN",
+      "status": "SEVEN_MANUAL_TAPS_OBSERVED",
+      "observedAction": "One separate tap per initial reference round; a pressed/transition state precedes a separately captured result.",
+      "rounds": 7,
+      "holdBehaviorTested": false,
+      "repeatKeyboardTested": false,
+      "evidence": [
+        "before-spin.jpg",
+        "spin-01-pressed.jpg",
+        "spin-01.jpg"
+      ]
+    },
+    {
+      "id": "stop",
+      "label": "STOP",
+      "status": "VISIBLE_DURING_MOTION_ACTION_AMBIGUOUS",
+      "observedAction": "STOP label and square icon are visible in motion frames. A later main-control click after AUTO stop was followed by another 0.40 DMO debit, so it may have reached an idle SPIN control.",
+      "stopOnlyVerified": false,
+      "evidence": [
+        "spin-05-sample-04.jpg",
+        "autoplay-stopped-settled.jpg"
+      ],
+      "filenameCaution": "autoplay-stopped-settled.jpg still depicts moving reels; its filename is not proof of settlement."
+    },
+    {
+      "id": "autoplay",
+      "status": "OPEN_SELECT_START_STOP_OBSERVED",
+      "countsVisible": [
+        25,
+        50,
+        100,
+        500,
+        1000
+      ],
+      "initialHighlightedCount": 100,
+      "testedSelectedCount": 25,
+      "stopConditionLabels": [
+        "If a win reaches or exceeds",
+        "If balance decreases",
+        "If balance increases"
+      ],
+      "stopConditionThresholdsTested": false,
+      "observedAction": "First open attempt left the state unchanged; retry opened the panel. Selecting 25 and START PLAY changed AUTO to a red stop icon and displayed the count. Stopping was observed; two automatic rounds are inferred from the event sequence.",
+      "extraRoundsInferred": 2,
+      "evidence": [
+        "autoplay-panel.jpg",
+        "autoplay-count-25.jpg",
+        "autoplay-started.jpg",
+        "autoplay-stop-pressed.jpg",
+        "autoplay-final-idle.jpg"
+      ]
+    },
+    {
+      "id": "bet",
+      "status": "SELECTOR_AND_CHANGED_VALUE_OBSERVED",
+      "visibleChoicesDMO": [
+        "0.20",
+        "0.40",
+        "0.60",
+        "0.80",
+        "1.00"
+      ],
+      "completeBetLadderVerified": false,
+      "observedAction": "0.40 selection displayed. First attempted 0.20 restoration did not change the following observed 0.40 state; later 0.20 restoration succeeded.",
+      "finalBetDMO": "0.20",
+      "etbPolicyImported": false,
+      "evidence": [
+        "bet-selector.jpg",
+        "bet-changed-040.jpg",
+        "bet-restored-final.jpg"
+      ]
+    },
+    {
+      "id": "menu_rules_paytable",
+      "status": "OPEN_SCROLL_PREVIEW_AND_CLOSE_OBSERVED",
+      "observedAction": "Menu opens rules/paytable; preview + changes 0.20 to 0.40 and - returns 0.20. Rules scroll reveals tables, control illustrations, chart and metadata. Close returns to gameplay.",
+      "initialPaintAnomalyRetained": true,
+      "evidence": [
+        "menu-paytable.jpg",
+        "paytable-020.jpg",
+        "paytable-preview-plus.jpg",
+        "paytable-020-refreshed.jpg",
+        "rules-lower-current.jpg",
+        "menu-closed.jpg"
+      ]
+    },
+    {
+      "id": "settings_sound",
+      "status": "VISUAL_TOGGLES_OBSERVED_AUDIO_UNVERIFIED",
+      "snapshotStates": [
+        {
+          "source": "settings.jpg",
+          "effects": true,
+          "music": true
+        },
+        {
+          "source": "settings-effects-music-off-stable.jpg",
+          "effects": false,
+          "music": true
+        },
+        {
+          "source": "settings-music-toggle.jpg",
+          "effects": false,
+          "music": false
+        },
+        {
+          "source": "settings-sound-restored.jpg",
+          "effects": true,
+          "music": true
+        }
+      ],
+      "observerReportedIntermediateBehavior": "The parent observer reported effects-off also switched music off before the separate music click switched music on. The first saved post-click screenshot shows effects off and music on.",
+      "audibleOutputVerified": false,
+      "masterIconDirectlyTapped": false,
+      "volumeControlObserved": false,
+      "filenameCaution": "settings-effects-music-off*.jpg shows music ON after the combined actions; do not infer state from the filename."
+    },
+    {
+      "id": "fullscreen",
+      "status": "VISUAL_TOGGLE_ON_AND_OFF_OBSERVED",
+      "actualWindowResizeVerified": false,
+      "evidence": [
+        "settings-fullscreen-on.jpg",
+        "menu-closed.jpg"
+      ]
+    },
+    {
+      "id": "quick_play",
+      "status": "CONFIRM_ENABLE_AND_DISABLE_OBSERVED",
+      "observedAction": "Lightning opened QUICK PLAY confirmation. Enabling changed the spin ring/lightning to yellow; disabling restored the normal appearance. No quick-play round was run.",
+      "speedTimingVerified": false,
+      "evidence": [
+        "turbo-on.jpg",
+        "quick-play-enabled.jpg",
+        "quick-play-disabled.jpg"
+      ]
+    },
+    {
+      "id": "take_win_collect_x2",
+      "status": "DOCUMENTED_NOT_ACTION_TESTED",
+      "observedAction": null,
+      "documented": "Control illustrations and rules describe take-win/collect and double-up. Full card-game settlement rules and probabilities are unresolved.",
+      "evidence": [
+        "controls-rules.jpg",
+        "rules-general.jpg",
+        "rtp-version-disconnection.jpg"
+      ]
+    },
+    {
+      "id": "symbol_touch",
+      "status": "ONE_LEMON_TAP_OBSERVED",
+      "observedAction": "One tap on the visible lemon did not open an information panel.",
+      "allSymbolsTested": false,
+      "newInteractionInvented": false,
+      "evidence": [
+        "symbol-tap.jpg"
+      ]
+    },
+    {
+      "id": "history",
+      "status": "TAB_AFFORDANCE_VISIBLE_NOT_OPENED_OR_PUBLISHED",
+      "evidence": [
+        "settings.jpg"
+      ]
+    }
+  ],
+  "observedStateTransitions": [
+    {
+      "from": "IDLE",
+      "action": "single manual tap",
+      "to": "PRESSED_THEN_REEL_MOTION",
+      "evidence": "spin-05-sample-01.jpg through spin-05-sample-04.jpg"
+    },
+    {
+      "from": "REEL_MOTION",
+      "action": "wait and capture separate result",
+      "to": "IDLE_RESULT",
+      "timingMeasured": false,
+      "evidence": "spin-01.jpg through spin-07.jpg"
+    },
+    {
+      "from": "IDLE",
+      "action": "open AUTO and select count",
+      "to": "AUTO_PANEL",
+      "evidence": "autoplay-count-25.jpg"
+    },
+    {
+      "from": "AUTO_PANEL",
+      "action": "START PLAY",
+      "to": "AUTO_ACTIVE",
+      "evidence": "autoplay-started.jpg"
+    },
+    {
+      "from": "AUTO_ACTIVE",
+      "action": "stop AUTO",
+      "to": "AUTO_OFF_WITH_PRESENTATION_MAY_CONTINUE",
+      "evidence": "autoplay-stop-pressed.jpg"
+    },
+    {
+      "from": "IDLE",
+      "action": "open menu",
+      "to": "RULES_OR_SETTINGS_PANEL",
+      "evidence": "menu-paytable.jpg and settings.jpg"
+    }
+  ],
+  "motionAndSound": {
+    "continuousVideo": false,
+    "audioRecorded": false,
+    "audibleEventsVerified": false,
+    "fourSequentialStillSamplesForRound5": true,
+    "visibleMotion": "Symbols are visibly displaced/blurred and clipped inside the frame; STOP becomes visible and the multiplier wheel changes.",
+    "reelStopSequenceMeasured": false,
+    "accelerationMeasured": false,
+    "winPresentationFullyCaptured": false,
+    "soundEventMappings": [],
+    "substituteAudioCreated": false
+  },
+  "pendingInputVerification": [
+    "Mobile touch and portrait layout",
+    "Keyboard focus/Enter/Space repeat behavior",
+    "Double-tap suppression",
+    "Hold duration and release behavior",
+    "Reliable STOP while still moving",
+    "AUTO stop-condition threshold semantics",
+    "Win/collect/gamble controls",
+    "Loading, expired-session and reconnect states",
+    "Exact fullscreen resize behavior"
+  ],
+  "requiredIntegrationPropertiesNotYetImplemented": [
+    "Use existing server-authoritative round/session receipts and wallet.",
+    "Prevent duplicate request acceptance during pending input.",
+    "Bind visible controls to matching touch hit areas and explicit disabled/loading states.",
+    "Preserve accepted round identity through reconnect."
+  ],
+  "finalState": {
+    "manualReferenceRounds": 7,
+    "totalDisplayedRoundOrdinal": 10,
+    "extraControlRounds": 3,
+    "extraRoundAttribution": "Two AUTO rounds plus one attempted STOP/main-control round, inferred from the observed sequence.",
+    "autoplayStopped": true,
+    "betDMO": "0.20",
+    "quickPlayEnabled": false,
+    "soundEffectsAndMusicVisuallyOn": true,
+    "finalFrame": "final-idle.jpg"
+  }
+}

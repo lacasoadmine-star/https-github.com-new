@@ -1,0 +1,33 @@
+{
+  "schema": "zplay/balloon-rejected-attempt/v1",
+  "recordedAt": "2026-11-21T21:54:19.187524+00:00",
+  "versionNumber": 465,
+  "versionId": "e838cfcb-d22f-46d3-8445-174e74b74ade",
+  "result": "LIVE_VERIFICATION_FAILED_ROLLED_BACK",
+  "observedError": "BALLOON_UI_SOURCE_MISMATCH",
+  "rollbackVersion": "8ed7d80e-16c3-41d6-b301-4b35668ff571",
+  "rollbackVersionNumber": 464,
+  "rollbackDeployment": "752ad954-4e97-4633-bdc5-5d0bc594e591",
+  "cause": "Candidate and HTML fixture incorrectly used the older v1 asset module; an active higher wrapper serves a later wager-profile client and rewrites the script URL and stake options. Source-mismatch guard refused to substitute the stale client.",
+  "supersededClient": {
+    "path": "attempts/v465/balloon.js",
+    "bytes": 23050,
+    "sha256": "e341d1b4e3bc6d6b312fdca9b6fb12c7fd0ba034d7ebcdee24b58d1b4fa6f5ed"
+  },
+  "supersededWrapper": {
+    "path": "attempts/v465/entry.mjs",
+    "bytes": 3008,
+    "sha256": "d2f70f50ca74d470acaa1f07ebdf03d999a1a8a75fa81b14ea1c98ac56cba492"
+  },
+  "oldTests": {
+    "passed": 21,
+    "limitation": "Validated the older client/template only; did not establish actual-served-client integration"
+  },
+  "productionWagersByVerification": 0,
+  "resolution": "Rebase only the polling correction onto the independently pinned current served client, retain exact wager-profile dependency, use a new r2 immutable prefix.",
+  "activationDeployment": "0746927b-9c1b-4554-acb4-c65eea1953a7",
+  "activatedAt": "2026-11-21T21:47:11.454318Z",
+  "rollbackAt": "2026-11-21T21:50:03.225518Z",
+  "supersededKVAssetWasUploaded": true,
+  "supersededKVClientReachedCanonicalHTML": false
+}

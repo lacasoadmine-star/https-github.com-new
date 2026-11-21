@@ -1,0 +1,223 @@
+{
+  "schema": "zplay/observed-control-state-spec/v1",
+  "gameId": "zplay72_multi_hot_10_v1",
+  "implementation": "DESCRIPTIVE_SPECIFICATION_ONLY_NO_CONTROL_RUNTIME_IMPLEMENTED",
+  "evidenceIndex": "evidence-index.json",
+  "observedPresentation": {
+    "viewport": {
+      "width": 1363,
+      "height": 936,
+      "orientation": "landscape"
+    },
+    "grid": "Five reels by three rows, large landscape stage",
+    "multiplier": "Wheel centered above reels",
+    "controls": "Auto, Spin/Stop and bet at right; menu lower left and sound lower right",
+    "pixelPerfectRendererClaimed": false,
+    "source": {
+      "path": "evidence/2026-11-21/fresh-before-spin.jpg",
+      "sha256": "ef54969c376f7e65bf0a7ad4f7c0dd9a38022478191eaedaa6742a97d21b9549"
+    }
+  },
+  "states": [
+    {
+      "id": "IDLE",
+      "observed": "HOLD & SPIN visible; auto and bet enabled; menu/sound visible",
+      "source": {
+        "path": "evidence/2026-11-21/fresh-before-spin.jpg",
+        "sha256": "ef54969c376f7e65bf0a7ad4f7c0dd9a38022478191eaedaa6742a97d21b9549"
+      }
+    },
+    {
+      "id": "PENDING",
+      "observed": "SPIN changes to a gold STOP button; auto and bet appear dimmed while request/spin is pending. No STOP action was exercised.",
+      "source": {
+        "path": "evidence/2026-11-21/spin-02-pressed.jpg",
+        "sha256": "aedcad5a95b90ceb6e1ec107e029e08b75af18093eca2ba2ec0893677c49d4b7"
+      }
+    },
+    {
+      "id": "SETTLED_LOSS",
+      "observed": "Fresh symbols and multiplier are shown; HOLD & SPIN is restored. Seven completed rounds were losses.",
+      "sources": [
+        {
+          "path": "evidence/2026-11-21/spin-01.jpg",
+          "sha256": "ac19ed5db64c788da1bdd1107d821770c9ebff228a95ad1bbd93bc4a73986b83"
+        },
+        {
+          "path": "evidence/2026-11-21/spin-07.jpg",
+          "sha256": "edcdfd3dd7f8e9ea9093d02fdc04d74a87be57df0010c02591e8765836a88f1b"
+        }
+      ]
+    },
+    {
+      "id": "RULES_OPEN",
+      "observed": "Menu has Rules, Settings and History tabs plus Close; rules scroll through table, gamble/control help, paylines and limits.",
+      "source": {
+        "path": "evidence/2026-11-21/menu.jpg",
+        "sha256": "0875af3f1e441a88195695346e013c31ec04e4d57df28219ef642c8ba911a86f"
+      }
+    },
+    {
+      "id": "SETTINGS_OPEN",
+      "observed": "Effects and music initially green/on; fullscreen off. Effects was toggled off and restored; settings reopened/closed. Audible output not verified.",
+      "sources": [
+        {
+          "path": "evidence/2026-11-21/settings.jpg",
+          "sha256": "337324b6702f6ae7c9ca8f271554e19d0ebbe659ed05ad574902aa010af5d236"
+        },
+        {
+          "path": "evidence/2026-11-21/settings-after-toggles.jpg",
+          "sha256": "24e13fbc2a8427281ecacf44e92fe99f9bff2745e8ef546ee0bfbd739c067805"
+        },
+        {
+          "path": "evidence/2026-11-21/settings-restored.jpg",
+          "sha256": "99ce385974b2c9adf8ebb0b5259799f2206a97e96862fff1ee0e9b5a6a08db78"
+        }
+      ]
+    },
+    {
+      "id": "AUTO_OPTIONS_OPEN",
+      "observed": "Counts 25/50/100/500/1000; 100 selected initially. Three optional thresholds are visible. Start was not pressed.",
+      "source": {
+        "path": "evidence/2026-11-21/auto-options.jpg",
+        "sha256": "e323147baa81b51281f1aa4132d09431ba2eaaa2df0a4153dd60885399ebe538"
+      }
+    },
+    {
+      "id": "BET_OPTIONS_OPEN",
+      "observed": "First visible options 0.10/0.20/0.30/0.40/0.50 DMO. No gameplay bet selection changed.",
+      "source": {
+        "path": "evidence/2026-11-21/bet-selector.jpg",
+        "sha256": "0f2a9b906dc2c582705898ef3e7153e4567e04120270ed5ce603b8e14bc681f9"
+      }
+    },
+    {
+      "id": "EXPIRED_SESSION_ERROR",
+      "observed": "First session timed out on one click; no completed round counted. Reentry via current official link produced the successful separate session.",
+      "source": {
+        "path": "evidence/2026-11-21/first-click-timeout.jpg",
+        "sha256": "23108b225722576e261faf0bdc18871c3084aec80352a2e6ee046ce829b75836"
+      }
+    }
+  ],
+  "documentedOnly": {
+    "x2": "After a win, a red/black guess may double it or lose it; Take Win is documented. No gamble result or transition observed.",
+    "collect": "Rules describe collection using Take Win, next spin or automatic collection under autoplay. No winning flow observed.",
+    "disconnection": "Accepted bets are described as completing and autoplay switching off. Separate malfunction wording describes voiding/termination. No reconnection/void behavior was tested; do not infer wallet reversals.",
+    "sources": [
+      {
+        "path": "evidence/2026-11-21/rules-gamble.jpg",
+        "sha256": "bed3cfd7f752510bf60411916837290cdc3c11bb0aac0ae6c9467f488cbb43f2"
+      },
+      {
+        "path": "evidence/2026-11-21/version-limits-disconnection.jpg",
+        "sha256": "3763024c458db9a25b5ccbe044a2fcde280e4799ed70a1a09ddb78672dc8856f"
+      }
+    ]
+  },
+  "autoOptions": {
+    "counts": [
+      25,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "initialSelection": 100,
+    "thresholds": [
+      "win reaches or exceeds",
+      "balance decreases",
+      "balance increases"
+    ],
+    "executionVerified": false
+  },
+  "paytablePreview": {
+    "observedValuesDMO": [
+      "0.10",
+      "0.20"
+    ],
+    "actualBetChanged": false,
+    "reopenResetsToGameplayBet": true
+  },
+  "settings": {
+    "effectsSwitchVisuallyVerified": true,
+    "musicSwitchPresent": true,
+    "audibleSoundVerified": false,
+    "fullscreenPresent": true,
+    "fullscreenActionVerified": false,
+    "volumeSliderVerified": false
+  },
+  "unverifiedActions": [
+    "STOP",
+    "HOLD repetition",
+    "AUTO start/stop",
+    "TURBO",
+    "Full Screen",
+    "Take Win",
+    "X2 red/black",
+    "mobile touch",
+    "keyboard repeat",
+    "symbol taps"
+  ],
+  "audioAssets": [],
+  "generatedArtwork": [],
+  "placeholderGameplay": false,
+  "futureControlImplementationConstraints": {
+    "purpose": "Future isolated fixture verification of observed pending/loss/modal states. This checkpoint supplies a descriptive state specification only; no control runtime or API behavior is implemented.",
+    "pendingDuplicateSpin": "Engineering invariant: emit no second spin intent for a repeated pending action. This is a project integrity requirement, not a claim about untested provider double-tap behavior.",
+    "matchingFixtureReceiptOnly": "Consume only a caller-supplied loss observation matching the outstanding local request key and this game; no synthetic wager/receipt is sent to production.",
+    "unsupportedActions": "STOP/HOLD/AUTO execution/TURBO/fullscreen/win/collect/X2 are explicitly unsupported until verified, not silently simulated."
+  },
+  "observedTransitions": [
+    {
+      "from": "IDLE",
+      "input": "Single manual SPIN click",
+      "to": "PENDING",
+      "verifiedInstances": 7
+    },
+    {
+      "from": "PENDING",
+      "input": "Official demo completes round",
+      "to": "SETTLED_LOSS",
+      "verifiedInstances": 7,
+      "durationVerified": false
+    },
+    {
+      "from": "IDLE_OR_SETTLED_LOSS",
+      "input": "Menu click",
+      "to": "RULES_OPEN"
+    },
+    {
+      "from": "RULES_OPEN",
+      "input": "Settings tab click",
+      "to": "SETTINGS_OPEN"
+    },
+    {
+      "from": "RULES_OR_SETTINGS_OPEN",
+      "input": "Close click",
+      "to": "IDLE_OR_SETTLED_LOSS"
+    },
+    {
+      "from": "IDLE_OR_SETTLED_LOSS",
+      "input": "AUTO click",
+      "to": "AUTO_OPTIONS_OPEN",
+      "startsRounds": false
+    },
+    {
+      "from": "AUTO_OPTIONS_OPEN",
+      "input": "Close click",
+      "to": "IDLE_OR_SETTLED_LOSS"
+    },
+    {
+      "from": "IDLE_OR_SETTLED_LOSS",
+      "input": "Choose bet click",
+      "to": "BET_OPTIONS_OPEN",
+      "changesStake": false
+    },
+    {
+      "from": "BET_OPTIONS_OPEN",
+      "input": "Close click",
+      "to": "IDLE_OR_SETTLED_LOSS"
+    }
+  ]
+}

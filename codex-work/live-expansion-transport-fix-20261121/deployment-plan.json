@@ -1,0 +1,67 @@
+{
+  "schema": "zplay/live-library-transport-fix/v1",
+  "preparedAt": "2026-11-21T21:28:41.742120+00:00",
+  "status": "HISTORICAL_PREFLIGHT_EXECUTED",
+  "worker": "superwin-player",
+  "newGameCountContribution": 0,
+  "requiredActiveVersion": "527ad53e-210e-4e44-9c92-8bc5f74386f1",
+  "requiredActiveVersionNumber": 463,
+  "mainModuleUnchanged": "native72deluxefix20261121/entry.mjs",
+  "requiredModuleCount": 404,
+  "replacementModules": [
+    {
+      "name": "expansion-worker-20261108-fetch-fix.mjs",
+      "expectedBaseline": {
+        "bytes": 9513,
+        "sha256": "d348ec638ddfae3a676a340c157eecc01971b5bb6a6e04b9b50a92e5148c1cec"
+      },
+      "candidate": {
+        "localPath": "candidate/expansion-worker-20261108-fetch-fix.mjs",
+        "contentType": "application/javascript+module",
+        "bytes": 9747,
+        "sha256": "4fccd64669136c2bfbe74454b627b6ae06fbc2c9a061147e770702230a1fc279"
+      }
+    },
+    {
+      "name": "balloon-worker-20261108.mjs",
+      "expectedBaseline": {
+        "bytes": 8105,
+        "sha256": "0a28ca4a593bc4925d11d18e468e44cf51dc2b4021677504da91bef9f5f02aca"
+      },
+      "candidate": {
+        "localPath": "candidate/balloon-worker-20261108.mjs",
+        "contentType": "application/javascript+module",
+        "bytes": 8339,
+        "sha256": "497606663471e6ffafcdebbbdf2263f49321a3e7ddaad8db71b9196ec65d3ec6"
+      }
+    }
+  ],
+  "preservation": {
+    "otherModuleCount": 402,
+    "otherModuleBodies": "byte-identical",
+    "bindings": "all18exactlyPreserved",
+    "scriptRuntime": "exactlyPreserved",
+    "namedHandlers": "exactlyPreserved",
+    "mainModule": "unchanged",
+    "staticAssets": "unchanged",
+    "gameMathAndAssets": "unchanged",
+    "walletAndAccounts": "unchanged",
+    "secretValues": "noReadOrMutation"
+  },
+  "requiredVerification": [
+    "Current active version remains #463 before stage/activation",
+    "All404 original module names and expected hashes verified; exactly2 allowlisted replacement bodies",
+    "Preserve all bindings, script_runtime and named_handlers exactly; retain main module",
+    "Upload then activate separately under guard; a staged version is not live",
+    "Post-deployment all404 names/expectedSHA256/sizes verified",
+    "Read existing M40 and Balloon state endpoints; verify no wager is placed",
+    "Confirm Deluxe new renderer prefix and other existing pages remain unchanged"
+  ],
+  "activationPerformed": true,
+  "productionWagers": 0,
+  "preparedStatus": "PREPARED_NOT_DEPLOYED",
+  "documentRole": "Original version463 preflight preserved; deployment-result.json records actual transport activation as version464",
+  "activationPerformedAtPreparation": false,
+  "executionResult": "deployment-result.json",
+  "metadataUpdatedAt": "2026-11-21T22:05:09.841892+00:00"
+}

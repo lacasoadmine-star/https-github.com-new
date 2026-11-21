@@ -1,0 +1,390 @@
+{
+  "schema": "zplay/game-specification/v1",
+  "gameId": "zplay72_multi_hot_10_v1",
+  "officialName": "Multi Hot 10",
+  "provider": "SmartSoft Gaming",
+  "variant": {
+    "key": "MultiHot10",
+    "category": "Slots"
+  },
+  "route": "/new-games72/multi-hot-10/",
+  "modulePath": "codex-work/new-games72-20261121/games/multi-hot-10",
+  "createdAt": "2026-11-21T21:29:21.390094+00:00",
+  "implementationStatus": "CONFIRMED_LINE_CANDIDATES_AND_EXACT_PAYOUT_QUOTES_ONLY",
+  "release": {
+    "enabled": false,
+    "settlementEligible": false,
+    "outcomeLegalityVerified": false,
+    "rngImplemented": false,
+    "fullEngineImplemented": false,
+    "rendererImplemented": false,
+    "audibleSoundVerified": false
+  },
+  "sources": {
+    "evidenceIndex": "evidence-index.json",
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+    "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+    "successfulCaptureStartedAt": "2026-11-21T21:05:24.301Z",
+    "successfulCaptureEndedAt": "2026-11-21T21:08:56.807Z",
+    "versionObserved": "v1.0.0",
+    "viewport": {
+      "width": 1363,
+      "height": 936,
+      "orientation": "landscape"
+    },
+    "sevenCompletedManualRounds": 7,
+    "oldLiveCodeOrArtUsed": false
+  },
+  "grid": {
+    "reels": 5,
+    "rows": 3,
+    "inputOrientation": "row-major top-to-bottom, each row left-to-right",
+    "source": {
+      "path": "evidence/2026-11-21/fresh-before-spin.jpg",
+      "sha256": "ef54969c376f7e65bf0a7ad4f7c0dd9a38022478191eaedaa6742a97d21b9549"
+    }
+  },
+  "symbols": [
+    "seven",
+    "bell",
+    "grapes",
+    "watermelon",
+    "lemon",
+    "plum",
+    "orange",
+    "cherry"
+  ],
+  "paylines": {
+    "coordinateConvention": "Each array contains one zero-based row index per reel, top 0/middle 1/bottom 2. IDs follow official chart labels 1..10.",
+    "lines": [
+      {
+        "id": 1,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 2,
+        "rows": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": 3,
+        "rows": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "id": 4,
+        "rows": [
+          0,
+          1,
+          2,
+          1,
+          0
+        ]
+      },
+      {
+        "id": 5,
+        "rows": [
+          2,
+          1,
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "id": 6,
+        "rows": [
+          0,
+          0,
+          1,
+          2,
+          2
+        ]
+      },
+      {
+        "id": 7,
+        "rows": [
+          2,
+          2,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 8,
+        "rows": [
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "id": 9,
+        "rows": [
+          1,
+          2,
+          2,
+          2,
+          1
+        ]
+      },
+      {
+        "id": 10,
+        "rows": [
+          0,
+          1,
+          1,
+          1,
+          0
+        ]
+      }
+    ],
+    "source": {
+      "path": "evidence/2026-11-21/paylines.jpg",
+      "sha256": "29312543bba3261c0e9c3fbe561e277717aaddbd272452ce28a8c1b263acd31e"
+    }
+  },
+  "payoutEvidence": {
+    "currency": "DMO",
+    "decimalPlacesObserved": 2,
+    "anchorDisplayedTotalBetMinor": 10,
+    "secondDisplayedTotalBetMinor": 20,
+    "tableMinorAtAnchorBet": {
+      "seven": {
+        "3": 50,
+        "4": 200,
+        "5": 1000
+      },
+      "bell": {
+        "3": 20,
+        "4": 100,
+        "5": 200
+      },
+      "grapes": {
+        "3": 10,
+        "4": 50,
+        "5": 100
+      },
+      "watermelon": {
+        "3": 10,
+        "4": 50,
+        "5": 100
+      },
+      "lemon": {
+        "3": 5,
+        "4": 10,
+        "5": 50
+      },
+      "plum": {
+        "3": 5,
+        "4": 10,
+        "5": 50
+      },
+      "orange": {
+        "3": 5,
+        "4": 10,
+        "5": 50
+      },
+      "cherry": {
+        "3": 5,
+        "4": 10,
+        "5": 50
+      }
+    },
+    "secondBoundTableMinor": {
+      "seven": {
+        "3": 100,
+        "4": 400,
+        "5": 2000
+      },
+      "bell": {
+        "3": 40,
+        "4": 200,
+        "5": 400
+      },
+      "grapes": {
+        "3": 20,
+        "4": 100,
+        "5": 200
+      },
+      "watermelon": {
+        "3": 20,
+        "4": 100,
+        "5": 200
+      },
+      "lemon": {
+        "3": 10,
+        "4": 20,
+        "5": 100
+      },
+      "plum": {
+        "3": 10,
+        "4": 20,
+        "5": 100
+      },
+      "orange": {
+        "3": 10,
+        "4": 20,
+        "5": 100
+      },
+      "cherry": {
+        "3": 10,
+        "4": 20,
+        "5": 100
+      }
+    },
+    "sources": [
+      {
+        "path": "evidence/2026-11-21/menu.jpg",
+        "sha256": "0875af3f1e441a88195695346e013c31ec04e4d57df28219ef642c8ba911a86f"
+      },
+      {
+        "path": "evidence/2026-11-21/paytable-020.jpg",
+        "sha256": "62efc4571913f14dc07d4e4a08cd5ae4b84cef229aea8aee56aea45d4fa4cc76"
+      },
+      {
+        "path": "evidence/2026-11-21/paytable-low-fruits-multiplier.jpg",
+        "sha256": "37c5918dcc2b3d2f484a0796213239bc03fbd8e8dcfe702c1024de1ec0a8d496"
+      }
+    ],
+    "scale": "anchorSymbolAmountMinor * displayedTotalBetMinor /10, then quoted multiplier. Exact rational arithmetic; no rounding. This is a table quote, not an aggregate round receipt.",
+    "tablePreviewChangesActualBet": false,
+    "operatorETBPolicyInferred": false
+  },
+  "lineCandidateRule": {
+    "direction": "left-to-right starting on the leftmost reel",
+    "adjacencyRequired": true,
+    "match": "same canonical symbol on consecutive reels",
+    "minimumCount": 3,
+    "maximumCount": 5,
+    "prefixPolicy": "Return only the longest qualifying prefix for each line; do not add 3+4+5 entries together.",
+    "mixedLowFruitGroupSubstitutes": false,
+    "mixedGroupEvidence": "The official shared low-fruit table is not a wildcard rule. In spin-01 the middle line begins lemon/cherry/plum/cherry with a zero win; spin-03 top begins cherry/lemon/lemon/lemon with zero win. No mixed fruit substitution is introduced.",
+    "mixedGroupSources": [
+      {
+        "path": "evidence/2026-11-21/spin-01.jpg",
+        "sha256": "ac19ed5db64c788da1bdd1107d821770c9ebff228a95ad1bbd93bc4a73986b83"
+      },
+      {
+        "path": "evidence/2026-11-21/spin-03.jpg",
+        "sha256": "e698464522d89cc5c4fd19183027adc1f703399f2aa9c1cb4e5841555e47d7ea"
+      }
+    ],
+    "aggregatePolicy": "UNRESOLVED_NO_AGGREGATE_RETURNED"
+  },
+  "multiplier": {
+    "values": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "application": "Quote each candidate win multiplied by the supplied observed/documented multiplier, without generating it.",
+    "source": {
+      "path": "evidence/2026-11-21/paytable-low-fruits-multiplier.jpg",
+      "sha256": "37c5918dcc2b3d2f484a0796213239bc03fbd8e8dcfe702c1024de1ec0a8d496"
+    }
+  },
+  "providerClaimsNotImplementationPolicy": {
+    "minBetDMO": "0.10",
+    "maxBetDMO": "200.00",
+    "maximumX": 1000,
+    "rtp": "96.63%",
+    "rtpVerifiedByMath": false,
+    "maxWinLegalityVerified": false,
+    "operatorETBLimitsEnforced": false,
+    "source": {
+      "path": "evidence/2026-11-21/version-limits-disconnection.jpg",
+      "sha256": "3763024c458db9a25b5ccbe044a2fcde280e4799ed70a1a09ddb78672dc8856f"
+    }
+  },
+  "gameplayNotImplemented": [
+    "Round-total settlement",
+    "RNG and reel strips",
+    "Maximum-win/legal-outcome validation",
+    "Gamble/X2 settlement or collection",
+    "Wallet/session/API integration",
+    "Renderer and production controls",
+    "Animation scheduling and sound"
+  ],
+  "controlsSpecification": "controls-state-spec.json",
+  "fixtures": "fixtures/observed-seven-rounds.json",
+  "assetsManifest": "assets-manifest.json",
+  "openGaps": [
+    {
+      "id": "M10-AGGREGATION-001",
+      "area": "settlement",
+      "status": "OPEN",
+      "detail": "Official wording about highest payline wins does not establish whether qualifying line candidates are summed or only a global maximum is paid. Seven observed losses do not resolve it. No aggregate payout is returned."
+    },
+    {
+      "id": "M10-OUTCOME-002",
+      "area": "probability",
+      "status": "OPEN",
+      "detail": "Reel strips, symbol weights, legal outcome set, multiplier probabilities and certified math are unavailable. No RNG or outcome legality model is implemented."
+    },
+    {
+      "id": "M10-MAXIMUM-003",
+      "area": "rules",
+      "status": "OPEN",
+      "detail": "Displayed maximum is 1000x. Ten unrestricted five-seven candidates at multiplier 5 would each quote 500x; this does not establish a legal outcome or summation rule. No cap, exclusion or maximum is invented."
+    },
+    {
+      "id": "M10-ROUNDING-004",
+      "area": "money",
+      "status": "OPEN",
+      "detail": "Fractional minor-unit amounts may arise at unobserved stake values. Exact rational quotes retain fractions; no rounding stage or policy is inferred."
+    },
+    {
+      "id": "M10-MULTIPLIER-005",
+      "area": "presentation",
+      "status": "OPEN",
+      "detail": "Rules text describes a left-side reel; current UI shows the multiplier wheel above the five-reel grid. Position is recorded from the fresh UI; no engine placement rule is inferred."
+    },
+    {
+      "id": "M10-ASSETS-006",
+      "area": "assets",
+      "status": "OPEN",
+      "detail": "Official symbol identities are observed, but no authorized renderer sprite/atlas/audio files are supplied. Reference screenshots are not gameplay assets; no substitute art or synthesized sound is added."
+    },
+    {
+      "id": "M10-CONTROLS-007",
+      "area": "controls",
+      "status": "OPEN",
+      "detail": "STOP action, HOLD repetition, AUTO execution/stop, TURBO behavior, fullscreen, win collection/X2, mobile touch, keyboard repetition and symbol taps are not exercised."
+    },
+    {
+      "id": "M10-ANIMATION-008",
+      "area": "animation",
+      "status": "OPEN",
+      "detail": "Sparse pressed/motion frames do not establish acceleration, exact durations, reel stop ordering, win presentation or continuous animation."
+    },
+    {
+      "id": "M10-SOUND-009",
+      "area": "sound",
+      "status": "OPEN",
+      "detail": "Setting toggles were observed visually; audible output and sound-event mapping were not verified."
+    }
+  ],
+  "nextAction": "Resolve aggregation/maximum/legality and exact scaling for a real accepted round before settlement. Continue only from this game's current official evidence; do not substitute another game or synthesize assets."
+}

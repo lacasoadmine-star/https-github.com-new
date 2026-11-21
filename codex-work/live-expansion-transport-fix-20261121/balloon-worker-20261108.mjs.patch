@@ -1,0 +1,13 @@
+--- baseline/balloon-worker-20261108.mjs
++++ candidate/balloon-worker-20261108.mjs
+@@ -68,7 +68,9 @@
+    let target;try{target=new URL(upstreamPath,env.NATIVE_ENGINE_ORIGIN);if(target.protocol!=='https:')throw Error('INVALID_ORIGIN');}
+    catch{return json({error:'NATIVE_ENGINE_ORIGIN_UNAVAILABLE'},503);}
+    const headers={...await sign(env.NATIVE_ENGINE_SECRET,user,method,upstreamPath,body),accept:'application/json',...(action?{'content-type':'application/json'}:{})};
+-   let response;try{response=await fetch(target,{method,headers,body:action?body:undefined,signal:request.signal,redirect:'error'});}catch{return json({error:'RETRY_SAME_REQUEST'},503);}
++   let response;try{response=await fetch(target,{method,headers,body:action?body:undefined,signal:request.signal,redirect:'manual'});}catch{return json({error:'RETRY_SAME_REQUEST'},503);}
++   // Workers accepts manual/follow only; never forward signed requests to a redirect target.
++   if(response.status>=300&&response.status<400){try{await response.body?.cancel();}catch{}return json({error:'RETRY_SAME_REQUEST'},503);}
+    let data;try{data=await response.json();}catch{return json({error:'INVALID_ENGINE_RESPONSE'},503);}
+    const output=response.ok?{...data,sessionId:await session(request)}:data;
+    return new Response(JSON.stringify(output),{status:response.status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff','x-zplay-balloon-release':BALLOON_RELEASE}});

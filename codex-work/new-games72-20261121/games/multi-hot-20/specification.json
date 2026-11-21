@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "gameId": "zplay72_multi_hot_20_v1",
+  "officialName": "Multi Hot 20",
+  "provider": "SmartSoft Gaming",
+  "variant": {
+    "key": "MultiHot20",
+    "category": "Slots",
+    "observedVersion": "v1.0.0"
+  },
+  "route": "/new-games72/multi-hot-20/",
+  "modulePath": "codex-work/new-games72-20261121/games/multi-hot-20",
+  "implementationStatus": "BOUNDED_CANDIDATE_EVALUATOR_ONLY",
+  "releaseReady": false,
+  "cashEnabled": false,
+  "backendEnabled": false,
+  "source": {
+    "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-20",
+    "officialDemo": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&PortalName=demo&Token=DEMO",
+    "captureDateUtc": "2026-11-21",
+    "checkpointDirectoryLabel": "20261122",
+    "directoryLabelIsNotCaptureDate": true,
+    "observer": "parent agent /root",
+    "analysisAuthor": "agent /root/catalog_references",
+    "viewport": {
+      "width": 1363,
+      "height": 936
+    },
+    "orientation": "landscape",
+    "publicDemoCurrency": "DMO",
+    "evidenceInventory": "evidence-index.json",
+    "captureFinalizedAt": "2026-11-21T21:49:20.162Z"
+  },
+  "sourceBindings": [
+    {
+      "path": "evidence/2026-11-21/paytable-020.jpg",
+      "sha256": "a1f32aece574aca5f9adf811d14fdd4e0e70fb310715fd29c97ce87fb0f93fd0",
+      "bytes": 68172,
+      "role": "Retained inconsistent first paint; explicitly excluded from numeric rules."
+    },
+    {
+      "path": "evidence/2026-11-21/paytable-preview-plus.jpg",
+      "sha256": "ec1d7ca9cdad6f644238d4158c8a139ce6aaf59304a8cb274a1c651c7debde12",
+      "bytes": 72490,
+      "role": "0.40 DMO preview confirms proportional high-symbol amounts."
+    },
+    {
+      "path": "evidence/2026-11-21/paytable-020-refreshed.jpg",
+      "sha256": "aedc2fb53347367eb6a61bb32d980a77819a51d343276840fbbdd79ac60e07de",
+      "bytes": 72580,
+      "role": "Bound 0.20 DMO refreshed high-symbol paytable."
+    },
+    {
+      "path": "evidence/2026-11-21/paytable-low-symbols.jpg",
+      "sha256": "ecf6da519160a1cf4533b17c53fe81cf4b96041ca67340e434a8c46d37fbc8fe",
+      "bytes": 76328,
+      "role": "Low-symbol 3/4/5 amounts and multiplier text from the same refreshed session."
+    },
+    {
+      "path": "evidence/2026-11-21/rules-lower-current.jpg",
+      "sha256": "94e2816e64985b7ac36f63abce6e94ee76743f0e9f180a71a8eb4854577b2b28",
+      "bytes": 85122,
+      "role": "Twenty numbered line paths and leftmost-adjacent rules."
+    },
+    {
+      "path": "evidence/2026-11-21/rtp-version-disconnection.jpg",
+      "sha256": "927a66ef543059e5044af3b00fd138e84242ea515eef05443ae994aed41014d4",
+      "bytes": 118342,
+      "role": "Reported demo version, limits, RTP, maximum, and disconnection prose."
+    },
+    {
+      "path": "evidence/2026-11-21/before-spin.jpg",
+      "sha256": "1c003450b773e4ea26ef821b06314118c184dd48d9224a8959e22fd43b4684e9",
+      "bytes": 136609,
+      "role": "Current game identity, layout, controls and reference viewport."
+    },
+    {
+      "path": "evidence/2026-11-21/controls-rules.jpg",
+      "sha256": "30a59de69d184307d87aa7979ac77cb1b6c2268d52728c72433b1d34f3e481b9",
+      "bytes": 67207,
+      "role": "Control descriptions only; not proof of every control action."
+    }
+  ],
+  "rules": {
+    "window": {
+      "rows": 3,
+      "reels": 5,
+      "orientation": "rows[row][reel]; row 0 is top and reel 0 is leftmost"
+    },
+    "symbols": [
+      "seven",
+      "bell",
+      "grapes",
+      "watermelon",
+      "lemon",
+      "plum",
+      "orange",
+      "cherry"
+    ],
+    "wildSubstitutionConfirmed": false,
+    "wildSubstitutionImplemented": false,
+    "matching": {
+      "direction": "LEFT_TO_RIGHT",
+      "mustStartAtLeftmostReel": true,
+      "adjacentReelsRequired": true,
+      "sameSymbolRequired": true,
+      "documentedMatchLengths": [
+        3,
+        4,
+        5
+      ],
+      "candidatePolicy": "Longest identical leftmost prefix per documented path; shorter nested prefixes are not separately returned."
+    },
+    "paylineChart": {
+      "mode": "CURRENT_DEMO_CHART_ONLY",
+      "count": 20,
+      "numberedPaths": [
+        {
+          "line": 1,
+          "rows": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "line": 2,
+          "rows": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "line": 3,
+          "rows": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "line": 4,
+          "rows": [
+            0,
+            1,
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "line": 5,
+          "rows": [
+            2,
+            1,
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "line": 6,
+          "rows": [
+            0,
+            0,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "line": 7,
+          "rows": [
+            2,
+            2,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "line": 8,
+          "rows": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "line": 9,
+          "rows": [
+            1,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "line": 10,
+          "rows": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "line": 11,
+          "rows": [
+            2,
+            1,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "line": 12,
+          "rows": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "line": 13,
+          "rows": [
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "line": 14,
+          "rows": [
+            0,
+            1,
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "line": 15,
+          "rows": [
+            2,
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "line": 16,
+          "rows": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "line": 17,
+          "rows": [
+            1,
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "line": 18,
+          "rows": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "line": 19,
+          "rows": [
+            2,
+            2,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "line": 20,
+          "rows": [
+            1,
+            2,
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "marketingCount": 100,
+      "countConflictResolved": false
+    },
+    "paytable": {
+      "referenceTotalBetMinor": 20,
+      "referenceCurrency": "DMO",
+      "minorUnitsPerDMO": 100,
+      "sourceState": "REFRESHED_AFTER_PREVIEW_PLUS_AND_MINUS",
+      "symbolAmountMinorAtReferenceBet": {
+        "seven": {
+          "3": 50,
+          "4": 400,
+          "5": 2000
+        },
+        "bell": {
+          "3": 20,
+          "4": 100,
+          "5": 200
+        },
+        "grapes": {
+          "3": 10,
+          "4": 50,
+          "5": 100
+        },
+        "watermelon": {
+          "3": 10,
+          "4": 50,
+          "5": 100
+        },
+        "lemon": {
+          "3": 5,
+          "4": 10,
+          "5": 50
+        },
+        "plum": {
+          "3": 5,
+          "4": 10,
+          "5": 50
+        },
+        "orange": {
+          "3": 5,
+          "4": 10,
+          "5": 50
+        },
+        "cherry": {
+          "3": 5,
+          "4": 10,
+          "5": 50
+        }
+      },
+      "additionalBoundPreviewTotalBetMinor": 40,
+      "scaling": "Use exact displayed amount / observed total-bet amount as a rational ratio, then apply the documented multiplier once. Do not apply a second line-count multiplication or division.",
+      "lineBetAllocationResolved": false,
+      "initialPaintRejected": true
+    },
+    "multiplier": {
+      "documentedValues": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "appliesTo": "Each candidate quote only; the final selection/aggregation is unresolved.",
+      "probabilitiesKnown": false,
+      "selectedByThisModule": false,
+      "placementConflict": "Written rules describe a left-side reel; this session shows the multiplier wheel above the reels."
+    },
+    "aggregation": {
+      "status": "UNRESOLVED",
+      "ambiguousSourcePhrase": "Highest payline wins are only paid",
+      "notImplemented": [
+        "Global highest candidate selection",
+        "Summation across line candidates",
+        "Operator settlement",
+        "Collection or gamble accounting"
+      ],
+      "returnedAggregatePayoutMinor": null
+    },
+    "arithmetic": {
+      "intermediateType": "BigInt",
+      "outputRational": "Reduced numerator/denominator decimal strings",
+      "exactMinor": "Safe integer only when denominator is one, otherwise null",
+      "rounding": "NONE; provider rounding stage and ETB policy unverified",
+      "overflow": "Reject any individually quoted amount above Number.MAX_SAFE_INTEGER minor units",
+      "betValidation": "Positive safe integer; does not enforce DMO bet limits as ETB policy"
+    },
+    "demoReportedMetadata": {
+      "minimumBetDMO": "0.20",
+      "maximumBetDMO": "200.00",
+      "reportedMaximumMultiplier": 1000,
+      "reportedRtpPercent": "96.63",
+      "version": "v1.0.0",
+      "independentlyCertified": false,
+      "appliesToNewEngine": false,
+      "etbOperatorPolicy": null
+    },
+    "maxComparison": {
+      "syntheticAllSevenWindowCandidateCount": 20,
+      "individualCandidateMultiplierAtFiveSevensAnd5x": "500",
+      "unrestrictedSumWouldBe": "10000x total bet",
+      "reportedDemoMaximum": "1000x",
+      "interpretation": "A hypothetical sum exceeds the reported maximum, but legal outcome constraints and aggregation are unknown. This is not evidence that all such windows are reachable or that the reported maximum is false. No aggregate is returned."
+    }
+  },
+  "observations": {
+    "initialManualReferenceRounds": 7,
+    "initialManualRoundWinsObserved": 0,
+    "fixture": "fixtures/observed-seven-rounds.json",
+    "finalDisplayedRoundOrdinal": 10,
+    "additionalControlTestRounds": 3,
+    "extraRoundAttribution": {
+      "automaticRounds": 2,
+      "mainControlClickAfterStopRequest": 1,
+      "evidence": "Final visible ordinal10, seven initial manual rounds, AUTO start/stop and later 0.40 DMO debit on attempted STOP; attribution inferred from action sequence."
+    },
+    "additionalWinningOutcomesFullyCaptured": false,
+    "bonusNotObservedIsNotProofOfAbsence": true,
+    "pressedFramesForInitialSeven": 6,
+    "transitionFrameSamples": 4,
+    "transitionSampleRound": "spin-05",
+    "videoCaptured": false,
+    "soundRecorded": false,
+    "audibleOutputVerified": false,
+    "durationFromObservationTimestampsInferred": false
+  },
+  "files": {
+    "evaluator": "evaluator.mjs",
+    "tests": "evaluator.test.mjs",
+    "controlStateSpecification": "controls-state-spec.json",
+    "assetsManifest": "assets-manifest.json",
+    "freshReferenceReport": "fresh-reference-report.md"
+  },
+  "unresolvedGates": [
+    "Resolve 20-line demo chart versus 100-line marketing text for this exact variant.",
+    "Resolve highest-payline aggregation and exact settlement/rounding policy.",
+    "Obtain the legal outcome model, symbol distribution and multiplier probabilities; no RNG or RTP is invented.",
+    "Bind genuine per-symbol/background/control assets and verified audio files/events; reference screenshots are not renderer assets.",
+    "Capture complete motion/stop order/win presentation and test missing controls/mobile/keyboard states.",
+    "Define operator ETB bet limits through the existing system rather than importing DMO demo limits.",
+    "Integrate only after approved release gates; current evaluator has no wallet, session, API or production route wiring."
+  ]
+}

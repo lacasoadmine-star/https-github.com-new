@@ -1,0 +1,136 @@
+TAP version 13
+# Subtest: candidate differs only by tracking pending state reads and skipping overlapping quiet polls
+ok 1 - candidate differs only by tracking pending state reads and skipping overlapping quiet polls
+  ---
+  duration_ms: 4.638654
+  type: 'test'
+  ...
+# Subtest: successful states slower than the 1200ms poll connect instead of being discarded forever
+not ok 2 - successful states slower than the 1200ms poll connect instead of being discarded forever
+  ---
+  duration_ms: 7.358613
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121/state-polling.test.mjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121/state-polling.test.mjs:16:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: the real state shape needs no authenticated flag to connect
+ok 3 - the real state shape needs no authenticated flag to connect
+  ---
+  duration_ms: 35.711748
+  type: 'test'
+  ...
+# Subtest: quiet refresh during a pending state does not invalidate the pending result
+not ok 4 - quiet refresh during a pending state does not invalidate the pending result
+  ---
+  duration_ms: 1.732405
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121/state-polling.test.mjs:37:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    2 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121/state-polling.test.mjs:43:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: manual refresh retains latest-response ordering when it supersedes a pending read
+ok 5 - manual refresh retains latest-response ordering when it supersedes a pending read
+  ---
+  duration_ms: 1.560646
+  type: 'test'
+  ...
+# Subtest: a fresh after-action read is not blocked by a stale pending pre-action read
+ok 6 - a fresh after-action read is not blocked by a stale pending pre-action read
+  ---
+  duration_ms: 2.460039
+  type: 'test'
+  ...
+# Subtest: timed-out state read releases the poll guard so a later refresh can recover
+ok 7 - timed-out state read releases the poll guard so a later refresh can recover
+  ---
+  duration_ms: 2.295121
+  type: 'test'
+  ...
+# Subtest: stale completion cannot release another pending read guard
+not ok 8 - stale completion cannot release another pending read guard
+  ---
+  duration_ms: 2.46743
+  type: 'test'
+  location: '/workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121/state-polling.test.mjs:89:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/67bd48054f9d/zplay/codex-work/live-balloon-state-fix-20261121/state-polling.test.mjs:95:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: 401 and 403 state failures keep controls closed and do not create authentication
+ok 9 - 401 and 403 state failures keep controls closed and do not create authentication
+  ---
+  duration_ms: 8.431145
+  type: 'test'
+  ...
+# Subtest: invalid game identity, currency or session in a 200 response leaves play closed
+ok 10 - invalid game identity, currency or session in a 200 response leaves play closed
+  ---
+  duration_ms: 7.633647
+  type: 'test'
+  ...
+# Subtest: HTTP and parse failures release the guard and a manual Refresh retries correctly
+ok 11 - HTTP and parse failures release the guard and a manual Refresh retries correctly
+  ---
+  duration_ms: 8.502242
+  type: 'test'
+  ...
+# Subtest: ordinary quiet reads remain blocked during an action
+ok 12 - ordinary quiet reads remain blocked during an action
+  ---
+  duration_ms: 1.81562
+  type: 'test'
+  ...
+# Subtest: current 1–40000 ETB stake controls and wager-profile mismatch guard are preserved
+ok 13 - current 1–40000 ETB stake controls and wager-profile mismatch guard are preserved
+  ---
+  duration_ms: 2.736545
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 10
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 220.755873

@@ -1,0 +1,145 @@
+{
+  "schema": "zplay/live-library-transport-verification/v1",
+  "recordedAt": "2026-11-21T21:28:41.742120+00:00",
+  "runtime": "v24.22.3",
+  "nodeExecutable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+  "results": {
+    "baseline": {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "transport.test.mjs"
+      ],
+      "environment": {
+        "TRANSPORT_REVIEW_BASELINE": "1"
+      },
+      "counts": {
+        "tests": 18,
+        "pass": 9,
+        "fail": 9,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "tap": "baseline-tests.tap",
+      "tapPin": {
+        "bytes": 10207,
+        "sha256": "fe7d91fee69112adbbcdb3bdc12420e64c495626324fd03c70a23277a61f4942"
+      }
+    },
+    "candidate": {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "transport.test.mjs"
+      ],
+      "environment": {},
+      "counts": {
+        "tests": 18,
+        "pass": 18,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "tap": "candidate-tests.tap",
+      "tapPin": {
+        "bytes": 4076,
+        "sha256": "f2c1687cb10c292d67e9a66555ffa09679b402864e0a357a18717a75135856b9"
+      }
+    }
+  },
+  "cloudflareRuntimeProof": {
+    "constructor": "evidence/cloudflare-request-constructor.json",
+    "pinnedRouteBodies": "evidence/cloudflare-route-fixture.json",
+    "realNetworkRequests": 0,
+    "productionRequests": 0,
+    "productionWagers": 0
+  },
+  "sourcePins": {
+    "README.md": {
+      "bytes": 6296,
+      "sha256": "295c4c8d6d83fcca049349170d3106c0721fbf6eb2ca36fefdbc5f1fb4dfc03d"
+    },
+    "balloon-worker-20261108.mjs.patch": {
+      "bytes": 1507,
+      "sha256": "b625e6157fc81423ad79d2377573ee4b92de1a6d968991ea2fd075b24222397a"
+    },
+    "baseline/balloon-worker-20261108.mjs": {
+      "bytes": 8105,
+      "sha256": "0a28ca4a593bc4925d11d18e468e44cf51dc2b4021677504da91bef9f5f02aca"
+    },
+    "baseline/expansion-worker-20261108-fetch-fix.mjs": {
+      "bytes": 9513,
+      "sha256": "d348ec638ddfae3a676a340c157eecc01971b5bb6a6e04b9b50a92e5148c1cec"
+    },
+    "baseline-tests.tap": {
+      "bytes": 10207,
+      "sha256": "fe7d91fee69112adbbcdb3bdc12420e64c495626324fd03c70a23277a61f4942"
+    },
+    "candidate/balloon-worker-20261108.mjs": {
+      "bytes": 8339,
+      "sha256": "497606663471e6ffafcdebbbdf2263f49321a3e7ddaad8db71b9196ec65d3ec6"
+    },
+    "candidate/expansion-worker-20261108-fetch-fix.mjs": {
+      "bytes": 9747,
+      "sha256": "4fccd64669136c2bfbe74454b627b6ae06fbc2c9a061147e770702230a1fc279"
+    },
+    "candidate-tests.tap": {
+      "bytes": 4076,
+      "sha256": "f2c1687cb10c292d67e9a66555ffa09679b402864e0a357a18717a75135856b9"
+    },
+    "deployment-plan.json": {
+      "bytes": 2778,
+      "sha256": "e8acd4e8a1708a4cecd5eec02aeb90430b2e77576cb71806209a90adbedebf7c"
+    },
+    "deployment-result.json": {
+      "bytes": 844,
+      "sha256": "3f0d95996eb96cef29c5cc57fd2e4263eae8a03f011a657035fcd6e5275e0417"
+    },
+    "evidence/cloudflare-request-constructor.json": {
+      "bytes": 714,
+      "sha256": "8be4735622dee263342a3e70ad41c2c61c4c84f88d230b8061681fbc222098e6"
+    },
+    "evidence/cloudflare-route-fixture.json": {
+      "bytes": 1725,
+      "sha256": "35b3ce5c5ab689334cafa36ee5a741252b89717b0bb7d149125b716c82d02863"
+    },
+    "evidence/official-reference.json": {
+      "bytes": 673,
+      "sha256": "8c8f2a1f26b12ef7da25c5e67d9b70103de411a11877604c34629383b445fa03"
+    },
+    "expansion-worker-20261108-fetch-fix.mjs.patch": {
+      "bytes": 1578,
+      "sha256": "2fb5cc1660908534c2f72c4fa37b47e9d9e4080e2e6b7b2a2bed1ebaf24babbc"
+    },
+    "fixture.mjs": {
+      "bytes": 7818,
+      "sha256": "2d40c955342e7e3ad637b1a4477606ba8390cefd9484bc15293baa7292a7ff4c"
+    },
+    "post-deploy-module-verification.json": {
+      "bytes": 321,
+      "sha256": "1bd3bd83bb850d8444b6b6eb9fa85a476fb75907e63faf8fa2c8e46c8ebf68fe"
+    },
+    "transport.test.mjs": {
+      "bytes": 10425,
+      "sha256": "38a4ca1892e5795c5d4e6e2c0845d38e475e92aff81d1d71cdef72721fc053ab"
+    }
+  },
+  "scope": "Existing API transport only, no new games",
+  "deployed": true,
+  "limitations": [
+    "Transport is live and Multi Hot40 connected; complete Balloon UI recovery is a separate fix.",
+    "No production spin or financial settlement was performed.",
+    "Node fixtures use the constructor constraint observed in Cloudflare; the Cloudflare route fixture also passed.",
+    "All fixture identities and engine responses are synthetic."
+  ],
+  "deploymentResult": "deployment-result.json",
+  "metadataUpdatedAt": "2026-11-21T22:05:09.841892+00:00",
+  "testsRerunForMetadataUpdate": false,
+  "retainedInPlayerVersion": "8e07dd15-edb8-408e-b9fd-6fcabc25687b",
+  "retainedInPlayerVersionNumber": 466,
+  "retainedVersionEvidence": "../live-balloon-state-fix-20261121/deployment/result.json"
+}

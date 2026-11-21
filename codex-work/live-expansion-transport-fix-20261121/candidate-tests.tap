@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: pinned candidates change only redirect mode and explicit redirect rejection
+ok 1 - pinned candidates change only redirect mode and explicit redirect rejection
+  ---
+  duration_ms: 1.720308
+  type: 'test'
+  ...
+# Subtest: recorded Workers constructor constraint rejects error and accepts manual
+ok 2 - recorded Workers constructor constraint rejects error and accepts manual
+  ---
+  duration_ms: 1.206596
+  type: 'test'
+  ...
+# Subtest: retained signer matches deterministic HMAC without changing authentication
+ok 3 - retained signer matches deterministic HMAC without changing authentication
+  ---
+  duration_ms: 13.494086
+  type: 'test'
+  ...
+# Subtest: expansion: authenticated state makes one correctly signed request and returns the current state
+ok 4 - expansion: authenticated state makes one correctly signed request and returns the current state
+  ---
+  duration_ms: 8.004134
+  type: 'test'
+  ...
+# Subtest: balloon: authenticated state makes one correctly signed request and returns the current state
+ok 5 - balloon: authenticated state makes one correctly signed request and returns the current state
+  ---
+  duration_ms: 5.699657
+  type: 'test'
+  ...
+# Subtest: expansion history preserves game, sort, signature and single-call behavior
+ok 6 - expansion history preserves game, sort, signature and single-call behavior
+  ---
+  duration_ms: 3.132224
+  type: 'test'
+  ...
+# Subtest: both action routes preserve exact request body and never replay or place another request
+ok 7 - both action routes preserve exact request body and never replay or place another request
+  ---
+  duration_ms: 6.596417
+  type: 'test'
+  ...
+# Subtest: both routes reject every 3xx without following Location or exposing redirect content
+ok 8 - both routes reject every 3xx without following Location or exposing redirect content
+  ---
+  duration_ms: 46.591599
+  type: 'test'
+  ...
+# Subtest: redirect body cancellation failure cannot conceal the explicit no-store failure
+ok 9 - redirect body cancellation failure cannot conceal the explicit no-store failure
+  ---
+  duration_ms: 5.0302
+  type: 'test'
+  ...
+# Subtest: network errors retain the same retry response with no second attempt
+ok 10 - network errors retain the same retry response with no second attempt
+  ---
+  duration_ms: 8.32709
+  type: 'test'
+  ...
+# Subtest: ordinary upstream JSON errors retain original status and payload
+ok 11 - ordinary upstream JSON errors retain original status and payload
+  ---
+  duration_ms: 8.172227
+  type: 'test'
+  ...
+# Subtest: non-JSON upstream response remains an explicit engine response error
+ok 12 - non-JSON upstream response remains an explicit engine response error
+  ---
+  duration_ms: 10.050704
+  type: 'test'
+  ...
+# Subtest: anonymous requests remain unauthorized without contacting identity or engine
+ok 13 - anonymous requests remain unauthorized without contacting identity or engine
+  ---
+  duration_ms: 27.785271
+  type: 'test'
+  ...
+# Subtest: identity rejection is preserved and never reaches engine
+ok 14 - identity rejection is preserved and never reaches engine
+  ---
+  duration_ms: 5.956292
+  type: 'test'
+  ...
+# Subtest: wrong origin or changed library session still prevents actions
+ok 15 - wrong origin or changed library session still prevents actions
+  ---
+  duration_ms: 15.807086
+  type: 'test'
+  ...
+# Subtest: oversized and malformed actions retain existing rejection before engine access
+ok 16 - oversized and malformed actions retain existing rejection before engine access
+  ---
+  duration_ms: 11.23062
+  type: 'test'
+  ...
+# Subtest: wrong methods, invalid game and invalid history sort remain rejected
+ok 17 - wrong methods, invalid game and invalid history sort remain rejected
+  ---
+  duration_ms: 12.014098
+  type: 'test'
+  ...
+# Subtest: other portal and unrelated legacy paths delegate unchanged
+ok 18 - other portal and unrelated legacy paths delegate unchanged
+  ---
+  duration_ms: 4.714875
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 283.483045

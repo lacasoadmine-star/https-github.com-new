@@ -1,0 +1,10 @@
+{
+  "schema": "zplay/runtime-reference/v1",
+  "recordedAt": "2026-11-21T21:28:41.742120+00:00",
+  "url": "https://developers.cloudflare.com/workers/runtime-apis/request/",
+  "displayedLastUpdated": "2026-11-18",
+  "verifiedSection": "Constructor > options > redirect; Properties > redirect",
+  "finding": "Cloudflare Workers accepts follow or manual. The error redirect mode throws during Request construction before a network request. Manual mode allows explicit status-based redirect refusal.",
+  "independentRuntimeProof": "cloudflare-request-constructor.json",
+  "appliedScope": "Existing signed library API transport only; no game rule or probability specification"
+}
