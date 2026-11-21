@@ -167,5 +167,27 @@
     "Actual live menu/rules interactive"
   ],
   "result": "PASS",
-  "verifiedAt": "2026-11-20T23:27:16.280Z"
+  "verifiedAt": "2026-11-20T23:27:16.280Z",
+  "preservedRoutes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "ZPLAY.net"
+    },
+    {
+      "path": "/games/foxy_hot_20_native",
+      "status": 200,
+      "title": "Foxy Hot 20 \u00b7 ZPLAY"
+    },
+    {
+      "path": "/games/multi_hot_5_native",
+      "status": 200,
+      "title": "Multi Hot 5 \u00b7 ZPLAY"
+    },
+    {
+      "path": "/api/expansion/state?game_id=multihot40_native",
+      "status": 401
+    }
+  ],
+  "verificationClient": "Chromium page.goto; raw urllib returned403 even for baseline routes and was not treated as production downtime."
 }

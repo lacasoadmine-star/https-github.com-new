@@ -1,0 +1,177 @@
+{
+  "scope": "Real public route, no module overrides, unauthenticated, all mutations blocked",
+  "release": "zplay-multihot40-20261121-r4",
+  "version": "fb87068c-5e84-4af1-b43c-5465ad10c300",
+  "screenshots": [
+    "live-360.png",
+    "live-390.png",
+    "live-412.png",
+    "live-quick-play.png"
+  ],
+  "modules": [
+    {
+      "path": "/zplay-fixes/mh40-20261117/multihot40-app.mjs",
+      "status": 200,
+      "sha256": "5c214bbbc4ccc4b693a3cabf14413a151e805e2def2695761bed8de71373279c",
+      "size": 30153,
+      "release": "zplay-multihot40-20261121-r4"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-presentation.mjs",
+      "status": 200,
+      "sha256": "86454f714f1d9acc2caab813b2b514d8b79244fa7ee6daeeef3a9a3abe8215f1",
+      "size": 32612,
+      "release": "zplay-multihot40-20261121-r4"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/multihot40-motion.mjs",
+      "status": 200,
+      "sha256": "7bac01612a353934401f9b0289fdf9ad8db22fc4a39b88045446aa6719c0321b",
+      "size": 11762,
+      "release": "zplay-multihot40-20261121-r4"
+    }
+  ],
+  "apiStates": [
+    401
+  ],
+  "pageErrors": [],
+  "blockedMutations": [
+    "/_player/presence"
+  ],
+  "checks": [
+    "Live route loaded verified original artwork and new source modules",
+    {
+      "width": 360,
+      "rects": {
+        "menu": {
+          "width": 44,
+          "height": 44,
+          "x": 0,
+          "y": 793.8125
+        },
+        "sound": {
+          "width": 44,
+          "height": 44,
+          "x": 316,
+          "y": 793.8125
+        },
+        "turbo": {
+          "width": 44,
+          "height": 44,
+          "x": 241.921875,
+          "y": 653.09375
+        },
+        "spin": {
+          "width": 113.859375,
+          "height": 113.859375,
+          "x": 123.0625,
+          "y": 672.046875
+        },
+        "auto": {
+          "width": 55.203125,
+          "height": 55.203125,
+          "x": 62.671875,
+          "y": 703.09375
+        },
+        "bet": {
+          "width": 55.203125,
+          "height": 55.203125,
+          "x": 243.828125,
+          "y": 703.09375
+        }
+      }
+    },
+    {
+      "width": 390,
+      "rects": {
+        "menu": {
+          "width": 44.84375,
+          "height": 44.84375,
+          "x": 0,
+          "y": 791.03125
+        },
+        "sound": {
+          "width": 44.84375,
+          "height": 44.84375,
+          "x": 345.140625,
+          "y": 791.03125
+        },
+        "turbo": {
+          "width": 44,
+          "height": 44,
+          "x": 261.671875,
+          "y": 641.359375
+        },
+        "spin": {
+          "width": 123.34375,
+          "height": 123.34375,
+          "x": 133.3125,
+          "y": 657.71875
+        },
+        "auto": {
+          "width": 59.796875,
+          "height": 59.796875,
+          "x": 67.90625,
+          "y": 691.359375
+        },
+        "bet": {
+          "width": 59.796875,
+          "height": 59.796875,
+          "x": 264.140625,
+          "y": 691.359375
+        }
+      }
+    },
+    {
+      "width": 412,
+      "rects": {
+        "menu": {
+          "width": 46.234375,
+          "height": 46.234375,
+          "x": 4.953125,
+          "y": 789.390625
+        },
+        "sound": {
+          "width": 46.234375,
+          "height": 46.234375,
+          "x": 360.796875,
+          "y": 789.390625
+        },
+        "turbo": {
+          "width": 44,
+          "height": 44,
+          "x": 274.578125,
+          "y": 636.625
+        },
+        "spin": {
+          "width": 127.171875,
+          "height": 127.171875,
+          "x": 142.40625,
+          "y": 651.9375
+        },
+        "auto": {
+          "width": 61.65625,
+          "height": 61.65625,
+          "x": 74.953125,
+          "y": 686.625
+        },
+        "bet": {
+          "width": 61.65625,
+          "height": 61.65625,
+          "x": 277.28125,
+          "y": 686.625
+        }
+      }
+    },
+    "Actual live QUICK PLAY consent and NO/ENABLE/toggle behavior verified",
+    "Actual live menu/rules interactive",
+    "Actual live official NICE WIN MP3 matches locked SHA256"
+  ],
+  "audio": {
+    "path": "/native-library/reference-art/r1/smartsoft/assets/78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe.mp3",
+    "sha256": "78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe",
+    "size": 235773
+  },
+  "result": "PASS",
+  "verifiedAt": "2026-11-21T00:01:55.848Z"
+}

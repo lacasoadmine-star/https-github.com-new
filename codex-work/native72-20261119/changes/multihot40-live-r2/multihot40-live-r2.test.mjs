@@ -150,6 +150,17 @@ test('losing wheels stay silent and turbo settles with its single fast cue',asyn
  assert.deepEqual(played,['Start/ObjectMoveFast.mp3']);
 });
 
+test('fresh official NICE WIN recording is an isolated hash-pinned manifest addition',async()=>{
+ const source=await readFile(new URL('./multihot40-presentation.mjs',import.meta.url),'utf8');
+ const code=source.slice(source.indexOf('export function withVerifiedNiceWin('),source.indexOf('\nclass MachineAudio')).replace('export function','function');
+ const context=vm.createContext({});vm.runInContext(code,context);
+ const original={id:'multihot40_native',files:{old:{sha256:'retained'}},audio:{old:{file:'old'}}};
+ const next=context.withVerifiedNiceWin(original),item=next.audio['Win/NiceWin.mp3'];
+ assert.equal(item.sha256,'78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe');
+ assert.equal(next.files[item.file].bytes,235773);assert.equal(original.audio['Win/NiceWin.mp3'],undefined);
+ assert.equal(next.files.old,original.files.old);assert.throws(()=>context.withVerifiedNiceWin({id:'other_game'}),/Wrong game/);
+});
+
 
 // Execute the actual Play Now application with its existing imports replaced by
 // non-wagering DOM/session doubles. No network or synthetic wallet is attached.

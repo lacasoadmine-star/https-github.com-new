@@ -39,7 +39,8 @@
     "2026-11-21: Server math and sw_nine PostgreSQL adapter hardening committed on original work branch. Burn FoundationBet=2 invalid stake 1.05 ETB now fails before transaction; replayOnly uses persisted original ledger receipt even when operator profile store throws. Executed local Node v22.16.0: 30 tests passed, zero failed; 4 source/test syntax checks passed. No production deployment, real ETB wagers or live PostgreSQL mutations. Profile math RTP/strips/weights certification and E2E Player settlement remain required.",
     "2026-11-21 continuation: Multi Hot 40 actual app blur stops AUTO/hold and blocks new starts without interrupting submitted-round confirmation; separate controller restores pending stake and cancels background preflight. Existing adapter now requires active-game and account-limit hooks. Local first-ten suite 278/278 on Node 24.22.3 and 22.23.5, server 32/32, real disposable PostgreSQL 16/16. These new source changes are not repinned to KV or deployed; no completion/production gate changed.",
     "2026-11-21 remote CI VERIFIED: source commit 50a072b6150bb51478912ecf7a4d3b13ee548e33, GitHub Actions run 44831865507 completed success. Both native72-unit (278 tests) and native72-postgres (16 tests, PostgreSQL 17.12) passed on Node22.23.5. This clears source-CI uncertainty, not math certification, production schema, live settlement, audio/graphics parity or deployment gates.",
-    "2026-11-21 actual MH40 r3 presentation-only release deployed to existing superwin-player (version546d9322-fba0-4d83-b5ab-ed134747618d, deploymentea65e044-a3f7-440a-8d06-aafa7b605a07). Preserved18 bindings/compatibility, used active v457 entry as previous handler, retained399 modules and added2 isolated modules. All3 source KV bytes SHA/size-readback verified. Real public route passed original artwork load, exact module hashes,44px targets360/390/412,Quick Play consent and rules. Auth remains401 without Player login; no live ETB wager or settlement claimed.289 local source tests and10 browser-intercept checks passed; math/financial APIs unchanged."
+    "2026-11-21 actual MH40 r3 presentation-only release deployed to existing superwin-player (version546d9322-fba0-4d83-b5ab-ed134747618d, deploymentea65e044-a3f7-440a-8d06-aafa7b605a07). Preserved18 bindings/compatibility, used active v457 entry as previous handler, retained399 modules and added2 isolated modules. All3 source KV bytes SHA/size-readback verified. Real public route passed original artwork load, exact module hashes,44px targets360/390/412,Quick Play consent and rules. Auth remains401 without Player login; no live ETB wager or settlement claimed.289 local source tests and10 browser-intercept checks passed; math/financial APIs unchanged.",
+    "2026-11-21 MH40 r4 actually deployed: locked original NICE WIN, fresh original positive DMO win capture and arithmetic verifier,296 local source tests,11 browser-intercept checks and actual public source/audio hashes pass. Existing financial endpoints and all18 bindings preserved; zero real ETB wagers. Current user authorizes own independent operator math for M20/Burn without claiming private provider distribution reproduction."
   ],
   "entries": [
     {
@@ -70,7 +71,13 @@
         "live_quick_play_consent_every_enable",
         "original_WebAudio_buffers_observed",
         "loading_body_abort_retry_sessionStorage_preserved",
-        "node22_289_local_tests_passed"
+        "node22_289_local_tests_passed",
+        "GitHub_Actions_44838538469_305_passed_source_de2abc7",
+        "mh40_r4_live_deployed_fb87068c",
+        "fresh_original_positive_win_and_nice_audio_hash",
+        "reference_win_arithmetic_1_80_times_4_equals_7_20",
+        "browser_intercept_double_collect_one_credit",
+        "live_original_nice_mp3_sha256_verified"
       ],
       "remainingGates": [
         "operator_paytable_math_not_verified",
@@ -82,15 +89,15 @@
       "latestStatus": "FIXED_PENDING_TEST",
       "latestLocalQA": {
         "mh40R3TestsPassed": 22,
-        "workflowTestsPassed": 289,
+        "workflowTestsPassed": 296,
         "liveDeployed": true,
-        "release": "zplay-multihot40-20261121-r3",
-        "version": "546d9322-fba0-4d83-b5ab-ed134747618d",
-        "deploymentId": "ea65e044-a3f7-440a-8d06-aafa7b605a07",
+        "release": "zplay-multihot40-20261121-r4",
+        "version": "fb87068c-5e84-4af1-b43c-5465ad10c300",
+        "deploymentId": "e7490d6b-a118-4965-af2f-96fc539cb6ab",
         "liveMinimumTouchTargetCssPx": 44,
         "soundAndFullParityVerified": false,
         "realETBWagers": 0,
-        "evidence": "../../qa/evidence/mh40-r3/deployment.json"
+        "evidence": "../../qa/evidence/mh40-r4/deployment.json"
       }
     },
     {
@@ -728,13 +735,26 @@
   },
   "presentationRelease": {
     "gamePosition": 1,
-    "release": "zplay-multihot40-20261121-r3",
+    "release": "zplay-multihot40-20261121-r4",
     "liveDeployed": true,
-    "version": "546d9322-fba0-4d83-b5ab-ed134747618d",
-    "deploymentId": "ea65e044-a3f7-440a-8d06-aafa7b605a07",
+    "version": "fb87068c-5e84-4af1-b43c-5465ad10c300",
+    "deploymentId": "e7490d6b-a118-4965-af2f-96fc539cb6ab",
     "bindingsPreserved": 18,
     "mathChanged": false,
     "realETBWagers": 0,
-    "fullBatchComplete": false
+    "fullBatchComplete": false,
+    "priorSourceCI": {
+      "sourceCommit": "de2abc753722bcd819f1f99ae3e81bf3c79627bf",
+      "runId": 44838538469,
+      "url": "https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44838538469",
+      "conclusion": "success",
+      "nodeVersion": "22.23.5",
+      "unitPassed": 289,
+      "postgresPassed": 16,
+      "totalPassed": 305,
+      "failed": 0,
+      "liveETBWagers": 0
+    },
+    "currentSourceCI": "pending_actual_run"
   }
 }

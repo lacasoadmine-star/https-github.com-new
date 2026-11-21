@@ -21,13 +21,16 @@ const sourceDir=__dirname;
  const context=await browser.newContext({viewport:{width:1440,height:900}});
  const page=await context.newPage();
  const report={scope:'Browser network-intercept QA with existing live assets; no live Player session, ETB debit or settlement',route:ORIGIN+'/games/'+ID,startedAt:new Date().toISOString(),checks:[],screenshots:[],actions:[],forwardedMutationRequests:[],blockedMutationRequests:[],pageErrors:[],assetReads:[],sourceHashes:{}};
- let config=null,round=null,balance='100.00',launchable=true,releaseAction=null,actionDelay=false,failConfig=false;
+ let config=null,round=null,balance='100.00',launchable=true,releaseAction=null,actionDelay=false,failConfig=false,winningFixture=false;
+ const observedWin=JSON.parse(await fs.readFile(path.join(sourceDir,'../../qa/evidence/mh40-r4/official-win.json'),'utf8')).win;
+ const decimal=n=>`${n/100n}.${String(n%100n).padStart(2,'0')}`;
  const cache=new Map();
  const app=await fs.readFile(path.join(sourceDir,'multihot40-app.mjs'),'utf8');
  const overrides=new Map([
  ['/zplay-fixes/mh40-20261117/multihot40-app.mjs',app.replace(/void boot\(\);\s*$/,`globalThis.__mh40qa={events:[],audioEvents:[],installAudioSpy:()=>{const audio=presenter.audio,play=audio.play.bind(audio);audio.play=(key,options={})=>{const result=play(key,options);globalThis.__mh40qa.audioEvents.push({key,loop:options.loop===true,played:result!==null,time:performance.now()});return result;};},snapshot:()=>({state,operation,visualBusy,auto:auto.snapshot(),holdActive:hold?.active,motion:{phase:presenter.motion.phase,grid:presenter.motion.grid,multiplier:presenter.motion.multiplier,reelStopped:presenter.motion.reelStopped},audio:{hidden:presenter.audio?.hidden,effects:presenter.audio?.effects,music:presenter.audio?.music,buffers:presenter.audio?.buffers.size,contextState:presenter.audio?.context?.state,nodes:presenter.audio?.nodes.size}}),refresh:()=>session.refresh({quiet:true}),start:()=>doStart()};const qaEvent=presenter.event.bind(presenter);presenter.event=event=>{globalThis.__mh40qa.events.push({...event,time:performance.now()});qaEvent(event);};void boot();`)],
  [PREFIX+'multihot40-presentation.mjs',await fs.readFile(path.join(sourceDir,'multihot40-presentation.mjs'),'utf8')],
  [PREFIX+'presentation/multihot40-motion.mjs',await fs.readFile(path.join(sourceDir,'multihot40-motion.mjs'),'utf8')],
+ ['/native-library/reference-art/r1/smartsoft/assets/78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe.mp3',await fs.readFile(path.join(sourceDir,'assets/nice-win.mp3'))],
  ]);
  for(const [url,body] of overrides)report.sourceHashes[url]=crypto.createHash('sha256').update(body).digest('hex');
  report.productionAppSourceSha256=crypto.createHash('sha256').update(app).digest('hex');
@@ -37,14 +40,31 @@ const sourceDir=__dirname;
   try{
   const request=route.request(),url=new URL(request.url());
   if(url.origin!==ORIGIN){if(!['GET','HEAD','OPTIONS'].includes(request.method())){report.blockedMutationRequests.push(url.origin+url.pathname);return route.abort();}return route.continue();}
-  if(overrides.has(url.pathname))return route.fulfill({status:200,contentType:'application/javascript; charset=utf-8',body:overrides.get(url.pathname)});
+  if(overrides.has(url.pathname))return route.fulfill({status:200,contentType:url.pathname.endsWith('.mp3')?'audio/mpeg':'application/javascript; charset=utf-8',body:overrides.get(url.pathname)});
   if(url.pathname==='/api/expansion/state')return route.fulfill({json:state()});
   if(url.pathname==='/api/expansion/action'){
    const body=request.postDataJSON();report.actions.push(body);
-   assert.equal(body.game_id,ID);assert.equal(body.type,'start');
+   assert.equal(body.game_id,ID);
+   if(body.type==='action'){
+    assert.equal(body.action,'collect');assert.equal(round?.status,'active');assert.equal(body.round_id,round.round_id);
+    balance=decimal(BigInt(balance.replace('.',''))+BigInt(round.currentCashoutMinor));
+    round={...round,status:'settled',version:round.version+1,payoutMinor:round.currentCashoutMinor,actions:[]};
+    return route.fulfill({json:{...state(),status:'SUCCESS',request_id:body.request_id,game_id:ID,replayed:false}});
+   }
+   assert.equal(body.type,'start');
    if(actionDelay)await new Promise(resolve=>{releaseAction=resolve;});
    round={game_id:ID,round_id:crypto.randomUUID(),model_version:config.version,status:'settled',version:1,stakeMinor:String(BigInt(body.stake.replace('.',''))),payoutMinor:'0',grid:FINAL_GRID,wins:[],feature:{multiplier:1},actions:[]};
-   balance=(100-report.actions.length).toFixed(2);
+   const stake=BigInt(body.stake.replace('.',''));
+   balance=decimal(BigInt(balance.replace('.',''))-stake);
+   if(winningFixture){
+    // Original DMO receipt normalized to the requested QA stake. This is only
+    // the intercepted server fixture, never production payout calculation.
+    const payout=BigInt(observedWin.TotalWin)*stake/BigInt(observedWin.LinePlay*observedWin.BetPerLine);
+    round={...round,status:'active',currentCashoutMinor:String(payout),baseWinMinor:String(payout/BigInt(observedWin.Multiplier)),
+     feature:{multiplier:observedWin.Multiplier},actions:['collect','gamble'],
+     grid:Array.from({length:5},(_,col)=>Array.from({length:4},(_,row)=>observedWin.Baraban[row*5+col])),
+     wins:observedWin.WinLinesStrips.map(line=>({line:line.LineNumber+1,symbol:line.Strip,cells:line.Indexes.map(index=>[index%5,Math.floor(index/5)]),payoutMinor:String(BigInt(line.Win)*stake*BigInt(observedWin.Multiplier)/BigInt(observedWin.LinePlay*observedWin.BetPerLine))}))};
+   }
    return route.fulfill({json:{...state(),status:'SUCCESS',request_id:body.request_id,game_id:ID,replayed:false}});
   }
   if(!['GET','HEAD','OPTIONS'].includes(request.method())){report.blockedMutationRequests.push(url.pathname);return route.abort();}
@@ -146,6 +166,22 @@ const sourceDir=__dirname;
   assert.equal(await page.evaluate(()=>sessionStorage.getItem('qa-loader-pending-marker')),'retain-original-token');
   assert.equal(report.actions.length,count);assert.equal(await page.locator('#spin').isDisabled(),true);
   report.checks.push('Aborted configuration load exposed Retry loading; retry reloaded verified assets, preserved sessionStorage and sent no new wager');
+  winningFixture=true;launchable=true;await page.evaluate(()=>globalThis.__mh40qa.refresh());
+  await page.locator('#sound').click();await page.waitForFunction(()=>globalThis.__mh40qa.snapshot().audio.contextState==='running');
+  await page.evaluate(()=>globalThis.__mh40qa.installAudioSpy());
+  const beforeWinActions=report.actions.length;
+  await page.locator('#spin').click();
+  await page.waitForFunction(()=>globalThis.__mh40qa.audioEvents.some(event=>event.key==='Win/NiceWin.mp3'&&event.played));
+  const winAudio=await page.evaluate(()=>globalThis.__mh40qa.audioEvents.find(event=>event.key==='Win/NiceWin.mp3'));
+  assert.equal(winAudio.loop,false);report.niceWinAudio=winAudio;
+  assert.equal(await page.evaluate(()=>globalThis.__mh40qa.snapshot().state.balance),'97.00');
+  await page.screenshot({path:path.join(output,'mh40-nice-win.png')});report.screenshots.push('mh40-nice-win.png');
+  await page.waitForFunction(()=>!globalThis.__mh40qa.snapshot().visualBusy);
+  await page.evaluate(()=>{document.querySelector('#collect').click();document.querySelector('#collect').click();});
+  await page.waitForFunction(()=>globalThis.__mh40qa.snapshot().state.round?.status==='settled'&&!globalThis.__mh40qa.snapshot().state.busy);
+  assert.equal(report.actions.length,beforeWinActions+2);
+  assert.equal(await page.evaluate(()=>globalThis.__mh40qa.snapshot().state.balance),'115.00');
+  report.checks.push('Original positive receipt drove NICE WIN and verified audio; active win credited only after one double-click-safe collect action');
   assert.deepEqual(report.pageErrors,[]);assert.deepEqual(report.forwardedMutationRequests,[]);assert.equal(report.routeError,undefined);
   report.result='PASS';report.completedAt=new Date().toISOString();
  }catch(error){report.result='FAIL';report.error=error.stack;await page.screenshot({path:path.join(output,'failure.png')}).catch(()=>{});throw error;}

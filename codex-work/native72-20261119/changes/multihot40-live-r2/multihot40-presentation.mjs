@@ -17,6 +17,15 @@ const RECT = (x, y, width, height) => ({ x, y, width, height });
 const ART_CYCLE = Object.freeze([7, 5, 2, 4, 6, 3, 1, 4, 7, 6, 5, 0, 3, 2]);
 const defaultAssetBase = () => new URL('/static/native-library/reference-art/r1/smartsoft/assets/', globalThis.location?.href ?? 'http://localhost/').href;
 const textDecoder = new TextDecoder('utf-8', { fatal: true });
+// Fresh original MH40 NICE WIN observation: provider Common/Win/2.mp3.
+// Extend the verified base manifest with this separately hash-pinned recording.
+export function withVerifiedNiceWin(manifest) {
+  if (manifest?.id !== 'multihot40_native') throw new Error('Wrong game audio manifest');
+  const sha256 = '78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe';
+  const file = sha256 + '.mp3';
+  return { ...manifest, files: { ...manifest.files, [file]: { sha256, bytes: 235773, kind: ['audio'] } },
+    audio: { ...manifest.audio, 'Win/NiceWin.mp3': { file, sha256 } } };
+}
 
 class MachineAudio {
   constructor(store, manifest, onEvent) {
@@ -73,6 +82,7 @@ class MachineAudio {
       // Original MH40 beforeLoadBoxes() and fresh WebAudio observation use a
       // single fast movement cue. A generic looping ObjectMove is not this game.
       this.stop(this.movement);
+      this.stop(this.winSound);
       this.movement = this.play('Start/ObjectMoveFast.mp3', { volume: .38 });
       this.play('Buttons/Spin.mp3', { volume: .5 });
     } else if (event.type === 'reel-stop') {
@@ -83,7 +93,7 @@ class MachineAudio {
       if (validMinor(event.winMinor) && BigInt(event.winMinor) > 0n) this.play('Start/WinMultiplier.mp3', { volume: .3 });
     } else if (event.type === 'reels-complete') this.stop(this.movement);
     else if (event.type === 'win-tier') {
-      this.play(this.first([`Win/${event.name.replaceAll(' ', '')}.mp3`, 'Start/Win.mp3']), { volume: .55 });
+      this.winSound = this.play(this.first([`Win/${event.name.replaceAll(' ', '')}.mp3`, 'Start/Win.mp3']), { volume: .55 });
       this.counter = this.play('Start/WinCounter.mp3', { volume: .28, loop: true });
     } else if (event.type === 'animation-complete') { this.stop(this.movement); this.stop(this.counter); }
   }
@@ -153,7 +163,8 @@ export class MultiHot40Presentation {
         if (digest !== this.manifestSha256) throw new Error('Presentation manifest hash mismatch');
         this.manifest = JSON.parse(textDecoder.decode(bytes));
       }
-      const manifest = this.manifest;
+      const manifest = withVerifiedNiceWin(this.manifest);
+      this.manifest = manifest;
       if (manifest.id !== 'multihot40_native' || manifest.grid?.columns !== 5 || manifest.grid?.rows !== 4) throw new TypeError('Wrong presentation manifest');
       this.store = new ReferenceAssetStore(manifest, { baseURL: this.assetBase, fetchImpl: lockedFetch });
       this.audio = new MachineAudio(this.store, manifest, event => this.event(event));

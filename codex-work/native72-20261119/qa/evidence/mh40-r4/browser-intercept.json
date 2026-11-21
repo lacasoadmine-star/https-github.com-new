@@ -1,0 +1,682 @@
+{
+  "scope": "Browser network-intercept QA with existing live assets; no live Player session, ETB debit or settlement",
+  "route": "https://superwin-player.apdiy61.workers.dev/games/multihot40_native",
+  "startedAt": "2026-11-20T23:50:53.829Z",
+  "checks": [
+    "Actual app loaded verified live artwork with original manifest hashes",
+    "Official QUICK PLAY consent required on every enable; NO/confirm toggle only speed and send no wager",
+    "Original audio bytes decoded and AudioContext unlocked; auditory parity remains unverified",
+    {
+      "width": 360,
+      "controls": {
+        "spin": {
+          "x": 123.0625,
+          "y": 672.046875,
+          "width": 113.859375,
+          "height": 113.859375
+        },
+        "auto": {
+          "x": 62.671875,
+          "y": 703.09375,
+          "width": 55.203125,
+          "height": 55.203125
+        },
+        "bet": {
+          "x": 243.828125,
+          "y": 703.09375,
+          "width": 55.203125,
+          "height": 55.203125
+        },
+        "menu": {
+          "x": 0,
+          "y": 793.8125,
+          "width": 44,
+          "height": 44
+        },
+        "sound": {
+          "x": 316,
+          "y": 793.8125,
+          "width": 44,
+          "height": 44
+        },
+        "turbo": {
+          "x": 241.921875,
+          "y": 653.09375,
+          "width": 44,
+          "height": 44
+        }
+      }
+    },
+    {
+      "width": 390,
+      "controls": {
+        "spin": {
+          "x": 133.3125,
+          "y": 657.71875,
+          "width": 123.34375,
+          "height": 123.34375
+        },
+        "auto": {
+          "x": 67.90625,
+          "y": 691.359375,
+          "width": 59.796875,
+          "height": 59.796875
+        },
+        "bet": {
+          "x": 264.140625,
+          "y": 691.359375,
+          "width": 59.796875,
+          "height": 59.796875
+        },
+        "menu": {
+          "x": 0,
+          "y": 791.03125,
+          "width": 44.84375,
+          "height": 44.84375
+        },
+        "sound": {
+          "x": 345.140625,
+          "y": 791.03125,
+          "width": 44.84375,
+          "height": 44.84375
+        },
+        "turbo": {
+          "x": 261.671875,
+          "y": 641.359375,
+          "width": 44,
+          "height": 44
+        }
+      }
+    },
+    {
+      "width": 412,
+      "controls": {
+        "spin": {
+          "x": 142.40625,
+          "y": 651.9375,
+          "width": 127.171875,
+          "height": 127.171875
+        },
+        "auto": {
+          "x": 74.953125,
+          "y": 686.625,
+          "width": 61.65625,
+          "height": 61.65625
+        },
+        "bet": {
+          "x": 277.28125,
+          "y": 686.625,
+          "width": 61.65625,
+          "height": 61.65625
+        },
+        "menu": {
+          "x": 4.953125,
+          "y": 789.390625,
+          "width": 46.234375,
+          "height": 46.234375
+        },
+        "sound": {
+          "x": 360.796875,
+          "y": 789.390625,
+          "width": 46.234375,
+          "height": 46.234375
+        },
+        "turbo": {
+          "x": 274.578125,
+          "y": 636.625,
+          "width": 44,
+          "height": 44
+        }
+      }
+    },
+    "Double SPIN sent one intercepted action; blur preserved submitted-round confirmation, exact 5x4 grid, balance and ordered reel stops",
+    "Blur stopped real AUTO controller and hold state; focus did not restart AUTO",
+    "Production launchability gate remains closed when backend configuration is disabled",
+    "Aborted configuration load exposed Retry loading; retry reloaded verified assets, preserved sessionStorage and sent no new wager",
+    "Original positive receipt drove NICE WIN and verified audio; active win credited only after one double-click-safe collect action"
+  ],
+  "screenshots": [
+    "mh40-quick-play.png",
+    "mh40-360.png",
+    "mh40-390.png",
+    "mh40-412.png",
+    "mh40-spinning.png",
+    "mh40-settled.png",
+    "mh40-nice-win.png"
+  ],
+  "actions": [
+    {
+      "request_id": "a0db53aa-06ca-49d8-acc4-6dbbecc5d474",
+      "type": "start",
+      "game_id": "multihot40_native",
+      "model_version": "superwin-multihot40-2-etb1-40000-v1",
+      "stake": "1.00",
+      "options": {}
+    },
+    {
+      "request_id": "5b0fd843-6a8f-4f5d-91eb-18968f2a8f98",
+      "type": "start",
+      "game_id": "multihot40_native",
+      "model_version": "superwin-multihot40-2-etb1-40000-v1",
+      "stake": "1.00",
+      "options": {
+        "autoCollect": true
+      }
+    },
+    {
+      "request_id": "42c226c0-1ba5-4f22-b50b-d92383e59373",
+      "type": "start",
+      "game_id": "multihot40_native",
+      "model_version": "superwin-multihot40-2-etb1-40000-v1",
+      "stake": "1.00",
+      "options": {}
+    },
+    {
+      "request_id": "b2dca3b4-587a-4b27-8492-e375975a0b05",
+      "type": "action",
+      "game_id": "multihot40_native",
+      "model_version": "superwin-multihot40-2-etb1-40000-v1",
+      "round_id": "1f2ed7a5-d75d-488b-9311-4dcee50b636d",
+      "expected_version": 1,
+      "action": "collect",
+      "input": {}
+    }
+  ],
+  "forwardedMutationRequests": [],
+  "blockedMutationRequests": [
+    "/_player/presence",
+    "/_player/presence",
+    "/_player/presence"
+  ],
+  "pageErrors": [],
+  "assetReads": [
+    {
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.css",
+      "status": 200,
+      "bytes": 496,
+      "sha256": "908b29c400abe9d79dc03a8fa6413e45119816e88b9b81a566a116991672b720"
+    },
+    {
+      "path": "/native-library/remaining20/20261110-older-new-zoom-r1/zoom.js",
+      "status": 200,
+      "bytes": 3679,
+      "sha256": "af1ef40b06c76cdb027cfe3a84025d80a509c6fa35a682c527c8ca2e6ba89b08"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/multihot40-skeleton.mjs",
+      "status": 200,
+      "bytes": 15183,
+      "sha256": "6af76574ed5f9aff9e83f399ff983fcb1f6633e0331f7ca8d0809013eab97669"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/atlas.mjs",
+      "status": 200,
+      "bytes": 6224,
+      "sha256": "193680409637464838bd06fdec1568d4e60964da2e4f917349a02e9739f63b91"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/session.mjs",
+      "status": 200,
+      "bytes": 15275,
+      "sha256": "4f21ee53e1d4ed8648339dc05b647cfc739908bbfcd12c2e045ba34d3b1542fd"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/machine-renderer.mjs",
+      "status": 200,
+      "bytes": 16301,
+      "sha256": "583db254bfbfc522e7d197f9f657d87aecf6be3a6ded9ddd0a6f0e148fdd4183"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/wager-profile-client.mjs",
+      "status": 200,
+      "bytes": 1661,
+      "sha256": "34ce4a93a0ec5b530cdff846a26eb62364bcc789a5cdfc8d7a1ac0e7e1965b79"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40.css",
+      "status": 200,
+      "bytes": 8247,
+      "sha256": "3f206647254292d74e7c19797bc1ae25f54bbe9d75aefad662e4c7c3bc5aad59"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/autoplay.mjs",
+      "status": 200,
+      "bytes": 15868,
+      "sha256": "9121429a41200c8b91dabe123100a448dc958e6c68c0f7ad2181c99424d73b92"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/spin-hold.mjs",
+      "status": 200,
+      "bytes": 1890,
+      "sha256": "ed9e82d63539478d6827452d525b69d2f09f202b1d61175270e03c1c01c496ad"
+    },
+    {
+      "path": "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/manifests/multihot40_native.json",
+      "status": 200,
+      "bytes": 99812,
+      "sha256": "35ad377c4f3b13c75ab523bec83c88f83a7a11b1c0fafc9a8eb0683e2d74bb0f"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/ded74360bb987f8fcc8b127afcc00d0d7d7828a6185b093bb27bbb537d9b9d91.png",
+      "status": 200,
+      "bytes": 78344,
+      "sha256": "ded74360bb987f8fcc8b127afcc00d0d7d7828a6185b093bb27bbb537d9b9d91"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/87b4e66861db2f1740601f8638a9c0a1d8ddb4f6b81c139272871d38639819c5.png",
+      "status": 200,
+      "bytes": 1797452,
+      "sha256": "87b4e66861db2f1740601f8638a9c0a1d8ddb4f6b81c139272871d38639819c5"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/0482c39d19594e83774f4e821918270505a1e6c2b0c525025bf43af54837f020.png",
+      "status": 200,
+      "bytes": 1653689,
+      "sha256": "0482c39d19594e83774f4e821918270505a1e6c2b0c525025bf43af54837f020"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/b2a77b5f878edc3ea2c6b357934d9d4132a67f6c3ae2f6dc455cccbdfae415b2.png",
+      "status": 200,
+      "bytes": 1595876,
+      "sha256": "b2a77b5f878edc3ea2c6b357934d9d4132a67f6c3ae2f6dc455cccbdfae415b2"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/c741deaa20f1c594e49c2baa7920ff2bcceae1eafffa333f2bdc22efdfea1e5c.png",
+      "status": 200,
+      "bytes": 1161790,
+      "sha256": "c741deaa20f1c594e49c2baa7920ff2bcceae1eafffa333f2bdc22efdfea1e5c"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/37589246a6de1852b0eab8492bc15c352fde9fdb26f9cc088d14ecc59b75d3dd.png",
+      "status": 200,
+      "bytes": 1391580,
+      "sha256": "37589246a6de1852b0eab8492bc15c352fde9fdb26f9cc088d14ecc59b75d3dd"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/08c0b9adcca92d42e99a26f0bf82d1496bcecd6c52098dfd1773c55a7173a286.txt",
+      "status": 200,
+      "bytes": 16834,
+      "sha256": "08c0b9adcca92d42e99a26f0bf82d1496bcecd6c52098dfd1773c55a7173a286"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/c05ccf9284498e41765ccefe0993de086821cb65435193b69b02c3c5bc58b430.json",
+      "status": 200,
+      "bytes": 76797,
+      "sha256": "c05ccf9284498e41765ccefe0993de086821cb65435193b69b02c3c5bc58b430"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/271110378ac235b462e2470be2a410ad030e1ca5208121ec23183e9461ad85ea.json",
+      "status": 200,
+      "bytes": 191050,
+      "sha256": "271110378ac235b462e2470be2a410ad030e1ca5208121ec23183e9461ad85ea"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/0d1b708a4934297ed83ca4b6bf38dff0ad0dceb3abb091c486508f5a0293487b.png",
+      "status": 200,
+      "bytes": 1422580,
+      "sha256": "0d1b708a4934297ed83ca4b6bf38dff0ad0dceb3abb091c486508f5a0293487b"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/036b3430be4bfc4b03e267492b8856ad79bff444301177f73f36c1981dc7e851.png",
+      "status": 200,
+      "bytes": 208793,
+      "sha256": "036b3430be4bfc4b03e267492b8856ad79bff444301177f73f36c1981dc7e851"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/692572231a791897b6483258d9155d4c8c840e6d2b0bd078bf3cfae47f4c89a0.json",
+      "status": 200,
+      "bytes": 9577,
+      "sha256": "692572231a791897b6483258d9155d4c8c840e6d2b0bd078bf3cfae47f4c89a0"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/829c38788412f75c154bb996ae8d6d957c5f7093ba59a55bb22b2d0b1f6f6890.txt",
+      "status": 200,
+      "bytes": 8999,
+      "sha256": "829c38788412f75c154bb996ae8d6d957c5f7093ba59a55bb22b2d0b1f6f6890"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/0bea384759691d72192ab8f9925e05d4f810d8b6d6bf286a0edbe215f8768e0b.txt",
+      "status": 200,
+      "bytes": 10395,
+      "sha256": "0bea384759691d72192ab8f9925e05d4f810d8b6d6bf286a0edbe215f8768e0b"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/a50ef366b05d89eaa870ca3cb53147c3ca206206ecb047c59a360f5efd2c4e93.json",
+      "status": 200,
+      "bytes": 15335,
+      "sha256": "a50ef366b05d89eaa870ca3cb53147c3ca206206ecb047c59a360f5efd2c4e93"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/7db2df6a4ff1dc7cf473103991f7675ddb42a06580ac74fb09057f7b931546e8.png",
+      "status": 200,
+      "bytes": 363173,
+      "sha256": "7db2df6a4ff1dc7cf473103991f7675ddb42a06580ac74fb09057f7b931546e8"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/a63ebe0fce418b7b670f554fb7b564f4a7b26745592d31c520c1dd44acf29fce.png",
+      "status": 200,
+      "bytes": 584562,
+      "sha256": "a63ebe0fce418b7b670f554fb7b564f4a7b26745592d31c520c1dd44acf29fce"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/6504c21f7bd4005560e31bcf9051b3ed624a417e25a5345df74a1c57a82efc8b.txt",
+      "status": 200,
+      "bytes": 15224,
+      "sha256": "6504c21f7bd4005560e31bcf9051b3ed624a417e25a5345df74a1c57a82efc8b"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87.mp3",
+      "status": 200,
+      "bytes": 28322,
+      "sha256": "09f3c156b5af5a4d739f0d0ca1009acea9f275b8bff9e26d9f30ae108bee7f87"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/b57af677432d4840de8c2d6f908e4afabcec906b96305d0263ad8cfaaf48ef52.mp3",
+      "status": 200,
+      "bytes": 37242,
+      "sha256": "b57af677432d4840de8c2d6f908e4afabcec906b96305d0263ad8cfaaf48ef52"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/339c86eb8a354bcef5850928bb19d644cede4d1ee4903df3d4c644c3043b306d.mp3",
+      "status": 200,
+      "bytes": 56640,
+      "sha256": "339c86eb8a354bcef5850928bb19d644cede4d1ee4903df3d4c644c3043b306d"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/7219547ee25334cbac0fe4b3acf0bf631e48ebb622c71af038edaaa652c60875.ttf",
+      "status": 200,
+      "bytes": 153944,
+      "sha256": "7219547ee25334cbac0fe4b3acf0bf631e48ebb622c71af038edaaa652c60875"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946.mp3",
+      "status": 200,
+      "bytes": 22080,
+      "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/9c0677c1b677c909c36fb2fc952e9006549a9e9d522a5674e25d9625789b0b63.mp3",
+      "status": 200,
+      "bytes": 56640,
+      "sha256": "9c0677c1b677c909c36fb2fc952e9006549a9e9d522a5674e25d9625789b0b63"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/fe6e63ebba93f0819b417b0c56a0c5401b1e1000ca5760a7938ff29542065497.mp3",
+      "status": 200,
+      "bytes": 22195,
+      "sha256": "fe6e63ebba93f0819b417b0c56a0c5401b1e1000ca5760a7938ff29542065497"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/92ba19d0b1e60221f80e3cc87e02b7a357c2d5bafef16648049264602bb959ce.mp3",
+      "status": 200,
+      "bytes": 25121,
+      "sha256": "92ba19d0b1e60221f80e3cc87e02b7a357c2d5bafef16648049264602bb959ce"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/63a970209db2dfd356c2f8ed596a1a5e8d2b9256526e8194ace0dad0c7c56cbc.mp3",
+      "status": 200,
+      "bytes": 17180,
+      "sha256": "63a970209db2dfd356c2f8ed596a1a5e8d2b9256526e8194ace0dad0c7c56cbc"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/e511cc791eca3fe7b9f836c8f7701b94eae754d2ef7267423cac27962b4a44aa.mp3",
+      "status": 200,
+      "bytes": 80640,
+      "sha256": "e511cc791eca3fe7b9f836c8f7701b94eae754d2ef7267423cac27962b4a44aa"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/33e4ace2ca2b16d6e9d2dece292e599e0afdc10196a13987a47a11d9c0dc69d9.otf",
+      "status": 200,
+      "bytes": 48796,
+      "sha256": "33e4ace2ca2b16d6e9d2dece292e599e0afdc10196a13987a47a11d9c0dc69d9"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5.mp3",
+      "status": 200,
+      "bytes": 2096626,
+      "sha256": "0c567009cc1a1256f63396a4295d47318adc29985c7788e441a6a45b5412d9b5"
+    },
+    {
+      "path": "/native-library/reference-art/r1/smartsoft/assets/ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003.mp3",
+      "status": 200,
+      "bytes": 10493,
+      "sha256": "ea24786693c8e574ed7739bbbc9b8193aa57d0bcaa01c7003cf5292f21b39003"
+    }
+  ],
+  "sourceHashes": {
+    "/zplay-fixes/mh40-20261117/multihot40-app.mjs": "c68a63f3e427b8c7360122b0e3b6f014e116679a04b37c40a1b1b7b8ac4c5ad8",
+    "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/multihot40-presentation.mjs": "86454f714f1d9acc2caab813b2b514d8b79244fa7ee6daeeef3a9a3abe8215f1",
+    "/native-library/existing-new/20261110-etb1-40000-r1/multihot40/presentation/multihot40-motion.mjs": "7bac01612a353934401f9b0289fdf9ad8db22fc4a39b88045446aa6719c0321b",
+    "/native-library/reference-art/r1/smartsoft/assets/78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe.mp3": "78c1090bbcdb90e0714e4ad43bc06a1a9030d17ee9b1f39490a880a11a681fbe"
+  },
+  "productionAppSourceSha256": "5c214bbbc4ccc4b693a3cabf14413a151e805e2def2695761bed8de71373279c",
+  "decodedAudioBuffers": 11,
+  "spinAudio": [
+    {
+      "key": "Start/ObjectMoveFast.mp3",
+      "loop": false,
+      "played": true,
+      "time": 10926.599999999627
+    },
+    {
+      "key": "Buttons/Spin.mp3",
+      "loop": false,
+      "played": true,
+      "time": 10926.799999999814
+    }
+  ],
+  "events": [
+    {
+      "type": "load-progress",
+      "completed": 1,
+      "total": 10,
+      "time": 4110.299999999814
+    },
+    {
+      "type": "load-progress",
+      "completed": 2,
+      "total": 10,
+      "time": 4480.0999999996275
+    },
+    {
+      "type": "load-progress",
+      "completed": 3,
+      "total": 10,
+      "time": 4484.0999999996275
+    },
+    {
+      "type": "load-progress",
+      "completed": 4,
+      "total": 10,
+      "time": 4488.299999999814
+    },
+    {
+      "type": "load-progress",
+      "completed": 5,
+      "total": 10,
+      "time": 4517.700000000186
+    },
+    {
+      "type": "load-progress",
+      "completed": 6,
+      "total": 10,
+      "time": 4544.0999999996275
+    },
+    {
+      "type": "load-progress",
+      "completed": 7,
+      "total": 10,
+      "time": 4859.4000000003725
+    },
+    {
+      "type": "load-progress",
+      "completed": 8,
+      "total": 10,
+      "time": 4879.5999999996275
+    },
+    {
+      "type": "load-progress",
+      "completed": 9,
+      "total": 10,
+      "time": 4897.200000000186
+    },
+    {
+      "type": "load-progress",
+      "completed": 10,
+      "total": 10,
+      "time": 4926.299999999814
+    },
+    {
+      "type": "ready",
+      "gameId": "multihot40_native",
+      "animatedGroups": [
+        "Logo",
+        "Win",
+        "WinBox",
+        "Start"
+      ],
+      "financialActions": false,
+      "time": 5680.9000000003725
+    },
+    {
+      "type": "spin-start",
+      "generation": 1,
+      "roundId": null,
+      "turbo": false,
+      "time": 10926.299999999814
+    },
+    {
+      "type": "animation-speed-up",
+      "generation": 1,
+      "roundId": null,
+      "time": 10928.400000000373
+    },
+    {
+      "type": "reel-stop",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "column": 0,
+      "time": 12084.599999999627
+    },
+    {
+      "type": "reel-stop",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "column": 1,
+      "time": 12118.700000000186
+    },
+    {
+      "type": "reel-stop",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "column": 2,
+      "time": 12118.700000000186
+    },
+    {
+      "type": "reel-stop",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "column": 3,
+      "time": 12150.400000000373
+    },
+    {
+      "type": "reel-stop",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "column": 4,
+      "time": 12181.5
+    },
+    {
+      "type": "wheel-stop",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "multiplier": 1,
+      "winMinor": "0",
+      "time": 12181.599999999627
+    },
+    {
+      "type": "reels-complete",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "time": 12181.599999999627
+    },
+    {
+      "type": "animation-complete",
+      "generation": 1,
+      "roundId": "c2ab25ad-0e2d-4bfd-a75e-7fc283debd6a",
+      "cancelled": false,
+      "time": 12181.700000000186
+    },
+    {
+      "type": "spin-start",
+      "generation": 2,
+      "roundId": null,
+      "turbo": false,
+      "time": 13786.299999999814
+    },
+    {
+      "type": "reel-stop",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "column": 0,
+      "time": 14810.599999999627
+    },
+    {
+      "type": "reel-stop",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "column": 1,
+      "time": 14902.099999999627
+    },
+    {
+      "type": "reel-stop",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "column": 2,
+      "time": 14992.099999999627
+    },
+    {
+      "type": "reel-stop",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "column": 3,
+      "time": 15104.900000000373
+    },
+    {
+      "type": "reel-stop",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "column": 4,
+      "time": 15162.200000000186
+    },
+    {
+      "type": "wheel-stop",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "multiplier": 1,
+      "winMinor": "0",
+      "time": 15259.400000000373
+    },
+    {
+      "type": "reels-complete",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "time": 15259.400000000373
+    },
+    {
+      "type": "animation-complete",
+      "generation": 2,
+      "roundId": "7e308304-2d66-4357-aac7-ce2cccc3c604",
+      "cancelled": false,
+      "time": 15259.400000000373
+    }
+  ],
+  "niceWinAudio": {
+    "key": "Win/NiceWin.mp3",
+    "loop": false,
+    "played": true,
+    "time": 3481.5
+  },
+  "result": "PASS",
+  "completedAt": "2026-11-20T23:51:17.138Z"
+}
