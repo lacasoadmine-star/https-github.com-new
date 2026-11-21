@@ -2,6 +2,10 @@
 
 Updated: 21 November 2026 (Africa/Addis_Ababa).
 
+## Additive 72-game catalogue audit
+
+See [NEW_GAMES_72_MATRIX.md](NEW_GAMES_72_MATRIX.md) for the November 21 comparison of the newly requested titles with the existing live catalogue.
+
 ## Continue the existing project
 
 The scope remains 72 games, in the existing order: 1–10, 11–20, 21–30, 31–40, 41–50, 51–60, 61–70, and 71–72. Continue the existing source, routes and game modules. Preserve the existing Multi Hot 5, Foxy Hot 20 and Habesha Fortune.
