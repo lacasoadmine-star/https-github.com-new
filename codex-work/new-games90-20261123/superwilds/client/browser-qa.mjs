@@ -13,11 +13,11 @@ const output=resolve(process.env.ZPLAY_SUPERWILDS_QA_OUTPUT||'/tmp/zplay-superwi
 const moduleRoot=process.env.ZPLAY_QA_NODE_MODULES||process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const {chromium}=moduleRoot?await import(pathToFileURL(join(moduleRoot,'playwright/index.mjs')).href):await import('playwright');
 await mkdir(output,{recursive:true});
-const banks=new Map(),requests=[],reports=[],forbidden=[],errors=[];
+const banks=new Map(),requests=[],reports=[],forbidden=[],errors=[],stopTraces=[];
 let browser,failure=null,origin,assertions=0;
 const check=(condition,message)=>{assert.ok(condition,message);assertions++;};
 const getBank=key=>{
-  if(!banks.has(key))banks.set(key,{balance:10000,pending:0,last:null,rounds:0,debits:0,credits:0,actions:new Map(),dropNext:false});
+  if(!banks.has(key))banks.set(key,{balance:10000,pending:0,last:null,rounds:0,debits:0,credits:0,actions:new Map(),dropNext:false,holdNext:false,held:null});
   return banks.get(key);
 };
 const state=(b,key)=>({gameId:GAME_ID,currency:'ETB',subject:`qa-${key}`,canPlay:true,canDouble:false,betLevelsMinor:[10,20,30],betMinor:10,
@@ -39,10 +39,16 @@ const server=createServer(async(req,res)=>{
     }
     if(url.pathname==='/fixture.mjs'){res.writeHead(200,{'content-type':'application/javascript'});res.end(fixtureCode);return;}
     if(url.pathname==='/__qa__/state'){send(res,200,state(b,key));return;}
-    if(url.pathname==='/__qa__/stats'){send(res,200,{debits:b.debits,credits:b.credits,rounds:b.rounds,balance:b.balance,pending:b.pending,keys:[...b.actions.keys()]});return;}
+    if(url.pathname==='/__qa__/stats'){send(res,200,{debits:b.debits,credits:b.credits,rounds:b.rounds,balance:b.balance,pending:b.pending,heldReply:!!b.held,keys:[...b.actions.keys()]});return;}
     if(url.pathname.startsWith('/__qa__/')){
       let body='';for await(const chunk of req)body+=chunk;const action=JSON.parse(body||'{}');
-      if(url.pathname==='/__qa__/control'){b.dropNext=action.dropNext===true;send(res,200,{ok:true});return;}
+      if(url.pathname==='/__qa__/control'){
+        if(action.dropNext!==undefined)b.dropNext=action.dropNext===true;
+        if(action.holdNext!==undefined)b.holdNext=action.holdNext===true;
+        if(action.releaseHeld===true){if(!b.held){send(res,409,{error:'ISOLATED_HELD_REPLY_REQUIRED'});return;}
+          const held=b.held;b.held=null;send(held.res,200,held.receipt);}
+        send(res,200,{ok:true});return;
+      }
       if(action.gameId!==GAME_ID||!action.authority||!['SPIN','TAKE'].includes(action.action)){send(res,422,{error:'ISOLATED_ACTION_INVALID'});return;}
       const encoded=JSON.stringify(action),saved=b.actions.get(action.requestKey);
       if(saved){if(saved.encoded!==encoded){send(res,409,{error:'ISOLATED_KEY_CONFLICT'});return;}send(res,200,saved.receipt);return;}
@@ -62,6 +68,7 @@ const server=createServer(async(req,res)=>{
       }
       b.actions.set(action.requestKey,{encoded,receipt});
       if(b.dropNext){b.dropNext=false;send(res,503,{error:'ISOLATED_ACCEPTED_REPLY_LOST'});return;}
+      if(b.holdNext){b.holdNext=false;b.held={res,receipt};return;}
       send(res,200,receipt);return;
     }
     if(url.pathname.startsWith('/superwilds/')){
@@ -102,7 +109,26 @@ try{
     const receipts=[];
     for(let i=0;i<10;i++){
       const before=await page.evaluate(()=>window.__SW_QA__.api('stats'));
-      await page.locator('.sw-spin').click();if(i===0)await page.locator('.sw-spin').click();
+      // Keep the first accepted response pending until STOP has been observed.
+      // Two unbounded clicks can legitimately span a complete QUICK round on
+      // a slow desktop runner and would test SPIN→SPIN instead of SPIN→STOP.
+      if(i===0)await page.evaluate(()=>window.__SW_QA__.api('control',{holdNext:true}));
+      await page.locator('.sw-spin').click();
+      if(i===0){
+        await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='WAITING');
+        const beforeStop=await page.evaluate(()=>({controller:window.__SW_QA__.mount.snapshot(),renderer:window.__SW_QA__.mount.renderer.snapshot()}));
+        const accepted=await page.evaluate(()=>window.__SW_QA__.api('stats'));
+        check(accepted.heldReply&&accepted.debits===before.debits+1,`${width}px first response is held after exactly one accepted debit`);
+        await page.locator('.sw-spin').click();
+        const afterStop=await page.evaluate(()=>({controller:window.__SW_QA__.mount.snapshot(),renderer:window.__SW_QA__.mount.renderer.snapshot()}));
+        const afterStopStats=await page.evaluate(()=>window.__SW_QA__.api('stats'));
+        stopTraces.push({width,before:beforeStop,acceptedStats:accepted,after:afterStop,afterStats:afterStopStats});
+        check(beforeStop.controller.phase==='WAITING'&&afterStop.controller.phase==='WAITING','STOP is pressed while the original reply is pending');
+        check(beforeStop.controller.pending.requestKey===afterStop.controller.pending.requestKey,'STOP preserves the original request key');
+        check(afterStop.renderer.stopRequested===true,'STOP accelerates the existing renderer presentation');
+        check(afterStopStats.debits===accepted.debits,'STOP creates zero additional fixture debits');
+        await page.evaluate(()=>window.__SW_QA__.api('control',{releaseHeld:true}));
+      }
       await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='WIN_PENDING');
       const s=await page.evaluate(()=>window.__SW_QA__.mount.snapshot());receipts.push({roundId:s.round.roundId,multiplier:s.round.multiplier,grid:s.round.grid,winMinor:s.round.winMinor});
       const after=await page.evaluate(()=>window.__SW_QA__.api('stats'));check(after.debits===before.debits+1,'one server fixture debit for SPIN/STOP');
@@ -140,5 +166,5 @@ finally{
   const pins=[];for(const path of paths){const bytes=await readFile(resolve(sourceRoot,path));pins.push({path,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});}
   await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/superwilds-client-qa/v1',testedAt:new Date().toISOString(),
     environment:'isolated synthetic server receipts and fixture wallet; no production/player/provider session or financial round',passed:failure===null&&reports.length===4,
-    failure,assertions,reports,forbiddenRequests:forbidden,requests,sourceCommit:process.env.GITHUB_SHA??null,sourcePins:pins,audibleProviderParityVerified:false},null,2)+'\n');
+    failure,assertions,reports,stopTraces,forbiddenRequests:forbidden,requests,sourceCommit:process.env.GITHUB_SHA??null,sourcePins:pins,audibleProviderParityVerified:false},null,2)+'\n');
 }
