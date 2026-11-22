@@ -26,7 +26,7 @@
     "workflowStaticChecks": "passed exact branch, contents-read permission, pinned PostgreSQL image, component-only paths and finite timeouts"
   },
   "postgres": {
-    "status": "prepared_not_executed",
+    "status": "ten_scenarios_passed_cleanup_failed_fix_pending_ci",
     "scenarios": 10,
     "localUnavailable": [
       "PostgreSQL server",
@@ -38,7 +38,22 @@
     "driverVersion": "pg@8.16.3",
     "postgresImage": "postgres:17-bookworm@sha256:837bed18782820fe967067cb5328b02b0d9992c1be9a37ee0c9c492cfc03af3b",
     "databaseScope": "random newly created localhost disposable database only",
-    "criticalCase": "unchanged legacy transfer blocks behind house lock, then cannot spend the hold committed during its wait"
+    "criticalCase": "unchanged legacy transfer blocks behind house lock, then cannot spend the hold committed during its wait",
+    "initialCi": {
+      "sourceSha": "faa985de192ba7c9ba14cd99d65af7db2fbc60a2",
+      "runId": 44965886267,
+      "jobId": 137034732977,
+      "scenarioPasses": 10,
+      "parentAssertionsPassed": true,
+      "workflowConclusion": "failure",
+      "failure": "Two asynchronous administrator-termination errors during forced database cleanup after all scenario assertions passed."
+    },
+    "cleanupCorrection": {
+      "status": "syntax_checked_exact_source_ci_pending",
+      "change": "Await server-reported zero connections for at most five seconds, then ordinary DROP DATABASE; no FORCE or swallowed errors.",
+      "financialSourceChanged": false,
+      "scenarioAssertionsChanged": false
+    }
   },
   "remainingIntegration": [
     "exact per-round aggregation and maximum rule in the new M10 evaluator",
@@ -77,8 +92,8 @@
     },
     {
       "path": "codex-work/continue71-20261122/m10-house-reservations/postgres/run-tests.mjs",
-      "sha256": "da1c2bc64a97648f414b9e581593fb5d7c55a94b80952b588aaf727120bf66b6",
-      "bytes": 25375
+      "sha256": "6d88c7a32d178d565bce53e5f86b1f4b03094110038d3227265f20cf316a7b86",
+      "bytes": 26223
     },
     {
       "path": ".github/workflows/continue71-m10-reservation-qa.yml",
@@ -87,8 +102,8 @@
     },
     {
       "path": "codex-work/continue71-20261122/m10-house-reservations/README.md",
-      "sha256": "792babd2d8e3b775050c48645e5e632a9b9308813d6510847fc5c1c1475861a5",
-      "bytes": 11803
+      "sha256": "5a84001c440ce39e21faf9d705a330c4d9168785b2dc3d0f3a6c61f56a666e49",
+      "bytes": 12708
     }
   ],
   "provenanceBoundary": "Hashes cover only these authored component, fixture, workflow and documentation files. No private provider references, credentials, financial history or account records are included."

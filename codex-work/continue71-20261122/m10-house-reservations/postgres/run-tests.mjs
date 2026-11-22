@@ -336,7 +336,23 @@ test('M10 house reservations with a disposable PostgreSQL database', { timeout: 
     for (const client of checkedOut) { client.release(true); checkedOut.delete(client); }
     try { await pool?.end(); }
     finally {
-      try { if (created) await admin.query('DROP DATABASE "' + databaseName + '" WITH (FORCE)'); }
+      try {
+        if (created) {
+          // pool.end() can finish before PostgreSQL has removed every backend
+          // whose socket was just closed. A force-drop at that point sends a
+          // FATAL to a disconnecting client and creates asynchronous test
+          // failures after its assertions have passed. Confirm the server has
+          // drained naturally; never terminate a lingering connection here.
+          const deadline = Date.now() + 5000;
+          for (;;) {
+            const status = await admin.query('SELECT count(*)::int AS connections FROM pg_stat_activity WHERE datname=$1', [databaseName]);
+            if (status.rows[0].connections === 0) break;
+            assert.ok(Date.now() < deadline, 'M10_TEST_DATABASE_CONNECTIONS_NOT_DRAINED: graceful cleanup exceeded five seconds.');
+            await delay(25);
+          }
+          await admin.query('DROP DATABASE "' + databaseName + '"');
+        }
+      }
       finally { await admin.end(); }
     }
   }

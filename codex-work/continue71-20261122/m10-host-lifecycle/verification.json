@@ -1,0 +1,125 @@
+{
+  "schema": "zplay/m10-host-lifecycle-verification/v1",
+  "recordedAt": "2026-11-22T00:24:30.285376+00:00",
+  "gameId": "zplay72_multi_hot_10_v1",
+  "scope": "unmounted actual deferred lifecycle with existing shared round ordering and merged old/new ownership",
+  "release": {
+    "mounted": false,
+    "productionEnabled": false,
+    "migrationApplied": false,
+    "createsWallet": false,
+    "installsModel": false
+  },
+  "implementation": {
+    "lifecycle": "continued project-owned prepared M10 lifecycle and PostgreSQL journal, using current public M10 protocol/identity source",
+    "model": "injected operator-owned callbacks; none installed",
+    "sharedOrder": "new-m10:<lowercase round UUID>; database-generated settled_order; every accepted SPIN including zero win",
+    "sharedPayout": "immutable initial accepted base-game award with explicit PENDING and creditedWin=0 receipt; actual cash authority is ledger and collection",
+    "legacyState": "same-client snapshot callback and actual old gamble descriptor receive merged active owner before availability",
+    "legacyRoundIds": "preserve opaque native TEXT identities; UUID enforced for M10 only"
+  },
+  "local": {
+    "node": "v24.22.3",
+    "componentCommand": "node --test codex-work/continue71-20261122/m10-host-lifecycle/*.test.mjs",
+    "componentTests": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "fixtureKind": "synthetic relations/transactions; actual continued M10 state and actual tracked old gamble descriptor"
+    },
+    "syntaxChecks": "passed runtime and PostgreSQL harness",
+    "oldSourceImport": "actual tracked own old gamble and math modules; sparse local fallback uses exact Git blobs only",
+    "workflowStaticChecks": "passed exact branch, dependency paths, read-only permissions, pinned image and bounded jobs",
+    "connectionSafetyChecks": [
+      "missing URL rejected",
+      "non-local host rejected",
+      "missing disposable database opt-in rejected"
+    ]
+  },
+  "postgres": {
+    "status": "prepared_not_executed",
+    "scenarios": 10,
+    "workflow": ".github/workflows/continue71-m10-host-qa.yml",
+    "driverVersion": "pg@8.16.3",
+    "postgresImage": "postgres:17-bookworm@sha256:837bed18782820fe967067cb5328b02b0d9992c1be9a37ee0c9c492cfc03af3b",
+    "databaseScope": "random newly created localhost disposable database only",
+    "cleanup": "bounded server-side connection drain followed by ordinary DROP DATABASE; no FORCE or swallowed errors",
+    "criticalCases": [
+      "TAKE and next-SPIN both observed waiting on actual wallet locks before release; one collection and one additional BET",
+      "old gamble action rejected after new M10 loss before RNG or transfer",
+      "shared round and all financial/journal writes rollback on final request insert failure",
+      "cross-family request keys and old/new active ownership remain mutually consistent"
+    ]
+  },
+  "remainingMounting": [
+    "exact-source PostgreSQL pass",
+    "final dependency layer must retain merged callbacks after native binding overrides",
+    "existing old state read must be wired to describeLegacyState inside the same authenticated transaction",
+    "deployed shared-round schema and reporting consumers must accept explicitly deferred award representation",
+    "coordinated journal/reservation migration, writer grants and isolation review",
+    "fresh M10 aggregate/max evaluator and audited distinct operator model; production release remains closed"
+  ],
+  "sourceFiles": [
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/host-integration.mjs",
+      "sha256": "5a80ce3c4e528ea708ba3546b15388ac8cf83b09ec2ba60bd796668b03fa5b89",
+      "bytes": 3366
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/round-ownership.mjs",
+      "sha256": "60b1629d49f27819d920196fb7280c0fd96e1fa4d74b6aadc30c7bc84204e2bb",
+      "bytes": 7662
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/postgres-lifecycle.mjs",
+      "sha256": "582e12ba55c36cb8122f9d10fb7ce12ffb627517580f5fe3fc2fb3d112a73be3",
+      "bytes": 5631
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/deferred-lifecycle.mjs",
+      "sha256": "bd5324e43126cc108ab5c8c83b13e290a462c26e44f23e6034663ab9d72a29d7",
+      "bytes": 23563
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/prepare-journal.sql",
+      "sha256": "68d3362267c0e705afced9d99d39b23b33a0afd9420a108a896dba49f1560a1e",
+      "bytes": 2139
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/test-support.mjs",
+      "sha256": "124baae1f5a5a7c1d5b839cacdf1cc4fd77c2af55197349cf2e4ddd56581ca52",
+      "bytes": 7682
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/round-ownership.test.mjs",
+      "sha256": "9c821678cc5ff47f3bd8db365508c057a4cafe0f410321e8746142875941d3df",
+      "bytes": 9521
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/postgres/fixture.sql",
+      "sha256": "8af026330d844c6a0b7724934cf81a88adb6850fad01ff87a6df2e9ae86fe66d",
+      "bytes": 3463
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/postgres/support.mjs",
+      "sha256": "b59cbe681a6fcb7feebf89bb762a6d7d327663abf7f64f97d63674489eac03f1",
+      "bytes": 15131
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/postgres/run-tests.mjs",
+      "sha256": "4486d4918a7daa23d0ad77494d2b9dbe57d3dd26ff6ec10683cec61eabba7145",
+      "bytes": 16069
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-host-lifecycle/README.md",
+      "sha256": "bdc52456ba4c134caef6c97adff96479570577d5f74995c10025b03d412e2c15",
+      "bytes": 9581
+    },
+    {
+      "path": ".github/workflows/continue71-m10-host-qa.yml",
+      "sha256": "5aea81ca3e09ba730badc573a12b147eded249e2a29377e89cbc57c4a384e309",
+      "bytes": 4530
+    }
+  ],
+  "provenanceBoundary": "Only authored component, fixture, workflow and documentation source hashes; no private provider evidence, credentials, account records or financial history."
+}

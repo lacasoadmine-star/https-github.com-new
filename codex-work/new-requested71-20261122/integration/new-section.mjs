@@ -24,6 +24,8 @@ function validCatalogue(value) {
 function render(catalogue) {
   const section=document.createElement('section');
   section.id=ROOT_ID;
+  // Override the legacy dashboard hide rule only on this new section.
+  section.style.setProperty('display','block','important');
   section.dataset.zplayNew71=catalogue.releaseId;
   section.setAttribute('aria-labelledby','zplay-new71-title');
   section.innerHTML=`<header class="new71-heading"><div><span class="new71-kicker">NEW</span><h2 id="zplay-new71-title">Ciyaaraha cusub</h2></div><span class="new71-count">71</span></header><p class="new71-summary">${catalogue.readyCount} diyaar ah · ${71-catalogue.readyCount} diyaarin ku jira</p><ol class="new71-list">${catalogue.games.slice(0,10).map(game=>`<li class="new71-card" data-new71-id="${escapeHtml(game.gameId)}"><span class="new71-number">${String(game.ordinal).padStart(2,'0')}</span><div class="new71-name">${escapeHtml(game.name)}</div>${game.playable?`<a class="new71-action" href="${escapeHtml(game.route)}">Ciyaar</a>`:game.previewRoute?`<a class="new71-preview" href="${escapeHtml(game.previewRoute)}" aria-label="Eeg muuqaalka ${escapeHtml(game.name)} — bet-ku ma furna">Eeg muuqaalka</a>`:'<span class="new71-pending" aria-label="Weli diyaar ma aha">Diyaarin</span>'}</li>`).join('')}</ol><a class="new71-all" href="/new-games71/">Eeg dhammaan 71 <span aria-hidden="true">→</span></a>`;

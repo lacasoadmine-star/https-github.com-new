@@ -17,7 +17,12 @@ const require=createRequire(import.meta.url);
 const runtimeModules=process.env.ZPLAY_QA_NODE_MODULES||process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const {chromium}=require(require.resolve('playwright',{paths:runtimeModules?[runtimeModules]:undefined}));
 const qa=process.env.ZPLAY_NEW71_QA_OUTPUT?pathToFileURL(resolve(process.env.ZPLAY_NEW71_QA_OUTPUT)+'/'):new URL('./',import.meta.url);
-const fixture=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#050805;color:white;font-family:system-ui}main{padding:12px}.home-slot-heading{font-size:24px}.existing-row{display:flex;gap:8px}.old-card{width:80px;height:60px;background:#223344}header.existing{height:48px;padding:10px}</style></head><body><header class="existing">ZPLAY fixture</header><main class="player-main"><button id="zplay-live-shortcut">Existing shortcut</button><section id="sw-v116-games">Existing featured</section><div class="categories">Existing categories</div><button class="sw-player-hero">Existing banner</button><div class="deposit-actions">Existing actions</div><div class="rebrand-race">Existing promotion</div><div class="home-slot-heading">Slots</div><div class="game-grid existing-row"><div class="old-card" data-old="one">Existing1</div><div class="old-card" data-old="two">Existing2</div></div><section class="native-lobby">Existing native row</section><section id="portal-r9-gallery" class="portal-r9-gallery"><div id="zplay-live-catalog">Existing catalogue</div></section></main></body></html>`;
+// Exact hiding selector observed in live /zplay-presentation-v203.css?pv=236.
+// Existing visible fixture rows retain their own presentation overrides; NEW is
+// deliberately a direct child matched by the old blanket rule.
+const legacyHideSelector='body .player-main:has(#sw-v116-games) > :not(#sw-v116-games):not(#sw-internal-games)';
+const legacyHideRule=`${legacyHideSelector}{display:none!important}`;
+const fixture=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#050805;color:white;font-family:system-ui}main{padding:12px}.home-slot-heading{font-size:24px}.existing-row{display:flex;gap:8px}.old-card{width:80px;height:60px;background:#223344}header.existing{height:48px;padding:10px}</style><style data-legacy-presentation>${legacyHideRule}</style></head><body><header class="existing">ZPLAY fixture</header><main class="player-main"><button id="zplay-live-shortcut">Existing shortcut</button><section id="sw-v116-games">Existing featured</section><div class="categories">Existing categories</div><button class="sw-player-hero">Existing banner</button><div class="deposit-actions">Existing actions</div><div class="rebrand-race">Existing promotion</div><div class="home-slot-heading" style="display:block!important">Slots</div><div class="game-grid existing-row" style="display:flex!important"><div class="old-card" data-old="one">Existing1</div><div class="old-card" data-old="two">Existing2</div></div><section class="native-lobby">Existing native row</section><section id="portal-r9-gallery" class="portal-r9-gallery"><div id="zplay-live-catalog">Existing catalogue</div></section></main></body></html>`;
 
 class FixtureRewriter {
   on(selector,handler){this.selector=selector;this.handler=handler;return this;}
@@ -28,7 +33,7 @@ class FixtureRewriter {
   }
 }
 
-test('360/390/430 and desktop: NEW mounts once; touch targets, preserved rows and all71 navigation work',{timeout:120000},async()=>{
+test('360/390/430 and desktop: NEW stays visible above Slots under the live legacy hide rule; existing rows and navigation work',{timeout:120000},async()=>{
   await mkdir(qa,{recursive:true});
   const requestLog=[],forbiddenRequests=[];
   const worker=createAdditiveWorker({fetch(){return new Response(fixture,{headers:{'Content-Type':'text/html'}});}},config,FixtureRewriter);
@@ -66,11 +71,13 @@ test('360/390/430 and desktop: NEW mounts once; touch targets, preserved rows an
       assert.equal(await page.locator('#zplay-requested71 .new71-action').count(),0);
       assert.equal(await page.locator('#zplay-requested71 .new71-preview').getAttribute('href'),'/new-games72/multi-hot-10/preview/');
       assert.equal(await page.locator('#zplay-requested71 img, #zplay-requested71 canvas, #zplay-requested71 video').count(),0);
-      const position=await page.evaluate(()=>{
+      const position=await page.evaluate(({selector,html})=>{
         const section=document.getElementById('zplay-requested71'),anchor=document.querySelector('main.player-main .home-slot-heading');
-        return {correct:section.nextElementSibling===anchor,overflow:document.documentElement.scrollWidth>innerWidth,oldCount:document.querySelectorAll('[data-old]').length,oldWidth:document.querySelector('[data-old]').getBoundingClientRect().width,oldBackground:getComputedStyle(document.querySelector('[data-old]')).backgroundColor,children:[...document.querySelector('main').children].filter(el=>el.id!=='zplay-requested71').map(el=>el.outerHTML)};
-      });
-      assert(position.correct);assert(!position.overflow);assert.equal(position.oldCount,2);assert.equal(position.oldWidth,80);assert.equal(position.oldBackground,'rgb(34, 51, 68)');
+        const bounds=section.getBoundingClientRect(),slots=anchor.getBoundingClientRect();
+        const original=new DOMParser().parseFromString(html,'text/html');
+        return {correct:section.nextElementSibling===anchor,display:getComputedStyle(section).display,visible:bounds.width>0&&bounds.height>0,newAboveSlots:bounds.bottom<=slots.top+1&&slots.height>0,legacySelectorMatches:section.matches(selector),oldHiddenControlDisplay:getComputedStyle(document.querySelector('.categories')).display,overflow:document.documentElement.scrollWidth>innerWidth,oldCount:document.querySelectorAll('[data-old]').length,oldWidth:document.querySelector('[data-old]').getBoundingClientRect().width,oldBackground:getComputedStyle(document.querySelector('[data-old]')).backgroundColor,children:[...document.querySelector('main').children].filter(el=>el.id!=='zplay-requested71').map(el=>el.outerHTML),originalChildren:[...original.querySelector('main').children].map(el=>el.outerHTML)};
+      },{selector:legacyHideSelector,html:fixture});
+      assert(position.correct);assert.equal(position.display,'block');assert(position.visible);assert(position.newAboveSlots);assert(position.legacySelectorMatches);assert.equal(position.oldHiddenControlDisplay,'none');assert.deepEqual(position.children,position.originalChildren);assert(!position.overflow);assert.equal(position.oldCount,2);assert.equal(position.oldWidth,80);assert.equal(position.oldBackground,'rgb(34, 51, 68)');
       const controlBounds=[];
       for(const selector of ['.new71-preview','.new71-all']){
         const target=page.locator('#zplay-requested71 '+selector);await target.scrollIntoViewIfNeeded();
@@ -80,17 +87,20 @@ test('360/390/430 and desktop: NEW mounts once; touch targets, preserved rows an
         });
         assert(bounds.width>=44&&bounds.height>=44&&bounds.centerHit&&bounds.reachable,JSON.stringify({selector,bounds}));controlBounds.push({selector,...bounds});
       }
-      await page.evaluate(async revision=>{
+      await page.evaluate(async ({revision,rule})=>{
         for(let i=0;i<3;i++)await import(`/_zplay/new71/${revision}/new-section.mjs?duplicate=${i}`);
         document.querySelector('.categories').append(document.createTextNode(' update'));
-      },config.assetRevision);
+        const lateStyle=document.createElement('style');lateStyle.textContent=rule;document.head.append(lateStyle);
+      },{revision:config.assetRevision,rule:legacyHideRule});
       await page.waitForFunction(()=>document.querySelectorAll('#zplay-requested71').length===1);
+      assert(await page.locator('#zplay-requested71').isVisible(),'Later legacy stylesheet must not hide NEW');
       const after=await page.locator('[data-old]').count();assert.equal(after,2);
       await page.locator('#zplay-requested71').screenshot({path:fileURLToPath(new URL(`new71-section-${width}.png`,qa))});
       await page.evaluate(()=>{history.pushState({},'', '/profile');dispatchEvent(new PopStateEvent('popstate'));});
       await page.waitForFunction(()=>!document.getElementById('zplay-requested71'));
       await page.evaluate(()=>{history.pushState({},'', '/');dispatchEvent(new PopStateEvent('popstate'));});
       await page.locator('#zplay-requested71').waitFor();assert.equal(await page.locator('#zplay-requested71').count(),1);
+      assert(await page.locator('#zplay-requested71').evaluate(section=>{const anchor=document.querySelector('.home-slot-heading');return getComputedStyle(section).display==='block'&&section.nextElementSibling===anchor&&section.getBoundingClientRect().bottom<=anchor.getBoundingClientRect().top+1;}),'Route remount must remain visible above Slots');
       if(width<600)await page.locator('.new71-all').tap();else await page.locator('.new71-all').click();
       await page.waitForURL('**/new-games71/');
       assert.equal(await page.locator('.new71-card').count(),71);
@@ -98,7 +108,7 @@ test('360/390/430 and desktop: NEW mounts once; touch targets, preserved rows an
       assert.equal(await page.locator('.new71-card').last().innerText().then(text=>text.includes('Cube Nova 21')),true);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       assert.deepEqual(errors,[]);
-      reports.push({viewport:{width,height},dpr:2,topInsertion:true,duplicateImports:3,sectionCount:1,pendingPreviewCount:10,pendingFullCount:71,playLinks:0,visualPreviewLinks:1,borrowedImages:0,oldRowsIntact:true,horizontalOverflow:false,routeExitReturn:true,controlBounds,pageErrors:errors});
+      reports.push({viewport:{width,height},dpr:2,topInsertion:true,newAboveSlots:true,legacyHideRule:legacyHideRule,legacySelectorMatches:true,lateLegacyStylesheet:true,oldHiddenControlsStayHidden:true,duplicateImports:3,sectionCount:1,pendingPreviewCount:10,pendingFullCount:71,playLinks:0,visualPreviewLinks:1,borrowedImages:0,oldRowsIntact:true,horizontalOverflow:false,routeExitReturn:true,controlBounds,pageErrors:errors});
       await page.close();
     }
     assert(requestLog.every(request=>request.method==='GET'));

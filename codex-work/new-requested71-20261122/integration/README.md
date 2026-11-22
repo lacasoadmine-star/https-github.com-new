@@ -5,6 +5,7 @@ This implementation continues the retained NEW71 section before the existing fir
 ## Scope and routes
 
 - The lobby module mounts once before `main.player-main .home-slot-heading`, observed on the live `/` lobby by the parent agent. It removes only its own node on navigation away from `/`, and remounts after an SPA return or relevant DOM replacement.
+- Its own section sets inline `display:block!important` because the existing live presentation stylesheet hides unmatched direct children of `.player-main` with an important rule. This override applies only to the new element; existing stylesheet rules and other elements are unchanged. The browser fixture includes the exact observed `:has(#sw-v116-games)` rule and checks visible geometry above Slots, later stylesheet insertion, route remount and preserved existing rows at all four viewports.
 - The root preview contains the first 10 requested names in the exact requested order. `/new-games71/` lists all 71. Existing cards and rows remain in place.
 - `/new-games71/catalogue.json` exposes names, ordinals and truthful readiness only. Internal evidence paths, configuration paths and official demo session URLs are not published by this endpoint.
 - Client JavaScript and CSS use content-addressed paths under `/_zplay/new71/`. HTML and the catalogue use `no-store`. CSS rules that apply to the lobby are scoped to the added section.

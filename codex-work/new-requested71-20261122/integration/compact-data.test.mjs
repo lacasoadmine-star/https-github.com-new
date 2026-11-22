@@ -17,7 +17,8 @@ test('catalogue tuples retain exact ordered IDs, all JSON fields and served clie
   assert.equal(rebuilt.catalogue.games.length, 71);
   assert.equal(rebuilt.catalogue.readyCount, 0);
   assert.equal(rebuilt.catalogue.games.filter(game => game.previewRoute).length, 1);
-  assert(Buffer.byteLength(compactWorkerAssetsSource(config)) < 10500);
+  // Includes the scoped legacy-display override; the compiled six-module cap stays 30k.
+  assert(Buffer.byteLength(compactWorkerAssetsSource(config)) < 10600);
 });
 
 test('row overrides retain distinct future readiness and routes without hardcoding a preparing state', async () => {
