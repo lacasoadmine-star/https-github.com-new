@@ -86,3 +86,34 @@ test('preview controls cannot create any round intent', () => {
   const controls = new MultiHot20Controls(); assert.throws(() => controls.requestSpin('synthetic-request-0001'), /ROUND_INTENTS_DISABLED/);
   assert.throws(() => controls.startAuto(), /AUTO_START_UNAVAILABLE/); assert.equal(controls.snapshot().financialEnabled, false);
 });
+test('stopping then restarting AUTO before the old scheduled job cannot strand the new sequence', async () => {
+  const s = setup(); s.controller.configureAuto({count:25}); s.controller.startAuto();
+  const old = s.jobs.shift(); s.controller.stopAuto(); s.controller.startAuto();
+  assert.equal(s.jobs.length, 1); await old(); assert.equal(s.calls.length, 0);
+  assert.equal(s.controller.startAuto(), false); await s.jobs.shift()();
+  assert.equal(s.calls.length, 1); s.at(3000); assert.equal(s.jobs.length, 1);
+  s.controller.stopAuto(); await s.jobs.shift()(); assert.equal(s.calls.length, 1);
+});
+test('a lost TAKE response recovers the same TAKE key and amount without another SPIN', async () => {
+  const winning = [['bell','bell','watermelon','lemon','bell'],['bell','orange','bell','bell','watermelon'],['seven','orange','bell','bell','watermelon']];
+  const s = setup({submit: intent => {
+    if (intent.action === 'TAKE') throw new Error('accepted TAKE reply lost');
+    return {...receipt(intent), grid:winning, multiplier:5, winAmount:'6.00'};
+  }, recover:intent => ({...intent,collected:true,amount:'6.00',balance:'105.80'})});
+  await s.controller.spin(); s.at(3000); assert.equal(s.controls.snapshot().phase, 'WIN_PENDING');
+  assert.equal(await s.controller.take(), false); assert.equal(s.controls.snapshot().phase, 'RECOVERY_REQUIRED');
+  const original = s.calls[1]; assert.equal(original.action, 'TAKE');
+  assert.equal(await s.controller.recover(), true); const {recovered,...intent} = s.calls[2];
+  assert.deepEqual(intent, original); assert.equal(recovered,true); assert.equal(s.calls.filter(x=>x.action==='SPIN').length,1);
+  assert.equal(s.controls.snapshot().balance,'105.80'); assert.equal(s.controls.snapshot().phase,'READY');
+  assert.equal(s.renderer.snapshot().winVisible,false); assert.equal(await s.controller.recover(),false);
+});
+test('manual TAKE cancels the queued automatic wager without losing collection', async () => {
+  const winning = [['bell','bell','watermelon','lemon','bell'],['bell','orange','bell','bell','watermelon'],['seven','orange','bell','bell','watermelon']];
+  const s = setup({submit:intent => intent.action==='TAKE'?{...intent,collected:true,amount:'6.00',balance:'105.80'}:
+    {...receipt(intent),grid:winning,multiplier:5,winAmount:'6.00'}});
+  s.controller.configureAuto({count:25});s.controller.startAuto();await s.jobs.shift()();s.at(3000);
+  assert.equal(s.jobs.length,1); assert.equal(await s.controller.take(),true);await s.jobs.shift()();
+  assert.equal(s.calls.length,2);assert.equal(s.calls[1].action,'TAKE');assert.equal(s.controls.snapshot().auto.active,false);
+  assert.equal(s.controls.snapshot().phase,'READY');
+});

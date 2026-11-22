@@ -2,10 +2,7 @@ import {ROOT_ID, ANCHOR, SECTION_PATH, CATALOGUE_PATH, validCatalogue, renderSec
 const STATE = Symbol.for('zplay.new90.lobby.v1');
 const PAGE_STATE = Symbol.for('zplay.new90.page.v1');
 
-export function installCataloguePage(catalogue) {
-  if (!validCatalogue(catalogue)) throw Error('NEW90_PUBLIC_CATALOGUE_INVALID');
-  if (window[PAGE_STATE]) return window[PAGE_STATE];
-  const section = document.getElementById(ROOT_ID);
+function installSearch(section, catalogue) {
   const input = section?.querySelector('#zplay-new90-search'), output = section?.querySelector('.new90-result-count');
   const cards = section ? Array.from(section.querySelectorAll('.new90-card')) : [];
   if (!input || !output || cards.length !== catalogue.games.length
@@ -17,7 +14,14 @@ export function installCataloguePage(catalogue) {
     output.textContent = count + ' ciyaarood';
   }
   input.addEventListener('input',filter); filter();
-  const api = {filter,dispose(){input.removeEventListener('input',filter);if(window[PAGE_STATE]===api)delete window[PAGE_STATE];}};
+  return {filter,dispose(){input.removeEventListener('input',filter);}};
+}
+
+export function installCataloguePage(catalogue) {
+  if (!validCatalogue(catalogue)) throw Error('NEW90_PUBLIC_CATALOGUE_INVALID');
+  if (window[PAGE_STATE]) return window[PAGE_STATE];
+  const search = installSearch(document.getElementById(ROOT_ID),catalogue);
+  const api = {filter:search.filter,dispose(){search.dispose();if(window[PAGE_STATE]===api)delete window[PAGE_STATE];}};
   window[PAGE_STATE] = api; return api;
 }
 
@@ -25,18 +29,30 @@ export function installNewSection(catalogue) {
   if (!validCatalogue(catalogue)) throw Error('NEW90_PUBLIC_CATALOGUE_INVALID');
   const previous = window[STATE];
   if (previous) { previous.update(catalogue); return previous; }
-  let current = catalogue, node = null, queued = false, disposed = false;
+  let current = catalogue, node = null, search = null, expanded = false, queued = false, disposed = false;
+  function removeNode() {
+    search?.dispose(); search = null;
+    node?.removeEventListener('click',onClick);
+    node?.remove(); node = null;
+  }
+  function onClick(event) {
+    if (!event.target.closest?.('[data-new90-expand]')) return;
+    expanded = true; removeNode(); mount();
+    node?.querySelector('#zplay-new90-search')?.focus({preventScroll:true});
+  }
   function mount() {
     queued = false;
     if (disposed) return;
     const anchor = location.pathname === '/' ? document.querySelector(ANCHOR) : null;
-    if (!anchor) { node?.remove(); node = null; return; }
+    if (!anchor) { removeNode(); return; }
     if (!node) {
       const stale = document.getElementById(ROOT_ID);
       if (stale?.dataset.zplayNew90) stale.remove();
       const template = document.createElement('template');
-      template.innerHTML = renderSection(current);
+      template.innerHTML = renderSection(current,{expanded});
       node = template.content.firstElementChild;
+      node.addEventListener('click',onClick);
+      if (expanded) search = installSearch(node,current);
     }
     if (node.parentNode !== anchor.parentNode || node.nextElementSibling !== anchor) anchor.before(node);
   }
@@ -48,13 +64,13 @@ export function installNewSection(catalogue) {
     mount,
     update(next) {
       if (!validCatalogue(next)) throw Error('NEW90_PUBLIC_CATALOGUE_INVALID');
-      if (JSON.stringify(current) !== JSON.stringify(next)) { current = next; node?.remove(); node = null; }
+      if (JSON.stringify(current) !== JSON.stringify(next)) { current = next; removeNode(); }
       mount();
     },
     dispose() {
       disposed = true; observer.disconnect();
       window.removeEventListener('popstate', schedule); window.removeEventListener('hashchange', schedule);
-      node?.remove(); node = null;
+      removeNode();
       if (window[STATE] === api) delete window[STATE];
     }
   };

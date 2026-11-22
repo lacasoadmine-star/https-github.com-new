@@ -7,11 +7,12 @@ export class MultiHot20Controller {
     if (!controls || !renderer || typeof transport?.submit !== 'function' || typeof transport?.recover !== 'function') throw new TypeError('M20_HOST_CONTRACT');
     this.controls = controls; this.renderer = renderer; this.transport = transport; this.now = now;
     this.schedule = schedule; this.keyFactory = keyFactory; this.onChange = onChange; this.onError = onError;
-    this.inflight = null; this.disposed = false; this.hidden = false; this.generation = 0; this.nextScheduled = false;
+    this.inflight = null; this.disposed = false; this.hidden = false; this.generation = 0; this.nextScheduled = false; this.scheduledJob = null;
   }
   snapshot() { return Object.freeze({ ...this.controls.snapshot(), inFlight: !!this.inflight, hidden: this.hidden, disposed: this.disposed }); }
   change() { this.onChange(this.snapshot()); }
-  stopAuto() { this.generation++; this.controls.stopAuto(); this.change(); }
+  invalidateScheduled() { this.generation++; this.nextScheduled = false; this.scheduledJob = null; }
+  stopAuto() { this.invalidateScheduled(); this.controls.stopAuto(); this.change(); }
   async spin({ automatic = false } = {}) {
     if (this.disposed || this.hidden) return false;
     const s = this.controls.snapshot();
@@ -43,7 +44,7 @@ export class MultiHot20Controller {
       if (!this.disposed) {
         if (this.controls.snapshot().pending?.requestKey === intent.requestKey) this.controls.uncertain(intent.requestKey);
         else this.controls.disconnect();
-        this.generation++; this.onError(error);
+        this.invalidateScheduled(); this.onError(error);
       }
       return false;
     } finally { if (this.inflight === job) this.inflight = null; if (!this.disposed) this.change(); }
@@ -57,18 +58,22 @@ export class MultiHot20Controller {
   async take() {
     const s = this.controls.snapshot();
     if (this.disposed || this.hidden || this.inflight || s.phase !== 'WIN_PENDING' || s.modal) return false;
+    // A manual TAKE cannot leave an already queued AUTO request waiting behind it.
+    if (s.auto?.active) this.stopAuto();
     const intent = this.controls.requestTake(this.keyFactory()); this.change(); return this.send(intent);
   }
   configureAuto(options) { this.controls.configureAuto(options); this.change(); }
   startAuto() {
-    if (this.disposed || this.hidden || this.inflight) return false;
-    this.controls.startAuto(); this.generation++; this.change(); this.queueNext(); return true;
+    if (this.disposed || this.hidden || this.inflight || this.controls.snapshot().auto?.active) return false;
+    this.controls.startAuto(); this.invalidateScheduled(); this.change(); this.queueNext(); return true;
   }
   queueNext() {
     if (this.nextScheduled || this.disposed || this.hidden || !this.controls.snapshot().auto?.active) return;
-    this.nextScheduled = true; const generation = this.generation;
+    this.nextScheduled = true; const generation = this.generation, scheduledJob = {};
+    this.scheduledJob = scheduledJob;
     this.schedule(async () => {
-      this.nextScheduled = false;
+      if (this.scheduledJob !== scheduledJob) return;
+      this.nextScheduled = false; this.scheduledJob = null;
       if (this.disposed || this.hidden || generation !== this.generation || !this.controls.snapshot().auto?.active) return;
       await this.spin({ automatic: true });
     });
@@ -83,7 +88,7 @@ export class MultiHot20Controller {
   }
   setHidden(hidden) {
     this.hidden = !!hidden;
-    if (hidden) { this.generation++; this.controls.disconnect(); }
+    if (hidden) { this.invalidateScheduled(); this.controls.disconnect(); }
     this.change();
   }
   dispose() { if (!this.disposed) { this.setHidden(true); this.disposed = true; this.generation++; } }

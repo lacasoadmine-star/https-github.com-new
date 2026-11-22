@@ -7,10 +7,10 @@ const sha=value=>createHash('sha256').update(value).digest('hex');
 const commit='a'.repeat(40);
 const module=(name,source)=>({name,source,bytes:Buffer.byteLength(source),sha256:sha(source),contentType:'application/javascript+module'});
 const encoded=m=>({name:m.name,content_type:m.contentType,content_base64:Buffer.from(m.source).toString('base64')});
-function fixture() {
+function fixture(namespace='newrequested90r1') {
   const old=[module('old/entry.mjs','export default {fetch(){return new Response("legacy")}};'),module('old/ledger.mjs','export const identity="preserved";')];
   const baseline={id:'11111111-1111-4111-8111-111111111111',number:468,main_module:'old/entry.mjs',moduleCount:2,totalBytes:old.reduce((s,m)=>s+m.bytes,0),inventory:old.map(({name,bytes,sha256,contentType})=>({name,bytes,sha256,contentType}))};
-  const modules=['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'].map(name=>module('newrequested90r1/'+name,'export default '+JSON.stringify(name)+';'));
+  const modules=['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'].map(name=>module(namespace+'/'+name,'export default '+JSON.stringify(name)+';'));
   const build={modules,report:{sourceCommit:commit,requestedCount:90,activeMainModule:baseline.main_module,totalBytes:modules.reduce((s,m)=>s+m.bytes,0)}};
   const plan=deploymentPlan({baseline,build,sourceCommit:commit});
   let before={id:baseline.id,number:468,main_module:baseline.main_module,modules:old.map(encoded),bindings:Array.from({length:18},(_,i)=>({name:'binding'+i,type:i?'service':'secret_text',...(i?{service:'retained-'+i}:{})})),
@@ -47,6 +47,16 @@ test('a verified plan adds four pinned modules without exposing source in its re
 test('the remote function is self contained in its service execution scope',async()=>{
   const f=fixture(),run=new Function('cloudflare','accountId','return ('+stageCode(f.plan)+')()');
   assert.equal((await run(f.cloudflare,'account')).verificationPending,true);
+});
+test('r2 can preserve the deployed r1 modules with an exact four-file namespace',async()=>{
+  const f=fixture('newrequested90r2');
+  assert.equal(f.plan.mainModule,'newrequested90r2/entry.mjs');
+  const result=await executeStage(f.cloudflare,'account',f.plan);
+  const proof={worker:'superwin-player',sourceCommit:commit,baseline:f.baseline,versionId:result.stagedVersion,mainModule:f.plan.mainModule,
+    newPins:f.plan.modules.map(({name,bytes,sha256,contentType})=>({name,bytes,sha256,contentType}))};
+  assert.equal((await verifyVersion(f.cloudflare,'account',proof)).allOriginalModulesByteIdentical,true);
+  proof.newPins[1].name='newrequested90r1/public.mjs';
+  await assert.rejects(verifyVersion(f.cloudflare,'account',proof),/READBACK_PIN_SET_CHANGED/);
 });
 test('a changed active version or traffic split cannot stage any source',async()=>{
   for(const change of [v=>v.versions[0].version_id='other',v=>v.versions[0].percentage=50]){

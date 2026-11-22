@@ -1,3 +1,15 @@
+# Current continuation — Super Wilds gameplay and dashboard r2
+
+Continue the same exact90 request; the latest steering asks for less repeated checking and faster actual implementation. The existing source and Player469 remain protected. Backup branch `backup/new90-before-superwilds-20261123` retains commit5b3d7e9. The retained469 inventory is recorded before the additive r2 candidate; no cash activation or production data mutation is authorized by a passing catalogue test.
+
+Fresh current official Super Wilds inspection completed seven separately initiated rounds and its own rules, refreshed paytable,26 stake choices, five paylines, sound/settings and AUTO panels. The additional QUICK attempt did not establish another accepted round and later reported provider Time Out. Private provider session/history and captures are excluded. New source now includes its own Canvas artwork/reels/wheel, aligned controls, actual receipt controller, startup/settings/audio/rules/history/AUTO/recovery mount, bounded observed line evaluator, authoritative existing-wallet lifecycle, PostgreSQL journal seam and disposable concurrency runner. This is actual implementation progress, not completed provider parity or live cash acceptance.
+
+M20 continues separately: mounted AUTO includes all three documented conditions, original-key RECOVER is visible, queued AUTO restart and manual TAKE races are corrected. Its45 focused tests pass; its mounted browser QA is included in the current source workflow. Native-media closure and final production integration remain incomplete.
+
+Dashboard r2 retains normal card styling and expands/searches all90 within the existing dashboard, replacing the prior90 loader/section once and preserving old rows. A fully reviewed canonical release descriptor can now pack a genuine Play route; no readiness is fabricated for unbuilt games. Source publication, exact CI and any actual activation/readback will be recorded separately. New games LIVE VERIFIED remain0/90 at this candidate, with new cash activation false.
+
+---
+
 # Current requested90 continuation — 23 November 2026
 
 The user's latest exact90 names supersede the historical71/CubeNova scope. See [the active order](codex-work/new-games90-20261123/ORDER.md) and [current source and proof](codex-work/new-games90-20261123/README.md). Preserve all prior work and existing games/accounts/services. Exclusions remain MultiHot5,FoxyHot20,HabeshaFortune5.

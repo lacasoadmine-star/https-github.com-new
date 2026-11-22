@@ -29,6 +29,9 @@ class FixtureRewriter {
       let removed=false,addition='';handler.element({remove(){removed=true;},append(html){addition+=html;}});
       if(selector==='script#zplay-new71-loader'&&removed)source=source.replace(/<script\b(?=[^>]*\bid="zplay-new71-loader")[^>]*>[\s\S]*?<\/script>/g,'');
       else if(selector==='link[data-zplay-new71-style]'&&removed)source=source.replace(/<link\b(?=[^>]*\bdata-zplay-new71-style)[^>]*>/g,'');
+      else if(selector==='script#zplay-new90-loader'&&removed)source=source.replace(/<script\b(?=[^>]*\bid="zplay-new90-loader")[^>]*>[\s\S]*?<\/script>/g,'');
+      else if(selector==='link[data-zplay-new90-style]'&&removed)source=source.replace(/<link\b(?=[^>]*\bdata-zplay-new90-style)[^>]*>/g,'');
+      else if(selector==='#zplay-requested90'&&removed)source=source.replace(/<section\b(?=[^>]*\bid="zplay-requested90")[^>]*>[\s\S]*?<\/section>/g,'');
       else if(selector==='head')source=source.replace('</head>',addition+'</head>');
       else throw Error('Unexpected fixture HTMLRewriter selector: '+selector);
     }
@@ -39,11 +42,15 @@ class FixtureRewriter {
 test('exact NEW90 artifact: mobile/desktop visible placement, search, preserved rows/auth and no financial requests',{timeout:150000},async()=>{
   await mkdir(output,{recursive:true});
   const requestLog=[],forbiddenRequests=[],reports=[];let failure=null,browser;
+  const r1DecoratedFixture=fixture.replace('</head>','<link rel="stylesheet" data-zplay-new90-style href="/legacy90.css"><script type="module" id="zplay-new90-loader" src="/legacy90-loader.mjs"></script></head>')
+    .replace('<div class="home-slot-heading"','<section id="zplay-requested90" data-zplay-new90="prior469"><p data-old90>Prior90 catalogue markup</p></section><div class="home-slot-heading"');
   const previous={fetch(request){
     const path=new URL(request.url).pathname;
     if(path==='/legacy71-loader.mjs')return new Response('window.legacy71Executed=true;',{headers:{'Content-Type':'text/javascript'}});
     if(path==='/legacy71.css')return new Response('body{}',{headers:{'Content-Type':'text/css'}});
-    return new Response(fixture,{headers:{'Content-Type':'text/html','Set-Cookie':'session=fixture-session-only; Path=/; HttpOnly; SameSite=Lax'}});
+    if(path==='/legacy90-loader.mjs')return new Response('window.legacy90Executed=true;',{headers:{'Content-Type':'text/javascript'}});
+    if(path==='/legacy90.css')return new Response('body{}',{headers:{'Content-Type':'text/css'}});
+    return new Response(r1DecoratedFixture,{headers:{'Content-Type':'text/html','Set-Cookie':'session=fixture-session-only; Path=/; HttpOnly; SameSite=Lax'}});
   }};
   const worker=build.createNew90Worker(previous,build.config,FixtureRewriter);
   const server=createServer(async(req,res)=>{
@@ -76,9 +83,14 @@ test('exact NEW90 artifact: mobile/desktop visible placement, search, preserved 
       await page.locator('#zplay-requested90').waitFor();
       assert.equal(await page.locator('#zplay-requested90').count(),1);
       assert.equal(await page.locator('#zplay-requested90 .new90-card').count(),10);
+      assert.equal(await page.locator('#zplay-requested90 .game-grid .game-card').count(),10);
       assert.equal(await page.locator('.new90-action').count(),0);
       assert.equal(await page.locator('#zplay-requested71').count(),0);
       assert.equal(await page.evaluate(()=>!!window.legacy71Executed),false);
+      assert.equal(await page.evaluate(()=>!!window.legacy90Executed),false);
+      assert.equal(await page.locator('script#zplay-new90-loader').count(),1);
+      assert.equal(await page.locator('link[data-zplay-new90-style]').count(),1);
+      assert.equal(await page.locator('[data-old90]').count(),0);
       assert.deepEqual(await page.locator('.new90-name').allTextContents(),REQUESTED_NAMES.slice(0,10));
       const position=await page.evaluate(({selector,fixture})=>{
         const section=document.getElementById('zplay-requested90'),anchor=document.querySelector('.home-slot-heading');
@@ -112,10 +124,12 @@ test('exact NEW90 artifact: mobile/desktop visible placement, search, preserved 
       await page.locator('#zplay-requested90').waitFor();assert.equal(await page.locator('#zplay-requested90').count(),1);
       assert(await page.locator('#zplay-requested90').evaluate(el=>el.nextElementSibling?.classList.contains('home-slot-heading')));
       if(width<600)await page.locator('.new90-all').tap();else await page.locator('.new90-all').click();
-      await page.waitForURL('**/new-games90/');
+      assert.equal(new URL(page.url()).pathname,'/','show all stays in the existing dashboard');
       const search=page.locator('#zplay-new90-search');await search.waitFor();
       assert.equal(await page.locator('.new90-card').count(),90);assert.equal(await page.locator('.new90-action').count(),0);
       assert.deepEqual(await page.locator('.new90-name').allTextContents(),REQUESTED_NAMES);
+      assert.equal(await page.locator('[data-old]').count(),2);
+      assert.equal(await page.locator('#zplay-requested90 .game-grid .game-card').count(),90);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       for(const [query,expected] of [['rouLETTE',6],['JetX',3],['Keno',4],['Multi Hot 5',2],['HabeshaFortune5',0],['',90]]){
         await search.fill(query);
@@ -126,16 +140,38 @@ test('exact NEW90 artifact: mobile/desktop visible placement, search, preserved 
       }
       const storage=await page.evaluate(()=>({token:localStorage.getItem('fixture-token'),session:sessionStorage.getItem('fixture-session')}));
       assert.deepEqual(storage,{token:'fixture-token-only',session:'fixture-session-only'});
+      // Exercise a real native anchor on a synthetic released catalogue. This
+      // validates touch/click navigation only and makes no live-game claim.
+      const synthetic=structuredClone(build.config.catalogue),released=synthetic.games[1];
+      released.playable=true;released.status='ready';released.route='/new-games72/multi-hot-5-super-wilds/';synthetic.readyCount=1;
+      const navigations=[];
+      await page.route('**/new-games90/catalogue.json',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(synthetic)}));
+      await page.route('**/new-games72/multi-hot-5-super-wilds/',route=>{
+        navigations.push({method:route.request().method(),path:new URL(route.request().url()).pathname});
+        return route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>Synthetic mounted game route</title><main data-synthetic-game>Mounted route fixture</main>'});
+      });
+      await page.goto(origin+'/');
+      const play=page.locator('.new90-action');await play.waitFor();
+      assert.equal(await play.count(),1);assert.equal(await play.getAttribute('href'),released.route);
+      assert.equal(await play.getAttribute('aria-label'),'Play Multi Hot 5 Super Wilds');
+      const playBox=await play.evaluate(node=>{const r=node.getBoundingClientRect();return {width:r.width,height:r.height};});
+      assert(playBox.width>=44&&playBox.height>=44);
+      if(width<600)await play.tap();else await play.click();
+      await page.waitForURL('**/new-games72/multi-hot-5-super-wilds/');
+      assert(await page.locator('[data-synthetic-game]').isVisible());
+      assert.deepEqual(navigations,[{method:'GET',path:released.route}]);
       assert.deepEqual(errors,[]);
       reports.push({viewport:{width,height},dpr:2,exactOrder:true,lobbyCards:10,fullCards:90,readyGames:0,playLinks:0,
         visualPreviewLinks:build.config.catalogue.games.filter(game=>game.previewRoute).length,topInsertion:true,broadLegacyRuleMatched:true,lateLegacyStylesheet:true,
         preservedOldRows:true,routeExitReturn:true,duplicateImports:3,horizontalOverflow:false,searchCases:6,matchCountsAccurate:true,authStorageUnchanged:true,
-        legacyLoaderSuppressed:true,controls,pageErrors:errors});
+        sameDashboardExpansion:true,ordinaryGameCardMarkup:true,syntheticReadyNavigation:{scope:'Synthetic release data, no financial play or live-game verification',passed:true,navigations,touch:width<600,playBox},
+        legacyLoaderSuppressed:true,prior469New90LoaderReplaced:true,prior469SectionReplaced:true,controls,pageErrors:errors});
       await context.close();
     }
     assert(requestLog.every(request=>request.method==='GET'));
     assert(!requestLog.some(request=>/wallet|spin|round|auth|deposit/.test(request.path)));
     assert(!requestLog.some(request=>request.path.startsWith('/legacy71')));
+    assert(!requestLog.some(request=>request.path.startsWith('/legacy90')));
     assert(requestLog.filter(request=>request.path==='/new-games90/catalogue.json').every(request=>!request.hasCookie));
     assert(requestLog.some(request=>request.path==='/'&&request.hasCookie));
     assert.deepEqual(forbiddenRequests,[]);

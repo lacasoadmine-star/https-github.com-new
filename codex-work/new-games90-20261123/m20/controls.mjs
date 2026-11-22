@@ -116,6 +116,7 @@ export class MultiHot20Controls {
       const balance = this.state.balance === null ? null : moneyMinor(this.state.balance);
       const win = moneyMinor(this.state.round.winAmount);
       const stop = auto.remaining <= 0 || (auto.winLimit !== null && win >= auto.winLimit) ||
+        ((auto.decreaseLimit !== null || auto.increaseLimit !== null) && this.state.round.balance === null) ||
         (balance !== null && auto.startBalance !== null &&
           ((auto.decreaseLimit !== null && auto.startBalance - balance >= auto.decreaseLimit) ||
            (auto.increaseLimit !== null && balance - auto.startBalance >= auto.increaseLimit)));
@@ -152,7 +153,7 @@ export class MultiHot20Controls {
     this.change(); return true;
   }
   configureAuto({ count, winLimit = null, decreaseLimit = null, increaseLimit = null }) {
-    if (!this.idle() || !AUTO_COUNTS.includes(count)) fail('AUTO_CONFIGURATION_INVALID');
+    if (!this.idle() || this.state.auto?.active || !AUTO_COUNTS.includes(count)) fail('AUTO_CONFIGURATION_INVALID');
     const parseLimit = value => value === null ? null : moneyMinor(value, { positive: true });
     this.state.auto = { count, remaining: count, active: false, reason: null,
       winLimit: parseLimit(winLimit), decreaseLimit: parseLimit(decreaseLimit), increaseLimit: parseLimit(increaseLimit),
@@ -160,7 +161,11 @@ export class MultiHot20Controls {
     return this.change();
   }
   startAuto() {
-    if (!this.roundIntentsEnabled || !this.idle() || !this.state.auto || this.state.auto.remaining < 1) fail('AUTO_START_UNAVAILABLE');
+    if (!this.roundIntentsEnabled || !this.idle() || !this.state.auto || this.state.auto.active || this.state.auto.remaining < 1) fail('AUTO_START_UNAVAILABLE');
+    const auto = this.state.auto;
+    if ((auto.decreaseLimit !== null || auto.increaseLimit !== null) && this.state.balance === null) fail('AUTO_BALANCE_REQUIRED');
+    // The baseline belongs to the actual start, not an earlier visit to the dialog.
+    auto.startBalance = this.state.balance === null ? null : moneyMinor(this.state.balance);
     this.state.auto.active = true; this.state.modal = null; return this.change();
   }
   stopAuto() {

@@ -1,12 +1,15 @@
 import {createHash} from 'node:crypto';
 
-const OWN_MODULES = ['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'].map(name=>'newrequested90r1/'+name);
+const MODULE_FILES = ['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'];
 
 export function deploymentPlan({baseline,build,sourceCommit}) {
+  const namespace = build.modules?.find(m=>m.name.endsWith('/entry.mjs'))?.name.split('/')[0];
+  if (!/^newrequested90r[12]$/.test(namespace || '')) throw Error('UNVERIFIED_DEPLOYMENT_NAMESPACE');
+  const ownModules = MODULE_FILES.map(name=>namespace+'/'+name);
   if (!baseline?.id || baseline.moduleCount !== baseline.inventory?.length || !baseline.moduleCount
     || !/^[a-f0-9]{40}$/.test(sourceCommit || '') || build.report.sourceCommit !== sourceCommit
     || build.report.requestedCount !== 90 || build.report.activeMainModule !== baseline.main_module
-    || build.modules.length !== OWN_MODULES.length || !OWN_MODULES.every(name=>build.modules.some(m=>m.name===name)))
+    || build.modules.length !== ownModules.length || !ownModules.every(name=>build.modules.some(m=>m.name===name)))
     throw Error('UNVERIFIED_DEPLOYMENT_PLAN');
   for (const item of build.modules) {
     if (baseline.inventory.some(old=>old.name===item.name) || item.contentType !== 'application/javascript+module'
@@ -15,7 +18,7 @@ export function deploymentPlan({baseline,build,sourceCommit}) {
   }
   if (baseline.totalBytes + build.report.totalBytes >= 64*1024*1024) throw Error('WORKER_SIZE_LIMIT');
   return {schema:'zplay/new90-stage-plan/v1',worker:'superwin-player',sourceCommit,baseline,
-    modules:build.modules,mainModule:'newrequested90r1/entry.mjs'};
+    modules:build.modules,mainModule:namespace+'/entry.mjs'};
 }
 
 /** Runs entirely inside the authenticated Cloudflare service. Only hashes and metadata leave it. */
@@ -28,10 +31,10 @@ export async function executeStage(cloudflare,accountId,plan) {
     ['compatibility_flags','containers'].includes(key)?version[key]||[]:version[key]??null]));
   const prefix=`/accounts/${accountId}/workers`;
   if (plan?.schema!=='zplay/new90-stage-plan/v1'||plan.worker!=='superwin-player'||!/^[a-f0-9]{40}$/.test(plan.sourceCommit||'')
-    ||plan.mainModule!=='newrequested90r1/entry.mjs'||!Array.isArray(plan.baseline?.inventory)
+    ||!/^newrequested90r[12]\/entry\.mjs$/.test(plan.mainModule||'')||!Array.isArray(plan.baseline?.inventory)
     ||plan.baseline.inventory.length!==plan.baseline.moduleCount||new Set(plan.baseline.inventory.map(x=>x.name)).size!==plan.baseline.moduleCount)
     throw Error('STAGE_PLAN_INVALID');
-  const expectedNames=['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'].map(n=>'newrequested90r1/'+n);
+  const expectedNames=['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'].map(n=>plan.mainModule.split('/')[0]+'/'+n);
   if (plan.modules?.length!==4||new Set(plan.modules.map(m=>m.name)).size!==4||!expectedNames.every(n=>plan.modules.some(m=>m.name===n))) throw Error('STAGE_MODULE_SET_INVALID');
   const deployments=async()=>{
     const result=await cloudflare.request({method:'GET',path:prefix+`/scripts/${plan.worker}/deployments`});

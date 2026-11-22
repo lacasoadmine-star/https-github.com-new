@@ -32,6 +32,9 @@ export function createNew90Worker(previous, config, Rewriter = globalThis.HTMLRe
       return new Rewriter()
         .on('script#zplay-new71-loader', {element(element) { element.remove(); }})
         .on('link[data-zplay-new71-style]', {element(element) { element.remove(); }})
+        .on('script#zplay-new90-loader', {element(element) { element.remove(); }})
+        .on('link[data-zplay-new90-style]', {element(element) { element.remove(); }})
+        .on('#zplay-requested90', {element(element) { element.remove(); }})
         .on('head', {element(element) { element.append(`<link rel="stylesheet" href="${root}styles.css" data-zplay-new90-style><script type="module" id="zplay-new90-loader" src="${root}client.mjs"></script>`, {html:true}); }})
         .transform(input);
     }

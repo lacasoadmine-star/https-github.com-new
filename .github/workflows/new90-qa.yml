@@ -32,7 +32,7 @@ jobs:
           cache: pip
       - name: Verify new components and deployment preservation guards
         run: |
-          node --test codex-work/new-games90-20261123/catalogue/catalogue.test.mjs codex-work/new-games90-20261123/deployment/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/motion.test.mjs
+          node --test codex-work/new-games90-20261123/catalogue/catalogue.test.mjs codex-work/new-games90-20261123/deployment/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/motion.test.mjs codex-work/new-games90-20261123/superwilds/*.test.mjs codex-work/new-games90-20261123/superwilds/render/*.test.mjs codex-work/new-games90-20261123/superwilds/server/*.test.mjs codex-work/new-games90-20261123/superwilds/client/*.test.mjs
       - name: Build all existing portals and test the disposable backend
         run: |
           npm ci --ignore-scripts
@@ -45,7 +45,7 @@ jobs:
         run: |
           node --input-type=module <<'JS'
           import {buildDeployment,writeDeployment} from './codex-work/new-games90-20261123/catalogue/build.mjs';
-          const build=await buildDeployment({activeMainModule:'newrequested71r1/entry.mjs',sourceCommit:process.env.GITHUB_SHA,minifier:await import('esbuild')});
+          const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',sourceCommit:process.env.GITHUB_SHA,minifier:await import('esbuild')});
           await writeDeployment(process.env.ZPLAY_NEW90_BUILD_ROOT,build);
           console.log(JSON.stringify(build.report));
           JS
@@ -79,10 +79,52 @@ jobs:
           ZPLAY_NEW90_BUILD_ROOT: ${{ runner.temp }}/new90-build
           ZPLAY_NEW90_QA_OUTPUT: ${{ runner.temp }}/new90-browser-proof
         run: node --test codex-work/new-games90-20261123/catalogue/browser-qa.mjs
+      - name: Test continued M20 mounted controls and recovery
+        env:
+          ZPLAY_QA_NODE_MODULES: ${{ runner.temp }}/new90-browser-tools/node_modules
+          ZPLAY_M20_QA_OUTPUT: ${{ runner.temp }}/m20-browser-proof
+        run: node codex-work/new-games90-20261123/m20/browser-qa.mjs
+      - name: Test own Super Wilds mounted controls and recovery
+        env:
+          ZPLAY_QA_NODE_MODULES: ${{ runner.temp }}/new90-browser-tools/node_modules
+          ZPLAY_SUPERWILDS_QA_OUTPUT: ${{ runner.temp }}/superwilds-browser-proof
+        run: node codex-work/new-games90-20261123/superwilds/client/browser-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: new90-browser-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/new90-browser-proof
+          path: |
+            ${{ runner.temp }}/new90-browser-proof
+            ${{ runner.temp }}/m20-browser-proof
+            ${{ runner.temp }}/superwilds-browser-proof
           if-no-files-found: warn
           retention-days: 30
+
+  superwilds-disposable-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated PostgreSQL test driver
+        run: npm install --prefix "$RUNNER_TEMP/superwilds-pg-tools" --ignore-scripts --no-package-lock pg@8.16.3
+      - name: Check actual transaction concurrency and rollback once
+        env:
+          TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+          SUPERWILDS_TEST_CREATE_DATABASE: disposable-database-only
+          SUPERWILDS_TEST_NODE_MODULES: ${{ runner.temp }}/superwilds-pg-tools/node_modules
+        run: node --test codex-work/new-games90-20261123/superwilds/server/postgres/run-tests.mjs

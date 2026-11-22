@@ -1,11 +1,11 @@
 {
   "schema": "zplay/m20-host-composition-verification/v1",
-  "verifiedAtUtc": "2026-11-22T21:32:12.205232+00:00",
+  "verifiedAtUtc": "2026-11-22T23:08:50.084084+00:00",
   "command": "node --test --test-reporter=tap codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/motion.test.mjs",
   "exitCode": 0,
   "runtime": "v24.22.3",
-  "tests": 36,
-  "passed": 36,
+  "tests": 45,
+  "passed": 45,
   "failed": 0,
   "skipped": 0,
   "scope": "isolated synthetic transport/audio/Canvas and actual renderer/controller/input source",
@@ -17,8 +17,8 @@
   "sourceFiles": [
     {
       "path": "README.md",
-      "sizeBytes": 4825,
-      "sha256": "632dfef407fa91dc8fe9d78b92a3f0620504dc9181b9e71e72543ffdea7a565e"
+      "sizeBytes": 7126,
+      "sha256": "167e925aa277f7a6abe12daf0ae90e0b22f249bdef223139b97be6ddd0569c78"
     },
     {
       "path": "audio.mjs",
@@ -31,19 +31,34 @@
       "sha256": "43296a52f4700c9a3748585c8e26011b9b02c80e6a169a8b2344bdbb27de44be"
     },
     {
+      "path": "auto-options.mjs",
+      "sizeBytes": 1375,
+      "sha256": "2d9f88c16c3dcf33a89c22b2baf11c8b0f7faa3d2a4587f03a2db3e255fce522"
+    },
+    {
+      "path": "auto-options.test.mjs",
+      "sizeBytes": 3965,
+      "sha256": "9d106c00e40da2d96986186af998b46542a39cd7d5ebe1ee19725bde2ab2c6bb"
+    },
+    {
+      "path": "browser-qa.mjs",
+      "sizeBytes": 8180,
+      "sha256": "ea03687144d836f3f34547495eb803998391a7d6478ad955d2e77bea9352cef0"
+    },
+    {
       "path": "controller.mjs",
-      "sizeBytes": 4985,
-      "sha256": "fb900461e608f45833f98e61d51ab3f7ead22396e6d1c18cf035473a90e9e89c"
+      "sizeBytes": 5451,
+      "sha256": "0ff3341cf4e378e65391c77d5909f63c20c27b61ba02483a849fd962f0bc8de6"
     },
     {
       "path": "controller.test.mjs",
-      "sizeBytes": 7188,
-      "sha256": "6f46cd1656a84b288dadb6480021b4dba545292f67711e2f9fe9dde923c841a1"
+      "sizeBytes": 9879,
+      "sha256": "5ca25d4d81f5e46db3f96fe8349e6628a3929b2eb7e504a7abca743588e186be"
     },
     {
       "path": "controls.mjs",
-      "sizeBytes": 10627,
-      "sha256": "80ad28a8afc1395a012519a3b585ecf2f36d365ee66402ff67e67a119e170e2f"
+      "sizeBytes": 11135,
+      "sha256": "9c3948a711d503bd86dddae516dcbb2512bf5775cc1781d7eaa1a882887d6c11"
     },
     {
       "path": "current-winning-observation.json",
@@ -77,8 +92,8 @@
     },
     {
       "path": "main.mjs",
-      "sizeBytes": 16260,
-      "sha256": "65c93ab05ed41423280d38081242b5d9c595b2b67056e61da4bae8e038242e0d"
+      "sizeBytes": 18070,
+      "sha256": "bd2242ae71c5fda6589f2c10e71065f8547345efc00ac6fc478307e578b5519d"
     },
     {
       "path": "presentation-quote.mjs",
@@ -102,13 +117,20 @@
     },
     {
       "path": "source-provenance.json",
-      "sizeBytes": 4218,
-      "sha256": "c2453274f5068dc13402f44940419708aab69b0a7d6acd562ccb2561ea1c6739"
+      "sizeBytes": 5201,
+      "sha256": "71ccb38b241047da5a36134ac8d927934651e1d8c4615703e1c407120c18091f"
     },
     {
       "path": "style.css",
-      "sizeBytes": 2856,
-      "sha256": "9ac8a8425d233f163a8912741da8c13deaf02c3c2e40c095a9fff8f1095f6b91"
+      "sizeBytes": 3224,
+      "sha256": "9262357985803746adb70faa144c1609ea8c9c3d62a65af109dd346c17ecc0fa"
     }
-  ]
+  ],
+  "continuationBrowserAttempt": {
+    "passed": false,
+    "pageLoaded": false,
+    "reason": "Execution environment denied Chromium process socket creation (Operation not permitted). No browser assertion ran.",
+    "script": "browser-qa.mjs",
+    "requiredFollowup": "Run the prepared actual-mount fixture in Playwright-capable CI; keep production and media parity outside its scope."
+  }
 }

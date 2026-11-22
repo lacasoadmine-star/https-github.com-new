@@ -5,6 +5,7 @@ import { MultiHot20Audio } from './audio.mjs';
 import { presentationLayout } from './layout.mjs';
 import { LINE_PAYS, PAYLINES } from './presentation-quote.mjs';
 import { activateFromKeyboard } from './input.mjs';
+import { AUTO_LIMIT_FIELDS, readAutoOptions } from './auto-options.mjs';
 
 const LABELS = Object.freeze({ menu: 'Menu', sound: 'Sound', quick: 'Quick spin', bet: 'Bet', auto: 'Autoplay',
   double: 'Double', spin: 'HOLD & SPIN', take: 'Take win' });
@@ -104,9 +105,20 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
         label.append(input, document.createTextNode(key === 'quick' ? 'Quick spin' : key[0].toUpperCase() + key.slice(1))); panel.append(label);
       }
     } else if (name === 'auto') {
+      const configured = controls.snapshot().auto;
       const label = document.createElement('label'); label.textContent = 'Number of spins'; const select = document.createElement('select'); select.dataset.autoCount = '';
-      for (const count of AUTO_COUNTS) { const option = document.createElement('option'); option.value = String(count); option.textContent = String(count); option.selected = count === 100; select.append(option); }
+      for (const count of AUTO_COUNTS) { const option = document.createElement('option'); option.value = String(count); option.textContent = String(count); option.selected = count === (configured?.count ?? 100); select.append(option); }
       label.append(select); panel.append(label);
+      for (const { name, label: text } of AUTO_LIMIT_FIELDS) {
+        const condition = document.createElement('label'); condition.className = 'm20-auto-condition';
+        const caption = document.createElement('span'); caption.textContent = text;
+        const toggle = document.createElement('input'); toggle.type = 'checkbox'; toggle.dataset.autoEnabled = name;
+        toggle.checked = configured?.[name] != null; toggle.setAttribute('aria-label', `Enable ${text.toLowerCase()}`);
+        const field = document.createElement('input'); field.type = 'text'; field.inputMode = 'decimal'; field.dataset.autoLimit = name;
+        field.setAttribute('aria-label', `${text} amount`); field.setAttribute('autocomplete', 'off'); field.placeholder = enabled ? 'ETB' : 'Amount';
+        field.value = configured?.[name] == null ? '' : amount(configured[name]); field.disabled = !toggle.checked;
+        condition.append(caption, toggle, field); panel.append(condition);
+      }
       const start = button('Start', 'auto-start'); start.disabled = !enabled; panel.append(start);
     }
     overlay.hidden = false; controlsLayer.inert = true; panel.focus(); sync();
@@ -123,7 +135,11 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
     if (disposed) return;
     const s = controls.snapshot(), view = renderer.snapshot(), moving = view.phase !== 'IDLE';
     renderer.setDisplay({ bet: s.bet, balance: s.balance, quick: s.settings.quick }); audio.setting(s.settings);
-    const main = buttons.get('spin'); main.querySelector('.m20-control-label').textContent = moving ? 'STOP' : 'HOLD & SPIN'; main.setAttribute('aria-label', moving ? 'Stop current spin' : 'HOLD & SPIN');
+    const main = buttons.get('spin'), recovering = s.phase === 'RECOVERY_REQUIRED';
+    main.querySelector('.m20-control-label').textContent = recovering ? 'RECOVER' : moving ? 'STOP' : 'HOLD & SPIN';
+    main.setAttribute('aria-label', recovering ? 'Recover current round' : moving ? 'Stop current spin' : 'HOLD & SPIN');
+    if (recovering) live.textContent = 'Connection interrupted. Recover the current round before playing again.';
+    else if (enabled) live.textContent = s.auto?.active ? `Autoplay: ${s.auto.remaining} remaining` : '';
     for (const [name, node] of buttons) {
       node.disabled = (FINANCIAL.has(name) && !enabled) || (name === 'auto' && !enabled) ||
         (name === 'bet' && (!controls.idle() || s.phase === 'WIN_PENDING' || s.auto?.active)) ||
@@ -145,14 +161,16 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
       else if (name === 'bet' || name === 'quick' || name === 'settings') open(name, origin);
       else if (name === 'sound') controls.setSetting('effects', !controls.snapshot().settings.effects);
       else if (name === 'auto') { if (controls.snapshot().auto?.active) controller?.stopAuto(); else open('auto', origin); }
-      else if (name === 'spin') await controller?.spin();
+      else if (name === 'spin') {
+        if (controls.snapshot().phase === 'RECOVERY_REQUIRED') await controller?.recover(); else await controller?.spin();
+      }
       else if (name === 'take') await controller?.take();
       else if (name === 'choose-bet') { controls.selectBet(value); close(); }
       else if (name === 'rules-up' || name === 'rules-down') {
         const current = OBSERVED_BETS.indexOf(controls.snapshot().rulesBet), next = Math.max(0, Math.min(OBSERVED_BETS.length - 1, current + (name === 'rules-up' ? 1 : -1)));
         controls.setRulesBet(OBSERVED_BETS[next]); paintRules();
       } else if (name === 'auto-start') {
-        const count = Number(panel.querySelector('[data-auto-count]').value); controls.configureAuto({ count }); close(); controller?.startAuto();
+        controller?.configureAuto(readAutoOptions(panel)); controller?.startAuto(); close();
       }
       sync();
     } catch (error) { onError(error); live.textContent = error.message; }
@@ -160,6 +178,11 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   on(stage, 'click', event => { const node = event.target.closest?.('button[data-action]'); if (!node || node.disabled || !stage.contains(node)) return;
     void action(node.dataset.action, node.dataset.value, node); });
   on(panel, 'change', async event => {
+    const limitName = event.target.dataset.autoEnabled;
+    if (AUTO_LIMIT_FIELDS.some(field => field.name === limitName)) {
+      const field = panel.querySelector(`[data-auto-limit="${limitName}"]`); field.disabled = !event.target.checked;
+      if (!field.disabled) field.focus(); return;
+    }
     const node = event.target, name = node.dataset.setting; if (!name || !own(controls.snapshot().settings, name)) return;
     if (name === 'fullscreen') {
       try { if (node.checked) await root.requestFullscreen(); else if (document.fullscreenElement) await document.exitFullscreen(); }

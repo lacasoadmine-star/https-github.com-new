@@ -13,7 +13,9 @@
       "path": "controls.mjs",
       "source": "codex-work/continue71-20261122/multi-hot-20-component/controls.mjs",
       "sha256": "80ad28a8afc1395a012519a3b585ecf2f36d365ee66402ff67e67a119e170e2f",
-      "byteIdentical": true
+      "byteIdentical": false,
+      "continuedSha256": "9c3948a711d503bd86dddae516dcbb2512bf5775cc1781d7eaa1a882887d6c11",
+      "continuation": "Current controls now refresh the AUTO baseline at start, validate balance-guard availability and reject reconfiguration during active AUTO. The historical source is unchanged."
     },
     {
       "path": "presentation-quote.mjs",
@@ -53,18 +55,18 @@
     },
     {
       "path": "controller.mjs",
-      "size": 4985,
-      "sha256": "fb900461e608f45833f98e61d51ab3f7ead22396e6d1c18cf035473a90e9e89c"
+      "size": 5451,
+      "sha256": "0ff3341cf4e378e65391c77d5909f63c20c27b61ba02483a849fd962f0bc8de6"
     },
     {
       "path": "controller.test.mjs",
-      "size": 7188,
-      "sha256": "6f46cd1656a84b288dadb6480021b4dba545292f67711e2f9fe9dde923c841a1"
+      "size": 9879,
+      "sha256": "5ca25d4d81f5e46db3f96fe8349e6628a3929b2eb7e504a7abca743588e186be"
     },
     {
       "path": "controls.mjs",
-      "size": 10627,
-      "sha256": "80ad28a8afc1395a012519a3b585ecf2f36d365ee66402ff67e67a119e170e2f"
+      "size": 11135,
+      "sha256": "9c3948a711d503bd86dddae516dcbb2512bf5775cc1781d7eaa1a882887d6c11"
     },
     {
       "path": "current-winning-observation.json",
@@ -98,8 +100,8 @@
     },
     {
       "path": "main.mjs",
-      "size": 16260,
-      "sha256": "65c93ab05ed41423280d38081242b5d9c595b2b67056e61da4bae8e038242e0d"
+      "size": 18070,
+      "sha256": "bd2242ae71c5fda6589f2c10e71065f8547345efc00ac6fc478307e578b5519d"
     },
     {
       "path": "presentation-quote.mjs",
@@ -123,8 +125,25 @@
     },
     {
       "path": "style.css",
-      "size": 2856,
-      "sha256": "9ac8a8425d233f163a8912741da8c13deaf02c3c2e40c095a9fff8f1095f6b91"
+      "size": 3224,
+      "sha256": "9262357985803746adb70faa144c1609ea8c9c3d62a65af109dd346c17ecc0fa"
+    },
+    {
+      "path": "auto-options.mjs",
+      "size": 1375,
+      "sha256": "2d9f88c16c3dcf33a89c22b2baf11c8b0f7faa3d2a4587f03a2db3e255fce522"
+    },
+    {
+      "path": "auto-options.test.mjs",
+      "size": 3965,
+      "sha256": "9d106c00e40da2d96986186af998b46542a39cd7d5ebe1ee19725bde2ab2c6bb"
+    },
+    {
+      "path": "browser-qa.mjs",
+      "size": 8180,
+      "sha256": "ea03687144d836f3f34547495eb803998391a7d6478ad955d2e77bea9352cef0"
     }
-  ]
+  ],
+  "continuedAtUtc": "2026-11-22T23:08:31.169412+00:00",
+  "continuationScope": "AUTO limit controls, original-key recovery UI, and queued AUTO lifecycle correction; native renderer and canonical financial evaluator remain preserved."
 }

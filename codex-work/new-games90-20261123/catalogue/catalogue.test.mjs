@@ -94,6 +94,10 @@ test('public HTML presents10 or90 exact cards, touch-size links and escaped name
   assert.equal((page.match(/class="new90-card"/g)||[]).length,90);
   assert.match(section,/style="display:block!important"/);
   assert.match(section,/Eeg dhammaan 90/);
+  assert.match(section,/<ol class="game-grid new90-list">/);
+  assert.equal((section.match(/class="game-card new90-game-card"/g)||[]).length,10);
+  assert.match(section,/<button[^>]*data-new90-expand/);
+  assert.doesNotMatch(section,/class="new90-all" href=/);
   assert.doesNotMatch(section,/class="new90-action"/);
   assert.match(page,/Texas Hold&#39;em Poker/);
   assert.doesNotMatch(page,/<img|<canvas|<video/);
@@ -103,6 +107,51 @@ test('public HTML presents10 or90 exact cards, touch-size links and escaped name
   assert.match(css,/min-height:44px/);assert.match(css,/min-height:48px/);
   assert.match(css,/grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
   assert.match(css,/focus-visible/);
+});
+
+function reviewedRelease(index=1) {
+  const game=structuredClone(registry.games[index]);
+  return {...game,identityReservedOnly:false,
+    reference:{identityStatus:'CATALOGUE_IDENTITY_VERIFIED',manualReferenceRounds:7,freshEvidenceManifestPath:'synthetic-fixture-reference.json',rulesSource:'synthetic-fixture-rules.json'},
+    frontend:{route:game.route,implemented:true},
+    backend:{enabled:true,mountedModuleSha256:'a'.repeat(64)},
+    assets:{runtimeAssetsVerified:true,manifestSha256:'b'.repeat(64)},
+    tests:{implemented:true,passed:true,financialIntegrationVerified:true},
+    release:{ready:true,enabled:true,liveVerified:true,proof:{gameId:game.gameId,sourceCommit:'c'.repeat(40),
+      workerVersion:'12345678-abcd-1234-abcd-123456789abc',evidenceSha256:'d'.repeat(64),verifiedAt:'2026-11-23T01:00:00Z',
+      serverAuthoritative:true,controlsVerified:true,audioVerified:true,visualParityVerified:true}}};
+}
+
+test('explicit verified releases pack the retained canonical route and render a normal full-card Play link',async()=>{
+  const descriptor=reviewedRelease();
+  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[descriptor]});
+  assert.equal(build.config.catalogue.readyCount,1);
+  assert.equal(build.report.readyCount,1);
+  assert.equal(build.report.releaseDescriptors[0].gameId,'zplay72_multi_hot_5_super_wilds_v1');
+  assert.equal(build.config.catalogue.games[1].route,'/new-games72/multi-hot-5-super-wilds/');
+  assert.equal(build.config.catalogue.games[1].playable,true);
+  assert.equal(build.config.catalogue.games[0].playable,false);
+  const html=renderSection(build.config.catalogue);
+  assert.match(html,/<a class="game-tile new90-action" href="\/new-games72\/multi-hot-5-super-wilds\/" aria-label="Play Multi Hot 5 Super Wilds">/);
+  assert.equal((html.match(/class="game-tile new90-action"/g)||[]).length,1);
+  assert.doesNotMatch(html,/href="\/new-games90\/multi-hot-5-super-wilds/);
+  const original={fetch(){return new Response('mounted-synthetic-game',{headers:{'Content-Type':'text/html'}});}};
+  const response=await createNew90Worker(original,build.config).fetch(new Request('https://player.invalid'+descriptor.route));
+  assert.equal(await response.text(),'mounted-synthetic-game','canonical game requests delegate to the existing composed host');
+  assert.equal(publicCatalogue(registry).readyCount,0,'fixture release does not mutate source registry');
+});
+
+test('incomplete, aliased, missing-asset, duplicate and cross-route release descriptors never expose Play',async()=>{
+  const attempts=[d=>d.route='/new-games90/multi-hot-5-super-wilds/',d=>d.frontend.route='/native/multihot5/',
+    d=>d.displayName='Multi Hot 5',d=>d.release.proof.audioVerified=false,d=>d.tests.financialIntegrationVerified=false,
+    d=>delete d.assets.manifestSha256,d=>delete d.backend.mountedModuleSha256,d=>d.release.proof.gameId='other',
+    d=>d.reference.manualReferenceRounds=6,d=>d.duplicateOfGameId='other'];
+  for(const mutate of attempts){const descriptor=reviewedRelease();mutate(descriptor);
+    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[descriptor]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);}
+  const descriptor=reviewedRelease();
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[descriptor,descriptor]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);
+  const alias=reviewedRelease(48);alias.duplicateOfGameId=null;
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[alias]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);
 });
 
 test('malformed public data cannot mount a fake ready card or unsafe link',() => {
@@ -147,13 +196,53 @@ test('root transformation removes only former active catalogue loader while pres
   const html='<html><head></head><body><main>old rows</main></body></html>';
   const previous={fetch(){return new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8','ETag':'old','Last-Modified':'old','Set-Cookie':'session=fixture','X-Existing':'retained','Content-Security-Policy':"default-src 'self'"}});}};
   const response=await createNew90Worker(previous,config,Rewriter).fetch(new Request('https://player.invalid/'));
-  assert.deepEqual(selectors,['script#zplay-new71-loader','link[data-zplay-new71-style]','head']);
-  assert.deepEqual(removed,['script#zplay-new71-loader','link[data-zplay-new71-style]']);
+  assert.deepEqual(selectors,['script#zplay-new71-loader','link[data-zplay-new71-style]','script#zplay-new90-loader','link[data-zplay-new90-style]','#zplay-requested90','head']);
+  assert.deepEqual(removed,['script#zplay-new71-loader','link[data-zplay-new71-style]','script#zplay-new90-loader','link[data-zplay-new90-style]','#zplay-requested90']);
   assert.match(appended.join(''),/id="zplay-new90-loader"/);
   assert.equal(response.headers.get('Set-Cookie'),'session=fixture');assert.equal(response.headers.get('X-Existing'),'retained');
   assert.equal(response.headers.get('Content-Security-Policy'),"default-src 'self'");
   assert.equal(response.headers.get('ETag'),null);assert.equal(response.headers.get('Last-Modified'),null);
   assert.equal(await response.text(),html);
+});
+
+test('r2 wraps the active r1-decorated root, replacing its loader and section exactly once',async()=>{
+  class FixtureRewriter {
+    handlers=[];
+    on(selector,handler){this.handlers.push([selector,handler]);return this;}
+    async transform(response){
+      let source=await response.text();
+      for(const [selector,handler] of this.handlers){
+        let remove=false,addition='';handler.element({remove(){remove=true;},append(html){addition+=html;}});
+        if(selector==='head')source=source.replace('</head>',addition+'</head>');
+        else if(remove&&selector.startsWith('script#')){
+          const id=selector.slice(7);source=source.replace(new RegExp(`<script\\b(?=[^>]*\\bid="${id}")[^>]*>[\\s\\S]*?<\\/script>`,'g'),'');
+        }else if(remove&&selector.startsWith('link[')){
+          const attribute=selector.slice(5,-1);source=source.replace(new RegExp(`<link\\b(?=[^>]*\\b${attribute})[^>]*>`,'g'),'');
+        }else if(remove&&selector==='#zplay-requested90')source=source.replace(/<section\b(?=[^>]*\bid="zplay-requested90")[^>]*>[\s\S]*?<\/section>/g,'');
+        else throw Error('UNEXPECTED_SELECTOR:'+selector);
+      }
+      return new Response(source,{status:response.status,headers:response.headers});
+    }
+  }
+  const rows='<section id="old-featured">Existing featured</section><div class="home-slot-heading">Slots</div><div class="game-grid"><article data-old-game="retained">Old artwork and route</article></div>';
+  const source='<!doctype html><html><head><script id="existing-auth" src="/auth.js"></script></head><body><main class="player-main"><section id="zplay-requested90" data-zplay-new90="old"><p>Earlier catalogue markup</p></section>'+rows+'</main></body></html>';
+  const base={fetch(){return new Response(source,{headers:{'Content-Type':'text/html','Set-Cookie':'session=unchanged','X-Existing':'retained'}});}};
+  const inner=createNew90Worker(base,{...config,assetRevision:'b'.repeat(24)},FixtureRewriter);
+  const outer=createNew90Worker(inner,config,FixtureRewriter);
+  const response=await outer.fetch(new Request('https://player.invalid/'));
+  const html=await response.text();
+  assert.equal((html.match(/id="zplay-new90-loader"/g)||[]).length,1);
+  assert.equal((html.match(/data-zplay-new90-style/g)||[]).length,1);
+  assert.match(html,new RegExp('/_zplay/new90/'+config.assetRevision+'/client\\.mjs'));
+  assert.doesNotMatch(html,new RegExp('/_zplay/new90/'+'b'.repeat(24)+'/'));
+  assert.doesNotMatch(html,/Earlier catalogue markup|id="zplay-requested90"/,'r2 client mounts its one fresh section after HTML transformation');
+  assert(html.includes(rows),'all original game rows retain exact bytes');
+  assert.match(html,/id="existing-auth" src="\/auth.js"/);
+  assert.equal(response.headers.get('Set-Cookie'),'session=unchanged');
+  assert.equal(response.headers.get('X-Existing'),'retained');
+  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs'});
+  assert(build.modules.every(module=>module.name.startsWith('newrequested90r2/')));
+  assert.match(build.modules[0].source,/\.\.\/newrequested90r1\/entry\.mjs/);
 });
 
 test('non-HTML, unsuccessful, non-root and HEAD responses bypass HTML transformation',async () => {
@@ -166,30 +255,30 @@ test('non-HTML, unsuccessful, non-root and HEAD responses bypass HTML transforma
 });
 
 test('additive build contains exactly four new modules, exact data and immutable existing entry import',async () => {
-  const build=await buildDeployment({activeMainModule:'newrequested71r1/entry.mjs'});
+  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs'});
   assert.equal(build.modules.length,4);assert(build.report.totalBytes<=BYTE_BUDGET);assert.equal(build.report.readyCount,0);
   assert.deepEqual(build.config.catalogue,catalogue);
-  assert.match(build.modules[0].source,/\.\.\/newrequested71r1\/entry\.mjs/);
+  assert.match(build.modules[0].source,/\.\.\/newrequested90r1\/entry\.mjs/);
   assert.match(build.modules[0].source,/export \{LocalDemoWallet,NativeGameResources\}/);
-  for(const name of ['../escape.mjs','/root.mjs','newrequested90r1/entry.mjs','entry.js'])assert.throws(()=>entryModule(name));
+  for(const name of ['../escape.mjs','/root.mjs','newrequested90r2/entry.mjs','entry.js'])assert.throws(()=>entryModule(name));
 });
 
 test('optional M20 visual preview needs reviewed per-game route and pinned own asset closure',async () => {
   const descriptor={gameId:'zplay72_multi_hot_20_v1',route:'/new-games72/multi-hot-20/preview/',enabled:true,readOnly:true,assetClosureVerified:true,sourceCommit:'d'.repeat(40),assetManifestSha256:'e'.repeat(64)};
-  const build=await buildDeployment({activeMainModule:'newrequested71r1/entry.mjs',previewDescriptors:[descriptor]});
+  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',previewDescriptors:[descriptor]});
   assert.equal(build.config.catalogue.games[3].previewRoute,descriptor.route);
   assert.equal(build.config.catalogue.games[3].playable,false);
   assert.equal(build.report.previewDescriptors[0].assetManifestSha256,descriptor.assetManifestSha256);
   for(const change of [d=>d.readOnly=false,d=>d.assetClosureVerified=false,d=>delete d.sourceCommit,d=>d.route='/new-games72/multi-hot-10/preview/',d=>d.gameId='zplay90_unknown_v1']){
     const copied=structuredClone(descriptor);change(copied);
-    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested71r1/entry.mjs',previewDescriptors:[copied]}),/NEW90_PREVIEW_DESCRIPTOR_UNVERIFIED/);
+    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',previewDescriptors:[copied]}),/NEW90_PREVIEW_DESCRIPTOR_UNVERIFIED/);
   }
 });
 
 test('exact generated artifact rejects module drift before runtime loading',async () => {
   const directory=await mkdtemp(resolve(tmpdir(),'zplay90-artifact-'));
   try {
-    const build=await buildDeployment({activeMainModule:'newrequested71r1/entry.mjs'});
+    const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs'});
     await writeDeployment(directory,build);
     const loaded=await loadDeployment(directory);
     assert.deepEqual(loaded.config,build.config);

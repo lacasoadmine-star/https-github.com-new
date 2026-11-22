@@ -3,10 +3,10 @@ import {createHash} from 'node:crypto';
 import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
-import {publicCatalogue} from './model.mjs';
+import {publicCatalogue, releaseReady} from './model.mjs';
 
 const directory = dirname(fileURLToPath(import.meta.url));
-export const MODULE_PREFIX = 'newrequested90r1/';
+export const MODULE_PREFIX = 'newrequested90r2/';
 export const BYTE_BUDGET = 60000;
 const sourceNames = ['requested.mjs','model.mjs','public.mjs','client.mjs','worker.mjs','styles.css','registry.json','build.mjs'];
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -22,14 +22,12 @@ export function entryModule(activeMainModule) {
 
 function packedAssets(config) {
   const {games, ...header} = config.catalogue;
-  const rows = games.map(({gameId,name,playable,route,status,previewRoute}) => {
-    if (playable || route !== null || status !== 'preparing') throw Error('READY_GAME_REQUIRES_EXPLICIT_ASSET_BUILD');
-    return previewRoute ? [gameId,name,previewRoute] : [gameId,name];
-  });
-  return `const catalogue={...${JSON.stringify(header)},games:${JSON.stringify(rows)}.map(([gameId,name,previewRoute=null],index)=>({ordinal:index+1,gameId,name,status:'preparing',playable:false,route:null,previewRoute}))};\nexport default {catalogue,clientSource:${JSON.stringify(config.clientSource)},publicSource:${JSON.stringify(config.publicSource)},stylesheetSource:${JSON.stringify(config.stylesheetSource)},assetRevision:${JSON.stringify(config.assetRevision)}};\n`;
+  const rows = games.map(({gameId,name,playable,route,status,previewRoute}) =>
+    playable ? [gameId,name,previewRoute,route] : previewRoute ? [gameId,name,previewRoute] : [gameId,name]);
+  return `const catalogue={...${JSON.stringify(header)},games:${JSON.stringify(rows)}.map(([gameId,name,previewRoute=null,route=null],index)=>({ordinal:index+1,gameId,name,status:route?'ready':'preparing',playable:route!==null,route,previewRoute}))};\nexport default {catalogue,clientSource:${JSON.stringify(config.clientSource)},publicSource:${JSON.stringify(config.publicSource)},stylesheetSource:${JSON.stringify(config.stylesheetSource)},assetRevision:${JSON.stringify(config.assetRevision)}};\n`;
 }
 
-export async function buildDeployment({activeMainModule, minifier = null, sourceCommit = null, previewDescriptors = []} = {}) {
+export async function buildDeployment({activeMainModule, minifier = null, sourceCommit = null, previewDescriptors = [], releaseDescriptors = []} = {}) {
   const entry = entryModule(activeMainModule);
   if (sourceCommit !== null && !/^[a-f0-9]{40}$/.test(sourceCommit)) throw Error('SOURCE_COMMIT_INVALID');
   const sources = new Map(await Promise.all(sourceNames.map(async name => [name, await readFile(resolve(directory,name),'utf8')])));
@@ -41,6 +39,21 @@ export async function buildDeployment({activeMainModule, minifier = null, source
     return result.code;
   };
   const registry = JSON.parse(sources.get('registry.json'));
+  if (!Array.isArray(releaseDescriptors)) throw Error('NEW90_RELEASE_DESCRIPTORS_INVALID');
+  const releaseIds = new Set();
+  for (const descriptor of releaseDescriptors) {
+    const game = registry.games.find(game => game.gameId === descriptor?.gameId);
+    if (!game || game.duplicateOfGameId || releaseIds.has(game.gameId) || descriptor.route !== game.route
+      || descriptor.frontend?.route !== game.route || descriptor.displayName !== game.displayName
+      || descriptor.ordinal !== game.ordinal || descriptor.duplicateOfGameId
+      || !/^[a-f0-9]{64}$/.test(descriptor.assets?.manifestSha256 || '')
+      || !/^[a-f0-9]{64}$/.test(descriptor.backend?.mountedModuleSha256 || '')) throw Error('NEW90_RELEASE_DESCRIPTOR_UNVERIFIED');
+    const candidate = {...game,...structuredClone(descriptor)};
+    if (!releaseReady(candidate)) throw Error('NEW90_RELEASE_DESCRIPTOR_UNVERIFIED');
+    releaseIds.add(game.gameId);
+    Object.assign(game,candidate);
+  }
+  if (releaseIds.size) registry.publicActivation = true;
   if (!Array.isArray(previewDescriptors)) throw Error('NEW90_PREVIEW_DESCRIPTORS_INVALID');
   const previewIds = new Set();
   for (const descriptor of previewDescriptors) {
@@ -72,7 +85,11 @@ export async function buildDeployment({activeMainModule, minifier = null, source
   return {modules,config,report:{schema:'zplay/new90-additive-build/v1',sourceCommit,activeMainModule,
     releaseId:catalogue.releaseId,requestedCount:90,readyCount:catalogue.readyCount,assetRevision,totalBytes,
     byteBudget:BYTE_BUDGET,minifier:minifier?.version || null,exactAssetEquivalence:true,previewDescriptors:structuredClone(previewDescriptors),
-    retainedModulePolicy:'Every active module byte is retained. Only four new modules are appended; existing root catalogue loader and stylesheet are suppressed only in the transformed root response.',
+    releaseDescriptors:releaseDescriptors.map(descriptor=>({gameId:descriptor.gameId,route:descriptor.route,
+      sourceCommit:descriptor.release.proof.sourceCommit,workerVersion:descriptor.release.proof.workerVersion,
+      evidenceSha256:descriptor.release.proof.evidenceSha256,assetManifestSha256:descriptor.assets.manifestSha256,
+      mountedModuleSha256:descriptor.backend.mountedModuleSha256})),
+    retainedModulePolicy:'Every active module byte is retained. Four new r2 modules are appended; marked prior catalogue loaders/styles and the prior NEW90 section are replaced only in the transformed root response.',
     sourcePins:sourceNames.map(name => ({path:'codex-work/new-games90-20261123/catalogue/' + name,bytes:Buffer.byteLength(sources.get(name)),sha256:hash(sources.get(name))})),
     modules:modules.map(({name,bytes,sha256,contentType}) => ({name,bytes,sha256,contentType}))}};
 }
