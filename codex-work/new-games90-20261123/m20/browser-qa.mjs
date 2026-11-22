@@ -46,6 +46,7 @@ try{
       if(request.method()!=='GET'||url.origin!==origin){blocked.push({method:request.method(),url:request.url()});await route.abort();}else await route.continue();});
     await page.goto(origin+'/');await page.waitForFunction(()=>!!window.fixture);
     const auto=page.getByRole('button',{name:'Autoplay',exact:true});await auto.click();
+    await page.locator('[data-auto-count]').selectOption('25');
     for(const label of ['If a win reaches or exceeds','If balance decreases','If balance increases'])assert(await page.getByText(label,{exact:true}).isVisible());
     const win=page.getByLabel('If a win reaches or exceeds amount',{exact:true});
     assert.equal(await win.isEnabled(),false);await page.getByRole('checkbox',{name:'Enable if a win reaches or exceeds',exact:true}).check();

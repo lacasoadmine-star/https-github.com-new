@@ -85,6 +85,7 @@ jobs:
           ZPLAY_M20_QA_OUTPUT: ${{ runner.temp }}/m20-browser-proof
         run: node codex-work/new-games90-20261123/m20/browser-qa.mjs
       - name: Test own Super Wilds mounted controls and recovery
+        if: ${{ !cancelled() }}
         env:
           ZPLAY_QA_NODE_MODULES: ${{ runner.temp }}/new90-browser-tools/node_modules
           ZPLAY_SUPERWILDS_QA_OUTPUT: ${{ runner.temp }}/superwilds-browser-proof
