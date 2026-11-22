@@ -1,0 +1,88 @@
+name: ZPLAY requested90 source and catalogue QA
+
+on:
+  push:
+    branches: [work/new90-live-20261123]
+    paths:
+      - 'codex-work/new-games90-20261123/**'
+      - '.github/workflows/new90-qa.yml'
+      - 'AGENTS.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: requested90-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-and-existing-platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Verify new components and deployment preservation guards
+        run: |
+          node --test codex-work/new-games90-20261123/catalogue/catalogue.test.mjs codex-work/new-games90-20261123/deployment/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/motion.test.mjs
+      - name: Build all existing portals and test the disposable backend
+        run: |
+          npm ci --ignore-scripts
+          npm run build --workspaces
+          python -m pip install -r requirements.txt
+          python -m pytest -q tests/test_platform.py
+      - name: Build exact additive catalogue artifact
+        env:
+          ZPLAY_NEW90_BUILD_ROOT: ${{ runner.temp }}/new90-build
+        run: |
+          node --input-type=module <<'JS'
+          import {buildDeployment,writeDeployment} from './codex-work/new-games90-20261123/catalogue/build.mjs';
+          const build=await buildDeployment({activeMainModule:'newrequested71r1/entry.mjs',sourceCommit:process.env.GITHUB_SHA,minifier:await import('esbuild')});
+          await writeDeployment(process.env.ZPLAY_NEW90_BUILD_ROOT,build);
+          console.log(JSON.stringify(build.report));
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: new90-compiled-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new90-build
+          if-no-files-found: error
+          retention-days: 30
+
+  exact-artifact-browser:
+    needs: source-and-existing-platform
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: new90-compiled-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new90-build
+      - name: Install isolated browser test tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/new90-browser-tools" --ignore-scripts --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/new90-browser-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Test exact deployed artifact at four viewport sizes
+        env:
+          ZPLAY_QA_NODE_MODULES: ${{ runner.temp }}/new90-browser-tools/node_modules
+          ZPLAY_NEW90_BUILD_ROOT: ${{ runner.temp }}/new90-build
+          ZPLAY_NEW90_QA_OUTPUT: ${{ runner.temp }}/new90-browser-proof
+        run: node --test codex-work/new-games90-20261123/catalogue/browser-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: new90-browser-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/new90-browser-proof
+          if-no-files-found: warn
+          retention-days: 30

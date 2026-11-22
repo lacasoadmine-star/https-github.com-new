@@ -1,0 +1,170 @@
+{
+  "schema": "zplay/new90-independent-source-review/v1",
+  "recordedAtUtc": "2026-11-22T21:35:05.262585+00:00",
+  "reviewer": "official90 independent source review",
+  "scope": "Catalogue wrapper/source only; no browser tests, deployments, real wallet requests or game rounds performed by this reviewer.",
+  "observedValidation": {
+    "nodeCatalogueTests": {
+      "passed": 14,
+      "failed": 0,
+      "command": "node --test codex-work/new-games90-20261123/catalogue/catalogue.test.mjs"
+    },
+    "additiveUnminifiedBuild": {
+      "modules": 4,
+      "unexpectedImportDependencies": []
+    },
+    "exactUserNames": 90,
+    "readyCount": 0,
+    "onlyPreview": "/new-games72/multi-hot-10/preview/",
+    "exactExclusionsPreserveBurnWildsAndSuperWilds": true,
+    "additiveMinifiedBuild": {
+      "minifier": "esbuild0.25.12",
+      "modules": 4,
+      "totalBytes": 20341,
+      "exactAssetEquivalence": true,
+      "unexpectedImportDependencies": []
+    }
+  },
+  "deployedSelectorProof": {
+    "method": "Recompile committed integration/worker.mjs with locked esbuild0.25.12 and exact deployment options; compare with safe baseline468 inventory. No deployed source was retrieved.",
+    "existingModule": "newrequested71r1/worker.mjs",
+    "bytes": 1750,
+    "sha256": "c1c3646e7af2931c36ea1e6933c2e5151ee477b7a8e05bdc6c1029f19cbcc446",
+    "matchesSafeDeployedInventory": true,
+    "confirmedSelectors": [
+      "script#zplay-new71-loader",
+      "link[data-zplay-new71-style]"
+    ]
+  },
+  "findings": [
+    {
+      "severity": "P1_SCOPE_GAP",
+      "path": "catalogue/public.mjs",
+      "line": 33,
+      "finding": "Catalogue displays preparatory named cards; it is not90 implemented games. User expressly required zero placeholders and full working game modules. This release alone cannot fulfill that goal or count as game completion.",
+      "state": "ONGOING_WORK_NOT_COMPLETION"
+    },
+    {
+      "severity": "P2_IDENTITY",
+      "path": "catalogue/registry.json",
+      "ordinal": 48,
+      "finding": "Inherited classicJetX row pointed to NewEra gameId/route.",
+      "state": "CORRECTED_BY_CATALOGUE_AGENT",
+      "afterGameId": "zplay71_jetx_v1",
+      "afterRoute": "/new-games71/jetx/"
+    },
+    {
+      "severity": "P2_IDENTITY",
+      "path": "catalogue/registry.json",
+      "ordinal": 49,
+      "finding": "JetX3 andAviaStar current official source points to same GameNameJetX3; must not count twice.",
+      "state": "GUARDED",
+      "duplicateOfGameId": "zplay72_aviastar_v1"
+    },
+    {
+      "severity": "P3_DEFENSE_IN_DEPTH",
+      "path": "catalogue/worker.mjs",
+      "line": 21,
+      "finding": "Own newstaticHTML route initially had noContentSecurityPolicy; existingrootCSP is retained. No demonstratedXSS because values escaped and links restricted.",
+      "state": "CORRECTED_SCOPED_NEW_PAGE_POLICY",
+      "afterPolicy": "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"
+    }
+  ],
+  "verificationLimits": [
+    "Worker transformation unit test mocks HTMLRewriter; actual staged/live root must independently verify resultingDOM and script/style requests.",
+    "Existing platform preservation fromsource delegation tests andsafe411module baseline; actual staging/readback/activation remains root responsibility.",
+    "Model gate is reviewed metadata, not independent evidence capture; no boolean alone proveslivecompletion."
+  ],
+  "reviewedSourcePins": [
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/model.mjs",
+      "bytes": 3033,
+      "sha256": "3c2710b8ae714594d388ea9c54560446ad3d08523e84db64508ce0543372d6d9"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/public.mjs",
+      "bytes": 4317,
+      "sha256": "b668f55d1e26e33fb23a872f771425da1ac3499daa0a437bb8fb6132d00789c0"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/client.mjs",
+      "bytes": 3985,
+      "sha256": "0851001c3a73c5f9dbf7bce56e49a5f7961c6e439c3512133c6734c904452a89"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/worker.mjs",
+      "bytes": 3117,
+      "sha256": "53ff527b0e6a6c7f17dcfa5e7d63f4a1d6a760e24108d9877f5be76ba98bd4da"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/build.mjs",
+      "bytes": 8741,
+      "sha256": "f5aede6c14735834cebd7039a975197db20ebf4ccfa251b6d049c6c0559c95b6"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/requested.mjs",
+      "bytes": 1687,
+      "sha256": "42b519e243e002bb292fca26a9edddd1da3611c8e21c6cb700d1d21ca93ea181"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/registry.json",
+      "bytes": 89778,
+      "sha256": "351c6296ad58401815abbe5413b891fc1ab469c73f63adbd362cfd37a72e4353"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/catalogue.test.mjs",
+      "bytes": 14317,
+      "sha256": "e96c212d1779538cc79626d6c1cc7a0041781d390bb998fb796961d49639c856"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/catalogue/styles.css",
+      "bytes": 4201,
+      "sha256": "2ee82bb76556a50686be53d66e643d0f3a185952b71d8807909137c8893ad245"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/deployment/stage.mjs",
+      "bytes": 7448,
+      "sha256": "36e26d50a463ad278da09fd4493fb9351f60b8639d080a9051f71e09369b9c26"
+    }
+  ],
+  "deploymentStageReview": {
+    "path": "codex-work/new-games90-20261123/deployment/stage.mjs",
+    "providerSchemaChecked": true,
+    "providerPath": "/accounts/{account_id}/workers/workers/{worker_id}/versions/latest",
+    "mergePatchInheritance": "The body changes only main_module, modules and annotations. Omitted assets, bindings, exports and runtime configuration inherit. Full original module hashes and effective configuration are compared inside Cloudflare; only metadata leaves the executor.",
+    "correctedFindings": [
+      "An undeployed version may omit the read-only migration_tag. Permit only its absence while requiring the existing baseline tag and rejecting any changed staged tag. Recheck the original tag after activation.",
+      "cache_options and package_dependencies are now included in the configuration comparison.",
+      "The latest version ID is rechecked immediately before PATCH, in addition to the active deployment ID."
+    ],
+    "mockScenarios": [
+      {
+        "name": "safe",
+        "result": "STAGED_NOT_ACTIVATED",
+        "patchCalls": 1,
+        "deployTrueCalls": 0
+      },
+      {
+        "name": "old_module_drift",
+        "result": "RETAINED_MODULE_CHANGED:old.mjs",
+        "patchCalls": 1,
+        "deployTrueCalls": 0
+      },
+      {
+        "name": "config_drift",
+        "result": "STAGED_CONFIG_CHANGED",
+        "patchCalls": 1,
+        "deployTrueCalls": 0
+      },
+      {
+        "name": "latest_changed",
+        "result": "CONCURRENT_STAGED_VERSION_CHANGED",
+        "patchCalls": 0,
+        "deployTrueCalls": 0
+      }
+    ],
+    "serializedExecutorParses": true,
+    "activationPerformedByReviewer": false,
+    "mandatoryBeforeActivation": "Actual staged readback must verify all 415 module hashes, unchanged configuration and unchanged active baseline. Activate only the explicit verified staged UUID after checking the current active deployment again; check the original migration tag after activation."
+  }
+}

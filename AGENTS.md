@@ -1,5 +1,11 @@
 # ZPLAY / Superwin continuation instructions
 
+## Latest explicit order — 23 November 2026
+
+The current user request supersedes the historical 71-name/Cube Nova queue with **90 exact supplied names**. Read [the current order](codex-work/new-games90-20261123/ORDER.md), [requested names](codex-work/new-games90-20261123/catalogue/requested.mjs), [source registry](codex-work/new-games90-20261123/catalogue/registry.json) and the newest progress section before editing. Preserve the entire preceding implementation and every old game, route, account, wallet, ledger, session, permission and payment service. Exact exclusions remain MultiHot5, FoxyHot20 and HabeshaFortune5. Parallel independent tasks and shared-file coordination continue to apply. A requested name, catalogue card or passing component test is never a finished game. Continue each game's actual implementation, own current references and server integration, with at least seven manually initiated official rounds and truthful live verification. Never bypass an access restriction or publish secrets/private reference media. Existing GitHub/Cloudflare/Railway coding, testing and deployment authorization remains in force.
+
+The instructions below retain the previous checkpoint as historical continuation context; the latest90 order controls active scope.
+
 Read [the current order](codex-work/continue71-20261122/ORDER.md), [active queue](codex-work/continue71-20261122/active-queue.json) and the newest section of [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) before changing code. Recheck the actual branch, commit, working tree and deployment state. Preserve any concurrent or unfinished work.
 
 ## Active user instruction — 22 November 2026

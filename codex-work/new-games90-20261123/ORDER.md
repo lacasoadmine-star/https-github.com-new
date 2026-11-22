@@ -1,0 +1,11 @@
+# Current ZPLAY order — 23 November 2026
+
+Continue the existing project and exact90 requested names in `catalogue/requested.mjs`, preserving their order. The prior71/Cube Nova scope is historical and is not silently substituted. Exact excluded base titles: MultiHot5, FoxyHot20, HabeshaFortune5. Keep every existing game, portal, account, balance, ledger, session, permission, Telebirr route and host. New same-name games keep separate identities from older live versions; continued additive M10/M20 work keeps its accepted identity.
+
+The user explicitly authorizes investigation, implementation, tests, GitHub publication, existing Cloudflare/Railway deployment and backups without further routine approval. Do not ask for ZIPs, manual deployment or repeated authorization. Authorization does not supply inaccessible source assets or authorize bypassing access restrictions.
+
+For each title: reopen its own current official product/demo/rules, inspect7–10 separately initiated rounds and applicable controls, implement its own actual artwork/renderer/animations/audio/settings/paytable and backend, then verify live using an authorized test session. Financial outcomes, stakes, multipliers and balances are server authoritative; idempotent retries recover the accepted request, STOP cannot create another wager, and the existing wallet/ledger remains the sole accounting system. Test credits must never be mistaken for real wallet funds.
+
+The90-name request includes unverified variants and different providers. JetX3/Aviastar map to one current official SmartSoft product; preserve both request names but do not count one implementation twice. ClassicJetX must not inherit the NewEra/NextLevel identity. BurningIce10/40 provider launcher keys do not establish that BlazingHot10/40 are additional distinct products. Do not invent unidentified titles, probabilities, payout caps, artwork or completion evidence.
+
+Work continuously in coordinated groups of ten. Record implemented behavior and observed tests/deployments precisely, then take the next actual unfinished task. Never expose incomplete financial play, relabel a visual preview as a production game or claim an unattended process is running after the work session ends. No new game has met the full completion requirement at this source checkpoint.
