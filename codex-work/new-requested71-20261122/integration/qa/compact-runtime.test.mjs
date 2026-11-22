@@ -11,7 +11,8 @@ import * as sourceCatalogue from '../catalogue.mjs';
 import { createAdditiveWorker as originalAdditive } from '../worker.mjs';
 import { createVisualPreviewWorker as originalPreview, immutableBase } from '../../preview/preview-worker.mjs';
 import { loadCompactDeployment, writeCompactDeployment, COMPACT_BYTE_BUDGET, COMPACT_MODULE_NAMES } from '../compact-deployment.mjs';
-import { makeAdditiveForm, inheritedMetadata, parseMultipart, sha256, verifyBaseline } from '../additive-upload.mjs';
+import { makeAdditiveForm, inheritedMetadata, parseMultipart, sha256, verifyBaseline, applyPinnedMetadataRepack } from '../additive-upload.mjs';
+import { METADATA_MODULE, METADATA_SOURCE_PATH, METADATA_BEFORE, MIN_METADATA_SAVINGS } from '../repack-release-pins.mjs';
 
 assert(process.env.ZPLAY_COMPACT_MODULE_ROOT, 'Run against the exact generated artifact; no uncompiled fallback');
 const compact = await loadCompactDeployment(process.env.ZPLAY_COMPACT_MODULE_ROOT);
@@ -27,6 +28,11 @@ test('locked esbuild output is six pinned modules within 30k; all source/data/as
   assert.deepEqual(compact.manifest, sourceManifest);
   assert.equal(compact.report.activeMainModule, 'balloonstatefix20261121/entry.mjs');
   assert.equal(compact.manifest.entries.length, 41);
+  assert.equal(compact.metadataRepack.name, METADATA_MODULE);
+  assert.deepEqual(compact.metadataRepack.before, METADATA_BEFORE);
+  assert(compact.metadataRepack.savedBytes >= MIN_METADATA_SAVINGS);
+  assert.equal(compact.metadataRepack.assetCount, 321);
+  assert(compact.report.netAddedBytes < 0);
 });
 
 test('compiled catalogue exports and rendered pages match the reviewed source byte-for-byte', () => {
@@ -103,11 +109,13 @@ test('exact composed deployment entry retains both Durable Object exports and ol
   } finally { globalThis.fetch = previousFetch; await rm(root, { recursive: true, force: true }); }
 });
 
-test('actual compact modules roundtrip alongside all 405 unchanged baseline parts and 18 inherited bindings', async () => {
+test('actual upload preserves 404 old parts, one verified metadata object and all 18 inherited bindings', async () => {
   const parts = new Map();
+  const originalMetadata = await readFile(resolve(repository, METADATA_SOURCE_PATH));
   for (let index = 0; index < 405; index++) {
-    const name = index === 0 ? compact.report.activeMainModule : `retained/module-${index}.${index % 2 ? 'bin' : 'mjs'}`;
-    parts.set(name, { bytes: new Uint8Array([index & 255, 255, 0, 13, 10, 198, 128, index >> 8]), contentType: index % 2 ? 'application/octet-stream' : 'application/javascript+module' });
+    const name = index === 0 ? compact.report.activeMainModule : index === 1 ? METADATA_MODULE : `retained/module-${index}.${index % 2 ? 'bin' : 'mjs'}`;
+    parts.set(name, index === 1 ? { bytes: originalMetadata, contentType: METADATA_BEFORE.contentType }
+      : { bytes: new Uint8Array([index & 255, 255, 0, 13, 10, 198, 128, index >> 8]), contentType: index % 2 ? 'application/octet-stream' : 'application/javascript+module' });
   }
   const inventory = await Promise.all([...parts].map(async ([name, part]) => ({ name, bytes: part.bytes.length, contentType: part.contentType, sha256: await sha256(part.bytes) })));
   const version = { id: 'fixture-active', main_module: compact.report.activeMainModule,
@@ -117,10 +125,15 @@ test('actual compact modules roundtrip alongside all 405 unchanged baseline part
         exports: { LocalDemoWallet: { type: 'durable-object', storage: 'sqlite' }, NativeGameResources: { type: 'durable-object', storage: 'sqlite' }, default: { type: 'worker' } } } } };
   const metadata = inheritedMetadata(version, { expectedActiveVersion: 'fixture-active', activeMainModule: compact.report.activeMainModule,
     downloadInventory: inventory, commitSha: compact.report.sourceCommit || 'a'.repeat(40), message: 'Compact equivalent NEW71 and M10 visual preview' });
-  const form = await makeAdditiveForm(parts, inventory, compact.modules, metadata);
+  const repacked = await applyPinnedMetadataRepack(parts, inventory, compact.metadataRepack);
+  const form = await makeAdditiveForm(repacked.parts, repacked.inventory, compact.modules, metadata);
   assert.equal([...form.keys()].length, 412);
   const output = parseMultipart(await new Request('https://upload.invalid', { method: 'POST', body: form }).arrayBuffer());
-  assert.equal(await verifyBaseline(new Map(inventory.map(({ name }) => [name, output.get(name)])), inventory), true);
+  const unchanged = inventory.filter(pin => pin.name !== METADATA_MODULE);
+  assert.equal(unchanged.length, 404);
+  assert.equal(await verifyBaseline(new Map(unchanged.map(({ name }) => [name, output.get(name)])), unchanged), true);
+  assert.equal(await sha256(output.get(METADATA_MODULE).bytes), compact.metadataRepack.after.sha256);
+  assert.equal(parts.get(METADATA_MODULE).bytes, originalMetadata, 'Original baseline map is unchanged');
   for (const item of compact.modules) assert.equal(await sha256(output.get(item.name).bytes), item.sha256);
   assert.deepEqual(JSON.parse(await form.get('metadata').text()).bindings, version.resources.bindings.map(({ name }) => ({ name, type: 'inherit' })));
 });
@@ -130,6 +143,15 @@ test('compact artifact hash drift fails before runtime loading', async () => {
   try {
     await writeCompactDeployment(root, compact);
     await writeFile(resolve(root, compact.modules[0].name), compact.modules[0].source + ' ');
+    await assert.rejects(() => loadCompactDeployment(root));
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('the separately allowed metadata artifact rejects drift before loading', async () => {
+  const root = await mkdtemp(resolve(tmpdir(), 'zplay-compact-metadata-tamper-'));
+  try {
+    await writeCompactDeployment(root, compact);
+    await writeFile(resolve(root, METADATA_MODULE), compact.metadataRepack.source + ' ');
     await assert.rejects(() => loadCompactDeployment(root));
   } finally { await rm(root, { recursive: true, force: true }); }
 });

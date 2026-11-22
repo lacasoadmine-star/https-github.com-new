@@ -1,0 +1,104 @@
+# Only synthetic local database data is used. This workflow does not install a
+# production migration, mount a financial route, enable a game or deploy code.
+name: Continuation M10 reservation QA
+
+on:
+  push:
+    branches:
+      - work/continue71-20261122
+    paths:
+      - 'codex-work/continue71-20261122/m10-house-reservations/*.mjs'
+      - 'codex-work/continue71-20261122/m10-house-reservations/*.sql'
+      - 'codex-work/continue71-20261122/m10-house-reservations/postgres/**'
+      - '.github/workflows/continue71-m10-reservation-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: continue71-m10-reservation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  component:
+    if: github.ref == 'refs/heads/work/continue71-20261122'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the unmounted reservation callbacks
+        timeout-minutes: 2
+        run: |
+          mkdir -p "$RUNNER_TEMP/m10-reservation-unit-results"
+          timeout 60s node --test --test-reporter=tap \
+            codex-work/continue71-20261122/m10-house-reservations/bridge.test.mjs \
+            | tee "$RUNNER_TEMP/m10-reservation-unit-results/tests.tap"
+      - name: Preserve component results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continue71-m10-reservation-components-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/m10-reservation-unit-results
+          if-no-files-found: error
+          retention-days: 7
+
+  disposable-postgres:
+    if: github.ref == 'refs/heads/work/continue71-20261122'
+    needs: component
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        # Same exact image used by the separately passing request-owner QA.
+        image: postgres:17-bookworm@sha256:837bed18782820fe967067cb5328b02b0d9992c1be9a37ee0c9c492cfc03af3b
+        env:
+          POSTGRES_USER: zplay_m10_reservation_ci
+          POSTGRES_PASSWORD: disposable_ci_only
+          POSTGRES_DB: postgres
+        ports:
+          - '127.0.0.1:5432:5432'
+        options: >-
+          --health-cmd "pg_isready -U zplay_m10_reservation_ci -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+          --tmpfs /var/lib/postgresql/data:rw
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install the pinned disposable PostgreSQL client
+        timeout-minutes: 2
+        run: npm install --prefix "$RUNNER_TEMP/m10-reservation-tools" --ignore-scripts --no-package-lock --no-audit --no-fund pg@8.16.3
+      - name: Verify reservations, legacy debit races and rollback with real PostgreSQL
+        timeout-minutes: 3
+        env:
+          M10_RESERVATION_TEST_POSTGRES_ADMIN_URL: postgres://zplay_m10_reservation_ci:disposable_ci_only@127.0.0.1:5432/postgres
+          M10_RESERVATION_TEST_CREATE_DATABASE: disposable-database-only
+          M10_RESERVATION_TEST_NODE_MODULES: ${{ runner.temp }}/m10-reservation-tools/node_modules
+        run: |
+          mkdir -p "$RUNNER_TEMP/m10-reservation-postgres-results"
+          timeout 150s node --test --test-reporter=tap \
+            codex-work/continue71-20261122/m10-house-reservations/postgres/run-tests.mjs \
+            | tee "$RUNNER_TEMP/m10-reservation-postgres-results/tests.tap"
+      - name: Preserve disposable PostgreSQL results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continue71-m10-reservation-postgres-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/m10-reservation-postgres-results
+          if-no-files-found: error
+          retention-days: 7

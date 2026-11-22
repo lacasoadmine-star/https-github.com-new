@@ -1,4 +1,4 @@
-/** Deployment packaging only. Never rewrites retained Worker or served asset bytes. */
+/** Deployment packaging only. Six new modules plus one explicit lossless metadata container repack. */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -10,13 +10,16 @@ import manifest from '../preview/preview-manifest.mjs';
 import { BASE_DEPLOYMENT_MODULES, PREVIEW_DEPLOYMENT_MODULES, MODULE_PREFIX } from './additive-upload.mjs';
 import { visualPreviewEntry } from '../preview/composition.mjs';
 import { MODULE_ROOT, REPOSITORY_ROOT, validateManifest } from '../preview/preview-worker.mjs';
+import { METADATA_MODULE, METADATA_SOURCE_PATH, METADATA_BEFORE, MIN_METADATA_SAVINGS,
+  readPinnedMetadata, metadataRepackSource, verifyMetadataRepackModule } from './repack-release-pins.mjs';
 
 const directory = dirname(fileURLToPath(import.meta.url));
 const repository = resolve(directory, '../../..');
 const ownPath = 'codex-work/new-requested71-20261122/';
 const SOURCE_PATHS = Object.freeze(['integration/catalogue.mjs', 'integration/worker.mjs', 'integration/worker-assets.mjs',
   'preview/preview-worker.mjs', 'preview/preview-manifest.mjs', 'preview/composition.mjs',
-  'integration/additive-upload.mjs', 'integration/compact-deployment.mjs'].map(path => ownPath + path).concat('package-lock.json'));
+  'integration/additive-upload.mjs', 'integration/compact-deployment.mjs', 'integration/repack-release-pins.mjs']
+  .map(path => ownPath + path).concat('package-lock.json', METADATA_SOURCE_PATH));
 export const COMPACT_BYTE_BUDGET = 30000;
 export const ESBUILD_VERSION = '0.25.12';
 export const COMPACT_MODULE_NAMES = Object.freeze([...BASE_DEPLOYMENT_MODULES, ...PREVIEW_DEPLOYMENT_MODULES]);
@@ -126,19 +129,33 @@ export async function buildCompactDeployment({ activeMainModule, minifier, sourc
   assert.deepEqual(preview, manifest); assert.equal(json(preview), json(manifest));
   const totalBytes = modules.reduce((sum, item) => sum + item.bytes, 0);
   if (totalBytes > COMPACT_BYTE_BUDGET) throw Error(`COMPACT_BYTE_BUDGET_EXCEEDED:${totalBytes}>${COMPACT_BYTE_BUDGET}`);
-  const report = { schema: 'zplay/new71-compact-deployment/v1', sourceCommit, activeMainModule,
+  const originalMetadata = await readPinnedMetadata(repository);
+  const packedMetadata = metadataRepackSource(originalMetadata);
+  const compiledMetadata = await minifier.transform(packedMetadata.source, { ...options, sourcefile: METADATA_MODULE });
+  assert.equal(compiledMetadata.warnings.length, 0, 'Metadata minifier warnings');
+  const metadataProof = await verifyMetadataRepackModule(compiledMetadata.code, originalMetadata);
+  const after = { bytes: Buffer.byteLength(compiledMetadata.code), sha256: hash(compiledMetadata.code), contentType: METADATA_BEFORE.contentType };
+  const savedBytes = METADATA_BEFORE.bytes - after.bytes;
+  assert(savedBytes >= MIN_METADATA_SAVINGS, 'Compiled metadata must save at least 90k');
+  const metadataPin = { name: METADATA_MODULE, sourcePath: METADATA_SOURCE_PATH, before: METADATA_BEFORE,
+    after, savedBytes, ...metadataProof, tables: packedMetadata.tables, reusedNameDigests: packedMetadata.reusedNameDigests };
+  const report = { schema: 'zplay/new71-compact-deployment/v2', sourceCommit, activeMainModule,
     esbuildVersion: ESBUILD_VERSION, options, byteBudget: COMPACT_BYTE_BUDGET, totalBytes,
     assetRevision: config.assetRevision, previewSourceCommit: manifest.sourceCommit,
     previewRevision: manifest.revision, previewSourceFileCount: manifest.entries.length,
     exactDataEquivalence: true, sourcePins,
-    modules: modules.map(({ name, bytes, sha256 }) => ({ name, bytes, sha256 })) };
-  return { modules, report };
+    modules: modules.map(({ name, bytes, sha256 }) => ({ name, bytes, sha256 })),
+    metadataRepack: metadataPin, netAddedBytes: totalBytes - savedBytes };
+  return { modules, metadataRepack: { ...metadataPin, source: compiledMetadata.code }, report };
 }
 
 export async function writeCompactDeployment(output, build) {
   const root = resolve(output);
   await mkdir(resolve(root, MODULE_PREFIX), { recursive: true });
   for (const item of build.modules) await writeFile(resolve(root, item.name), item.source);
+  assert.equal(build.metadataRepack.name, METADATA_MODULE);
+  await mkdir(dirname(resolve(root, METADATA_MODULE)), { recursive: true });
+  await writeFile(resolve(root, METADATA_MODULE), build.metadataRepack.source);
   await writeFile(resolve(root, 'compact-report.json'), json(build.report) + '\n');
   return root;
 }
@@ -147,7 +164,7 @@ export async function writeCompactDeployment(output, build) {
 export async function loadCompactDeployment(output, { expectedSourceCommit = process.env.GITHUB_SHA || null } = {}) {
   const root = resolve(output);
   const report = JSON.parse(await readFile(resolve(root, 'compact-report.json'), 'utf8'));
-  assert.equal(report.schema, 'zplay/new71-compact-deployment/v1');
+  assert.equal(report.schema, 'zplay/new71-compact-deployment/v2');
   assert.equal(report.esbuildVersion, ESBUILD_VERSION);
   assert.equal(report.byteBudget, COMPACT_BYTE_BUDGET);
   assert.equal(report.exactDataEquivalence, true);
@@ -171,6 +188,23 @@ export async function loadCompactDeployment(output, { expectedSourceCommit = pro
     assert.equal(bytes.length, pin.bytes); assert.equal(hash(bytes), pin.sha256, 'Compact module drift: ' + pin.name);
     modules.push({ ...pin, source: bytes.toString('utf8') });
   }
+  const repack = report.metadataRepack;
+  assert.equal(repack.name, METADATA_MODULE);
+  assert.equal(repack.sourcePath, METADATA_SOURCE_PATH);
+  assert.deepEqual(repack.before, METADATA_BEFORE);
+  assert.equal(repack.after.contentType, METADATA_BEFORE.contentType);
+  assert.equal(repack.savedBytes, repack.before.bytes - repack.after.bytes);
+  assert(repack.savedBytes >= MIN_METADATA_SAVINGS);
+  assert.equal(report.netAddedBytes, report.totalBytes - repack.savedBytes);
+  const metadataBytes = await readFile(resolve(root, METADATA_MODULE));
+  assert.equal(metadataBytes.length, repack.after.bytes);
+  assert.equal(hash(metadataBytes), repack.after.sha256, 'Metadata repack artifact drift');
+  const metadataSource = metadataBytes.toString('utf8');
+  const metadataProof = await verifyMetadataRepackModule(metadataSource, await readPinnedMetadata(repository));
+  for (const [key, value] of Object.entries(metadataProof)) assert.deepEqual(repack[key], value);
+  const packedMetadata = metadataRepackSource(await readPinnedMetadata(repository));
+  assert.deepEqual(repack.tables, packedMetadata.tables);
+  assert.equal(repack.reusedNameDigests, packedMetadata.reusedNameDigests);
   const assets = (await import(pathToFileURL(resolve(root, MODULE_PREFIX + 'worker-assets.mjs')))).default;
   const preview = (await import(pathToFileURL(resolve(root, MODULE_PREFIX + 'preview-manifest.mjs')))).default;
   assert.deepEqual(assets, config); assert.equal(json(assets), json(config));
@@ -178,7 +212,8 @@ export async function loadCompactDeployment(output, { expectedSourceCommit = pro
   const catalogue = await import(pathToFileURL(resolve(root, MODULE_PREFIX + 'catalogue.mjs')));
   const worker = await import(pathToFileURL(resolve(root, MODULE_PREFIX + 'worker.mjs')));
   const previewWorker = await import(pathToFileURL(resolve(root, MODULE_PREFIX + 'preview-worker.mjs')));
-  return { root, report, modules, config: assets, manifest: preview, catalogue, ...worker, ...previewWorker };
+  return { root, report, modules, metadataRepack: { ...repack, source: metadataSource },
+    config: assets, manifest: preview, catalogue, ...worker, ...previewWorker };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -187,5 +222,6 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const build = await buildCompactDeployment({ activeMainModule: at('--active-main') });
   await writeCompactDeployment(at('--output'), build);
   console.log(json({ passed: true, totalBytes: build.report.totalBytes, byteBudget: COMPACT_BYTE_BUDGET,
-    modules: build.report.modules, output: resolve(at('--output')) }));
+    modules: build.report.modules, metadataRepack: build.report.metadataRepack,
+    netAddedBytes: build.report.netAddedBytes, output: resolve(at('--output')) }));
 }

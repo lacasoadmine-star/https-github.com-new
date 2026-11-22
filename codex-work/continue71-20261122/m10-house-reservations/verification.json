@@ -1,0 +1,95 @@
+{
+  "schema": "zplay/m10-house-reservation-verification/v1",
+  "recordedAt": "2026-11-22T00:13:06Z",
+  "gameId": "zplay72_multi_hot_10_v1",
+  "scope": "unmounted existing-wallet reservation callback component",
+  "release": {
+    "mounted": false,
+    "productionEnabled": false,
+    "migrationApplied": false,
+    "createsWallet": false,
+    "providerRngRequired": false
+  },
+  "local": {
+    "node": "v24.22.3",
+    "componentCommand": "node --test codex-work/continue71-20261122/m10-house-reservations/bridge.test.mjs",
+    "componentTests": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "fixtureKind": "synthetic transaction and SQL contract; not PostgreSQL"
+    },
+    "syntaxChecks": [
+      "bridge.mjs",
+      "postgres/run-tests.mjs"
+    ],
+    "workflowStaticChecks": "passed exact branch, contents-read permission, pinned PostgreSQL image, component-only paths and finite timeouts"
+  },
+  "postgres": {
+    "status": "prepared_not_executed",
+    "scenarios": 10,
+    "localUnavailable": [
+      "PostgreSQL server",
+      "psql",
+      "Docker",
+      "Podman"
+    ],
+    "workflow": ".github/workflows/continue71-m10-reservation-qa.yml",
+    "driverVersion": "pg@8.16.3",
+    "postgresImage": "postgres:17-bookworm@sha256:837bed18782820fe967067cb5328b02b0d9992c1be9a37ee0c9c492cfc03af3b",
+    "databaseScope": "random newly created localhost disposable database only",
+    "criticalCase": "unchanged legacy transfer blocks behind house lock, then cannot spend the hold committed during its wait"
+  },
+  "remainingIntegration": [
+    "exact per-round aggregation and maximum rule in the new M10 evaluator",
+    "operator-owned game-specific model and ETB denomination policy with retained immutable identities",
+    "prepared journal and same-client authenticated lifecycle plus symmetric request-owner guard",
+    "shared round-order insertion for every accepted round, including losses",
+    "symmetric cross-game active ownership and merged old state reads",
+    "actual PostgreSQL pass plus combined-lifecycle recovery and contention tests",
+    "coordinated reviewed migration, writer-role grants and isolation before any wager activation"
+  ],
+  "sourceFiles": [
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/bridge.mjs",
+      "sha256": "168e14ce7be695ca4b7044b0fc0947d3804b240c65d959f1bdea263bb4e9e390",
+      "bytes": 15662
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/prepare-schema.sql",
+      "sha256": "365ded06c1ea2545c890dbecc6e4d9168d71371902ab6792d7e5e007e6179b06",
+      "bytes": 5944
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/test-support.mjs",
+      "sha256": "3b707d4dfbed352472923e1cd752dcb9ba4fd5b02d931e8aeafe0f52753ae220",
+      "bytes": 7136
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/bridge.test.mjs",
+      "sha256": "96ad5e2678e8a10d8e899d5179ea36eb0f66fa2d457501c8d2f266f261e949db",
+      "bytes": 8485
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/postgres/fixture.sql",
+      "sha256": "7eeec1e2900fc85135dcb7c1731fbc9507cc65f2c06bd50b8b4615d9d4862569",
+      "bytes": 2936
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/postgres/run-tests.mjs",
+      "sha256": "da1c2bc64a97648f414b9e581593fb5d7c55a94b80952b588aaf727120bf66b6",
+      "bytes": 25375
+    },
+    {
+      "path": ".github/workflows/continue71-m10-reservation-qa.yml",
+      "sha256": "9ae61e5ba7bfa8c73092655038bf7a39aa7ef32d840871c942e0269ca4d9378e",
+      "bytes": 4040
+    },
+    {
+      "path": "codex-work/continue71-20261122/m10-house-reservations/README.md",
+      "sha256": "792babd2d8e3b775050c48645e5e632a9b9308813d6510847fc5c1c1475861a5",
+      "bytes": 11803
+    }
+  ],
+  "provenanceBoundary": "Hashes cover only these authored component, fixture, workflow and documentation files. No private provider references, credentials, financial history or account records are included."
+}

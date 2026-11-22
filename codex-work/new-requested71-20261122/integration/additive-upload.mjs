@@ -65,6 +65,35 @@ export async function verifyBaseline(parts,inventory) {
   return true;
 }
 
+/**
+ * The sole approved old-module packaging exception. CI verifies the complete
+ * exported object and all inline manifest bytes before this helper is used.
+ * This function checks the original container and the reviewed artifact pins;
+ * it never evaluates source or mutates the supplied baseline collections.
+ */
+export async function applyPinnedMetadataRepack(parts, inventory, repack) {
+  await verifyBaseline(parts, inventory);
+  const name = 'native72dedicatedr1/release-pins.mjs';
+  const before = inventory.find(pin => pin.name === name);
+  if (!before || repack?.name !== name || before.bytes !== 127134
+    || before.sha256 !== 'db96f12990fe8d48d62e1c04de2e7611d9f3ba117bd791f733fa75af75b2cf10'
+    || before.contentType !== 'application/javascript+module'
+    || repack.before?.bytes !== before.bytes || repack.before?.sha256 !== before.sha256
+    || repack.before?.contentType !== before.contentType
+    || repack.semanticSha256 !== '5e180abe371eca39c8bf34006ab1885bd804b3ded7e1fe52889f299d271f5fd3'
+    || repack.assetCount !== 321 || typeof repack.source !== 'string'
+    || repack.after?.contentType !== before.contentType) throw Error('METADATA_REPACK_NOT_PINNED');
+  const bytes = new TextEncoder().encode(repack.source);
+  if (bytes.length !== repack.after.bytes || await sha256(bytes) !== repack.after.sha256
+    || before.bytes - bytes.length < 90000 || repack.savedBytes !== before.bytes - bytes.length)
+    throw Error('METADATA_REPACK_ARTIFACT_CHANGED');
+  const nextParts = new Map(parts);
+  nextParts.set(name, { bytes, contentType: before.contentType });
+  const nextInventory = inventory.map(pin => pin.name === name ? { name, ...repack.after } : pin);
+  await verifyBaseline(nextParts, nextInventory);
+  return { parts: nextParts, inventory: nextInventory };
+}
+
 export function entryModule(activeMainModule) {
   if(!/^[-A-Za-z0-9_./]+\.mjs$/.test(activeMainModule)||activeMainModule.startsWith('/')||activeMainModule.split('/').includes('..')||activeMainModule.startsWith(MODULE_PREFIX))throw Error('ACTIVE_ENTRY_INVALID');
   const from=JSON.stringify('../'+activeMainModule);
