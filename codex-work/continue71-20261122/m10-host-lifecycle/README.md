@@ -48,6 +48,12 @@ Native round IDs remain their original strings. The available native contract us
 
 The tests use the actual tracked old `createExistingGamble` implementation. They do not substitute a new interpretation of its eligibility rule. Old accepted action replays still precede latest-round rejection, so an accepted old receipt remains recoverable after a new M10 spin.
 
+### Accepted request-token spelling
+
+PostgreSQL canonicalizes UUID columns to lowercase, while the accepted receipt and current wire validator preserve the caller's exact request-token spelling. The journal reader now validates that its UUID column and receipt token identify the same UUID, then exposes the receipt's original token to the lifecycle. It rejects a different or malformed UUID instead of blindly trusting the receipt. Accepted JSON, request fingerprints and exact-token replay behavior are unchanged.
+
+Server-generated round, collection and gamble UUIDs are canonicalized before entering any receipt or database write. Incoming target-ID handling and the frozen frontend protocol are unchanged. A focused test first reproduced the prior uppercase-token state failure, then passed after this correction.
+
 ## Exact mounting points still required
 
 This code is deliberately not imported by an active route or release module. These are the concrete host connections to make after database verification:
@@ -66,9 +72,9 @@ Local component command:
 node --test codex-work/continue71-20261122/m10-host-lifecycle/*.test.mjs
 ```
 
-**10 component tests passed, with zero failures/skips.** They cover the actual old gamble descriptor after a new M10 loss; duplicate/conflicting global registration; rollback and old eligibility; exact journal/money identity; actual continued M10 state with an opaque native ID; same-client merged old state; conflicting owners; malformed pending ownership; and construction without database activity or model installation. The relation/transaction fixture is synthetic and is not evidence of PostgreSQL locking.
+**11 component tests passed, with zero failures/skips.** They cover the actual old gamble descriptor after a new M10 loss; duplicate/conflicting global registration; rollback and old eligibility; exact journal/money identity; actual continued M10 state with an opaque native ID; same-client merged old state; conflicting owners; malformed pending ownership; construction without database activity or model installation; and uppercase request-token restoration with rejection of a different stored UUID. The relation/transaction fixture is synthetic and is not evidence of PostgreSQL locking.
 
-The dedicated `Continuation M10 host lifecycle QA` workflow adds ten prepared real PostgreSQL scenarios. It executes the actual composed lifecycle, current journal and reservation DDL, existing old gamble module and request-owner guard. Coverage includes:
+The dedicated `Continuation M10 host lifecycle QA` workflow now contains eleven real PostgreSQL scenarios. It executes the actual composed lifecycle, current journal and reservation DDL, existing old gamble module and request-owner guard. Coverage includes:
 
 - A new loss and twenty retries preserving one shared order and one BET.
 - Actual old gamble eligibility/action rejection after the loss, before old RNG or money movement.
@@ -76,7 +82,10 @@ The dedicated `Continuation M10 host lifecycle QA` workflow adds ten prepared re
 - TAKE versus next-SPIN contention, requiring two observed database lock waiters before release and exactly one collection/WIN.
 - SQL failures before and after the final request insert rolling back the shared order, hold, BET and journals together.
 - Native opaque-ID blocking, M10 pending ownership, dual-owner rejection and cross-family key collisions.
+- Uppercase SPIN/TAKE/next-SPIN request tokens and an uppercase server UUID provider, with canonical server IDs, restored state, immutable accepted receipts and exactly one collection.
 
-No real PostgreSQL execution is claimed locally; that service and container tools are unavailable. The harness creates only its own random localhost database, uses the existing pinned PostgreSQL 17 image and `pg@8.16.3`, and waits for server-side connection drain before ordinary DROP without FORCE. Errors and missing configuration fail the job. The workflow is scoped to the continuation branch and its exact runtime dependencies; documentation-only edits do not rerun the database job.
+The first published host source, `1045920f76d738129f94d33b9af38a1314e173de`, passed [workflow 44966678584](https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44966678584): its then-current ten component tests and ten actual PostgreSQL scenarios all passed, with no failures/skips or asynchronous cleanup errors. Its real TAKE/SPIN lock-wait, rollback and old-engine compatibility assertions completed successfully. The downloaded PostgreSQL artifact's digest matched both GitHub metadata and the upload log. At the same source, [reservation workflow 44966678534](https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/44966678534) also passed its fourteen component tests and ten PostgreSQL scenarios, including the corrected graceful cleanup.
+
+The subsequent focused UUID correction has **11 passing local component tests** and adds one PostgreSQL scenario; its new exact-source CI result is still pending. The preceding ten database cases and their assertions are unchanged. No PostgreSQL service or container tools are available locally. The harness creates only its own random localhost database, uses the existing pinned PostgreSQL 17 image and `pg@8.16.3`, and waits for server-side connection drain before ordinary DROP without FORCE. Errors and missing configuration fail the job. The workflow is scoped to the continuation branch and its exact runtime dependencies; documentation-only edits do not rerun the database job.
 
 `verification.json` contains test level and hashes of this component's own source. It includes no private provider reference files, account data, credentials or financial history. The reservation component, request-owner guard, current frontend and old shared source are unchanged by this new directory.

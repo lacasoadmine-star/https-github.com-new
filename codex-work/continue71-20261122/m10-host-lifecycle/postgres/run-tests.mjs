@@ -62,6 +62,57 @@ test('actual M10 host lifecycle and existing gamble with disposable PostgreSQL',
       assert.deepEqual(await h.snapshot(player), before);
     });
 
+    await t.test('uppercase client tokens restore, collect and replay unchanged while server UUIDs stay canonical', async () => {
+      const player = await h.seed(), generated = [];
+      const host = h.host([300n, 0n], { uuid: () => {
+        const value = 'ABCDEFAB' + randomUUID().slice(8).toUpperCase();
+        generated.push(value); return value;
+      } });
+      const spinToken = 'ABCDEFAB-1234-4ABC-8DEF-0123456789AB';
+      const takeToken = 'ABCDEFAB-2345-4ABC-8DEF-0123456789AB';
+      const nextToken = 'ABCDEFAB-3456-4ABC-8DEF-0123456789AB';
+      const spin = h.spinBody(player, { key: spinToken });
+      const first = await host.lifecycle.spin(player.request, spin);
+      assert.equal(first.requestKey, spinToken);
+      assert.equal(first.roundId, generated[0].toLowerCase());
+      assert.notEqual(first.roundId, generated[0]);
+      const restored = await host.lifecycle.state(player.request);
+      assert.deepEqual(restored.round.receipt, first);
+      assert.equal(restored.round.receipt.requestKey, spinToken);
+      assert.equal(restored.round.pendingWinAmount, '3.00');
+
+      const takeInput = h.takeBody(player, first, takeToken);
+      const take = await host.lifecycle.takeWin(player.request, takeInput);
+      assert.equal(take.requestKey, takeToken);
+      assert.equal(take.collection.collectionId, generated[1].toLowerCase());
+      assert.notEqual(take.collection.collectionId, generated[1]);
+      const collected = await host.lifecycle.state(player.request);
+      assert.deepEqual(collected.round.receipt, first);
+      assert.deepEqual(collected.round.collection, take.collection);
+      assert.equal(collected.round.pendingWinAmount, '0.00');
+
+      const nextInput = h.spinBody(player, { key: nextToken, collectRoundId: first.roundId });
+      const next = await host.lifecycle.spin(player.request, nextInput);
+      assert.equal(next.requestKey, nextToken);
+      assert.equal(next.roundId, generated[2].toLowerCase());
+      assert.deepEqual(next.previousCollection, take.collection);
+      assert.deepEqual((await host.lifecycle.state(player.request)).round.receipt, next);
+      const beforeReplay = await h.snapshot(player);
+      assert.deepEqual(await host.lifecycle.spin(player.request, { ...spin, replayOnly: true }), first);
+      assert.deepEqual(await host.lifecycle.takeWin(player.request, { ...takeInput, replayOnly: true }), take);
+      assert.deepEqual(await host.lifecycle.spin(player.request, { ...nextInput, replayOnly: true }), next);
+      const after = await h.snapshot(player);
+      assert.deepEqual(after, beforeReplay);
+      assert.deepEqual(after.rounds.find(row => row.round_id === first.roundId).receipt, first);
+      assert.deepEqual(after.shared.find(row => row.id === 'new-m10:' + first.roundId).outcome, first);
+      assert.deepEqual(after.requests.find(row => row.request_key === spinToken.toLowerCase()).receipt, first);
+      assert.equal(after.collections.length, 1);
+      assert.equal(after.transfers.filter(row => row.kind === 'win').length, 1);
+      assert.equal(after.transfers.filter(row => row.kind === 'bet').length, 2);
+      assert.equal(after.wallets.find(row => row.id === player.userId).balance, '10100');
+      assert.equal(host.samples(), 2); assert.equal(generated.length, 3);
+    });
+
     await t.test('an M10 loss expires actual old gamble eligibility before any old RNG or transfer', async () => {
       const player = await h.seed(), host = h.host([0n]), old = h.oldApi(host), parent = await h.seedOldRound(player);
       const beforeState = await h.legacyState(host, old, player);

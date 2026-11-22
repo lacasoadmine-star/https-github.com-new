@@ -104,7 +104,7 @@ export function createSupport(pool, createM10HostIntegration, existing) {
     const request = new Request('https://synthetic.invalid/api/slots/spin', { method: 'POST', headers: { cookie: 'sw_session=' + token } });
     return { userId, house, request, guard: dependencies.sessionGuard(request, userId) };
   };
-  const host = (amounts = [0n]) => {
+  const host = (amounts = [0n], { uuid = randomUUID } = {}) => {
     const outcomes = new Map(); let samples = 0;
     // Deliberately synthetic policy. These fixture amounts, sequence and flags
     // are never exported as an M10 operator model or provider rule assertion.
@@ -125,7 +125,7 @@ export function createSupport(pool, createM10HostIntegration, existing) {
     };
     const integration = createM10HostIntegration({ dependencies, getApprovedModel: async id => {
       assert.equal(id, GAME_ID); return model;
-    }, resolveApprovedModel: async () => model, releaseEnabled: () => true, uuid: randomUUID, now: () => NOW });
+    }, resolveApprovedModel: async () => model, releaseEnabled: () => true, uuid, now: () => NOW });
     return { ...integration, samples: () => samples };
   };
   const spinBody = (player, { key = randomUUID(), collectRoundId = null } = {}) => ({ gameId: GAME_ID, ...MATH,

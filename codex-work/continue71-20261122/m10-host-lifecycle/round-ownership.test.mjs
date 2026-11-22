@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createM10HostIntegration, COMPONENT } from './host-integration.mjs';
 import { createMultiHot10DeferredLifecycle } from './deferred-lifecycle.mjs';
+import { createMultiHot10PostgresLifecycle } from './postgres-lifecycle.mjs';
 import { GAME_ID } from '../../new-games72-20261121/games/multi-hot-10/backend/contract.mjs';
 import { fixture, acceptedRound, oldParent, existingGambleFactory, oldDependencies, userId, oldGameId, guard, modelIdentity } from './test-support.mjs';
 
@@ -114,4 +115,34 @@ test('composition creates no route-side activity or model and refuses already wr
   assert.equal(COMPONENT.productionEnabled, false); assert.equal(COMPONENT.installsModel, false);
   assert.equal(composed.lifecycle.handles(GAME_ID), true); assert.equal(composed.lifecycle.handles(oldGameId), false);
   assert.throws(() => createM10HostIntegration({ dependencies: { ...dependencies, m10ReservationsAware: true } }), /M10_RAW_FINAL_HOST_CALLBACKS_REQUIRED/);
+});
+
+test('actual PostgreSQL journal projection preserves an accepted uppercase request token and rejects a different UUID', async () => {
+  const round = acceptedRound({ winAmount: '3.00' });
+  const token = 'ABCDEFAB-ABCD-4ABC-8ABC-ABCDEFABCDEF';
+  round.requestKey = token; round.receipt.requestKey = token;
+  function lifecycle(columnToken) {
+    const client = { async query(sql) {
+      if (sql.startsWith('SELECT user_id,game_id,round_id,request_key,receipt FROM sw_new_m10.rounds')) {
+        return { rowCount: 1, rows: [{ user_id: userId, game_id: GAME_ID, round_id: round.roundId,
+          request_key: columnToken, receipt: structuredClone(round.receipt) }] };
+      }
+      if (sql.startsWith('SELECT receipt FROM sw_new_m10.collections') || sql.startsWith('SELECT receipt FROM sw_new_m10.gambles')) {
+        return { rowCount: 0, rows: [] };
+      }
+      throw Error('UNEXPECTED_PROJECTION_QUERY_' + sql);
+    } };
+    const wallet = new Proxy({ lockWallets: async () => {}, playerBalance: async () => 900n,
+      houseBalance: async () => 9800n, activeRound: async () => ({ gameId: GAME_ID, roundId: round.roundId }) },
+    { get: (target, property) => property in target ? target[property] : async () => { throw Error('UNEXPECTED_PROJECTION_MUTATION_' + String(property)); } });
+    return createMultiHot10PostgresLifecycle({ transaction: fn => fn(client), authenticate: async () => userId,
+      sessionGuard: async () => guard, hash: async () => guard, wallet,
+      roundHooks: { registerRound: async () => { throw Error('STATE_MUST_NOT_REGISTER_A_ROUND'); } } });
+  }
+  const request = new Request('https://synthetic.invalid/state');
+  const restored = await lifecycle(token.toLowerCase()).state(request);
+  assert.deepEqual(restored.round.receipt, round.receipt);
+  assert.equal(restored.round.receipt.requestKey, token);
+  assert.equal(restored.round.pendingWinAmount, '3.00');
+  await assert.rejects(() => lifecycle('12345678-1234-4234-8234-123456789abc').state(request), /M10_STORED_REQUEST_IDENTITY_INVALID/);
 });

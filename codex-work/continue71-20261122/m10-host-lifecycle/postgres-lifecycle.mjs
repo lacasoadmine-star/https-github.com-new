@@ -1,5 +1,5 @@
 import { createMultiHot10DeferredLifecycle } from './deferred-lifecycle.mjs';
-import { GAME_ID, copy, fail, minor } from '../../new-games72-20261121/games/multi-hot-10/backend/contract.mjs';
+import { GAME_ID, UUID, copy, fail, minor } from '../../new-games72-20261121/games/multi-hot-10/backend/contract.mjs';
 
 const walletMethods = ['lockWallets', 'playerBalance', 'houseBalance', 'reserveBalance',
   'debitStake', 'reserveWin', 'creditReservedWin', 'assertNoActiveRound', 'claimActiveRound',
@@ -20,8 +20,19 @@ export function createMultiHot10PostgresLifecycle({ transaction, authenticate, s
   return createMultiHot10DeferredLifecycle({ ...configuration, authenticate, sessionGuard,
     transaction: fn => transaction(async client => {
       if (typeof client?.query !== 'function') fail('M10_EXISTING_POSTGRES_CLIENT_REQUIRED');
-      const selectRound = row => row ? { userId: row.user_id, gameId: row.game_id, roundId: row.round_id,
-        requestKey: row.request_key, bet: row.receipt.bet, winAmount: row.receipt.winAmount, receipt: copy(row.receipt) } : null;
+      const selectRound = row => {
+        if (!row) return null;
+        // PostgreSQL UUID columns canonicalize hex case. Preserve the exact
+        // accepted wire token after verifying it identifies that same UUID;
+        // projecting the lowercase column would reject our own uppercase-token
+        // receipt on state/collection. No accepted receipt is rewritten.
+        const acceptedToken = row.receipt?.requestKey;
+        if (typeof row.request_key !== 'string' || typeof acceptedToken !== 'string' ||
+          !UUID.test(row.request_key) || !UUID.test(acceptedToken) ||
+          row.request_key.toLowerCase() !== acceptedToken.toLowerCase()) fail('M10_STORED_REQUEST_IDENTITY_INVALID');
+        return { userId: row.user_id, gameId: row.game_id, roundId: row.round_id,
+          requestKey: acceptedToken, bet: row.receipt.bet, winAmount: row.receipt.winAmount, receipt: copy(row.receipt) };
+      };
       const tx = {
         authenticate: request => authenticate(request, client, true),
         ...Object.fromEntries(walletMethods.map(name => [name, (...args) => wallet[name](client, ...args)])),

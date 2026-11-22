@@ -65,7 +65,7 @@ export function createMultiHot10DeferredLifecycle({ authenticate, sessionGuard, 
     if (!HASH.test(guard ?? '')) fail('EXISTING_SESSION_HASH_INVALID');
     return { userId, guard };
   }
-  function identifier() { const value = uuid(); if (!UUID.test(value ?? '')) fail('M10_SERVER_ID_INVALID'); return value; }
+  function identifier() { const value = uuid(); if (typeof value !== 'string' || !UUID.test(value)) fail('M10_SERVER_ID_INVALID'); return value.toLowerCase(); }
   function timestamp() { const value = now(); if (typeof value !== 'string' || !Number.isFinite(Date.parse(value))) fail('M10_SERVER_TIME_INVALID'); return value; }
   async function inTransaction(request, identity, fn) {
     return transaction(async tx => {
