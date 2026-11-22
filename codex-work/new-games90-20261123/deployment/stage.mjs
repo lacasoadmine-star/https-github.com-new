@@ -70,16 +70,17 @@ export async function executeStage(cloudflare,accountId,plan) {
     main_module:plan.mainModule,modules:[...before.modules,...appended],annotations:{'workers/message':`NEW90 exact requested catalogue; source ${plan.sourceCommit}; all ${plan.baseline.moduleCount} prior modules preserved; zero new games asserted complete`,
       'workers/tag':'new90-catalogue-20261123'}}});
   const id=staged.result?.id;if(!id)throw Error('STAGED_VERSION_ID_MISSING');
-  const after=await getVersion(id),afterInventory=await inventory(after);
-  sameInventory(afterInventory,[...plan.baseline.inventory,...plan.modules.map(({name,contentType,bytes,sha256})=>({name,contentType,bytes,sha256}))]);
+  // Read the staged body in a separate service invocation: two complete large
+  // versions retained together can exhaust the service's memory after upload.
+  const after=(await cloudflare.request({method:'GET',path:prefix+`/workers/${plan.worker}/versions/${id}`})).result;
   if(after.main_module!==plan.mainModule||canonical(config(after))!==beforeConfig
     ||(after.migration_tag&&after.migration_tag!==before.migration_tag))throw Error('STAGED_CONFIG_CHANGED');
   const activeAfter=await deployments();if(activeAfter.id!==active.id)throw Error('STAGING_CHANGED_ACTIVE_DEPLOYMENT');
   return {schema:'zplay/new90-staged-verification/v1',worker:plan.worker,sourceCommit:plan.sourceCommit,
     baselineVersion:before.id,baselineNumber:before.number,stagedVersion:id,stagedNumber:after.number,
     activeDeployment:active.id,activeVersion:before.id,activated:false,retainedModules:before.modules.length,
-    appendedModules:appended.length,verifiedModules:afterInventory.length,totalBytes:afterInventory.reduce((sum,m)=>sum+m.bytes,0),
-    allOriginalModulesByteIdentical:true,configurationUnchanged:true,configurationSha256:await hash(new TextEncoder().encode(beforeConfig)),
+    appendedModules:appended.length,verificationPending:true,
+    originalModulesSentUnchanged:true,configurationUnchanged:true,configurationSha256:await hash(new TextEncoder().encode(beforeConfig)),
     newModulePins:plan.modules.map(({name,contentType,bytes,sha256})=>({name,contentType,bytes,sha256}))};
 }
 

@@ -1,3 +1,17 @@
+# Current requested90 continuation — 23 November 2026
+
+The user's latest exact90 names supersede the historical71/CubeNova scope. See [the active order](codex-work/new-games90-20261123/ORDER.md) and [current source and proof](codex-work/new-games90-20261123/README.md). Preserve all prior work and existing games/accounts/services. Exclusions remain MultiHot5,FoxyHot20,HabeshaFortune5.
+
+Source8d745058a5086d37fc30c814b836e752a490397e is published on work/new90-live-20261123. ExactCI45073152965 passed both jobs:57 Node tests,9 disposable backend tests, all3 existing frontend builds and browser QA of the exact four-module artifact at360/390/430/1280. The prepared M20 controller/renderer/input/audio composition passes36 of those component tests; fixes include QUICK/SPIN target overlap, held Enter repeats, original-key recovery and AUTO/lifecycle controls. Current officialM20 was manually played for7 rounds with private capture/action evidence. Its observed6.00DMO win equals line6 five plusline18 one; TAKE and nextSPIN deferred collection were observed. This is reference/component work, not production settlement.
+
+Actual Player version469 ecd93fcb-e8d0-4b42-b942-afb8d1dcab0e is active at100%, deployment307dbb49-b496-460c-838a-f4bdd876f27a. Full staged and post-activation readback verified415 modules/66,925,842bytes: all411 prior modules byte-identical plus four new catalogue modules20,341bytes. All18 bindings, exported objects, assets, configuration and original migration tag were preserved. Version468 remains retained for rollback. The browser confirmed NEW90 above Slots, all74 old entries, exact90 full-page names and working search. This is a catalogue/navigation/search release, not90 playable games. No production financial round or database/account/balance/ledger mutation occurred.
+
+The initial stage service ran out of memory after successfully creating469 without activation. State readback prevented a duplicate upload. Separate full readback then verified469 before activation. Staging is now split from full readback so the service never retains both entire bundles;8 focused deployment tests pass. See deployment/README.md for actual receipts and the distinction between the successful upload and failed combined verification attempt.
+
+**Completed new games0/90. LIVE VERIFIED new games0/90. Cash activationfalse.** M20 still needs its complete own native media closure, final authenticated host integration and full live acceptance. The prior unpublished manifest is unavailable404; direct native resource requests return a provider denial. No restriction was bypassed and no other game's assets/screenshot machine were substituted. Continue actual per-game implementation from current official evidence; do not count requested cards or aliases as completed games or imply unattended work after this session.
+
+---
+
 # Active continuation — NEW71, M10 controls and additive deployment
 
 Updated: 22 November 2026, Africa/Addis_Ababa. Continue the user's latest exact **71-name** order in [the active queue](codex-work/continue71-20261122/active-queue.json) and [the recorded instruction](codex-work/continue71-20261122/ORDER.md). The user's “2 games + 69” instruction preserves the current work; it does not restart it or mark two games complete. All older sections below are historical checkpoints.

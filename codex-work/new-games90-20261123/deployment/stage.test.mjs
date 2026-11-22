@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {deploymentPlan,executeStage,stageCode} from './stage.mjs';
+import {verifyVersion} from './verify.mjs';
 const sha=value=>createHash('sha256').update(value).digest('hex');
 const commit='a'.repeat(40);
 const module=(name,source)=>({name,source,bytes:Buffer.byteLength(source),sha256:sha(source),contentType:'application/javascript+module'});
@@ -24,15 +25,18 @@ function fixture() {
       delete after.migration_tag;
       return{result:{id:after.id}};
     }
-    return{result:structuredClone(request.path.endsWith('/latest')?before:after)};
+    return{result:structuredClone(request.path.endsWith('/latest')||request.path.endsWith('/'+baseline.id)?before:after)};
   }};
   return{old,baseline,build,plan,cloudflare,requests,changeBefore(fn){fn(before);},changeActive(fn){fn(active);},changeAfter(fn){const original=cloudflare.request.bind(cloudflare);cloudflare.request=async q=>{const r=await original(q);if(q.method==='GET'&&!q.path.endsWith('/latest')&&!q.path.endsWith('/deployments'))fn(r.result);return r;};}};
 }
 
 test('a verified plan adds four pinned modules without exposing source in its receipt',async()=>{
   const f=fixture(),result=await executeStage(f.cloudflare,'account',f.plan);
-  assert.equal(result.activated,false);assert.equal(result.allOriginalModulesByteIdentical,true);assert.equal(result.configurationUnchanged,true);
-  assert.equal(result.retainedModules,2);assert.equal(result.verifiedModules,6);
+  assert.equal(result.activated,false);assert.equal(result.originalModulesSentUnchanged,true);assert.equal(result.configurationUnchanged,true);
+  assert.equal(result.retainedModules,2);assert.equal(result.verificationPending,true);
+  const proof={worker:'superwin-player',sourceCommit:commit,baseline:f.baseline,versionId:result.stagedVersion,mainModule:f.plan.mainModule,
+    newPins:f.plan.modules.map(({name,bytes,sha256,contentType})=>({name,bytes,sha256,contentType}))};
+  const verified=await verifyVersion(f.cloudflare,'account',proof);assert.equal(verified.verifiedModules,6);assert.equal(verified.allOriginalModulesByteIdentical,true);
   const mutations=f.requests.filter(q=>q.method!=='GET');assert.equal(mutations.length,1);
   assert.equal(mutations[0].method,'PATCH');assert.deepEqual(mutations[0].query,{deploy:false});
   assert.equal(mutations[0].contentType,'application/merge-patch+json');
@@ -42,7 +46,7 @@ test('a verified plan adds four pinned modules without exposing source in its re
 });
 test('the remote function is self contained in its service execution scope',async()=>{
   const f=fixture(),run=new Function('cloudflare','accountId','return ('+stageCode(f.plan)+')()');
-  assert.equal((await run(f.cloudflare,'account')).verifiedModules,6);
+  assert.equal((await run(f.cloudflare,'account')).verificationPending,true);
 });
 test('a changed active version or traffic split cannot stage any source',async()=>{
   for(const change of [v=>v.versions[0].version_id='other',v=>v.versions[0].percentage=50]){
@@ -60,11 +64,17 @@ test('a mutated retained byte, content type, module name or count aborts before 
     assert.equal(f.requests.some(q=>q.method!=='GET'),false);
   }
 });
-test('staged config or retained-body corruption is rejected without activating',async()=>{
-  for(const change of [v=>v.bindings[1].service='wrong-service',v=>v.assets.config.run_worker_first=false,v=>v.modules[0].content_base64=Buffer.from('changed').toString('base64'),v=>v.migration_tag='wrong']){
+test('staged config corruption is rejected without activating',async()=>{
+  for(const change of [v=>v.bindings[1].service='wrong-service',v=>v.assets.config.run_worker_first=false,v=>v.migration_tag='wrong']){
     const f=fixture();f.changeAfter(change);await assert.rejects(executeStage(f.cloudflare,'account',f.plan),/STAGED_CONFIG_CHANGED|RETAINED_MODULE_CHANGED/);
     assert.equal(f.requests.some(q=>q.path.endsWith('/deployments')&&q.method!=='GET'),false);
   }
+});
+test('separate readback catches uploaded body corruption after a metadata-only stage',async()=>{
+  const f=fixture(),result=await executeStage(f.cloudflare,'account',f.plan);
+  f.changeAfter(v=>{if(v.id!==f.baseline.id)v.modules[0].content_base64=Buffer.from('changed').toString('base64');});
+  await assert.rejects(verifyVersion(f.cloudflare,'account',{worker:'superwin-player',sourceCommit:commit,baseline:f.baseline,versionId:result.stagedVersion,mainModule:f.plan.mainModule,
+    newPins:f.plan.modules.map(({name,bytes,sha256,contentType})=>({name,bytes,sha256,contentType}))}),/READBACK_MODULE_CHANGED/);
 });
 test('unpublished commit identity, altered modules, duplicate names and size limit fail locally',()=>{
   const f=fixture();

@@ -1,0 +1,120 @@
+{
+  "schema": "zplay/new90-version-readback/v1",
+  "worker": "superwin-player",
+  "sourceCommit": "8d745058a5086d37fc30c814b836e752a490397e",
+  "baselineVersion": "3ab5002a-0b69-450f-a53b-588b0cc00191",
+  "baselineNumber": 468,
+  "versionId": "ecd93fcb-e8d0-4b42-b942-afb8d1dcab0e",
+  "versionNumber": 469,
+  "deploymentId": "307dbb49-b496-460c-838a-f4bdd876f27a",
+  "activeVersion": "ecd93fcb-e8d0-4b42-b942-afb8d1dcab0e",
+  "activated": true,
+  "retainedModules": 411,
+  "addedModules": 4,
+  "verifiedModules": 415,
+  "totalBytes": 66925842,
+  "allOriginalModulesByteIdentical": true,
+  "configurationUnchanged": true,
+  "configurationSha256": "15c22f1d5bd108a582fbf099ee7c774c2a26d3b914b3cfaccae683b3c201b928",
+  "migrationTag": "local-demo-v1",
+  "bindings": [
+    {
+      "name": "API_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_SHARED_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "CATALOG_ENABLED",
+      "type": "plain_text"
+    },
+    {
+      "name": "ENGINE_EXTENSION",
+      "type": "service"
+    },
+    {
+      "name": "EXPANSION100",
+      "type": "service"
+    },
+    {
+      "name": "FRESH74_NATIVE",
+      "type": "service"
+    },
+    {
+      "name": "LEGACY_PLAYER",
+      "type": "service"
+    },
+    {
+      "name": "LOCAL_DEMO_WALLETS",
+      "type": "durable_object_namespace"
+    },
+    {
+      "name": "NATIVE_ENGINE_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "NATIVE_ENGINE_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "NATIVE_GAME_RESOURCES",
+      "type": "durable_object_namespace"
+    },
+    {
+      "name": "NATIVE_LIBRARY_ASSETS",
+      "type": "assets"
+    },
+    {
+      "name": "NATIVE_PRESENTATION",
+      "type": "service"
+    },
+    {
+      "name": "PLAYER_PRESENCE_KEY",
+      "type": "secret_text"
+    },
+    {
+      "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+      "type": "plain_text"
+    },
+    {
+      "name": "PORTAL",
+      "type": "plain_text"
+    },
+    {
+      "name": "SSG_OFFICIAL_REFERENCES",
+      "type": "kv_namespace"
+    }
+  ],
+  "newModulePins": [
+    {
+      "name": "newrequested90r1/entry.mjs",
+      "bytes": 299,
+      "sha256": "7d1e79b9b086c3ca8a31a3115e2315d713afd673318860864fca161ed3714eeb",
+      "contentType": "application/javascript+module"
+    },
+    {
+      "name": "newrequested90r1/public.mjs",
+      "bytes": 3378,
+      "sha256": "d0cf183fc005c269c9389a49b926fe532b24279460fcf8ea54682f2617e233d7",
+      "contentType": "application/javascript+module"
+    },
+    {
+      "name": "newrequested90r1/worker.mjs",
+      "bytes": 2253,
+      "sha256": "f41bd69cddcc432bd195371d73aa7678aed3cbd42629ff03a8b8760c36fa766a",
+      "contentType": "application/javascript+module"
+    },
+    {
+      "name": "newrequested90r1/worker-assets.mjs",
+      "bytes": 14411,
+      "sha256": "84bad2573c48eed4d3b028413d097a0556cbb45cd7852b9c8596947daa626588",
+      "contentType": "application/javascript+module"
+    }
+  ]
+}
