@@ -1,3 +1,12 @@
+## 2026-11-23 — NEW90 Burn Wilds: native renderer and recorded-reference adapter
+
+- User revised the source policy: screenshots and recorded videos may be used as reference rather than embedding any external provider demo in ZPLAY. The new game remains independently compiled and server-authoritative.
+- New files: `codex-work/new-games90-20261123/fresh-burn-wilds/recorded-reference.mjs` validates per-game screenshot/video/audio evidence metadata and recorded display/timing parameters; `native-renderer.mjs` drives Canvas 5x3 animated reels from a validated server result, draws only licensed image assets, emits single reel-stop and win events, supports STOP speed-up, DPR<=2 and dispose cleanup. It does not create random wins, ledger entries or balances.
+- `native-renderer.test.mjs` verifies synthetic input timing, receipt acceptance, visual state, and 360/430 viewport geometry. GitHub Actions run 45132421990 at commit 55e965d913ef68ff637173f30b2de74f0952fb4a completed SUCCESS: **31/31 focused tests passed**. Synthetic calibration is *not* claimed to be an actual recorded provider reference.
+- Available Library reference audits show previous game screenshots and country-block records, but no authenticated, specific Burn Wilds SPIN video+audio measurements or licensed production artwork was established in this continuation. The reference adapter intentionally cannot prove 1:1 visual or audible parity from metadata alone.
+- No Worker deploy or actual ETB settlement was performed. The existing Player Worker, 74 older games, original account and wallet ledger, Telebirr, and bindings remain untouched. Burn Wilds remains IN_PROGRESS and **LIVE_VERIFIED=0/90**.
+
+---
 ## 2026-11-23 — fresh independent controller and CI security correction
 
 - The same live Player Worker (superwin-player) is the intended mount; MultiHot5, FoxyHot20, HabeshaFortune5 and the 74 earlier games are preserved. This branch does not replace the existing Worker, ETB backend, session or ledger.
