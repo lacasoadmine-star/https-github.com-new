@@ -1,0 +1,330 @@
+{
+  "schema": "zplay/burn-wilds-current-demo-reference/v2",
+  "recordedDate": "2026-11-23",
+  "timezone": "Africa/Addis_Ababa",
+  "gameNumber": 1,
+  "product": "Multi Hot 5 Burn Wilds",
+  "gameId": "zplay72_multi_hot_5_burn_wilds_v1",
+  "observationMethod": "Current cloud-browser interaction by the parent agent; screenshots inspected during the same working session.",
+  "officialProductUrl": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+  "officialPublicDemoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "officialDemoPlayable": true,
+  "providerSessionIdentifiersIncluded": false,
+  "sourceMediaBundled": false,
+  "observed": {
+    "grid": {
+      "reels": 5,
+      "rows": 3
+    },
+    "symbols": [
+      "orange",
+      "lemon",
+      "plum",
+      "grapes",
+      "cherry",
+      "watermelon",
+      "bell",
+      "seven",
+      "wild"
+    ],
+    "manualReferenceRounds": [
+      {
+        "ordinal": 1,
+        "betDMO": "0.10",
+        "multiplier": 4,
+        "completed": true
+      },
+      {
+        "ordinal": 2,
+        "betDMO": "0.10",
+        "multiplier": 4,
+        "completed": true
+      },
+      {
+        "ordinal": 3,
+        "betDMO": "0.10",
+        "multiplier": 4,
+        "completed": true,
+        "stopPressed": true
+      },
+      {
+        "ordinal": 4,
+        "betDMO": "0.20",
+        "multiplier": 4,
+        "completed": true
+      },
+      {
+        "ordinal": 5,
+        "betDMO": "0.20",
+        "multiplier": 1,
+        "completed": true
+      },
+      {
+        "ordinal": 6,
+        "betDMO": "0.20",
+        "multiplier": 3,
+        "completed": true,
+        "stopPressed": true
+      },
+      {
+        "ordinal": 7,
+        "betDMO": "0.20",
+        "multiplier": 5,
+        "completed": true
+      }
+    ],
+    "stop": {
+      "separateTests": 2,
+      "result": "Accelerated reel stopping; no additional displayed stake debit observed."
+    },
+    "bet": {
+      "visibleFiveRowPageDMO": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "pagingControlsVisible": true,
+      "selectionChangedDisplayedStake": true
+    },
+    "auto": {
+      "defaultCount": 100,
+      "counts": [
+        25,
+        50,
+        100,
+        500,
+        1000
+      ],
+      "stopConditions": [
+        "If a win reaches or exceeds",
+        "If balance decreases",
+        "If balance increases"
+      ],
+      "uncheckedConditions": "Amount inputs were blank and disabled.",
+      "exercisedRun": {
+        "selectedCount": 25,
+        "betDMO": "0.20",
+        "stopWinAtLeastDMO": "0.10",
+        "completedSpins": 7,
+        "finalWinDMO": "1.60",
+        "finalMultiplier": 2,
+        "balanceBeforePendingCollectionDMO": "19997.50",
+        "finalWinPending": true,
+        "stoppedBeforeCollection": true
+      }
+    },
+    "wild": {
+      "allowedReelsOneBased": [
+        2,
+        3,
+        4
+      ],
+      "nonWinningWildObservedWithoutExpansion": true,
+      "winningExpansionObservedReelsOneBased": [
+        2,
+        4
+      ],
+      "animation": "The winning WILD columns expanded vertically. Fire outlines were visible around winning cells and the multiplier wheel; a yellow payline and a WIN count-up were displayed."
+    },
+    "gamble": {
+      "pendingWinDMO": "1.60",
+      "displayedTargetDMO": "3.20",
+      "choices": [
+        "RED",
+        "BLACK"
+      ],
+      "takeWinDisplayed": true,
+      "chosenColor": "RED",
+      "revealedCard": {
+        "rank": "A",
+        "suit": "CLUBS",
+        "color": "BLACK"
+      },
+      "result": "Pending win lost; no additional account-balance debit observed.",
+      "successfulTakeCollectionObserved": true
+    },
+    "settings": {
+      "controls": [
+        "Sound Effects",
+        "Background Music",
+        "Full Screen"
+      ],
+      "effectsOff": "Switching Sound Effects off also switched Background Music off.",
+      "effectsOn": "Switching Sound Effects on also switched Background Music on.",
+      "mainSoundIcon": "Mute and unmute controls were exercised visually.",
+      "acousticComparisonPerformed": false
+    },
+    "paylineChart": [
+      {
+        "id": 1,
+        "description": "middle",
+        "rows": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": 2,
+        "description": "top",
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 3,
+        "description": "bottom",
+        "rows": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "id": 4,
+        "description": "V",
+        "rows": [
+          0,
+          1,
+          2,
+          1,
+          0
+        ]
+      },
+      {
+        "id": 5,
+        "description": "inverted V",
+        "rows": [
+          2,
+          1,
+          0,
+          1,
+          2
+        ]
+      }
+    ],
+    "paylineLabelDiscrepancy": "The chart numbers the middle line as 1, but the observed winning animation labeled a middle-line win as Line 2. The implementation follows the displayed rule chart; the discrepancy is retained rather than silently reconciled.",
+    "paytableAtTotalBet020DMO": {
+      "seven": {
+        "2": "0.10",
+        "3": "0.80",
+        "4": "2.00",
+        "5": "20.00"
+      },
+      "grapes": {
+        "3": "0.40",
+        "4": "0.80",
+        "5": "4.00"
+      },
+      "watermelon": {
+        "3": "0.40",
+        "4": "0.80",
+        "5": "4.00"
+      },
+      "bell": {
+        "3": "0.20",
+        "4": "0.40",
+        "5": "2.00"
+      },
+      "orange": {
+        "3": "0.10",
+        "4": "0.20",
+        "5": "1.00"
+      },
+      "lemon": {
+        "3": "0.10",
+        "4": "0.20",
+        "5": "1.00"
+      },
+      "plum": {
+        "3": "0.10",
+        "4": "0.20",
+        "5": "1.00"
+      },
+      "cherry": {
+        "3": "0.10",
+        "4": "0.20",
+        "5": "1.00"
+      }
+    },
+    "takeWinFollowup": {
+      "sessionContext": "The earlier demo session timed out naturally. One reload of the same public official demo loader opened a fresh DMO session.",
+      "newSessionInitialBalanceDMO": "20000.00",
+      "betDMO": "0.10",
+      "autoCountSelected": 25,
+      "stopWinAtLeastDMO": "0.10",
+      "completedAutomaticRounds": 5,
+      "balanceBeforeTakeDMO": "19999.50",
+      "pendingWinDMO": "0.45",
+      "multiplier": 3,
+      "expandedReelOneBased": 3,
+      "observedLineAwards": "Three cherry-line payouts cycled on screen; one displayed line quote was 0.05 \u00d7 3 = 0.15 DMO.",
+      "takeClickedAtLocal": "2026-11-23 11:33 Africa/Addis_Ababa",
+      "balanceAfterTakeDMO": "19999.95",
+      "collectedAmountDMO": "0.45",
+      "winX2TakeControlsRemovedAfterCollection": true,
+      "successfulCollectionDirectlyObserved": true
+    }
+  },
+  "providerDisplayedClaims": {
+    "version": "1.0.1",
+    "advertisedRtp": "96.55%",
+    "maximumWinTimesBet": 1300,
+    "minimumBetDMO": "0.10",
+    "maximumBetDMO": "200.00",
+    "x2CapDMO": "500.00",
+    "appliesToZplayCandidateModel": false,
+    "qualification": "Values displayed by the provider are recorded as provider claims, not independently reproduced probabilities or ZPLAY release settings."
+  },
+  "independentlyChosenImplementation": {
+    "artwork": "Original transparent Canvas fruit and crown-WILD sprites; provider atlases are not served.",
+    "audio": "Original procedural WebAudio cues, including per-reel stops. No claim of acoustic provider parity.",
+    "normalPresentationMinimumMs": 1500,
+    "timingQualification": "Chosen native pacing, not a measured exact provider duration; expanding wins take longer.",
+    "testingMode": "SIMULATION",
+    "displayUnit": "TEST ETB",
+    "testBetLevelsETB": [
+      "1.00",
+      "2.00",
+      "5.00",
+      "10.00",
+      "20.00"
+    ],
+    "rng": "Original ZPLAY candidate model sampled on the existing Railway server; not provider RNG.",
+    "verifiedRtp": null,
+    "cashEnabled": false
+  },
+  "unverified": [
+    "Provider reel strips, symbol weights and full outcome distribution",
+    "Audible parity of original provider audio",
+    "Exact provider animation timing and pixel-identical artwork",
+    "Count-only AUTO termination and all balance-limit combinations",
+    "Physical mobile device performance, sustained FPS and touch latency",
+    "Production cash wallet and ledger settlement for this new game",
+    "Final deployed native browser QA at this documentation checkpoint"
+  ],
+  "implementationVerificationCheckpoint": {
+    "focusedTestsPassed": 46,
+    "focusedTestsFailed": 0,
+    "legacyAtlasFixtureFailures": 2,
+    "legacyFailureCode": "BURN_WILDS_REFERENCE_FRAME_COUNT",
+    "legacyFixturesUsedByNewRuntime": false,
+    "liveBrowserQa": "PENDING_PARENT_APPEND",
+    "productionCashProof": false
+  },
+  "nextGame": {
+    "number": 2,
+    "name": "Multi Hot 5 Super Wilds",
+    "startedByThisTask": false
+  }
+}

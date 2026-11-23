@@ -59,16 +59,21 @@ export function wrapBurnTestRuntimeSource(source) {
  * Prior archive bytes, source checks and all unrelated modules stay intact.
  * The complete Function contains private retained material: keep it outside git.
  */
-export function buildBurnTestFunction(existingSource, bundle, expectedSha256 = BURN_TEST_SOURCE_PIN) {
+export function buildBurnTestFunction(existingSource, bundle, expectedSha256 = BURN_TEST_SOURCE_PIN, pinnedBundleUrl = null) {
   if (SHA(existingSource) !== expectedSha256) throw Error('BURN_TEST_CURRENT_FUNCTION_CHANGED');
   if (existingSource.split(BURN_TEST_BOOT_ANCHOR).length !== 2 || existingSource.includes('BURN_TEST_SIMULATION_BOOTSTRAP'))
     throw Error('BURN_TEST_FUNCTION_BOOT_ANCHOR_MISMATCH');
   if (typeof bundle?.code !== 'string' || bundle.bytes !== Buffer.byteLength(bundle.code) ||
       bundle.sha256 !== SHA(bundle.code)) throw Error('BURN_TEST_BUNDLE_INTEGRITY');
+  if (pinnedBundleUrl !== null && !/^https:\/\/raw\.githubusercontent\.com\/lacasoadmine-star\/https-github\.com-new\/[a-f0-9]{40}\/codex-work\/new-games90-20261123\/burn-wilds\/server\/release\/simulation-runtime-r1\.mjs$/.test(pinnedBundleUrl))
+    throw Error('BURN_TEST_IMMUTABLE_PUBLIC_BUNDLE_REQUIRED');
   const compressed = brotliCompressSync(Buffer.from(bundle.code), { params: { [constants.BROTLI_PARAM_QUALITY]: 11 } }).toString('base64');
   const insertion = [
     '// BURN_TEST_SIMULATION_BOOTSTRAP: isolated ephemeral TEST ETB only.',
-    "const burnTestBundle = brotliDecompressSync(Buffer.from('" + compressed + "','base64')).toString('utf8');",
+    pinnedBundleUrl === null ?
+      "const burnTestBundle = brotliDecompressSync(Buffer.from('" + compressed + "','base64')).toString('utf8');" :
+      'const burnTestBundle = (await fetchM20PublicArtifact(' + JSON.stringify(pinnedBundleUrl) + ',' +
+        bundle.bytes + ',' + JSON.stringify(bundle.sha256) + ",15000)).toString('utf8');",
     'if(Buffer.byteLength(burnTestBundle)!==' + bundle.bytes + "||createHash('sha256').update(burnTestBundle).digest('hex')!==" + JSON.stringify(bundle.sha256) + ")throw Error('BURN_TEST_BUNDLE_INTEGRITY');",
     "const burnTestNative = files.find(file=>file.path==='native-slot-runtime.mjs');",
     'const burnTestServeAnchor = ' + JSON.stringify(BURN_TEST_SERVE_ANCHOR) + ';',
@@ -83,16 +88,17 @@ export function buildBurnTestFunction(existingSource, bundle, expectedSha256 = B
   const code = existingSource.replace(BURN_TEST_BOOT_ANCHOR, insertion + '\n' + BURN_TEST_BOOT_ANCHOR);
   return { code, bytes: Buffer.byteLength(code), sha256: SHA(code), insertion,
     previousSha256: expectedSha256, bundleSha256: bundle.sha256, bundleBytes: bundle.bytes,
+    bundleTransport: pinnedBundleUrl === null ? 'inline-brotli' : 'pinned-github', pinnedBundleUrl,
     sourcePins: bundle.sourcePins, target: 'existing-superwin-nine-slot-engine',
     mode: 'SIMULATION', cashEnabled: false, databaseChanges: false,
     retainedFunctionUnchangedExceptInsertion: code.replace(insertion + '\n', '') === existingSource };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const [input, output, manifestPath] = process.argv.slice(2);
+  const [input, output, manifestPath, pinnedBundleUrl] = process.argv.slice(2);
   if (!input || !output || !manifestPath) throw Error('Usage: node build-simulation-runtime.mjs private-before.tsx private-after.tsx manifest.json');
   const source = await readFile(input, 'utf8'), bundle = await bundleBurnTestRuntime();
-  const result = buildBurnTestFunction(source, bundle);
+  const result = buildBurnTestFunction(source, bundle, BURN_TEST_SOURCE_PIN, pinnedBundleUrl || null);
   await mkdir(path.dirname(output), { recursive: true, mode: 0o700 });
   await writeFile(output, result.code, { mode: 0o600 });
   await writeFile(output + '.bundle.mjs', bundle.code, { mode: 0o600 });
