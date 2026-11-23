@@ -32,7 +32,7 @@ jobs:
           cache: pip
       - name: Verify new components and deployment preservation guards
         run: |
-          node --test codex-work/new-games90-20261123/catalogue/catalogue.test.mjs codex-work/new-games90-20261123/deployment/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/motion.test.mjs codex-work/new-games90-20261123/superwilds/*.test.mjs codex-work/new-games90-20261123/superwilds/render/*.test.mjs codex-work/new-games90-20261123/superwilds/server/*.test.mjs codex-work/new-games90-20261123/superwilds/client/*.test.mjs
+          node --test codex-work/new-games90-20261123/burn-wilds/expansion.test.mjs codex-work/new-games90-20261123/burn-wilds/runtime.test.mjs codex-work/new-games90-20261123/burn-wilds/audio.test.mjs codex-work/new-games90-20261123/catalogue/catalogue.test.mjs codex-work/new-games90-20261123/deployment/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/motion.test.mjs codex-work/new-games90-20261123/superwilds/*.test.mjs codex-work/new-games90-20261123/superwilds/render/*.test.mjs codex-work/new-games90-20261123/superwilds/server/*.test.mjs codex-work/new-games90-20261123/superwilds/client/*.test.mjs
       - name: Build all existing portals and test the disposable backend
         run: |
           npm ci --ignore-scripts

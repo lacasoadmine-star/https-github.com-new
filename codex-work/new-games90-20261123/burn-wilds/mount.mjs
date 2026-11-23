@@ -1,4 +1,5 @@
 import {BURN_WILDS_GAME_ID} from './expansion.mjs';
+import {BurnWildsAudio} from './audio.mjs';
 import {BurnWildsScene} from './scene.mjs';
 import {BurnWildsController,BURN_WILDS_AUTO_COUNTS} from './controller.mjs';
 import {describeBurnWildsPaytable,BURN_WILDS_PAYLINES} from './rules.mjs';
@@ -21,9 +22,9 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
   const buttons={};for(const[key,[label,aria]]of Object.entries(controls)){const button=doc.createElement('button');button.type='button';button.dataset.action=key;button.textContent=label;button.setAttribute('aria-label',aria);button.className='burn-wilds-button burn-wilds-'+key;layer.appendChild(button);buttons[key]=button;}
   const balance=doc.createElement('output'),stake=doc.createElement('output');balance.className=stake.className='burn-wilds-meter';layer.append(balance,stake);
   const options={effects:false,music:false};let mode=null,betOffset=0,count=100,disposed=false,controller;
-  const listeners=new AbortController(),scene=new BurnWildsScene({canvas,flameCanvas,artwork,win,onEvent:event=>{
+  const sound=audio??new BurnWildsAudio(),listeners=new AbortController(),scene=new BurnWildsScene({canvas,flameCanvas,artwork,win,onEvent:event=>{
     if(event.type==='settled')controller?.presentationFinished(event.roundId);
-    if(options.effects)audio?.event?.(event.type,event);
+    if(options.effects)sound?.event?.(event.type,event);
   }});
   function resize(){if(disposed)return;const b=view.getBoundingClientRect(),layout=scene.resize(Math.max(1,b.width),Math.max(1,b.height),win.devicePixelRatio||1);
     for(const[key,element]of Object.entries({...buttons,balance,stake})){const r=layout.controls[key];if(!r)continue;Object.assign(element.style,{left:r.x+'px',top:r.y+'px',width:r.width+'px',height:r.height+'px'});}
@@ -72,25 +73,25 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     const action=button.dataset.action,operation=button.dataset.do;
     if(action==='spin')return run(()=>controller.snapshot().status==='RECOVER'?controller.recover():controller.spin());
     if(action==='take')return run(()=>controller.take());if(action==='quick')return controller.setQuick(!controller.quick);
-    if(action==='sound'){options.effects=options.music=!(options.effects||options.music);if(options.effects)void Promise.resolve(audio?.unlock?.()).catch(()=>{});audio?.setPreferences?.({...options});render(controller.snapshot());return;}
+    if(action==='sound'){options.effects=options.music=!(options.effects||options.music);if(options.effects)void Promise.resolve(sound?.unlock?.()).catch(()=>{});sound?.setPreferences?.({...options});render(controller.snapshot());return;}
     if(action==='auto'){if(controller.snapshot().auto?.active)return controller.stop();return show('auto');}
     if(action==='bet')return show('bet');if(action==='double')return show('gamble');if(action==='menu')return show('menu');
-    if(operation==='close'){if(mode==='startup')audio?.setPreferences?.({...options});return close();}
+    if(operation==='close'){if(mode==='startup')sound?.setPreferences?.({...options});return close();}
     if(operation==='bet-up'||operation==='bet-down'){betOffset+=operation==='bet-up'?-5:5;return show('bet');}
     if(operation==='choose-bet'){if(controller.setBet(Number(button.dataset.value)))close();return;}
     if(operation==='count'){count=Number(button.dataset.value);for(const child of dialog.querySelectorAll('[data-do="count"]'))child.setAttribute('aria-pressed',String(Number(child.dataset.value)===count));return;}
     if(operation==='start-auto')return run(async()=>{const settings={count};for(const[key,name]of [['win','winAtLeastMinor'],['decrease','balanceDecreaseMinor'],['increase','balanceIncreaseMinor']])settings[name]=dialog.querySelector('[data-condition="'+key+'"]').checked?minor(dialog.querySelector('[data-amount="'+key+'"]').value):null;close();await controller.startAuto(settings);});
-    if(operation==='sound-yes'||operation==='sound-no'){options.effects=options.music=operation==='sound-yes';if(options.effects)void Promise.resolve(audio?.unlock?.()).catch(()=>{});audio?.setPreferences?.({...options});return close();}
+    if(operation==='sound-yes'||operation==='sound-no'){options.effects=options.music=operation==='sound-yes';if(options.effects)void Promise.resolve(sound?.unlock?.()).catch(()=>{});sound?.setPreferences?.({...options});return close();}
     if(operation==='red'||operation==='black'){close();return run(()=>controller.double(operation.toUpperCase()));}
     if(operation==='take'){close();return run(()=>controller.take());}
     if(operation==='rules'||operation==='settings')return show(operation);
   },{signal:listeners.signal});
-  view.addEventListener('change',event=>{const key=event.target.dataset.setting;if(key in options){options[key]=event.target.checked;audio?.setPreferences?.({...options});render(controller.snapshot());}},{signal:listeners.signal});
+  view.addEventListener('change',event=>{const key=event.target.dataset.setting;if(key in options){options[key]=event.target.checked;sound?.setPreferences?.({...options});render(controller.snapshot());}},{signal:listeners.signal});
   view.addEventListener('keydown',event=>{if(event.key==='Escape'&&mode){event.preventDefault();close();return;}if(mode||event.repeat||/^(INPUT|BUTTON|SELECT|TEXTAREA)$/.test(event.target.tagName))return;if(event.key===' '||event.key==='Enter'){event.preventDefault();buttons.spin.click();}},{signal:listeners.signal});
-  doc.addEventListener('visibilitychange',()=>{if(doc.hidden){controller.pause();audio?.pause?.();}else{controller.resume();audio?.resume?.();}},{signal:listeners.signal});
-  win.addEventListener?.('blur',()=>{controller.stopAuto();audio?.pause?.();},{signal:listeners.signal});
+  doc.addEventListener('visibilitychange',()=>{if(doc.hidden){controller.pause();sound?.pause?.();}else{controller.resume();sound?.resume?.();}},{signal:listeners.signal});
+  win.addEventListener?.('blur',()=>{controller.stopAuto();sound?.pause?.();},{signal:listeners.signal});
   win.addEventListener?.('resize',resize,{signal:listeners.signal});const observer=win.ResizeObserver?new win.ResizeObserver(resize):null;observer?.observe(view);
-  function dispose(){if(disposed)return;disposed=true;listeners.abort();observer?.disconnect();controller.dispose();audio?.dispose?.();view.remove();mounts.delete(root);}
+  function dispose(){if(disposed)return;disposed=true;listeners.abort();observer?.disconnect();controller.dispose();sound?.dispose?.();view.remove();mounts.delete(root);}
   const mounted=Object.freeze({controller,scene,resize,dispose});mounts.set(root,mounted);resize();render(controller.snapshot());
   try{await controller.connect();if(!disposed)show('startup');}catch(error){status.textContent=error.code||error.message;}
   return mounted;
