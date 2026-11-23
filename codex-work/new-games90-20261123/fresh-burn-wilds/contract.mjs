@@ -50,6 +50,7 @@ export function validateGrid(grid, symbols) {
 export function validateSettledRound(receipt, action, symbols) {
   if (!receipt || receipt.serverSettled !== true || receipt.gameId !== GAME_ID ||
       receipt.requestKey !== action.requestKey || receipt.betMinor !== action.betMinor ||
+      receipt.subject !== action.subject ||
       !isId(receipt.roundId) || !isAmount(receipt.betMinor) || receipt.betMinor === 0 ||
       !isAmount(receipt.winMinor) || !isAmount(receipt.balanceMinor) ||
       !Number.isInteger(receipt.multiplier) ||
@@ -82,7 +83,7 @@ export function validateSettledRound(receipt, action, symbols) {
   // No visual sequence is allowed to calculate a wager, win, multiplier or balance.
   const copy = {
     gameId: GAME_ID, currency: CURRENCY, serverSettled: true,
-    requestKey: receipt.requestKey, roundId: receipt.roundId,
+    requestKey: receipt.requestKey, roundId: receipt.roundId, subject: receipt.subject,
     modelVersion: receipt.modelVersion, betMinor: receipt.betMinor,
     winMinor: receipt.winMinor, balanceMinor: receipt.balanceMinor,
     multiplier: receipt.multiplier,
