@@ -65,6 +65,29 @@ test('desktop and short landscape cabinet and control geometry fit the visible s
     for(const r of[l.cabinet,...Object.values(l.controls)])assert.ok(r.x>=0&&r.y>=0&&r.x+r.width<=width+.01&&r.y+r.height<=height+.01);
   }
 });
+test('portrait keeps nearly square five-by-three symbol cells instead of stretching reels to fill height',()=>{
+  for(const width of [360,390,430])for(const height of [640,780,844,932]){
+    const layout=superWildsLayout(width,height);
+    for(const reel of reelRectangles(layout)){
+      const aspect=reel.width/(reel.height/3);
+      assert.ok(aspect>.92&&aspect<1.08,`${width}x${height} symbol aspect ${aspect}`);
+    }
+    assert.ok(layout.wheel.y>=layout.title.y+layout.title.height);
+    assert.ok(layout.cabinet.y+layout.cabinet.height<layout.controls.spin.y);
+  }
+});
+test('populated initial artwork creates no accepted outcome, balance, award or audio event',()=>{
+  const events=[],grad={addColorStop(){}},drawnText=[];
+  const context=new Proxy({createRadialGradient(){return grad;},createLinearGradient(){return grad;},
+    fillText(text){drawnText.push(text);}}, {get(target,key){return key in target?target[key]:(()=>{});},
+    set(target,key,value){target[key]=value;return true;}});
+  const target=canvas();target.getContext=()=>context;
+  const renderer=new SuperWildsRenderer({canvas:target,onEvent:event=>events.push(event)});
+  assert.ok(drawnText.includes('7'),'initial cabinet contains original symbol artwork');
+  const before=renderer.snapshot();assert.equal(before.receipt,null);assert.equal(before.pendingReceipt,null);
+  assert.equal(before.display.balanceMinor,null);assert.equal(before.display.winMinor,0);assert.equal(events.length,0);
+  renderer.acceptReceipt(receipt());assert.deepEqual(renderer.snapshot().receipt,receipt());
+});
 test('DPR is capped at two and disposal makes later ticks and drawing inert',()=>{
   const{renderer}=create();renderer.resize(390,844,4);assert.equal(renderer.canvas.width,780);assert.equal(renderer.canvas.height,1688);
   assert.equal(renderer.snapshot().dpr,2);renderer.dispose();renderer.tick(9000);assert.equal(renderer.snapshot().disposed,true);assert.throws(()=>renderer.start({requestKey:'later'}),/DISPOSED/);

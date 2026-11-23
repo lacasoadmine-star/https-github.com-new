@@ -6,6 +6,8 @@ import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { createHostPgSupport } from './host-support.mjs';
+import { createSuperWildsOwnModel, MODEL_IDENTITY } from '../own-model.mjs';
+import { quoteGrid, GAME_ID } from '../../rules.mjs';
 const code = value => error => error?.code === value;
 
 test('complete Super Wilds protected host composition on disposable PostgreSQL', { concurrency: false, timeout: 120000 }, async t => {
@@ -32,6 +34,18 @@ test('complete Super Wilds protected host composition on disposable PostgreSQL',
     await pool.query('ALTER TABLE sw_nine.actions ADD COLUMN parent_id uuid REFERENCES sw_nine.game_rounds(round_id)');
     await pool.query('ALTER TABLE sw_native_library.rounds ADD COLUMN created_at timestamptz NOT NULL DEFAULT now()');
     await pool.query(await readFile(new URL('../prepare-journal.sql', import.meta.url), 'utf8'));
+    await t.test('installing Super Wilds before the shared M10 liability schema fails atomically', async () => {
+      const client = await pool.connect();
+      try {
+        const before = (await client.query('SELECT count(*)::int AS n FROM sw_rebuild.wallets')).rows[0].n;
+        await assert.rejects(client.query(await readFile(new URL('../prepare-reservations.sql', import.meta.url), 'utf8')),
+          error => error.code === 'P0001' && error.message.includes('SUPERWILDS_M10_RESERVATION_SCHEMA_REQUIRED_FIRST'));
+        await client.query('ROLLBACK');
+        const tables = (await client.query("SELECT to_regclass('sw_new_superwilds.reservations') AS reservations")).rows[0];
+        assert.equal(tables.reservations, null);
+        assert.equal((await client.query('SELECT count(*)::int AS n FROM sw_rebuild.wallets')).rows[0].n, before);
+      } finally { try { await client.query('ROLLBACK'); } finally { client.release(); } }
+    });
     await pool.query(await readFile(new URL('../../../../continue71-20261122/m10-host-lifecycle/prepare-journal.sql', import.meta.url), 'utf8'));
     await pool.query(await readFile(new URL('../../../../continue71-20261122/m10-house-reservations/prepare-schema.sql', import.meta.url), 'utf8'));
     await pool.query(await readFile(new URL('../prepare-reservations.sql', import.meta.url), 'utf8'));
@@ -131,6 +145,45 @@ test('complete Super Wilds protected host composition on disposable PostgreSQL',
       const p = await h.seed(), host = h.host(), before = await h.snapshot(p); host.controls.failSample = true;
       await assert.rejects(host.service.spin(p.request, h.spinBody(p)), code('ISOLATED_MODEL_FAILURE'));
       assert.deepEqual(await h.snapshot(p), before); assert.equal(host.controls.samples, 1);
+    });
+    await t.test('twenty fresh own-model rounds settle through the real protected host and exact line evaluator', async () => {
+      const p = await h.seed({ houseMinor: 100000000n });
+      const own = createSuperWildsOwnModel({ betLevels: ['1.00', '2.00'] });
+      assert.equal(own.approved, false);
+      // This wrapper belongs ONLY to the isolated QA fixture. It does not
+      // publish a production approval or override a production release gate.
+      const candidate = { ...own, approved: true, verification: { ...own.verification,
+        deferredLifecycleVerified: true, etbPolicyVerified: true } };
+      const host = h.host({ candidateModel: candidate });
+      let pending = null, expectedBalance = 10000n;
+      for (let index = 0; index < 20; index++) {
+        const body = h.spinBody(p, { ...MODEL_IDENTITY, collectRoundId: pending?.roundId ?? null });
+        const result = await host.service.spin(p.request, body);
+        const grid = Array.from({ length: 5 }, (_, c) => result.grid.map(row => row[c]));
+        const quote = quoteGrid({ grid, betMinor: 100, multiplier: result.multiplier });
+        const win = BigInt(quote.winMinor);
+        expectedBalance += pending ? BigInt(pending.winAmount.replace('.', '')) : 0n;
+        expectedBalance -= 100n;
+        assert.equal(BigInt(result.winAmount.replace('.', '')), win);
+        assert.deepEqual(result.winLines, quote.winningLines);
+        assert.equal(result.gameId, GAME_ID); assert.equal(result.mathSha256, MODEL_IDENTITY.mathSha256);
+        assert.equal(BigInt(result.walletReceipt.balanceAfter.replace('.', '')), expectedBalance);
+        const beforeReplay = await h.snapshot(p);
+        assert.deepEqual(await host.service.spin(p.request, { ...body, replayOnly: true }), result);
+        assert.deepEqual(await h.snapshot(p), beforeReplay);
+        pending = win > 0n ? result : null;
+      }
+      if (pending) {
+        await host.service.takeWin(p.request, h.takeBody(p, pending, MODEL_IDENTITY));
+        expectedBalance += BigInt(pending.winAmount.replace('.', ''));
+      }
+      const s = await h.snapshot(p);
+      assert.equal(s.rounds.length, 20); assert.equal(s.shared.length, 20);
+      assert.equal(s.movements.filter(row => row.kind === 'BET').length, 20);
+      assert.equal(s.reservations.some(row => BigInt(row.amount_minor) > 0n), false);
+      assert.equal(BigInt(s.wallets.find(row => row.id === p.userId).balance), expectedBalance);
+      assert.equal(s.ledger.reduce((sum, row) => sum + BigInt(row.delta), 0n), 0n);
+      assert.equal(s.ledger.length, s.transfers.length * 2);
     });
   } finally {
     try { await h?.cleanupClients(); await pool?.end(); }

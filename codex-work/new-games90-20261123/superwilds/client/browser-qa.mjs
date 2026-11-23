@@ -4,7 +4,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve,dirname,extname,join} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash,randomUUID} from 'node:crypto';
-import {GAME_ID,SYMBOLS,quoteGrid} from '../rules.mjs';
+import {GAME_ID,SYMBOLS,OBSERVED_BETS_MINOR,quoteGrid} from '../rules.mjs';
 
 // This executable is an isolated synthetic host integration test. It is never
 // mounted on the Player and cannot authenticate or access a production wallet.
@@ -13,14 +13,14 @@ const output=resolve(process.env.ZPLAY_SUPERWILDS_QA_OUTPUT||'/tmp/zplay-superwi
 const moduleRoot=process.env.ZPLAY_QA_NODE_MODULES||process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const {chromium}=moduleRoot?await import(pathToFileURL(join(moduleRoot,'playwright/index.mjs')).href):await import('playwright');
 await mkdir(output,{recursive:true});
-const banks=new Map(),requests=[],reports=[],forbidden=[],errors=[],stopTraces=[];
+const banks=new Map(),requests=[],reports=[],forbidden=[],errors=[],stopTraces=[],controlTraces=[];
 let browser,failure=null,origin,assertions=0;
 const check=(condition,message)=>{assert.ok(condition,message);assertions++;};
 const getBank=key=>{
   if(!banks.has(key))banks.set(key,{balance:10000,pending:0,last:null,rounds:0,debits:0,credits:0,actions:new Map(),dropNext:false,holdNext:false,held:null});
   return banks.get(key);
 };
-const state=(b,key)=>({gameId:GAME_ID,currency:'ETB',subject:`qa-${key}`,canPlay:true,canDouble:false,betLevelsMinor:[10,20,30],betMinor:10,
+const state=(b,key)=>({gameId:GAME_ID,currency:'ETB',subject:`qa-${key}`,canPlay:true,canDouble:false,betLevelsMinor:OBSERVED_BETS_MINOR,betMinor:10,
   balanceMinor:b.balance,pendingWinMinor:b.pending,round:b.last?{...b.last,winPending:b.pending>0,pendingWinMinor:b.pending}:null});
 const send=(res,status,value)=>{res.writeHead(status,{'content-type':'application/json','cache-control':'no-store'});res.end(JSON.stringify(value));};
 const fixtureCode=`
@@ -28,7 +28,7 @@ import {mountSuperWilds} from '/superwilds/client/main.mjs';
 const key=new URL(location.href).searchParams.get('case');
 const api=async(path,body)=>{const response=await fetch('/__qa__/'+path+'?case='+key,{method:body?'POST':'GET',headers:body?{'content-type':'application/json'}:{},...(body?{body:JSON.stringify(body)}:{})});if(!response.ok)throw Error('ISOLATED_REPLY_LOST');return response.json();};
 const transport={state:()=>api('state'),prepare:intent=>({...intent,authority:{fixture:'synthetic-client-qa',betMinor:intent.betMinor,collectRoundId:intent.collectRoundId??null}}),dispatch:intent=>api('dispatch',intent),recover:intent=>api('recover',intent)};
-window.__SW_QA__={mount:mountSuperWilds({root:document.querySelector('#game'),transport,subject:'qa-'+key}),api};
+window.__SW_QA__={exitCount:0,mount:mountSuperWilds({root:document.querySelector('#game'),transport,subject:'qa-'+key,onExit:()=>{window.__SW_QA__.exitCount++;}}),api};
 `;
 const server=createServer(async(req,res)=>{
   try{
@@ -96,15 +96,96 @@ try{
       return{action:n.dataset.action,x:r.x,y:r.y,width:r.width,height:r.height,hit:hit===n||n.contains(hit)};
     }));
     for(const g of geometry){check(g.width>=43.9&&g.height>=43.9,`${width} ${g.action} minimum touch size`);check(g.x>=0&&g.y>=0&&g.x+g.width<=width+.5&&g.y+g.height<= (width===1280?900:844)+.5,`${width} ${g.action} viewport`);check(g.hit,`${width} ${g.action} rendered hitbox`);}
+    const beforeControls=await page.evaluate(()=>window.__SW_QA__.api('stats'));
+    const initialPresentation=await page.evaluate(()=>{
+      const mount=window.__SW_QA__.mount,view=mount.renderer.snapshot(),canvas=document.querySelector('.sw-scene');
+      const rect=view.layout.cabinet,pad=Math.max(3,rect.width*.007),width=(rect.width-pad*2)/5,height=(rect.height-pad*2)/3;
+      const scale=canvas.width/view.layout.width,context=canvas.getContext('2d'),colorCounts=[];
+      for(let column=0;column<5;column++){
+        const pixels=context.getImageData(Math.round((rect.x+pad+column*width+width*.25)*scale),
+          Math.round((rect.y+pad+height*.25)*scale),Math.max(1,Math.round(width*.5*scale)),Math.max(1,Math.round(height*.5*scale))).data;
+        let colored=0;for(let i=0;i<pixels.length;i+=4){const r=pixels[i],g=pixels[i+1],b=pixels[i+2];
+          if(r>120&&g>50&&b<170&&r>g*.9)colored++;}
+        colorCounts.push(colored);
+      }
+      return{colorCounts,symbolAspect:width/height,receipt:view.receipt,controllerRound:mount.snapshot().round};
+    });
+    check(initialPresentation.receipt===null&&initialPresentation.controllerRound===null,'fresh idle artwork creates no accepted financial result');
+    check(initialPresentation.colorCounts.every(count=>count>30),'every initial reel visibly contains original symbol artwork before the first SPIN');
+    if(width!==1280)check(initialPresentation.symbolAspect>.92&&initialPresentation.symbolAspect<1.08,'portrait symbols retain their near-square proportions');
     await page.locator('.sw-menu').click();check(await page.getByRole('heading',{name:'RULES & PAYTABLE'}).isVisible(),'rules opens at same control');
+    const menuGeometry=await page.locator('.sw-menu-panel').evaluate(panel=>{
+      const r=panel.getBoundingClientRect(),tabs=[...panel.querySelectorAll('[role=tab]')].map(node=>{
+        const rect=node.getBoundingClientRect(),hit=document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2);
+        return{x:rect.x,y:rect.y,width:rect.width,height:rect.height,hit:hit===node||node.contains(hit)};
+      });return{x:r.x,y:r.y,width:r.width,height:r.height,tabs};
+    });
+    check(menuGeometry.tabs.length===3,'menu has exactly three bottom tabs');
+    check(menuGeometry.tabs.every(tab=>tab.hit&&tab.height>=44&&Math.abs(tab.width-menuGeometry.width/3)<1),'bottom tabs have three equal visible hitboxes');
+    check(menuGeometry.x>=0&&menuGeometry.y>=0&&menuGeometry.x+menuGeometry.width<=width+.5&&menuGeometry.y+menuGeometry.height<=(width===1280?900:844)+.5,'menu stays inside viewport');
+    if(width===1280)check(menuGeometry.width===900&&menuGeometry.height===602,'observed desktop menu dimensions are retained');
     check(await page.locator('.sw-paylines svg').count()===5,'five actual payline paths rendered');
-    await page.getByRole('button',{name:'Settings',exact:true}).click();await page.locator('[data-setting=effects]').uncheck();
+    await page.getByRole('tab',{name:'Settings',exact:true}).click();await page.locator('[data-setting=effects]').uncheck();
     check(await page.locator('[data-setting=music]').isChecked()===false,'effects OFF also turns music OFF');
     check(await page.evaluate(()=>window.__SW_QA__.mount.audio.ambient===null),'muting stops ambient audio node');
-    await page.locator('[data-setting=effects]').check();await page.getByRole('button',{name:'×',exact:true}).click();
-    await page.locator('.sw-quick').click();await page.locator('[data-setting=quick]').check();await page.getByRole('button',{name:'×',exact:true}).click();
-    await page.locator('.sw-bet').click();await page.locator('[data-action=choose-bet][data-value="20"]').click();
+    await page.locator('[data-setting=effects]').check();
+    await page.getByRole('tab',{name:'Settings',exact:true}).press('ArrowRight');
+    check(await page.getByRole('tab',{name:'History',exact:true}).getAttribute('aria-selected')==='true','keyboard selects the next real menu tab');
+    await page.getByRole('tab',{name:'History',exact:true}).press('Home');
+    check(await page.getByRole('heading',{name:'RULES & PAYTABLE'}).isVisible(),'Home selects the first menu tab');
+    await page.getByRole('tab',{name:'Rules',exact:true}).press('Tab');
+    check(await page.evaluate(()=>document.activeElement?.dataset.action)==='exit','Tab from the selected last focusable tab wraps inside menu');
+    await page.getByRole('button',{name:'↤ Exit',exact:true}).press('Shift+Tab');
+    check(await page.evaluate(()=>document.activeElement?.dataset.action)==='rules','Shift+Tab wraps back to the selected menu tab');
+    await page.getByRole('button',{name:'×',exact:true}).click();
+    const spinColor=()=>page.locator('.sw-scene').evaluate(canvas=>{
+      const rect=document.querySelector('.sw-spin').getBoundingClientRect(),scene=canvas.getBoundingClientRect(),scale=canvas.width/scene.width;
+      const width=Math.round(rect.width*scale),height=Math.round(rect.height*scale),pixels=canvas.getContext('2d').getImageData(Math.round((rect.x-scene.x)*scale),Math.round((rect.y-scene.y)*scale),width,height).data;
+      let yellow=0,white=0;for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+        if(Math.hypot(x-width/2,y-height/2)>Math.min(width,height)*.415)continue;
+        const offset=(y*width+x)*4,r=pixels[offset],g=pixels[offset+1],b=pixels[offset+2];
+        if(r>220&&g>160&&b<140)yellow++;if(r>220&&g>220&&b>220)white++;
+      }return{yellow,white};
+    });
+    const whiteSpin=await spinColor();
+    await page.locator('.sw-quick').click();check(await page.getByRole('heading',{name:'QUICK PLAY',exact:true}).isVisible(),'lightning opens QUICK confirmation');
+    await page.getByRole('button',{name:'NO',exact:true}).click();check(await page.locator('#game').getAttribute('data-quick')==='false','NO leaves quick disabled');
+    await page.locator('.sw-quick').click();await page.getByRole('button',{name:'×',exact:true}).click();
+    check(await page.locator('#game').getAttribute('data-quick')==='false','X leaves quick disabled');
+    await page.locator('.sw-quick').click();await page.getByRole('button',{name:'ENABLE QUICK PLAY',exact:true}).press('Enter');
+    check(await page.locator('#game').getAttribute('data-quick')==='true','keyboard confirms quick play');
+    const yellowSpin=await spinColor();check(yellowSpin.yellow>whiteSpin.yellow+50,'enabled QUICK visibly changes the main spin arrow to yellow');
+    await page.locator('.sw-quick').click();check(await page.locator('#game').getAttribute('data-modal')===''&&await page.locator('#game').getAttribute('data-quick')==='false','enabled lightning directly disables quick without another dialog');
+    const restoredSpin=await spinColor();check(restoredSpin.white>yellowSpin.white,'disabling QUICK restores the white spin arrow');
+    await page.locator('.sw-quick').click();await page.getByRole('button',{name:'ENABLE QUICK PLAY',exact:true}).click();
+    await page.locator('.sw-bet').click();
+    const betValues=()=>page.locator('.sw-bet-row').allTextContents();
+    const expectedValues=offset=>OBSERVED_BETS_MINOR.slice(offset,offset+5).map(value=>`${(value/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})} ETB`);
+    check(JSON.stringify(await betValues())===JSON.stringify(expectedValues(0)),'BET opens with five tall native-order host values');
+    check(await page.getByRole('button',{name:'Previous bet values',exact:true}).isDisabled(),'BET first-page UP is disabled');
+    await page.getByRole('button',{name:'Next bet values',exact:true}).click();
+    check(JSON.stringify(await betValues())===JSON.stringify(expectedValues(5)),'BET DOWN moves by five values');
+    const pickerGeometry=await page.locator('.sw-bet-panel').evaluate(panel=>[...panel.querySelectorAll('button')].map(node=>{
+      const rect=node.getBoundingClientRect(),hit=document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2);
+      return{action:node.dataset.action,x:rect.x,y:rect.y,width:rect.width,height:rect.height,hit:hit===node||node.contains(hit)};
+    }));
+    check(pickerGeometry.every(node=>node.width>=44&&node.height>=44&&node.hit),'BET rows and each arrow have independent usable visible hitboxes');
+    await page.locator('.sw-overlay').click({position:{x:5,y:5}});await page.locator('.sw-bet').click();
+    check(JSON.stringify(await betValues())===JSON.stringify(expectedValues(5)),'closing outside and reopening retains the exact BET window');
+    await page.getByRole('button',{name:'Previous bet values',exact:true}).press('Enter');
+    check(JSON.stringify(await betValues())===JSON.stringify(expectedValues(0)),'BET UP reverses five positions through keyboard input');
+    const reached=new Set();for(let n=0;n<7;n++){
+      for(const value of await page.locator('.sw-bet-row').evaluateAll(nodes=>nodes.map(node=>Number(node.dataset.value))))reached.add(value);
+      if(await page.getByRole('button',{name:'Next bet values',exact:true}).isDisabled())break;
+      await page.getByRole('button',{name:'Next bet values',exact:true}).click();
+    }
+    check(reached.size===OBSERVED_BETS_MINOR.length,'five-row BET picker reaches every host-approved value');
+    check(await page.getByRole('button',{name:'Next bet values',exact:true}).isDisabled(),'BET final-page DOWN is disabled');
+    for(let n=0;n<7&&await page.getByRole('button',{name:'Previous bet values',exact:true}).isEnabled();n++)await page.getByRole('button',{name:'Previous bet values',exact:true}).click();
+    await page.locator('[data-action=choose-bet][data-value="20"]').click();
     check(await page.evaluate(()=>window.__SW_QA__.mount.snapshot().betMinor)===20,'host-supplied bet choice updates input');
+    const afterControls=await page.evaluate(()=>window.__SW_QA__.api('stats'));check(afterControls.debits===beforeControls.debits&&afterControls.credits===beforeControls.credits,'menu, QUICK and BET interactions create no financial actions');
+    controlTraces.push({width,initialPresentation,menuGeometry,pickerGeometry,whiteSpin,yellowSpin,restoredSpin,beforeControls,afterControls});
     await page.screenshot({path:resolve(output,`superwilds-${width}-ready.png`)});
     const receipts=[];
     for(let i=0;i<10;i++){
@@ -146,15 +227,22 @@ try{
     await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().auto?.reason==='LIMIT');
     check(await page.evaluate(()=>window.__SW_QA__.mount.snapshot().auto.remaining)===24,'AUTO limit stops after its accepted first round');
     await page.locator('.sw-take').click();await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='READY');
+    await page.locator('.sw-auto').click();
+    check(await page.locator('[data-action=auto-count][data-value="100"]').getAttribute('aria-pressed')==='true','reopening a completed AUTO sequence resets selection to 100');
+    check(await page.locator('[data-limit-toggle]').evaluateAll(nodes=>nodes.every(node=>node.checked===false)),'reopened AUTO conditions reset to OFF');
+    check(await page.locator('[data-limit-value]').evaluateAll(nodes=>nodes.every(node=>node.value==='')),'reopened AUTO conditions are blank');
+    await page.getByRole('button',{name:'×',exact:true}).click();
     await page.evaluate(()=>window.__SW_QA__.api('control',{dropNext:true}));await page.locator('.sw-spin').click();await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='RECOVERY');
     const original=await page.evaluate(()=>window.__SW_QA__.mount.snapshot().pending),beforeReload=await page.evaluate(()=>window.__SW_QA__.api('stats'));
     await page.reload();await page.getByRole('button',{name:'No',exact:true}).click();await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='RECOVERY');
     check((await page.evaluate(()=>window.__SW_QA__.mount.snapshot().pending)).requestKey===original.requestKey,'reload preserves original action key');
     await page.getByRole('button',{name:'Recover current round',exact:true}).click();await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='WIN_PENDING');
     const afterReload=await page.evaluate(()=>window.__SW_QA__.api('stats'));check(afterReload.debits===beforeReload.debits,'reload recovery adds zero debits');
-    await page.locator('.sw-menu').click();await page.getByRole('button',{name:'History',exact:true}).click();check(await page.getByRole('heading',{name:'HISTORY',exact:true}).isVisible(),'accepted recovery enters live session history');
+    await page.locator('.sw-menu').click();await page.getByRole('tab',{name:'History',exact:true}).click();check(await page.getByRole('heading',{name:'HISTORY',exact:true}).isVisible(),'accepted recovery enters live session history');
     await page.getByRole('button',{name:'×',exact:true}).click();
     await page.screenshot({path:resolve(output,`superwilds-${width}-recovered.png`)});
+    await page.locator('.sw-menu').click();await page.getByRole('button',{name:'↤ Exit',exact:true}).click();
+    check(await page.evaluate(()=>window.__SW_QA__.exitCount)===1,'menu Exit invokes its existing-host navigation callback once');
     check(caseErrors.length===0,`no ${width}px browser errors`);errors.push(...caseErrors);
     reports.push({width,assertions,geometry,rounds:receipts,stats:afterReload,pageErrors:caseErrors});await context.close();
   }
@@ -166,5 +254,5 @@ finally{
   const pins=[];for(const path of paths){const bytes=await readFile(resolve(sourceRoot,path));pins.push({path,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});}
   await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/superwilds-client-qa/v1',testedAt:new Date().toISOString(),
     environment:'isolated synthetic server receipts and fixture wallet; no production/player/provider session or financial round',passed:failure===null&&reports.length===4,
-    failure,assertions,reports,stopTraces,forbiddenRequests:forbidden,requests,sourceCommit:process.env.GITHUB_SHA??null,sourcePins:pins,audibleProviderParityVerified:false},null,2)+'\n');
+    failure,assertions,reports,stopTraces,controlTraces,forbiddenRequests:forbidden,requests,sourceCommit:process.env.GITHUB_SHA??null,sourcePins:pins,audibleProviderParityVerified:false},null,2)+'\n');
 }

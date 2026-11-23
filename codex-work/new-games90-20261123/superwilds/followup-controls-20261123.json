@@ -1,0 +1,190 @@
+{
+  "schema": "zplay/superwilds-current-control-followup/v1",
+  "recordedAtUtc": "2026-11-23T00:25:48.545Z",
+  "gameId": "zplay72_multi_hot_5_super_wilds_v1",
+  "product": "Multi Hot 5 Super Wilds",
+  "officialLauncherUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+  "referenceCurrency": "DMO",
+  "providerVersion": "1.0.1",
+  "environment": "Current official free demo in CUA cloud browser; desktop1363x932",
+  "privacy": "No provider session token, spin identifier, balance/history screenshot, account detail or media is included in this public factual record.",
+  "referenceRounds": {
+    "additionalManuallyInitiatedCompleted": 3,
+    "firstTwo": "No win observed",
+    "third": "Observed0.10DMO pending win, then one successful RED gamble to0.20DMO; collection observed",
+    "automaticRoundsNotCountedAsManual": true
+  },
+  "quick": {
+    "firstDisabledTap": "Opens QUICK PLAY confirmation with ENABLE QUICK PLAY, NO and X",
+    "enableObserved": true,
+    "enabledFeedback": "Large circular SPIN arrow becomes yellow",
+    "enabledTap": "Immediately disables QUICK and returns large SPIN arrow to white, without opening a dialog",
+    "cancelNoAndXActionsObserved": false
+  },
+  "betPicker": {
+    "visibleRows": 5,
+    "initialPage": [
+      "0.10",
+      "0.20",
+      "0.30",
+      "0.40",
+      "0.50"
+    ],
+    "afterOneDown": [
+      "0.60",
+      "0.80",
+      "1.00",
+      "1.50",
+      "2.00"
+    ],
+    "afterOneUp": [
+      "0.10",
+      "0.20",
+      "0.30",
+      "0.40",
+      "0.50"
+    ],
+    "pagingStep": 5,
+    "animatedScroll": true,
+    "closeOutsideObserved": true,
+    "reopenRetainsScrolledOffset": true,
+    "reopenObservation": "Closed outside while on second page; reopening after closing animation retained second page while current bet remained0.10DMO",
+    "rapidReopenDuringClosing": "Immediate reopening can be ignored until closing animation finishes",
+    "desktopRectangle": {
+      "x": 988,
+      "y": 157,
+      "width": 365,
+      "height": 380
+    },
+    "upCenter": {
+      "x": 1312,
+      "y": 190
+    },
+    "downCenter": {
+      "x": 1312,
+      "y": 494
+    },
+    "newBetSelectionMade": false
+  },
+  "menu": {
+    "desktopRectangle": {
+      "x": 232,
+      "y": 168,
+      "width": 900,
+      "height": 602
+    },
+    "bottomTabs": [
+      "Rules",
+      "Settings",
+      "History"
+    ],
+    "tabWidths": 300,
+    "topBar": [
+      "Exit",
+      "Spin identifier",
+      "Close"
+    ],
+    "settingsLabels": [
+      "Sound Effects",
+      "Background Music",
+      "Full Screen"
+    ],
+    "settingsToggleCenters": [
+      {
+        "x": 959,
+        "y": 412
+      },
+      {
+        "x": 959,
+        "y": 475
+      },
+      {
+        "x": 959,
+        "y": 557
+      }
+    ],
+    "initialPaytablePaintStale": true,
+    "paytableRefresh": "Pressing plus changed preview stake0.10to0.20DMO and refreshed own3/4/5 awards",
+    "refreshedOwnValues": {
+      "minimumStakeDMO": "0.10",
+      "maximumStakeDMO": "200.00",
+      "doubleUpLimitDMO": "500.00",
+      "maximumWinTimesStake": 1000,
+      "advertisedRtp": "96.51%"
+    },
+    "doubleLimitInterpretation": "Displayed500.00DMO only; this observation does not establish whether it caps stake or target"
+  },
+  "x2": {
+    "entry": "Available after a winning round; opens a dark green/red-black card choice dialog",
+    "labels": [
+      "Gamble amount",
+      "Gamble to win",
+      "Previous cards",
+      "RED",
+      "BLACK",
+      "TAKE WIN"
+    ],
+    "observedAction": "RED selection revealed a red heart card; pending0.10became0.20 and next target became0.40DMO",
+    "closeAfterAcceptedRedWin": "Clicking X initiated collection of pending0.20DMO; after the short main-screen transfer animation WIN/X2/TAKE disappeared and exactly0.20DMO was added to balance",
+    "closedBeforeAnyGambleObserved": false,
+    "blackSelectionOrLosingGambleObserved": false,
+    "probabilityInferred": false
+  },
+  "autoplay": {
+    "reopenDefaults": {
+      "count": 100,
+      "winEnabled": false,
+      "decreaseEnabled": false,
+      "increaseEnabled": false,
+      "allInputsBlank": true
+    },
+    "counts": [
+      25,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "conditionLabels": [
+      "If a win reaches or exceeds",
+      "If balance decreases",
+      "If balance increases"
+    ],
+    "combinedLimitCase": {
+      "selectedCount": 25,
+      "winThresholdDMO": "0.10",
+      "decreaseThresholdDMO": "0.50",
+      "increaseEnabled": false,
+      "completedRounds": 5,
+      "observedResult": "Four losses then a1.00DMO win. Both conditions coincided at fifth stake; stopping reason cannot be isolated.",
+      "finalState": "After NICE WIN count-up finished, AUTO was idle but1.00DMO stayed pending with X2/TAKE available; explicit TAKE then added exactly1.00DMO without another stake."
+    },
+    "winOnlyDecisiveCase": {
+      "selectedCount": 25,
+      "winThresholdDMO": "0.10",
+      "decreaseEnabled": false,
+      "increaseEnabled": false,
+      "otherInputsBlank": true,
+      "pendingWinDMO": "0.30",
+      "finalState": "AUTO stopped with0.30DMO WIN plus X2/TAKE available. Displayed balance was1.90DMO below start and excluded this pending win. Explicit TAKE added exactly0.30DMO; WIN/X2/TAKE disappeared without an additional stake. Intermediate sub-threshold wins were not continuously logged, so net deduction is not an exact round-count proof.",
+      "automaticCreditAtWinLimitStopObserved": false,
+      "roundCountNotContinuouslyObserved": true,
+      "lastObservedRemainingCount": 8,
+      "netStakeDeductionBeforePendingWinDMO": "1.90"
+    },
+    "countOnlyCompletionObserved": false,
+    "manualStopWithPendingWinObserved": false,
+    "increaseOnlyOrDecreaseOnlyObserved": false
+  },
+  "limitations": [
+    "Portrait/provider mobile geometry unobserved",
+    "Original audio audibility not verified",
+    "No provider hidden RNG probability inferred",
+    "No production ETB/player action or LIVE VERIFIED result",
+    "Current followup does not re-prove every retained26-stake choice",
+    "NICE WIN count-up duration was visually observed but not benchmarked"
+  ],
+  "productionFinancialActions": 0,
+  "liveVerified": false,
+  "completedGame": false
+}

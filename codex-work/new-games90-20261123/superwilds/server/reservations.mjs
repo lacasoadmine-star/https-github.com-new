@@ -69,7 +69,7 @@ export function createSuperWildsReservationBridge(dependencies) {
     if (typeof client?.query !== 'function') fail('SUPERWILDS_EXISTING_TRANSACTION_REQUIRED');
     const result = await client.query(RESERVATION_SQL.installation), row = result.rows?.[0];
     if (result.rowCount !== 1 || row?.isolation !== 'read committed' || row.wallet_floor !== true || row.reservation_funding !== true ||
-      typeof row.m10_installed !== 'boolean' || row.m10_installed && row.m10_funding !== true) fail('SUPERWILDS_PROTECTED_RESERVATIONS_NOT_INSTALLED');
+      row.m10_installed !== true || row.m10_funding !== true) fail('SUPERWILDS_PROTECTED_RESERVATIONS_NOT_INSTALLED');
   }
   async function total(client, sql, identifier) {
     const result = await client.query(sql, [identifier]);

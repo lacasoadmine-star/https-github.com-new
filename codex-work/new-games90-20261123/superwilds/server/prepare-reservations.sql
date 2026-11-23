@@ -7,6 +7,11 @@ DO $$ BEGIN
  OR to_regclass('sw_new_superwilds.rounds') IS NULL THEN
   RAISE EXCEPTION 'SUPERWILDS_EXISTING_WALLET_AND_JOURNAL_REQUIRED';
  END IF;
+ -- Fix the installation order: a later, unprotected M10 installation must
+ -- not reserve the same house funds after accepted Super Wilds holds exist.
+ IF to_regclass('sw_new_m10.reservations') IS NULL THEN
+  RAISE EXCEPTION 'SUPERWILDS_M10_RESERVATION_SCHEMA_REQUIRED_FIRST';
+ END IF;
  IF current_setting('transaction_isolation') <> 'read committed' THEN
   RAISE EXCEPTION 'SUPERWILDS_RESERVATIONS_REQUIRE_READ_COMMITTED';
  END IF;

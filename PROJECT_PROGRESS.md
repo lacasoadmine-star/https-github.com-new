@@ -1,3 +1,43 @@
+# Current continuation — current official controls and same-site host transport
+
+Source8c8b996 is published on the existing work/new90-live-20261123 branch.
+ExactCI45087855577 passed all3jobs, including18 real PostgreSQL tests, the
+existing3portal builds/disposable backend, all4 M20 browser widths and205
+Super Wilds browser assertions. Its exact artifact/screenshots were downloaded
+and reviewed. These are isolated fixtures, not production ETB verification.
+
+That review exposed stretched portrait reels and an empty initial cabinet.
+The new portrait geometry keeps nearly square5by3symbol cells; original idle
+artwork populates the view without creating an accepted round, balance, award
+or event. Current official demo followup confirms QUICK confirmation/direct
+disable/yellowarrow, five-row BET pagingby5with retainedoffset,900x602desktop
+menu/threeequaltabs andAUTOreset100withblankdisabledconditions. Those control
+changes are implemented with new realDOM assertions pending exact-sourceCI.
+
+A decisive win-limit-only official DMO run ended with its final win PENDING;
+explicitTAKE credited it once. An unconditional automatic-final-TAKE candidate
+was therefore not integrated. Count-only/manualSTOP and other single-condition
+collection policies remain unverified; do not extrapolate them from this case.
+Fresh factual evidence is in superwilds/followup-controls-20261123.json; no
+uploaded media, session identifiers or account/history screenshots are public.
+
+The existing-host fetch attachment and browser HTTP transport now connect the
+actual prepared state/SPIN/TAKE protocol on the same API/session. Eight tests
+verify original-key recovery, oneBET/oneTAKE, auth/origin/body rejection and
+old-route/request/response preservation. The reviewed joint-floor installation
+now requires M10 reservations first. Its added database test checks atomic
+failure in the wrong order; another test performs20fresh crypto-own-model
+rounds through the real protected wallet and aggregate evaluator. These new
+cases still require their exact-source CI result at this source checkpoint.
+
+Actual live Player remains470. New completed and LIVE VERIFIED games0/90;
+new cash activationfalse. Final X2 semantics/implementation, native visual and
+audible parity, production host mounting/migration and runtime readiness
+checks and authenticated live acceptance remain unfinished. Continue this
+same game before calling it complete or advancing the ready-game count.
+
+---
+
 # Current continuation — interaction examples and protected wallet composition
 
 Updated23 November2026. The user supplied interaction examples and resumed the

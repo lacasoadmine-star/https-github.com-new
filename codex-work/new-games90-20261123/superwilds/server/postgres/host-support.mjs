@@ -70,7 +70,7 @@ export function createHostPgSupport(pool) {
     const request = new Request('https://isolated-host.invalid/api/slots/spin', { headers: { cookie: 'sw_session=' + raw } });
     return { userId, house, request, guard: sessionGuard(request, userId) };
   }
-  function host({ win = 300n } = {}) {
+  function host({ win = 300n, candidateModel = null } = {}) {
     const controls = { samples: 0, failSample: false, release: true, modelAvailable: true }, outcomes = new Map();
     const model = { gameId: GAME_ID, ...MATH, approved: true, betLevels: ['1.00', '2.00'],
       verification: { legalOutcomesVerified: true, outcomeDistributionVerified: true, aggregatePayoutVerified: true,
@@ -84,7 +84,7 @@ export function createHostPgSupport(pool) {
       },
       validateOutcome: (value, context) => { assert.deepEqual(value, outcomes.get(context.roundId)); return true; },
     };
-    const integration = createSuperWildsHostIntegration({ dependencies, getApprovedModel: async () => controls.modelAvailable ? model : null,
+    const integration = createSuperWildsHostIntegration({ dependencies, getApprovedModel: async () => controls.modelAvailable ? (candidateModel ?? model) : null,
       releaseEnabled: () => controls.release, uuid: randomUUID, now: () => '2026-11-23T00:00:00.000Z' });
     return { ...integration, service: integration.lifecycle, controls };
   }

@@ -12,10 +12,10 @@ against its immutable journal before registering the existing shared order.
 
 The new prepared reservation migration uses the existing wallets, transfers
 and paired ledger. It enforces the SUM of Super Wilds and installed prepared
-M10 holds, including an M10 companion funding trigger; separate per-game
+M10 holds, including an M10 companion funding trigger. M10 reservations must be installed first; separate per-game
 floors would allow both to claim the same house funds. Readiness inspects real
 trigger identity, enabled state and READ COMMITTED isolation. This migration
-is not applied by import, construction or publication.
+is not applied by import, construction or publication. A failed installation-order check aborts without creating reservation tables.
 
 `own-model.mjs` defines an explicitly ZPLAY-authored distribution with
 unbiased server cryptographic sampling, fresh varied grids, full aggregate
@@ -29,8 +29,7 @@ composition and ownership SQL against a new disposable localhost database.
 It includes real wallet contention, one collection, combined M10/Super Wilds
 floor, exact funding, both collision directions, rollback after collection
 plus next debit, actual trigger readiness and retired-model recovery. Its
-synthetic session/funds/model are test-only. The exact CI result must be read
-before reporting database acceptance. No production migration, financial
+synthetic session/funds/model are test-only. The first exact-source CI45087855577 at8c8b996 passed all18 real PostgreSQL tests and all3 portal builds. The subsequent installation-order and20fresh own-model-round tests require their own exact-source CI result. No production migration, financial
 round or release activation has occurred in this continuation.
 
 The reserved game identity remains `zplay72_multi_hot_5_super_wilds_v1` at
@@ -131,3 +130,18 @@ This source is not a mounted/live-verified game. No production schema, route,
 wallet balance, account, ledger, old game, Telebirr service or deployment was
 changed by this subtree. Final actual host reservation/ownership integration,
 approved own distribution/rounding and live financial acceptance remain open.
+
+## Same-site HTTP attachment
+
+`http.mjs` attaches state, SPIN and TAKE to the existing server fetch chain under
+`/api/slots/new-games90/superwilds/`. `createSuperWildsExistingHostBinding`
+composes it with the actual protected host; it creates no listener or backend.
+The original authenticated request reaches the lifecycle. The host's actual
+write-origin policy is mandatory; JSON bodies are bounded and unexpected
+backend errors are redacted. All unrelated requests/bodies/responses retain
+identity. The browser `client/http-transport.mjs` uses same-origin credentials
+and the original prepared/recovery authority, with no local wallet fallback.
+Eight isolated HTTP tests cover a full SPIN/replay/TAKE flow, accepted-reply
+loss, model retirement, original route preservation, origin/body rejection,
+auth rejection and exception redaction. This is transport integration code,
+not evidence that production has mounted or enabled the game.

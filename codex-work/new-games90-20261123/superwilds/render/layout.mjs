@@ -16,11 +16,16 @@ export function superWildsLayout(width, height) {
         balance:box(.278,.895,.121,.062),bet:box(.592,.895,.121,.062)}),
       balance:box(.278,.895,.121,.062),bet:box(.592,.895,.121,.062),win:box(.438,.890,.123,.066)});
   }
-  const w=width, h=height, margin=Math.max(9,w*.025), cabinetTop=Math.max(155,h*.245);
-  const footer=170, cabinetHeight=Math.max(108,h-cabinetTop-footer), controlsY=cabinetTop+cabinetHeight+8;
+  const w=width, h=height, margin=Math.max(9,w*.025);
+  // A five-by-three cabinet keeps nearly square symbol cells. Additional
+  // portrait height belongs between the cabinet and controls, not in reels.
+  const cabinetWidth=w-2*margin;
+  const cabinetHeight=Math.min(cabinetWidth*3/5,Math.max(108,h-235));
+  const cabinetTop=Math.max(97,Math.min(h*.285,h-170-cabinetHeight));
+  const controlsY=Math.max(cabinetTop+cabinetHeight+8,h-162);
   const spinSize=76, centre=w/2, aux=48, plateWidth=Math.max(105,(w-110)/2), plateY=h-68;
-  return Object.freeze({width,height,portrait,scene:rect(0,0,w,h),title:rect(12,13,w-24,41),
-    wheel:rect(w*.11,63,w*.78,cabinetTop-67),cabinet:rect(margin,cabinetTop,w-2*margin,cabinetHeight),
+  return Object.freeze({width,height,portrait,scene:rect(0,0,w,h),title:rect(12,Math.max(13,cabinetTop-Math.min(w*.245,96)-58),w-24,41),
+    wheel:rect(w*.11,cabinetTop-Math.min(w*.245,96),w*.78,Math.min(w*.245,96)-3),cabinet:rect(margin,cabinetTop,cabinetWidth,cabinetHeight),
     controls:Object.freeze({spin:rect(centre-spinSize/2,controlsY,spinSize,spinSize),
       auto:rect(Math.max(5,centre-135),controlsY+13,aux,aux),take:rect(Math.min(w-53,centre+87),controlsY+13,aux,aux),
       quick:rect(centre+38,controlsY+16,44,44),double:rect(centre-82,controlsY+16,44,44),

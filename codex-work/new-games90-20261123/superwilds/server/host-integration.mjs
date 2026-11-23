@@ -2,6 +2,7 @@ import { createSuperWildsReservationBridge } from './reservations.mjs';
 import { createSuperWildsPostgresService } from './postgres.mjs';
 import { createSuperWildsRoundOwnership, withSuperWildsRequestOwner } from './ownership.mjs';
 import { SuperWildsError } from './lifecycle.mjs';
+import { createSuperWildsHttpHandler } from './http.mjs';
 
 /** All callbacks are the FINAL ones used by the existing authenticated host.
  * Construction does not run SQL, enable a model or install a route. The host
@@ -37,4 +38,15 @@ export function createSuperWildsHostIntegration({ dependencies, getApprovedModel
     wallet, withRequestOwner: withSuperWildsRequestOwner, registerRound: ownership.registerRound });
   return Object.freeze({ lifecycle, wallet, ownership, legacyDependencies,
     describeLegacyState: ownership.describeLegacyState });
+}
+
+/** Concrete fetch attachment inside the current server. Existing routes
+ * retain their original handler; their FINAL dependency factory must consume
+ * legacyDependencies and the symmetric guard exported by ownership.mjs.
+ */
+export function createSuperWildsExistingHostBinding({ existingFetch, assertWriteOrigin, ...configuration } = {}) {
+  const integration = createSuperWildsHostIntegration(configuration);
+  return Object.freeze({ ...integration, fetch: createSuperWildsHttpHandler({
+    lifecycle: integration.lifecycle, existingFetch, assertWriteOrigin,
+  }) });
 }
