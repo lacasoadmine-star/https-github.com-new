@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createBurnWildsExistingServer} from './lifecycle.mjs';
 import {BURN_WILDS_GAME_ID} from '../expansion.mjs';
-import {quoteBurnWildsFinalGrid} from '../outcome-audit.mjs';
+import {quoteBurnWildsFinalGrid,auditBurnWildsPayout} from '../outcome-audit.mjs';
+import {createBurnWildsCandidateSampler} from '../candidate-math.mjs';
 const TOKEN='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
 const GUARD='a'.repeat(64);
 const grid=[['orange','seven','plum'],['bell','seven','watermelon'],['seven','seven','orange'],['plum','seven','bell'],['grapes','seven','cherry']];
@@ -156,4 +157,47 @@ test('suspended approved model leaves authenticated STATE read-only and old sett
  const fresh=h.action({roundToken:'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'});
  await assert.rejects(()=>h.server.spin(h.request(),fresh),/APPROVED_MODEL_REQUIRED/);
  assert.equal(h.snapshot().ledger.length,2);
+});
+
+
+test('twenty distinct candidate-origin spins settle through disposable atomic server ledger without canned rounds',async()=>{
+  const h=harness();
+  // This approval is fixture-local: the production candidate remains
+  // approved:false, no claim of certified RTP or licensed media.
+  let counter=0;
+  const entropy=bytes=>{
+    counter=(counter+997)%65000;
+    bytes[0]=counter>>8;bytes[1]=counter&255;
+    return bytes;
+  };
+  const candidate=createBurnWildsCandidateSampler({getEntropy:entropy});
+  h.model.sampleOutcome=candidate.sampleOutcome;
+  h.model.maximumPayoutMinor=candidate.maximumPayoutMinor;
+  const reelSets=new Set();
+  let winningRounds=0;
+  for(let i=0;i<20;i++){
+    const roundToken='11111111-1111-4111-8111-'+String(i+1).padStart(12,'0');
+    const request=h.action({roundToken});
+    const receipt=await h.server.spin(h.request(),request);
+    assert.equal(receipt.betMinor,10);
+    assert.equal(receipt.clientToken,roundToken);
+    assert.equal(receipt.pendingWinMinor,0);
+    assert.equal(receipt.settlementMode,'SERVER_IMMEDIATE');
+    assert.equal(auditBurnWildsPayout(receipt).payoutConsistent,true);
+    reelSets.add(JSON.stringify(receipt.originalGrid));
+    if(receipt.winMinor>0)winningRounds++;
+    if(i%3===0){
+      const same=await h.server.spin(h.request(),h.action({roundToken,replayOnly:true}));
+      assert.deepEqual(same,receipt);
+    }
+  }
+  const db=h.snapshot();
+  assert.equal(db.rounds.length,20);
+  assert.equal(db.requests.size,20);
+  assert.equal(db.ledger.filter(entry=>entry.kind==='BET').length,20);
+  assert.equal(db.ledger.filter(entry=>entry.kind==='WIN').length,winningRounds);
+  assert.equal(db.player+db.house,1010000n);
+  assert.equal(db.reserved,0n);
+  assert.ok(reelSets.size>10,'server must produce fresh symbol layouts');
+  assert.ok(counter>0);
 });
