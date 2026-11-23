@@ -8,7 +8,7 @@ const session=()=>({authenticated:true,gameId:GAME_ID,currency:'ETB',subject:'te
 const action=()=>({gameId:GAME_ID,subject:'test-subject',modelVersion:'approved-v1',
   betMinor:100,requestKey:'unique-nonce'});
 const receipt=()=>({gameId:GAME_ID,currency:'ETB',serverSettled:true,
-  requestKey:'unique-nonce',roundId:'r-1',betMinor:100,winMinor:0,
+  requestKey:'unique-nonce',roundId:'r-1',subject:'test-subject',betMinor:100,winMinor:0,
   balanceMinor:900,multiplier:1,modelVersion:'approved-v1',
   ledger:{betTxId:'bet-1'},historyRecorded:true,
   finalGrid:[['cherry','lemon','cherry'],['lemon','cherry','lemon'],
