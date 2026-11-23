@@ -118,3 +118,70 @@ test('definitive server rejection remains explicit and never credits the account
  });
  assert.equal(h.calls.length,2);
 });
+
+
+test('RECOVER preserves original token and model after a release closes without allowing a new SPIN',async()=>{
+ const h=harness();
+ await h.transport.state();
+ const original=h.transport.prepare(action());
+ const closed=serverState();
+ closed.game.enabled=false;
+ closed.game.productionApproved=false;
+ closed.game.freshReleaseReady=false;
+ closed.game.betLevels=[];
+ delete closed.game.mathVersion;
+ delete closed.game.engineVersion;
+ delete closed.game.mathSha256;
+ // The existing Player may withdraw a model while one prior accepted
+ // request is still awaiting a replay. Its actual journal owns the result.
+ const altered=harness({server:closed});
+ const s=await altered.transport.state();
+ assert.equal(s.canPlay,false);
+ assert.deepEqual(s.betLevelsMinor,[]);
+ assert.equal(s.model,null);
+ assert.throws(()=>altered.transport.prepare(action()),/WAGER_NOT_APPROVED/);
+ const reply=await altered.transport.recover(original);
+ assert.equal(reply.clientToken,requestKey);
+ assert.equal(reply.winMinor,2000);
+ assert.equal(altered.calls.length,2);
+ const replay=JSON.parse(altered.calls[1].init.body);
+ assert.equal(replay.replayOnly,true);
+ assert.equal(replay.roundToken,requestKey);
+ assert.equal(replay.mathVersion,original.mathVersion);
+ assert.equal(replay.mathSha256,original.mathSha256);
+ assert.equal(altered.calls.filter(v=>v.path===BURN_SPIN_PATH).length,1);
+});
+test('RECOVER uses immutable accepted-round authority across model rotation',async()=>{
+ const h=harness();
+ await h.transport.state();
+ const original=h.transport.prepare(action());
+ const rotated=serverState();
+ rotated.game.mathVersion='burn-rotated-v2';
+ rotated.game.mathSha256='d'.repeat(64);
+ rotated.game.betLevels=['0.25'];
+ const altered=harness({server:rotated});
+ const state=await altered.transport.state();
+ assert.equal(state.model.mathVersion,'burn-rotated-v2');
+ assert.deepEqual(state.betLevelsMinor,[25]);
+ await assert.rejects(async()=>altered.transport.dispatch(original),/WAGER_NOT_APPROVED/);
+ const reply=await altered.transport.recover(original);
+ assert.equal(reply.winMinor,2000);
+ const sent=JSON.parse(altered.calls.at(-1).init.body);
+ assert.equal(sent.replayOnly,true);
+ assert.equal(sent.roundToken,requestKey);
+ assert.equal(sent.mathSha256,mathSha256);
+ assert.equal(altered.calls.length,2);
+});
+test('recovery still blocks a changed authenticated player or forged original model identity',async()=>{
+ const h=harness();
+ await h.transport.state();
+ const original=h.transport.prepare(action());
+ const other=serverState();other.sessionGuard='c'.repeat(64);other.game.enabled=false;
+ const altered=harness({server:other});
+ await altered.transport.state();
+ await assert.rejects(async()=>altered.transport.recover(original),/ACTION_CHANGED/);
+ const forged={...original,mathSha256:'not-a-sha256'};
+ await assert.rejects(async()=>h.transport.recover(forged),/ACTION_CHANGED/);
+ assert.equal(altered.calls.length,1);
+ assert.equal(h.calls.length,1);
+});
