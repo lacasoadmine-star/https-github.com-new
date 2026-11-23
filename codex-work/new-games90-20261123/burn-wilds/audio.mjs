@@ -51,7 +51,7 @@ export class BurnWildsAudio {
       'column-expanded':'expanded','settled':'win','rejected':'error'})[type];
     if(!name)return false;
     const id=(details.roundId??details.requestKey??'')+':'+(details.column??'');
-    if(type==='settled'&&details.winMinor===0)return this.cue('loss',id);
+    if(type==='settled'&&!(Number.isSafeInteger(details.winMinor)&&details.winMinor>0))return this.cue('loss',id);
     return this.cue(name,id);
   }
   async pause(){

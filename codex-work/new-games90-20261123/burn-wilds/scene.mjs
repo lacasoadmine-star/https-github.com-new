@@ -32,7 +32,8 @@ export class BurnWildsScene{
     this.context=canvas.getContext('2d',{alpha:false});if(!this.context)throw new Error('BURN_WILDS_CANVAS_UNAVAILABLE');
     this.canvas=canvas;this.artwork=validArtwork(artwork);this.now=now;this.onEvent=onEvent;this.win=win;
     this.overlay=new BurnWildsFlameOverlay({canvas:flameCanvas});this.flameCanvas=flameCanvas;
-    this.timeline=new BurnWildsExpansion({now,onEvent:event=>{if(event.type==='spin'){this.wheelTarget=null;this.lastAt=this.now();this.winVisible=false;}if(event.type==='settled')this.winVisible=true;this.onEvent(event);}});
+    this.timeline=new BurnWildsExpansion({now,onEvent:event=>{if(event.type==='spin'){this.wheelTarget=null;this.lastAt=this.now();this.winVisible=false;}if(event.type==='settled')this.winVisible=true;
+      this.onEvent(event.type==='settled'?{...event,winMinor:this.timeline.receipt?.winMinor??0}:event);}});
     this.financial={balanceMinor:null,betMinor:null,pendingWinMinor:0};this.winVisible=true;this.wheelPosition=1;this.wheelTarget=null;
     this.lastAt=now();this.frame=null;this.paused=false;this.disposed=false;this.reducedMotion=false;this.settledAt=now();
     this.resize(canvas.clientWidth||390,canvas.clientHeight||740,win.devicePixelRatio||1);

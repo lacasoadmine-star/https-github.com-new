@@ -31,6 +31,8 @@ test('own burn cues are distinct, including each expanded reel and final settlem
   }
   assert.equal(voices.length,7);
   assert.equal(audio.event('column-expanded',{roundId:'r-1',column:1}),false);
+  assert.equal(audio.event('settled',{roundId:'r-2',winMinor:0}),true);
+  assert.equal(voices.length,8);
   audio.dispose();
 });
 test('sound ambience starts only after opt-in and is stopped on pause and dispose',async()=>{
