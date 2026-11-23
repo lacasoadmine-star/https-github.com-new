@@ -56,6 +56,20 @@ test('pending action is bound to the actual authenticated subject and cannot cro
   const h=harness();h.storage.setItem(BURN_WILDS_PENDING_KEY,JSON.stringify({gameId:BURN_WILDS_GAME_ID,subject:'different-subject',action:{action:'SPIN',gameId:BURN_WILDS_GAME_ID,requestKey:'old-key'}}));
   await assert.rejects(h.controller.connect(),/PENDING_ACCOUNT_MISMATCH/);assert.equal(h.calls.length,0);assert.equal(h.controller.snapshot().canPlay,false);assert.ok(h.saved.size);
 });
+test('AUTO off leaves the accepted spin presentation untouched and adds no wager',async()=>{
+  const h=harness();await h.controller.connect();
+  await h.controller.startAuto({count:25});
+  assert.equal(h.calls.length,1);
+  const before=h.timeline.snapshot().phase;
+  h.controller.stopAuto();
+  assert.equal(h.controller.snapshot().auto.active,false);
+  assert.equal(h.timeline.snapshot().phase,before);
+  assert.equal(h.calls.length,1);
+  h.timeline.tick(2000);
+  h.controller.presentationFinished('r-key-1');
+  await Promise.resolve();
+  assert.equal(h.calls.length,1);
+});
 test('AUTO pause stops future rounds after an accepted result and never discards the debit',async()=>{
   const h=harness();await h.controller.connect();await h.controller.startAuto({count:25,balanceDecreaseMinor:100});
   h.controller.pause();h.timeline.tick(2000);h.controller.presentationFinished('r-key-1');await Promise.resolve();assert.equal(h.calls.length,1);assert.equal(h.controller.snapshot().auto.active,false);
