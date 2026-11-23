@@ -185,3 +185,30 @@ test('recovery still blocks a changed authenticated player or forged original mo
  assert.equal(altered.calls.length,1);
  assert.equal(h.calls.length,1);
 });
+
+
+test('failed Player session refresh revokes stale wager authority before another SPIN',async()=>{
+ let failSession=false;
+ const calls=[];
+ const respond=(body,status=200)=>({ok:status<400,status,redirected:false,
+   headers:{get:()=> 'application/json; charset=utf-8'},json:async()=>body});
+ const fetcher=async(path,init)=>{
+   calls.push({path,method:init.method});
+   if(path===BURN_STATE_PATH)
+     return failSession?respond({code:'PLAYER_LOGIN_REQUIRED'},401):respond(serverState());
+   if(path===BURN_SPIN_PATH)throw new Error('STALE_WAGER_MUST_NOT_LEAVE_CLIENT');
+   throw new Error('WRONG_ROUTE');
+ };
+ const transport=createBurnWildsExistingHostTransport({fetcher});
+ assert.equal((await transport.state()).canPlay,true);
+ const previouslyPrepared=transport.prepare(action());
+ failSession=true;
+ await assert.rejects(()=>transport.state(),/PLAYER_LOGIN_REQUIRED/);
+ assert.throws(()=>transport.prepare(action()),/WAGER_NOT_APPROVED/);
+ await assert.rejects(()=>transport.dispatch(previouslyPrepared),/ACTION_CHANGED/);
+ assert.equal(calls.filter(v=>v.path===BURN_SPIN_PATH).length,0);
+ failSession=false;
+ assert.equal((await transport.state()).canPlay,true);
+ assert.equal(transport.prepare(action()).requestKey,requestKey);
+ assert.equal(calls.length,3);
+});
