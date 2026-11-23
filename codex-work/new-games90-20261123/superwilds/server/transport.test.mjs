@@ -38,6 +38,23 @@ test('recovery refuses to reconstruct an old financial action from current UI va
   await assert.rejects(t.recover(spin(f)), e => e.code === 'SUPERWILDS_ORIGINAL_ACTION_REQUIRED');
   assert.equal(f.snapshot().ledger.length, 0);
 });
+test('fresh server readback prevents stale ETB balance and double TAKE after another tab collects', async () => {
+  const f = fixture();
+  const service = { ...f.service, spin: async (request, body) => {
+    const accepted = await f.service.spin(request, body);
+    // Simulate an authorized second tab taking the accepted win before the first tab sees its reply.
+    await f.service.takeWin(request, f.take(accepted));
+    return accepted;
+  } };
+  const t = createSuperWildsTransport({ service, request: f.request });
+  await t.state();
+  const receipt = await t.dispatch(t.prepare(spin(f)));
+  assert.equal(receipt.winMinor, 300);
+  assert.equal(receipt.balanceMinor, 10200);
+  assert.equal(receipt.pendingWinMinor, 0);
+  assert.equal((await t.state()).pendingWinMinor, 0);
+  assert.equal(f.snapshot().ledger.length, 2); // one BET and one WIN, not an extra credit
+});
 test('missing approved DOUBLE rules disables the capability and cannot produce an outcome', async () => {
   const { f, transport: t } = setup(); assert.equal((await t.state()).canDouble, false);
   await assert.rejects(t.dispatch(spin(f, { action: 'DOUBLE' })), e => e.code === 'SUPERWILDS_APPROVED_DOUBLE_MODEL_REQUIRED');
