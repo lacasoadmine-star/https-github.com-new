@@ -187,7 +187,9 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
   async function action(name,value,source){
     if(disposed||d.hidden)return;
     try{
-      if(!['sound-no','sound-yes'].includes(name)&&(settings.effects||settings.music)){await audio.unlock();if(disposed||d.hidden)return;}
+      if(!['sound-no','sound-yes'].includes(name)&&(settings.effects||settings.music)&&!audio.unlocked){
+        await audio.unlock();if(disposed||d.hidden)return;
+      }
       audio.once('button',`click-${++clickId}`);
       if(name==='sound-yes'||name==='sound-no'){
         settings.effects=settings.music=name==='sound-yes';audio.setting(settings);if(settings.effects)await audio.unlock();ready=true;close();
