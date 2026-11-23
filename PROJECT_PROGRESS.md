@@ -1,3 +1,14 @@
+## 2026-11-23 — NEW90 Burn Wilds: account-bound settlement, crash recovery, same-origin host interface
+
+- Continued #1 on existing branch without touching 74 prior games, previous Player Worker modules, agent/admin, Telebirr or existing production wallet and ledger.
+- Contract: an accepted server settlement must include `subject` matching the original authenticated wager. It refuses a cross-player result even with a valid round ID and request key. Tests updated to use authenticated subjects.
+- Controller: pending idempotency journal remains until the native renderer explicitly finishes accepted round presentation, protecting page crashes after accepted server debit. Recover replays original request identity via separate recover-only interface; there is never a second SPIN initiated by the recovery path.
+- Added `fresh-burn-wilds/same-origin-host.mjs` and focused tests. Routes must be supplied from the actual currently authorized Player runtime; it refuses external API origins, invented/missing routes, forged actions, non-JSON error pages and expired player sessions. It exposes `getState`, `spin`, `recover`, `getWallet`, `getHistory`, `getDashboard` but does not fabricate balances or pretend an unverified backend endpoint exists.
+- Exact source GitHub Actions run **45133430336** on commit **efec550ef92acbe062591d3b83f93faa44ee1084**: **40/40 tests passed, none failed**. All tests are isolated mock/stub financial responses, not a genuine production ETB transaction. The current `PROJECT_PROGRESS.md` update is documentation only.
+- Remaining release blockers: map transport onto current deployed authenticated Player/Worker routes and verify existing backend's true ledger transaction semantics; provider-specific source video+audio and licensed assets not validated; client shell/UI and sound-control completion; comprehensive backend disposable-DB tests, all portal regression builds, authenticated on-device acceptance, whole-Worker deployment and post-deploy proof. The existing Worker v472 remains latest confirmed production deployment.
+- New games **COMPLETED = 0/90; LIVE_VERIFIED = 0/90**. No production financial spin, customer wallet mutation or new-game deployment has been performed in this continuation.
+
+---
 ## 2026-11-23 — Burn Wilds accepted-round recovery and authenticated subject protection
 
 - Updated fresh-burn-wilds/contract.mjs: the backend settled receipt must include and match the authenticated wager subject; foreign-account receipts fail closed.
