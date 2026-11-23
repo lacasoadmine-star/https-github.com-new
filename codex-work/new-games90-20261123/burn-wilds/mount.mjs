@@ -88,7 +88,9 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     if(operation==='take'){close();return run(()=>controller.take());}
     if(operation==='rules'||operation==='settings')return show(operation);
   },{signal:listeners.signal});
-  view.addEventListener('change',event=>{const key=event.target.dataset.setting;if(key in options){options[key]=event.target.checked;sound?.setPreferences?.({...options});render(controller.snapshot());}},{signal:listeners.signal});
+  view.addEventListener('change',event=>{const key=event.target.dataset.setting;if(key in options){options[key]=event.target.checked;
+    if(options[key])void Promise.resolve(sound?.unlock?.()).catch(()=>{});
+    sound?.setPreferences?.({...options});render(controller.snapshot());}},{signal:listeners.signal});
   view.addEventListener('keydown',event=>{if(event.key==='Escape'&&mode){event.preventDefault();close();return;}if(mode||event.repeat||/^(INPUT|BUTTON|SELECT|TEXTAREA)$/.test(event.target.tagName))return;if(event.key===' '||event.key==='Enter'){event.preventDefault();buttons.spin.click();}},{signal:listeners.signal});
   doc.addEventListener('visibilitychange',()=>{if(doc.hidden){controller.pause();sound?.pause?.();}else{controller.resume();sound?.resume?.();}},{signal:listeners.signal});
   win.addEventListener?.('blur',()=>{controller.stopAuto();sound?.pause?.();},{signal:listeners.signal});
