@@ -42,7 +42,7 @@ function harness({release=true,approved=true,invalid=false}={}){
         },
         playerBalance:async()=>db.player,houseBalance:async()=>db.house-db.reserved,
         reservedBalance:async()=>db.reserved,
-        assertNoActiveRound:async()=>{},assertPlayerCapacity:async()=>{},
+        activeRound:async()=>null,assertNoActiveRound:async()=>{},assertPlayerCapacity:async()=>{},
         debitStake:async({roundId,amountMinor})=>{
           db.player-=amountMinor;db.house+=amountMinor;
           db.ledger.push({kind:'BET',roundId,amountMinor});
