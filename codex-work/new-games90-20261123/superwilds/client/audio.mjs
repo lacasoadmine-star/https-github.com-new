@@ -29,7 +29,7 @@ export class SuperWildsAudio {
     if(this.disposed||!this.effects||!this.unlocked||!this.context)return false;
     const key=`${name}:${id}`;if(this.seen.has(key))return false;this.seen.add(key);
     if(this.seen.size>2048)this.seen.delete(this.seen.values().next().value);
-    const tones={button:[600,.045],spin:[140,.20],reel:[240,.07],wheel:[820,.06],win:[660,.45],error:[100,.15],
+    const tones={button:[600,.045],spin:[140,.20],reel:[240,.07],wheel:[820,.06],wheelStart:[440,.10],bigWin:[880,.65],win:[660,.45],error:[100,.15],
       card:[420,.09],gambleWin:[880,.28],gambleLoss:[90,.22],collect:[1040,.18]};
     const [frequency,duration]=tones[name]??tones.button,c=this.context,o=c.createOscillator(),g=c.createGain(),t=c.currentTime;
     o.type=name==='spin'?'triangle':'sine';o.frequency.setValueAtTime(frequency,t);
@@ -41,9 +41,12 @@ export class SuperWildsAudio {
   handle(event){
     const type=event?.type??event?.name;
     const names={SPIN_START:'spin',spin:'spin','spin-start':'spin',reelstop:'reel',REEL_STOP:'reel','reel-stop':'reel',
-      WHEEL_STOP:'wheel','wheel-stop':'wheel',wheel:'wheel',WIN:'win',win:'win'};
-    if(names[type]){const identity=names[type]==='spin'?(event.requestKey??event.roundId):(event.roundId??event.requestKey);
-      return this.once(names[type],`${identity??''}:${event.column??event.reel??''}`);}
+      WHEEL_START:'wheelStart','wheel-start':'wheelStart',WHEEL_STOP:'wheel','wheel-stop':'wheel',wheel:'wheel',WIN:'win',win:'win'};
+    if(names[type]){
+      const identity=names[type]==='spin'?(event.requestKey??event.roundId):(event.roundId??event.requestKey);
+      const sound=names[type]==='win'&&Number.isFinite(event.winMinor)&&Number.isFinite(event.betMinor)&&event.betMinor>0&&event.winMinor>=20*event.betMinor?'bigWin':names[type];
+      return this.once(sound,`${identity??''}:${event.column??event.reel??''}`);
+    }
     return false;
   }
   async suspend(){++this.generation;this.unlocked=false;this.stopVoices();this.stopAmbience();try{await this.context?.suspend();}catch{}}
