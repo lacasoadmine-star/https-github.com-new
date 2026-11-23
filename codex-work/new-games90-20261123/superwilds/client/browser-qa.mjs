@@ -35,7 +35,7 @@ const server=createServer(async(req,res)=>{
     const url=new URL(req.url,'http://fixture.local');requests.push({method:req.method,path:url.pathname});
     const key=url.searchParams.get('case')||'default',b=getBank(key);
     if(url.pathname==='/fixture.html'){
-      res.writeHead(200,{'content-type':'text/html'});res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Super Wilds isolated synthetic QA</title><link rel="stylesheet" href="/superwilds/client/style.css"><style>html,body{margin:0;background:#001812}#fixture-label{position:fixed;top:0;left:0;z-index:100;color:white;background:#173;font:9px Arial}</style></head><body><span id="fixture-label">ISOLATED SYNTHETIC QA</span><main id="game"></main><script type="module" src="/fixture.mjs"></script></body></html>');return;
+      res.writeHead(200,{'content-type':'text/html'});res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Super Wilds isolated synthetic QA</title><link rel="stylesheet" href="/superwilds/client/style.css"><style>html,body{margin:0;background:#001812}#fixture-label{position:fixed;top:0;left:0;z-index:100;color:white;background:#173;font:9px Arial;pointer-events:none}</style></head><body><span id="fixture-label">ISOLATED SYNTHETIC QA</span><main id="game"></main><script type="module" src="/fixture.mjs"></script></body></html>');return;
     }
     if(url.pathname==='/fixture.mjs'){res.writeHead(200,{'content-type':'application/javascript'});res.end(fixtureCode);return;}
     if(url.pathname==='/__qa__/state'){send(res,200,state(b,key));return;}
@@ -247,7 +247,13 @@ try{
     reports.push({width,assertions,geometry,rounds:receipts,stats:afterReload,pageErrors:caseErrors});await context.close();
   }
   check(forbidden.length===0,'no production or off-fixture requests');
-}catch(error){failure=error.stack||String(error);throw error;}
+}catch(error){
+  failure=error.stack||String(error);
+  if(browser){let index=0;for(const context of browser.contexts())for(const page of context.pages()){
+    try{await page.screenshot({path:resolve(output,`superwilds-failure-${++index}.png`)});}catch{}
+  }}
+  throw error;
+}
 finally{
   if(browser)await browser.close();server.closeAllConnections();await new Promise(done=>server.close(done));
   const paths=['client/main.mjs','client/controller.mjs','client/audio.mjs','client/style.css','client/browser-qa.mjs','render/renderer.mjs','render/layout.mjs','render/artwork.mjs','rules.mjs'];
