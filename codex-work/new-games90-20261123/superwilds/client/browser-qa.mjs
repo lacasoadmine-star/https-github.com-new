@@ -277,7 +277,7 @@ try{
     check(await page.locator('[data-gamble-feedback]').innerText()==='BLACK · WIN','accepted BLACK card is shown after original-key recovery');
     const recoveredGambleStats=await page.evaluate(()=>window.__SW_QA__.api('stats'));check(recoveredGambleStats.gambles===acceptedGambleStats.gambles&&recoveredGambleStats.debits===acceptedGambleStats.debits,'DOUBLE recovery adds no new card or wager');
     check(recoveredGambleStats.keys.includes(gambleOriginal.requestKey),'recovered DOUBLE retains the accepted original key');
-    await page.locator('[data-action=take]').click();await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='READY');
+    await page.locator('.sw-panel [data-action=take]').click();await page.waitForFunction(()=>window.__SW_QA__.mount.snapshot().phase==='READY');
     check(caseErrors.length===0,`no ${width}px browser errors`);errors.push(...caseErrors);
     reports.push({width,assertions,geometry,rounds:receipts,stats:afterReload,pageErrors:caseErrors});await context.close();
   }
