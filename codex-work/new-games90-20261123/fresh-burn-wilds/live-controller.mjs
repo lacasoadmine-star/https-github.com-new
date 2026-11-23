@@ -70,10 +70,13 @@ export class BurnWildsLiveController {
       // 'recover' is a replay-only existing-host transaction, never a new wager.
       const raw=await (replayOnly?this.host.recover(action):this.host.spin(action));
       const accepted=validateSettledRound(raw,action,this.symbols);
+      // Keep the original replay token until the visual finish callback. An
+      // accepted server debit must not disappear from the recovery journal.
+      if (replayOnly && ['IDLE','READY'].includes(this.renderer.phase))
+        this.renderer.start({requestKey:action.requestKey});
+      this.renderer.accept(accepted);
       this.receipt=accepted;
       this.session=Object.freeze({...this.session,balanceMinor:accepted.balanceMinor});
-      this.pending=null;this.storage.removeItem(BURN_PENDING_STORAGE_KEY);
-      this.renderer.accept(accepted);
       this.phase='ANIMATING';this.error=null;
       return accepted;
     } catch(e) {
@@ -88,7 +91,9 @@ export class BurnWildsLiveController {
   }
   presentationFinished(roundId) {
     if(this.phase!=='ANIMATING' || this.receipt?.roundId!==roundId)return false;
-    this.renderer.finish(roundId);this.phase='READY';return true;
+    if(!this.renderer.finish(roundId))return false;
+    this.pending=null;this.storage.removeItem(BURN_PENDING_STORAGE_KEY);
+    this.phase='READY';return true;
   }
   disconnect() {
     this.phase='BLOCKED';this.session=null;
