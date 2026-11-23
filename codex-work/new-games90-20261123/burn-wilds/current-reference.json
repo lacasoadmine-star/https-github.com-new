@@ -8,33 +8,232 @@
   "manualReferenceRounds": 7,
   "stakeDMOEach": "0.10",
   "rounds": [
-    {"ordinal": 1, "multiplier": 4, "winDMO": "0.00"},
-    {"ordinal": 2, "multiplier": 4, "winDMO": "0.00"},
-    {"ordinal": 3, "multiplier": 3, "winDMO": "0.00"},
-    {"ordinal": 4, "multiplier": 3, "winDMO": "0.00"},
-    {"ordinal": 5, "multiplier": 5, "winDMO": "0.00"},
-    {"ordinal": 6, "multiplier": 3, "winDMO": "0.00"},
-    {"ordinal": 7, "multiplier": 3, "winDMO": "0.00"}
+    {
+      "ordinal": 1,
+      "multiplier": 4,
+      "winDMO": "0.00"
+    },
+    {
+      "ordinal": 2,
+      "multiplier": 4,
+      "winDMO": "0.00"
+    },
+    {
+      "ordinal": 3,
+      "multiplier": 3,
+      "winDMO": "0.00"
+    },
+    {
+      "ordinal": 4,
+      "multiplier": 3,
+      "winDMO": "0.00"
+    },
+    {
+      "ordinal": 5,
+      "multiplier": 5,
+      "winDMO": "0.00"
+    },
+    {
+      "ordinal": 6,
+      "multiplier": 3,
+      "winDMO": "0.00"
+    },
+    {
+      "ordinal": 7,
+      "multiplier": 3,
+      "winDMO": "0.00"
+    }
   ],
-  "grid": {"columns": 5, "rows": 3},
-  "paylinesZeroBased": [[1,1,1,1,1],[0,0,0,0,0],[2,2,2,2,2],[0,1,2,1,0],[2,1,0,1,2]],
-  "wheelOrderObserved": [1,3,5,2,4],
+  "grid": {
+    "columns": 5,
+    "rows": 3
+  },
+  "paylinesZeroBased": [
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      1,
+      0
+    ],
+    [
+      2,
+      1,
+      0,
+      1,
+      2
+    ]
+  ],
+  "wheelOrderObserved": [
+    1,
+    3,
+    5,
+    2,
+    4
+  ],
   "paytableAt010DMO": {
-    "seven": {"2": "0.05", "3": "0.40", "4": "1.00", "5": "10.00"},
-    "grapes": {"3": "0.20", "4": "0.40", "5": "2.00"},
-    "watermelon": {"3": "0.20", "4": "0.40", "5": "2.00"},
-    "bell": {"3": "0.10", "4": "0.20", "5": "1.00"},
-    "orange_lemon_plum_cherry": {"3": "0.05", "4": "0.10", "5": "0.50"}
+    "seven": {
+      "2": "0.05",
+      "3": "0.40",
+      "4": "1.00",
+      "5": "10.00"
+    },
+    "grapes": {
+      "3": "0.20",
+      "4": "0.40",
+      "5": "2.00"
+    },
+    "watermelon": {
+      "3": "0.20",
+      "4": "0.40",
+      "5": "2.00"
+    },
+    "bell": {
+      "3": "0.10",
+      "4": "0.20",
+      "5": "1.00"
+    },
+    "orange_lemon_plum_cherry": {
+      "3": "0.05",
+      "4": "0.10",
+      "5": "0.50"
+    }
   },
   "paytableRefresh": "Initial placeholder values were discarded. Pressing plus refreshed the display at0.20DMO; pressing minus confirmed all amounts at0.10DMO.",
   "currentControlsObserved": {
-    "autoCounts": [25,50,100,500,1000],
-    "autoConditions": ["win reaches or exceeds", "balance decreases", "balance increases"],
+    "autoCounts": [
+      25,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "autoConditions": [
+      "win reaches or exceeds",
+      "balance decreases",
+      "balance increases"
+    ],
     "betMenu": "Five visible choices with up/down controls; selector change observed without another round.",
-    "settings": ["sound effects", "background music", "full screen"],
+    "settings": [
+      "sound effects",
+      "background music",
+      "full screen"
+    ],
     "soundToggleResult": "Effects and music switched off; main sound icon became muted.",
-    "rulesDescribe": ["red/black X2", "TAKE or next-spin collection", "AUTO collection", "AUTO off after disconnection"]
+    "rulesDescribe": [
+      "red/black X2",
+      "TAKE or next-spin collection",
+      "AUTO collection",
+      "AUTO off after disconnection"
+    ]
   },
-  "unverified": ["winning expansion animation in this seven-round session", "X2 accepted outcome", "full native asset closure", "audible sound parity", "native mobile UI parity", "provider probability distribution", "real ETB financial integration"],
-  "scope": "Reference interaction only in official DMO. No production wager, real balance change, session token or provider history identifier is included."
+  "unverified": [
+    "winning expansion animation in this seven-round session",
+    "X2 accepted outcome",
+    "full native asset closure",
+    "audible sound parity",
+    "native mobile UI parity",
+    "provider probability distribution",
+    "real ETB financial integration"
+  ],
+  "scope": "Reference interaction only in official DMO. No production wager, real balance change, session token or provider history identifier is included.",
+  "referenceAssetAudit": {
+    "capturedAt": "2026-11-23",
+    "method": "Cloudflare Browser Rendering: live official loader and inner game frame network requests; inspected five atlas JSON manifests",
+    "loaderHttp": 200,
+    "gameFrame": "https://eu-server-w3.ssgportal.com/SlotsDemo/Slots/MultiHot5BurnWilds/Game.aspx",
+    "canvasPixels": {
+      "width": 2170,
+      "height": 1154
+    },
+    "observedBrowserViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "spriteAtlasRoot": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Images/MultiHot5BurnWilds/Images/Sprites/",
+    "atlasFrameCounts": [
+      125,
+      70,
+      3,
+      1,
+      1
+    ],
+    "atlasPixelSizes": [
+      [
+        2048,
+        2047
+      ],
+      [
+        1957,
+        2027
+      ],
+      [
+        1080,
+        1316
+      ],
+      [
+        1079,
+        1097
+      ],
+      [
+        1079,
+        1097
+      ]
+    ],
+    "confirmedFrameNames": [
+      "Buttons/Spin",
+      "Buttons/SpinStop",
+      "Buttons/AutoPlay",
+      "Buttons/AutoPlayStop",
+      "Buttons/Bet",
+      "Buttons/Menu",
+      "Buttons/SoundOn",
+      "Buttons/SoundOff",
+      "Buttons/QuickPlayTurbo",
+      "Bets/Popup",
+      "Multiplier/Blur",
+      "Multiplier/Light",
+      "Multiplier/Numbers"
+    ],
+    "boxFrameNames": [
+      "Box/0",
+      "Box/1",
+      "Box/2",
+      "Box/3",
+      "Box/4",
+      "Box/5",
+      "Box/6",
+      "Box/7",
+      "Box/8"
+    ],
+    "animationEvidence": [
+      "Spine/Wild/Multi hot Wild.json",
+      "Spine/Start/multiplayer.json",
+      "Spine/WinBox/skeleton.json",
+      "Spine/Logo/Multi hot burn wilds logo.json"
+    ],
+    "audioObservation": "pixi-sound.js loaded; actual sound recordings and audible SFX matching not verified this session",
+    "rights": "Reference-only network metadata. No commercial redistribution license or copied media is established."
+  }
 }
