@@ -76,7 +76,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     if(action==='spin')return run(()=>controller.snapshot().status==='RECOVER'?controller.recover():controller.spin());
     if(action==='take')return run(()=>controller.take());if(action==='quick')return controller.setQuick(!controller.quick);
     if(action==='sound'){options.effects=options.music=!(options.effects||options.music);if(options.effects)void Promise.resolve(sound?.unlock?.()).catch(()=>{});sound?.setPreferences?.({...options});render(controller.snapshot());return;}
-    if(action==='auto'){if(controller.snapshot().auto?.active)return controller.stop();return show('auto');}
+    if(action==='auto'){if(controller.snapshot().auto?.active)return controller.stopAuto();return show('auto');}
     if(action==='bet')return show('bet');if(action==='double')return show('gamble');if(action==='menu')return show('menu');
     if(operation==='close'){if(mode==='startup')sound?.setPreferences?.({...options});return close();}
     if(operation==='bet-up'||operation==='bet-down'){betOffset+=operation==='bet-up'?-5:5;return show('bet');}
