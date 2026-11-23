@@ -1,5 +1,6 @@
 import {BURN_WILDS_GAME_ID} from './expansion.mjs';
 import {BurnWildsAudio} from './audio.mjs';
+import {toggleBurnWildsFullscreen} from './fullscreen.mjs';
 import {BurnWildsScene} from './scene.mjs';
 import {BurnWildsController,BURN_WILDS_AUTO_COUNTS} from './controller.mjs';
 import {describeBurnWildsPaytable,BURN_WILDS_PAYLINES} from './rules.mjs';
@@ -56,7 +57,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     if(kind==='gamble')html+='<div class="burn-wilds-choices"><button data-do="red">RED</button><button data-do="black">BLACK</button></div><button data-do="take">TAKE WIN</button>';
     if(kind==='menu'||kind==='rules'||kind==='settings'){
       html+='<nav><button data-do="rules">Rules</button><button data-do="settings">Settings</button></nav>';
-      if(kind==='settings')html+='<label>Sound effects<input type="checkbox" data-setting="effects" '+(options.effects?'checked':'')+'></label><label>Background music<input type="checkbox" data-setting="music" '+(options.music?'checked':'')+'></label>';
+      if(kind==='settings')html+='<label>Sound effects<input type="checkbox" data-setting="effects" '+(options.effects?'checked':'')+'></label><label>Background music<input type="checkbox" data-setting="music" '+(options.music?'checked':'')+'></label>'+'<button type="button" data-do="fullscreen">Fullscreen</button>';
       else{
         const quoted=s.betMinor===null?null:describeBurnWildsPaytable(s.betMinor);html+='<p>Wins are in ETB at the selected total bet.</p>';
         if(quoted)html+='<table><thead><tr><th>Symbol</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody>'+Object.entries(quoted).map(([symbol,pay])=>'<tr><th>'+escape(symbol)+'</th>'+[2,3,4,5].map(n=>'<td>'+(pay[n]===undefined?'—':money(pay[n]))+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
@@ -86,6 +87,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     if(operation==='sound-yes'||operation==='sound-no'){options.effects=options.music=operation==='sound-yes';if(options.effects)void Promise.resolve(sound?.unlock?.()).catch(()=>{});sound?.setPreferences?.({...options});return close();}
     if(operation==='red'||operation==='black'){close();return run(()=>controller.double(operation.toUpperCase()));}
     if(operation==='take'){close();return run(()=>controller.take());}
+    if(operation==='fullscreen')return run(async()=>{const result=await toggleBurnWildsFullscreen(view,doc);if(result.reason){dialog.querySelector('.burn-wilds-dialog-error').textContent=result.reason;return;}close();resize();});
     if(operation==='rules'||operation==='settings')return show(operation);
   },{signal:listeners.signal});
   view.addEventListener('change',event=>{const key=event.target.dataset.setting;if(key in options){options[key]=event.target.checked;
@@ -94,7 +96,9 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
   view.addEventListener('keydown',event=>{if(event.key==='Escape'&&mode){event.preventDefault();close();return;}if(mode||event.repeat||/^(INPUT|BUTTON|SELECT|TEXTAREA)$/.test(event.target.tagName))return;if(event.key===' '||event.key==='Enter'){event.preventDefault();buttons.spin.click();}},{signal:listeners.signal});
   doc.addEventListener('visibilitychange',()=>{if(doc.hidden){controller.pause();sound?.pause?.();}else{controller.resume();sound?.resume?.();}},{signal:listeners.signal});
   win.addEventListener?.('blur',()=>{controller.stopAuto();sound?.pause?.();},{signal:listeners.signal});
-  win.addEventListener?.('resize',resize,{signal:listeners.signal});const observer=win.ResizeObserver?new win.ResizeObserver(resize):null;observer?.observe(view);
+  win.addEventListener?.('resize',resize,{signal:listeners.signal});
+  doc.addEventListener?.('fullscreenchange',resize,{signal:listeners.signal});
+  win.visualViewport?.addEventListener?.('resize',resize,{signal:listeners.signal});const observer=win.ResizeObserver?new win.ResizeObserver(resize):null;observer?.observe(view);
   function dispose(){if(disposed)return;disposed=true;listeners.abort();observer?.disconnect();controller.dispose();sound?.dispose?.();view.remove();mounts.delete(root);}
   const mounted=Object.freeze({controller,scene,resize,dispose});mounts.set(root,mounted);resize();render(controller.snapshot());
   try{await controller.connect();if(!disposed)show('startup');}catch(error){status.textContent=error.code||error.message;}
