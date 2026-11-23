@@ -83,3 +83,38 @@ test('real scene consumes own symbol images per cell, clips reels and caps DPR w
   scene.accept(receipt({requestKey:'key-1',betMinor:100}));scene.draw(10);assert.equal(canvas.width,780);assert.equal(canvas.height,1480);assert.ok(drawn.length>=15);assert.ok(drawn.every(args=>Object.values(images).includes(args[0])));assert.ok(clips.length>=5);
   scene.dispose();assert.throws(()=>new BurnWildsScene({canvas,flameCanvas,artwork:{gameId:'foreign-game',symbols:images}}),/OWN_ARTWORK_REQUIRED/);
 });
+
+
+test('controller refuses a tampered accepted SPIN payout and preserves exact recovery authority',async()=>{
+  const h=harness();await h.controller.connect();
+  h.transport.dispatch=async action=>{
+    h.calls.push(action);
+    return {...receipt(action),winMinor:10001};
+  };
+  await assert.rejects(h.controller.spin(),/OUTCOME_TOTAL_MISMATCH/);
+  assert.equal(h.controller.snapshot().status,'RECOVER');
+  assert.equal(h.controller.snapshot().balanceMinor,10000);
+  assert.equal(h.controller.snapshot().pendingWinMinor,0);
+  assert.equal(h.calls.length,1);
+  const pending=JSON.parse(h.storage.getItem(BURN_WILDS_PENDING_KEY));
+  assert.equal(pending.action.requestKey,h.calls[0].requestKey);
+  h.transport.recover=async action=>{
+    h.calls.push(action);
+    return receipt(action);
+  };
+  await h.controller.recover();
+  assert.equal(h.calls.length,2);
+  assert.deepEqual(h.calls[0],h.calls[1]);
+  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),null);
+  assert.equal(h.controller.snapshot().pendingWinMinor,10000);
+});
+test('reconnect fails closed if old server round has a fabricated winning amount',async()=>{
+  const h=harness();h.transport.state=async()=>({
+    ...structuredClone(h.account),round:{...receipt({requestKey:'reconnect-only',betMinor:100}),winMinor:99999},
+    pendingWinMinor:10000
+  });
+  await assert.rejects(h.controller.connect(),/OUTCOME_TOTAL_MISMATCH/);
+  assert.equal(h.controller.snapshot().status,'BLOCKED');
+  assert.equal(h.controller.snapshot().canPlay,false);
+  assert.equal(h.calls.length,0);
+});
