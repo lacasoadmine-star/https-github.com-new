@@ -90,7 +90,7 @@ export class SuperWildsRenderer {
     if(deadlines&&this.stopped.size===5&&this.lastTime>=deadlines[4]+(this.stopAt!==null?70:150)) {
       this.receipt=this.pendingReceipt;this.pendingReceipt=null;this.phase='IDLE';this.applyReceiptDisplay(this.receipt);
       this.emit('wheel-stop',{multiplier:this.receipt.multiplier});
-      if(this.receipt.winMinor>0)this.emit('win',{winMinor:this.receipt.winMinor});
+      if(this.receipt.winMinor>0)this.emit('win',{winMinor:this.receipt.winMinor,betMinor:this.receipt.betMinor});
       this.emit('settled');
     }
     this.draw();return this.snapshot();
