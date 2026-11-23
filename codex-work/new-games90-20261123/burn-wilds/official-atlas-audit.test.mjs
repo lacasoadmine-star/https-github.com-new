@@ -5,7 +5,9 @@ import {BURN_WILDS_OFFICIAL_ATLASES,BURN_WILDS_REQUIRED_FRAMES,
  inspectCurrentBurnWildsOfficialAtlas} from './official-atlas-audit.mjs';
 function makePacks(){
   const frames=BURN_WILDS_OFFICIAL_ATLASES.map(()=>({}));
-  BURN_WILDS_REQUIRED_FRAMES.forEach((name,i)=>{frames[i%5][name]={
+  // Required frames in this synthetic fixture fit in the largest pack.
+  // Round-robin placement exceeded the 3-, 1- and 1-frame pack capacities.
+  BURN_WILDS_REQUIRED_FRAMES.forEach(name=>{frames[0][name]={
     frame:{x:0,y:0,w:16,h:16},sourceSize:{w:16,h:16},
     rotated:false,trimmed:false};});
   return BURN_WILDS_OFFICIAL_ATLASES.map((pack,index)=>{

@@ -51,10 +51,11 @@ export class BurnWildsController{
         if(!pending||pending.action.action!=='SPIN'||this.scene.snapshot().requestKey!==pending.action.requestKey)throw fail('BURN_WILDS_ACTIVE_PRESENTATION_REQUIRES_RECOVERY');
       }else if(next.round)this.scene.accept(next.round);
       this.host=next;this.pending=pending?freeze(pending):null;this.lastGamble=null;this.betMinor=next.betLevelsMinor.includes(this.betMinor)?this.betMinor:(next.betLevelsMinor[0]??null);
-      this.status=this.pending?'RECOVER':'READY';this.present();this.emit();return this.snapshot();
+      // A collected or lost receipt must not restore a visible pending win.
+      this.status=this.pending?'RECOVER':'READY';this.present({winVisible:next.pendingWinMinor>0});this.emit();return this.snapshot();
     }catch(error){if(version===this.generation&&!this.disposed){this.status='BLOCKED';this.error=error.code||error.message;this.emit();}throw error;}
   }
-  present(){this.scene.setFinancial({balanceMinor:this.host.balanceMinor,betMinor:this.betMinor,pendingWinMinor:this.host.pendingWinMinor,unit:this.host.mode==='SIMULATION'?'TEST ETB':'ETB'});}
+  present({winVisible}={}){this.scene.setFinancial({balanceMinor:this.host.balanceMinor,betMinor:this.betMinor,pendingWinMinor:this.host.pendingWinMinor,unit:this.host.mode==='SIMULATION'?'TEST ETB':'ETB',...(typeof winVisible==='boolean'?{winVisible}:{})});}
   setBet(value){if(this.status!=='READY'||!this.host?.betLevelsMinor.includes(value))return false;this.betMinor=value;this.present();this.emit();return true;}
   setQuick(value){this.quick=!!value;this.emit();}
   spin({automatic=false}={}){

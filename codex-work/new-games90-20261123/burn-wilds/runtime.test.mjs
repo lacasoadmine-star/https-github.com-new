@@ -197,3 +197,27 @@ test('original native scene starts populated, uses a normal roll interval, and e
   assert.equal(scene.snapshot().phase,'IDLE','STOP bypasses remaining normal presentation time');
   scene.dispose();
 });
+
+test('reconnect uses the server pending amount instead of the historical win receipt',async()=>{
+  for(const pendingWinMinor of [0,10000]){
+    const h=harness({simulation:true});let financial;
+    h.account.round=receipt({requestKey:'restored-round',betMinor:100});
+    h.account.pendingWinMinor=pendingWinMinor;
+    h.scene.setFinancial=value=>{financial=value;};
+    await h.controller.connect();
+    assert.equal(financial.winVisible,pendingWinMinor>0);
+    assert.equal(h.controller.snapshot().pendingWinMinor,pendingWinMinor);
+  }
+});
+
+test('small-screen secondary controls retain 44px targets without quick-button overlap',()=>{
+  const overlaps=(a,b)=>a.x<b.x+b.width&&a.x+a.width>b.x&&a.y<b.y+b.height&&a.y+a.height>b.y;
+  for(const [width,height] of [[360,660],[360,740],[390,740],[390,780],[430,820],[1363,768]]){
+    const {controls}=burnWildsLayout(width,height);
+    for(const name of ['quick','menu','sound']){
+      const r=controls[name];assert.ok(r.width>=44&&r.height>=44);
+      assert.ok(r.x>=0&&r.y>=0&&r.x+r.width<=width+.01&&r.y+r.height<=height+.01);
+    }
+    for(const name of ['spin','bet','auto','take','double'])assert.equal(overlaps(controls.quick,controls[name]),false);
+  }
+});

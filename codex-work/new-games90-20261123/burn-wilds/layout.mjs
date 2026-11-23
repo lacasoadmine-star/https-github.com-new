@@ -6,14 +6,20 @@ export function burnWildsLayout(width,height){
   const landscape=width/height>1.3,baseWidth=landscape?1360:390,baseHeight=landscape?768:740;
   const scale=Math.min(width/baseWidth,height/baseHeight),left=(width-baseWidth*scale)/2,top=(height-baseHeight*scale)/2;
   const fit=r=>rect(left+r.x*scale,top+r.y*scale,r.width*scale,r.height*scale);
+  const fitControl=(key,r)=>{
+    const fitted=fit(r);if(!['quick','menu','sound'].includes(key))return fitted;
+    const targetWidth=Math.max(44,fitted.width),targetHeight=Math.max(44,fitted.height);
+    return rect(Math.max(0,Math.min(width-targetWidth,fitted.x+(fitted.width-targetWidth)/2)),
+      Math.max(0,Math.min(height-targetHeight,fitted.y+(fitted.height-targetHeight)/2)),targetWidth,targetHeight);
+  };
   const board=landscape?rect(332,212,680,410):rect(14,181,362,222);
   const controls=landscape?{
     spin:rect(1137,296,156,156),auto:rect(1177,204,80,80),bet:rect(1177,470,80,80),
-    quick:rect(1274,267,48,54),take:rect(1137,574,156,54),double:rect(1177,110,80,64),
+    quick:rect(1304,267,48,54),take:rect(1137,574,156,54),double:rect(1177,110,80,64),
     menu:rect(28,666,58,58),sound:rect(1273,666,58,58),balance:rect(378,664,165,48),stake:rect(806,664,165,48)
   }:{
     spin:rect(143,521,104,104),auto:rect(77,547,54,54),bet:rect(259,547,54,54),
-    quick:rect(239,511,44,44),take:rect(319,547,54,54),double:rect(17,547,54,54),
+    quick:rect(252,497,44,44),take:rect(319,547,54,54),double:rect(17,547,54,54),
     menu:rect(10,657,44,44),sound:rect(336,657,44,44),balance:rect(58,659,126,42),stake:rect(200,659,126,42)
   };
   return Object.freeze({width,height,landscape,scale,stage:fit(rect(0,0,baseWidth,baseHeight)),
@@ -22,7 +28,7 @@ export function burnWildsLayout(width,height){
     wheel:fit(landscape?rect(370,54,604,160):rect(36,99,318,90)),
     logo:fit(landscape?rect(30,93,330,90):rect(79,25,232,65)),
     win:fit(landscape?rect(455,630,430,27):rect(52,421,286,44)),
-    controls:Object.freeze(Object.fromEntries(Object.entries(controls).map(([key,r])=>[key,fit(r)])))
+    controls:Object.freeze(Object.fromEntries(Object.entries(controls).map(([key,r])=>[key,fitControl(key,r)])))
   });
 }
 

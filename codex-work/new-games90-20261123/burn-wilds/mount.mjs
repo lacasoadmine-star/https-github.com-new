@@ -79,6 +79,9 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     if(['red','black','take','recover-gamble'].includes(focused))panel.querySelector('[data-do="'+focused+'"]')?.focus({preventScroll:true});
   }
   function show(kind){
+    // Stop future AUTO wagers before the menu covers its stop control.
+    // The already accepted round keeps its result and presentation.
+    if(kind==='menu')controller.stopAuto();
     const s=controller.snapshot(),unit=s.unit||'ETB';if(!mode)returnFocus=doc.activeElement;mode=kind;dialog.dataset.mode=kind;dialog.hidden=false;
     let html=heading(kind==='bet'?'Choose bet':kind==='auto'?'Autoplay':kind==='gamble'?'X2':kind==='startup'?'Enable sound?':'Game menu');
     if(kind==='startup')html+='<div class="burn-wilds-choices"><button data-do="sound-yes">YES</button><button data-do="sound-no">NO</button></div>';
