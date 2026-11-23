@@ -6,7 +6,7 @@ import {burnWildsLayout} from './layout.mjs';
 import {BurnWildsController,BURN_WILDS_PENDING_KEY} from './controller.mjs';
 import {BurnWildsScene} from './scene.mjs';
 
-const grid=[['seven','orange','cherry'],['seven','plum','cherry'],['seven','lemon','cherry'],['seven','bell','cherry'],['seven','bell','cherry']];
+const grid=[['seven','orange','cherry'],['seven','plum','cherry'],['seven','lemon','cherry'],['seven','bell','cherry'],['seven','bell','orange']];
 const receipt=action=>({gameId:BURN_WILDS_GAME_ID,requestKey:action.requestKey,clientToken:action.requestKey,roundId:'r-'+action.requestKey,
   originalGrid:grid,finalGrid:grid,expandedColumns:[],winLines:[{id:2,rows:[0,0,0,0,0],winMinor:10000}],
   betMinor:action.betMinor,multiplier:1,winMinor:10000,balanceMinor:9900,pendingWinMinor:10000});
