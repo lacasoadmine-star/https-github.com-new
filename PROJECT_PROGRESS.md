@@ -1,3 +1,14 @@
+## 2026-11-23 — NEW90: self-hosted media separation (fresh branch)
+
+- Separate new source branch: `work/new90-fresh-20261123`, preserving the earlier 74 games, production accounts, worker code and financial ledger without modification.
+- New game #1 Burn Wilds: `codex-work/new-games90-20261123/fresh-burn-wilds/contract.mjs` validates authenticated ETB session, 5x3 final grid, server-settled round receipt, associated ledger IDs, and original wager identity. It does not invent game outcomes, payout probabilities, media, or credit.
+- Added `fresh-burn-wilds/geo-independent-assets.mjs` and `geo-independent-assets.test.mjs`: licensed same-origin asset manifest, MIME and redirect validation, deny external CDN/dependency, and no browser locale/IP-based shortcut. Eight local Node tests passed. Actual media bundles are not yet installed, nor is this module mounted on Player Worker.
+- Official SmartSoft Burn Wilds Play Demo loader was opened in a fresh remote browser on 2026-11-23; it responded 200 with `Sorry, this game is not available in your country`. Browser returned no game canvas or interactive demo spin. No proxy, VPN, spoofed geo headers or geography bypass was used. Do not claim the official game could be inspected interactively.
+- This separation does not override provider's geo restriction, gambling licensing or operator policy. Authorised demo access or an independently licensed game-artwork source is required before claiming media/gameplay fidelity. The cash-release gate stays closed.
+- New complete, live-authenticated, server-settled games: **0/90**. GitHub source commits are not a Worker deployment; production Worker is unchanged by this entry. Further work: bring in authorised game-specific assets, connect to existing authenticated backend and ledger, test in isolated environment, then perform post-deploy live acceptance before any cash enablement.
+
+---
+
 ## 2026-11-23 — fresh demo and authenticated Player session refresh
 
 - Reopened SmartSoft's currently published **Multi Hot 5 Burn Wilds** page in a browser: https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds . The page exposed the official **Play Demo** link to its `MultiHot5BurnWilds` loader; this only verifies the official navigation, not a successful authenticated demo SPIN, 1:1 animation, RTP or payout.
