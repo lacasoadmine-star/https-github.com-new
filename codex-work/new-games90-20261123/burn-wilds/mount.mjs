@@ -77,7 +77,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     }
     dialog.innerHTML='<div role="dialog" aria-modal="true">'+html+'<p class="burn-wilds-dialog-error" role="status"></p></div>';render(s);dialog.querySelector('button')?.focus({preventScroll:true});
   }
-  const run=async operation=>{try{await operation();}catch(error){const message=error.code||error.message;if(mode)dialog.querySelector('.burn-wilds-dialog-error').textContent=message;else status.textContent=message;}};
+  const run=async operation=>{try{await operation();}catch(error){const message=error.code||error.message;if(mode){const target=dialog.querySelector('.burn-wilds-dialog-error');if(target)target.textContent=message;}else{render(controller.snapshot());const label=doc.createTextNode(message);status.insertBefore(label,retrySession);}}};
   view.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button||button.disabled)return;
     // A visible dialog owns all input until it closes; touches behind it cannot wager.
