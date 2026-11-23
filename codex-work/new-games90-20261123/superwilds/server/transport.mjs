@@ -85,9 +85,12 @@ export function createSuperWildsTransport({ service, request } = {}) {
     // Read the actual host state after acceptance. In particular the next
     // SPIN prepares collection of the actual pending round, and recovery can
     // observe a later accepted action from another tab without overwriting it.
-    await state();
-    return deepFreeze({ ...receipt, action: action.action, acceptedAction: copy(action),
-      pendingWinMinor: action.action === 'TAKE' ? 0 : receipt.pendingWinMinor,
+    const fresh = await state();
+    if (!fresh.round?.roundId) fail('SUPERWILDS_READBACK_ROUND_MISSING', 503);
+    const sameRound = fresh.round.roundId === receipt.roundId;
+    return deepFreeze({ ...receipt, balanceMinor: fresh.balanceMinor,
+      action: action.action, acceptedAction: copy(action),
+      pendingWinMinor: action.action === 'TAKE' ? 0 : sameRound ? fresh.round.pendingWinMinor : 0,
       ...(action.action === 'TAKE' ? { collectionId: result.collection.collectionId, collected: true,
         amountMinor: number(result.collection.amount),
         requestKey: result.requestKey } : {}) });
