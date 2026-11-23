@@ -1,0 +1,1 @@
+import previous from '../newrequested90r1/entry.mjs';export {LocalDemoWallet,NativeGameResources} from '../newrequested90r1/entry.mjs';import config from './worker-assets.mjs';import {createNew90Worker} from './worker.mjs';import {mountRequested90Games} from '../new90pagesr1/games.mjs';export default createNew90Worker(mountRequested90Games(previous),config);
