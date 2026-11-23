@@ -1,0 +1,8 @@
+{
+  "name":"superwin-local-demo-tests",
+  "main":"local-demo.mjs",
+  "compatibility_date":"2026-10-01",
+  "durable_objects":{"bindings":[{"name":"LOCAL_DEMO_WALLETS","class_name":"LocalDemoWallet"}]},
+  "migrations":[{"tag":"local-demo-v1","new_sqlite_classes":["LocalDemoWallet"]}],
+  "observability":{"enabled":true,"traces":{"enabled":true}}
+}

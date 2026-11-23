@@ -18,6 +18,8 @@ _PLACEHOLDER_ENV = {
 
 def _load_env_file() -> None:
     """Fill missing variables from the repo .env. A real value replaces a known placeholder."""
+    if os.environ.get("SUPERWIN_SKIP_ENV_FILE") == "1":
+        return
     env_path = Path(__file__).resolve().parents[3] / ".env"
     if not env_path.is_file():
         return
