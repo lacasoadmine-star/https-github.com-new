@@ -25,13 +25,17 @@ function normalizeState(raw){
   if(raw?.authenticated!==true||raw.currency!=='ETB'||!guard.test(raw.sessionGuard||''))throw error('PLAYER_SESSION',403);
   const game=raw.game;
   if(!game||game.gameId!==BURN_WILDS_GAME_ID)throw error('GAME_NOT_REGISTERED',404);
-  if(!models.every(key=>typeof game[key]==='string'&&game[key].length>0)||
-     !guard.test(game.mathSha256||'')||!Array.isArray(game.betLevels)||!game.betLevels.length)throw error('MODEL');
+  if(!Array.isArray(game.betLevels))throw error('MODEL');
+  // An unreleased game has no approved model/bet ladder. Permit read-only
+  // rendering of its existing Player route without inventing a wager.
+  const hasModel=models.every(key=>typeof game[key]==='string'&&game[key].length>0)&&
+    guard.test(game.mathSha256||'');
   const bets=game.betLevels.map(amount);
+  if((!hasModel||bets.length===0)&&game.enabled===true)throw error('MODEL');
   if(bets.some(x=>x<=0)||new Set(bets).size!==bets.length)throw error('BET_LEVELS');
   // The existing host must explicitly approve a matching real-money release.
   // A renderable local game is not financial permission.
-  const approved=game.enabled===true&&game.freshReleaseReady===true&&
+  const approved=hasModel&&bets.length>0&&game.enabled===true&&game.freshReleaseReady===true&&
     game.productionApproved===true&&game.probabilityModelAudited===true&&
     game.assetRightsVerified===true&&game.settlementMode==='SERVER_IMMEDIATE'&&
     raw.blockedByActiveGame===false&&game.wagerAvailability!=='house_capacity';
@@ -40,7 +44,7 @@ function normalizeState(raw){
     authenticated:true,currency:'ETB',canPlay:approved,
     balanceMinor:amount(raw.balance),pendingWinMinor:0,round:null,
     betLevelsMinor:bets,canDouble:false,
-    model:Object.fromEntries(models.map(key=>[key,game[key]]))};
+    model:hasModel?Object.fromEntries(models.map(key=>[key,game[key]])):null};
 }
 export function createBurnWildsExistingHostTransport({fetcher=globalThis.fetch,timeoutMs=20000}={}){
   if(typeof fetcher!=='function'||!Number.isSafeInteger(timeoutMs)||timeoutMs<1||timeoutMs>60000)throw error('DEPENDENCIES');
