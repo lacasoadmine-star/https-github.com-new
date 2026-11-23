@@ -1,3 +1,17 @@
+# Current existing-host M20 continuation — 23 November 2026
+
+The actual existing Player transport is now composed in `entry.mjs`, `host-transport.mjs`, `host-presentation.mjs` and `native-scene-adapter.mjs`. The UI identity remains `zplay72_multi_hot_20_v1`; the preserved host identity is `fresh_multihot20`. SPIN, X2 and state use only `/api/slots/spin`, `/api/slots/gamble` and `/api/slots/fresh-state`. Existing release/model/house-capacity gates remain authoritative. No wallet, account, balance, probability or production flag is created or modified by this frontend.
+
+SPIN and X2 persist the original existing-storage keys before submission. Lost replies replay the same stake, choice, model and action UUID. Invalid wallet receipts retain recovery; explicit unaccepted rejections release only that request. X2 is now reachable from the native Double button with RED/BLACK choices, current server limits, result and recovery controls. TAKE after X2 acknowledges the accepted doubled amount. The existing server settles immediately, so TAKE is a read-only refresh and cannot credit a win twice. That accounting contract is preserved explicitly and is not represented as provider-deferred settlement parity.
+
+The same game's retained original atlases, symbols, wheel, win artwork and sounds are loaded through their existing verified native asset manifest. Native control art now changes with SPIN/STOP/AUTO/SOUND/disabled states. Holding the main pointer continues after each accepted presentation; release, page hiding, blur and errors cancel the continuation. Startup asks Yes/No for sound. Historical restoration starts no new celebration or wager. Native receipt currency and cap metadata are retained so the existing winning-line animation works.
+
+The bounded suite passed 62 source checks, including delayed X2/TAKE ordering, reload recovery, invalid receipts and the compiled Worker/KV route. The final art/hold wiring compiles in the release bundle. The local browser launch could not reach a page because Chromium's `socket()` was denied by the execution environment. It is not a passing browser or live financial verification. The release wrapper is prepared in `../m20-release`; it remains off by default and source preparation does not make a game complete.
+
+These media are recovered same-game assets, not new provider downloads. Full current visual/audio parity and authenticated production settlement remain unverified. The preserved historical component notes follow and describe their earlier checkpoint, not the newly prepared release.
+
+---
+
 # Multi Hot 20 continuation
 
 This is the existing new M20 identity `zplay72_multi_hot_20_v1`. It continues its retained renderer rather than counting a second M20 or replacing an old live game. No existing source, routes, accounts, financial evaluator or production data changed.

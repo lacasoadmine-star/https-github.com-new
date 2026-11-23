@@ -1,4 +1,5 @@
 import { GAME_ID, quoteLineCandidates } from './presentation-quote.mjs';
+import { isHostPresentation } from './host-presentation.mjs';
 
 // Presentation state only. This module cannot generate outcomes, charge stakes or credit wins.
 export const OBSERVED_BETS = Object.freeze(['0.20','0.40','0.60','0.80','1.00','2.00','3.00','4.00','5.00']);
@@ -19,6 +20,7 @@ export const amount = minor => {
 
 /** Shape and observed line quote validation, never a full financial or RNG validator. */
 export function validatePresentation(view) {
+  if (isHostPresentation(view)) return view;
   if (!view || view.gameId !== GAME_ID || !keyOK(view.requestKey) || !keyOK(view.roundId)) fail('PRESENTATION_IDENTITY_REQUIRED');
   const betMinor = moneyMinor(view.bet, { positive: true }), winMinor = moneyMinor(view.winAmount);
   const quote = quoteLineCandidates({ gameId: GAME_ID, gridRows: view.grid, totalBetMinor: betMinor, multiplier: view.multiplier });
@@ -33,14 +35,17 @@ export function validatePresentation(view) {
 }
 
 export class MultiHot20Controls {
-  constructor({ bet = '0.20', roundIntentsEnabled = false, onChange = () => {} } = {}) {
-    if (!OBSERVED_BETS.includes(bet)) fail('UNOBSERVED_BET');
+  constructor({ bet = '0.20', betLevels = OBSERVED_BETS, roundIntentsEnabled = false, serverAuthoritative = false, onChange = () => {} } = {}) {
+    if (!Array.isArray(betLevels) || !betLevels.length || new Set(betLevels).size !== betLevels.length) fail('BET_LEVELS_REQUIRED');
+    for (const value of betLevels) moneyMinor(value, {positive:true});
+    this.betLevels = Object.freeze([...betLevels]);
+    if (!this.betLevels.includes(bet)) fail('UNOBSERVED_BET');
     this.onChange = onChange; this.roundIntentsEnabled = roundIntentsEnabled === true;
     this.usedKeys = new Set(); this.seenRounds = new Map();
     this.state = { gameId: GAME_ID, phase: 'READY', bet, modal: null, rulesBet: bet,
       settings: { effects: true, music: true, fullscreen: false, quick: false },
-      pending: null, round: null, balance: null, stopRequested: false,
-      auto: null, financialEnabled: false, lastLocalEvent: null };
+      pending: null, round: null, gamble: null, lastAction: null, balance: null, stopRequested: false,
+      auto: null, financialEnabled: serverAuthoritative === true && roundIntentsEnabled === true, lastLocalEvent: null };
   }
   snapshot() { return clone({ ...this.state, roundIntentsEnabled: this.roundIntentsEnabled }); }
   change() { const snapshot = this.snapshot(); this.onChange(snapshot); return snapshot; }
@@ -49,22 +54,41 @@ export class MultiHot20Controls {
   setBalance(value) { moneyMinor(value); this.state.balance = value; return this.change(); }
   selectBet(value) {
     if (this.state.phase !== 'READY' || this.state.pending || this.state.auto?.active) fail('BET_LOCKED');
-    if (!OBSERVED_BETS.includes(value)) fail('UNOBSERVED_BET');
+    if (!this.betLevels.includes(value)) fail('UNOBSERVED_BET');
     this.state.bet = value; this.state.modal = null; return this.change();
   }
   setRulesBet(value) {
-    if (!OBSERVED_BETS.includes(value)) fail('UNOBSERVED_RULES_BET');
+    if (!this.betLevels.includes(value)) fail('UNOBSERVED_RULES_BET');
     this.state.rulesBet = value; return this.change();
   }
   openModal(modal) {
-    if (!['rules','settings','bet','auto','quick'].includes(modal)) fail('UNOBSERVED_PANEL');
-    if (!this.idle()) fail('PANEL_LOCKED');
+    if (!['rules','settings','bet','auto','quick','double','sound-choice'].includes(modal)) fail('UNOBSERVED_PANEL');
+    if (modal!=='sound-choice'&&!this.idle()) fail('PANEL_LOCKED');
     if (modal === 'bet' && this.state.phase === 'WIN_PENDING') fail('BET_LOCKED');
     this.state.modal = modal;
     if (modal === 'rules') this.state.rulesBet = this.state.bet;
     return this.change();
   }
   closeModal() { this.state.modal = null; return this.change(); }
+  restoreRound(view,action=null,gamble=null) {
+    if(this.state.pending||this.state.phase!=='READY')fail('RESTORE_ROUND_LOCKED');
+    this.state.round=validatePresentation(view);this.state.lastAction=action;this.state.gamble=gamble;
+    this.state.phase=moneyMinor(this.currentWin())>0?'WIN_PENDING':'READY';return this.change();
+  }
+  currentWin() {return this.state.lastAction?.roundId===this.state.round?.roundId?this.state.lastAction.payout:this.state.round?.winAmount??'0.00';}
+  updateGamble(value) {
+    if(value!==null&&(value.roundId!==this.state.round?.roundId||!Number.isInteger(value.attempt)||value.attempt<0||value.maxAttempts!==5||value.maxStake!=='500.00'))fail('GAMBLE_STATE_MISMATCH');
+    this.state.gamble=value?clone(value):null;return this.change();
+  }
+  restorePending(intent) {
+    if(intent?.action==='GAMBLE'){
+      if(this.state.pending||!this.state.round||intent.roundId!==this.state.round.roundId||!keyOK(intent.requestKey)||!['RED','BLACK'].includes(intent.choice))fail('RESTORE_GAMBLE_INVALID');
+      moneyMinor(intent.expectedStake,{positive:true});this.claim(intent.requestKey);this.state.pending={...intent};this.state.phase='RECOVERY_REQUIRED';return this.change();
+    }
+    if (this.state.pending || !this.idle() || intent?.gameId !== GAME_ID || intent.action !== 'SPIN' || !keyOK(intent.requestKey)) fail('RESTORE_PENDING_INVALID');
+    moneyMinor(intent.bet, {positive:true}); this.claim(intent.requestKey);
+    this.state.bet = intent.bet; this.state.pending = {...intent,auto:false}; this.state.phase = 'RECOVERY_REQUIRED';return this.change();
+  }
   setSetting(name, value) {
     if (!Object.hasOwn(this.state.settings, name) || typeof value !== 'boolean') fail('INVALID_SETTING');
     // Own follow-up M20 DOM states: effects OFF -> both off; effects ON from both off -> both on.
@@ -92,10 +116,7 @@ export class MultiHot20Controls {
   acceptReceipt(input) {
     const view = validatePresentation(input), serial = JSON.stringify(view);
     const pending = this.state.pending;
-    // A previously accepted round cannot satisfy a later pending action.
-    // Reject it before duplicate suppression so the controller retains the
-    // later request key and exposes recovery instead of waiting forever.
-    if (pending && (pending.action !== 'SPIN' || view.requestKey !== pending.requestKey || view.bet !== pending.bet)) fail('RECEIPT_BINDING_MISMATCH');
+    if(pending&&(pending.action!=='SPIN'||view.requestKey!==pending.requestKey||view.bet!==pending.bet))fail('RECEIPT_BINDING_MISMATCH');
     if (this.seenRounds.has(view.roundId)) {
       if (this.seenRounds.get(view.roundId) !== serial) fail('CONFLICTING_ROUND_REPLAY');
       return false;
@@ -103,7 +124,7 @@ export class MultiHot20Controls {
     if (!pending || pending.action !== 'SPIN' || !['WAITING_RECEIPT','RECOVERY_REQUIRED'].includes(this.state.phase)) fail('UNEXPECTED_RECEIPT');
     if (view.requestKey !== pending.requestKey || view.bet !== pending.bet) fail('RECEIPT_BINDING_MISMATCH');
     this.seenRounds.set(view.roundId, serial);
-    this.state.round = view; this.state.pending = null; this.state.phase = 'ANIMATING';
+    this.state.round = view; this.state.gamble=null;this.state.lastAction=null;this.state.pending = null; this.state.phase = 'ANIMATING';
     if (view.balance !== null) this.state.balance = view.balance;
     if (pending.auto && this.state.auto) {
       this.state.auto.remaining--;
@@ -139,20 +160,38 @@ export class MultiHot20Controls {
     const p = this.state.pending;
     if (!p || p.action !== 'TAKE' || !['TAKE_PENDING','RECOVERY_REQUIRED'].includes(this.state.phase) ||
       ack?.gameId !== GAME_ID || ack.requestKey !== p.requestKey || ack.roundId !== p.roundId ||
-      ack.collected !== true || ack.amount !== this.state.round.winAmount) fail('TAKE_ACK_MISMATCH');
+      ack.collected !== true || ack.amount !== this.currentWin()) fail('TAKE_ACK_MISMATCH');
     if (ack.balance != null) { moneyMinor(ack.balance); this.state.balance = ack.balance; }
-    this.state.pending = null; this.state.phase = 'READY'; this.change(); return true;
+    this.state.pending = null; this.state.phase = 'READY';if(this.state.gamble)this.state.gamble.available=false;this.change(); return true;
+  }
+  requestGamble(requestKey,choice) {
+    const g=this.state.gamble;
+    if(!this.roundIntentsEnabled||this.state.phase!=='WIN_PENDING'||this.state.pending||!g?.available||g.roundId!==this.state.round?.roundId||
+      (this.state.modal&&this.state.modal!=='double')||!['RED','BLACK'].includes(choice))fail('GAMBLE_LOCKED');
+    this.claim(requestKey);
+    const intent=Object.freeze({action:'GAMBLE',gameId:GAME_ID,requestKey,roundId:g.roundId,choice,expectedAttempt:g.attempt+1,expectedStake:g.stake});
+    this.state.pending=intent;this.state.phase='GAMBLE_PENDING';this.change();return intent;
+  }
+  acceptGamble(ack) {
+    const p=this.state.pending;
+    if(!p||p.action!=='GAMBLE'||!['GAMBLE_PENDING','RECOVERY_REQUIRED'].includes(this.state.phase)||ack?.gameId!==GAME_ID||
+      ack.requestKey!==p.requestKey||ack.roundId!==p.roundId||ack.choice!==p.choice||ack.attempt!==p.expectedAttempt||ack.stake!==p.expectedStake||
+      !['RED','BLACK'].includes(ack.color)||ack.won!==(ack.color===p.choice)||moneyMinor(ack.payout)!==(ack.won?moneyMinor(p.expectedStake)*2:0))fail('GAMBLE_ACK_MISMATCH');
+    moneyMinor(ack.balance);this.state.balance=ack.balance;this.state.lastAction=clone(ack);this.state.pending=null;
+    this.state.phase=moneyMinor(ack.payout)>0?'WIN_PENDING':'READY';
+    this.state.gamble={roundId:p.roundId,available:false,attempt:ack.attempt,stake:ack.payout,maxAttempts:ack.maxAttempts,maxStake:ack.maxStake,lastResult:clone(ack)};
+    this.change();return true;
   }
   uncertain(requestKey) {
     if (!this.state.pending || requestKey !== this.state.pending.requestKey) fail('PENDING_KEY_MISMATCH');
     this.state.phase = 'RECOVERY_REQUIRED'; if (this.state.auto) this.state.auto.active = false;
     this.change(); return clone(this.state.pending);
   }
-  cancelUnsent(requestKey) {
-    if (!this.state.pending || requestKey !== this.state.pending.requestKey || this.state.phase === 'RECOVERY_REQUIRED') fail('UNSENT_CANCELLATION_NOT_PROVED');
+  cancelUnsent(requestKey, { definitiveRejection = false } = {}) {
+    if (!this.state.pending || requestKey !== this.state.pending.requestKey || (this.state.phase === 'RECOVERY_REQUIRED'&&!definitiveRejection)) fail('UNSENT_CANCELLATION_NOT_PROVED');
     const pending = this.state.pending;
     this.state.pending = null;
-    this.state.phase = pending.action === 'TAKE' || pending.collectRoundId ? 'WIN_PENDING' : 'READY';
+    this.state.phase = ['TAKE','GAMBLE'].includes(pending.action) || pending.collectRoundId ? 'WIN_PENDING' : 'READY';
     if (this.state.auto) this.state.auto.active = false;
     this.change(); return true;
   }

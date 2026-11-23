@@ -8,7 +8,7 @@ import { createSuperWildsHttpHandler } from './http.mjs';
  * Construction does not run SQL, enable a model or install a route. The host
  * must use legacyDependencies and the symmetric guard for its old routes too.
  */
-export function createSuperWildsHostIntegration({ dependencies, getApprovedModel, releaseEnabled, uuid, now } = {}) {
+export function createSuperWildsHostIntegration({ dependencies, getApprovedModel, releaseEnabled, getApprovedGambleModel, gambleEnabled, uuid, now } = {}) {
   const required = ['transaction', 'authenticate', 'sessionGuard', 'hash', 'lockWallets', 'balance',
     'houseFor', 'assertNoActive', 'assertPlayerCapacity', 'activeRound'];
   if (!required.every(name => typeof dependencies?.[name] === 'function') ||
@@ -31,7 +31,7 @@ export function createSuperWildsHostIntegration({ dependencies, getApprovedModel
       await ownership.assertNoActive(client, userId);
     },
   });
-  const configuration = Object.fromEntries(Object.entries({ getApprovedModel, releaseEnabled, uuid, now })
+  const configuration = Object.fromEntries(Object.entries({ getApprovedModel, releaseEnabled, getApprovedGambleModel, gambleEnabled, uuid, now })
     .filter(([, value]) => value !== undefined));
   const lifecycle = createSuperWildsPostgresService({ ...configuration,
     transaction: d.transaction, authenticate: d.authenticate, sessionGuard: d.sessionGuard, hash: d.hash,

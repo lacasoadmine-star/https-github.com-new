@@ -1,6 +1,7 @@
 export const GAME_ID = 'zplay72_multi_hot_5_super_wilds_v1';
 export const AUTO_COUNTS = Object.freeze([25,50,100,500,1000]);
 const KEY = /^[A-Za-z0-9_-]{16,128}$/;
+const SHA = /^[a-f0-9]{64}$/i;
 const clone = value => structuredClone(value);
 const fail = code => { throw new Error('SUPERWILDS_' + code); };
 const minor = (value, positive=false) => {
@@ -18,6 +19,26 @@ export function validateReceipt(value, intent) {
 }
 export const rendererReceipt=value=>clone({roundId:value.roundId,grid:value.grid,multiplier:value.multiplier,
   winningLines:value.winningLines??[],winMinor:value.winMinor,betMinor:value.betMinor});
+const baseView=value=>{const result=clone(value);for(const key of ['pendingWinMinor','winPending','gamble','acceptedAction','action'])delete result[key];return result;};
+const positiveInteger=value=>Number.isSafeInteger(value)&&value>0;
+function gambleEvent(value,roundId){
+  if(!value||value.gameId!==GAME_ID||value.roundId!==roundId||!KEY.test(value.requestKey??'')||
+    !['RED','BLACK'].includes(value.choice)||!['RED','BLACK'].includes(value.color)||typeof value.won!=='boolean'||
+    !positiveInteger(value.attempt)||typeof value.gambleVersion!=='string'||!value.gambleVersion||!SHA.test(value.gambleSha256??''))fail('GAMBLE_RECEIPT');
+  minor(value.pendingWinBeforeMinor,true);minor(value.pendingWinAfterMinor);
+  return clone(value);
+}
+export function validateGambleDescriptor(value,roundId){
+  if(value===null||value===undefined)return null;
+  if(typeof value.available!=='boolean'||!Number.isSafeInteger(value.attempt)||value.attempt<0||
+    !positiveInteger(value.nextAttempt)||!Array.isArray(value.history)||value.roundId!==roundId)fail('GAMBLE_STATE');
+  minor(value.pendingWinMinor);if(value.targetWinMinor!==null)minor(value.targetWinMinor,true);
+  if(value.available&&(!positiveInteger(value.pendingWinMinor)||!positiveInteger(value.targetWinMinor)||
+    typeof value.version!=='string'||!value.version||!SHA.test(value.sha256??'')))fail('GAMBLE_STATE');
+  const history=value.history.map(item=>gambleEvent(item,roundId));
+  if(history.some((item,index)=>item.attempt!==index+1)||history.length!==value.attempt||value.nextAttempt!==value.attempt+1)fail('GAMBLE_HISTORY');
+  return clone({...value,history});
+}
 
 /** Receipts and balances are accepted only from the injected authenticated host.
  * The action journal contains only a request identity/payload, never money state.
@@ -31,7 +52,7 @@ export class SuperWildsController {
     this.renderer=renderer;this.now=now;this.receiptValidator=receiptValidator;this.seen=new Map();this.busy=null;this.disposed=false;
     this.storageKey=`zplay:superwilds:action:${subject}`;
     this.data={gameId:GAME_ID,phase:'DISCONNECTED',connected:false,canPlay:false,canDouble:false,betMinor:null,balanceMinor:null,
-      betLevels:[],round:null,pending:null,auto:null,history:[],error:null};
+      betLevels:[],round:null,pending:null,pendingWinMinor:0,gamble:null,lastGamble:null,feedback:null,auto:null,history:[],error:null};
     try { const saved=JSON.parse(this.storage?.getItem(this.storageKey)??'null');
       if(saved?.subject===subject && saved?.intent?.gameId===GAME_ID && KEY.test(saved.intent.requestKey??'') &&
           ['SPIN','TAKE','DOUBLE'].includes(saved.intent.action)) this.data.pending=clone(saved.intent);
@@ -55,9 +76,16 @@ export class SuperWildsController {
     minor(s.balanceMinor);if(bet!==null){minor(bet,true);if(!ladder.includes(bet))fail('HOST_BET_INVALID');}
     this.data.connected=true;this.data.canPlay=s.canPlay===true;this.data.canDouble=s.canDouble===true;
     this.data.betLevels=[...ladder];this.data.betMinor=bet;this.data.balanceMinor=s.balanceMinor;
-    if(s.round){const receipt=validateReceipt(s.round,{requestKey:s.round.requestKey,betMinor:s.round.betMinor});this.data.round=receipt;}
-    this.data.phase=this.data.pending?'RECOVERY':s.round?.winPending===true||s.pendingWinMinor>0?'WIN_PENDING':'READY';
+    if(s.round){const receipt=validateReceipt(s.round,{requestKey:s.round.requestKey,betMinor:s.round.betMinor});this.data.round=baseView(receipt);}
+    const pendingWin=s.pendingWinMinor??s.round?.pendingWinMinor??(s.round?.winPending===true?s.round.winMinor:0);minor(pendingWin);
+    if(pendingWin>0&&!s.round)fail('PENDING_WIN_BINDING');this.data.pendingWinMinor=pendingWin;
+    this.setGamble(s.gamble??null);this.data.lastGamble=this.data.gamble?.history.at(-1)??null;
+    this.data.phase=this.data.pending?'RECOVERY':pendingWin>0?'WIN_PENDING':'READY';
     this.data.error=null;this.changed();return true;
+  }
+  setGamble(value){
+    this.data.gamble=validateGambleDescriptor(value,this.data.round?.roundId??null);
+    this.data.canDouble=this.data.gamble?.available===true&&this.data.gamble.pendingWinMinor===this.data.pendingWinMinor;
   }
   selectBet(value){
     if(this.data.phase!=='READY'||this.data.pending||this.data.auto?.active)fail('BET_LOCKED');
@@ -70,7 +98,7 @@ export class SuperWildsController {
     if(['WAITING','ANIMATING','RECOVERY'].includes(this.data.phase)&&(!this.data.pending||this.data.pending.action==='SPIN')){
       this.renderer?.stop(this.now());return false;
     }
-    if(!this.data.connected||!this.data.canPlay||this.data.pending||!['READY','WIN_PENDING'].includes(this.data.phase))return false;
+    if(!this.data.connected||!this.data.canPlay||this.busy||this.data.pending||!['READY','WIN_PENDING'].includes(this.data.phase))return false;
     if(this.data.auto?.active&&!auto)return false;
     if(auto&&(!this.data.auto?.active||this.data.auto.remaining<1))return false;
     const action={gameId:GAME_ID,action:'SPIN',requestKey:this.newKey(),betMinor:this.data.betMinor,
@@ -81,7 +109,7 @@ export class SuperWildsController {
     return this.send(intent,false,auto);
   }
   async take(){
-    if(this.disposed||!this.data.connected||this.data.phase!=='WIN_PENDING'||this.data.pending)return false;
+    if(this.disposed||!this.data.connected||this.busy||this.data.phase!=='WIN_PENDING'||this.data.pending)return false;
     this.stopAuto('TAKE');
     const action={gameId:GAME_ID,action:'TAKE',requestKey:this.newKey(),betMinor:this.data.round.betMinor,roundId:this.data.round.roundId};
     const intent=this.transport.prepare?this.transport.prepare(action):action;
@@ -89,9 +117,11 @@ export class SuperWildsController {
   }
   async double(choice){
     if(!['RED','BLACK'].includes(choice))fail('GAMBLE_CHOICE');
-    if(this.disposed||!this.data.connected||!this.data.canPlay||!this.data.canDouble||this.data.phase!=='WIN_PENDING'||this.data.pending)return false;
+    if(this.disposed||!this.data.connected||this.busy||!this.data.canDouble||this.data.phase!=='WIN_PENDING'||this.data.pending)return false;
     this.stopAuto('DOUBLE');
-    const action={gameId:GAME_ID,action:'DOUBLE',requestKey:this.newKey(),betMinor:this.data.round.betMinor,roundId:this.data.round.roundId,choice};
+    const action={gameId:GAME_ID,action:'DOUBLE',requestKey:this.newKey(),betMinor:this.data.round.betMinor,roundId:this.data.round.roundId,choice,
+      expectedPendingWinMinor:this.data.pendingWinMinor,expectedAttempt:this.data.gamble.nextAttempt,
+      gambleVersion:this.data.gamble.version,gambleSha256:this.data.gamble.sha256};
     const intent=this.transport.prepare?this.transport.prepare(action):action;
     this.journal(intent);this.data.pending=intent;this.data.phase='DOUBLE_PENDING';this.changed();return this.send(intent);
   }
@@ -107,22 +137,32 @@ export class SuperWildsController {
         if(old&&old!==encoded)fail('CONFLICTING_RECEIPT');
         minor(receipt.balanceMinor);
         if(intent.action==='SPIN'){
-          const view=this.receiptValidator(receipt,intent);this.data.round=view;
+          const view=this.receiptValidator(receipt,intent);this.data.round=baseView(view);
+          const pendingWin=view.pendingWinMinor??view.winMinor;minor(pendingWin);this.data.pendingWinMinor=pendingWin;this.data.lastGamble=null;
+          this.setGamble(receipt.gamble??null);
           this.renderer?.acceptReceipt(rendererReceipt(view),this.now());this.data.phase='ANIMATING';
           if(auto&&this.data.auto)this.data.auto.remaining--;
         }else if(intent.action==='TAKE'){
-          if(receipt.roundId!==intent.roundId||receipt.collected!==true||receipt.amountMinor!==this.data.round?.winMinor)fail('TAKE_ACK');
-          this.data.round={...this.data.round,winPending:false};this.data.phase='READY';
+          if(receipt.roundId!==intent.roundId||receipt.collected!==true)fail('TAKE_ACK');minor(receipt.amountMinor,true);
+          // The server collects its current locked pending award. Another tab
+          // may have gambled since this UI read it; the immutable collection
+          // receipt, not the original base-game award, is the amount authority.
+          this.data.pendingWinMinor=0;this.setGamble(receipt.gamble??null);this.data.phase='READY';
         }else{
-          if(receipt.roundId!==intent.roundId||typeof receipt.won!=='boolean'||!['RED','BLACK'].includes(receipt.color))fail('DOUBLE_ACK');
-          minor(receipt.winMinor);this.data.round={...this.data.round,winMinor:receipt.winMinor,winPending:receipt.winMinor>0};
-          this.data.phase=receipt.winMinor>0?'WIN_PENDING':'READY';
+          const accepted=gambleEvent(receipt,intent.roundId);
+          if(accepted.choice!==intent.choice||accepted.attempt!==intent.expectedAttempt||
+            accepted.pendingWinBeforeMinor!==intent.expectedPendingWinMinor||accepted.gambleVersion!==intent.gambleVersion||
+            accepted.gambleSha256!==intent.gambleSha256)fail('DOUBLE_ACK');
+          this.data.pendingWinMinor=receipt.pendingWinMinor??accepted.pendingWinAfterMinor;minor(this.data.pendingWinMinor);this.data.lastGamble=accepted;
+          this.setGamble(receipt.gamble??null);this.data.phase=this.data.pendingWinMinor>0?'WIN_PENDING':'READY';
         }
-        this.seen.set(intent.requestKey,encoded);this.data.history.unshift({action:intent.action,roundId:receipt.roundId,betMinor:intent.betMinor,winMinor:receipt.winMinor??receipt.amountMinor??0});
+        this.seen.set(intent.requestKey,encoded);this.data.history.unshift({action:intent.action,roundId:receipt.roundId,betMinor:intent.betMinor,
+          winMinor:intent.action==='DOUBLE'?receipt.pendingWinAfterMinor:receipt.winMinor??receipt.amountMinor??0});
+        if(!old&&!recovery&&['DOUBLE','TAKE'].includes(intent.action))this.data.feedback={action:intent.action,requestKey:intent.requestKey,won:receipt.won??null};
         this.data.history=this.data.history.slice(0,100);this.data.balanceMinor=receipt.balanceMinor;this.data.pending=null;this.data.error=null;this.clearJournal();this.changed();return true;
       }catch(error){
         if(!this.disposed){this.data.phase='RECOVERY';this.data.error=String(error?.message??error);this.stopAuto('CONNECTION');this.onError(error);this.changed();}return false;
-      }finally{this.busy=null;}
+      }finally{this.busy=null;this.changed();}
     };
     this.busy=Promise.resolve().then(run);return this.busy;
   }
@@ -132,9 +172,7 @@ export class SuperWildsController {
   }
   finishPresentation(roundId){
     if(this.data.phase!=='ANIMATING'||this.data.round?.roundId!==roundId)return false;
-    // A concurrent authenticated TAKE may have settled this accepted win while its reels played.
-    const pending = this.data.round.pendingWinMinor ?? this.data.round.winMinor;
-    this.data.phase=pending>0?'WIN_PENDING':'READY';
+    this.data.phase=this.data.pendingWinMinor>0?'WIN_PENDING':'READY';
     const a=this.data.auto;
     if(a?.active){const delta=this.data.balanceMinor-a.startBalanceMinor;
       if(a.remaining<=0||(a.winLimit!==null&&this.data.round.winMinor>=a.winLimit)||

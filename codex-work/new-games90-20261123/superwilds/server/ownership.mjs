@@ -1,3 +1,4 @@
+import { deriveSuperWildsPending } from './gamble-state.mjs';
 import { isDeepStrictEqual } from 'node:util';
 import { GAME_ID, minor, SuperWildsError } from './lifecycle.mjs';
 
@@ -19,7 +20,7 @@ function units(value, positive = false) {
   if (typeof value !== 'string' || !UINT.test(value) || BigInt(value) > MAX || positive && BigInt(value) === 0n) fail('SUPERWILDS_SHARED_AMOUNT_INVALID');
   return BigInt(value);
 }
-const actions = Object.freeze({ legacy: ['SPIN', 'GAMBLE', 'PICK'], m10: ['SPIN', 'TAKE_WIN', 'GAMBLE'], superwilds: ['SPIN', 'TAKE_WIN'] });
+const actions = Object.freeze({ legacy: ['SPIN', 'GAMBLE', 'PICK'], m10: ['SPIN', 'TAKE_WIN', 'GAMBLE'], superwilds: ['SPIN', 'TAKE_WIN', 'GAMBLE'] });
 
 // The lock namespace and canonical lock key match the earlier M10 guard.
 // All relations and SQL identifiers are fixed; caller identities are parameters.
@@ -138,6 +139,7 @@ export function createGuardedSuperWildsM10Lifecycle({ createLifecycle, dependenc
 }
 
 export const ROUND_SQL = Object.freeze({
+  gambles: `SELECT receipt FROM sw_new_superwilds.gambles WHERE user_id=$1 AND round_id=$2::uuid ORDER BY attempt LIMIT 1001`,
   journal: `SELECT round_id::text,user_id,game_id,request_key::text,stake_minor::text,win_minor::text,receipt
  FROM sw_new_superwilds.rounds WHERE round_id=$1::uuid FOR SHARE`,
   insertOrder: `INSERT INTO sw_rebuild.rounds(id,user_id,game,bet,payout,outcome)
@@ -228,10 +230,14 @@ export function createSuperWildsRoundOwnership({ lockWallets } = {}) {
         const stake = units(row.stake_minor, true), win = units(row.win_minor, true), held = units(row.amount_minor, true);
         // M10 may increase its pending win through its own journalled gamble;
         // this hook does not overwrite that original receipt or reinterpret it.
-        if (gameId === GAME_ID && held !== win) fail('SUPERWILDS_ACTIVE_JOURNAL_MISMATCH');
         const token = row.receipt?.requestKey;
         if (!UUID.test(token ?? '') || row.request_key !== token.toLowerCase()) fail('SUPERWILDS_ACTIVE_JOURNAL_MISMATCH');
         acceptedReceipt(row.receipt, gameId, row.round_id, token, stake, win);
+        if (gameId === GAME_ID) {
+          const events = rows(await client.query(ROUND_SQL.gambles, [userId, row.round_id]), 'SUPERWILDS_GAMBLE_JOURNAL_INVALID');
+          const derived = deriveSuperWildsPending(row.receipt, events.map(event => event.receipt));
+          if (derived.pendingMinor !== held) fail('SUPERWILDS_ACTIVE_JOURNAL_MISMATCH');
+        }
         active.push({ gameId, roundId: row.round_id });
       }
     }

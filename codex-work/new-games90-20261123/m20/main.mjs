@@ -9,39 +9,48 @@ import { AUTO_LIMIT_FIELDS, readAutoOptions } from './auto-options.mjs';
 
 const LABELS = Object.freeze({ menu: 'Menu', sound: 'Sound', quick: 'Quick spin', bet: 'Bet', auto: 'Autoplay',
   double: 'Double', spin: 'HOLD & SPIN', take: 'Take win' });
-const FINANCIAL = new Set(['spin','take','double','auto-start']);
+const FINANCIAL = new Set(['spin','take','double','auto-start','gamble-red','gamble-black','gamble-take']);
 const own = (value, name) => Object.prototype.hasOwnProperty.call(value, name);
 let mountOrdinal = 0;
 
 /** Runnable same-game entry. Native assets and authenticated host transport are explicit dependencies. */
 export function mountMultiHot20({ root, assets, transport = null, samples = {}, initialBet = '0.20',
-  audioFactory, keyFactory, onError = () => {} } = {}) {
+  audioFactory, keyFactory, rendererFactory = null, askSound = false, onError = () => {} } = {}) {
   const document = root?.ownerDocument, window = document?.defaultView;
-  if (!document || !window || !assets?.atlas?.draw || !assets?.background) throw new TypeError('M20_MOUNT_DEPENDENCIES');
+  if (!document || !window || (rendererFactory ? typeof rendererFactory !== 'function' : !assets?.atlas?.draw || !assets?.background)) throw new TypeError('M20_MOUNT_DEPENDENCIES');
   if (root.dataset.m20Mounted === 'true') throw new Error('M20_ALREADY_MOUNTED');
   const enabled = transport?.canPlay === true;
+  const host = transport?.serverAuthoritative === true, hostState = host ? transport.snapshot() : null;
+  const betLevels = hostState?.betLevels?.length ? hostState.betLevels : OBSERVED_BETS;
+  if (host && !betLevels.includes(initialBet)) initialBet = betLevels[0];
   if (enabled && transport.currency !== 'ETB') throw new TypeError('M20_HOST_CURRENCY');
   root.dataset.m20Mounted = 'true'; root.classList.add('m20-root'); root.tabIndex = 0;
-  const listeners = [], buttons = new Map(), held = new Set(); let disposed = false, frameId, currentLayout, dialogOrigin = null, clickId = 0;
+  const listeners = [], buttons = new Map(), held = new Set(); let disposed = false, frameId, currentLayout, dialogOrigin = null, clickId = 0, holdPointer=null,suppressPointerClick=false;
   const dialogId = `m20-dialog-title-${++mountOrdinal}`;
   const on = (node, type, handler, options) => { node.addEventListener(type, handler, options); listeners.push(() => node.removeEventListener(type, handler, options)); };
   const stage = document.createElement('div'); stage.className = 'm20-stage';
   const scene = document.createElement('canvas'); scene.className = 'm20-scene'; scene.setAttribute('aria-label', 'Multi Hot 20 reels and multiplier');
   const nativeCanvas = document.createElement('canvas');
   const controlsLayer = document.createElement('div'); controlsLayer.className = 'm20-controls';
-  const live = document.createElement('p'); live.className = 'm20-status'; live.setAttribute('role', 'status'); live.textContent = enabled ? '' : 'Visual preview';
+  const live = document.createElement('p'); live.className = 'm20-status'; live.setAttribute('role', 'status'); live.textContent = enabled ? '' : host ? 'Game temporarily unavailable.' : 'Visual preview';
   const overlay = document.createElement('div'); overlay.className = 'm20-overlay'; overlay.hidden = true;
   const panel = document.createElement('section'); panel.className = 'm20-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.tabIndex = -1;
   overlay.append(panel); stage.append(scene, controlsLayer, overlay); root.replaceChildren(stage, live);
-  const controls = new MultiHot20Controls({ bet: initialBet, roundIntentsEnabled: enabled });
+  const controls = new MultiHot20Controls({ bet: initialBet, betLevels, roundIntentsEnabled: enabled, serverAuthoritative:host });
   const audio = new MultiHot20Audio({ samples, ...(audioFactory ? { audioFactory } : {}) });
-  const renderer = new MultiHot20Renderer({ canvas: nativeCanvas, atlas: assets.atlas, background: assets.background, art: assets.art,
-    onEvent: event => audio.handle(event) });
-  renderer.setDisplay({ currency: enabled ? 'ETB' : 'DMO', balance: null, bet: initialBet });
+  const rendererOptions = { canvas: nativeCanvas, atlas: assets.atlas, background: assets.background, art: assets.art,
+    onEvent: event => audio.handle(event) };
+  const renderer = rendererFactory ? rendererFactory(rendererOptions) : new MultiHot20Renderer(rendererOptions);
+  renderer.setDisplay({ currency: enabled || host ? 'ETB' : 'DMO', balance: null, bet: initialBet });
   const controller = transport ? new MultiHot20Controller({ controls, renderer, transport, ...(keyFactory ? { keyFactory } : {}),
     now: () => window.performance.now(), onChange: () => sync(), onError: error => {
-      live.textContent = 'Connection interrupted. Recover the pending round before playing again.'; onError(error); sync();
+      holdPointer=null;live.textContent = 'Connection interrupted. Recover the pending round before playing again.'; onError(error); sync();
     } }) : null;
+  if (hostState?.balance != null) controls.setBalance(hostState.balance);
+  if(hostState?.lastPresentation){controls.restoreRound(hostState.lastPresentation,hostState.lastAction,hostState.gamble);
+    renderer.restore?.(hostState.lastPresentation);if(hostState.lastAction)renderer.applyGamble?.(hostState.lastAction);}
+  const restored = host ? transport.pendingIntent() : null;
+  if (restored) { controls.restorePending(restored); if(restored.action==='SPIN')renderer.begin(restored,window.performance.now()); }
 
   function resize() {
     if (disposed) return;
@@ -75,11 +84,18 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   function title(text) { const header = document.createElement('header'), label = document.createElement('h2'); label.id = dialogId; label.textContent = text;
     header.append(label, button('Close', 'close')); panel.append(header); panel.setAttribute('aria-labelledby', label.id); }
   function open(name, origin) {
-    controls.openModal(name); if (overlay.hidden) dialogOrigin = origin || document.activeElement;
-    panel.replaceChildren(); title(name === 'rules' ? 'Rules and paytable' : name[0].toUpperCase() + name.slice(1));
-    if (name === 'bet') {
+    holdPointer=null;controls.openModal(name); if (overlay.hidden) dialogOrigin = origin || document.activeElement;
+    panel.replaceChildren(); title(name === 'rules' ? 'Rules and paytable' : name==='double'?'Double win':name==='sound-choice'?'Sound':name[0].toUpperCase() + name.slice(1));
+    if(name==='sound-choice'){
+      const caption=document.createElement('p');caption.textContent='Would you like sound?';panel.append(caption,button('Yes','sound-on'),button('No','sound-off'));
+    } else if(name==='double'){
+      const stake=document.createElement('p');stake.dataset.gambleStake='';const card=document.createElement('p');card.dataset.gambleCard='';card.className='m20-gamble-card';
+      const limits=document.createElement('p');limits.dataset.gambleLimits='';const state=document.createElement('p');state.dataset.gambleStatus='';state.setAttribute('role','status');
+      const choices=document.createElement('div');choices.className='m20-gamble-choices';choices.append(button('Red ♥','gamble-red'),button('Black ♠','gamble-black'));
+      panel.append(stake,card,limits,state,choices,button('Take win','gamble-take'),button('Recover result','gamble-recover'));paintGamble();
+    } else if (name === 'bet') {
       const options = document.createElement('div'); options.className = 'm20-bet-grid';
-      for (const value of OBSERVED_BETS) { const item = button(value, 'choose-bet', value); item.setAttribute('aria-pressed', String(value === controls.snapshot().bet)); options.append(item); }
+      for (const value of betLevels) { const item = button(value, 'choose-bet', value); item.setAttribute('aria-pressed', String(value === controls.snapshot().bet)); options.append(item); }
       panel.append(options);
     } else if (name === 'rules') {
       const navigation = document.createElement('nav'); navigation.append(button('Settings', 'settings'), button('−', 'rules-down'), button('+', 'rules-up'));
@@ -131,51 +147,84 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
       node.textContent = numerator % denominator === 0n ? amount(Number(numerator / denominator)) : `${numerator}/${denominator} minor units`;
     }
   }
+  function paintGamble(){
+    const s=controls.snapshot(),g=s.gamble,result=s.lastAction?.roundId===s.round?.roundId?s.lastAction:null;
+    const stake=panel.querySelector('[data-gamble-stake]');if(!stake)return;
+    stake.textContent=`WIN ${controls.currentWin()} ETB`;
+    const card=panel.querySelector('[data-gamble-card]');card.textContent=result?(result.color==='RED'?'♥':'♠'):'?';card.dataset.colour=result?.color??'';
+    card.setAttribute('aria-label',result?`${result.color.toLowerCase()} card`:'Card not drawn');
+    panel.querySelector('[data-gamble-limits]').textContent=g?`Attempt ${g.attempt} of ${g.maxAttempts} · Maximum ${g.maxStake} ETB`:'';
+    panel.querySelector('[data-gamble-status]').textContent=s.phase==='GAMBLE_PENDING'?'Revealing card…':s.phase==='RECOVERY_REQUIRED'?'Recover the original result to continue.':result?(result.won?'Win doubled':'No win'):g?.available?'Choose a colour':'Double is not available for this round.';
+    for(const name of ['gamble-red','gamble-black'])panel.querySelector(`[data-action="${name}"]`).disabled=!g?.available||s.phase!=='WIN_PENDING';
+    panel.querySelector('[data-action="gamble-take"]').disabled=s.phase!=='WIN_PENDING';
+    const recover=panel.querySelector('[data-action="gamble-recover"]');recover.hidden=s.phase!=='RECOVERY_REQUIRED';recover.disabled=!!controller?.inflight;
+  }
   function sync() {
     if (disposed) return;
     const s = controls.snapshot(), view = renderer.snapshot(), moving = view.phase !== 'IDLE';
     renderer.setDisplay({ bet: s.bet, balance: s.balance, quick: s.settings.quick }); audio.setting(s.settings);
     const main = buttons.get('spin'), recovering = s.phase === 'RECOVERY_REQUIRED';
-    main.querySelector('.m20-control-label').textContent = recovering ? 'RECOVER' : moving ? 'STOP' : 'HOLD & SPIN';
+    main.querySelector('.m20-control-label').textContent = recovering ? 'RECOVER' : s.auto?.active ? String(s.auto.remaining) : moving ? 'STOP' : 'HOLD & SPIN';
+    main.classList.toggle('show-native-caption',recovering||!!s.auto?.active);
     main.setAttribute('aria-label', recovering ? 'Recover current round' : moving ? 'Stop current spin' : 'HOLD & SPIN');
     if (recovering) live.textContent = 'Connection interrupted. Recover the current round before playing again.';
     else if (enabled) live.textContent = s.auto?.active ? `Autoplay: ${s.auto.remaining} remaining` : '';
     for (const [name, node] of buttons) {
-      node.disabled = (FINANCIAL.has(name) && !enabled) || (name === 'auto' && !enabled) ||
+      node.disabled = (FINANCIAL.has(name) && !enabled && !(name === 'spin' && recovering && host)) || (name === 'auto' && !enabled) ||
         (name === 'bet' && (!controls.idle() || s.phase === 'WIN_PENDING' || s.auto?.active)) ||
-        (name === 'take' && (!enabled || s.phase !== 'WIN_PENDING')) || name === 'double';
+        (name === 'take' && (!enabled || s.phase !== 'WIN_PENDING')) ||
+        (name === 'double' && (!host || s.phase!=='WIN_PENDING' || typeof transport.refreshGamble!=='function'));
       if (['menu','quick'].includes(name) && !controls.idle()) node.disabled = true;
       if (name === 'auto' && !controls.idle() && !s.auto?.active) node.disabled = true;
+      if(assets.controlArt){const art=assets.controlArt(name,{disabled:node.disabled,spinning:moving,autoplay:!!s.auto?.active,quick:s.settings.quick,sound:s.settings.effects});
+        if(node.dataset.texture!==art.texture||node.dataset.autoplayArt!==String(!!s.auto?.active)){node.querySelector('svg.control-art')?.remove();node.prepend(art.create());node.classList.add('has-native-art');node.dataset.texture=art.texture;node.dataset.autoplayArt=String(!!s.auto?.active);}}
       node.setAttribute('aria-pressed', String(name === 'quick' ? s.settings.quick : name === 'sound' ? s.settings.effects : name === 'auto' ? !!s.auto?.active : false));
     }
+    if(s.modal==='double')paintGamble();
     if (overlay.hidden) controlsLayer.inert = false;
-    root.dataset.phase = s.phase; root.dataset.cashEnabled = 'false';
+    root.dataset.phase = s.phase; root.dataset.cashEnabled = String(enabled && host);
   }
   async function action(name, value, origin) {
     if (disposed) return;
-    if (!enabled && FINANCIAL.has(name)) return;
+    if (!enabled && FINANCIAL.has(name) && !(name === 'spin' && controls.snapshot().phase === 'RECOVERY_REQUIRED' && host)) return;
+    if(name==='sound-off'){controls.setSetting('effects',false);audio.setting(controls.snapshot().settings);}
     audio.unlock(); audio.once('button', `local-${++clickId}`);
     try {
       if (name === 'close') close();
+      else if(name==='sound-on'||name==='sound-off'){controls.setSetting('effects',name==='sound-on');close();}
+      else if(name==='double'){await controller?.loadGamble();open('double',origin);}
+      else if(name==='gamble-red'||name==='gamble-black'){
+        const ok=await controller?.gamble(name==='gamble-red'?'RED':'BLACK');if(ok&&controls.snapshot().phase==='WIN_PENDING')await controller?.loadGamble();
+      }
+      else if(name==='gamble-take'){close();await controller?.take();}
+      else if(name==='gamble-recover'){const ok=await controller?.recover();if(ok&&controls.snapshot().phase==='WIN_PENDING')await controller?.loadGamble();}
       else if (name === 'menu') open('rules', origin);
       else if (name === 'bet' || name === 'quick' || name === 'settings') open(name, origin);
       else if (name === 'sound') controls.setSetting('effects', !controls.snapshot().settings.effects);
       else if (name === 'auto') { if (controls.snapshot().auto?.active) controller?.stopAuto(); else open('auto', origin); }
       else if (name === 'spin') {
-        if (controls.snapshot().phase === 'RECOVERY_REQUIRED') await controller?.recover(); else await controller?.spin();
+        if (controls.snapshot().phase === 'RECOVERY_REQUIRED') {
+          const ok=await controller?.recover();if(ok&&controls.snapshot().lastAction&&controls.snapshot().phase==='WIN_PENDING')await controller?.loadGamble();
+        } else await controller?.spin();
       }
       else if (name === 'take') await controller?.take();
       else if (name === 'choose-bet') { controls.selectBet(value); close(); }
       else if (name === 'rules-up' || name === 'rules-down') {
-        const current = OBSERVED_BETS.indexOf(controls.snapshot().rulesBet), next = Math.max(0, Math.min(OBSERVED_BETS.length - 1, current + (name === 'rules-up' ? 1 : -1)));
-        controls.setRulesBet(OBSERVED_BETS[next]); paintRules();
+        const current = betLevels.indexOf(controls.snapshot().rulesBet), next = Math.max(0, Math.min(betLevels.length - 1, current + (name === 'rules-up' ? 1 : -1)));
+        controls.setRulesBet(betLevels[next]); paintRules();
       } else if (name === 'auto-start') {
         controller?.configureAuto(readAutoOptions(panel)); controller?.startAuto(); close();
       }
       sync();
-    } catch (error) { onError(error); live.textContent = error.message; }
+    } catch (error) { holdPointer=null;onError(error); live.textContent = error.message; }
   }
+  on(buttons.get('spin'),'pointerdown',event=>{
+    const s=controls.snapshot();if(event.button!==0||!enabled||s.auto?.active||s.modal||!controls.idle()||controller?.inflight)return;
+    event.preventDefault();holdPointer=event.pointerId;suppressPointerClick=true;buttons.get('spin').setPointerCapture?.(event.pointerId);void action('spin');
+  });
+  for(const name of ['pointerup','pointercancel','lostpointercapture'])on(buttons.get('spin'),name,event=>{if(holdPointer===event.pointerId)holdPointer=null;});
   on(stage, 'click', event => { const node = event.target.closest?.('button[data-action]'); if (!node || node.disabled || !stage.contains(node)) return;
+    if(node.dataset.action==='spin'&&event.detail>0&&suppressPointerClick){suppressPointerClick=false;return;}
     void action(node.dataset.action, node.dataset.value, node); });
   on(panel, 'change', async event => {
     const limitName = event.target.dataset.autoEnabled;
@@ -203,10 +252,10 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
     activateFromKeyboard(event, { root, scene, held, action });
   });
   on(root, 'keyup', event => { held.delete(event.key); });
-  on(window, 'blur', () => { held.clear(); controller?.stopAuto(); audio.setHidden(true); });
+  on(window, 'blur', () => { held.clear();holdPointer=null; controller?.stopAuto(); audio.setHidden(true); });
   on(window, 'focus', () => audio.setHidden(document.hidden));
-  on(document, 'visibilitychange', () => { held.clear(); audio.setHidden(document.hidden); controller?.setHidden(document.hidden); });
-  on(window, 'pagehide', () => { held.clear(); audio.setHidden(true); controller?.setHidden(true); });
+  on(document, 'visibilitychange', () => { held.clear();holdPointer=null; audio.setHidden(document.hidden); controller?.setHidden(document.hidden); });
+  on(window, 'pagehide', () => { held.clear();holdPointer=null; audio.setHidden(true); controller?.setHidden(true); });
   on(window, 'pageshow', () => { audio.setHidden(document.hidden); controller?.setHidden(document.hidden); });
   on(document, 'fullscreenchange', () => { controls.setSetting('fullscreen', !!document.fullscreenElement); resize(); sync(); });
   const observer = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(resize) : null;
@@ -215,14 +264,15 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
     if (disposed) return;
     if (!document.hidden) {
       if (controller) controller.frame(now); else renderer.render(now);
+      if(holdPointer!==null&&controller&&!controller.inflight&&controls.idle()&&!controls.snapshot().modal&&!controls.snapshot().auto?.active)void controller.spin();
       const { crop } = currentLayout, ctx = scene.getContext('2d'); ctx.clearRect(0, 0, scene.width, scene.height);
       ctx.drawImage(nativeCanvas, crop.x, crop.y, crop.width, crop.height, 0, 0, scene.width, scene.height);
     }
     frameId = window.requestAnimationFrame(frame);
   }
-  resize(); sync(); frameId = window.requestAnimationFrame(frame);
+  resize(); sync();if(askSound)open('sound-choice');frameId = window.requestAnimationFrame(frame);
   return Object.freeze({ controls, renderer, controller, audio, snapshot: () => controller?.snapshot() || controls.snapshot(),
-    dispose() { if (disposed) return; disposed = true; controller?.dispose(); audio.dispose(); observer?.disconnect();
+    dispose() { if (disposed) return; disposed = true; controller?.dispose(); audio.dispose(); renderer.dispose?.(); observer?.disconnect();
       window.cancelAnimationFrame(frameId); for (const remove of listeners) remove(); root.replaceChildren(); delete root.dataset.m20Mounted; root.classList.remove('m20-root'); }
   });
 }

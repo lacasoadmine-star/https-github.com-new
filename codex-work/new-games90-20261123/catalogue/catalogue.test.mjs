@@ -124,7 +124,7 @@ function reviewedRelease(index=1) {
 
 test('explicit verified releases pack the retained canonical route and render a normal full-card Play link',async()=>{
   const descriptor=reviewedRelease();
-  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[descriptor]});
+  const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',releaseDescriptors:[descriptor]});
   assert.equal(build.config.catalogue.readyCount,1);
   assert.equal(build.report.readyCount,1);
   assert.equal(build.report.releaseDescriptors[0].gameId,'zplay72_multi_hot_5_super_wilds_v1');
@@ -147,15 +147,57 @@ test('incomplete, aliased, missing-asset, duplicate and cross-route release desc
     d=>delete d.assets.manifestSha256,d=>delete d.backend.mountedModuleSha256,d=>d.release.proof.gameId='other',
     d=>d.reference.manualReferenceRounds=6,d=>d.duplicateOfGameId='other'];
   for(const mutate of attempts){const descriptor=reviewedRelease();mutate(descriptor);
-    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[descriptor]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);}
+    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',releaseDescriptors:[descriptor]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);}
   const descriptor=reviewedRelease();
-  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[descriptor,descriptor]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',releaseDescriptors:[descriptor,descriptor]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);
   const alias=reviewedRelease(48);alias.duplicateOfGameId=null;
-  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',releaseDescriptors:[alias]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',releaseDescriptors:[alias]}),/NEW90_RELEASE_DESCRIPTOR_UNVERIFIED/);
+});
+
+function installedRuntime(index=1){
+  const game=registry.games[index];
+  return{gameId:game.gameId,route:game.route,installed:true,sourceCommit:'e'.repeat(40),assetManifestSha256:'f'.repeat(64),
+    existingWallet:true,authRequired:true,financialGatePassed:true,backendRelease:'synthetic-existing-host-release'};
+}
+
+test('installed authenticated runtimes expose their exact hosted Play routes without asserting completed games or parity',async()=>{
+  const descriptors=[installedRuntime(1),installedRuntime(3)];
+  const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',sourceCommit:'e'.repeat(40),launchDescriptors:descriptors});
+  const projected=build.config.catalogue;
+  assert.equal(projected.readyCount,0);assert.equal(build.report.readyCount,0);assert.equal(projected.launchableCount,2);
+  assert.equal(build.report.releaseDescriptors.length,0);assert.deepEqual(build.report.launchDescriptors,descriptors);
+  for(const descriptor of descriptors){const game=projected.games.find(g=>g.gameId===descriptor.gameId);
+    assert.equal(game.route,null);assert.equal(game.launchRoute,descriptor.route);assert.equal(game.playable,false);assert.equal(game.status,'preparing');
+    assert.equal(Object.hasOwn(game,'proof'),false);
+  }
+  const html=renderSection(projected);assert.equal((html.match(/class="game-tile new90-action"/g)||[]).length,2);
+  assert.match(html,/2 la furi karo · 88 dhisid ku jira/);
+  assert.match(html,/href="\/new-games72\/multi-hot-20\/" aria-label="Play Multi Hot 20"/);
+  assert.match(html,/href="\/new-games72\/multi-hot-5-super-wilds\/" aria-label="Play Multi Hot 5 Super Wilds"/);
+  assert.equal(publicCatalogue(registry).readyCount,0);assert.equal(publicCatalogue(registry).launchableCount,undefined);
+  assert.equal(registry.games[1].release.liveVerified,false);assert.equal(registry.games[3].release.liveVerified,false);
+});
+
+test('launch descriptors fail closed without authenticated existing-wallet financial gates, canonical source and nonaliased identities',async()=>{
+  const edits=[d=>d.installed=false,d=>d.authRequired=false,d=>d.existingWallet=false,d=>d.financialGatePassed=false,
+    d=>d.sourceCommit='a'.repeat(40),d=>d.assetManifestSha256='invalid',d=>delete d.assetManifestSha256,d=>d.backendRelease='',
+    d=>d.route='/new-games90/other-game/',d=>d.gameId='zplay90_unknown_v1'];
+  for(const change of edits){const descriptor=installedRuntime();change(descriptor);
+    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',sourceCommit:'e'.repeat(40),launchDescriptors:[descriptor]}),/NEW90_LAUNCH_UNVERIFIED/);
+  }
+  const descriptor=installedRuntime();
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',sourceCommit:'e'.repeat(40),launchDescriptors:[descriptor,descriptor]}),/NEW90_LAUNCH_UNVERIFIED/);
+  const alias=installedRuntime(registry.games.findIndex(g=>g.duplicateOfGameId));
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',sourceCommit:'e'.repeat(40),launchDescriptors:[alias]}),/NEW90_LAUNCH_UNVERIFIED/);
+  await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',sourceCommit:null,launchDescriptors:[{...descriptor,sourceCommit:null}]}),/NEW90_LAUNCH_UNVERIFIED/);
+  const copied=structuredClone(registry),game=copied.games.find(g=>g.gameId===descriptor.gameId);
+  game.runtime=descriptor;game.identityReservedOnly=false;game.frontend.implemented=true;
+  assert.equal(publicCatalogue(copied).launchableCount,1);game.duplicateOfGameId='alias';assert.equal(publicCatalogue(copied).launchableCount,undefined);
 });
 
 test('malformed public data cannot mount a fake ready card or unsafe link',() => {
-  const changes=[v=>v.readyCount++,v=>v.games[0].playable=true,v=>v.games[0].status='ready',v=>v.games[0].route='/api/spin',v=>v.games[0].previewRoute='javascript:alert(1)',v=>v.games[1].gameId=v.games[0].gameId,v=>v.games[0].name='MultiHot5'];
+  const changes=[v=>v.readyCount++,v=>v.games[0].playable=true,v=>v.games[0].status='ready',v=>v.games[0].route='/api/spin',v=>v.games[0].previewRoute='javascript:alert(1)',v=>v.games[1].gameId=v.games[0].gameId,v=>v.games[0].name='MultiHot5',
+    v=>v.games[0].launchRoute='//untrusted.invalid/game/',v=>v.games[0].launchRoute='/api/slots/spin',v=>v.launchableCount=1];
   for(const change of changes){const copied=structuredClone(catalogue);change(copied);assert(!validCatalogue(copied));assert.throws(()=>renderSection(copied));}
 });
 
@@ -205,7 +247,7 @@ test('root transformation removes only former active catalogue loader while pres
   assert.equal(await response.text(),html);
 });
 
-test('r2 wraps the active r1-decorated root, replacing its loader and section exactly once',async()=>{
+test('r3 wraps the active r2-decorated root, replacing its loader and section exactly once',async()=>{
   class FixtureRewriter {
     handlers=[];
     on(selector,handler){this.handlers.push([selector,handler]);return this;}
@@ -235,14 +277,14 @@ test('r2 wraps the active r1-decorated root, replacing its loader and section ex
   assert.equal((html.match(/data-zplay-new90-style/g)||[]).length,1);
   assert.match(html,new RegExp('/_zplay/new90/'+config.assetRevision+'/client\\.mjs'));
   assert.doesNotMatch(html,new RegExp('/_zplay/new90/'+'b'.repeat(24)+'/'));
-  assert.doesNotMatch(html,/Earlier catalogue markup|id="zplay-requested90"/,'r2 client mounts its one fresh section after HTML transformation');
+  assert.doesNotMatch(html,/Earlier catalogue markup|id="zplay-requested90"/,'r3 client mounts its one fresh section after HTML transformation');
   assert(html.includes(rows),'all original game rows retain exact bytes');
   assert.match(html,/id="existing-auth" src="\/auth.js"/);
   assert.equal(response.headers.get('Set-Cookie'),'session=unchanged');
   assert.equal(response.headers.get('X-Existing'),'retained');
-  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs'});
-  assert(build.modules.every(module=>module.name.startsWith('newrequested90r2/')));
-  assert.match(build.modules[0].source,/\.\.\/newrequested90r1\/entry\.mjs/);
+  const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs'});
+  assert(build.modules.every(module=>module.name.startsWith('newrequested90r3/')));
+  assert.match(build.modules[0].source,/\.\.\/newrequested90r2\/entry\.mjs/);
 });
 
 test('non-HTML, unsuccessful, non-root and HEAD responses bypass HTML transformation',async () => {
@@ -255,30 +297,30 @@ test('non-HTML, unsuccessful, non-root and HEAD responses bypass HTML transforma
 });
 
 test('additive build contains exactly four new modules, exact data and immutable existing entry import',async () => {
-  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs'});
+  const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs'});
   assert.equal(build.modules.length,4);assert(build.report.totalBytes<=BYTE_BUDGET);assert.equal(build.report.readyCount,0);
   assert.deepEqual(build.config.catalogue,catalogue);
-  assert.match(build.modules[0].source,/\.\.\/newrequested90r1\/entry\.mjs/);
+  assert.match(build.modules[0].source,/\.\.\/newrequested90r2\/entry\.mjs/);
   assert.match(build.modules[0].source,/export \{LocalDemoWallet,NativeGameResources\}/);
-  for(const name of ['../escape.mjs','/root.mjs','newrequested90r2/entry.mjs','entry.js'])assert.throws(()=>entryModule(name));
+  for(const name of ['../escape.mjs','/root.mjs','newrequested90r3/entry.mjs','entry.js'])assert.throws(()=>entryModule(name));
 });
 
 test('optional M20 visual preview needs reviewed per-game route and pinned own asset closure',async () => {
   const descriptor={gameId:'zplay72_multi_hot_20_v1',route:'/new-games72/multi-hot-20/preview/',enabled:true,readOnly:true,assetClosureVerified:true,sourceCommit:'d'.repeat(40),assetManifestSha256:'e'.repeat(64)};
-  const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',previewDescriptors:[descriptor]});
+  const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',previewDescriptors:[descriptor]});
   assert.equal(build.config.catalogue.games[3].previewRoute,descriptor.route);
   assert.equal(build.config.catalogue.games[3].playable,false);
   assert.equal(build.report.previewDescriptors[0].assetManifestSha256,descriptor.assetManifestSha256);
   for(const change of [d=>d.readOnly=false,d=>d.assetClosureVerified=false,d=>delete d.sourceCommit,d=>d.route='/new-games72/multi-hot-10/preview/',d=>d.gameId='zplay90_unknown_v1']){
     const copied=structuredClone(descriptor);change(copied);
-    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r1/entry.mjs',previewDescriptors:[copied]}),/NEW90_PREVIEW_DESCRIPTOR_UNVERIFIED/);
+    await assert.rejects(()=>buildDeployment({activeMainModule:'newrequested90r2/entry.mjs',previewDescriptors:[copied]}),/NEW90_PREVIEW_DESCRIPTOR_UNVERIFIED/);
   }
 });
 
 test('exact generated artifact rejects module drift before runtime loading',async () => {
   const directory=await mkdtemp(resolve(tmpdir(),'zplay90-artifact-'));
   try {
-    const build=await buildDeployment({activeMainModule:'newrequested90r1/entry.mjs'});
+    const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs'});
     await writeDeployment(directory,build);
     const loaded=await loadDeployment(directory);
     assert.deepEqual(loaded.config,build.config);

@@ -5,6 +5,8 @@ const WALLET_METHODS = ['lockWallets', 'assertReady', 'playerBalance', 'houseBal
   'debitStake', 'reserveWin', 'creditReservedWin', 'assertNoActiveRound', 'claimActiveRound',
   'releaseActiveRound', 'assertPlayerCapacity', 'activeRound'];
 export const SQL = Object.freeze({
+  gambles: 'SELECT action_id::text,round_id::text,user_id,attempt,request_key::text,stake_minor::text,payout_minor::text,receipt FROM sw_new_superwilds.gambles WHERE user_id=$1 AND round_id=$2::uuid ORDER BY attempt LIMIT 1001',
+  insertGamble: 'INSERT INTO sw_new_superwilds.gambles(action_id,round_id,user_id,attempt,request_key,stake_minor,payout_minor,receipt) VALUES($1::uuid,$2::uuid,$3,$4,$5::uuid,$6::bigint,$7::bigint,$8::jsonb)',
   request: 'SELECT kind,fingerprint,receipt FROM sw_new_superwilds.requests WHERE user_id=$1 AND request_key=$2::uuid',
   insertRequest: 'INSERT INTO sw_new_superwilds.requests(user_id,request_key,kind,fingerprint,receipt) VALUES($1,$2::uuid,$3,$4,$5::jsonb)',
   round: 'SELECT user_id,game_id,round_id,request_key,receipt FROM sw_new_superwilds.rounds WHERE user_id=$1 AND round_id=$2::uuid',
@@ -52,8 +54,25 @@ export function createSuperWildsPostgresService({ transaction, authenticate, wal
       return fn({
         authenticate: request => authenticate(request, client, true),
         ...Object.fromEntries(WALLET_METHODS.map(name => [name, (...args) => wallet[name](client, ...args)])),
+        ...Object.fromEntries(['increaseReservedWin', 'releaseReservedWin'].filter(name => typeof wallet[name] === 'function')
+          .map(name => [name, (...args) => wallet[name](client, ...args)])),
         withRequestOwner: (identity, operation) => withRequestOwner(client, identity, operation),
         registerRound: round => registerRound(client, round),
+        async findGambles(userId, roundId) {
+          const result = await client.query(SQL.gambles, [userId, roundId]);
+          if (!Array.isArray(result?.rows) || result.rowCount !== result.rows.length || result.rows.length > 1000) fail('SUPERWILDS_GAMBLE_JOURNAL_INVALID');
+          return result.rows.map(row => {
+            const receipt = row.receipt;
+            if (!receipt || row.user_id !== userId || row.round_id !== roundId || row.action_id !== receipt.actionId ||
+              row.attempt !== receipt.attempt || typeof row.request_key !== 'string' ||
+              row.request_key !== receipt.requestKey?.toLowerCase() || row.stake_minor !== minor(receipt.pendingWinBefore).toString() ||
+              row.payout_minor !== minor(receipt.pendingWinAfter).toString()) fail('SUPERWILDS_GAMBLE_JOURNAL_INVALID');
+            return structuredClone(receipt);
+          });
+        },
+        insertGamble: (userId, roundId, receipt) => insert(SQL.insertGamble,
+          [receipt.actionId, roundId, userId, receipt.attempt, receipt.requestKey, minor(receipt.pendingWinBefore).toString(),
+            minor(receipt.pendingWinAfter).toString(), JSON.stringify(receipt)]),
         async findRequest(userId, token) {
           const row = one(await client.query(SQL.request, [userId, token]), 'SUPERWILDS_REQUEST_JOURNAL_INVALID');
           return row ? { kind: row.kind, fingerprint: row.fingerprint, receipt: structuredClone(row.receipt) } : null;

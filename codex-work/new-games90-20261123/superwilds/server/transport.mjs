@@ -1,4 +1,4 @@
-import { GAME_ID, minor, money, SuperWildsError } from './lifecycle.mjs';
+import { GAME_ID, minor, money, SuperWildsError } from './contract.mjs';
 const copy = value => structuredClone(value);
 const fail = (code, status = 400) => { throw new SuperWildsError(code, status); };
 const units = value => {
@@ -26,6 +26,20 @@ function spinReceipt(round, stateBalance = null) {
     pendingWinMinor: round.collectionStatus === 'PENDING' ? number(round.winAmount) : 0,
     engineVersion: round.engineVersion, mathVersion: round.mathVersion, mathSha256: round.mathSha256 });
 }
+function gambleReceipt(event){
+  if(!event||event.kind!=='GAMBLE'||event.gameId!==GAME_ID||event.currency!=='ETB'||
+    !['RED','BLACK'].includes(event.choice)||!['RED','BLACK'].includes(event.color)||typeof event.won!=='boolean'||
+    !Number.isSafeInteger(event.attempt)||event.attempt<1)fail('SUPERWILDS_SERVER_GAMBLE_RECEIPT_REQUIRED',503);
+  return deepFreeze({...copy(event),pendingWinBeforeMinor:number(event.pendingWinBefore),pendingWinAfterMinor:number(event.pendingWinAfter),
+    balanceMinor:number(event.walletReceipt.balanceAfter)});
+}
+function gambleState(value,roundId){
+  if(!value)return null;
+  if(typeof value.available!=='boolean'||!Number.isSafeInteger(value.attempt)||value.attempt<0||
+    !Number.isSafeInteger(value.nextAttempt)||value.nextAttempt!==value.attempt+1||!Array.isArray(value.history))fail('SUPERWILDS_SERVER_GAMBLE_STATE_REQUIRED',503);
+  return deepFreeze({...copy(value),roundId,pendingWinMinor:number(value.pendingWin),targetWinMinor:value.targetWin==null?null:number(value.targetWin),
+    history:value.history.map(gambleReceipt)});
+}
 
 /** Explicit renderer transport facade, with no financial rule in the browser.
  * `request()` must reuse the actual authenticated request/session. `prepare`
@@ -44,11 +58,13 @@ export function createSuperWildsTransport({ service, request } = {}) {
       fail('SUPERWILDS_SERVER_STATE_REQUIRED', 503);
     }
     current = copy(result);
-    const round = result.round?.result ? spinReceipt(result.round.result, result.balance) : null;
+    const round = result.round?.result ? spinReceipt(result.round.result) : null;
     const pendingWinMinor = result.round ? number(result.round.pendingWin) : 0;
+    const gamble=gambleState(result.gamble??result.round?.gamble,round?.roundId??null);
     return deepFreeze({ gameId: GAME_ID, authenticated: true, currency: 'ETB', enabled: result.game.enabled === true,
       subject: result.subject, canPlay: result.game.enabled === true &&
-        (!result.blockedByActiveGame || result.blockedByActiveGame === GAME_ID), canDouble: false,
+        (!result.blockedByActiveGame || result.blockedByActiveGame === GAME_ID),
+      canDouble:typeof service.gamble==='function'&&gamble?.available===true&&pendingWinMinor>0,gamble,
       balanceMinor: number(result.balance), betLevelsMinor: result.game.betLevels.map(number),
       round: round ? { ...round, pendingWinMinor } : null, pendingWinMinor,
       blockedByActiveGame: result.blockedByActiveGame,
@@ -58,9 +74,22 @@ export function createSuperWildsTransport({ service, request } = {}) {
   function prepare(action) {
     if (!current) fail('SUPERWILDS_STATE_REQUIRED', 409);
     if (!action || action.gameId !== GAME_ID || !['SPIN', 'TAKE', 'DOUBLE'].includes(action.action)) fail('SUPERWILDS_UI_ACTION_INVALID');
-    if (action.action === 'DOUBLE') fail('SUPERWILDS_APPROVED_DOUBLE_MODEL_REQUIRED', 503);
     if (action.authority) return deepFreeze(copy(action));
-    const accepted = action.action === 'TAKE' ? current.round?.result : null;
+    const accepted = action.action !== 'SPIN' ? current.round?.result : null;
+    if(action.action==='DOUBLE'){
+      const gamble=current.gamble??current.round?.gamble;
+      if(typeof service.gamble!=='function'||gamble?.available!==true)fail('SUPERWILDS_APPROVED_DOUBLE_MODEL_REQUIRED',503);
+      if(accepted?.roundId!==action.roundId||!['RED','BLACK'].includes(action.choice))fail('SUPERWILDS_GAMBLE_STATE_CHANGED',409);
+      const pending=number(gamble.pendingWin);
+      if(action.expectedPendingWinMinor!==undefined&&action.expectedPendingWinMinor!==pending||
+        action.expectedAttempt!==undefined&&action.expectedAttempt!==gamble.nextAttempt||
+        action.gambleVersion!==undefined&&action.gambleVersion!==gamble.version||action.gambleSha256!==undefined&&action.gambleSha256!==gamble.sha256)fail('SUPERWILDS_GAMBLE_STATE_CHANGED',409);
+      return deepFreeze({...copy(action),betMinor:number(accepted.bet),expectedPendingWinMinor:pending,expectedAttempt:gamble.nextAttempt,
+        gambleVersion:gamble.version,gambleSha256:gamble.sha256,authority:{bet:accepted.bet,roundId:accepted.roundId,
+          engineVersion:accepted.engineVersion,mathVersion:accepted.mathVersion,mathSha256:accepted.mathSha256,
+          choice:action.choice,expectedAttempt:gamble.nextAttempt,expectedPendingWin:gamble.pendingWin,
+          gambleVersion:gamble.version,gambleSha256:gamble.sha256}});
+    }
     if (action.action === 'TAKE' && accepted?.roundId !== action.roundId) fail('SUPERWILDS_COLLECTION_STATE_CHANGED', 409);
     const model = accepted ?? current.game;
     if (!model?.engineVersion || !model.mathVersion || !model.mathSha256) fail('SUPERWILDS_APPROVED_OWN_MODEL_REQUIRED', 503);
@@ -79,18 +108,20 @@ export function createSuperWildsTransport({ service, request } = {}) {
     if (action.gameId !== GAME_ID) fail('SUPERWILDS_UI_ACTION_INVALID');
     const body = { gameId: GAME_ID, roundToken: action.requestKey, sessionGuard: current.sessionGuard,
       ...copy(action.authority), ...(replayOnly ? { replayOnly: true } : {}) };
-    const result = await service[action.action === 'TAKE' ? 'takeWin' : 'spin'](await request(), body);
-    const round = action.action === 'TAKE' ? result.round : result;
-    const receipt = spinReceipt(round, action.action === 'TAKE' ? result.collection.walletReceipt.balanceAfter : null);
+    const method=action.action==='TAKE'?'takeWin':action.action==='DOUBLE'?'gamble':'spin';
+    if(typeof service[method]!=='function')fail('SUPERWILDS_APPROVED_DOUBLE_MODEL_REQUIRED',503);
+    const result = await service[method](await request(), body);
+    const round = action.action === 'SPIN' ? result : result.round;
+    const receipt = action.action==='DOUBLE'?gambleReceipt(result):spinReceipt(round, action.action === 'TAKE' ? result.collection.walletReceipt.balanceAfter : null);
     // Read the actual host state after acceptance. In particular the next
     // SPIN prepares collection of the actual pending round, and recovery can
     // observe a later accepted action from another tab without overwriting it.
-    const fresh = await state();
-    if (!fresh.round?.roundId) fail('SUPERWILDS_READBACK_ROUND_MISSING', 503);
-    const sameRound = fresh.round.roundId === receipt.roundId;
-    return deepFreeze({ ...receipt, balanceMinor: fresh.balanceMinor,
-      action: action.action, acceptedAction: copy(action),
-      pendingWinMinor: action.action === 'TAKE' ? 0 : sameRound ? fresh.round.pendingWinMinor : 0,
+    const refreshed=await state();
+    if(!refreshed.round?.roundId)fail('SUPERWILDS_SERVER_STATE_REQUIRED',503);
+    const sameRound=refreshed.round.roundId===receipt.roundId,gamble=sameRound?refreshed.gamble:null;
+    return deepFreeze({ ...receipt, action: action.action, acceptedAction: copy(action),
+      balanceMinor:refreshed.balanceMinor,gamble,
+      pendingWinMinor:action.action === 'TAKE' ? 0 : sameRound ? refreshed.pendingWinMinor : 0,
       ...(action.action === 'TAKE' ? { collectionId: result.collection.collectionId, collected: true,
         amountMinor: number(result.collection.amount),
         requestKey: result.requestKey } : {}) });

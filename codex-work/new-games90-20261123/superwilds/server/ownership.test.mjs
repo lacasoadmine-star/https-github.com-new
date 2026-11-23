@@ -57,6 +57,7 @@ function fixture({ installed = { m10: true, superwilds: true } } = {}) {
             (family === 'legacy' ? row.journal.startsWith('legacy-') : row.journal === family) &&
             (family === 'legacy' ? row.key === params[1] || params[2] !== null && row.key.toLowerCase() === params[2] : row.key.toLowerCase() === params[1])));
         }
+        if (sql === ROUND_SQL.gambles) return result(draft.gambles?.get(params[1]) ?? []);
         if (sql === ROUND_SQL.journal) return result(draft.journal.has(params[0].toLowerCase()) ? [draft.journal.get(params[0].toLowerCase())] : []);
         if (sql === ROUND_SQL.insertOrder) {
           if (draft.orders.has(params[0])) return result([]);

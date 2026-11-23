@@ -1,5 +1,52 @@
 # Super Wilds server continuation
 
+## Existing-runtime attachment completed in source
+
+`runtime-host.mjs` attaches the authenticated state/SPIN/TAKE/X2 handlers inside
+the retained Railway runtime after its original session and rate checks. It
+receives the final native callbacks, keeps every old handler, merges pending
+round ownership and routes every transfer through the same existing wallet
+and paired ledger. The old emergency stop also closes new SPIN and X2;
+accepted-key recovery and collection remain available.
+
+`runtime-release.mjs` derives the ETB ladder from the existing operator's
+`fresh_multihot10` metadata, restricted to the retained native1–40000ETB
+bounds and mathematically exact stakes. It derives the existing X2 attempt
+and pending-stake limit from that host's feature metadata. The own ZPLAY
+distribution and fair-colour law remain explicitly independent of provider
+RNG. The committed default is unattached; the authorized deployment builder
+supplies its explicit configuration in memory. This does not change old game
+math or introduce a separate wallet.
+
+`runtime-schema.mjs` installs only absent journal/reservation groups in the
+same database, under one transaction and advisory lock. Existing complete
+groups stay intact, partial schemas abort, and startup validates the actual
+protected floor and shared round ordering. It creates no accounts, balances
+or funds. M10's prepared reservation namespace is installed before Super
+Wilds because their liabilities share one protected house floor. A repeated
+startup performs no table creation or balance/account writes.
+
+`runtime-transform.mjs` applies exact source-pinned insertions to the current
+private runtime and produces additive copies of the native binding and state
+route. `build-runtime.mjs` restores the verified current Function payload,
+keeps all11non-runtime modules byte-identical, and adds the binding/state/entry
+copies plus one compact host module. The original M20 release loader still
+reads and verifies its unchanged accepted source files. Its acceptance record
+and financial model are preserved. An actual local import of the packaged
+new entry validated that acceptance and exposed the retained M20r3 enabled
+profile. The complete deployment
+Function and recovered private modules stay outside the public source tree.
+The health response exposes mounted/schemaReady/release/cash/gamble state,
+without sessions, account identifiers or balances.
+
+The bounded local runtime/HTTP/gamble check passed26tests. The existing real
+PostgreSQL host runner now exercises this exact boot installer and twenty
+fresh own-model rounds through the mounted HTTP path and the same ledger.
+Its new execution result and any actual deployment are recorded by the
+release owner; source construction is not live financial verification.
+
+The sections below retain the earlier component checkpoints.
+
 ## Protected host composition continuation
 
 `host-integration.mjs` now joins the actual lifecycle/journal adapter with

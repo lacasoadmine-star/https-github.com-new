@@ -102,7 +102,7 @@ test('zero-win spins are ordered, unlock the player and require no collect trans
   await f.service.spin(f.request(), f.action(f.nextId())); assert.equal(f.snapshot().ledger.length, 2);
 });
 test('STOP and presentation controls have no financial endpoint', async () => {
-  const f = fixture(); assert.deepEqual(Object.keys(f.service).sort(), ['handles', 'spin', 'state', 'takeWin']);
+  const f = fixture(); assert.deepEqual(Object.keys(f.service).sort(), ['gamble', 'handles', 'spin', 'state', 'takeWin']);
   assert.equal(f.service.handles(GAME_ID), true); assert.equal(f.service.handles('multihot5_native'), false);
   await rejects(f.service.spin(f.request(), f.action(TOKEN, { outcome: { win: 9999 } })), 'SUPERWILDS_CLIENT_AUTHORITY_REJECTED');
   assert.equal(f.snapshot().ledger.length, 0);

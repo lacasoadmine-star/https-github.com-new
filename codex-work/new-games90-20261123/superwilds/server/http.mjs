@@ -1,6 +1,10 @@
 import { GAME_ID, SuperWildsError } from './lifecycle.mjs';
 export const HTTP_BASE = '/api/slots/new-games90/superwilds';
-const routes = new Map([[HTTP_BASE + '/state', 'state'], [HTTP_BASE + '/spin', 'spin'], [HTTP_BASE + '/take-win', 'takeWin']]);
+// The existing Player gateway rewrites /api/slots/* to /api/* upstream.
+// Both exact paths use the same authenticated lifecycle and origin policy.
+export const UPSTREAM_HTTP_BASE = '/api/new-games90/superwilds';
+const routes = new Map([HTTP_BASE, UPSTREAM_HTTP_BASE].flatMap(base => [
+  [base + '/state', 'state'], [base + '/spin', 'spin'], [base + '/take-win', 'takeWin'], [base + '/gamble', 'gamble']]));
 const MAX_BODY_BYTES = 8192;
 const json = (value, status = 200, extra = {}) => new Response(JSON.stringify(value), { status,
   headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff', ...extra } });
@@ -46,6 +50,7 @@ export function createSuperWildsHttpHandler({ lifecycle, assertWriteOrigin, exis
       if (url.search) fail('SUPERWILDS_QUERY_NOT_SUPPORTED', 400);
       if (operation === 'state') return json(await lifecycle.state(request, GAME_ID));
       if (await assertWriteOrigin(request) !== true) fail('SUPERWILDS_ORIGIN_REJECTED', 403);
+      if (typeof lifecycle[operation] !== 'function') fail('SUPERWILDS_GAMBLE_UNAVAILABLE', 503);
       return json(await lifecycle[operation](request, await actionBody(request)));
     } catch (error) {
       const known = error instanceof SuperWildsError && Number.isInteger(error.status) && error.status >= 400 && error.status <= 599 &&

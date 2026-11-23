@@ -4,6 +4,7 @@ import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { createSuperWildsHostIntegration } from '../host-integration.mjs';
 import { GAME_ID, SuperWildsError } from '../lifecycle.mjs';
 import { withSharedRequestOwner } from '../ownership.mjs';
+import { createSuperWildsFairGambleModel } from '../gamble-model.mjs';
 export const MATH = Object.freeze({ engineVersion: 'isolated-host-qa', mathVersion: 'isolated-host-qa', mathSha256: 'e'.repeat(64) });
 const hash = value => createHash('sha256').update(value).digest('hex');
 const fail = (code, status = 503) => { throw new SuperWildsError(code, status); };
@@ -70,8 +71,18 @@ export function createHostPgSupport(pool) {
     const request = new Request('https://isolated-host.invalid/api/slots/spin', { headers: { cookie: 'sw_session=' + raw } });
     return { userId, house, request, guard: sessionGuard(request, userId) };
   }
-  function host({ win = 300n, candidateModel = null } = {}) {
-    const controls = { samples: 0, failSample: false, release: true, modelAvailable: true }, outcomes = new Map();
+  function host({ win = 300n, candidateModel = null, gambleColors = null } = {}) {
+    const controls = { samples: 0, failSample: false, release: true, modelAvailable: true,
+      gambleEnabled: gambleColors !== null, gambleModelAvailable: true, gambleSamples: 0 }, outcomes = new Map();
+    const colors = gambleColors ? [...gambleColors] : [];
+    const candidate = createSuperWildsFairGambleModel({ policy: { version: 'disposable-host-gamble', maxAttempts: 3,
+      maxPendingMinor: 10000n, maxTargetMinor: 20000n }, randomBytes: () => {
+      controls.gambleSamples++; const color = colors.shift();
+      if (!['RED', 'BLACK'].includes(color)) fail('ISOLATED_GAMBLE_ENTROPY_EXHAUSTED');
+      return new Uint8Array([color === 'BLACK' ? 1 : 0]);
+    } });
+    const gambleModel = { ...candidate, approved: true, verification: { ...candidate.verification,
+      operatorPolicyVerified: true, reservationLifecycleVerified: true } };
     const model = { gameId: GAME_ID, ...MATH, approved: true, betLevels: ['1.00', '2.00'],
       verification: { legalOutcomesVerified: true, outcomeDistributionVerified: true, aggregatePayoutVerified: true,
         roundingVerified: true, deferredLifecycleVerified: true, etbPolicyVerified: true },
@@ -85,8 +96,12 @@ export function createHostPgSupport(pool) {
       validateOutcome: (value, context) => { assert.deepEqual(value, outcomes.get(context.roundId)); return true; },
     };
     const integration = createSuperWildsHostIntegration({ dependencies, getApprovedModel: async () => controls.modelAvailable ? (candidateModel ?? model) : null,
-      releaseEnabled: () => controls.release, uuid: randomUUID, now: () => '2026-11-23T00:00:00.000Z' });
-    return { ...integration, service: integration.lifecycle, controls };
+      releaseEnabled: () => controls.release,
+      getApprovedGambleModel: async () => controls.gambleModelAvailable ? gambleModel : null,
+      gambleEnabled: () => controls.gambleEnabled, uuid: randomUUID, now: () => '2026-11-23T00:00:00.000Z' });
+    const gambleBody = (player, receipt, values = {}) => ({ ...takeBody(player, receipt), choice: 'RED', expectedAttempt: 1,
+      expectedPendingWin: receipt.winAmount, gambleVersion: gambleModel.gambleVersion, gambleSha256: gambleModel.gambleSha256, ...values });
+    return { ...integration, service: integration.lifecycle, controls, gambleBody };
   }
   const spinBody = (player, values = {}) => ({ gameId: GAME_ID, ...MATH, roundToken: randomUUID(), sessionGuard: player.guard,
     bet: '1.00', collectRoundId: null, ...values });
@@ -121,6 +136,7 @@ export function createHostPgSupport(pool) {
       reservations: ['SELECT * FROM sw_new_superwilds.reservations WHERE user_id=$1 ORDER BY round_id', [player.userId]],
       events: ['SELECT * FROM sw_new_superwilds.reservation_events WHERE user_id=$1 ORDER BY event_key', [player.userId]],
       movements: ['SELECT * FROM sw_new_superwilds.wallet_movements WHERE user_id=$1 ORDER BY transfer_id', [player.userId]],
+      gambles: ['SELECT * FROM sw_new_superwilds.gambles WHERE user_id=$1 ORDER BY attempt', [player.userId]],
     };
     const result = {}; for (const [name, [sql, values]] of Object.entries(tables)) result[name] = (await pool.query(sql, values)).rows;
     return result;

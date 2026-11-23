@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
@@ -8,6 +8,9 @@ import { setTimeout as delay } from 'node:timers/promises';
 import { createHostPgSupport } from './host-support.mjs';
 import { createSuperWildsOwnModel, MODEL_IDENTITY } from '../own-model.mjs';
 import { quoteGrid, GAME_ID } from '../../rules.mjs';
+import { prepareSuperWildsSchema } from '../runtime-schema.mjs';
+import { createSuperWildsRuntimeHost } from '../runtime-host.mjs';
+import { createRequested90RuntimeConfiguration } from '../runtime-release.mjs';
 const code = value => error => error?.code === value;
 
 test('complete Super Wilds protected host composition on disposable PostgreSQL', { concurrency: false, timeout: 120000 }, async t => {
@@ -46,10 +49,85 @@ test('complete Super Wilds protected host composition on disposable PostgreSQL',
         assert.equal((await client.query('SELECT count(*)::int AS n FROM sw_rebuild.wallets')).rows[0].n, before);
       } finally { try { await client.query('ROLLBACK'); } finally { client.release(); } }
     });
-    await pool.query(await readFile(new URL('../../../../continue71-20261122/m10-host-lifecycle/prepare-journal.sql', import.meta.url), 'utf8'));
-    await pool.query(await readFile(new URL('../../../../continue71-20261122/m10-house-reservations/prepare-schema.sql', import.meta.url), 'utf8'));
-    await pool.query(await readFile(new URL('../prepare-reservations.sql', import.meta.url), 'utf8'));
+    await t.test('actual boot installer adds only absent groups atomically and is read-only on restart', async () => {
+      const definitions = [['m10-journal', '../../../../continue71-20261122/m10-host-lifecycle/prepare-journal.sql'],
+        ['m10-reservations', '../../../../continue71-20261122/m10-house-reservations/prepare-schema.sql'],
+        ['superwilds-journal', '../prepare-journal.sql'], ['superwilds-reservations', '../prepare-reservations.sql']];
+      const migrations = await Promise.all(definitions.map(async ([name, path]) => {
+        const sql = await readFile(new URL(path, import.meta.url), 'utf8'); return { name, sql, sha256: createHash('sha256').update(sql).digest('hex') };
+      }));
+      const count = async () => (await pool.query(`SELECT (SELECT count(*) FROM sw_rebuild.users)::int AS users,
+        (SELECT count(*) FROM sw_rebuild.wallets)::int AS wallets,(SELECT count(*) FROM sw_rebuild.ledger)::int AS ledger`)).rows[0];
+      const before = await count(), installed = await prepareSuperWildsSchema(pool, migrations, { allowInstall: true });
+      assert.deepEqual(installed.applied, ['m10-journal', 'm10-reservations', 'superwilds-reservations']);
+      assert.deepEqual(await count(), before);
+      assert.deepEqual((await prepareSuperWildsSchema(pool, migrations)).applied, []);
+      assert.deepEqual(await count(), before);
+    });
+    await pool.query(await readFile(new URL('../prepare-gamble.sql', import.meta.url), 'utf8'));
     h = createHostPgSupport(pool);
+
+    await t.test('twenty same-key X2 requests change one hold, then one TAKE pays the current win after model retirement', async () => {
+      const p = await h.seed(), host = h.host({ gambleColors: ['RED'] });
+      const spin = await host.service.spin(p.request, h.spinBody(p)), body = host.gambleBody(p, spin);
+      const before = await h.snapshot(p);
+      const all = await Promise.all(Array.from({ length: 20 }, () => host.service.gamble(p.request, { ...body })));
+      all.forEach(result => assert.deepEqual(result, all[0]));
+      assert.equal(all[0].pendingWinAfter, '6.00'); assert.equal(host.controls.gambleSamples, 1);
+      const accepted = await h.snapshot(p);
+      assert.deepEqual(accepted.ledger, before.ledger); assert.deepEqual(accepted.wallets, before.wallets);
+      assert.equal(accepted.gambles.length, 1); assert.equal(accepted.reservations[0].amount_minor, '600');
+      assert.equal(accepted.events.filter(row => row.kind === 'INCREASE').length, 1);
+      assert.deepEqual(accepted.rounds[0].receipt, spin);
+      host.controls.release = false; host.controls.modelAvailable = false;
+      host.controls.gambleEnabled = false; host.controls.gambleModelAvailable = false;
+      assert.deepEqual(await host.service.gamble(p.request, { ...body, replayOnly: true }), all[0]);
+      const state = await host.service.state(p.request);
+      assert.equal(state.round.pendingWin, '6.00'); assert.deepEqual(state.round.result, spin);
+      const taken = await host.service.takeWin(p.request, h.takeBody(p, spin));
+      assert.equal(taken.collection.amount, '6.00');
+      const final = await h.snapshot(p);
+      assert.equal(final.wallets.find(row => row.id === p.userId).balance, '10500');
+      assert.equal(final.transfers.length, 2); assert.equal(final.ledger.length, 4);
+      assert.equal(final.collections.length, 1); assert.deepEqual(final.rounds[0].receipt, spin);
+    });
+    await t.test('a lost X2 closes only the pending hold without a new debit or credit and permits the next spin', async () => {
+      const p = await h.seed(), host = h.host({ gambleColors: ['BLACK'] });
+      const spin = await host.service.spin(p.request, h.spinBody(p)), before = await h.snapshot(p);
+      const lost = await host.service.gamble(p.request, host.gambleBody(p, spin));
+      assert.equal(lost.pendingWinAfter, '0.00'); assert.equal(lost.won, false);
+      const after = await h.snapshot(p);
+      assert.deepEqual(after.wallets, before.wallets); assert.deepEqual(after.ledger, before.ledger);
+      assert.equal(after.reservations[0].amount_minor, '0'); assert.equal(after.reservations[0].closed_reason, 'LOST');
+      assert.equal(after.events.filter(row => row.kind === 'RELEASE').length, 1);
+      const state = await host.service.state(p.request); assert.equal(state.blockedByActiveGame, null); assert.equal(state.round.pendingWin, '0.00');
+      await host.service.spin(p.request, h.spinBody(p)); assert.equal((await h.snapshot(p)).transfers.length, 2);
+    });
+    await t.test('failed GAMBLE journal insertion rolls back the increased hold and the same key can retry once', async () => {
+      const p = await h.seed(), host = h.host({ gambleColors: ['RED', 'RED'] });
+      const spin = await host.service.spin(p.request, h.spinBody(p)), body = host.gambleBody(p, spin), before = await h.snapshot(p);
+      await pool.query(`CREATE FUNCTION qa_superwilds.fail_gamble_insert() RETURNS trigger LANGUAGE plpgsql AS $$
+        BEGIN RAISE EXCEPTION 'QA_GAMBLE_JOURNAL_FAILURE'; END $$`);
+      await pool.query('CREATE TRIGGER qa_fail_gamble BEFORE INSERT ON sw_new_superwilds.gambles FOR EACH ROW EXECUTE FUNCTION qa_superwilds.fail_gamble_insert()');
+      try {
+        await assert.rejects(host.service.gamble(p.request, body), error => error.code === 'P0001' && error.message.includes('QA_GAMBLE_JOURNAL_FAILURE'));
+        assert.deepEqual(await h.snapshot(p), before);
+      } finally {
+        await pool.query('DROP TRIGGER qa_fail_gamble ON sw_new_superwilds.gambles');
+        await pool.query('DROP FUNCTION qa_superwilds.fail_gamble_insert()');
+      }
+      await host.service.gamble(p.request, body);
+      const after = await h.snapshot(p); assert.equal(after.gambles.length, 1); assert.equal(after.reservations[0].amount_minor, '600');
+      assert.deepEqual(after.ledger, before.ledger);
+    });
+    await t.test('an underfunded double is rejected before entropy while the original win remains collectable', async () => {
+      const p = await h.seed({ houseMinor: 400n }), host = h.host({ gambleColors: ['BLACK'] });
+      const spin = await host.service.spin(p.request, h.spinBody(p)), before = await h.snapshot(p);
+      await assert.rejects(host.service.gamble(p.request, host.gambleBody(p, spin)), code('SUPERWILDS_HOUSE_CAPACITY_UNAVAILABLE'));
+      assert.equal(host.controls.gambleSamples, 0); assert.deepEqual(await h.snapshot(p), before);
+      await host.service.takeWin(p.request, h.takeBody(p, spin));
+      assert.equal((await h.snapshot(p)).wallets.find(row => row.id === p.userId).balance, '10200');
+    });
 
     await t.test('real composed host accepts one BET after twenty requests contend on wallet locks', async () => {
       const p = await h.seed(), host = h.host(), action = h.spinBody(p), blocker = await h.connect();
@@ -146,15 +224,25 @@ test('complete Super Wilds protected host composition on disposable PostgreSQL',
       await assert.rejects(host.service.spin(p.request, h.spinBody(p)), code('ISOLATED_MODEL_FAILURE'));
       assert.deepEqual(await h.snapshot(p), before); assert.equal(host.controls.samples, 1);
     });
-    await t.test('twenty fresh own-model rounds settle through the real protected host and exact line evaluator', async () => {
+    await t.test('twenty fresh own-model rounds settle through mounted runtime HTTP and the same PostgreSQL ledger', async () => {
       const p = await h.seed({ houseMinor: 100000000n });
       const own = createSuperWildsOwnModel({ betLevels: ['1.00', '2.00'] });
       assert.equal(own.approved, false);
-      // This wrapper belongs ONLY to the isolated QA fixture. It does not
-      // publish a production approval or override a production release gate.
-      const candidate = { ...own, approved: true, verification: { ...own.verification,
-        deferredLifecycleVerified: true, etbPolicyVerified: true } };
-      const host = h.host({ candidateModel: candidate });
+      const dependencies = { ...h.dependencies, accepting: () => true, publicGames: () => [{ id: 'fresh_multihot10',
+        betLevels: ['1.00', '2.00'], features: { gambleRounds: 5, gambleMaxStake: '500.00' } }] };
+      const runtime = await createSuperWildsRuntimeHost({ dependencies, rawBalance: h.dependencies.balance,
+        rawLockWallets: h.dependencies.lockWallets, origin: 'https://isolated-host.invalid',
+        configuration: createRequested90RuntimeConfiguration({ attach: true, cashEnabled: true, gambleEnabled: true }),
+        createRoutes: () => ({ handles: () => false, state() { throw Error('UNRELATED_ROUTE'); },
+          spin() { throw Error('UNRELATED_ROUTE'); }, gamble() { throw Error('UNRELATED_ROUTE'); } }) });
+      const request = async (method, body) => {
+        const response = await runtime.binding.handle(new Request('https://isolated-host.invalid/api/new-games90/superwilds/' + method, {
+          method: body ? 'POST' : 'GET', headers: { cookie: p.request.headers.get('cookie'),
+            origin: 'https://isolated-host.invalid', 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }));
+        const output = await response.json(); assert.equal(response.status, 200, output.detail); return output;
+      };
+      const host = { service: { spin: (_, body) => request('spin', body), takeWin: (_, body) => request('take-win', body) } };
+      const initial = await request('state'); assert.equal(initial.game.enabled, true); assert.deepEqual(initial.game.betLevels, ['1.00', '2.00']);
       let pending = null, expectedBalance = 10000n;
       for (let index = 0; index < 20; index++) {
         const body = h.spinBody(p, { ...MODEL_IDENTITY, collectRoundId: pending?.roundId ?? null });

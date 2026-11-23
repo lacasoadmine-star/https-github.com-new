@@ -52,10 +52,10 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
     const node=button('',name);node.className=`sw-control sw-${name}`;node.setAttribute('aria-label',label);
     node.append(element('span',label,'sw-control-label'));buttons.set(name,node);layer.append(node);
   }
-  function header(title,{close=true,exit=false}={}){
+  function header(title,{close=true,exit=false,closeAction='close'}={}){
     panel.replaceChildren();const h=element('header'),name=element('h2',title);name.id=`${id}-title`;
     if(exit){const leave=button('↤ Exit','exit');leave.className='sw-exit';h.append(leave);}h.append(name);
-    if(close)h.append(button('×','close'));panel.append(h);panel.setAttribute('aria-labelledby',name.id);
+    if(close)h.append(button('×',closeAction));panel.append(h);panel.setAttribute('aria-labelledby',name.id);
     const body=element('div',undefined,'sw-panel-content');panel.append(body);return body;
   }
   function positionPanel(){
@@ -79,6 +79,28 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
   }
   function close(){if(!ready)return;overlay.hidden=true;modal=null;layer.inert=false;
     if(origin?.isConnected)origin.focus();else root.focus();origin=null;sync();}
+  function syncGamble(s){
+    if(modal!=='gamble')return;
+    const view=s.gamble,busy=!!s.pending||controller?.busy!=null||!s.connected;
+    panel.querySelector('[data-gamble-amount]').textContent=`${formatMoney(s.pendingWinMinor??0)} ETB`;
+    panel.querySelector('[data-gamble-target]').textContent=view?.targetWinMinor==null?'—':`${formatMoney(view.targetWinMinor)} ETB`;
+    for(const node of panel.querySelectorAll('[data-action=guess]'))node.disabled=busy||s.phase!=='WIN_PENDING'||!s.canDouble;
+    panel.querySelector('[data-action=take]').disabled=busy||s.phase!=='WIN_PENDING'||!(s.pendingWinMinor>0);
+    panel.querySelector('[data-action=gamble-close]').disabled=busy&&s.phase!=='RECOVERY';
+    const recoverAction=panel.querySelector('[data-action=recover-gamble]');recoverAction.hidden=s.phase!=='RECOVERY'||!s.pending;recoverAction.disabled=controller?.busy!=null;
+    const previous=panel.querySelector('[data-gamble-history]'),history=view?.history??[];
+    if(previous.dataset.keys!==history.map(event=>event.requestKey).join('|')){
+      previous.replaceChildren();previous.dataset.keys=history.map(event=>event.requestKey).join('|');
+      for(const event of history){const card=element('span',event.color,'sw-gamble-card');card.dataset.color=event.color;
+        card.setAttribute('role','listitem');card.setAttribute('aria-label',`Accepted ${event.color} card, attempt ${event.attempt}`);previous.append(card);}
+    }
+    const feedback=panel.querySelector('[data-gamble-feedback]');
+    if(s.phase==='RECOVERY')feedback.textContent='Connection interrupted. Recover the current action.';
+    else if(s.phase==='DOUBLE_PENDING')feedback.textContent='Waiting for the accepted card…';
+    else if(s.phase==='TAKING')feedback.textContent='Collecting the accepted win…';
+    else if(s.lastGamble)feedback.textContent=`${s.lastGamble.color} · ${s.lastGamble.won?'WIN':'LOSS'}`;
+    else feedback.textContent=s.canDouble?'Choose RED or BLACK.':'X2 is unavailable for this round.';
+  }
   function show(name,source){
     if(disposed)return;
     if(!overlay.hidden&&modal!==name&&modal==='startup')return;
@@ -86,7 +108,7 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
     if(name==='bet'&&(s.phase!=='READY'||s.auto?.active))return;
     if(overlay.hidden)origin=source??d.activeElement;
     modal=name;overlay.hidden=false;layer.inert=true;overlay.dataset.modal=name;panel.dataset.view=name;
-    panel.className=`sw-panel ${['rules','settings','history'].includes(name)?'sw-menu-panel':name==='quick'?'sw-quick-panel':name==='bet'?'sw-bet-panel':''}`;
+    panel.className=`sw-panel ${['rules','settings','history'].includes(name)?'sw-menu-panel':name==='quick'?'sw-quick-panel':name==='bet'?'sw-bet-panel':name==='gamble'?'sw-gamble-panel':''}`;
     panel.removeAttribute('aria-label');
     if(name==='startup'){
       const body=header('MULTI HOT 5 SUPER WILDS',{close:false});body.classList.add('sw-startup');body.append(element('p','Would you like to enable sound?'),button('Yes','sound-yes'),button('No','sound-no'));
@@ -106,9 +128,12 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
       }
       const start=button('START PLAY','auto-start');start.className='sw-start';start.disabled=!s.canPlay;body.append(limits,start);
     }else if(name==='gamble'){
-      const body=header('X2 — GAMBLE');body.append(element('p',`WIN ${formatMoney(s.round?.winMinor??0)} ETB`));
-      const red=button('RED','guess','RED'),black=button('BLACK','guess','BLACK');red.disabled=black.disabled=!s.canDouble;body.append(red,black,button('TAKE WIN','take'));
-      if(!s.canDouble)body.append(element('p','The server has not enabled X2 for this game.'));
+      const body=header('X2 — GAMBLE',{closeAction:'gamble-close'}),amounts=element('dl',undefined,'sw-gamble-amounts');
+      for(const[label,key]of [['Gamble amount','gambleAmount'],['Gamble to win','gambleTarget']]){const value=element('dd');value.dataset[key]='';amounts.append(element('dt',label),value);}body.append(amounts);
+      body.append(element('h3','Previous cards'));const previous=element('div',undefined,'sw-gamble-history');previous.dataset.gambleHistory='';previous.setAttribute('role','list');previous.setAttribute('aria-label','Previous accepted cards');body.append(previous);
+      const feedback=element('p',undefined,'sw-gamble-feedback');feedback.dataset.gambleFeedback='';feedback.setAttribute('role','status');body.append(feedback);
+      const choices=element('div',undefined,'sw-gamble-choices');for(const color of ['RED','BLACK']){const choice=button(color,'guess',color);choice.dataset.color=color;choices.append(choice);}body.append(choices,button('TAKE WIN','take'));
+      const retry=button('Recover current action','recover-gamble');retry.hidden=true;body.append(retry);
     }else{
       const body=header(name==='rules'?'RULES & PAYTABLE':name==='history'?'HISTORY':'SETTINGS',{exit:true});
       if(name==='settings'){
@@ -141,7 +166,7 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
   }
   function sync(){
     if(disposed)return;const s=snapshot(),moving=['WAITING','ANIMATING'].includes(s.phase),win=s.phase==='WIN_PENDING';
-    renderer.setDisplay({balanceMinor:s.balanceMinor,betMinor:s.betMinor,winMinor:s.round?.winMinor??0,currency:'ETB',quick:settings.quick,
+    renderer.setDisplay({balanceMinor:s.balanceMinor,betMinor:s.betMinor,winMinor:s.pendingWinMinor??s.round?.winMinor??0,currency:'ETB',quick:settings.quick,
       auto:s.auto?.active??false,muted:!settings.effects,winPending:win,doubleEnabled:win&&s.canDouble});
     buttons.get('spin').setAttribute('aria-label',moving?'STOP':'HOLD & SPIN');buttons.get('take').setAttribute('aria-label',win?'TAKE WIN':'Choose bet');
     for(const[name,b]of buttons){
@@ -155,13 +180,24 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
     buttons.get('double').hidden=!win;recover.hidden=s.phase!=='RECOVERY'||!s.pending;recover.disabled=controller?.busy!=null;
     status.textContent=s.phase==='RECOVERY'?'Connection interrupted. Recover the current round.':!transport?'Player connection unavailable.':!s.connected?'Connecting to player session…':!s.canPlay?'Game connection is not enabled by the server.':s.auto?.active?`AUTO ${s.auto.remaining}`:'';
     root.dataset.phase=s.phase;root.dataset.cashEnabled=String(s.canPlay&&s.connected);root.dataset.modal=modal??'';root.dataset.quick=String(settings.quick);
+    syncGamble(s);
+    if(s.feedback?.action==='DOUBLE'){audio.once('card',s.feedback.requestKey);audio.once(s.feedback.won?'gambleWin':'gambleLoss',s.feedback.requestKey);}
+    else if(s.feedback?.action==='TAKE')audio.once('collect',s.feedback.requestKey);
   }
   async function action(name,value,source){
-    if(disposed)return;audio.once('button',`click-${++clickId}`);
+    if(disposed||d.hidden)return;
     try{
+      if(!['sound-no','sound-yes'].includes(name)&&(settings.effects||settings.music)){await audio.unlock();if(disposed||d.hidden)return;}
+      audio.once('button',`click-${++clickId}`);
       if(name==='sound-yes'||name==='sound-no'){
         settings.effects=settings.music=name==='sound-yes';audio.setting(settings);if(settings.effects)await audio.unlock();ready=true;close();
       }else if(name==='close')close();
+      else if(name==='gamble-close'){
+        const s=snapshot();if(s.pending)return;
+        if(s.phase==='WIN_PENDING'&&s.pendingWinMinor>0&&(s.gamble?.history.length??0)>0){if(await controller?.take())close();}
+        else close();
+      }
+      else if(name==='recover-gamble'){await controller?.recover();}
       else if(name==='exit'){controller?.stopAuto('EXIT');suspend('EXIT');if(typeof onExit==='function')await onExit();else w.location.assign('/');}
       else if(name==='menu'||name==='rules')show('rules',source);
       else if(['settings','history','bet'].includes(name))show(name,source);
@@ -179,9 +215,9 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
         const limits={};for(const key of ['winLimit','decreaseLimit','increaseLimit']){const active=panel.querySelector(`[data-limit-toggle=${key}]`).checked;limits[key]=active?parseLimit(panel.querySelector(`[data-limit-value=${key}]`).value):null;}
         controller?.configureAuto({count,...limits});close();controller?.startAuto();
       }else if(name==='spin'){controller.quick=settings.quick;await controller?.spin();}
-      else if(name==='take'){if(snapshot().phase==='WIN_PENDING'){close();await controller?.take();}else show('bet',source);}
+      else if(name==='take'){if(snapshot().phase==='WIN_PENDING'){if(modal==='gamble'){if(await controller?.take())close();}else{close();await controller?.take();}}else if(modal==='gamble')close();else show('bet',source);}
       else if(name==='double')show('gamble',source);
-      else if(name==='guess'){close();await controller?.double(value);}
+      else if(name==='guess'){await controller?.double(value);}
       sync();
     }catch(error){onError(error);status.textContent='That action is currently unavailable. Check the entered values.';}
   }
@@ -199,7 +235,7 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
   });
   on(d,'fullscreenchange',()=>{settings.fullscreen=d.fullscreenElement===root;const box=panel.querySelector('[data-setting=fullscreen]');if(box)box.checked=settings.fullscreen;resize();});
   on(root,'keydown',event=>{
-    if(event.key==='Escape'&&!overlay.hidden){event.preventDefault();close();return;}
+    if(event.key==='Escape'&&!overlay.hidden){event.preventDefault();if(modal==='gamble')void action('gamble-close');else close();return;}
     if(event.target.getAttribute?.('role')==='tab'&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
       event.preventDefault();const tabs=['rules','settings','history'],current=tabs.indexOf(modal);
       const index=event.key==='Home'?0:event.key==='End'?2:(current+(event.key==='ArrowRight'?1:2))%3;

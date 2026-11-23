@@ -7,7 +7,7 @@ export async function verifyVersion(cloudflare,accountId,proof) {
     ['compatibility_flags','containers'].includes(key)?version[key]||[]:version[key]??null]));
   if(proof?.worker!=='superwin-player'||!Array.isArray(proof.baseline?.inventory)||proof.baseline.inventory.length!==proof.baseline.moduleCount
     ||!/^[a-f0-9]{40}$/.test(proof.sourceCommit||'')||!/^[a-f0-9-]{36}$/.test(proof.versionId||'')
-    ||proof.newPins?.length!==4||!/^newrequested90r[12]\/entry\.mjs$/.test(proof.mainModule||''))throw Error('READBACK_PROOF_REQUIRED');
+    ||proof.newPins?.length!==4||!/^newrequested90r[123]\/entry\.mjs$/.test(proof.mainModule||''))throw Error('READBACK_PROOF_REQUIRED');
   const namespace=proof.mainModule.split('/')[0];
   const names=['entry.mjs','public.mjs','worker.mjs','worker-assets.mjs'].map(n=>namespace+'/'+n);
   if(new Set(proof.newPins.map(p=>p.name)).size!==4||!names.every(n=>proof.newPins.some(p=>p.name===n)))throw Error('READBACK_PIN_SET_CHANGED');

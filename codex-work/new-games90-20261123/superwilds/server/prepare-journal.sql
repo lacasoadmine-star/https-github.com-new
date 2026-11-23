@@ -30,12 +30,27 @@ CREATE TABLE IF NOT EXISTS sw_new_superwilds.collections (
 CREATE TABLE IF NOT EXISTS sw_new_superwilds.requests (
   user_id text NOT NULL,
   request_key uuid NOT NULL,
-  kind text NOT NULL CHECK (kind IN ('SPIN','TAKE_WIN')),
+  kind text NOT NULL CHECK (kind IN ('SPIN','TAKE_WIN','GAMBLE')),
   fingerprint char(64) NOT NULL CHECK(fingerprint ~ '^[a-f0-9]{64}$'),
   receipt jsonb NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY(user_id,request_key)
 );
+
+CREATE TABLE IF NOT EXISTS sw_new_superwilds.gambles (
+  action_id uuid PRIMARY KEY,
+  round_id uuid NOT NULL,
+  user_id text NOT NULL,
+  attempt integer NOT NULL CHECK(attempt BETWEEN 1 AND 1000),
+  request_key uuid NOT NULL,
+  stake_minor bigint NOT NULL CHECK(stake_minor>0),
+  payout_minor bigint NOT NULL CHECK(payout_minor>=0 AND (payout_minor=0 OR payout_minor::numeric=stake_minor::numeric*2)),
+  receipt jsonb NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE(round_id,attempt), UNIQUE(user_id,request_key),
+  FOREIGN KEY(user_id,round_id) REFERENCES sw_new_superwilds.rounds(user_id,round_id)
+);
+
 -- The eventual existing application role should receive SELECT/INSERT only
 -- on these journals. No role or credentials are guessed or created here.
 COMMIT;

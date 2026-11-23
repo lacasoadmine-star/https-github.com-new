@@ -36,13 +36,18 @@ export class MultiHot20Controller {
       if (intent.action === 'SPIN') {
         const accepted = this.controls.acceptReceipt(reply);
         if (accepted) this.renderer.accept(reply, this.now());
+      } else if (intent.action === 'GAMBLE') {
+        this.controls.acceptGamble(reply);this.renderer.applyGamble?.(reply);
       } else if (intent.action === 'TAKE') {
         this.controls.acceptTake(reply); this.renderer.collect(intent.roundId);
       }
       return true;
     } catch (error) {
       if (!this.disposed) {
-        if (this.controls.snapshot().pending?.requestKey === intent.requestKey) this.controls.uncertain(intent.requestKey);
+        if (error?.definitiveRejection === true && this.controls.snapshot().pending?.requestKey === intent.requestKey) {
+          this.controls.cancelUnsent(intent.requestKey,{definitiveRejection:true});
+          if (intent.action === 'SPIN') this.renderer.cancelUnsent(intent.requestKey);
+        } else if (this.controls.snapshot().pending?.requestKey === intent.requestKey) this.controls.uncertain(intent.requestKey);
         else this.controls.disconnect();
         this.invalidateScheduled(); this.onError(error);
       }
@@ -61,6 +66,15 @@ export class MultiHot20Controller {
     // A manual TAKE cannot leave an already queued AUTO request waiting behind it.
     if (s.auto?.active) this.stopAuto();
     const intent = this.controls.requestTake(this.keyFactory()); this.change(); return this.send(intent);
+  }
+  async loadGamble() {
+    if(this.disposed||this.hidden||this.inflight||this.controls.snapshot().phase!=='WIN_PENDING'||typeof this.transport.refreshGamble!=='function')return false;
+    this.stopAuto();const job=Promise.resolve().then(()=>this.transport.refreshGamble());this.inflight=job;this.change();
+    try{const state=await job;if(this.disposed)return false;this.controls.updateGamble(state);return state;}finally{if(this.inflight===job)this.inflight=null;if(!this.disposed)this.change();}
+  }
+  async gamble(choice) {
+    if(this.disposed||this.hidden||this.inflight||this.controls.snapshot().phase!=='WIN_PENDING')return false;
+    this.stopAuto();const intent=this.controls.requestGamble(this.keyFactory(),choice);this.change();return this.send(intent);
   }
   configureAuto(options) { this.controls.configureAuto(options); this.change(); }
   startAuto() {

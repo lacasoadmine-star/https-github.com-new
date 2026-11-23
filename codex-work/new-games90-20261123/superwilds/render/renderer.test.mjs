@@ -101,3 +101,17 @@ test('drawing each symbol and complete machine applies five reel clips with bala
   for(const symbol of SYMBOLS)drawSymbol(context,symbol,0,0,100,100);drawCloverBackground(context,390,844);
   assert.ok(clips>=15);assert.equal(saves,restores);assert.equal(depth,0);
 });
+
+test('TAKE or a lost gamble clears the win line while retaining the immutable original reel receipt',()=>{
+  const paths=[],grad={addColorStop(){}};let current=[];
+  const context=new Proxy({beginPath(){current=[];},moveTo(x,y){current.push([x,y]);},lineTo(x,y){current.push([x,y]);},
+    stroke(){paths.push(current);},createRadialGradient(){return grad;},createLinearGradient(){return grad;}},
+    {get(target,key){return key in target?target[key]:(()=>{});},set(target,key,value){target[key]=value;return true;}});
+  const target=canvas();target.getContext=()=>context;
+  const renderer=new SuperWildsRenderer({canvas:target}),accepted=receipt();renderer.acceptReceipt(accepted);
+  const linePaths=()=>paths.filter(path=>path.length===5&&path.every((point,i)=>i===0||point[0]>path[i-1][0]));
+  paths.length=0;renderer.setDisplay({winPending:true,winMinor:accepted.winMinor});assert.equal(linePaths().length,1);
+  for(const patch of [{winPending:false},{winPending:true,winMinor:0}]){
+    paths.length=0;renderer.setDisplay(patch);assert.equal(linePaths().length,0);assert.deepEqual(renderer.snapshot().receipt,accepted);
+  }
+});

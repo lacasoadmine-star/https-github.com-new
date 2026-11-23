@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createM20ReleaseWorker,GAME_PATH} from './worker.mjs';
+import {buildM20Release} from './build.mjs';
+
+test('compiled M20 route loads exact immutable app/CSS/manifest from existing KV and leaves financial endpoints with the host',async()=>{
+  const build=await buildM20Release({activeMainModule:'newrequested90r2/entry.mjs',enabled:true});
+  assert(build.report.totalBytes<12000);assert.equal(build.report.cashFlagsChanged,false);assert.equal(build.report.liveVerified,false);
+  const calls=[],previous={fetch:async request=>{calls.push(request.url);return new Response('previous');},scheduled(){},queue(){}};
+  const records=new Map(build.staticFiles.map(file=>[file.key,new TextEncoder().encode(file.source).buffer]));
+  const env={SSG_OFFICIAL_REFERENCES:{get:async key=>records.get(key)??null}},worker=createM20ReleaseWorker(previous,build.config);
+  assert.equal(worker.scheduled,previous.scheduled);assert.equal(worker.queue,previous.queue);
+  const page=await worker.fetch(new Request('https://qa.invalid'+GAME_PATH),env,{});assert.equal(page.status,200);
+  const html=await page.text();assert(html.includes('assets.'+build.config.manifestSha256+'.json'));
+  const base='/_zplay/new90-m20/'+build.config.revision+'/';
+  const app=await worker.fetch(new Request('https://qa.invalid'+base+'app.'+build.config.appSha256+'.mjs'),env,{});
+  assert.equal(app.status,200);assert.equal(await app.text(),build.staticFiles[0].source);
+  assert.equal(app.headers.get('cache-control'),'public, max-age=31536000, immutable');
+  const manifest=await worker.fetch(new Request('https://qa.invalid'+GAME_PATH+'assets.json'),env,{});
+  assert.equal(manifest.headers.get('cache-control'),'no-store');const parsed=await manifest.json();
+  assert.equal(Object.keys(parsed.files).length,13);assert.equal('provenanceSummary'in parsed,false);
+  const api=await worker.fetch(new Request('https://qa.invalid/api/slots/gamble',{method:'POST',body:'{}'}),env,{});
+  assert.equal(await api.text(),'previous');assert.equal(calls.length,1);
+  records.set(build.config.appAsset.key,new TextEncoder().encode('altered').buffer);
+  const corrupt=await worker.fetch(new Request('https://qa.invalid'+base+'app.'+build.config.appSha256+'.mjs'),env,{});
+  assert.equal(corrupt.status,502);
+  const missing=await worker.fetch(new Request('https://qa.invalid'+base+'assets/atlas-0.png'),env,{});assert.equal(missing.status,503);
+  const closed=createM20ReleaseWorker(previous,{...build.config,enabled:false});
+  assert.equal(await(await closed.fetch(new Request('https://qa.invalid'+GAME_PATH),env,{})).text(),'previous');
+});

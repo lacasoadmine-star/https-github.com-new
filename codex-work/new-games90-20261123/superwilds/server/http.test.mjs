@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createSuperWildsHttpHandler, HTTP_BASE } from './http.mjs';
+import { createSuperWildsHttpHandler, HTTP_BASE, UPSTREAM_HTTP_BASE } from './http.mjs';
 import { createSuperWildsHttpTransport } from '../client/http-transport.mjs';
 import { fixture } from './test-support.mjs';
 import { GAME_ID } from './lifecycle.mjs';
@@ -79,4 +79,40 @@ test('browser HTTP requests keep credentials on the same site and reject a login
   await assert.rejects(transport.state(), /SUPERWILDS_SERVER_RESPONSE_REQUIRED/);
   assert.equal(requests[0].url, HTTP_BASE + '/state'); assert.equal(requests[0].init.credentials, 'same-origin');
   assert.equal(requests[0].init.redirect, 'error');
+});
+
+test('GAMBLE uses the same original authenticated request and origin policy without delegating to old routes', async () => {
+  const received = [], h = host({ lifecycle: { state() {}, spin() {}, takeWin() {},
+    gamble(request, body) { received.push({ request, body }); return { action: 'GAMBLE', requestKey: body.requestKey }; },
+  } });
+  const body = { gameId: GAME_ID, requestKey: 'dddddddd-dddd-4ddd-8ddd-dddddddddddd', choice: 'RED' };
+  const request = new Request(origin + HTTP_BASE + '/gamble', { method: 'POST',
+    headers: { origin, cookie: 'original-session', 'content-type': 'application/json' }, body: JSON.stringify(body) });
+  const response = await h.handler(request); assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { action: 'GAMBLE', requestKey: body.requestKey });
+  assert.equal(received[0].request, request); assert.deepEqual(received[0].body, body);
+  assert.equal(h.delegated.length, 0);
+  assert.equal((await h.handler(new Request(origin + HTTP_BASE + '/gamble'))).status, 405);
+  assert.equal((await h.handler(new Request(origin + HTTP_BASE + '/gamble', { method: 'POST',
+    headers: { origin: 'https://untrusted.invalid', 'content-type': 'application/json' }, body: JSON.stringify(body) }))).status, 403);
+  assert.equal((await h.handler(new Request(origin + HTTP_BASE + '/gamble', { method: 'POST',
+    headers: { origin, 'content-type': 'application/json' }, body: JSON.stringify({ gameId: GAME_ID, data: 'x'.repeat(9000) }) }))).status, 413);
+  assert.equal(received.length, 1);
+});
+
+test('an older host without GAMBLE rejects its route instead of invoking an unrelated handler', async () => {
+  const h = host(), response = await h.fetchImpl(HTTP_BASE + '/gamble', { method: 'POST',
+    headers: { 'content-type': 'application/json' }, body: JSON.stringify({ gameId: GAME_ID }) });
+  assert.equal(response.status, 503); assert.deepEqual(await response.json(), { detail: 'SUPERWILDS_GAMBLE_UNAVAILABLE' });
+  assert.equal(h.delegated.length, 0); assert.equal(h.f.snapshot().ledger.length, 0);
+});
+
+test('the existing Player gateway rewritten upstream prefix reaches the same authenticated lifecycle', async () => {
+  const h = host(), response = await h.handler(new Request(origin + UPSTREAM_HTTP_BASE + '/state', {
+    headers: { cookie: 'original-session-cookie' } }));
+  assert.equal(response.status, 200); assert.equal((await response.json()).authenticated, true);
+  assert.equal(h.received.length, 1); assert.equal(h.received[0].request.headers.get('cookie'), 'original-session-cookie');
+  const spin = await h.handler(new Request(origin + UPSTREAM_HTTP_BASE + '/spin', { method: 'POST',
+    headers: { origin, 'content-type': 'application/json' }, body: JSON.stringify(h.f.action()) }));
+  assert.equal(spin.status, 200); assert.equal(h.f.snapshot().ledger.length, 1); assert.equal(h.delegated.length, 0);
 });

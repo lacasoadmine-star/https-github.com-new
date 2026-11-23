@@ -48,9 +48,9 @@ test('the remote function is self contained in its service execution scope',asyn
   const f=fixture(),run=new Function('cloudflare','accountId','return ('+stageCode(f.plan)+')()');
   assert.equal((await run(f.cloudflare,'account')).verificationPending,true);
 });
-test('r2 can preserve the deployed r1 modules with an exact four-file namespace',async()=>{
-  const f=fixture('newrequested90r2');
-  assert.equal(f.plan.mainModule,'newrequested90r2/entry.mjs');
+test('r3 preserves the deployed modules with an exact four-file namespace',async()=>{
+  const f=fixture('newrequested90r3');
+  assert.equal(f.plan.mainModule,'newrequested90r3/entry.mjs');
   const result=await executeStage(f.cloudflare,'account',f.plan);
   const proof={worker:'superwin-player',sourceCommit:commit,baseline:f.baseline,versionId:result.stagedVersion,mainModule:f.plan.mainModule,
     newPins:f.plan.modules.map(({name,bytes,sha256,contentType})=>({name,bytes,sha256,contentType}))};

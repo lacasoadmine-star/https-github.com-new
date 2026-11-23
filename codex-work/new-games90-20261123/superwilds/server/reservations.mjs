@@ -39,6 +39,8 @@ export const RESERVATION_SQL = Object.freeze({
   reservation: 'SELECT round_id,user_id,house_wallet_id,amount_minor::text,closed_reason FROM sw_new_superwilds.reservations WHERE round_id=$1::uuid FOR UPDATE',
   event: 'SELECT receipt FROM sw_new_superwilds.reservation_events WHERE event_key=$1',
   insertReservation: 'INSERT INTO sw_new_superwilds.reservations(round_id,user_id,house_wallet_id,amount_minor) VALUES($1::uuid,$2,$3,$4::bigint)',
+  change: `UPDATE sw_new_superwilds.reservations SET amount_minor=$4::bigint,closed_reason=$5
+ WHERE round_id=$1::uuid AND user_id=$2 AND house_wallet_id=$3 AND amount_minor=$6::bigint AND closed_reason IS NULL RETURNING round_id`,
   close: `UPDATE sw_new_superwilds.reservations SET amount_minor=0,closed_reason='COLLECTED'
  WHERE round_id=$1::uuid AND user_id=$2 AND house_wallet_id=$3 AND amount_minor=$4::bigint AND closed_reason IS NULL RETURNING round_id`,
   insertEvent: `INSERT INTO sw_new_superwilds.reservation_events(event_key,round_id,user_id,house_wallet_id,kind,action_id,amount_minor,pending_before,pending_after,transfer_id,receipt)
@@ -94,10 +96,10 @@ export function createSuperWildsReservationBridge(dependencies) {
   function action(value, kind) {
     if (value?.gameId !== GAME_ID || !text(value.userId) || !UUID.test(value.roundId ?? '') ||
       typeof value.amountMinor !== 'bigint' || units(value.amountMinor) <= 0n) fail('SUPERWILDS_RESERVATION_ACTION_INVALID', 400);
-    const actionId = kind === 'COLLECT' ? value.collectionId : null;
+    const actionId = kind === 'COLLECT' ? value.collectionId : ['INCREASE', 'RELEASE'].includes(kind) ? value.actionId : null;
     if (actionId !== null && !UUID.test(actionId ?? '')) fail('SUPERWILDS_RESERVATION_ACTION_ID_INVALID', 400);
     return { userId: value.userId, roundId: value.roundId.toLowerCase(), kind,
-      actionId: actionId?.toLowerCase() ?? null, amountMinor: value.amountMinor.toString(), eventKey: `${kind}:${value.roundId.toLowerCase()}` };
+      actionId: actionId?.toLowerCase() ?? null, amountMinor: value.amountMinor.toString(), eventKey: ['INCREASE', 'RELEASE'].includes(kind) ? `GAMBLE:${actionId.toLowerCase()}` : `${kind}:${value.roundId.toLowerCase()}` };
   }
   async function existing(client, expected) {
     const result = await client.query(RESERVATION_SQL.event, [expected.eventKey]);
@@ -152,6 +154,16 @@ export function createSuperWildsReservationBridge(dependencies) {
     }
     const held = await reservation(client, expected, houseId);
     if (held.closed_reason !== null || held.amount !== amount) fail('SUPERWILDS_PENDING_WIN_AMOUNT_CHANGED', 409);
+    if (kind === 'INCREASE' || kind === 'RELEASE') {
+      const after = kind === 'INCREASE' ? units(amount * 2n) : 0n;
+      if (kind === 'INCREASE' && await available(client, houseId) < amount) fail('SUPERWILDS_HOUSE_CAPACITY_UNAVAILABLE');
+      const changed = await client.query(RESERVATION_SQL.change, [expected.roundId, expected.userId, houseId,
+        after.toString(), kind === 'RELEASE' ? 'LOST' : null, amount.toString()]);
+      if (changed.rowCount !== 1) fail('SUPERWILDS_PENDING_WIN_STATE_CHANGED', 409);
+      // The original pending award was already reserved. A gamble changes
+      // only that liability and its immutable event, with no player transfer.
+      return event(client, expected, houseId, amount, after);
+    }
     // Close exactly this hold before paying. A later SQL failure rolls the
     // closure, transfer and both paired ledger entries back together.
     const result = await client.query(RESERVATION_SQL.close, [expected.roundId, expected.userId, houseId, expected.amountMinor]);
@@ -175,6 +187,8 @@ export function createSuperWildsReservationBridge(dependencies) {
     reservedBalance: async (client, userId) => { await scope(client, userId); return total(client, RESERVATION_SQL.own, userId); },
     debitStake: (client, args) => mutate(client, args, 'BET'),
     reserveWin: (client, args) => mutate(client, args, 'RESERVE'),
+    increaseReservedWin: (client, args) => mutate(client, args, 'INCREASE'),
+    releaseReservedWin: (client, args) => mutate(client, args, 'RELEASE'),
     creditReservedWin: (client, args) => mutate(client, args, 'COLLECT'),
     assertPlayerCapacity: (...args) => d.assertPlayerCapacity(...args),
     assertNoActiveRound: async (client, userId) => { await scope(client, userId); await assertNone(client, userId); },
@@ -190,7 +204,7 @@ export function createSuperWildsReservationBridge(dependencies) {
     },
     releaseActiveRound: async (client, userId, gameId, roundId) => {
       const { houseId } = await scope(client, userId), held = await reservation(client, { userId, roundId }, houseId);
-      if (gameId !== GAME_ID || held.amount !== 0n || held.closed_reason !== 'COLLECTED') fail('SUPERWILDS_ACTIVE_RESERVATION_NOT_RELEASED');
+      if (gameId !== GAME_ID || held.amount !== 0n || !['COLLECTED', 'LOST'].includes(held.closed_reason)) fail('SUPERWILDS_ACTIVE_RESERVATION_NOT_RELEASED');
     },
   });
   const legacyDependencies = Object.freeze({ ...d, superWildsReservationsAware: true,

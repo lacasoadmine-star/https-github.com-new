@@ -45,7 +45,7 @@ CREATE TABLE sw_new_superwilds.reservation_events (
  round_id uuid NOT NULL REFERENCES sw_new_superwilds.rounds(round_id) DEFERRABLE INITIALLY DEFERRED,
  user_id text NOT NULL REFERENCES sw_rebuild.users(id),
  house_wallet_id text NOT NULL REFERENCES sw_rebuild.wallets(id),
- kind text NOT NULL CHECK(kind IN('BET','RESERVE','COLLECT')),
+ kind text NOT NULL CHECK(kind IN('BET','RESERVE','INCREASE','RELEASE','COLLECT')),
  action_id uuid,
  amount_minor bigint NOT NULL CHECK(amount_minor>0),
  pending_before bigint NOT NULL CHECK(pending_before>=0),

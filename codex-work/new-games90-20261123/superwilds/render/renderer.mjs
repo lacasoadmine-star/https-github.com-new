@@ -115,7 +115,7 @@ export class SuperWildsRenderer {
       const shade=c.createLinearGradient(0,r.y,0,r.y+r.height);shade.addColorStop(0,'rgba(0,20,16,.25)');shade.addColorStop(.14,'transparent');shade.addColorStop(.86,'transparent');shade.addColorStop(1,'rgba(0,20,16,.3)');c.fillStyle=shade;c.fillRect(r.x,r.y,r.width,r.height);c.restore();
       c.strokeStyle='rgba(181,165,82,.45)';c.lineWidth=1;c.strokeRect(r.x,r.y,r.width,r.height);
     }
-    if(this.phase==='IDLE'&&this.receipt?.winningLines?.length) {
+    if(this.phase==='IDLE'&&this.display.winPending===true&&this.display.winMinor>0&&this.receipt?.winningLines?.length) {
       const line=this.receipt.winningLines[Math.floor(this.lastTime/1400)%this.receipt.winningLines.length];c.save();c.lineWidth=2.5;c.strokeStyle='#ffe445';c.shadowColor='#ffd53e';c.shadowBlur=8;c.beginPath();
       line.rows.forEach((row,i)=>{const r=reels[i],x=r.x+r.width/2,y=r.y+(row+.5)*r.height/3;i?c.lineTo(x,y):c.moveTo(x,y);});c.stroke();c.restore();
     }

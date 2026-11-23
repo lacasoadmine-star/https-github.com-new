@@ -30,14 +30,22 @@ export function publicCatalogue(registry) {
       || !safeRoute(game.route) || routes.has(game.route)) throw Error('NEW90_IDENTITY_INVALID:' + (index + 1));
     ids.add(game.gameId); routes.add(game.route);
     const playable = registry.publicActivation === true && releaseReady(game);
+    const runtime = game.runtime;
+    const launchable = !game.duplicateOfGameId && runtime?.installed === true && runtime.gameId === game.gameId && runtime.route === game.route
+      && game.frontend?.implemented === true && game.identityReservedOnly === false
+      && /^[a-f0-9]{40}$/.test(runtime.sourceCommit || '') && /^[a-f0-9]{64}$/.test(runtime.assetManifestSha256 || '')
+      && runtime.existingWallet === true && runtime.authRequired === true && runtime.financialGatePassed === true
+      && typeof runtime.backendRelease === 'string' && runtime.backendRelease.length > 0;
     const preview = game.frontend?.visualPreview;
     const previewRoute = preview?.enabled === true && preview.readOnly === true
       && preview.assetClosureVerified === true && safePreview(preview.route) ? preview.route : null;
     return Object.freeze({ordinal:index + 1, gameId:game.gameId, name:game.displayName,
-      status:playable ? 'ready' : 'preparing', playable, route:playable ? game.route : null, previewRoute});
+      status:playable ? 'ready' : 'preparing', playable, route:playable ? game.route : null, previewRoute,
+      ...(launchable ? {launchRoute:game.route} : {})});
   });
   const result = Object.freeze({schema:SCHEMA, releaseId:registry.releaseId,
-    requestedCount:90, readyCount:games.filter(game => game.playable).length, games:Object.freeze(games)});
+    requestedCount:90, readyCount:games.filter(game => game.playable).length,
+    ...(games.some(game=>game.launchRoute) ? {launchableCount:games.filter(game=>game.launchRoute||game.playable).length} : {}),games:Object.freeze(games)});
   if (!validCatalogue(result)) throw Error('NEW90_PUBLIC_CATALOGUE_INVALID');
   return result;
 }

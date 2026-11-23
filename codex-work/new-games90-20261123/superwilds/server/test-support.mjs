@@ -7,7 +7,7 @@ const copy = value => structuredClone(value);
 const error = code => { throw new SuperWildsError(code); };
 export function fixture({ win = 300n, initialPlayer = 10000n, initialHouse = 1000000n } = {}) {
   let database = { player: initialPlayer, house: initialHouse, reserved: 0n, active: null,
-    requests: new Map(), rounds: new Map(), collections: new Map(), owners: new Map(), ledger: [], order: [] };
+    gambles: new Map(), reservationEvents: [], requests: new Map(), rounds: new Map(), collections: new Map(), owners: new Map(), ledger: [], order: [] };
   const controls = { release: true, modelAvailable: true, guard: GUARD, userId: 'fixture-player',
     inTransactionUser: 'fixture-player', failAt: null, sampled: 0, maximum: 10000n,
     malformed: false, validOutcome: true, sampledAfterDebit: null, debitWrites: 0, creditWrites: 0 };
@@ -43,6 +43,10 @@ export function fixture({ win = 300n, initialPlayer = 10000n, initialHouse = 100
           if (!saved || saved.gameId !== identity.gameId || saved.kind !== identity.kind) error('OWNER_NOT_RECORDED');
           return result;
         },
+        findGambles: async (uid, id) => { if (database.rounds.get(id)?.userId !== uid) return []; return copy(database.gambles.get(id) ?? []); },
+        insertGamble: async (uid, id, receipt) => { invoke('insertGamble'); const all = database.gambles.get(id) ?? [];
+          if (all.some(r => r.attempt === receipt.attempt || r.actionId === receipt.actionId)) error('DUPLICATE_GAMBLE');
+          database.gambles.set(id, [...all, copy(receipt)]); },
         findRequest: async (uid, token) => copy(database.requests.get(key(uid, token)) ?? null),
         insertRequest: async (uid, token, kind, fingerprint, receipt) => {
           invoke('insertRequest');
@@ -76,6 +80,10 @@ export function fixture({ win = 300n, initialPlayer = 10000n, initialHouse = 100
           invoke('reserve'); if (database.house - database.reserved < amountMinor) error('HOUSE_FLOOR');
           database.reserved += amountMinor;
         },
+        increaseReservedWin: async args => { invoke('increase'); if (database.house - database.reserved < args.amountMinor) error('HOUSE_FLOOR');
+          database.reserved += args.amountMinor; database.reservationEvents.push({kind:'INCREASE', ...args}); },
+        releaseReservedWin: async args => { invoke('lose'); if (database.reserved < args.amountMinor) error('HOLD_MISSING');
+          database.reserved -= args.amountMinor; database.reservationEvents.push({kind:'RELEASE', ...args}); },
         creditReservedWin: async ({ amountMinor, roundId }) => {
           invoke('credit'); controls.creditWrites++;
           database.reserved -= amountMinor; database.house -= amountMinor; database.player += amountMinor;

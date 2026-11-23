@@ -15,6 +15,7 @@ function pgFixture() {
       assert.equal(client, current, 'every journal query uses the one currently locked host client');
       calls.push({ sql, params: p });
       const result = value => ({ rowCount: value ? 1 : 0, rows: value ? [value] : [] });
+      if (sql === SQL.gambles) { const values = await tx.findGambles(...p); return {rowCount:values.length, rows:values.map(receipt => ({action_id:receipt.actionId,round_id:receipt.roundId,user_id:p[0],attempt:receipt.attempt,request_key:receipt.requestKey.toLowerCase(),stake_minor:BigInt(receipt.pendingWinBefore.replace('.','')).toString(),payout_minor:BigInt(receipt.pendingWinAfter.replace('.','')).toString(),receipt}))}; }
       if (sql === SQL.request) return result(await tx.findRequest(...p));
       if (sql === SQL.round) return result(row(await tx.findRound(...p)));
       if (sql === SQL.latest) return result(row(await tx.latestRound(p[0])));
@@ -23,6 +24,7 @@ function pgFixture() {
       if (sql === SQL.insertRequest) await tx.insertRequest(p[0], p[1], p[2], p[3], JSON.parse(p[4]));
       else if (sql === SQL.insertRound) await tx.insertRound({ userId: p[1], gameId: p[2], roundId: p[0], requestKey: p[3],
         bet: JSON.parse(p[6]).bet, winAmount: JSON.parse(p[6]).winAmount, receipt: JSON.parse(p[6]) });
+      else if (sql === SQL.insertGamble) await tx.insertGamble(p[2],p[1],JSON.parse(p[7]));
       else if (sql === SQL.insertCollection) await tx.insertCollection(p[2], p[0], JSON.parse(p[4]));
       else throw Error('UNEXPECTED_SQL');
       return { rowCount: 1, rows: [] };
