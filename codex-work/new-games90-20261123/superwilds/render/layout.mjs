@@ -16,23 +16,39 @@ export function superWildsLayout(width, height) {
         balance:box(.278,.895,.121,.062),bet:box(.592,.895,.121,.062)}),
       balance:box(.278,.895,.121,.062),bet:box(.592,.895,.121,.062),win:box(.438,.890,.123,.066)});
   }
-  const w=width, h=height, margin=Math.max(9,w*.025);
-  // A five-by-three cabinet keeps nearly square symbol cells. Additional
-  // portrait height belongs between the cabinet and controls, not in reels.
+  const w=width, h=height;
+  // Video reference 42764 (576x1280): 5x3 cabinet at x~22,y~465,
+  // wheel top ~346, 160px SPIN at y~1021 and footer y~1202.
+  // Scale the portrait controls by width, not fixed CSS pixels; smaller
+  // phones preserve independent hitboxes without changing the game rules.
+  const margin=Math.max(9,w*.037);
   const cabinetWidth=w-2*margin;
   const cabinetHeight=Math.min(cabinetWidth*3/5,Math.max(108,h-235));
-  const cabinetTop=Math.max(97,Math.min(h*.285,h-170-cabinetHeight));
-  const controlsY=Math.max(cabinetTop+cabinetHeight+8,h-162);
-  const spinSize=76, centre=w/2, aux=48, plateWidth=Math.max(105,(w-110)/2), plateY=h-68;
-  return Object.freeze({width,height,portrait,scene:rect(0,0,w,h),title:rect(12,Math.max(13,cabinetTop-Math.min(w*.245,96)-58),w-24,41),
-    wheel:rect(w*.11,cabinetTop-Math.min(w*.245,96),w*.78,Math.min(w*.245,96)-3),cabinet:rect(margin,cabinetTop,cabinetWidth,cabinetHeight),
-    controls:Object.freeze({spin:rect(centre-spinSize/2,controlsY,spinSize,spinSize),
-      auto:rect(Math.max(5,centre-135),controlsY+13,aux,aux),take:rect(Math.min(w-53,centre+87),controlsY+13,aux,aux),
-      quick:rect(centre+38,controlsY+16,44,44),double:rect(centre-82,controlsY+16,44,44),
-      menu:rect(3,h-53,44,44),sound:rect(w-47,h-53,44,44),
-      balance:rect(49,plateY,plateWidth,44),bet:rect(w-49-plateWidth,plateY,plateWidth,44)}),
-    balance:rect(49,plateY,plateWidth,44),bet:rect(w-49-plateWidth,plateY,plateWidth,44),
-    win:rect(centre-72,controlsY+77,144,16)});
+  const cabinetTop=Math.max(97,Math.min(h*.363,h-170-cabinetHeight));
+  const plateY=h-w*.135;
+  const controlsY=Math.max(cabinetTop+cabinetHeight+12,h-w*.45);
+  const spinSize=Math.max(44,Math.min(w*.28,plateY-controlsY-8));
+  const centre=w/2, aux=Math.max(44,w*.135), corner=Math.max(44,w*.08);
+  const footerHeight=Math.max(44,w*.095);
+  const quickSize=44, quickY=controlsY-25;
+  const wheelHeight=w*.205;
+  return Object.freeze({width,height,portrait,scene:rect(0,0,w,h),
+    title:rect(w*.02,Math.max(13,cabinetTop-w*.42),w*.96,w*.106),
+    wheel:rect(w*.11,cabinetTop-wheelHeight,w*.78,wheelHeight-3),
+    cabinet:rect(margin,cabinetTop,cabinetWidth,cabinetHeight),
+    controls:Object.freeze({
+      spin:rect(centre-spinSize/2,controlsY,spinSize,spinSize),
+      auto:rect(centre-w*.30,controlsY+spinSize*.25,aux,aux),
+      take:rect(centre+w*.165,controlsY+spinSize*.25,aux,aux),
+      quick:rect(centre+spinSize/2+2,quickY,quickSize,quickSize),
+      double:rect(centre-w*.34,quickY,quickSize,quickSize),
+      menu:rect(w*.04,h-w*.13,corner,corner),
+      sound:rect(w-w*.04-corner,h-w*.13,corner,corner),
+      balance:rect(w*.163,plateY,w*.325,footerHeight),
+      bet:rect(w*.512,plateY,w*.325,footerHeight)}),
+    balance:rect(w*.163,plateY,w*.325,footerHeight),
+    bet:rect(w*.512,plateY,w*.325,footerHeight),
+    win:rect(centre-72,controlsY+spinSize*.7,144,16)});
 }
 
 export function reelRectangles(layout) {
