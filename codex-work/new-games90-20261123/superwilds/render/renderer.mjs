@@ -83,7 +83,10 @@ export class SuperWildsRenderer {
     if(!Number.isFinite(at))throw new TypeError('SUPERWILDS_TIME');
     this.lastTime=Math.max(this.lastTime,at);
     const deadlines=this.deadlines();
-    if(deadlines)for(let i=0;i<5;i++)if(this.lastTime>=deadlines[i]&&!this.stopped.has(i)){this.stopped.add(i);this.emit('reel-stop',{column:i});}
+    if(deadlines)for(let i=0;i<5;i++)if(this.lastTime>=deadlines[i]&&!this.stopped.has(i)){
+      this.stopped.add(i);this.emit('reel-stop',{column:i});
+      if(i===4)this.emit('wheel-start',{multiplier:this.pendingReceipt.multiplier});
+    }
     if(deadlines&&this.stopped.size===5&&this.lastTime>=deadlines[4]+(this.stopAt!==null?70:150)) {
       this.receipt=this.pendingReceipt;this.pendingReceipt=null;this.phase='IDLE';this.applyReceiptDisplay(this.receipt);
       this.emit('wheel-stop',{multiplier:this.receipt.multiplier});
