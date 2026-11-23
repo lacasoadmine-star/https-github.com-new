@@ -1,0 +1,86 @@
+{
+  "release": "account-return-r18",
+  "status": "deployed_signed_out_entry_and_account_return_fix; account_specific_spin_issue_not_verified",
+  "checkedAt": "2026-11-10T06:22:57.181995+00:00",
+  "player": "https://play.superwinn.net",
+  "verifiedOrigin": "https://superwin-player.apdiy61.workers.dev",
+  "actualReportedGame": "/games/multihotdeluxe_native",
+  "fixedIds": [
+    "multihotdeluxe_native",
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "burningice_native",
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "actualFailureObserved": {
+    "accountStateHttp": 401,
+    "error": "UNAUTHORIZED",
+    "disabledSpinLabel": "SIGN IN TO PLAY",
+    "genericCabinetVisible": true,
+    "originalReturnAllowedOnly": [
+      "jetx_native",
+      "multihot40_native"
+    ]
+  },
+  "changes": [
+    "Use original same-origin /api/machine-session to confirm signed-out identity and open existing account login for exactly nine NEW games.",
+    "Retain the chosen game through original login, and return only after the original endpoint confirms authentication.",
+    "Retain original loader, game code, wallet, native release, model math, original login and protected games."
+  ],
+  "financialRelease": "remaining-native-etb-r16_unchanged",
+  "walletLedger": "existing-postgresql",
+  "verification": {
+    "nodeTests": 57,
+    "backendTests": 9,
+    "frontendBuilds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "actualUnmockedDeployedSignedOutEntries": 9,
+    "apiInterceptionsInLiveAuthChecks": 0,
+    "originalLoginVisible": 9,
+    "gameReturnSaved": 9,
+    "configurationFingerprintsPreserved": true,
+    "originalCatalogueAndProtectedHashesPreserved": true,
+    "originalLoginSourceRetained": true,
+    "realMoneyRoundsPlaced": 0,
+    "productionAccountsCreated": 0
+  },
+  "deployed": {
+    "superwin-player": {
+      "etag": "8c1955e50a8022796f9529ebb9d7de578d0d4b244712390fc7a85739c07ca412",
+      "settingsFingerprint": "29d0602b386fbd61ba02116b1a83698a5586fc10944f1cd62957f30ee1dce725",
+      "deployment": "2a5a206e-f0a9-4ab4-b8f7-e56a3468a51c",
+      "versions": [
+        {
+          "version_id": "3c384f4b-1e1e-45dc-a47b-f80c60c4ce9c",
+          "percentage": 100
+        }
+      ],
+      "createdOn": "2026-11-10T06:19:39.766617Z"
+    },
+    "superwin-library-100": {
+      "etag": "8c6cbac8c19a1e3ac26f88738db66105393d3640279f3a3a89258acb9d156f59",
+      "settingsFingerprint": "7c96fd1684ea3d99d818b4eb7c65c9c0a09343cc22ad4b8eaa9ad5da4a44b812",
+      "deployment": "0270cb5d-29ad-4b86-9e90-349999a36ee9",
+      "versions": [
+        {
+          "version_id": "a6e555b5-cb7e-40f0-b0b5-8bb1a39d54fe",
+          "percentage": 100
+        }
+      ],
+      "createdOn": "2026-11-10T06:19:16.517083Z"
+    }
+  },
+  "sourceEvidence": "account-evidence-r18.json",
+  "remaining": [
+    "The user reported PAUSED or another error but supplied no exact notice or accessible authenticated session. That account-specific issue is not verified or declared fixed.",
+    "Real-money spins were not placed; they would change a wallet balance. Actual signed-in readiness still needs read-only account state.",
+    "The1000-entry official reference inventory remains incomplete implementation."
+  ]
+}

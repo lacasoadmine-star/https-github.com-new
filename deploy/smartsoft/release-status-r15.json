@@ -1,0 +1,83 @@
+{
+  "release": "construction-reference-r15",
+  "status": "deployed_public_inventory_and_portrait_fixes; native_financial_release_pending",
+  "existingPlayerUrl": "https://play.superwinn.net",
+  "automatedOrigin": "https://superwin-player.apdiy61.workers.dev",
+  "walletLedger": "existing-postgresql",
+  "existingBackend": "https://zplay-rebuild-api-staging.up.railway.app",
+  "protectedGames": ["multi_hot_5_native", "foxy_hot_20_native"],
+  "queue": {
+    "target": 1000,
+    "distinctOfficialReferences": 1000,
+    "hashPinnedCovers": 1000,
+    "studios": 19,
+    "providerCounts": {"smartsoft": 69, "relax": 438, "playngo": 478, "hacksaw": 15},
+    "all1000Implemented": false,
+    "financialRelease": false
+  },
+  "officialObservation": {
+    "individualPortraitEntries": 6,
+    "sampledFreeSpinStarts": 32,
+    "audioStartEventsCaptured": true,
+    "completeFeatureCoverage": false,
+    "completeProviderParityVerified": false,
+    "providerPrivateMathVerified": false
+  },
+  "verification": {
+    "nodeTests": 30,
+    "compiledPackageTests": 30,
+    "compiledTestsAreTheSameCases": true,
+    "backendTests": 9,
+    "frontendBuilds": ["player", "agent", "admin"],
+    "localNativeGamePlayback": 9,
+    "localAutoplayStartStop": 9,
+    "localSoundControl": 9,
+    "reviewActions": 25,
+    "outgoingReviewWrites": 0,
+    "deployedIsolatedAccountEntries": 10,
+    "deployedQueueReferences": 1000,
+    "deployedFirstPageCoversDecoded": 24,
+    "deployedNameSearchAndStudioFilter": true,
+    "deployedPagination": true,
+    "deployedDirectAccountEntry": true,
+    "original59GameCataloguePreserved": true,
+    "protectedGamePageHashesPreserved": true,
+    "runtimeConfigurationFingerprintsPreserved": true
+  },
+  "newFinancialRoundsEnabled": false,
+  "realMoneyRoundsPlaced": 0,
+  "deployed": {
+    "player": {
+      "worker": "superwin-player",
+      "mainModule": "construction-player-entry-r15.mjs",
+      "etag": "ced55065d6c75651260d5b4265869c282d16e9bb94558747997ab1e4bd7b1950",
+      "version": "0836c6c4-77df-43c2-afac-a3048af2914e",
+      "deployment": "a4826b96-ad80-40a2-a8b5-b7cab0dfbfeb",
+      "createdOn": "2026-11-10T04:37:32.17064Z",
+      "trafficPercent": 100,
+      "sourceBytes": 66977385,
+      "modules": 304,
+      "unchangedRetainedModules": 300,
+      "ownedModulesMinified": ["account-entry-r13.mjs", "reference-resources-r14.mjs", "account-lobby-source-r13.mjs"],
+      "settingsFingerprint": "29d0602b386fbd61ba02116b1a83698a5586fc10944f1cd62957f30ee1dce725"
+    },
+    "library": {
+      "worker": "superwin-library-100",
+      "mainModule": "construction-library-entry-r15.mjs",
+      "etag": "f1fddddd4db041744bbcdddeb49d9785dfb49adbcef9377e39ae310b51ab06bd",
+      "version": "15b4d4e3-d874-4c99-a2f8-55137177bca9",
+      "deployment": "fbc09aa4-1b5a-47f7-bd86-fec1d38bb9bf",
+      "createdOn": "2026-11-10T04:34:18.671887Z",
+      "trafficPercent": 100,
+      "sourceBytes": 10688519,
+      "modules": 88,
+      "unchangedRetainedModules": 84,
+      "settingsFingerprint": "7c96fd1684ea3d99d818b4eb7c65c9c0a09343cc22ad4b8eaa9ad5da4a44b812"
+    }
+  },
+  "remaining": [
+    "Complete per-title construction for the expanded official reference inventory.",
+    "Complete unobserved rules, bonuses, win transitions and full reference comparisons.",
+    "Complete native release evidence before enabling any new production ETB round."
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "release": "native-controls-r17",
+  "status": "deployed_native_auto_stop_and_entry_fixes; expanded_inventory_in_progress",
+  "existingPlayerUrl": "https://play.superwinn.net",
+  "automatedOrigin": "https://superwin-player.apdiy61.workers.dev",
+  "existingBackend": "https://zplay-rebuild-api-staging.up.railway.app",
+  "walletLedger": "existing-postgresql",
+  "protectedGames": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native"
+  ],
+  "enabledNativeIds": [
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "multihotdeluxe_native",
+    "burningice_native",
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "nativeFinancialReleaseUnchanged": "remaining-native-etb-r16",
+  "changes": [
+    "The native AUTO button remains enabled during automatic play and delegates to the existing stop listener. The accepted round finishes; no later round starts.",
+    "Each modern title uses its own observed AUTO stop sprite. Ice retains its own active AUTO artwork.",
+    "Hide the initial generic machine shell until native art or an actionable error/recovery state is ready. Retain every original loader, sound choice and audio gesture."
+  ],
+  "unchanged": [
+    "canonical wallet, ledger and native evaluators",
+    "original sound and music assets",
+    "protected MultiHot5 and FoxyHot20",
+    "existing bindings, assets, secrets, Durable Objects and scheduled handler"
+  ],
+  "verified": {
+    "nodeTests": 49,
+    "backendTests": 9,
+    "frontendBuilds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "nativeAutoplayStop": 9,
+    "soundAndControls": 9,
+    "naturalCompletion": 9,
+    "finiteAutoplayWagers": 25,
+    "holdRelease": true,
+    "delayedAcceptance": true,
+    "visibilityResume": true,
+    "realMoneyRoundsPlaced": 0,
+    "configurationPreserved": true,
+    "original59GameCataloguePreserved": true,
+    "protectedGamePageHashesPreserved": true,
+    "oldRuntimeNamespacesPreserved": true,
+    "deployedQueueReferences": 1000,
+    "deployedFirstPageCoversDecoded": 24,
+    "deployedIsolatedAccountEntries": 10
+  },
+  "officialObservation": {
+    "title": "MultiHot Wild Ways",
+    "freeDemoOnly": true,
+    "soundPromptObserved": true,
+    "nativeAutoStopObserved": true,
+    "acceptedDemoWagers": 1,
+    "completeFeatureCoverage": false
+  },
+  "queue": {
+    "target": 1000,
+    "distinctOfficialReferences": 1000,
+    "hashPinnedCovers": 1000,
+    "studios": 19,
+    "providerCounts": {
+      "smartsoft": 69,
+      "relax": 438,
+      "playngo": 478,
+      "hacksaw": 15
+    },
+    "all1000Implemented": false,
+    "financialRelease": "only_exact_native_versions_confirmed_by_live_health",
+    "runtimePlayableReferences": 7,
+    "remainingPreparingReferences": 993
+  },
+  "completeReferenceParityVerified": false,
+  "providerPrivateMathVerified": false,
+  "remaining": [
+    "Complete individual implementation and observed feature coverage for the expanded official reference inventory.",
+    "Validate unobserved win/bonus sequences for each title.",
+    "Keep titles without native financial evidence closed."
+  ],
+  "deployed": {
+    "superwin-player": {
+      "etag": "44834e0be2eef01c6899147e4e40cb61a3b83cf0ff70229f309c2b7c86c30435",
+      "settingsFingerprint": "29d0602b386fbd61ba02116b1a83698a5586fc10944f1cd62957f30ee1dce725",
+      "bindings": [
+        "API_ORIGIN",
+        "BRIDGE_ORIGIN",
+        "BRIDGE_SHARED_SECRET",
+        "CATALOG_ENABLED",
+        "ENGINE_EXTENSION",
+        "EXPANSION100",
+        "LEGACY_PLAYER",
+        "LOCAL_DEMO_WALLETS",
+        "NATIVE_ENGINE_ORIGIN",
+        "NATIVE_ENGINE_SECRET",
+        "NATIVE_LIBRARY_ASSETS",
+        "PLAYER_PRESENCE_KEY",
+        "PLAYER_PRESENCE_MIGRATION_UNTIL",
+        "PORTAL"
+      ],
+      "deployment": {
+        "id": "25ece4dd-aa63-4a5a-83cb-c95f43f480d5",
+        "source": "api",
+        "strategy": "percentage",
+        "author_email": "apdiy61@gmail.com",
+        "annotations": {
+          "workers/message": "Automatic deployment on upload.",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "aaf6c007-916d-49c8-9b1b-1a17ea21f489",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-11-10T06:04:07.603481Z"
+      },
+      "mainModule": "construction-player-entry-r15.mjs",
+      "modules": 304,
+      "sourceBytes": 66976929
+    },
+    "superwin-library-100": {
+      "etag": "ab0a779eeac39a01c1c0b517fd52cc9e254bb96a4d766ae28aa1b6c04adc8648",
+      "settingsFingerprint": "7c96fd1684ea3d99d818b4eb7c65c9c0a09343cc22ad4b8eaa9ad5da4a44b812",
+      "bindings": [
+        "ASSETS",
+        "REMAINING20_CREDITS_DEMOS",
+        "REMAINING20_RELEASE_TOKEN"
+      ],
+      "deployment": {
+        "id": "65be7c7e-c347-46e7-b9a6-31063e19df21",
+        "source": "api",
+        "strategy": "percentage",
+        "author_email": "apdiy61@gmail.com",
+        "annotations": {
+          "workers/message": "Automatic deployment on upload.",
+          "workers/triggered_by": "upload"
+        },
+        "versions": [
+          {
+            "version_id": "d8144cdb-f1c5-4a04-95e3-3c61a6602e7d",
+            "percentage": 100
+          }
+        ],
+        "created_on": "2026-11-10T06:02:59.884013Z"
+      },
+      "mainModule": "runtime-library-entry-r17.mjs",
+      "modules": 95,
+      "sourceBytes": 10825662
+    }
+  },
+  "realMoneyRoundsPlaced": 0,
+  "checkedAt": "2026-11-10T06:05:18.055988+00:00"
+}

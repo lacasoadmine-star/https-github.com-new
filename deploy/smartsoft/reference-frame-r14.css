@@ -1,0 +1,30 @@
+/* Only opted-in NEW title shells. Account state stays in the retained host. */
+html[data-reference-frame="r14"] { height:100%;background:#000; }
+html[data-reference-frame="r14"] body {
+ height:100svh;height:100dvh;min-height:0;margin:0;overflow:hidden;
+ display:flex;flex-direction:column;background:#000;--game-fit-header:26px;
+}
+html[data-reference-frame="r14"] .player-bar,
+html[data-reference-frame="r14"] .machine-footer { display:none!important; }
+.reference-hood {
+ height:26px;min-height:26px;flex:none;display:flex;align-items:center;
+ justify-content:space-between;background:#000;color:#fff;z-index:3;
+}
+.reference-hood img { margin-left:10px;width:30%;height:auto;max-width:165px;object-fit:contain; }
+.reference-hood time { margin-right:7px;font:12px monospace;letter-spacing:1px;white-space:nowrap; }
+html[data-reference-frame="r14"] #machineShell { flex:1 1 0;min-height:0;overflow:hidden;max-width:none;margin:0;padding:0; }
+html[data-reference-frame="r14"] .integrated-reference .machine-layout { height:100%;min-height:0;display:flex;flex-direction:column;gap:0; }
+html[data-reference-frame="r14"] .integrated-reference .machine-cabinet { flex:1 1 0;min-height:0;display:flex;align-items:stretch;justify-content:center; }
+html[data-reference-frame="r14"] .integrated-reference #stage { width:100%;height:100%;min-height:0;max-width:none;margin:0;aspect-ratio:auto;flex:1; }
+html[data-reference-frame="r14"] #scene { width:100%;height:100%; }
+html[data-reference-frame="r14"] .native-menu { left:auto;right:4px;top:3px;width:45px;height:45px;border-radius:50%;background:#071d17aa;border:1px solid #ffffff30;font-size:25px; }
+html[data-reference-frame="r14"] .integrated-reference .control-panel { flex:none;min-height:0;max-height:30dvh; }
+/* Keep recovery/errors and active-round actions visible. Idle duplicates have
+   their equivalent in the native scene and menu. */
+html[data-reference-frame="r14"][data-reference-status="idle"] .integrated-reference .control-panel { display:none; }
+html[data-reference-frame="r14"] .smartsoft-startup { top:26px; }
+html[data-reference-frame="r14"][data-reference-loading="true"] .reference-hood { visibility:hidden; }
+html[data-reference-frame="r14"][data-reference-loading="true"] .smartsoft-startup { top:0; }
+@media (orientation:landscape) {
+ .reference-hood img { width:calc(16% + 12px);margin-left:3px;max-height:20px; }
+}

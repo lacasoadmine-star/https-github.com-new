@@ -1,0 +1,159 @@
+{
+  "release": "remaining-native-etb-r16",
+  "status": "deployed_nine_native_etb_games_and_observed_control_fixes; expanded_inventory_in_progress",
+  "existingPlayerUrl": "https://play.superwinn.net",
+  "automatedOrigin": "https://superwin-player.apdiy61.workers.dev",
+  "walletLedger": "existing-postgresql",
+  "existingBackend": "https://zplay-rebuild-api-staging.up.railway.app",
+  "protectedGames": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native"
+  ],
+  "enabledNativeIds": [
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "multihotdeluxe_native",
+    "burningice_native",
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "newFinancialRoundsEnabled": true,
+  "wagerLimits": {
+    "currency": "ETB",
+    "minimum": "1.00",
+    "maximum": "40000.00",
+    "existingFundsAndPayoutCapsPreserved": true
+  },
+  "independentNativeModels": true,
+  "completeReferenceParityVerified": false,
+  "providerPrivateMathVerified": false,
+  "queue": {
+    "target": 1000,
+    "distinctOfficialReferences": 1000,
+    "hashPinnedCovers": 1000,
+    "studios": 19,
+    "providerCounts": {
+      "smartsoft": 69,
+      "relax": 438,
+      "playngo": 478,
+      "hacksaw": 15
+    },
+    "all1000Implemented": false,
+    "financialRelease": "only_exact_native_versions_confirmed_by_live_health",
+    "runtimePlayableReferences": 7,
+    "remainingPreparingReferences": 993
+  },
+  "officialObservation": {
+    "priorSampledFreeSpinStarts": 32,
+    "additionalSampledFreeSpinStarts": 40,
+    "additionalDistinctSampledBoards": 40,
+    "additionalTitlesObserved": 4,
+    "perTitleStopStylesFromOfficialPublicScripts": 6,
+    "completeFeatureCoverage": false,
+    "completeProviderParityVerified": false
+  },
+  "verification": {
+    "nodeTests": 41,
+    "compiledPackageTests": 41,
+    "compiledTestsAreTheSameCases": true,
+    "isolatedActualPostgresqlWalletTests": 16,
+    "backendTests": 9,
+    "frontendBuilds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "localNativeGamePlayback": 9,
+    "stopDoesNotStartAnotherWager": 9,
+    "betLockedDuringMotionThenRestored": 9,
+    "soundOffStopsActiveSources": 9,
+    "localAutoplayStartStop": 9,
+    "deployedIsolatedAccountEntries": 10,
+    "distinctWinAudioCuesDecoded": 20,
+    "stakeScaledWinTierChecks": 32,
+    "deployedQueueReferences": 1000,
+    "deployedFirstPageCoversDecoded": 24,
+    "original59GameCataloguePreserved": true,
+    "protectedGamePageHashesPreserved": true,
+    "runtimeConfigurationFingerprintsPreserved": true,
+    "realMoneyRoundsPlaced": 0
+  },
+  "deployed": {
+    "player": {
+      "worker": "superwin-player",
+      "etag": "90911f5e5e92d29804e6dbebe6447bfbeda8ea265a45e93ac4d2466ff252f481",
+      "settingsFingerprint": "29d0602b386fbd61ba02116b1a83698a5586fc10944f1cd62957f30ee1dce725",
+      "bindings": [
+        "API_ORIGIN",
+        "BRIDGE_ORIGIN",
+        "BRIDGE_SHARED_SECRET",
+        "CATALOG_ENABLED",
+        "ENGINE_EXTENSION",
+        "EXPANSION100",
+        "LEGACY_PLAYER",
+        "LOCAL_DEMO_WALLETS",
+        "NATIVE_ENGINE_ORIGIN",
+        "NATIVE_ENGINE_SECRET",
+        "NATIVE_LIBRARY_ASSETS",
+        "PLAYER_PRESENCE_KEY",
+        "PLAYER_PRESENCE_MIGRATION_UNTIL",
+        "PORTAL"
+      ],
+      "deployment": "21e64b64-54a3-42b5-b123-3397a5273c33",
+      "createdOn": "2026-11-10T05:32:46.839386Z",
+      "versions": [
+        {
+          "version_id": "0e171bf8-8f4d-4a95-b1b6-35cb4ff0e25f",
+          "percentage": 100
+        }
+      ],
+      "mainModule": "construction-player-entry-r15.mjs",
+      "modules": 304,
+      "sourceBytes": 66976194
+    },
+    "library": {
+      "worker": "superwin-library-100",
+      "etag": "281264e146f02229cad1afae8d3d49c0838d095da8be197538d08a8710913f1b",
+      "settingsFingerprint": "7c96fd1684ea3d99d818b4eb7c65c9c0a09343cc22ad4b8eaa9ad5da4a44b812",
+      "bindings": [
+        "ASSETS",
+        "REMAINING20_CREDITS_DEMOS",
+        "REMAINING20_RELEASE_TOKEN"
+      ],
+      "deployment": "fc0fb54d-e079-4a9b-b8ff-1d8b1db48c1d",
+      "createdOn": "2026-11-10T05:30:11.056104Z",
+      "versions": [
+        {
+          "version_id": "04b74df6-1760-403c-8c07-3a16ae03bb55",
+          "percentage": 100
+        }
+      ],
+      "mainModule": "operator-library-entry-r16.mjs",
+      "modules": 92,
+      "sourceBytes": 10710959
+    }
+  },
+  "native": {
+    "projectId": "5e2d5a78-b695-4d10-a0f1-7d7ded24b7f7",
+    "environmentId": "7ae2354a-69f3-4214-8b95-bcd276a84b89",
+    "serviceId": "f617aec9-d705-4dd3-b68b-dc058f9a0781",
+    "deployment": "3bbb9b09-85fe-465d-b1ac-2842fc9cc291",
+    "status": "SUCCESS",
+    "bootstrapSha256": "653da5bc04c4c37bb639f511bbf76a3c8a1a22f8f4ee491330902d41b2f55001",
+    "scopedReleaseFlag": "REMAINING20_OPERATOR_ETB_RELEASE",
+    "acceptedValue": "remaining-native-etb-r16",
+    "enabledIds": 9,
+    "unchangedNativeIdsClosed": 10,
+    "originalLedger": "existing-postgresql",
+    "realMoneyRoundsPlaced": 0
+  },
+  "realMoneyRoundsPlaced": 0,
+  "remaining": [
+    "Finish individual implementation for the expanded reference inventory.",
+    "Verify unobserved bonuses, rules and complete presentation comparisons.",
+    "Keep titles without complete native financial evidence closed."
+  ]
+}

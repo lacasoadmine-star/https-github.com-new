@@ -1,0 +1,95 @@
+{
+  "release": "account-entry-r13",
+  "status": "deployed_account_entries; new round approvals remain pending",
+  "checkedAt": "2026-11-10T02:15:46.674215+00:00",
+  "existingPlayerUrl": "https://play.superwinn.net",
+  "worker": "superwin-player",
+  "previousWorkerVersion": "0c74de2d-3377-4e2c-9e1c-b2288af6c794",
+  "existingBackend": "https://zplay-rebuild-api-staging.up.railway.app",
+  "walletLedger": "existing-postgresql",
+  "walletTables": [
+    "sw_rebuild.users",
+    "sw_rebuild.sessions",
+    "sw_rebuild.wallets",
+    "sw_rebuild.transfers",
+    "sw_rebuild.ledger"
+  ],
+  "accountEntryIds": [
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "multihotdeluxe_native",
+    "burningice_native",
+    "coinminer_native"
+  ],
+  "protectedExistingGames": [
+    "multi_hot_5_native",
+    "foxy_hot_20_native",
+    "burningice10_native",
+    "burningice40_native"
+  ],
+  "minimumStakeEtb": "1.00",
+  "maximumStakeEtb": "40000.00",
+  "newFinancialRoundsEnabled": false,
+  "officialPrivateMathVerified": false,
+  "realMoneyRoundsPlaced": 0,
+  "verification": {
+    "nodeFinancialBoundaryTests": 7,
+    "backendTests": 9,
+    "frontendBuilds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "existingNewGamesBrowserControls": 10,
+    "accountEntryBrowserFixtures": 8,
+    "signedOutActualTransportChecks": 8,
+    "accountBalanceChangeVerifiedInIsolatedBrowser": true,
+    "nodeDeploymentPreservationTests": 4,
+    "deployedAccountPageAndAuthenticationSmokeChecks": 8,
+    "deployedPrimaryPlayLinks": 10
+  },
+  "remaining": {
+    "requestedPendingGames": 69,
+    "fullPendingListReconciled": false,
+    "identifiedRetainedRemaining20Scope": 19,
+    "unresolvedRetainedIdentities": [
+      "darkhorus_native",
+      "assassins_native"
+    ],
+    "newRoundReleaseEvidence": "pending; operator models are independent of private provider math",
+    "authenticatedProductionRoundVerification": "not performed"
+  },
+  "assetsAndBindings": "Retain every existing module, binary, asset binding, secret binding, service binding, durable object namespace and scheduled handler.",
+  "evidence": {
+    "live-browser-audit.json": {
+      "sha256": "ad0a18b28b962bec2c5819412ae3f16c6e14d8d26e287921ba85c2071c33e8be",
+      "bytes": 26455
+    },
+    "account-entry-browser.json": {
+      "sha256": "fb3f04491ba7b9f88102f6b9cab467aec611c1b8047d2f885a52e17440a17ba7",
+      "bytes": 4301
+    }
+  },
+  "deployedAt": "2026-11-10T02:22:04.956099Z",
+  "workerDeployment": "a380e0c5-336b-4661-be27-fd2d3bd2d98d",
+  "workerVersion": "89d0dd27-8025-4553-8c5b-aba36c06baa4",
+  "workerEtag": "421e29e0336592f6e57ef642367926c0e2ae12483482d9c29f80c18abeec1296",
+  "retainedOriginalModules": 296,
+  "addedModules": 3,
+  "configurationPreserved": true,
+  "lobbyAccountEntryIds": [
+    "multihot100_native",
+    "habeshafortune5_native",
+    "multihotwildways_native",
+    "multihot5wild_native",
+    "multihot5superwilds_native",
+    "multihotdeluxe_native",
+    "burningice_native",
+    "coinminer_native",
+    "burningice10_native",
+    "burningice40_native"
+  ]
+}

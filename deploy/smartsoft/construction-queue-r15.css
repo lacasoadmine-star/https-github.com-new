@@ -1,0 +1,19 @@
+.construction-queue{box-sizing:border-box;max-width:1200px;margin:28px auto 84px;padding:0 18px;color:#eee;font:14px system-ui,sans-serif;clear:both}
+.construction-queue details{border:1px solid #303644;border-radius:12px;background:#121722;padding:16px}
+.construction-queue summary{cursor:pointer;display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:18px;font-weight:700}
+.construction-count{font-size:13px;font-weight:500;color:#c2c8d6;margin-left:auto}
+.construction-search{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:20px}
+.construction-search label{display:grid;gap:6px;flex:1 1 180px;min-width:0;color:#c2c8d6}
+.construction-queue input,.construction-queue select,.construction-queue button{box-sizing:border-box;min-height:42px;border:1px solid #434b5e;border-radius:7px;background:#202839;color:#fff;padding:10px 12px;font:inherit}
+.construction-queue input,.construction-queue select{width:100%;min-width:0}
+.construction-queue button{cursor:pointer}.construction-queue button:disabled{opacity:.45;cursor:default}
+.construction-queue :is(input,select,button,summary):focus-visible{outline:2px solid #f2c767;outline-offset:3px}
+.construction-status{font-size:13px;color:#c2c8d6;min-height:20px}
+.construction-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:14px}
+.construction-cards article{min-width:0;overflow:hidden;border-radius:8px;background:#202737;padding-bottom:12px}
+.construction-cards img{display:block;object-fit:cover;aspect-ratio:4/3;width:100%;height:auto;background:#161d29}
+.construction-cards h3{font-size:14px;line-height:1.35;margin:12px 12px 5px;overflow-wrap:anywhere}
+.construction-cards p{margin:0 12px 9px;color:#bdc5d6;font-size:12px}
+.construction-preparing{display:inline-block;margin-left:12px;padding:3px 7px;border-radius:4px;background:#30394b;color:#cbd1df;font-size:11px}
+.construction-pages{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+@media(max-width:420px){.construction-queue{padding:0 10px}.construction-queue details{padding:12px}.construction-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
