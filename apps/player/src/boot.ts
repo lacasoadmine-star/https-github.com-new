@@ -1,3 +1,4 @@
+import { mountMultiHot5 } from "./games/multi-hot-5.canvas.js";
 // @ts-nocheck
 const TOKEN_KEY = "superwin.player.token";
 
@@ -67,7 +68,9 @@ function connectLive() {
   };
 }
 
+let activeGame = null;
 async function draw() {
+  activeGame?.destroy(); activeGame = null;
   const view = document.getElementById("view");
   const current = page();
   document.querySelectorAll("nav a").forEach((link) => {
@@ -92,9 +95,11 @@ async function draw() {
     const sports = data.sports.map((row) => `<tr><td>${esc(row.selection)}</td><td>${esc(row.stake)}</td><td>${esc(row.odds)}</td><td>${esc(row.status)}</td></tr>`).join("");
     const casino = data.casino.map((row) => `<tr><td>${esc(row.game)}</td><td>${esc(row.stake)}</td><td>${esc(row.payout)}</td></tr>`).join("");
     html = shell("My bets", `<h2>Sports</h2><table>${sports}</table><h2>Casino</h2><table>${casino}</table>`);
+  } else if (current === "/player/games/multi-hot-5") {
+    html = shell("Multi Hot 5 — Game #1", `<p>Original Canvas game • practice visuals only • no real ETB deduction</p><div id="multi-hot-5-root"></div><p><a href="/player/casino">Back to casino</a></p>`);
   } else if (current === "/player/casino") {
     const data = await api("/api/player/casino");
-    const rows = data.items.map((item) => `<tr><td>${esc(item.name)}</td><td>${esc(item.kind)}</td><td><button data-play="${esc(item.code)}">Play</button></td></tr>`).join("");
+    const rows = data.items.map((item) => `<tr><td>${esc(item.name)}</td><td>${esc(item.kind)}</td><td>${/multi.?hot.?5/i.test(item.name + " " + item.code) ? `<a href="/player/games/multi-hot-5">Play Now</a>` : `<button data-play="${esc(item.code)}">Play</button>`}</td></tr>`).join("");
     html = shell("Casino", `<label>Stake<input id="stake" value="5"></label><table>${rows}</table>`);
   } else if (current === "/player/wallet") {
     const data = await api("/api/player/wallet");
@@ -120,6 +125,9 @@ async function draw() {
     html = shell("Superwin", `<p>This page is not on the player board.</p>`);
   }
   view.innerHTML = html;
+  if (current === "/player/games/multi-hot-5" && sessionStorage.getItem(TOKEN_KEY)) {
+    activeGame = mountMultiHot5(document.getElementById("multi-hot-5-root"));
+  }
   connectLive();
 }
 
