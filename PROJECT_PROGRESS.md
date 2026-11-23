@@ -1,3 +1,10 @@
+## 2026-11-23 — fresh demo and authenticated Player session refresh
+
+- Reopened SmartSoft's currently published **Multi Hot 5 Burn Wilds** page in a browser: https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds . The page exposed the official **Play Demo** link to its `MultiHot5BurnWilds` loader; this only verifies the official navigation, not a successful authenticated demo SPIN, 1:1 animation, RTP or payout.
+- Fixed game #1 `host-transport.mjs`: a failed authenticated Player state refresh clears stale game/bet/session authority before further SPIN requests. Added a regression proving a previously prepared wager cannot be dispatched after an expired/failed session, and a fresh authenticated state allows normal preparation again.
+- GitHub Actions run **45125098101**, commit `5630d7e4e8ba451ff5621622e03bbb9a2c6a9006`: **71/71 tests passed, 0 failed**.
+- Source is committed on `work/new90-burn-outcome-20261123`. **No deployment to superwin-player** and **no actual ETB production ledger settlement** occurred. Game #1 remains IN_PROGRESS; LIVE_VERIFIED stays 0/90. Continue batch 1–10, then 11–90 in nine sets of ten. Production access requires the actual host transaction integration, asset rights and mathematical risk validation, plus an authenticated Player browser session (do not share credentials in chat).
+
 # Current active NEW90 continuation - 23 November 2026
 
 **Scope: 90 new distinct games, not 72.** Nine batches of ten (1-10 through 81-90). Current batch: 1-10. Current game: #1 Multi Hot 5 Burn Wilds, IN_PROGRESS, not financially live verified. Use [the current exact checkpoint](codex-work/new-games90-20261123/BATCH01_CONTINUATION.md) and [the 90-game registry](codex-work/new-games90-20261123/catalogue/registry.json) before changing source. All previously recorded 72-game material below is historical and should not replace the requested 90-game order. Do not restart any already authored game or count old games as new.
