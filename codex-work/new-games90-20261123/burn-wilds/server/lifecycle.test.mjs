@@ -201,3 +201,20 @@ test('twenty distinct candidate-origin spins settle through disposable atomic se
   assert.ok(reelSets.size>10,'server must produce fresh symbol layouts');
   assert.ok(counter>0);
 });
+
+
+test('the original ZPLAY candidate generator alone never unlocks real-money SPIN',async()=>{
+ const h=harness();
+ const sampler=createBurnWildsCandidateSampler({getEntropy:bytes=>bytes.fill(0)});
+ h.model.sampleOutcome=sampler.sampleOutcome;
+ h.model.maximumPayoutMinor=sampler.maximumPayoutMinor;
+ h.model.approved=sampler.approved;
+ h.model.verification={...sampler.verification};
+ const state=await h.server.state(h.request());
+ assert.equal(state.authenticated,true);
+ assert.equal(state.game.enabled,false);
+ assert.deepEqual(state.game.betLevels,[]);
+ await assert.rejects(()=>h.server.spin(h.request(),h.action()),/APPROVED_MODEL_REQUIRED/);
+ assert.equal(h.snapshot().ledger.length,0);
+ assert.equal(h.snapshot().requests.size,0);
+});
