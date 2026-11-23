@@ -15,3 +15,4 @@ test('denied/unsupported request never changes the game, wallet or other fullscr
  doc.fullscreenElement={other:true};
  assert.deepEqual(await toggleBurnWildsFullscreen(view),{changed:false,active:false,reason:'OTHER_GAME_FULLSCREEN'});
 });
+

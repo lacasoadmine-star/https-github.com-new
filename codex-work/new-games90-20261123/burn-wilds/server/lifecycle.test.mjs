@@ -218,3 +218,4 @@ test('the original ZPLAY candidate generator alone never unlocks real-money SPIN
  assert.equal(h.snapshot().ledger.length,0);
  assert.equal(h.snapshot().requests.size,0);
 });
+

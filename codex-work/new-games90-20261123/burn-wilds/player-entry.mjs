@@ -29,3 +29,4 @@ export async function mountBurnWildsExistingPlayer({
     throw new TypeError('BURN_WILDS_EXISTING_PLAYER_TRANSPORT');
   return mount({root,artwork:ownedArtwork,transport,storage,audio,win});
 }
+

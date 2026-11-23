@@ -42,3 +42,4 @@ export class BurnWildsFlameOverlay {
   }
   dispose(){if(this.disposed)return;this.context?.clearRect(0,0,this.canvas.width,this.canvas.height);this.context=null;this.disposed=true;}
 }
+

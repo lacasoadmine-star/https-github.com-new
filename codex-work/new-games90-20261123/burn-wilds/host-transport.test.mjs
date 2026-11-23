@@ -212,3 +212,4 @@ test('failed Player session refresh revokes stale wager authority before another
  assert.equal(transport.prepare(action()).requestKey,requestKey);
  assert.equal(calls.length,3);
 });
+

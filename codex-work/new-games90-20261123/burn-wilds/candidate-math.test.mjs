@@ -84,3 +84,4 @@ test('invalid stake, foreign game and malformed entropy fail closed',()=>{
  const stuck=createBurnWildsCandidateSampler({getEntropy:x=>{x.fill(255);return x;}});
  assert.throws(()=>stuck.sampleOutcome(input),/CANDIDATE_ENTROPY_EXHAUSTED/);
 });
+

@@ -99,3 +99,4 @@ export class BurnWildsExpansion {
   }
   dispose(){if(this.disposed)return;this.disposed=true;this.onEvent=()=>{};this.history.clear();}
 }
+

@@ -70,3 +70,4 @@ test('missing host configuration refuses attachment rather than inventing wallet
  assert.throws(()=>createBurnWildsExistingHttpBinding({existingFetch:async()=>null}),
    /EXISTING_HOST_REQUIRED/);
 });
+

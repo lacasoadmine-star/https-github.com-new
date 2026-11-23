@@ -10,7 +10,9 @@ const minor=value=>{if(!Number.isSafeInteger(value)||value<0)throw fail('BURN_WI
 const id=value=>typeof value==='string'&&value.length>0&&value.length<=200;
 
 function state(source){
-  if(source?.gameId!==BURN_WILDS_GAME_ID||source.authenticated!==true||source.currency!=='ETB'||!id(source.subject)||typeof source.canPlay!=='boolean')throw fail('BURN_WILDS_AUTHENTICATED_HOST_REQUIRED');
+  const simulation=source?.mode==='SIMULATION'&&source.authenticated===false&&source.cashEnabled===false;
+  if(source?.gameId!==BURN_WILDS_GAME_ID||(!simulation&&source.authenticated!==true)||source.currency!=='ETB'||!id(source.subject)||typeof source.canPlay!=='boolean')throw fail('BURN_WILDS_AUTHENTICATED_HOST_REQUIRED');
+  if(source.mode==='SIMULATION'&&!simulation)throw fail('BURN_WILDS_SIMULATION_IDENTITY');
   minor(source.balanceMinor);minor(source.pendingWinMinor);
   if(!Array.isArray(source.betLevelsMinor)||(source.canPlay&&source.betLevelsMinor.length===0)||source.betLevelsMinor.some(value=>!Number.isSafeInteger(value)||value<=0)||new Set(source.betLevelsMinor).size!==source.betLevelsMinor.length)throw fail('BURN_WILDS_HOST_STAKES_REQUIRED');
   const round=source.round?validateBurnWildsReceipt(source.round):null;
@@ -25,32 +27,34 @@ function state(source){
  * contains request identity/authority, never a wallet balance.
  */
 export class BurnWildsController{
-  constructor({transport,scene,storage=globalThis.sessionStorage,key=()=>crypto.randomUUID(),onChange=()=>{}}={}){
+  constructor({transport,scene,storage=globalThis.sessionStorage,key=()=>crypto.randomUUID(),pendingKey=null,onChange=()=>{}}={}){
     if(!transport||!['state','prepare','dispatch','recover'].every(method=>typeof transport[method]==='function')||!scene||!['start','accept','stop','reject','snapshot','setFinancial'].every(method=>typeof scene[method]==='function')||!storage||!['getItem','setItem','removeItem'].every(method=>typeof storage[method]==='function'))throw fail('BURN_WILDS_EXISTING_HOST_DEPENDENCIES');
-    this.transport=transport;this.scene=scene;this.storage=storage;this.key=key;this.onChange=onChange;this.host=null;this.pending=null;this.status='DISCONNECTED';this.betMinor=null;this.quick=false;this.error=null;this.auto=null;this.disposed=false;this.generation=0;
+    this.transport=transport;this.scene=scene;this.storage=storage;this.key=key;this.pendingKey=pendingKey||(transport.mode==='SIMULATION'?BURN_WILDS_PENDING_KEY+'.simulation':BURN_WILDS_PENDING_KEY);this.onChange=onChange;this.host=null;this.pending=null;this.status='DISCONNECTED';this.betMinor=null;this.quick=false;this.error=null;this.auto=null;this.lastGamble=null;this.disposed=false;this.generation=0;
   }
   emit(){if(!this.disposed)this.onChange(this.snapshot());}
-  snapshot(){return freeze({gameId:BURN_WILDS_GAME_ID,status:this.status,authenticated:!!this.host,
+  snapshot(){return freeze({gameId:BURN_WILDS_GAME_ID,status:this.status,authenticated:this.host?.authenticated===true,
+    mode:this.host?.mode||'CASH',currency:'ETB',unit:this.host?.mode==='SIMULATION'?'TEST ETB':'ETB',
+    cashEnabled:this.host?.mode==='SIMULATION'?false:this.host?.cashEnabled===true,
     canPlay:!!this.host?.canPlay&&this.status==='READY'&&!this.pending,
     balanceMinor:this.host?.balanceMinor??null,pendingWinMinor:this.host?.pendingWinMinor??0,
     betLevelsMinor:[...(this.host?.betLevelsMinor||[])],betMinor:this.betMinor,quick:this.quick,
     round:this.host?.round||null,canDouble:this.status==='READY'&&this.host?.canDouble===true&&this.host?.pendingWinMinor>0,
-    auto:this.auto?clone(this.auto):null,pending:this.pending?clone(this.pending.action):null,error:this.error});}
+    auto:this.auto?clone(this.auto):null,pending:this.pending?clone(this.pending.action):null,lastGamble:this.lastGamble?clone(this.lastGamble):null,error:this.error});}
   async connect(){
     if(this.disposed||['SENDING','PREPARING','CONNECTING'].includes(this.status))throw fail('BURN_WILDS_BUSY');
     this.stopAuto();this.status='CONNECTING';this.error=null;this.emit();const version=++this.generation;
     try{
       const next=state(await this.transport.state());if(version!==this.generation||this.disposed)return;
-      const saved=this.storage.getItem(BURN_WILDS_PENDING_KEY),pending=saved?JSON.parse(saved):null;
+      const saved=this.storage.getItem(this.pendingKey),pending=saved?JSON.parse(saved):null;
       if(pending&&(pending.gameId!==BURN_WILDS_GAME_ID||pending.subject!==next.subject||!id(pending.action?.requestKey)||pending.action?.gameId!==BURN_WILDS_GAME_ID||!['SPIN','TAKE','DOUBLE'].includes(pending.action?.action)))throw fail('BURN_WILDS_PENDING_ACCOUNT_MISMATCH');
       if(this.scene.snapshot().phase!=='IDLE'){
         if(!pending||pending.action.action!=='SPIN'||this.scene.snapshot().requestKey!==pending.action.requestKey)throw fail('BURN_WILDS_ACTIVE_PRESENTATION_REQUIRES_RECOVERY');
       }else if(next.round)this.scene.accept(next.round);
-      this.host=next;this.pending=pending?freeze(pending):null;this.betMinor=next.betLevelsMinor.includes(this.betMinor)?this.betMinor:(next.betLevelsMinor[0]??null);
+      this.host=next;this.pending=pending?freeze(pending):null;this.lastGamble=null;this.betMinor=next.betLevelsMinor.includes(this.betMinor)?this.betMinor:(next.betLevelsMinor[0]??null);
       this.status=this.pending?'RECOVER':'READY';this.present();this.emit();return this.snapshot();
     }catch(error){if(version===this.generation&&!this.disposed){this.status='BLOCKED';this.error=error.code||error.message;this.emit();}throw error;}
   }
-  present(){this.scene.setFinancial({balanceMinor:this.host.balanceMinor,betMinor:this.betMinor,pendingWinMinor:this.host.pendingWinMinor});}
+  present(){this.scene.setFinancial({balanceMinor:this.host.balanceMinor,betMinor:this.betMinor,pendingWinMinor:this.host.pendingWinMinor,unit:this.host.mode==='SIMULATION'?'TEST ETB':'ETB'});}
   setBet(value){if(this.status!=='READY'||!this.host?.betLevelsMinor.includes(value))return false;this.betMinor=value;this.present();this.emit();return true;}
   setQuick(value){this.quick=!!value;this.emit();}
   spin({automatic=false}={}){
@@ -77,9 +81,9 @@ export class BurnWildsController{
       if(action.gameId!==BURN_WILDS_GAME_ID||action.action!==intent.action||action.requestKey!==intent.requestKey)throw fail('BURN_WILDS_PREPARED_IDENTITY_CHANGED');
       for(const property of ['betMinor','auto','collectRoundId','roundId','choice','expectedStakeMinor'])if(property in intent&&action[property]!==intent[property])throw fail('BURN_WILDS_PREPARED_ACTION_CHANGED');
       this.pending=freeze({gameId:BURN_WILDS_GAME_ID,subject:this.host.subject,action});
-      this.storage.setItem(BURN_WILDS_PENDING_KEY,JSON.stringify(this.pending));stored=true;
-      if(action.action==='SPIN')this.scene.start({requestKey:action.requestKey,quick:this.quick});
-    }catch(error){this.pending=null;if(stored)this.storage.removeItem(BURN_WILDS_PENDING_KEY);this.status='READY';this.error=error.code||error.message;this.emit();throw error;}
+      this.storage.setItem(this.pendingKey,JSON.stringify(this.pending));stored=true;
+      if(action.action==='SPIN'){this.lastGamble=null;this.scene.start({requestKey:action.requestKey,quick:this.quick});}
+    }catch(error){this.pending=null;if(stored)this.storage.removeItem(this.pendingKey);this.status='READY';this.error=error.code||error.message;this.emit();throw error;}
     return this.send(false);
   }
   async send(recover){
@@ -90,6 +94,7 @@ export class BurnWildsController{
       if(version!==this.generation||this.disposed)throw fail('BURN_WILDS_STALE_SESSION');
       if(result?.gameId!==BURN_WILDS_GAME_ID||(result.requestKey||result.clientToken)!==action.requestKey||!id(result.roundId)||
         action.action==='SPIN'&&result.clientToken!==undefined&&result.clientToken!==action.requestKey)throw fail('BURN_WILDS_RESPONSE_IDENTITY');
+      if(this.host.mode==='SIMULATION'&&(result.mode!=='SIMULATION'||result.cashEnabled!==false||result.subject!==this.host.subject))throw fail('BURN_WILDS_SIMULATION_RECEIPT');
       minor(result.balanceMinor);minor(result.pendingWinMinor);
       let accepted;
       if(action.action==='SPIN'){
@@ -104,21 +109,26 @@ export class BurnWildsController{
         if(action.action==='TAKE'&&(result.collected!==true||result.pendingWinMinor!==0))throw fail('BURN_WILDS_COLLECTION_RECEIPT');
         if(action.action==='DOUBLE'){
           if(result.choice!==action.choice||typeof result.won!=='boolean'||!Number.isSafeInteger(result.payoutMinor)||result.payoutMinor<0||result.pendingWinMinor!==result.payoutMinor)throw fail('BURN_WILDS_GAMBLE_RECEIPT');
+          if(result.payoutMinor!==(result.won?action.expectedStakeMinor*2:0)||result.balanceMinor!==this.host.balanceMinor)throw fail('BURN_WILDS_GAMBLE_SETTLEMENT');
+          this.lastGamble=freeze({requestKey:action.requestKey,choice:result.choice,won:result.won,payoutMinor:result.payoutMinor,card:clone(result.card??null)});
         }
       }
-      this.storage.removeItem(BURN_WILDS_PENDING_KEY);this.pending=null;
       this.host=freeze({...clone(this.host),balanceMinor:result.balanceMinor,pendingWinMinor:result.pendingWinMinor,
         ...(accepted?{round:accepted}:{}),canDouble:result.canDouble===true});
       this.status=action.action==='SPIN'&&this.scene.snapshot().phase!=='IDLE'?'ANIMATING':'READY';
+      // Keep the original request journal until its accepted presentation has
+      // finished. A refresh must recover that same server round, never wager again.
+      if(this.status==='READY'){this.storage.removeItem(this.pendingKey);this.pending=null;}
       if(action.action==='SPIN'&&this.auto?.active&&action.auto){this.auto.remaining--;this.auto.lastWinMinor=accepted.winMinor||0;}
       if(action.action==='TAKE')this.scene.setFinancial({winVisible:false});
+      if(action.action==='DOUBLE')this.scene.setFinancial({winVisible:result.pendingWinMinor>0});
       this.error=null;this.present();this.emit();if(this.status==='READY')this.advanceAuto();return result;
     }catch(error){
       if(version!==this.generation||this.disposed)throw error;
       this.stopAuto();
       if(error.definitiveRejection===true){
         if(action.action==='SPIN'&&this.scene.snapshot().phase==='SPINNING')this.scene.reject(action.requestKey);
-        this.storage.removeItem(BURN_WILDS_PENDING_KEY);this.pending=null;this.status='READY';
+        this.storage.removeItem(this.pendingKey);this.pending=null;this.status='READY';
       }else{this.status='RECOVER';}
       this.error=error.code||error.message;this.emit();throw error;
     }
@@ -126,6 +136,7 @@ export class BurnWildsController{
   recover(){if(this.status!=='RECOVER'||!this.pending)throw fail('BURN_WILDS_NOT_RECOVERING');return this.send(true);}
   presentationFinished(roundId){
     if(this.status!=='ANIMATING'||this.host?.round?.roundId!==roundId)return false;
+    this.storage.removeItem(this.pendingKey);this.pending=null;
     this.status='READY';this.emit();this.advanceAuto();return true;
   }
   startAuto({count=100,winAtLeastMinor=null,balanceDecreaseMinor=null,balanceIncreaseMinor=null}={}){
@@ -139,10 +150,13 @@ export class BurnWildsController{
     if(this.disposed||!this.auto?.active||this.status!=='READY')return;
     const active=this.auto;
     try{
+      // Current official Burn Wilds observation: a win threshold ends AUTO
+      // while the final win is still pending. Only explicit TAKE/next SPIN collects.
+      if(active.winAtLeastMinor!==null&&active.lastWinMinor>=active.winAtLeastMinor){this.stopAuto();return;}
       if(this.host.pendingWinMinor>0){await this.take({automatic:true});return;}
       if(this.auto!==active||!active.active||this.status!=='READY')return;
       const gain=this.host.balanceMinor-active.baselineMinor;
-      if(active.remaining<=0||active.winAtLeastMinor!==null&&active.lastWinMinor>=active.winAtLeastMinor||
+      if(active.remaining<=0||
         active.balanceDecreaseMinor!==null&&-gain>=active.balanceDecreaseMinor||active.balanceIncreaseMinor!==null&&gain>=active.balanceIncreaseMinor){this.stopAuto();return;}
       await this.spin({automatic:true});
     }catch{this.stopAuto();}
@@ -151,3 +165,4 @@ export class BurnWildsController{
   resume(){this.scene.setPaused?.(false);}
   dispose(){if(this.disposed)return;this.stopAuto();this.disposed=true;this.generation++;this.scene.dispose?.();this.onChange=()=>{};}
 }
+

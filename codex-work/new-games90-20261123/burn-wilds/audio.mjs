@@ -28,12 +28,12 @@ export class BurnWildsAudio {
   }
   stopAmbience(){if(!this.ambience)return;const{o,g}=this.ambience;this.ambience=null;try{o.stop();}catch{}try{o.disconnect();g.disconnect();}catch{}}
   stopVoices(){for(const {o,g} of this.voices){try{o.stop();}catch{}try{o.disconnect();g.disconnect();}catch{}}this.voices.clear();}
-  cue(name,id){
+  cue(name,id,{column=0}={}){
     if(this.disposed||!this.unlocked||!this.effects||!this.context)return false;
     const key=name+':'+id;
     if(this.seen.has(key))return false;this.seen.add(key);
     if(this.seen.size>512)this.seen.delete(this.seen.values().next().value);
-    const tones={spin:[170,.20],stop:[260,.045],reels:[320,.085],ignite:[110,.22],
+    const tones={spin:[170,.20],stop:[260,.045],reel:[280+Math.min(4,Math.max(0,column))*42,.075],reels:[320,.085],ignite:[110,.22],
       expanded:[590,.15],win:[830,.42],loss:[165,.08],button:[600,.045],error:[105,.18]};
     const [frequency,duration]=tones[name]??tones.button,c=this.context,t=c.currentTime;
     let o,g;
@@ -47,12 +47,12 @@ export class BurnWildsAudio {
     }catch{try{o?.disconnect();g?.disconnect();}catch{}return false;}
   }
   event(type,details={}){
-    const name=({'spin':'spin','stop-request':'stop','original-grid':'reels','burn-start':'ignite',
+    const name=({'spin':'spin','stop-request':'stop','reel-stop':'reel','original-grid':'reels','burn-start':'ignite',
       'column-expanded':'expanded','settled':'win','rejected':'error'})[type];
     if(!name)return false;
     const id=(details.roundId??details.requestKey??'')+':'+(details.column??'');
     if(type==='settled'&&!(Number.isSafeInteger(details.winMinor)&&details.winMinor>0))return this.cue('loss',id);
-    return this.cue(name,id);
+    return this.cue(name,id,details);
   }
   async pause(){
     this.stopVoices();this.stopAmbience();this.unlocked=false;
@@ -68,3 +68,4 @@ export class BurnWildsAudio {
     try{this.context?.close();}catch{}
   }
 }
+

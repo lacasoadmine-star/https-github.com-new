@@ -116,3 +116,4 @@ export function createBurnWildsExistingHostTransport({fetcher=globalThis.fetch,t
     recover:action=>spin(action,true),serverAuthoritative:true,
     settlementMode:'SERVER_IMMEDIATE'});
 }
+

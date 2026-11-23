@@ -25,3 +25,4 @@ export function createBurnWildsExistingHostBinding(options={}){
    addsDatabase:false,createsSession:false,createsWallet:false,
    releaseEnabledByDefault:false});
 }
+

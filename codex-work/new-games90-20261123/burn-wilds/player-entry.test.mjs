@@ -44,3 +44,4 @@ test('missing own rights-cleared artwork, real root, or backend adapter cannot m
  }),/EXISTING_PLAYER_TRANSPORT/);
  assert.equal(calls,0);
 });
+

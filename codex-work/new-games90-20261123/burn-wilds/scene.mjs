@@ -1,10 +1,18 @@
-import {BURN_WILDS_GAME_ID,BURN_WILDS_SYMBOLS,BurnWildsExpansion} from './expansion.mjs';
+import {BURN_WILDS_GAME_ID,BURN_WILDS_SYMBOLS,BurnWildsExpansion,validateBurnWildsReceipt} from './expansion.mjs';
 import {BurnWildsFlameOverlay} from './flame-overlay.mjs';
 import {burnWildsLayout} from './layout.mjs';
 
 const clamp=value=>Math.max(0,Math.min(1,value));
 const ease=value=>1-(1-clamp(value))**3;
 const wheelOrder=[1,3,5,2,4];
+// Decorative first paint, independent of any wager or server result.
+export const BURN_WILDS_IDLE_GRID=Object.freeze([
+  ['orange','lemon','orange'],['seven','plum','plum'],['watermelon','bell','grapes'],
+  ['plum','cherry','seven'],['plum','cherry','plum']
+].map(Object.freeze));
+// Chosen ZPLAY pacing, not a measurement of provider timing: 1020 ms rolling
+// plus the 480 ms stop/reveal timeline gives at least 1500 ms for a normal spin.
+const NORMAL_ROLL_MS=1020;
 const money=value=>value===null?'—':(value/100).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2});
 function rounded(context,x,y,width,height,radius=6){
   context.beginPath();context.roundRect(x,y,width,height,radius);return context;
@@ -34,8 +42,12 @@ export class BurnWildsScene{
     this.overlay=new BurnWildsFlameOverlay({canvas:flameCanvas});this.flameCanvas=flameCanvas;
     this.timeline=new BurnWildsExpansion({now,onEvent:event=>{if(event.type==='spin'){this.wheelTarget=null;this.lastAt=this.now();this.winVisible=false;}if(event.type==='settled')this.winVisible=true;
       this.onEvent(event.type==='settled'?{...event,winMinor:this.timeline.receipt?.winMinor??0}:event);}});
-    this.financial={balanceMinor:null,betMinor:null,pendingWinMinor:0};this.winVisible=true;this.wheelPosition=1;this.wheelTarget=null;
-    this.lastAt=now();this.frame=null;this.paused=false;this.disposed=false;this.reducedMotion=false;this.settledAt=now();
+    this.financial={balanceMinor:null,betMinor:null,pendingWinMinor:0,unit:'ETB'};this.winVisible=true;this.wheelPosition=1;this.wheelTarget=null;
+    this.lastAt=now();this.frame=null;this.paused=false;this.disposed=false;this.settledAt=now();
+    this.queuedReceipt=null;this.stoppedReels=new Set();this.motionQuery=win.matchMedia?.('(prefers-reduced-motion: reduce)');
+    this.reducedMotion=this.motionQuery?.matches===true;
+    this.motionListener=event=>{this.reducedMotion=event.matches===true;if(this.reducedMotion)this.stop();this.wake();};
+    this.motionQuery?.addEventListener?.('change',this.motionListener);
     this.resize(canvas.clientWidth||390,canvas.clientHeight||740,win.devicePixelRatio||1);
   }
   resize(width,height,dpr=1){
@@ -47,12 +59,21 @@ export class BurnWildsScene{
   setFinancial(update){
     for(const key of ['balanceMinor','betMinor','pendingWinMinor'])if(key in update){const value=update[key];
       if(value!==null&&(!Number.isSafeInteger(value)||value<0))throw new TypeError('BURN_WILDS_DISPLAY_AMOUNT');this.financial[key]=value;}
+    if('unit'in update){if(!['ETB','TEST ETB'].includes(update.unit))throw new TypeError('BURN_WILDS_DISPLAY_UNIT');this.financial.unit=update.unit;}
     if('winVisible'in update)this.winVisible=!!update.winVisible;this.draw(this.now());
   }
-  start(action){const started=this.timeline.start({...action,at:this.now()});this.wake();return started;}
-  accept(receipt){const accepted=this.timeline.accept(receipt,this.now());if(this.timeline.phase==='IDLE'){this.wheelPosition=wheelOrder.indexOf(receipt.multiplier||1);this.settledAt=this.now();}this.wake();return accepted;}
-  stop(){const stopped=this.timeline.stop(this.now());this.wake();return stopped;}
-  reject(requestKey){const rejected=this.timeline.reject(requestKey);this.draw(this.now());return rejected;}
+  start(action){const started=this.timeline.start({...action,quick:action.quick||this.reducedMotion,at:this.now()});if(started){this.queuedReceipt=null;this.stoppedReels.clear();}this.wake();return started;}
+  accept(receipt){
+    const verified=validateBurnWildsReceipt(receipt),at=this.now();
+    if(this.timeline.phase==='SPINNING'&&!this.timeline.accelerated&&!this.timeline.quick&&at<this.timeline.startedAt+NORMAL_ROLL_MS){
+      if(verified.clientToken!==undefined&&verified.clientToken!==this.timeline.requestKey)throw new Error('BURN_WILDS_REQUEST_MISMATCH');
+      if(this.queuedReceipt){if(JSON.stringify(this.queuedReceipt)!==JSON.stringify(verified))throw new Error('BURN_WILDS_RECEIPT_CONFLICT');return false;}
+      this.queuedReceipt=verified;this.wake();return true;
+    }
+    const accepted=this.timeline.accept(verified,at);if(this.timeline.phase==='IDLE'){this.wheelPosition=wheelOrder.indexOf(verified.multiplier||1);this.settledAt=at;}this.wake();return accepted;
+  }
+  stop(){const at=this.now(),stopped=this.timeline.stop(at);if(this.queuedReceipt){const receipt=this.queuedReceipt;this.queuedReceipt=null;this.timeline.accept(receipt,at);}this.wake();return stopped;}
+  reject(requestKey){this.queuedReceipt=null;const rejected=this.timeline.reject(requestKey);this.draw(this.now());return rejected;}
   setPaused(paused){this.paused=!!paused;if(this.paused){if(this.frame!==null)this.win.cancelAnimationFrame?.(this.frame);this.frame=null;this.timeline.stop(this.now());this.overlay.draw({...this.timeline.snapshot(),expansions:[]},{reels:this.layout.reels,at:this.now()});}
     else{this.lastAt=this.now();this.wake();}}
   wake(){if(this.disposed||this.paused||this.frame!==null)return;
@@ -60,7 +81,16 @@ export class BurnWildsScene{
     this.frame=this.win.requestAnimationFrame(at=>{this.frame=null;this.draw(at);const s=this.timeline.snapshot();if(s.phase!=='IDLE'||this.winVisible&&s.receipt?.winMinor>0&&!this.reducedMotion)this.wake();});
   }
   draw(at){
-    if(this.disposed||!this.layout)return;const previous=this.timeline.phase,s=this.timeline.tick(at),delta=Math.max(0,Math.min(80,at-this.lastAt));this.lastAt=at;
+    if(this.disposed||!this.layout)return;
+    if(this.queuedReceipt&&(this.timeline.accelerated||this.timeline.quick||at>=this.timeline.startedAt+NORMAL_ROLL_MS)){
+      const receipt=this.queuedReceipt;this.queuedReceipt=null;this.timeline.accept(receipt,at);
+    }
+    const previous=this.timeline.phase,s=this.timeline.tick(at),delta=Math.max(0,Math.min(80,at-this.lastAt));this.lastAt=at;
+    if(s.phase!=='SPINNING'&&s.acceptedReceipt?.clientToken===s.requestKey){
+      for(let column=0;column<5;column++)if(s.elapsed>=(column+1)*48&&!this.stoppedReels.has(column)){
+        this.stoppedReels.add(column);this.onEvent({type:'reel-stop',roundId:s.acceptedReceipt.roundId,requestKey:s.requestKey,column});
+      }
+    }
     if(previous!=='IDLE'&&s.phase==='IDLE')this.settledAt=at;
     if(s.phase==='SPINNING'){this.wheelPosition+=delta/(s.accelerated?75:150);this.wheelTarget=null;}
     else if(s.phase==='REELS'||s.phase==='BURNING'||s.phase==='REVEALING'){
@@ -111,7 +141,7 @@ export class BurnWildsScene{
       const cell=l.reels[column],h=cell.height/3;const fill=c.createLinearGradient(cell.x,0,cell.x+cell.width,0);fill.addColorStop(0,'#003e31');fill.addColorStop(.5,'#00231e');fill.addColorStop(1,'#00513c');
       c.fillStyle=fill;c.fillRect(cell.x,cell.y,cell.width,cell.height);c.save();c.beginPath();c.rect(cell.x+2*l.scale,cell.y+2*l.scale,cell.width-4*l.scale,cell.height-4*l.scale);c.clip();
       const stopped=!spinning||s.phase==='REELS'&&s.elapsed>=(column+1)*48;
-      let grid=s.presentationGrid;if(s.phase==='REELS'&&stopped)grid=receipt?.originalGrid;
+      let grid=s.presentationGrid||BURN_WILDS_IDLE_GRID;if(s.phase==='REELS'&&stopped)grid=receipt?.originalGrid;
       if(stopped&&grid){for(let row=0;row<3;row++)sprite(c,this.artwork.symbols[grid[column][row]],cell.x+4*l.scale,cell.y+row*h+3*l.scale,cell.width-8*l.scale,h-6*l.scale);}
       else if(spinning){
         const travel=(at/(s.accelerated?28:55)+column*.71),offset=(travel%1)*h,base=Math.floor(travel);
@@ -127,10 +157,13 @@ export class BurnWildsScene{
   winText(c,l,s,at){
     const r=l.win,receipt=s.receipt;if(!this.winVisible||s.phase!=='IDLE'||!receipt?.winMinor)return;
     c.textAlign='center';c.textBaseline='middle';c.fillStyle='#fff6a5';c.font=`bold ${Math.max(13,18*l.scale)}px Arial,sans-serif`;
-    c.fillText('WIN '+money(receipt.winMinor)+' ETB',r.x+r.width/2,r.y+r.height*.35);
+    const amount=this.financial.pendingWinMinor>0?this.financial.pendingWinMinor:receipt.winMinor;
+    const progress=this.reducedMotion?1:ease((at-this.settledAt)/900),displayed=Math.round(amount*progress);
+    c.fillText('WIN '+money(displayed)+' '+this.financial.unit,r.x+r.width/2,r.y+r.height*.35);
     const lines=receipt.winLines;if(lines.length){const line=lines[Math.floor(Math.max(0,at-this.settledAt)/1600)%lines.length];c.font=`${Math.max(10,12*l.scale)}px Arial,sans-serif`;c.fillStyle='#e4e78a';
       c.fillText(`LINE ${line.id||'—'}  ·  ${receipt.multiplier||1}x`,r.x+r.width/2,r.y+r.height*.9);}
   }
   snapshot(){return this.timeline.snapshot();}
-  dispose(){if(this.disposed)return;this.disposed=true;if(this.frame!==null)this.win.cancelAnimationFrame?.(this.frame);this.frame=null;this.timeline.dispose();this.overlay.dispose();this.onEvent=()=>{};}
+  dispose(){if(this.disposed)return;this.disposed=true;if(this.frame!==null)this.win.cancelAnimationFrame?.(this.frame);this.frame=null;this.queuedReceipt=null;this.motionQuery?.removeEventListener?.('change',this.motionListener);this.timeline.dispose();this.overlay.dispose();this.onEvent=()=>{};}
 }
+

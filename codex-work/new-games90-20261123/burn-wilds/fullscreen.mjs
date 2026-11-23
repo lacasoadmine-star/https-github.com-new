@@ -11,3 +11,4 @@ export async function toggleBurnWildsFullscreen(view, doc=view?.ownerDocument) {
   try {await view.requestFullscreen(); return {changed:true, active:true};}
   catch {return {changed:false, active:false, reason:'DENIED'};}
 }
+

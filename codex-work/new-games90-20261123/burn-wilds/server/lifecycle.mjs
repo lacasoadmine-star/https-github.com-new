@@ -165,3 +165,4 @@ export function createBurnWildsExistingServer({authenticate,sessionGuard,transac
   }
   return Object.freeze({state,spin,handles:game=>game===BURN_WILDS_GAME_ID,enabledByDefault:false});
 }
+

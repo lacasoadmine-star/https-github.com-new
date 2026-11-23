@@ -31,3 +31,4 @@ export function burnWildsPoint(layout,clientX,clientY,bounds){
   const x=(clientX-bounds.left)*layout.width/bounds.width,y=(clientY-bounds.top)*layout.height/bounds.height;
   return Object.freeze({x,y});
 }
+

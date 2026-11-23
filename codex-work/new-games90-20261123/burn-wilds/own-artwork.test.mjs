@@ -33,13 +33,14 @@ test('original ZPLAY artwork is generated from code for exactly 9 game-specific 
  assert.equal(artwork.gameId,BURN_WILDS_GAME_ID);
  assert.equal(artwork.thirdPartyAssets,false);
  assert.equal(artwork.providerParityVerified,false);
- assert.equal(artwork.source,'ZPLAY_ORIGINAL_CANVAS_V1');
+ assert.equal(artwork.source,'ZPLAY_ORIGINAL_CANVAS_V2');
  assert.deepEqual(Object.keys(artwork.symbols),[...BURN_WILDS_SYMBOLS]);
  assert.equal(elements.length,BURN_WILDS_SYMBOLS.length);
  assert.equal(new Set(Object.values(artwork.symbols)).size,BURN_WILDS_SYMBOLS.length);
  assert.ok(elements.every(x=>x.width===256&&x.height===256));
  assert.ok(calls.filter(x=>x[0]==='ellipse').length>10);
  assert.ok(calls.filter(x=>x[0]==='fillText').length>=2);
+ assert.equal(calls.filter(x=>x[0]==='fillRect'||x[0]==='strokeRect').length,0,'symbols leave their backgrounds transparent');
  assert.equal(Object.isFrozen(artwork.symbols),true);
 });
 test('artwork requires a real canvas context, never silently falls back to a screenshot',()=>{
@@ -48,3 +49,4 @@ test('artwork requires a real canvas context, never silently falls back to a scr
  assert.throws(()=>createBurnWildsOwnArtwork({doc:{createElement:()=>({})}}),/CANVAS_MISSING/);
  assert.throws(()=>createBurnWildsOwnArtwork({doc:{createElement:()=>({getContext:()=>null})}}),/2D_UNAVAILABLE/);
 });
+

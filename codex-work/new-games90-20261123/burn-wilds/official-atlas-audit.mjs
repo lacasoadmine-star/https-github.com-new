@@ -63,3 +63,4 @@ export async function inspectCurrentBurnWildsOfficialAtlas(fetchManifest){
   }
   return auditBurnWildsOfficialAtlas(manifests);
 }
+

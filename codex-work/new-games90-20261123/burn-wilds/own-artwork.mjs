@@ -61,6 +61,12 @@ function icon(ctx,symbol){
     ellipse(ctx,0,0,44,31,g,'#b18810',3);
     path(ctx,[[-37,-15],[-50,0],[-37,16]]);ctx.fillStyle=shades[1];ctx.fill();ctx.restore();
     leaf(ctx,88,32,.76,-.2);shine(ctx,39,54);
+    // The cut half is separately drawn, so the transparent sprite has a
+    // recognizable rind and segments at small portrait sizes.
+    ellipse(ctx,80,83,29,28,'#fff5a0','#ceaa22',3);
+    ellipse(ctx,80,83,24,23,'#f5d230','#fffbd5',2);
+    ctx.strokeStyle='#fffbd5';ctx.lineWidth=2;
+    for(let k=0;k<8;k++){const a=k*Math.PI/4;ctx.beginPath();ctx.moveTo(80,83);ctx.lineTo(80+Math.cos(a)*22,83+Math.sin(a)*21);ctx.stroke();}
   }else if(symbol==='plum'){
     ellipse(ctx,64,73,39,42,g,'#371047',3);leaf(ctx,75,32,.84,-.5);
     shine(ctx,45,53,1.2);
@@ -75,13 +81,13 @@ function icon(ctx,symbol){
     }
     leaf(ctx,79,27,.8,-.15);
   }else if(symbol==='watermelon'){
-    path(ctx,[[23,63],[106,63],[64,105]]);
-    ctx.fillStyle='#258c30';ctx.strokeStyle='#165a25';ctx.lineWidth=5;ctx.fill();ctx.stroke();
-    path(ctx,[[29,65],[100,65],[64,99]]);ctx.fillStyle='#ed3852';ctx.fill();
-    for(const [x,y]of [[48,73],[70,75],[61,89],[83,71]]){
-      ellipse(ctx,x,y,2.4,5,'#4a1c21',null,0,-.15);
-    }
-    ctx.beginPath();ctx.moveTo(24,64);ctx.lineTo(105,64);ctx.strokeStyle='#daef9b';ctx.lineWidth=5;ctx.stroke();
+    ctx.save();ctx.translate(64,67);ctx.rotate(-.35);
+    ctx.beginPath();ctx.moveTo(-47,-20);ctx.lineTo(47,-20);ctx.quadraticCurveTo(47,43,0,48);ctx.quadraticCurveTo(-47,43,-47,-20);
+    ctx.fillStyle='#1b8f35';ctx.strokeStyle='#0b5f2a';ctx.lineWidth=3;ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-43,-20);ctx.lineTo(43,-20);ctx.quadraticCurveTo(42,37,0,42);ctx.quadraticCurveTo(-42,37,-43,-20);ctx.fillStyle='#d2f18e';ctx.fill();
+    ctx.beginPath();ctx.moveTo(-38,-20);ctx.lineTo(38,-20);ctx.quadraticCurveTo(36,31,0,36);ctx.quadraticCurveTo(-36,31,-38,-20);ctx.fillStyle='#ef304b';ctx.fill();
+    for(const [x,y]of [[-25,-7],[-10,-5],[10,-7],[26,-8],[-18,10],[1,13],[20,9],[0,28]])ellipse(ctx,x,y,2.6,5.5,'#46131d',null,0,-.1);
+    ctx.restore();
   }else if(symbol==='bell'){
     path(ctx,[[54,32],[76,32],[81,44],[86,80],[99,88],[29,88],[42,80],[47,44]]);
     ctx.fillStyle=g;ctx.lineWidth=4;ctx.strokeStyle='#7a520d';ctx.fill();ctx.stroke();
@@ -92,28 +98,25 @@ function icon(ctx,symbol){
     ctx.save();ctx.strokeStyle='#fff4b4';ctx.lineWidth=4;ctx.beginPath();
     ctx.moveTo(30,30);ctx.lineTo(42,21);ctx.lineTo(54,30);ctx.stroke();ctx.restore();
   }else if(symbol==='wild'){
-    ctx.save();path(ctx,[[65,14],[81,48],[94,32],[93,75],[78,101],[50,107],[34,89],[34,51],[49,66]]);
-    ctx.fillStyle=g;ctx.strokeStyle='#a32912';ctx.lineWidth=3;ctx.fill();ctx.stroke();
-    path(ctx,[[61,53],[74,73],[68,99],[52,94],[48,75]]);ctx.fillStyle='#ffe86b';ctx.fill();
-    ctx.restore();
-    ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 23px Arial,sans-serif';
-    ctx.lineWidth=5;ctx.strokeStyle='#632814';ctx.strokeText('WILD',64,82);
-    ctx.fillStyle='#fff7cd';ctx.fillText('WILD',64,82);
+    // Original fruit-crown design; no provider bitmap, vector path or font.
+    leaf(ctx,29,71,1.05,-.65);leaf(ctx,98,72,1.05,.6);
+    for(const [x,y]of [[35,94],[48,104],[77,103],[92,92]]){ellipse(ctx,x,y,13,12,'#703fb4','#351447',2);shine(ctx,x-4,y-5,.5);}
+    ellipse(ctx,27,86,13,13,'#fb9024','#9b4c0c',2);ellipse(ctx,104,88,12,13,'#e83449','#7b1529',2);
+    path(ctx,[[31,56],[24,22],[45,39],[64,12],[83,39],[104,22],[97,56]]);
+    ctx.fillStyle=g;ctx.strokeStyle='#a66b15';ctx.lineWidth=4;ctx.fill();ctx.stroke();
+    path(ctx,[[30,55],[98,55],[93,65],[35,65]]);ctx.fillStyle='#fbc536';ctx.fill();ctx.stroke();
+    for(const [x,y,color]of [[40,48,'#d64045'],[64,43,'#39b86d'],[87,48,'#d64045']])ellipse(ctx,x,y,4,6,color,'#fff0a0',1.5);
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 28px Georgia,serif';
+    ctx.lineWidth=7;ctx.strokeStyle='#543016';ctx.strokeText('WILD',64,83);
+    ctx.fillStyle=g;ctx.fillText('WILD',64,83);ctx.lineWidth=1;ctx.strokeStyle='#fff7bf';ctx.strokeText('WILD',64,83);
   }
   ctx.restore();
 }
 function buildSymbol(ctx,symbol,size){
   const s=size/128;ctx.setTransform(s,0,0,s,0,0);ctx.clearRect(0,0,128,128);
-  const ground=ctx.createRadialGradient(52,32,9,64,70,87);
-  ground.addColorStop(0,'#1b6854');ground.addColorStop(.75,'#064035');ground.addColorStop(1,'#00231f');
-  ctx.fillStyle=ground;ctx.fillRect(0,0,128,128);
-  const ring=ctx.createLinearGradient(0,0,128,128);
-  ring.addColorStop(0,'#e8d68a');ring.addColorStop(.5,'#795d24');ring.addColorStop(1,'#ecda97');
-  ctx.lineWidth=4;ctx.strokeStyle=ring;ctx.strokeRect(3,3,122,122);
+  // Keep the symbol background transparent. The scene owns continuous reel
+  // panels; painting framed tiles here creates unwanted horizontal seams.
   icon(ctx,symbol);
-  const fade=ctx.createLinearGradient(0,0,0,128);
-  fade.addColorStop(0,'rgba(255,255,255,.12)');fade.addColorStop(.5,'rgba(255,255,255,0)');
-  ctx.fillStyle=fade;ctx.fillRect(7,7,114,44);
 }
 /** Built at mount time by the Player's existing document; no remote request. */
 export function createBurnWildsOwnArtwork({doc,size=256}={}){
@@ -132,7 +135,8 @@ export function createBurnWildsOwnArtwork({doc,size=256}={}){
   return Object.freeze({
     gameId:BURN_WILDS_GAME_ID,
     symbols:Object.freeze(symbols),
-    source:'ZPLAY_ORIGINAL_CANVAS_V1',
+    source:'ZPLAY_ORIGINAL_CANVAS_V2',
     thirdPartyAssets:false,providerParityVerified:false
   });
 }
+

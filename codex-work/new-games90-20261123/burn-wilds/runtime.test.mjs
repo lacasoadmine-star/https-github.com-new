@@ -10,12 +10,13 @@ const grid=[['seven','orange','cherry'],['seven','plum','cherry'],['seven','lemo
 const receipt=action=>({gameId:BURN_WILDS_GAME_ID,requestKey:action.requestKey,clientToken:action.requestKey,roundId:'r-'+action.requestKey,
   originalGrid:grid,finalGrid:grid,expandedColumns:[],winLines:[{id:2,rows:[0,0,0,0,0],winMinor:10000}],
   betMinor:action.betMinor,multiplier:1,winMinor:10000,balanceMinor:9900,pendingWinMinor:10000});
-function harness(){
+function harness({simulation=false}={}){
   let next=0;const calls=[],saved=new Map(),timeline=new BurnWildsExpansion({now:()=>0});
   const scene={start:action=>timeline.start({...action,at:0}),accept:r=>timeline.accept(r,0),stop:()=>timeline.stop(0),reject:key=>timeline.reject(key),snapshot:()=>timeline.snapshot(),setFinancial(){},dispose:()=>timeline.dispose()};
   const storage={getItem:key=>saved.get(key)||null,setItem:(key,value)=>saved.set(key,value),removeItem:key=>saved.delete(key)};
-  const account={gameId:BURN_WILDS_GAME_ID,subject:'test-only-subject',authenticated:true,currency:'ETB',canPlay:true,balanceMinor:10000,pendingWinMinor:0,betLevelsMinor:[100,200],round:null};
-  const transport={state:async()=>structuredClone(account),prepare:action=>({...action,authority:{mathVersion:'synthetic-test-model'}}),dispatch:async action=>{calls.push(action);return receipt(action);},recover:async action=>{calls.push(action);return receipt(action);}};
+  const account={gameId:BURN_WILDS_GAME_ID,subject:'test-only-subject',authenticated:!simulation,currency:'ETB',canPlay:true,balanceMinor:10000,pendingWinMinor:0,betLevelsMinor:[100,200],round:null,...(simulation?{mode:'SIMULATION',cashEnabled:false}:{})};
+  const response=action=>({...receipt(action),...(simulation?{mode:'SIMULATION',cashEnabled:false,subject:account.subject}:{})});
+  const transport={...(simulation?{mode:'SIMULATION'}:{}),state:async()=>structuredClone(account),prepare:action=>({...action,authority:{mathVersion:'synthetic-test-model'}}),dispatch:async action=>{calls.push(action);return response(action);},recover:async action=>{calls.push(action);return response(action);}};
   const controller=new BurnWildsController({transport,scene,storage,key:()=>`key-${++next}`});
   return {controller,transport,scene,storage,saved,timeline,calls,account};
 }
@@ -36,8 +37,8 @@ test('uncertain spin retains exact prepared authority and STOP never creates ano
   const h=harness();await h.controller.connect();h.transport.dispatch=async action=>{h.calls.push(action);throw new Error('lost-reply');};
   await assert.rejects(h.controller.spin(),/lost-reply/);const pending=JSON.parse(h.storage.getItem(BURN_WILDS_PENDING_KEY));
   h.controller.stop();h.controller.stop();assert.equal(h.calls.length,1);assert.equal(h.controller.snapshot().status,'RECOVER');
-  await h.controller.recover();assert.deepEqual(h.calls[1],pending.action);assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),null);
-  h.timeline.tick(2000);h.controller.presentationFinished('r-key-1');assert.equal(h.controller.snapshot().status,'READY');assert.equal(h.controller.snapshot().pendingWinMinor,10000);
+  await h.controller.recover();assert.deepEqual(h.calls[1],pending.action);assert.ok(h.storage.getItem(BURN_WILDS_PENDING_KEY));
+  h.timeline.tick(2000);h.controller.presentationFinished('r-key-1');assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),null);assert.equal(h.controller.snapshot().status,'READY');assert.equal(h.controller.snapshot().pendingWinMinor,10000);
 });
 test('same-slot pointer attempts while the host is pending only accelerate presentation',async()=>{
   const h=harness();await h.controller.connect();let deliver;
@@ -105,8 +106,10 @@ test('controller refuses a tampered accepted SPIN payout and preserves exact rec
   await h.controller.recover();
   assert.equal(h.calls.length,2);
   assert.deepEqual(h.calls[0],h.calls[1]);
-  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),null);
+  assert.ok(h.storage.getItem(BURN_WILDS_PENDING_KEY));
   assert.equal(h.controller.snapshot().pendingWinMinor,10000);
+  h.timeline.tick(2000);h.controller.presentationFinished('r-key-1');
+  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),null);
 });
 test('reconnect fails closed if old server round has a fabricated winning amount',async()=>{
   const h=harness();h.transport.state=async()=>({
@@ -134,4 +137,63 @@ test('unreleased Burn Wilds mounts existing account and controls read-only witho
   assert.throws(()=>h.controller.spin(),/BURN_WILDS_NOT_READY/);
   assert.equal(h.calls.length,0);
   assert.equal(h.saved.size,0);
+});
+
+
+test('AUTO win threshold leaves the final server win pending until an explicit collection',async()=>{
+  const h=harness();await h.controller.connect();
+  await h.controller.startAuto({count:25,winAtLeastMinor:100});
+  h.timeline.tick(2000);h.controller.presentationFinished('r-key-1');
+  await Promise.resolve();await Promise.resolve();
+  assert.equal(h.calls.length,1,'threshold must not dispatch TAKE or another SPIN');
+  assert.equal(h.controller.snapshot().auto.active,false);
+  assert.equal(h.controller.snapshot().balanceMinor,9900);
+  assert.equal(h.controller.snapshot().pendingWinMinor,10000);
+});
+
+test('server test session is explicitly SIMULATION and cannot overwrite a cash pending journal',async()=>{
+  const h=harness({simulation:true});
+  const cashJournal=JSON.stringify({subject:'actual-player',action:{requestKey:'cash-pending'}});
+  h.storage.setItem(BURN_WILDS_PENDING_KEY,cashJournal);
+  await h.controller.connect();
+  assert.equal(h.controller.snapshot().authenticated,false);
+  assert.equal(h.controller.snapshot().mode,'SIMULATION');
+  assert.equal(h.controller.snapshot().unit,'TEST ETB');
+  assert.equal(h.controller.snapshot().cashEnabled,false);
+  await h.controller.spin();
+  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),cashJournal);
+  assert.ok(h.storage.getItem(BURN_WILDS_PENDING_KEY+'.simulation'));
+  h.timeline.tick(2000);h.controller.presentationFinished('r-key-1');
+  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY+'.simulation'),null);
+  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),cashJournal);
+});
+
+test('simulation refuses a response that omits its test-session identity',async()=>{
+  const h=harness({simulation:true});await h.controller.connect();
+  h.transport.dispatch=async action=>receipt(action);
+  await assert.rejects(h.controller.spin(),/SIMULATION_RECEIPT/);
+  assert.equal(h.controller.snapshot().balanceMinor,10000);
+  assert.equal(h.controller.snapshot().status,'RECOVER');
+});
+
+test('original native scene starts populated, uses a normal roll interval, and emits each reel stop once',()=>{
+  let now=0;const drawn=[],events=[],gradient={addColorStop(){}};
+  const context=new Proxy({drawImage(...args){drawn.push(args);},createLinearGradient(){return gradient;},createRadialGradient(){return gradient;}},{get:(o,k)=>k in o?o[k]:()=>{},set:(o,k,v)=>(o[k]=v,true)});
+  const canvas={width:390,height:740,clientWidth:390,clientHeight:740,style:{},getContext:()=>context};
+  const images=Object.fromEntries(['orange','lemon','plum','grapes','cherry','watermelon','bell','seven','wild'].map(key=>[key,{width:256,height:256,key}]));
+  const scene=new BurnWildsScene({canvas,flameCanvas:{...canvas,style:{}},artwork:{gameId:BURN_WILDS_GAME_ID,symbols:images},now:()=>now,win:{devicePixelRatio:1},onEvent:event=>events.push(event)});
+  assert.ok(drawn.length>=15,'all idle cells are painted before a financial round exists');
+  assert.equal(scene.snapshot().receipt,null);
+  scene.start({requestKey:'pacing'});scene.accept(receipt({requestKey:'pacing',betMinor:100}));
+  now=1000;scene.draw(now);assert.equal(scene.snapshot().phase,'SPINNING');
+  now=1020;scene.draw(now);assert.equal(scene.snapshot().phase,'REELS');
+  now=1260;scene.draw(now);
+  now=1500;scene.draw(now);assert.equal(scene.snapshot().phase,'IDLE');
+  now=2000;scene.draw(now);
+  assert.deepEqual(events.filter(x=>x.type==='reel-stop').map(x=>x.column),[0,1,2,3,4]);
+  assert.equal(events.filter(x=>x.type==='settled').length,1);
+  scene.start({requestKey:'stop-fast'});scene.accept(receipt({requestKey:'stop-fast',betMinor:100}));
+  now=2010;scene.stop();now=2110;scene.draw(now);
+  assert.equal(scene.snapshot().phase,'IDLE','STOP bypasses remaining normal presentation time');
+  scene.dispose();
 });

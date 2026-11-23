@@ -86,3 +86,4 @@ test('missing financial terms, wrong game and invalid stakes cannot reach a sett
   assert.throws(()=>quoteBurnWildsFinalGrid({finalGrid:losingGrid(),betMinor:0,multiplier:2}),/OUTCOME_STAKE/);
   assert.throws(()=>quoteBurnWildsFinalGrid({finalGrid:losingGrid(),betMinor:10,multiplier:6}),/OUTCOME_MULTIPLIER/);
 });
+

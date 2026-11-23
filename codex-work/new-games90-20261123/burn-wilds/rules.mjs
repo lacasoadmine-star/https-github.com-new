@@ -45,3 +45,4 @@ export function describeBurnWildsPaytable(betMinor){
     symbol,Object.freeze(Object.fromEntries(Object.keys(coefficients).map(count=>[count,quoteBurnWildsLine(symbol,Number(count),betMinor)])))
   ])));
 }
+

@@ -70,3 +70,4 @@ test('invalid monetary/grid data fail closed and disposal leaves model and overl
   const{model,events}=setup();model.start({requestKey:'burn-key-1',at:0});model.accept(receipt(),1);model.dispose();model.tick(5000);assert.equal(model.snapshot().disposed,true);assert.equal(events.filter(e=>e.type==='settled').length,0);assert.throws(()=>model.accept(receipt()),/DISPOSED/);
   const overlay=new BurnWildsFlameOverlay({canvas:{getContext:()=>null}});overlay.dispose();assert.doesNotThrow(()=>overlay.draw(null));
 });
+

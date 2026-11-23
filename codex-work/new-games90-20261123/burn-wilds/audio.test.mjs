@@ -43,3 +43,13 @@ test('sound ambience starts only after opt-in and is stopped on pause and dispos
   await audio.pause();assert.equal(audio.unlocked,false);
   audio.dispose();assert.equal(audio.ambience,null);
 });
+
+
+test('staggered native reel-stop cues play once for each accepted reel',async()=>{
+  const {ctx,voices}=factory(),audio=new BurnWildsAudio({audioFactory:()=>ctx});
+  audio.setPreferences({effects:true,music:false});await audio.unlock();
+  for(let column=0;column<5;column++)assert.equal(audio.event('reel-stop',{roundId:'reels-1',column}),true);
+  for(let column=0;column<5;column++)assert.equal(audio.event('reel-stop',{roundId:'reels-1',column}),false);
+  assert.equal(voices.length,5);
+  audio.dispose();
+});

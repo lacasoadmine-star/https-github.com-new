@@ -42,3 +42,4 @@ test('observed public URLs are inspectable, never bundled as commercial game ass
   assert.equal(result.frameCount,200);
   assert.deepEqual(urls,BURN_WILDS_OFFICIAL_ATLASES.map(p=>BURN_WILDS_DEMO_ATLAS_ROOT+'Images-'+p.index+'.json'));
 });
+
