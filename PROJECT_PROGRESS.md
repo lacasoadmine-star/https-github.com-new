@@ -1,3 +1,11 @@
+# Current active NEW90 continuation - 23 November 2026
+
+**Scope: 90 new distinct games, not 72.** Nine batches of ten (1-10 through 81-90). Current batch: 1-10. Current game: #1 Multi Hot 5 Burn Wilds, IN_PROGRESS, not financially live verified. Use [the current exact checkpoint](codex-work/new-games90-20261123/BATCH01_CONTINUATION.md) and [the 90-game registry](codex-work/new-games90-20261123/catalogue/registry.json) before changing source. All previously recorded 72-game material below is historical and should not replace the requested 90-game order. Do not restart any already authored game or count old games as new.
+
+Feature branch: work/new90-burn-outcome-20261123. Most recent tested source: f644860d0f7eb1cde7c11ed946663f4949c34e7d, GitHub Actions 45120743546: **56 focused tests passed, none failed**. The fixes preserve immutable accepted-round recovery after provider model suspension or rotation, refuse newly initiated wagers without a current release, allow authenticated read-only game loading with no fabricated bet, and preserve cross-account rejection. These are isolated tests; no live ETB settlement, licensed asset validation or authenticated Player launch has passed. Player live remains at Worker v472 by most recent verified Cloudflare deployment, and **0/90 is LIVE_VERIFIED**. The isolated change is not deployed.
+
+---
+
 # Current continuation — accepted controls proof and X2 implementation
 
 The source checkpoint `a17932c9b6d5cb99df2e80c06b8add0afff44e59` on
