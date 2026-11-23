@@ -1,3 +1,19 @@
+# 2026-11-23 — independent verification of new 1–90 directive
+
+User's latest directive requires exactly 90 **new** distinct games, excludes MultiHot5, FoxyHot20 and HabeshaFortune5, and requires BOTH (a) real Player launch with functioning controls/media and (b) seven genuine authenticated ETB-server rounds with unique round IDs, settlement and idempotency evidence before COMPLETED. Batch order: 1–10 through 81–90. Preserve all earlier games and account/ledger/session/Telebirr data; never simulate production ETB or execute financial spins against real customer accounts.
+
+Verified via connected services on 2026-11-23:
+- Cloudflare Worker `superwin-player`: latest *deployed* version **472**, ID `8eca6097-07b7-427b-acb9-8c9a13d4eb6f`, activation 2026-11-23T02:00:00Z. Version **473** (`cd96a364-8fc3-4b04-8b82-13c59bcbec77`) exists but is **not deployed**. Avoid incorrectly claiming 473 live. All 18 bound names remain present; no secret values read or changed.
+- GitHub `main` is older 2026-10-29 three-portal baseline and NOT the current Worker source. Continue on `work/new90-live-20261123`; do not deploy `main` over production. Current activity and catalogue names are on this branch, not on main.
+- Railway `superwinbet-platform`, environment `staging`, contains multiple successful services including `superwin-nine-slot-engine`, `superwin-native-family-engine` and `superwin-backend`. A pre-existing one-change staged patch targets an unrelated service and was not applied.
+- Official-demo visual/control inspection for all 90 and 7 authenticated ETB production rounds for each are **not established** by this audit. Earlier CI receipts use isolated fixtures. New games **0/90 completion verified** and **0/90 authenticated live ETB acceptance verified**. Games must remain unmarked COMPLETED until evidence exists.
+- A public Player page fetch through the available external reader did not succeed (cache miss), so the root webpage, cache freshness, browser controls and real session spins were **not verified** in this audit.
+- New directive supersedes earlier progress claims; neither catalogue cards nor visual-only game prototypes qualify as completed. Keep a per-game evidence row with official-demo timestamp/attempts, player GET, 7 server-authoritative round IDs, wallet debit/credit/retry proof, viewport/sound/control checks and post-deploy hash before release.
+
+Next engineering unit: batch 1–10 from `catalogue/requested.mjs`. Verify official current demo for each; implement genuinely missing components in separate game modules, test using an isolated database; mount onto the existing Worker only after exact build/protected routes/bindings verification. Do not activate real-money routes absent settlement verification. This checkpoint is a truthful inspection/progress update and **not a 90-game delivery or production deploy**.
+
+---
+
 # Current continuation — accepted controls proof and X2 implementation
 
 The source checkpoint `a17932c9b6d5cb99df2e80c06b8add0afff44e59` on
