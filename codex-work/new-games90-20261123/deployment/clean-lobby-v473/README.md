@@ -1,0 +1,3 @@
+# New90 clean lobby entry, v473 candidate
+
+This root-only change removes the unsupported numbered NEW90 placeholder section and loader while retaining the entire pre-existing Player dashboard and all game, session, payment, wallet, backend and legacy routes. Previous v472 game modules are preserved, including existing development routes; they are not claimed completed or added as verified Player cards until the owner-required official-demo parity and authenticated financial acceptance are actually evidenced. The normal existing 74 cards are left unchanged. This is a non-financial public presentation correction, not 90-game completion.
