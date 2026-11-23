@@ -1,3 +1,7 @@
+## Current user order — old70 rebuild, 23 November 2026
+
+The latest user explicitly stopped NEW90 work and requested the old70 games, one completed game at a time, in groups of10+10. Use new modular/minified source and current per-title official references. Keep all existing games/services; do not restart NEW90 or turn historical90 instructions below into the active queue. MultiHot5 and FoxyHot20 remain excluded from this rebuild. Practice templates must operate independently of the real wallet and financial server. Browser gameplay tests must use the same Player origin: https://superwin-player.apdiy61.workers.dev/ . Begin with Multi Hot40, then Safari Simba after the first title meets its declared template acceptance. Current code and evidence are in codex-work/old70-20261123/. Record actual checks and remaining audiovisual/reference gaps; no claim that70 games are complete from one prototype. Preserve accounts, historical balances, auth, ledger, payments, old routes and all existing Worker modules. Existing authorized repository/Cloudflare deployment workflows remain valid. Historical instructions below do not override this current order.
+
 # ZPLAY / Superwin continuation instructions
 
 ## Latest explicit order — 23 November 2026

@@ -14,13 +14,13 @@ export function createAudio({clips=[],base=new URL('./',import.meta.url),fetcher
   if(disposed)return false;
   const AudioContext=globalThis.AudioContext||globalThis.webkitAudioContext;if(!AudioContext)return false;
   context??=new AudioContext();await context.resume();
-  loading??=Promise.all([...paths].map(async([name,path])=>{
+  loading??=(async()=>{const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12000);try{return await Promise.all([...paths].map(async([name,path])=>{
    if(!/^media\/audio\/[a-f0-9]{64}\.mp3$/.test(path))throw Error('MH40_AUDIO_PATH');
-   const response=await fetcher(new URL(path,base),{credentials:'omit',redirect:'error'});
+   const response=await fetcher(new URL(path,base),{credentials:'omit',redirect:'error',signal:controller.signal});
    if(!response.ok)throw Error('MH40_AUDIO_UNAVAILABLE');
    const bytes=await response.arrayBuffer();if(bytes.byteLength>4000000)throw Error('MH40_AUDIO_SIZE');
-   buffers.set(name,await context.decodeAudioData(bytes));
-  })).catch(error=>{loading=null;throw error;});
+   const decoded=await context.decodeAudioData(bytes);if(!disposed)buffers.set(name,decoded);
+  }));}finally{clearTimeout(timeout);}})().catch(error=>{loading=null;throw error;});
   await loading;return true;
  }
  function preferences(nextEffects,nextMusic){

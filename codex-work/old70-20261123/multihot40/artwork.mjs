@@ -3,7 +3,9 @@ const hex=bytes=>Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
 export async function loadArtwork({base=new URL('./',import.meta.url),fetcher=globalThis.fetch,doc=globalThis.document,onProgress=()=>{}}={}) {
  const root=new URL(base,globalThis.location?.href);
  if(root.origin!==globalThis.location?.origin)throw Error('MH40_SAME_ORIGIN_REQUIRED');
- const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000),bitmaps=[];
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000),bitmaps=new Set();
+ const closeBitmap=bitmap=>{if(bitmaps.delete(bitmap))bitmap.close();};
+ const ownBitmap=bitmap=>{if(controller.signal.aborted){bitmap.close();throw new DOMException('Artwork loading aborted','AbortError');}bitmaps.add(bitmap);return bitmap;};
  try{
   const response=await fetcher(new URL('artwork.json',root),{signal:controller.signal,credentials:'omit',redirect:'error'});
   if(!response.ok)throw Error('MH40_ART_MANIFEST_UNAVAILABLE');
@@ -19,21 +21,22 @@ export async function loadArtwork({base=new URL('./',import.meta.url),fetcher=gl
    const bytes=await r.arrayBuffer();
    if(bytes.byteLength!==asset.bytes||hex(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)))!==asset.sha256)
     throw Error('MH40_ASSET_INTEGRITY');
-   const bitmap=await createImageBitmap(new Blob([bytes],{type:'image/png'}));bitmaps.push(bitmap);onProgress(++completed,3);
+   const bitmap=ownBitmap(await createImageBitmap(new Blob([bytes],{type:'image/png'})));onProgress(++completed,3);
    return [asset.sha256,bitmap];
   })));
   const symbols=Array(8);
   for(const atlas of manifest.sprites)for(const [name,descriptor] of Object.entries(atlas.frames)){
-   const index=Number(name.slice(4)),canvas=doc.createElement('canvas');canvas.width=230;canvas.height=230;
-   drawSprite(canvas.getContext('2d'),images.get(atlas.imageAssetId),descriptor,0,0,230,230);
-   const image=await createImageBitmap(canvas);bitmaps.push(image);
-   symbols[index]={image,descriptor:{frame:{x:0,y:0,w:230,h:230},trim:{x:0,y:0,w:230,h:230},sourceSize:{w:230,h:230},rotated:false}};
+   const index=Number(name.slice(4)),canvas=doc.createElement('canvas');
+   canvas.width=descriptor.trim.w;canvas.height=descriptor.trim.h;
+   drawSprite(canvas.getContext('2d'),images.get(atlas.imageAssetId),descriptor,-descriptor.trim.x,-descriptor.trim.y,descriptor.sourceSize.w,descriptor.sourceSize.h);
+   const image=ownBitmap(await createImageBitmap(canvas));
+   symbols[index]={image,descriptor:{frame:{x:0,y:0,w:canvas.width,h:canvas.height},trim:{x:0,y:0,w:canvas.width,h:canvas.height},sourceSize:{w:canvas.width,h:canvas.height},rotated:false}};
   }
   if(Array.from(symbols).some(s=>!s))throw Error('MH40_SYMBOLS_INCOMPLETE');
   const background=images.get(manifest.background);
   // Keep only the small cropped sprites and background after decoding.
-  for(const [id,bitmap] of images)if(id!==manifest.background)bitmap.close();
-  return {symbols,background,audio:manifest.audio,dispose(){bitmaps.forEach(b=>b.close());}};
- }catch(error){controller.abort();bitmaps.forEach(b=>b.close());throw error;}
+  for(const [id,bitmap] of images)if(id!==manifest.background)closeBitmap(bitmap);
+  return {symbols,background,audio:manifest.audio,dispose(){[...bitmaps].forEach(closeBitmap);}};
+ }catch(error){controller.abort();[...bitmaps].forEach(closeBitmap);throw error;}
  finally{clearTimeout(timeout);}
 }

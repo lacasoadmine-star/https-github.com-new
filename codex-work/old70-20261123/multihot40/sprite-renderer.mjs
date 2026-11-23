@@ -1,3 +1,4 @@
+import {paintWheel,paintWin,winPresentation} from './win-presentation.mjs';
 /** Trim/rotation aware Canvas sprite drawing. Receives this title's own atlas frames. */
 export function drawSprite(ctx,image,descriptor,x,y,width,height) {
   const f=descriptor?.frame,t=descriptor?.trim,s=descriptor?.sourceSize;
@@ -24,7 +25,7 @@ export function createSpriteRenderer({canvas,artwork,motion,onComplete=()=>{},
   if(!canvas?.getContext||!artwork?.symbols||artwork.symbols.length!==8||
     artwork.symbols.some(s=>!s?.image||!s?.descriptor)||!motion)throw Error('MH40_RENDER_DEPENDENCIES');
   const ctx=canvas.getContext('2d',{alpha:false});
-  let handle=0,disposed=false,paused=false,grid=idleGrid.map(r=>[...r]),round=null,completion=null;
+  let handle=0,disposed=false,paused=false,grid=idleGrid.map(r=>[...r]),round=null,completion=null,pendingCompletion=null,winStart=0,winUntil=0,winTier=null,pauseStart=null;
   function cell(symbol,x,y,w,h,blur=false) {
     const sprite=blur&&artwork.blur?.[symbol]||artwork.symbols[symbol];
     drawSprite(ctx,sprite.image,sprite.descriptor,x,y,w,h);
@@ -37,8 +38,13 @@ export function createSpriteRenderer({canvas,artwork,motion,onComplete=()=>{},
     if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch;}
     ctx.setTransform(ratio,0,0,ratio,0,0);ctx.fillStyle='#002a20';ctx.fillRect(0,0,width,height);
     const layout=cabinetLayout(width,height);ctx.save();ctx.translate(layout.left,layout.top);ctx.scale(layout.scale,layout.scale);
-    if(artwork.background)ctx.drawImage(artwork.background,0,0,560,840);
+    if(artwork.background){const image=artwork.background,factor=Math.max(560/image.width,840/image.height),sw=560/factor,sh=840/factor;
+      ctx.drawImage(image,(image.width-sw)/2,(image.height-sh)/2,sw,sh,0,0,560,840);}
     const state=motion.tick(time),active=state.phase==='spinning',source=state.round?.grid||grid;
+    if(state.phase==='complete'&&completion!==state.round.requestId){
+      completion=state.round.requestId;round=state.round;grid=source.map(r=>[...r]);motion.finish(completion);
+      pendingCompletion=completion;winTier=winPresentation(round.winMinor,round.betMinor);winStart=time;winUntil=time+(winTier?.duration||0);
+    }
     ctx.fillStyle='#001a12';ctx.fillRect(20,220,520,440);
     for(let column=0;column<5;column++){
       const move=state.columns[column],rolling=active&&move&&!move.stopped;
@@ -55,26 +61,27 @@ export function createSpriteRenderer({canvas,artwork,motion,onComplete=()=>{},
     }
     ctx.strokeStyle='#f4d17a';ctx.lineWidth=3;ctx.strokeRect(19,219,522,442);
     ctx.textAlign='center';ctx.fillStyle='#ffe19c';ctx.font='bold 42px sans-serif';
-    ctx.fillText('MULTI HOT 40',280,75);ctx.font='bold 58px sans-serif';
-    ctx.fillText(String(state.round?.multiplier||round?.multiplier||2)+'×',280,165);
-    if(round&&state.phase==='idle'){
+    ctx.fillText('MULTI HOT 40',280,42);
+    paintWheel(ctx,state.round?.multiplier||round?.multiplier||2,active?state.columns[0].travel:null);
+    if(round&&!active){
       const positions=new Set(round.wins.flatMap(w=>w.positions.map(p=>p.row+':'+p.column)));
-      ctx.strokeStyle='#ffe987';ctx.lineWidth=4;
+      ctx.strokeStyle='#ffe987';ctx.lineWidth=4;ctx.globalAlpha=time<winUntil?.65+Math.sin(time/100)*.35:1;
       for(const p of positions){const [r,c]=p.split(':').map(Number);ctx.strokeRect(23+c*104,223+r*110,98,104);}
     }
+    ctx.globalAlpha=1;
+    if(pendingCompletion&&winTier)paintWin(ctx,round,winTier,time>=winUntil?1:(time-winStart)/Math.min(1600,winTier.duration),time);
     ctx.restore();
-    if(state.phase==='complete'&&completion!==state.round.requestId){
-      completion=state.round.requestId;round=state.round;grid=source.map(r=>[...r]);
-      motion.finish(completion);onComplete(completion);return;
-    }
-    if(active)handle=raf(paint);else handle=0;
+    if(pendingCompletion&&time>=winUntil){const id=pendingCompletion;pendingCompletion=null;onComplete(id);}
+    if((active||pendingCompletion)&&!handle)handle=raf(paint);
   }
   function invalidate(){if(!disposed&&!paused&&!handle)handle=raf(time=>{handle=0;paint(time);});}
-  function start(result,options={}){completion=null;motion.start(result,{...options,now:now()});invalidate();}
+  function start(result,options={}){if(pendingCompletion)throw Error('MH40_CELEBRATION_IN_PROGRESS');completion=null;winTier=null;winUntil=0;motion.start(result,{...options,now:now()});invalidate();}
   return Object.freeze({start,invalidate,
-    stop(){motion.stop(now());invalidate();},
-    pause(){paused=true;motion.pause(now());if(handle)caf(handle);handle=0;},
-    resume(){if(disposed)return;paused=false;motion.resume(now());invalidate();},
+    restore(result){if(pendingCompletion||motion.snapshot(now()).phase!=='idle'||!Array.isArray(result?.grid)||result.grid.length!==4||result.grid.some(r=>!Array.isArray(r)||r.length!==5||r.some(v=>!Number.isInteger(v)||v<0||v>7)))throw Error('MH40_RESTORE_GRID');
+      round=structuredClone(result);grid=round.grid.map(r=>[...r]);completion=round.requestId;invalidate();},
+    stop(){motion.stop(now());if(pendingCompletion)winUntil=Math.min(winUntil,now()+80);invalidate();},
+    pause(){if(paused)return;paused=true;pauseStart=now();motion.pause(pauseStart);if(handle)caf(handle);handle=0;},
+    resume(){if(disposed)return;const at=now();if(paused&&pendingCompletion){const delta=Math.max(0,at-pauseStart);winStart+=delta;winUntil+=delta;}paused=false;pauseStart=null;motion.resume(at);invalidate();},
     dispose(){disposed=true;if(handle)caf(handle);handle=0;motion.dispose();}
   });
 }

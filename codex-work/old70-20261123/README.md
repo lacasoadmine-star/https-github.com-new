@@ -8,7 +8,7 @@ Source-ka `multihot40/` wuxuu leeyahay xisaab integer ah, 40-ka payline ee chart
 
 Play route: `/native-ui/old70/multihot40/` oo ku jira isla `superwin-player.apdiy61.workers.dev`. Host-ku wuxuu ku lifaaqmaa presentation Worker-ka jira, wuxuuna sii daayaa kaliya faylasha iyo media-da la cayimay. Ma jiro wallet/backend financial request.
 
-Minified build: `node codex-work/old70-20261123/build.mjs`. Tests-ka tooska ah: `node` ku orod `model.test.mjs`, `local-session.test.mjs`, `reel-motion.test.mjs` iyo `host/worker.test.mjs`. Node runner-ka deegaanka wuxuu `--test` ku soo koobaa tirada faylasha; 46 assertion ayaa ku jira afarta suite.
+Minified build: `node codex-work/old70-20261123/build.mjs`. Tests-ka tooska ah: `node` ku orod `model.test.mjs`, `local-session.test.mjs`, `reel-motion.test.mjs` iyo `host/worker.test.mjs`. Node runner-ka deegaanka wuxuu `--test` ku soo koobaa tirada faylasha; 62 assertion ayaa ku jira toddobada suite.
 
 Tixraaca cusub iyo farqiyada: [REFERENCE.md](REFERENCE.md). Deployment/browser acceptance waa in si gaar ah loo diiwaangeliyo; source ama passing unit tests ma dhammeystiraan 70 ciyaarood.
 

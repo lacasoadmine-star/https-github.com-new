@@ -1,3 +1,17 @@
+## 2026-11-23 — current user order: rebuild the old70, stop NEW90 work
+
+The latest user cancelled further NEW90 development and requested70 existing games, one at a time, with new references and modular/minified source. Practice templates remain independent of real accounts, wallet and financial backend; browser tests use the existing Player origin only. MultiHot5 and FoxyHot20 are preserved.
+
+Current game: **Multi Hot40**. The new source is `codex-work/old70-20261123/`, feature branch `work/old70-modular-independent-20261123`, [PR33](https://github.com/lacasoadmine-star/https-github.com-new/pull/33). Fresh official product/demo observations include seven main-button rounds, the currently displayed BET/AUTO controls and all40 current chart paths. Private session URLs/history images are not published.
+
+The first practice version is active at `/native-ui/old70/multihot40/` through the existing Player and its existing presentation service. PLAY, SPIN and STOP were exercised there using only explicit local practice credits. All four preceding child modules were hash-verified unchanged. The parent Player's code, real wallet, accounts, database, ledger and Telebirr were not changed.
+
+The first browser pass found small symbol scaling. Corrections now include tight sprite cropping, proportional backgrounds, saved-round board restoration, visible X2 results, bounded audio that cannot block PLAY, modal/image cleanup, multiplier arc and tiered win count-up. **62 focused checks pass**, together with the previously completed three frontend builds and9 disposable backend tests. The corrected version still requires its own deployment/readback and browser retest; initial-version observations do not count as corrected-version proof.
+
+Next: finish the corrected same-site Multi Hot40 acceptance, record responsive/control/audio limits, then advance to Safari Simba. Complete-provider-parity games remain0/70. This is one practice implementation in progress, not70 completed games. Historical90/71/72 checkpoints below are retained as history only.
+
+---
+
 ## 2026-11-23 — NEW90 game 01: existing live Player API identified and safely adapted
 
 - User authorizes sequential game-by-game development 01–90 using the existing ZPLAY backend, Worker and ETB ledger only, following independent current official demo reference checks.

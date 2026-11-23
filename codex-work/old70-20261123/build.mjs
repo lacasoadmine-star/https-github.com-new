@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {gzipSync} from 'node:zlib';
 import {transform} from 'esbuild';
 const here=dirname(fileURLToPath(import.meta.url)),game=join(here,'multihot40');
-const names=['entry.mjs','controls.mjs','model.mjs','line-paths.mjs','local-session.mjs','reel-motion.mjs','sprite-renderer.mjs','artwork.mjs','audio.mjs','style.css','index.html','artwork.json'];
+const names=['entry.mjs','controls.mjs','model.mjs','line-paths.mjs','local-session.mjs','reel-motion.mjs','sprite-renderer.mjs','artwork.mjs','audio.mjs','brand.mjs','win-presentation.mjs','style.css','index.html','artwork.json'];
 const hash=data=>createHash('sha256').update(data).digest('hex');
 export async function build({output=join(here,'dist'),audioPins={}}={}) {
  const files={};for(const name of names){
