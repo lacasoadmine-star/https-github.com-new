@@ -26,6 +26,12 @@ Commit 2b2242cab21571f24397e208526e566ac85c9c4c added a distinct Burn Wilds cand
 
 IMPORTANT: These are *new ZPLAY candidate* random weights, not the provider's proven RTP/reel distribution. The candidate has approved:false and all verification flags false, and is neither deployed nor cash activated. Artwork rights, a mathematically reviewed own RTP model, actual server callbacks and authenticated Player acceptance remain required.
 
+## Latest direct implementation - existing Player session and original artwork
+
+GitHub Actions run 45122916368 completed **70/70 passing** on source e78f373acc7013e9cc6d6479132cbb2fa914ac53. Burn Wilds now includes own code-rendered ZPLAY Canvas symbols (9 unique source images generated at runtime, not third-party copied artwork), their focused tests, and a Player RECONNECT control for a previously failed authenticated state request. Player entry defaults to these self-authored assets when authorized external assets are not passed. The existing API adapter still requires an authenticated Player session and a server-approved production model; it creates no wallet, login or guessed ETB. Production deployment is NOT claimed by this source result.
+
+Cloudflare live check in this same work session showed **superwin-player version 472**, 100% traffic, using original main module new90m20r1/entry.mjs. Railway service inventory identified superwin-backend and superwin-nine-slot-engine. The backend's Railway service has no direct public domain; the live Worker cannot be safely replaced with a partial upload because full original modules/configuration were not retrieved (Cloudflare content/v2 exceeded tool memory). No licensed-provider visual equivalence, production session SPIN or live settlement acceptance has been established. Do not bypass any financial release gate, reset accounts or create credit. Next required concrete integration is byte-preserving whole Worker module assembly, exact existing authenticated transaction callbacks, disposable database checks, and then an authorized Play session browser acceptance.
+
 ## Source checkpoint
 GitHub branch: work/new90-burn-outcome-20261123 (based on the existing work/new90-live-20261123 code). Game #1 files: codex-work/new-games90-20261123/burn-wilds and server/ subdirectory. Source QA: .github/workflows/new90-burn-outcome-qa.yml.
 
