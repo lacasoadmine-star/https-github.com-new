@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {resolve} from 'node:path';
 import {REQUESTED_NAMES, EXCLUDED_NAMES, canonicalName} from './requested.mjs';
 import {publicCatalogue} from './model.mjs';
 import {validCatalogue, renderSection, renderPage} from './public.mjs';
-import {createNew90Worker} from './worker.mjs';
+import {createNew90Worker,createStoredNew90Worker} from './worker.mjs';
 import {buildDeployment, entryModule, BYTE_BUDGET,writeDeployment,loadDeployment} from './build.mjs';
 
 const registry = JSON.parse(await readFile(new URL('./registry.json',import.meta.url),'utf8'));
@@ -326,5 +327,69 @@ test('exact generated artifact rejects module drift before runtime loading',asyn
     assert.deepEqual(loaded.config,build.config);
     await writeFile(resolve(directory,build.modules[0].name),build.modules[0].source+' ');
     await assert.rejects(()=>loadDeployment(directory),/NEW90_ARTIFACT_PIN_MISMATCH/);
+  } finally {await rm(directory,{recursive:true,force:true});}
+});
+
+
+function storedFixture(value=config) {
+  const body=Buffer.from(JSON.stringify(value)),sha256=createHash('sha256').update(body).digest('hex');
+  return {body,pin:{bindingName:'SSG_OFFICIAL_REFERENCES',key:'new90/catalogue/'+sha256.slice(0,24)+'/config.json',
+    bytes:body.length,sha256,assetRevision:value.assetRevision}};
+}
+
+test('stored catalogue loads once only for its routes, preserving original request and session identity',async()=>{
+  const {body,pin}=storedFixture(),calls=[],handler=()=>{},ctx={};let reads=0;
+  const previous={scheduled:handler,fetch(...args){calls.push(args);return new Response('previous',{headers:{'Set-Cookie':'session=retained'}});}};
+  const env={SSG_OFFICIAL_REFERENCES:{async get(key,options){reads++;assert.equal(key,pin.key);assert.deepEqual(options,{type:'arrayBuffer'});
+    return body.buffer.slice(body.byteOffset,body.byteOffset+body.byteLength);}}};
+  const worker=createStoredNew90Worker(previous,pin);
+  for(const path of ['/api/wallet','/api/spin','/login','/deposit','/new-games72/multi-hot-20/']){
+    const request=new Request('https://player.invalid'+path,{method:'POST',body:'preserved'});
+    const response=await worker.fetch(request,env,ctx);
+    assert.deepEqual(calls.at(-1),[request,env,ctx]);assert.equal(response.headers.get('Set-Cookie'),'session=retained');
+  }
+  assert.equal(reads,0);assert.equal(worker.scheduled,handler);
+  const response=await worker.fetch(new Request('https://player.invalid/new-games90/catalogue.json'),env,ctx);
+  assert.deepEqual(await response.json(),config.catalogue);assert.equal(reads,1);
+  const script=await worker.fetch(new Request('https://player.invalid/_zplay/new90/'+config.assetRevision+'/client.mjs'),env,ctx);
+  assert.equal(await script.text(),config.clientSource);assert.equal(reads,1);
+  const head=await worker.fetch(new Request('https://player.invalid/new-games90/',{method:'HEAD'}),env,ctx);
+  assert.equal(head.status,200);assert.equal(await head.text(),'');assert.equal(reads,1);
+});
+
+test('missing, wrong-length and same-length corrupt KV data preserve root and fail own routes closed',async()=>{
+  const {body,pin}=storedFixture(),changed=Buffer.from(body);changed[changed.length-1]^=1;
+  for(const bytes of [null,body.subarray(1),changed]){
+    let calls=0,reads=0;
+    const previous={fetch(){calls++;return new Response('old root',{headers:{'Set-Cookie':'session=retained'}});}};
+    const env={SSG_OFFICIAL_REFERENCES:{async get(){reads++;return bytes===null?null:bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength);}}};
+    const worker=createStoredNew90Worker(previous,pin);
+    const root=await worker.fetch(new Request('https://player.invalid/'),env,{});
+    assert.equal(await root.text(),'old root');assert.equal(root.headers.get('Set-Cookie'),'session=retained');assert.equal(calls,1);
+    const failed=await worker.fetch(new Request('https://player.invalid/new-games90/catalogue.json'),env,{});
+    assert.equal(failed.status,503);assert.equal(calls,1);assert.equal(failed.headers.get('Cache-Control'),'no-store');
+    assert.equal(reads,2,'failed loads can recover after KV propagation');
+    const post=await worker.fetch(new Request('https://player.invalid/new-games90/',{method:'POST'}),env,{});
+    assert.equal(post.status,405);assert.equal(reads,2);
+  }
+});
+
+test('stored build emits one exact config record instead of executable browser source in worker assets',async()=>{
+  const build=await buildDeployment({activeMainModule:'newrequested90r2/entry.mjs'});
+  assert.equal(build.records.length,1);
+  const record=build.records[0];
+  assert.equal(record.value,JSON.stringify(build.config));assert.equal(Buffer.byteLength(record.value),record.bytes);
+  assert.equal(createHash('sha256').update(record.value).digest('hex'),record.sha256);
+  assert.equal(record.key,'new90/catalogue/'+record.sha256.slice(0,24)+'/config.json');
+  assert.equal(build.descriptor.bindingName,'SSG_OFFICIAL_REFERENCES');
+  assert.match(build.modules[0].source,/createStoredNew90Worker/);
+  const assets=build.modules.find(module=>module.name.endsWith('/worker-assets.mjs'));
+  assert(assets.bytes<600);assert(!assets.source.includes('clientSource'));
+  const directory=await mkdtemp(resolve(tmpdir(),'zplay90-config-'));
+  try {
+    await writeDeployment(directory,build);
+    const loaded=await loadDeployment(directory);assert.deepEqual(loaded.records,build.records);
+    await writeFile(resolve(directory,'new90-config.json'),record.value+' ');
+    await assert.rejects(()=>loadDeployment(directory),/NEW90_CONFIG_PIN_MISMATCH/);
   } finally {await rm(directory,{recursive:true,force:true});}
 });

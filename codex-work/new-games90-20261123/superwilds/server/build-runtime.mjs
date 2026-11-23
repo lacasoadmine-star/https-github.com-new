@@ -16,6 +16,21 @@ const outputPaths = Object.freeze({ runtime: paths.runtime,
 const ENTRY = 'native72-batch01/new90-m20-release-entry.mjs';
 const pack = value => brotliCompressSync(Buffer.from(value), { params: { [constants.BROTLI_PARAM_QUALITY]: 9 } }).toString('base64');
 
+function fixRetainedArtifactFetch(source) {
+  const headers = "headers:{accept:'application/json'},signal:controller.signal";
+  const length = String.raw`const contentLength=response.headers.get('content-length');
+    if(contentLength!==null&&(!/^\d+$/.test(contentLength)||Number(contentLength)!==bytes))`;
+  if(source.split(headers).length!==2||source.split(length).length!==2)fail('ARTIFACT_FETCH_ANCHOR');
+  // fetch exposes decoded body bytes. An encoded response's Content-Length
+  // describes its compressed transfer, even when identity was requested.
+  return source.replace(headers,"headers:{accept:'application/json','accept-encoding':'identity'},signal:controller.signal")
+    .replace(length,String.raw`const contentLength=response.headers.get('content-length');
+    const contentEncoding=(response.headers.get('content-encoding')||'identity').trim().toLowerCase();
+    const encoded=contentEncoding!==''&&contentEncoding!=='identity';
+    if(contentLength!==null&&(!/^\d+$/.test(contentLength)||(!encoded&&Number(contentLength)!==bytes)))`);
+}
+
+
 /** Decode only the already verified bootstrap data format. This never evals
  * a production wrapper, imports its private runtime, fetches or connects DB.
  */
@@ -131,7 +146,7 @@ const requested90EntrySource=requested90AcceptedEntry.source.replace(requested90
 files.push({path:${JSON.stringify(ENTRY)},source:requested90EntrySource,bytes:Buffer.byteLength(requested90EntrySource),sha256:createHash('sha256').update(requested90EntrySource).digest('hex')});
 for(const[path,pin]of Object.entries(requested90Archive.outputPins)){const file=files.find(file=>file.path===path);if(!file||file.bytes!==pin.bytes||file.sha256!==pin.sha256||Buffer.byteLength(file.source)!==pin.bytes||createHash('sha256').update(file.source).digest('hex')!==pin.sha256)throw Error('NEW90_OUTPUT_INTEGRITY');}
 `;
-  const wrapper = functionSource.replace(marker, insertion);
+  const wrapper = fixRetainedArtifactFetch(functionSource.replace(marker, insertion));
   const unchanged = retained.files.filter(file => file.path !== paths.runtime);
   if (!unchanged.every(file => files.find(next => next.path === file.path)?.source === file.source)) fail('PRESERVATION');
   const startCommandBytes=Buffer.byteLength('./run.sh ')+Buffer.from(wrapper).toString('base64').length;
@@ -140,6 +155,7 @@ for(const[path,pin]of Object.entries(requested90Archive.outputPins)){const file=
     baselineFunctionSha256: expectedFunctionSha256, wrapperSha256: hash(wrapper), wrapperBytes: Buffer.byteLength(wrapper),
     publicArtifact: retained.publicArtifact,
     publicHostArtifact:{url:publicHostArtifactUrl,bytes:publicHostArtifact.bytes,sha256:publicHostArtifact.sha256},
+    artifactFetch:{acceptEncoding:'identity',contentLength:'identity-response-only',exactDecodedBytes:true,sha256Required:true},
     startCommandBytes,singleArgumentFits:startCommandBytes<131072,
     configuration, unchangedModules: unchanged.length,
     changedModules: [paths.runtime], newModules: [outputPaths.nativeBinding, outputPaths.stateRoutes, MODULE, ENTRY],

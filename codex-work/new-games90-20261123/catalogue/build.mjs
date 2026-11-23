@@ -13,22 +13,25 @@ const hash = value => createHash('sha256').update(value).digest('hex');
 const compactOptions = {loader:'js', format:'esm', target:'es2022', charset:'utf8', minifyWhitespace:true,
   minifyIdentifiers:true, minifySyntax:true, treeShaking:false, legalComments:'none', sourcemap:false};
 
-export function entryModule(activeMainModule) {
+export function entryModule(activeMainModule, stored = false) {
   if (!/^[-A-Za-z0-9_./]+\.mjs$/.test(activeMainModule || '') || activeMainModule.startsWith('/')
     || activeMainModule.split('/').includes('..') || activeMainModule.startsWith(MODULE_PREFIX)) throw Error('ACTIVE_ENTRY_INVALID');
   const from = JSON.stringify('../' + activeMainModule);
-  return `import previous from ${from};\nexport {LocalDemoWallet,NativeGameResources} from ${from};\nimport config from './worker-assets.mjs';\nimport {createNew90Worker} from './worker.mjs';\nexport default createNew90Worker(previous,config);\n`;
+  const factory = stored ? 'createStoredNew90Worker' : 'createNew90Worker';
+  return `import previous from ${from};\nexport {LocalDemoWallet,NativeGameResources} from ${from};\nimport config from './worker-assets.mjs';\nimport {${factory}} from './worker.mjs';\nexport default ${factory}(previous,config);\n`;
 }
 
-function packedAssets(config) {
-  const {games, ...header} = config.catalogue;
-  const rows = games.map(({gameId,name,playable,route,previewRoute,launchRoute}) =>
-    launchRoute ? [gameId,name,previewRoute,playable?route:null,launchRoute] : playable ? [gameId,name,previewRoute,route] : previewRoute ? [gameId,name,previewRoute] : [gameId,name]);
-  return `const catalogue={...${JSON.stringify(header)},games:${JSON.stringify(rows)}.map(([gameId,name,previewRoute=null,route=null,launchRoute],index)=>({ordinal:index+1,gameId,name,status:route?'ready':'preparing',playable:route!==null,route,previewRoute,...(launchRoute?{launchRoute}:{})}))};\nexport default {catalogue,clientSource:${JSON.stringify(config.clientSource)},publicSource:${JSON.stringify(config.publicSource)},stylesheetSource:${JSON.stringify(config.stylesheetSource)},assetRevision:${JSON.stringify(config.assetRevision)}};\n`;
+function packedAssets(config, bindingName) {
+  if (!/^[A-Z][A-Z0-9_]*$/.test(bindingName || '')) throw Error('NEW90_KV_BINDING_INVALID');
+  const value = JSON.stringify(config), sha256 = hash(value), bytes = Buffer.byteLength(value);
+  const key = 'new90/catalogue/' + sha256.slice(0,24) + '/config.json';
+  const descriptor = {bindingName,key,bytes,sha256,assetRevision:config.assetRevision};
+  return {source:'export default ' + JSON.stringify(descriptor) + ';\n',descriptor,
+    records:[{key,value,bytes,sha256,contentType:'application/json'}]};
 }
 
-export async function buildDeployment({activeMainModule, minifier = null, sourceCommit = null, previewDescriptors = [], releaseDescriptors = [], launchDescriptors = []} = {}) {
-  const entry = entryModule(activeMainModule);
+export async function buildDeployment({activeMainModule, minifier = null, sourceCommit = null, previewDescriptors = [], releaseDescriptors = [], launchDescriptors = [], kvBindingName = 'SSG_OFFICIAL_REFERENCES'} = {}) {
+  const entry = entryModule(activeMainModule, true);
   if (sourceCommit !== null && !/^[a-f0-9]{40}$/.test(sourceCommit)) throw Error('SOURCE_COMMIT_INVALID');
   const sources = new Map(await Promise.all(sourceNames.map(async name => [name, await readFile(resolve(directory,name),'utf8')])));
   const minify = async (name, source) => {
@@ -82,19 +85,21 @@ export async function buildDeployment({activeMainModule, minifier = null, source
   const stylesheetSource = sources.get('styles.css');
   const assetRevision = hash(clientSource + '\0' + publicSource + '\0' + stylesheetSource).slice(0,24);
   const config = {catalogue,clientSource,publicSource,stylesheetSource,assetRevision};
-  const raw = [ ['entry.mjs',entry], ['public.mjs',publicSource], ['worker.mjs',sources.get('worker.mjs')], ['worker-assets.mjs',packedAssets(config)] ];
+  const assets = packedAssets(config,kvBindingName);
+  const raw = [ ['entry.mjs',entry], ['public.mjs',publicSource], ['worker.mjs',sources.get('worker.mjs')], ['worker-assets.mjs',assets.source] ];
   const modules = [];
   for (const [name,source] of raw) {
     const code = await minify(name,source);
     modules.push({name:MODULE_PREFIX + name,source:code,bytes:Buffer.byteLength(code),sha256:hash(code),contentType:'application/javascript+module'});
   }
   const decoded = (await import('data:text/javascript;base64,' + Buffer.from(modules.at(-1).source).toString('base64'))).default;
-  assert.deepEqual(decoded,config,'Packing must retain exact catalogue and served asset bytes');
-  assert.equal(JSON.stringify(decoded),JSON.stringify(config),'Public JSON ordering must be preserved');
+  assert.deepEqual(decoded,assets.descriptor,'Worker must pin the exact stored config');
+  assert.deepEqual(JSON.parse(assets.records[0].value),config,'Stored config must retain exact catalogue and served asset bytes');
+  assert.equal(assets.records[0].value,JSON.stringify(config),'Public JSON ordering must be preserved');
   const totalBytes = modules.reduce((sum,module) => sum + module.bytes,0);
   if (totalBytes > BYTE_BUDGET) throw Error('NEW90_BYTE_BUDGET_EXCEEDED:' + totalBytes);
-  return {modules,config,report:{schema:'zplay/new90-additive-build/v1',sourceCommit,activeMainModule,
-    releaseId:catalogue.releaseId,requestedCount:90,readyCount:catalogue.readyCount,assetRevision,totalBytes,
+  return {modules,config,descriptor:assets.descriptor,records:assets.records,report:{schema:'zplay/new90-additive-build/v1',sourceCommit,activeMainModule,
+    releaseId:catalogue.releaseId,requestedCount:90,readyCount:catalogue.readyCount,assetRevision,totalBytes,configRecord:assets.descriptor,configRecordFile:'new90-config.json',
     byteBudget:BYTE_BUDGET,minifier:minifier?.version || null,exactAssetEquivalence:true,previewDescriptors:structuredClone(previewDescriptors),launchDescriptors:structuredClone(launchDescriptors),
     releaseDescriptors:releaseDescriptors.map(descriptor=>({gameId:descriptor.gameId,route:descriptor.route,
       sourceCommit:descriptor.release.proof.sourceCommit,workerVersion:descriptor.release.proof.workerVersion,
@@ -111,6 +116,7 @@ export async function writeDeployment(output, build) {
   for (const module of build.modules) await writeFile(resolve(root,module.name),module.source);
   await writeFile(resolve(root,'new90-build-report.json'),JSON.stringify(build.report,null,2)+'\n');
   await writeFile(resolve(root,'public-catalogue.json'),JSON.stringify(build.config.catalogue,null,2)+'\n');
+  await writeFile(resolve(root,'new90-config.json'),build.records[0].value);
 }
 
 /** Read exactly the built artifact and reject byte drift before loading its modules. */
@@ -128,14 +134,19 @@ export async function loadDeployment(output) {
     modules.push({...pin,source});
   }
   if (modules.reduce((sum,module) => sum + module.bytes,0) !== report.totalBytes || report.totalBytes > BYTE_BUDGET) throw Error('NEW90_BUILD_BYTES_INVALID');
-  const [{default:config},{createNew90Worker},publicModule] = await Promise.all([
+  const [{default:descriptor},{createNew90Worker,createStoredNew90Worker},publicModule] = await Promise.all([
     import(pathToFileURL(resolve(root,MODULE_PREFIX+'worker-assets.mjs'))),
     import(pathToFileURL(resolve(root,MODULE_PREFIX+'worker.mjs'))),
     import(pathToFileURL(resolve(root,MODULE_PREFIX+'public.mjs')))
   ]);
-  if (!publicModule.validCatalogue(config.catalogue) || report.assetRevision !== config.assetRevision
+  assert.deepEqual(descriptor,report.configRecord,'Stored config pin must match the build report');
+  if (report.configRecordFile !== 'new90-config.json') throw Error('NEW90_BUILD_REPORT_INVALID');
+  const value = await readFile(resolve(root,'new90-config.json'),'utf8');
+  if (Buffer.byteLength(value) !== descriptor.bytes || hash(value) !== descriptor.sha256) throw Error('NEW90_CONFIG_PIN_MISMATCH');
+  const config = JSON.parse(value);
+  if (config.assetRevision !== descriptor.assetRevision || !publicModule.validCatalogue(config.catalogue) || report.assetRevision !== config.assetRevision
     || report.readyCount !== config.catalogue.readyCount || report.requestedCount !== config.catalogue.requestedCount) throw Error('NEW90_BUILD_CONFIG_INVALID');
-  return {modules,report,config,createNew90Worker,publicModule};
+  return {modules,report,config,descriptor,records:[{key:descriptor.key,value,bytes:descriptor.bytes,sha256:descriptor.sha256,contentType:'application/json'}],createNew90Worker,createStoredNew90Worker,publicModule};
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {

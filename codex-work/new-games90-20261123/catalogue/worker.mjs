@@ -40,3 +40,49 @@ export function createNew90Worker(previous, config, Rewriter = globalThis.HTMLRe
     }
   };
 }
+
+/** Load pinned catalogue/browser assets as data; KV text is never executed here. */
+export function createStoredNew90Worker(previous, pin, Rewriter = globalThis.HTMLRewriter) {
+  if (!previous || typeof previous.fetch !== 'function'
+    || !/^[A-Z][A-Z0-9_]*$/.test(pin?.bindingName || '')
+    || !/^[a-f0-9]{64}$/.test(pin.sha256 || '')
+    || pin.key !== 'new90/catalogue/' + pin.sha256.slice(0,24) + '/config.json'
+    || !Number.isSafeInteger(pin.bytes) || pin.bytes < 1 || pin.bytes > 1048576
+    || !/^[a-f0-9]{24}$/.test(pin.assetRevision || '')) throw Error('NEW90_STORED_CONFIG_INVALID');
+  const root = '/_zplay/new90/' + pin.assetRevision + '/';
+  const own = new Set([CATALOGUE_PATH, SECTION_PATH, root+'client.mjs', root+'public.mjs', root+'styles.css']);
+  let binding, pending;
+  async function load(env) {
+    const namespace = env?.[pin.bindingName];
+    if (!namespace || typeof namespace.get !== 'function') throw Error('NEW90_CONFIG_UNAVAILABLE');
+    if (!pending || binding !== namespace) {
+      binding = namespace;
+      pending = (async () => {
+        const value = await namespace.get(pin.key, {type:'arrayBuffer'});
+        if (!(value instanceof ArrayBuffer) || value.byteLength !== pin.bytes) throw Error('NEW90_CONFIG_BYTES');
+        const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', value)),
+          n=>n.toString(16).padStart(2,'0')).join('');
+        if (digest !== pin.sha256) throw Error('NEW90_CONFIG_HASH');
+        const config = JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(value));
+        if (config.assetRevision !== pin.assetRevision
+          || !['clientSource','publicSource','stylesheetSource'].every(name=>typeof config[name]==='string')) throw Error('NEW90_CONFIG_DATA');
+        return createNew90Worker(previous, config, Rewriter);
+      })().catch(error=>{if(binding===namespace)pending=null;throw error;});
+    }
+    return pending;
+  }
+  return {...previous, async fetch(request, env, ctx) {
+    const path = new URL(request.url).pathname, isOwn = own.has(path);
+    if (!isOwn && !(path==='/' && request.method==='GET')) return previous.fetch(request,env,ctx);
+    if (isOwn && !['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',
+      {status:405,headers:{Allow:'GET, HEAD','Cache-Control':'no-store'}});
+    let worker;
+    try {worker=await load(env);}
+    catch {
+      if (!isOwn) return previous.fetch(request,env,ctx);
+      return new Response(request.method==='HEAD'?null:'New games temporarily unavailable',
+        {status:503,headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+    }
+    return worker.fetch(request,env,ctx);
+  }};
+}

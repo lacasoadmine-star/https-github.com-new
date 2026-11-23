@@ -143,7 +143,7 @@ test('exact NEW90 artifact: mobile/desktop visible placement, search, preserved 
       // Exercise a real native anchor on a synthetic released catalogue. This
       // validates touch/click navigation only and makes no live-game claim.
       const synthetic=structuredClone(build.config.catalogue),released=synthetic.games[1];
-      released.playable=true;released.status='ready';released.route='/new-games72/multi-hot-5-super-wilds/';synthetic.readyCount=1;
+      released.playable=true;released.status='ready';released.route='/new-games72/multi-hot-5-super-wilds/';synthetic.readyCount=1;synthetic.launchableCount=1;
       const navigations=[];
       await page.route('**/new-games90/catalogue.json',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(synthetic)}));
       await page.route('**/new-games72/multi-hot-5-super-wilds/',route=>{
