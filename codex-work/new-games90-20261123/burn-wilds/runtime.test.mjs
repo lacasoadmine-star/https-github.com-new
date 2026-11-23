@@ -118,3 +118,20 @@ test('reconnect fails closed if old server round has a fabricated winning amount
   assert.equal(h.controller.snapshot().canPlay,false);
   assert.equal(h.calls.length,0);
 });
+
+
+test('unreleased Burn Wilds mounts existing account and controls read-only without invented BET or wallet debit',async()=>{
+  const h=harness();
+  h.account.canPlay=false;h.account.betLevelsMinor=[];
+  await h.controller.connect();
+  const s=h.controller.snapshot();
+  assert.equal(s.status,'READY');
+  assert.equal(s.balanceMinor,10000);
+  assert.equal(s.betMinor,null);
+  assert.equal(s.canPlay,false);
+  assert.deepEqual(s.betLevelsMinor,[]);
+  assert.equal(h.controller.setBet(10),false);
+  assert.throws(()=>h.controller.spin(),/BURN_WILDS_NOT_READY/);
+  assert.equal(h.calls.length,0);
+  assert.equal(h.saved.size,0);
+});
