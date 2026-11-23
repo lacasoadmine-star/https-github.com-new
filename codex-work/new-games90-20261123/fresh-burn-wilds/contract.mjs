@@ -12,7 +12,7 @@ export const REELS = 5;
 export const ROWS = 3;
 export const CURRENCY = 'ETB';
 
-function reject(code) { return Object.assign(new Error(code), { code }); }
+function reject(code) { throw Object.assign(new Error(code), { code }); }
 const isId = value => typeof value === 'string' && value.length > 0 && value.length <= 180;
 const isAmount = value => Number.isSafeInteger(value) && value >= 0;
 const own = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
