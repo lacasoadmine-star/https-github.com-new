@@ -1,0 +1,34 @@
+{
+  "worker": "superwin-player",
+  "sourceVersion": "00fe4a95-5744-4495-8563-c0b2213fd6a2",
+  "versionNumber": 195,
+  "deploymentId": "33b686fc-30f7-45e9-a244-c4ed75c5a263",
+  "productionChanged": false,
+  "bindings": [
+    {
+      "name": "API_ORIGIN",
+      "text": "https://zplay-rebuild-api-staging.up.railway.app",
+      "type": "plain_text"
+    },
+    {
+      "environment": "production",
+      "name": "ENGINE_EXTENSION",
+      "service": "superwin-engine-extension",
+      "type": "service"
+    },
+    {
+      "name": "PORTAL",
+      "text": "player",
+      "type": "plain_text"
+    }
+  ],
+  "baselineHashes": {
+    "game.html": "9171e278110a18f8042fc3cc7d3f5dad216864d5750dbd2328de3c90689c8166",
+    "css/collection-v2300.css": "53934cd6bb4adf7e3d58edaab9d8763e695a15cb2720af6abd0085b658f83092",
+    "js/cabinet-v2300.js": "59eaa2afab08ad2f6ef1062d1aac0c555da3a13fb8811f6c3be7a4ad3797c5f3",
+    "js/dashboard.js": "1212e92daa06c9d83e3e9ab33f9d429b4d15f4e0ae8a9b9cf96881787ddc4acf",
+    "js/game-v2300.js": "77cc69d13bbcaf5a7dffeadab6c8f586f31ac593bdcda5d6d0fe6a2d50ee5212",
+    "js/reels-v2300.js": "0a989002e8e0fbdcf234cf7b5078caef5b776f955298513cf19a2fc989075f51"
+  },
+  "backupNote": "Cloudflare retains the previous deployed version; local baseline contains only the edited frontend assets. Full multipart Worker source was not downloaded."
+}

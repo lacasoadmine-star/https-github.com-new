@@ -1,0 +1,14 @@
+/* Motion/control observations: 29237.mp4 at 2.75–4.25 seconds. */
+.wheel[data-animating=true] .wheel-cell{transition:none!important;will-change:transform}
+body[data-game=multi_hot_5_video] #wheel[data-animating=true] .wheel-cell{will-change:top}
+body[data-spinning=true] .spin:after{content:'';position:absolute;width:5cqw;height:5cqw;background:#fff9ce;border-radius:3px;box-shadow:0 1px 4px #001b16;left:50%;top:42%;transform:translate(-50%,-50%)}
+body[data-game=multi_hot_5_video][data-spinning=true] .spin:after{background:#e51c58;box-shadow:0 0 4px #9a123e}
+body[data-spinning=true] .spin>svg,body[data-spinning=true] .spin>.shield-chevron,body[data-spinning=true] .spin>strong,body[data-spinning=true] .spin>.stake-unit{visibility:hidden}
+body[data-spinning=true] .spin>b{position:absolute;top:64%;font-size:2.4cqw}
+body[data-round-won=true]:not([data-spinning=true]) .ice-gamble:not(:disabled){animation:zplay-win-key 1.1s ease-in-out infinite}
+.controls>button{transition:filter .12s,transform .12s}
+.controls>button:not(:disabled):active{filter:brightness(1.3);transform:scale(.97)}
+/* Result details must not push the next-round controls off screen. */
+.round-receipt:not([hidden]){max-height:20cqw;overflow:auto;overscroll-behavior:contain}
+@keyframes zplay-win-key{50%{filter:brightness(1.65) drop-shadow(0 0 8px #64e885)}}
+@media(prefers-reduced-motion:reduce){.controls>button{transition:none}.ice-gamble{animation:none!important}}
