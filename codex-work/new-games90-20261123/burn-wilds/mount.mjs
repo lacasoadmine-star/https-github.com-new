@@ -21,7 +21,12 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
   view.innerHTML='<canvas class="burn-wilds-scene" aria-label="Five reels and multiplier wheel"></canvas><canvas class="burn-wilds-fire" aria-hidden="true"></canvas><div class="burn-wilds-controls"></div><div class="burn-wilds-dialog" hidden></div><p class="burn-wilds-status" role="status"></p>';
   root.appendChild(view);const canvas=view.querySelector('.burn-wilds-scene'),flameCanvas=view.querySelector('.burn-wilds-fire'),layer=view.querySelector('.burn-wilds-controls'),dialog=view.querySelector('.burn-wilds-dialog'),status=view.querySelector('.burn-wilds-status');
   const buttons={};for(const[key,[label,aria]]of Object.entries(controls)){const button=doc.createElement('button');button.type='button';button.dataset.action=key;button.textContent=label;button.setAttribute('aria-label',aria);button.className='burn-wilds-button burn-wilds-'+key;layer.appendChild(button);buttons[key]=button;}
-  const balance=doc.createElement('output'),stake=doc.createElement('output');balance.className=stake.className='burn-wilds-meter';layer.append(balance,stake);
+  const retrySession=doc.createElement('button');
+   retrySession.type='button';retrySession.className='burn-wilds-retry-session';
+   retrySession.dataset.action='retry-session';retrySession.textContent='RECONNECT';
+   retrySession.setAttribute('aria-label','Retry the authenticated Player session');
+   retrySession.hidden=true;status.appendChild(retrySession);
+   const balance=doc.createElement('output'),stake=doc.createElement('output');balance.className=stake.className='burn-wilds-meter';layer.append(balance,stake);
   const options={effects:false,music:false};let mode=null,betOffset=0,count=100,tapSerial=0,disposed=false,controller;
   const sound=audio??new BurnWildsAudio(),listeners=new AbortController(),scene=new BurnWildsScene({canvas,flameCanvas,artwork,win,onEvent:event=>{
     if(event.type==='settled')controller?.presentationFinished(event.roundId);
@@ -38,7 +43,13 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     buttons.spin.setAttribute('aria-label',s.status==='RECOVER'?'Recover the same pending request':spinning?'Stop presentation':'Spin');
     buttons.bet.disabled=s.status!=='READY';buttons.auto.disabled=s.status!=='READY'&&!s.auto?.active;buttons.take.disabled=s.status!=='READY'||s.pendingWinMinor<=0;buttons.double.disabled=!s.canDouble;
     buttons.quick.setAttribute('aria-pressed',String(s.quick));buttons.sound.setAttribute('aria-pressed',String(options.effects||options.music));
-    buttons.auto.textContent=s.auto?.active?String(s.auto.remaining):'↻';status.textContent=s.error?(s.status==='RECOVER'?'Connection interrupted. RECOVER continues the same request.':s.error):s.status==='CONNECTING'?'Loading account…':'';
+    buttons.auto.textContent=s.auto?.active?String(s.auto.remaining):'↻';
+     // A failed account handshake must be recoverable after the player logs
+     // back into the EXISTING portal; never create a new account or balance.
+     const retryAllowed=['BLOCKED','DISCONNECTED'].includes(s.status);
+     retrySession.hidden=!retryAllowed;retrySession.disabled=!retryAllowed;
+     const statusText=s.error?(s.status==='RECOVER'?'Connection interrupted. RECOVER continues the same request.':s.error):s.status==='CONNECTING'?'Loading account…':'';
+     status.replaceChildren(doc.createTextNode(statusText),retrySession);
   }
   controller=new BurnWildsController({transport,scene,storage,onChange:render});
   const close=()=>{mode=null;dialog.hidden=true;dialog.replaceChildren();render(controller.snapshot());view.focus({preventScroll:true});};
@@ -66,7 +77,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     }
     dialog.innerHTML='<div role="dialog" aria-modal="true">'+html+'<p class="burn-wilds-dialog-error" role="status"></p></div>';render(s);dialog.querySelector('button')?.focus({preventScroll:true});
   }
-  const run=async operation=>{try{await operation();}catch(error){const message=error.code||error.message;if(mode)dialog.querySelector('.burn-wilds-dialog-error').textContent=message;else status.textContent=message;}};
+  const run=async operation=>{try{await operation();}catch(error){const message=error.code||error.message;if(mode){const target=dialog.querySelector('.burn-wilds-dialog-error');if(target)target.textContent=message;}else{render(controller.snapshot());const label=doc.createTextNode(message);status.insertBefore(label,retrySession);}}};
   view.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button||button.disabled)return;
     // A visible dialog owns all input until it closes; touches behind it cannot wager.
@@ -74,7 +85,11 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     // Each genuine tap receives one short UI cue; disabled and obscured controls stay silent.
     if(options.effects)sound?.cue?.('button','tap-'+(++tapSerial));
     const action=button.dataset.action,operation=button.dataset.do;
-    if(action==='spin')return run(()=>controller.snapshot().status==='RECOVER'?controller.recover():controller.spin());
+    if(action==='retry-session'){
+       retrySession.disabled=true;
+       return run(async()=>{await controller.connect();if(!disposed)render(controller.snapshot());});
+     }
+     if(action==='spin')return run(()=>controller.snapshot().status==='RECOVER'?controller.recover():controller.spin());
     if(action==='take')return run(()=>controller.take());if(action==='quick')return controller.setQuick(!controller.quick);
     if(action==='sound'){options.effects=options.music=!(options.effects||options.music);if(options.effects)void Promise.resolve(sound?.unlock?.()).catch(()=>{});sound?.setPreferences?.({...options});render(controller.snapshot());return;}
     if(action==='auto'){if(controller.snapshot().auto?.active)return controller.stopAuto();return show('auto');}
@@ -101,6 +116,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
   win.visualViewport?.addEventListener?.('resize',resize,{signal:listeners.signal});const observer=win.ResizeObserver?new win.ResizeObserver(resize):null;observer?.observe(view);
   function dispose(){if(disposed)return;disposed=true;listeners.abort();observer?.disconnect();controller.dispose();sound?.dispose?.();view.remove();mounts.delete(root);}
   const mounted=Object.freeze({controller,scene,resize,dispose});mounts.set(root,mounted);resize();render(controller.snapshot());
-  try{await controller.connect();if(!disposed)show('startup');}catch(error){status.textContent=error.code||error.message;}
+  try{await controller.connect();if(!disposed)show('startup');}
+   catch(error){if(!disposed)render(controller.snapshot());}
   return mounted;
 }

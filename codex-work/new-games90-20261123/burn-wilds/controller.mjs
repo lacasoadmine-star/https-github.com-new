@@ -1,4 +1,5 @@
 import {BURN_WILDS_GAME_ID,validateBurnWildsReceipt} from './expansion.mjs';
+import {auditBurnWildsPayout} from './outcome-audit.mjs';
 
 export const BURN_WILDS_PENDING_KEY='zplay.player.pending.burn-wilds.new90.v1';
 export const BURN_WILDS_AUTO_COUNTS=Object.freeze([25,50,100,500,1000]);
@@ -11,8 +12,10 @@ const id=value=>typeof value==='string'&&value.length>0&&value.length<=200;
 function state(source){
   if(source?.gameId!==BURN_WILDS_GAME_ID||source.authenticated!==true||source.currency!=='ETB'||!id(source.subject)||typeof source.canPlay!=='boolean')throw fail('BURN_WILDS_AUTHENTICATED_HOST_REQUIRED');
   minor(source.balanceMinor);minor(source.pendingWinMinor);
-  if(!Array.isArray(source.betLevelsMinor)||!source.betLevelsMinor.length||source.betLevelsMinor.some(value=>!Number.isSafeInteger(value)||value<=0)||new Set(source.betLevelsMinor).size!==source.betLevelsMinor.length)throw fail('BURN_WILDS_HOST_STAKES_REQUIRED');
+  if(!Array.isArray(source.betLevelsMinor)||(source.canPlay&&source.betLevelsMinor.length===0)||source.betLevelsMinor.some(value=>!Number.isSafeInteger(value)||value<=0)||new Set(source.betLevelsMinor).size!==source.betLevelsMinor.length)throw fail('BURN_WILDS_HOST_STAKES_REQUIRED');
   const round=source.round?validateBurnWildsReceipt(source.round):null;
+  // Validate recovered financial data before treating it as an accepted host receipt.
+  if(round)auditBurnWildsPayout(round);
   if(source.pendingWinMinor>0&&!round)throw fail('BURN_WILDS_PENDING_ROUND_REQUIRED');
   return freeze({...clone(source),round});
 }
@@ -43,7 +46,7 @@ export class BurnWildsController{
       if(this.scene.snapshot().phase!=='IDLE'){
         if(!pending||pending.action.action!=='SPIN'||this.scene.snapshot().requestKey!==pending.action.requestKey)throw fail('BURN_WILDS_ACTIVE_PRESENTATION_REQUIRES_RECOVERY');
       }else if(next.round)this.scene.accept(next.round);
-      this.host=next;this.pending=pending?freeze(pending):null;this.betMinor=next.betLevelsMinor.includes(this.betMinor)?this.betMinor:next.betLevelsMinor[0];
+      this.host=next;this.pending=pending?freeze(pending):null;this.betMinor=next.betLevelsMinor.includes(this.betMinor)?this.betMinor:(next.betLevelsMinor[0]??null);
       this.status=this.pending?'RECOVER':'READY';this.present();this.emit();return this.snapshot();
     }catch(error){if(version===this.generation&&!this.disposed){this.status='BLOCKED';this.error=error.code||error.message;this.emit();}throw error;}
   }
@@ -91,6 +94,8 @@ export class BurnWildsController{
       let accepted;
       if(action.action==='SPIN'){
         accepted=validateBurnWildsReceipt({...result,clientToken:action.requestKey});
+        // Fail closed if a server result contradicts own payline or wheel rules.
+        auditBurnWildsPayout(accepted);
         if(accepted.betMinor!==action.betMinor)throw fail('BURN_WILDS_RESPONSE_STAKE');
         if(this.scene.snapshot().phase==='IDLE')this.scene.start({requestKey:action.requestKey,quick:true});
         this.scene.accept(accepted);

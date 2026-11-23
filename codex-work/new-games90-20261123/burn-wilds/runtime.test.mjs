@@ -6,7 +6,7 @@ import {burnWildsLayout} from './layout.mjs';
 import {BurnWildsController,BURN_WILDS_PENDING_KEY} from './controller.mjs';
 import {BurnWildsScene} from './scene.mjs';
 
-const grid=[['seven','orange','cherry'],['seven','plum','cherry'],['seven','lemon','cherry'],['seven','bell','cherry'],['seven','bell','cherry']];
+const grid=[['seven','orange','cherry'],['seven','plum','cherry'],['seven','lemon','orange'],['seven','bell','cherry'],['seven','bell','orange']];
 const receipt=action=>({gameId:BURN_WILDS_GAME_ID,requestKey:action.requestKey,clientToken:action.requestKey,roundId:'r-'+action.requestKey,
   originalGrid:grid,finalGrid:grid,expandedColumns:[],winLines:[{id:2,rows:[0,0,0,0,0],winMinor:10000}],
   betMinor:action.betMinor,multiplier:1,winMinor:10000,balanceMinor:9900,pendingWinMinor:10000});
@@ -82,4 +82,56 @@ test('real scene consumes own symbol images per cell, clips reels and caps DPR w
   const scene=new BurnWildsScene({canvas,flameCanvas,artwork:{gameId:BURN_WILDS_GAME_ID,symbols:images},now:()=>0,win:{devicePixelRatio:4}});
   scene.accept(receipt({requestKey:'key-1',betMinor:100}));scene.draw(10);assert.equal(canvas.width,780);assert.equal(canvas.height,1480);assert.ok(drawn.length>=15);assert.ok(drawn.every(args=>Object.values(images).includes(args[0])));assert.ok(clips.length>=5);
   scene.dispose();assert.throws(()=>new BurnWildsScene({canvas,flameCanvas,artwork:{gameId:'foreign-game',symbols:images}}),/OWN_ARTWORK_REQUIRED/);
+});
+
+
+test('controller refuses a tampered accepted SPIN payout and preserves exact recovery authority',async()=>{
+  const h=harness();await h.controller.connect();
+  h.transport.dispatch=async action=>{
+    h.calls.push(action);
+    return {...receipt(action),winMinor:10001};
+  };
+  await assert.rejects(h.controller.spin(),/OUTCOME_TOTAL_MISMATCH/);
+  assert.equal(h.controller.snapshot().status,'RECOVER');
+  assert.equal(h.controller.snapshot().balanceMinor,10000);
+  assert.equal(h.controller.snapshot().pendingWinMinor,0);
+  assert.equal(h.calls.length,1);
+  const pending=JSON.parse(h.storage.getItem(BURN_WILDS_PENDING_KEY));
+  assert.equal(pending.action.requestKey,h.calls[0].requestKey);
+  h.transport.recover=async action=>{
+    h.calls.push(action);
+    return receipt(action);
+  };
+  await h.controller.recover();
+  assert.equal(h.calls.length,2);
+  assert.deepEqual(h.calls[0],h.calls[1]);
+  assert.equal(h.storage.getItem(BURN_WILDS_PENDING_KEY),null);
+  assert.equal(h.controller.snapshot().pendingWinMinor,10000);
+});
+test('reconnect fails closed if old server round has a fabricated winning amount',async()=>{
+  const h=harness();h.transport.state=async()=>({
+    ...structuredClone(h.account),round:{...receipt({requestKey:'reconnect-only',betMinor:100}),winMinor:99999},
+    pendingWinMinor:10000
+  });
+  await assert.rejects(h.controller.connect(),/OUTCOME_TOTAL_MISMATCH/);
+  assert.equal(h.controller.snapshot().status,'BLOCKED');
+  assert.equal(h.controller.snapshot().canPlay,false);
+  assert.equal(h.calls.length,0);
+});
+
+
+test('unreleased Burn Wilds mounts existing account and controls read-only without invented BET or wallet debit',async()=>{
+  const h=harness();
+  h.account.canPlay=false;h.account.betLevelsMinor=[];
+  await h.controller.connect();
+  const s=h.controller.snapshot();
+  assert.equal(s.status,'READY');
+  assert.equal(s.balanceMinor,10000);
+  assert.equal(s.betMinor,null);
+  assert.equal(s.canPlay,false);
+  assert.deepEqual(s.betLevelsMinor,[]);
+  assert.equal(h.controller.setBet(10),false);
+  assert.throws(()=>h.controller.spin(),/BURN_WILDS_NOT_READY/);
+  assert.equal(h.calls.length,0);
+  assert.equal(h.saved.size,0);
 });
