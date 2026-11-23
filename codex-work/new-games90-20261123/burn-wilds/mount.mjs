@@ -21,7 +21,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
   root.appendChild(view);const canvas=view.querySelector('.burn-wilds-scene'),flameCanvas=view.querySelector('.burn-wilds-fire'),layer=view.querySelector('.burn-wilds-controls'),dialog=view.querySelector('.burn-wilds-dialog'),status=view.querySelector('.burn-wilds-status');
   const buttons={};for(const[key,[label,aria]]of Object.entries(controls)){const button=doc.createElement('button');button.type='button';button.dataset.action=key;button.textContent=label;button.setAttribute('aria-label',aria);button.className='burn-wilds-button burn-wilds-'+key;layer.appendChild(button);buttons[key]=button;}
   const balance=doc.createElement('output'),stake=doc.createElement('output');balance.className=stake.className='burn-wilds-meter';layer.append(balance,stake);
-  const options={effects:false,music:false};let mode=null,betOffset=0,count=100,disposed=false,controller;
+  const options={effects:false,music:false};let mode=null,betOffset=0,count=100,tapSerial=0,disposed=false,controller;
   const sound=audio??new BurnWildsAudio(),listeners=new AbortController(),scene=new BurnWildsScene({canvas,flameCanvas,artwork,win,onEvent:event=>{
     if(event.type==='settled')controller?.presentationFinished(event.roundId);
     if(options.effects)sound?.event?.(event.type,event);
@@ -70,6 +70,8 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     const button=event.target.closest('button');if(!button||button.disabled)return;
     // A visible dialog owns all input until it closes; touches behind it cannot wager.
     if(mode&&!dialog.contains(button))return;
+    // Each genuine tap receives one short UI cue; disabled and obscured controls stay silent.
+    if(options.effects)sound?.cue?.('button','tap-'+(++tapSerial));
     const action=button.dataset.action,operation=button.dataset.do;
     if(action==='spin')return run(()=>controller.snapshot().status==='RECOVER'?controller.recover():controller.spin());
     if(action==='take')return run(()=>controller.take());if(action==='quick')return controller.setQuick(!controller.quick);
