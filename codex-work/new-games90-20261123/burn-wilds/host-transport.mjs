@@ -80,12 +80,20 @@ export function createBurnWildsExistingHostTransport({fetcher=globalThis.fetch,t
     return Object.freeze({...clone(intent),sessionGuard:current.subject,...clone(current.model)});
   }
   async function spin(action,replayOnly){
+    // A prior accepted round must remain recoverable after a game is closed,
+    // its bet ladder is withdrawn, or its model is replaced. Recovery is
+    // replay-only and its original identity is checked by the server journal.
     if(!current||action?.action!=='SPIN'||action.gameId!==BURN_WILDS_GAME_ID||
       !uuid.test(action.requestKey||'')||action.sessionGuard!==current.subject||
-      !models.every(key=>action[key]===current.model[key])||
-      !current.betLevelsMinor.includes(action.betMinor)||action.collectRoundId!==null)
+      !Number.isSafeInteger(action.betMinor)||action.betMinor<=0||
+      action.collectRoundId!==null||typeof action.auto!=='boolean'||
+      !models.every(key=>typeof action[key]==='string'&&action[key].length>0)||
+      !guard.test(action.mathSha256||''))
       throw error('ACTION_CHANGED');
-    if(!replayOnly&&(!current.canPlay||action.betMinor>current.balanceMinor))throw error('WAGER_NOT_APPROVED');
+    if(!replayOnly&&(!current.canPlay||!current.model||
+      !models.every(key=>action[key]===current.model[key])||
+      !current.betLevelsMinor.includes(action.betMinor)||
+      action.betMinor>current.balanceMinor))throw error('WAGER_NOT_APPROVED');
     // Replay-only is never converted into a new wager by this client.
     const raw=await json(BURN_SPIN_PATH,{gameId:BURN_WILDS_GAME_ID,roundToken:action.requestKey,
       bet:etb(action.betMinor),sessionGuard:action.sessionGuard,
