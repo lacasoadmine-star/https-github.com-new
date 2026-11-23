@@ -3,8 +3,8 @@ import {auditBurnWildsPayout} from './outcome-audit.mjs';
 
 // This adapter uses the existing Player's authenticated API, not a new host,
 // wallet or account. An absent game release stays closed to real-money wagers.
-export const BURN_STATE_PATH='/api/slots/fresh-state?gameId='+BURN_WILDS_GAME_ID;
-export const BURN_SPIN_PATH='/api/slots/spin';
+export const BURN_STATE_PATH='/api/slots/new-games90/burn-wilds/state';
+export const BURN_SPIN_PATH='/api/slots/new-games90/burn-wilds/spin';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const guard=/^[0-9a-f]{64}$/i;
 const models=['mathVersion','engineVersion','mathSha256'];
