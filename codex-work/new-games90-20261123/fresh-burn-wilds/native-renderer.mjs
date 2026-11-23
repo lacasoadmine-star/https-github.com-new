@@ -5,16 +5,16 @@
  * The reels animate while waiting for a validated, settled server receipt.
  */
 import {GAME_ID, REELS, ROWS} from './contract.mjs';
+import {validateBurnRecordedReference} from './recorded-reference.mjs';
 
 const fail = code => {throw Object.assign(new Error(code), {code});};
 const imageOK = image => image && Number.isFinite(image.width || image.naturalWidth) &&
   Number.isFinite(image.height || image.naturalHeight) &&
   (image.width || image.naturalWidth)>0 && (image.height || image.naturalHeight)>0;
 const finitePositive = n => typeof n==='number' && Number.isFinite(n) && n>0;
-const easeOutCubic = p => 1-(1-p)**3;
 
 export class BurnWildsNativeRenderer {
-  constructor({canvas,assets,clock=()=>performance.now(),
+  constructor({canvas,assets,recordedReference,clock=()=>performance.now(),
     requestFrame=callback=>requestAnimationFrame(callback),
     cancelFrame=id=>cancelAnimationFrame(id),
     sound=()=>{},onRoundFinished=()=>{}}={}) {
@@ -28,7 +28,9 @@ export class BurnWildsNativeRenderer {
     this.canvas=canvas;
     this.context=canvas.getContext('2d',{alpha:false});
     if(!this.context)fail('BURN_CANVAS_REQUIRED');
-    this.assets=assets;this.symbolKeys=Object.freeze(Object.keys(assets.symbols));
+    this.assets=assets;
+    this.reference=validateBurnRecordedReference(recordedReference,Object.keys(assets.symbols));
+    this.symbolKeys=this.reference.symbolCycle;
     this.clock=clock;this.requestFrame=requestFrame;this.cancelFrame=cancelFrame;
     this.sound=sound;this.onRoundFinished=onRoundFinished;
     this.phase='IDLE';this.pendingKey=null;this.receipt=null;this.lastReceipt=null;
@@ -76,16 +78,16 @@ export class BurnWildsNativeRenderer {
        !Array.isArray(receipt.expandedColumns)||!Array.isArray(receipt.winningLines))fail('BURN_RENDERER_UNACCEPTED_RECEIPT');
     this.receipt=structuredClone(receipt);
     this.phase='DECELERATING';this.acceptedAt=this.clock();
-    this.stopDelay=this.fast?230:1050;
+    this.stopDelay=this.fast?this.reference.timing.fastStopDurationMs:this.reference.timing.stopDurationMs;
     this.schedule();
     return this.snapshot();
   }
   accelerate() {
     if(!['SPINNING','DECELERATING'].includes(this.phase)||this.disposed)return false;
     this.fast=true;
-    if(this.phase==='DECELERATING){
+    if(this.phase==='DECELERATING'){
       const elapsed=this.clock()-this.acceptedAt;
-      this.stopDelay=Math.min(this.stopDelay,Math.max(0,elapsed+230));
+      this.stopDelay=Math.min(this.stopDelay,Math.max(0,elapsed+this.reference.timing.fastStopDurationMs));
     }
     return true;
   }
@@ -101,9 +103,10 @@ export class BurnWildsNativeRenderer {
   }
   geometryForReels() {
     const {width,height}=this.geometry;
-    const left=width*.065,top=height*.218;
-    const usableWidth=width*.87,usableHeight=height*.545;
-    const gap=Math.max(1,width*.005);
+    const {x,y,width:windowWidth,height:windowHeight}=this.reference.reelWindow;
+    const left=width*x,top=height*y;
+    const usableWidth=width*windowWidth,usableHeight=height*windowHeight;
+    const gap=0; // spacing must be represented in the licensed atlas/captured geometry
     const cellW=(usableWidth-gap*(REELS-1))/REELS;
     const cellH=usableHeight/ROWS;
     return {left,top,usableWidth,usableHeight,gap,cellW,cellH};
@@ -113,10 +116,10 @@ export class BurnWildsNativeRenderer {
     if(this.phase==='IDLE'||this.phase==='READY'||this.phase==='RESULT')return source?.[col]?.[row]??null;
     if(this.phase==='DECELERATING'){
       const elapsed=Math.max(0,time-this.acceptedAt);
-      if(elapsed>=this.stopDelay*(col+1)/REELS)return source?.[col]?.[row]??null;
+      if(elapsed>=this.stopDelay*this.reference.timing.reelStopFractions[col])return source?.[col]?.[row]??null;
     }
     // Source artwork only. This visual cycling does not predict or decide a win.
-    const phase=Math.floor((time-this.startedAt)/65+col*3+row*7);
+    const phase=Math.floor(Math.max(0,time-this.startedAt)/this.reference.timing.symbolFrameMs + col*3+row*7);
     return this.symbolKeys[((phase%this.symbolKeys.length)+this.symbolKeys.length)%this.symbolKeys.length];
   }
   draw(now=this.clock()) {
@@ -159,7 +162,7 @@ export class BurnWildsNativeRenderer {
     if(this.receipt && ['RESULT','READY'].includes(this.phase)) {
       ctx.save();ctx.font='bold '+Math.max(17,Math.round(width*.056))+'px sans-serif';
       ctx.textAlign='center';ctx.fillStyle='#ffdc6b';
-      ctx.fillText('×'+this.receipt.multiplier,width*.5,height*.145);
+      ctx.fillText('×'+this.receipt.multiplier,width*this.reference.multiplierPosition.x,height*this.reference.multiplierPosition.y);
       ctx.restore();
     }
     ctx.restore();
@@ -170,7 +173,7 @@ export class BurnWildsNativeRenderer {
       this.onRoundFinished(this.receipt.roundId);
     } else if(this.phase==='DECELERATING') {
       for(let col=0;col<REELS;col++){
-        if(now-this.acceptedAt>=this.stopDelay*(col+1)/REELS)
+        if(now-this.acceptedAt>=this.stopDelay*this.reference.timing.reelStopFractions[col])
           this.once('reel-stop-'+(col+1),this.pendingKey);
       }
     }
