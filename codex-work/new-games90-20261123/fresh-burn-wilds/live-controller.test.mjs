@@ -7,7 +7,7 @@ const state=()=>({authenticated:true,gameId:GAME_ID,currency:'ETB',subject:'play
   balanceMinor:1000,betLevelsMinor:[100,200],cashReleaseApproved:true,
   modelVersion:'approved-v1',assetManifestId:'own-images'});
 const receipt=a=>({gameId:GAME_ID,serverSettled:true,requestKey:a.requestKey,
-  betMinor:a.betMinor,roundId:'round-1',winMinor:0,balanceMinor:900,
+  betMinor:a.betMinor,roundId:'round-1',subject:'player-test',winMinor:0,balanceMinor:900,
   multiplier:1,currency:'ETB',modelVersion:'approved-v1',
   ledger:{betTxId:'tx-1'},historyRecorded:true,
   finalGrid:[['a','b','a'],['a','a','b'],['a','b','a'],['b','a','a'],['a','b','b']],
