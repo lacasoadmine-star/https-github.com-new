@@ -97,7 +97,8 @@ export class SuperWildsRenderer {
   }
   snapshot() {return deepFreeze({phase:this.phase,requestKey:this.requestKey,receipt:this.receipt?clone(this.receipt):null,
     pendingReceipt:this.pendingReceipt?clone(this.pendingReceipt):null,stoppedColumns:[...this.stopped],stopRequested:this.stopAt!==null,
-    display:clone(this.display),layout:this.layout,dpr:this.dpr,disposed:this.disposed});}
+    display:clone(this.display),wheelSettledMultiplier:this.phase==='IDLE'?(this.receipt?.multiplier??null):null,
+    wheelAnimating:this.phase==='SETTLING'&&this.stopped.size===5,layout:this.layout,dpr:this.dpr,disposed:this.disposed});}
   draw() {
     const c=this.context;if(this.disposed||!c)return;
     const l=this.layout;c.setTransform(this.dpr,0,0,this.dpr,0,0);c.clearRect(0,0,l.width,l.height);
@@ -133,11 +134,14 @@ export class SuperWildsRenderer {
   drawWheel(c,r) {
     c.save();const cx=r.x+r.width/2,base=r.y+r.height,radius=r.width*.50;
     c.beginPath();c.moveTo(r.x,base);c.ellipse(cx,base,radius,Math.max(40,r.height*.95),0,Math.PI,0);c.lineTo(r.x+r.width,base);c.closePath();c.fillStyle='#064933';c.fill();c.strokeStyle='#bba358';c.lineWidth=2;c.stroke();
-    const target=this.pendingReceipt||this.receipt,selected=target?.multiplier||null,age=this.phase!=='IDLE'?Math.max(0,this.lastTime-this.started):0;
-    const labels=[5,3,1,4,2],shift=this.phase!=='IDLE'&&this.stopped.size<5?Math.sin(age/190)*.22:0;
+    const wheelRolling=this.phase==='SETTLING'&&this.stopped.size===5;
+    const selected=this.phase==='IDLE'?(this.receipt?.multiplier??null):null;
+    const age=this.phase!=='IDLE'?Math.max(0,this.lastTime-this.started):0;
+    const displayMultiplier=wheelRolling?1+Math.floor(Math.max(0,this.lastTime-this.acceptedAt)/85)%5:selected;
+    const labels=[5,3,1,4,2],shift=wheelRolling?Math.sin(age/95)*.22:0;
     for(let i=0;i<5;i++){const angle=Math.PI+(i+.5)*Math.PI/5+shift,x=cx+Math.cos(angle)*radius*.79,y=base+Math.sin(angle)*r.height*.77;c.save();c.translate(x,y);c.rotate(angle+Math.PI/2);c.textAlign='center';c.textBaseline='middle';c.font=`900 ${Math.max(15,r.width*.085)}px Georgia,serif`;c.strokeStyle='#d1af58';c.lineWidth=2.4;c.strokeText(`${labels[i]}x`,0,0);c.fillStyle='#315e41';c.fillText(`${labels[i]}x`,0,0);c.restore();}
     const ww=Math.max(56,r.width*.24),top=r.y+5;c.beginPath();c.moveTo(cx-ww/2,top+6);c.quadraticCurveTo(cx,top-13,cx+ww/2,top+6);c.lineTo(cx+ww*.34,base-4);c.lineTo(cx-ww*.34,base-4);c.closePath();const g=c.createLinearGradient(0,top,0,base);g.addColorStop(0,'#08774d');g.addColorStop(1,'#003d2b');c.fillStyle=g;c.fill();c.strokeStyle='#eac77b';c.lineWidth=3;c.stroke();
-    c.textAlign='center';c.textBaseline='middle';c.font=`900 ${Math.max(26,ww*.59)}px Georgia,serif`;c.strokeStyle='#ac6a27';c.lineWidth=4;c.strokeText(selected?`${selected}x`:'—',cx,top+(base-top)*.37);c.fillStyle='#ffe780';c.fillText(selected?`${selected}x`:'—',cx,top+(base-top)*.37);c.restore();
+    c.textAlign='center';c.textBaseline='middle';c.font=`900 ${Math.max(26,ww*.59)}px Georgia,serif`;c.strokeStyle='#ac6a27';c.lineWidth=4;c.strokeText(displayMultiplier?`${displayMultiplier}x`:'—',cx,top+(base-top)*.37);c.fillStyle='#ffe780';c.fillText(displayMultiplier?`${displayMultiplier}x`:'—',cx,top+(base-top)*.37);c.restore();
   }
   drawControls(c,l) {
     const circle=(r,icon,active=true,palette=['#287b54','#073e2d','#052d24'])=>{const radius=Math.min(r.width,r.height)*.48,cx=r.x+r.width/2,cy=r.y+r.height/2;c.save();c.globalAlpha=active?1:.36;const g=c.createRadialGradient(cx-radius*.4,cy-radius*.5,1,cx,cy,radius);g.addColorStop(0,palette[0]);g.addColorStop(.6,palette[1]);g.addColorStop(1,palette[2]);ellipse(c,cx,cy,radius,radius,g);c.strokeStyle='#d9ba69';c.lineWidth=2;c.beginPath();c.arc(cx,cy,radius,0,Math.PI*2);c.stroke();c.strokeStyle='#8b864c';c.lineWidth=1;c.beginPath();c.arc(cx,cy,radius-4,0,Math.PI*2);c.stroke();c.fillStyle='#fffbe7';c.textAlign='center';c.textBaseline='middle';c.font=`700 ${radius*1.15}px Arial,sans-serif`;c.fillText(icon,cx,cy+1);c.restore();};

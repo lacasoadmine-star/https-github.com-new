@@ -34,6 +34,31 @@ test('normal reel stop times are staggered and repeated ticks do not repeat audi
   renderer.tick(900);assert.deepEqual(renderer.snapshot().stoppedColumns,[0,1,2]);renderer.tick(1400);assert.equal(renderer.snapshot().phase,'IDLE');
   renderer.tick(1800);assert.equal(events.filter(e=>e.type==='wheel-stop').length,1);assert.equal(events.filter(e=>e.type==='win').length,1);
 });
+test('wheel hides the accepted multiplier until the reels and wheel actually settle',()=>{
+  const messages=[],grad={addColorStop(){}},events=[];
+  const ctx=new Proxy({
+    fillText(value){messages.push(String(value));},strokeText(value){messages.push(String(value));},
+    createRadialGradient(){return grad;},createLinearGradient(){return grad;}
+  },{get(target,key){return key in target?target[key]:(()=>{});},
+     set(target,key,value){target[key]=value;return true;}});
+  const target=canvas();target.getContext=()=>ctx;
+  const renderer=new SuperWildsRenderer({canvas:target,onEvent:event=>events.push(event)});
+  renderer.start({requestKey:'spin-1',at:0});
+  renderer.acceptReceipt(receipt(),100);
+  messages.length=0;renderer.tick(800);
+  assert.equal(renderer.snapshot().wheelSettledMultiplier,null);
+  assert.equal(messages.includes('3x'),false,'server-chosen multiplier must not appear early');
+  messages.length=0;renderer.tick(1150);
+  assert.equal(renderer.snapshot().wheelAnimating,true);
+  assert.equal(events.filter(e=>e.type==='wheel-start').length,1);
+  assert.equal(renderer.snapshot().wheelSettledMultiplier,null);
+  messages.length=0;renderer.tick(1700);
+  assert.equal(renderer.snapshot().wheelSettledMultiplier,3);
+  assert.equal(messages.includes('3x'),true);
+  assert.equal(events.filter(e=>e.type==='wheel-stop').length,1);
+  renderer.tick(1900);
+  assert.equal(events.filter(e=>e.type==='wheel-start').length,1);
+});
 test('accepted delayed response never reveals target cells before the appropriate reel stops',()=>{
   const{renderer}=create();renderer.start({requestKey:'key-1',at:0});renderer.tick(4000);renderer.acceptReceipt(receipt(),4000);
   assert.equal(renderer.snapshot().phase,'SETTLING');assert.deepEqual(renderer.snapshot().stoppedColumns,[0]);renderer.tick(4800);
