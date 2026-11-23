@@ -1,0 +1,49 @@
+{
+  "release": "superwin-etb-wallet-test-20261104",
+  "player_url": "https://superwin-player.apdiy61.workers.dev/",
+  "worker_version": "6f74e4f4-0af4-4569-a31a-1b3d1b0e6414",
+  "deployment": "c815a582-b23b-46ec-b994-04a1f47a9976",
+  "previous_version": "3b578798-6e5a-489b-af13-59e3aea8a7da",
+  "immutable_legacy_version_at_zero_percent": "33c53af1-1f23-41e8-bc4a-43edab1c2b6a",
+  "code_commit": "f3ebb875fe5910982c2cdd1be9467e23ee901810",
+  "test_endpoint": "/api/wallet/test",
+  "wallet_read_endpoint": "/api/wallet",
+  "mode": "MANUAL_READ_ONLY_ETB_WALLET_TEST",
+  "demo_games": 30,
+  "original_etb_games": 3,
+  "credit_policy": {
+    "zero_balance_entry": true,
+    "requires_existing_wallet_credit_before_stake_check": true,
+    "creates_credit": false,
+    "resets_existing_balances": false,
+    "automatic_stake_checks": false,
+    "automatic_wagers": false,
+    "new_funding_endpoint": false
+  },
+  "settlement": {
+    "test_only": true,
+    "ledger_mutated": false,
+    "debit_executed": false,
+    "win_settled": false,
+    "provider_demo_credits_separate": true
+  },
+  "verification": {
+    "worker_tests": 27,
+    "other_js_checks": 13,
+    "existing_backend_tests": 9,
+    "portal_builds": 3,
+    "browser": "All 30 demo and manual ETB test controls, zero-credit lock, funding refresh, exact balances, guest rejection, logout, no automatic checks, no settlement calls, four viewport widths",
+    "live": "33 tiles; v251; both buttons; manual panel; disabled unauthenticated stake action; 0 automatic test POSTs; /api/wallet/test rejects unauthenticated access with 401; original three ETB games retained"
+  },
+  "ci": {
+    "security": {
+      "run": 41782863168,
+      "conclusion": "success"
+    },
+    "ledger_browser": {
+      "run": 41782863169,
+      "conclusion": "success"
+    }
+  },
+  "verification_limit": "Authenticated and zero-credit scenarios were verified with isolated fixtures; no production credit or wager was created."
+}

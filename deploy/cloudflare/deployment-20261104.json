@@ -1,0 +1,37 @@
+{
+  "deployed_at": "2026-11-04T03:10:41.057237Z",
+  "player_url": "https://superwin-player.apdiy61.workers.dev/",
+  "agent_url": "https://superwin-agent.apdiy61.workers.dev/",
+  "shared_api_origin": "https://zplay-rebuild-api-staging.up.railway.app",
+  "deployment_id": "25eb8fda-e7cb-49b8-9642-6d5d02d68c34",
+  "active_version": "87ab3de8-f88c-41e8-ae06-c4e001352d95",
+  "previous_version": "fe66b4a8-48e8-41d2-823b-b5d13acd312b",
+  "preserved_legacy_version": "33c53af1-1f23-41e8-bc4a-43edab1c2b6a",
+  "release": "superwin-wallet-compat-20261104",
+  "pull_request": "https://github.com/lacasoadmine-star/https-github.com-new/pull/17",
+  "verification": {
+    "javascript_tests": 26,
+    "backend_tests": 9,
+    "frontend_builds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "player_lobby_http": 200,
+    "player_login_http": 200,
+    "catalog_http": 200,
+    "unauthenticated_wallet_http": 401,
+    "agent_health_http": 200,
+    "unauthenticated_agent_dashboard_http": 401
+  },
+  "limitations": {
+    "production_wagers_tested": false,
+    "authenticated_production_balance_tested": false,
+    "provider_gateway_configured_games": 0,
+    "demo_settlement_enabled": false,
+    "preview_access": "Cloudflare Access protected"
+  },
+  "database_changes": false,
+  "production_test_accounts_created": false,
+  "production_test_balances_created": false
+}

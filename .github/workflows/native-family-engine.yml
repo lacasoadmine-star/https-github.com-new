@@ -1,0 +1,41 @@
+name: Native family engine ledger and browser verification
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/native-engine/**'
+      - 'deploy/cloudflare/**'
+      - 'tests/native-*'
+      - 'tests/integrated-lobby-browser.test.mjs'
+      - 'tests/worker-wallet-compat.test.mjs'
+      - 'tests/fixtures/**'
+      - '.github/workflows/native-family-engine.yml'
+  push:
+    branches: [fix/worker-wallet-compat-20261104]
+permissions:
+  contents: read
+jobs:
+  isolated-ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/native-engine/package-lock.json
+      - run: npm ci --prefix apps/native-engine --no-audit --no-fund
+      - name: Install Chromium for isolated browser verification
+        working-directory: apps/native-engine
+        run: npx playwright install --with-deps chromium
+      - name: Build deployable function and verify generated assets
+        run: |
+          npm run build --prefix apps/native-engine
+          git diff --exit-code -- apps/native-engine/web-assets.mjs
+      - name: Test rules, request authentication and original Worker compatibility
+        run: node --test tests/native-rules.test.mjs tests/native-auth-proxy.test.mjs tests/worker-wallet-compat.test.mjs tests/demo-launcher.test.mjs tests/public-demo-dashboard.test.mjs
+      - name: Verify atomic settlement and browser recovery with disposable PostgreSQL
+        run: npm run test:postgres --prefix apps/native-engine
+      - name: Verify existing lobby integration
+        run: node tests/integrated-lobby-browser.test.mjs

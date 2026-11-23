@@ -1,0 +1,47 @@
+{
+  "release": "zplay-official-demo-dashboard-20261104",
+  "player_url": "https://superwin-player.apdiy61.workers.dev/",
+  "worker_version": "5b5993f7-a6b6-4dee-8a23-09d07e2c1874",
+  "worker_deployment": "b0cba0d1-cb26-4c55-8b92-0f670ceba4e2",
+  "source_commit": "1ce7002c9449c6aeca9a0af069c61638d67d2d92",
+  "legacy_version_at_zero_percent": "33c53af1-1f23-41e8-bc4a-43edab1c2b6a",
+  "requested_demo_games": 1000,
+  "source_listed_demos": 600,
+  "providers": {
+    "smartsoft": 65,
+    "pragmatic": 535
+  },
+  "collected_launchers": 423,
+  "on_demand_official_page_resolutions": 177,
+  "provider_live_etb_enabled": false,
+  "original_native_etb_games": 3,
+  "wallet_and_accounts_preserved": true,
+  "no_production_wagers": true,
+  "no_seeded_funds": true,
+  "validation": {
+    "javascript_checks": 52,
+    "backend_tests": 9,
+    "portal_builds": [
+      "player",
+      "agent",
+      "admin"
+    ],
+    "browser": "Isolated Chromium: both providers, all catalog counts, pagination, search, favourites, demo launch/retry/cancellation, real-session wallet display, original native routes and four viewport widths",
+    "ci": [
+      {
+        "run": 41922282677,
+        "conclusion": "success"
+      },
+      {
+        "run": 41922282686,
+        "conclusion": "success"
+      }
+    ],
+    "live": "Cloudflare version upload and 100% deployment readback verified with all eleven bindings and immutable legacy at 0%. Automated live HTTP/browser checks were blocked by Cloudflare Browser Rendering HTTP 429; public URL behavior was not independently reverified after deployment."
+  },
+  "remaining": [
+    "The requested 1000 distinct official demos have not been collected.",
+    "177 catalog entries resolve their launcher from the official provider page on demand and were tested with isolated fixtures, not individually launched live.",
+    "Official provider financial integration awaits the owner-supplied API contract and secrets."
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "release": "superwin-smartsoft-wallet-preview-20261104",
+  "player_url": "https://superwin-player.apdiy61.workers.dev/",
+  "worker_version": "13801f1b-78ad-4877-a9b7-02194a15ced3",
+  "worker_deployment": "f2eee207-42d0-450f-929c-ade02350452a",
+  "source_commit": "af7f48c4640623b0a208071c29c874cead1f91d5",
+  "legacy_version_at_zero_percent": "33c53af1-1f23-41e8-bc4a-43edab1c2b6a",
+  "original_provider_demos": 30,
+  "original_native_etb_games": 3,
+  "provider_graphics_rules_spins_modified": false,
+  "top_level_url_stays_superwin": true,
+  "in_place_fullscreen": true,
+  "external_open_link": false,
+  "wallet_test_forms_removed": true,
+  "entry": {
+    "demo": "Original SmartSoft public demo",
+    "funded": "Same original demo after authentication, play permission and current positive ETB wallet check",
+    "wallet_display": "Actual existing canonical balance",
+    "session_mode": "WALLET_DEMO",
+    "settlement_enabled": false
+  },
+  "replacement_engine": {
+    "new_rounds_enabled": false,
+    "deployment": "d9c06113-bd6d-4c25-9a06-e689bbe9a9d1",
+    "status": "SUCCESS",
+    "accepted_round_recovery_preserved": true
+  },
+  "no_production_credit_seeded": true,
+  "no_production_test_wagers": true,
+  "validation": {
+    "worker_tests": 28,
+    "live": "33 tiles; v259; original provider cover and GameLauncher/Loader.aspx URL; DEMO badge; fullscreen in place; test form absent; no external-open link; new replacement rounds disabled; native three-game catalog preserved",
+    "browser": "All 30 exact provider demo URLs from both entry buttons, correct real-balance display for funded fixtures, stale zero-balance rejection, logout cancellation, no local settlement calls, four viewport widths",
+    "ci": [
+      {
+        "run": 41788211330,
+        "conclusion": "success"
+      },
+      {
+        "run": 41788211209,
+        "conclusion": "success"
+      }
+    ]
+  },
+  "remaining_blocker": "No official provider bet/outcome/callback integration is configured. SmartSoft demo stakes, wins and losses are not debited or credited to the local ETB wallet. The wallet display and funded entry are not provider settlement."
+}

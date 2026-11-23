@@ -1,0 +1,45 @@
+{
+  "release": "superwin-official-demo-catalog-20261104",
+  "player_url": "https://superwin-player.apdiy61.workers.dev/",
+  "worker_version": "3b578798-6e5a-489b-af13-59e3aea8a7da",
+  "worker_deployment": "175371a8-7ddc-451b-bfb5-146deba864fa",
+  "immutable_legacy_version_at_zero_percent": "33c53af1-1f23-41e8-bc4a-43edab1c2b6a",
+  "rollback_player_version": "2ae48f86-58db-4e92-ad02-2c0080316165",
+  "code_commit": "059b3ecc39fc43fb3feb165703497ee074646ecf",
+  "railway_engine_deployment": "b816ab61-323d-432d-94be-98734c83d252",
+  "railway_status": "SUCCESS",
+  "official_source": "https://www.smartsoftgaming.com/games",
+  "source_catalog_entries": 74,
+  "selected_public_demos": 30,
+  "original_etb_games": 3,
+  "retired_internal_tiles_remaining": 0,
+  "new_internal_wagers_enabled": false,
+  "existing_round_recovery_preserved": true,
+  "demo_wallet_debits_enabled": false,
+  "canonical_dashboard_sync_ready": true,
+  "production_wallet_error_fixed": {
+    "sqlstate": "42883",
+    "cause": "Existing unqualified sw_live_touch(text[]) wallet trigger did not resolve on the new service connection.",
+    "fix": "SET LOCAL search_path=sw_rebuild,public for every ledger transaction, with startup function-resolution verification."
+  },
+  "validation": [
+    "Thirty official-source launcher URLs and original artwork metadata validated",
+    "All 30 demo button/iframe/fallback/close flows verified in isolated Chromium with zero local wallet mutations",
+    "Original lobby native order, login gating, exact balance, logout, search, favourites, reload, provider filters and four viewport widths passed",
+    "16 isolated PostgreSQL tests, 80 assertions, including production-like unqualified dashboard trigger and retired-wager/replay/cashout handling",
+    "Existing backend tests and Player/Agent/Admin builds passed",
+    "Live 33 tiles, 30 demo IDs, zero retired internal IDs, original three native slots, v250 script, provider cover and same-page MultiHot5 demo verified",
+    "Live database_ready and dashboard_sync_ready true, new_rounds_enabled false; unauthenticated wallet rejected"
+  ],
+  "ci": {
+    "native": {
+      "run": 41780941579,
+      "conclusion": "success"
+    },
+    "frontend_backend": {
+      "run": 41780941575,
+      "conclusion": "success"
+    }
+  },
+  "verification_limit": "Official catalog source links are verified; all provider games were not individually played. Live MultiHot5 launcher opening was checked. No production ETB wagers or invented production credits were used."
+}
