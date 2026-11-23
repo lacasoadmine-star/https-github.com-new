@@ -136,3 +136,24 @@ test('missing login, foreign model identity and negative/invalid cash fail close
   await assert.rejects(()=>h.server.spin(h.request(),h.action({bet:'-0.10'})),/ACTION|MONEY/);
   assert.equal(h.snapshot().ledger.length,0);
 });
+
+
+test('suspended approved model leaves authenticated STATE read-only and old settled round replayable',async()=>{
+ const h=harness();
+ const original=h.action();
+ const accepted=await h.server.spin(h.request(),original);
+ h.model.approved=false;
+ const state=await h.server.state(h.request());
+ assert.equal(state.authenticated,true);
+ assert.equal(state.balance,'119.90');
+ assert.equal(state.game.enabled,false);
+ assert.equal(state.game.productionApproved,false);
+ assert.deepEqual(state.game.betLevels,[]);
+ const recovered=await h.server.spin(h.request(),h.action({replayOnly:true}));
+ assert.deepEqual(recovered,accepted);
+ assert.equal(h.snapshot().ledger.length,2);
+ assert.equal(h.snapshot().rounds.length,1);
+ const fresh=h.action({roundToken:'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'});
+ await assert.rejects(()=>h.server.spin(h.request(),fresh),/APPROVED_MODEL_REQUIRED/);
+ assert.equal(h.snapshot().ledger.length,2);
+});
