@@ -158,3 +158,12 @@ test('576x1280 uploaded Super Wilds video reference pins actual artwork and touc
   near(l.balance.y,1202,'footer y');
   near(l.bet.y,1202,'BET footer y');
 });
+
+test('accepted WIN presentation never obscures the native SPIN button',()=>{
+  for(const [width,height] of [[360,640],[360,844],[390,780],[390,844],[430,640],[430,932],[576,1280]]){
+    const l=superWildsLayout(width,height);
+    assert.ok(l.win.y>=l.cabinet.y+l.cabinet.height,`${width}x${height} win after reels`);
+    assert.ok(l.win.y+l.win.height<=l.controls.spin.y,`${width}x${height} win before SPIN`);
+    assert.ok(l.win.x>=0&&l.win.x+l.win.width<=width,`${width}x${height} win visible`);
+  }
+});
