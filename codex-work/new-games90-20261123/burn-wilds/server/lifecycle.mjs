@@ -73,7 +73,18 @@ export function createBurnWildsExistingServer({authenticate,sessionGuard,transac
     const who=await owner(request);
     return locked(request,who,null,async tx=>{
       const balance=validMinor(await tx.playerBalance(who.userId));
-      const raw=await getApprovedModel(BURN_WILDS_GAME_ID), model=raw?approved(raw):null;
+      const raw=await getApprovedModel(BURN_WILDS_GAME_ID);
+      // Keep STATE available for authenticated historical recovery when the
+      // game is suspended, its approval is withdrawn or its model rotated.
+      // Only an approved current model can supply bet levels or enable SPIN.
+      let model=null;
+      if(raw){
+        try{model=approved(raw);}
+        catch(error){
+          if(!(error instanceof BurnServerError&&
+            ['BURN_SERVER_APPROVED_MODEL_REQUIRED','BURN_SERVER_MODEL_IDENTITY'].includes(error.code)))throw error;
+        }
+      }
       const active=await tx.activeRound(who.userId);
       const ready=!!model&&await releaseEnabled()===true&&!active;
       return {authenticated:true,currency:'ETB',sessionGuard:who.guard,
