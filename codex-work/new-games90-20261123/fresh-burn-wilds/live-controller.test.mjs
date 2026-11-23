@@ -18,17 +18,20 @@ function fixture({gate=true,spinError=false}={}) {
     spin:async a=>{calls.push(['spin',a]);if(spinError)throw Error('NETWORK_LOST');return receipt(a);},
     recover:async a=>{calls.push(['recover',a]);return receipt(a);}};
   const storage={getItem:k=>keys.get(k)??null,setItem:(k,v)=>keys.set(k,v),removeItem:k=>keys.delete(k)};
-  const renderer={start:o=>calls.push(['start',o]),accept:r=>calls.push(['accept',r]),
-    accelerate:()=>calls.push(['accelerate']),finish:id=>calls.push(['finish',id])};
+  const renderer={phase:'IDLE',start:o=>{calls.push(['start',o]);renderer.phase='SPINNING';},
+    accept:r=>{calls.push(['accept',r]);renderer.phase='RESULT';},
+    accelerate:()=>calls.push(['accelerate']),
+    finish:id=>{calls.push(['finish',id]);renderer.phase='READY';return true;}};
   const controller=new BurnWildsLiveController({host,renderer,storage,
     symbols:['a','b','wild'],keyFactory:()=> 'nonce-1'});
   return {controller,host,storage,calls,keys};
 }
 test('one host SPIN produces one validated server-settled receipt',async()=>{
-  const {controller,calls}=fixture();await controller.connect();
+  const {controller,calls,keys}=fixture();await controller.connect();
   const r=await controller.spin(100);assert.equal(r.roundId,'round-1');
   assert.equal(controller.snapshot().balanceMinor,900);
   assert.deepEqual(calls.map(x=>x[0]),['start','spin','accept']);
+  assert.equal(keys.size,1);
 });
 test('STOP accelerates only; no second debit request',async()=>{
   const {controller,calls}=fixture();await controller.connect();await controller.spin(100);
@@ -54,7 +57,8 @@ test('lost reply retains original request identity; recovery is replay-only',asy
   const {controller,calls,keys}=fixture({spinError:true});await controller.connect();
   await assert.rejects(controller.spin(100),/NETWORK_LOST/);
   assert.equal(controller.snapshot().needsRecovery,true);assert.equal(keys.size,1);
-  const r=await controller.recover();assert.equal(r.roundId,'round-1');assert.equal(keys.size,0);
+  const r=await controller.recover();assert.equal(r.roundId,'round-1');assert.equal(keys.size,1);
+  assert.equal(controller.presentationFinished('round-1'),true);assert.equal(keys.size,0);
   assert.equal(calls.filter(x=>x[0]==='spin').length,1);
   assert.equal(calls.filter(x=>x[0]==='recover').length,1);
 });
@@ -69,4 +73,23 @@ test('invalid bet never reaches the host',async()=>{
   const a=fixture();await a.controller.connect();
   await assert.rejects(a.controller.spin(500),/BURN_NEW_SPIN_BLOCKED/);
   assert.equal(a.calls.length,0);
+});
+
+test('server-accepted but unfinished round can be recovered after page reload without a second wager',async()=>{
+  const a=fixture();await a.controller.connect();await a.controller.spin(100);
+  const b=fixture();for(const [k,v] of a.keys)b.keys.set(k,v);
+  await b.controller.connect();
+  assert.equal(b.controller.snapshot().needsRecovery,true);
+  await b.controller.recover();
+  assert.equal(b.calls.filter(x=>x[0]==='spin').length,0);
+  assert.equal(b.calls.filter(x=>x[0]==='recover').length,1);
+  assert.equal(b.controller.presentationFinished('round-1'),true);
+  assert.equal(b.keys.size,0);
+});
+test('client rejects a receipt for a different player even when requestKey matches',async()=>{
+  const f=fixture();await f.controller.connect();
+  f.host.spin=async a=>({...receipt(a),subject:'wrong-player'});
+  await assert.rejects(f.controller.spin(100),/BURN_RECEIPT_INVALID/);
+  assert.equal(f.controller.snapshot().needsRecovery,true);
+  assert.equal(f.keys.size,1);
 });
