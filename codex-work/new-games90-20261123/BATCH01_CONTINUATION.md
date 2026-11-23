@@ -20,6 +20,12 @@ Nine batches: 1-10, 11-20, 21-30, 31-40, 41-50, 51-60, 61-70, 71-80, 81-90. The 
 
 The order is exact. No placeholder card, source test, or screenshot is a completed LIVE game.
 
+## Latest verified game-engine implementation
+
+Commit 2b2242cab21571f24397e208526e566ac85c9c4c added a distinct Burn Wilds candidate-math module and twenty-game-round atomic settlement test, with GitHub Actions run 45121217666 passing **67/67 tests, zero failed**. It samples new five-column grids with a cryptographic entropy interface and rejection sampling, handles a winning WILD's own middle-column expansion, uses this game's observed five paylines, and validates every generated payout against its own evaluator. The 20 test rounds exercised unique request tokens, replay-only recovery and a disposable balanced ledger. No seven-round screenshot playback or client-side wallet is used.
+
+IMPORTANT: These are *new ZPLAY candidate* random weights, not the provider's proven RTP/reel distribution. The candidate has approved:false and all verification flags false, and is neither deployed nor cash activated. Artwork rights, a mathematically reviewed own RTP model, actual server callbacks and authenticated Player acceptance remain required.
+
 ## Source checkpoint
 GitHub branch: work/new90-burn-outcome-20261123 (based on the existing work/new90-live-20261123 code). Game #1 files: codex-work/new-games90-20261123/burn-wilds and server/ subdirectory. Source QA: .github/workflows/new90-burn-outcome-qa.yml.
 
