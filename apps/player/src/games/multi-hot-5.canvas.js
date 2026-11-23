@@ -9,7 +9,7 @@ export function mountMultiHot5(root, {roundProvider} = {}) {
   const ctx = canvas.getContext('2d');
   const symbols = ['🍒','🍋','🍊','🍇','🔔','⭐','7'];
   const state = {reels:Array.from({length:3},()=>Array.from({length:3},()=>symbols[Math.floor(Math.random()*symbols.length)])),bet:1,busy:false,auto:false,sound:false,stopped:false,credits:null,win:0,status:'PRACTICE ONLY',settings:false};
-  let timer=null, audio=null, destroyed=false;
+  let timer=null, autoTimer=null, audio=null, destroyed=false;
   const buttons = [{name:'BET -',x:15,y:460,w:82,h:55},{name:'BET +',x:105,y:460,w:82,h:55},{name:'SPIN',x:195,y:460,w:90,h:55},{name:'STOP',x:293,y:460,w:82,h:55},{name:'AUTO',x:15,y:520,w:82,h:27},{name:'SOUND',x:105,y:520,w:82,h:27},{name:'SETTINGS',x:195,y:520,w:180,h:27}];
   function beep(freq=440){if(!state.sound)return;try{audio??=new (window.AudioContext||window.webkitAudioContext)();const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=freq;g.gain.value=.025;o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+.07)}catch{}}
   function draw(){
@@ -32,17 +32,17 @@ export function mountMultiHot5(root, {roundProvider} = {}) {
       const result=roundProvider?await roundProvider({bet:state.bet,game:'multi-hot-5',mode:'practice'}):null;
       await new Promise(resolve=>{const start=performance.now();const tick=()=>{if(destroyed||state.stopped||performance.now()-start>=950)resolve();else requestAnimationFrame(tick)};tick()});
       if(destroyed)return;
-      if(result?.reels){if(!Array.isArray(result.reels)||result.reels.length!==3||result.reels.some(col=>!Array.isArray(col)||col.length!==3))throw Error('Invalid reels');state.reels=result.reels;state.win=Number(result.win)||0;state.status='SERVER PRACTICE RESULT'}
+      if(result?.reels){if(!Array.isArray(result.reels)||result.reels.length!==3||result.reels.some(col=>!Array.isArray(col)||col.length!==3))throw Error('Invalid reels');state.reels=result.reels;state.win=Number.isFinite(Number(result.win))&&Number(result.win)>=0?Number(result.win):0;state.status='SERVER PRACTICE RESULT'}
       else {state.status='VISUAL DEMO • NO PAYOUT';state.win=0}
       beep(550);
     }catch(e){state.status='ROUND REJECTED';state.win=0}
-    finally{clearInterval(id);timer=null;state.busy=false;draw();if(state.auto&&!destroyed&&state.status!=='ROUND REJECTED')setTimeout(()=>{if(state.auto&&!state.busy&&!destroyed)spin()},600)}
+    finally{clearInterval(id);timer=null;state.busy=false;draw();if(state.auto&&!destroyed&&state.status!=='ROUND REJECTED'&&result?.reels){autoTimer=setTimeout(()=>{autoTimer=null;if(state.auto&&!state.busy&&!destroyed)spin()},600)}else{state.auto=false}}
   }
   function action(name){
-    if(name==='STOP'){state.stopped=true;return}
+    if(name==='STOP'){state.stopped=true;state.auto=false;clearTimeout(autoTimer);autoTimer=null;draw();return}
     if(name==='SOUND'){state.sound=!state.sound;draw();return}
     if(name==='SETTINGS'){state.settings=!state.settings;draw();return}
-    if(name==='AUTO'){state.auto=!state.auto;draw();return}
+    if(name==='AUTO'){state.auto=!state.auto;if(!state.auto){clearTimeout(autoTimer);autoTimer=null}draw();return}
     if(state.busy||state.settings)return;
     if(name==='BET -')state.bet=Math.max(1,state.bet-1);
     if(name==='BET +')state.bet=Math.min(40000,state.bet+1);
@@ -50,7 +50,7 @@ export function mountMultiHot5(root, {roundProvider} = {}) {
     draw();
   }
   const onPointer=e=>{const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*390/r.width,y=(e.clientY-r.top)*550/r.height;const b=buttons.find(b=>x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h);if(b)action(b.name)};
-  const onVisibility=()=>{if(document.hidden){state.auto=false;state.stopped=true;audio?.suspend()}else if(state.sound)audio?.resume()};
+  const onVisibility=()=>{if(document.hidden){state.auto=false;state.stopped=true;clearTimeout(autoTimer);autoTimer=null;audio?.suspend()}else if(state.sound)audio?.resume()};
   canvas.addEventListener('pointerdown',onPointer);document.addEventListener('visibilitychange',onVisibility);draw();
-  return {state,spin,stop:()=>action('STOP'),destroy(){destroyed=true;state.auto=false;state.stopped=true;clearInterval(timer);canvas.removeEventListener('pointerdown',onPointer);document.removeEventListener('visibilitychange',onVisibility);canvas.remove();audio?.close()}};
+  return {state,spin,stop:()=>action('STOP'),destroy(){destroyed=true;state.auto=false;state.stopped=true;clearInterval(timer);clearTimeout(autoTimer);canvas.removeEventListener('pointerdown',onPointer);document.removeEventListener('visibilitychange',onVisibility);canvas.remove();audio?.close()}};
 }
