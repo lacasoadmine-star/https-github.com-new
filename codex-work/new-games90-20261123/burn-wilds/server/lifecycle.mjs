@@ -101,6 +101,8 @@ export function createBurnWildsExistingServer({authenticate,sessionGuard,transac
       if(await releaseEnabled()!==true)fail('BURN_SERVER_RELEASE_DISABLED');
       const model=approved(await getApprovedModel(BURN_WILDS_GAME_ID),action);
       const stake=parse(action.bet),before=validMinor(await tx.playerBalance(who.userId));
+      // The renderer and receipt contract use integer cents as JS numbers.
+      if(stake>BigInt(Number.MAX_SAFE_INTEGER))fail('BURN_SERVER_STAKE_UNSAFE',422);
       if(before<stake)fail('INSUFFICIENT_FUNDS',402);
       await tx.assertNoActiveRound(who.userId);
       const max=validMinor(await model.maximumPayoutMinor(stake));
@@ -125,6 +127,7 @@ export function createBurnWildsExistingServer({authenticate,sessionGuard,transac
         await tx.creditReservedWin({userId:who.userId,gameId:BURN_WILDS_GAME_ID,roundId,amountMinor:win});
       }
       const after=validMinor(await tx.playerBalance(who.userId));
+      if(after>BigInt(Number.MAX_SAFE_INTEGER))fail('BURN_SERVER_BALANCE_UNSAFE');
       if(after!==before-stake+win||
         validMinor(await tx.houseBalance(who.userId))!==house+stake-win||
         validMinor(await tx.reservedBalance(who.userId))!==reserved)
