@@ -55,6 +55,14 @@ test('next SPIN binds the previous accepted uncollected win',async()=>{
   const f=fixture({win:40});await f.controller.connect();await f.controller.spin();f.controller.finishPresentation(roundId);
   assert.equal(f.controller.snapshot().phase,'WIN_PENDING');await f.controller.spin();assert.equal(f.calls[1].collectRoundId,roundId);
 });
+test('presentation does not reopen TAKE on an accepted win already collected by another tab',async()=>{
+  const f=fixture({win:30,dispatch:(intent,receipt)=>({...receipt(intent),pendingWinMinor:0,balanceMinor:10020})});
+  await f.controller.connect();await f.controller.spin();
+  assert.equal(f.controller.finishPresentation(roundId),true);
+  assert.equal(f.controller.snapshot().phase,'READY');
+  assert.equal(await f.controller.take(),false);
+  assert.equal(f.calls.length,1);
+});
 test('AUTO counts only accepted rounds and stops when its selected win limit is reached',async()=>{
   const f=fixture({win:20});await f.controller.connect();f.controller.configureAuto({count:25,winLimit:20});f.controller.startAuto();
   await f.controller.spin({auto:true});assert.equal(f.controller.snapshot().auto.remaining,24);f.controller.finishPresentation(roundId);
