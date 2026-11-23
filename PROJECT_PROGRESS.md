@@ -1,3 +1,35 @@
+# Current continuation — accepted controls proof and X2 implementation
+
+The source checkpoint `a17932c9b6d5cb99df2e80c06b8add0afff44e59` on
+`work/new90-live-20261123` passed exact CI `45089946980` on23 November2026.
+All3 jobs succeeded:196 source/component tests,20 real disposable-PostgreSQL
+checks, the existing3 portal builds and9 disposable backend tests, catalogue
+navigation at360/390/430/1280, continued M20 at the same4 widths, and325
+Super Wilds browser assertions. Its exact browser ZIP was downloaded,
+SHA256-verified and the390 ready/win screenshots reviewed. The initial
+cabinet now has crisp original symbols with nearly square portrait cells.
+These are synthetic receipts and an isolated wallet, not production ETB proof.
+
+A QA-only watermark initially intercepted the outside-close tap; it now has
+pointer-events:none and the same real input assertion passes. No product
+input was force-clicked or skipped. The final artifact is14780338492,
+SHA256 e6685f258438f2b08ff40fe2a73d0c132bc4cf32e496dbb8454b5347730ee6cb.
+
+The same game continues with complete X2 journal/hold/lifecycle and UI work.
+Its HTTP route uses the existing authenticated request, same origin policy
+and bounded JSON path; original old routes remain delegated unchanged.
+The accepted SPIN remains immutable and TAKE must collect the current
+server-derived pending amount after any gamble, once only. The observed
+win-limit AUTO behavior stays pending until explicit TAKE or the next SPIN.
+
+Actual Player remains version470 at this checkpoint. New completed and
+LIVE VERIFIED games remain0/90. No new financial production deployment,
+production schema application, wallet mutation or provider asset claim is
+implied. Continue Super Wilds and its final existing-host integration before
+advancing the ready-game count. Preserve the M20 recovery fix and exact90 queue.
+
+---
+
 # Current continuation — current official controls and same-site host transport
 
 Source8c8b996 is published on the existing work/new90-live-20261123 branch.
