@@ -40,6 +40,16 @@ function verifyReplay(record,action){
     record.betMinor!==Number(parse(action.bet))||
     record.settlementMode!=='SERVER_IMMEDIATE'||
     identityKeys.some(k=>record[k]!==action[k]))fail('BURN_SERVER_REPLAY_CONFLICT',409);
+  // A journal replay must not manufacture a new visible balance, unlock a
+  // second cash-out, or exchange the recorded round for another round.
+  // Always verify the durable financial fields, not only the reel payout.
+  if(record.requestKey!==action.roundToken||
+    !UUID.test(record.roundId||'')||
+    !Number.isSafeInteger(record.balanceMinor)||record.balanceMinor<0||
+    record.balance!==money(BigInt(record.balanceMinor))||
+    record.pendingWinMinor!==0||record.canDouble!==false||
+    !Number.isSafeInteger(record.winMinor)||record.winMinor<0)
+    fail('BURN_SERVER_SAVED_RECEIPT_UNVERIFIED',409);
   auditBurnWildsPayout(validateBurnWildsReceipt(record));return copy(record);
 }
 /** Transaction, wallet, house and model are injected from the existing server.
