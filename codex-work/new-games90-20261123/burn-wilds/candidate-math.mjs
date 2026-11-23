@@ -20,7 +20,7 @@ const fail=code=>{throw new TypeError('BURN_CANDIDATE_'+code);};
 function validateWeights(weights){
   const sum=weights.reduce((total,[,n])=>total+n,0);
   if(sum<=0||sum>65536||!weights.every(([symbol,weight])=>
-    typeof symbol==='string'&&Number.isSafeInteger(weight)&&weight>0))fail('WEIGHTS');
+    (typeof symbol==='string'||Number.isSafeInteger(symbol))&&Number.isSafeInteger(weight)&&weight>0))fail('WEIGHTS');
   return sum;
 }
 validateWeights(BURN_CANDIDATE_OUTER_WEIGHTS);
