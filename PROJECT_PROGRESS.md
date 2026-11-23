@@ -1,3 +1,12 @@
+## 2026-11-23 — fresh independent controller and CI security correction
+
+- The same live Player Worker (superwin-player) is the intended mount; MultiHot5, FoxyHot20, HabeshaFortune5 and the 74 earlier games are preserved. This branch does not replace the existing Worker, ETB backend, session or ledger.
+- New game #1 fresh-burn-wilds/live-controller.mjs is committed with its own tests. It uses the existing authenticated host for SPIN, recovery and balance; STOP only changes presentation. No invented client game result, wallet or second debit.
+- Initial CI 45130715828 caught a real validation bug: reject() returned an Error rather than throwing. Commit 65390be49e9a1cdf444fd9159e3549bf0cd1be08 fixed fail-closed validation and CI 45130825414 passed. Independent contract tests followed at 7e94005f9dda30ffddcfa4439e068fe6d0b3c889. The final exact-source CI needs its own verification.
+- All financial tests used isolated synthetic receipts, not an authenticated live ETB account. No production money was spent, no user data or Worker settings changed. Provider media was not copied. Official SmartSoft demo still returns a regional restriction.
+- LIVE VERIFIED: 0/90. Game #1 is IN_PROGRESS, not a functioning production cash game. Remaining: independent artwork/audio from licensed sources, provider-demo accessibility, renderer completion, approved probability model, exact whole-Worker assembly, backend and ledger disposable integration, authorized browser acceptance and post-deploy proof.
+
+---
 ## 2026-11-23 — NEW90: self-hosted media separation (fresh branch)
 
 - Separate new source branch: `work/new90-fresh-20261123`, preserving the earlier 74 games, production accounts, worker code and financial ledger without modification.
