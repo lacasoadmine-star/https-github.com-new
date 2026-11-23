@@ -69,6 +69,10 @@ export function createBurnWildsExistingHostTransport({fetcher=globalThis.fetch,t
     }finally{clearTimeout(timer);}
   }
   async function state(){
+    // Never authorize a fresh wager using a stale session or prior balance
+    // if refreshing authentication fails. Accepted original round tokens
+    // remain in the controller's pending journal for later same-user replay.
+    current=null;
     current=normalizeState(await json(BURN_STATE_PATH));
     return clone(current);
   }
