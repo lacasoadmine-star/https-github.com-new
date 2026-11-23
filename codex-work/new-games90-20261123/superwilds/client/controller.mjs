@@ -132,7 +132,9 @@ export class SuperWildsController {
   }
   finishPresentation(roundId){
     if(this.data.phase!=='ANIMATING'||this.data.round?.roundId!==roundId)return false;
-    this.data.phase=this.data.round.winMinor>0?'WIN_PENDING':'READY';
+    // A concurrent authenticated TAKE may have settled this accepted win while its reels played.
+    const pending = this.data.round.pendingWinMinor ?? this.data.round.winMinor;
+    this.data.phase=pending>0?'WIN_PENDING':'READY';
     const a=this.data.auto;
     if(a?.active){const delta=this.data.balanceMinor-a.startBalanceMinor;
       if(a.remaining<=0||(a.winLimit!==null&&this.data.round.winMinor>=a.winLimit)||
