@@ -198,7 +198,7 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
         else close();
       }
       else if(name==='recover-gamble'){await controller?.recover();}
-      else if(name==='exit'){controller?.stopAuto('EXIT');suspend('EXIT');if(typeof onExit==='function')await onExit();else w.location.assign('/');}
+      else if(name==='exit'){controller?.stopAuto('EXIT');suspend('EXIT');close();if(typeof onExit==='function')await onExit();else w.location.assign('/');}
       else if(name==='menu'||name==='rules')show('rules',source);
       else if(['settings','history','bet'].includes(name))show(name,source);
       else if(name==='quick'){if(settings.quick){settings.quick=false;if(controller)controller.quick=false;sync();}else show('quick',source);}

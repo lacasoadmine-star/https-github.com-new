@@ -136,7 +136,7 @@ test('exact NEW90 artifact: mobile/desktop visible placement, search, preserved 
         await page.waitForFunction(count=>document.querySelectorAll('.new90-card:not([hidden])').length===count,expected);
         assert.equal(await page.locator('.new90-result-count').innerText(),expected+' ciyaarood');
         assert.equal(await page.locator('.new90-count').innerText(),'90');
-        assert.equal(await page.locator('.new90-summary').innerText(),'0 diyaar ah · 90 diyaarin ku jira');
+        assert.equal(await page.locator('.new90-summary').innerText(),'0 la furi karo · 90 dhisid ku jira');
       }
       const storage=await page.evaluate(()=>({token:localStorage.getItem('fixture-token'),session:sessionStorage.getItem('fixture-session')}));
       assert.deepEqual(storage,{token:'fixture-token-only',session:'fixture-session-only'});
