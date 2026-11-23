@@ -93,6 +93,17 @@ test('reconnect restores current host state without clearing an uncertain origin
   f.controller.disconnect();await f.controller.connect();assert.equal(f.controller.snapshot().connected,true);assert.equal(f.controller.snapshot().phase,'RECOVERY');assert.deepEqual(f.controller.snapshot().pending,pending);
   await f.controller.recover();assert.equal(f.controller.snapshot().phase,'ANIMATING');
 });
+test('reconnect clears stale accepted game result when the authenticated server has no round',async()=>{
+  const f=fixture({win:20});await f.controller.connect();await f.controller.spin();f.controller.finishPresentation(roundId);
+  assert.equal(f.controller.snapshot().round.roundId,roundId);
+  f.transport.state=async()=>({...f.state(),round:null,pendingWinMinor:0,balanceMinor:9980});
+  f.controller.disconnect();await f.controller.connect();
+  assert.equal(f.controller.snapshot().round,null);
+  assert.equal(f.controller.snapshot().pendingWinMinor,0);
+  assert.equal(f.controller.snapshot().balanceMinor,9980);
+  assert.equal(f.controller.snapshot().phase,'READY');
+  assert.equal(f.calls.length,1);
+});
 test('rendered accepted view ignores state-only collection metadata on recovery',()=>{
   const f=fixture(),view=f.receipt({action:'SPIN',requestKey:key(1),betMinor:10});
   assert.deepEqual(rendererReceipt({...view,balanceMinor:view.balanceMinor+10,winPending:true,acceptedAction:{key:key(1)}}),rendererReceipt(view));

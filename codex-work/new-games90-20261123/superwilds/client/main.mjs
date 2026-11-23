@@ -255,8 +255,25 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
   const suspend=reason=>{held.clear();controller?.stopAuto(reason);void audio.suspend();};
   on(d,'visibilitychange',()=>{if(d.hidden)suspend('HIDDEN');});on(w,'offline',()=>{suspend('OFFLINE');controller?.disconnect();});
   on(w,'pagehide',()=>{suspend('PAGEHIDE');controller?.disconnect();});
-  on(w,'online',()=>{void controller?.connect().catch(onError);});
-  on(w,'pageshow',event=>{if(event.persisted)void controller?.connect().catch(onError);});
+  // Reuse the authenticated accepted round and its original journal after a network/BFCache interruption.
+  async function resumeAuthenticatedRound(){
+    if(!controller||disposed)return;
+    try{
+      if(!await controller.connect()||disposed)return;
+      if(snapshot().pending){
+        if(controller.busy)await controller.busy;
+        if(snapshot().pending)await controller.recover();
+      }
+      if(disposed||snapshot().pending)return;
+      const accepted=snapshot().round,scene=renderer.snapshot();
+      // An idle scene may be stale after collection or a round accepted in another tab.
+      if(accepted&&scene.phase==='IDLE'&&scene.receipt?.roundId!==accepted.roundId)
+        renderer.acceptReceipt(rendererReceipt(accepted),w.performance.now());
+      sync();
+    }catch(error){onError(error);}
+  }
+  on(w,'online',()=>{void resumeAuthenticatedRound();});
+  on(w,'pageshow',event=>{if(event.persisted)void resumeAuthenticatedRound();});
   on(w,'resize',resize);if(w.visualViewport)on(w.visualViewport,'resize',resize);
   function tick(now){
     if(disposed)return;renderer.tick(now);renderer.draw();const view=renderer.snapshot(),s=snapshot();

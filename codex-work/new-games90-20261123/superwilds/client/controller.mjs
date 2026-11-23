@@ -77,6 +77,7 @@ export class SuperWildsController {
     this.data.connected=true;this.data.canPlay=s.canPlay===true;this.data.canDouble=s.canDouble===true;
     this.data.betLevels=[...ladder];this.data.betMinor=bet;this.data.balanceMinor=s.balanceMinor;
     if(s.round){const receipt=validateReceipt(s.round,{requestKey:s.round.requestKey,betMinor:s.round.betMinor});this.data.round=baseView(receipt);}
+    else this.data.round=null;
     const pendingWin=s.pendingWinMinor??s.round?.pendingWinMinor??(s.round?.winPending===true?s.round.winMinor:0);minor(pendingWin);
     if(pendingWin>0&&!s.round)fail('PENDING_WIN_BINDING');this.data.pendingWinMinor=pendingWin;
     this.setGamble(s.gamble??null);this.data.lastGamble=this.data.gamble?.history.at(-1)??null;

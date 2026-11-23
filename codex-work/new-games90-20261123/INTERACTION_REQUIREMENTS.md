@@ -22,3 +22,7 @@ official references. Do not publish the uploaded media/account information.
 
 Current work remains Super Wilds and M20. Reuse valid same-version evidence
 and run checks for changed behavior; do not repeat surveys without a reason.
+
+## Full playable 90-game parity — current order (23 November 2026)
+
+The only gameplay-design reference for each new title is its own current interactive official demo, not user-uploaded videos/images/screenshots or another game's previous assets. Match the observed PLAY entry, cabinet size/scaling, artwork, symbol/reel movement, multiplier/wheel, effects/music, sound consent, menus and bottom navigation, visible touch hitboxes, SPIN/STOP/AUTO/TAKE/X2 transitions and repeatable subsequent rounds with real independent code (no screenshot or video playback). Never guess undocumented odds or claim exact licensed artwork ownership. Preserve the previous installed games; count neither MultiHot5, FoxyHot20 nor HabeshaFortune5 among the 90 new titles. Coordinate independent new-game work in parallel, reuse applicable same-version checks instead of repeating CI/artifacts, and proceed through the full named order. Every real-money game stays financially closed until actual existing-server ETB debit/credit/idempotency, permissions and authenticated live PLAY acceptance pass. Source publication, a card or a passing test is not a completed playable game.
