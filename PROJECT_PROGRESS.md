@@ -1,3 +1,12 @@
+## 2026-11-23 — NEW90 current official Internet demonstration research (game #1)
+
+- The SmartSoft product page for Multi Hot 5 Burn Wilds was opened **separately** from the ZPLAY Worker and GitHub. Official product page returned HTTP 200 and supplied its own static game image (398x841 px) and 5x3/5 paylines / expanding Wilds reels 2-4 / 1x–5x multiplier / X2 double-up descriptions.
+- The public official GameLauncher was opened separately but returned `Sorry, this game is not available in your country`; no game canvas or SPIN controls were available. **No playable provider gameplay screenshots or video/audio were captured or authenticated**; a product screenshot alone cannot prove animations or exact sounds. Do not re-label the uploaded Habesha Fortune 5 sample as a Burn Wilds source.
+- Added `fresh-burn-wilds/official-online-evidence-20261123.json` containing current external provider page, demo and screenshot URLs, exact observed limitations and evidence status. Added source provenance tests to deny external SmartSoft loader links inside ZPLAY game runtime. The official static screenshot is reference-only: no commercial usage rights were verified; it was not copied to the Player Worker.
+- Separate NEW90 work in GitHub already has a new native Canvas renderer, sound adapter, keyboard/touch/auto controller, game shell and same-origin host interface, but licensed game assets, certified event timing/audio, real backend mappings/settlement, production Player route integration and live post-deploy verification remain unproven. No customer money or existing 74 game modules were changed.
+- **COMPLETED = 0/90.** Do not deploy money-enabled Burn Wilds into production before independently verified game-specific audiovisual evidence, approved math/payouts, existing ETB ledger integration, auth, session, history/dashboard, QA and post-deployment proof.
+
+---
 ## 2026-11-23 — NEW90 Burn Wilds: account-bound settlement, crash recovery, same-origin host interface
 
 - Continued #1 on existing branch without touching 74 prior games, previous Player Worker modules, agent/admin, Telebirr or existing production wallet and ledger.
