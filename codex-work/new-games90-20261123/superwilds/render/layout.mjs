@@ -32,6 +32,11 @@ export function superWildsLayout(width, height) {
   const footerHeight=Math.max(44,w*.095);
   const quickSize=44, quickY=controlsY-25;
   const wheelHeight=w*.205;
+  // WIN text sits in the genuine empty band between the reels and SPIN.
+  // On short screens, scale the badge rather than cover a real touch control.
+  const winGap=controlsY-(cabinetTop+cabinetHeight);
+  const winHeight=Math.min(24,Math.max(8,winGap-4));
+  const winY=cabinetTop+cabinetHeight+Math.max(1,(winGap-winHeight)/2);
   return Object.freeze({width,height,portrait,scene:rect(0,0,w,h),
     title:rect(w*.02,Math.max(13,cabinetTop-w*.42),w*.96,w*.106),
     wheel:rect(w*.11,cabinetTop-wheelHeight,w*.78,wheelHeight-3),
@@ -48,7 +53,7 @@ export function superWildsLayout(width, height) {
       bet:rect(w*.512,plateY,w*.325,footerHeight)}),
     balance:rect(w*.163,plateY,w*.325,footerHeight),
     bet:rect(w*.512,plateY,w*.325,footerHeight),
-    win:rect(centre-72,controlsY+spinSize*.7,144,16)});
+    win:rect(centre-w*.21,winY,w*.42,winHeight)});
 }
 
 export function reelRectangles(layout) {
