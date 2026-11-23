@@ -26,11 +26,17 @@ test('one existing-Player entry shares the same transport across Canvas, control
   assert.equal(calls[1].opts.root,root);
 });
 test('missing own rights-cleared artwork, real root, or backend adapter cannot mount',async()=>{
- const bad=[{}, {root}, {root,artwork:{gameId:'foreign'}},{root,artwork,fetcher:null}];
+ const bad=[{}, {root,artwork:{gameId:'foreign'}},{root,artwork,fetcher:null}];
  let calls=0;
  for(const options of bad)await assert.rejects(mountBurnWildsExistingPlayer({
    transportFactory:()=>{calls++;return stub;},mount:()=>{calls++;return null;},...options
  }),/EXISTING_PLAYER_DEPENDENCIES/);
+ assert.equal(calls,0);
+ // With no explicit artwork, a real DOM Canvas is required to draw the
+ // ZPLAY-owned symbols. A fake document must not silently create placeholders.
+ await assert.rejects(mountBurnWildsExistingPlayer({root,
+   transportFactory:()=>{calls++;return stub;},mount:()=>{calls++;return null;}
+ }),/OWN_ART_CANVAS_FACTORY_REQUIRED/);
  assert.equal(calls,0);
  await assert.rejects(mountBurnWildsExistingPlayer({root,artwork,
    transportFactory:()=>({state(){},dispatch(){},prepare(){}}),
