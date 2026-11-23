@@ -67,10 +67,12 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
   const run=async operation=>{try{await operation();}catch(error){const message=error.code||error.message;if(mode)dialog.querySelector('.burn-wilds-dialog-error').textContent=message;else status.textContent=message;}};
   view.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button||button.disabled)return;
+    // A visible dialog owns all input until it closes; touches behind it cannot wager.
+    if(mode&&!dialog.contains(button))return;
     const action=button.dataset.action,operation=button.dataset.do;
     if(action==='spin')return run(()=>controller.snapshot().status==='RECOVER'?controller.recover():controller.spin());
     if(action==='take')return run(()=>controller.take());if(action==='quick')return controller.setQuick(!controller.quick);
-    if(action==='sound'){options.effects=options.music=!(options.effects||options.music);audio?.setPreferences?.({...options});render(controller.snapshot());return;}
+    if(action==='sound'){options.effects=options.music=!(options.effects||options.music);if(options.effects)void Promise.resolve(audio?.unlock?.()).catch(()=>{});audio?.setPreferences?.({...options});render(controller.snapshot());return;}
     if(action==='auto'){if(controller.snapshot().auto?.active)return controller.stop();return show('auto');}
     if(action==='bet')return show('bet');if(action==='double')return show('gamble');if(action==='menu')return show('menu');
     if(operation==='close'){if(mode==='startup')audio?.setPreferences?.({...options});return close();}
@@ -78,7 +80,7 @@ export async function mountBurnWilds({root,transport,artwork,audio=null,storage=
     if(operation==='choose-bet'){if(controller.setBet(Number(button.dataset.value)))close();return;}
     if(operation==='count'){count=Number(button.dataset.value);for(const child of dialog.querySelectorAll('[data-do="count"]'))child.setAttribute('aria-pressed',String(Number(child.dataset.value)===count));return;}
     if(operation==='start-auto')return run(async()=>{const settings={count};for(const[key,name]of [['win','winAtLeastMinor'],['decrease','balanceDecreaseMinor'],['increase','balanceIncreaseMinor']])settings[name]=dialog.querySelector('[data-condition="'+key+'"]').checked?minor(dialog.querySelector('[data-amount="'+key+'"]').value):null;close();await controller.startAuto(settings);});
-    if(operation==='sound-yes'||operation==='sound-no'){options.effects=options.music=operation==='sound-yes';audio?.unlock?.();audio?.setPreferences?.({...options});return close();}
+    if(operation==='sound-yes'||operation==='sound-no'){options.effects=options.music=operation==='sound-yes';if(options.effects)void Promise.resolve(audio?.unlock?.()).catch(()=>{});audio?.setPreferences?.({...options});return close();}
     if(operation==='red'||operation==='black'){close();return run(()=>controller.double(operation.toUpperCase()));}
     if(operation==='take'){close();return run(()=>controller.take());}
     if(operation==='rules'||operation==='settings')return show(operation);
