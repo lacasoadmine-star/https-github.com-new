@@ -6,11 +6,16 @@
 const deny=code=>{throw Object.assign(new Error(code),{code});};
 const EVENT_RE=/^[a-z][a-z0-9-]{0,49}$/;
 export class BurnWildsNativeAudio {
-  constructor({sources,makeAudio,now=()=>Date.now(),volume=1}={}) {
+  constructor({sources,origin,makeAudio,now=()=>Date.now(),volume=1}={}) {
+    let site;
+    try{site=new URL(origin);}catch{deny('BURN_AUDIO_ORIGIN_INVALID');}
+    if(site.protocol!=='https:'||site.pathname!=='/'||site.search||site.hash||site.username||site.password)
+      deny('BURN_AUDIO_ORIGIN_INVALID');
     if(!sources || typeof sources!=='object' || Array.isArray(sources) ||
        !Object.keys(sources).length || Object.entries(sources).some(([event,url])=>
           !EVENT_RE.test(event) || typeof url!=='string' ||
-          !/^https:\/\/[a-zA-Z0-9.-]+\/new-games90\/media\/burn-wilds\/[a-z0-9/_-]+\.(?:mp3|ogg)$/.test(url)) ||
+          (!/^https:\/\/[a-zA-Z0-9.-]+\/new-games90\/media\/burn-wilds\/[a-z0-9/_-]+\.(?:mp3|ogg)$/.test(url) ||
+           new URL(url).origin!==site.origin)) ||
        typeof makeAudio!=='function' || typeof now!=='function' ||
        typeof volume!=='number' || !Number.isFinite(volume)||volume<0||volume>1)
        deny('BURN_AUDIO_MANIFEST_INVALID');
