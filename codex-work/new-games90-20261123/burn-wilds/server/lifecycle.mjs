@@ -5,7 +5,7 @@ const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const HASH=/^[a-f0-9]{64}$/i, MONEY=/^(0|[1-9]\d{0,12})\.\d{2}$/;
 const identityKeys=['engineVersion','mathVersion','mathSha256'];
 const gates=['legalOutcomesVerified','outcomeDistributionVerified','aggregatePayoutVerified','roundingVerified','immediateLifecycleVerified','etbPolicyVerified','assetRightsVerified'];
-const methods=['authenticate','lockWallets','assertReady','withRequestOwner','findRequest','insertRequest','playerBalance','houseBalance','reservedBalance','assertNoActiveRound','assertPlayerCapacity','debitStake','reserveWin','creditReservedWin','insertRound','registerRound'];
+const methods=['authenticate','lockWallets','assertReady','withRequestOwner','findRequest','insertRequest','playerBalance','houseBalance','reservedBalance','activeRound','assertNoActiveRound','assertPlayerCapacity','debitStake','reserveWin','creditReservedWin','insertRound','registerRound'];
 export class BurnServerError extends Error{constructor(code,status=503){super(code);this.code=code;this.status=status;}}
 const fail=(c,s)=>{throw new BurnServerError(c,s)};
 const copy=x=>structuredClone(x);
@@ -74,9 +74,10 @@ export function createBurnWildsExistingServer({authenticate,sessionGuard,transac
     return locked(request,who,null,async tx=>{
       const balance=validMinor(await tx.playerBalance(who.userId));
       const raw=await getApprovedModel(BURN_WILDS_GAME_ID), model=raw?approved(raw):null;
-      const ready=!!model&&await releaseEnabled()===true;
+      const active=await tx.activeRound(who.userId);
+      const ready=!!model&&await releaseEnabled()===true&&!active;
       return {authenticated:true,currency:'ETB',sessionGuard:who.guard,
-        balance:money(balance),round:null,blockedByActiveGame:false,
+        balance:money(balance),round:null,blockedByActiveGame:active?.gameId||false,
         game:{gameId:BURN_WILDS_GAME_ID,enabled:ready,freshReleaseReady:ready,
           productionApproved:ready,probabilityModelAudited:ready,
           assetRightsVerified:ready,settlementMode:'SERVER_IMMEDIATE',
