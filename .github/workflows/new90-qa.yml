@@ -128,4 +128,4 @@ jobs:
           TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
           SUPERWILDS_TEST_CREATE_DATABASE: disposable-database-only
           SUPERWILDS_TEST_NODE_MODULES: ${{ runner.temp }}/superwilds-pg-tools/node_modules
-        run: node --test codex-work/new-games90-20261123/superwilds/server/postgres/run-tests.mjs
+        run: node --test codex-work/new-games90-20261123/superwilds/server/postgres/run-tests.mjs codex-work/new-games90-20261123/superwilds/server/postgres/host-tests.mjs

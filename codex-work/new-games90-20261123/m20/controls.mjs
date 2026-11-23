@@ -91,11 +91,15 @@ export class MultiHot20Controls {
   }
   acceptReceipt(input) {
     const view = validatePresentation(input), serial = JSON.stringify(view);
+    const pending = this.state.pending;
+    // A previously accepted round cannot satisfy a later pending action.
+    // Reject it before duplicate suppression so the controller retains the
+    // later request key and exposes recovery instead of waiting forever.
+    if (pending && (pending.action !== 'SPIN' || view.requestKey !== pending.requestKey || view.bet !== pending.bet)) fail('RECEIPT_BINDING_MISMATCH');
     if (this.seenRounds.has(view.roundId)) {
       if (this.seenRounds.get(view.roundId) !== serial) fail('CONFLICTING_ROUND_REPLAY');
       return false;
     }
-    const pending = this.state.pending;
     if (!pending || pending.action !== 'SPIN' || !['WAITING_RECEIPT','RECOVERY_REQUIRED'].includes(this.state.phase)) fail('UNEXPECTED_RECEIPT');
     if (view.requestKey !== pending.requestKey || view.bet !== pending.bet) fail('RECEIPT_BINDING_MISMATCH');
     this.seenRounds.set(view.roundId, serial);

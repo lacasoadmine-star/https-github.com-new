@@ -1,3 +1,40 @@
+# Current continuation — interaction examples and protected wallet composition
+
+Updated23 November2026. The user supplied interaction examples and resumed the
+same90-game request. See `codex-work/new-games90-20261123/INTERACTION_REQUIREMENTS.md`.
+Uploaded media remain private examples, not game frames/assets or financial rules.
+The actual Player checked during this session is version470,
+`5634b82c-6032-4bf0-a5fb-8e8a4cb76549`, deployed100% as
+`40258011-5861-4186-a5c8-4608af3520a3`. Its dashboard shows the exact requested
+NEW section and existing old rows. New completed/LIVE VERIFIED games remain0/90.
+
+The M20 stale-receipt defect was reproduced and fixed: a prior accepted receipt
+cannot leave a later SPIN waiting forever. It retains the later original key and
+enters recovery; replay without pending work remains idempotent. Its47 focused
+component tests pass, including the two regressions.
+
+Super Wilds now has a concrete final-host composition, paired-ledger reservation
+bridge, shared old/M10/new request guard, exact shared-round registration, merged
+active ownership and prepared joint-house-floor SQL. The joint funding trigger
+protects the SUM of prepared M10 and Super Wilds liabilities. A new disposable
+PostgreSQL runner executes these actual components rather than substituting its
+own financial callbacks. The local157-test gameplay/source suite passes; real
+PostgreSQL execution and browser verification of subsequent changes are still to
+be recorded. No production migration or source activation is inferred from this.
+
+The own ZPLAY Super Wilds probability model has exact authored RTP96.51% and
+maximum1000x, validated by exhaustive59,049-line arithmetic and varied fresh-grid
+sampling. It explicitly does not recover provider RNG. Model approval/ETB host
+acceptance remainfalse until the actual composition and operator policy are
+accepted. Existing balances, ledgers, sessions, old games and Telebirr are retained.
+
+Continue the same game: finish AUTO collection/recovery, current official control
+inspection, full native presentation/audio comparison and authenticated live host
+integration. Catalogue cards, candidate math and component tests do not finish a
+game. This entry is a source checkpoint, not unattended work or a cash deployment.
+
+---
+
 # Current continuation — Super Wilds gameplay and dashboard r2
 
 Continue the same exact90 request; the latest steering asks for less repeated checking and faster actual implementation. The existing source and Player469 remain protected. Backup branch `backup/new90-before-superwilds-20261123` retains commit5b3d7e9. The retained469 inventory is recorded before the additive r2 candidate; no cash activation or production data mutation is authorized by a passing catalogue test.

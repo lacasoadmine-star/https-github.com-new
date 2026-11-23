@@ -1,0 +1,207 @@
+{
+  "schema": "zplay/superwilds-own-model-audit/v1",
+  "engineVersion": "zplay-superwilds-engine-1",
+  "mathVersion": "zplay-superwilds-own-9651-1",
+  "mathSha256": "2d84c7490789c025794904fc2a78309800bdcc5ba144af52b6a3fc46617d159d",
+  "provenance": "ZPLAY-authored independent-cell distribution; no provider reel-strip/RNG claim",
+  "exactLineCombinations": "59049",
+  "summedLineAwardNumeratorsOverTwo": "19018",
+  "positiveLineCombinations": "4617",
+  "baseZeroGridProbabilityLowerBound": {
+    "numerator": "148",
+    "denominator": "243"
+  },
+  "baseRtp": {
+    "numerator": "47545",
+    "denominator": "19683"
+  },
+  "baseDistributionWeight": {
+    "numerator": "189960633",
+    "denominator": "475450000"
+  },
+  "ownExpectedRtp": {
+    "numerator": "9651",
+    "denominator": "10000"
+  },
+  "ownExpectedRtpPercent": "96.51%",
+  "maximumWinTimesStake": 1000,
+  "support": "All 9^15 symbol grids and all five wheel values have positive probability",
+  "termination": "Zero-win construction needs no grid rejection; integer-entropy rejection failures abort with no fallback outcome",
+  "mathematicalLawScope": "Exact RTP describes the defined game distribution; entropy/service errors are failed transactions, not losing rounds",
+  "rounding": "All supplied stakes are even minor units; every half-stake paytable award is exact",
+  "productionEnabled": false,
+  "providerProbabilityModel": false,
+  "specification": {
+    "schema": "zplay/superwilds-own-distribution/v1",
+    "gameId": "zplay72_multi_hot_5_super_wilds_v1",
+    "owner": "ZPLAY",
+    "engineVersion": "zplay-superwilds-engine-1",
+    "mathVersion": "zplay-superwilds-own-9651-1",
+    "providerProbabilityModel": false,
+    "providerRtpReproduced": false,
+    "symbols": [
+      "wild",
+      "seven",
+      "grapes",
+      "watermelon",
+      "bell",
+      "lemon",
+      "plum",
+      "orange",
+      "cherry"
+    ],
+    "paylines": [
+      [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        1,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        1,
+        0,
+        1,
+        2
+      ]
+    ],
+    "payRatioNumeratorsOverTwo": {
+      "wild": {
+        "3": 6,
+        "4": 20,
+        "5": 80
+      },
+      "seven": {
+        "3": 6,
+        "4": 20,
+        "5": 80
+      },
+      "grapes": {
+        "3": 4,
+        "4": 8,
+        "5": 40
+      },
+      "watermelon": {
+        "3": 2,
+        "4": 4,
+        "5": 20
+      },
+      "bell": {
+        "3": 2,
+        "4": 4,
+        "5": 20
+      },
+      "lemon": {
+        "3": 1,
+        "4": 2,
+        "5": 10
+      },
+      "plum": {
+        "3": 1,
+        "4": 2,
+        "5": 10
+      },
+      "orange": {
+        "3": 1,
+        "4": 2,
+        "5": 10
+      },
+      "cherry": {
+        "3": 1,
+        "4": 2,
+        "5": 10
+      }
+    },
+    "independentCellWeights": {
+      "wild": 1,
+      "seven": 1,
+      "grapes": 1,
+      "watermelon": 1,
+      "bell": 1,
+      "lemon": 1,
+      "plum": 1,
+      "orange": 1,
+      "cherry": 1
+    },
+    "wheelValues": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "wheelWeights": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "targetRtp": {
+      "numerator": "9651",
+      "denominator": "10000"
+    },
+    "baseDistributionWeight": {
+      "numerator": "189960633",
+      "denominator": "475450000"
+    },
+    "remainderDistribution": "Fresh zero-win grid: column1 has three uniform non-WILD symbols; column2 uniformly excludes all column1 symbols and WILD; columns3–5 are uniform independent symbols",
+    "mixtureChoice": "Independent of grid, wheel, player, session, bet and preceding rounds",
+    "entropy": "Server cryptographic random bytes; masked rejection sampling with no modulo bias",
+    "entropyRejectionLimit": 128,
+    "stakePolicy": "Explicit host-supplied ladder; every stake is a positive even number of ETB minor units",
+    "fractionalMinorRounding": "No rounding: odd-minor stakes are rejected before sampling",
+    "maximumWinTimesStake": 1000,
+    "maximumStakeMinor": "9007199254740"
+  },
+  "sourcePins": [
+    {
+      "path": "codex-work/new-games90-20261123/superwilds/rules.mjs",
+      "bytes": 3550,
+      "sha256": "75004f17a2e94083dcbd3c3def2ddcc3a8557f1b382f221063696fbc62ac7c91"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/superwilds/server/own-model.mjs",
+      "bytes": 11208,
+      "sha256": "f73e06c56b5d2ce0ff078cfe11f4ad48d2f92869c4972508b261c96921bb4eb4"
+    },
+    {
+      "path": "codex-work/new-games90-20261123/superwilds/server/own-model.test.mjs",
+      "bytes": 9127,
+      "sha256": "2c9ebe4b890f705485e338f0ef36a90d86ee3eda647dbf0350e7dd148dd91fd3"
+    }
+  ],
+  "verification": {
+    "command": "node --test codex-work/new-games90-20261123/superwilds/server/own-model.test.mjs",
+    "tests": 10,
+    "pass": 10,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "syntheticRandomness": "SHA256 counter stream used only in isolated deterministic tests",
+    "liveVerified": false,
+    "productionFinancialRounds": 0
+  }
+}

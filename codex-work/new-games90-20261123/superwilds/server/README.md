@@ -1,5 +1,38 @@
 # Super Wilds server continuation
 
+## Protected host composition continuation
+
+`host-integration.mjs` now joins the actual lifecycle/journal adapter with
+`reservations.mjs` and `ownership.mjs` on the FINAL existing authenticated host
+callbacks. Its returned legacy dependencies and symmetric legacy/M10 guards
+must be installed together in the original host; creating the new service
+alone is insufficient. Shared state derives active ownership before its old
+gamble descriptor runs. Every accepted SPIN, including a loss, is checked
+against its immutable journal before registering the existing shared order.
+
+The new prepared reservation migration uses the existing wallets, transfers
+and paired ledger. It enforces the SUM of Super Wilds and installed prepared
+M10 holds, including an M10 companion funding trigger; separate per-game
+floors would allow both to claim the same house funds. Readiness inspects real
+trigger identity, enabled state and READ COMMITTED isolation. This migration
+is not applied by import, construction or publication.
+
+`own-model.mjs` defines an explicitly ZPLAY-authored distribution with
+unbiased server cryptographic sampling, fresh varied grids, full aggregate
+validation and exact mathematical RTP 9651/10000 with maximum1000x. The
+exhaustive59,049-line audit is in `own-model-audit.json`. It is not recovered
+provider RNG. The model returns `approved:false` with host lifecycle and ETB
+policy acceptance still false; a mathematical audit does not enable cash.
+
+`postgres/host-tests.mjs` runs the ACTUAL reservation bridge, protected host
+composition and ownership SQL against a new disposable localhost database.
+It includes real wallet contention, one collection, combined M10/Super Wilds
+floor, exact funding, both collision directions, rollback after collection
+plus next debit, actual trigger readiness and retired-model recovery. Its
+synthetic session/funds/model are test-only. The exact CI result must be read
+before reporting database acceptance. No production migration, financial
+round or release activation has occurred in this continuation.
+
 The reserved game identity remains `zplay72_multi_hot_5_super_wilds_v1` at
 `/new-games72/multi-hot-5-super-wilds/`. This subtree adds its deferred settlement
 lifecycle, same-client PostgreSQL journal seam and explicit renderer transport

@@ -78,6 +78,33 @@ test('invalid receipt enters recovery and does not authorize a displayed outcome
   assert.equal(await s.controller.spin(), false); assert.equal(s.controls.snapshot().phase, 'RECOVERY_REQUIRED');
   assert.equal(s.renderer.snapshot().seenRoundCount, 0); assert.equal(s.controls.snapshot().financialEnabled, false);
 });
+test('a stale accepted receipt during a later SPIN recovers the later original key', async () => {
+  let first;
+  const s = setup({ submit: intent => first ||= receipt(intent), recover: intent => receipt(intent, 2) });
+  assert.equal(await s.controller.spin(), true); s.at(3000);
+  const accepted = s.controls.snapshot().round;
+  assert.equal(await s.controller.spin(), false);
+  const later = s.calls[1];
+  assert.notEqual(later.requestKey, accepted.requestKey);
+  assert.equal(s.controls.snapshot().phase, 'RECOVERY_REQUIRED');
+  assert.equal(s.controls.snapshot().pending.requestKey, later.requestKey);
+  assert.equal(s.errors.at(-1).message, 'M20_RECEIPT_BINDING_MISMATCH');
+  assert.deepEqual(s.controls.snapshot().round, accepted);
+  assert.equal(s.renderer.snapshot().seenRoundCount, 1);
+  assert.equal(await s.controller.recover(), true); s.at(6000);
+  const { recovered, ...payload } = s.calls[2];
+  assert.equal(recovered, true); assert.deepEqual(payload, later);
+  assert.equal(s.controls.snapshot().round.requestKey, later.requestKey);
+  assert.equal(s.controls.snapshot().phase, 'READY');
+  assert.equal(s.calls.length, 3);
+});
+test('a duplicate accepted receipt stays idempotent without another pending request', async () => {
+  const s = setup(); await s.controller.spin(); const accepted = receipt(s.calls[0]);
+  assert.equal(s.controls.acceptReceipt(accepted), false);
+  s.at(3000); assert.equal(s.controls.acceptReceipt(accepted), false);
+  assert.equal(s.controls.snapshot().phase, 'READY');
+  assert.equal(s.calls.length, 1);
+});
 test('dispose invalidates queued AUTO and prevents late response changes', async () => {
   const s = setup(); s.controller.configureAuto({ count: 25 }); s.controller.startAuto(); s.controller.dispose();
   await s.jobs.shift()(); assert.equal(await s.controller.spin(), false); assert.equal(s.calls.length, 0);
