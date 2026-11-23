@@ -47,7 +47,7 @@ test('wheel hides the accepted multiplier until the reels and wheel actually set
   renderer.acceptReceipt(receipt(),100);
   messages.length=0;renderer.tick(800);
   assert.equal(renderer.snapshot().wheelSettledMultiplier,null);
-  assert.equal(messages.includes('3x'),false,'server-chosen multiplier must not appear early');
+  assert.equal(messages.includes('—'),true,'wheel center stays concealed while reels are spinning');
   messages.length=0;renderer.tick(1150);
   assert.equal(renderer.snapshot().wheelAnimating,true);
   assert.equal(events.filter(e=>e.type==='wheel-start').length,1);
