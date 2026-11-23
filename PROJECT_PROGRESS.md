@@ -1,3 +1,11 @@
+## 2026-11-23 — Burn Wilds accepted-round recovery and authenticated subject protection
+
+- Updated fresh-burn-wilds/contract.mjs: the backend settled receipt must include and match the authenticated wager subject; foreign-account receipts fail closed.
+- Updated fresh-burn-wilds/live-controller.mjs: the accepted wager journal survives response arrival and remains until the renderer confirms the exact round presentation has finished. Reload uses replay-only recovery of the same requestKey; no new wager is sent. Session, accepted result and balance are not calculated on the client.
+- Added focused cross-account, refresh/recovery and accepted-journal regression cases. GitHub Actions run 45133299298 at source 6b58c2e411c7739fafcba8de48d22c8994585dc5 passed **33/33 tests**. Tests are isolated fixtures and do not establish production ledger settlement.
+- Current branch has no fresh Burn Wilds artwork bundle, verified game-specific actual gameplay video+audio, authorised payout model, or exact production Worker build/post-deploy authenticated test. No changes were made to live superwin-player, existing 74 games, player accounts, Telebirr, sessions, balances or ledger. Status: game 1 IN_PROGRESS; **0/90 LIVE VERIFIED**.
+
+---
 ## 2026-11-23 — NEW90 Burn Wilds: native renderer and recorded-reference adapter
 
 - User revised the source policy: screenshots and recorded videos may be used as reference rather than embedding any external provider demo in ZPLAY. The new game remains independently compiled and server-authoritative.
