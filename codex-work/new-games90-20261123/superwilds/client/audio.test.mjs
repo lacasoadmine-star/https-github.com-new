@@ -25,6 +25,17 @@ test('repeated gestures create one ambient voice and accepted reel replay cannot
   assert.ok(oscillators.every(o=>o.stops.length>0));audio.dispose();
 });
 
+test('accepted reel, wheel and win audio follows the displayed animation exactly once',async()=>{
+  const{audio,oscillators}=device();await audio.unlock();
+  const events=[{type:'spin',requestKey:'accepted-key'},
+    ...Array.from({length:5},(_,column)=>({type:'reel-stop',roundId:'accepted',column})),
+    {type:'wheel-start',roundId:'accepted'}, {type:'wheel-stop',roundId:'accepted'},
+    {type:'win',roundId:'accepted',winMinor:5000,betMinor:100}];
+  for(const e of events)assert.equal(audio.handle(e),true,JSON.stringify(e));
+  for(const e of events)assert.equal(audio.handle(e),false,'repeated same animation event must not play twice');
+  assert.equal(oscillators.length,events.length+1,'one ambience + one voice per accepted transition');
+  audio.dispose();
+});
 test('leaving the page prevents queued effects; the next gesture resumes fresh audio without old voices',async()=>{
   const{audio,context,oscillators}=device();await audio.unlock();audio.once('spin','first-action');
   await audio.suspend();const stoppedCount=oscillators.length;
