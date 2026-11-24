@@ -1,0 +1,77 @@
+{
+  "deployment": {
+    "id": "88049a89-b7d0-455b-896e-2830c9c6b2f8",
+    "source": "api",
+    "strategy": "percentage",
+    "author_email": "apdiy61@gmail.com",
+    "annotations": {
+      "workers/message": "Add separate native JetX; retain all 205 previo...",
+      "workers/triggered_by": "upload"
+    },
+    "versions": [
+      {
+        "version_id": "fec03561-d706-4450-af82-578780d5c479",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-11-07T03:05:31.225831Z"
+  },
+  "modules": 207,
+  "oldModulesChecked": 205,
+  "mismatches": [],
+  "bindings": [
+    {
+      "name": "API_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "BRIDGE_SHARED_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "CATALOG_ENABLED",
+      "type": "plain_text"
+    },
+    {
+      "name": "ENGINE_EXTENSION",
+      "type": "service"
+    },
+    {
+      "name": "LEGACY_PLAYER",
+      "type": "service"
+    },
+    {
+      "name": "LOCAL_DEMO_WALLETS",
+      "type": "durable_object_namespace"
+    },
+    {
+      "name": "NATIVE_ENGINE_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "NATIVE_ENGINE_SECRET",
+      "type": "secret_text"
+    },
+    {
+      "name": "NATIVE_LIBRARY_ASSETS",
+      "type": "assets"
+    },
+    {
+      "name": "PLAYER_PRESENCE_KEY",
+      "type": "secret_text"
+    },
+    {
+      "name": "PLAYER_PRESENCE_MIGRATION_UNTIL",
+      "type": "plain_text"
+    },
+    {
+      "name": "PORTAL",
+      "type": "plain_text"
+    }
+  ],
+  "main": "import previous from './native-entry-20261107.mjs';\nimport {installJetX} from './jetx-worker.mjs';\nexport {LocalDemoWallet} from './native-entry-20261107.mjs';\nexport default installJetX(previous,{presence:'presence.63ed199a80b6c700.mjs'});\n"
+}
