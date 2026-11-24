@@ -1,0 +1,45 @@
+name: Current requested82 Multi Hot 100 and platform QA
+
+on:
+  push:
+    branches: [work/requested82-20261124]
+    paths:
+      - 'codex-work/requested82-20261124/**'
+      - '.github/workflows/requested82-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: requested82-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  multi-hot-100-and-existing-platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Test current own Multi Hot 100 request, collection and recovery behavior
+        run: node --test codex-work/requested82-20261124/multi-hot-100/controller.test.mjs
+      - name: Preserve retained M100 presentation behavior
+        run: node --test codex-work/continue71-20261122/multi-hot-100-component/render/presentation.test.mjs
+      - name: Build existing Player, Agent and Admin
+        run: |
+          npm ci --ignore-scripts
+          npm run build --workspaces
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Test backend using only its disposable test database
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pytest -q tests/test_platform.py
