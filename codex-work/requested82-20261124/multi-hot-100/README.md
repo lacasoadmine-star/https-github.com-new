@@ -8,9 +8,10 @@ The new controller composes those controls with an injected authoritative host a
 
 The presentation follows host-supplied progress/clock values. It cannot finish without an accepted receipt or replace an immutable accepted result. It does not claim measured provider timing.
 
-Verification at source preparation:
--24 isolated protocol/regression cases prepared. All24 passed an in-tool V8 sanity run with a structured-clone shim; the four targeted stale-response/sparse-array regressions fail against the retained controls. Exact Node22, preserved7-case presentation suite, disposable backend tests and all3 portal builds are configured in the dedicated feature-branch workflow. Their actual CI outcome must be recorded separately.
-- No browser/official-demo round, audible comparison, source-complete game, ETB round or production deployment is established by this checkpoint.
+Verification completed:
+- Exact source `f35e68a9752489734c316d314f2ba806193ef6ec` passed [CI45495792749](https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/45495792749), job138805807149: **24 current protocol tests,7 retained presentation tests,9 disposable backend tests and all3 existing portal builds**. Workflow and job both report success. Decoded job logs were inspected.
+- Before publication, all24 protocol cases also passed an in-tool V8 sanity run with a structured-clone shim. The four targeted stale-response/sparse-array cases failed against the retained controls in that same harness.
+- These are source/component and existing-platform checks. No browser/official-demo round, audible comparison, source-complete game, ETB round or production deployment is established.
 - The component uses the retained own M100 atlas decoder/symbol-name dependency, with no artwork or private capture bytes included. No provider program or user-uploaded video/screenshot is used.
 
 Run `node --test codex-work/requested82-20261124/multi-hot-100/controller.test.mjs`.
