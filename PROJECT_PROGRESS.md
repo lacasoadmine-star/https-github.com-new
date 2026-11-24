@@ -1,3 +1,13 @@
+## 2026-11-24 — nonblocking audio prepared; source session cannot yet be shared
+
+The user reports being logged into the old ZPLAY in Codex's in-app browser. That browser is separate from the shared Cloud browser: the latter still displays LOGIN for source Multi Hot40. The user confirmed the current Codex client has no Desktop entry in its + menu, and the offered panel-opening tool has no cloud-desktop target. Reopening an ordinary website link does not share authentication. Do not repeatedly ask the user to repeat in-app login or copy cookies/passwords/session material. The missing capability is a supported shared viewer or a browser-control connection to the already authenticated tab. No authenticated source gameplay or money-bearing spin has been performed.
+
+While that access is pending, completed the authorized independent Multi Hot40 audio improvement: gesture unlock and sound settings no longer wait for media downloads; effects warm four unique compressed clips, shared reel-stop labels decode once, and background music is fetched only after explicit music enablement. Failed clips can retry on a later gesture; callbacks cannot revive sound after disposal, aborted requests or muted/hidden state. Existing game outcomes and accounting are unchanged.
+
+Local validation: **72 focused checks across8 suites**, all3 existing frontend builds and9 disposable backend tests passed. The minified build is prepared at revision `16be4f52d60a783c7d048843`; it is not declared deployed or browser-verified by this source checkpoint. The currently reconfirmed deployed predecessor remains version6 `e63f2c0c-d7d6-4ad7-85bb-754fc08621c6` until a separately recorded exact-version activation/readback. Full source/provider completion remains0/70, current game Multi Hot40. Continue safe same-origin testing of the prepared version and resume source comparison once a shared authenticated browser is actually available.
+
+---
+
 ## 2026-11-24 — source site opened; actual70-name queue confirmed; manual login pending
 
 The user now identifies their existing https://zplaybet.xyz/en/lobby/fastgames/all/ as the primary reference. Open it first, observe and test actual nonfinancial game behavior, then compare and rebuild in the existing Cloudflare Player/Railway platform. Preserve both sites and all existing backend/games; no NEW90 restart.

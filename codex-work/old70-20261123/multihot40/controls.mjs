@@ -21,7 +21,7 @@ export function mountGame({root,artwork,storage=globalThis.sessionStorage,win=gl
  try{const saved=JSON.parse(storage.getItem('zplay:old70:multihot40:preferences')||'{}');for(const key of ['effects','music','turbo'])if(typeof saved[key]==='boolean')preferences[key]=saved[key];if(['en','so'].includes(saved.language))preferences.language=saved.language;}catch{}
  const automaticRounds=new Set();
  let session,renderer,disposed=false,auto=null,autoTimer=0,bet='40',started=false,paused=false;
- const listeners=[],modalListeners=[],audio=createAudio({clips:artwork.audio});
+ const listeners=[],modalListeners=[],audio=createAudio({clips:artwork.audio,onError:error=>{if(!disposed)report(error);}});
  const bind=(el,event,fn,modal=false)=>{el.addEventListener(event,fn);(modal?modalListeners:listeners).push(()=>el.removeEventListener(event,fn));};
  const clearModal=()=>{for(const remove of modalListeners.splice(0))remove();};
  const button=(label,fn)=>{const b=doc.createElement('button');b.type='button';b.textContent=label;bind(b,'click',()=>{audio.cue('Button.mp3');fn();},true);return b;};
@@ -123,7 +123,7 @@ export function mountGame({root,artwork,storage=globalThis.sessionStorage,win=gl
  function settings(){open('SETTINGS',()=>{
   for(const [key,label] of [['effects','Sound effects'],['music','Background music']]){
    const row=doc.createElement('label');row.className='setting';row.textContent=label;const input=doc.createElement('input');input.type='checkbox';input.checked=preferences[key];row.append(input);body.append(row);
-   bind(input,'change',async()=>{preferences[key]=input.checked;if(input.checked)try{await audio.unlock();}catch(error){report(error);}savePreferences();},true);
+   bind(input,'change',async()=>{preferences[key]=input.checked;savePreferences();if(input.checked)try{await audio.unlock();}catch(error){report(error);}},true);
   }
   const row=doc.createElement('label');row.className='setting';row.textContent='Language';const select=doc.createElement('select');
   for(const [value,label] of [['en','English'],['so','Soomaali']]){const option=doc.createElement('option');option.value=value;option.textContent=label;select.append(option);}
@@ -137,8 +137,8 @@ export function mountGame({root,artwork,storage=globalThis.sessionStorage,win=gl
   })));
  }));
  bind(q('[data-sound]'),'click',async()=>{
-  preferences.effects=!preferences.effects;
-  if(preferences.effects)try{await audio.unlock();}catch(error){report(error);}savePreferences();
+  preferences.effects=!preferences.effects;savePreferences();
+  if(preferences.effects)try{await audio.unlock();}catch(error){report(error);}
  });
  bind(q('[data-take]'),'click',()=>{stopAuto();try{session.take({requestId:crypto.randomUUID()});status.textContent='Win collected';render();renderer.invalidate();}catch(error){report(error);}});
  bind(q('[data-double]'),'click',()=>open('DOUBLE WIN',()=>{

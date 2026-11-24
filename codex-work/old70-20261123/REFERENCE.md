@@ -1,3 +1,9 @@
+# Source access update — 24 November 2026
+
+The user reports login in the Codex in-app browser. The controllable Cloud browser still shows LOGIN, and the user confirms the client has no Desktop entry. These are separate sessions; no authenticated source Multi Hot40 gameplay is verified. A supported shared viewer or control of the actual authenticated tab is needed. Do not repeat ordinary login links as a session-sharing solution.
+
+---
+
 # Current source-site reference — 24 November 2026
 
 The latest user says to inspect their own original ZPLAY first, interact with the actual games there, and reproduce confirmed behavior in the existing Cloudflare Player while preserving both sites' existing backend/games. Source lobby opened successfully at https://zplaybet.xyz/en/lobby/fastgames/all/ . Selecting its SMARTSOFT (72) filter reached https://zplaybet.xyz/en/lobby/fastgames/all/smartsoft/ . All72 distinct rendered game-image names are recorded in [source-catalogue-20261124.json](source-catalogue-20261124.json); excluding Multi Hot5 and Foxy Hot20 gives70 actual source names.
