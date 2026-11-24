@@ -1,0 +1,36 @@
+name: Current M100 official public demo browser probe
+
+on:
+  push:
+    branches: [work/requested82-20261124]
+    paths:
+      - 'codex-work/requested82-official-browser-20261125/**'
+      - '.github/workflows/requested82-official-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: requested82-official-browser-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  official-multi-hot-100-load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated current-task browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/official-m100-browser" --ignore-scripts --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/official-m100-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Open the exact public official Multi Hot 100 demo once
+        env:
+          ZPLAY_QA_NODE_MODULES: ${{ runner.temp }}/official-m100-browser/node_modules
+        run: node codex-work/requested82-official-browser-20261125/official-load-probe.mjs
