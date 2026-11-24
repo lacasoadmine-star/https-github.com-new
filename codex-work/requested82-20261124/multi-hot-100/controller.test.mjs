@@ -150,3 +150,57 @@ test('TAKE remains available inside its own pending-win double dialog',async()=>
   assert.equal(await s.controller.take(),true);assert.equal(s.controls.snapshot().modal,null);
   assert.equal(s.controls.snapshot().pendingWin,'0.00');assert.equal(s.calls.length,2);
 });
+
+test('animation acceptance failure recovers the accepted win without another host request',async()=>{
+  const s=setup({win:'0.40'});s.presentation.accept=()=>{throw new Error('animation failed');};
+  assert.equal(await s.controller.spin(),false);const accepted=s.controls.snapshot().round;
+  assert.equal(s.controls.snapshot().phase,'PRESENTING');assert.equal(s.controller.snapshot().presentationRecoveryRequired,true);
+  assert.equal(await s.controller.recover(),true);assert.equal(s.calls.length,1);
+  assert.deepEqual(s.presentation.snapshot().receipt,accepted);assert.equal(s.controls.snapshot().phase,'WIN_PENDING');
+  assert.equal(s.controls.snapshot().pendingWin,'0.40');assert.equal(s.controller.snapshot().presentationRecoveryRequired,false);
+  assert.equal(await s.controller.take(),true);assert.equal(s.calls.length,2);assert.equal(s.controls.snapshot().pendingWin,'0.00');
+});
+test('frame failure retains the accepted result and does not repeatedly run broken animation',async()=>{
+  const s=setup();await s.controller.spin();const accepted=s.controls.snapshot().round;let attempts=0;
+  s.presentation.advance=()=>{attempts++;throw new Error('frame failed');};
+  assert.equal(s.controller.frame({clockMs:1,progress:0.5}),null);
+  assert.equal(s.controller.frame({clockMs:2,progress:1}),null);assert.equal(attempts,1);
+  assert.equal(s.controller.snapshot().presentationRecoveryRequired,true);assert.equal(await s.controller.recover(),true);
+  assert.equal(s.calls.length,1);assert.deepEqual(s.presentation.snapshot().receipt,accepted);assert.equal(s.controls.snapshot().phase,'IDLE');
+});
+test('presentation recovery cannot run before an accepted receipt or while hidden',async()=>{
+  const held=defer(),s=setup({submit:()=>held.promise});const first=s.controller.spin();await Promise.resolve();
+  assert.equal(s.controller.recoverPresentation(),false);assert.equal(s.calls.length,1);
+  s.presentation.accept=()=>{throw new Error('animation failed');};held.resolve(s.makeReply(s.calls[0].intent));await first;
+  s.controller.setHidden(true);assert.equal(await s.controller.recover(),false);assert.equal(s.calls.length,1);
+  s.controller.setHidden(false);assert.equal(await s.controller.recover(),true);assert.equal(s.calls.length,1);
+});
+test('static presentation recovery rejects a conflicting accepted grid',()=>{
+  const original=receipt('fixture-static-receipt'),p=new MultiHot100Presentation({initialView:original});
+  const changed=structuredClone(original);changed.grid[0][0]='seven';const before=p.snapshot();
+  assert.throws(()=>p.restoreAccepted(changed),/RECEIPT_CONFLICT/);assert.deepEqual(p.snapshot(),before);
+});
+test('a failed static restore retains the accepted win and remains locally recoverable',async()=>{
+  const s=setup({win:'0.40'});s.presentation.accept=()=>{throw new Error('animation failed');};await s.controller.spin();
+  const accepted=s.controls.snapshot().round,restore=s.presentation.restoreAccepted.bind(s.presentation);
+  s.presentation.restoreAccepted=()=>{throw new Error('view unavailable');};
+  assert.equal(await s.controller.recover(),false);assert.equal(s.calls.length,1);
+  assert.equal(s.controller.snapshot().presentationRecoveryRequired,true);assert.deepEqual(s.controls.snapshot().round,accepted);
+  assert.equal(s.controls.snapshot().pendingWin,'0.40');s.presentation.restoreAccepted=restore;
+  assert.equal(await s.controller.recover(),true);assert.equal(s.controls.snapshot().phase,'WIN_PENDING');assert.equal(s.calls.length,1);
+});
+test('disposing prevents presentation recovery from applying or submitting anything',async()=>{
+  const s=setup();s.presentation.accept=()=>{throw new Error('animation failed');};await s.controller.spin();s.controller.dispose();
+  assert.equal(s.controller.recoverPresentation(),false);assert.equal(await s.controller.recover(),false);assert.equal(s.calls.length,1);
+});
+test('an unbound presentation cannot introduce a fabricated accepted outcome',()=>{
+  const p=new MultiHot100Presentation();assert.throws(()=>p.restoreAccepted(receipt('fixture-unbound-receipt')),/NO_INTENT/);
+  assert.equal(p.snapshot().receipt,null);assert.equal(p.snapshot().outcomesGenerated,0);
+});
+test('a restore that fails to show the accepted result cannot finish or collect the round',async()=>{
+  const s=setup({win:'0.40'});s.presentation.accept=()=>{throw new Error('animation failed');};await s.controller.spin();
+  const restore=s.presentation.restoreAccepted.bind(s.presentation);s.presentation.restoreAccepted=()=>false;
+  assert.equal(await s.controller.recover(),false);assert.equal(s.controls.snapshot().phase,'PRESENTING');
+  assert.equal(s.controls.snapshot().pendingWin,'0.40');assert.equal(s.calls.length,1);
+  s.presentation.restoreAccepted=restore;assert.equal(await s.controller.recover(),true);assert.equal(s.calls.length,1);
+});

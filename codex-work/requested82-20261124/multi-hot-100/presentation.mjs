@@ -18,6 +18,14 @@ export class MultiHot100Presentation {
     if(!this.#pending) throw new Error('M100_PRESENTATION_NO_INTENT');
     this.#receipt=validateM100RoundView(receipt,this.#pending); return true;
   }
+  restoreAccepted(view) {
+    const receipt=validateM100RoundView(view);
+    if(!this.#pending && !this.#receipt) throw new Error('M100_PRESENTATION_NO_INTENT');
+    const accepted=validateM100RoundView(receipt,this.#pending??this.#receipt);
+    if(this.#receipt && JSON.stringify(accepted)!==JSON.stringify(this.#receipt)) throw new Error('M100_PRESENTATION_RECEIPT_CONFLICT');
+    this.#receipt=accepted; this.#pending=null; this.#progress=1; this.#stop=false;
+    return accepted;
+  }
   requestStop() { if(!this.#pending || this.#stop) return false; this.#stop=true; return true; }
   cancelUnsent(requestKey) {
     if(!this.#pending || this.#pending.requestKey!==requestKey || this.#receipt) return false;

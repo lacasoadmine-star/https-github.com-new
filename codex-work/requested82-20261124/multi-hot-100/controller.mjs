@@ -10,9 +10,9 @@ export class MultiHot100Controller {
        typeof keyFactory!=='function' || typeof onChange!=='function' || typeof onError!=='function') throw new TypeError('M100_HOST_CONTRACT');
     this.controls=controls; this.presentation=presentation; this.transport=transport;
     this.keyFactory=keyFactory; this.onChange=onChange; this.onError=onError;
-    this.inflight=null; this.hidden=false; this.disposed=false;
+    this.inflight=null; this.hidden=false; this.disposed=false; this.presentationFailure=false; this.restoringPresentation=false;
   }
-  snapshot() { return Object.freeze({...this.controls.snapshot(),inFlight:!!this.inflight,hidden:this.hidden,disposed:this.disposed}); }
+  snapshot() { return Object.freeze({...this.controls.snapshot(),inFlight:!!this.inflight,hidden:this.hidden,disposed:this.disposed,presentationRecoveryRequired:this.presentationFailure}); }
   report(error) { try { this.onError(error); } catch { /* Reporting must not change accepted financial state. */ } }
   change() { if(!this.disposed) { try { this.onChange(this.snapshot()); } catch(error) { this.report(error); } } }
   async spin() {
@@ -69,7 +69,7 @@ export class MultiHot100Controller {
       if(intent.kind==='SPIN') {
         const normalized=validateM100RoundView(reply,intent);
         accepted=this.controls.applyRoundView(normalized);
-        if(accepted) this.presentation.accept(accepted);
+        if(accepted) { this.presentation.accept(accepted); this.presentationFailure=false; }
       } else if(intent.kind==='TAKE_WIN') accepted=this.controls.applyTakeAcknowledgement(reply);
       else if(intent.kind==='GAMBLE') accepted=this.controls.applyGambleView(reply);
       else throw new Error('M100_UNSUPPORTED_HOST_ACTION');
@@ -77,30 +77,53 @@ export class MultiHot100Controller {
       if(!accepted && this.controls.snapshot().pending?.requestKey===intent.requestKey) throw new Error('M100_STALE_HOST_RESPONSE');
       return true;
     } catch(error) {
-      if(!this.disposed && this.controls.snapshot().pending?.requestKey===intent.requestKey) {
-        this.controls.markRequestUncertain(intent.requestKey); this.controls.stopAuto();
+      if(!this.disposed) {
+        const state=this.controls.snapshot();
+        if(state.pending?.requestKey===intent.requestKey) this.controls.markRequestUncertain(intent.requestKey);
+        else if(intent.kind==='SPIN' && state.phase==='PRESENTING' && state.round?.requestKey===intent.requestKey) this.presentationFailure=true;
+        this.controls.stopAuto(); this.report(error);
       }
-      if(!this.disposed) this.report(error);
       return false;
     } finally {
       if(this.inflight===job) this.inflight=null;
       this.change();
     }
   }
+  recoverPresentation() {
+    const state=this.controls.snapshot();
+    if(this.disposed || this.hidden || this.inflight || this.restoringPresentation || !this.presentationFailure ||
+       state.pending || state.phase!=='PRESENTING' || !state.round) return false;
+    this.restoringPresentation=true;
+    try {
+      this.presentation.restoreAccepted(state.round);
+      const view=this.presentation.snapshot();
+      if(view.moving || JSON.stringify(view.receipt)!==JSON.stringify(state.round)) throw new Error('M100_PRESENTATION_RESTORE_MISMATCH');
+      if(!this.controls.finishPresentation(state.round.roundId)) throw new Error('M100_PRESENTATION_RESTORE_PHASE');
+      this.presentationFailure=false; return true;
+    } catch(error) { this.report(error); return false; }
+    finally { this.restoringPresentation=false; this.change(); }
+  }
   async recover() {
     if(this.disposed || this.hidden || this.inflight) return false;
+    if(this.presentationFailure) return this.recoverPresentation();
     const recovery=this.controls.recoveryIntent();
     if(!recovery) return false;
     const {replayOnly,...intent}=recovery;
     return this.send(Object.freeze(intent),{recover:true});
   }
   frame({clockMs,progress}) {
-    if(this.disposed) return null;
-    const view=this.presentation.advance({clockMs,progress}),state=this.controls.snapshot();
-    if(state.phase==='PRESENTING' && !view.moving && view.receipt?.roundId===state.round?.roundId) {
-      this.controls.finishPresentation(state.round.roundId); this.change();
+    if(this.disposed || this.presentationFailure) return null;
+    try {
+      const view=this.presentation.advance({clockMs,progress}),state=this.controls.snapshot();
+      if(state.phase==='PRESENTING' && !view.moving && view.receipt?.roundId===state.round?.roundId) {
+        this.controls.finishPresentation(state.round.roundId); this.change();
+      }
+      return view;
+    } catch(error) {
+      const state=this.controls.snapshot();
+      if(state.phase==='PRESENTING' && state.round && !state.pending) this.presentationFailure=true;
+      this.controls.stopAuto(); this.report(error); this.change(); return null;
     }
-    return view;
   }
   setHidden(hidden) {
     if(this.disposed) return false;

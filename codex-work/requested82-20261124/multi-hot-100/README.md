@@ -21,3 +21,9 @@ Run `node --test codex-work/requested82-20261124/multi-hot-100/controller.test.m
 The own M100 visual/asset closure, measured motion/audio and real browser controls still require current official comparison. Its complete legal outcome model and existing-wallet server attachment remain unfinished; the retained reference explicitly leaves payline45/46 and complete probability/aggregation details unresolved. This source is not attached to a live financial route. All new-game completion and live deployment claims remain false.
 
 The cloud environment still fails startup and previously reports `github_connector_not_configured`. Source and CI work can continue through connected GitHub; official interactive play cannot be claimed while the browser runtime is unavailable.
+
+## Accepted-result recovery after a presentation failure
+
+The controller now distinguishes a lost authoritative reply from a failure to present an already accepted reply. If acceptance/drawing fails after the controls retain the immutable receipt, RECOVER restores that exact result locally and finishes presentation without another SPIN/TAKE/GAMBLE request. A winning amount stays pending until the existing host acknowledges TAKE or a subsequent SPIN collection. No balance is changed by presentation recovery.
+
+Broken frames are suspended until recovery. A failed, conflicting or hidden/disposed recovery cannot finish the round; it retains the same accepted receipt. Eight additional isolated cases cover these paths. Exact-source Node/platform CI for this change is pending; the earlier successful CI above applies to its stated source commit only. No browser/provider comparison or new game deployment is implied.
