@@ -9,3 +9,9 @@ Only status counts, canvas counts and bounded facts/hashes about static assets a
 Source-only host and recovery work remains in `../requested82-20261124/multi-hot-100/`; this probe does not attach or deploy a game. The complete active order remains `../requested82-20261124/ORDER.md`.
 
 The six-minute isolated workflow is feature-branch-only and has read-only repository permissions. It retains no browser media artifact.
+
+## Executed result
+
+Source `f008e7a624b0307c0b76c59286e6e3f7978493c6` ran in [CI45507234071](https://github.com/lacasoadmine-star/https-github.com-new/actions/runs/45507234071), job138845461391. The browser started, the official entry returnedHTTP200, and one canvas was observed. The static resource statuses/hashes are retained in `official-load-report.json`. Some UI resource requests returned404; successful canvas observation does not establish complete rendering.
+
+**Spins played0; manual reference rounds0; gameplay/parity/completion/deployment verificationfalse.** No local desktop connection was established by this isolated CI attempt. The selected Cloud task still reported `github_connector_not_configured`; Browser's local control tools were not offered in this session when inspected. Source, test and probe work remain retained for an interactive browser continuation.
