@@ -1,3 +1,13 @@
+# Current source-site reference — 24 November 2026
+
+The latest user says to inspect their own original ZPLAY first, interact with the actual games there, and reproduce confirmed behavior in the existing Cloudflare Player while preserving both sites' existing backend/games. Source lobby opened successfully at https://zplaybet.xyz/en/lobby/fastgames/all/ . Selecting its SMARTSOFT (72) filter reached https://zplaybet.xyz/en/lobby/fastgames/all/smartsoft/ . All72 distinct rendered game-image names are recorded in [source-catalogue-20261124.json](source-catalogue-20261124.json); excluding Multi Hot5 and Foxy Hot20 gives70 actual source names.
+
+Clicking the source's Multi Hot40 card opened its real-game route and then `Login to play` plus the LOGIN form. User is entering credentials themselves; most recent update says login is still incomplete. Do not inspect/interact with this tab during manual login. No source game spin, exact source artwork/audio comparison or authenticated source game behavior is claimed yet. Resume from the final logged-in state only after user confirmation. The preceding official provider observations below are retained as separate evidence, not substituted for the newly requested source-site check.
+
+Current comparison and exact resume step: [COMPARISON.md](COMPARISON.md).
+
+---
+
 # Multi Hot 40 — current reference, 2026-11-23
 
 Official product page reopened through the shared browser: https://www.smartsoftgaming.com/games/multi-hot-40 . Its own Play Demo link opened the current MultiHot40 game. User confirmed18+ before the age gate was accepted.

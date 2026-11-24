@@ -2,6 +2,10 @@
 
 Codsiga hadda: 70 ciyaarood oo hore, mid-mid; shaqadii NEW90 waa la joojiyey. Ciyaar kasta waxay heshaa koodh cusub oo modular/minified ah, waxaana browser-ka lagu tijaabiyaa isla Player-ka. MultiHot5 iyo FoxyHot20 lama beddelayo.
 
+## Tixraaca hadda iyo liiska70-ka
+
+Tixraaca koowaad waa ZPLAY-gaagii hore: https://zplaybet.xyz/en/lobby/fastgames/all/ .72 ciyaarood oo SmartSoft ah ayaa si toos ah browser-ka looga arkay; laba ka reebis ayaa ka dhigtay70. Magacyada iyo kala horreynta: [source-catalogue-20261124.json](source-catalogue-20261124.json). Waxa dhab ahaan la arkay iyo waxa weli sugaya gelitaanka: [COMPARISON.md](COMPARISON.md). Liiskani ma aha ciyaaro la dhammeeyey.
+
 ## Ciyaarta koowaad: Multi Hot 40
 
 Source-ka `multihot40/` wuxuu leeyahay xisaab integer ah, 40-ka payline ee chart-ka rasmiga ah ee hadda, reels 5×4 ah, renderer Canvas oo cusub, SPIN/STOP/BET/AUTO/TURBO, settings, history, TAKE iyo X2 practice ah. Outcome sampler-ka iyo red/black practice-ku waa kuwo madax-bannaan; ma aha probability/RTP-ga provider-ka. Credits-ku waxay bilaabmaan marka PLAY PRACTICE la riixo, browser-ka keliya ayaana lagu kaydiyaa.
