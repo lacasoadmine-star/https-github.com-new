@@ -1,3 +1,43 @@
+## 2026-11-24 — nonblocking audio prepared; source session cannot yet be shared
+
+The user reports being logged into the old ZPLAY in Codex's in-app browser. That browser is separate from the shared Cloud browser: the latter still displays LOGIN for source Multi Hot40. The user confirmed the current Codex client has no Desktop entry in its + menu, and the offered panel-opening tool has no cloud-desktop target. Reopening an ordinary website link does not share authentication. Do not repeatedly ask the user to repeat in-app login or copy cookies/passwords/session material. The missing capability is a supported shared viewer or a browser-control connection to the already authenticated tab. No authenticated source gameplay or money-bearing spin has been performed.
+
+While that access is pending, completed the authorized independent Multi Hot40 audio improvement: gesture unlock and sound settings no longer wait for media downloads; effects warm four unique compressed clips, shared reel-stop labels decode once, and background music is fetched only after explicit music enablement. Failed clips can retry on a later gesture; callbacks cannot revive sound after disposal, aborted requests or muted/hidden state. Existing game outcomes and accounting are unchanged.
+
+Local validation: **72 focused checks across8 suites**, all3 existing frontend builds and9 disposable backend tests passed. The minified build is prepared at revision `16be4f52d60a783c7d048843`; it is not declared deployed or browser-verified by this source checkpoint. The currently reconfirmed deployed predecessor remains version6 `e63f2c0c-d7d6-4ad7-85bb-754fc08621c6` until a separately recorded exact-version activation/readback. Full source/provider completion remains0/70, current game Multi Hot40. Continue safe same-origin testing of the prepared version and resume source comparison once a shared authenticated browser is actually available.
+
+---
+
+## 2026-11-24 — source site opened; actual70-name queue confirmed; manual login pending
+
+The user now identifies their existing https://zplaybet.xyz/en/lobby/fastgames/all/ as the primary reference. Open it first, observe and test actual nonfinancial game behavior, then compare and rebuild in the existing Cloudflare Player/Railway platform. Preserve both sites and all existing backend/games; no NEW90 restart.
+
+The shared browser loaded the source lobby and its SMARTSOFT (72) provider filter.72 distinct game-image names were read from the rendered catalogue; the exact two exclusions yield70. `codex-work/old70-20261123/source-catalogue-20261124.json` records the observed order plus the active per-game queue: continue Multi Hot40, then Safari Simba, then the rest in observed source order. This is a verified queue, not completed implementations.
+
+The actual source Multi Hot40 card opened its real-game route, which displayed `Login to play` and LOGIN. The user is logging in manually and latest update says it is not finished. The browser tab remains marked for handoff; credentials, OTP, private session URLs and history are not copied. No source spin has occurred. After the user's completion signal, inspect the final page and establish test/demo mode before interacting with gameplay.
+
+The owner API reconfirmed corrected presentation Worker version6 `e63f2c0c-d7d6-4ad7-85bb-754fc08621c6` at100%, revision `795ee7b7e4e6362a7d73604e`, source commit `2dd87efe6d13c035ef19206c8aade2d534f78ec1`. Its three added modules total56,906 minified bytes (20,136 gzip); media is separate. Prior23 November browser evidence on this corrected version includes PLAY, saved balance/board restoration, sharp enlarged symbols, visible controls and BET0.80. Corrected-version SPIN/STOP/AUTO and full audiovisual comparison remain open. The original four child modules and parent Player were retained.
+
+Source2dd87efe passed62 focused checks,9 disposable backend checks and the three existing frontend builds in GitHub Actions45283465141 and45283453628. This checkpoint adds observed reference/queue documentation only; no game code or deployment changes. Railway read-only status found the existing staging services and an untouched staged patch dated8 November; no Railway mutation or money-bearing request was performed.
+
+Current game1 remains IN_PROGRESS; full provider/source parity completion0/70. See `codex-work/old70-20261123/COMPARISON.md` for what is observed versus pending. Next: finish the manual source login, observe Multi Hot40, implement verified differences, retest the exact same-origin build, then advance one game at a time.
+
+---
+
+## 2026-11-23 — current user order: rebuild the old70, stop NEW90 work
+
+The latest user cancelled further NEW90 development and requested70 existing games, one at a time, with new references and modular/minified source. Practice templates remain independent of real accounts, wallet and financial backend; browser tests use the existing Player origin only. MultiHot5 and FoxyHot20 are preserved.
+
+Current game: **Multi Hot40**. The new source is `codex-work/old70-20261123/`, feature branch `work/old70-modular-independent-20261123`, [PR33](https://github.com/lacasoadmine-star/https-github.com-new/pull/33). Fresh official product/demo observations include seven main-button rounds, the currently displayed BET/AUTO controls and all40 current chart paths. Private session URLs/history images are not published.
+
+The first practice version is active at `/native-ui/old70/multihot40/` through the existing Player and its existing presentation service. PLAY, SPIN and STOP were exercised there using only explicit local practice credits. All four preceding child modules were hash-verified unchanged. The parent Player's code, real wallet, accounts, database, ledger and Telebirr were not changed.
+
+The first browser pass found small symbol scaling. Corrections now include tight sprite cropping, proportional backgrounds, saved-round board restoration, visible X2 results, bounded audio that cannot block PLAY, modal/image cleanup, multiplier arc and tiered win count-up. **62 focused checks pass**, together with the previously completed three frontend builds and9 disposable backend tests. The corrected version still requires its own deployment/readback and browser retest; initial-version observations do not count as corrected-version proof.
+
+Next: finish the corrected same-site Multi Hot40 acceptance, record responsive/control/audio limits, then advance to Safari Simba. Complete-provider-parity games remain0/70. This is one practice implementation in progress, not70 completed games. Historical90/71/72 checkpoints below are retained as history only.
+
+---
+
 ## 2026-11-23 — NEW90 game 01: existing live Player API identified and safely adapted
 
 - User authorizes sequential game-by-game development 01–90 using the existing ZPLAY backend, Worker and ETB ledger only, following independent current official demo reference checks.

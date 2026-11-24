@@ -1,0 +1,35 @@
+name: Old70 Multi Hot 40 practice QA
+on:
+  push:
+    branches: [work/old70-modular-independent-20261123]
+  pull_request:
+    paths:
+      - codex-work/old70-20261123/**
+      - .github/workflows/old70-qa.yml
+permissions:
+  contents: read
+jobs:
+  practice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify independent gameplay, rendering and same-origin host
+        run: |
+          for task_test in codex-work/old70-20261123/multihot40/*.test.mjs codex-work/old70-20261123/host/worker.test.mjs; do
+            node "$task_test" || exit 1
+          done
+      - name: Build minified split modules
+        run: node codex-work/old70-20261123/build.mjs
+      - name: Build all three existing portals
+        run: npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r backend/requirements.txt
+      - name: Existing backend with disposable SQLite
+        run: python -m unittest tests.test_platform
