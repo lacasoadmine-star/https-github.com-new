@@ -104,6 +104,9 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
   function show(name,source){
     if(disposed)return;
     if(!overlay.hidden&&modal!==name&&modal==='startup')return;
+    // An open game dialog must never leave automatic wagers armed behind it.
+    // Only stop upcoming rounds; an already accepted SPIN retains its server receipt.
+    if(['rules','settings','history','quick','gamble'].includes(name))controller?.stopAuto('MENU');
     const s=snapshot();if(['bet','auto','gamble'].includes(name)&&!['READY','WIN_PENDING'].includes(s.phase))return;
     if(name==='bet'&&(s.phase!=='READY'||s.auto?.active))return;
     if(overlay.hidden)origin=source??d.activeElement;
@@ -232,7 +235,8 @@ export function mountSuperWilds({root,transport=null,subject=null,journalStorage
     if(key==='fullscreen'){
       const task=target.checked?root.requestFullscreen?.():d.exitFullscreen?.();Promise.resolve(task).catch(onError);return;
     }
-    settings[key]=target.checked;if(key==='effects'){settings.music=target.checked;const m=panel.querySelector('[data-setting=music]');if(m)m.checked=settings.music;}
+    // Sound Effects and Background Music are independent controls.
+    settings[key]=target.checked;
     audio.setting(settings);if(settings.effects)void audio.unlock();sync();
   });
   on(d,'fullscreenchange',()=>{settings.fullscreen=d.fullscreenElement===root;const box=panel.querySelector('[data-setting=fullscreen]');if(box)box.checked=settings.fullscreen;resize();});

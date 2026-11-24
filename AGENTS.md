@@ -1,3 +1,9 @@
+# Active user directive — 24 November 2026
+
+The latest user explicitly supersedes the 23 November work queue with the **82 exact supplied labels** in [the active order](codex-work/requested82-20261124/ORDER.md) and [the exact list](codex-work/requested82-20261124/requested.json). Follow this new scope only. Preserve all earlier implementations and live games as code, not as active historical tasks. Use official provider demos only; never use the user's uploaded videos/screenshots as build references. Retain existing wallet/ledger/auth/account/payment boundaries and separate new game identities. Do not claim requested entries, source-only publication or fixtures are completed/deployed games. Runtime startup currently reports `github_connector_not_configured`; reconnect the workspace's GitHub account and start a new cloud task as directed by the environment service. This connection must be authorized by the account owner; no fabricated approval button or bypass is allowed. Existing routine coding/testing/deployment authorization remains in force. The historical instructions below remain preserved and apply only where compatible with the latest user request.
+
+---
+
 # ZPLAY / Superwin continuation instructions
 
 ## Latest explicit order — 23 November 2026

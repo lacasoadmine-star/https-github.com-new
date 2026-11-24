@@ -140,3 +140,30 @@ test('TAKE or a lost gamble clears the win line while retaining the immutable or
     paths.length=0;renderer.setDisplay(patch);assert.equal(linePaths().length,0);assert.deepEqual(renderer.snapshot().receipt,accepted);
   }
 });
+
+test('576x1280 uploaded Super Wilds video reference pins actual artwork and touch placement',()=>{
+  const l=superWildsLayout(576,1280);
+  const near=(actual,target,label,tolerance=4)=>assert.ok(Math.abs(actual-target)<=tolerance,`${label}: ${actual}, expected ${target}`);
+  near(l.cabinet.x,22,'reel cabinet left');
+  near(l.cabinet.y,465,'reel cabinet top');
+  near(l.cabinet.width,533,'reel cabinet width');
+  near(l.cabinet.height,320,'reel cabinet height');
+  near(l.wheel.y,346,'wheel top');
+  near(l.title.y,223,'title top');
+  near(l.controls.spin.x,207,'spin left');
+  near(l.controls.spin.y,1021,'spin top');
+  near(l.controls.spin.width,161,'spin touch area');
+  near(l.controls.auto.x,115,'AUTO left');
+  near(l.controls.take.x,383,'TAKE left');
+  near(l.balance.y,1202,'footer y');
+  near(l.bet.y,1202,'BET footer y');
+});
+
+test('accepted WIN presentation never obscures the native SPIN button',()=>{
+  for(const [width,height] of [[360,640],[360,844],[390,780],[390,844],[430,640],[430,932],[576,1280]]){
+    const l=superWildsLayout(width,height);
+    assert.ok(l.win.y>=l.cabinet.y+l.cabinet.height,`${width}x${height} win after reels`);
+    assert.ok(l.win.y+l.win.height<=l.controls.spin.y,`${width}x${height} win before SPIN`);
+    assert.ok(l.win.x>=0&&l.win.x+l.win.width<=width,`${width}x${height} win visible`);
+  }
+});

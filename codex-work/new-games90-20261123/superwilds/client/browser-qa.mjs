@@ -138,9 +138,14 @@ try{
     if(width===1280)check(menuGeometry.width===900&&menuGeometry.height===602,'observed desktop menu dimensions are retained');
     check(await page.locator('.sw-paylines svg').count()===5,'five actual payline paths rendered');
     await page.getByRole('tab',{name:'Settings',exact:true}).click();await page.locator('[data-setting=effects]').uncheck();
-    check(await page.locator('[data-setting=music]').isChecked()===false,'effects OFF also turns music OFF');
-    check(await page.evaluate(()=>window.__SW_QA__.mount.audio.ambient===null),'muting stops ambient audio node');
+    check(await page.locator('[data-setting=music]').isChecked()===true,'sound effects OFF preserves the separate music selection');
+    check(await page.evaluate(()=>window.__SW_QA__.mount.audio.ambient!==null),'background music keeps running while effects are muted');
+    await page.locator('[data-setting=music]').uncheck();
+    check(await page.evaluate(()=>window.__SW_QA__.mount.audio.ambient===null),'background music OFF stops the ambient audio node');
     await page.locator('[data-setting=effects]').check();
+    check(await page.locator('[data-setting=music]').isChecked()===false,'effects ON does not silently enable music');
+    await page.locator('[data-setting=music]').check();
+    check(await page.evaluate(()=>window.__SW_QA__.mount.audio.ambient!==null),'music can be enabled separately from effects');
     await page.getByRole('tab',{name:'Settings',exact:true}).press('ArrowRight');
     check(await page.getByRole('tab',{name:'History',exact:true}).getAttribute('aria-selected')==='true','keyboard selects the next real menu tab');
     await page.getByRole('tab',{name:'History',exact:true}).press('Home');
@@ -196,7 +201,21 @@ try{
     for(let n=0;n<7&&await page.getByRole('button',{name:'Previous bet values',exact:true}).isEnabled();n++)await page.getByRole('button',{name:'Previous bet values',exact:true}).click();
     await page.locator('[data-action=choose-bet][data-value="20"]').click();
     check(await page.evaluate(()=>window.__SW_QA__.mount.snapshot().betMinor)===20,'host-supplied bet choice updates input');
-    const afterControls=await page.evaluate(()=>window.__SW_QA__.api('stats'));check(afterControls.debits===beforeControls.debits&&afterControls.credits===beforeControls.credits,'menu, QUICK and BET interactions create no financial actions');
+    // Menu activation and AUTO cancellation are in one browser task so an
+    // unrelated animation frame cannot fire an extra synthetic wager first.
+    const autoMenu=await page.evaluate(()=>{
+      const controller=window.__SW_QA__.mount.controller;
+      controller.configureAuto({count:25});
+      controller.startAuto();
+      const before=controller.snapshot().auto?.active;
+      document.querySelector('.sw-menu').click();
+      return {before,after:controller.snapshot().auto?.active,reason:controller.snapshot().auto?.reason,
+        modal:document.querySelector('#game').dataset.modal};
+    });
+    check(autoMenu.before===true&&autoMenu.after===false&&autoMenu.reason==='MENU'&&autoMenu.modal==='rules',
+      'opening the original game menu immediately cancels queued AUTO wagers');
+    await page.getByRole('button',{name:'×',exact:true}).click();
+    const afterControls=await page.evaluate(()=>window.__SW_QA__.api('stats'));check(afterControls.debits===beforeControls.debits&&afterControls.credits===beforeControls.credits,'menu, QUICK, BET and canceled AUTO create no financial actions');
     controlTraces.push({width,initialPresentation,menuGeometry,pickerGeometry,whiteSpin,yellowSpin,restoredSpin,beforeControls,afterControls});
     await page.screenshot({path:resolve(output,`superwilds-${width}-ready.png`)});
     const receipts=[];
