@@ -32,12 +32,12 @@ export async function stageM100Release(cloudflare,accountId,plan){
   if(latest.id!==plan.expectedLatestVersion||canonical(config(latest))!==originalConfig)throw Error('M100_STAGE_LATEST_CHANGED');
   const namespace=baseline.bindings.find(b=>b.name==='SSG_OFFICIAL_REFERENCES')?.namespace_id;
   if(!namespace)throw Error('M100_STAGE_KV_BINDING_MISSING');
-  for(const resource of plan.resources){
-    if(resource.key!==`requested82/m100/sha256/${resource.sha256}/${resource.name}`)throw Error('M100_STAGE_RESOURCE_KEY_INVALID');
-    const value=await cloudflare.request({method:'GET',path:`/accounts/${accountId}/storage/kv/namespaces/${namespace}/values/${resource.key}`});
-    const b=typeof value==='string'?new TextEncoder().encode(value):value;
-    if(!(b instanceof Uint8Array)||b.length!==resource.bytes||await hash(b)!==resource.sha256)throw Error('M100_STAGE_RESOURCE_UNVERIFIED:'+resource.name);
-  }
+  // Each resource is uploaded and read back in a separate fresh connector call.
+  // Loading another 11 MB here beside the retained 67 MB Worker exceeds its
+  // isolate budget. Runtime serving also verifies every content hash.
+  if(plan.resources.some(resource=>resource.key!==`requested82/m100/sha256/${resource.sha256}/${resource.name}`)||
+    plan.resourceReadbacks?.length!==plan.resources.length||plan.resources.some(resource=>
+      !plan.resourceReadbacks.some(proof=>proof.key===resource.key&&proof.sha256===resource.sha256&&proof.bytes===resource.bytes&&proof.readbackVerified===true)))throw Error('M100_STAGE_RESOURCE_READBACK_REQUIRED');
   let addedBytes=0;const newPins=[];
   for(const m of plan.modules){
     const b=new TextEncoder().encode(m.source);

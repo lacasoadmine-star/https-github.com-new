@@ -40,6 +40,11 @@ export const M100_AUDIO_PINS=Object.freeze([
     "path": "Start/ReelStop5.mp3",
     "bytes": 22080,
     "sha256": "d6b01ee2afe2dadd5363d53fc31b96eefba14a0ecabc9e84060aa8e71ea1c946"
+  },
+  {
+    "path": "Start/WinMultiplier.mp3",
+    "bytes": 80640,
+    "sha256": "e511cc791eca3fe7b9f836c8f7701b94eae754d2ef7267423cac27962b4a44aa"
   }
 ]);
 const hash=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');

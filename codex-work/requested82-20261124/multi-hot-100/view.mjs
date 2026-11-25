@@ -53,6 +53,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     if(assets?.background){const bg=assets.background,scale=Math.max(size.width/bg.width,size.height/bg.height);ctx.drawImage(bg,(size.width-bg.width*scale)/2,(size.height-bg.height*scale)/2,bg.width*scale,bg.height*scale);}
     else {const fill=ctx.createRadialGradient(size.width/2,size.height/2,0,size.width/2,size.height/2,size.width*.8);fill.addColorStop(0,'#07583d');fill.addColorStop(.7,'#002b23');fill.addColorStop(1,'#001b1d');ctx.fillStyle=fill;ctx.fillRect(0,0,size.width,size.height);}
     const x=portrait?3:386,y=portrait?Math.round(size.height*.28):184+verticalOffset,w=portrait?594:568,h=portrait?475.2:460,cw=w/5,ch=h/4;
+    game.style.setProperty('--m100-reels-bottom',`${(y+h)/size.height*100}%`);
     ctx.fillStyle='#003025';ctx.fillRect(x-5,y-5,w+10,h+10);ctx.strokeStyle='#d4ba65';ctx.lineWidth=4;ctx.strokeRect(x-5,y-5,w+10,h+10);
     if(assets?.frames?.names?.includes('Box/Background')){const cabinet=assets.frames.get('Box/Background');ctx.drawImage(cabinet,0,243,993,813,x-5,y-5,w+10,h+10);}
     const receipt=view.receipt??view.previous,grid=receipt?.grid??idleGrid;
