@@ -90,6 +90,9 @@ def estimated_raf_fps(page) -> float | None:
 
 def find_spin_button(page):
     for frame in page.frames:
+        # A demo parent page may embed a live-money iframe. Never click it.
+        if not is_explicit_demo(frame.url):
+            continue
         for label in ("SPIN", "PLAY"):
             button = frame.get_by_role("button", name=re.compile(rf"^{label}$", re.I))
             if button.count() > 0:
