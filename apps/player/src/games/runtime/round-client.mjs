@@ -1,0 +1,127 @@
+/**
+ * Browser transport for a future *server-authoritative* ETB round endpoint.
+ * The browser never selects a result or calculates a payout.
+ * Not connected to production until the backend implements this contract.
+ * getAccountId must return the stable authenticated account ID from the server.
+ * Recreate the client after account changes; never derive identity from a bearer token.
+ */
+export function createRoundClient({ gameId, endpoint = '/api/player/game-rounds',
+  fetcher = globalThis.fetch, storage = globalThis.sessionStorage,
+  getAccessToken, getAccountId, tokenFactory = () => globalThis.crypto.randomUUID() }) {
+  if (!/^[a-z0-9][a-z0-9-]{1,63}$/.test(gameId)) throw new Error('INVALID_GAME_ID');
+  if (!storage || typeof fetcher !== 'function' || typeof getAccessToken !== 'function' ||
+      typeof getAccountId !== 'function') throw new Error('ROUND_CLIENT_CONFIGURATION');
+  const accountId = readAccountId();
+  const legacyKey = 'zplay.pending-round.v1.' + gameId;
+  const key = 'zplay.pending-round.v2.' + encodeURIComponent(accountId) + '.' + gameId;
+  let inFlight = null;
+
+  function readAccountId() {
+    const value = getAccountId();
+    if (typeof value !== 'string' && !(Number.isSafeInteger(value) && value > 0)) {
+      throw new Error('ROUND_ACCOUNT_REQUIRED');
+    }
+    const id = String(value);
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$/.test(id)) throw new Error('INVALID_ACCOUNT_ID');
+    return id;
+  }
+
+  function assertAccount() {
+    if (readAccountId() !== accountId) throw new Error('ROUND_ACCOUNT_CHANGED');
+  }
+
+  function stakeString(value) {
+    if (typeof value !== 'string' && typeof value !== 'number') throw new Error('INVALID_BET');
+    const raw = String(value);
+    if (!/^(?:0|[1-9][0-9]{0,7})(?:\.[0-9]{1,4})?$/.test(raw)) throw new Error('INVALID_BET');
+    const [whole, fraction = ''] = raw.split('.');
+    if (BigInt(whole) * 10000n + BigInt((fraction || '0').padEnd(4, '0')) <= 0n) {
+      throw new Error('INVALID_BET');
+    }
+    return raw;
+  }
+
+  function pending() {
+    assertAccount();
+    // v1 did not identify the account. Preserve it for server reconciliation;
+    // assigning it to whichever account signs in next could place a second bet.
+    if (storage.getItem(legacyKey) !== null) throw new Error('ROUND_LEGACY_PENDING');
+    const raw = storage.getItem(key);
+    if (!raw) return null;
+    let item;
+    try { item = JSON.parse(raw); } catch { throw new Error('ROUND_STORAGE_CORRUPT'); }
+    if (item?.v !== 2 || item.accountId !== accountId || item.gameId !== gameId ||
+        typeof item.token !== 'string' || !/^[a-zA-Z0-9_-]{8,96}$/.test(item.token)) {
+      throw new Error('ROUND_STORAGE_CORRUPT');
+    }
+    try { stakeString(item.bet); } catch { throw new Error('ROUND_STORAGE_CORRUPT'); }
+    return item;
+  }
+
+  function clearMatchingPending(current) {
+    const saved = pending();
+    // Another client instance can already be waiting on a later round. A delayed
+    // response from this request must not erase that later round's recovery token.
+    if (saved?.token === current.token && saved.bet === current.bet) storage.removeItem(key);
+  }
+
+  function beginRound(bet) {
+    const stake = stakeString(bet);
+    const existing = pending();
+    if (existing && existing.bet !== stake) throw new Error('ROUND_PENDING');
+    if (inFlight) return inFlight;
+    let current = existing;
+    if (!current) {
+      const token = tokenFactory();
+      if (typeof token !== 'string' || !/^[a-zA-Z0-9_-]{8,96}$/.test(token)) {
+        throw new Error('INVALID_ROUND_TOKEN');
+      }
+      current = { v: 2, accountId, gameId, bet: stake, token };
+      // Persist *before* network send: reconnect/retry must use the same token.
+      storage.setItem(key, JSON.stringify(current));
+    }
+    inFlight = (async () => {
+      assertAccount();
+      const accessToken = getAccessToken();
+      assertAccount();
+      if (!accessToken) throw new Error('AUTH_REQUIRED');
+      const response = await fetcher(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + accessToken },
+        body: JSON.stringify({ game_id: gameId, bet: stake, client_token: current.token }),
+      });
+      const data = await response.json().catch(() => ({}));
+      // Do not display another account's settled balance after a sign-out or
+      // account switch. Its saved token remains available when that owner returns.
+      assertAccount();
+      if (response.status === 202) return { status: 'pending', client_token: current.token };
+      if (response.ok) {
+        const valid = data?.status === 'settled' && data.game_id === gameId &&
+          data.client_token === current.token && data.bet === stake &&
+          typeof data.round_id === 'string' && data.round_id.length > 0 &&
+          data.currency === 'ETB' && data.result_json &&
+          typeof data.result_json === 'object' && !Array.isArray(data.result_json) &&
+          typeof data.total_win === 'string' && typeof data.balance === 'string' &&
+          /^\d+(?:\.\d{1,4})?$/.test(data.total_win) &&
+          /^\d+(?:\.\d{1,4})?$/.test(data.balance);
+        if (!valid) throw new Error('INVALID_SERVER_ROUND');
+        clearMatchingPending(current);
+        return data;
+      }
+      if (data?.status === 'rejected' && data?.debit_applied === false &&
+          data?.client_token === current.token && response.status >= 400 && response.status < 500) {
+        clearMatchingPending(current);
+      }
+      // Uncertain state: preserve client_token on disconnect, 5xx and timeout.
+      throw new Error('ROUND_NOT_SETTLED');
+    })().finally(() => { inFlight = null; });
+    return inFlight;
+  }
+
+  function resumePending() {
+    const item = pending();
+    return item ? beginRound(item.bet) : Promise.resolve(null);
+  }
+
+  return { beginRound, resumePending, getPending: pending };
+}

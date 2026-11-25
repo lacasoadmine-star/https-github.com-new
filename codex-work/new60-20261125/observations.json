@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "observedOn": "2026-11-25",
+  "userTimezone": "Africa/Addis_Ababa",
+  "requestedGameCount": 60,
+  "freshZplayCatalogueEntriesVerified": 0,
+  "completedNewNativeGames": 0,
+  "newLiveVerifiedGames": 0,
+  "productionDeploymentsPerformed": 0,
+  "catalogue": {
+    "requestedUrl": "https://zplaybet.xyz/en/lobby/casino/all/",
+    "localChromeStatus": "Connected extension could not obtain originating browser context.",
+    "cloudChromeStatus": "Blank lobby with Support; one reload did not resolve the missing catalogue.",
+    "causeEstablished": false,
+    "historicalCatalogueReusedAsCurrent": false
+  },
+  "reference": {
+    "candidateNumber": 1,
+    "gameId": "new60-multi-hot-5-burn-wilds",
+    "name": "Multi Hot 5 Burn Wilds",
+    "provider": "SmartSoft Gaming",
+    "currentZplayMembershipVerified": false,
+    "officialProductPage": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+    "publicDemoLauncher": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/&Token=DEMO",
+    "gameFrameOrigin": "https://eu-server-w3.ssgportal.com",
+    "gameFramePath": "/SlotsDemo/Slots/MultiHot5BurnWilds/Game.aspx",
+    "privateFrameQueryOmitted": true,
+    "rulesVersion": "v1.0.1",
+    "currency": "DMO",
+    "realMoneyUsed": false,
+    "viewport": {"width": 1363, "height": 936},
+    "initialBalanceMinorUnits": 2000000,
+    "finalBalanceMinorUnits": 1999870,
+    "completedManualRounds": 7,
+    "completedAutomaticRounds": 2,
+    "manualRounds": [
+      {"sequence": 1, "betMinorUnits": 10, "winMinorUnits": 0, "winningWheelDisplay": 1, "balanceAfterMinorUnits": 1999990, "screenshot": "spin-01.jpg", "stopClickedDuringSpin": true},
+      {"sequence": 2, "betMinorUnits": 20, "winMinorUnits": 0, "winningWheelDisplay": 1, "balanceAfterMinorUnits": 1999970, "screenshot": "spin-02.jpg"},
+      {"sequence": 3, "betMinorUnits": 20, "winMinorUnits": 0, "winningWheelDisplay": 2, "balanceAfterMinorUnits": 1999950, "screenshot": "spin-03.jpg"},
+      {"sequence": 4, "betMinorUnits": 20, "winMinorUnits": 40, "winningWheelDisplay": 4, "balanceBeforeCollectionMinorUnits": 1999930, "balanceAfterMinorUnits": 1999970, "screenshot": "spin-04.jpg", "collectionScreenshot": "spin-04-collected.jpg", "winningLine": 3, "baseLineWinMinorUnits": 10, "action": "Opened X2 panel; selected TAKE WIN without a red/black gamble."},
+      {"sequence": 5, "betMinorUnits": 20, "winMinorUnits": 0, "winningWheelDisplay": 3, "balanceAfterMinorUnits": 1999950, "screenshot": "spin-05.jpg"},
+      {"sequence": 6, "betMinorUnits": 20, "winMinorUnits": 0, "winningWheelDisplay": 1, "balanceAfterMinorUnits": 1999930, "screenshot": "spin-06.jpg"},
+      {"sequence": 7, "betMinorUnits": 20, "winMinorUnits": 0, "winningWheelDisplay": 1, "balanceAfterMinorUnits": 1999910, "screenshot": "spin-07.jpg"}
+    ],
+    "automaticSession": {
+      "requestedRoundLimit": 25,
+      "displayedWinStopThresholdDMO": "0.01",
+      "displayedBalanceDecreaseThresholdDMO": "0.20",
+      "balanceBeforeMinorUnits": 1999910,
+      "balanceAfterMinorUnits": 1999870,
+      "completedRounds": 2,
+      "betMinorUnitsPerRound": 20,
+      "winMinorUnitsEach": [0, 0],
+      "idleAfterwards": true,
+      "thresholdComparisonSemanticsVerified": false,
+      "note": "Observed stop after two rounds. Do not infer stop-after-one behavior or the implementation's comparison rule."
+    },
+    "history": {
+      "observedRows": 9,
+      "observedLatestSpinId": "1996621151.9",
+      "individualProviderRoundIdsInferred": false,
+      "screenshot": "history-tab.jpg",
+      "replayControl": "Opened a new official SpinHistoryClient tab; replay content and controls were not independently verified."
+    },
+    "controls": {
+      "spin": "Seven manual rounds reached observed final results; history independently lists all nine manual/automatic entries.",
+      "stop": "Clicked during manual round 1; one 0.10 DMO deduction was observed, with no second round in history. Exact stop timing was not measured.",
+      "bet": "Selected 0.20 DMO after 0.10 DMO; in-game bet and resulting debits confirmed.",
+      "paytable": "Opened/scrolled; plus control changed displayed table from 0.10 to 0.20 DMO; all shown payouts doubled. Table preview is distinct from changing the actual bet.",
+      "auto": "Menu, round-count selection, win and balance-decrease settings, start and automatic stop were exercised; two rounds completed.",
+      "turbo": "Quick Play prompt opened and ENABLE exercised; golden turbo indicator observed. No timing or FPS guarantee established.",
+      "x2": "Opened on the 0.40 DMO win; RED, BLACK and TAKE WIN were visible. Red/black choice and random gamble outcomes were not exercised.",
+      "takeWin": "0.40 DMO added to the demo balance after collecting round 4.",
+      "settings": "Opened and closed.",
+      "soundEffects": "Visible toggle and mute icon tested. No audible output recorded or independently heard.",
+      "backgroundMusic": "Visible toggle changed; final setting off. No audio verification.",
+      "fullscreen": "Toggle visibly changed on and back off; top-level fullscreenElement was false, so actual fullscreen entry is not verified.",
+      "history": "Opened and verified nine bet/win entries. Replay opened a new tab only.",
+      "untested": ["red/black gamble choice and outcome", "hold-to-repeat spin", "history biggest-wins tab", "all bet values and limit boundaries", "keyboard interaction", "mobile/tablet controls", "exit navigation"]
+    },
+    "providerDisplayedClaims": {
+      "rtpPercent": "96.55",
+      "minimumBetDMO": "0.10",
+      "maximumBetDMO": "200.00",
+      "maximumWinTimesBet": 1300,
+      "implementedOrIndependentlyCertified": false
+    },
+    "animationEvidence": {
+      "sampledFrameCount": 14,
+      "firstFrameUtc": "2026-11-25T04:59:03.860Z",
+      "lastFrameUtc": "2026-11-25T04:59:05.337Z",
+      "silentSequenceFile": "spin-07-observation.mp4",
+      "timingFile": "spin-07-frames/timing.json",
+      "rendererFpsMeasured": false,
+      "audioCaptured": false,
+      "note": "MP4 is a variable-time sequence of captured screenshots, padded by one black pixel for codec dimensions. It is not a native screen recording, FPS benchmark or game implementation. Original frames are retained."
+    },
+    "uncompletedAttempt": "An initial second-round click interacted with a Quick Play prompt and did not start a bet. It is not included in the completed-round count; evidence is spin-02-not-started.jpg.",
+    "acceptance": "PARTIAL_COMPONENT_AND_OFFICIAL_REFERENCE_OBSERVATION_ONLY"
+  }
+}

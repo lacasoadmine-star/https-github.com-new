@@ -1,3 +1,13 @@
+# Current 60-game directive — 25 November 2026
+
+The latest user requests 60 actual ZPLAY games, each observed in its current official demo and developed through OBSERVE → BUILD → TEST → FIX → VERIFY. This is the active scope; earlier pair/82/90 queues below are historical. Use only isolated test balances for all development. Preserve every existing game, route, account, ledger, history and authentication boundary. Production release requires completed technical and asset-rights gates.
+
+Current source work is under `codex-work/new60-20261125/`. The baseline is commit `47b783f6615e2159c5909cc5e663c297754323ca`, named by the active Player version 476 deployment. The connected local Chrome extension was unavailable in this turn; the cloud Chrome ZPLAY lobby was blank, while the public official Burn Wilds DMO did load. See the new60 observation record for exact evidence and remaining limits. Do not convert historical catalogue entries into a freshly verified list of 60.
+
+The new payout component quotes directly observed paylines only. It does not generate outcomes, determine wild-expansion order, aggregate round payouts or authorize wallet settlement. The additive round client has no production caller or implemented endpoint in this branch. Component tests and provider demo rounds are not rebuilt games or LIVE VERIFIED releases. Do not deploy the whole old repository main over the current retained Worker, and do not apply unrelated pending Railway changes.
+
+---
+
 # Active pair delivery directive — 24 November 2026
 
 25 November clarification: the user explicitly requests adding the first pair to the live dashboard now and will supply a player session manually if needed. A real PLAY trial may therefore be admitted before authenticated production rounds are independently verified. Keep trial admission distinct from completion/liveVerified; do not create placeholder cards for the remaining80. Preserve existing sign-in and never request passwords or opaque session tokens in chat. Current live version474 contains the verified M20 recovery release; recheck before subsequent writes.
