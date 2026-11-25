@@ -1,0 +1,41 @@
+{
+  "reference": "https://zplaybet.xyz/en/",
+  "target": "https://superwin-player.apdiy61.workers.dev/",
+  "status": "unpublished-partial-lobby-awaiting-original-assets-and-provider-access",
+  "published": false,
+  "requestedNewNativeGames": 70,
+  "completedNativeGames": 0,
+  "completedGames": 0,
+  "distinctReferenceRecords": 157,
+  "referenceCaptureCounts": {
+    "casinoAll": 100,
+    "smartSoftFilter": 72,
+    "mostLiked": 8
+  },
+  "scope": "Rebuild the full website and 70 new native games from the current Chrome reference only; no reused old game engines or invented artwork.",
+  "components": {
+    "referenceDesktop": "observed",
+    "referenceMobile": "observed",
+    "referenceMenu": "observed",
+    "dashboard": "new-source-implemented-incomplete-unpublished",
+    "accountIntegration": "existing-contract-reviewed-read-only-user-view-in-source",
+    "workerIntegration": "new-additive-wrapper-tested-not-deployed",
+    "gameEngines": "not-built",
+    "browserQA": "desktop-basic-controls-passed-original-artwork-unavailable-mobile-not-tested",
+    "visualParity": "not-verified"
+  },
+  "validation": {
+    "command": "node --test web/*.test.mjs integration/*.test.mjs",
+    "passed": 11,
+    "failed": 0,
+    "javascriptSyntax": "passed",
+    "productionTransactions": "none"
+  },
+  "blockers": [
+    "Automatic approval review rejected access to the session-bearing provider frame at eu02-server-w3.ssgportal.com; explicit authorization for that origin is required. No bypass attempted.",
+    "Current catalogue records and card artwork are reference observations, not completed playable games.",
+    "Complete current original game assets/audio and authoritative game rules have not been acquired.",
+    "Original featured game covers failed to load from their CDN in the new lobby preview; icon fonts did not render correctly. No substitute artwork was added.",
+    "Exact visual comparison and new lobby mobile QA remain unfinished."
+  ]
+}

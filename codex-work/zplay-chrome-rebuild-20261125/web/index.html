@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>ZPLAY — fresh lobby source</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap">
+  <link rel="stylesheet" href="./theme.css">
+  <link rel="stylesheet" href="./lobby.css">
+  <script type="module" src="./lobby.mjs"></script>
+</head>
+<body>
+  <div class="cashback"><span class="announcement" data-icon="digi_icon-announcment" aria-hidden="true"></span><span>5% daily cashback</span></div>
+  <header class="site-header">
+    <div class="header-row">
+      <button class="hamburger" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span></span></button>
+      <a class="logo" href="#all" aria-label="ZPLAY Home"><picture><source media="(max-width:600px)" srcset="https://zplaybet.xyz/img/logos/MobileLogo.webp?v=2026-02-20T18:09:04.6"><img alt="ZPLAY" src="https://zplaybet.xyz/img/logos/Logo.webp?v=2026-02-20T18:08:57.4"></picture></a>
+      <button id="theme-switch" class="theme-switch" aria-label="Switch to light appearance" aria-pressed="true"><span class="theme-moon" aria-hidden="true"></span><span class="theme-thumb" aria-hidden="true"></span></button>
+      <nav class="desktop-primary" aria-label="Main navigation" id="desktop-primary"></nav>
+      <div class="account-actions">
+        <button class="icon-button messages" data-account-action="messages" aria-label="Messages"><span data-icon="category_icon-inbox" aria-hidden="true"></span></button>
+        <button class="balance" id="account-balance" data-account-action="login" aria-label="Login">Login</button>
+        <button class="icon-button" data-account-action="profile" aria-label="My account"><span data-icon="digi_icon-user" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <div class="secondary-row">
+      <time id="site-date"></time>
+      <nav class="secondary-links" aria-label="Account and promotions">
+        <button data-account-action="history"><span data-icon="category_icon-last_played" aria-hidden="true"></span>SportBetHistory</button>
+        <button data-section="results"><span data-icon="category_icon-sport" aria-hidden="true"></span>Result</button>
+        <button data-section="tournaments"><span data-icon="category_icon-tournament_1" aria-hidden="true"></span>tournament<small>TOP</small></button>
+        <button data-section="promotions"><span data-icon="category_icon-promotions" aria-hidden="true"></span>Promotions<small>TOP</small></button>
+      </nav>
+      <button class="language" data-section="language">ENGLISH <span data-icon="digi_icon-arrow_down" aria-hidden="true"></span></button>
+    </div>
+  </header>
+  <div class="mobile-library-tabs" role="group" aria-label="Game library"><button data-library="all" class="active" aria-pressed="true">ALL GAMES</button><button data-library="favourites" aria-pressed="false">MY GAMES</button></div>
+  <main>
+    <section class="featured" aria-labelledby="featured-title">
+      <div class="section-heading"><h1 id="featured-title">MOST LIKED</h1><div class="rail-controls"><button id="rail-previous" aria-label="Previous most liked games">‹</button><button id="rail-next" aria-label="Next most liked games">›</button></div></div>
+      <div id="featured-games" class="featured-rail" tabindex="0" aria-label="Most liked games"></div>
+    </section>
+    <section class="catalogue" aria-label="Casino games">
+      <div class="category-bar">
+        <nav id="categories" class="categories" aria-label="Game categories"></nav>
+        <label class="search"><span data-icon="digi_icon-search" aria-hidden="true"></span><input id="game-search" type="search" placeholder="Search" aria-label="Search games" autocomplete="off"></label>
+      </div>
+      <div class="catalogue-body">
+        <aside class="providers" aria-label="Game providers">
+          <label class="search provider-search"><span data-icon="digi_icon-search" aria-hidden="true"></span><input id="provider-search" type="search" placeholder="Search Providers" aria-label="Search Providers" autocomplete="off"></label>
+          <div id="provider-options" class="provider-options"></div>
+        </aside>
+        <div class="catalogue-results">
+          <p id="results-status" class="sr-only" role="status"></p>
+          <div id="games-grid" class="games-grid"></div>
+          <div id="empty-state" class="empty-state" hidden><h2>No Result</h2><p>No exact matches found. Check the spelling or try another search.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="source-status"><p id="source-status">Loading fresh reference records…</p><p>This unpublished source preview uses artwork URLs observed on Zplaybet.xyz. New game engines, payments and unconnected pages are not represented as completed.</p><p>Favourites are saved on this device only.</p></footer>
+  <nav class="mobile-nav" aria-label="Bottom navigation" id="mobile-nav"></nav>
+  <div id="menu-overlay" class="menu-overlay" hidden></div>
+  <aside id="site-menu" class="site-menu" aria-label="Site menu" hidden>
+    <div class="menu-heading"><button id="menu-close" class="hamburger" aria-label="Close menu"><span></span></button><img src="https://zplaybet.xyz/img/logos/MobileLogo.webp?v=2026-02-20T18:09:04.6" alt="ZPLAY"><button class="language" data-section="language">ENGLISH <span data-icon="digi_icon-arrow_down" aria-hidden="true"></span></button></div>
+    <nav id="drawer-navigation" aria-label="All sections"></nav>
+  </aside>
+  <dialog id="details-dialog" aria-labelledby="dialog-title"><button class="dialog-close" id="dialog-close" aria-label="Close details">×</button><h2 id="dialog-title"></h2><div id="dialog-content"></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
