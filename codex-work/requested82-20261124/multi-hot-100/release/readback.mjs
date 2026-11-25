@@ -18,7 +18,8 @@ export async function verifyStagedM100Release(cloudflare,accountId,plan){
   for(const pin of plan.inventory){
     const m=v.modules.find(m=>m.name===pin.name);
     if(!m||m.content_type!==pin.contentType)throw Error('M100_READBACK_MODULE_MISMATCH');
-    const b=Uint8Array.from(atob(m.content_base64),c=>c.charCodeAt(0));
+    const raw=atob(m.content_base64),b=new Uint8Array(raw.length);
+    for(let i=0;i<raw.length;i++)b[i]=raw.charCodeAt(i);
     if(b.length!==pin.bytes||await hash(b)!==pin.sha256)throw Error('M100_READBACK_HASH_MISMATCH:'+pin.name);
     totalBytes+=b.length;
   }

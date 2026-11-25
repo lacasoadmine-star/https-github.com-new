@@ -48,6 +48,8 @@ export async function verifyFirstPairLiveDOM({build,origin='https://superwin-pla
         const detail=page.locator(`[data-r82-pair-details="${game.gameId}"]`);await detail.click();
         const sheet=page.locator('#zplay-requested82-pair-sheet');await sheet.waitFor({state:'visible'});
         assert.equal(await sheet.locator('[data-r82-pair-sheet-play]').getAttribute('href'),game.route);
+        const playStyle=await sheet.locator('[data-r82-pair-sheet-play]').evaluate(node=>({background:getComputedStyle(node).backgroundColor,height:node.getBoundingClientRect().height,display:getComputedStyle(node).display}));
+        assert.equal(playStyle.background,'rgb(22, 184, 93)');assert(playStyle.height>=48);assert.equal(playStyle.display,'flex');
         await sheet.locator('img').evaluate(image=>image.decode());assert.equal(await sheet.locator('img').evaluate(image=>image.naturalWidth>0),true);
         const size=await sheet.boundingBox();assert(size.width<=width&&size.x>=-1);if(width<600)assert(Math.abs(size.y+size.height-900)<=2,'mobile sheet sits at viewport bottom');
         if(index===0){await sheet.locator('[data-r82-pair-like]').click();assert.equal(await sheet.locator('[data-r82-pair-like]').getAttribute('aria-pressed'),'true');
