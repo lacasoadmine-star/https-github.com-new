@@ -1,0 +1,68 @@
+{
+  "schema": "zplay/new70-reference-access/v1",
+  "observedAt": "2026-11-25T02:02:30Z",
+  "repository": {
+    "branch": "work/new70-20261124",
+    "baseCommit": "9163129338e1ba4c32280a21011b367bb4d8241d"
+  },
+  "referenceAttempts": [
+    {
+      "url": "https://zplaybet.xyz/en/lobby/fastgames/all/",
+      "actions": [
+        "Open",
+        "DOM and screenshot inspection",
+        "One ordinary reload"
+      ],
+      "result": "White page and Support button only",
+      "documentHttpStatus": 200
+    },
+    {
+      "url": "https://zplaybet.xyz/en",
+      "actions": [
+        "Open",
+        "DOM inspection"
+      ],
+      "result": "White page and Support button only; empty application root"
+    },
+    {
+      "url": "https://zplaybet.xyz/en/lobby/casino/all/",
+      "actions": [
+        "Open",
+        "DOM and screenshot inspection"
+      ],
+      "result": "White page and Support button only"
+    }
+  ],
+  "classification": "Cause not established. Current observations show neither a login form nor an explicit bot-denial message. Do not promote the historical challenge diagnosis to a current fact.",
+  "currentReferenceIdentityVerified": false,
+  "referenceRounds": 0,
+  "referenceControlsTested": [],
+  "targetPlayer": {
+    "url": "https://superwin-player.apdiy61.workers.dev/",
+    "observed": "Lobby rendered with existing games and sign-in controls. No play/financial action was performed.",
+    "deploymentId": "21291842-90aa-48c8-982a-e7e7ac09ba5d",
+    "workerVersionId": "55e5e48b-66a5-480a-8985-63a9f11c38d7",
+    "trafficPercent": 100,
+    "bindingsCount": 18
+  },
+  "integration": {
+    "apiOrigin": "https://zplay-rebuild-api-staging.up.railway.app",
+    "nativeEngineOrigin": "https://superwin-native-family-engine-staging.up.railway.app",
+    "nineSlotEngineOrigin": "https://superwin-nine-slot-engine-staging.up.railway.app",
+    "source": "Cloudflare current plain-text origin bindings and Railway service domain read.",
+    "contract": "Existing contract remains documented in BACKEND_AND_DEPLOYMENT.md; no new game/model contract was assigned or tested."
+  },
+  "preservation": {
+    "productionMutations": 0,
+    "walletMutations": 0,
+    "existingGameChanges": 0,
+    "priorRailwayStagedPatchApplied": false
+  },
+  "outcome": {
+    "implemented": 0,
+    "published": 0,
+    "liveVerified": 0,
+    "nextGame": 1
+  },
+  "nextStep": "User-assisted reference access in this shared browser or a directly accessible official demo for the actual first game. Resume implementation only after observing its identity and mechanics."
+}
