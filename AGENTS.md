@@ -1,3 +1,7 @@
+# Active explicit order —70 new games
+
+The newest user order is [new70](codex-work/new70-20261124/ORDER.md):70 NEW games in actual reference order from https://zplaybet.xyz/en/lobby/fastgames/all/, sequentialGame#1→#70. Do not continue the prior requested82/74repair queue or count old games as new. Preserve all existing games/accounts/wallet/ledger. Current476 is live; obsolete477 is staged only, do not activate it. Manual shared-browser login was supplied; never put its private viewer/auth/session material in Git. Historical instructions follow only where compatible.
+
 # Active pair delivery directive — 24 November 2026
 
 25 November clarification: the user explicitly requests adding the first pair to the live dashboard now and will supply a player session manually if needed. A real PLAY trial may therefore be admitted before authenticated production rounds are independently verified. Keep trial admission distinct from completion/liveVerified; do not create placeholder cards for the remaining80. Preserve existing sign-in and never request passwords or opaque session tokens in chat. Current live version474 contains the verified M20 recovery release; recheck before subsequent writes.
