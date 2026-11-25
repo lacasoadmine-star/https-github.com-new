@@ -16,7 +16,9 @@
 
 ## Access and remaining work
 
-Original provider gameplay uses the additional origin `eu02-server-w3.ssgportal.com`. Automatic approval review rejected opening its session-bearing frame URL because explicit authorization for that provider origin is still required. No bypass was made. Do not copy a session URL or token into chat, source, logs, or this package. The parent reference tab remains the authorized source; provider access must be approved explicitly before inspection continues.
+Original provider gameplay uses the additional origin `eu02-server-w3.ssgportal.com`. The user explicitly authorized opening its demo with the ZPLAY game session token on 2026-11-25, resolving the earlier authorization blocker. Do not ask for the same permission again. Do not copy a session URL or token into chat, source, logs, or this package.
+
+The connected Chrome tool is currently unavailable. The available cloud browser opened the existing ZPLAY Casino All tab but showed only a blank page and Support button; one reload did not recover the lobby, and no game frame was present. Provider inspection therefore has not resumed. Restore the reference browser connection to continue; no new game was enabled or deployed during this check.
 
 Complete game source/assets/audio and authoritative game rules have not been acquired. No native game engine was invented, copied from an earlier implementation, or represented as finished. Catalogue screenshots and card images do not supply working game engines.
 
