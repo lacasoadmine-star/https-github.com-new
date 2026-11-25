@@ -13,7 +13,8 @@ export async function stageFirstPairRelease(cloudflare,accountId,plan){
     plan.mainModule!=='requested82pairr1/entry.mjs'||plan.modules?.length!==3||
     !['entry.mjs','config.mjs','worker.mjs'].every(name=>plan.modules.some(m=>m.name==='requested82pairr1/'+name))||
     !Array.isArray(plan.baseline?.inventory)||plan.baseline.inventory.length!==plan.baseline.moduleCount||
-    new Set(plan.baseline.inventory.map(m=>m.name)).size!==plan.baseline.moduleCount||!Array.isArray(plan.resources)||plan.resources.length!==3)throw Error('FIRST_PAIR_STAGE_PLAN_INVALID');
+    new Set(plan.baseline.inventory.map(m=>m.name)).size!==plan.baseline.moduleCount||!Array.isArray(plan.resources)||plan.resources.length!==3||
+    plan.baseline.moduleCount!==431||plan.baseline.totalBytes!==66968590)throw Error('FIRST_PAIR_STAGE_PLAN_INVALID');
   const deployed=async()=>(await cloudflare.request({method:'GET',path:root+'/scripts/superwin-player/deployments'})).result.deployments[0];
   const active=await deployed();
   const sameActive=a=>a?.id===active.id&&a.versions?.length===1&&a.versions[0].version_id===plan.baseline.id&&a.versions[0].percentage===100;
@@ -28,6 +29,22 @@ export async function stageFirstPairRelease(cloudflare,accountId,plan){
     const b=decode(m.content_base64);if(b.length!==pin.bytes||await hash(b)!==pin.sha256)throw Error('FIRST_PAIR_STAGE_ORIGINAL_HASH_CHANGED');originalBytes+=b.length;
   }
   if(originalBytes!==plan.baseline.totalBytes)throw Error('FIRST_PAIR_STAGE_ORIGINAL_BYTES_CHANGED');
+  const replacement=plan.representationReplacement,expectedPrevious='140539170057e1e4bfd56cea2a002bf4d5d7a74202ebeddc362d978941d9811c';
+  let replacementDeltaBytes=0;const replacementPins=[];
+  if(replacement!==undefined){
+    const proof=replacement?.proof;
+    if(replacement?.name!=='requested82m100r1/config.mjs'||replacement.contentType!=='application/javascript+module'||
+      replacement.expectedPreviousSha256!==expectedPrevious||replacement.previousBytes!==9311||typeof replacement.source!=='string'||
+      proof?.schema!=='zplay/m100-config-representation-proof/v1'||proof.name!==replacement.name||proof.unchangedRuntimeConfiguration!==true||
+      proof.previousSha256!==expectedPrevious||proof.previousBytes!==9311||proof.newSha256!==replacement.sha256||proof.newBytes!==replacement.bytes||
+      !/^[a-f0-9]{64}$/.test(proof.originalConfigurationJsonSha256||'')||proof.originalConfigurationJsonSha256!==proof.expandedConfigurationJsonSha256)throw Error('FIRST_PAIR_STAGE_REPRESENTATION_INVALID');
+    const target=baseline.modules.find(module=>module.name===replacement.name),old=target&&decode(target.content_base64),next=new TextEncoder().encode(replacement.source);
+    if(!old||old.length!==9311||await hash(old)!==expectedPrevious||next.length!==replacement.bytes||await hash(next)!==replacement.sha256||
+      replacement.bytes>=9311||proof.savedBytes!==9311-replacement.bytes)throw Error('FIRST_PAIR_STAGE_REPRESENTATION_HASH_CHANGED');
+    let binary='';for(const byte of next)binary+=String.fromCharCode(byte);target.content_base64=btoa(binary);
+    replacementDeltaBytes=next.length-old.length;replacementPins.push({name:replacement.name,contentType:replacement.contentType,
+      previousBytes:old.length,previousSha256:expectedPrevious,bytes:next.length,sha256:replacement.sha256,proof});
+  }
   const originalConfig=canonical(config(baseline)),latest=(await cloudflare.request({method:'GET',path:path+'latest'})).result;
   if(latest.id!==plan.expectedLatestVersion||canonical(config(latest))!==originalConfig)throw Error('FIRST_PAIR_STAGE_LATEST_CHANGED');
   const namespace=baseline.bindings.find(b=>b.name==='SSG_OFFICIAL_REFERENCES')?.namespace_id;
@@ -46,16 +63,18 @@ export async function stageFirstPairRelease(cloudflare,accountId,plan){
     baseline.modules.push({name:m.name,content_type:m.contentType,content_base64:btoa(binary)});addedBytes+=b.length;
     newPins.push({name:m.name,contentType:m.contentType,bytes:m.bytes,sha256:m.sha256});
   }
-  if(originalBytes+addedBytes>=64*1024*1024)throw Error('FIRST_PAIR_STAGE_SIZE_LIMIT');
+  const finalBytes=originalBytes+replacementDeltaBytes+addedBytes;
+  if(finalBytes>=66968590||finalBytes>=originalBytes)throw Error('FIRST_PAIR_STAGE_SIZE_LIMIT');
   if(!sameActive(await deployed())||(await cloudflare.request({method:'GET',path:path+'latest'})).result.id!==latest.id)throw Error('FIRST_PAIR_STAGE_CONCURRENT_CHANGE');
   const staged=await cloudflare.request({method:'PATCH',path:path+'latest',query:{deploy:false},contentType:'application/merge-patch+json',body:{
-    main_module:plan.mainModule,modules:baseline.modules,annotations:{'workers/message':`First pair dashboard PLAY admission; source ${plan.sourceCommit}; retains all ${plan.baseline.moduleCount} deployed modules`,
+    main_module:plan.mainModule,modules:baseline.modules,annotations:{'workers/message':`First pair; source ${plan.sourceCommit}; ${plan.baseline.moduleCount-replacementPins.length} unchanged modules; equivalent config representation`,
     'workers/tag':'requested82-first-pair-20261125'}}});
   // Do not load another large version in this isolate. If PATCH's response is
   // interrupted, inspect latest and compare all pins before considering retry.
   if(!staged.result?.id)throw Error('FIRST_PAIR_STAGE_VERSION_ID_MISSING');
   return{schema:'zplay/first-pair-staged-release/v1',sourceCommit:plan.sourceCommit,baselineVersion:plan.baseline.id,
     stagedVersion:staged.result.id,stagedNumber:staged.result.number,mainModule:plan.mainModule,
-    retainedModules:plan.baseline.moduleCount,addedModules:plan.modules.length,originalBytes,addedBytes,
-    configurationSha256:await hash(new TextEncoder().encode(originalConfig)),newPins,activated:false,fullReadbackRequired:true};
+    retainedModules:plan.baseline.moduleCount-replacementPins.length,baselineModules:plan.baseline.moduleCount,
+    representationReplacedModules:replacementPins.length,addedModules:plan.modules.length,originalBytes,replacementDeltaBytes,addedBytes,finalBytes,
+    configurationSha256:await hash(new TextEncoder().encode(originalConfig)),replacementPins,newPins,activated:false,fullReadbackRequired:true};
 }

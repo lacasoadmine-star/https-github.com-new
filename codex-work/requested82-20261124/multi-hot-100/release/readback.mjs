@@ -9,6 +9,11 @@ export async function verifyStagedM100Release(cloudflare,accountId,plan){
     ['compatibility_flags','containers'].includes(k)?v[k]||[]:v[k]??null]));
   if(!/^[a-f0-9]{64}$/.test(plan.configurationSha256||'')||!Array.isArray(plan.inventory)||
     plan.inventory.length!==plan.retainedModules+3||new Set(plan.inventory.map(x=>x.name)).size!==plan.inventory.length)throw Error('M100_READBACK_PLAN_INVALID');
+  const replacements=plan.representationReplacements??[];
+  if(!Array.isArray(replacements)||replacements.length>1||replacements.some(replacement=>
+    replacement.name!=='requested82m100r1/config.mjs'||replacement.proof?.unchangedRuntimeConfiguration!==true||
+    replacement.proof.originalConfigurationJsonSha256!==replacement.proof.expandedConfigurationJsonSha256||
+    !plan.inventory.some(pin=>pin.name===replacement.name&&pin.sha256===replacement.sha256&&pin.bytes===replacement.bytes)))throw Error('M100_READBACK_REPRESENTATION_INVALID');
   const root=`/accounts/${accountId}/workers`;
   const v=(await cloudflare.request({method:'GET',path:root+'/workers/superwin-player/versions/'+plan.id,query:{include:'modules'}})).result;
   if(v.id!==plan.id||v.main_module!==plan.mainModule||v.modules?.length!==plan.inventory.length||
@@ -30,7 +35,11 @@ export async function verifyStagedM100Release(cloudflare,accountId,plan){
   if(d.versions.length!==1||d.versions[0].version_id!==plan.baselineId||d.versions[0].percentage!==100)throw Error('M100_READBACK_ACTIVE_CHANGED');
   return{schema:'zplay/m100-full-staged-readback/v1',sourceCommit:plan.sourceCommit,baselineVersion:plan.baselineId,
     stagedVersion:v.id,stagedNumber:v.number,mainModule:v.main_module,verifiedModules:v.modules.length,
-    retainedModules:plan.retainedModules,addedModules:3,totalBytes,configurationSha256,
-    allOriginalModulesByteIdentical:true,configurationUnchanged:true,durableObjectExportsUnchanged:true,
+    retainedModules:plan.retainedModules-replacements.length,baselineModules:plan.retainedModules,
+    representationReplacedModules:replacements.length,representationReplacements:replacements,
+    addedModules:3,totalBytes,configurationSha256,
+    allOriginalModulesByteIdentical:replacements.length===0,allUnchangedOriginalModulesByteIdentical:true,
+    runtimeConfigurationUnchanged:replacements.every(replacement=>replacement.proof.unchangedRuntimeConfiguration===true),
+    configurationUnchanged:true,durableObjectExportsUnchanged:true,
     stagedMigrationTag:v.migration_tag??null,activeMigrationTagMustBeVerified:'local-demo-v1',activeVersion:plan.baselineId,activated:false};
 }
