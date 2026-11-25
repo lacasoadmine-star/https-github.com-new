@@ -80,18 +80,27 @@ export function createSameOriginTransport({ fetcher = globalThis.fetch, timeoutM
     if (signal?.aborted) abort();
     else signal?.addEventListener('abort', abort, { once: true });
     const timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
+    const assertActive = () => {
+      if (controller.signal.aborted) fail(timedOut ? 'REQUEST_TIMEOUT' : 'REQUEST_ABORTED');
+    };
     try {
+      assertActive();
       const response = await fetcher(path, {
         method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin',
         cache: 'no-store', redirect: 'error', signal: controller.signal,
         headers: { accept: 'application/json', ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
         ...(body === undefined ? {} : { body: JSON.stringify(body) }),
       });
+      assertActive();
       const retryAfterMs = response.status === 429
         ? retryAfterMilliseconds(response.headers.get('retry-after'), now()) : null;
       let data;
       try { data = await response.json(); }
-      catch { fail('INVALID_SERVER_RESPONSE', response.status, { retryAfterMs }); }
+      catch {
+        assertActive();
+        fail('INVALID_SERVER_RESPONSE', response.status, { retryAfterMs });
+      }
+      assertActive();
       if (!response.ok) {
         const code = [data?.code, data?.error, data?.detail]
           .find(value => typeof value === 'string' && /^[A-Z][A-Z0-9_]{0,99}$/.test(value)) ?? 'HTTP_' + response.status;
