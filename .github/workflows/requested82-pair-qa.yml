@@ -27,7 +27,7 @@ jobs:
       - run: npm ci --ignore-scripts
       - name: Test first pair and preserve old game controls
         run: |
-          node --test codex-work/requested82-20261124/multi-hot-100/*.test.mjs codex-work/requested82-20261124/multi-hot-100/rules/*.test.mjs codex-work/requested82-20261124/multi-hot-20/*.test.mjs codex-work/requested82-20261124/catalogue/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/*.test.mjs
+          node --test codex-work/requested82-20261124/multi-hot-100/*.test.mjs codex-work/requested82-20261124/multi-hot-100/rules/*.test.mjs codex-work/requested82-20261124/multi-hot-100/host/*.test.mjs codex-work/requested82-20261124/multi-hot-100/release/*.test.mjs codex-work/requested82-20261124/multi-hot-20/*.test.mjs codex-work/requested82-20261124/catalogue/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/*.test.mjs
       - name: Build existing Player, Agent and Admin
         run: npm run build --workspaces
       - uses: actions/setup-python@v5

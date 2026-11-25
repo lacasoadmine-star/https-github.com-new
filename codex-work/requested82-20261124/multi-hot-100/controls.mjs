@@ -45,6 +45,19 @@ export class MultiHot100Controls {
       paytablePreviewBet:selectedBet, settings:{soundEffects:true,music:true,quick:false,fullscreenRequested:false}, auto:{running:false,configuration:null}, cashEnabled:currency==='ETB',audibleVerified:false};
   }
   snapshot() { return frozen(copy(this.#state)); }
+  restoreHostRound(view) {
+    const s=this.#state;
+    // Boot restoration is an authenticated GET projection. A pending journal
+    // must be resolved by the existing host before constructing this fresh UI.
+    if(s.currency!=='ETB'||s.pending||s.round||s.phase!=='IDLE'||this.#used.size||
+      view?.readOnlyRestoration!==true||typeof view.collected!=='boolean')throw new Error('M100_READ_ONLY_RESTORE_UNAVAILABLE');
+    const accepted=validateM100RoundView(view,{currency:'ETB'});
+    if(!s.betLevels.includes(accepted.bet)||accepted.balance!==s.balance)throw new Error('M100_READ_ONLY_RESTORE_POLICY');
+    this.#rounds.set(accepted.roundId,accepted);this.#used.add(accepted.requestKey);
+    if(view.collected)this.#collected.add(accepted.roundId);
+    s.round=accepted;s.pendingWin=view.collected?'0.00':accepted.winAmount;s.selectedBet=accepted.bet;s.paytablePreviewBet=accepted.bet;
+    s.phase=s.pendingWin==='0.00'?'IDLE':'WIN_PENDING';return accepted;
+  }
   #begin(key, kind, details) {
     if (!keyOK(key) || this.#used.has(key)) return reject('INVALID_OR_REUSED_KEY');
     this.#used.add(key);

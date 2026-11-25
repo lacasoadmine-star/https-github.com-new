@@ -1,0 +1,107 @@
+{
+  "schema": "zplay/m100-existing-native-host-source-verification/v1",
+  "inspectedAt": "2026-11-25T00:14:31.199445+00:00",
+  "backendGameId": "multihot100_native",
+  "viewGameId": "zplay72_multi_hot_100_v1",
+  "modelVersion": "superwin-multihot100-2-etb1-40000-v1",
+  "operatorRelease": "remaining-native-etb-r16",
+  "priorAuthorization": "Owner-requested ETB during reference construction, dated2026-11-10; retained embedded scoped operator policy, not a new inferred approval.",
+  "sourcePins": [
+    {
+      "name": "native-family-deployed-bootstrap",
+      "bytes": 85235,
+      "sha256": "ff401e5a2ce398277e16750a35e8eeb9996720619d880c1885cc0aebebe7e33c",
+      "sourceBodyPublished": false
+    },
+    {
+      "name": "native-family-decoded-bootstrap",
+      "bytes": 101253,
+      "sha256": "65561fc4326b3b75f39b759229ca60027cd150f587b6873faed859d3bf133275",
+      "sourceBodyPublished": false
+    },
+    {
+      "name": "embedded-native-operator-policy-patch",
+      "bytes": 9830,
+      "sha256": "27c8090ae72d18567b8e40f898de923034c171a3d10e81ccb9bcd9f621128481",
+      "sourceBodyPublished": false
+    },
+    {
+      "name": "own-existing-public-session",
+      "bytes": 13280,
+      "sha256": "4c0d22ed38986e504f71aecd0707e2d78aec9afca5eba528e67cc82cf0d14f39",
+      "sourceBodyPublished": false
+    },
+    {
+      "name": "own-existing-reference-state",
+      "bytes": 825,
+      "sha256": "c5457cd71eecfc6a5d2d74d0f169d744a18a1a986ce580a5780ca99bc8fab5a6",
+      "sourceBodyPublished": false
+    },
+    {
+      "name": "retained-own-native-m100-client",
+      "repositoryPath": "codex-work/native72-20261119/changes/batch01/audio-r3/multihot100/game.mjs",
+      "bytes": 46968,
+      "sha256": "df8c549b6d798111f1d94bd6c98407d1960359c4608365f2133ba46f70f76abb"
+    }
+  ],
+  "embeddedPinsVerified": {
+    "decodedNativeBootstrap": "65561fc4326b3b75f39b759229ca60027cd150f587b6873faed859d3bf133275",
+    "operatorPatch": "27c8090ae72d18567b8e40f898de923034c171a3d10e81ccb9bcd9f621128481"
+  },
+  "publicSessionURL": "https://superwin-player.apdiy61.workers.dev/native-library/remaining20/20261110-rounds-r21/5fddea498e1f0d39/session.mjs",
+  "publicReferenceStateURL": "https://superwin-player.apdiy61.workers.dev/native-library/remaining20/20261110-rounds-r21/reference-state.mjs",
+  "wire": {
+    "statePath": "/api/remaining20/state?game_id=multihot100_native",
+    "actionPath": "/api/remaining20/action",
+    "credentials": "same-origin",
+    "cache": "no-store",
+    "guardHeader": "X-Zplay-Library-Session",
+    "requestIdentity": "Original UUID request_id and exact model_version; subsequent round actions include original round_id and expected_version",
+    "collection": "Actual collect POST, followed by a separate start POST for next paid spin; both fixed request UUIDs are persisted before either dispatch",
+    "gambleInput": "color:red|black; confirmed binary result; fixed ace image only illustrates the resulting color"
+  },
+  "modelCrossCheck": {
+    "all100CurrentPaths": true,
+    "line46": [
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "allPublicCoefficients": true,
+    "maximumTimesStake": 2500,
+    "existingOwnDistribution": "Equal8symbol weights; wheel tickets1,2,3,4,6 outof16; no new distribution implemented",
+    "providerPrivateMathVerified": false,
+    "incompatibleLegacyIdRejected": "multi_hot_100"
+  },
+  "actualReadOnlyProbe": {
+    "url": "https://superwin-player.apdiy61.workers.dev/api/remaining20/state?game_id=multihot100_native",
+    "httpStatus": 401,
+    "error": "UNAUTHORIZED",
+    "authenticatedAccountUsed": false,
+    "financialWrites": 0
+  },
+  "observedGenericNativeHealth": {
+    "status": "ready",
+    "version": "superwin-native-families-v2",
+    "new_rounds_enabled": false,
+    "database_ready": true,
+    "dashboard_sync_ready": true,
+    "financial_ready": true,
+    "configured_games": 0,
+    "recovery_games": 30,
+    "qualification": "Generic health does not establish admission of the separately scoped operator release. The actual authenticated game state must confirm accepting, model version and promoted operator policy; no redacted flag value was inferred."
+  },
+  "sourcePayloadVariables": {
+    "status": "REDACTED_NOT_RECOVERED",
+    "valuesPublished": false,
+    "accessRestrictionBypassed": false
+  },
+  "liveAuthenticatedAcceptanceVerified": false,
+  "liveFinancialRounds": 0,
+  "remoteBackendMutated": false,
+  "newWalletCreated": false,
+  "newRngImplemented": false,
+  "newGameCompletedClaim": false
+}

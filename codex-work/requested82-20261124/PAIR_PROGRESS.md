@@ -1,6 +1,6 @@
 # First-pair continuation — 25 November 2026 UTC
 
-Active pair: **Multi Hot 100 + Multi Hot 20**. Finish phone/desktop gameplay and the existing-account connection before putting this pair beside MultiHot5/FoxyHot20 and starting the next pair. All82 exact labels remain in `requested.json`. No new pair is marked complete by this checkpoint.
+Active pair: **Multi Hot 100 + Multi Hot 20**. The latest user explicitly authorizes real first-pair PLAY trial cards beside MultiHot5/FoxyHot20 now and will supply a player session manually if needed. Authenticated production acceptance remains a separate completion requirement before advancing to the next pair. All82 exact labels remain in `requested.json`. No new pair is marked complete by this checkpoint.
 
 ## Multi Hot 100
 
@@ -23,3 +23,13 @@ Actual Playwright verification of that exact app used all13 SHA-verified origina
 The stable source checkpoint has130 passing Node tests,5 independent Python decoder tests,9 existing disposable-backend tests and all3 existing portal builds. M100's actual16atlas-input hashes and all100decoded paths also matched. Existing public M20 media were downloaded again through the normal configured network proxy and all13 pins matched. Exact-source CI and guarded compatible M20 publication follow; no deployment is asserted until its terminal state and live byte readback succeed.
 
 Current Player was independently read as version472 (`8eca6097-07b7-427b-acb9-8c9a13d4eb6f`),425modules/66,950,468bytes, main `new90m20r1/entry.mjs`. Version473 exists staged and unactivated. Preserve every deployed module, all18bindings, original Durable Object exports and migration tag. The native-family generic health has financial/database readiness but reports new_rounds_enabled:false/configured_games:0; this alone neither proves nor disproves the separately scoped operator release. Its authenticated state must decide actual availability. Railway OAuth redacts source-part variable values; they are not missing credentials and must not be bypassed or reset.
+
+## Published M20 repair and next M100 release — 25 November
+
+M20 repair source is committed at efe031950ab98f4488e27def63cffd827972ed55. GitHub Actions run45516025900 passed both source/platform and native-browser jobs. Guarded publication retained all425 original modules byte-for-byte and all18bindings, Durable Object exports and local-demo-v1 migration tag. Activated version474 (50145cd4-a62e-4a96-90a9-cc4e373e0fc9), deployment4f60b0ff-50f2-4fa6-a16b-5ea0bd8bfc79, has428modules/66,953,445bytes. Independent live Chromium readback returned the exact111,436byte app hash and no page errors. Guest sign-in is expected; authenticated production wagers remain0. Full public receipt is in multi-hot-20/live-release-20261125.json.
+
+Seven current M20 official manual0.20DMO spins are now documented in multi-hot-20/references, two normal and five QUICK, with multipliers5,3,4,1,5,2,1. All lost, so X2/TAKE eligibility was not observed. BET, QUICK, rules/settings, fullscreen and AUTO configuration were inspected. Fresh phone probe proved startup only; isolated native phone controls pass separately.
+
+M100 production bootstrap now connects only the existing multihot100_native operator model/account. Original-wire HTTP fixtures cover actual native phone/desktop controls, manual SPIN/STOP/X2/TAKE, refresh after uncertain SPIN/TAKE/GAMBLE, exact UUID recovery, incompatible/closed/401 states, AUTO counts/stops/final TAKE, hidden/disposed guards and audio consent/failure. Read-only existing live state remains401 for the guest. The AUTO limit regression uses accepted cash plus pending winnings: cash99 plus pending30 stops a20increase threshold, exactly1SPIN/1TAKE and final129; fixture balances are not production money. All6 affected browser AUTO cases pass. The second full Node check passed160tests.
+
+Eight genuine current M100 MP3 resources were captured as normal HTTP200 responses from the official demo and pinned; WinMultiplier.mp3 remains absent and is explicitly reported, never substituted. Current20 native image/atlas files remain pinned. Motion uses own receipt-bound timings; exact provider private timing/audio equivalence and authenticated production settlement are not asserted. Final M100 source-pinned packaging, compatible publication and real first-pair dashboard admission follow.
