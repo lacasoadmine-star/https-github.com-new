@@ -19,7 +19,7 @@ export async function buildFirstPairRelease({baseline,sourceCommit,enabled=true,
   if(!validTrialManifest(manifest))throw Error('FIRST_PAIR_MANIFEST_INVALID');
   const common={bundle:true,write:false,format:'esm',target:'es2022',minify:true,charset:'utf8',legalComments:'none',logLevel:'silent',metafile:true};
   const app=await esbuild.build({...common,entryPoints:[resolve(directory,'trial-client.mjs')],platform:'browser'});
-  const worker=await esbuild.build({...common,entryPoints:[resolve(directory,'trial-worker.mjs')],platform:'browser'});
+  const worker=await esbuild.build({...common,stdin:{contents:"export {createFirstPairWorker} from './trial-worker.mjs';",resolveDir:directory,sourcefile:'trial-production-entry.mjs'},platform:'browser'});
   const style=await esbuild.transform(text.get('trial.css'),{loader:'css',minify:true,charset:'utf8',legalComments:'none'});
   if(app.warnings.length||worker.warnings.length||style.warnings.length||app.outputFiles.length!==1||worker.outputFiles.length!==1||
     [...Object.values(app.metafile.outputs),...Object.values(worker.metafile.outputs)].some(output=>output.imports.length))throw Error('FIRST_PAIR_BUNDLE_INVALID');
@@ -27,7 +27,7 @@ export async function buildFirstPairRelease({baseline,sourceCommit,enabled=true,
     const sha256=digest(source);return {name,source,contentType,bytes:Buffer.byteLength(source),sha256,key:TRIAL_KV_PREFIX+sha256+'/'+name};
   });
   const resources=records.map(({source,...pin})=>pin),revision=digest(JSON.stringify({sourceCommit,resources}));
-  const config={schema:'zplay/first-pair-dashboard-release/v1',enabled,sourceCommit,revision,manifest,resources};
+  const config={v:1,on:enabled,r:revision,s:sourceCommit,a:resources.map(record=>[record.sha256,record.bytes])};
   if(!validTrialConfig(config))throw Error('FIRST_PAIR_CONFIG_INVALID');
   const from=JSON.stringify('../'+baseline.mainModule),entry=`import previous from ${from};\nexport * from ${from};\nimport config from './config.mjs';\nimport {createFirstPairWorker} from './worker.mjs';\nexport default createFirstPairWorker(previous,config);\n`;
   const modules=[];for(const [name,source]of [['entry.mjs',entry],['worker.mjs',worker.outputFiles[0].text],['config.mjs','export default '+JSON.stringify(config)+';\n']]){
@@ -38,7 +38,7 @@ export async function buildFirstPairRelease({baseline,sourceCommit,enabled=true,
   const sourcePins=sources.map(name=>({path:relative(repository,resolve(directory,name)),bytes:Buffer.byteLength(text.get(name)),sha256:digest(text.get(name))}));
   if(verifySourceCommit)for(const pin of sourcePins){let body;try{body=execFileSync('git',['-C',repository,'show',sourceCommit+':'+pin.path],{maxBuffer:16*1024*1024,stdio:['ignore','pipe','pipe']});}catch{throw Error('FIRST_PAIR_SOURCE_COMMIT_UNAVAILABLE:'+pin.path);}if(body.length!==pin.bytes||digest(body)!==pin.sha256)throw Error('FIRST_PAIR_SOURCE_COMMIT_PIN_MISMATCH:'+pin.path);}
   const prior=Object.fromEntries(['versionId','versionNumber','mainModule','moduleCount','totalBytes'].map(key=>[key,baseline[key]]));
-  return {config,modules,records,report:{schema:'zplay/first-pair-dashboard-build/v1',baseline:prior,sourceCommit,sourceCommitVerified:verifySourceCommit,publicationReady:verifySourceCommit,
+  return {config,manifest,modules,records,report:{schema:'zplay/first-pair-dashboard-build/v1',baseline:prior,sourceCommit,sourceCommitVerified:verifySourceCommit,publicationReady:verifySourceCommit,
     revision,enabled,totalBytes,projectedWorkerBytes:prior.totalBytes+totalBytes,projectedModuleCount:prior.moduleCount+modules.length,allowedGameCount:2,
     completionClaim:false,liveVerified:false,verifiedProductionSpinCount:0,otherRequestedGamesAdmitted:false,
     coverReferences:manifest.games.map(game=>({gameId:game.gameId,...game.cover})),sourcePins,records:resources.map(pin=>({...pin,file:'kv/'+pin.sha256+'/'+pin.name})),modules:modules.map(({source,...pin})=>pin)}};
@@ -56,10 +56,10 @@ export async function loadFirstPairRelease(output){
   const modules=[];for(const pin of report.modules){const source=await readFile(resolve(destination,pin.name),'utf8');
     if(Buffer.byteLength(source)!==pin.bytes||digest(source)!==pin.sha256||pin.contentType!=='application/javascript+module')throw Error('FIRST_PAIR_MODULE_PIN_MISMATCH');modules.push({...pin,source});}
   const {default:config}=await import('data:text/javascript;base64,'+Buffer.from(modules.at(-1).source).toString('base64'));
-  if(!validTrialConfig(config)||config.sourceCommit!==report.sourceCommit||config.revision!==report.revision||config.enabled!==report.enabled||
+  if(!validTrialConfig(config)||config.s!==report.sourceCommit||config.r!==report.revision||config.on!==report.enabled||
     report.totalBytes!==modules.reduce((n,module)=>n+module.bytes,0)||report.projectedWorkerBytes!==report.baseline.totalBytes+report.totalBytes||report.projectedWorkerBytes>limit)throw Error('FIRST_PAIR_ARTIFACT_INVALID');
-  const records=[];for(let index=0;index<report.records.length;index++){const pin=report.records[index],expected=config.resources[index];
-    if(JSON.stringify(expected)!==JSON.stringify(Object.fromEntries(Object.entries(pin).filter(([key])=>key!=='file')))||pin.file!=='kv/'+pin.sha256+'/'+pin.name)throw Error('FIRST_PAIR_ARTIFACT_INVALID');
-    const source=await readFile(resolve(destination,pin.file),'utf8');if(Buffer.byteLength(source)!==pin.bytes||digest(source)!==pin.sha256)throw Error('FIRST_PAIR_RESOURCE_PIN_MISMATCH');records.push({...expected,source});
-  }return {config,modules,records,report};
+  const records=[];for(let index=0;index<report.records.length;index++){const pin=report.records[index],name=['app.mjs','style.css','manifest.json'][index];
+    if(pin.name!==name||pin.sha256!==config.a[index][0]||pin.bytes!==config.a[index][1]||pin.key!==TRIAL_KV_PREFIX+pin.sha256+'/'+name||pin.file!=='kv/'+pin.sha256+'/'+name)throw Error('FIRST_PAIR_ARTIFACT_INVALID');
+    const source=await readFile(resolve(destination,pin.file),'utf8');if(Buffer.byteLength(source)!==pin.bytes||digest(source)!==pin.sha256)throw Error('FIRST_PAIR_RESOURCE_PIN_MISMATCH');const {file,...record}=pin;records.push({...record,source});
+  }const manifest=JSON.parse(records[2].source);if(!validTrialManifest(manifest))throw Error('FIRST_PAIR_MANIFEST_INVALID');return {config,manifest,modules,records,report};
 }

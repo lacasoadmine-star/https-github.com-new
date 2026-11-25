@@ -13,7 +13,7 @@ export async function verifyFirstPairLiveDOM({build,origin='https://superwin-pla
   assert(build?.config&&output);await mkdir(output,{recursive:true});
   const {chromium}=createRequire(import.meta.url)('playwright'),root=new URL(origin).origin;
   const resources=new Map(build.records.map(record=>[trialResourcePath(build.config,record),record]));
-  const report={schema:'zplay/first-pair-actual-player-dom/v1',origin:root,revision:build.config.revision,
+  const report={schema:'zplay/first-pair-actual-player-dom/v1',origin:root,revision:build.report.revision,
     sourceCommit:build.report.sourceCommit,sourceCommitVerified:build.report.sourceCommitVerified,
     unpublishedStaticResourcesFulfilledLocally:true,existingPlayerDomAndGameRoutesLive:true,
     loginPerformed:false,financialActions:0,verifiedProductionSpinCount:0,completionClaim:false,liveVerified:false,m100GuestLaunchDeferred:!playM100,widths:[]};
@@ -44,7 +44,7 @@ export async function verifyFirstPairLiveDOM({build,origin='https://superwin-pla
       const old=await install(page);
       const order=await page.locator('#zplay-live-catalog .restored-catalog-grid>.restored-game-card').evaluateAll(nodes=>nodes.slice(0,6).map(n=>n.dataset.catalogGame||n.dataset.r82PairId));
       assert.deepEqual(order.slice(0,4),['ind74_official_habeshafortune5','ind74_official_multihot5','zplay72_multi_hot_100_v1','zplay72_multi_hot_20_v1']);
-      for(const [index,game]of build.config.manifest.games.entries()){
+      for(const [index,game]of build.manifest.games.entries()){
         const detail=page.locator(`[data-r82-pair-details="${game.gameId}"]`);await detail.click();
         const sheet=page.locator('#zplay-requested82-pair-sheet');await sheet.waitFor({state:'visible'});
         assert.equal(await sheet.locator('[data-r82-pair-sheet-play]').getAttribute('href'),game.route);
@@ -73,7 +73,7 @@ export async function verifyFirstPairLiveDOM({build,origin='https://superwin-pla
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
       // PLAY follows the actual installed same-origin game; guests retain its401 boundary.
       const launches=[];
-      for(const game of build.config.manifest.games){
+      for(const game of build.manifest.games){
         if(!playM100&&game.gameId==='zplay72_multi_hot_100_v1')continue;
         if(new URL(page.url()).pathname!=='/')await install(page);
         await page.locator(`[data-r82-pair-details="${game.gameId}"]`).click();

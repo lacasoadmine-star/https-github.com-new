@@ -11,7 +11,7 @@ const manifest=JSON.parse(await readFile(new URL('first-pair.json',import.meta.u
 function fixture(){const bodies=new Map(),resources=[['app.mjs','text/javascript; charset=utf-8'],['style.css','text/css; charset=utf-8'],['manifest.json','application/json; charset=utf-8']].map(([name,contentType])=>{
   const bytes=new TextEncoder().encode(name==='manifest.json'?JSON.stringify(manifest):'own isolated '+name).buffer,sha256=hash(new Uint8Array(bytes));
   const record={name,contentType,bytes:bytes.byteLength,sha256,key:TRIAL_KV_PREFIX+sha256+'/'+name};bodies.set(record.key,bytes);return record;
-});return {config:{schema:'zplay/first-pair-dashboard-release/v1',enabled:true,sourceCommit:'b'.repeat(40),revision:'a'.repeat(64),manifest,resources},bodies};}
+});return {config:{v:1,on:true,s:'b'.repeat(40),r:'a'.repeat(64),a:resources.map(record=>[record.sha256,record.bytes])},resources,bodies};}
 
 test('latest explicit first-pair admission preserves all completion/live/production-round claims as false and other80closed',async()=>{
   assert(validTrialManifest(manifest));assert.deepEqual(manifest.games.map(game=>game.gameId),FIRST_PAIR.map(game=>game.gameId));
@@ -50,15 +50,15 @@ test('root transformation replaces request-only90navigation and appends one scop
 });
 
 test('only immutable hashed app/style/manifest GET/HEAD are owned; corrupt KV is closed and no financial POST handler exists',async()=>{
-  const {config,bodies}=fixture(),env={SSG_OFFICIAL_REFERENCES:{get(key){return bodies.get(key);}}},worker=createFirstPairWorker({fetch(){throw Error('UNEXPECTED');}},config);
-  for(const record of config.resources){const path=trialResourcePath(config,record),get=await worker.fetch(new Request('https://player.invalid'+path),env,{});
+  const {config,resources,bodies}=fixture(),env={SSG_OFFICIAL_REFERENCES:{get(key){return bodies.get(key);}}},worker=createFirstPairWorker({fetch(){throw Error('UNEXPECTED');}},config);
+  for(const record of resources){const path=trialResourcePath(config,record),get=await worker.fetch(new Request('https://player.invalid'+path),env,{});
     assert.equal(get.status,200);assert.equal(get.headers.get('ETag'),'"'+record.sha256+'"');assert.match(get.headers.get('Cache-Control'),/immutable/);assert.deepEqual(await get.arrayBuffer(),bodies.get(record.key));
     assert.equal(await(await worker.fetch(new Request('https://player.invalid'+path,{method:'HEAD'}),env,{})).text(),'');
     assert.equal((await worker.fetch(new Request('https://player.invalid'+path,{method:'POST'}),env,{})).status,405);
     const corrupt={SSG_OFFICIAL_REFERENCES:{get(){return new Uint8Array(record.bytes).buffer;}}};assert.equal((await worker.fetch(new Request('https://player.invalid'+path),corrupt,{})).status,503);
   }
-  assert.equal((await worker.fetch(new Request('https://player.invalid'+TRIAL_PREFIX+config.revision+'/not-owned'),env,{})).status,404);
-  const bad=structuredClone(config);bad.resources[0].key='old/key';assert(!validTrialConfig(bad));assert.throws(()=>createFirstPairWorker({fetch(){}},bad));
+  assert.equal((await worker.fetch(new Request('https://player.invalid'+TRIAL_PREFIX+config.r+'/not-owned'),env,{})).status,404);
+  const bad=structuredClone(config);bad.a[0][0]='old/key';assert(!validTrialConfig(bad));assert.throws(()=>createFirstPairWorker({fetch(){}},bad));
 });
 
 test('actual compiled trial app/worker close their imports and add only three modules under the confirmed byte budget',async()=>{
