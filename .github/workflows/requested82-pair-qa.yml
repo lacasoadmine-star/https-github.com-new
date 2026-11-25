@@ -1,0 +1,77 @@
+name: Requested82 first-pair source and native browser QA
+on:
+  push:
+    branches: [work/requested82-finish-20261124]
+    paths:
+      - 'codex-work/requested82-20261124/**'
+      - 'codex-work/new-games90-20261123/m20/main.mjs'
+      - '.github/workflows/requested82-pair-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: requested82-pair-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  source-and-platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Test first pair and preserve old game controls
+        run: |
+          node --test codex-work/requested82-20261124/multi-hot-100/*.test.mjs codex-work/requested82-20261124/multi-hot-100/rules/*.test.mjs codex-work/requested82-20261124/multi-hot-20/*.test.mjs codex-work/requested82-20261124/catalogue/*.test.mjs codex-work/new-games90-20261123/m20/*.test.mjs codex-work/new-games90-20261123/m20/render/*.test.mjs
+      - name: Build existing Player, Agent and Admin
+        run: npm run build --workspaces
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Verify only disposable backend data
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pytest -q tests/test_platform.py
+      - name: Verify independent current line-art decoder
+        run: |
+          python -m pip install Pillow==12.0.0
+          python -m unittest discover -s codex-work/requested82-20261124/multi-hot-100/rules -p 'test_*.py'
+  native-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Install isolated browser runner
+        run: |
+          npm install --prefix "$RUNNER_TEMP/pair-browser" --no-package-lock --ignore-scripts playwright@1.62.1
+          "$RUNNER_TEMP/pair-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify exact existing public M20 static media without accounts
+        run: node codex-work/requested82-20261124/multi-hot-20/download-existing-media.mjs "$RUNNER_TEMP/m20-media"
+      - name: Test PLAY, native controls and same accepted-result recovery on phone and desktop
+        env:
+          NODE_PATH: ${{ runner.temp }}/pair-browser/node_modules
+          ZPLAY_M20_QA_OUTPUT: ${{ runner.temp }}/m20-browser-proof
+          ZPLAY_M20_QA_MEDIA: ${{ runner.temp }}/m20-media
+        run: |
+          export ZPLAY_QA_CHROMIUM_PATH="$(node -p 'require("playwright").chromium.executablePath()')"
+          node codex-work/requested82-20261124/multi-hot-20/browser-qa.mjs
+      - name: Save exact app build and fixture verification report
+        uses: actions/upload-artifact@v4
+        with:
+          name: requested82-m20-verified-build
+          path: |
+            ${{ runner.temp }}/m20-browser-proof/build
+            ${{ runner.temp }}/m20-browser-proof/browser-report.json

@@ -1,4 +1,16 @@
-# Active user directive — 24 November 2026
+# Active pair delivery directive — 24 November 2026
+
+The latest user explicitly requires delivery **two games at a time** from the exact82 list, starting with **Multi Hot 100 and Multi Hot 20**. Complete each pair on phones and desktop, connect the existing accounts/backend, click PLAY and verify real controls/gameplay with Playwright against the current official demos. Only then place the working pair beside the existing MultiHot5/FoxyHot20 dashboard entries and advance to the next pair. Preserve all old games and records. User-supplied screenshots illustrate the dashboard/mobile launch flow; they do not replace each requested game's official reference or authorize modifying Habesha Fortune5.
+
+The selected execution environment is now ready and the GitHub connector works. The historical `github_connector_not_configured` startup blocker below was resolved in this session; do not ask the user to reconnect it again. Continue on `work/requested82-finish-20261124`, based on `work/requested82-20261124`. Current live Player was independently confirmed at version472, with473 staged but unactivated; recheck before any mutation. Source-only files and isolated fixtures remain distinct from live game acceptance.
+
+The native-family backend already contains an owner-authorized `multihot100_native` operator model. Do not invent a missing-approval requirement or attach the incompatible legacy `multi_hot_100` model. Inspect the actual existing wire/model contract. Railway OAuth currently returns variable names only; source-part values are redacted, not missing. Preserve this access boundary. M20 continues using `fresh_multihot20` with its original existing wallet and authentication.
+
+Historical order and continuation context follow; the pair directive above controls reporting and delivery.
+
+---
+
+# Retained active list directive — 24 November 2026
 
 The latest user explicitly supersedes the 23 November work queue with the **82 exact supplied labels** in [the active order](codex-work/requested82-20261124/ORDER.md) and [the exact list](codex-work/requested82-20261124/requested.json). Follow this new scope only. Preserve all earlier implementations and live games as code, not as active historical tasks. Use official provider demos only; never use the user's uploaded videos/screenshots as build references. Retain existing wallet/ledger/auth/account/payment boundaries and separate new game identities. Do not claim requested entries, source-only publication or fixtures are completed/deployed games. Runtime startup currently reports `github_connector_not_configured`; reconnect the workspace's GitHub account and start a new cloud task as directed by the environment service. This connection must be authorized by the account owner; no fabricated approval button or bypass is allowed. Existing routine coding/testing/deployment authorization remains in force. The historical instructions below remain preserved and apply only where compatible with the latest user request.
 

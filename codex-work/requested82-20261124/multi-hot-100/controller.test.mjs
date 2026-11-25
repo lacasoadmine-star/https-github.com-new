@@ -31,6 +31,22 @@ function setup({win='0.00',submit,recover,onChange,onError,presentation}={}) {
   return {controls,presentation:view,controller,calls,errors,replies,makeReply,
     finish(){return controller.frame({clockMs:++clock,progress:1});}};
 }
+test('an explicit host preflight failure releases only an undispatched intent',async()=>{
+  const s=setup({submit(){throw Object.assign(new Error('isolated preflight failure'),{safeToCancel:true});}});
+  assert.equal(await s.controller.spin(),false);
+  assert.equal(s.controls.snapshot().phase,'IDLE');assert.equal(s.controls.snapshot().pending,null);
+  assert.equal(s.presentation.snapshot().moving,false);assert.equal(s.presentation.snapshot().receipt,null);
+  assert.equal(await s.controller.recover(),false);assert.equal(s.calls.length,1);
+});
+test('partial collect/start uncertainty retains its original request instead of cancelling',async()=>{
+  const s=setup({submit(){throw Object.assign(new Error('isolated reply lost after collect'),{safeToCancel:false});}});
+  assert.equal(await s.controller.spin(),false);
+  const original=s.calls[0].intent;
+  assert.equal(s.controls.snapshot().phase,'RECOVERY_REQUIRED');
+  assert.equal(await s.controller.recover(),true);
+  assert.deepEqual(s.calls[1].intent,original);assert.equal(s.calls[1].mode,'recover');
+  s.finish();assert.equal(s.controls.snapshot().phase,'IDLE');
+});
 test('one input submits once; pending repeated inputs request only one STOP',async()=>{
   const held=defer(),s=setup({submit:()=>held.promise});const first=s.controller.spin();await Promise.resolve();
   assert.equal(s.calls.length,1);assert.equal(await s.controller.spin(),true);assert.equal(await s.controller.spin(),false);

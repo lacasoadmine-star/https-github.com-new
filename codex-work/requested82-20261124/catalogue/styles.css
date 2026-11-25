@@ -1,0 +1,24 @@
+/* New requested section only; original lobby rows and game pages retain their styles. */
+#zplay-requested82{box-sizing:border-box;display:block;isolation:isolate;clear:both;width:100%;max-width:1120px;margin:24px auto;padding:0;background:transparent;color:#f2f7f3;font:500 16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:left}
+#zplay-requested82 *{box-sizing:border-box}
+#zplay-requested82 .requested82-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#zplay-requested82 h2{margin:0;color:#f2f7f3;font-size:22px;line-height:1.25}
+#zplay-requested82 .requested82-count{font-variant-numeric:tabular-nums;font-size:22px;font-weight:750;color:#a9f06b}
+#zplay-requested82 .requested82-summary{margin:10px 0 18px;color:#b5c3b8;font-size:14px}
+#zplay-requested82 .requested82-search{display:grid;gap:6px;font-size:16px;color:#c6d0c8;margin:0 0 8px}
+#zplay-requested82 input{display:block;min-height:46px;width:100%;min-width:0;border:1px solid #56634c;border-radius:8px;padding:10px 12px;background:#070d09;color:#f2f7f3;font:inherit}
+#zplay-requested82 .requested82-result-count{display:block;min-height:28px;margin:0 0 10px;color:#b5c3b8;font-size:14px}
+#zplay-requested82 .requested82-card[hidden]{display:none!important}
+#zplay-requested82 .requested82-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+#zplay-requested82 .requested82-card{display:block;min-width:0;margin:0;padding:0;list-style:none}
+#zplay-requested82 .requested82-game-card{display:flex;flex-direction:column;justify-content:space-between;gap:14px;width:100%;height:100%;min-height:150px;margin:0;padding:14px;border:1px solid #3f5143;border-radius:10px;background:#131f17;text-align:left}
+#zplay-requested82 h3{margin:0;font-size:16px;font-weight:700;line-height:1.4;overflow-wrap:anywhere;color:#f2f7f3}
+#zplay-requested82 .requested82-play{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:6px;padding:8px 10px;text-align:center;text-decoration:none;font-size:16px;font-weight:750}
+#zplay-requested82 .requested82-play{color:#13200b;background:#a9f06b}
+#zplay-requested82 .requested82-all{width:100%;min-height:48px;margin-top:16px;padding:10px;border:1px solid #56634c;border-radius:6px;background:#162210;color:#b3f382;font:700 16px/1.4 system-ui,sans-serif;cursor:pointer}
+#zplay-requested82 a:focus-visible,#zplay-requested82 button:focus-visible,#zplay-requested82 input:focus-visible{outline:3px solid #eff7b4;outline-offset:3px}
+body.requested82-page{margin:0;min-height:100vh;background:#070d09;color:#f2f7f3;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.requested82-page .requested82-page-main{max-width:1120px;margin:0 auto;padding:24px 12px 36px;padding-bottom:max(36px,env(safe-area-inset-bottom))}
+.requested82-page .requested82-back{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;color:#b3f382;font-size:16px;font-weight:700;text-decoration:none}
+@media(min-width:600px){#zplay-requested82 .requested82-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:900px){#zplay-requested82 .requested82-list{grid-template-columns:repeat(5,minmax(0,1fr))}}

@@ -15,28 +15,40 @@ const reject = reason => frozen({ accepted:false, reason, intents:[] });
 export function validateM100RoundView(view, expected = {}) {
   if (!view || view.gameId !== MULTI_HOT_100_GAME_ID || !keyOK(view.requestKey) || !roundOK(view.roundId)) throw new TypeError('M100_RECEIPT_IDENTITY');
   for (const field of ['gameId','requestKey','bet','roundId']) if (expected[field] !== undefined && view[field] !== expected[field]) throw new TypeError(`M100_RECEIPT_${field.toUpperCase()}_MISMATCH`);
-  if (!moneyOK(view.bet) || BigInt(view.bet.replace('.','')) < 100n || BigInt(view.bet.replace('.','')) > 10000n || !moneyOK(view.winAmount)) throw new TypeError('M100_RECEIPT_AMOUNT');
+  const currency=view.currency??'DMO';
+  if(!['DMO','ETB'].includes(currency)||(expected.currency!==undefined&&expected.currency!==currency))throw new TypeError('M100_RECEIPT_CURRENCY');
+  if (!moneyOK(view.bet) || BigInt(view.bet.replace('.','')) < 100n || BigInt(view.bet.replace('.','')) > (currency==='ETB'?4000000n:10000n) || !moneyOK(view.winAmount)) throw new TypeError('M100_RECEIPT_AMOUNT');
   if (view.balance !== undefined && !moneyOK(view.balance)) throw new TypeError('M100_RECEIPT_BALANCE');
   if (!Array.isArray(view.grid) || view.grid.length !== 4 || Array.from(view.grid).some(row => !Array.isArray(row) || row.length !== 5 || Array.from(row).some(symbol => !symbols.has(symbol)))) throw new TypeError('M100_RECEIPT_GRID');
   if (!Number.isInteger(view.multiplier) || view.multiplier < 1 || view.multiplier > 5) throw new TypeError('M100_RECEIPT_MULTIPLIER');
-  if (view.winningLines !== undefined && (!Array.isArray(view.winningLines) || new Set(view.winningLines).size !== view.winningLines.length || Array.from(view.winningLines).some(n => !Number.isInteger(n) || n < 1 || n > 100 || n === 45 || n === 46))) throw new TypeError('M100_UNVERIFIED_WINNING_LINE');
-  if (view.winTier !== undefined && view.winTier !== null && view.winTier !== 'SUPER WIN') throw new TypeError('M100_UNOBSERVED_WIN_TIER');
+  // Fresh original line artwork establishes all100 unique paths, including45/46.
+  if (view.winningLines !== undefined && (!Array.isArray(view.winningLines) || new Set(view.winningLines).size !== view.winningLines.length || Array.from(view.winningLines).some(n => !Number.isInteger(n) || n < 1 || n > 100))) throw new TypeError('M100_UNVERIFIED_WINNING_LINE');
+  if (view.winTier !== undefined && view.winTier !== null && !['NICE WIN','SUPER WIN'].includes(view.winTier)) throw new TypeError('M100_UNOBSERVED_WIN_TIER');
   return frozen(copy({ gameId:view.gameId, requestKey:view.requestKey, roundId:view.roundId, bet:view.bet, winAmount:view.winAmount, grid:view.grid, multiplier:view.multiplier,
+    ...(view.currency===undefined?{}:{currency}),
     ...(view.balance === undefined ? {} : {balance:view.balance}), ...(view.winningLines === undefined ? {} : {winningLines:view.winningLines}), ...(view.winTier === undefined ? {} : {winTier:view.winTier}) }));
 }
 
 export class MultiHot100Controls {
   #state; #used = new Set(); #collected = new Set(); #rounds=new Map(); #collections=new Map(); #gambles=new Map();
-  constructor({betLevels = M100_OBSERVED_BET_CHOICES, selectedBet = '1.00', currency = 'DMO'} = {}) {
-    if (currency !== 'DMO' || !Array.isArray(betLevels) || !betLevels.length || new Set(betLevels).size !== betLevels.length || betLevels.some(b => !M100_OBSERVED_BET_CHOICES.includes(b)) || !betLevels.includes(selectedBet)) throw new TypeError('M100_REFERENCE_BET_CHOICES');
-    this.#state = {gameId:MULTI_HOT_100_GAME_ID,currency,betLevels:[...betLevels],selectedBet,phase:'IDLE',pending:null,round:null,pendingWin:null,balance:null,gamble:null,modal:null,stopRequested:false,
-      paytablePreviewBet:selectedBet, settings:{soundEffects:true,music:true,quick:false,fullscreenRequested:false}, auto:{running:false,configuration:null}, cashEnabled:false,audibleVerified:false};
+  constructor({betLevels = M100_OBSERVED_BET_CHOICES, selectedBet = '1.00', currency = 'DMO',hostPolicy=null} = {}) {
+    if (!['DMO','ETB'].includes(currency) || !Array.isArray(betLevels) || !betLevels.length || new Set(betLevels).size !== betLevels.length || !betLevels.includes(selectedBet)) throw new TypeError('M100_REFERENCE_BET_CHOICES');
+    if(currency==='DMO'&&(hostPolicy!==null||betLevels.some(b=>!M100_OBSERVED_BET_CHOICES.includes(b))))throw new TypeError('M100_REFERENCE_BET_CHOICES');
+    // This policy comes from the authenticated existing-host adapter. It cannot
+    // authorize funds: that host still validates every wager in its transaction.
+    if(currency==='ETB'&&(!hostPolicy||hostPolicy.gameId!==MULTI_HOT_100_GAME_ID||hostPolicy.backendGameId!=='multihot100_native'||
+      hostPolicy.currency!=='ETB'||hostPolicy.serverAuthoritative!==true||!moneyOK(hostPolicy.balance)||
+      !['mathVersion','engineVersion'].every(k=>typeof hostPolicy[k]==='string'&&hostPolicy[k].length>0&&hostPolicy[k].length<=160)||
+      !/^[a-f0-9]{64}$/.test(hostPolicy.mathSha256||'')||JSON.stringify(hostPolicy.betLevels)!==JSON.stringify(betLevels)||
+      betLevels.some(b=>!moneyOK(b)||BigInt(b.replace('.',''))<100n||BigInt(b.replace('.',''))>4000000n)))throw new TypeError('M100_EXISTING_HOST_POLICY');
+    this.#state = {gameId:MULTI_HOT_100_GAME_ID,currency,betLevels:[...betLevels],selectedBet,phase:'IDLE',pending:null,round:null,pendingWin:null,balance:currency==='ETB'?hostPolicy.balance:null,gamble:null,modal:null,stopRequested:false,
+      paytablePreviewBet:selectedBet, settings:{soundEffects:true,music:true,quick:false,fullscreenRequested:false}, auto:{running:false,configuration:null}, cashEnabled:currency==='ETB',audibleVerified:false};
   }
   snapshot() { return frozen(copy(this.#state)); }
   #begin(key, kind, details) {
     if (!keyOK(key) || this.#used.has(key)) return reject('INVALID_OR_REUSED_KEY');
     this.#used.add(key);
-    const intent=frozen({kind,gameId:MULTI_HOT_100_GAME_ID,requestKey:key,...details});
+    const intent=frozen({kind,gameId:MULTI_HOT_100_GAME_ID,requestKey:key,...(this.#state.currency==='ETB'?{currency:'ETB'}:{}),...details});
     this.#state.pending=intent; this.#state.phase=`${kind}_PENDING`;this.#state.stopRequested=false;
     return frozen({accepted:true,intents:[intent]});
   }

@@ -79,7 +79,14 @@ export class MultiHot100Controller {
     } catch(error) {
       if(!this.disposed) {
         const state=this.controls.snapshot();
-        if(state.pending?.requestKey===intent.requestKey) this.controls.markRequestUncertain(intent.requestKey);
+        if(state.pending?.requestKey===intent.requestKey&&error?.safeToCancel===true) {
+          // Only the injected existing-host adapter may report that it failed
+          // before any financial step was dispatched. Partial multi-step work
+          // remains uncertain and must replay its original journal instead.
+          this.controls.cancelUnsent(intent.requestKey);
+          if(intent.kind==='SPIN')this.presentation.cancelUnsent?.(intent.requestKey);
+        }
+        else if(state.pending?.requestKey===intent.requestKey) this.controls.markRequestUncertain(intent.requestKey);
         else if(intent.kind==='SPIN' && state.phase==='PRESENTING' && state.round?.requestKey===intent.requestKey) this.presentationFailure=true;
         this.controls.stopAuto(); this.report(error);
       }

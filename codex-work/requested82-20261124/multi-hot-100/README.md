@@ -1,5 +1,17 @@
 # Current requested82 — Multi Hot 100 host composition
 
+## Current continuation — 25 November 2026
+
+The runtime and GitHub connection now work. The current official demo was played for seven separately initiated settled rounds; the first12.60DMO win is reproduced exactly by the new `rules/quote.mjs`, including corrected line46. All100current paths and the initialized public paytable are independently verified. The earlier missing45/46/complete-table statements below are historical, not current blockers.
+
+`assets.mjs` and `asset-pins.json` restore the own20-file static-media dependency with byte/SHA256checks; no provider program or private screenshot is loaded. `browser-entry.mjs`, `view.mjs` and `view.css` mount the responsive own UI with native symbols/controls, current phone layout, current QUICKlabels and shared Rules/Settings/History tabs. `view-browser-verification.json` records actual native360/390/430/1280QA plus a separately labelled isolatedETBcase. Host supplied balance/currency are explicit; no balance/outcome is fabricated. History requires actual supplied records.
+
+The existing backend already has an owner-authorized `multihot100_native` operator model. An authenticated existing-host policy can supply itsETBcurrency, existing balance and allowed bets; the incompatible legacy `multi_hot_100` model cannot be substituted. The real same-account adapter and mounted route are continuing under `host/` and `release/`. These public source/components and isolated tests are not a newly completed live pair. The current user requires completing M100+M20 together before adding their PLAYcards beside MultiHot5/FoxyHot20; see `../PAIR_PROGRESS.md`.
+
+An explicitly safe preflight failure from the injected host may release an undispatched intent. Any partially dispatched collect/start sequence remains recoverable with its original keys. Default reference controls remainDMO; ETB requires the exact existing-host policy and explicitETBreceipts. Earlier source test counts below retain their historical commit context.
+
+---
+
 This source continues **Multi Hot 100**, the first title in the latest24 November list, under its existing separately reserved new identity `zplay72_multi_hot_100_v1`. It preserves every existing game, account, route, wallet and service. The full exact user list remains in `../requested.json`; this does not restore the older90-name task.
 
 The continued own M100 controls now reject a prior SPIN receipt, TAKE acknowledgement or GAMBLE acknowledgement while a different request is pending. Previously a known old response could return an idempotent no-op while silently leaving the later action waiting. Sparse winning-line arrays are also rejected before state changes. Existing duplicate handling remains idempotent when no later request is waiting.

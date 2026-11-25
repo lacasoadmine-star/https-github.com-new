@@ -1,5 +1,11 @@
 # Active user request — 24 November 2026
 
+## Latest delivery order
+
+Finish two games at a time. The first pair is **Multi Hot 100 and Multi Hot 20**. Verify phone and desktop controls, PLAY, actual gameplay and the existing account/backend connection before adding the pair beside MultiHot5/FoxyHot20 on ZPLAY. Only then advance to the next pair. The exact82 labels below remain the scope. The screenshots illustrate dashboard placement and the mobile launch flow, not a new Habesha Fortune5 task.
+
+The current runtime and connected GitHub access now work; the old startup blocker at the end is historical. Continue on `work/requested82-finish-20261124`. M20 has an implemented compatible accepted-result recovery repair with exact native-media browser QA; M100 now has current100paths/paytable, own native UI and an existing-host adapter in progress. Neither a source entry nor a fixture is a newly completed pair.
+
 This exact latest list supersedes the previous 23 November ninety-name work queue. Work only on the names below; preserve existing code and live games as the implementation baseline. Do not resume a different historical queue or add invented games. This file records the user's request and does not claim implementation, completion, testing or deployment.
 
 Use each game's current official provider demo. Inspect actual play, bets and collection, control placement and input, symbols/artwork, animation, startup and sound, rules and responsive layout. Do not use the user's uploaded screenshots or videos as reference media. Keep new game identities separate from old games. Preserve the existing authoritative wallet, ledger, authentication, accounts and payment services. Never create production test funds or replace accepted outcomes.

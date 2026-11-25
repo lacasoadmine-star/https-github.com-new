@@ -15,7 +15,8 @@ let mountOrdinal = 0;
 
 /** Runnable same-game entry. Native assets and authenticated host transport are explicit dependencies. */
 export function mountMultiHot20({ root, assets, transport = null, samples = {}, initialBet = '0.20',
-  audioFactory, keyFactory, rendererFactory = null, askSound = false, onError = () => {} } = {}) {
+  audioFactory, keyFactory, rendererFactory = null, controlsFactory = options => new MultiHot20Controls(options),
+  controllerFactory = options => new MultiHot20Controller(options), askSound = false, onError = () => {} } = {}) {
   const document = root?.ownerDocument, window = document?.defaultView;
   if (!document || !window || (rendererFactory ? typeof rendererFactory !== 'function' : !assets?.atlas?.draw || !assets?.background)) throw new TypeError('M20_MOUNT_DEPENDENCIES');
   if (root.dataset.m20Mounted === 'true') throw new Error('M20_ALREADY_MOUNTED');
@@ -36,13 +37,13 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   const overlay = document.createElement('div'); overlay.className = 'm20-overlay'; overlay.hidden = true;
   const panel = document.createElement('section'); panel.className = 'm20-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.tabIndex = -1;
   overlay.append(panel); stage.append(scene, controlsLayer, overlay); root.replaceChildren(stage, live);
-  const controls = new MultiHot20Controls({ bet: initialBet, betLevels, roundIntentsEnabled: enabled, serverAuthoritative:host });
+  const controls = controlsFactory({ bet: initialBet, betLevels, roundIntentsEnabled: enabled, serverAuthoritative:host });
   const audio = new MultiHot20Audio({ samples, ...(audioFactory ? { audioFactory } : {}) });
   const rendererOptions = { canvas: nativeCanvas, atlas: assets.atlas, background: assets.background, art: assets.art,
     onEvent: event => audio.handle(event) };
   const renderer = rendererFactory ? rendererFactory(rendererOptions) : new MultiHot20Renderer(rendererOptions);
   renderer.setDisplay({ currency: enabled || host ? 'ETB' : 'DMO', balance: null, bet: initialBet });
-  const controller = transport ? new MultiHot20Controller({ controls, renderer, transport, ...(keyFactory ? { keyFactory } : {}),
+  const controller = transport ? controllerFactory({ controls, renderer, transport, ...(keyFactory ? { keyFactory } : {}),
     now: () => window.performance.now(), onChange: () => sync(), onError: error => {
       holdPointer=null;live.textContent = 'Connection interrupted. Recover the pending round before playing again.'; onError(error); sync();
     } }) : null;
@@ -164,8 +165,10 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
     const s = controls.snapshot(), view = renderer.snapshot(), moving = view.phase !== 'IDLE';
     renderer.setDisplay({ bet: s.bet, balance: s.balance, quick: s.settings.quick }); audio.setting(s.settings);
     const main = buttons.get('spin'), recovering = s.phase === 'RECOVERY_REQUIRED';
-    main.querySelector('.m20-control-label').textContent = recovering ? 'RECOVER' : s.auto?.active ? String(s.auto.remaining) : moving ? 'STOP' : 'HOLD & SPIN';
-    main.classList.toggle('show-native-caption',recovering||!!s.auto?.active);
+    const mainCaption=main.querySelector('.m20-control-label');
+    mainCaption.textContent = recovering ? 'RECOVER' : s.auto?.active ? String(s.auto.remaining) : moving ? 'STOP' : 'HOLD\n&\nSPIN';
+    Object.assign(mainCaption.style,{whiteSpace:'pre-line',background:'transparent',padding:'0',fontSize:recovering?'11px':'14px',lineHeight:'1.1'});
+    main.classList.add('show-native-caption');
     main.setAttribute('aria-label', recovering ? 'Recover current round' : moving ? 'Stop current spin' : 'HOLD & SPIN');
     if (recovering) live.textContent = 'Connection interrupted. Recover the current round before playing again.';
     else if (enabled) live.textContent = s.auto?.active ? `Autoplay: ${s.auto.remaining} remaining` : '';
