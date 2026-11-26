@@ -60,7 +60,7 @@ function startPortal(portal, pathname, startingToken = null) {
   // Node vm.Script executes classic scripts, not ES modules; stub only that
   // import for this isolated login/navigation test. Gameplay stays separate.
   const sourceForVm = portal === "player"
-    ? source.replace(/^import \\{ mountMultiHot5 \\} from "\\.\\/games\\/multi-hot-5\\.canvas\\.js";\\r?\\n/, "")
+    ? source.replace(/^import \{ mountMultiHot5 \} from "\.\/games\/multi-hot-5\.canvas\.js";\r?\n/, "")
     : source;
   runInNewContext(sourceForVm, {
     document, sessionStorage, location, window, WebSocket: MockWebSocket,
