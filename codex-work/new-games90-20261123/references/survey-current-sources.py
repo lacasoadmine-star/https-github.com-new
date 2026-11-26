@@ -8,9 +8,12 @@ import html
 import json
 import pathlib
 import re
-import urllib.error
-import urllib.parse
-import urllib.request
+import sys
+
+# The source script also works when invoked directly from outside the repository.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[3] / 'tools'))
+from smartsoft_demo_references import (extract_demo_launchers, fetch_official_page,
+                                     official_page_url, select_demo_candidates)
 
 ROOT = pathlib.Path(__file__).resolve().parent
 NAMES = """Multi Hot 5 Burn Wilds|Multi Hot 5 Super Wilds|Multi Hot 10|Multi Hot 20|Multi Hot 100|Multi Hot Ways|Burning Ice|Burning Ice 10|Burning Ice 40|Hot Samba|Safari Simba|Samurai|Vampires|Book of Win|Book of Futuria|Dark|Dark 100|Magic Garden|Magic Garden 10|Magic Garden 40|Moonstone|Princess of Birds|The Kingdom of The Elves|Evolution|Caravan of Riches|Wilds and Gods|Fruity Time|Jungles|Blazing Hot 10|Blazing Hot 40|Cashino|Chilli Flame 7s|City Slot|Crazy Mustang|Dota|Double Fruit|Egypt|Genie's Bonanza|Golden Ball|Happy New Year|Joker's Wild|Madagascar|Pharaoh's Coin|Summer Cocktail|Sweet Kingdom|Wild Jungle|Zombies|JetX|JetX3|Next Level JetX|Helicopter X|Football X|Cricket X|Plinko X|Plinko X Classic|Balloon|Mine Island|Mine Island 2|Crash Duel X|Propel X|SplitX|PopX|World Champion X|Cappadocia|Aviastar|Tower X|Hunter X|Roll X|Slicer X|Smash X|Dr. Shocker|4 Bonuses Bonanza|Fruit Roulette|European Roulette|American Roulette|Personal Roulette|Virtual Burning Roulette|Virtual Classic Roulette|Blackjack|Texas Hold'em Poker|Caribbean Stud Poker|Russian Poker|Joker Poker|Sic Bo|Keno|Russian Keno|VIP Keno|Toto Keno|Bingo|Fortune Catch""".split('|')
@@ -19,21 +22,24 @@ def norm(value):
     return re.sub(r'[^a-z0-9]', '', value.lower())
 
 def fetch(url):
-    started = datetime.datetime.now(datetime.timezone.utc).isoformat()
     try:
-        request = urllib.request.Request(url, headers={'User-Agent': 'ZPLAY-public-reference-metadata/1.0'})
-        with urllib.request.urlopen(request, timeout=35) as response:
-            body = response.read(4 * 1024 * 1024)
-            text = body.decode('utf-8', errors='replace')
-            heads = [html.unescape(re.sub('<[^>]+>', '', x)).strip() for x in re.findall(r'<h1\b[^>]*>(.*?)</h1>', text, re.S | re.I)]
-            links = [html.unescape(x) for x in re.findall(r'href=["\']([^"\']+)["\']', text)]
-            demos = list(dict.fromkeys(x for x in links if 'ssgportal.com/GameLauncher/' in x))
-            # Main product appears before related-games links. Preserve the exact href.
-            return {'requestedUrl': url, 'responseUrl': response.geturl(), 'status': response.status, 'retrievedAtUtc': started,
-                    'sizeBytes': len(body), 'sha256': hashlib.sha256(body).hexdigest(), 'headings': list(dict.fromkeys(heads)),
-                    'officialDemoHrefs': demos, 'contentType': response.headers.get('Content-Type')}
-    except (OSError, urllib.error.URLError) as error:
-        return {'requestedUrl': url, 'retrievedAtUtc': started, 'error': str(error), 'status': getattr(error, 'code', None)}
+        safe_url = official_page_url(url)
+    except (TypeError, ValueError):
+        return {'requestedUrl': None, 'status': None, 'pageStatus': 'INVALID_PRODUCT_URL'}
+    try:
+        body, observation = fetch_official_page(safe_url)
+    except Exception as error:
+        # A failed product must not abort independent product observations.
+        return {'requestedUrl': safe_url, 'status': None, 'pageStatus': 'FETCH_ERROR',
+                'errorType': type(error).__name__}
+    if body is None:
+        return observation
+    text = body.decode('utf-8', errors='replace')
+    heads = [html.unescape(re.sub('<[^>]+>', '', x)).strip() for x in re.findall(r'<h1\b[^>]*>(.*?)</h1>', text, re.S | re.I)]
+    demos = extract_demo_launchers(text, url)
+    return {**observation, 'headings': list(dict.fromkeys(heads)),
+            'officialDemoHrefs': [entry['originalHref'] for entry in demos],
+            'officialDemoLinks': demos}
 
 def parse_catalog(text):
     records = []
@@ -42,27 +48,57 @@ def parse_catalog(text):
         if not names:
             continue
         pages = re.findall(r'href="(/games/[^"?#]+)"', block)
-        demos = re.findall(r'href="(https://eu-server.ssgportal.com/[^"<>]+)"', block)
+        page = 'https://www.smartsoftgaming.com' + pages[0] if pages else None
+        try:
+            page = official_page_url(page)
+        except (TypeError, ValueError):
+            page = None
+        demos = extract_demo_launchers(block, page or 'https://www.smartsoftgaming.com/games')
+        identities = {(entry['gameName'], entry['gameCategory']) for entry in demos}
+        if len(identities) == 1:
+            game_name, game_category = next(iter(identities))
+            resolution = select_demo_candidates(demos, game_name, game_category)
+        else:
+            game_name = game_category = None
+            resolution = {'referenceStatus': 'AMBIGUOUS' if identities else 'UNAVAILABLE', 'reference': None}
+        reference = resolution['reference']
         categories = re.findall(r'fs-cmsfilter-field="category"[^>]*>(.*?)</p>', block)
         records.append({'name': html.unescape(names[0]).strip(),
-                        'officialPage': 'https://www.smartsoftgaming.com' + pages[0] if pages else None,
-                        'officialDemoHref': html.unescape(demos[0]) if demos else None,
+                        'officialPage': page,
+                        'officialDemoHref': reference['originalHref'] if reference else None,
+                        'officialDemoLaunchUrl': reference['launchUrl'] if reference else None,
+                        'demoGameName': game_name, 'demoGameCategory': game_category,
+                        'referenceStatus': resolution['referenceStatus'],
+                        'referenceRepairs': reference['repairs'] if reference else [],
                         'category': categories[0] if categories else None})
     return records
 
+
+def reconcile_product_reference(product, observation):
+    """Prefer an exact fresh product-page link; a stale catalogue link is not recovery."""
+    game_name, category = product.get('demoGameName'), product.get('demoGameCategory')
+    if game_name is None:
+        return {'referenceStatus': 'UNAVAILABLE', 'reference': None,
+                'reason': 'CATALOGUE_IDENTITY_UNAVAILABLE', 'gameplayStatus': 'NOT_TESTED', 'liveVerified': False}
+    if observation.get('status') != 200 or observation.get('pageStatus') != 'FETCHED':
+        result = select_demo_candidates([], game_name, category)
+        return {**result, 'reason': 'PRODUCT_PAGE_UNAVAILABLE'}
+    result = select_demo_candidates(observation.get('officialDemoLinks', []), game_name, category)
+    return {**result, 'source': 'PRODUCT_PAGE'}
+
 def main():
     catalogue_url = 'https://www.smartsoftgaming.com/games'
-    with urllib.request.urlopen(catalogue_url, timeout=35) as response:
-        raw = response.read()
+    raw, catalogue_observation = fetch_official_page(catalogue_url, allow_catalog=True)
+    if raw is None:
+        raise RuntimeError('OFFICIAL_CATALOGUE_UNAVAILABLE')
     catalogue = parse_catalog(raw.decode())
     current = {norm(x['name']): x for x in catalogue}
     aliases = {'mineisland2': 'mineisland2', 'jetx3': 'aviastar', 'nextleveljetx': 'neweraofjetx', 'crashduelx': 'crashduel'}
-    pages = sorted(set(x['officialPage'] for x in catalogue if x['officialPage']))
     # Reopen requested product pages, not all unrelated catalogue entries.
     requested_pages = set()
     for name in NAMES:
         key = aliases.get(norm(name), norm(name))
-        if key in current:
+        if key in current and current[key]['officialPage']:
             requested_pages.add(current[key]['officialPage'])
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
         observations = list(executor.map(fetch, sorted(requested_pages)))
@@ -75,9 +111,15 @@ def main():
                'manualRoundsObservedThisSurvey': 0, 'audioAudiblyVerifiedThisSurvey': False,
                'liveVerified': False, 'sourceStatus': 'CURRENT_PRIMARY_PRODUCT_METADATA' if product else 'CONTINUING_EXACT_IDENTITY_RESEARCH'}
         if product:
-            observation = page_by_url[product['officialPage']]
+            observation = page_by_url.get(product['officialPage'], {'status': None, 'pageStatus': 'UNAVAILABLE'})
+            resolution = reconcile_product_reference(product, observation)
+            reference = resolution['reference']
             row.update({'provider': 'SmartSoft Gaming', 'catalogueProductName': product['name'],
-                        'officialPage': product['officialPage'], 'officialDemoHref': product['officialDemoHref'],
+                        'officialPage': product['officialPage'],
+                        'catalogueOfficialDemoHref': product['officialDemoHref'],
+                        'officialDemoHref': reference['originalHref'] if reference else None,
+                        'officialDemoLaunchUrl': reference['launchUrl'] if reference else None,
+                        'referenceResolution': resolution,
                         'catalogueCategory': product['category'], 'pageObservation': observation})
             if name in ['JetX3', 'Aviastar']:
                 row['identityIssue'] = 'AviaStar product page links GameName=JetX3. These two requested names currently identify one official product, not two verified distinct games.'
@@ -93,7 +135,7 @@ def main():
               'recordedAtUtc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'timeZone': 'Africa/Addis_Ababa',
               'requestedCount': len(rows), 'excludedExactGames': ['MultiHot5', 'FoxyHot20', 'HabeshaFortune5'],
               'catalogue': {'url': catalogue_url, 'responseSha256': hashlib.sha256(raw).hexdigest(), 'responseSizeBytes': len(raw),
-                            'parsedProductCount': len(catalogue)},
+                            'parsedProductCount': len(catalogue), 'pageObservation': catalogue_observation},
               'scopeNote': 'Metadata/source discovery only. No browser interaction, game rounds, sound audition, visual parity, wallet integration or live new-game completion was performed by this survey.',
               'rows': rows}
     (ROOT / 'official-source-manifest.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
