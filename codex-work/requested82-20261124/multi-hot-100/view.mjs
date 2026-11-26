@@ -25,7 +25,8 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
   const initialCurrency=controller.snapshot().currency;
   let disposed=false,raf=null,modalKey=null,priorFocus=null,latestError='',startedAt=null,animationKey=null,renderError=false;
   const nativeImages=new Map();
-  let lastSound='',lastRound='',lastAudioEnabled='',infoTab='rules',autoCount=100;
+  let lastSound='',lastRound='',lastAudioEnabled='',infoTab='rules',autoCount=100,betOffset=0;
+  const betWindowSize=5;
   const autoLimits={winAtLeast:null,balanceDecrease:null,balanceIncrease:null};
   root.innerHTML=`<section class="m100-game" aria-label="Multi Hot 100" tabindex="-1">
     <header class="m100-top"><div class="m100-brand m100-sr"><span>MULTI HOT</span><strong>100</strong></div><span class="m100-demo m100-sr">${initialCurrency==='DMO'?'DEMO · DMO':esc(initialCurrency)}</span>${onExit?button('exit','Close game','aria-label="Close game" class="m100-icon"'):''}</header>
@@ -148,15 +149,39 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     if(Array.isArray(historyRecords))return historyRecords.length?`<div class="m100-history"><table><thead><tr><th>Round</th><th>Bet</th><th>Win</th></tr></thead><tbody>${historyRecords.map(row=>`<tr><td>${esc(row.roundId)}</td><td>${esc(row.bet)}</td><td>${esc(row.winAmount)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="m100-history-empty">No rounds yet.</p>';
     return typeof historyURL==='string'&&/^\/[A-Za-z0-9/_-]+$/.test(historyURL)?`<p class="m100-history-empty"><a href="${esc(historyURL)}">Open round history</a></p>`:'<p class="m100-history-empty">History is unavailable for this session.</p>';
   }
+  function positionBetModal() {
+    const panel=overlay.querySelector('.m100-bet-modal'),anchor=root.querySelector('.m100-bet-button');
+    if(!panel||!anchor)return;
+    const box=game.getBoundingClientRect(),buttonBox=anchor.getBoundingClientRect(),padding=12;
+    if(!box.width||!box.height||!buttonBox.width)return;
+    const width=Math.min(buttonBox.width*613/133,box.width-padding*2,(box.height-padding*2)*613/634);
+    const height=width*634/613;
+    const left=Math.max(padding,Math.min(buttonBox.right-box.left+buttonBox.width*1.2-width,box.width-width-padding));
+    const top=Math.max(padding,Math.min(buttonBox.top-box.top+buttonBox.height/2-height,box.height-height-padding));
+    Object.assign(panel.style,{left:left+'px',top:top+'px',width:width+'px',height:height+'px'});
+    panel.style.setProperty('--m100-bet-font',Math.max(14,width/613*64)+'px');
+  }
   function decorateModal(){
     for(const cell of overlay.querySelectorAll('[data-paytable-symbol]')){
       if(!assets?.frames)continue;const name=M100_SYMBOL_FRAMES[cell.dataset.paytableSymbol],image=assets.frames.get(name),trim=assets.frames.metadata?.(name)?.spriteSourceSize??{x:0,y:0,w:image.width,h:image.height},scale=Math.min(144/trim.w,144/trim.h),context=cell.getContext('2d');context.clearRect(0,0,160,160);context.drawImage(image,80-(trim.x+trim.w/2)*scale,80-(trim.y+trim.h/2)*scale,image.width*scale,image.height*scale);
+    }
+    const betPanel=overlay.querySelector('.m100-bet-modal');
+    if(betPanel){
+      const popup=nativeURL('Bets/Popup'),row=nativeURL('Bets/Button'),active=nativeURL('Bets/ButtonActive');
+      if(popup)betPanel.style.backgroundImage=`url("${popup}")`;
+      if(row)betPanel.style.setProperty('--m100-bet-row-image',`url("${row}")`);
+      if(active)betPanel.style.setProperty('--m100-bet-row-active',`url("${active}")`);
+      for(const [action,name] of [['bet-page-prev','Bets/Up'],['bet-page-next','Bets/Down']]){
+        const arrow=betPanel.querySelector(`[data-action="${action}"]`),url=nativeURL(name);
+        if(arrow&&url){arrow.style.backgroundImage=`url("${url}")`;arrow.classList.add('m100-native-bet-arrow');}
+      }
+      positionBetModal();
     }
     const quick=overlay.querySelector('.m100-quick-modal');
     if(quick){for(const [element,name] of [[quick,'QuickPlay/Popup'],[quick.querySelector('[data-action="quick-enable"]'),'QuickPlay/Confirm'],[quick.querySelector('.m100-quick-cancel'),'QuickPlay/Cancel']]){const url=nativeURL(name);if(url)element.style.backgroundImage=`url("${url}")`;}nativeButton(quick.querySelector('header [data-action="close"]'),'QuickPlay/Close');}
   }
   function renderModal(state){
-    const key=[state.modal,state.phase,state.pending?.kind??'',state.gamble?.requestKey??'',infoTab,state.paytablePreviewBet].join(':');
+    const key=[state.modal,state.phase,state.pending?.kind??'',state.gamble?.requestKey??'',infoTab,state.paytablePreviewBet,state.modal==='bet'?betOffset:''].join(':');
     if(key===modalKey)return;modalKey=key;
     if(!state.modal){overlay.hidden=true;overlay.classList.remove('m100-information-overlay');overlay.replaceChildren();if(priorFocus?.isConnected&&!priorFocus.disabled)priorFocus.focus({preventScroll:true});priorFocus=null;return;}
     if(overlay.hidden){priorFocus=doc.activeElement;overlay.hidden=false;}
@@ -164,7 +189,12 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     const title=isInfo?'Game information':{bet:'Bet',auto:'Autoplay',quick:'QUICK PLAY',double:'Double win'}[state.modal];
     let content='';
     if(isInfo)content=tab==='settings'?settingsContent(state):tab==='history'?historyContent():rulesContent(state);
-    if(state.modal==='bet')content=`<div class="m100-bets">${state.betLevels.map(bet=>button(`bet:${bet}`,`${esc(bet)} <small>${esc(state.currency)}</small>`,`aria-pressed="${bet===state.selectedBet}"`)).join('')}</div>`;
+    if(state.modal==='bet'){
+      const lastStart=Math.max(0,state.betLevels.length-betWindowSize);
+      betOffset=Math.min(betOffset,lastStart);
+      const choices=state.betLevels.slice(betOffset,betOffset+betWindowSize);
+      content=`<div class="m100-bets" role="group" aria-label="Bet choices">${choices.map(bet=>button(`bet:${bet}`,`<span>${esc(bet)}</span><small>${esc(state.currency)}</small>`,`class="m100-bet-choice" aria-label="${esc(bet)} ${esc(state.currency)}" aria-pressed="${bet===state.selectedBet}"`)).join('')}</div>${button('bet-page-prev','<span aria-hidden="true">⌃</span>',`class="m100-bet-page m100-bet-prev" aria-label="Previous bet values" ${betOffset===0?'disabled':''}`)}${button('bet-page-next','<span aria-hidden="true">⌄</span>',`class="m100-bet-page m100-bet-next" aria-label="Next bet values" ${betOffset>=lastStart?'disabled':''}`)}`;
+    }
     if(state.modal==='quick')content=`<div class="m100-quick-copy"><p>For faster play enable <span aria-hidden="true">⚡</span> turbo mode</p><p>You can disable the feature <span aria-hidden="true">⚡</span> from game menu</p></div><div class="m100-modal-actions">${button('quick-enable','ENABLE QUICK PLAY')}${button('close','NO','class="m100-quick-cancel"')}</div>`;
     if(state.modal==='auto')content=autoFields(state);
     if(state.modal==='double')content=`<p class="m100-double-amount">${esc(state.pendingWin)} <small>${esc(state.currency)}</small></p>${state.gamble?`<p class="m100-card-result">${esc(state.gamble.card.replace('Ace_','Ace of '))}</p>`:''}<p>Choose a colour</p><div class="m100-gamble">${button('red','♥ ♦','aria-label="Red"')}${button('black','♠ ♣','aria-label="Black"')}</div>${button('take','TAKE WIN','aria-label="Take win"')}<p class="m100-modal-error" role="alert"></p>`;
@@ -172,7 +202,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     overlay.classList.toggle('m100-information-overlay',isInfo);
     const infoTabs=isInfo?`<footer class="m100-information-tabs" role="tablist" aria-label="Game information">${[['rules','Rules','?'],['settings','Settings','⚙'],['history','History','◴']].map(([name,label,icon])=>button(`info:${name}`,`<span aria-hidden="true">${icon}</span><span class="m100-info-tab-label">${label}</span>`,`role="tab" aria-label="${label}" aria-selected="${tab===name}"`)).join('')}</footer>`:'';
     const heading=isInfo?`<h2 class="m100-sr">Game information</h2><span class="m100-information-round">${state.round?`Round ${esc(state.round.roundId)}`:'Multi Hot 100'}</span>`:`<h2>${title}</h2>`;
-    overlay.innerHTML=`<section class="m100-modal ${isInfo?'m100-info-modal':state.modal==='quick'?'m100-quick-modal':''}" role="dialog" aria-modal="true" aria-label="${title}" tabindex="-1"><header>${heading}${button('close',isInfo?'Close <span aria-hidden="true">×</span>':'×','aria-label="Close panel"')}</header><div class="m100-modal-body">${content}</div>${infoTabs}</section>`;
+    overlay.innerHTML=`<section class="m100-modal ${isInfo?'m100-info-modal':state.modal==='quick'?'m100-quick-modal':state.modal==='bet'?'m100-bet-modal':''}" role="dialog" aria-modal="true" aria-label="${title}" tabindex="-1"><header>${heading}${button('close',isInfo?'Close <span aria-hidden="true">×</span>':'×','aria-label="Close panel"')}</header><div class="m100-modal-body">${content}</div>${infoTabs}</section>`;
     if(state.pending){overlay.querySelectorAll('button,input,select').forEach(el=>el.disabled=el.dataset.action!=='recover'||state.inFlight);}
     decorateModal();
     queueMicrotask(()=>{if(disposed||overlay.hidden)return;const dialog=overlay.querySelector('[role="dialog"]');(focusables(dialog)[0]??dialog).focus({preventScroll:true});});
@@ -199,6 +229,11 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
       else if(name==='auto'&&state.auto.running){controls.stopAuto();await onAutoStop?.();}
       else if(name.startsWith('info:')){infoTab=name.slice(5);controls.openModal(infoTab==='history'?'menu':infoTab);}
       else if(['menu','settings','rules','bet','auto','double'].includes(name)){if(name==='menu')infoTab='rules';controls.openModal(name);}
+      else if(name==='bet-page-prev'||name==='bet-page-next'){
+        if(state.modal!=='bet'||state.pending)return;
+        const delta=name==='bet-page-next'?betWindowSize:-betWindowSize;
+        betOffset=Math.max(0,Math.min(betOffset+delta,Math.max(0,state.betLevels.length-betWindowSize)));modalKey=null;
+      }
       else if(name.startsWith('bet:'))controls.selectBet(name.slice(4));
       else if(name==='preview-plus'||name==='preview-minus'){
         const index=state.betLevels.indexOf(state.paytablePreviewBet),next=index+(name==='preview-plus'?1:-1);
@@ -227,6 +262,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     if(['soundEffects','music'].includes(el.name)){controller.controls.setSetting(el.name,el.checked);changed();}
     if(el.name.endsWith('Enabled')){const field=el.name.slice(0,-7),input=overlay.querySelector(`[name="${field}"]`);if(input)input.disabled=!el.checked;}
   },{signal});
+  win.addEventListener('resize',()=>{if(controller.snapshot().modal==='bet'){modalKey=null;update();}},{signal});
   game.addEventListener('keydown',event=>{
     if(disposed||event.isComposing)return;const state=controller.snapshot();
     if(event.key==='Escape'&&state.modal){event.preventDefault();void action('close');return;}

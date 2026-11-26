@@ -32,7 +32,35 @@ try{
     const context=await browser.newContext({viewport:{width,height:width<700?844:900},deviceScaleFactor:2,hasTouch:width<700}),page=await context.newPage(),errors=[];
     page.on('pageerror',error=>errors.push(error.message));await page.route('**/*',route=>new URL(route.request().url()).origin===origin&&route.request().method()==='GET'?route.continue():route.abort());
     await page.goto(origin);await page.waitForFunction(()=>!!window.fixture?.game);assert.equal(await page.locator('[data-value="balance"]').innerText(),'—');assert.equal(await page.locator('[data-value="win"]').textContent(),'—');assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);assert.equal(await page.getByRole('button',{name:'Fullscreen',exact:true}).count(),0);
-    await page.getByRole('button',{name:'Change bet',exact:true}).click();await page.getByRole('button',{name:'2.00 DMO',exact:true}).click();assert.equal(await page.locator('[data-value="bet"]').innerText(),'2.00');
+    await page.getByRole('button',{name:'Change bet',exact:true}).click();
+    const betValues=()=>page.locator('.m100-bet-choice').allTextContents();
+    assert.deepEqual(await betValues(),['1.00DMO','2.00DMO','3.00DMO','4.00DMO','5.00DMO']);
+    assert(await page.getByRole('button',{name:'Previous bet values',exact:true}).isDisabled());
+    assert.equal(await page.locator('.m100-bet-choice').count(),5);
+    for(const expected of [
+      ['6.00DMO','7.00DMO','8.00DMO','10.00DMO','15.00DMO'],
+      ['20.00DMO','25.00DMO','30.00DMO','40.00DMO','50.00DMO'],
+      ['50.00DMO','60.00DMO','70.00DMO','80.00DMO','100.00DMO']
+    ]){await page.getByRole('button',{name:'Next bet values',exact:true}).click();assert.deepEqual(await betValues(),expected);}
+    assert(await page.getByRole('button',{name:'Next bet values',exact:true}).isDisabled());
+    assert.equal(await page.evaluate(()=>window.fixture.game.snapshot().selectedBet),'1.00');
+    assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);
+    const panel=await page.getByRole('dialog',{name:'Bet',exact:true}).boundingBox();
+    assert(panel.x>=0&&panel.y>=0&&panel.x+panel.width<=width+.5);
+    for(const bounds of await page.locator('.m100-bet-choice').evaluateAll(items=>items.map(el=>({height:el.getBoundingClientRect().height}))))assert(bounds.height>=44);
+    if(nativeAssets)assert((await page.getByRole('dialog',{name:'Bet',exact:true}).getAttribute('style')).includes('data:image/png;base64,'));
+    await page.screenshot({path:resolve(output,`m100-bet-last-${width}.png`)});
+    await page.getByRole('button',{name:'100.00 DMO',exact:true}).click();
+    assert.equal(await page.locator('[data-value="bet"]').innerText(),'100.00');assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);
+    await page.getByRole('button',{name:'Bet selector',exact:true}).click();
+    assert.deepEqual(await betValues(),['50.00DMO','60.00DMO','70.00DMO','80.00DMO','100.00DMO']);
+    await page.getByRole('button',{name:'Previous bet values',exact:true}).click();assert.deepEqual(await betValues(),['15.00DMO','20.00DMO','25.00DMO','30.00DMO','40.00DMO']);
+    await page.getByRole('button',{name:'Previous bet values',exact:true}).click();await page.getByRole('button',{name:'Previous bet values',exact:true}).click();
+    assert.deepEqual(await betValues(),['1.00DMO','2.00DMO','3.00DMO','4.00DMO','5.00DMO']);
+    assert(await page.getByRole('button',{name:'Previous bet values',exact:true}).isDisabled());
+    assert.equal(await page.evaluate(()=>window.fixture.game.snapshot().selectedBet),'100.00');
+    await page.getByRole('button',{name:'2.00 DMO',exact:true}).click();assert.equal(await page.locator('[data-value="bet"]').innerText(),'2.00');
+    assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);
     await page.getByRole('button',{name:'Quick spin',exact:true}).click();assert(await page.getByRole('button',{name:'ENABLE QUICK PLAY',exact:true}).isVisible());assert(await page.getByRole('button',{name:'NO',exact:true}).isVisible());await page.screenshot({path:resolve(output,`m100-quick-${width}.png`)});await page.getByRole('button',{name:'ENABLE QUICK PLAY',exact:true}).click();assert.equal(await page.getByRole('button',{name:'Quick spin',exact:true}).getAttribute('aria-pressed'),'true');
     await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).click();await page.waitForFunction(()=>window.fixture.game.snapshot().phase==='PRESENTING');assert.equal(await page.evaluate(()=>window.fixture.calls.length),1);
     await page.getByRole('button',{name:'STOP',exact:true}).click();assert.equal(await page.evaluate(()=>window.fixture.calls.length),1);assert.equal(await page.evaluate(()=>window.fixture.game.snapshot().stopRequested),true);
@@ -49,7 +77,7 @@ try{
     await page.evaluate(()=>window.fixture.game.frame({clockMs:1,progress:1}));await page.waitForFunction(()=>window.fixture.game.snapshot().phase==='WIN_PENDING');assert.equal(await page.locator('[data-value="win"]').textContent(),'6.00');
     await page.getByRole('button',{name:'Double win',exact:true}).click();await page.evaluate(()=>{window.fixture.dropNext=true;});await page.getByRole('button',{name:'Red',exact:true}).click();await page.waitForFunction(()=>window.fixture.game.snapshot().phase==='RECOVERY_REQUIRED');const uncertainGamble=await page.evaluate(()=>window.fixture.calls.at(-1).intent);await page.getByRole('dialog').getByRole('button',{name:'Recover current round',exact:true}).click();await page.waitForFunction(()=>window.fixture.game.snapshot().pendingWin==='12.00');assert.deepEqual(await page.evaluate(()=>window.fixture.calls.at(-1).intent),uncertainGamble);assert.equal(await page.evaluate(()=>window.fixture.calls.at(-1).kind),'recover');await page.keyboard.press('Escape');
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);if(nativeAssets){assert.equal(await page.locator('.m100-readout>div:nth-child(2)').evaluate(el=>getComputedStyle(el).backgroundSize),'100% 100%');}assert(await page.locator('canvas').evaluate(c=>Math.abs(c.width/c.height-c.getBoundingClientRect().width/c.getBoundingClientRect().height)<.002));assert.deepEqual(errors,[]);await page.screenshot({path:resolve(output,`m100-controls-${width}.png`)});
-    const before=await page.evaluate(()=>window.fixture.calls.length);await page.evaluate(()=>window.fixture.game.destroy());await page.keyboard.press('Space');assert.equal(await page.evaluate(()=>window.fixture.calls.length),before);assert.equal(await page.locator('.m100-game').count(),0);reports.push({width,noInitialBalanceOrOutcome:true,changedBetBound:true,stopNeverSubmitted:true,redGambleThenTakeBound:true,independentSoundControls:true,fullscreenInSettingsOnly:true,sharedBottomRulesSettingsHistoryTabs:true,noInventedHistory:true,observedQuickPlayLabel:true,completeNativeWinPlateSize:true,modalFocusAndEscape:true,paytablePreviewDidNotChangeBet:true,autoConfigurationValidated:true,spaceInitiatedOneRequest:true,originalKeyRecovered:true,pendingGambleRecoveryReachableInsideModal:true,destroyRemovedInputAndAnimation:true,pageErrors:errors});await context.close();
+    const before=await page.evaluate(()=>window.fixture.calls.length);await page.evaluate(()=>window.fixture.game.destroy());await page.keyboard.press('Space');assert.equal(await page.evaluate(()=>window.fixture.calls.length),before);assert.equal(await page.locator('.m100-game').count(),0);reports.push({width,noInitialBalanceOrOutcome:true,changedBetBound:true,officialFiveRowBetPager:true,fullCurrentDMOLadder:true,pagingDidNotPlaceWager:true,lastWindowClamped:true,pagingRetainedOnReopen:true,stopNeverSubmitted:true,redGambleThenTakeBound:true,independentSoundControls:true,fullscreenInSettingsOnly:true,sharedBottomRulesSettingsHistoryTabs:true,noInventedHistory:true,observedQuickPlayLabel:true,completeNativeWinPlateSize:true,modalFocusAndEscape:true,paytablePreviewDidNotChangeBet:true,autoConfigurationValidated:true,spaceInitiatedOneRequest:true,originalKeyRecovered:true,pendingGambleRecoveryReachableInsideModal:true,destroyRemovedInputAndAnimation:true,pageErrors:errors});await context.close();
   }
   if(process.env.M100_VIEW_QA_ETB==='1'){
     const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true}),page=await context.newPage(),errors=[];

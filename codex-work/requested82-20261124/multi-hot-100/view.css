@@ -20,3 +20,19 @@
  .m100-game .m100-readout>div:nth-child(2)>strong{font-size:14px}
  .m100-game .m100-readout>div:nth-child(2)>small{font-size:10px;align-self:center}
 }
+
+/* Current official M100 BET: five native rows; page offsets advance by five and
+   clamp to a full final window. The controller/host still owns the actual stakes. */
+.m100-overlay:has(.m100-bet-modal){padding:0;background:#000c22d9}
+.m100-modal.m100-bet-modal{position:absolute;margin:0;max-height:none;overflow:hidden;border:0;border-radius:0;background-color:#26370e;background-size:100% 100%;background-repeat:no-repeat;box-shadow:none}
+.m100-bet-modal>header{display:none}
+.m100-bet-modal>.m100-modal-body{position:absolute;inset:0;padding:1.8% 0}
+.m100-bet-modal .m100-bets{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(5,minmax(0,1fr));gap:0;width:100%;height:100%}
+.m100-game .m100-bet-modal .m100-bet-choice{display:flex;align-items:center;justify-content:center;gap:.2em;min-width:0;min-height:0;padding:0 16%;border:0;border-radius:0;box-shadow:none;background-color:transparent;background-image:var(--m100-bet-row-image);background-size:100% 100%;background-repeat:no-repeat;color:white;font-size:var(--m100-bet-font,28px);font-weight:900;line-height:1;white-space:nowrap}
+.m100-game .m100-bet-modal .m100-bet-choice:hover:enabled,.m100-game .m100-bet-modal .m100-bet-choice:focus-visible{background-image:var(--m100-bet-row-active,var(--m100-bet-row-image))}
+.m100-bet-modal .m100-bet-choice small{font-size:.55em;color:white}
+.m100-game .m100-bet-modal .m100-bet-page{position:absolute;z-index:1;right:1%;width:20%;height:19.24%;min-width:0;min-height:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background-color:transparent;background-position:center;background-size:24% auto;background-repeat:no-repeat;color:#b9c4a0;font-size:26px}
+.m100-bet-prev{top:1.8%}.m100-bet-next{bottom:1.8%}
+.m100-game .m100-bet-modal .m100-bet-page:hover:enabled{background-color:transparent}
+.m100-bet-page:disabled{opacity:.32}
+.m100-native-bet-arrow>span{visibility:hidden}
