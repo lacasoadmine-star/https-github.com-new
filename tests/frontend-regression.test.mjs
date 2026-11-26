@@ -55,9 +55,17 @@ function startPortal(portal, pathname, startingToken = null) {
       },
     };
   }
-  runInNewContext(read("apps/" + portal + "/src/boot.ts"), {
+  const source = read("apps/" + portal + "/src/boot.ts");
+  // The Player production bootstrap statically imports its Canvas renderer.
+  // Node vm.Script executes classic scripts, not ES modules; stub only that
+  // import for this isolated login/navigation test. Gameplay stays separate.
+  const sourceForVm = portal === "player"
+    ? source.replace(/^import \\{ mountMultiHot5 \\} from "\\.\\/games\\/multi-hot-5\\.canvas\\.js";\\r?\\n/, "")
+    : source;
+  runInNewContext(sourceForVm, {
     document, sessionStorage, location, window, WebSocket: MockWebSocket,
     FormData: MockFormData, fetch, console,
+    mountMultiHot5: () => ({ destroy() {} }),
   }, { filename: "apps/" + portal + "/src/boot.ts" });
   return {
     requests, view, listeners, location, sessionStorage,
