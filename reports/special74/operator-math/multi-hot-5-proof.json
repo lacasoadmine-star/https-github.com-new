@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "gameId": "001-multi-hot-5",
+  "modelId": "special74_multi_hot_5_v1",
+  "modelVersion": "operator-mh5-v1",
+  "sourceType": "operator-authored-math-specification",
+  "claimsProviderMath": false,
+  "exactProofVerified": true,
+  "method": "Exhaustive 729 ordered line outcomes, all 5750 multiplier tickets, and linearity of expectation across five fixed equal-stake lines. All nine grid cells are independent uniform draws.",
+  "theoreticalRtp": {
+    "numerator": "24",
+    "denominator": "25"
+  },
+  "unreducedReturn": {
+    "numerator": "4024080",
+    "denominator": "4191750"
+  },
+  "multiplierWeights": [
+    1027,
+    1150,
+    1273,
+    1150,
+    1150
+  ],
+  "maxBaseWinTimesStake": 375,
+  "maxBaseLiabilityAtMaximumStakeMinor": "15000000",
+  "gambleExpectedReturn": {
+    "numerator": "1",
+    "denominator": "1",
+    "method": "One of two equiprobable colors wins 2x; valid amount and attempt limits are outcome-independent."
+  },
+  "evidence": [
+    {
+      "path": "workers/superwin-player/special74/operator-math/multi-hot-5.mjs",
+      "sha256": "ac71bda352d058883ac414757e03e22daedacc94855cb36c34c0bc2c8a59f34c"
+    },
+    {
+      "path": "reports/special74/operator-math/multi-hot-5-specification.json",
+      "sha256": "794d7175ebf18e2d4bb5e68b6d8170857e5f1eda1fb82e583c67d3279b39bb18"
+    }
+  ],
+  "backendIntegrationVerified": false,
+  "productionEnabled": false,
+  "limitations": [
+    "This is not SmartSoft probability certification.",
+    "Frontend, ledger integration, liability reservation and end-to-end settlement still require verification before release."
+  ]
+}

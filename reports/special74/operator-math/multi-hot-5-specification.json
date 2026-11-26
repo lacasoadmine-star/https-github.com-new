@@ -1,0 +1,113 @@
+{
+  "id": "special74_multi_hot_5_v1",
+  "version": "operator-mh5-v1",
+  "author": "Superwin operator",
+  "claimsProviderMath": false,
+  "currency": "ETB",
+  "minorUnitsPerMajor": 100,
+  "rows": 3,
+  "columns": 3,
+  "symbols": [
+    "orange",
+    "golden_bell",
+    "plum",
+    "lemon",
+    "watermelon",
+    "cherry",
+    "grapes",
+    "dollar",
+    "777"
+  ],
+  "linePays": [
+    10,
+    25,
+    10,
+    10,
+    20,
+    10,
+    20,
+    50,
+    75
+  ],
+  "paylines": [
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      2,
+      1,
+      0
+    ]
+  ],
+  "symbolDistribution": "independent-uniform-per-cell",
+  "multipliers": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "multiplierWeights": [
+    1027,
+    1150,
+    1273,
+    1150,
+    1150
+  ],
+  "betMinor": {
+    "min": 5,
+    "max": 40000,
+    "step": 5
+  },
+  "theoreticalRtp": {
+    "numerator": 24,
+    "denominator": 25
+  },
+  "maxBaseWinTimesStake": 375,
+  "gamble": {
+    "colors": [
+      "red",
+      "black"
+    ],
+    "probability": {
+      "numerator": 1,
+      "denominator": 2
+    },
+    "payoutTimesAmount": 2,
+    "maxAttempts": 5,
+    "maxAmountMinor": 50000
+  },
+  "disclosure": "Independent Superwin rules: theoretical base RTP 96%, maximum base win 375x total stake. Optional color gamble wins 2x with probability 1/2. RTP is a long-run expectation, not a promised session return.",
+  "sourceType": "operator-authored-math-specification",
+  "gameId": "001-multi-hot-5",
+  "authorization": "User explicitly requested reasonable independently designed operator math on 2026-11-13.",
+  "ledgerIntegration": {
+    "source": "existing-superwin-server",
+    "verified": false,
+    "requirements": [
+      "Server selects outcome, locks existing wallet, validates sufficient funds and house reserve.",
+      "Persist model version, request ID, wager and canonical result in the existing ledger transaction.",
+      "Retry returns the existing receipt; no repeated debit or independent frontend payout.",
+      "Gamble debits only an eligible existing win; collect must never credit an already-settled payout twice.",
+      "Keep existing model IDs unchanged; publish this additive model under its own ID.",
+      "Show operator RTP, paytable, actual maximum win and gamble limits in the game rules."
+    ]
+  }
+}

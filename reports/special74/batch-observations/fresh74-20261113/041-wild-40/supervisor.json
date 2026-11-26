@@ -1,0 +1,8 @@
+{
+  "startedAt": "2026-11-13T06:09:40.593Z",
+  "exitCode": 1,
+  "timedOut": false,
+  "deadlineMs": 60000,
+  "completedAt": "2026-11-13T06:09:40.788Z",
+  "output": "/workspace/work/superwin-special74/work/fresh-tools/batch-reference.cjs:58\n    return route.fulfill({status:200,contentType:'text/css',body:source.replace(/url\\(['\"]?([^)'\"]+)['\"]?\\)/g,(_,ref)=>'url(\"'+new URL(ref,canonical).href+'\")'});\n                                                                                                                                                           ^^^^\n\nSyntaxError: missing ) after argument list\n    at wrapSafe (node:internal/modules/cjs/loader:1804:18)\n    at Module._compile (node:internal/modules/cjs/loader:1846:20)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47\n\nNode.js v24.19.0\n"
+}

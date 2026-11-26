@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="so"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#003a28"><title>New 74 · ZPLAY</title><link rel="stylesheet" href="/new74/style.css"><script type="module" src="/new74/app.mjs"></script></head>
+<body>
+<header class="brand"><a href="/new74/">ZPLAY <small>NEW 74</small></a><time id="clock"></time><a href="/" aria-label="Ku noqo lobby-ga">×</a></header>
+<main id="game" class="game" aria-label="Ciyaarta cusub">
+ <canvas id="scene" aria-label="Reels iyo multiplier"></canvas>
+ <h1 id="game-name" class="sr-only"></h1>
+ <button id="menu-top" class="control menu-top" aria-label="Menu"><span>☰</span></button>
+ <div id="meters" class="meters"><div><span class="caption">BALANCE</span><strong id="balance">—</strong><small>ETB</small></div><div><span class="caption">WIN</span><strong id="win">0.00</strong><small>ETB</small></div><button id="bet-meter" aria-label="Dooro sharadka"><span class="caption">BET</span><strong id="bet-value">—</strong><small>ETB</small></button></div>
+ <p id="message" class="message" role="status" aria-live="polite">Soo dejinaya ciyaarta cusub…</p>
+ <a id="login" class="login" href="/" hidden>GAL AKOONKAAGA</a>
+ <div id="actions" class="actions"><button id="auto" class="control" aria-label="Autoplay"><canvas></canvas><small id="auto-count" hidden></small></button><button id="double" class="control" aria-label="Gamble ×2"><canvas></canvas></button><button id="take" class="control" aria-label="Take win"><canvas></canvas></button></div>
+ <div id="spinbar" class="spinbar"><canvas id="bar-art"></canvas><button id="less" class="control" aria-label="Yaree sharadka"><canvas></canvas></button><span id="previous-bet" class="near-bet"></span><button id="spin" class="control spin" aria-label="SPIN" disabled><canvas></canvas><span id="spin-label">SPIN</span><small id="spin-unit"></small></button><span id="next-bet" class="near-bet next"></span><button id="more" class="control" aria-label="Kordhi sharadka"><canvas></canvas></button></div>
+ <button id="bet" class="control bet" aria-label="Dooro sharadka"><canvas></canvas></button>
+ <button id="turbo" class="control turbo" aria-label="Turbo" aria-pressed="false"><canvas></canvas></button>
+ <footer><button id="menu" class="icon" aria-label="Menu">☰</button><span id="free-spins"></span><button id="sound" class="icon" aria-label="Codka" aria-pressed="false">♪</button></footer>
+ <button id="recover" class="recover" hidden>Dib u xaqiiji wareegga</button>
+</main>
+<dialog id="sound-dialog"><h2>Would you like sound?</h2><div class="choices"><button id="sound-yes">◖)) Yes</button><button id="sound-no">No</button></div></dialog>
+<dialog id="bet-dialog" class="bet-dialog"><header><h2>BET · ETB</h2><button data-close aria-label="Xidh">×</button></header><div id="bet-list" class="bet-list"></div></dialog>
+<dialog id="auto-dialog"><header><h2>AUTOPLAY</h2><button data-close aria-label="Xidh">×</button></header><label>Number of spins<select id="auto-spins"><option>10</option><option>25</option><option>50</option><option>100</option></select></label><label class="check"><input id="stop-win" type="checkbox" checked> Stop on any win</label><label>Loss limit · ETB<input id="loss-limit" inputmode="decimal" value="10.00"></label><p id="auto-error" role="alert"></p><button id="auto-start" class="confirm">START</button></dialog>
+<dialog id="menu-dialog"><header><h2 id="menu-title"></h2><button data-close aria-label="Xidh">×</button></header><nav><button data-tab="rules">PAYTABLE</button><button data-tab="audio">SOUND</button><button data-tab="history">HISTORY</button></nav><section id="rules-panel"><p id="rules"></p><div id="paytable"></div></section><section id="audio-panel" hidden><label>Sound volume<input id="volume" type="range" min="0" max="100" value="60"></label><button id="music-toggle" class="confirm">BACKGROUND MUSIC</button><button id="fullscreen" class="confirm">FULLSCREEN</button></section><section id="history-panel" hidden><div id="history-list"></div></section><a class="back" href="/new74/">CIYAARAHA CUSUB</a></dialog>
+<dialog id="gamble-dialog"><header><h2>GAMBLE · ×2</h2><button data-close aria-label="Xidh">×</button></header><p>Dooro casaanka ama madowga. Guul: ×2. Khasaaro: 0.</p><strong id="gamble-amount"></strong><div id="card" aria-live="polite"></div><div class="choices"><button id="red" class="red">RED</button><button id="black">BLACK</button></div><button id="collect" class="confirm">TAKE WIN</button><p id="gamble-message" role="status"></p></dialog>
+</body></html>

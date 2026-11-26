@@ -1,0 +1,220 @@
+{
+  "id": "008-burning-ice-40",
+  "selectedName": "Burning Ice 40",
+  "officialPage": "https://www.smartsoftgaming.com/games/burning-ice-40",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "status": "observed-autoplay-freeze-gamble-collect",
+  "startedAt": "2026-11-13T00:28:00.361Z",
+  "completedAt": "2026-11-13T00:36:37.363Z",
+  "confirmedRoundIds": [
+    "1970262769.1"
+  ],
+  "productionRequests": 0,
+  "actions": [
+    {
+      "name": "autoplay-open",
+      "observed": true,
+      "counts": [
+        "10",
+        "25",
+        "50",
+        "75",
+        "infinity"
+      ],
+      "defaultCount": "infinity",
+      "fields": [
+        "autoplay-win",
+        "autoplay-lose"
+      ],
+      "bigWinStopDefault": false,
+      "evidence": "autoplay-open.png"
+    },
+    {
+      "name": "autoplay-start",
+      "observed": true,
+      "countSelected": 10,
+      "lossLimitEntered": "0.40",
+      "betDisplayed": "0.40 DMO",
+      "evidence": "autoplay-dom.json"
+    },
+    {
+      "name": "freeze-respin",
+      "observed": true,
+      "frozenColumnsObserved": [
+        0,
+        1,
+        2
+      ],
+      "evidence": "autoplay-loss-limit.png",
+      "note": "Screenshot filename describes the configured loss limit; this image shows the ongoing freeze/respin, not a settled round."
+    },
+    {
+      "name": "base-round-settled",
+      "observed": true,
+      "balanceDisplayed": "19999.60 DMO",
+      "winDisplayed": "0.80 DMO",
+      "evidence": "after-autoplay.png"
+    },
+    {
+      "name": "gamble-open",
+      "observed": true,
+      "amountDisplayed": "0.80 DMO",
+      "toWinDisplayed": "1.60 DMO",
+      "choices": [
+        "RED",
+        "BLACK",
+        "TAKE WIN"
+      ],
+      "evidence": "gamble-open.png"
+    },
+    {
+      "name": "gamble-red",
+      "observed": true,
+      "revealedCard": "Ace of Diamonds",
+      "amountAfter": "1.60 DMO",
+      "nextToWin": "3.20 DMO",
+      "evidence": "gamble-later.png",
+      "note": "gamble-result.png was captured before resolution and is not a confirmed outcome."
+    },
+    {
+      "name": "gamble-take",
+      "observed": true,
+      "balanceDisplayed": "20001.20 DMO",
+      "winDisplayed": "0.00 DMO",
+      "lastWinDisplayed": "1.60 DMO",
+      "evidence": "after-gamble-take.png"
+    },
+    {
+      "name": "normal-exit",
+      "observed": true,
+      "evidence": "cleanup.json"
+    }
+  ],
+  "originalFontsObserved": [
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/Intro/Intro-Black-Caps.otf",
+      "status": 200,
+      "type": "font"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b1/SlotsDemo/Content/Fonts/Intro/Intro-Regular.otf",
+      "status": 200,
+      "type": "font"
+    },
+    {
+      "url": "https://static.ssg-public.com/cache/b16/GameLauncher/Content/Fonts/Intro/Intro-Book-Alt.otf",
+      "status": 200,
+      "type": "font"
+    }
+  ],
+  "implementedFromObservation": [
+    "locally restored Intro Black Caps and Intro Regular fonts",
+    "portrait text sizes/colors for inspected fields",
+    "disabled Take and bet-limit button images"
+  ],
+  "unresolved": [
+    "full Autoplay panel and stop semantics",
+    "original Gamble overlay and card presentation metadata from existing backend",
+    "complete freeze/respin and win animation timing",
+    "landscape controls and layout",
+    "audio timing comparison",
+    "provider private probabilities and matching production model"
+  ],
+  "scope": "Public free demo UI inspection only. No production wallet changes or provider executable code exported.",
+  "featureCoverageComplete": false,
+  "parityVerified": false,
+  "probabilityModelVerified": false,
+  "ready": false,
+  "artifacts": [
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/after-autoplay-scene.json",
+      "sha256": "7a0e473be0b18852d14ac153617c271f4a235aeb57a87137f92ff69a25eb1716",
+      "bytes": 398565
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/after-autoplay.png",
+      "sha256": "f5862ffd47aeda4d93335f25dbb22d1892af7d6e13337b0879147045a87987de",
+      "bytes": 447756
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/after-gamble-take-scene.json",
+      "sha256": "b3920f84cb00223b4c1c4a99eeafcc841222bd326d0074e27454310a0209a01f",
+      "bytes": 357150
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/after-gamble-take.png",
+      "sha256": "5b638cbfda56a624d8c45dce7bb20d600a849c5419205bda4543eb0a2105ddd4",
+      "bytes": 459375
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/autoplay-dom.json",
+      "sha256": "35afe1912359c71a479884d3211090570dd52d4a56509053b0232c7574184983",
+      "bytes": 3532
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/autoplay-loss-limit.png",
+      "sha256": "2b0853b9abce65bb9f560769ed6cbd9abc13f26af1c233c8bd6d65fe08cc4146",
+      "bytes": 485895
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/autoplay-open.png",
+      "sha256": "be862e8f53c881d9d4b1aedfdce00fbe3725479f676887ee291173cca2ec95fd",
+      "bytes": 137901
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/cleanup.json",
+      "sha256": "c30da0cc12d7ec43eb803e72eed4493794f7dfd69b4439535d05ae83e9488c01",
+      "bytes": 68
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/gamble-later-scene.json",
+      "sha256": "d2ba155622c85cfdd23e76350e3a70288854c5a6e767102d5e1fd787e914ff7e",
+      "bytes": 401284
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/gamble-later.png",
+      "sha256": "011ca8e9c7b40cb7f5d9504ae15f16d82a81179ffcff24f03653968edaab5919",
+      "bytes": 304958
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/gamble-open-scene.json",
+      "sha256": "4c753b4b7e3d05e2392c13e47aa2147930ceaa6647b0cfaff7f154c172cb7112",
+      "bytes": 399362
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/gamble-open.png",
+      "sha256": "3dca26448d5e895c9fb8b3474c9a12512696613c498cdc4d51a345da1653ccce",
+      "bytes": 302646
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/gamble-result.png",
+      "sha256": "8b1c89774a2c606eb04b00c5ebbaf455da157763c9dea11ce9cfb1c54533a833",
+      "bytes": 300764
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/initial-scene-1.json",
+      "sha256": "7745e4d70aad3d15a0a6de006546d38176a686a76496f922128efe23b49726e4",
+      "bytes": 407092
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/initial-text-0.json",
+      "sha256": "167521be5329d222352d9d990c23e5aa0f7ac601065468415962163aceab1762",
+      "bytes": 107
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/initial-text-1.json",
+      "sha256": "17480a3f5b9ba0282fb23840a69b6e179acf9a92a998ef83c64a7b54574152b2",
+      "bytes": 149
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/initial.png",
+      "sha256": "7908f7c13087ed07c46a5f1f9fc3569675f05394e3d5a3f2c2236e0ad956082a",
+      "bytes": 460864
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794529680361/008-burning-ice-40/session.json",
+      "sha256": "40f716e117b416c99d2324fd052083d99278d7a1ab9db76350c4923115205d2c",
+      "bytes": 32643
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "models": {
+    "5": {
+      "passed": true,
+      "checks": [
+        "original media loads",
+        "bet limits and changes",
+        "server outcome and ledger receipt",
+        "color gamble receipt and reload recovery",
+        "idempotent recovery after lost response and reload",
+        "autoplay stop during animation",
+        "autoplay stop between rounds invalidates queued wager",
+        "bet controls locked during autoplay",
+        "autoplay restart has no obsolete scheduled loop",
+        "operator math rules",
+        "account history",
+        "bundled official reference",
+        "responsive fit",
+        "corrupt pending evidence blocks wagers and is preserved",
+        "no external runtime requests"
+      ],
+      "productionRequests": 0,
+      "starts": 5,
+      "balanceMinor": 10095,
+      "referenceParityVerified": false
+    },
+    "10": {
+      "passed": true,
+      "checks": [
+        "five reels, three rows and ten lines with local original media",
+        "original sprite bet menu changes authoritative stake levels",
+        "server five-by-three result, multiplier, win cells and reconciled wallet receipt",
+        "color gamble receipt and recovered displayed stake after reload",
+        "lost response replay after reload never charges twice",
+        "autoplay stops at enabled winning threshold",
+        "autoplay gap stop cancels queued wager and locks bet",
+        "autoplay restart and stop have no obsolete continuation",
+        "held Spin releases without queued or click-generated extra wager",
+        "independent rules and eight-symbol server paytable",
+        "retained account history envelope",
+        "bundled official reference alongside playable game",
+        "portrait machine fits wide and narrow viewports",
+        "unreadable saved transaction blocks wagers while preserving evidence",
+        "original background and spin audio load locally without missing media",
+        "no external runtime requests or JavaScript errors"
+      ],
+      "productionRequests": 0,
+      "starts": 6,
+      "balanceMinor": 10640,
+      "referenceParityVerified": false
+    },
+    "40": {
+      "passed": true,
+      "checks": [
+        "five reels, four rows and forty lines with local original media",
+        "original sprite bet menu changes authoritative stake levels",
+        "server five-by-four result, multiplier, win cells and reconciled wallet receipt",
+        "color gamble receipt and recovered displayed stake after reload",
+        "lost response replay after reload never charges twice",
+        "autoplay stops at enabled winning threshold",
+        "autoplay gap stop cancels queued wager and locks bet",
+        "autoplay restart and stop have no obsolete continuation",
+        "held Spin releases without queued or click-generated extra wager",
+        "independent rules and eight-symbol server paytable",
+        "retained account history envelope",
+        "bundled official reference alongside playable game",
+        "portrait machine fits wide and narrow viewports",
+        "unreadable saved transaction blocks wagers while preserving evidence",
+        "no external runtime requests or JavaScript errors"
+      ],
+      "productionRequests": 0,
+      "starts": 6,
+      "balanceMinor": 10670,
+      "referenceParityVerified": false
+    }
+  },
+  "unitTestsPassed": 67,
+  "postgresChecksPerModel": 8,
+  "textureChecksPassed": 6,
+  "productionRequests": 0,
+  "newGamesDeployed": false,
+  "ci": {
+    "runId": 43385485888,
+    "commit": "f4158342056b21765cffd9962f82321f92714c9c",
+    "conclusion": "success"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-11-13T01:41:59.016420+00:00",
+  "failureReproduced": true,
+  "originalTest": {
+    "input": "Two sequential awaited Playwright locator.click() calls",
+    "observedClickGapMs": 1642.7,
+    "normalMinimumPresentationMs": 1100,
+    "wireActionSequence": [
+      "start",
+      "collect",
+      "start"
+    ],
+    "starts": 2,
+    "explanation": "The second click arrived after the first round presentation completed. It correctly collected the active result and started a separate round, so the original test was not reliably exercising repeated input during one pending round."
+  },
+  "review": {
+    "spinningSetSynchronouslyBeforeNetwork": true,
+    "repeatedPendingInputStartsNewWager": false,
+    "appSourceChanged": false
+  },
+  "fix": {
+    "realInput": "Two touchscreen taps at the visible spin control bounding box",
+    "networkControl": "Hold the first fixture response until both taps reach the control",
+    "strictAssertions": [
+      "one start while response pending",
+      "one debit while response pending",
+      "one start after settlement",
+      "canonical collect balance",
+      "lost response retries same request ID without extra start"
+    ],
+    "collectWait": "Wait for actual response and settled controls instead of a 200ms sleep"
+  },
+  "verification": [
+    {
+      "passed": true,
+      "gameId": "burningice10_native",
+      "rows": 3,
+      "scope": "local synthetic fixture, not production wagers or visual parity",
+      "checks": [
+        "two real touchscreen taps during a held wager response make one start",
+        "selected stake sent to existing contract",
+        "collect updates canonical balance",
+        "lost response replays same request ID without a second debit",
+        "same-origin runtime"
+      ],
+      "repeatedInput": {
+        "touches": 2,
+        "responseHeldUntilBothInputs": true,
+        "starts": 1
+      },
+      "productionFinancialRequests": 0
+    },
+    {
+      "passed": true,
+      "gameId": "burningice40_native",
+      "rows": 4,
+      "scope": "local synthetic fixture, not production wagers or visual parity",
+      "checks": [
+        "two real touchscreen taps during a held wager response make one start",
+        "selected stake sent to existing contract",
+        "collect updates canonical balance",
+        "lost response replays same request ID without a second debit",
+        "same-origin runtime"
+      ],
+      "repeatedInput": {
+        "touches": 2,
+        "responseHeldUntilBothInputs": true,
+        "starts": 1
+      },
+      "productionFinancialRequests": 0
+    }
+  ],
+  "testSource": "workers/superwin-player/special74/tests/browser.cjs",
+  "testSourceSha256": "8c1f66df9aeda74b82ab72b4546ce92e273ca41c799259658ecfba7ac29e7e1b",
+  "productionChanged": false
+}

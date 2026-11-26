@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "gameId": "003-multi-hot-40",
+  "modelId": "special74_multi_hot_40_v1",
+  "modelVersion": "operator-mh40-v1",
+  "mathSha256": "e74682e3181c853014225955a7cc33ebd53510a7b2564de05a4bdd0885f0de53",
+  "mathHashMethod": "SHA-256 of compact JSON sourceInputs array in the recorded order; includes common evaluator and model specification modules.",
+  "sourceInputs": [
+    {
+      "path": "workers/superwin-player/special74/operator-math/five-reel-model.mjs",
+      "sha256": "b63a2e66b6ade8d125fa2956d59f48263d6e38d5514f8d3808c0b6ab5c396037"
+    },
+    {
+      "path": "workers/superwin-player/special74/operator-math/multi-hot-40.mjs",
+      "sha256": "0758e7bbe8d9a196fd7b33e192665787191adbd88cfcbe47332b12cee072b54c"
+    }
+  ],
+  "sourceType": "operator-authored-math-specification",
+  "claimsProviderMath": false,
+  "exactProofVerified": true,
+  "method": "Exhaustive 32768 ordered five-cell sequences checked through the actual evaluator for every line; all multiplier tickets counted; linearity of expectation across equal-stake lines. Cells are independent uniform draws. Lines may be correlated; independence between lines is not assumed.",
+  "orderedLineOutcomes": 32768,
+  "matchCounts": {
+    "3": 448,
+    "4": 56,
+    "5": 8,
+    "none": 32256
+  },
+  "linePaySum": "8380",
+  "multiplierTickets": 104750,
+  "multiplierWeights": [
+    10475,
+    10475,
+    10475,
+    36259,
+    37066
+  ],
+  "weightedMultiplierSum": "393216",
+  "theoreticalRtp": {
+    "numerator": "24",
+    "denominator": "25"
+  },
+  "unreducedReturn": {
+    "numerator": "3295150080",
+    "denominator": "3432448000"
+  },
+  "maxBaseWinTimesStake": 2500,
+  "maxBaseLiabilityAtMaximumStakeMinor": "25000000",
+  "gambleExpectedReturn": {
+    "numerator": "1",
+    "denominator": "1",
+    "method": "One of two equiprobable colors wins 2x. The finite attempt/amount limits are enforced independently of the next draw."
+  },
+  "evidence": [
+    {
+      "path": "workers/superwin-player/special74/operator-math/five-reel-model.mjs",
+      "sha256": "b63a2e66b6ade8d125fa2956d59f48263d6e38d5514f8d3808c0b6ab5c396037"
+    },
+    {
+      "path": "workers/superwin-player/special74/operator-math/multi-hot-40.mjs",
+      "sha256": "0758e7bbe8d9a196fd7b33e192665787191adbd88cfcbe47332b12cee072b54c"
+    },
+    {
+      "path": "reports/special74/operator-math/multi-hot-40-specification.json",
+      "sha256": "abb89ac140a4aaceaf114e02bc8b9e5dfd8a8b4a4dde0f90410c5aaa9762872b"
+    },
+    {
+      "path": "workers/superwin-player/special74/assets/observed/static.ssg-public.com/cache/b16/GameLauncher/Content/Help/Images/MultiHot40/MultiHot-PayLine.png",
+      "sha256": "2a4b17a7377279ca0241ddd2087c80040d1084796d809d23373faa71371f5c9b"
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794533507238/003-multi-hot-40/rules-bet-decrease-text.json",
+      "sha256": "28be85fb6b95b2818be909a8f017ccf2b0ebebcea87eba03d5bdcc6b929e8b8f"
+    }
+  ],
+  "backendIntegrationVerified": false,
+  "productionEnabled": false,
+  "limitations": [
+    "No SmartSoft private probability certification or claim of identical outcome distribution.",
+    "Sibling retained-ledger runtime integration, reserve checks and production activation are not verified by this mathematical proof.",
+    "MH10 independent maximum is 5000x; provider help displayed 1000x. No provider maximum cap is claimed."
+  ]
+}

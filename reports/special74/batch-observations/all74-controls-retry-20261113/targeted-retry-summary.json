@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "run": "all74-controls-retry-20261113",
+  "completedAt": "2026-11-13T02:03:24.195Z",
+  "scope": "Bounded targeted public-demo observations after the complete74-entry first pass. Provider round receipts and sampled control effects are not full game acceptance or settled animation certification.",
+  "configuration": {
+    "requestedTitles": 8,
+    "concurrency": 2,
+    "perGameDeadlineMs": 120000,
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "deviceScaleFactor": 1
+  },
+  "totals": {
+    "tasksProcessed": 8,
+    "titlesWithProviderRoundReceipts": 6,
+    "providerRoundReceipts": 6,
+    "titlesWithMediaReferences": 8,
+    "distinctMediaURLs": 418,
+    "titlesWithScreenshots": 8,
+    "featureCoverageComplete": 0,
+    "parityVerified": 0,
+    "releaseReady": 0,
+    "productionFinancialRequests": 0
+  },
+  "statusCounts": {
+    "round-receipt-confirmed-needs-feature-review": 6,
+    "deadline-reached": 1,
+    "provider-table-limit": 1
+  },
+  "verifiedEffects": {
+    "sound-yes": 6,
+    "spin-1": 6,
+    "bet-plus": 1,
+    "bet-minus": 1
+  },
+  "corrections": [
+    {
+      "id": "007-burning-ice-10",
+      "action": "bet-minus",
+      "beforeBet": "0.30",
+      "afterBet": "0.40",
+      "effectVerified": false,
+      "verifiedDirection": false,
+      "reason": "Earlier verifier accepted any numeric change. Observed selected-bet reading increased after bet-minus input; direction and settled control effect are not verified."
+    },
+    {
+      "id": "008-burning-ice-40",
+      "action": "bet-minus",
+      "beforeBet": "0.80",
+      "afterBet": "1.60",
+      "effectVerified": false,
+      "verifiedDirection": false,
+      "reason": "Earlier verifier accepted any numeric change. Observed selected-bet reading increased after bet-minus input; direction and settled control effect are not verified."
+    }
+  ],
+  "entries": [
+    {
+      "id": "007-burning-ice-10",
+      "selectedName": "Burning Ice 10",
+      "status": "round-receipt-confirmed-needs-feature-review",
+      "providerRoundIds": [
+        "1970356014.1"
+      ],
+      "mediaReferences": 88,
+      "verifiedControls": [
+        {
+          "name": "spin-1",
+          "beforeBet": "0.20",
+          "afterBet": null,
+          "confirmedRoundIds": [
+            "1970356014.1"
+          ]
+        }
+      ],
+      "attemptedButUnverifiedControls": [
+        "bet-plus",
+        "bet-minus",
+        "menu"
+      ]
+    },
+    {
+      "id": "008-burning-ice-40",
+      "selectedName": "Burning Ice 40",
+      "status": "round-receipt-confirmed-needs-feature-review",
+      "providerRoundIds": [
+        "1970356015.1"
+      ],
+      "mediaReferences": 98,
+      "verifiedControls": [
+        {
+          "name": "spin-1",
+          "beforeBet": "1.60",
+          "afterBet": null,
+          "confirmedRoundIds": [
+            "1970356015.1"
+          ]
+        }
+      ],
+      "attemptedButUnverifiedControls": [
+        "bet-plus",
+        "bet-minus",
+        "menu"
+      ]
+    },
+    {
+      "id": "056-dolphins-pearl-deluxe",
+      "selectedName": "Cricket X",
+      "status": "deadline-reached",
+      "providerRoundIds": [],
+      "mediaReferences": 75,
+      "verifiedControls": [],
+      "attemptedButUnverifiedControls": [
+        "menu",
+        "rules"
+      ]
+    },
+    {
+      "id": "006-burning-hot",
+      "selectedName": "Foxy Hot 20",
+      "status": "round-receipt-confirmed-needs-feature-review",
+      "providerRoundIds": [
+        "1970357250.1"
+      ],
+      "mediaReferences": 96,
+      "verifiedControls": [
+        {
+          "name": "spin-1",
+          "beforeBet": null,
+          "afterBet": null,
+          "confirmedRoundIds": [
+            "1970357250.1"
+          ]
+        }
+      ],
+      "attemptedButUnverifiedControls": [
+        "menu",
+        "rules",
+        "reopen-menu-rules"
+      ]
+    },
+    {
+      "id": "002-multi-hot-10",
+      "selectedName": "Multi Hot 10",
+      "status": "round-receipt-confirmed-needs-feature-review",
+      "providerRoundIds": [
+        "1970358831.1"
+      ],
+      "mediaReferences": 86,
+      "verifiedControls": [
+        {
+          "name": "spin-1",
+          "beforeBet": null,
+          "afterBet": null,
+          "confirmedRoundIds": [
+            "1970358831.1"
+          ]
+        }
+      ],
+      "attemptedButUnverifiedControls": [
+        "menu",
+        "rules",
+        "reopen-menu-rules"
+      ]
+    },
+    {
+      "id": "036-magic-apple-40",
+      "selectedName": "Multi Hot 20",
+      "status": "provider-table-limit",
+      "providerRoundIds": [],
+      "mediaReferences": 11,
+      "verifiedControls": [],
+      "attemptedButUnverifiedControls": []
+    },
+    {
+      "id": "003-multi-hot-40",
+      "selectedName": "Multi Hot 40",
+      "status": "round-receipt-confirmed-needs-feature-review",
+      "providerRoundIds": [
+        "1970359296.1"
+      ],
+      "mediaReferences": 87,
+      "verifiedControls": [
+        {
+          "name": "spin-1",
+          "beforeBet": null,
+          "afterBet": null,
+          "confirmedRoundIds": [
+            "1970359296.1"
+          ]
+        }
+      ],
+      "attemptedButUnverifiedControls": [
+        "menu",
+        "rules",
+        "reopen-menu-rules"
+      ]
+    },
+    {
+      "id": "001-multi-hot-5",
+      "selectedName": "Multi Hot 5",
+      "status": "round-receipt-confirmed-needs-feature-review",
+      "providerRoundIds": [
+        "1970359778.1"
+      ],
+      "mediaReferences": 59,
+      "verifiedControls": [
+        {
+          "name": "bet-plus",
+          "beforeBet": "0.05",
+          "afterBet": "0.30",
+          "confirmedRoundIds": []
+        },
+        {
+          "name": "bet-minus",
+          "beforeBet": "0.30",
+          "afterBet": "0.05",
+          "confirmedRoundIds": []
+        },
+        {
+          "name": "spin-1",
+          "beforeBet": "0.05",
+          "afterBet": null,
+          "confirmedRoundIds": [
+            "1970359778.1"
+          ]
+        }
+      ],
+      "attemptedButUnverifiedControls": [
+        "menu"
+      ]
+    }
+  ],
+  "remainingBlockers": [
+    "Multi Hot20 explicitly returned the provider table-limit message; no action or completed round is claimed.",
+    "Cricket X loaded75public media references via HTTPS but no unambiguous named controls before the120second deadline.",
+    "Menu taps without targeted semantic proof remain unverified. Rules, settings, history, Take, win presentation and feature coverage require game-specific observation.",
+    "Six provider round receipts are recorded; this batch does not certify every reel animation settled or establish hidden provider probabilities.",
+    "All74titles still require complete per-game presentation, operator-math integration and wallet QA before a collective production replacement."
+  ],
+  "tests": {
+    "command": "node --test workers/superwin-player/special74/tests/batch-reference.test.mjs workers/superwin-player/special74/tests/capture-scene.test.mjs",
+    "passed": 7,
+    "failed": 0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-11-13T01:58:19.805478+00:00",
+  "source": "reports/special74/batch-observations/all74-20261113/index.json",
+  "scope": "Bounded first-pass observation outcomes, not acceptance of74 games",
+  "catalogueEntriesProcessed": 74,
+  "completedObservationTasks": 74,
+  "titlesWithCapturedMediaReferences": 72,
+  "distinctMediaUrls": 3781,
+  "titlesWithRoundReceipts": 0,
+  "confirmedRoundReceipts": 0,
+  "titlesWithScreenshots": 39,
+  "statuses": {
+    "sound-dialog-blocks-controls": 8,
+    "canvas-observed-needs-controls-review": 14,
+    "deadline-reached": 46,
+    "provider-table-limit": 5,
+    "setup-error": 1
+  },
+  "featureCoverageComplete": 0,
+  "releaseReady": 0,
+  "productionFinancialRequests": 0,
+  "limits": [
+    "45-second per-title supervisor deadline with four browser processes; incomplete attempts remain incomplete.",
+    "Provider sound prompts and table limits affected several titles.",
+    "Observer fixes were applied forward to later titles; earlier attempts are retained and require targeted retries.",
+    "Media references can include shared launcher assets; their presence does not establish game-specific media completeness.",
+    "No first-pass Spin round receipt was confirmed."
+  ],
+  "targetedRetryIds": [
+    "001-multi-hot-5",
+    "002-multi-hot-10",
+    "003-multi-hot-40",
+    "036-magic-apple-40",
+    "006-burning-hot",
+    "007-burning-ice-10",
+    "008-burning-ice-40",
+    "056-dolphins-pearl-deluxe"
+  ]
+}

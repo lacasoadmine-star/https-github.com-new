@@ -1,0 +1,79 @@
+{
+  "retainedRuntimeSha256": "04958b621f95b817ed63c608163c6cc6e92a258afd49d265c4cd2993fb4013fc",
+  "candidateRuntimeSha256": "79600f30853854b29149627ad04fe4b659f613c19e416dcd23392ec6c9cbe4c7",
+  "adapterBundleSha256": "513c2a230024d5fdbc872dbd1926787d3e2e4c3bdbcaa23421b14391042b06b0",
+  "modelSha256": "ac71bda352d058883ac414757e03e22daedacc94855cb36c34c0bc2c8a59f34c",
+  "deploymentPerformed": false,
+  "productionEnabled": false,
+  "activationVariable": "SPECIAL74_RELEASE",
+  "activationValue": "all74-v1",
+  "existingLedgerCodeChanged": false,
+  "existingModelIdsChanged": false,
+  "integration": "Existing fresh-release hooks provide session/version checks, transaction, house reserve, account cap, active-game lock, idempotent spin/gamble and durable receipts.",
+  "limitation": "Offline source integration only; authenticated settlement against the retained database remains unverified.",
+  "schemaVersion": 1,
+  "modelId": "special74_multi_hot_5_v1",
+  "retrievedAt": "2026-11-13",
+  "source": {
+    "platform": "Railway",
+    "projectId": "5e2d5a78-b695-4d10-a0f1-7d7ded24b7f7",
+    "environmentId": "7ae2354a-69f3-4214-8b95-bcd276a84b89",
+    "environmentName": "staging",
+    "serviceId": "f3ac4415-260f-46f4-95b8-3c12eac83616",
+    "serviceName": "superwin-nine-slot-engine",
+    "codeSource": "deployed",
+    "stagedChanges": false
+  },
+  "retainedDatabaseAndWallet": "sw_rebuild.wallets/transfers/ledger and sw_nine.game_rounds/actions; unchanged transaction SQL",
+  "frontendContract": {
+    "transport": "fresh",
+    "state": "/api/slots/fresh-state?gameId=special74_multi_hot_5_v1",
+    "spin": "/api/slots/spin",
+    "gamble": "/api/slots/gamble"
+  },
+  "verifiedLocally": [
+    "Exact integer outcome mapping into retained slot core",
+    "Retained model behavior delegated unchanged",
+    "Operator model defaults disabled",
+    "Unverified runtime inputs rejected by pinned hash",
+    "Candidate runtime syntax check",
+    "Retry reuses persisted request token",
+    "Replay cannot start unreceived spin",
+    "Gamble receipt recovery without second stake"
+  ],
+  "tests": {
+    "operatorAdapter": 11,
+    "existingClassicTransport": 3,
+    "passed": 14
+  },
+  "realWalletMutations": 0,
+  "authenticatedProductionSettlementVerified": false,
+  "remaining": [
+    "Authenticated end-to-end gateway settlement and full live schema/trigger compatibility",
+    "All 74 independent games and presentation QA before SPECIAL74_RELEASE activation",
+    "Live gateway model routing and deployment verification",
+    "Retained backend has no durable Take/collect action; current Take closes an already-credited display only."
+  ],
+  "sourceHandlerVerification": {
+    "report": "reports/special74/operator-math/retained-handler-tests.json",
+    "passed": 9,
+    "scope": "Actual retrieved core, release hooks and settlement/transaction functions executed against disposable SQL fixture",
+    "realDatabaseConnected": false
+  },
+  "postgresVerification": {
+    "report": "reports/special74/operator-math/retained-postgres-tests.json",
+    "passed": 8,
+    "database": "Disposable local PostgreSQL 17.12",
+    "concurrentRequests": 12,
+    "productionRequests": 0,
+    "containerStopped": true,
+    "limitations": "Exact retained sw_nine migration with minimal compatible sw_rebuild fixture, not complete production schema/triggers or authenticated gateway"
+  },
+  "pendingRecovery": {
+    "rawUnreadableRecordPreserved": true,
+    "profileSessionAndActionFieldsValidated": true,
+    "blocksSpinGambleAndRetry": true,
+    "automaticDiscardOnMismatch": false,
+    "accountSourceSha256": "5dcee4cc339f362d31d0e412f1ff9fe6ce7243f358c618993bb0889cb681ef79"
+  }
+}

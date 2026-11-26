@@ -1,0 +1,357 @@
+{
+  "id": "001-multi-hot-5",
+  "selectedName": "Multi Hot 5",
+  "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5",
+  "demoUrl": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+  "startedAt": "2026-11-13T00:38:30.579Z",
+  "confirmedRoundIds": [
+    "1970274633.1",
+    "1970274633.2",
+    "1970274633.3",
+    "1970274633.4",
+    "1970274633.5",
+    "1970274633.6",
+    "1970274633.7",
+    "1970274633.8",
+    "1970274633.9",
+    "1970274633.10"
+  ],
+  "productionRequests": 0,
+  "status": "observed-ten-rounds-controls-gamble-pending",
+  "completedAt": "2026-11-13T00:58:12.468504+00:00",
+  "scope": "Public free demo inspection only. No real-money bets or provider executable code exported.",
+  "actions": [
+    {
+      "name": "rules-paytable",
+      "observed": true,
+      "evidence": "menu-open.png",
+      "providerDisplayedRtp": "96.39%",
+      "providerDisplayedMaxWin": "145x",
+      "note": "Provider display only. The new independent operator model has separate disclosed rules."
+    },
+    {
+      "name": "bet-controls",
+      "observed": true,
+      "betUsed": "0.30 DMO",
+      "evidence": "autoplay-final.png"
+    },
+    {
+      "name": "autoplay-start",
+      "observed": true,
+      "countSelected": 10,
+      "lossLimitEntered": "0.30",
+      "evidence": "autoplay-attempt.png",
+      "note": "Image shows the first winning animation, not the settled final round."
+    },
+    {
+      "name": "ten-base-rounds",
+      "observed": true,
+      "roundCount": 10,
+      "evidence": "session.json"
+    },
+    {
+      "name": "final-base-round-win",
+      "observed": true,
+      "balanceDisplayed": "19999.40 DMO",
+      "winDisplayed": "3.00 DMO",
+      "lastWinDisplayed": "3.00 DMO",
+      "multiplierDisplayed": 5,
+      "evidence": "autoplay-final.png"
+    },
+    {
+      "name": "settings",
+      "observed": true,
+      "soundEffects": "ON",
+      "backgroundMusic": "ON",
+      "fullScreen": "ON",
+      "evidence": "settings-verified.png"
+    },
+    {
+      "name": "history",
+      "observed": true,
+      "tabs": [
+        "BET HISTORY",
+        "BIGGEST WINS"
+      ],
+      "columns": [
+        "Game",
+        "Bet",
+        "Win",
+        "Replay"
+      ],
+      "evidence": "history-verified.png"
+    },
+    {
+      "name": "gamble-open",
+      "observed": true,
+      "amountDisplayed": "3.00 DMO",
+      "toWinDisplayed": "6.00 DMO",
+      "choices": [
+        "RED",
+        "BLACK",
+        "TAKE WIN"
+      ],
+      "evidence": "gamble-open.png"
+    },
+    {
+      "name": "gamble-black-attempt",
+      "observed": false,
+      "interactionAttempted": true,
+      "evidence": "gamble-black-settled.png",
+      "note": "The file name is not a settlement assertion. The covered card and unchanged amount remained visible; no outcome was confirmed."
+    },
+    {
+      "name": "take-and-close-recovery-attempt",
+      "observed": false,
+      "interactionAttempted": true,
+      "evidence": "gamble-close-collect-attempt.png",
+      "note": "Take and close controls were attempted after the animation stalled. No confirmed balance change."
+    },
+    {
+      "name": "reload-recovery",
+      "observed": true,
+      "evidence": "after-reload-recovery.png",
+      "note": "Reload opened a fresh free demo at 20000.00 DMO and 0.05 stake. It did not establish the earlier Gamble result."
+    },
+    {
+      "name": "normal-exit",
+      "observed": true,
+      "evidence": "cleanup.json"
+    }
+  ],
+  "unresolved": [
+    "Gamble result and collect recovery after stalled provider animation",
+    "exact Autoplay stop-condition behavior",
+    "landscape and resized controls",
+    "audio/motion comparison",
+    "new independent presentation",
+    "new operator model integration with retained ledger"
+  ],
+  "featureCoverageComplete": false,
+  "parityVerified": false,
+  "probabilityModelVerified": false,
+  "ready": false,
+  "attemptArtifactWarning": "first-spin, mouse-first-spin, settings-open, history-open and autoplay-settled filenames describe attempts; only the separately marked verified observations assert successful actions.",
+  "artifacts": [
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/after-exit.png",
+      "sha256": "940961da232abdc3bfd8465dc86ccb263564f097f8cd1ab97d2bb25c3b9f9021",
+      "bytes": 274330
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/after-reload-recovery.png",
+      "sha256": "9930784f9bb244a0f12489df77e41595ac820c8825c8b52f957b172cae9bedcd",
+      "bytes": 422533
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/autoplay-attempt.png",
+      "sha256": "f58e4ad96610cd40483d9817a0454e033ae3743a5622bca12ea5c0c9ea1841ff",
+      "bytes": 428501
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/autoplay-final.png",
+      "sha256": "076f62db8857f0b9b997a0db5b9b558f242b489e3b5b5316108fba611259bdc7",
+      "bytes": 427386
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/autoplay-settled-scene.json",
+      "sha256": "ec4d528747ffa8b76ac57aa72d485b45f45d8d07fd1443ee887e5efae83acf81",
+      "bytes": 498340
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/autoplay-settled-text-0.json",
+      "sha256": "574904ab3c035a129c4e9872e3cf7586817a6bb0d809486f4d09b772dc3358e8",
+      "bytes": 107
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/autoplay-settled-text-1.json",
+      "sha256": "558dfd1d8368ad3d7250090abd5051c4df3c870a3feb1aceb34cf06fa1bfb1ca",
+      "bytes": 146
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/autoplay-settled.png",
+      "sha256": "b0333daceaf3b76f1fcb3e9b00bb067b4c0de7b4227f14bf1c002365e878c51c",
+      "bytes": 422436
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/bet-minus-scene.json",
+      "sha256": "80c6339107f14af30591b13dd690841bf2f83805cb4fa92e4807cd287448a2ba",
+      "bytes": 524082
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/bet-minus.png",
+      "sha256": "191e80d57771795ff38575f5cea115e0e398be7a888e901f8c889ed2e4789cd5",
+      "bytes": 424389
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/bet-plus-scene.json",
+      "sha256": "2086b1417e2b8452efa05be923a449d916380116bb816e431508a59ad99cf8d6",
+      "bytes": 524084
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/bet-plus.png",
+      "sha256": "743a7477c2336fb46d8035763c815e0c6c7ba7a67196a7218dd7a89c45c99859",
+      "bytes": 423520
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/cleanup.json",
+      "sha256": "90f9e1f5dd0e1d46a83937490588fbbc649480f3dee3ffd11384d9becbeb0f46",
+      "bytes": 145
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/first-spin-scene.json",
+      "sha256": "7061644c5c87d9f933979eb50ee71eba12e1f432d4a1d81d08825b406d2df428",
+      "bytes": 514991
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/first-spin.png",
+      "sha256": "a1d946ef8aee6a0c7109261c8ec73a2eb5f15991e5a4a55836075f78b0d6d420",
+      "bytes": 423467
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/gamble-black-result.png",
+      "sha256": "ed55c6b312c315bafe950bb14dd02e88aadce78824e3c82ff65792d68dd16b27",
+      "bytes": 275124
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/gamble-black-settled.png",
+      "sha256": "d4bdfd874da001c16c34e05107076cdb8f8137908d163af9edea566d2fd05ee5",
+      "bytes": 275395
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/gamble-close-collect-attempt.png",
+      "sha256": "16f228851959c13eb3871732d18865b6d5f86f343d30be2cb2628a050bcd3c12",
+      "bytes": 274598
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/gamble-open.png",
+      "sha256": "707184d6086869479e1f4e95e5b47b5d12dcc134764414b0fe4cb0a174212b08",
+      "bytes": 275170
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/gamble-take-attempt.png",
+      "sha256": "b20f86f3e832f7748ec0ff5d258e4478d6cc5081a9d94dd3b8ec2733592cc291",
+      "bytes": 274429
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/history-open-scene.json",
+      "sha256": "c8965ece3a3c3e0b66499f9e03965d605462a013ac82a585083d5d6024e92ca6",
+      "bytes": 534641
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/history-open-text-0.json",
+      "sha256": "71db7bc6747b58a1c9621d14d05be4e75daeda8481f7fdc83c720684fd038d93",
+      "bytes": 107
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/history-open-text-1.json",
+      "sha256": "558dfd1d8368ad3d7250090abd5051c4df3c870a3feb1aceb34cf06fa1bfb1ca",
+      "bytes": 146
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/history-open.png",
+      "sha256": "3079cce66642172a74e6bf51448d1325fde5be484cdae734e462faa5610ac07b",
+      "bytes": 412491
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/history-verified-text.json",
+      "sha256": "48572945fcdcc9c77d363aef3d7ff8728e36d041147cfd175e37b9cc723f8340",
+      "bytes": 6021
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/history-verified.png",
+      "sha256": "ba820a224be08296ea0240b2d8818b7bca51f841822746d1a677be41edecef14",
+      "bytes": 59166
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/initial-scene-1.json",
+      "sha256": "d9204687251d00099fa69ce9339a7076a015cd071198af611e28a9724ace9006",
+      "bytes": 514990
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/initial-text-0.json",
+      "sha256": "8ed7d55ee4007a36fb6486eb431dde029b554bae2450162c1bf2bc327e8c46f5",
+      "bytes": 107
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/initial-text-1.json",
+      "sha256": "558dfd1d8368ad3d7250090abd5051c4df3c870a3feb1aceb34cf06fa1bfb1ca",
+      "bytes": 146
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/initial.png",
+      "sha256": "956dc26c5aa85f969f37e821c4552018bc79251903a092ece7ca3f23438453ca",
+      "bytes": 423511
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/menu-0-text.json",
+      "sha256": "14a68fb9e31404df6ffd5198f9d9b0df3839254453508db26baa1b9f9bfcf9a5",
+      "bytes": 2735
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/menu-1-text.json",
+      "sha256": "558dfd1d8368ad3d7250090abd5051c4df3c870a3feb1aceb34cf06fa1bfb1ca",
+      "bytes": 146
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/menu-open-scene.json",
+      "sha256": "2eaeb5f96dbae30bbe46dabf055b1e6e885a3c5d7a157795c4cc3016cf105c5f",
+      "bytes": 514991
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/menu-open.png",
+      "sha256": "21d799bd2cd1e66ea5c084ba4caba361ad0930b332a15bb69282865651d3a42b",
+      "bytes": 98192
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/mouse-bet-plus.png",
+      "sha256": "a2c4f94539bb7842e7fa653e915644866dc44ea6377d71b454a7c2d9c54040e4",
+      "bytes": 423848
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/mouse-first-spin.png",
+      "sha256": "93a70efcd401d52386b4bf41dec1be4be816f15b10f6beb07a1d5f264ad4e650",
+      "bytes": 423831
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/observed-media-urls.json",
+      "sha256": "b551f670a8f71c9d8e53ce71281d2165bc6a14dc79335c82db98f313bbba9401",
+      "bytes": 7053
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/session.json",
+      "sha256": "2adb2e2f376b48da31ca28ec4b0af2741ac1977e152729d9ba87c9cec9b7fbda",
+      "bytes": 29163
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/settings-open-scene.json",
+      "sha256": "1e67fd7c02c144f988c7445d723f40a5ed7b79faf072814cdc3697665f5d8704",
+      "bytes": 529511
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/settings-open-text-0.json",
+      "sha256": "04e6680a5cf512abbf962e55c314c548de85aaa7728ba0dd8190ca8f19c578a5",
+      "bytes": 107
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/settings-open-text-1.json",
+      "sha256": "558dfd1d8368ad3d7250090abd5051c4df3c870a3feb1aceb34cf06fa1bfb1ca",
+      "bytes": 146
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/settings-open.png",
+      "sha256": "572b97c64a50a280b101b01b1b9f451234daa96acfb53d7b05658e4ee2207a76",
+      "bytes": 417541
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/settings-verified-text.json",
+      "sha256": "bb340e5375f1dbab2d5540e73eedc7a67708e5a96e6ad170c0ff9a8a9111549d",
+      "bytes": 126
+    },
+    {
+      "path": "reports/special74/reference-sessions/1794530310579/001-multi-hot-5/settings-verified.png",
+      "sha256": "f54632fb679c4ab17b534cadfddf3d87c347de14f369a82bb5edbcbeee5a59ff",
+      "bytes": 19247
+    }
+  ]
+}
