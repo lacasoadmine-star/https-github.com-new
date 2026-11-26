@@ -1,5 +1,6 @@
 import { mountMultiHot5 } from "./games/multi-hot-5.canvas.js";
-// @ts-nocheck
+declare global { interface Window { __superwinPlayerSocket?: WebSocket; } }
+type PlayerRequestOptions = Omit<RequestInit, "headers"> & { headers?: Record<string, string> };
 const TOKEN_KEY = "superwin.player.token";
 
 function esc(value) {
@@ -8,14 +9,14 @@ function esc(value) {
   }[ch]));
 }
 
-function headers() {
+function headers(): Record<string, string> {
   const token = sessionStorage.getItem(TOKEN_KEY);
-  const base = { "Content-Type": "application/json" };
+  const base: Record<string, string> = { "Content-Type": "application/json" };
   if (token) base.Authorization = "Bearer " + token;
   return base;
 }
 
-async function api(path, options = {}) {
+async function api(path: string, options: PlayerRequestOptions = {}) {
   const response = await fetch(path, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
   const data = await response.json().catch(() => ({}));
   if (response.status === 401 || response.status === 403) {
@@ -132,7 +133,8 @@ async function draw() {
 }
 
 document.getElementById("view").addEventListener("submit", async (event) => {
-  const form = event.target.closest("form");
+  const target = event.target as Element | null;
+  const form = target?.closest?.<HTMLFormElement>("form");
   if (!form) return;
   event.preventDefault();
   const body = Object.fromEntries(new FormData(form).entries());
@@ -169,25 +171,30 @@ document.getElementById("view").addEventListener("submit", async (event) => {
 document.getElementById("view").addEventListener("click", async (event) => {
   const error = document.getElementById("error");
   try {
-    const bet = event.target.closest("[data-bet]");
+    const target = event.target as Element | null;
+    const bet = target?.closest?.<HTMLElement>("[data-bet]");
     if (bet) {
-      const stake = document.getElementById("stake").value;
+      const stakeInput = document.getElementById("stake") as HTMLInputElement | null;
+      if (!stakeInput) throw new Error("Stake input missing");
+      const stake = stakeInput.value;
       const data = await api("/api/player/sports/bets", { method: "POST", body: JSON.stringify({ event_id: Number(bet.dataset.bet), selection: bet.dataset.selection, stake }) });
       error.textContent = "Bet accepted. Balance " + data.balance;
       await refreshWho();
     }
-    const play = event.target.closest("[data-play]");
+    const play = target?.closest?.<HTMLElement>("[data-play]");
     if (play) {
-      const stake = document.getElementById("stake").value;
+      const stakeInput = document.getElementById("stake") as HTMLInputElement | null;
+      if (!stakeInput) throw new Error("Stake input missing");
+      const stake = stakeInput.value;
       const data = await api("/api/player/casino/play", { method: "POST", body: JSON.stringify({ game_code: play.dataset.play, stake }) });
       error.textContent = "Payout " + data.payout + ". Balance " + data.balance;
       await refreshWho();
     }
-    if (event.target.id === "mark-read") {
+    if (target?.id === "mark-read") {
       await api("/api/player/notifications/read", { method: "POST" });
       await draw();
     }
-    if (event.target.id === "logout") {
+    if (target?.id === "logout") {
       sessionStorage.removeItem(TOKEN_KEY);
       location.href = "/player/login";
     }
