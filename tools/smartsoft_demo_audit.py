@@ -20,6 +20,10 @@ MAX_SPINS = 7
 DEMO_LAUNCHER_HOST = "eu-server.ssgportal.com"
 DEMO_GAME_HOST = "eu-server-w3.ssgportal.com"
 DEMO_GAME_PATH = re.compile(r"^/SlotsDemo/Slots/[A-Za-z0-9_-]+/Game\.aspx$")
+# Observed through the public CricketX launcher on 2026-11-26 UTC. This route
+# has no demo namespace: recognizing it for diagnostics MUST NOT permit wagers.
+CRICKET_GAME_HOST = "eu-server-w5.ssgportal.com"
+CRICKET_GAME_PATH = "/CricketX/XGames/CricketX/Board.aspx"
 
 
 def clean_id(value: str) -> str:
@@ -36,6 +40,12 @@ def validate_url(value: str) -> str:
     if parsed.scheme not in ("http", "https") or not parsed.hostname:
         raise ValueError("Expected a complete HTTP(S) URL")
     if parsed.scheme != "https" and parsed.hostname not in ("localhost", "127.0.0.1"):
+        # Historical official catalogue anchors use HTTP. HTTPS on this exact
+        # public launcher was verified in the browser; never upgrade arbitrary
+        # origins, session-token URLs, or private game frames by inference.
+        secure = urlunsplit(("https", parsed.netloc, parsed.path, parsed.query, parsed.fragment))
+        if demo_target_kind(secure) == "official-demo-launcher":
+            return secure
         raise ValueError("Remote demo URLs must use HTTPS")
     return value
 
@@ -96,13 +106,95 @@ def is_explicit_demo(value: str) -> bool:
     return demo_target_kind(value) is not None
 
 
+def provider_document_kind(value: str) -> str | None:
+    """Classify known provider documents for observation only, not interaction."""
+    kind = demo_target_kind(value)
+    if kind:
+        return kind
+    try:
+        p = urlsplit(value)
+        if (p.scheme != "https" or p.username or p.password or p.fragment
+                or p.port not in (None, 443)):
+            return None
+        if p.hostname == CRICKET_GAME_HOST and p.path == CRICKET_GAME_PATH:
+            return "observed-cricket-frame"
+        if (p.hostname == DEMO_GAME_HOST
+                and p.path == "/SlotsDemo/ErrorPages/Error.aspx"):
+            return "provider-error-document"
+    except (TypeError, ValueError):
+        pass
+    return None
+
+
+def http_state(status: int | None) -> str:
+    if status is None:
+        return "unobserved"
+    if status == 404:
+        return "not_found"
+    if status in (401, 403):
+        return "access_denied"
+    if status == 429:
+        return "rate_limited"
+    if 500 <= status <= 599:
+        return "upstream_error"
+    if 200 <= status <= 299:
+        return "responded"
+    return "other_http_status"
+
+
+def record_document_response(response, report: dict) -> None:
+    """Observe document responses only, with no bodies, headers or query tokens."""
+    try:
+        if response.request.resource_type != "document":
+            return
+        kind = provider_document_kind(response.url)
+        if kind is None:
+            return
+        entry = {"url": public_url(response.url), "documentKind": kind,
+                 "httpStatus": response.status, "httpState": http_state(response.status)}
+        responses = report.setdefault("documentResponses", [])
+        # Bound memory without deduplicating retries that are diagnostically useful.
+        if len(responses) < 40:
+            responses.append(entry)
+    except Exception:
+        report.setdefault("notes", []).append("One document response could not be inspected")
+
+
+def record_renderer_page_error(error, report: dict) -> None:
+    """Retain only the observed renderer failure code, never a message/stack/URL."""
+    try:
+        message = getattr(error, "message", None)
+        if not isinstance(message, str):
+            message = str(error)
+        first_line = message.splitlines()[0].strip() if message else ""
+        if first_line not in (
+                "CanvasRenderer is not yet implemented",
+                "Error: CanvasRenderer is not yet implemented",
+                "Uncaught (in promise) Error: CanvasRenderer is not yet implemented"):
+            return
+        errors = report.setdefault("rendererErrors", [])
+        if len(errors) < 10:
+            errors.append({"code": "CANVAS_RENDERER_NOT_IMPLEMENTED"})
+    except Exception:
+        # Diagnostics must not expose raw exception text or interrupt observation.
+        pass
+
+
 def audit_frame(frame) -> dict:
     try:
-        return frame.evaluate("""() => ({
+        return frame.evaluate("""() => {
+          const text = document.body?.innerText || '';
+          return {
           canvasCount: document.querySelectorAll('canvas').length,
           iframeCount: document.querySelectorAll('iframe').length,
           viewportWidth: window.innerWidth,
           documentWidth: document.documentElement.scrollWidth,
+          signals: {
+            runtimeError: /Server Error in ['\"][^\\n]*Application\\.|(?:^|\\n)\\s*Runtime Error\\s*(?:\\n|$)/i.test(text),
+            regionRestricted: /not available in your country|not available in your region/i.test(text),
+            accessDenied: /(?:^|\\n)\\s*(?:Access denied|403 Forbidden|error code: 1010)\\s*(?:\\n|$)/i.test(text),
+            visibleDemoCurrency: /\\bDMO\\b/.test(text)
+          },
           controls: Array.from(document.querySelectorAll('button,[role=button],input'))
             .filter(el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length))
             .slice(0,80).map(el => {
@@ -111,9 +203,44 @@ def audit_frame(frame) -> dict:
                el.getAttribute('placeholder') || '').trim().slice(0,75),
                x:Math.round(b.x), y:Math.round(b.y),w:Math.round(b.width),h:Math.round(b.height)};
             })
-        })""")
+        }}""")
     except Exception as error:
         return {"inspectionError": error.__class__.__name__}
+
+
+def inspect_page(page) -> list[dict]:
+    return [{"url": public_url(frame.url),
+             "documentKind": provider_document_kind(frame.url), **audit_frame(frame)}
+            for frame in page.frames]
+
+
+def launch_state(frames: list[dict], responses: list[dict], renderer_errors: list[dict] | None = None) -> str:
+    """Keep successful HTTP navigation separate from a rendered, playable game."""
+    relevant = [frame for frame in frames if frame.get("documentKind")]
+    for flag, state in (("accessDenied", "access_denied"),
+                        ("regionRestricted", "region_restricted"),
+                        ("runtimeError", "provider_runtime_error")):
+        if any(frame.get("signals", {}).get(flag) for frame in relevant):
+            return state
+    # The current document list may have lost the normal game route on redirect.
+    if any(frame.get("documentKind") == "provider-error-document" for frame in relevant):
+        return "provider_runtime_error"
+    # Use the latest response for each document, not a transient error that was
+    # subsequently recovered. Embedded errors must beat an HTTP 200 outer shell.
+    current_urls = {frame["url"] for frame in relevant}
+    latest = {response["url"]: response for response in responses
+              if response["url"] in current_urls}
+    for state in ("access_denied", "rate_limited", "not_found", "upstream_error"):
+        if any(response.get("httpState") == state for response in latest.values()):
+            return state
+    # HTTP 200, balances, DOM buttons and even a canvas element may exist behind
+    # the loader after renderer initialization fails; they do not prove rendering.
+    if any(error.get("code") == "CANVAS_RENDERER_NOT_IMPLEMENTED" for error in (renderer_errors or [])):
+        return "render_error"
+    if any(frame.get("documentKind") in ("official-slots-demo-frame", "observed-cricket-frame")
+           and (frame.get("canvasCount", 0) > 0 or frame.get("controls")) for frame in relevant):
+        return "game_interface_observed"
+    return "loading_or_unverified"
 
 
 def estimated_raf_fps(page) -> float | None:
@@ -153,6 +280,9 @@ def capture_demo_clicks(page, requested_count: int, confirm_demo: bool, out: Pat
         return
     for index in range(1, requested_count + 1):
         # Check the current page and rediscover the owning frame before EVERY action.
+        if report.get("rendererErrors"):
+            report["notes"].append("Clicks stopped: a renderer failure was observed")
+            break
         if not is_explicit_demo(page.url):
             report["notes"].append("Clicks stopped: current page is not a recognized official demo")
             break
@@ -167,6 +297,11 @@ def capture_demo_clicks(page, requested_count: int, confirm_demo: bool, out: Pat
                     or demo_target_kind(frame.url) != "official-slots-demo-frame"
                     or not is_explicit_demo(page.url)):
                 report["notes"].append("Clicks stopped: control's owning demo frame changed before the action")
+                break
+            # Resolving the handle/owner can dispatch a pageerror after the
+            # loop-entry check. Recheck immediately before recording or clicking.
+            if report.get("rendererErrors"):
+                report["notes"].append("Clicks stopped: a renderer failure was observed before input")
                 break
             # Pin the current element, rather than letting a locator resolve a new
             # document after navigation. Playwright disposes handles on navigation.
@@ -201,11 +336,12 @@ def capture(args) -> Path:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out = Path(args.output).resolve() / slug / stamp
     out.mkdir(parents=True, exist_ok=False)
-    report = {"reportSchemaVersion": 2, "gameId": slug, "requestedUrl": public_url(url), "capturedAtUTC": stamp,
+    report = {"reportSchemaVersion": 3, "gameId": slug, "requestedUrl": public_url(url), "capturedAtUTC": stamp,
               "mode": "read-only" if args.spin_count == 0 else "demo-control-audit",
               "spinClickCountRequested": args.spin_count, "spinClickCountAttempted": 0,
               "spinClickCountAcknowledged": 0, "spinClickCountUncertain": 0,
               "roundCountVerified": 0, "audioVerified": False, "gameFPSVerified": False,
+              "playableVerified": False, "liveVerified": False, "documentResponses": [], "rendererErrors": [],
               "viewports": [], "actions": [], "notes": [
                   "Control clicks and delayed screenshots do not prove completed game rounds",
                   "Browser RAF is not proof of the game's renderer FPS",
@@ -228,7 +364,10 @@ def capture(args) -> Path:
                     browser = playwright.chromium.launch(headless=not args.headed)
                     context = browser.new_context(ignore_https_errors=False)
                     page = context.new_page()
-                page.goto(url, wait_until="domcontentloaded", timeout=45000)
+                page.on("response", lambda response: record_document_response(response, report))
+                page.on("pageerror", lambda error: record_renderer_page_error(error, report))
+                response = page.goto(url, wait_until="domcontentloaded", timeout=45000)
+                report["launcherHttpStatus"] = response.status if response is not None else None
                 page.wait_for_timeout(1400)
                 report["landedUrl"] = public_url(page.url)
                 # Titles can be signed URLs on loader/error pages. Do not export them.
@@ -239,9 +378,21 @@ def capture(args) -> Path:
                     page.screenshot(path=str(out / screenshot), full_page=False, animations="disabled")
                     report["viewports"].append({"width": width, "height": height, "screenshot": screenshot,
                                                 "estimatedBrowserRAF": estimated_raf_fps(page),
-                                                "frames": [{"url": public_url(f.url), **audit_frame(f)} for f in page.frames]})
+                                                "frames": inspect_page(page)})
+                report["launchState"] = launch_state(report["viewports"][-1]["frames"],
+                                                      report["documentResponses"], report["rendererErrors"])
                 if args.spin_count:
-                    capture_demo_clicks(page, args.spin_count, args.confirm_demo, out, report)
+                    if report["launchState"] in ("access_denied", "region_restricted", "rate_limited",
+                                                  "not_found", "upstream_error", "provider_runtime_error", "render_error"):
+                        report["notes"].append("No clicks: provider launch failure was observed")
+                    else:
+                        capture_demo_clicks(page, args.spin_count, args.confirm_demo, out, report)
+                # An exception can also arrive during an optional demo observation.
+                report["launchState"] = launch_state(report["viewports"][-1]["frames"],
+                                                      report["documentResponses"], report["rendererErrors"])
+                if any(frame.get("documentKind") == "observed-cricket-frame"
+                       for frame in report["viewports"][-1]["frames"]):
+                    report["notes"].append("Cricket X is a crash-game interface; automatic slot SPIN actions do not apply. Its observed route alone does not establish demo currency.")
             finally:
                 # Cleanup failures must not expose raw URLs or hide the primary failure.
                 for resource in (page, browser if not args.cdp else None):

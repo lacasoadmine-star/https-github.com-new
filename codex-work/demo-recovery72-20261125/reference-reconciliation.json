@@ -1,0 +1,2558 @@
+{
+  "schemaVersion": 1,
+  "task": "Reconcile the user current 72 requested titles to current official SmartSoft public source links. This is reference discovery, not implementation or gameplay verification.",
+  "generatedAtUtc": "2026-11-26T01:43:32.885956+00:00",
+  "userFacingTimezone": "America/Los_Angeles",
+  "catalogSource": {
+    "sourceUrl": "https://www.smartsoftgaming.com/games",
+    "finalUrl": "https://www.smartsoftgaming.com/games",
+    "httpStatus": 200,
+    "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+    "bodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e"
+  },
+  "catalogGameCount": 75,
+  "requestCount": 72,
+  "statusCounts": {
+    "exact_match": 71,
+    "alias_needs_review": 1,
+    "not_found": 0
+  },
+  "method": {
+    "titleComparison": "Whitespace trimming and apostrophe typography normalization only; case-insensitive exact title comparison. JetX is explicitly an alias requiring review.",
+    "launcherRequests": 0,
+    "detailPagesRequested": 8,
+    "detailConcurrency": 4,
+    "noOldAssetsOrCodeUsed": true,
+    "rawHrefPolicy": "demoHref retains the decoded HTML attribute as published. normalizationCandidate is a transparent mechanical correction candidate, never a claimed playable URL."
+  },
+  "importantNotes": [
+    "Habesha Fortune 5 is explicitly present in the official current catalog at /games/hab. It must not be classified local-only.",
+    "Official catalog contains 75 cards; three outside the requested 72 are SplitX, Multi Hot 5 and Foxy Hot 20.",
+    "Current New Era of JetX is not silently equated with the requested JetX edition.",
+    "No game rules, odds, RTP, animations or assets are inferred from this mapping.",
+    "Missing or blank GameCategory values are retained exactly as published.",
+    "HTTP 200 on a detail page is not demo gameplay verification."
+  ],
+  "entries": [
+    {
+      "requestIndex": 1,
+      "requestedName": "Habesha Fortune 5",
+      "status": "exact_match",
+      "officialTitle": "Habesha Fortune 5",
+      "officialPage": "https://www.smartsoftgaming.com/games/hab",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "HabeshaFortune5",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn977887539view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/hab",
+        "finalUrl": "https://www.smartsoftgaming.com/games/hab",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:16.872518+00:00",
+        "bodySha256": "8b3860266bb7ad18b4b740823a6e8e7fc6a63ab662405f88b6962d774aea8181",
+        "pageTitle": "Habesha Fortune 5",
+        "h1Titles": [
+          "Habesha Fortune 5"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=HabeshaFortune5&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 2,
+      "requestedName": "JetX",
+      "status": "alias_needs_review",
+      "officialTitle": "New Era of JetX",
+      "officialPage": "https://www.smartsoftgaming.com/games/jetx",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO",
+      "providerGameName": "JetX",
+      "providerGameCategory": "JetXNew",
+      "publicDemoTokenLiteral": "DEMO_EXH",
+      "portalName": "DEMO",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The current catalog labels /games/jetx as New Era of JetX and uses GameCategory=JetXNew. This is a current variant candidate; do not silently replace the requested JetX edition."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn977887539view3"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/jetx",
+        "finalUrl": "https://www.smartsoftgaming.com/games/jetx",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:16.873287+00:00",
+        "bodySha256": "b73416130e78451f7c86886c37e365a3a1dc4274b50bdff7d2fd46f41ab66b81",
+        "pageTitle": "New Era of JetX",
+        "h1Titles": [
+          "New Era of JetX"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=JetXNew&GameName=JetX&Token=DEMO_EXH&PortalName=DEMO",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 3,
+      "requestedName": "Multi Hot 5 Deluxe",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 5 Deluxe",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-deluxe",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot5Deluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "MultiHot5Deluxe",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 4,
+      "requestedName": "Multi Hot 10",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 10",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+      "catalogCategory": "Slots",
+      "demoHref": "https://www.google.com/url?q=https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory%3DSlots%26GameName%3DMultiHot10%26Token%3DDEMO%26PortalName%3Ddemo&sa=D&source=editors&ust=1783957511223679&usg=AOvVaw1-yr2tGhZ9XQ5Wd4UaaSS6",
+      "providerGameName": "MultiHot10",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [
+        "google_redirect_wrapper"
+      ],
+      "normalizationCandidate": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot10&Token=DEMO&PortalName=demo",
+      "candidateTransformations": [
+        "Extract the exact q URL from the published Google redirect wrapper; no endpoint guessing."
+      ],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn977887539view1"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "finalUrl": "https://www.smartsoftgaming.com/games/multi-hot-10-2",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:16.873854+00:00",
+        "bodySha256": "824a4119489fb8516c60b94a2338590e900908a398d0ba46257f607a41812980",
+        "pageTitle": "Multi Hot 10",
+        "h1Titles": [
+          "Multi Hot 10"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "https://www.google.com/url?q=https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory%3DSlots%26GameName%3DMultiHot10%26Token%3DDEMO%26PortalName%3Ddemo&sa=D&source=editors&ust=1783957511223679&usg=AOvVaw1-yr2tGhZ9XQ5Wd4UaaSS6",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 5,
+      "requestedName": "Multi Hot 20",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 20",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-20",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot20&Token=DEMO&PortalName=demo",
+      "providerGameName": "MultiHot20",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 6,
+      "requestedName": "Multi Hot 40",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 40",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-40",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot40&Token=DEMO&PortalName=demo",
+      "providerGameName": "MultiHot40",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 7,
+      "requestedName": "Multi Hot 100",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 100",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-100",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHot100&Token=DEMO&PortalName=demo",
+      "providerGameName": "MultiHot100",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 8,
+      "requestedName": "Bao Slot 5X",
+      "status": "exact_match",
+      "officialTitle": "Bao Slot 5X",
+      "officialPage": "https://www.smartsoftgaming.com/games/bao-slot-5",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BaoSlot5X&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BaoSlot5X",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 9,
+      "requestedName": "Double X",
+      "status": "exact_match",
+      "officialTitle": "Double X",
+      "officialPage": "https://www.smartsoftgaming.com/games/doublex",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=SlicerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "SlicerX",
+      "providerGameCategory": "XGames",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 10,
+      "requestedName": "Roll X",
+      "status": "exact_match",
+      "officialTitle": "Roll X",
+      "officialPage": "https://www.smartsoftgaming.com/games/rollx",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=RollX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "RollX",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 11,
+      "requestedName": "Balloon",
+      "status": "exact_match",
+      "officialTitle": "Balloon",
+      "officialPage": "https://www.smartsoftgaming.com/games/balloon",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=Balloon&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "Balloon",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 12,
+      "requestedName": "Plinko X Classic",
+      "status": "exact_match",
+      "officialTitle": "Plinko X Classic",
+      "officialPage": "https://www.smartsoftgaming.com/games/plinko-x-classic",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoXClassic&Token=DEMO&PortalName=demo",
+      "providerGameName": "PlinkoXClassic",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 13,
+      "requestedName": "Plinko X",
+      "status": "exact_match",
+      "officialTitle": "Plinko X",
+      "officialPage": "https://www.smartsoftgaming.com/games/plinkox",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PlinkoX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "PlinkoX",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 14,
+      "requestedName": "BalloonX",
+      "status": "exact_match",
+      "officialTitle": "BalloonX",
+      "officialPage": "https://www.smartsoftgaming.com/games/balloonx",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameName=BalloonX&Token=DEMO&PortalName=DEMO&ReturnUrl=https%3A%2F%2Fwww.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BalloonX",
+      "providerGameCategory": null,
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href omits GameCategory. Preserve the observed omission."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 15,
+      "requestedName": "CarX",
+      "status": "exact_match",
+      "officialTitle": "CarX",
+      "officialPage": "https://www.smartsoftgaming.com/games/carx",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "CarX",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 16,
+      "requestedName": "Helicopter X",
+      "status": "exact_match",
+      "officialTitle": "Helicopter X",
+      "officialPage": "https://www.smartsoftgaming.com/games/helicopter-x",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=HelicopterX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "HelicopterX",
+      "providerGameCategory": "XGames",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 17,
+      "requestedName": "AviaStar",
+      "status": "exact_match",
+      "officialTitle": "AviaStar",
+      "officialPage": "https://www.smartsoftgaming.com/games/aviastar",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=JetX3&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "JetX3",
+      "providerGameCategory": "XGames",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 18,
+      "requestedName": "Propel X",
+      "status": "exact_match",
+      "officialTitle": "Propel X",
+      "officialPage": "https://www.smartsoftgaming.com/games/propel-x",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PropelX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "PropelX",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 19,
+      "requestedName": "PopX",
+      "status": "exact_match",
+      "officialTitle": "PopX",
+      "officialPage": "https://www.smartsoftgaming.com/games/popx",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=PopX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "PopX",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 20,
+      "requestedName": "Football X",
+      "status": "exact_match",
+      "officialTitle": "Football X",
+      "officialPage": "https://www.smartsoftgaming.com/games/fotballx",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FootballX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "FootballX",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 21,
+      "requestedName": "Cricket X",
+      "status": "exact_match",
+      "officialTitle": "Cricket X",
+      "officialPage": "https://www.smartsoftgaming.com/games/cricket-x",
+      "catalogCategory": "Crash Games",
+      "demoHref": "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "CricketX",
+      "providerGameCategory": "XGames",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [
+        "insecure_http_scheme"
+      ],
+      "normalizationCandidate": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "candidateTransformations": [
+        "Use the https scheme for the same published provider hostname/path/query; no launcher request made by this reconciliation."
+      ],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn639311879view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/cricket-x",
+        "finalUrl": "https://www.smartsoftgaming.com/games/cricket-x",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:24.786425+00:00",
+        "bodySha256": "890f7a2f3f459cedfa8543579faa0a09f961fe5bf7342dca0388825bb030c95c",
+        "pageTitle": "Cricket X",
+        "h1Titles": [
+          "Cricket X"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=CricketX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 22,
+      "requestedName": "World Champion X",
+      "status": "exact_match",
+      "officialTitle": "World Champion X",
+      "officialPage": "https://www.smartsoftgaming.com/games/world-champion-x",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WorldChampionX&Token=DEMO&PortalName=demo",
+      "providerGameName": "WorldChampionX",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 23,
+      "requestedName": "Crash Duel",
+      "status": "exact_match",
+      "officialTitle": "Crash Duel",
+      "officialPage": "https://www.smartsoftgaming.com/games/crash-duel",
+      "catalogCategory": "",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TugOfWar&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "TugOfWar",
+      "providerGameCategory": "XGames",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 24,
+      "requestedName": "Mine Island",
+      "status": "exact_match",
+      "officialTitle": "Mine Island",
+      "officialPage": "https://www.smartsoftgaming.com/games/mine-island",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "MineIsland",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 25,
+      "requestedName": "Mine Island2",
+      "status": "exact_match",
+      "officialTitle": "Mine Island2",
+      "officialPage": "https://www.smartsoftgaming.com/games/mine-island2",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MineIsland2&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "MineIsland2",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 26,
+      "requestedName": "Tower X",
+      "status": "exact_match",
+      "officialTitle": "Tower X",
+      "officialPage": "https://www.smartsoftgaming.com/games/tower-x",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=XGames&GameName=TowerX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "TowerX",
+      "providerGameCategory": "XGames",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 27,
+      "requestedName": "Cheesy Road Classic",
+      "status": "exact_match",
+      "officialTitle": "Cheesy Road Classic",
+      "officialPage": "https://www.smartsoftgaming.com/games/cheesy-road-classic",
+      "catalogCategory": "Mine Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoadClassic&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "CheesyRoadClassic",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 28,
+      "requestedName": "Cheesy Road",
+      "status": "exact_match",
+      "officialTitle": "Cheesy Road",
+      "officialPage": "https://www.smartsoftgaming.com/games/cheesy-road",
+      "catalogCategory": "Mine Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CheesyRoad&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "CheesyRoad",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 29,
+      "requestedName": "Chicken Highway",
+      "status": "exact_match",
+      "officialTitle": "Chicken Highway",
+      "officialPage": "https://www.smartsoftgaming.com/games/chicken-highway",
+      "catalogCategory": "Mine Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=ChickenHighway&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "ChickenHighway",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 30,
+      "requestedName": "Chicken Ways",
+      "status": "exact_match",
+      "officialTitle": "Chicken Ways",
+      "officialPage": "https://www.smartsoftgaming.com/games/chicken-ways",
+      "catalogCategory": "Mine Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=Chickenways&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "Chickenways",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 31,
+      "requestedName": "Smash X",
+      "status": "exact_match",
+      "officialTitle": "Smash X",
+      "officialPage": "https://www.smartsoftgaming.com/games/smash-x",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=SmashX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "SmashX",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 32,
+      "requestedName": "CricketerX",
+      "status": "exact_match",
+      "officialTitle": "CricketerX",
+      "officialPage": "https://www.smartsoftgaming.com/games/cricketerx",
+      "catalogCategory": "Crash Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CricketerX&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "CricketerX",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 33,
+      "requestedName": "Bottle Mania",
+      "status": "exact_match",
+      "officialTitle": "Bottle Mania",
+      "officialPage": "https://www.smartsoftgaming.com/games/bottle-mania",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/loader.aspx?GameCategory=&GameName=BottleMania&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "BottleMania",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 34,
+      "requestedName": "Fortune Catch",
+      "status": "exact_match",
+      "officialTitle": "Fortune Catch",
+      "officialPage": "https://www.smartsoftgaming.com/games/fortune-catch",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=FortuneCatch&Token=DEMO&PortalName=DEMO",
+      "providerGameName": "FortuneCatch",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 35,
+      "requestedName": "Multi Hot Ways",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot Ways",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-ways",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiHotWays&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "MultiHotWays",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 36,
+      "requestedName": "Burning Ice",
+      "status": "exact_match",
+      "officialTitle": "Burning Ice",
+      "officialPage": "https://www.smartsoftgaming.com/games/burning-ice-41",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BlazingHot",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 37,
+      "requestedName": "Burning Ice 10",
+      "status": "exact_match",
+      "officialTitle": "Burning Ice 10",
+      "officialPage": "https://www.smartsoftgaming.com/games/blazing-hot-10",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BlazingHot10",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 38,
+      "requestedName": "Burning Ice 40",
+      "status": "exact_match",
+      "officialTitle": "Burning Ice 40",
+      "officialPage": "https://www.smartsoftgaming.com/games/burning-ice-40",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BlazingHot40&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BlazingHot40",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 39,
+      "requestedName": "Boka Jamba 10",
+      "status": "exact_match",
+      "officialTitle": "Boka Jamba 10",
+      "officialPage": "https://www.smartsoftgaming.com/games/boca-jamba-10",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BokaJamba10&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BokaJamba10",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 40,
+      "requestedName": "Hot Samba",
+      "status": "exact_match",
+      "officialTitle": "Hot Samba",
+      "officialPage": "https://www.smartsoftgaming.com/games/hot-samba",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=HotSamba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "HotSamba",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 41,
+      "requestedName": "Safari Simba",
+      "status": "exact_match",
+      "officialTitle": "Safari Simba",
+      "officialPage": "https://www.smartsoftgaming.com/games/safari-simba-2",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SafariSimba&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "SafariSimba",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 42,
+      "requestedName": "Power of Tiger",
+      "status": "exact_match",
+      "officialTitle": "Power of Tiger",
+      "officialPage": "https://www.smartsoftgaming.com/games/power-of-tiger",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+      "providerGameName": "PowerOfTiger",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 43,
+      "requestedName": "Farm’s Fortune",
+      "status": "exact_match",
+      "officialTitle": "Farm's Fortune",
+      "officialPage": "https://www.smartsoftgaming.com/games/farms-fortune-6n0s6",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=FarmsFortune&Token=DEMO&PortalName=demo",
+      "providerGameName": "FarmsFortune",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "Requested spelling differs only in apostrophe typography; title matching normalized curly apostrophes and whitespace."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 44,
+      "requestedName": "Jungle Sisters",
+      "status": "exact_match",
+      "officialTitle": "Jungle Sisters",
+      "officialPage": "https://www.smartsoftgaming.com/games/jungle-sisters",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSisters&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "JungleSisters",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 45,
+      "requestedName": "Jungle Sisters Deluxe",
+      "status": "exact_match",
+      "officialTitle": "Jungle Sisters Deluxe",
+      "officialPage": "https://www.smartsoftgaming.com/games/jungle-sisters-deluxe",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=JungleSistersDeluxe&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "JungleSistersDeluxe",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 46,
+      "requestedName": "Dragon’s Code",
+      "status": "exact_match",
+      "officialTitle": "Dragon's Code",
+      "officialPage": "https://www.smartsoftgaming.com/games/dragons-code",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DragonsCode&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "DragonsCode",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "Requested spelling differs only in apostrophe typography; title matching normalized curly apostrophes and whitespace."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 47,
+      "requestedName": "Dracula’s Fortune",
+      "status": "exact_match",
+      "officialTitle": "Dracula's Fortune",
+      "officialPage": "https://www.smartsoftgaming.com/games/draculas-fortune-2",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=DraculasFortune&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "DraculasFortune",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "Requested spelling differs only in apostrophe typography; title matching normalized curly apostrophes and whitespace."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 48,
+      "requestedName": "Vampires",
+      "status": "exact_match",
+      "officialTitle": "Vampires",
+      "officialPage": "https://www.smartsoftgaming.com/games/vampires",
+      "catalogCategory": "Slots",
+      "demoHref": "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "Vampires",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [
+        "insecure_http_scheme"
+      ],
+      "normalizationCandidate": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "candidateTransformations": [
+        "Use the https scheme for the same published provider hostname/path/query; no launcher request made by this reconciliation."
+      ],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn639311879view1"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/vampires",
+        "finalUrl": "https://www.smartsoftgaming.com/games/vampires",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:24.873372+00:00",
+        "bodySha256": "2d265912cda2f8122d643f2ea5f115aecb1f2dec58f65ec302c9f2ed7ea49932",
+        "pageTitle": "Vampires",
+        "h1Titles": [
+          "Vampires"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "http://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Vampires&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 49,
+      "requestedName": "Samurai",
+      "status": "exact_match",
+      "officialTitle": "Samurai",
+      "officialPage": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "Samurai",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn639311879view2"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+        "finalUrl": "https://www.smartsoftgaming.com/games/samurai-deluxe",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:24.912765+00:00",
+        "bodySha256": "b9be695bc595978154dc27b219ad9c5ff6fe464443455e2e9cb0860d87f00373",
+        "pageTitle": "Samurai",
+        "h1Titles": [
+          "Samurai"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=Samurai&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 50,
+      "requestedName": "Book of Futuria",
+      "status": "exact_match",
+      "officialTitle": "Book of Futuria",
+      "officialPage": "https://www.smartsoftgaming.com/games/book-of-futuria",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfFuturia&Token=DEMO&PortalName=demo",
+      "providerGameName": "BookOfFuturia",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 51,
+      "requestedName": "Book of Bonanza",
+      "status": "exact_match",
+      "officialTitle": "Book of Bonanza",
+      "officialPage": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+      "catalogCategory": "Slots",
+      "demoHref": "eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "BookOfBonanza",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [
+        "missing_scheme"
+      ],
+      "normalizationCandidate": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "candidateTransformations": [
+        "Add https:// to the exact published provider hostname/path/query; candidate not fetched."
+      ],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0",
+        "officialDetailWebSourceRef": "turn977887539view2"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+        "finalUrl": "https://www.smartsoftgaming.com/games/book-of-bonanza",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:16.874525+00:00",
+        "bodySha256": "26d60b8831748e9a482267a1ddda2d38b8dc13928662808d89c2be8cee6fef1f",
+        "pageTitle": "Book of Bonanza",
+        "h1Titles": [
+          "Book of Bonanza"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=BookOfBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 52,
+      "requestedName": "Sugar Fiesta",
+      "status": "exact_match",
+      "officialTitle": "Sugar Fiesta",
+      "officialPage": "https://www.smartsoftgaming.com/games/sugar-fiesta",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=SugarFiesta&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "SugarFiesta",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 53,
+      "requestedName": "Mariachi Coins",
+      "status": "exact_match",
+      "officialTitle": "Mariachi Coins",
+      "officialPage": "https://www.smartsoftgaming.com/games/mariachi-coins",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MariachiCoins&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "MariachiCoins",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 54,
+      "requestedName": "Coins Of Atlantis",
+      "status": "exact_match",
+      "officialTitle": "Coins Of Atlantis",
+      "officialPage": "https://www.smartsoftgaming.com/games/coins-of-atlantis",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=CoinsOfAtlantis&Token=DEMO&PortalName=demo",
+      "providerGameName": "CoinsOfAtlantis",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 55,
+      "requestedName": "Dice Jungle",
+      "status": "exact_match",
+      "officialTitle": "Dice Jungle",
+      "officialPage": "https://www.smartsoftgaming.com/games/dice-jungle",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=DiceJungle&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "DiceJungle",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 56,
+      "requestedName": "Gates of Merlyn",
+      "status": "exact_match",
+      "officialTitle": "Gates of Merlyn",
+      "officialPage": "https://www.smartsoftgaming.com/games/gates-of-merlyn",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=GatesOfMerlyn&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "GatesOfMerlyn",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 57,
+      "requestedName": "Mad Slot",
+      "status": "exact_match",
+      "officialTitle": "Mad Slot",
+      "officialPage": "https://www.smartsoftgaming.com/games/mad-slot",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MadSlot&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "MadSlot",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 58,
+      "requestedName": "Jingle Bell Bonanza",
+      "status": "exact_match",
+      "officialTitle": "Jingle Bell Bonanza",
+      "officialPage": "https://www.smartsoftgaming.com/games/jingle-bell-bonanza",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=JingleBellBonanza&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "JingleBellBonanza",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 59,
+      "requestedName": "Genie’s Bonanza",
+      "status": "exact_match",
+      "officialTitle": "Genie's Bonanza",
+      "officialPage": "https://www.smartsoftgaming.com/games/genies-bonanza",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GeniesBonanza&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "GeniesBonanza",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "Requested spelling differs only in apostrophe typography; title matching normalized curly apostrophes and whitespace."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 60,
+      "requestedName": "Bonus Time",
+      "status": "exact_match",
+      "officialTitle": "Bonus Time",
+      "officialPage": "https://www.smartsoftgaming.com/games/bonus-time",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=BonusTime&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "BonusTime",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 61,
+      "requestedName": "4 Bonuses Bonanza",
+      "status": "exact_match",
+      "officialTitle": "4 Bonuses Bonanza",
+      "officialPage": "https://www.smartsoftgaming.com/games/4-bonuses-bonanza",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=PlinkoJoker&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "PlinkoJoker",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The published GameName differs from the marketing title; this is an observed provider identifier, not an inferred substitute."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 62,
+      "requestedName": "Wheel Of Destiny",
+      "status": "exact_match",
+      "officialTitle": "Wheel Of Destiny",
+      "officialPage": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5",
+      "providerGameName": "WheelofDestiny",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": "http://google.com5",
+      "sourceLinkIssues": [
+        "invalid_return_url_host"
+      ],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      },
+      "officialDetailObservation": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+        "finalUrl": "https://www.smartsoftgaming.com/games/wheel-of-destiny",
+        "httpStatus": 200,
+        "observedAtUtc": "2026-11-26T01:43:24.730768+00:00",
+        "bodySha256": "824d5357af45acdf83488a2f92bf21e0479327369a717a03dc382cdfd569e8f4",
+        "pageTitle": "Wheel Of Destiny",
+        "h1Titles": [
+          "Wheel Of Destiny"
+        ],
+        "playDemoHrefsInDocumentOrder": [
+          "#",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=WheelofDestiny&Token=DEMO&PortalName=demo&ReturnUrl=http://google.com5",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CarX&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+          "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=PowerOfTiger&Token=DEMO&PortalName=demo"
+        ],
+        "catalogDemoHrefPresentOnDetailPage": true
+      }
+    },
+    {
+      "requestIndex": 63,
+      "requestedName": "Multi Hot Wheel",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot Wheel",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-wheel",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Games&GameName=MultiHotWheel&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "MultiHotWheel",
+      "providerGameCategory": "Games",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 64,
+      "requestedName": "Cai Balao Cappadocia",
+      "status": "exact_match",
+      "officialTitle": "Cai Balao Cappadocia",
+      "officialPage": "https://www.smartsoftgaming.com/games/cai-balao-cappadocia",
+      "catalogCategory": "Instant Games",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=CaiBalaoCappadocia&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "CaiBalaoCappadocia",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 65,
+      "requestedName": "Multi Hot 5 Wild",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 5 Wild",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-wild",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5Wild&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "MultiHot5Wild",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 66,
+      "requestedName": "Multi Hot 5 Burn Wilds",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 5 Burn Wilds",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-burn-wilds",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5BurnWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "MultiHot5BurnWilds",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 67,
+      "requestedName": "Multi Hot 5 Super Wilds",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot 5 Super Wilds",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-5-super-wilds",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHot5SuperWilds&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "MultiHot5SuperWilds",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 68,
+      "requestedName": "Multi Hot Wild Ways",
+      "status": "exact_match",
+      "officialTitle": "Multi Hot Wild Ways",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-hot-wild-ways",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=&GameName=MultiHotWildWays&Token=DEMO&PortalName=DEMO&ReturnUrl=https://www.smartsoftgaming.com/",
+      "providerGameName": "MultiHotWildWays",
+      "providerGameCategory": "",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com/",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [
+        "The official demo href explicitly leaves GameCategory empty. Preserve this source value; do not infer a category from the display grouping."
+      ],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 69,
+      "requestedName": "Wild Multi Stars",
+      "status": "exact_match",
+      "officialTitle": "Wild Multi Stars",
+      "officialPage": "https://www.smartsoftgaming.com/games/wild-multi-stars",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildMultiStars&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "WildMultiStars",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 70,
+      "requestedName": "Wilds and Gods",
+      "status": "exact_match",
+      "officialTitle": "Wilds and Gods",
+      "officialPage": "https://www.smartsoftgaming.com/games/wilds-and-gods",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=WildsAndGods&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "WildsAndGods",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 71,
+      "requestedName": "Multi Fruits Charging Wilds",
+      "status": "exact_match",
+      "officialTitle": "Multi Fruits Charging Wilds",
+      "officialPage": "https://www.smartsoftgaming.com/games/multi-fruits-charging-wilds",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=MultiFruitsChargingWilds&Token=DEMO&PortalName=demo",
+      "providerGameName": "MultiFruitsChargingWilds",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "demo",
+      "returnUrl": null,
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    },
+    {
+      "requestIndex": 72,
+      "requestedName": "Gems Crown Charging Wilds",
+      "status": "exact_match",
+      "officialTitle": "Gems Crown Charging Wilds",
+      "officialPage": "https://www.smartsoftgaming.com/games/gems-crown-charging-wilds",
+      "catalogCategory": "Slots",
+      "demoHref": "https://eu-server.ssgportal.com/GameLauncher/Loader.aspx?GameCategory=Slots&GameName=GemsCrownChargingWilds&Token=DEMO&PortalName=DEMO&&ReturnUrl=https://www.smartsoftgaming.com&Lang=en",
+      "providerGameName": "GemsCrownChargingWilds",
+      "providerGameCategory": "Slots",
+      "publicDemoTokenLiteral": "DEMO",
+      "portalName": "DEMO",
+      "returnUrl": "https://www.smartsoftgaming.com",
+      "sourceLinkIssues": [],
+      "normalizationCandidate": null,
+      "candidateTransformations": [],
+      "notes": [],
+      "provenance": {
+        "sourceUrl": "https://www.smartsoftgaming.com/games",
+        "sourceType": "fresh_http_official_catalog_html",
+        "observedAtUtc": "2026-11-26T01:43:08.926651+00:00",
+        "catalogHttpStatus": 200,
+        "catalogBodySha256": "01efe281f52e41a8e38473ac9e5fe0392b19da6cb97e5acfa9c8733118f0670e",
+        "webSourceRef": "turn511293073view0"
+      },
+      "verification": {
+        "referenceFound": true,
+        "launcherRequestedInThisReconciliation": false,
+        "playableVerifiedByThisReconciliation": false
+      }
+    }
+  ],
+  "outsideRequestedCatalogTitles": [
+    "SplitX",
+    "Multi Hot 5",
+    "Foxy Hot 20"
+  ],
+  "sourceIssues": [
+    {
+      "requestIndex": 4,
+      "requestedName": "Multi Hot 10",
+      "issues": [
+        "google_redirect_wrapper"
+      ]
+    },
+    {
+      "requestIndex": 21,
+      "requestedName": "Cricket X",
+      "issues": [
+        "insecure_http_scheme"
+      ]
+    },
+    {
+      "requestIndex": 48,
+      "requestedName": "Vampires",
+      "issues": [
+        "insecure_http_scheme"
+      ]
+    },
+    {
+      "requestIndex": 51,
+      "requestedName": "Book of Bonanza",
+      "issues": [
+        "missing_scheme"
+      ]
+    },
+    {
+      "requestIndex": 62,
+      "requestedName": "Wheel Of Destiny",
+      "issues": [
+        "invalid_return_url_host"
+      ]
+    }
+  ],
+  "userFacingObservedDate": "2026-11-25"
+}

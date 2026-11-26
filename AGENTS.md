@@ -1,3 +1,30 @@
+# Current 72-name reference recovery — 25 November 2026
+
+The latest user supplied an exact 72-title list and asked for failed demo references
+and discovered errors to be repaired without routine confirmation. Preserve that
+order in `codex-work/demo-recovery72-20261125/requested72.json`; the earlier
+60/82/90 queues below remain historical. The first requested label is Habesha
+Fortune 5; its current official reference does not authorize replacing an existing
+same-name implementation.
+
+Continue independently per game when one provider fails. Keep raw official hrefs,
+deterministic URL repairs, product-page HTTP status, embedded-game failures and
+actual observed gameplay separate. The current JetX product is New Era of JetX;
+do not silently identify it as the older requested edition. Do not guess provider
+routes from display titles, use stale private tokens, or bypass access controls.
+
+Fresh browser evidence restored Cricket X and Vampires official DMO gameplay.
+Samurai's official launcher still reaches the provider's Runtime Error after one
+retry. Wheel Of Destiny and Bottle Mania reach their launchers, but their visible
+loaders persist with `CanvasRenderer is not yet implemented` after one reload.
+DOM controls behind a loader are not a usable game interface. These are provider
+reference observations, not self-hosted game completion.
+Keep production accounts, balances, wallet, auth, routes and existing games intact.
+Routine authorized source fixes and independent checks should continue; a
+successful source publication or HTTP 200 is never a LIVE VERIFIED game.
+
+---
+
 # Current 60-game directive — 25 November 2026
 
 The latest user requests 60 actual ZPLAY games, each observed in its current official demo and developed through OBSERVE → BUILD → TEST → FIX → VERIFY. This is the active scope; earlier pair/82/90 queues below are historical. Use only isolated test balances for all development. Preserve every existing game, route, account, ledger, history and authentication boundary. Production release requires completed technical and asset-rights gates.
