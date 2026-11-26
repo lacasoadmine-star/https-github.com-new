@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
+import { stripTypeScriptTypes } from "node:module";
 
 const portals = ["player", "agent", "admin"];
 const read = (p) => readFileSync(path.join(process.cwd(), p), "utf8");
@@ -62,7 +63,7 @@ function startPortal(portal, pathname, startingToken = null) {
   const sourceForVm = portal === "player"
     ? source.replace(/^import \{ mountMultiHot5 \} from "\.\/games\/multi-hot-5\.canvas\.js";\r?\n/, "")
     : source;
-  runInNewContext(sourceForVm, {
+  runInNewContext(portal === "player" ? stripTypeScriptTypes(sourceForVm) : sourceForVm, {
     document, sessionStorage, location, window, WebSocket: MockWebSocket,
     FormData: MockFormData, fetch, console,
     mountMultiHot5: () => ({ destroy() {} }),
@@ -120,6 +121,17 @@ for (const portal of portals) {
     assert.match(config, new RegExp("base:\\s*[\"']/" + portal + "/[\"']"));
   });
 }
+
+test("player: ignores missing or non-element event targets without new requests", async () => {
+  const app = startPortal("player", "/player", "existing-test-token");
+  await app.flush();
+  const before = app.requests.length;
+  for (const target of [null, {}]) {
+    await app.listeners.submit({ target, preventDefault() { throw new Error("must not prevent unrelated event"); } });
+    await app.listeners.click({ target });
+  }
+  assert.equal(app.requests.length, before);
+});
 
 test("package manifests and lockfile match secure Vite/esbuild versions", () => {
   const lock = JSON.parse(read("package-lock.json"));
