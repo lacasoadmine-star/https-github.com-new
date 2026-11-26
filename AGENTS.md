@@ -1,3 +1,9 @@
+# Active user directive — 26 November 2026
+
+The latest user narrows the active work to **20 new distinct games** from the preceding list. Preserve the existing **two MultiHot5 plus two FoxyHot20** and every old route/account/wallet/service. Follow [the active twenty-game order](codex-work/requested20-20261126/ORDER.md) and [selected names](codex-work/requested20-20261126/requested.json); the historical82/90-name queues below do not expand this scope. Continue the retained first pair Multi Hot100/Multi Hot20 and its real host/media/release work. Do not count the existing four or aliases as new games, delete earlier work, or claim completion/deployment from a manifest/card/test. Existing coding/testing/deployment authorization persists. Current failures must be diagnosed without invented approval requirements, account resets or weakened model/authentication checks. Preserve the historical pair/source instructions below wherever compatible with this latest twenty-game directive.
+
+---
+
 # Active pair delivery directive — 24 November 2026
 
 25 November clarification: the user explicitly requests adding the first pair to the live dashboard now and will supply a player session manually if needed. A real PLAY trial may therefore be admitted before authenticated production rounds are independently verified. Keep trial admission distinct from completion/liveVerified; do not create placeholder cards for the remaining80. Preserve existing sign-in and never request passwords or opaque session tokens in chat. Current live version474 contains the verified M20 recovery release; recheck before subsequent writes.

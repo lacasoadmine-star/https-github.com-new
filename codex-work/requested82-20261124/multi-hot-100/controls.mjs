@@ -2,7 +2,7 @@
 import { M100_SYMBOL_FRAMES } from '../../continue71-20261122/multi-hot-100-component/render/atlas.mjs';
 
 export const MULTI_HOT_100_GAME_ID = 'zplay72_multi_hot_100_v1';
-export const M100_OBSERVED_BET_CHOICES = Object.freeze(['1.00','2.00','3.00','4.00','5.00']);
+export const M100_OBSERVED_BET_CHOICES = Object.freeze(["1.00","2.00","3.00","4.00","5.00","6.00","7.00","8.00","10.00","15.00","20.00","25.00","30.00","40.00","50.00","60.00","70.00","80.00","100.00"]);
 export const M100_OBSERVED_AUTO_COUNTS = Object.freeze([25,50,100,500,1000]);
 const symbols = new Set(Object.keys(M100_SYMBOL_FRAMES));
 const keyOK = s => typeof s === 'string' && /^[A-Za-z0-9_-]{8,128}$/.test(s);
@@ -31,7 +31,8 @@ export function validateM100RoundView(view, expected = {}) {
 
 export class MultiHot100Controls {
   #state; #used = new Set(); #collected = new Set(); #rounds=new Map(); #collections=new Map(); #gambles=new Map();
-  constructor({betLevels = M100_OBSERVED_BET_CHOICES, selectedBet = '1.00', currency = 'DMO',hostPolicy=null} = {}) {
+  constructor({betLevels, selectedBet = '1.00', currency = 'DMO',hostPolicy=null} = {}) {
+    if(betLevels===undefined)betLevels=currency==='ETB'&&Array.isArray(hostPolicy?.betLevels)?hostPolicy.betLevels:M100_OBSERVED_BET_CHOICES;
     if (!['DMO','ETB'].includes(currency) || !Array.isArray(betLevels) || !betLevels.length || new Set(betLevels).size !== betLevels.length || !betLevels.includes(selectedBet)) throw new TypeError('M100_REFERENCE_BET_CHOICES');
     if(currency==='DMO'&&(hostPolicy!==null||betLevels.some(b=>!M100_OBSERVED_BET_CHOICES.includes(b))))throw new TypeError('M100_REFERENCE_BET_CHOICES');
     // This policy comes from the authenticated existing-host adapter. It cannot

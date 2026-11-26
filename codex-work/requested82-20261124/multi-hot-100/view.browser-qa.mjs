@@ -32,7 +32,26 @@ try{
     const context=await browser.newContext({viewport:{width,height:width<700?844:900},deviceScaleFactor:2,hasTouch:width<700}),page=await context.newPage(),errors=[];
     page.on('pageerror',error=>errors.push(error.message));await page.route('**/*',route=>new URL(route.request().url()).origin===origin&&route.request().method()==='GET'?route.continue():route.abort());
     await page.goto(origin);await page.waitForFunction(()=>!!window.fixture?.game);assert.equal(await page.locator('[data-value="balance"]').innerText(),'—');assert.equal(await page.locator('[data-value="win"]').textContent(),'—');assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);assert.equal(await page.getByRole('button',{name:'Fullscreen',exact:true}).count(),0);
-    await page.getByRole('button',{name:'Change bet',exact:true}).click();await page.getByRole('button',{name:'2.00 DMO',exact:true}).click();assert.equal(await page.locator('[data-value="bet"]').innerText(),'2.00');
+    await page.getByRole('button',{name:'Change bet',exact:true}).click();
+    assert.equal(await page.locator('.m100-bet-choice').count(),5);
+    assert.deepEqual(await page.locator('.m100-bet-choice').allTextContents(),['1.00DMO','2.00DMO','3.00DMO','4.00DMO','5.00DMO']);
+    assert(await page.getByRole('button',{name:'Previous bet values',exact:true}).isDisabled());
+    assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);
+    const panel=await page.getByRole('dialog',{name:'Bet',exact:true}).boundingBox();
+    assert(panel.x>=0&&panel.y>=0&&panel.x+panel.width<=width+.5);
+    for(const box of await page.locator('.m100-bet-choice').evaluateAll(items=>items.map(el=>({height:el.getBoundingClientRect().height}))))assert(box.height>=44);
+    if(nativeAssets){assert((await page.getByRole('dialog',{name:'Bet',exact:true}).getAttribute('style')).includes('data:image/png;base64,'));assert.equal(await page.getByRole('dialog',{name:'Bet',exact:true}).evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)');}
+    await page.screenshot({path:resolve(output,`m100-bet-front-${width}.png`)});
+    await page.getByRole('button',{name:'2.00 DMO',exact:true}).click();assert.equal(await page.locator('[data-value="bet"]').innerText(),'2.00');
+    assert.equal(await page.evaluate(()=>window.fixture.calls.length),0);
+    if(process.env.M100_VIEW_QA_BET_FRONT_ONLY==='1'){
+      assert.equal(await page.locator('[data-value="balance"]').innerText(),'—');
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+      assert.deepEqual(errors,[]);
+      await page.evaluate(()=>window.fixture.game.destroy());
+      reports.push({width,frontBetPageOnly:true,fiveNativeRows:true,selectedFrontBetBound:true,noFinancialRequestFromBetSelection:true,nativeAssets:!!nativeAssets,pageErrors:errors});
+      await context.close();continue;
+    }
     await page.getByRole('button',{name:'Quick spin',exact:true}).click();assert(await page.getByRole('button',{name:'ENABLE QUICK PLAY',exact:true}).isVisible());assert(await page.getByRole('button',{name:'NO',exact:true}).isVisible());await page.screenshot({path:resolve(output,`m100-quick-${width}.png`)});await page.getByRole('button',{name:'ENABLE QUICK PLAY',exact:true}).click();assert.equal(await page.getByRole('button',{name:'Quick spin',exact:true}).getAttribute('aria-pressed'),'true');
     await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).click();await page.waitForFunction(()=>window.fixture.game.snapshot().phase==='PRESENTING');assert.equal(await page.evaluate(()=>window.fixture.calls.length),1);
     await page.getByRole('button',{name:'STOP',exact:true}).click();assert.equal(await page.evaluate(()=>window.fixture.calls.length),1);assert.equal(await page.evaluate(()=>window.fixture.game.snapshot().stopRequested),true);
