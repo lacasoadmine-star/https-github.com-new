@@ -132,6 +132,7 @@ export async function playerRequest(path, payload, {
 }
 
 const pendingKey = (slug) => "zplay.seasons.v1.pending." + slug;
+const activeSpins = new Set();
 function requireAdapter(request, storage, uuid) {
   if (typeof request !== "function" || typeof storage?.getItem !== "function" ||
       typeof storage?.setItem !== "function" ||
@@ -141,6 +142,9 @@ function requireAdapter(request, storage, uuid) {
 }
 function gameBinding(gameSlug) {
   const game = findSeasonGame(gameSlug);
+  if (!game.releaseApproved || !game.playableVerified) {
+    fail("GAME_RELEASE_NOT_VERIFIED");
+  }
   if (!game.engineGameId || !KNOWN_VALIDATORS[game.slug]) {
     fail("GAME_ENGINE_OR_RECEIPT_VALIDATOR_NOT_BOUND");
   }
@@ -165,6 +169,10 @@ export async function executeAuthoritativeSpin({
   const game = gameBinding(gameSlug);
   requireAdapter(request, storage, uuid);
   const key = pendingKey(game.slug);
+  // Acquire synchronously BEFORE the first await to prevent concurrent double taps.
+  if (activeSpins.has(key)) fail("ROUND_ALREADY_IN_PROGRESS");
+  activeSpins.add(key);
+  try {
   if (storage.getItem(key) !== null) fail("PENDING_ROUND_REQUIRES_RECOVERY");
   const modelState = checkGameState(
     await request("/api/slots/fresh-state?gameId=" + encodeURIComponent(game.engineGameId)),
@@ -193,6 +201,9 @@ export async function executeAuthoritativeSpin({
   } catch (error) {
     if (shouldDropPending(error)) storage.removeItem(key);
     throw error; // Network/5xx/invalid receipt: keep saved token for replay-only recovery.
+  }
+  } finally {
+    activeSpins.delete(key);
   }
 }
 
