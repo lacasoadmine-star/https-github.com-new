@@ -1,0 +1,113 @@
+{
+  "schema": "superwin/requested20-ui-release/v1",
+  "observedAtUTC": "2026-11-26T03:18:23.005Z",
+  "activeScope": "20 distinct new games; retain two MultiHot5 and two FoxyHot20",
+  "completionClaim": false,
+  "completedTwentyGames": 0,
+  "firstPair": {
+    "sourceCommit": "82dba308a1a4b7cf40eec1a209a59af7f126710f",
+    "version": 477,
+    "versionId": "46edf836-9fbc-488a-9ce4-d86c9fab300c",
+    "deploymentId": "b92989df-2879-4ece-892a-92c53766883c",
+    "realPlayCards": 2,
+    "originalCardsRetained": 74,
+    "guestLaunchWidths": [
+      390,
+      1280
+    ],
+    "routes": [
+      "/new-games72/multi-hot-100/",
+      "/new-games72/multi-hot-20/"
+    ],
+    "existingFourGamesRetained": true
+  },
+  "m100Presentation": {
+    "sourceCommit": "45197e2f4e17b17ee246cb40dc942c9220d5a44f",
+    "stageCoordinatorCommit": "388d120a6b6e3110517bc82818f1b7fec6235593",
+    "version": 478,
+    "versionId": "87fb62ad-9378-44c9-b611-6bfed03acdc1",
+    "deploymentId": "01f5fc08-38eb-4fc7-8693-88f5288a367e",
+    "mainModule": "requested82pairr1/entry.mjs",
+    "moduleCount": 434,
+    "totalBytes": 66966145,
+    "retainedModuleCount": 433,
+    "changedOwnedPresentationModules": 1,
+    "retainedInventorySha256": "3f471761f11a306af33bbc2444fe483917c5ffa2f9f9028c0986dfabe73df2b2",
+    "runtimeConfigurationSha256": "15c22f1d5bd108a582fbf099ee7c774c2a26d3b914b3cfaccae683b3c201b928",
+    "unchangedBindingCount": 18,
+    "unchangedNativeMediaCount": 20,
+    "unchangedAudioCount": 9,
+    "newConfigurationModule": {
+      "name": "requested82m100r1/config.mjs",
+      "bytes": 3929,
+      "contentType": "application/javascript+module",
+      "sha256": "57019e59783ab4a40e316eeafc0782e0857fb958cd917ffc6125ac9e38bfee6b"
+    },
+    "resources": [
+      {
+        "name": "app.mjs",
+        "key": "requested82/m100/sha256/bc70ea7b8626b52022ae3b7918ebe74697e0ce4a67d1b021bfa057574d70142f/app.mjs",
+        "bytes": 91681,
+        "sha256": "bc70ea7b8626b52022ae3b7918ebe74697e0ce4a67d1b021bfa057574d70142f",
+        "readbackVerified": true
+      },
+      {
+        "name": "page.css",
+        "key": "requested82/m100/sha256/9e4cfbd31c6a723946ef549f1553171ac2bf7e132ac3800d978dd124273af2b0/page.css",
+        "bytes": 22118,
+        "sha256": "9e4cfbd31c6a723946ef549f1553171ac2bf7e132ac3800d978dd124273af2b0",
+        "readbackVerified": true
+      }
+    ]
+  },
+  "validation": {
+    "focusedNodeChecksPassed": 4,
+    "isolatedNativeBrowserWidths": [
+      360,
+      390,
+      430,
+      1280
+    ],
+    "betManualScope": "first visible page only",
+    "betSelectionCreatesFinancialRequest": false,
+    "syntheticEtbPolicyChecked": true,
+    "liveBrowser": {
+      "schema": "superwin/m100-live-presentation-20261126/v1",
+      "at": "2026-11-26T03:18:23.005Z",
+      "sourceCommit": "45197e2f4e17b17ee246cb40dc942c9220d5a44f",
+      "version": 478,
+      "pageStatus": 200,
+      "revision": "/_zplay/requested82-m100/82050488b85f93c8a58a068f5518b7b7cf1c64cdd40e5382bc7e9dc48b932e33/media/",
+      "resources": [
+        {
+          "name": "app",
+          "status": 200,
+          "bytes": 91681,
+          "sha256": "bc70ea7b8626b52022ae3b7918ebe74697e0ce4a67d1b021bfa057574d70142f"
+        },
+        {
+          "name": "css",
+          "status": 200,
+          "bytes": 22118,
+          "sha256": "9e4cfbd31c6a723946ef549f1553171ac2bf7e132ac3800d978dd124273af2b0"
+        }
+      ],
+      "correctedSignInFlow": true,
+      "existingLoginFormVisible": true,
+      "originalCards": 74,
+      "newPairCards": 2,
+      "pageErrors": [],
+      "blockedNonGetApiRequests": [],
+      "authenticatedGameplayVerified": false,
+      "productionFinancialActions": 0,
+      "completionClaim": false
+    },
+    "productionFinancialActions": 0,
+    "arbitraryFundsCreated": false
+  },
+  "limits": [
+    "Authenticated gameplay and reported PLAY/spin failures still require the user manual sign-in on the existing shared browser.",
+    "The four unchanged widths are isolated own-UI tests; they do not certify full official provider animation/audio identity.",
+    "These are two real trial launches and a tested presentation fix, not twenty complete games."
+  ]
+}
