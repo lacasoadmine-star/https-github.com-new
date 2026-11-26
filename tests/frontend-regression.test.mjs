@@ -55,7 +55,7 @@ function startPortal(portal, pathname, startingToken = null) {
       },
     };
   }
-  runInNewContext(read("apps/" + portal + "/src/boot.ts"), {
+  runInNewContext(read("apps/" + portal + "/src/boot.ts").replace(/^import\s+[^;]+;\s*$/gm, ""), {
     document, sessionStorage, location, window, WebSocket: MockWebSocket,
     FormData: MockFormData, fetch, console,
   }, { filename: "apps/" + portal + "/src/boot.ts" });

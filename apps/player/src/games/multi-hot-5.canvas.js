@@ -27,9 +27,10 @@ export function mountMultiHot5(root, {roundProvider} = {}) {
     if(state.busy||destroyed)return;
     state.busy=true;state.stopped=false;state.win=0;state.status='SPINNING';draw();beep(300);
     const id=setInterval(randomize,65);timer=id;
+    let result = null;
     try{
       // No local random outcome is ever used for cash settlement.
-      const result=roundProvider?await roundProvider({bet:state.bet,game:'multi-hot-5',mode:'practice'}):null;
+      result=roundProvider?await roundProvider({bet:state.bet,game:'multi-hot-5',mode:'practice'}):null;
       await new Promise(resolve=>{const start=performance.now();const tick=()=>{if(destroyed||state.stopped||performance.now()-start>=950)resolve();else requestAnimationFrame(tick)};tick()});
       if(destroyed)return;
       if(result?.reels){if(!Array.isArray(result.reels)||result.reels.length!==3||result.reels.some(col=>!Array.isArray(col)||col.length!==3))throw Error('Invalid reels');state.reels=result.reels;state.win=Number.isFinite(Number(result.win))&&Number(result.win)>=0?Number(result.win):0;state.status='SERVER PRACTICE RESULT'}
@@ -39,10 +40,10 @@ export function mountMultiHot5(root, {roundProvider} = {}) {
     finally{clearInterval(id);timer=null;state.busy=false;draw();if(state.auto&&!destroyed&&state.status!=='ROUND REJECTED'&&result?.reels){autoTimer=setTimeout(()=>{autoTimer=null;if(state.auto&&!state.busy&&!destroyed)spin()},600)}else{state.auto=false}}
   }
   function action(name){
-    if(name==='STOP'){state.stopped=true;state.auto=false;clearTimeout(autoTimer);autoTimer=null;draw();return}
+    if(name==='STOP'){if(state.busy)state.stopped=true;draw();return}
     if(name==='SOUND'){state.sound=!state.sound;draw();return}
     if(name==='SETTINGS'){state.settings=!state.settings;draw();return}
-    if(name==='AUTO'){state.auto=!state.auto;if(!state.auto){clearTimeout(autoTimer);autoTimer=null}draw();return}
+    if(name==='AUTO'){if(!roundProvider){state.status='AUTO REQUIRES SERVER';state.auto=false;draw();return}state.auto=!state.auto;if(!state.auto){clearTimeout(autoTimer);autoTimer=null}else if(!state.busy){spin()}draw();return}
     if(state.busy||state.settings)return;
     if(name==='BET -')state.bet=Math.max(1,state.bet-1);
     if(name==='BET +')state.bet=Math.min(40000,state.bet+1);

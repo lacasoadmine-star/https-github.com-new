@@ -1,5 +1,5 @@
-import { mountMultiHot5 } from "./games/multi-hot-5.canvas.js";
 // @ts-nocheck
+import { mountMultiHot5 } from "./games/multi-hot-5.canvas.js";
 const TOKEN_KEY = "superwin.player.token";
 
 function esc(value) {
