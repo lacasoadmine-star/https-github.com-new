@@ -31,7 +31,8 @@ export function validateM100RoundView(view, expected = {}) {
 
 export class MultiHot100Controls {
   #state; #used = new Set(); #collected = new Set(); #rounds=new Map(); #collections=new Map(); #gambles=new Map();
-  constructor({betLevels = M100_OBSERVED_BET_CHOICES, selectedBet = '1.00', currency = 'DMO',hostPolicy=null} = {}) {
+  constructor({betLevels, selectedBet = '1.00', currency = 'DMO',hostPolicy=null} = {}) {
+    if(betLevels===undefined)betLevels=currency==='ETB'&&Array.isArray(hostPolicy?.betLevels)?hostPolicy.betLevels:M100_OBSERVED_BET_CHOICES;
     if (!['DMO','ETB'].includes(currency) || !Array.isArray(betLevels) || !betLevels.length || new Set(betLevels).size !== betLevels.length || !betLevels.includes(selectedBet)) throw new TypeError('M100_REFERENCE_BET_CHOICES');
     if(currency==='DMO'&&(hostPolicy!==null||betLevels.some(b=>!M100_OBSERVED_BET_CHOICES.includes(b))))throw new TypeError('M100_REFERENCE_BET_CHOICES');
     // This policy comes from the authenticated existing-host adapter. It cannot

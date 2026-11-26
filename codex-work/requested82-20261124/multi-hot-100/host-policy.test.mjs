@@ -23,3 +23,13 @@ test('existing host balance and permitted ETB bets are copied without creating a
   assert.throws(()=>validateM100RoundView({...receipt,currency:'DMO'},intent),/CURRENCY/);
   assert.throws(()=>validateM100RoundView({...receipt,currency:undefined},intent),/CURRENCY/);
 });
+
+test('an omitted ETB ladder uses only the explicit authoritative host choices',()=>{
+  const hostPolicy=policy(),controls=new MultiHot100Controls({currency:'ETB',hostPolicy});
+  assert.deepEqual(controls.snapshot().betLevels,betLevels);
+  assert.equal(controls.snapshot().balance,'37.50');
+  assert.equal(controls.snapshot().round,null);
+  assert.equal(controls.selectBet('6.00'),false);
+  assert.equal(controls.selectBet('10.00'),true);
+  assert.equal(controls.requestSpin('isolated-default-policy-key').intents[0].bet,'10.00');
+});

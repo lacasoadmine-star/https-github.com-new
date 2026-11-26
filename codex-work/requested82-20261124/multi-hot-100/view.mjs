@@ -168,7 +168,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     const betPanel=overlay.querySelector('.m100-bet-modal');
     if(betPanel){
       const popup=nativeURL('Bets/Popup'),row=nativeURL('Bets/Button'),active=nativeURL('Bets/ButtonActive');
-      if(popup)betPanel.style.backgroundImage=`url("${popup}")`;
+      if(popup){betPanel.style.backgroundImage=`url("${popup}")`;betPanel.style.backgroundColor='transparent';}
       if(row)betPanel.style.setProperty('--m100-bet-row-image',`url("${row}")`);
       if(active)betPanel.style.setProperty('--m100-bet-row-active',`url("${active}")`);
       for(const [action,name] of [['bet-page-prev','Bets/Up'],['bet-page-next','Bets/Down']]){
