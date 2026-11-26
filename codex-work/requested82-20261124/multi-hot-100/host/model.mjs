@@ -26,7 +26,16 @@ export function validateHostModel(raw){
    model.launchable!==true||model.published!==true||model.operatorRelease?.id!==OPERATOR_RELEASE||
    model.operatorRelease.providerPrivateMathVerified!==false||model.operatorRelease.completeReferenceParityVerified!==false)
   throw fail('M100_EXISTING_MODEL_INCOMPATIBLE');
- const math=model.math;
+ // The deployed public catalogue serializes math as its pinned description.
+ // Its structured native profile is retained in verified-model.json, checked
+ // against the approved source in source-verification.json. Keep the actual
+ // wire value intact; do not claim the server returned local weight metadata.
+ const descriptionOnly=typeof model.math==='string';
+ if(descriptionOnly&&(model.math!==pinned.math.description||model.officialPrivateMathVerified!==false||
+   model.operatorWagerProfile?.id!=='remaining20-etb1-40000-v1'||model.operatorWagerProfile.currency!=='ETB'||
+   !same(model.operatorWagerProfile.stakeValues,pinned.stakeValues)||!same(model.operatorWagerProfile.stakeMinorValues,pinned.stakeMinorValues)))
+  throw fail('M100_EXISTING_MATH_INCOMPATIBLE');
+ const math=descriptionOnly?pinned.math:model.math;
  if(math?.kind!=='independent-zplay'||math.version!==MODEL_VERSION||math.officialPrivateMathVerified!==false||
   math.publicPayoutCoefficientsScaled!==false||!same(math.symbolWeights,[1,1,1,1,1,1,1,1])||
   !same(math.multiplierWeights,[1,2,3,4,6])||math.multiplierWeightTotal!==16)throw fail('M100_EXISTING_MATH_INCOMPATIBLE');
