@@ -17,11 +17,14 @@ const revision='79bb7e48737feb68a2e905f8',oldHash='d4c20fdb220638287477a1464c4b4
 const oldPath=`/_zplay/new90-m20/${revision}/app.${oldHash}.mjs`,styleHash='d8ab90003813abb3b223129b25bd1d3f4fe276b092004ef716ab4b5e758bc246',manifestHash='c757c008212e6e6f2accd7d19e0030685b6331d99d826defd555337bd18c7c94';
 const base=`/_zplay/new90-m20/${revision}/`,manifest=JSON.parse(await readFile(resolve(media,'assets.json'),'utf8'));
 manifest.baseUrl='./assets/';
-const build=await buildM20Recovery({activeMainModule:'new90m20r1/entry.mjs',baselineRevision:revision,previousAppPath:oldPath,sourceCommit:process.env.GITHUB_SHA||null});
+const build=await buildM20Recovery({activeMainModule:'new90m20r1/entry.mjs',baselineRevision:revision,previousAppPath:oldPath,previousStylePath:base+`style.${styleHash}.css`,sourceCommit:process.env.GITHUB_SHA||null});
 await mkdir(output,{recursive:true});await writeM20Recovery(resolve(output,'build'),build);
 const originalConfig={enabled:true,revision,appSha256:oldHash,styleSha256:styleHash,manifestSha256:manifestHash,appSource:'fixture-old-app',styleSource:'',manifestSource:JSON.stringify(manifest),
   media:Object.entries(manifest.files).map(([name,pin])=>({name,key:KV_PREFIX+name,...pin}))};
-const style=await readFile(new URL('../../new-games90-20261123/m20/style.css',import.meta.url),'utf8')+'\n'+await readFile(new URL('../../new-games90-20261123/m20-release/host.css',import.meta.url),'utf8');
+// The retained CSS fixture deliberately omits current controls: only the
+// emitted, SHA-checked stylesheet may supply the new presentation.
+const style='/* retained stylesheet fixture */';
+const viewports=[{width:360,height:844},{width:390,height:844},{width:430,height:844},{width:1280,height:900},{width:844,height:390},{width:390,height:320}];
 const model={id:'fresh_multihot20',currency:'ETB',reels:5,rows:3,paylines:20,foundationBet:1,maxWinMultiplier:1000,symbols:['seven','bell','grape','watermelon','lemon','plum','orange','cherry'],
   multiplierValues:[1,2,3,4,5],betLevels:['1.00','2.00'],availableBetLevels:['1.00','2.00'],enabled:true,freshReleaseReady:true,productionApproved:true,probabilityModelAudited:true,wagerAvailability:'available',
   mathVersion:'isolated-browser-fixture',engineVersion:'isolated-browser-fixture',mathSha256:'b'.repeat(64)};
@@ -45,17 +48,17 @@ const previous={async fetch(request){const url=new URL(request.url),path=url.pat
   }
   if(path==='/favicon.ico')return new Response(null,{status:204});return new Response('No fixture handler',{status:404});
 }};
-const worker=createM20RecoveryWorker(previous,build.config),appBytes=new TextEncoder().encode(build.staticFiles[0].source).buffer;
+const worker=createM20RecoveryWorker(previous,build.config),staticBytes=new Map(build.staticFiles.map(file=>[file.key,new TextEncoder().encode(file.source).buffer]));
 const server=createServer(async(req,res)=>{try{const chunks=[];for await(const chunk of req)chunks.push(chunk);const request=new Request('http://fixture'+req.url,{method:req.method,headers:req.headers,...(chunks.length?{body:Buffer.concat(chunks),duplex:'half'}:{})});
-  const response=await worker.fetch(request,{SSG_OFFICIAL_REFERENCES:{get:async key=>key===build.config.appKey?appBytes:null}},{});
+  const response=await worker.fetch(request,{SSG_OFFICIAL_REFERENCES:{get:async key=>staticBytes.get(key)??null}},{});
   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));
 }catch(error){res.writeHead(500);res.end(error.message);}});
 await new Promise(done=>server.listen(0,'127.0.0.1',done));const origin=`http://127.0.0.1:${server.address().port}`;
 try{
   browser=await chromium.launch({headless:true,executablePath:process.env.ZPLAY_QA_CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
-  for(const width of [360,390,430,1280]) {
+  for(const {width,height} of viewports) {
     accepted.clear();calls.length=0;balance='100.00';
-    const context=await browser.newContext({viewport:{width,height:width===1280?900:844},deviceScaleFactor:2,hasTouch:width<700});
+    const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:2,hasTouch:width<700});
     const page=await context.newPage(),errors=[];page.setDefaultTimeout(20000);page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin!==origin){blocked.push(u.origin);return route.abort();}return route.continue();});
     await page.addInitScript(()=>{const draw=CanvasRenderingContext2D.prototype.drawImage;window.fixtureFault={armed:true,failures:0};
@@ -63,6 +66,11 @@ try{
         window.fixtureFault.armed=false;window.fixtureFault.failures++;throw Error('isolated fixture accepted-frame drawing failure');}return draw.apply(this,args);};});
     await page.goto(origin+'/');await page.getByRole('link',{name:'PLAY Multi Hot 20',exact:true}).click();
     await page.getByRole('button',{name:'No',exact:true}).click();
+    assert.equal(await page.locator('link[rel=stylesheet]').getAttribute('href'),build.config.stylePath);
+    await page.waitForFunction(()=>[...document.querySelectorAll('.m20-control')].every(node=>node.getBoundingClientRect().bottom<=innerHeight+1));
+    const targets=await page.locator('.m20-control').evaluateAll(nodes=>nodes.map(node=>{const r=node.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {name:node.dataset.action,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height,hit:hit===node||node.contains(hit)};}));
+    assert.equal(targets.length,8);
+    for(const r of targets){assert(r.x>=-1&&r.y>=0&&r.right<=width+1&&r.bottom<=height+1,r.name);assert(r.width>=44&&r.height>=44,r.name);assert(r.hit,r.name);}
     assert.equal(await page.locator('#m20-game').getAttribute('data-cash-enabled'),'true');
     assert(await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).isEnabled());
     assert.equal(await page.locator('.m20-spin .m20-control-label').evaluate(node=>getComputedStyle(node).clipPath),'none');
@@ -88,15 +96,15 @@ try{
     await page.getByRole('button',{name:'Settings',exact:true}).click();assert(await page.getByRole('checkbox',{name:'Music',exact:true}).isVisible());
     await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.deepEqual(errors,[]);
-    reports.push({width,playOpened:true,nativeMediaVerified:true,drawFailureObserved:true,acceptedReceiptRecoveredLocally:true,unchangedAcceptedKey:true,spinPosts:1,takePosts:0,
+    reports.push({width,height,emittedStylesheetVerified:true,viewportTargetsVerified:8,playOpened:true,nativeMediaVerified:true,drawFailureObserved:true,acceptedReceiptRecoveredLocally:true,unchangedAcceptedKey:true,spinPosts:1,takePosts:0,
       menuAndSettingsResponded:true,overflow:false,pageErrors:errors});await context.close();
   }
   assert.deepEqual(blocked,[]);
 }catch(error){failure=error.stack;throw error;}
 finally{
   await browser?.close();server.closeAllConnections();await new Promise(done=>server.close(done));
-  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/m20-built-recovery-browser-qa/v1',testedAt:new Date().toISOString(),passed:!failure&&reports.length===4,failure,
-    sourceCommit:build.report.sourceCommit,appSha256:build.config.appSha256,appBytes:build.config.appBytes,workerBytes:build.report.workerBytes,
+  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/m20-built-recovery-browser-qa/v1',testedAt:new Date().toISOString(),passed:!failure&&reports.length===viewports.length,failure,
+    sourceCommit:build.report.sourceCommit,appSha256:build.config.appSha256,appBytes:build.config.appBytes,workerBytes:build.report.workerBytes,styleSha256:build.config.styleSha256,styleBytes:build.config.styleBytes,
     scope:'Exact release JS through actual mounted DOM, retained native image/audio assets and existing host transport using an isolated HTTP receipt fixture. No production wager, funds or ledger mutation.',
     reports,blocked,productionRequests:0,authenticatedProductionRounds:0,providerParityVerified:false},null,2)+'\n');
 }

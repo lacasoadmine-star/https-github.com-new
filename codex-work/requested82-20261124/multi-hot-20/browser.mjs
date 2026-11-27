@@ -18,6 +18,13 @@ export async function bootM20Release({document=globalThis.document,launch=launch
     return Object.freeze({...game,dispose(){observer?.disconnect();game.dispose();}});
   }catch(error){
     status.hidden=false;status.textContent=error?.status===401?'Sign in from ZPLAY to play Multi Hot 20.':'The game could not connect. Return to ZPLAY and open it again.';
+    // Match the existing M100 guest navigation. No authentication is bypassed.
+    if(error?.status===401){
+      const signIn=document.createElement('a');
+      signIn.href='/';signIn.textContent='Sign in';
+      signIn.className='m20-sign-in';
+      root.replaceChildren(signIn);
+    }
     throw error;
   }
 }

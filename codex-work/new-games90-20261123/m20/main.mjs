@@ -2,7 +2,7 @@ import { MultiHot20Controls, OBSERVED_BETS, AUTO_COUNTS, amount } from './contro
 import { MultiHot20Renderer } from './render/renderer.mjs';
 import { MultiHot20Controller } from './controller.mjs';
 import { MultiHot20Audio } from './audio.mjs';
-import { presentationLayout } from './layout.mjs';
+import { presentationLayout, MIN_PRESENTATION_HEIGHT } from './layout.mjs';
 import { LINE_PAYS, PAYLINES } from './presentation-quote.mjs';
 import { activateFromKeyboard } from './input.mjs';
 import { AUTO_LIMIT_FIELDS, readAutoOptions } from './auto-options.mjs';
@@ -55,13 +55,19 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
 
   function resize() {
     if (disposed) return;
-    const width = Math.max(240, root.clientWidth), height = Math.max(240, window.innerHeight || 800);
+    const width = Math.max(240, root.clientWidth);
+    // The retained host header/connection banner and our status occupy real
+    // viewport space. Size the stage inside what remains, not the whole window.
+    const viewportHeight = window.innerHeight || 800;
+    const height = Math.max(MIN_PRESENTATION_HEIGHT,
+      viewportHeight - Math.max(0, root.getBoundingClientRect().top) - live.getBoundingClientRect().height);
     currentLayout = presentationLayout(width, height);
     stage.style.width = `${currentLayout.width}px`; stage.style.height = `${currentLayout.height}px`;
     const ratio = Math.min(2, window.devicePixelRatio || 1);
     scene.width = Math.round(currentLayout.scene.width * ratio); scene.height = Math.round(currentLayout.scene.height * ratio);
     scene.style.width = `${currentLayout.scene.width}px`; scene.style.height = `${currentLayout.scene.height}px`;
     stage.dataset.portrait = String(currentLayout.portrait);
+    stage.dataset.compact = String(Boolean(currentLayout.compact));
     for (const [name, button] of buttons) { const r = currentLayout.controls[name];
       Object.assign(button.style, { left: `${r.x}px`, top: `${r.y}px`, width: `${r.width}px`, height: `${r.height}px` });
     }
@@ -261,8 +267,17 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   on(window, 'pagehide', () => { held.clear();holdPointer=null; audio.setHidden(true); controller?.setHidden(true); });
   on(window, 'pageshow', () => { audio.setHidden(document.hidden); controller?.setHidden(document.hidden); });
   on(document, 'fullscreenchange', () => { controls.setSetting('fullscreen', !!document.fullscreenElement); resize(); sync(); });
-  const observer = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(resize) : null;
-  observer?.observe(root); on(window, 'resize', resize);
+  let resizeFrameId = null;
+  const scheduleResize = () => {
+    if (disposed || resizeFrameId !== null) return;
+    resizeFrameId = window.requestAnimationFrame(() => { resizeFrameId = null; resize(); });
+  };
+  const observer = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(scheduleResize) : null;
+  observer?.observe(root);
+  // Hiding the outer loading banner changes the root's top without resizing
+  // the root itself. Recompute after that host-content change too.
+  if (document.body && document.body !== root) observer?.observe(document.body);
+  on(window, 'resize', resize);
   function frame(now) {
     if (disposed) return;
     if (!document.hidden) {
@@ -276,6 +291,7 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   resize(); sync();if(askSound)open('sound-choice');frameId = window.requestAnimationFrame(frame);
   return Object.freeze({ controls, renderer, controller, audio, snapshot: () => controller?.snapshot() || controls.snapshot(),
     dispose() { if (disposed) return; disposed = true; controller?.dispose(); audio.dispose(); renderer.dispose?.(); observer?.disconnect();
-      window.cancelAnimationFrame(frameId); for (const remove of listeners) remove(); root.replaceChildren(); delete root.dataset.m20Mounted; root.classList.remove('m20-root'); }
+      window.cancelAnimationFrame(frameId); if (resizeFrameId !== null) window.cancelAnimationFrame(resizeFrameId);
+      for (const remove of listeners) remove(); root.replaceChildren(); delete root.dataset.m20Mounted; root.classList.remove('m20-root'); }
   });
 }

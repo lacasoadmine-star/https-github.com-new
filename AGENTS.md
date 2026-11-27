@@ -1,3 +1,11 @@
+# Latest continuation — 27 November 2026
+
+The user has now manually signed into the restored existing Player browser and asks to compare actual PLAY and all SPIN/STOP/TAKE controls against each currently opened official demo, then continue the remaining approximately 70 builds. Keep the current M100/M20 pair first and preserve all existing games, accounts, sessions, balances, history and services. The latest instruction broadens the earlier twenty-game continuation; retain its exact selected names as historical work and do not invent the identities or completion count of the remaining queue. Fresh official rendered observations are required; do not substitute uploaded screenshots, old reference facts or another game's artwork/rules. Use Playwright and a separate disposable environment to validate fixes. Authenticated page/control inspection is distinct from financial acceptance and from completed games.
+
+The recovered existing desktop retains an additional local commit 357fb25ef6e32227de2bd7ecd9ad0ac15e8aebd8 that had not reached GitHub. Preserve its M20 layout/sign-in work. This continuation fixes its actual host-height and CSS-packaging gaps; no account, model or ledger change is needed for those UI fixes. Current independent baseline is Player479; recheck before any remote mutation. Do not redeploy main or overwrite prior work.
+
+---
+
 # Active user directive — 26 November 2026
 
 The latest user narrows the active work to **20 new distinct games** from the preceding list. Preserve the existing **two MultiHot5 plus two FoxyHot20** and every old route/account/wallet/service. Follow [the active twenty-game order](codex-work/requested20-20261126/ORDER.md) and [selected names](codex-work/requested20-20261126/requested.json); the historical82/90-name queues below do not expand this scope. Continue the retained first pair Multi Hot100/Multi Hot20 and its real host/media/release work. Do not count the existing four or aliases as new games, delete earlier work, or claim completion/deployment from a manifest/card/test. Existing coding/testing/deployment authorization persists. Current failures must be diagnosed without invented approval requirements, account resets or weakened model/authentication checks. Preserve the historical pair/source instructions below wherever compatible with this latest twenty-game directive.
