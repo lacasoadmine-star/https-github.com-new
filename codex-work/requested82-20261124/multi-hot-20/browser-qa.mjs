@@ -24,11 +24,11 @@ const originalConfig={enabled:true,revision,appSha256:oldHash,styleSha256:styleH
 // The retained CSS fixture deliberately omits current controls: only the
 // emitted, SHA-checked stylesheet may supply the new presentation.
 const style='/* retained stylesheet fixture */';
-const viewports=[{width:360,height:844},{width:390,height:844},{width:430,height:844},{width:1280,height:900},{width:844,height:390},{width:390,height:320}];
+const viewports=process.env.ZPLAY_M20_QA_ONLY==='startup'?[]:[{width:360,height:844},{width:390,height:844},{width:430,height:844},{width:1280,height:900},{width:844,height:390},{width:390,height:320}];
 const model={id:'fresh_multihot20',currency:'ETB',reels:5,rows:3,paylines:20,foundationBet:1,maxWinMultiplier:1000,symbols:['seven','bell','grape','watermelon','lemon','plum','orange','cherry'],
   multiplierValues:[1,2,3,4,5],betLevels:['1.00','2.00'],availableBetLevels:['1.00','2.00'],enabled:true,freshReleaseReady:true,productionApproved:true,probabilityModelAudited:true,wagerAvailability:'available',
   mathVersion:'isolated-browser-fixture',engineVersion:'isolated-browser-fixture',mathSha256:'b'.repeat(64)};
-const accepted=new Map(),calls=[],blocked=[],reports=[];let balance='100.00',browser,failure,failStateOnce=false,delayAssetOnce=false;
+const accepted=new Map(),calls=[],blocked=[],reports=[];let balance='100.00',browser,failure,failStateOnce=false,delayAssetOnce=false,blockedByActiveGame=null;
 const grid=[['bell','bell','watermelon','lemon','bell'],['bell','orange','bell','bell','watermelon'],['seven','orange','bell','bell','watermelon']];
 const previous={async fetch(request){const url=new URL(request.url),path=url.pathname;
   if(path==='/')return new Response('<!doctype html><a href="'+GAME_PATH+'">PLAY Multi Hot 20</a>',{headers:{'Content-Type':'text/html'}});
@@ -37,7 +37,7 @@ const previous={async fetch(request){const url=new URL(request.url),path=url.pat
   if(path===base+`style.${styleHash}.css`)return new Response(style,{headers:{'Content-Type':'text/css'}});
   if(path===base+`assets.${manifestHash}.json`)return Response.json(manifest);
   if(path.startsWith(base+'assets/')){const name=path.slice((base+'assets/').length);assert(Object.hasOwn(manifest.files,name));if(delayAssetOnce&&name==='atlas-0.png'){delayAssetOnce=false;await new Promise(done=>setTimeout(done,16000));}return new Response(await readFile(resolve(media,name)),{headers:{'Content-Type':manifest.files[name].contentType}});}
-  if(path==='/api/slots/fresh-state'){calls.push({path,method:request.method});if(failStateOnce){failStateOnce=false;return Response.json({error:'TEMPORARY_NETWORK_FAILURE'},{status:503});}return Response.json({authenticated:true,currency:'ETB',sessionGuard:'a'.repeat(64),balance,blockedByActiveGame:null,game:model});}
+  if(path==='/api/slots/fresh-state'){calls.push({path,method:request.method});if(failStateOnce){failStateOnce=false;return Response.json({error:'TEMPORARY_NETWORK_FAILURE'},{status:503});}return Response.json({authenticated:true,currency:'ETB',sessionGuard:'a'.repeat(64),balance,blockedByActiveGame,game:model});}
   if(path==='/api/slots/spin'&&request.method==='POST') {
     const action=await request.json();calls.push({path,method:'POST',action});assert.equal(action.gameId,'fresh_multihot20');assert.equal(action.bet,'1.00');
     if(!accepted.has(action.roundToken)) {balance='129.00';accepted.set(action.roundToken,{gameId:'fresh_multihot20',roundId:crypto.randomUUID(),currency:'ETB',bet:'1.00',isFree:false,grid,wheelMultiplier:5,
@@ -65,6 +65,18 @@ try{
     await page.waitForFunction(()=>document.getElementById('m20-game').dataset.phase==='READY');
     assert.equal(calls.filter(c=>c.method==='POST').length,0);assert.equal(calls.length,2);
     reports.push({scenario:'failed-start-and-slow-mobile-media',retryOpenedRealNativeGame:true,mediaDelayMs:16000,stateReads:2,financialRequests:0});await context.close();
+  }
+  {
+    calls.length=0;blockedByActiveGame='multihot100_native';
+    const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
+    await page.goto(origin+GAME_PATH);await page.getByRole('button',{name:'No',exact:true}).click();
+    assert(await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).isDisabled());
+    blockedByActiveGame=null;await page.evaluate(()=>dispatchEvent(new Event('focus')));
+    await page.getByRole('button',{name:'No',exact:true}).click();
+    await page.waitForFunction(()=>document.getElementById('m20-game').dataset.cashEnabled==='true');
+    assert(await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).isEnabled());
+    assert.equal(calls.filter(c=>c.method==='POST').length,0);assert.equal(calls.length,2);
+    reports.push({scenario:'other-round-finished-before-return',spinReenabledFromFreshState:true,financialRequests:0});await context.close();
   }
   for(const {width,height} of viewports) {
     accepted.clear();calls.length=0;balance='100.00';
@@ -113,7 +125,7 @@ try{
 }catch(error){failure=error.stack;throw error;}
 finally{
   await browser?.close();server.closeAllConnections();await new Promise(done=>server.close(done));
-  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/m20-built-recovery-browser-qa/v1',testedAt:new Date().toISOString(),passed:!failure&&reports.length===viewports.length+1,failure,
+  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/m20-built-recovery-browser-qa/v1',testedAt:new Date().toISOString(),passed:!failure&&reports.length===viewports.length+2,failure,
     sourceCommit:build.report.sourceCommit,appSha256:build.config.appSha256,appBytes:build.config.appBytes,workerBytes:build.report.workerBytes,styleSha256:build.config.styleSha256,styleBytes:build.config.styleBytes,
     scope:'Exact release JS through actual mounted DOM, retained native image/audio assets and existing host transport using an isolated HTTP receipt fixture. No production wager, funds or ledger mutation.',
     reports,blocked,productionRequests:0,authenticatedProductionRounds:0,providerParityVerified:false},null,2)+'\n');

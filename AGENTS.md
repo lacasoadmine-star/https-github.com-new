@@ -1,5 +1,7 @@
 # Current execution limits and reference method — 27 November 2026
 
+- The user requests a visible `✅ CUSUB` marker for a published, dashboard-PLAY-verified update. This is a release marker, never an unverified completed-game count. Fresh dashboard inspection found duplicate legacy M100/M20 actions; use current verified view routes for both their cards and details, while retaining old routes, backend records and all unrelated games. User screenshots illustrate the flow only and are not production/reference artwork.
+
 - The latest user explicitly requires a live interactive game, never a static screenshot/cabinet in place of gameplay. Fix each observed fault and finish its real PLAY/SPIN/button/animation behavior before advancing. Use current official media only as assets/reference; screenshots are verification evidence, never the runtime engine.
 
 - The user reaffirmed the seventy remaining dashboard games, each with its own current official demo, and asks to move through them quickly in order after concrete fixes/verification. Preserve the four existing MultiHot5/FoxyHot20 variants and all previous work. The current pair remains M100/M20; Multi Hot40 is the next distinct selected title already in progress.

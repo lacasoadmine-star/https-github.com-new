@@ -73,7 +73,8 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
  win.addEventListener('pagehide',()=>{suspended=true;version++;assetAbort?.abort();stopGame();transport.disconnect();},{signal:listeners.signal});
  win.addEventListener('pageshow',event=>{if(event.persisted&&suspended){suspended=false;void queueConnect();}},{signal:listeners.signal});
  win.addEventListener('online',()=>{if(phase==='UNAVAILABLE'&&!loading)void queueConnect();},{signal:listeners.signal});
- doc.addEventListener('visibilitychange',()=>{if(doc.hidden){automatic?.cancel();void audio?.suspend();}},{signal:listeners.signal});
+ win.addEventListener('focus',()=>{if(phase==='UNAVAILABLE'&&!loading&&!doc.hidden)void queueConnect();},{signal:listeners.signal});
+ doc.addEventListener('visibilitychange',()=>{if(doc.hidden){automatic?.cancel();void audio?.suspend();}else if(phase==='UNAVAILABLE'&&!loading)void queueConnect();},{signal:listeners.signal});
  win.addEventListener('storage',event=>{if(event.key===M100_PENDING_KEY){invalidate('UNAVAILABLE');announce('Your account changed in another tab. Reconnect to continue.');}},{signal:listeners.signal});
  root.addEventListener('change',event=>{if(game&&['music','soundEffects'].includes(event.target.name)&&event.target.checked)void audio?.enable().catch(()=>{if(!disposed&&phase==='PLAYING')announce('Sound is unavailable.');});},{capture:true,signal:listeners.signal});
  root.addEventListener('click',event=>{if(game&&event.target.closest('[data-action="sound"]')){const settings=game.snapshot().settings;if(!settings.music&&!settings.soundEffects)void audio?.enable().catch(()=>{if(!disposed&&phase==='PLAYING')announce('Sound is unavailable.');});}},{capture:true,signal:listeners.signal});

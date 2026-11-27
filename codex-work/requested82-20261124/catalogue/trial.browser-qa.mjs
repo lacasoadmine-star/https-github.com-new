@@ -21,6 +21,7 @@ export async function verifyFirstPairLiveDOM({build,origin='https://superwin-pla
   async function install(page){
     await page.goto(root+'/',{waitUntil:'domcontentloaded',timeout:45000});
     await page.locator('#zplay-live-catalog [data-catalog-game="ind74_official_multihot5"]').waitFor();
+    await page.evaluate(()=>{window[Symbol.for('zplay.requested82.first-pair.v1')]?.dispose?.();document.getElementById('zplay-requested82-pair-loader')?.remove();});
     const old=await page.locator('#zplay-live-catalog .restored-game-card[data-catalog-game]').evaluateAll(nodes=>nodes.map(node=>({id:node.dataset.catalogGame,route:node.querySelector('a')?.getAttribute('href')??null})));
     await page.evaluate(head=>{
       const holder=document.createElement('template');holder.innerHTML=head;
@@ -28,7 +29,8 @@ export async function verifyFirstPairLiveDOM({build,origin='https://superwin-pla
     },renderTrialHead(build.config));
     await page.locator('[data-r82-pair-id]').first().waitFor();
     assert.equal(await page.locator('[data-r82-pair-id]').count(),2);
-    assert.deepEqual(await page.locator('#zplay-live-catalog .restored-game-card[data-catalog-game]').evaluateAll(nodes=>nodes.map(node=>({id:node.dataset.catalogGame,route:node.querySelector('a')?.getAttribute('href')??null}))),old);
+    const current=await page.locator('#zplay-live-catalog .restored-game-card[data-catalog-game]').evaluateAll(nodes=>nodes.map(node=>({id:node.dataset.catalogGame,route:node.querySelector('a')?.getAttribute('href')??null})));
+    assert.deepEqual(current,old.map(row=>({...row,route:row.id==='ind74_official_multihot100'?'/new-games72/multi-hot-100/':row.id==='ind74_official_multihot20'?'/new-games72/multi-hot-20/':row.route})));
     assert.equal(old.length,74);assert.equal(await page.locator('#zplay-requested90').count(),0);
     return old;
   }

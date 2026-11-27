@@ -28,6 +28,13 @@ test('an expired sign-in is retried only after the normal session-ready signal',
  await page.start();assert.equal(root.children[0].href,'/');document.defaultView.dispatchEvent(new Event('online'));assert.equal(launches,1);
  document.defaultView.dispatchEvent(new Event('zplay:session-ready'));await page.reconnect();assert.equal(launches,2);page.dispose();
 });
+test('returning after another game releases its wallet guard refreshes state without an action',async()=>{
+ const {document}=fixture();let launches=0,disposals=0;
+ const page=createM20Page({document,launch:async()=>({transport:{canPlay:++launches>1},dispose(){disposals++;}})});
+ await page.start();document.defaultView.dispatchEvent(new Event('focus'));await page.reconnect();
+ assert.equal(launches,2);assert.equal(disposals,1);
+ document.defaultView.dispatchEvent(new Event('focus'));assert.equal(launches,2);page.dispose();
+});
 test('a forbidden session does not gain a sign-in bypass or launch retry',async()=>{
  const {root,status,document}=fixture();const error=Object.assign(Error('forbidden'),{status:403});let launches=0;
  await assert.rejects(bootM20Release({document,launch:async()=>{launches++;throw error}}),e=>e===error);

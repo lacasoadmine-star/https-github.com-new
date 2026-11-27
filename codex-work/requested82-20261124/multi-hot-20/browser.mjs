@@ -50,11 +50,12 @@ export function createM20Page({document=globalThis.document,launch=launchExistin
     loading=bootM20Release({document,launch,onRetry:reconnect}).then(next=>{if(disposed){next.dispose();return null;}game=next;return next;}).catch(()=>null).finally(()=>{loading=null;});
     return loading;
   }
-  const retryConnection=()=>{if(!game&&root?.dataset.connectionRetry==='true')void reconnect();};
+  const retryConnection=()=>{if(!document.hidden&&(!game&&root?.dataset.connectionRetry==='true'||game?.transport?.canPlay===false))void reconnect();};
   listen('online',retryConnection);
   listen('focus',retryConnection);
   listen('pageshow',event=>{if(event.persisted)retryConnection();});
   listen('zplay:session-ready',()=>{void reconnect();});
-  return {start:reconnect,reconnect,dispose(){if(disposed)return;disposed=true;for(const cleanup of cleanups)cleanup();game?.dispose();game=null;}};
+  document.addEventListener?.('visibilitychange',retryConnection);
+  return {start:reconnect,reconnect,dispose(){if(disposed)return;disposed=true;for(const cleanup of cleanups)cleanup();document.removeEventListener?.('visibilitychange',retryConnection);game?.dispose();game=null;}};
 }
 if(typeof document!=='undefined')void createM20Page().start();

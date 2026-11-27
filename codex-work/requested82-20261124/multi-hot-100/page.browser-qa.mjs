@@ -48,6 +48,11 @@ try{
   await run.page.waitForFunction(()=>window.pageApp.phase==='SOUND_CHOICE');await play(run.page);
   assert.equal(await run.page.locator('canvas').count()>0,true);assert.equal(fixture.posts,0);assert.deepEqual(run.errors,[]);
   reports.push({scenario:'sign-in-then-cached-page-return',restoredNativeCanvas:true,financialRequests:0});await run.context.close();
+  fixture=createM100NativeFixture();fixture.state={...fixture.state,other_active_game:'multihot40_native'};run=await session();
+  assert.equal(await run.page.evaluate(()=>window.pageApp.phase),'UNAVAILABLE');
+  fixture.state={...fixture.state,other_active_game:null};await run.page.evaluate(()=>dispatchEvent(new Event('focus')));
+  await run.page.waitForFunction(()=>window.pageApp.phase==='SOUND_CHOICE');await play(run.page);
+  assert.equal(fixture.posts,0);assert.deepEqual(run.errors,[]);reports.push({scenario:'other-round-finished-before-return',nativeGameReopenedOnFocus:true,financialRequests:0});await run.context.close();
  }
  if(process.env.M100_PAGE_QA_ONLY!=='audio'&&process.env.M100_PAGE_QA_ONLY!=='startup'){
  let run;

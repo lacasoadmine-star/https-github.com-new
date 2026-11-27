@@ -41,7 +41,7 @@ test('all preexisting requests, cookies, portal handlers and game routes delegat
   }
 });
 
-test('root transformation replaces request-only90navigation and appends one scoped trial loader; all74originalcards stay untouched',async()=>{
+test('root transformation replaces request-only90navigation and appends one scoped trial loader; the server response preserves all74cards before client navigation reconciliation',async()=>{
   const {config}=fixture(),handlers=new Map();class Rewriter{on(selector,handler){handlers.set(selector,handler);return this;}transform(response){return response;}}
   const worker=createFirstPairWorker({fetch(){return new Response('<html><head></head><body>74 retained cards</body></html>',{headers:{'Content-Type':'text/html','ETag':'old','Content-Length':'8','Set-Cookie':'keep=1'}});}},config,Rewriter);
   const response=await worker.fetch(new Request('https://player.invalid/'));assert.equal(response.headers.get('ETag'),null);assert.equal(response.headers.get('Set-Cookie'),'keep=1');
