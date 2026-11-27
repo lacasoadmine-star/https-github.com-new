@@ -1,3 +1,16 @@
+# Current execution limits and reference method — 27 November 2026
+
+- The latest user explicitly requires a live interactive game, never a static screenshot/cabinet in place of gameplay. Fix each observed fault and finish its real PLAY/SPIN/button/animation behavior before advancing. Use current official media only as assets/reference; screenshots are verification evidence, never the runtime engine.
+
+- The user reaffirmed the seventy remaining dashboard games, each with its own current official demo, and asks to move through them quickly in order after concrete fixes/verification. Preserve the four existing MultiHot5/FoxyHot20 variants and all previous work. The current pair remains M100/M20; Multi Hot40 is the next distinct selected title already in progress.
+- Use exactly seven manually initiated official free-DEMO reference spins for each game, alongside its visible controls, artwork, symbols, reels, multiplier, settings, sound and animation. Do not hunt a bonus, infer hidden provider mathematics or repeat long stake permutations. Distinguish seven clicks from seven actually accepted rounds and record the actual observation.
+- Use ZPLAY's own approved server mathematics and wallet/receipt protocol. Unknown private provider RNG/bonus probabilities are not a requirement for the visual/control comparison. Do not claim that our mathematics reproduce private provider odds.
+- Seven is reference-only. The product must continue accepting legitimate manual spins while the authenticated balance and server policy permit; never introduce a seven-spin runtime limit.
+- The user explicitly authorizes at most 2 ETB of paid live test stakes per distinct game. The cap is cumulative across browser restarts/resumes, not per script. Retain private test accounting, original accepted request identity and pending recovery before another SPIN. Never seed production balances, fake credit, or blindly repeat an uncertain paid action.
+- A timed-out existing Vercel desktop can be resumed by its verified persistent sandbox name. Preserve the profile/files and use normal manual sign-in when the server requires it. Private browser authentication state and all credentials must stay on that original machine outside source control and chat output.
+
+---
+
 # Latest continuation — 27 November 2026
 
 The user has now manually signed into the restored existing Player browser and asks to compare actual PLAY and all SPIN/STOP/TAKE controls against each currently opened official demo, then continue the remaining approximately 70 builds. Keep the current M100/M20 pair first and preserve all existing games, accounts, sessions, balances, history and services. The latest instruction broadens the earlier twenty-game continuation; retain its exact selected names as historical work and do not invent the identities or completion count of the remaining queue. Fresh official rendered observations are required; do not substitute uploaded screenshots, old reference facts or another game's artwork/rules. Use Playwright and a separate disposable environment to validate fixes. Authenticated page/control inspection is distinct from financial acceptance and from completed games.

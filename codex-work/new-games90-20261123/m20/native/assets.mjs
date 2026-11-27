@@ -34,7 +34,7 @@ const WIN_FRAMES={
 };
 
 export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',import.meta.url),fetcher=globalThis.fetch,
- doc=globalThis.document,imageDecoder=globalThis.createImageBitmap,signal,timeoutMs=15000}={}){
+ doc=globalThis.document,imageDecoder=globalThis.createImageBitmap,signal,timeoutMs=30000}={}){
  if(typeof fetcher!=='function'||typeof imageDecoder!=='function')throw Error('ASSET_DECODER_UNAVAILABLE');
  if(!Number.isFinite(timeoutMs)||timeoutMs<=0)throw Error('ASSET_TIMEOUT_REQUIRED');
  manifestURL=new URL(manifestURL,globalThis.location?.href||import.meta.url);
@@ -68,7 +68,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
   const url=new URL(file,base);
   if(url.origin!==base.origin||url.pathname!==base.pathname+file)throw Error('INVALID_ASSET_PATH');
   const work=bounded(async requestSignal=>{
-   const response=await fetcher(url,{credentials:'same-origin',cache:'no-store',redirect:'error',signal:requestSignal});
+   const response=await fetcher(url,{credentials:'same-origin',cache:'force-cache',redirect:'error',signal:requestSignal});
    if(!response.ok)throw Error('ASSET_NOT_SERVED_'+file);
    const value=await response.arrayBuffer();
    if(value.byteLength!==record.bytes||await hashBytes(value)!==record.sha256)throw Error('ASSET_INTEGRITY_ERROR_'+file);

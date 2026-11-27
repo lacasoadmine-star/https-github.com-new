@@ -8,9 +8,10 @@ import {createM100Audio} from './audio.mjs';
 
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=n=>`${n/100n}.${String(n%100n).padStart(2,'0')}`;
-// Display-only startup art, observed in this game's fresh official idle screen.
+// Display-only startup art, observed in this game's current official demo on
+// 27 November 2026. It is M100's own four-row cabinet, separately from M20.
 // It is never a round, award, server receipt or wallet entry.
-const idleArt=Object.freeze([['watermelon','grapes','plum','cherry','cherry'],['grapes','cherry','orange','bell','bell'],['watermelon','cherry','lemon','grapes','cherry'],['watermelon','cherry','lemon','grapes','cherry']].map(Object.freeze));
+const idleArt=Object.freeze([['grapes','plum','watermelon','orange','cherry'],['grapes','plum','cherry','orange','cherry'],['grapes','seven','cherry','grapes','cherry'],['grapes','seven','cherry','grapes','cherry']].map(Object.freeze));
 const paytable=({bet})=>Object.entries(M100_PUBLIC_COEFFICIENTS).map(([symbol,counts])=>({symbol,label:symbol,rows:[5,4,3].map(count=>`${count} · ${money(BigInt(bet.replace('.',''))*BigInt(counts[count])/100n)}`)}));
 const localPath=value=>typeof value==='string'&&/^\/[A-Za-z0-9/_-]*$/.test(value)?value:'/';
 
@@ -20,7 +21,7 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
  if(!root?.ownerDocument)throw TypeError('M100_PAGE_ROOT');const doc=root.ownerDocument,win=doc.defaultView;
  if(!status){status=doc.createElement('p');status.className='m100-page-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');root.before(status);}
  const listeners=new win.AbortController(),transport=createExistingM100Transport({fetcher,storage,sessionStorage});
- let game=null,assets=null,audio=null,motion=null,automatic=null,phase='CONNECTING',disposed=false,version=0,loading=null,assetAbort=null,choiceCleanup=null;
+ let game=null,assets=null,audio=null,motion=null,automatic=null,phase='CONNECTING',disposed=false,version=0,loading=null,assetAbort=null,choiceCleanup=null,suspended=false;
  const app={get game(){return game;},get phase(){return phase;},get transport(){return transport;},snapshot:()=>Object.freeze({phase,game:game?.snapshot()??null,audio:audio?.snapshot()??null,auto:automatic?.snapshot()??null}),reconnect:()=>queueConnect(),dispose};
  function announce(value){status.textContent=value;status.hidden=!value;}
  function stopGame(){choiceCleanup?.();choiceCleanup=null;automatic?.dispose();automatic=null;game?.destroy();game=null;motion?.dispose();motion=null;audio?.dispose();audio=null;assets?.dispose();assets=null;}
@@ -69,7 +70,9 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
  function dispose(){if(disposed)return;disposed=true;version++;assetAbort?.abort();listeners.abort();stopGame();transport.dispose();phase='DISPOSED';root.replaceChildren();announce('');}
  for(const event of ['zplay:logout','zplay:session-expired'])win.addEventListener(event,()=>invalidate('SIGN_IN'),{signal:listeners.signal});
  win.addEventListener('zplay:session-changing',()=>invalidate('CONNECTING'),{signal:listeners.signal});win.addEventListener('zplay:session-ready',()=>void queueConnect(),{signal:listeners.signal});
- win.addEventListener('pagehide',()=>{version++;assetAbort?.abort();stopGame();transport.disconnect();},{signal:listeners.signal});
+ win.addEventListener('pagehide',()=>{suspended=true;version++;assetAbort?.abort();stopGame();transport.disconnect();},{signal:listeners.signal});
+ win.addEventListener('pageshow',event=>{if(event.persisted&&suspended){suspended=false;void queueConnect();}},{signal:listeners.signal});
+ win.addEventListener('online',()=>{if(phase==='UNAVAILABLE'&&!loading)void queueConnect();},{signal:listeners.signal});
  doc.addEventListener('visibilitychange',()=>{if(doc.hidden){automatic?.cancel();void audio?.suspend();}},{signal:listeners.signal});
  win.addEventListener('storage',event=>{if(event.key===M100_PENDING_KEY){invalidate('UNAVAILABLE');announce('Your account changed in another tab. Reconnect to continue.');}},{signal:listeners.signal});
  root.addEventListener('change',event=>{if(game&&['music','soundEffects'].includes(event.target.name)&&event.target.checked)void audio?.enable().catch(()=>{if(!disposed&&phase==='PLAYING')announce('Sound is unavailable.');});},{capture:true,signal:listeners.signal});
