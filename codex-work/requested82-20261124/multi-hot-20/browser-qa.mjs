@@ -28,7 +28,8 @@ const viewports=process.env.ZPLAY_M20_QA_ONLY==='startup'?[]:[{width:360,height:
 const model={id:'fresh_multihot20',currency:'ETB',reels:5,rows:3,paylines:20,foundationBet:1,maxWinMultiplier:1000,symbols:['seven','bell','grape','watermelon','lemon','plum','orange','cherry'],
   multiplierValues:[1,2,3,4,5],betLevels:['1.00','2.00'],availableBetLevels:['1.00','2.00'],enabled:true,freshReleaseReady:true,productionApproved:true,probabilityModelAudited:true,wagerAvailability:'available',
   mathVersion:'isolated-browser-fixture',engineVersion:'isolated-browser-fixture',mathSha256:'b'.repeat(64)};
-const accepted=new Map(),calls=[],blocked=[],reports=[];let balance='100.00',browser,failure,failStateOnce=false,delayAssetOnce=false,blockedByActiveGame=null;
+const accepted=new Map(),calls=[],blocked=[],reports=[],assetRequests=[];let balance='100.00',browser,failure,failStateOnce=false,delayAssetOnce=false,blockedByActiveGame=null;
+let heldAudio=null;
 const grid=[['bell','bell','watermelon','lemon','bell'],['bell','orange','bell','bell','watermelon'],['seven','orange','bell','bell','watermelon']];
 const previous={async fetch(request){const url=new URL(request.url),path=url.pathname;
   if(path==='/')return new Response('<!doctype html><a href="'+GAME_PATH+'">PLAY Multi Hot 20</a>',{headers:{'Content-Type':'text/html'}});
@@ -36,7 +37,7 @@ const previous={async fetch(request){const url=new URL(request.url),path=url.pat
     'Content-Security-Policy':"default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'"}});
   if(path===base+`style.${styleHash}.css`)return new Response(style,{headers:{'Content-Type':'text/css'}});
   if(path===base+`assets.${manifestHash}.json`)return Response.json(manifest);
-  if(path.startsWith(base+'assets/')){const name=path.slice((base+'assets/').length);assert(Object.hasOwn(manifest.files,name));if(delayAssetOnce&&name==='atlas-0.png'){delayAssetOnce=false;await new Promise(done=>setTimeout(done,16000));}return new Response(await readFile(resolve(media,name)),{headers:{'Content-Type':manifest.files[name].contentType}});}
+  if(path.startsWith(base+'assets/')){const name=path.slice((base+'assets/').length);assetRequests.push(name);assert(Object.hasOwn(manifest.files,name));if(heldAudio&&name==='music.mp3')await heldAudio;if(delayAssetOnce&&name==='atlas-0.png'){delayAssetOnce=false;await new Promise(done=>setTimeout(done,16000));}return new Response(await readFile(resolve(media,name)),{headers:{'Content-Type':manifest.files[name].contentType}});}
   if(path==='/api/slots/fresh-state'){calls.push({path,method:request.method});if(failStateOnce){failStateOnce=false;return Response.json({error:'TEMPORARY_NETWORK_FAILURE'},{status:503});}return Response.json({authenticated:true,currency:'ETB',sessionGuard:'a'.repeat(64),balance,blockedByActiveGame,game:model});}
   if(path==='/api/slots/spin'&&request.method==='POST') {
     const action=await request.json();calls.push({path,method:'POST',action});assert.equal(action.gameId,'fresh_multihot20');assert.equal(action.bet,'1.00');
@@ -78,8 +79,26 @@ try{
     assert.equal(calls.filter(c=>c.method==='POST').length,0);assert.equal(calls.length,2);
     reports.push({scenario:'other-round-finished-before-return',spinReenabledFromFreshState:true,financialRequests:0});await context.close();
   }
+  if(process.env.ZPLAY_M20_QA_ONLY!=='startup'){
+    calls.length=0;assetRequests.length=0;let releaseAudio;heldAudio=new Promise(done=>releaseAudio=done);
+    const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
+    await page.addInitScript(()=>{window.nativeAudioPlayCount=0;const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(...args){window.nativeAudioPlayCount++;return play.apply(this,args);};});
+    try{
+      await page.goto(origin+GAME_PATH);await page.getByRole('button',{name:'Yes',exact:true}).waitFor();
+      assert.equal(assetRequests.filter(name=>name.endsWith('.mp3')).length,0);
+      const requested=page.waitForRequest('**/music.mp3');await page.getByRole('button',{name:'Yes',exact:true}).click();await requested;
+      assert(await page.getByRole('button',{name:'No',exact:true}).isEnabled());
+      await page.getByRole('button',{name:'No',exact:true}).click();
+      assert.equal(await page.locator('#m20-game').getAttribute('data-phase'),'READY');
+      assert(await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).isEnabled());
+      const finished=page.waitForResponse('**/music.mp3');releaseAudio();heldAudio=null;await finished;await page.waitForTimeout(100);
+      assert.equal(await page.getByRole('button',{name:'Sound',exact:true}).getAttribute('aria-pressed'),'false');
+      assert.equal(await page.evaluate(()=>window.nativeAudioPlayCount),0);assert.equal(calls.filter(c=>c.method==='POST').length,0);
+      reports.push({scenario:'slow-sound-choice-can-continue-muted',gameAndChoicesShownBeforeAnyAudioRequest:true,mutedChoiceWorksDuringAudioLoad:true,lateAudioCompletionDoesNotUnmute:true,financialRequests:0});
+    }finally{releaseAudio();heldAudio=null;await context.close();}
+  }
   for(const {width,height} of viewports) {
-    accepted.clear();calls.length=0;balance='100.00';
+    accepted.clear();calls.length=0;assetRequests.length=0;balance='100.00';
     const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:2,hasTouch:width<700});
     const page=await context.newPage(),errors=[];page.setDefaultTimeout(20000);page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin!==origin){blocked.push(u.origin);return route.abort();}return route.continue();});
@@ -89,6 +108,9 @@ try{
     await page.goto(origin+'/');await page.getByRole('link',{name:'PLAY Multi Hot 20',exact:true}).click();
     await page.getByRole('button',{name:'No',exact:true}).click();
     assert.equal(await page.locator('link[rel=stylesheet]').getAttribute('href'),build.config.stylePath);
+    assert.equal(assetRequests.filter(name=>name.endsWith('.mp3')).length,0,'muted PLAY must not download audio');
+    await page.getByRole('button',{name:'Sound',exact:true}).click();
+    await page.waitForFunction(()=>document.querySelector('.m20-sound')?.getAttribute('aria-pressed')==='true');
     await page.waitForFunction(()=>[...document.querySelectorAll('.m20-control')].every(node=>node.getBoundingClientRect().bottom<=innerHeight+1));
     const targets=await page.locator('.m20-control').evaluateAll(nodes=>nodes.map(node=>{const r=node.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {name:node.dataset.action,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height,hit:hit===node||node.contains(hit)};}));
     assert.equal(targets.length,8);
@@ -118,14 +140,18 @@ try{
     await page.getByRole('button',{name:'Settings',exact:true}).click();assert(await page.getByRole('checkbox',{name:'Music',exact:true}).isVisible());
     await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.deepEqual(errors,[]);
+    // Playwright routing disables HTTP caching. Repeated control SVGs and
+    // native audio voices must use the verified in-memory bytes even then.
+    assert.equal(assetRequests.length,13);assert.equal(new Set(assetRequests).size,13);
+    assert(await page.locator('.control-art image').evaluateAll(nodes=>nodes.every(n=>n.getAttribute('href').startsWith('blob:'))));
     reports.push({width,height,emittedStylesheetVerified:true,viewportTargetsVerified:8,playOpened:true,nativeMediaVerified:true,drawFailureObserved:true,acceptedReceiptRecoveredLocally:true,unchangedAcceptedKey:true,spinPosts:1,takePosts:0,
-      menuAndSettingsResponded:true,overflow:false,pageErrors:errors});await context.close();
+      menuAndSettingsResponded:true,audioNotRequestedBeforeConsent:true,verifiedMediaNetworkReads:13,oneNetworkReadPerMediaFileWithHTTPCacheDisabled:true,overflow:false,pageErrors:errors});await context.close();
   }
   assert.deepEqual(blocked,[]);
 }catch(error){failure=error.stack;throw error;}
 finally{
   await browser?.close();server.closeAllConnections();await new Promise(done=>server.close(done));
-  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/m20-built-recovery-browser-qa/v1',testedAt:new Date().toISOString(),passed:!failure&&reports.length===viewports.length+2,failure,
+  await writeFile(resolve(output,'browser-report.json'),JSON.stringify({schema:'zplay/m20-built-recovery-browser-qa/v1',testedAt:new Date().toISOString(),passed:!failure&&reports.length===viewports.length+(process.env.ZPLAY_M20_QA_ONLY==='startup'?2:3),failure,
     sourceCommit:build.report.sourceCommit,appSha256:build.config.appSha256,appBytes:build.config.appBytes,workerBytes:build.report.workerBytes,styleSha256:build.config.styleSha256,styleBytes:build.config.styleBytes,
     scope:'Exact release JS through actual mounted DOM, retained native image/audio assets and existing host transport using an isolated HTTP receipt fixture. No production wager, funds or ledger mutation.',
     reports,blocked,productionRequests:0,authenticatedProductionRounds:0,providerParityVerified:false},null,2)+'\n');

@@ -14,8 +14,7 @@
  .m100-win-actions button{width:13%;top:82.3%!important;min-height:44px}
  .m100-win-actions [data-action=double]{left:2.4%;right:auto}
  .m100-win-actions [data-action=take]{right:2.4%;left:auto}
- .m100-game .m100-readout>div:nth-child(2){top:calc(var(--m100-reels-bottom,64.6%) + 3px);bottom:auto;left:30%;width:40%;height:34px;min-height:34px;padding:2px 8px;gap:0 3px;border:0;border-radius:0;box-shadow:none;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);background:#a67a3e!important;background-image:none!important;isolation:isolate}
- .m100-game .m100-readout>div:nth-child(2):before{content:'';position:absolute;inset:2px;z-index:-1;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);background:radial-gradient(circle,#164d49 1px,transparent 1.5px) 0 0/7px 7px,#002c29}
+ .m100-game .m100-readout>div:nth-child(2){top:calc(var(--m100-reels-bottom,64.6%) + 3px);bottom:auto;left:30%;width:40%;height:auto;aspect-ratio:281/88;min-height:34px;padding:2px 8px;gap:0 3px;border:0;box-shadow:none;background-size:100% 100%;background-repeat:no-repeat}
  .m100-game .m100-readout>div:nth-child(2)>span{font-size:10px;color:#f0dc6b}
  .m100-game .m100-readout>div:nth-child(2)>strong{font-size:14px}
  .m100-game .m100-readout>div:nth-child(2)>small{font-size:10px;align-self:center}

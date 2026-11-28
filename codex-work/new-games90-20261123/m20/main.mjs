@@ -14,11 +14,11 @@ const own = (value, name) => Object.prototype.hasOwnProperty.call(value, name);
 let mountOrdinal = 0;
 
 /** Runnable same-game entry. Native assets and authenticated host transport are explicit dependencies. */
-export function mountMultiHot20({ root, assets, transport = null, samples = {}, initialBet = '0.20',
+export function mountMultiHot20({ root, assets, transport = null, samples = {}, prepareAudio = null, initialBet = '0.20',
   audioFactory, keyFactory, rendererFactory = null, controlsFactory = options => new MultiHot20Controls(options),
   controllerFactory = options => new MultiHot20Controller(options), askSound = false, onError = () => {} } = {}) {
   const document = root?.ownerDocument, window = document?.defaultView;
-  if (!document || !window || (rendererFactory ? typeof rendererFactory !== 'function' : !assets?.atlas?.draw || !assets?.background)) throw new TypeError('M20_MOUNT_DEPENDENCIES');
+  if (!document || !window || prepareAudio !== null && typeof prepareAudio !== 'function' || (rendererFactory ? typeof rendererFactory !== 'function' : !assets?.atlas?.draw || !assets?.background)) throw new TypeError('M20_MOUNT_DEPENDENCIES');
   if (root.dataset.m20Mounted === 'true') throw new Error('M20_ALREADY_MOUNTED');
   const enabled = transport?.canPlay === true;
   const host = transport?.serverAuthoritative === true, hostState = host ? transport.snapshot() : null;
@@ -38,7 +38,22 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   const panel = document.createElement('section'); panel.className = 'm20-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.tabIndex = -1;
   overlay.append(panel); stage.append(scene, controlsLayer, overlay); root.replaceChildren(stage, live);
   const controls = controlsFactory({ bet: initialBet, betLevels, roundIntentsEnabled: enabled, serverAuthoritative:host });
+  if(askSound)controls.setSetting('effects',false);
   const audio = new MultiHot20Audio({ samples, ...(audioFactory ? { audioFactory } : {}) });
+  let audioLoading=null,audioReady=prepareAudio===null,audioEpoch=0;
+  async function ensureAudioReady(origin){
+    if(audioReady)return true;
+    const epoch=audioEpoch;live.textContent='Preparing sound…';if(origin)origin.disabled=true;
+    try{
+      const clips=await(audioLoading??=Promise.resolve().then(prepareAudio));
+      if(disposed)return false;audio.setSamples(clips);audioReady=true;
+      if(epoch!==audioEpoch)return false;live.textContent='';return true;
+    }catch{
+      audioLoading=null;
+      if(!disposed&&epoch===audioEpoch)live.textContent='Sound could not load. Try sound again or continue muted.';
+      return false;
+    }finally{if(origin?.isConnected&&!disposed)origin.disabled=false;}
+  }
   const rendererOptions = { canvas: nativeCanvas, atlas: assets.atlas, background: assets.background, art: assets.art,
     onEvent: event => audio.handle(event) };
   const renderer = rendererFactory ? rendererFactory(rendererOptions) : new MultiHot20Renderer(rendererOptions);
@@ -86,7 +101,7 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
     }
     buttons.set(name, node); controlsLayer.append(node);
   }
-  function close() { controls.closeModal(); overlay.hidden = true; controlsLayer.inert = false;
+  function close() { audioEpoch++;controls.closeModal(); overlay.hidden = true; controlsLayer.inert = false;
     if (dialogOrigin?.isConnected) dialogOrigin.focus(); else root.focus(); dialogOrigin = null; sync(); }
   function title(text) { const header = document.createElement('header'), label = document.createElement('h2'); label.id = dialogId; label.textContent = text;
     header.append(label, button('Close', 'close')); panel.append(header); panel.setAttribute('aria-labelledby', label.id); }
@@ -196,6 +211,8 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   async function action(name, value, origin) {
     if (disposed) return;
     if (!enabled && FINANCIAL.has(name) && !(name === 'spin' && controls.snapshot().phase === 'RECOVERY_REQUIRED' && host)) return;
+    if(['sound-on','sound-off','sound'].includes(name))audioEpoch++;
+    if((name==='sound-on'||name==='sound'&&!controls.snapshot().settings.effects)&&!await ensureAudioReady(origin))return;
     if(name==='sound-off'){controls.setSetting('effects',false);audio.setting(controls.snapshot().settings);}
     audio.unlock(); audio.once('button', `local-${++clickId}`);
     try {
@@ -242,6 +259,11 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
       if (!field.disabled) field.focus(); return;
     }
     const node = event.target, name = node.dataset.setting; if (!name || !own(controls.snapshot().settings, name)) return;
+    if(['effects','music'].includes(name)){
+      audioEpoch++;
+      if(node.checked&&!audioReady){node.checked=false;if(!await ensureAudioReady(node))return;node.checked=true;}
+      audio.unlock();
+    }
     if (name === 'fullscreen') {
       try { if (node.checked) await root.requestFullscreen(); else if (document.fullscreenElement) await document.exitFullscreen(); }
       catch (error) { node.checked = !!document.fullscreenElement; onError(error); }
@@ -290,7 +312,7 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   }
   resize(); sync();if(askSound)open('sound-choice');frameId = window.requestAnimationFrame(frame);
   return Object.freeze({ controls, renderer, controller, audio, snapshot: () => controller?.snapshot() || controls.snapshot(),
-    dispose() { if (disposed) return; disposed = true; controller?.dispose(); audio.dispose(); renderer.dispose?.(); observer?.disconnect();
+    dispose() { if (disposed) return; disposed = true; audioEpoch++;controller?.dispose(); audio.dispose(); renderer.dispose?.(); observer?.disconnect();
       window.cancelAnimationFrame(frameId); if (resizeFrameId !== null) window.cancelAnimationFrame(resizeFrameId);
       for (const remove of listeners) remove(); root.replaceChildren(); delete root.dataset.m20Mounted; root.classList.remove('m20-root'); }
   });

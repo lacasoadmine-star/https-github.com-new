@@ -16,12 +16,12 @@ export async function launchExistingMultiHot20({root,manifestURL=new URL('./asse
   try {
     const state=await transport.connect();
     resources=await loadVerifiedAssets({manifestURL,fetcher,doc:document,imageDecoder:window.createImageBitmap.bind(window)});
-    const clips=await resources.primeAudio(),samples={spin:clips.spin,win:clips.win,button:clips.button,music:clips.music};
-    for(let index=1;index<=5;index++)samples['reel-stop-'+index]=clips['reel-stop'];
+    const prepareAudio=async()=>{const clips=await resources.primeAudio(),samples={spin:clips.spin,win:clips.win,button:clips.button,music:clips.music};
+      for(let index=1;index<=5;index++)samples['reel-stop-'+index]=clips['reel-stop'];return samples;};
     const controlArt=(name,state)=>{const id={quick:'turbo',double:'gamble',take:'take-win'}[name]||name;
       const texture=controlTextureName(id,{...state,turbo:state.quick,soundOn:state.sound});
       return {texture,create:()=>createControlArt(texture,resources.urls.get(CONTROL_TEXTURES[texture].atlas),document,{autoplay:state.autoplay})};};
-    game=mountMultiHot20({root,assets:{controlArt},transport,samples,askSound:true,initialBet:state.betLevels[0],onError,
+    game=mountMultiHot20({root,assets:{controlArt},transport,prepareAudio,askSound:true,initialBet:state.betLevels[0],onError,
       controlsFactory:options=>new MultiHot20Controls(options),controllerFactory:options=>new MultiHot20Controller(options),
       rendererFactory:options=>createNativeSceneRenderer({...options,resources,document,window})});
     return Object.freeze({game,transport,resources,dispose(){game.dispose();resources.dispose();transport.disconnect();}});

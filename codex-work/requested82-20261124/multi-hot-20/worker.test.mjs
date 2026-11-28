@@ -24,6 +24,14 @@ test('all dashboard/account/media/financial requests remain delegated unchanged'
     const request=new Request('https://fixture'+path,{method});await f.worker.fetch(request,f.env,{});assert.equal(f.calls.at(-1),request);
   }assert.equal(f.calls.length,7);
 });
+test('only the M20 page allows its verified local image and audio URLs',async()=>{
+  const original="default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; base-uri 'none'; frame-ancestors 'self'";
+  const f=setup(html,{'Content-Security-Policy':original});
+  const page=await f.worker.fetch(new Request('https://fixture'+GAME_PATH),f.env,{});
+  assert.equal(page.headers.get('content-security-policy'),original.replace("img-src 'self'","img-src 'self' blob:").replace("media-src 'self'","media-src 'self' blob:"));
+  const lobby=await f.worker.fetch(new Request('https://fixture/'),f.env,{});
+  assert.equal(lobby.headers.get('content-security-policy'),original);
+});
 test('a stale or duplicated original page cannot silently activate mismatched code',async()=>{
   for(const f of [setup(html,{'X-Zplay-M20-Release':'f'.repeat(24)}),setup(html+html),setup('<main id="m20-game"></main>')]) {
     const r=await f.worker.fetch(new Request('https://fixture'+GAME_PATH),f.env,{});assert.equal(r.status,503);

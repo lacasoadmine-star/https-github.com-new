@@ -1,5 +1,6 @@
-// Verify each per-game file before decoding or exposing its existing Player URL.
-// The Worker pins these same-origin paths; no blob: CSP exception is required.
+// Verify each per-game file once, then reuse its bytes for native images/audio.
+// A page-local URL prevents every new SVG control and audio voice downloading
+// the same atlas/clip again, including browsers with the HTTP cache disabled.
 import {EXISTING_M20_GAME_ID as GAME_ID} from '../host-presentation.mjs';
 const hashBytes=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');
 const reason=signal=>signal.reason instanceof Error?signal.reason:Error('ASSET_LOAD_ABORTED');
@@ -46,6 +47,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
  function dispose(){
   if(disposed)return;disposed=true;lifetime.abort(Error('ASSETS_DISPOSED'));
   signal?.removeEventListener('abort',onAbort);
+  for(const url of urls.values())URL.revokeObjectURL(url);
   for(const bitmap of bitmaps)try{bitmap.close?.()}catch{}
   bitmaps.clear();urls.clear();cache.clear();
  }
@@ -74,7 +76,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
    if(value.byteLength!==record.bytes||await hashBytes(value)!==record.sha256)throw Error('ASSET_INTEGRITY_ERROR_'+file);
    if(requestSignal.aborted)throw reason(requestSignal);
    return new Blob([value],{type:record.contentType});
-  },file).then(blob=>{active();urls.set(file,url.href);return blob}).catch(error=>{cache.delete(file);throw error});
+  },file).then(blob=>{active();urls.set(file,URL.createObjectURL(blob));return blob}).catch(error=>{cache.delete(file);throw error});
   cache.set(file,work);return work;
  }
  async function image(file){

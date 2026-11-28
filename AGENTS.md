@@ -1,3 +1,12 @@
+# Latest first-pair priority — 28 November 2026
+
+- The user explicitly says to finish real visual, audio, touch and loading faults in Multi Hot100 and Multi Hot20 before advancing to the remaining70. A working PLAY link, seven accepted spins or the existing `✅ CUSUB` badge alone does not establish completion or provider parity.
+- Manual Player login in the new Cloudflare Browser was independently confirmed. Both canonical dashboard covers → preview PLAY → current game routes opened. Seven additional1 ETB live UI SPINs per title were accepted after the user answered the explicit1 ETB-minimum/eight-cumulative budget question by instructing seven live spins on both titles. Known agent test exposure is now8 ETB per first-pair title (previous1 plus new7). **Do not perform another paid first-pair SPIN** under this seven-spin instruction. Other games retain their cumulative2 ETB cap, including M40's known1 ETB. Do not reset accounting on a browser restart. See `codex-work/requested20-20261126/first-pair-seven-live-20261128.json`.
+- Continue current-reference UI comparison and fixes with isolated native-media fixtures, followed by non-financial live controls. No fabricated balances, provider private odds, audit flags or placeholder gameplay. The active source base remains Player482/source1659ae2; inspect before another deployment. Preserve every old route/account/service.
+- Vercel resume returned402 Hobby quota until2026-12-01. Its snapshot/profile are preserved. The user explicitly selected their existing Cloudflare Browser instead and manually signed in there; do not copy private Vercel authentication to it or change billing. Cloudflare's current official catalogue links `/games/multi-hot-100`; the old `/games/multi-hot-100200` now returns404.
+
+---
+
 # Current execution limits and reference method — 27 November 2026
 
 - The user requests a visible `✅ CUSUB` marker for a published, dashboard-PLAY-verified update. This is a release marker, never an unverified completed-game count. Fresh dashboard inspection found duplicate legacy M100/M20 actions; use current verified view routes for both their cards and details, while retaining old routes, backend records and all unrelated games. User screenshots illustrate the flow only and are not production/reference artwork.

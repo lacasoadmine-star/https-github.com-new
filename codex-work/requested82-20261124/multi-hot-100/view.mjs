@@ -55,8 +55,9 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     else {const fill=ctx.createRadialGradient(size.width/2,size.height/2,0,size.width/2,size.height/2,size.width*.8);fill.addColorStop(0,'#07583d');fill.addColorStop(.7,'#002b23');fill.addColorStop(1,'#001b1d');ctx.fillStyle=fill;ctx.fillRect(0,0,size.width,size.height);}
     const x=portrait?3:386,y=portrait?Math.round(size.height*.28):184+verticalOffset,w=portrait?594:568,h=portrait?475.2:460,cw=w/5,ch=h/4;
     game.style.setProperty('--m100-reels-bottom',`${(y+h)/size.height*100}%`);
-    ctx.fillStyle='#003025';ctx.fillRect(x-5,y-5,w+10,h+10);ctx.strokeStyle='#d4ba65';ctx.lineWidth=4;ctx.strokeRect(x-5,y-5,w+10,h+10);
-    if(assets?.frames?.names?.includes('Box/Background')){const cabinet=assets.frames.get('Box/Background');ctx.drawImage(cabinet,0,243,993,813,x-5,y-5,w+10,h+10);}
+    const nativeCabinet=assets?.frames?.names?.includes('Box/Background');
+    if(nativeCabinet){const cabinet=assets.frames.get('Box/Background');ctx.drawImage(cabinet,0,243,993,813,x-5,y-5,w+10,h+10);}
+    else{ctx.fillStyle='#003025';ctx.fillRect(x-5,y-5,w+10,h+10);ctx.strokeStyle='#d4ba65';ctx.lineWidth=4;ctx.strokeRect(x-5,y-5,w+10,h+10);}
     const receipt=view.receipt??view.previous,grid=receipt?.grid??idleGrid;
     for(let col=0;col<5;col++){
       ctx.save();ctx.beginPath();ctx.rect(x+col*cw,y,cw,h);ctx.clip();
@@ -64,7 +65,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
       if(!Number.isFinite(offset))throw new TypeError('M100_REEL_OFFSET');
       for(let row=-1;row<5;row++){
         const cy=y+row*ch+offset;
-        ctx.fillStyle=(row+col)%2?'#00372f':'#003d31';ctx.fillRect(x+col*cw,cy,cw,ch);
+        if(!nativeCabinet){ctx.fillStyle=(row+col)%2?'#00372f':'#003d31';ctx.fillRect(x+col*cw,cy,cw,ch);}
         const symbol=grid?.[(row+4)%4]?.[col];
         if(symbol&&assets?.frames){
           const name=M100_SYMBOL_FRAMES[symbol],image=assets.frames.get(name),trim=assets.frames.metadata?.(name)?.spriteSourceSize??{x:0,y:0,w:image.width,h:image.height};
@@ -72,7 +73,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
           ctx.drawImage(image,x+col*cw+cw/2-(trim.x+trim.w/2)*scale,cy+ch/2-(trim.y+trim.h/2)*scale,image.width*scale,image.height*scale);
         }
       }
-      ctx.restore();ctx.strokeStyle='#5b895a';ctx.lineWidth=1;ctx.strokeRect(x+col*cw,y,cw,h);
+      ctx.restore();if(!nativeCabinet){ctx.strokeStyle='#5b895a';ctx.lineWidth=1;ctx.strokeRect(x+col*cw,y,cw,h);}
     }
     if(state.phase==='WIN_PENDING'&&Array.isArray(receipt?.winningLines)){
       ctx.save();ctx.strokeStyle='#ffe942';ctx.lineWidth=3;ctx.shadowColor='#f5ee4a';ctx.shadowBlur=8;for(const id of receipt.winningLines){const path=M100_PAYLINES[id-1];if(!path)continue;ctx.beginPath();path.forEach((row,col)=>col?ctx.lineTo(x+(col+.5)*cw,y+(row+.5)*ch):ctx.moveTo(x+cw/2,y+(row+.5)*ch));ctx.stroke();}ctx.restore();
