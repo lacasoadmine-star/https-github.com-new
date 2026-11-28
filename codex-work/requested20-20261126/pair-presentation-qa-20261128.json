@@ -1,0 +1,61 @@
+{
+  "schema": "zplay/pair-presentation-isolated-qa/v1",
+  "date": "2026-11-28",
+  "m20": {
+    "passed": true,
+    "scenarios": 9,
+    "viewports": [
+      {
+        "width": 360,
+        "height": 844
+      },
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 430,
+        "height": 844
+      },
+      {
+        "width": 1280,
+        "height": 900
+      },
+      {
+        "width": 844,
+        "height": 390
+      },
+      {
+        "width": 390,
+        "height": 320
+      }
+    ],
+    "audioNotRequestedBeforeConsent": true,
+    "audioBytesDeferred": 2190165,
+    "oneNetworkReadPerMediaFileWithHTTPCacheDisabled": true,
+    "mediaReadsPerOptInSession": 13,
+    "lateAudioCompletionDoesNotUnmute": true,
+    "acceptedReceiptRecoveryPreserved": true
+  },
+  "m100": {
+    "nativeAssets": true,
+    "viewports": [
+      360,
+      390,
+      430,
+      1280
+    ],
+    "nativeCabinetRetainedWithoutSyntheticCellOverpaint": true,
+    "nativeWinReadoutSizeVerified": true,
+    "hostCurrencyETBVerified": true
+  },
+  "guardTestsPassed": 18,
+  "frontendBuilds": [
+    "player PASS",
+    "agent PASS",
+    "admin PASS"
+  ],
+  "productionRequests": 0,
+  "providerParityVerified": false,
+  "scope": "Disposable HTTP/native media fixtures with explicit synthetic host receipts. Live seven-round checks occurred separately on Player482 before this presentation update."
+}

@@ -2,7 +2,7 @@ import { MultiHot20Controls, OBSERVED_BETS, AUTO_COUNTS, amount } from './contro
 import { MultiHot20Renderer } from './render/renderer.mjs';
 import { MultiHot20Controller } from './controller.mjs';
 import { MultiHot20Audio } from './audio.mjs';
-import { presentationLayout } from './layout.mjs';
+import { presentationLayout, MIN_PRESENTATION_HEIGHT } from './layout.mjs';
 import { LINE_PAYS, PAYLINES } from './presentation-quote.mjs';
 import { activateFromKeyboard } from './input.mjs';
 import { AUTO_LIMIT_FIELDS, readAutoOptions } from './auto-options.mjs';
@@ -14,20 +14,21 @@ const own = (value, name) => Object.prototype.hasOwnProperty.call(value, name);
 let mountOrdinal = 0;
 
 /** Runnable same-game entry. Native assets and authenticated host transport are explicit dependencies. */
-export function mountMultiHot20({ root, assets, transport = null, samples = {}, initialBet = '0.20',
+export function mountMultiHot20({ root, assets, transport = null, samples = {}, prepareAudio = null, initialBet = '0.20',
   audioFactory, keyFactory, rendererFactory = null, controlsFactory = options => new MultiHot20Controls(options),
   controllerFactory = options => new MultiHot20Controller(options), askSound = false, onError = () => {} } = {}) {
   const document = root?.ownerDocument, window = document?.defaultView;
-  if (!document || !window || (rendererFactory ? typeof rendererFactory !== 'function' : !assets?.atlas?.draw || !assets?.background)) throw new TypeError('M20_MOUNT_DEPENDENCIES');
+  if (!document || !window || prepareAudio !== null && typeof prepareAudio !== 'function' || (rendererFactory ? typeof rendererFactory !== 'function' : !assets?.atlas?.draw || !assets?.background)) throw new TypeError('M20_MOUNT_DEPENDENCIES');
   if (root.dataset.m20Mounted === 'true') throw new Error('M20_ALREADY_MOUNTED');
   const enabled = transport?.canPlay === true;
   const host = transport?.serverAuthoritative === true, hostState = host ? transport.snapshot() : null;
   const betLevels = hostState?.betLevels?.length ? hostState.betLevels : OBSERVED_BETS;
+  const rulesPays=hostState?.paytable?Object.fromEntries(Object.entries(hostState.paytable).map(([name,pays])=>[name==='grape'?'grapes':name,pays])):LINE_PAYS;
   if (host && !betLevels.includes(initialBet)) initialBet = betLevels[0];
   if (enabled && transport.currency !== 'ETB') throw new TypeError('M20_HOST_CURRENCY');
   root.dataset.m20Mounted = 'true'; root.classList.add('m20-root'); root.tabIndex = 0;
   const listeners = [], buttons = new Map(), held = new Set(); let disposed = false, frameId, currentLayout, dialogOrigin = null, clickId = 0, holdPointer=null,suppressPointerClick=false;
-  const dialogId = `m20-dialog-title-${++mountOrdinal}`;
+  const dialogId = `m20-dialog-title-${++mountOrdinal}`;let betOffset=0;
   const on = (node, type, handler, options) => { node.addEventListener(type, handler, options); listeners.push(() => node.removeEventListener(type, handler, options)); };
   const stage = document.createElement('div'); stage.className = 'm20-stage';
   const scene = document.createElement('canvas'); scene.className = 'm20-scene'; scene.setAttribute('aria-label', 'Multi Hot 20 reels and multiplier');
@@ -38,7 +39,22 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   const panel = document.createElement('section'); panel.className = 'm20-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.tabIndex = -1;
   overlay.append(panel); stage.append(scene, controlsLayer, overlay); root.replaceChildren(stage, live);
   const controls = controlsFactory({ bet: initialBet, betLevels, roundIntentsEnabled: enabled, serverAuthoritative:host });
+  if(askSound)controls.setSetting('effects',false);
   const audio = new MultiHot20Audio({ samples, ...(audioFactory ? { audioFactory } : {}) });
+  let audioLoading=null,audioReady=prepareAudio===null,audioEpoch=0;
+  async function ensureAudioReady(origin){
+    if(audioReady)return true;
+    const epoch=audioEpoch;live.textContent='Preparing sound…';if(origin)origin.disabled=true;
+    try{
+      const clips=await(audioLoading??=Promise.resolve().then(prepareAudio));
+      if(disposed)return false;audio.setSamples(clips);audioReady=true;
+      if(epoch!==audioEpoch)return false;live.textContent='';return true;
+    }catch{
+      audioLoading=null;
+      if(!disposed&&epoch===audioEpoch)live.textContent='Sound could not load. Try sound again or continue muted.';
+      return false;
+    }finally{if(origin?.isConnected&&!disposed)origin.disabled=false;}
+  }
   const rendererOptions = { canvas: nativeCanvas, atlas: assets.atlas, background: assets.background, art: assets.art,
     onEvent: event => audio.handle(event) };
   const renderer = rendererFactory ? rendererFactory(rendererOptions) : new MultiHot20Renderer(rendererOptions);
@@ -55,13 +71,21 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
 
   function resize() {
     if (disposed) return;
-    const width = Math.max(240, root.clientWidth), height = Math.max(240, window.innerHeight || 800);
-    currentLayout = presentationLayout(width, height);
+    const width = Math.max(240, root.clientWidth);
+    // The retained host header/connection banner and our status occupy real
+    // viewport space. Size the stage inside what remains, not the whole window.
+    const viewportHeight = window.innerHeight || 800;
+    const height = Math.max(MIN_PRESENTATION_HEIGHT,
+      viewportHeight - Math.max(0, root.getBoundingClientRect().top) - live.getBoundingClientRect().height);
+    currentLayout = presentationLayout(width, height, {nativePortrait:typeof renderer.setPresentation==='function'});
+    renderer.setPresentation?.(currentLayout);
     stage.style.width = `${currentLayout.width}px`; stage.style.height = `${currentLayout.height}px`;
     const ratio = Math.min(2, window.devicePixelRatio || 1);
     scene.width = Math.round(currentLayout.scene.width * ratio); scene.height = Math.round(currentLayout.scene.height * ratio);
     scene.style.width = `${currentLayout.scene.width}px`; scene.style.height = `${currentLayout.scene.height}px`;
     stage.dataset.portrait = String(currentLayout.portrait);
+    stage.dataset.nativePortrait = String(Boolean(currentLayout.nativePortrait));
+    stage.dataset.compact = String(Boolean(currentLayout.compact));
     for (const [name, button] of buttons) { const r = currentLayout.controls[name];
       Object.assign(button.style, { left: `${r.x}px`, top: `${r.y}px`, width: `${r.width}px`, height: `${r.height}px` });
     }
@@ -80,13 +104,27 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
     }
     buttons.set(name, node); controlsLayer.append(node);
   }
-  function close() { controls.closeModal(); overlay.hidden = true; controlsLayer.inert = false;
+  function nativeArt(node,name){
+    if(!assets.panelArt)return;
+    const art=assets.panelArt(name);art.className='m20-native-panel-art';art.setAttribute('aria-hidden','true');node.prepend(art);
+  }
+  function paintBets(){
+    const options=panel.querySelector('.m20-bet-grid');options.replaceChildren();
+    const count=assets.panelArt?5:betLevels.length;
+    for(const value of betLevels.slice(betOffset,betOffset+count)){
+      const item=button('', 'choose-bet',value);item.setAttribute('aria-label',value);item.setAttribute('aria-pressed',String(value===controls.snapshot().bet));
+      nativeArt(item,value===controls.snapshot().bet?'Bets/ButtonActive':'Bets/Button');
+      const caption=document.createElement('span');caption.textContent=value;const unit=document.createElement('small');unit.textContent=enabled||host?'ETB':'DMO';unit.setAttribute('aria-hidden','true');caption.append(' ',unit);item.append(caption);options.append(item);
+    }
+    for(const [name,atEnd]of [['bet-prev',betOffset===0],['bet-next',betOffset+5>=betLevels.length]]){const node=panel.querySelector(`[data-action=${name}]`);if(node)node.disabled=atEnd;}
+  }
+  function close() { audioEpoch++;controls.closeModal(); overlay.hidden = true; controlsLayer.inert = false;
     if (dialogOrigin?.isConnected) dialogOrigin.focus(); else root.focus(); dialogOrigin = null; sync(); }
   function title(text) { const header = document.createElement('header'), label = document.createElement('h2'); label.id = dialogId; label.textContent = text;
     header.append(label, button('Close', 'close')); panel.append(header); panel.setAttribute('aria-labelledby', label.id); }
   function open(name, origin) {
     holdPointer=null;controls.openModal(name); if (overlay.hidden) dialogOrigin = origin || document.activeElement;
-    panel.replaceChildren(); title(name === 'rules' ? 'Rules and paytable' : name==='double'?'Double win':name==='sound-choice'?'Sound':name[0].toUpperCase() + name.slice(1));
+    panel.replaceChildren(); panel.dataset.modal=name;title(name === 'rules' ? 'Rules and paytable' : name==='double'?'Double win':name==='sound-choice'?'Sound':name[0].toUpperCase() + name.slice(1));
     if(name==='sound-choice'){
       const caption=document.createElement('p');caption.textContent='Would you like sound?';panel.append(caption,button('Yes','sound-on'),button('No','sound-off'));
     } else if(name==='double'){
@@ -96,17 +134,19 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
       panel.append(stake,card,limits,state,choices,button('Take win','gamble-take'),button('Recover result','gamble-recover'));paintGamble();
     } else if (name === 'bet') {
       const options = document.createElement('div'); options.className = 'm20-bet-grid';
-      for (const value of betLevels) { const item = button(value, 'choose-bet', value); item.setAttribute('aria-pressed', String(value === controls.snapshot().bet)); options.append(item); }
-      panel.append(options);
+      panel.append(options);if(assets.panelArt){nativeArt(panel,'Bets/Popup');const prev=button('Previous stakes','bet-prev'),next=button('Next stakes','bet-next');nativeArt(prev,'Bets/Up');nativeArt(next,'Bets/Down');panel.append(prev,next);}paintBets();
     } else if (name === 'rules') {
       const navigation = document.createElement('nav'); navigation.append(button('Settings', 'settings'), button('−', 'rules-down'), button('+', 'rules-up'));
       const quote = document.createElement('p'); quote.dataset.rulesBet = ''; panel.append(navigation, quote);
       const table = document.createElement('table'), head = document.createElement('thead'), tr = document.createElement('tr');
       for (const label of ['Symbol', '3', '4', '5']) { const th = document.createElement('th'); th.textContent = label; tr.append(th); } head.append(tr); table.append(head);
       const body = document.createElement('tbody');
-      for (const [symbol, pays] of Object.entries(LINE_PAYS)) { const row = document.createElement('tr'); row.dataset.symbol = symbol;
+      for (const [symbol, pays] of Object.entries(rulesPays)) { const row = document.createElement('tr'); row.dataset.symbol = symbol;
         const th = document.createElement('th'); th.textContent = symbol; row.append(th); for (const count of [3, 4, 5]) { const td = document.createElement('td'); td.dataset.pay = String(pays[count]); row.append(td); } body.append(row); }
       table.append(body); panel.append(table);
+      if(assets.symbolArt){table.hidden=true;const cards=document.createElement('div');cards.className='m20-pay-cards';
+        for(const [name,pays]of Object.entries(rulesPays)){const card=document.createElement('section'),image=document.createElement('canvas'),source=assets.symbolArt(name);image.width=140;image.height=140;image.setAttribute('aria-label',name);const scale=Math.min(140/source.width,140/source.height);image.getContext('2d').drawImage(source,(140-source.width*scale)/2,(140-source.height*scale)/2,source.width*scale,source.height*scale);card.append(image);
+          for(const count of [3,4,5]){const row=document.createElement('p'),pay=document.createElement('span');pay.dataset.pay=String(pays[count]);row.append(`${count} │ `,pay);card.append(row);}cards.append(card);}panel.append(cards);}
       const charts = document.createElement('div'); charts.className = 'm20-lines';
       for (const [index, rows] of PAYLINES.entries()) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('viewBox', '0 0 100 60'); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', `Payline ${index + 1}`);
@@ -126,6 +166,9 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
       const label = document.createElement('label'); label.textContent = 'Number of spins'; const select = document.createElement('select'); select.dataset.autoCount = '';
       for (const count of AUTO_COUNTS) { const option = document.createElement('option'); option.value = String(count); option.textContent = String(count); option.selected = count === (configured?.count ?? 100); select.append(option); }
       label.append(select); panel.append(label);
+      if(assets.panelArt){nativeArt(panel,'AutoPlay/Popup');nativeArt(panel.querySelector('header button'),'AutoPlay/Close');label.hidden=true;const counts=document.createElement('div');counts.className='m20-auto-counts';
+        for(const count of AUTO_COUNTS){const node=button(String(count),'auto-count',count);node.setAttribute('aria-pressed',String(count===Number(select.value)));nativeArt(node,count===Number(select.value)?'AutoPlay/ButtonActive':'AutoPlay/Button');counts.append(node);}panel.append(counts);
+        const stop=document.createElement('p');stop.className='m20-auto-heading';stop.textContent='STOP AUTOPLAY';panel.append(stop);}
       for (const { name, label: text } of AUTO_LIMIT_FIELDS) {
         const condition = document.createElement('label'); condition.className = 'm20-auto-condition';
         const caption = document.createElement('span'); caption.textContent = text;
@@ -136,7 +179,7 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
         field.value = configured?.[name] == null ? '' : amount(configured[name]); field.disabled = !toggle.checked;
         condition.append(caption, toggle, field); panel.append(condition);
       }
-      const start = button('Start', 'auto-start'); start.disabled = !enabled; panel.append(start);
+      const start = button(assets.panelArt?'START PLAY':'Start', 'auto-start'); start.disabled = !enabled;panel.append(start);if(assets.panelArt)nativeArt(start,'AutoPlay/Save');
     }
     overlay.hidden = false; controlsLayer.inert = true; panel.focus(); sync();
   }
@@ -190,11 +233,15 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   async function action(name, value, origin) {
     if (disposed) return;
     if (!enabled && FINANCIAL.has(name) && !(name === 'spin' && controls.snapshot().phase === 'RECOVERY_REQUIRED' && host)) return;
+    if(['sound-on','sound-off','sound'].includes(name))audioEpoch++;
+    if((name==='sound-on'||name==='sound'&&!controls.snapshot().settings.effects)&&!await ensureAudioReady(origin))return;
     if(name==='sound-off'){controls.setSetting('effects',false);audio.setting(controls.snapshot().settings);}
     audio.unlock(); audio.once('button', `local-${++clickId}`);
     try {
       if (name === 'close') close();
       else if(name==='sound-on'||name==='sound-off'){controls.setSetting('effects',name==='sound-on');close();}
+      else if(name==='bet-prev'||name==='bet-next'){betOffset=Math.max(0,Math.min(Math.max(0,betLevels.length-5),betOffset+(name==='bet-next'?5:-5)));paintBets();}
+      else if(name==='auto-count'){const select=panel.querySelector('[data-auto-count]');select.value=value;for(const node of panel.querySelectorAll('[data-action=auto-count]')){node.setAttribute('aria-pressed',String(node.dataset.value===value));node.querySelector('canvas')?.remove();nativeArt(node,node.dataset.value===value?'AutoPlay/ButtonActive':'AutoPlay/Button');}}
       else if(name==='double'){await controller?.loadGamble();open('double',origin);}
       else if(name==='gamble-red'||name==='gamble-black'){
         const ok=await controller?.gamble(name==='gamble-red'?'RED':'BLACK');if(ok&&controls.snapshot().phase==='WIN_PENDING')await controller?.loadGamble();
@@ -229,6 +276,7 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   on(stage, 'click', event => { const node = event.target.closest?.('button[data-action]'); if (!node || node.disabled || !stage.contains(node)) return;
     if(node.dataset.action==='spin'&&event.detail>0&&suppressPointerClick){suppressPointerClick=false;return;}
     void action(node.dataset.action, node.dataset.value, node); });
+  on(overlay,'click',event=>{if(event.target===overlay&&controls.snapshot().modal!=='sound-choice')close();});
   on(panel, 'change', async event => {
     const limitName = event.target.dataset.autoEnabled;
     if (AUTO_LIMIT_FIELDS.some(field => field.name === limitName)) {
@@ -236,6 +284,11 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
       if (!field.disabled) field.focus(); return;
     }
     const node = event.target, name = node.dataset.setting; if (!name || !own(controls.snapshot().settings, name)) return;
+    if(['effects','music'].includes(name)){
+      audioEpoch++;
+      if(node.checked&&!audioReady){node.checked=false;if(!await ensureAudioReady(node))return;node.checked=true;}
+      audio.unlock();
+    }
     if (name === 'fullscreen') {
       try { if (node.checked) await root.requestFullscreen(); else if (document.fullscreenElement) await document.exitFullscreen(); }
       catch (error) { node.checked = !!document.fullscreenElement; onError(error); }
@@ -245,7 +298,7 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   on(root, 'keydown', event => {
     if (event.key === 'Escape' && !overlay.hidden) { event.preventDefault(); close(); return; }
     if (event.key === 'Tab' && !overlay.hidden) {
-      const focusable = [...panel.querySelectorAll('button,input,select,[tabindex]')].filter(n => !n.disabled && !n.hidden);
+      const focusable = [...panel.querySelectorAll('button,input,select,[tabindex]')].filter(n => !n.disabled && !n.hidden&&n.getClientRects().length);
       if (!focusable.length) { event.preventDefault(); panel.focus(); return; }
       const first = focusable[0], last = focusable.at(-1);
       if (event.shiftKey && (document.activeElement === first || document.activeElement === panel)) { event.preventDefault(); last.focus(); }
@@ -261,8 +314,17 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   on(window, 'pagehide', () => { held.clear();holdPointer=null; audio.setHidden(true); controller?.setHidden(true); });
   on(window, 'pageshow', () => { audio.setHidden(document.hidden); controller?.setHidden(document.hidden); });
   on(document, 'fullscreenchange', () => { controls.setSetting('fullscreen', !!document.fullscreenElement); resize(); sync(); });
-  const observer = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(resize) : null;
-  observer?.observe(root); on(window, 'resize', resize);
+  let resizeFrameId = null;
+  const scheduleResize = () => {
+    if (disposed || resizeFrameId !== null) return;
+    resizeFrameId = window.requestAnimationFrame(() => { resizeFrameId = null; resize(); });
+  };
+  const observer = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(scheduleResize) : null;
+  observer?.observe(root);
+  // Hiding the outer loading banner changes the root's top without resizing
+  // the root itself. Recompute after that host-content change too.
+  if (document.body && document.body !== root) observer?.observe(document.body);
+  on(window, 'resize', resize);
   function frame(now) {
     if (disposed) return;
     if (!document.hidden) {
@@ -275,7 +337,8 @@ export function mountMultiHot20({ root, assets, transport = null, samples = {}, 
   }
   resize(); sync();if(askSound)open('sound-choice');frameId = window.requestAnimationFrame(frame);
   return Object.freeze({ controls, renderer, controller, audio, snapshot: () => controller?.snapshot() || controls.snapshot(),
-    dispose() { if (disposed) return; disposed = true; controller?.dispose(); audio.dispose(); renderer.dispose?.(); observer?.disconnect();
-      window.cancelAnimationFrame(frameId); for (const remove of listeners) remove(); root.replaceChildren(); delete root.dataset.m20Mounted; root.classList.remove('m20-root'); }
+    dispose() { if (disposed) return; disposed = true; audioEpoch++;controller?.dispose(); audio.dispose(); renderer.dispose?.(); observer?.disconnect();
+      window.cancelAnimationFrame(frameId); if (resizeFrameId !== null) window.cancelAnimationFrame(resizeFrameId);
+      for (const remove of listeners) remove(); root.replaceChildren(); delete root.dataset.m20Mounted; root.classList.remove('m20-root'); }
   });
 }

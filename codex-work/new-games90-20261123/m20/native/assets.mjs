@@ -1,5 +1,6 @@
-// Verify each per-game file before decoding or exposing its existing Player URL.
-// The Worker pins these same-origin paths; no blob: CSP exception is required.
+// Verify each per-game file once, then reuse its bytes for native images/audio.
+// A page-local URL prevents every new SVG control and audio voice downloading
+// the same atlas/clip again, including browsers with the HTTP cache disabled.
 import {EXISTING_M20_GAME_ID as GAME_ID} from '../host-presentation.mjs';
 const hashBytes=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');
 const reason=signal=>signal.reason instanceof Error?signal.reason:Error('ASSET_LOAD_ABORTED');
@@ -34,7 +35,7 @@ const WIN_FRAMES={
 };
 
 export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',import.meta.url),fetcher=globalThis.fetch,
- doc=globalThis.document,imageDecoder=globalThis.createImageBitmap,signal,timeoutMs=15000}={}){
+ doc=globalThis.document,imageDecoder=globalThis.createImageBitmap,signal,timeoutMs=30000,currentMedia=null}={}){
  if(typeof fetcher!=='function'||typeof imageDecoder!=='function')throw Error('ASSET_DECODER_UNAVAILABLE');
  if(!Number.isFinite(timeoutMs)||timeoutMs<=0)throw Error('ASSET_TIMEOUT_REQUIRED');
  manifestURL=new URL(manifestURL,globalThis.location?.href||import.meta.url);
@@ -46,6 +47,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
  function dispose(){
   if(disposed)return;disposed=true;lifetime.abort(Error('ASSETS_DISPOSED'));
   signal?.removeEventListener('abort',onAbort);
+  for(const url of urls.values())URL.revokeObjectURL(url);
   for(const bitmap of bitmaps)try{bitmap.close?.()}catch{}
   bitmaps.clear();urls.clear();cache.clear();
  }
@@ -65,16 +67,16 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
   const record=manifest.files?.[file];
   if(!record||!/^[a-f0-9]{64}$/.test(record.sha256)||!Number.isInteger(record.bytes)||record.bytes<=0)throw Error('OFFICIAL_ASSET_NOT_VERIFIED_'+file);
   if(!/^[a-z0-9][a-z0-9._-]*$/i.test(file))throw Error('INVALID_ASSET_PATH');
-  const url=new URL(file,base);
-  if(url.origin!==base.origin||url.pathname!==base.pathname+file)throw Error('INVALID_ASSET_PATH');
+  const url=new URL(record.path||file,base);
+  if(url.origin!==base.origin||url.pathname!==(record.path||base.pathname+file)||record.path&&record.path!==`/_zplay/requested82-m20/media/${record.sha256}/${file}`)throw Error('INVALID_ASSET_PATH');
   const work=bounded(async requestSignal=>{
-   const response=await fetcher(url,{credentials:'same-origin',cache:'no-store',redirect:'error',signal:requestSignal});
+   const response=await fetcher(url,{credentials:'same-origin',cache:'force-cache',redirect:'error',signal:requestSignal});
    if(!response.ok)throw Error('ASSET_NOT_SERVED_'+file);
    const value=await response.arrayBuffer();
    if(value.byteLength!==record.bytes||await hashBytes(value)!==record.sha256)throw Error('ASSET_INTEGRITY_ERROR_'+file);
    if(requestSignal.aborted)throw reason(requestSignal);
    return new Blob([value],{type:record.contentType});
-  },file).then(blob=>{active();urls.set(file,url.href);return blob}).catch(error=>{cache.delete(file);throw error});
+  },file).then(blob=>{active();urls.set(file,URL.createObjectURL(blob));return blob}).catch(error=>{cache.delete(file);throw error});
   cache.set(file,work);return work;
  }
  async function image(file){
@@ -106,6 +108,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
   },'MANIFEST');
   active();
   if(manifest.schema!=='zplay/verified-official-capture-assets/v1'||manifest.gameId!==GAME_ID)throw Error('OTHER_GAME_ASSETS_REJECTED');
+  if(currentMedia){if(currentMedia.gameId!==GAME_ID||!currentMedia.frames||Object.keys(currentMedia.files||{}).length!==6)throw Error('OTHER_GAME_ASSETS_REJECTED');manifest={...manifest,files:{...manifest.files,...currentMedia.files}};}
   if(!Array.isArray(manifest.symbols)||!manifest.files||typeof manifest.files!=='object')throw Error('INVALID_ASSET_MANIFEST');
   base=new URL(manifest.baseUrl,manifestURL);
   if(base.origin!==manifestURL.origin||!base.pathname.endsWith('/')||base.search||base.hash)throw Error('INVALID_ASSET_BASE');
@@ -113,14 +116,38 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
    manifest.symbols.some(name=>!Object.hasOwn(SYMBOL_FRAMES,name)))throw Error('INVALID_SYMBOL_INVENTORY');
   const names=['atlas-0.png','atlas-1.png','atlas-2.png','atlas-3.png','atlas-logo.png'];
   const atlases=await Promise.all(names.map(async(file,index)=>{
-   const bitmap=await image(file),[width,height]=ATLAS_SIZES[index];
+   const bitmap=await image(file),[width,height]=currentMedia&&index<4?[currentMedia.frames[Object.keys(currentMedia.frames).find(n=>currentMedia.frames[n].atlas===file)].atlasWidth,currentMedia.frames[Object.keys(currentMedia.frames).find(n=>currentMedia.frames[n].atlas===file)].atlasHeight]:ATLAS_SIZES[index];
    if(bitmap.width!==width||bitmap.height!==height)throw Error('OFFICIAL_ATLAS_DIMENSIONS_'+file);
    return bitmap;
   }));
-  for(const [name,frame] of Object.entries(SYMBOL_FRAMES))assetMap[name]=crop(atlases[frame.atlas],frame);
-  assetMap.__background=await image('background.png');
+  function currentFrame(name,{trimmed=false}={}){
+   const f=currentMedia?.frames[name];if(!f)throw Error('CURRENT_M20_FRAME_REQUIRED_'+name);
+   const bitmap=atlases[Number(f.atlas.match(/atlas-(\d)/)[1])],r=f.frame;
+   const part=crop(bitmap,{x:r.x,y:r.y,w:r.w,h:r.h,turn:f.rotated?-1:0});
+   if(trimmed)return part;
+   const canvas=doc.createElement('canvas');canvas.width=f.sourceSize.w;canvas.height=f.sourceSize.h;
+   canvas.getContext('2d').drawImage(part,f.spriteSourceSize.x,f.spriteSourceSize.y);return canvas;
+  }
+  for(const [name,frame] of Object.entries(SYMBOL_FRAMES))assetMap[name]=currentMedia?currentFrame('Box/'+({seven:0,bell:1,grape:2,watermelon:3,cherry:4,orange:5,plum:6,lemon:7}[name]),{trimmed:true}):crop(atlases[frame.atlas],frame);
+  const viewport=doc.defaultView,phone=(viewport?.innerWidth||1000)<700&&(viewport?.innerHeight||0)>=(viewport?.innerWidth||1000)*1.5+26;
+  let selectedBackground=currentMedia&&phone?'background-vertical.png':'background.png';
+  const backgroundCache=new Map();
+  function useBackground(portrait){const name=currentMedia&&portrait?'background-vertical.png':'background.png';selectedBackground=name;
+   if(!backgroundCache.has(name))backgroundCache.set(name,image(name).catch(error=>{backgroundCache.delete(name);throw error}));
+   return backgroundCache.get(name).then(bitmap=>{active();if(selectedBackground===name)assetMap.__background=bitmap;return bitmap;});}
+  await useBackground(selectedBackground==='background-vertical.png');
   assetMap.__wheelNumbers=atlases[3];assetMap.__wheelFrame=atlases[0];assetMap.__wheelLight=atlases[2];
-  assetMap.__boxFrame=crop(atlases[1],{x:1,y:1098,w:1119,h:696});
+  if(!currentMedia)assetMap.__boxFrame=crop(atlases[1],{x:1,y:1098,w:1119,h:696});
+  if(currentMedia){
+   // Canonical in-memory sheets preserve the own scene's existing animation
+   // coordinates while every drawn pixel comes from the newly verified atlas.
+   const sheet=(name,x,y,w,h)=>{const canvas=doc.createElement('canvas');canvas.width=x+w;canvas.height=y+h;canvas.getContext('2d').drawImage(currentFrame(name,{trimmed:true}),x,y,w,h);return canvas;};
+   assetMap.__wheelNumbers=sheet('Multiplier/Numbers',1,1,1077,1095);
+   assetMap.__wheelLight=sheet('Multiplier/Light',1,1,1077,1095);
+   assetMap.__wheelFrame=sheet('Multiplier/Background',1,1715,978,267);
+   assetMap.__boxFrame=sheet('Box/Background',0,0,1119,696);
+   assetMap.__footerBalance=currentFrame('Start/FooterBalance');assetMap.__footerBet=currentFrame('Start/FooterBet');assetMap.__footerWin=currentFrame('Vertical/Start/FooterWin');
+  }
   // Only the inspected base-title region is shown, never the whole Spine sheet.
   // The packed lettering reads bottom-to-top, so it needs a clockwise turn.
   assetMap.__title=crop(atlases[4],{x:2,y:1158,w:633,h:152,turn:1});
@@ -141,7 +168,7 @@ export async function loadVerifiedAssets({manifestURL=new URL('./assets.json',im
    }));
    return result;
   }
-  return {manifest,images:assetMap,urls,primeAudio,dispose};
+  return {manifest,images:assetMap,urls,primeAudio,dispose,useBackground,...(currentMedia?{frame:currentFrame}:{})};
  }catch(error){dispose();throw error}
 }
 

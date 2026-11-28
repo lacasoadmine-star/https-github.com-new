@@ -14,8 +14,7 @@
  .m100-win-actions button{width:13%;top:82.3%!important;min-height:44px}
  .m100-win-actions [data-action=double]{left:2.4%;right:auto}
  .m100-win-actions [data-action=take]{right:2.4%;left:auto}
- .m100-game .m100-readout>div:nth-child(2){top:calc(var(--m100-reels-bottom,64.6%) + 3px);bottom:auto;left:30%;width:40%;height:34px;min-height:34px;padding:2px 8px;gap:0 3px;border:0;border-radius:0;box-shadow:none;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);background:#a67a3e!important;background-image:none!important;isolation:isolate}
- .m100-game .m100-readout>div:nth-child(2):before{content:'';position:absolute;inset:2px;z-index:-1;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);background:radial-gradient(circle,#164d49 1px,transparent 1.5px) 0 0/7px 7px,#002c29}
+ .m100-game .m100-readout>div:nth-child(2){top:calc(var(--m100-reels-bottom,64.6%) + 3px);bottom:auto;left:30%;width:40%;height:auto;aspect-ratio:281/88;min-height:34px;padding:2px 8px;gap:0 3px;border:0;box-shadow:none;background-size:100% 100%;background-repeat:no-repeat}
  .m100-game .m100-readout>div:nth-child(2)>span{font-size:10px;color:#f0dc6b}
  .m100-game .m100-readout>div:nth-child(2)>strong{font-size:14px}
  .m100-game .m100-readout>div:nth-child(2)>small{font-size:10px;align-self:center}
@@ -36,3 +35,23 @@
 .m100-game .m100-bet-modal .m100-bet-page:hover:enabled{background-color:transparent}
 .m100-bet-page:disabled{opacity:.32}
 .m100-native-bet-arrow>span{visibility:hidden}
+@media(max-width:700px){.m100-game .m100-spin{width:32.8%;right:33.6%}.m100-play-group>.m100-auto,.m100-play-group>.m100-bet-button{top:81.5%}}
+
+.m100-modal.m100-auto-modal{position:relative;width:min(92%,490px,86svh);aspect-ratio:1;max-height:86svh;box-sizing:border-box;padding:0;border:0;box-shadow:none;background-color:transparent;background-size:100% 100%;background-repeat:no-repeat}
+.m100-auto-modal>header{position:absolute;inset:2% 3% auto auto;padding:0;border:0;background:transparent;z-index:1}
+.m100-auto-modal>header h2{display:none}
+.m100-auto-modal>header button{width:44px;height:44px;color:transparent}
+.m100-auto-modal>.m100-modal-body{position:absolute;inset:14% 3% 5%;padding:0}
+.m100-auto-modal .m100-counts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2%;height:14%}
+.m100-auto-modal .m100-counts button,.m100-auto-modal button.m100-native-button{min-height:0;padding:0;border:0;background-color:transparent;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
+.m100-auto-modal .m100-stop-label{text-align:center;font-weight:bold;font-size:12px;margin:4% 0}
+.m100-auto-modal .m100-auto-limit{display:flex;align-items:center;justify-content:space-between;min-height:14%;gap:3px;margin:0;font-size:clamp(10px,2.8vw,15px)}
+.m100-auto-modal .m100-auto-limit input[inputmode=decimal]{width:28%;min-width:0}
+.m100-auto-modal [data-action=auto-start]{position:absolute;bottom:0;left:21%;width:58%;height:16%;text-transform:uppercase}
+@media (max-width:700px) and (orientation:portrait){
+ .m100-overlay:has(.m100-auto-modal){padding:0;background:#000c22d9}
+ .m100-modal.m100-auto-modal{top:-3%}
+}
+/* These native textures supply the button frame; the visible label is HTML. */
+.m100-game .m100-auto-modal .m100-counts button.m100-native-button,
+.m100-game .m100-auto-modal [data-action=auto-start].m100-native-button{color:#fff!important}

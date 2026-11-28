@@ -1,0 +1,134 @@
+{
+  "schema": "zplay/pair-presentation-live-release/v1",
+  "sourceCommit": "299691ed9b866ea15e9be6e0334572fe6db956e5",
+  "worker": "superwin-player",
+  "version": 483,
+  "versionId": "d237db5b-ad05-4fbc-afc4-87544a15a58e",
+  "deploymentId": "7ca1d869-63f3-4a6c-9da7-a1aa0b5b51c1",
+  "trafficPercent": 100,
+  "verifiedAt": "2026-11-28T00:49:05.499Z",
+  "moduleCount": 434,
+  "totalBytes": 66967734,
+  "changedModules": 3,
+  "retained431InventorySha256": "2cf5faa8b110de83f8141a1c84908d2dc5c392b4e1cf27b0b4f287d6fc5b932b",
+  "configurationSha256": "15c22f1d5bd108a582fbf099ee7c774c2a26d3b914b3cfaccae683b3c201b928",
+  "bindingCount": 18,
+  "migrationTag": "local-demo-v1",
+  "productionDataChanged": false,
+  "resources": [
+    {
+      "name": "app.mjs",
+      "key": "requested82/m20/recovery/715301ed1c78b065d3f809b1765f9689b47d9880fd7d3d7b7299c5dfd3c7b5d0/app.mjs",
+      "bytes": 114597,
+      "sha256": "715301ed1c78b065d3f809b1765f9689b47d9880fd7d3d7b7299c5dfd3c7b5d0"
+    },
+    {
+      "name": "style.css",
+      "key": "requested82/m20/recovery/b0d13f4d945d7e565889c7507901b0e4bfd691b1d9d9ccbc1e9e02e61ac07549/style.css",
+      "bytes": 5474,
+      "sha256": "b0d13f4d945d7e565889c7507901b0e4bfd691b1d9d9ccbc1e9e02e61ac07549"
+    },
+    {
+      "name": "m100-app.mjs",
+      "sha256": "08160da54a27d79914a71d1056b7b40922858ce5cd0250acd4e2e3d864cd12be",
+      "bytes": 92368,
+      "key": "requested82/m100/sha256/08160da54a27d79914a71d1056b7b40922858ce5cd0250acd4e2e3d864cd12be/app.mjs"
+    },
+    {
+      "name": "m100-style.css",
+      "sha256": "eec1bf4127ef96a375d042d0b9d21fabe16bd2dcc137d7a49f05dda91beb5d7a",
+      "bytes": 21817,
+      "key": "requested82/m100/sha256/eec1bf4127ef96a375d042d0b9d21fabe16bd2dcc137d7a49f05dda91beb5d7a/page.css"
+    }
+  ],
+  "verification": {
+    "stagingBaselineAndResourceGuardPassed": true,
+    "preActivationFullReadbackPassed": false,
+    "preActivationIssue": "A VERSION_METADATA_MISMATCH result was returned as an MCP isError result; the outer orchestration erroneously continued to activation. The mismatch field/root cause was not captured. This is not described as a passed pre-activation readback.",
+    "postActivationFullReadback": {
+      "verified": true,
+      "verifiedAt": "2026-11-28T00:49:05.499Z",
+      "version": 483,
+      "id": "d237db5b-ad05-4fbc-afc4-87544a15a58e",
+      "moduleCount": 434,
+      "totalBytes": 66967734,
+      "retained431ModulesVerified": true,
+      "runtimeSha256": "15c22f1d5bd108a582fbf099ee7c774c2a26d3b914b3cfaccae683b3c201b928",
+      "immutableResourcePinsVerified": 4,
+      "deploymentId": "7ca1d869-63f3-4a6c-9da7-a1aa0b5b51c1",
+      "trafficPercent": 100
+    },
+    "actualBrowserHttp": {
+      "rows": [
+        {
+          "game": "m20",
+          "htmlStatus": 200,
+          "csp": "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self' blob:; base-uri 'none'; form-action 'self'; frame-ancestors 'self'",
+          "resources": [
+            {
+              "type": "js",
+              "status": 200,
+              "bytes": 114597,
+              "sha256": "715301ed1c78b065d3f809b1765f9689b47d9880fd7d3d7b7299c5dfd3c7b5d0"
+            },
+            {
+              "type": "css",
+              "status": 200,
+              "bytes": 5474,
+              "sha256": "b0d13f4d945d7e565889c7507901b0e4bfd691b1d9d9ccbc1e9e02e61ac07549"
+            }
+          ]
+        },
+        {
+          "game": "m100",
+          "htmlStatus": 200,
+          "csp": "default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; base-uri 'none'; form-action 'self'; frame-ancestors 'self'",
+          "resources": [
+            {
+              "type": "js",
+              "status": 200,
+              "bytes": 92368,
+              "sha256": "08160da54a27d79914a71d1056b7b40922858ce5cd0250acd4e2e3d864cd12be"
+            },
+            {
+              "type": "css",
+              "status": 200,
+              "bytes": 21817,
+              "sha256": "eec1bf4127ef96a375d042d0b9d21fabe16bd2dcc137d7a49f05dda91beb5d7a"
+            }
+          ]
+        }
+      ],
+      "authStatus": 401,
+      "authenticated": false,
+      "financialRequests": 0
+    },
+    "dashboardRefresh": {
+      "dashboardReloaded": true,
+      "url": "https://superwin-player.apdiy61.workers.dev/",
+      "authStatus": 401,
+      "badges": [],
+      "routes": [
+        {
+          "label": "Play Now · Multi Hot 20",
+          "href": "/new-games72/multi-hot-20/"
+        },
+        {
+          "label": "Play Now · Multi Hot 100",
+          "href": "/new-games72/multi-hot-100/"
+        }
+      ],
+      "financialRequests": 0
+    },
+    "contextRequestCaveat": "The Cloudflare Playwright context.request probe returned404 without the expected origin headers. Real in-page browser fetch confirmed both game pages and all4 resource bodies at200 with exact byte/hash pins. Do not report the context.request probe as a ZPLAY outage.",
+    "futureActivationGuard": "publish-pair-presentation.mjs now puts full readback and activation in one connector call. Five isolated tests verify that failed metadata/inventory/resource/lease checks cannot send POST.",
+    "authenticatedPostReleaseControlsVerified": false
+  },
+  "scope": "M100 native cabinet/win artwork and M20 verified local media reuse plus explicit audio consent. Existing player/agent/admin services, original wallet/model routes, all431 other modules and runtime configuration remain pinned. Seven accepted live1 ETB spins per game occurred before this presentation release; no further paid spin is authorized under that completed seven-spin instruction.",
+  "remaining": [
+    "Normal Player session later expired401; manual re-sign-in is pending for post-release authenticated UI checks.",
+    "Current official M20 DEMO had provider loader/JavaScript errors; current phone/audio parity is not verified.",
+    "The newly supplied Screen_Recording_20261128_025212_Chrome_1.mp4 exceeds the executor32 MiB download limit and has not been inspected. No old video was substituted.",
+    "Neither full first-pair parity nor the remaining70 games is claimed complete."
+  ]
+}

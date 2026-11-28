@@ -1,5 +1,5 @@
 export const TRIAL_POLICY='USER_AUTHORIZED_FIRST_PAIR_LIVE_TRIAL';
-export const TRIAL_GRID='#zplay-live-catalog .restored-catalog-grid';
+export const TRIAL_GRID='#zplay-live-catalog .restored-catalog-grid:not([data-r82-new-grid])';
 export const TRIAL_SHEET_ID='zplay-requested82-pair-sheet';
 export const TRIAL_LOADER_ID='zplay-requested82-pair-loader';
 export const FIRST_PAIR=Object.freeze([
@@ -27,7 +27,7 @@ export function renderTrialCard(game){
   const expected=FIRST_PAIR.find(item=>item.gameId===game?.gameId);
   if(!expected||game.name!==expected.name||game.route!==expected.route||game.cover?.path!==expected.cover)throw Error('FIRST_PAIR_CARD_INVALID');
   const id=escapeHtml(game.gameId),name=escapeHtml(game.name);
-  return `<article class="restored-game-card requested82-trial-card" data-r82-pair-id="${id}" data-status="available"><button class="restored-game-cover-link" type="button" data-r82-pair-details="${id}" aria-label="Fur faahfaahinta ${name}" aria-haspopup="dialog" aria-controls="${TRIAL_SHEET_ID}"><div class="restored-game-art"><img class="restored-game-cover" src="${escapeHtml(game.cover.path)}" alt="" loading="lazy" decoding="async"><span class="requested82-pair-badge">NEW</span></div></button><div class="restored-game-details"><h3>${name}</h3><div class="restored-game-actions"><a class="restored-game-account" href="${escapeHtml(game.route)}" aria-label="Play Now · ${name}" data-r82-pair-play="${id}">Play Now</a></div></div></article>`;
+  return `<article class="restored-game-card requested82-trial-card" data-r82-pair-id="${id}" data-status="available"><button class="restored-game-cover-link" type="button" data-r82-pair-details="${id}" aria-label="Fur faahfaahinta ${name}" aria-haspopup="dialog" aria-controls="${TRIAL_SHEET_ID}"><div class="restored-game-art"><img class="restored-game-cover" src="${escapeHtml(game.cover.path)}" alt="" loading="lazy" decoding="async"><span class="requested82-pair-badge" title="Cusboonaysiin cusub">✅ CUSUB</span></div></button><div class="restored-game-details"><h3>${name}</h3><div class="restored-game-actions"><a class="restored-game-account" href="${escapeHtml(game.route)}" aria-label="Play Now · ${name}" data-r82-pair-play="${id}">Play Now</a></div></div></article>`;
 }
 
 export function renderTrialSheet(game,{liked=false,favorite=false}={}){

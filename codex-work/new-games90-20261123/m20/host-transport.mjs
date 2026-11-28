@@ -74,7 +74,7 @@ export function createExistingM20Transport({fetcher = globalThis.fetch, storage 
     } finally {busy=false;}
   }
   function snapshot() {return Object.freeze({authenticated:!!account,currency:'ETB',backendGameId:EXISTING_M20_GAME_ID,
-    gameId:GAME_ID,canPlay:playable(),balance:account?.balance ?? null,betLevels:Object.freeze([...(account?.game.betLevels || [])]),
+    gameId:GAME_ID,canPlay:playable(),balance:account?.balance ?? null,betLevels:Object.freeze([...(account?.game.betLevels || [])]),paytable:account?.game.paytable?structuredClone(account.game.paytable):null,
     pendingIntent:pending?ownIntent(pending):pendingAction?ownGamble(pendingAction):null,lastPresentation:last,lastAction,gamble:gambleState(),settlementMode:'SERVER_IMMEDIATE'});}
   async function send(action,replayOnly) {
     const version=generation,guard=account.sessionGuard;let raw;

@@ -6,6 +6,7 @@ export class MultiHot20Audio {
     this.active = new Map(); this.loops = new Map(); this.seen = new Set(); this.generation = 0;
   }
   get ready() { return this.unlocked && !this.hidden && !this.disposed; }
+  setSamples(samples) { if (!this.disposed) this.samples = Object.freeze({ ...samples }); }
   unlock() { if (!this.disposed) { this.unlocked = true; this.syncMusic(); } }
   setting({ effects, music }) {
     if (typeof effects !== 'boolean' || typeof music !== 'boolean') throw new TypeError('M20_AUDIO_SETTINGS');

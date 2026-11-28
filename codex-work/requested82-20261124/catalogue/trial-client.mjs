@@ -4,7 +4,7 @@ const STATE=Symbol.for('zplay.requested82.first-pair.v1'),PREFERENCES='zplay.req
 export function installFirstPair(manifest,{doc=document,win=window,storage=null}={}){
   if(!validTrialManifest(manifest))throw Error('FIRST_PAIR_MANIFEST_INVALID');
   if(win[STATE])return win[STATE];
-  let disposed=false,queued=false,sheet=null,selected=null,opener=null;
+  let disposed=false,queued=false,sheet=null,selected=null,opener=null,newGroup=null,newGrid=null;
   try{storage??=win.localStorage;}catch{}
   let preferences={};try{const saved=JSON.parse(storage?.getItem(PREFERENCES)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))preferences=saved;}catch{}
   const byId=new Map(manifest.games.map(game=>[game.gameId,game])),nodes=new Map(),admittedGrids=new WeakSet();
@@ -24,33 +24,55 @@ export function installFirstPair(manifest,{doc=document,win=window,storage=null}
       if(key==='favorite'){button.lastElementChild.textContent=state.favorite?'La kaydiyey':'Kaydi';button.setAttribute('aria-label',(state.favorite?'Ka saar kuwa la kaydiyey':'Ku dar kuwa la kaydiyey')+' · '+selected.name);}
     }
   }
+  const superseded=new Map([
+    ['ind74_official_multihot100','zplay72_multi_hot_100_v1'],
+    ['ind74_official_multihot20','zplay72_multi_hot_20_v1']
+  ]);
   function filter(grid){
     const container=grid.closest('#zplay-live-catalog'),query=container.querySelector('.restored-catalog-search input')?.value.trim().toLowerCase().replace(/[^a-z0-9]/g,'')||'';
     const kind=container.querySelector('[data-catalog-filter][aria-pressed="true"]')?.dataset.catalogFilter||'all';
+    for(const card of container.querySelectorAll('[data-catalog-game]')){
+      const id=superseded.get(card.dataset.catalogGame);
+      if(!id)continue;
+      if((kind==='favorites'||card.querySelector('.restored-game-saved'))&&!Object.hasOwn(preferences,id)){
+        preferences[id]={favorite:true,liked:false};save();
+      }
+      card.remove();
+    }
+    for(const section of container.querySelectorAll('[data-catalog-group]')){
+      const remaining=section.querySelectorAll('[data-catalog-game]').length;
+      section.hidden=remaining===0;
+      const heading=section.querySelector('h2');
+      if(heading){const title=heading.textContent.replace(/· \d+$/,'· '+remaining);if(heading.textContent!==title)heading.textContent=title;}
+    }
     for(const game of manifest.games){const node=nodes.get(game.gameId);if(!node)continue;const match=game.name.toLowerCase().replace(/[^a-z0-9]/g,'').includes(query);
       node.hidden=!match||kind==='preparing'||kind==='favorites'&&!preference(game.gameId).favorite;
     }
-    const trialVisible=[...nodes.values()].filter(node=>!node.hidden&&node.parentElement===grid).length;
-    const originalVisible=grid.querySelectorAll('.restored-game-card:not([data-r82-pair-id])').length;
-    grid.closest('.restored-catalog-group').hidden=originalVisible+trialVisible===0;
-    const empty=container.querySelector('[data-catalog-empty]');if(empty)empty.hidden=originalVisible+trialVisible!==0;
-    const count=container.querySelector('[data-catalog-count]');if(count){let extra=count.querySelector('[data-r82-pair-count]');
-      if(!extra){extra=doc.createElement('span');extra.dataset.r82PairCount='';count.append(extra);}
-      const text=' + '+trialVisible+' cusub';if(extra.textContent!==text)extra.textContent=text;
+    const trialVisible=[...nodes.values()].filter(node=>!node.hidden&&node.parentElement===newGrid).length;
+    const visible=container.querySelectorAll('[data-catalog-game]').length+trialVisible;
+    if(newGroup)newGroup.hidden=trialVisible===0;
+    const empty=container.querySelector('[data-catalog-empty]');if(empty)empty.hidden=visible!==0;
+    const count=container.querySelector('[data-catalog-count]');
+    if(count){
+      const total=count.textContent.match(/(?:^|\/ )(\d+) ciyaarood/)?.[1];
+      if(total){const text=(query||kind!=='all'?visible+' / ':'')+total+' ciyaarood';if(count.textContent!==text)count.textContent=text;}
     }
   }
   function mount(){
     queued=false;if(disposed)return;
-    if(win.location.pathname!=='/'){for(const node of nodes.values())node.remove();close();return;}
+    if(win.location.pathname!=='/'){newGroup?.remove();for(const node of nodes.values())node.remove();close();return;}
     const grid=doc.querySelector(TRIAL_GRID),anchor=grid?.querySelector('[data-catalog-game="ind74_official_multihot5"]');
     if(!grid)return;
     if(anchor&&grid.querySelector('[data-catalog-game="ind74_official_foxyhot20"]'))admittedGrids.add(grid);
     if(!admittedGrids.has(grid))return;
-    let cursor=anchor;
+    const originalGroup=grid.closest('.restored-catalog-group');
+    if(!newGroup?.isConnected){newGroup=doc.createElement('section');newGroup.className='restored-catalog-group';newGroup.dataset.r82NewGroup='true';const title=doc.createElement('h2');title.className='restored-catalog-group-title';title.textContent='Ciyaaraha cusub';newGrid=doc.createElement('div');newGrid.className='restored-catalog-grid';newGrid.dataset.r82NewGrid='true';newGroup.append(title,newGrid);}
+    if(originalGroup.previousElementSibling!==newGroup)originalGroup.before(newGroup);
+    let cursor=null;
     for(const game of manifest.games){let node=nodes.get(game.gameId);
       if(!node){const template=doc.createElement('template');template.innerHTML=renderTrialCard(game);node=template.content.firstElementChild;nodes.set(game.gameId,node);}
-      if(cursor){if(node.parentElement!==grid||node.previousElementSibling!==cursor)cursor.after(node);}
-      else if(node.parentElement!==grid||node.previousElementSibling!==null)grid.prepend(node);cursor=node;
+      if(cursor){if(node.parentElement!==newGrid||node.previousElementSibling!==cursor)cursor.after(node);}
+      else if(node.parentElement!==newGrid||node.previousElementSibling!==null)newGrid.prepend(node);cursor=node;
     }
     filter(grid);
   }
@@ -72,7 +94,7 @@ export function installFirstPair(manifest,{doc=document,win=window,storage=null}
   for(const selector of ['#zplay-requested90','#zplay-requested71'])doc.querySelector(selector)?.remove();
   const observer=new win.MutationObserver(schedule);observer.observe(doc.documentElement,{childList:true,subtree:true});
   doc.addEventListener('click',onClick);doc.addEventListener('input',onInput);win.addEventListener('popstate',schedule);win.addEventListener('hashchange',schedule);
-  const api=Object.freeze({mount,dispose(){if(disposed)return;disposed=true;observer.disconnect();doc.removeEventListener('click',onClick);doc.removeEventListener('input',onInput);win.removeEventListener('popstate',schedule);win.removeEventListener('hashchange',schedule);close();sheet?.remove();for(const node of nodes.values())node.remove();doc.querySelector('[data-r82-pair-count]')?.remove();if(win[STATE]===api)delete win[STATE];}});
+  const api=Object.freeze({mount,dispose(){if(disposed)return;disposed=true;observer.disconnect();doc.removeEventListener('click',onClick);doc.removeEventListener('input',onInput);win.removeEventListener('popstate',schedule);win.removeEventListener('hashchange',schedule);close();sheet?.remove();newGroup?.remove();for(const node of nodes.values())node.remove();doc.querySelector('[data-r82-pair-count]')?.remove();if(win[STATE]===api)delete win[STATE];}});
   win[STATE]=api;mount();return api;
 }
 

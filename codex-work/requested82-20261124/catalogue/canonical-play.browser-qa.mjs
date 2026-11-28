@@ -1,0 +1,29 @@
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {createRequire} from 'node:module';
+import {build} from 'esbuild';
+import manifest from './first-pair.json' with {type:'json'};
+const {chromium}=createRequire(import.meta.url)('playwright');
+const output=process.env.ZPLAY_CANONICAL_QA_OUTPUT;assert(output&&resolve(output).startsWith('/tmp/')||output&&resolve(output).startsWith('/workspace/scratch/'));
+await mkdir(output,{recursive:true});
+const directory=resolve(new URL('.',import.meta.url).pathname),requests=[],reports=[];
+const ids=['ind74_official_habeshafortune5','ind74_official_multihot5','ind74_official_foxyhot20','ind74_official_multihot100','ind74_official_multihot20',...Array.from({length:69},(_,i)=>'retained_'+i)];
+const oldRoutes={ind74_official_multihot5:'/games/multi_hot_5_native',ind74_official_foxyhot20:'/games/foxy_hot_20_native',ind74_official_multihot100:'/games/multihot100_native'};
+const markup=ids.map(id=>`<article class="restored-game-card" data-catalog-game="${id}" data-status="${id.endsWith('multihot20')?'preparing':'available'}"><button data-game-details="${id}">${id}</button><div class="restored-game-actions">${oldRoutes[id]?`<a href="${oldRoutes[id]}" data-game-launch="${id}">Play Now</a>`:'<span>Preparing</span>'}</div></article>`).join('');
+const html=`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>button,a{min-height:44px}dialog{max-width:90vw}img{max-width:100%}</style><section id="zplay-live-catalog"><div class="restored-catalog-group"><div class="restored-catalog-grid">${markup}</div></div></section><script type="module" src="/app.mjs"></script>`;
+const entry=`import {installFirstPair} from './trial-client.mjs';import manifest from './first-pair.json' with {type:'json'};window.legacyClicks=[];document.addEventListener('click',e=>{let n=e.target.closest('[data-game-details],[data-game-launch]');if(n){window.legacyClicks.push(n.dataset.gameDetails||n.dataset.gameLaunch);e.preventDefault();}});window.install=()=>installFirstPair(manifest);window.pair=window.install();`;
+const compiled=await build({stdin:{contents:entry,resolveDir:directory,sourcefile:'qa-entry.mjs'},bundle:true,write:false,format:'esm',platform:'browser',target:'es2022'});
+const server=createServer((req,res)=>{requests.push({method:req.method,path:req.url});if(req.url==='/'){res.setHeader('Content-Type','text/html');res.end(html);}else if(req.url==='/app.mjs'){res.setHeader('Content-Type','text/javascript');res.end(compiled.outputFiles[0].text);}else if(['/new-games72/multi-hot-100/','/new-games72/multi-hot-20/'].includes(req.url)){res.setHeader('Content-Type','text/html');res.end('<main id="selected-view">'+req.url+'</main>');}else{res.writeHead(204);res.end();}});
+await new Promise(done=>server.listen(0,'127.0.0.1',done));const origin='http://127.0.0.1:'+server.address().port;
+const browser=await chromium.launch({headless:true,executablePath:process.env.ZPLAY_QA_CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
+const snapshot=page=>page.locator('[data-catalog-game]').evaluateAll(ns=>ns.map(n=>({id:n.dataset.catalogGame,status:n.dataset.status,href:n.querySelector('.restored-game-actions a')?.getAttribute('href')??null})));
+try{for(const width of [360,390,1280]){const context=await browser.newContext({viewport:{width,height:844}}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());await page.goto(origin);await page.waitForFunction(()=>!!window.pair);const original=await snapshot(page);assert.equal(original.length,74);
+for(const card of original){assert.equal(card.href,oldRoutes[card.id]||null);assert.equal(card.status,card.id.endsWith('multihot20')?'preparing':'available');}
+assert.equal(await page.locator('[data-r82-new-grid] [data-r82-pair-id]').count(),2);assert.equal(await page.locator('[data-catalog-game] .requested82-pair-badge').count(),0);
+assert(await page.locator('[data-r82-new-group]').evaluate(n=>!!n.nextElementSibling?.querySelector('[data-catalog-game]')));
+await page.locator('[data-game-details="ind74_official_multihot100"]').click();assert.deepEqual(await page.evaluate(()=>window.legacyClicks),['ind74_official_multihot100']);assert.equal(await page.locator('#zplay-requested82-pair-sheet').count(),0);
+for(let i=0;i<2;i++){if(i){await page.goto(origin);await page.waitForFunction(()=>!!window.pair);}const g=manifest.games[i];await page.locator(`[data-r82-pair-details="${g.gameId}"]`).click();const sheet=page.locator('#zplay-requested82-pair-sheet');await sheet.waitFor({state:'visible'});assert.equal(await sheet.locator('[data-r82-pair-sheet-play]').getAttribute('href'),g.route);await sheet.locator('[data-r82-pair-sheet-play]').click();assert.equal(new URL(page.url()).pathname,g.route);}
+await page.goto(origin);await page.waitForFunction(()=>!!window.pair);await page.evaluate(()=>window.pair.dispose());assert.equal(await page.locator('[data-r82-new-group]').count(),0);assert.deepEqual(await snapshot(page),original);assert.deepEqual(errors,[]);reports.push({width,oldCardsPreserved:74,newSeparateTopCards:2,noOldNewBadges:true,oldDetailsUnchanged:true,coverSheetPlayNavigations:2,financialRequests:0});await context.close();}
+assert(requests.every(r=>r.method==='GET'));await writeFile(resolve(output,'report.json'),JSON.stringify({passed:true,scope:'New top section and real cover-to-PLAY navigation in a disposable fixture; old cards retain their original identities and actions.',reports,financialRequests:0},null,2));console.log(JSON.stringify({passed:true,viewports:reports.length,financialRequests:0}));}finally{await browser.close();server.closeAllConnections();await new Promise(done=>server.close(done));}

@@ -1,3 +1,15 @@
+# 27 November — compact host and paired stylesheet continuation
+
+The recovered M20 work exposed two actual defects: short phone/landscape controls were sized against the whole window rather than the space below the existing host header/status, and the app-only release builder omitted the compact CSS it had tested from the working tree. The stage now uses the available host height and recalculates after the loading banner hides. All eight targets retain at least 44px; hosts with less than 144px available space scroll.
+
+The optional `previousStylePath` build emits both immutable app and CSS resources. The wrapper replaces their exact original tags together, verifies both resources' sizes/SHA-256, preserves CSP/cookies/other routes, and fails closed on a missing or duplicate tag. The legacy app-only mode remains available for historical builds. Existing media and financial transport are unchanged.
+
+Current focused verification: source-mounted real Chromium checks cover ten host viewports; compiled native-media receipt/recovery checks cover 360x844, 390x844, 430x844, 1280x900, 844x390 and 390x320. The compiled check serves only the emitted stylesheet, so working-tree CSS can no longer conceal a packaging omission. Native media are the retained thirteen SHA-matching public same-game files. Each synthetic accepted draw recovers its original receipt with one fixture SPIN and no second TAKE credit; no production wager is implied.
+
+The guarded two-module presentation update is described in [release/README.md](../../requested20-20261126/multi-hot-20/release/README.md). It preserves the existing global main, original r1 entry, all 432 non-target modules and runtime configuration. Only its own config/worker may change. Source/test results alone do not claim activation or authenticated financial acceptance. Historical release evidence follows.
+
+---
+
 # Multi Hot 20 accepted-result recovery
 
 The existing mounted Multi Hot 20 could strand an accepted SPIN after its renderer threw or the native scene's asynchronous settlement rejected. The controls already retained the accepted result and had cleared the pending financial request; the previous recovery path only handled missing server responses. The player could therefore see an interrupted game without a usable way to finish showing the accepted win.

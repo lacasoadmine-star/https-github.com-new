@@ -10,8 +10,9 @@ export function createNativeSceneRenderer({canvas,resources,onEvent=()=>{},docum
   if(!canvas?.getContext||!document?.createElement||!resources?.images)throw Error('M20_NATIVE_SCENE_DEPENDENCIES');
   const source=document.createElement('canvas'),backdrop=document.createElement('canvas'),ctx=canvas.getContext('2d');
   canvas.width=1363;canvas.height=766;
+  canvas.setAttribute?.('data-m20-native-output','true');
   let phase='IDLE',pending=null,round=null,previous=null,winVisible=false,displayWin='0.00',disposed=false,reelStop=0;
-  let generation=0,acceptedView=null,presentationError=null;
+  let generation=0,acceptedView=null,presentationError=null,presentation=null;
   const seen=new Map(),events=new Set(),display={bet:'1.00',balance:null,currency:'ETB',quick:false};
   const emit=(name,key)=>{const id=name+':'+key;if(events.has(id))return;events.add(id);onEvent({gameId:GAME_ID,name,key});};
   const scene=new Scene({canvas:source,backdropCanvas:backdrop,symbols:resources.manifest.symbols,assets:resources.images,
@@ -23,6 +24,12 @@ export function createNativeSceneRenderer({canvas,resources,onEvent=()=>{},docum
     winAmount:winVisible?displayWin:'0.00',multiplier:round?.multiplier??2,seenRoundCount:seen.size,
     presentationError:presentationError?.message??null,nativeScene:scene.inspect()};}
   function setDisplay(values={}){for(const key of ['bet','balance','currency','quick'])if(values[key]!==undefined)display[key]=values[key];}
+  function setPresentation(layout){
+    presentation=layout.nativePortrait?layout:null;
+    void resources.useBackground?.(Boolean(presentation)).catch(()=>{});
+    const width=presentation?600:1363,height=presentation?Math.round(layout.crop.height):766;
+    if(canvas.width!==width)canvas.width=width;if(canvas.height!==height)canvas.height=height;
+  }
   function begin(intent){
     if(disposed||phase!=='IDLE'||intent?.gameId!==GAME_ID||intent.action!=='SPIN')return false;
     previous={round,winVisible,displayWin};pending={...intent};phase='WAITING';winVisible=false;reelStop=0;
@@ -73,6 +80,22 @@ export function createNativeSceneRenderer({canvas,resources,onEvent=()=>{},docum
   }
   function render(){
     if(disposed)return;if(presentationError)throw presentationError;ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(presentation){
+      const w=canvas.width,h=canvas.height,background=resources.images.__background;
+      const scale=Math.max(w/background.width,h/background.height)*1.12;
+      ctx.drawImage(background,(w-background.width*scale)/2,0,background.width*scale,background.height*scale);
+      const factor=w/535,dx=(w-600*factor)/2,dy=h*.315-252*factor;
+      ctx.drawImage(source,0,0,source.width,source.height,dx,dy,600*factor,600*factor);
+      const title=resources.images.__title,titleScale=w*.6/title.width;
+      ctx.drawImage(title,(w-title.width*titleScale)/2,h*.075,title.width*titleScale,title.height*titleScale);
+      const y=h-84,fw=w*.352,fh=60;
+      const readout=(name,value,x)=>{const art=resources.images[name==='BET'?'__footerBet':'__footerBalance'];ctx.drawImage(art,x,y,fw,fh);
+        label(name,x+fw/2,y+18,18,'#ffff75');label(value,x+fw/2,y+42,18);};
+      readout('BALANCE',`${display.balance??'—'} ${display.currency}`,w*.135);
+      readout('BET',`${display.bet} ${display.currency}`,w*.515);
+      if(winVisible){ctx.fillStyle='#003223e6';ctx.fillRect(w*.3,h*.315+306*factor+8,w*.4,46);label(`${displayWin} ${display.currency}`,w/2,h*.315+306*factor+31,22,'#ffff75');}
+      return snapshot();
+    }
     const background=resources.images.__background,scale=766/background.height;
     ctx.drawImage(background,(1363-background.width*scale)/2,0,background.width*scale,766);
     const factor=134/102,dx=337-45*factor,dy=216-252*factor;
@@ -81,6 +104,6 @@ export function createNativeSceneRenderer({canvas,resources,onEvent=()=>{},docum
     footer('BALANCE',`${display.balance??'—'} ${display.currency}`,378);footer('BET',`${display.bet} ${display.currency}`,806);
     if(winVisible)footer('WIN',`${displayWin} ${display.currency}`,592);return snapshot();
   }
-  return Object.freeze({snapshot,setDisplay,begin,accept,requestStop,cancelUnsent,collect,restore,restoreAccepted,applyGamble,render,
+  return Object.freeze({snapshot,setDisplay,setPresentation,begin,accept,requestStop,cancelUnsent,collect,restore,restoreAccepted,applyGamble,render,
     dispose(){if(disposed)return;disposed=true;generation++;scene.dispose();canvas.width=0;canvas.height=0;}});
 }
