@@ -25,15 +25,38 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
  const app={get game(){return game;},get phase(){return phase;},get transport(){return transport;},snapshot:()=>Object.freeze({phase,game:game?.snapshot()??null,audio:audio?.snapshot()??null,auto:automatic?.snapshot()??null}),reconnect:()=>queueConnect(),dispose};
  function announce(value){status.textContent=value;status.hidden=!value;}
  function stopGame(){choiceCleanup?.();choiceCleanup=null;automatic?.dispose();automatic=null;game?.destroy();game=null;motion?.dispose();motion=null;audio?.dispose();audio=null;assets?.dispose();assets=null;}
- function display(kind,text){phase=kind;announce(text);root.innerHTML=`<section class="m100-page-message"><h1>Multi Hot 100</h1><p>${escape(text)}</p>${kind==='SIGN_IN'?`<a class="m100-page-primary" href="${escape(localPath(loginURL))}">Sign in</a>`:`<button type="button" data-m100-reconnect>Try again</button>`}<a href="${escape(localPath(lobbyURL))}">Return to lobby</a></section>`;root.querySelector('[data-m100-reconnect]')?.addEventListener('click',()=>void queueConnect());}
- function fail(error){if(disposed)return;stopGame();display(error?.status===401?'SIGN_IN':'UNAVAILABLE',error?.status===401?'Sign in to play Multi Hot 100.':'Multi Hot 100 is unavailable for this session.');}
+ function display(kind,text){phase=kind;announce('');root.innerHTML=`<section class="m100-page-message"><h1>Multi Hot 100</h1><p role="status">${escape(text)}</p>${kind==='SIGN_IN'?`<a class="m100-page-primary" href="${escape(localPath(loginURL))}">Sign in</a>`:`<button type="button" data-m100-reconnect>Try again</button>`}<a href="${escape(localPath(lobbyURL))}">Return to lobby</a></section>`;root.querySelector('[data-m100-reconnect]')?.addEventListener('click',()=>void queueConnect());}
+ function fail(error){
+  if(disposed)return;
+  stopGame();
+  if(error?.status===401||error?.code==='M100_PLAYER_SESSION_CHANGED'){
+   display('SIGN_IN','Sign in to continue with your current player account.');return;
+  }
+  const message=error?.name==='AbortError'?'The connection timed out. Try again.':
+   phase==='LOADING'?'Game artwork could not load. Check your connection and try again.':
+   'The game could not finish opening. Try again.';
+  display('UNAVAILABLE',message);
+ }
  function invalidate(kind){version++;assetAbort?.abort();stopGame();transport.disconnect();if(!disposed)display(kind,kind==='SIGN_IN'?'Sign in to continue.':'Connecting to your account…');}
  async function mount(snapshot,token){
   if(disposed||token!==version)return;
   if(snapshot.pendingIntent){phase='RECOVERY_REQUIRED';announce('Recover the unfinished action before continuing.');root.innerHTML='<section class="m100-page-message"><h1>Multi Hot 100</h1><p>An unfinished action needs recovery.</p><button type="button" class="m100-page-primary" data-m100-recover>Recover current action</button></section>';
    root.querySelector('[data-m100-recover]').addEventListener('click',async event=>{const button=event.currentTarget;button.disabled=true;announce('Recovering your current action…');try{await transport.recover(snapshot.pendingIntent);if(!disposed&&token===version)await mount(transport.snapshot(),token);}catch(error){if(!disposed&&token===version){announce(error?.status===401?'Sign in to recover this action.':'Recovery could not finish. Your original action is retained.');button.disabled=false;if(error?.status===401)fail(error);}}});return;
   }
-  if(snapshot.accepting!==true||snapshot.otherActiveGame||!snapshot.hostPolicy)throw Error('M100_PAGE_NOT_ACCEPTING');
+  if(snapshot.otherActiveGame){
+   display('UNAVAILABLE','Finish the open round in your other game, then return here.');
+   const activeRoutes={multihot20_native:'/new-games72/multi-hot-20/',multihot40_native:'/games/multihot40_native'};
+   const route=activeRoutes[snapshot.otherActiveGame];
+   if(route){
+    const link=doc.createElement('a');link.href=route;link.textContent='Open active game';
+    root.querySelector('[data-m100-reconnect]').before(link);
+   }
+   return;
+  }
+  if(!snapshot.hostPolicy)throw Error('M100_PAGE_POLICY');
+  if(snapshot.accepting!==true&&!snapshot.restoreView){
+   display('UNAVAILABLE','New rounds are paused. Try again when play resumes.');return;
+  }
   phase='LOADING';announce('Loading Multi Hot 100…');assetAbort=new win.AbortController();
   const response=await fetcher(assetPinsURL,{credentials:'omit',redirect:'error',cache:'force-cache',signal:assetAbort.signal});if(!response.ok||response.redirected)throw Error('M100_PAGE_ASSET_PINS');
   const manifest=await response.json();if(manifest.schema!=='zplay/m100-current-static-pins/v1'||!Array.isArray(manifest.pins))throw Error('M100_PAGE_ASSET_PINS');
