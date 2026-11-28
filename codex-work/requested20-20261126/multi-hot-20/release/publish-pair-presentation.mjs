@@ -11,15 +11,15 @@ export async function verifyPairPresentation(cloudflare,accountId,expected){
  for(const p of expected.replacementPins)if(canonical(inventory.find(x=>x.name===p.name))!==canonical(p))throw Error('OWNED_MODULE_PIN');
  const retained=inventory.filter(x=>!expected.replacementPins.some(p=>p.name===x.name));
  if(await hash(enc.encode(JSON.stringify(retained)))!==expected.retainedInventorySha256)throw Error('RETAINED_MODULE_CHANGED');
- for(const p of expected.resources){const raw=await cloudflare.request({method:'GET',path:'/accounts/'+accountId+'/storage/kv/namespaces/361c2fbf17b747ae8b76fb0e9540555a/values/'+p.key}),b=typeof raw==='string'?enc.encode(raw):raw;if(b.length!==p.bytes||await hash(b)!==p.sha256)throw Error('RESOURCE_PIN '+p.name);}
- return {verified:true,verifiedAt:new Date().toISOString(),version:v.number,id:v.id,moduleCount:434,totalBytes:expected.totalBytes,retained431ModulesVerified:true,runtimeSha256:expected.configurationSha256,immutableResourcePinsVerified:4};
+ for(const p of [...expected.resources,...(expected.mediaResources||[]),...(expected.nativeResources||[])]){const raw=await cloudflare.request({method:'GET',path:'/accounts/'+accountId+'/storage/kv/namespaces/361c2fbf17b747ae8b76fb0e9540555a/values/'+p.key}),b=typeof raw==='string'?enc.encode(raw):raw;if(b.length!==p.bytes||await hash(b)!==p.sha256)throw Error('RESOURCE_PIN '+p.name);}
+ return {verified:true,verifiedAt:new Date().toISOString(),version:v.number,id:v.id,moduleCount:434,totalBytes:expected.totalBytes,retainedModuleCount:retained.length,runtimeSha256:expected.configurationSha256,immutableResourcePinsVerified:expected.resources.length+(expected.mediaResources?.length||0)+(expected.nativeResources?.length||0)};
 }
 /** One connector call owns the verification and activation sequence. A thrown
  * precheck cannot become an ignored MCP isError result before a later POST. */
 export async function publishVerifiedPairPresentation(cloudflare,accountId,{staged,expectedDeploymentId}={}){
  const uuid=/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/;
  if(staged?.schema!=='zplay/pair-presentation-staged/v1'||staged.activated!==false||staged.fullReadbackRequired!==true||
-   staged.changedModules!==3||staged.retainedModules!==431||!uuid.test(staged.id||'')||!uuid.test(staged.baselineId||'')||
+   !((staged.changedModules===3&&staged.retainedModules===431)||(staged.changedModules===4&&staged.retainedModules===430))||!uuid.test(staged.id||'')||!uuid.test(staged.baselineId||'')||
    !uuid.test(expectedDeploymentId||'')||!/^[a-f0-9]{40}$/.test(staged.sourceCommit||''))throw Error('PUBLISH_INPUT');
  const proof=await verifyPairPresentation(cloudflare,accountId,staged);
  const root='/accounts/'+accountId+'/workers';

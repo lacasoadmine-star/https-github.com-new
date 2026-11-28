@@ -5,9 +5,30 @@ import { CONTROLS, VIEW } from './render/layout.mjs';
 export const MIN_PRESENTATION_HEIGHT = 144;
 
 /** Responsive adaptation; desktop uses this game's measured native coordinates. */
-export function presentationLayout(width, height) {
+export function presentationLayout(width, height, { nativePortrait = false } = {}) {
   if (!Number.isFinite(width) || width < 240 || !Number.isFinite(height) || height < MIN_PRESENTATION_HEIGHT) throw new RangeError('M20_VIEWPORT');
   const portrait = width < 700;
+  // Current official Android game, observed 28 November: full-width cabinet,
+  // centred title, circular SPIN between AUTO/BET, and a bottom readout row.
+  // Keep the short-window accessible layout below when these anchors cannot fit.
+  if (portrait && nativePortrait && height >= width * 1.5) {
+    const size = n => Math.max(44, width * n), spin = size(128 / 390), side = size(68 / 390);
+    const bottom = height - 58, cy = height - 125;
+    const box = (cx, y, w, h = w) => ({ x: cx - w / 2, y, width: w, height: h });
+    const controls = {
+      menu: box(25 / 390 * width, bottom, 44),
+      sound: box(365 / 390 * width, bottom, 44),
+      auto: box(96 / 390 * width, cy - side / 2, side),
+      spin: box(width / 2, cy - spin / 2, spin),
+      bet: box(293 / 390 * width, cy - side / 2, side),
+      quick: box(262 / 390 * width, cy - side / 2 - 44, 44),
+      double: box(25 / 390 * width, cy - 22, 44),
+      take: box(365 / 390 * width, cy - 22, 44),
+    };
+    return Object.freeze({portrait:true,nativePortrait:true,scale:width/600,width,height,
+      crop:Object.freeze({x:0,y:0,width:600,height:height*600/width}),
+      scene:Object.freeze({width,height}),controls:Object.freeze(controls)});
+  }
   const crop = portrait ? { x: 310, y: 0, width: 724, height: 740 } : { x: 0, y: 0, width: VIEW.width, height: VIEW.height };
   let scale = Math.min(width / crop.width, portrait ? Math.min(1, (height - 136) / crop.height) : height / crop.height);
   let scene = { width: crop.width * scale, height: crop.height * scale };

@@ -51,12 +51,12 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     if(canvas.width!==size.width||canvas.height!==size.height){canvas.width=size.width;canvas.height=size.height;}
     ctx.clearRect(0,0,size.width,size.height);
     if(drawScene){drawScene({canvas,context:ctx,state,presentation:view,assets,portrait});return;}
-    if(assets?.background){const bg=assets.background,scale=Math.max(size.width/bg.width,size.height/bg.height);ctx.drawImage(bg,(size.width-bg.width*scale)/2,(size.height-bg.height*scale)/2,bg.width*scale,bg.height*scale);}
+    if(assets?.background){void assets.useBackground?.(portrait).catch(()=>{});const bg=assets.background,phoneBackground=portrait&&assets.portraitBackgroundAvailable,scale=Math.max(size.width/bg.width,size.height/bg.height)*(phoneBackground?1.12:1);ctx.drawImage(bg,(size.width-bg.width*scale)/2,phoneBackground?0:(size.height-bg.height*scale)/2,bg.width*scale,bg.height*scale);}
     else {const fill=ctx.createRadialGradient(size.width/2,size.height/2,0,size.width/2,size.height/2,size.width*.8);fill.addColorStop(0,'#07583d');fill.addColorStop(.7,'#002b23');fill.addColorStop(1,'#001b1d');ctx.fillStyle=fill;ctx.fillRect(0,0,size.width,size.height);}
-    const x=portrait?3:386,y=portrait?Math.round(size.height*.28):184+verticalOffset,w=portrait?594:568,h=portrait?475.2:460,cw=w/5,ch=h/4;
+    const x=portrait?3:386,y=portrait?Math.round(size.height*.294):184+verticalOffset,w=portrait?594:568,h=portrait?475.2:460,cw=w/5,ch=h/4;
     game.style.setProperty('--m100-reels-bottom',`${(y+h)/size.height*100}%`);
     const nativeCabinet=assets?.frames?.names?.includes('Box/Background');
-    if(nativeCabinet){const cabinet=assets.frames.get('Box/Background');ctx.drawImage(cabinet,0,243,993,813,x-5,y-5,w+10,h+10);}
+    if(nativeCabinet){const cabinet=assets.frames.get('Box/Background'),trim=assets.frames.metadata('Box/Background').spriteSourceSize;ctx.drawImage(cabinet,trim.x,trim.y,trim.w,trim.h,x-5,y-5,w+10,h+10);}
     else{ctx.fillStyle='#003025';ctx.fillRect(x-5,y-5,w+10,h+10);ctx.strokeStyle='#d4ba65';ctx.lineWidth=4;ctx.strokeRect(x-5,y-5,w+10,h+10);}
     const receipt=view.receipt??view.previous,grid=receipt?.grid??idleGrid;
     for(let col=0;col<5;col++){
@@ -92,7 +92,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
       ctx.restore();
     }
     if(receipt&&!assets?.frames?.names?.includes('Multiplier/Numbers')){const mx=x+w/2,my=y-72;text(`×${receipt.multiplier}`,mx,my,43,'#ffe8a0');}
-    if(assets?.logo?.imageAt){const image=assets.logo.imageAt(win.performance.now()/1000);ctx.drawImage(image,portrait?100:45,portrait?121:95+verticalOffset,portrait?400:345,portrait?97:83.5);}
+    if(assets?.logo?.imageAt){const image=assets.logo.imageAt(win.performance.now()/1000);ctx.drawImage(image,portrait?80:45,portrait?128:95+verticalOffset,portrait?440:345,portrait?106.7:83.5);}
     else text('MULTI HOT 100',portrait?300:220,portrait?166:132+verticalOffset,portrait?36:31,'#ffe39a');
   }
   function description(state){

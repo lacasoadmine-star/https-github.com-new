@@ -7,6 +7,8 @@ import {execFileSync} from 'node:child_process';
 import {buildM20Recovery,writeM20Recovery} from '../../../requested82-20261124/multi-hot-20/build.mjs';
 import {validConfig as validM100} from '../../../requested82-20261124/multi-hot-100/release/worker.mjs';
 import {createM20PresentationPlan} from './presentation-update.mjs';
+import {M20_CURRENT_MEDIA} from '../../../requested82-20261124/multi-hot-20/current-media.mjs';
+import {M100_CURRENT_MEDIA} from '../../../requested82-20261124/multi-hot-100/current-media.mjs';
 
 const root=fileURLToPath(new URL('../../../../',import.meta.url)),require=createRequire(import.meta.url);
 const hash=value=>createHash('sha256').update(value).digest('hex');
@@ -31,6 +33,7 @@ const build=await buildM20Recovery(options);await writeM20Recovery(resolve(out,'
 Object.assign(baseline,{baselineRevision:options.baselineRevision,previousAppPath:options.previousAppPath,previousStylePath:options.previousStylePath});
 const plan=await createM20PresentationPlan({build,baseline,deploymentId:baseline.deploymentId});
 plan.schema='zplay/pair-presentation-update/v1';
+plan.mediaResources=Object.entries(M20_CURRENT_MEDIA.files).map(([name,p])=>({name,bytes:p.bytes,sha256:p.sha256,key:`requested82/m20/media/${p.sha256}/${name}`}));
 const compiled=[];
 for(const [name,entry] of [['app.mjs','browser.mjs'],['page.css','../page.css']]){
  const result=await esbuild.build({entryPoints:[resolve(root,'codex-work/requested82-20261124/multi-hot-100/release',entry)],bundle:true,write:false,platform:'browser',format:'esm',target:'es2022',minify:true,charset:'utf8',legalComments:'none',logLevel:'silent',metafile:true});
@@ -41,6 +44,12 @@ for(const [name,entry] of [['app.mjs','browser.mjs'],['page.css','../page.css']]
  plan.resources.push({name:name==='app.mjs'?'m100-app.mjs':'m100-style.css',sha256,bytes,key});
 }
 const previous=await deployedConfig('requested82m100r1/config.mjs',true);
+plan.nativeResources=[];
+for(const p of M100_CURRENT_MEDIA.pins){const name='media/'+p.path,key='requested82/m100/sha256/'+p.sha256+'/'+name;compiled.push({name,key,sha256:p.sha256,bytes:p.bytes});plan.nativeResources.push({name,key,sha256:p.sha256,bytes:p.bytes});}
+const nativePins={schema:'zplay/m100-current-static-pins/v1',sourcePage:M100_CURRENT_MEDIA.sourcePage,observedAt:M100_CURRENT_MEDIA.observedAt,pins:[...M100_CURRENT_MEDIA.pins.map(({path,bytes,sha256})=>({path,bytes,sha256})),(()=>{const p=previous.resources.find(p=>p.name==='media/background.png');return {path:'background.png',bytes:p.bytes,sha256:p.sha256};})()]};
+const manifestSource=JSON.stringify(nativePins),manifestSha=hash(manifestSource),manifestKey='requested82/m100/sha256/'+manifestSha+'/asset-pins.json';
+const manifestPin={name:'asset-pins.json',key:manifestKey,bytes:Buffer.byteLength(manifestSource),sha256:manifestSha};compiled.push(manifestPin);plan.nativeResources.push(manifestPin);
+await writeFile(resolve(out,'m100-native-pins.json'),manifestSource);
 const config={...previous,sourceCommit,resources:previous.resources.map(p=>{const next=compiled.find(x=>x.name===p.name);return next?{...p,key:next.key,sha256:next.sha256,bytes:next.bytes}:p;})};
 config.revision=hash(JSON.stringify({sourceCommit,resources:config.resources}));
 if(!validM100(config)||config.resources.length!==previous.resources.length)throw Error('M100_CONFIG_INVALID');
@@ -50,6 +59,14 @@ const props=Object.entries(config).map(([key,value])=>JSON.stringify(key)+':'+(k
 const source=(await esbuild.transform('import{resourceType as t,KV_PREFIX as p}from"./worker.mjs";const r='+JSON.stringify(tuples)+';export default{'+props.join(',')+'};',{loader:'js',format:'esm',minify:true,target:'es2022',charset:'utf8',legalComments:'none'})).code;
 const name='requested82m100r1/config.mjs';
 plan.replacements.push({name,source,bytes:Buffer.byteLength(source),sha256:hash(source),contentType:'application/javascript+module',previous:baseline.ownedPins.find(x=>x.name===name)});
+const pairPrevious=await deployedConfig('requested82pairr1/config.mjs');
+const pairBuild=await esbuild.build({entryPoints:[resolve(root,'codex-work/requested82-20261124/catalogue/trial-client.mjs')],bundle:true,write:false,platform:'browser',format:'esm',target:'es2022',minify:true,charset:'utf8',legalComments:'none',logLevel:'silent'});
+if(pairBuild.warnings.length||pairBuild.outputFiles.length!==1)throw Error('CLEAN_DASHBOARD_BUILD');
+const pairSource=pairBuild.outputFiles[0].text,pairSha=hash(pairSource),pairBytes=Buffer.byteLength(pairSource);
+await writeFile(resolve(out,'pair-app.mjs'),pairSource);plan.resources.push({name:'pair-app.mjs',sha256:pairSha,bytes:pairBytes,key:`requested82/first-pair/sha256/${pairSha}/app.mjs`});plan.cleanDashboard=true;
+const pairConfig={...pairPrevious,s:sourceCommit,a:pairPrevious.a.map((a,i)=>i===0?[pairSha,pairBytes]:a)};pairConfig.r=hash(JSON.stringify(pairConfig));
+const pairConfigSource=(await esbuild.transform('export default '+JSON.stringify(pairConfig)+';',{loader:'js',format:'esm',minify:true,target:'es2022',charset:'utf8',legalComments:'none'})).code;
+plan.replacements.push({name:'requested82pairr1/config.mjs',source:pairConfigSource,bytes:Buffer.byteLength(pairConfigSource),sha256:hash(pairConfigSource),contentType:'application/javascript+module',previous:baseline.ownedPins.find(x=>x.name==='requested82pairr1/config.mjs')});
 const projectedWorkerBytes=baseline.totalBytes+plan.replacements.reduce((sum,p)=>sum+p.bytes-p.previous.bytes,0);
 if(projectedWorkerBytes>66968590)throw Error('OWNED_MODULE_BYTE_BUDGET');
 await writeFile(resolve(out,'plan.json'),JSON.stringify(plan,null,2)+'\n');

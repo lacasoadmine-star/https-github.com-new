@@ -73,14 +73,14 @@ export function controlTextureName(id,{disabled=false,pressed=false,hovered=fals
  throw Error('UNKNOWN_CONTROL_TEXTURE');
 }
 
-export function createControlArt(name,url,dom=globalThis.document,{autoplay=false}={}){
- const frame=CONTROL_TEXTURES[name];
+export function createControlArt(name,url,dom=globalThis.document,{autoplay=false,frames=null}={}){
+ const actual=frames?.[name],frame=actual?{atlas:actual.atlas,atlasWidth:actual.atlasWidth,atlasHeight:actual.atlasHeight,...actual.frame,rotated:actual.rotated,trimX:actual.spriteSourceSize.x,trimY:actual.spriteSourceSize.y,sourceW:actual.sourceSize.w,sourceH:actual.sourceSize.h}:CONTROL_TEXTURES[name];
  if(!frame||typeof url!=='string'||!url)throw Error('CONTROL_ART_UNAVAILABLE');
  const ns='http://www.w3.org/2000/svg',svg=dom.createElementNS(ns,'svg'),crop=dom.createElementNS(ns,'svg'),image=dom.createElementNS(ns,'image');
  svg.setAttribute('viewBox',`0 0 ${frame.sourceW} ${frame.sourceH}`);
  svg.setAttribute('preserveAspectRatio','xMidYMid meet');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
  svg.classList.add('control-art');svg.dataset.texture=name;
- if(autoplay&&name==='Buttons/SpinStop'){
+ if(autoplay&&name==='Buttons/SpinStop'&&!frames){
   // The original gold STOP disk has a baked square. Exclude that centre and
   // insert the pixel-identical clean centre from SpinActive exactly once;
   // simply overpainting would leave its translucent glyph underneath.

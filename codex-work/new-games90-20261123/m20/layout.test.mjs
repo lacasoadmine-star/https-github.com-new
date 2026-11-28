@@ -26,3 +26,11 @@ test('hosts with less than the accessible row budget must scroll rather than shr
  assert.equal(MIN_PRESENTATION_HEIGHT,144);
  assert.throws(()=>presentationLayout(390,MIN_PRESENTATION_HEIGHT-1),/M20_VIEWPORT/);
 });
+for(const width of [360,390,430])test(`native phone ${width} keeps circular SPIN between AUTO/BET and all targets separate`,()=>{
+ const p=presentationLayout(width,818,{nativePortrait:true}),{spin,auto,bet,menu,sound}=p.controls;
+ assert.equal(p.nativePortrait,true);assert.equal(spin.width,spin.height);assert.equal(spin.x+spin.width/2,width/2);
+ assert(auto.x+auto.width<spin.x);assert(bet.x+.001>=spin.x+spin.width);assert(menu.y>auto.y+auto.height);assert.equal(menu.y,sound.y);
+ const rects=Object.values(p.controls);
+ for(const r of rects){assert(r.width>=44&&r.height>=44);assert(r.x>=0&&r.y>=0&&r.x+r.width<=width&&r.y+r.height<=p.height);}
+ for(let i=0;i<rects.length;i++)for(let j=i+1;j<rects.length;j++){const a=rects[i],b=rects[j];if([a,b].includes(p.controls.quick)&&[a,b].includes(spin)){assert(Math.hypot(a.x+a.width/2-b.x-b.width/2,a.y+a.height/2-b.y-b.height/2)>=a.width/2+b.width/2);continue;}assert(!(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>.001&&Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y)>.001));}
+});

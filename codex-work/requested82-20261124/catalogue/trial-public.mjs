@@ -1,5 +1,5 @@
 export const TRIAL_POLICY='USER_AUTHORIZED_FIRST_PAIR_LIVE_TRIAL';
-export const TRIAL_GRID='#zplay-live-catalog .restored-catalog-grid';
+export const TRIAL_GRID='#zplay-live-catalog .restored-catalog-grid:not([data-r82-new-grid])';
 export const TRIAL_SHEET_ID='zplay-requested82-pair-sheet';
 export const TRIAL_LOADER_ID='zplay-requested82-pair-loader';
 export const FIRST_PAIR=Object.freeze([

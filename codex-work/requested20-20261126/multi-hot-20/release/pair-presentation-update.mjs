@@ -8,20 +8,22 @@ export async function stagePairPresentationUpdate(cloudflare,accountId,plan){
   const configuration=v=>Object.fromEntries(['assets','bindings','cache_options','compatibility_date','compatibility_flags','containers','exports','limits','package_dependencies','placement','usage_model'].map(k=>[k,
     k==='bindings'?[...(v[k]||[])].sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0):['compatibility_flags','containers'].includes(k)?v[k]||[]:v[k]??null]));
   const SHA=/^[a-f0-9]{64}$/,UUID=/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/;
-  const targets=['requested82m20r1/config.mjs','requested82m20r1/worker.mjs','requested82m100r1/config.mjs'],maximumBytes=66968590;
+  const cleanDashboard=plan?.cleanDashboard===true,targets=['requested82m20r1/config.mjs','requested82m20r1/worker.mjs','requested82m100r1/config.mjs',...(cleanDashboard?['requested82pairr1/config.mjs']:[])],maximumBytes=66968590;
   const root=`/accounts/${accountId}/workers`,versions=root+'/workers/superwin-player/versions/';
   if(plan?.schema!=='zplay/pair-presentation-update/v1'||!/^[a-f0-9]{40}$/.test(plan.sourceCommit||'')||!UUID.test(plan.deploymentId||'')||
     !UUID.test(plan.baseline?.id||'')||!Number.isSafeInteger(plan.baseline.number)||plan.baseline.number<1||
     plan.baseline.mainModule!=='requested82pairr1/entry.mjs'||plan.baseline.moduleCount!==434||
     !Number.isSafeInteger(plan.baseline.totalBytes)||plan.baseline.totalBytes<1||plan.baseline.totalBytes>maximumBytes||
     !SHA.test(plan.baseline.inventorySha256||'')||!SHA.test(plan.baseline.configurationSha256||'')||!SHA.test(plan.baseline.entrySha256||'')||
-    plan.replacements?.length!==3||plan.resources?.length!==4||
+    plan.replacements?.length!==targets.length||plan.resources?.length!==(cleanDashboard?5:4)||
     targets.some((name,i)=>plan.replacements[i]?.name!==name)||
     plan.replacements.some(r=>r.contentType!=='application/javascript+module'||!SHA.test(r.sha256||'')||!Number.isSafeInteger(r.bytes)||r.bytes<1||
       r.previous?.name!==r.name||r.previous.contentType!==r.contentType||!SHA.test(r.previous.sha256||'')||!Number.isSafeInteger(r.previous.bytes)||r.previous.bytes<1)||
-    ['app.mjs','style.css','m100-app.mjs','m100-style.css'].some((name,i)=>plan.resources[i]?.name!==name||!SHA.test(plan.resources[i]?.sha256||'')||
+    ['app.mjs','style.css','m100-app.mjs','m100-style.css',...(cleanDashboard?['pair-app.mjs']:[])].some((name,i)=>plan.resources[i]?.name!==name||!SHA.test(plan.resources[i]?.sha256||'')||
       !Number.isSafeInteger(plan.resources[i]?.bytes)||plan.resources[i].bytes<1||plan.resources[i].bytes>1048576||
-      plan.resources[i].key!==(i>=2?`requested82/m100/sha256/${plan.resources[i].sha256}/${i===2?'app.mjs':'page.css'}`:`requested82/m20/recovery/${plan.resources[i].sha256}/${name}`)))throw Error('M20_PRESENTATION_PLAN');
+      plan.resources[i].key!==(i===4?`requested82/first-pair/sha256/${plan.resources[i].sha256}/app.mjs`:i>=2?`requested82/m100/sha256/${plan.resources[i].sha256}/${i===2?'app.mjs':'page.css'}`:`requested82/m20/recovery/${plan.resources[i].sha256}/${name}`)))throw Error('M20_PRESENTATION_PLAN');
+  if(plan.mediaResources&&(plan.mediaResources.length!==6||plan.mediaResources.some(p=>!SHA.test(p.sha256||'')||!Number.isSafeInteger(p.bytes)||p.bytes<1||p.bytes>4194304||! /^(atlas-[0-3]\.png|background(?:-vertical)?\.png)$/.test(p.name)||p.key!==`requested82/m20/media/${p.sha256}/${p.name}`)||new Set(plan.mediaResources.map(p=>p.name)).size!==6))throw Error('M20_CURRENT_MEDIA_PLAN');
+  if(plan.nativeResources&&(plan.nativeResources.length!==20||plan.nativeResources.some(p=>!SHA.test(p.sha256||'')||!Number.isSafeInteger(p.bytes)||p.bytes<1||p.bytes>8388608||! /^(asset-pins\.json|media\/Sprites\/Images-[0-7]\.(json|png)|media\/Spine\/Logo\/multi hot 100 logo\.(json|png|atlas\.txt))$/.test(p.name)||p.key!==`requested82/m100/sha256/${p.sha256}/${p.name}`)||new Set(plan.nativeResources.map(p=>p.name)).size!==20))throw Error('M100_CURRENT_MEDIA_PLAN');
   const deployed=async()=>(await cloudflare.request({method:'GET',path:root+'/scripts/superwin-player/deployments',query:{per_page:1}})).result.deployments[0];
   const matches=d=>d?.id===plan.deploymentId&&d.versions?.length===1&&d.versions[0].version_id===plan.baseline.id&&d.versions[0].percentage===100;
   if(!matches(await deployed()))throw Error('M20_PRESENTATION_ACTIVE_CHANGED');
@@ -50,7 +52,7 @@ export async function stagePairPresentationUpdate(cloudflare,accountId,plan){
   if(nextTotalBytes>maximumBytes)throw Error('M20_PRESENTATION_SIZE_LIMIT');
   const namespace=old.bindings.find(b=>b.name==='SSG_OFFICIAL_REFERENCES'&&b.type==='kv_namespace')?.namespace_id;
   if(!namespace)throw Error('M20_PRESENTATION_NAMESPACE');
-  for(const resource of plan.resources){
+  for(const resource of [...plan.resources,...(plan.mediaResources||[]),...(plan.nativeResources||[])]){
     const value=await cloudflare.request({method:'GET',path:`/accounts/${accountId}/storage/kv/namespaces/${namespace}/values/${resource.key}`});
     const body=typeof value==='string'?encode.encode(value):value;
     if(!(body instanceof Uint8Array)||body.length!==resource.bytes||await hash(body)!==resource.sha256)throw Error('M20_PRESENTATION_RESOURCE_PIN');
@@ -62,7 +64,7 @@ export async function stagePairPresentationUpdate(cloudflare,accountId,plan){
       'workers/tag':'requested20-pair-art-media-20261128'}}})).result;
   if(!staged?.id)throw Error('M20_PRESENTATION_STAGE_ID');
   return{schema:'zplay/pair-presentation-staged/v1',sourceCommit:plan.sourceCommit,baselineId:old.id,id:staged.id,number:staged.number,
-    mainModule:old.main_module,moduleCount:434,retainedModules:431,changedModules:3,totalBytes:nextTotalBytes,maximumBytes,configurationSha256,
+    mainModule:old.main_module,moduleCount:434,retainedModules:434-targets.length,changedModules:targets.length,totalBytes:nextTotalBytes,maximumBytes,configurationSha256,
     retainedInventorySha256:await hash(encode.encode(JSON.stringify(inventory.filter(m=>!targets.includes(m.name))))),
-    replacementPins:plan.replacements.map(({source,previous,...pin})=>pin),resources:plan.resources,fullReadbackRequired:true,activated:false};
+    replacementPins:plan.replacements.map(({source,previous,...pin})=>pin),resources:plan.resources,...(plan.mediaResources?{mediaResources:plan.mediaResources}:{}),...(plan.nativeResources?{nativeResources:plan.nativeResources}:{}),fullReadbackRequired:true,activated:false};
 }

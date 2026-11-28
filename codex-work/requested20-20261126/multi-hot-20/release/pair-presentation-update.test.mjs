@@ -16,8 +16,8 @@ async function fixture(){
   const previousAppPath='/_zplay/new90-m20/'+('a'.repeat(24))+'/app.'+('b'.repeat(64))+'.mjs';
   const previousStylePath='/_zplay/new90-m20/'+('a'.repeat(24))+'/style.'+('c'.repeat(64))+'.css';
   const entry='import previous from "../new90m20r1/entry.mjs"; export default previous;\n';
-  const original=[pin(prefix+'entry.mjs',entry),pin(prefix+'config.mjs','export default {retained:true};\n'),pin(prefix+'worker.mjs','export const retained=true;\n'),pin('requested82m100r1/config.mjs','export default {oldM100:true};\n'),pin('requested82pairr1/entry.mjs','export default {};\n')];
-  for(let i=0;i<429;i++)original.push(pin('retained/'+String(i).padStart(3,'0')+'.mjs','export const value='+i+';\n'));
+  const original=[pin(prefix+'entry.mjs',entry),pin(prefix+'config.mjs','export default {retained:true};\n'),pin(prefix+'worker.mjs','export const retained=true;\n'),pin('requested82m100r1/config.mjs','export default {oldM100:true};\n'),pin('requested82pairr1/entry.mjs','export default {};\n'),pin('requested82pairr1/config.mjs','export default {oldDashboard:true};\n')];
+  for(let i=0;i<428;i++)original.push(pin('retained/'+String(i).padStart(3,'0')+'.mjs','export const value='+i+';\n'));
   const old={id,number:479,main_module:'requested82pairr1/entry.mjs',migration_tag:'local-demo-v1',assets:{binding:'NATIVE_LIBRARY_ASSETS'},compatibility_date:'2026-10-01',compatibility_flags:[],exports:{LocalDemoWallet:{storage:'sqlite'},NativeGameResources:{storage:'sqlite'},default:{}},
     bindings:[{name:'SSG_OFFICIAL_REFERENCES',type:'kv_namespace',namespace_id:'fixture-kv'},...Array.from({length:17},(_,i)=>({name:'B'+i,type:'plain_text',text:'retained-value-'+i}))],
     modules:original.map(p=>({name:p.name,content_type:p.contentType,content_base64:Buffer.from(p.source).toString('base64')}))};
@@ -91,4 +91,11 @@ for(const name of ['missing-app','corrupt-app','missing-css','corrupt-css','miss
     const source=f.plan.replacements[0].source+'x'.repeat(1000);Object.assign(f.plan.replacements[0],{source,bytes:source.length,sha256:hash(source)});
   }
   await assert.rejects(stagePairPresentationUpdate(f.cloudflare,'fixture-account',f.plan));assert.equal(f.patch,null);
+});
+
+test('separate new dashboard changes only its own fourth config and verifies its app before staging',async()=>{
+ const f=await fixture(),previous=compact(f.old.modules.find(m=>m.name==='requested82pairr1/config.mjs')),replacement=pin(previous.name,'export default {newDashboard:true};\n');
+ f.plan.cleanDashboard=true;f.plan.replacements.push({...replacement,previous});const text='explicit dashboard fixture',sha256=hash(text),key=`requested82/first-pair/sha256/${sha256}/app.mjs`;f.plan.resources.push({name:'pair-app.mjs',bytes:Buffer.byteLength(text),sha256,key});f.resources.set(key,text);
+ const result=await stagePairPresentationUpdate(f.cloudflare,'fixture-account',f.plan);assert.equal(result.changedModules,4);assert.equal(result.retainedModules,430);assert.equal(result.activated,false);
+ const bad=await fixture();bad.plan=structuredClone(f.plan);bad.resources.set(key,'corrupted dashboard');await assert.rejects(stagePairPresentationUpdate(bad.cloudflare,'fixture-account',bad.plan),/RESOURCE_PIN/);assert.equal(bad.patch,null);
 });

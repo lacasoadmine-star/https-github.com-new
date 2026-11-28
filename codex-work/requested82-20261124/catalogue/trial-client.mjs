@@ -4,29 +4,10 @@ const STATE=Symbol.for('zplay.requested82.first-pair.v1'),PREFERENCES='zplay.req
 export function installFirstPair(manifest,{doc=document,win=window,storage=null}={}){
   if(!validTrialManifest(manifest))throw Error('FIRST_PAIR_MANIFEST_INVALID');
   if(win[STATE])return win[STATE];
-  let disposed=false,queued=false,sheet=null,selected=null,opener=null;
+  let disposed=false,queued=false,sheet=null,selected=null,opener=null,newGroup=null,newGrid=null;
   try{storage??=win.localStorage;}catch{}
   let preferences={};try{const saved=JSON.parse(storage?.getItem(PREFERENCES)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))preferences=saved;}catch{}
   const byId=new Map(manifest.games.map(game=>[game.gameId,game])),nodes=new Map(),admittedGrids=new WeakSet();
-  const canonicalGames=new Map([['ind74_official_multihot100',manifest.games[0]],['ind74_official_multihot20',manifest.games[1]]]),canonicalPatches=new Map();
-  function syncCanonicalLinks(grid){
-    for(const [id,game]of canonicalGames){
-      const card=grid.querySelector(`[data-catalog-game="${id}"]`),actions=card?.querySelector('.restored-game-actions');
-      if(!actions||actions.querySelector('[data-r82-pair-canonical]')?.getAttribute('href')===game.route)continue;
-      if(!canonicalPatches.has(card))canonicalPatches.set(card,{actions,children:[...actions.childNodes],status:card.dataset.status});
-      const play=doc.createElement('a');play.className='restored-game-account';play.href=game.route;play.textContent='Play Now';
-      play.setAttribute('aria-label','Play Now · '+game.name);play.dataset.r82PairCanonical=game.gameId;
-      // Keep legacy routes and IDs intact, but every current dashboard PLAY for
-      // these two titles must use the current native view, not its old launcher.
-      actions.replaceChildren(play);card.dataset.status='available';
-    }
-    for(const [card]of canonicalPatches)if(!card.isConnected)canonicalPatches.delete(card);
-  }
-  function onCanonicalDetails(event){
-    if(win.location.pathname!=='/')return;
-    const button=event.target.closest?.('[data-game-details]'),game=canonicalGames.get(button?.dataset.gameDetails);
-    if(!game)return;event.preventDefault();event.stopImmediatePropagation();show(game,button);
-  }
   const preference=id=>({liked:preferences[id]?.liked===true,favorite:preferences[id]?.favorite===true});
   function save(){try{storage?.setItem(PREFERENCES,JSON.stringify(Object.fromEntries(manifest.games.map(game=>[game.gameId,preference(game.gameId)]))));}catch{}}
   function close(){if(sheet?.open)sheet.close();}
@@ -49,9 +30,9 @@ export function installFirstPair(manifest,{doc=document,win=window,storage=null}
     for(const game of manifest.games){const node=nodes.get(game.gameId);if(!node)continue;const match=game.name.toLowerCase().replace(/[^a-z0-9]/g,'').includes(query);
       node.hidden=!match||kind==='preparing'||kind==='favorites'&&!preference(game.gameId).favorite;
     }
-    const trialVisible=[...nodes.values()].filter(node=>!node.hidden&&node.parentElement===grid).length;
+    const trialVisible=[...nodes.values()].filter(node=>!node.hidden&&node.parentElement===newGrid).length;
     const originalVisible=grid.querySelectorAll('.restored-game-card:not([data-r82-pair-id])').length;
-    grid.closest('.restored-catalog-group').hidden=originalVisible+trialVisible===0;
+    if(newGroup)newGroup.hidden=trialVisible===0;
     const empty=container.querySelector('[data-catalog-empty]');if(empty)empty.hidden=originalVisible+trialVisible!==0;
     const count=container.querySelector('[data-catalog-count]');if(count){let extra=count.querySelector('[data-r82-pair-count]');
       if(!extra){extra=doc.createElement('span');extra.dataset.r82PairCount='';count.append(extra);}
@@ -60,17 +41,19 @@ export function installFirstPair(manifest,{doc=document,win=window,storage=null}
   }
   function mount(){
     queued=false;if(disposed)return;
-    if(win.location.pathname!=='/'){for(const node of nodes.values())node.remove();close();return;}
+    if(win.location.pathname!=='/'){newGroup?.remove();for(const node of nodes.values())node.remove();close();return;}
     const grid=doc.querySelector(TRIAL_GRID),anchor=grid?.querySelector('[data-catalog-game="ind74_official_multihot5"]');
     if(!grid)return;
     if(anchor&&grid.querySelector('[data-catalog-game="ind74_official_foxyhot20"]'))admittedGrids.add(grid);
     if(!admittedGrids.has(grid))return;
-    syncCanonicalLinks(grid);
-    let cursor=anchor;
+    const originalGroup=grid.closest('.restored-catalog-group');
+    if(!newGroup?.isConnected){newGroup=doc.createElement('section');newGroup.className='restored-catalog-group';newGroup.dataset.r82NewGroup='true';const title=doc.createElement('h2');title.className='restored-catalog-group-title';title.textContent='Ciyaaraha cusub';newGrid=doc.createElement('div');newGrid.className='restored-catalog-grid';newGrid.dataset.r82NewGrid='true';newGroup.append(title,newGrid);}
+    if(originalGroup.previousElementSibling!==newGroup)originalGroup.before(newGroup);
+    let cursor=null;
     for(const game of manifest.games){let node=nodes.get(game.gameId);
       if(!node){const template=doc.createElement('template');template.innerHTML=renderTrialCard(game);node=template.content.firstElementChild;nodes.set(game.gameId,node);}
-      if(cursor){if(node.parentElement!==grid||node.previousElementSibling!==cursor)cursor.after(node);}
-      else if(node.parentElement!==grid||node.previousElementSibling!==null)grid.prepend(node);cursor=node;
+      if(cursor){if(node.parentElement!==newGrid||node.previousElementSibling!==cursor)cursor.after(node);}
+      else if(node.parentElement!==newGrid||node.previousElementSibling!==null)newGrid.prepend(node);cursor=node;
     }
     filter(grid);
   }
@@ -91,8 +74,8 @@ export function installFirstPair(manifest,{doc=document,win=window,storage=null}
   for(const key of ['zplay.new90.lobby.v1','zplay.new71.lobby.v1'])win[Symbol.for(key)]?.dispose?.();
   for(const selector of ['#zplay-requested90','#zplay-requested71'])doc.querySelector(selector)?.remove();
   const observer=new win.MutationObserver(schedule);observer.observe(doc.documentElement,{childList:true,subtree:true});
-  doc.addEventListener('click',onCanonicalDetails,true);doc.addEventListener('click',onClick);doc.addEventListener('input',onInput);win.addEventListener('popstate',schedule);win.addEventListener('hashchange',schedule);
-  const api=Object.freeze({mount,dispose(){if(disposed)return;disposed=true;observer.disconnect();doc.removeEventListener('click',onCanonicalDetails,true);doc.removeEventListener('click',onClick);doc.removeEventListener('input',onInput);win.removeEventListener('popstate',schedule);win.removeEventListener('hashchange',schedule);close();sheet?.remove();for(const node of nodes.values())node.remove();for(const [card,old]of canonicalPatches){if(card.isConnected){old.actions.replaceChildren(...old.children);card.dataset.status=old.status;}}canonicalPatches.clear();doc.querySelector('[data-r82-pair-count]')?.remove();if(win[STATE]===api)delete win[STATE];}});
+  doc.addEventListener('click',onClick);doc.addEventListener('input',onInput);win.addEventListener('popstate',schedule);win.addEventListener('hashchange',schedule);
+  const api=Object.freeze({mount,dispose(){if(disposed)return;disposed=true;observer.disconnect();doc.removeEventListener('click',onClick);doc.removeEventListener('input',onInput);win.removeEventListener('popstate',schedule);win.removeEventListener('hashchange',schedule);close();sheet?.remove();newGroup?.remove();for(const node of nodes.values())node.remove();doc.querySelector('[data-r82-pair-count]')?.remove();if(win[STATE]===api)delete win[STATE];}});
   win[STATE]=api;mount();return api;
 }
 

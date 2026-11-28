@@ -11,6 +11,8 @@ import {PAYLINES} from '../../new-games90-20261123/m20/presentation-quote.mjs';
 const output=resolve(process.env.ZPLAY_M20_QA_OUTPUT||''),media=resolve(process.env.ZPLAY_M20_QA_MEDIA||'');
 assert(process.env.ZPLAY_M20_QA_OUTPUT&&process.env.ZPLAY_M20_QA_MEDIA,'Explicit private scratch output and verified same-game media directories required');
 const repository=resolve(new URL('../../../',import.meta.url).pathname);
+const currentMedia=resolve(process.env.ZPLAY_M20_QA_CURRENT_MEDIA||resolve(media,'../m20-current-media'));
+assert(!currentMedia.startsWith(repository+'/'),'Keep current verified official media outside source');
 assert(!output.startsWith(repository+'/')&&!media.startsWith(repository+'/'),'Keep private media/captures outside the repository');
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 const revision='79bb7e48737feb68a2e905f8',oldHash='d4c20fdb220638287477a1464c4b47e5bfb6e6f2b7b49988d344d3cc8d1250e6';
@@ -50,8 +52,11 @@ const previous={async fetch(request){const url=new URL(request.url),path=url.pat
   if(path==='/favicon.ico')return new Response(null,{status:204});return new Response('No fixture handler',{status:404});
 }};
 const worker=createM20RecoveryWorker(previous,build.config),staticBytes=new Map(build.staticFiles.map(file=>[file.key,new TextEncoder().encode(file.source).buffer]));
+const currentPins=(await import('./current-media.mjs')).M20_CURRENT_MEDIA.files;
+for(const [name,pin] of Object.entries(currentPins))staticBytes.set(`requested82/m20/media/${pin.sha256}/${name}`,await readFile(resolve(currentMedia,name)));
 const server=createServer(async(req,res)=>{try{const chunks=[];for await(const chunk of req)chunks.push(chunk);const request=new Request('http://fixture'+req.url,{method:req.method,headers:req.headers,...(chunks.length?{body:Buffer.concat(chunks),duplex:'half'}:{})});
-  const response=await worker.fetch(request,{SSG_OFFICIAL_REFERENCES:{get:async key=>staticBytes.get(key)??null}},{});
+  const response=await worker.fetch(request,{SSG_OFFICIAL_REFERENCES:{get:async key=>{if(key.startsWith('requested82/m20/media/')){const name=key.split('/').at(-1);assetRequests.push(name);if(delayAssetOnce&&name==='atlas-0.png'){delayAssetOnce=false;await new Promise(done=>setTimeout(done,16000));}}
+    const value=staticBytes.get(key);return value instanceof Uint8Array?value.buffer.slice(value.byteOffset,value.byteOffset+value.byteLength):value??null;}}},{});
   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));
 }catch(error){res.writeHead(500);res.end(error.message);}});
 await new Promise(done=>server.listen(0,'127.0.0.1',done));const origin=`http://127.0.0.1:${server.address().port}`;
@@ -103,7 +108,7 @@ try{
     const page=await context.newPage(),errors=[];page.setDefaultTimeout(20000);page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin!==origin){blocked.push(u.origin);return route.abort();}return route.continue();});
     await page.addInitScript(()=>{const draw=CanvasRenderingContext2D.prototype.drawImage;window.fixtureFault={armed:true,failures:0};
-      CanvasRenderingContext2D.prototype.drawImage=function(...args){if(window.fixtureFault.armed&&this.canvas.width===1363&&this.canvas.height===766&&document.getElementById('m20-game')?.dataset.phase==='ANIMATING'){
+      CanvasRenderingContext2D.prototype.drawImage=function(...args){if(window.fixtureFault.armed&&this.canvas.getAttribute('data-m20-native-output')==='true'&&document.getElementById('m20-game')?.dataset.phase==='ANIMATING'){
         window.fixtureFault.armed=false;window.fixtureFault.failures++;throw Error('isolated fixture accepted-frame drawing failure');}return draw.apply(this,args);};});
     await page.goto(origin+'/');await page.getByRole('link',{name:'PLAY Multi Hot 20',exact:true}).click();
     await page.getByRole('button',{name:'No',exact:true}).click();
@@ -112,14 +117,14 @@ try{
     await page.getByRole('button',{name:'Sound',exact:true}).click();
     await page.waitForFunction(()=>document.querySelector('.m20-sound')?.getAttribute('aria-pressed')==='true');
     await page.waitForFunction(()=>[...document.querySelectorAll('.m20-control')].every(node=>node.getBoundingClientRect().bottom<=innerHeight+1));
-    const targets=await page.locator('.m20-control').evaluateAll(nodes=>nodes.map(node=>{const r=node.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {name:node.dataset.action,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height,hit:hit===node||node.contains(hit)};}));
+    const targets=await page.locator('.m20-control').evaluateAll(nodes=>nodes.map(node=>{const r=node.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {name:node.dataset.action,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height,visible:getComputedStyle(node).visibility!=='hidden',hit:hit===node||node.contains(hit)};}));
     assert.equal(targets.length,8);
-    for(const r of targets){assert(r.x>=-1&&r.y>=0&&r.right<=width+1&&r.bottom<=height+1,r.name);assert(r.width>=44&&r.height>=44,r.name);assert(r.hit,r.name);}
+    for(const r of targets){assert(r.x>=-1&&r.y>=0&&r.right<=width+1&&r.bottom<=height+1,r.name);assert(r.width>=44&&r.height>=44,r.name);if(r.visible)assert(r.hit,r.name);}
     assert.equal(await page.locator('#m20-game').getAttribute('data-cash-enabled'),'true');
     assert(await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).isEnabled());
     assert.equal(await page.locator('.m20-spin .m20-control-label').evaluate(node=>getComputedStyle(node).clipPath),'none');
     assert(await page.locator('.m20-spin').evaluate(node=>node.querySelector('.m20-control-label').getBoundingClientRect().width<=node.getBoundingClientRect().width));
-    await page.screenshot({path:resolve(output,`m20-native-ready-${width}.png`)});
+    await page.screenshot({path:resolve(output,`m20-native-ready-${width}x${height}.png`)});
     await page.getByRole('button',{name:'Bet',exact:true}).click();assert(await page.getByRole('dialog').isVisible());
     await page.getByRole('button',{name:'1.00',exact:true}).click();
     await page.getByRole('button',{name:'HOLD & SPIN',exact:true}).click();
@@ -136,6 +141,11 @@ try{
     await page.getByRole('button',{name:'Take win',exact:true}).click();
     await page.waitForFunction(()=>document.getElementById('m20-game').dataset.phase==='READY');
     assert.equal(calls.filter(c=>c.method==='POST').length,1);assert.equal(balance,'129.00');
+    await page.getByRole('button',{name:'Autoplay',exact:true}).click();await page.getByRole('button',{name:'50',exact:true}).click();
+    assert.equal(await page.locator('[data-auto-count]').inputValue(),'50');assert.equal(calls.filter(c=>c.method==='POST').length,1);
+    const autoTargets=await page.locator('.m20-auto-counts button').evaluateAll(nodes=>nodes.map(node=>{const r=node.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {visible:r.width>0&&r.height>0,hit:hit===node||node.contains(hit)};}));
+    for(const target of autoTargets)assert(target.visible&&target.hit,'native AUTO count target');
+    await page.screenshot({path:resolve(output,`m20-native-auto-${width}x${height}.png`)});await page.keyboard.press('Escape');
     await page.getByRole('button',{name:'Menu',exact:true}).click();assert(await page.getByRole('dialog').isVisible());
     await page.getByRole('button',{name:'Settings',exact:true}).click();assert(await page.getByRole('checkbox',{name:'Music',exact:true}).isVisible());
     await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);

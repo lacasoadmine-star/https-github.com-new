@@ -16,13 +16,14 @@ export function createM20RecoveryWorker(previous,config) {
     !new RegExp('^/_zplay/new90-m20/'+config.baselineRevision+'/style\\.[a-f0-9]{64}\\.css$').test(config.previousStylePath||'')))throw Error('M20_RECOVERY_CONFIG_INVALID');
   return {...previous,async fetch(request,env,ctx) {
     const path=new URL(request.url).pathname;
-    const asset=path===config.appPath?{key:config.appKey,bytes:config.appBytes,sha256:config.appSha256,type:'text/javascript; charset=utf-8'}:
+    const media=/^\/_zplay\/requested82-m20\/media\/([a-f0-9]{64})\/(atlas-[0-3]\.png|background(?:-vertical)?\.png)$/.exec(path);
+    const asset=media?{key:`requested82/m20/media/${media[1]}/${media[2]}`,sha256:media[1],type:'image/png'}:path===config.appPath?{key:config.appKey,bytes:config.appBytes,sha256:config.appSha256,type:'text/javascript; charset=utf-8'}:
       hasStyle&&path===config.stylePath?{key:config.styleKey,bytes:config.styleBytes,sha256:config.styleSha256,type:'text/css; charset=utf-8'}:null;
     if(asset) {
       if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD','Cache-Control':'no-store'}});
       try {
         const body=await env?.SSG_OFFICIAL_REFERENCES?.get(asset.key,{type:'arrayBuffer'});
-        if(!(body instanceof ArrayBuffer)||body.byteLength!==asset.bytes||await hash(body)!==asset.sha256)return unavailable();
+        if(!(body instanceof ArrayBuffer)||body.byteLength>4194304||asset.bytes&&body.byteLength!==asset.bytes||await hash(body)!==asset.sha256)return unavailable();
         return new Response(request.method==='HEAD'?null:body,{headers:{'Content-Type':asset.type,'Cache-Control':'public, max-age=31536000, immutable',
           'X-Content-Type-Options':'nosniff',ETag:'"'+asset.sha256+'"','X-Zplay-M20-Recovery':config.appSha256}});
       }catch{return unavailable();}

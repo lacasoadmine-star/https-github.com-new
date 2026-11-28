@@ -16,7 +16,7 @@ const paytable=({bet})=>Object.entries(M100_PUBLIC_COEFFICIENTS).map(([symbol,co
 const localPath=value=>typeof value==='string'&&/^\/[A-Za-z0-9/_-]*$/.test(value)?value:'/';
 
 /** Production bootstrap uses only the existing authenticated original-wire host. */
-export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=new URL('./asset-pins.json',import.meta.url),audioBaseURL=null,
+export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=new URL('./asset-pins.json',import.meta.url),audioBaseURL=null,portraitBackgroundPin=null,
  loginURL='/player/login',lobbyURL='/',fetcher=globalThis.fetch,storage=globalThis.localStorage,sessionStorage=globalThis.sessionStorage}={}){
  if(!root?.ownerDocument)throw TypeError('M100_PAGE_ROOT');const doc=root.ownerDocument,win=doc.defaultView;
  if(!status){status=doc.createElement('p');status.className='m100-page-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');root.before(status);}
@@ -37,7 +37,7 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
   phase='LOADING';announce('Loading Multi Hot 100…');assetAbort=new win.AbortController();
   const response=await fetcher(assetPinsURL,{credentials:'omit',redirect:'error',cache:'force-cache',signal:assetAbort.signal});if(!response.ok||response.redirected)throw Error('M100_PAGE_ASSET_PINS');
   const manifest=await response.json();if(manifest.schema!=='zplay/m100-current-static-pins/v1'||!Array.isArray(manifest.pins))throw Error('M100_PAGE_ASSET_PINS');
-  const loaded=await loadM100Assets({baseURL:assetBaseURL,pins:manifest.pins,fetcher,signal:assetAbort.signal});if(disposed||token!==version){loaded.dispose();return;}assets=loaded;
+  const loaded=await loadM100Assets({baseURL:assetBaseURL,pins:manifest.pins,fetcher,signal:assetAbort.signal,portraitBackgroundPin});if(disposed||token!==version){loaded.dispose();return;}assets=loaded;
   audio=createM100Audio({baseURL:audioBaseURL,fetcher,onUnavailable:()=>{if(!disposed&&token===version)announce('Sound is unavailable. You can continue muted.');}});
   phase='SOUND_CHOICE';announce('Choose sound before playing.');root.innerHTML=`<section class="m100-page-message m100-sound-choice"><h1>Multi Hot 100</h1><p>Play with sound?</p>${audioBaseURL?'<button type="button" class="m100-page-primary" data-m100-sound>Enable sound</button>':''}<button type="button" data-m100-muted>Play muted</button></section>`;
   let selectionStarted=false;
