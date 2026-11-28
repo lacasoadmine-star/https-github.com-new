@@ -27,8 +27,8 @@ export async function loadM100Assets({baseURL,pins,fetcher=globalThis.fetch,
     async function load(pin){
       const response=await fetcher(new URL(pin.path,base),{credentials:'omit',redirect:'error',signal:cancel.signal,cache:'force-cache'});
       if(!response.ok||response.redirected)throw Error('M100_ASSET_HTTP');
-      const declared=response.headers.get('content-length');
-      if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)!==pin.bytes))throw Error('M100_ASSET_LENGTH');
+      // HTTP length may describe compressed transfer bytes. Pins describe the
+      // decoded asset returned by arrayBuffer(), which is checked below.
       const body=await response.arrayBuffer();
       if(body.byteLength!==pin.bytes||await digest(body)!==pin.sha256)throw Error('M100_ASSET_HASH');
       let value;
