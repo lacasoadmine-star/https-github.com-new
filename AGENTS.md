@@ -1,3 +1,11 @@
+# Latest published correction — 28 November 2026
+
+- Player483 is100% live, version d237db5b-ad05-4fbc-afc4-87544a15a58e, deployment7ca1d869-63f3-4a6c-9da7-a1aa0b5b51c1, implementation source299691e. Post-activation full434-module/runtime/KV verification and real in-page browser HTTP bytes passed. Read `codex-work/requested20-20261126/pair-presentation-release-20261128.json`. The first pre-activation metadata readback failed and outer orchestration incorrectly continued; do not call it a passed precheck. Future activation must use the atomic `publishVerifiedPairPresentation` helper, which prevents POST after a failed verification. MCP tools can return `isError` without throwing; stop dependent mutations explicitly on failure.
+- Both current PLAY routes remain200 and the dashboard was refreshed. The Player session expired401; use normal manual sign-in in the same Cloudflare browser for further authenticated controls. The seven additional live spins per first-pair title are already complete; do not repeat them after re-sign-in.
+- The newly uploaded Screen_Recording_20261128_025212_Chrome_1.mp4 exceeds the32 MiB transfer limit and has not been inspected. Do not claim its frames were watched or substitute old uploaded videos. Current official M20 phone/audio parity remains open after its official loader/JavaScript failure. The seventy-game queue is still pending behind the first pair.
+
+---
+
 # Latest first-pair priority — 28 November 2026
 
 - The user explicitly says to finish real visual, audio, touch and loading faults in Multi Hot100 and Multi Hot20 before advancing to the remaining70. A working PLAY link, seven accepted spins or the existing `✅ CUSUB` badge alone does not establish completion or provider parity.
