@@ -28,7 +28,7 @@ test('only the M20 page allows its verified local image and audio URLs',async()=
   const original="default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; base-uri 'none'; frame-ancestors 'self'";
   const f=setup(html,{'Content-Security-Policy':original});
   const page=await f.worker.fetch(new Request('https://fixture'+GAME_PATH),f.env,{});
-  assert.equal(page.headers.get('content-security-policy'),original.replace("img-src 'self'","img-src 'self' blob:").replace("media-src 'self'","media-src 'self' blob:"));
+  assert.equal(page.headers.get('content-security-policy'),original.replace("img-src 'self'","img-src 'self' blob: data:").replace("media-src 'self'","media-src 'self' blob:"));
   const lobby=await f.worker.fetch(new Request('https://fixture/'),f.env,{});
   assert.equal(lobby.headers.get('content-security-policy'),original);
 });
@@ -65,7 +65,7 @@ test('paired presentation release serves only its emitted app and CSS while pres
   assert.equal(build.report.oldMediaUnchanged,true);assert.equal(build.report.stylesChanged,true);assert.equal(build.report.oldMediaAndStylesUnchanged,false);
   assert.equal(build.staticFiles.length,2);assert(build.report.workerBytes<10000);
   assert.match(build.staticFiles[1].source,/data-compact=true/);assert.match(build.staticFiles[1].source,/\.m20-host-header/);
-  assert.equal(build.report.inputs.filter(pin=>pin.path.endsWith('.css')).length,2);
+  assert.equal(build.report.inputs.filter(pin=>pin.path.endsWith('.css')).length,3);
   const body=html.replace('/unchanged.css',previousStylePath).replace(previousAppPath,config.appPath);
   const requests=[],previous={marker:'retained',async fetch(request){requests.push(request);return new Response(body,{headers:{'Content-Type':'text/html','X-Zplay-M20-Release':revision,'Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'self'",'Set-Cookie':'fixture=opaque; HttpOnly'}});}};
   const bytes=new Map(build.staticFiles.map(file=>[file.key,new TextEncoder().encode(file.source).buffer]));

@@ -21,7 +21,7 @@ export async function buildM20Recovery({activeMainModule,baselineRevision,previo
   const staticFiles=[{key:config.appKey,name:'app.mjs',source,bytes:appBytes,sha256:appSha256,contentType:'text/javascript; charset=utf-8'}];
   const styleInputs=[];
   if(previousStylePath!==null){
-    const paths=['../../new-games90-20261123/m20/style.css','../../new-games90-20261123/m20-release/host.css'];
+    const paths=['../../new-games90-20261123/m20/style.css','../../new-games90-20261123/m20-release/host.css','../pair-opening.css'];
     const sources=await Promise.all(paths.map(async path=>{const absolute=resolve(directory,path),bytes=await readFile(absolute);styleInputs.push({path:absolute,bytes:bytes.length,sha256:digest(bytes)});return bytes.toString('utf8');}));
     const css=await esbuild.transform(sources.join('\n'),{loader:'css',minify:true,target:'es2022',charset:'utf8',legalComments:'none'});
     if(css.warnings.length)throw Error('M20_PRESENTATION_STYLE_INVALID');

@@ -37,7 +37,7 @@ plan.mediaResources=Object.entries(M20_CURRENT_MEDIA.files).map(([name,p])=>({na
 const compiled=[];
 for(const [name,entry] of [['app.mjs','browser.mjs'],['page.css','../page.css']]){
  const result=await esbuild.build({entryPoints:[resolve(root,'codex-work/requested82-20261124/multi-hot-100/release',entry)],bundle:true,write:false,platform:'browser',format:'esm',target:'es2022',minify:true,charset:'utf8',legalComments:'none',logLevel:'silent',metafile:true});
- if(result.warnings.length||result.outputFiles.length!==1||Object.values(result.metafile.outputs).some(x=>x.imports.length))throw Error('M100_BUNDLE_NOT_CLOSED');
+ if(result.warnings.length||result.outputFiles.length!==1||Object.values(result.metafile.outputs).some(x=>x.imports.some(i=>!(name==='page.css'&&i.kind==='url-token'&&i.path.startsWith('data:image/gif;base64,')&&hash(Buffer.from(i.path.slice(22),'base64'))==='4d5662742ebb6a6c564a9c225040c034062c1fdc7d4e12e0b1f227350ad26c99'))))throw Error('M100_BUNDLE_NOT_CLOSED');
  const source=result.outputFiles[0].text,sha256=hash(source),bytes=Buffer.byteLength(source),key='requested82/m100/sha256/'+sha256+'/'+name;
  compiled.push({name,source,sha256,bytes,key});
  await writeFile(resolve(out,name==='app.mjs'?'m100-app.mjs':'m100-style.css'),source);

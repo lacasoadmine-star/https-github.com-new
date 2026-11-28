@@ -53,7 +53,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     if(drawScene){drawScene({canvas,context:ctx,state,presentation:view,assets,portrait});return;}
     if(assets?.background){void assets.useBackground?.(portrait).catch(()=>{});const bg=assets.background,phoneBackground=portrait&&assets.portraitBackgroundAvailable,scale=Math.max(size.width/bg.width,size.height/bg.height)*(phoneBackground?1.12:1);ctx.drawImage(bg,(size.width-bg.width*scale)/2,phoneBackground?0:(size.height-bg.height*scale)/2,bg.width*scale,bg.height*scale);}
     else {const fill=ctx.createRadialGradient(size.width/2,size.height/2,0,size.width/2,size.height/2,size.width*.8);fill.addColorStop(0,'#07583d');fill.addColorStop(.7,'#002b23');fill.addColorStop(1,'#001b1d');ctx.fillStyle=fill;ctx.fillRect(0,0,size.width,size.height);}
-    const x=portrait?3:386,y=portrait?Math.round(size.height*.294):184+verticalOffset,w=portrait?594:568,h=portrait?475.2:460,cw=w/5,ch=h/4;
+    const x=portrait?3:386,y=portrait?Math.round(size.height*.274):184+verticalOffset,w=portrait?594:568,h=portrait?475.2:460,cw=w/5,ch=h/4;
     game.style.setProperty('--m100-reels-bottom',`${(y+h)/size.height*100}%`);
     const nativeCabinet=assets?.frames?.names?.includes('Box/Background');
     if(nativeCabinet){const cabinet=assets.frames.get('Box/Background'),trim=assets.frames.metadata('Box/Background').spriteSourceSize;ctx.drawImage(cabinet,trim.x,trim.y,trim.w,trim.h,x-5,y-5,w+10,h+10);}
@@ -140,7 +140,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     renderModal(state);
     try{scene(state,view);renderError=false;}catch{if(!renderError){renderError=true;message('The game artwork could not be displayed.');}}
   }
-  function autoFields(state){return `<label>Number of rounds<select name="maximumRounds">${M100_OBSERVED_AUTO_COUNTS.map(n=>`<option value="${n}" ${n===autoCount?'selected':''}>${n}</option>`).join('')}</select></label>${[['winAtLeast','If a win reaches or exceeds'],['balanceDecrease','If balance decreases'],['balanceIncrease','If balance increases']].map(([name,label])=>`<div class="m100-auto-limit"><label><input type="checkbox" name="${name}Enabled" ${autoLimits[name]?'checked':''}>${label}</label><label class="m100-sr" for="m100-${name}">${label} amount</label><input id="m100-${name}" name="${name}" aria-label="${label} amount" inputmode="decimal" value="${esc(autoLimits[name]??'')}" ${autoLimits[name]?'':'disabled'}></div>`).join('')}<p class="m100-modal-error" role="alert"></p>${button('auto-start','Start Play',onAutoStart?'':'disabled')}${onAutoStart?'':'<p>Autoplay is unavailable for this session.</p>'}`;}
+  function autoFields(state){return `<div class="m100-counts" role="group" aria-label="Number of rounds">${M100_OBSERVED_AUTO_COUNTS.map(n=>button('count:'+n,n,`aria-pressed="${n===autoCount}"`)).join('')}</div><p class="m100-stop-label">STOP AUTOPLAY</p>${[['winAtLeast','If a win reaches or exceeds'],['balanceDecrease','If balance decreases'],['balanceIncrease','If balance increases']].map(([name,label])=>`<div class="m100-auto-limit"><label><input type="checkbox" name="${name}Enabled" ${autoLimits[name]?'checked':''}>${label}</label><label class="m100-sr" for="m100-${name}">${label} amount</label><input id="m100-${name}" name="${name}" aria-label="${label} amount" inputmode="decimal" value="${esc(autoLimits[name]??'')}" ${autoLimits[name]?'':'disabled'}></div>`).join('')}<p class="m100-modal-error" role="alert"></p>${button('auto-start','Start Play',onAutoStart?'':'disabled')}${onAutoStart?'':'<p>Autoplay is unavailable for this session.</p>'}`;}
   function rulesContent(state){
     const items=typeof paytable==='function'?paytable({bet:state.paytablePreviewBet,currency:state.currency}):paytable;
     return `<p class="m100-paytable-heading">All symbol wins are in ${esc(state.currency)}</p><div class="m100-preview">${button('preview-minus','−','aria-label="Decrease paytable preview bet"')}<span>${esc(state.paytablePreviewBet)}<small>${esc(state.currency)}</small></span>${button('preview-plus','+','aria-label="Increase paytable preview bet"')}</div>${Array.isArray(items)&&items.length?`<div class="m100-paytable">${items.map(item=>`<article>${Object.hasOwn(M100_SYMBOL_FRAMES,item.symbol)?`<canvas data-paytable-symbol="${esc(item.symbol)}" width="160" height="160" aria-label="${esc(item.label??item.symbol)}" role="img"></canvas>`:`<h3>${esc(item.label??item.symbol)}</h3>`}${(item.rows??[]).map(row=>`<p>${esc(row)}</p>`).join('')}</article>`).join('')}</div>`:'<p>The paytable is unavailable for this session.</p>'}${rules.map(item=>`<article><h3>${esc(item.title)}</h3><p>${esc(item.body)}</p></article>`).join('')}<article class="m100-controls-help"><h3>Controls</h3><dl><dt>SPIN / Space</dt><dd>Start one round. During a round, STOP finishes its presentation when the accepted result is available.</dd><dt>TAKE WIN</dt><dd>Collect the pending win.</dd><dt>X2</dt><dd>Open the double panel and choose red or black.</dd><dt>BET</dt><dd>Select the stake before starting a round.</dd><dt>Escape</dt><dd>Close the open panel.</dd></dl></article>`;
@@ -178,6 +178,14 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
       }
       positionBetModal();
     }
+    const autoPanel=overlay.querySelector('.m100-auto-modal');
+    if(autoPanel){
+      const popup=nativeURL('AutoPlay/Popup');
+      if(popup)autoPanel.style.backgroundImage=`url("${popup}")`;
+      nativeButton(autoPanel.querySelector('[data-action=close]'),'AutoPlay/Close');
+      nativeButton(autoPanel.querySelector('[data-action=auto-start]'),'AutoPlay/Save');
+      for(const el of autoPanel.querySelectorAll('.m100-counts button'))nativeButton(el,el.getAttribute('aria-pressed')==='true'?'AutoPlay/ButtonActive':'AutoPlay/Button');
+    }
     const quick=overlay.querySelector('.m100-quick-modal');
     if(quick){for(const [element,name] of [[quick,'QuickPlay/Popup'],[quick.querySelector('[data-action="quick-enable"]'),'QuickPlay/Confirm'],[quick.querySelector('.m100-quick-cancel'),'QuickPlay/Cancel']]){const url=nativeURL(name);if(url)element.style.backgroundImage=`url("${url}")`;}nativeButton(quick.querySelector('header [data-action="close"]'),'QuickPlay/Close');}
   }
@@ -203,7 +211,7 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
     overlay.classList.toggle('m100-information-overlay',isInfo);
     const infoTabs=isInfo?`<footer class="m100-information-tabs" role="tablist" aria-label="Game information">${[['rules','Rules','?'],['settings','Settings','⚙'],['history','History','◴']].map(([name,label,icon])=>button(`info:${name}`,`<span aria-hidden="true">${icon}</span><span class="m100-info-tab-label">${label}</span>`,`role="tab" aria-label="${label}" aria-selected="${tab===name}"`)).join('')}</footer>`:'';
     const heading=isInfo?`<h2 class="m100-sr">Game information</h2><span class="m100-information-round">${state.round?`Round ${esc(state.round.roundId)}`:'Multi Hot 100'}</span>`:`<h2>${title}</h2>`;
-    overlay.innerHTML=`<section class="m100-modal ${isInfo?'m100-info-modal':state.modal==='quick'?'m100-quick-modal':state.modal==='bet'?'m100-bet-modal':''}" role="dialog" aria-modal="true" aria-label="${title}" tabindex="-1"><header>${heading}${button('close',isInfo?'Close <span aria-hidden="true">×</span>':'×','aria-label="Close panel"')}</header><div class="m100-modal-body">${content}</div>${infoTabs}</section>`;
+    overlay.innerHTML=`<section class="m100-modal ${isInfo?'m100-info-modal':state.modal==='quick'?'m100-quick-modal':state.modal==='bet'?'m100-bet-modal':state.modal==='auto'?'m100-auto-modal':''}" role="dialog" aria-modal="true" aria-label="${title}" tabindex="-1"><header>${heading}${button('close',isInfo?'Close <span aria-hidden="true">×</span>':'×','aria-label="Close panel"')}</header><div class="m100-modal-body">${content}</div>${infoTabs}</section>`;
     if(state.pending){overlay.querySelectorAll('button,input,select').forEach(el=>el.disabled=el.dataset.action!=='recover'||state.inFlight);}
     decorateModal();
     queueMicrotask(()=>{if(disposed||overlay.hidden)return;const dialog=overlay.querySelector('[role="dialog"]');(focusables(dialog)[0]??dialog).focus({preventScroll:true});});
@@ -240,9 +248,15 @@ export function mountMultiHot100View({root,controller,assets=null,drawScene=null
         const index=state.betLevels.indexOf(state.paytablePreviewBet),next=index+(name==='preview-plus'?1:-1);
         if(state.betLevels[next]){controls.selectPaytablePreview(state.betLevels[next]);modalKey=null;}
       }
+      else if(name.startsWith('count:')){
+        const count=Number(name.slice(6));if(!M100_OBSERVED_AUTO_COUNTS.includes(count))return;
+        autoCount=count;
+        for(const el of overlay.querySelectorAll('.m100-counts button'))el.setAttribute('aria-pressed',String(el.dataset.action===name));
+        decorateModal();return;
+      }
       else if(name==='auto-start'){
         if(!onAutoStart)return;
-        const configuration={maximumRounds:Number(overlay.querySelector('[name="maximumRounds"]').value)};autoCount=configuration.maximumRounds;
+        const configuration={maximumRounds:autoCount};autoCount=configuration.maximumRounds;
         for(const field of Object.keys(autoLimits)){
           const enabled=overlay.querySelector(`[name="${field}Enabled"]`).checked;
           configuration[field]=enabled?cents(overlay.querySelector(`[name="${field}"]`).value):null;

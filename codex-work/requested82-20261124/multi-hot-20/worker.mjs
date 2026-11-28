@@ -40,7 +40,7 @@ export function createM20RecoveryWorker(previous,config) {
     // Only verified page-local image/audio bytes use object URLs. Keep scripts,
     // connections and all unrelated game policies under the original policy.
     const policy=headers.get('Content-Security-Policy');
-    if(policy)headers.set('Content-Security-Policy',policy.replace(/img-src 'self'(?=;|$)/,"img-src 'self' blob:").replace(/media-src 'self'(?=;|$)/,"media-src 'self' blob:"));
+    if(policy)headers.set('Content-Security-Policy',policy.replace(/img-src 'self'(?=;|$)/,"img-src 'self' blob: data:").replace(/media-src 'self'(?=;|$)/,"media-src 'self' blob:"));
     for(const name of ['content-length','etag','content-md5','last-modified'])headers.delete(name);
     headers.set('Cache-Control','no-store');headers.set('X-Zplay-M20-Recovery',config.appSha256);
     return new Response(hasStyle?updated.replace(oldStyle,'<link rel="stylesheet" href="'+config.stylePath+'">'):updated,{status:response.status,statusText:response.statusText,headers});

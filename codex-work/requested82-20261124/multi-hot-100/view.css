@@ -36,3 +36,19 @@
 .m100-bet-page:disabled{opacity:.32}
 .m100-native-bet-arrow>span{visibility:hidden}
 @media(max-width:700px){.m100-game .m100-spin{width:32.8%;right:33.6%}.m100-play-group>.m100-auto,.m100-play-group>.m100-bet-button{top:81.5%}}
+
+.m100-modal.m100-auto-modal{position:relative;width:min(92%,490px,86svh);aspect-ratio:1;max-height:86svh;box-sizing:border-box;padding:0;border:0;box-shadow:none;background-color:transparent;background-size:100% 100%;background-repeat:no-repeat}
+.m100-auto-modal>header{position:absolute;inset:2% 3% auto auto;padding:0;border:0;background:transparent;z-index:1}
+.m100-auto-modal>header h2{display:none}
+.m100-auto-modal>header button{width:44px;height:44px;color:transparent}
+.m100-auto-modal>.m100-modal-body{position:absolute;inset:14% 3% 5%;padding:0}
+.m100-auto-modal .m100-counts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2%;height:14%}
+.m100-auto-modal .m100-counts button,.m100-auto-modal button.m100-native-button{min-height:0;padding:0;border:0;background-color:transparent;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
+.m100-auto-modal .m100-stop-label{text-align:center;font-weight:bold;font-size:12px;margin:4% 0}
+.m100-auto-modal .m100-auto-limit{display:flex;align-items:center;justify-content:space-between;min-height:14%;gap:3px;margin:0;font-size:clamp(10px,2.8vw,15px)}
+.m100-auto-modal .m100-auto-limit input[inputmode=decimal]{width:28%;min-width:0}
+.m100-auto-modal [data-action=auto-start]{position:absolute;bottom:0;left:21%;width:58%;height:16%;text-transform:uppercase}
+@media (max-width:700px) and (orientation:portrait){
+ .m100-overlay:has(.m100-auto-modal){padding:0;background:#000c22d9}
+ .m100-modal.m100-auto-modal{top:-3%}
+}

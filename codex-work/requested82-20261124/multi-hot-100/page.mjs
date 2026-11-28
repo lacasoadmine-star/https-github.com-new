@@ -23,7 +23,7 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
  const listeners=new win.AbortController(),transport=createExistingM100Transport({fetcher,storage,sessionStorage});
  let game=null,assets=null,audio=null,motion=null,automatic=null,phase='CONNECTING',disposed=false,version=0,loading=null,assetAbort=null,choiceCleanup=null,suspended=false;
  const app={get game(){return game;},get phase(){return phase;},get transport(){return transport;},snapshot:()=>Object.freeze({phase,game:game?.snapshot()??null,audio:audio?.snapshot()??null,auto:automatic?.snapshot()??null}),reconnect:()=>queueConnect(),dispose};
- function announce(value){status.textContent=value;status.hidden=!value;}
+ function announce(value){status.classList.toggle('zplay-opening',Boolean(value)&&(phase==='CONNECTING'||phase==='LOADING'));status.textContent=value;status.hidden=!value;}
  function stopGame(){choiceCleanup?.();choiceCleanup=null;automatic?.dispose();automatic=null;game?.destroy();game=null;motion?.dispose();motion=null;audio?.dispose();audio=null;assets?.dispose();assets=null;}
  function display(kind,text){phase=kind;announce('');root.innerHTML=`<section class="m100-page-message"><h1>Multi Hot 100</h1><p role="status">${escape(text)}</p>${kind==='SIGN_IN'?`<a class="m100-page-primary" href="${escape(localPath(loginURL))}">Sign in</a>`:`<button type="button" data-m100-reconnect>Try again</button>`}<a href="${escape(localPath(lobbyURL))}">Return to lobby</a></section>`;root.querySelector('[data-m100-reconnect]')?.addEventListener('click',()=>void queueConnect());}
  function fail(error){
@@ -62,12 +62,17 @@ export async function startM100Page({root,status=null,assetBaseURL,assetPinsURL=
   const manifest=await response.json();if(manifest.schema!=='zplay/m100-current-static-pins/v1'||!Array.isArray(manifest.pins))throw Error('M100_PAGE_ASSET_PINS');
   const loaded=await loadM100Assets({baseURL:assetBaseURL,pins:manifest.pins,fetcher,signal:assetAbort.signal,portraitBackgroundPin});if(disposed||token!==version){loaded.dispose();return;}assets=loaded;
   audio=createM100Audio({baseURL:audioBaseURL,fetcher,onUnavailable:()=>{if(!disposed&&token===version)announce('Sound is unavailable. You can continue muted.');}});
-  phase='SOUND_CHOICE';announce('Choose sound before playing.');root.innerHTML=`<section class="m100-page-message m100-sound-choice"><h1>Multi Hot 100</h1><p>Play with sound?</p>${audioBaseURL?'<button type="button" class="m100-page-primary" data-m100-sound>Enable sound</button>':''}<button type="button" data-m100-muted>Play muted</button></section>`;
+  phase='SOUND_CHOICE';announce('');root.innerHTML=`<section class="m100-page-message m100-sound-choice"><p>Would you like sound?</p>${audioBaseURL?'<button type="button" class="m100-page-primary" data-m100-sound>Yes</button>':''}<button type="button" data-m100-muted>No</button></section>`;
   let selectionStarted=false;
   const start=async enabled=>{
    if(disposed||token!==version||selectionStarted)return;selectionStarted=true;
    root.querySelectorAll('button').forEach(button=>button.disabled=true);
-   if(enabled){announce('Preparing sound…');try{await audio.enable();}catch{if(!disposed&&token===version){root.querySelectorAll('button').forEach(button=>button.disabled=false);selectionStarted=false;}return;}}
+   if(enabled)void audio.enable().catch(()=>{
+    if(!disposed&&token===version&&game){
+     game.controls.setSetting('soundEffects',false);game.controls.setSetting('music',false);
+     announce('Sound is unavailable. You can continue muted.');
+    }
+   });
    if(disposed||token!==version)return;choiceCleanup?.();choiceCleanup=null;
    try{
    motion=createM100Motion({onEvent:name=>audio?.play(name)});

@@ -3,12 +3,12 @@ import {launchExistingMultiHot20} from './entry.mjs';
 export async function bootM20Release({document=globalThis.document,launch=launchExistingMultiHot20,onRetry=null}={}) {
   const root=document?.getElementById('m20-game'),status=document?.getElementById('m20-connection');
   if(!root||!status||!root.dataset.manifestUrl)throw Error('M20_HOST_DOCUMENT_INVALID');
-  status.textContent='Loading your game…';
+  status.textContent='Loading your game…';status.classList?.add('zplay-opening');
   status.hidden=false;delete root.dataset.connectionRetry;
   try {
     const game=await launch({root,manifestURL:new URL(root.dataset.manifestUrl,document.baseURI),
       onError(){status.hidden=false;status.textContent='Connection interrupted. Recover your current round before playing again.';}});
-    status.hidden=true;
+    status.hidden=true;status.classList?.remove('zplay-opening');
     // The outer connection banner must clear with a successful recovery too,
     // rather than continuing to tell the player to recover an accepted win.
     const Observer=document.defaultView?.MutationObserver;
@@ -18,6 +18,7 @@ export async function bootM20Release({document=globalThis.document,launch=launch
     observer?.observe(root,{attributes:true,attributeFilter:['data-phase']});
     return Object.freeze({...game,dispose(){observer?.disconnect();game.dispose();}});
   }catch(error){
+    status.classList?.remove('zplay-opening');
     status.hidden=false;status.textContent=error?.status===401?'Sign in from ZPLAY to play Multi Hot 20.':'The game could not connect. Return to ZPLAY and open it again.';
     // Match the existing M100 guest navigation. No authentication is bypassed.
     if(error?.status===401){
